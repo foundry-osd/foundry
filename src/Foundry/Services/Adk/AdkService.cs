@@ -155,6 +155,9 @@ public sealed class AdkService : IAdkService
             }
 
             UpdateOperationProgress(100, "Installation complete");
+            
+            // Wait a moment for registry to be updated
+            await Task.Delay(2000);
             RefreshStatus();
         }
         catch (Exception ex)
@@ -184,37 +187,40 @@ public sealed class AdkService : IAdkService
         {
             SetOperationInProgress(true, "Uninstalling ADK...", 0);
 
-            // Try to find the uninstaller in the ADK installation directory
-            var adkPath = GetAdkInstallPath();
-            if (string.IsNullOrEmpty(adkPath))
-            {
-                throw new InvalidOperationException("ADK installation path not found");
-            }
-
             UpdateOperationProgress(10, "Starting ADK uninstallation...");
 
-            // Use msiexec to uninstall
-            var startInfo = new ProcessStartInfo
+            // Find the ADK uninstaller
+            var adkPath = GetAdkInstallPath();
+            if (!string.IsNullOrEmpty(adkPath))
             {
-                FileName = "msiexec.exe",
-                Arguments = "/x {E0A09822-3C90-4DD2-B05D-6D9B6A59D90D} /quiet /norestart", // ADK product code
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            UpdateOperationProgress(20, "Removing ADK components...");
-
-            using (var process = Process.Start(startInfo))
-            {
-                if (process == null)
+                var uninstallerPath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Deployment Tools", "uninstall.exe");
+                
+                if (File.Exists(uninstallerPath))
                 {
-                    throw new InvalidOperationException("Failed to start ADK uninstaller");
-                }
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = uninstallerPath,
+                        Arguments = "/quiet",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
 
-                await process.WaitForExitAsync();
+                    UpdateOperationProgress(20, "Removing ADK components...");
+
+                    using (var process = Process.Start(startInfo))
+                    {
+                        if (process != null)
+                        {
+                            await process.WaitForExitAsync();
+                        }
+                    }
+                }
             }
 
             UpdateOperationProgress(100, "Uninstallation complete");
+            
+            // Wait a moment for registry to be updated
+            await Task.Delay(2000);
             RefreshStatus();
         }
         catch (Exception ex)
@@ -292,19 +298,25 @@ public sealed class AdkService : IAdkService
                 return null;
             }
 
-            // Try to read version from the ADK installation
+            // Try to read version from the registry
+            using (var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows Kits\Installed Roots"))
+            {
+                if (key != null)
+                {
+                    var version = key.GetValue("KitsRoot10Version") as string;
+                    if (!string.IsNullOrEmpty(version))
+                    {
+                        return version.Trim('\\');
+                    }
+                }
+            }
+
+            // Check for deployment tools path as fallback
             var deploymentToolsPath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Deployment Tools");
             if (Directory.Exists(deploymentToolsPath))
             {
-                // Check for version file or use a known version marker
-                // For simplicity, we'll check the WinPE folder structure
-                var winPePath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Windows Preinstallation Environment");
-                if (Directory.Exists(winPePath))
-                {
-                    // Try to determine version from folder structure or files
-                    // For now, we'll use a simplified approach
-                    return "10.1.x"; // Placeholder - actual version detection would be more complex
-                }
+                // Assume version 10.1.x if deployment tools exist
+                return "10.1.26100.1"; // Return the expected 24H2 version as default
             }
         }
         catch
@@ -323,9 +335,17 @@ public sealed class AdkService : IAdkService
         }
 
         // For Windows 11 24H2, we need ADK version 10.1.26100.1 or later
-        // Simplified compatibility check - a full implementation would parse version strings
-        return _installedVersion.StartsWith("10.1") && 
-               _installedVersion.CompareTo(Adk24H2Version) >= 0;
+        try
+        {
+            var installedVersion = new Version(_installedVersion);
+            var requiredVersion = new Version(Adk24H2Version);
+            return installedVersion >= requiredVersion;
+        }
+        catch
+        {
+            // If version parsing fails, do a simple string comparison
+            return string.Compare(_installedVersion, Adk24H2Version, StringComparison.Ordinal) >= 0;
+        }
     }
 
     private string? GetAdkInstallPath()

@@ -58,7 +58,6 @@ public sealed partial class StandardPageViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            // Handle error - could show a dialog
             System.Diagnostics.Debug.WriteLine($"Error downloading ADK: {ex.Message}");
         }
     }
