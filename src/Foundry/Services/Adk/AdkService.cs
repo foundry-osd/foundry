@@ -118,7 +118,7 @@ public sealed class AdkService : IAdkService
             // Download if not already downloaded
             if (string.IsNullOrEmpty(_downloadedInstallerPath) || !File.Exists(_downloadedInstallerPath))
             {
-                await DownloadAdkAsync();
+                await DownloadAdkInternalAsync();
             }
 
             if (string.IsNullOrEmpty(_downloadedInstallerPath))
@@ -186,37 +186,7 @@ public sealed class AdkService : IAdkService
         try
         {
             SetOperationInProgress(true, "Uninstalling ADK...", 0);
-
-            UpdateOperationProgress(10, "Starting ADK uninstallation...");
-
-            // Find the ADK uninstaller
-            var adkPath = GetAdkInstallPath();
-            if (!string.IsNullOrEmpty(adkPath))
-            {
-                var uninstallerPath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Deployment Tools", "uninstall.exe");
-                
-                if (File.Exists(uninstallerPath))
-                {
-                    var startInfo = new ProcessStartInfo
-                    {
-                        FileName = uninstallerPath,
-                        Arguments = "/quiet",
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    };
-
-                    UpdateOperationProgress(20, "Removing ADK components...");
-
-                    using (var process = Process.Start(startInfo))
-                    {
-                        if (process != null)
-                        {
-                            await process.WaitForExitAsync();
-                        }
-                    }
-                }
-            }
-
+            await UninstallAdkInternalAsync();
             UpdateOperationProgress(100, "Uninstallation complete");
             
             // Wait for registry to be updated with retry mechanism
@@ -248,13 +218,20 @@ public sealed class AdkService : IAdkService
             if (_isAdkInstalled)
             {
                 UpdateOperationProgress(10, "Uninstalling current ADK version...");
-                await UninstallAdkAsync();
+                await UninstallAdkInternalAsync();
             }
 
-            UpdateOperationProgress(50, "Installing new ADK version...");
-            await InstallAdkAsync();
+            UpdateOperationProgress(40, "Downloading new ADK version...");
+            await DownloadAdkInternalAsync();
+
+            UpdateOperationProgress(60, "Installing new ADK version...");
+            await InstallAdkInternalAsync();
 
             UpdateOperationProgress(100, "Upgrade complete");
+            
+            // Wait for registry to be updated with retry mechanism
+            await WaitForRegistryUpdateAsync();
+            RefreshStatus();
         }
         catch (Exception ex)
         {
@@ -369,6 +346,107 @@ public sealed class AdkService : IAdkService
         _operationProgress = progress;
         _operationStatus = status;
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private async Task DownloadAdkInternalAsync()
+    {
+        var tempPath = Path.GetTempPath();
+        var installerPath = Path.Combine(tempPath, "adksetup.exe");
+
+        using (var httpClient = new HttpClient())
+        {
+            httpClient.Timeout = TimeSpan.FromMinutes(30);
+            using (var response = await httpClient.GetAsync(AdkDownloadUrl, HttpCompletionOption.ResponseHeadersRead))
+            {
+                response.EnsureSuccessStatusCode();
+
+                var totalBytes = response.Content.Headers.ContentLength ?? -1;
+                using (var contentStream = await response.Content.ReadAsStreamAsync())
+                using (var fileStream = new FileStream(installerPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    var buffer = new byte[8192];
+                    long totalRead = 0;
+                    int bytesRead;
+
+                    while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                    {
+                        await fileStream.WriteAsync(buffer, 0, bytesRead);
+                        totalRead += bytesRead;
+
+                        if (totalBytes > 0)
+                        {
+                            var progress = (int)((totalRead * 100) / totalBytes);
+                            UpdateOperationProgress(progress, $"Downloading ADK installer... {progress}%");
+                        }
+                    }
+                }
+            }
+        }
+
+        _downloadedInstallerPath = installerPath;
+    }
+
+    private async Task InstallAdkInternalAsync()
+    {
+        if (string.IsNullOrEmpty(_downloadedInstallerPath))
+        {
+            throw new InvalidOperationException("ADK installer not available");
+        }
+
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = _downloadedInstallerPath,
+            Arguments = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment",
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        using (var process = Process.Start(startInfo))
+        {
+            if (process == null)
+            {
+                throw new InvalidOperationException("Failed to start ADK installer");
+            }
+
+            await process.WaitForExitAsync();
+
+            if (process.ExitCode != 0)
+            {
+                throw new InvalidOperationException($"ADK installation failed with exit code {process.ExitCode}");
+            }
+        }
+    }
+
+    private async Task UninstallAdkInternalAsync()
+    {
+        UpdateOperationProgress(20, "Starting ADK uninstallation...");
+
+        var adkPath = GetAdkInstallPath();
+        if (!string.IsNullOrEmpty(adkPath))
+        {
+            var uninstallerPath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Deployment Tools", "uninstall.exe");
+            
+            if (File.Exists(uninstallerPath))
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = uninstallerPath,
+                    Arguments = "/quiet",
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                UpdateOperationProgress(30, "Removing ADK components...");
+
+                using (var process = Process.Start(startInfo))
+                {
+                    if (process != null)
+                    {
+                        await process.WaitForExitAsync();
+                    }
+                }
+            }
+        }
     }
 
     private async Task WaitForRegistryUpdateAsync()
