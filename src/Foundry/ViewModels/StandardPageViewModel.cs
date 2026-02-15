@@ -5,7 +5,7 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-public sealed partial class StandardPageViewModel : ObservableObject
+public sealed partial class StandardPageViewModel : ObservableObject, IDisposable
 {
     private readonly IAdkService _adkService;
     private readonly ILocalizationService _localizationService;
@@ -47,6 +47,13 @@ public sealed partial class StandardPageViewModel : ObservableObject
         _localizationService.LanguageChanged += OnLanguageChanged;
 
         UpdateAdkStatus();
+    }
+
+    public void Dispose()
+    {
+        _adkService.AdkStatusChanged -= OnAdkStatusChanged;
+        _adkService.OperationProgressChanged -= OnOperationProgressChanged;
+        _localizationService.LanguageChanged -= OnLanguageChanged;
     }
 
     [RelayCommand]

@@ -156,8 +156,8 @@ public sealed class AdkService : IAdkService
 
             UpdateOperationProgress(100, "Installation complete");
             
-            // Wait a moment for registry to be updated
-            await Task.Delay(2000);
+            // Wait for registry to be updated with retry mechanism
+            await WaitForRegistryUpdateAsync();
             RefreshStatus();
         }
         catch (Exception ex)
@@ -219,8 +219,8 @@ public sealed class AdkService : IAdkService
 
             UpdateOperationProgress(100, "Uninstallation complete");
             
-            // Wait a moment for registry to be updated
-            await Task.Delay(2000);
+            // Wait for registry to be updated with retry mechanism
+            await WaitForRegistryUpdateAsync();
             RefreshStatus();
         }
         catch (Exception ex)
@@ -311,20 +311,13 @@ public sealed class AdkService : IAdkService
                 }
             }
 
-            // Check for deployment tools path as fallback
-            var deploymentToolsPath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Deployment Tools");
-            if (Directory.Exists(deploymentToolsPath))
-            {
-                // Assume version 10.1.x if deployment tools exist
-                return "10.1.26100.1"; // Return the expected 24H2 version as default
-            }
+            // Unable to determine version - return null
+            return null;
         }
         catch
         {
-            // Ignore errors
+            return null;
         }
-
-        return null;
     }
 
     private bool CheckAdkCompatible()
@@ -376,5 +369,26 @@ public sealed class AdkService : IAdkService
         _operationProgress = progress;
         _operationStatus = status;
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private async Task WaitForRegistryUpdateAsync()
+    {
+        const int maxRetries = 10;
+        const int delayMs = 500;
+
+        for (int i = 0; i < maxRetries; i++)
+        {
+            await Task.Delay(delayMs);
+            
+            // Check if registry has been updated
+            var currentInstallState = CheckAdkInstalled();
+            if (currentInstallState != _isAdkInstalled)
+            {
+                // Registry state changed, update is complete
+                return;
+            }
+        }
+
+        // Timeout reached, continue anyway
     }
 }
