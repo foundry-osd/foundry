@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace Foundry.Services;
+namespace Foundry.Services.ApplicationShell;
 
 public sealed class ApplicationShellService : IApplicationShellService
 {

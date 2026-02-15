@@ -1,8 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
-using Foundry.Services;
 
-namespace Foundry.Services;
+namespace Foundry.Services.Theme;
 
 public sealed class ThemeService : IThemeService, INotifyPropertyChanged
 {

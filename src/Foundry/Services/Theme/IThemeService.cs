@@ -1,4 +1,4 @@
-namespace Foundry.Services;
+namespace Foundry.Services.Theme;
 
 public enum ThemeMode
 {

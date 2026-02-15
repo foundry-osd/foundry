@@ -1,6 +1,9 @@
+using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Foundry.Services;
+using Foundry.Services.ApplicationShell;
+using Foundry.Services.Localization;
+using Foundry.Services.Theme;
 
 namespace Foundry.ViewModels;
 
@@ -8,16 +11,25 @@ public partial class MainWindowViewModel : ObservableObject
 {
     private readonly IApplicationShellService _applicationShellService;
     private readonly IThemeService _themeService;
+    private readonly ILocalizationService _localizationService;
 
     [ObservableProperty]
     private bool isAdvancedEnabled;
 
+    public ILocalizationService LocalizationService => _localizationService;
+    public CultureInfo CurrentCulture => _localizationService.CurrentCulture;
+    public StringsWrapper Strings => _localizationService.Strings;
+
     public MainWindowViewModel(
         IApplicationShellService applicationShellService,
-        IThemeService themeService)
+        IThemeService themeService,
+        ILocalizationService localizationService)
     {
         _applicationShellService = applicationShellService;
         _themeService = themeService;
+        _localizationService = localizationService;
+
+        _localizationService.LanguageChanged += OnLanguageChanged;
     }
 
     [RelayCommand]
@@ -48,5 +60,17 @@ public partial class MainWindowViewModel : ObservableObject
     private void SetDarkTheme()
     {
         _themeService.SetTheme(ThemeMode.Dark);
+    }
+
+    [RelayCommand]
+    private void SetCulture(string cultureName)
+    {
+        _localizationService.SetCulture(new CultureInfo(cultureName));
+    }
+
+    private void OnLanguageChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(CurrentCulture));
+        OnPropertyChanged(nameof(Strings));
     }
 }

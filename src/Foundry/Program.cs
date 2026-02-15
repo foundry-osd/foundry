@@ -1,4 +1,6 @@
-using Foundry.Services;
+using Foundry.Services.ApplicationShell;
+using Foundry.Services.Localization;
+using Foundry.Services.Theme;
 using Foundry.ViewModels;
 using Foundry.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +36,7 @@ public static class Program
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<ILocalizationService, LocalizationService>();
 
         return services.BuildServiceProvider();
     }

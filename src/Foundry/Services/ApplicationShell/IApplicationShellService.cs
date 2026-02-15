@@ -1,4 +1,4 @@
-namespace Foundry.Services;
+namespace Foundry.Services.ApplicationShell;
 
 public interface IApplicationShellService
 {
