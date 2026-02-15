@@ -7,11 +7,118 @@
     Title="Advanced"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="Advanced" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  ADK Banner  -->
+        <Border
+            Grid.Row="0"
+            Padding="16,12"
+            Background="#FFFFCC00"
+            BorderBrush="#FFFF9800"
+            BorderThickness="0,0,0,2"
+            Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="{Binding Strings[AdkBannerMissing]}"
+                    TextWrapping="Wrap"
+                    Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <TextBlock
+                    Grid.Row="0"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="{Binding Strings[AdkBannerIncompatible]}"
+                    TextWrapping="Wrap"
+                    Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,8,0,0"
+                    Orientation="Horizontal">
+                    <Button
+                        Margin="0,0,8,0"
+                        Command="{Binding DownloadAdkCommand}"
+                        Content="{Binding Strings[AdkDownload]}"
+                        IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
+                        Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                    <Button
+                        Margin="0,0,8,0"
+                        Command="{Binding InstallAdkCommand}"
+                        Content="{Binding Strings[AdkInstall]}"
+                        IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
+                        Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                    <Button
+                        Margin="0,0,8,0"
+                        Command="{Binding UpgradeAdkCommand}"
+                        Content="{Binding Strings[AdkUpgrade]}"
+                        IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
+                        Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!--  Main Content  -->
+        <Grid Grid.Row="1" Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Operation Progress  -->
+            <StackPanel
+                Grid.Row="0"
+                Margin="0,0,0,16"
+                Visibility="{Binding IsOperationInProgress, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock
+                    Margin="0,0,0,8"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="{Binding OperationStatus}" />
+                <ProgressBar
+                    Height="24"
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{Binding OperationProgress}" />
+            </StackPanel>
+
+            <!--  Action Buttons  -->
+            <StackPanel
+                Grid.Row="1"
+                Margin="0,0,0,16"
+                Orientation="Horizontal">
+                <Button
+                    Width="120"
+                    Margin="0,0,8,0"
+                    Command="{Binding CreateIsoCommand}"
+                    Content="{Binding Strings[CreateIso]}" />
+
+                <Button
+                    Width="120"
+                    Command="{Binding CreateUsbCommand}"
+                    Content="{Binding Strings[CreateUsb]}" />
+            </StackPanel>
+
+            <!--  Placeholder Content  -->
+            <TextBlock
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Text="Advanced" />
+        </Grid>
     </Grid>
 </Page>

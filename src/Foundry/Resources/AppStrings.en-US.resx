@@ -97,4 +97,46 @@
   <data name="MenuAbout" xml:space="preserve">
     <value>_About</value>
   </data>
+  <data name="AdkBannerMissing" xml:space="preserve">
+    <value>Windows ADK is not installed. Please install ADK for Windows 11 24H2 to enable ISO and USB creation.</value>
+  </data>
+  <data name="AdkBannerIncompatible" xml:space="preserve">
+    <value>Installed Windows ADK version is not compatible with Windows 11 24H2. Please upgrade to enable ISO and USB creation.</value>
+  </data>
+  <data name="AdkDownload" xml:space="preserve">
+    <value>Download ADK</value>
+  </data>
+  <data name="AdkInstall" xml:space="preserve">
+    <value>Install ADK</value>
+  </data>
+  <data name="AdkUpgrade" xml:space="preserve">
+    <value>Upgrade ADK</value>
+  </data>
+  <data name="AdkUninstall" xml:space="preserve">
+    <value>Uninstall ADK</value>
+  </data>
+  <data name="CreateIso" xml:space="preserve">
+    <value>Create ISO</value>
+  </data>
+  <data name="CreateUsb" xml:space="preserve">
+    <value>Create USB</value>
+  </data>
+  <data name="AdkStatus" xml:space="preserve">
+    <value>ADK Status</value>
+  </data>
+  <data name="AdkInstalled" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="AdkNotInstalled" xml:space="preserve">
+    <value>Not Installed</value>
+  </data>
+  <data name="AdkVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="AdkCompatible" xml:space="preserve">
+    <value>Compatible</value>
+  </data>
+  <data name="AdkNotCompatible" xml:space="preserve">
+    <value>Not Compatible</value>
+  </data>
 </root>

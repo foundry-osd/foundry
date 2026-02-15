@@ -1,3 +1,4 @@
+using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
 using Foundry.Services.Theme;
@@ -37,6 +38,7 @@ public static class Program
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<ILocalizationService, LocalizationService>();
+        services.AddSingleton<IAdkService, AdkService>();
 
         return services.BuildServiceProvider();
     }
