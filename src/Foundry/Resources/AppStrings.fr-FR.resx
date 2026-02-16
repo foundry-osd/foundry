@@ -97,4 +97,160 @@
   <data name="MenuAbout" xml:space="preserve">
     <value>_À propos</value>
   </data>
+  <data name="AdkBannerMissing" xml:space="preserve">
+    <value>Windows ADK n’est pas installé. Merci d’installer ADK 11 24H2 pour activer la création d’ISO et USB.</value>
+  </data>
+  <data name="AdkBannerIncompatible" xml:space="preserve">
+    <value>La version de Windows ADK installée n'est pas compatible avec Foundry. Veuillez mettre à niveau pour activer la création d'ISO et USB.</value>
+  </data>
+  <data name="AdkDownload" xml:space="preserve">
+    <value>Télécharger ADK</value>
+  </data>
+  <data name="AdkInstall" xml:space="preserve">
+    <value>Installer ADK</value>
+  </data>
+  <data name="AdkUpgrade" xml:space="preserve">
+    <value>Mettre à niveau ADK</value>
+  </data>
+  <data name="AdkUninstall" xml:space="preserve">
+    <value>Désinstaller ADK</value>
+  </data>
+  <data name="CreateIso" xml:space="preserve">
+    <value>Créer ISO</value>
+  </data>
+  <data name="CreateUsb" xml:space="preserve">
+    <value>Créer USB</value>
+  </data>
+  <data name="AdkStatus" xml:space="preserve">
+    <value>Statut ADK</value>
+  </data>
+  <data name="AdkInstalled" xml:space="preserve">
+    <value>Installé</value>
+  </data>
+  <data name="AdkNotInstalled" xml:space="preserve">
+    <value>Non installé</value>
+  </data>
+  <data name="AdkVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="AdkCompatible" xml:space="preserve">
+    <value>Compatible</value>
+  </data>
+  <data name="AdkNotCompatible" xml:space="preserve">
+    <value>Non compatible</value>
+  </data>
+  <data name="OperationReady" xml:space="preserve">
+    <value>Prêt</value>
+  </data>
+  <data name="OperationInProgress" xml:space="preserve">
+    <value>Opération en cours...</value>
+  </data>
+  <data name="AdkStatusStartDownload" xml:space="preserve">
+    <value>Téléchargement des installateurs ADK...</value>
+  </data>
+  <data name="AdkStatusDoneDownload" xml:space="preserve">
+    <value>Téléchargement terminé</value>
+  </data>
+  <data name="AdkErrorDownload" xml:space="preserve">
+    <value>Échec du téléchargement : {0}</value>
+  </data>
+  <data name="AdkStatusStartInstall" xml:space="preserve">
+    <value>Installation de l’ADK et du module WinPE...</value>
+  </data>
+  <data name="AdkStatusDoneInstall" xml:space="preserve">
+    <value>Installation terminée</value>
+  </data>
+  <data name="AdkErrorInstall" xml:space="preserve">
+    <value>Échec de l’installation : {0}</value>
+  </data>
+  <data name="AdkStatusStartUninstall" xml:space="preserve">
+    <value>Désinstallation de l’ADK...</value>
+  </data>
+  <data name="AdkStatusDoneUninstall" xml:space="preserve">
+    <value>Désinstallation terminée</value>
+  </data>
+  <data name="AdkErrorUninstall" xml:space="preserve">
+    <value>Échec de la désinstallation : {0}</value>
+  </data>
+  <data name="AdkStatusStartUpgrade" xml:space="preserve">
+    <value>Mise à niveau de l’ADK...</value>
+  </data>
+  <data name="AdkStatusPreparingUninstall" xml:space="preserve">
+    <value>Préparation des binaires de désinstallation...</value>
+  </data>
+  <data name="AdkStatusNoExistingInstall" xml:space="preserve">
+    <value>Aucune installation ADK existante détectée.</value>
+  </data>
+  <data name="AdkStatusDownloadingUpgradeBinaries" xml:space="preserve">
+    <value>Téléchargement des binaires de mise à niveau...</value>
+  </data>
+  <data name="AdkStatusDoneUpgrade" xml:space="preserve">
+    <value>Mise à niveau terminée</value>
+  </data>
+  <data name="AdkErrorUpgrade" xml:space="preserve">
+    <value>Échec de la mise à niveau : {0}</value>
+  </data>
+  <data name="AdkComponentInstaller" xml:space="preserve">
+    <value>installateur ADK</value>
+  </data>
+  <data name="AdkComponentWinPeInstaller" xml:space="preserve">
+    <value>installateur du module WinPE</value>
+  </data>
+  <data name="AdkStatusDownloadingAdkInstaller" xml:space="preserve">
+    <value>Téléchargement de l’installateur ADK...</value>
+  </data>
+  <data name="AdkStatusUsingCachedAdkInstaller" xml:space="preserve">
+    <value>Utilisation de l’installateur ADK en cache.</value>
+  </data>
+  <data name="AdkStatusDownloadingWinPeInstaller" xml:space="preserve">
+    <value>Téléchargement de l’installateur du module WinPE...</value>
+  </data>
+  <data name="AdkStatusUsingCachedWinPeInstaller" xml:space="preserve">
+    <value>Utilisation de l’installateur du module WinPE en cache.</value>
+  </data>
+  <data name="AdkStatusDownloadingComponentPercent" xml:space="preserve">
+    <value>Téléchargement de {0}... {1}%</value>
+  </data>
+  <data name="AdkStatusComponentDownloadComplete" xml:space="preserve">
+    <value>Téléchargement terminé pour {0}.</value>
+  </data>
+  <data name="AdkStatusInstallingDeploymentTools" xml:space="preserve">
+    <value>Installation des Outils de déploiement ADK...</value>
+  </data>
+  <data name="AdkStatusInstalledDeploymentTools" xml:space="preserve">
+    <value>Installation des Outils de déploiement ADK terminée.</value>
+  </data>
+  <data name="AdkStatusInstallingWinPe" xml:space="preserve">
+    <value>Installation du module WinPE...</value>
+  </data>
+  <data name="AdkStatusInstalledWinPe" xml:space="preserve">
+    <value>Installation du module WinPE terminée.</value>
+  </data>
+  <data name="AdkStatusUninstallingWinPe" xml:space="preserve">
+    <value>Désinstallation du module WinPE...</value>
+  </data>
+  <data name="AdkStatusUninstalledWinPe" xml:space="preserve">
+    <value>Désinstallation du module WinPE terminée.</value>
+  </data>
+  <data name="AdkStatusUninstallingDeploymentTools" xml:space="preserve">
+    <value>Désinstallation des Outils de déploiement ADK...</value>
+  </data>
+  <data name="AdkStatusUninstalledDeploymentTools" xml:space="preserve">
+    <value>Désinstallation des Outils de déploiement ADK terminée.</value>
+  </data>
+  <data name="AdkStateInstalled" xml:space="preserve">
+    <value>installé</value>
+  </data>
+  <data name="AdkStateUninstalled" xml:space="preserve">
+    <value>désinstallé</value>
+  </data>
+  <data name="AdkStatusStateReached" xml:space="preserve">
+    <value>ADK est maintenant {0}.</value>
+  </data>
+  <data name="AdkStatusWaitingForState" xml:space="preserve">
+    <value>En attente qu’ADK soit {0}...</value>
+  </data>
+  <data name="AdkStatusVerificationPending" xml:space="preserve">
+    <value>L’installation est terminée, mais la vérification ADK est toujours en attente.</value>
+  </data>
 </root>

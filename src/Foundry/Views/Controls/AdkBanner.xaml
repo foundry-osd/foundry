@@ -1,0 +1,52 @@
+<UserControl
+    x:Class="Foundry.Views.Controls.AdkBanner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border
+        Padding="16,12"
+        Background="#D97706"
+        BorderBrush="#B45309"
+        BorderThickness="0,2,0,2"
+        Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Text="{Binding Strings[AdkBannerMissing]}"
+                TextWrapping="Wrap"
+                Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Text="{Binding Strings[AdkBannerIncompatible]}"
+                TextWrapping="Wrap"
+                Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <Button
+                Grid.Column="1"
+                Margin="12,0,0,0"
+                Command="{Binding InstallAdkCommand}"
+                Content="{Binding Strings[AdkInstall]}"
+                IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
+                Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <Button
+                Grid.Column="1"
+                Margin="12,0,0,0"
+                Command="{Binding UpgradeAdkCommand}"
+                Content="{Binding Strings[AdkUpgrade]}"
+                IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
+                Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
+    </Border>
+</UserControl>
