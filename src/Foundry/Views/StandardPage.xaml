@@ -21,13 +21,15 @@
             BorderThickness="0,0,0,2"
             Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
+                <!--  Banner Text  -->
                 <TextBlock
-                    Grid.Row="0"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
                     FontWeight="Bold"
                     Foreground="Black"
                     Text="{Binding Strings[AdkBannerMissing]}"
@@ -35,38 +37,30 @@
                     Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                 <TextBlock
-                    Grid.Row="0"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
                     FontWeight="Bold"
                     Foreground="Black"
                     Text="{Binding Strings[AdkBannerIncompatible]}"
                     TextWrapping="Wrap"
                     Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <StackPanel
-                    Grid.Row="1"
-                    Margin="0,8,0,0"
-                    Orientation="Horizontal">
-                    <Button
-                        Margin="0,0,8,0"
-                        Command="{Binding DownloadAdkCommand}"
-                        Content="{Binding Strings[AdkDownload]}"
-                        IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
-                        Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <!--  Banner Buttons  -->
+                <Button
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    Command="{Binding InstallAdkCommand}"
+                    Content="{Binding Strings[AdkInstall]}"
+                    IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
+                    Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                    <Button
-                        Margin="0,0,8,0"
-                        Command="{Binding InstallAdkCommand}"
-                        Content="{Binding Strings[AdkInstall]}"
-                        IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
-                        Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-                    <Button
-                        Margin="0,0,8,0"
-                        Command="{Binding UpgradeAdkCommand}"
-                        Content="{Binding Strings[AdkUpgrade]}"
-                        IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
-                        Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                </StackPanel>
+                <Button
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    Command="{Binding UpgradeAdkCommand}"
+                    Content="{Binding Strings[AdkUpgrade]}"
+                    IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
+                    Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
         </Border>
 
