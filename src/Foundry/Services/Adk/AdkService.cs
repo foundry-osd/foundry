@@ -81,7 +81,10 @@ public sealed class AdkService : IAdkService
     public bool IsAdkInstalled => _isAdkInstalled;
     public bool IsAdkCompatible => _isAdkCompatible;
     public string? InstalledVersion => _installedVersion;
-    public bool IsOperationInProgress => _operationProgressService.IsOperationInProgress;
+    public bool IsOperationInProgress =>
+        _operationProgressService.IsOperationInProgress &&
+        IsAdkOperation(_operationProgressService.CurrentOperation);
+    public bool IsAnyOperationInProgress => _operationProgressService.IsOperationInProgress;
     public int OperationProgress => _operationProgressService.Progress;
     public string? OperationStatus => _operationProgressService.Status;
 
@@ -130,10 +133,6 @@ public sealed class AdkService : IAdkService
             _operationProgressService.Fail(Lf("AdkErrorDownload", ex.Message));
             throw;
         }
-        finally
-        {
-            _operationProgressService.ResetToIdle();
-        }
     }
 
     public async Task InstallAdkAsync()
@@ -164,10 +163,6 @@ public sealed class AdkService : IAdkService
         {
             _operationProgressService.Fail(Lf("AdkErrorInstall", ex.Message));
             throw;
-        }
-        finally
-        {
-            _operationProgressService.ResetToIdle();
         }
     }
 
@@ -211,10 +206,6 @@ public sealed class AdkService : IAdkService
         {
             _operationProgressService.Fail(Lf("AdkErrorUninstall", ex.Message));
             throw;
-        }
-        finally
-        {
-            _operationProgressService.ResetToIdle();
         }
     }
 
@@ -273,10 +264,6 @@ public sealed class AdkService : IAdkService
         {
             _operationProgressService.Fail(Lf("AdkErrorUpgrade", ex.Message));
             throw;
-        }
-        finally
-        {
-            _operationProgressService.ResetToIdle();
         }
     }
 
@@ -523,6 +510,14 @@ public sealed class AdkService : IAdkService
     private void OnGlobalProgressChanged(object? sender, EventArgs e)
     {
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private static bool IsAdkOperation(OperationKind? kind)
+    {
+        return kind is OperationKind.AdkDownload
+            or OperationKind.AdkInstall
+            or OperationKind.AdkUpgrade
+            or OperationKind.AdkUninstall;
     }
 
     /// <summary>

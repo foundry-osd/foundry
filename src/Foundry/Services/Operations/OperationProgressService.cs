@@ -2,11 +2,14 @@ namespace Foundry.Services.Operations;
 
 public sealed class OperationProgressService : IOperationProgressService
 {
+    private static readonly TimeSpan TerminalStatusRetention = TimeSpan.FromSeconds(5);
     private readonly object _sync = new();
     private bool _isOperationInProgress;
     private int _progress;
     private string? _status;
     private OperationKind? _currentOperation;
+    private long _stateVersion;
+    private CancellationTokenSource? _pendingResetCts;
 
     public bool IsOperationInProgress
     {
@@ -74,10 +77,12 @@ public sealed class OperationProgressService : IOperationProgressService
                 return false;
             }
 
+            CancelPendingReset_NoLock();
             _isOperationInProgress = true;
             _currentOperation = kind;
             _progress = Math.Clamp(initialProgress, 0, 100);
             _status = initialStatus;
+            _stateVersion++;
         }
 
         RaiseProgressChanged();
@@ -107,6 +112,7 @@ public sealed class OperationProgressService : IOperationProgressService
 
     public void Complete(string? status = null)
     {
+        long completedVersion;
         lock (_sync)
         {
             if (!_isOperationInProgress)
@@ -119,13 +125,20 @@ public sealed class OperationProgressService : IOperationProgressService
             {
                 _status = status;
             }
+
+            _isOperationInProgress = false;
+            _currentOperation = null;
+            _stateVersion++;
+            completedVersion = _stateVersion;
         }
 
         RaiseProgressChanged();
+        ScheduleDelayedReset(completedVersion);
     }
 
     public void Fail(string status)
     {
+        long failedVersion;
         lock (_sync)
         {
             if (!_isOperationInProgress)
@@ -134,22 +147,74 @@ public sealed class OperationProgressService : IOperationProgressService
             }
 
             _status = status;
+            _isOperationInProgress = false;
+            _currentOperation = null;
+            _stateVersion++;
+            failedVersion = _stateVersion;
         }
 
         RaiseProgressChanged();
+        ScheduleDelayedReset(failedVersion);
     }
 
     public void ResetToIdle()
     {
         lock (_sync)
         {
+            CancelPendingReset_NoLock();
             _isOperationInProgress = false;
             _currentOperation = null;
             _progress = 0;
             _status = null;
+            _stateVersion++;
         }
 
         RaiseProgressChanged();
+    }
+
+    private void ScheduleDelayedReset(long expectedStateVersion)
+    {
+        var cts = new CancellationTokenSource();
+
+        lock (_sync)
+        {
+            _pendingResetCts?.Cancel();
+            _pendingResetCts?.Dispose();
+            _pendingResetCts = cts;
+        }
+
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await Task.Delay(TerminalStatusRetention, cts.Token);
+            }
+            catch (TaskCanceledException)
+            {
+                return;
+            }
+
+            bool shouldReset;
+            lock (_sync)
+            {
+                shouldReset = !cts.IsCancellationRequested &&
+                              !_isOperationInProgress &&
+                              _status is not null &&
+                              _stateVersion == expectedStateVersion;
+            }
+
+            if (shouldReset)
+            {
+                ResetToIdle();
+            }
+        });
+    }
+
+    private void CancelPendingReset_NoLock()
+    {
+        _pendingResetCts?.Cancel();
+        _pendingResetCts?.Dispose();
+        _pendingResetCts = null;
     }
 
     private void RaiseProgressChanged()

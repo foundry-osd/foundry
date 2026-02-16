@@ -25,9 +25,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public int GlobalOperationProgress => _operationProgressService.Progress;
     public bool IsGlobalOperationInProgress => _operationProgressService.IsOperationInProgress;
     public string GlobalOperationStatusDisplay =>
-        IsGlobalOperationInProgress
-            ? (_operationProgressService.Status ?? Strings["OperationInProgress"])
-            : Strings["OperationReady"];
+        _operationProgressService.Status ??
+        (IsGlobalOperationInProgress ? Strings["OperationInProgress"] : Strings["OperationReady"]);
 
     public MainWindowViewModel(
         IApplicationShellService applicationShellService,

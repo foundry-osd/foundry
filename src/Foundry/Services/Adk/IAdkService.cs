@@ -26,6 +26,11 @@ public interface IAdkService
     bool IsOperationInProgress { get; }
 
     /// <summary>
+    /// Gets a value indicating whether any global operation is currently in progress.
+    /// </summary>
+    bool IsAnyOperationInProgress { get; }
+
+    /// <summary>
     /// Gets the current operation progress (0-100).
     /// </summary>
     int OperationProgress { get; }

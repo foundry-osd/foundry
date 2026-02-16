@@ -138,7 +138,7 @@ public sealed partial class StandardPageViewModel : ObservableObject, IDisposabl
 
     private void UpdateOperationState()
     {
-        IsOperationInProgress = _adkService.IsOperationInProgress;
+        IsOperationInProgress = _adkService.IsAnyOperationInProgress;
     }
 
     private void OnLanguageChanged(object? sender, EventArgs e)
