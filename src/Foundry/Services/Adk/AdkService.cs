@@ -2,6 +2,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 
 namespace Foundry.Services.Adk;
 
@@ -10,7 +11,7 @@ namespace Foundry.Services.Adk;
 /// </summary>
 public sealed class AdkService : IAdkService
 {
-    private const string Adk24H2Version = "10.1.26100.1"; // Windows 11 24H2 ADK version
+    private const string Adk24H2Version = "10.1.26100.1"; // Windows 11 24H2 ADK version (checked as 10.1.26100.*)
     private const string AdkRegistryPath = @"SOFTWARE\WOW6432Node\Microsoft\Windows Kits\Installed Roots";
     private const string AdkRegistryKey = "KitsRoot10";
     private const string AdkDownloadUrl = "https://go.microsoft.com/fwlink/?linkid=2289980"; // Windows ADK for Windows 11, version 24H2
@@ -18,11 +19,50 @@ public sealed class AdkService : IAdkService
     private const string AdkBasePath = "Assessment and Deployment Kit";
     private const string DeploymentToolsPath = "Deployment Tools";
     private const string WinPeEnvironmentPath = "Windows Preinstallation Environment";
-    
-    private const int AdkDownloadProgressStart = 0;
-    private const int AdkDownloadProgressEnd = 50;
-    private const int WinPeDownloadProgressStart = 50;
-    private const int WinPeDownloadProgressEnd = 100;
+
+    private const string AdkInstallArguments = "/quiet /norestart /features OptionId.DeploymentTools";
+    private const string WinPeInstallArguments = "/quiet /norestart";
+    private const string AdkUninstallArguments = "/uninstall /quiet /norestart";
+    private const string WinPeUninstallArguments = "/uninstall /quiet /norestart";
+    private const int InstallStatePollDelayMs = 1000;
+    private static readonly TimeSpan InstallStateWaitTimeout = TimeSpan.FromMinutes(5);
+    private static readonly TimeSpan DeferredInstallStateWaitTimeout = TimeSpan.FromMinutes(15);
+
+    private const int DownloadDefaultStart = 0;
+    private const int DownloadDefaultEnd = 100;
+
+    private const int InstallDownloadStart = 0;
+    private const int InstallDownloadEnd = 40;
+    private const int InstallAdkStart = 40;
+    private const int InstallAdkEnd = 75;
+    private const int InstallWinPeStart = 75;
+    private const int InstallWinPeEnd = 95;
+    private const int InstallVerifyStart = 95;
+    private const int InstallVerifyEnd = 100;
+
+    private const int UninstallDownloadStart = 0;
+    private const int UninstallDownloadEnd = 40;
+    private const int UninstallWinPeStart = 40;
+    private const int UninstallWinPeEnd = 70;
+    private const int UninstallAdkStart = 70;
+    private const int UninstallAdkEnd = 90;
+    private const int UninstallVerifyStart = 90;
+    private const int UninstallVerifyEnd = 100;
+
+    private const int UpgradeUninstallPrepStart = 0;
+    private const int UpgradeUninstallPrepEnd = 10;
+    private const int UpgradeUninstallWinPeStart = 10;
+    private const int UpgradeUninstallWinPeEnd = 18;
+    private const int UpgradeUninstallAdkStart = 18;
+    private const int UpgradeUninstallAdkEnd = 25;
+    private const int UpgradeDownloadStart = 25;
+    private const int UpgradeDownloadEnd = 60;
+    private const int UpgradeInstallAdkStart = 60;
+    private const int UpgradeInstallAdkEnd = 80;
+    private const int UpgradeInstallWinPeStart = 80;
+    private const int UpgradeInstallWinPeEnd = 95;
+    private const int UpgradeVerifyStart = 95;
+    private const int UpgradeVerifyEnd = 100;
 
     private bool _isAdkInstalled;
     private bool _isAdkCompatible;
@@ -65,27 +105,14 @@ public sealed class AdkService : IAdkService
 
         try
         {
-            SetOperationInProgress(true, "Downloading ADK installers...", 0);
-
-            var tempPath = Path.GetTempPath();
-            var adkInstallerPath = Path.Combine(tempPath, "adksetup.exe");
-            var winPeInstallerPath = Path.Combine(tempPath, "adkwinpesetup.exe");
-
-            // Download ADK installer
-            UpdateOperationProgress(AdkDownloadProgressStart, "Downloading ADK installer...");
-            await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, AdkDownloadProgressStart, AdkDownloadProgressEnd, "ADK installer");
-            _downloadedAdkInstallerPath = adkInstallerPath;
-
-            // Download WinPE Add-on installer
-            UpdateOperationProgress(WinPeDownloadProgressStart, "Downloading WinPE Add-on installer...");
-            await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, WinPeDownloadProgressStart, WinPeDownloadProgressEnd, "WinPE Add-on installer");
-            _downloadedWinPeInstallerPath = winPeInstallerPath;
+            SetOperationInProgress(true, "Downloading ADK installers...", DownloadDefaultStart);
+            await EnsureInstallersDownloadedAsync(DownloadDefaultStart, DownloadDefaultEnd, forceDownload: true);
 
             UpdateOperationProgress(100, "Download complete");
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(0, $"Download failed: {ex.Message}");
+            UpdateOperationProgress(OperationProgress, $"Download failed: {ex.Message}");
             throw;
         }
         finally
@@ -104,80 +131,21 @@ public sealed class AdkService : IAdkService
         try
         {
             SetOperationInProgress(true, "Installing ADK and WinPE Add-on...", 0);
-
-            // Download if not already downloaded
-            if (string.IsNullOrEmpty(_downloadedAdkInstallerPath) || !File.Exists(_downloadedAdkInstallerPath) ||
-                string.IsNullOrEmpty(_downloadedWinPeInstallerPath) || !File.Exists(_downloadedWinPeInstallerPath))
+            await EnsureInstallersDownloadedAsync(InstallDownloadStart, InstallDownloadEnd, forceDownload: false);
+            await InstallAdkInternalAsync(InstallAdkStart, InstallAdkEnd, InstallWinPeStart, InstallWinPeEnd);
+            var synchronizationContext = SynchronizationContext.Current;
+            var installStateConfirmed = await WaitForInstallStateAsync(expectedInstalled: true, InstallVerifyStart, InstallVerifyEnd);
+            if (!installStateConfirmed)
             {
-                await DownloadAdkInternalAsync();
-            }
-
-            if (string.IsNullOrEmpty(_downloadedAdkInstallerPath) || string.IsNullOrEmpty(_downloadedWinPeInstallerPath))
-            {
-                throw new InvalidOperationException("ADK installers not available");
-            }
-
-            UpdateOperationProgress(5, "Installing ADK (Deployment Tools)...");
-
-            // Install ADK first with Deployment Tools feature
-            var adkStartInfo = new ProcessStartInfo
-            {
-                FileName = _downloadedAdkInstallerPath,
-                Arguments = "/quiet /features OptionId.DeploymentTools",
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            using (var process = Process.Start(adkStartInfo))
-            {
-                if (process == null)
-                {
-                    throw new InvalidOperationException("Failed to start ADK installer");
-                }
-
-                await process.WaitForExitAsync();
-
-                if (process.ExitCode != 0)
-                {
-                    throw new InvalidOperationException($"ADK installation failed with exit code {process.ExitCode}");
-                }
-            }
-
-            UpdateOperationProgress(50, "Installing WinPE Add-on...");
-
-            // Install WinPE Add-on second with Windows Preinstallation Environment feature
-            var winPeStartInfo = new ProcessStartInfo
-            {
-                FileName = _downloadedWinPeInstallerPath,
-                Arguments = "/quiet /features OptionId.WindowsPreinstallationEnvironment",
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            using (var process = Process.Start(winPeStartInfo))
-            {
-                if (process == null)
-                {
-                    throw new InvalidOperationException("Failed to start WinPE Add-on installer");
-                }
-
-                await process.WaitForExitAsync();
-
-                if (process.ExitCode != 0)
-                {
-                    throw new InvalidOperationException($"WinPE Add-on installation failed with exit code {process.ExitCode}");
-                }
+                StartDeferredStatusRefresh(expectedInstalled: true, synchronizationContext);
             }
 
             UpdateOperationProgress(100, "Installation complete");
-            
-            // Wait for registry to be updated with retry mechanism
-            await WaitForRegistryUpdateAsync();
             RefreshStatus();
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(0, $"Installation failed: {ex.Message}");
+            UpdateOperationProgress(OperationProgress, $"Installation failed: {ex.Message}");
             throw;
         }
         finally
@@ -201,16 +169,21 @@ public sealed class AdkService : IAdkService
         try
         {
             SetOperationInProgress(true, "Uninstalling ADK...", 0);
-            await UninstallAdkInternalAsync();
+            await EnsureInstallersDownloadedAsync(UninstallDownloadStart, UninstallDownloadEnd, forceDownload: true);
+            await UninstallAdkInternalAsync(UninstallWinPeStart, UninstallWinPeEnd, UninstallAdkStart, UninstallAdkEnd);
+            var synchronizationContext = SynchronizationContext.Current;
+            var uninstallStateConfirmed = await WaitForInstallStateAsync(expectedInstalled: false, UninstallVerifyStart, UninstallVerifyEnd);
+            if (!uninstallStateConfirmed)
+            {
+                StartDeferredStatusRefresh(expectedInstalled: false, synchronizationContext);
+            }
+
             UpdateOperationProgress(100, "Uninstallation complete");
-            
-            // Wait for registry to be updated with retry mechanism
-            await WaitForRegistryUpdateAsync();
             RefreshStatus();
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(0, $"Uninstallation failed: {ex.Message}");
+            UpdateOperationProgress(OperationProgress, $"Uninstallation failed: {ex.Message}");
             throw;
         }
         finally
@@ -232,25 +205,39 @@ public sealed class AdkService : IAdkService
 
             if (_isAdkInstalled)
             {
-                UpdateOperationProgress(10, "Uninstalling current ADK version...");
-                await UninstallAdkInternalAsync();
+                UpdateOperationProgress(UpgradeUninstallPrepStart, "Preparing uninstall binaries...");
+                await EnsureInstallersDownloadedAsync(UpgradeUninstallPrepStart, UpgradeUninstallPrepEnd, forceDownload: true);
+                await UninstallAdkInternalAsync(
+                    UpgradeUninstallWinPeStart,
+                    UpgradeUninstallWinPeEnd,
+                    UpgradeUninstallAdkStart,
+                    UpgradeUninstallAdkEnd);
+            }
+            else
+            {
+                UpdateOperationProgress(UpgradeDownloadStart, "No existing ADK installation detected.");
             }
 
-            UpdateOperationProgress(40, "Downloading new ADK version...");
-            await DownloadAdkInternalAsync();
-
-            UpdateOperationProgress(60, "Installing new ADK version...");
-            await InstallAdkInternalAsync();
+            UpdateOperationProgress(UpgradeDownloadStart, "Downloading upgrade binaries...");
+            await EnsureInstallersDownloadedAsync(UpgradeDownloadStart, UpgradeDownloadEnd, forceDownload: false);
+            await InstallAdkInternalAsync(
+                UpgradeInstallAdkStart,
+                UpgradeInstallAdkEnd,
+                UpgradeInstallWinPeStart,
+                UpgradeInstallWinPeEnd);
+            var synchronizationContext = SynchronizationContext.Current;
+            var upgradeStateConfirmed = await WaitForInstallStateAsync(expectedInstalled: true, UpgradeVerifyStart, UpgradeVerifyEnd);
+            if (!upgradeStateConfirmed)
+            {
+                StartDeferredStatusRefresh(expectedInstalled: true, synchronizationContext);
+            }
 
             UpdateOperationProgress(100, "Upgrade complete");
-            
-            // Wait for registry to be updated with retry mechanism
-            await WaitForRegistryUpdateAsync();
             RefreshStatus();
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(0, $"Upgrade failed: {ex.Message}");
+            UpdateOperationProgress(OperationProgress, $"Upgrade failed: {ex.Message}");
             throw;
         }
         finally
@@ -276,10 +263,8 @@ public sealed class AdkService : IAdkService
                     return false;
                 }
 
-                // Verify both ADK and WinPE Add-on are installed
                 var deploymentToolsPath = Path.Combine(kitsRoot, AdkBasePath, DeploymentToolsPath);
                 var winPePath = Path.Combine(kitsRoot, AdkBasePath, WinPeEnvironmentPath);
-                
                 return Directory.Exists(deploymentToolsPath) && Directory.Exists(winPePath);
             }
         }
@@ -293,31 +278,140 @@ public sealed class AdkService : IAdkService
     {
         try
         {
-            var adkPath = GetAdkInstallPath();
-            if (string.IsNullOrEmpty(adkPath))
+            var (installed, version) = TryGetAdkVersionFromUninstall();
+            if (installed && !string.IsNullOrEmpty(version))
             {
-                return null;
+                return version;
             }
 
-            // Try to read version from the registry
-            using (var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows Kits\Installed Roots"))
-            {
-                if (key != null)
-                {
-                    var version = key.GetValue("KitsRoot10Version") as string;
-                    if (!string.IsNullOrEmpty(version))
-                    {
-                        return version.Trim('\\');
-                    }
-                }
-            }
-
-            // Unable to determine version - return null
-            return null;
+            return TryGetAdkVersionFromComponentUninstallEntries();
         }
         catch
         {
             return null;
+        }
+    }
+
+    private static string? TryGetAdkVersionFromComponentUninstallEntries()
+    {
+        try
+        {
+            var registryPaths = new[]
+            {
+                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall",
+                "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"
+            };
+
+            var candidateVersions = new List<string>();
+
+            foreach (var path in registryPaths)
+            {
+                using var parentKey = Registry.LocalMachine.OpenSubKey(path);
+                if (parentKey == null)
+                {
+                    continue;
+                }
+
+                foreach (var subKeyName in parentKey.GetSubKeyNames())
+                {
+                    using var subKey = parentKey.OpenSubKey(subKeyName);
+                    var displayName = subKey?.GetValue("DisplayName") as string;
+                    var displayVersion = subKey?.GetValue("DisplayVersion") as string;
+
+                    if (string.IsNullOrWhiteSpace(displayName) || string.IsNullOrWhiteSpace(displayVersion))
+                    {
+                        continue;
+                    }
+
+                    // Fallback detection for localized environments where no top-level ADK entry is present.
+                    var isDeploymentTools = displayName.Equals("Windows Deployment Tools", StringComparison.OrdinalIgnoreCase);
+                    var isWinPeComponent =
+                        displayName.Contains("WinPE", StringComparison.OrdinalIgnoreCase) ||
+                        (displayName.Contains("Windows PE", StringComparison.OrdinalIgnoreCase) &&
+                         (displayName.Contains("Deployment", StringComparison.OrdinalIgnoreCase) ||
+                          displayName.Contains("deploiement", StringComparison.OrdinalIgnoreCase) ||
+                          displayName.Contains("déploiement", StringComparison.OrdinalIgnoreCase)));
+
+                    if (isDeploymentTools || isWinPeComponent)
+                    {
+                        candidateVersions.Add(displayVersion);
+                    }
+                }
+            }
+
+            if (candidateVersions.Count == 0)
+            {
+                return null;
+            }
+
+            var selectedVersion = candidateVersions
+                .GroupBy(v => v, StringComparer.OrdinalIgnoreCase)
+                .Select(group => new
+                {
+                    Version = group.Key,
+                    Count = group.Count(),
+                    Parsed = TryParseVersionSafe(group.Key)
+                })
+                .OrderByDescending(item => item.Count)
+                .ThenByDescending(item => item.Parsed)
+                .FirstOrDefault();
+
+            return selectedVersion?.Version;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static Version TryParseVersionSafe(string value)
+    {
+        return Version.TryParse(value, out var parsed)
+            ? parsed
+            : new Version(0, 0, 0, 0);
+    }
+
+    private static (bool Installed, string? Version) TryGetAdkVersionFromUninstall()
+    {
+        try
+        {
+            string? foundVersion = null;
+            var registryPaths = new[]
+            {
+                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall",
+                "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"
+            };
+
+            foreach (var path in registryPaths)
+            {
+                using (var parentKey = Registry.LocalMachine.OpenSubKey(path))
+                {
+                    if (parentKey == null)
+                    {
+                        continue;
+                    }
+
+                    foreach (var subKeyName in parentKey.GetSubKeyNames())
+                    {
+                        using (var subKey = parentKey.OpenSubKey(subKeyName))
+                        {
+                            var displayName = subKey?.GetValue("DisplayName") as string;
+                            if (!string.IsNullOrEmpty(displayName) &&
+                                displayName.Equals("Windows Assessment and Deployment Kit", StringComparison.OrdinalIgnoreCase))
+                            {
+                                foundVersion = subKey?.GetValue("DisplayVersion") as string;
+                                // We found the ADK; return immediately.
+                                return (true, foundVersion);
+                            }
+                        }
+                    }
+                }
+            }
+            return (false, null);
+        }
+        catch
+        {
+            return (false, null);
         }
     }
 
@@ -328,32 +422,20 @@ public sealed class AdkService : IAdkService
             return false;
         }
 
-        // Check if installed version is exactly Windows 11 24H2 ADK (10.1.26100.1)
+        // Check whether the installed version is Windows 11 24H2 ADK (10.1.26100.*).
         try
         {
             var installedVersion = new Version(_installedVersion);
             var requiredVersion = new Version(Adk24H2Version);
-            return installedVersion == requiredVersion;
+            // Compare Major.Minor.Build to accept any revision (10.1.26100.*).
+            return installedVersion.Major == requiredVersion.Major &&
+                   installedVersion.Minor == requiredVersion.Minor &&
+                   installedVersion.Build == requiredVersion.Build;
         }
         catch
         {
-            // If version parsing fails, do an exact string comparison
-            return string.Equals(_installedVersion, Adk24H2Version, StringComparison.OrdinalIgnoreCase);
-        }
-    }
-
-    private string? GetAdkInstallPath()
-    {
-        try
-        {
-            using (var key = Registry.LocalMachine.OpenSubKey(AdkRegistryPath))
-            {
-                return key?.GetValue(AdkRegistryKey) as string;
-            }
-        }
-        catch
-        {
-            return null;
+            // If version parsing fails, fallback to prefix matching.
+            return _installedVersion.StartsWith("10.1.26100.", StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -361,31 +443,53 @@ public sealed class AdkService : IAdkService
     {
         _isOperationInProgress = inProgress;
         _operationStatus = status;
-        _operationProgress = progress;
+        _operationProgress = Math.Clamp(progress, 0, 100);
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void UpdateOperationProgress(int progress, string? status)
     {
-        _operationProgress = progress;
+        var normalizedProgress = Math.Clamp(progress, 0, 100);
+        _operationProgress = _isOperationInProgress
+            ? Math.Max(_operationProgress, normalizedProgress)
+            : normalizedProgress;
         _operationStatus = status;
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private async Task DownloadAdkInternalAsync()
+    private async Task EnsureInstallersDownloadedAsync(int progressStart, int progressEnd, bool forceDownload)
     {
+        if (progressEnd < progressStart)
+        {
+            throw new ArgumentOutOfRangeException(nameof(progressEnd), "The end progress must be greater than or equal to the start progress.");
+        }
+
         var tempPath = Path.GetTempPath();
         var adkInstallerPath = Path.Combine(tempPath, "adksetup.exe");
         var winPeInstallerPath = Path.Combine(tempPath, "adkwinpesetup.exe");
+        var midpoint = progressStart + ((progressEnd - progressStart) / 2);
 
-        // Download ADK installer
-        UpdateOperationProgress(AdkDownloadProgressStart, "Downloading ADK installer...");
-        await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, AdkDownloadProgressStart, AdkDownloadProgressEnd, "ADK installer");
+        if (forceDownload || !File.Exists(adkInstallerPath))
+        {
+            UpdateOperationProgress(progressStart, "Downloading ADK installer...");
+            await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, progressStart, midpoint, "ADK installer");
+        }
+        else
+        {
+            UpdateOperationProgress(midpoint, "Using cached ADK installer.");
+        }
+
+        if (forceDownload || !File.Exists(winPeInstallerPath))
+        {
+            UpdateOperationProgress(midpoint, "Downloading WinPE Add-on installer...");
+            await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, midpoint, progressEnd, "WinPE Add-on installer");
+        }
+        else
+        {
+            UpdateOperationProgress(progressEnd, "Using cached WinPE Add-on installer.");
+        }
+
         _downloadedAdkInstallerPath = adkInstallerPath;
-
-        // Download WinPE Add-on installer
-        UpdateOperationProgress(WinPeDownloadProgressStart, "Downloading WinPE Add-on installer...");
-        await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, WinPeDownloadProgressStart, WinPeDownloadProgressEnd, "WinPE Add-on installer");
         _downloadedWinPeInstallerPath = winPeInstallerPath;
     }
 
@@ -421,141 +525,148 @@ public sealed class AdkService : IAdkService
                 }
             }
         }
+
+        UpdateOperationProgress(progressEnd, $"{componentName} download completed.");
     }
 
-    private async Task InstallAdkInternalAsync()
+    private async Task InstallAdkInternalAsync(int adkProgressStart, int adkProgressEnd, int winPeProgressStart, int winPeProgressEnd)
     {
-        if (string.IsNullOrEmpty(_downloadedAdkInstallerPath) || string.IsNullOrEmpty(_downloadedWinPeInstallerPath))
+        EnsureInstallersAvailable();
+        UpdateOperationProgress(adkProgressStart, "Installing ADK Deployment Tools...");
+        await RunProcessOrThrowAsync(_downloadedAdkInstallerPath!, AdkInstallArguments, "ADK installer");
+        UpdateOperationProgress(adkProgressEnd, "ADK Deployment Tools installation completed.");
+
+        UpdateOperationProgress(winPeProgressStart, "Installing WinPE Add-on...");
+        await RunProcessOrThrowAsync(_downloadedWinPeInstallerPath!, WinPeInstallArguments, "WinPE Add-on installer");
+        UpdateOperationProgress(winPeProgressEnd, "WinPE Add-on installation completed.");
+    }
+
+    private async Task UninstallAdkInternalAsync(int winPeProgressStart, int winPeProgressEnd, int adkProgressStart, int adkProgressEnd)
+    {
+        EnsureInstallersAvailable();
+        UpdateOperationProgress(winPeProgressStart, "Uninstalling WinPE Add-on...");
+        await RunProcessOrThrowAsync(_downloadedWinPeInstallerPath!, WinPeUninstallArguments, "WinPE Add-on installer");
+        UpdateOperationProgress(winPeProgressEnd, "WinPE Add-on uninstallation completed.");
+
+        UpdateOperationProgress(adkProgressStart, "Uninstalling ADK Deployment Tools...");
+        await RunProcessOrThrowAsync(_downloadedAdkInstallerPath!, AdkUninstallArguments, "ADK installer");
+        UpdateOperationProgress(adkProgressEnd, "ADK Deployment Tools uninstallation completed.");
+    }
+
+    private void EnsureInstallersAvailable()
+    {
+        if (string.IsNullOrWhiteSpace(_downloadedAdkInstallerPath) || !File.Exists(_downloadedAdkInstallerPath))
         {
-            throw new InvalidOperationException("ADK installers not available");
+            throw new InvalidOperationException("The ADK installer executable is not available.");
         }
 
-        // Install ADK first with Deployment Tools feature
-        var adkStartInfo = new ProcessStartInfo
+        if (string.IsNullOrWhiteSpace(_downloadedWinPeInstallerPath) || !File.Exists(_downloadedWinPeInstallerPath))
         {
-            FileName = _downloadedAdkInstallerPath,
-            Arguments = "/quiet /features OptionId.DeploymentTools",
+            throw new InvalidOperationException("The WinPE Add-on installer executable is not available.");
+        }
+    }
+
+    private static async Task RunProcessOrThrowAsync(string executablePath, string arguments, string operationName)
+    {
+        if (!File.Exists(executablePath))
+        {
+            throw new FileNotFoundException($"{operationName} executable was not found.", executablePath);
+        }
+
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = executablePath,
+            Arguments = arguments,
             UseShellExecute = false,
             CreateNoWindow = true
         };
 
-        using (var process = Process.Start(adkStartInfo))
+        using var process = Process.Start(startInfo);
+        if (process == null)
         {
-            if (process == null)
-            {
-                throw new InvalidOperationException("Failed to start ADK installer");
-            }
-
-            await process.WaitForExitAsync();
-
-            if (process.ExitCode != 0)
-            {
-                throw new InvalidOperationException($"ADK installation failed with exit code {process.ExitCode}");
-            }
+            throw new InvalidOperationException($"Failed to start {operationName}.");
         }
 
-        // Install WinPE Add-on second with Windows Preinstallation Environment feature
-        var winPeStartInfo = new ProcessStartInfo
+        await process.WaitForExitAsync();
+
+        if (process.ExitCode != 0)
         {
-            FileName = _downloadedWinPeInstallerPath,
-            Arguments = "/quiet /features OptionId.WindowsPreinstallationEnvironment",
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-
-        using (var process = Process.Start(winPeStartInfo))
-        {
-            if (process == null)
-            {
-                throw new InvalidOperationException("Failed to start WinPE Add-on installer");
-            }
-
-            await process.WaitForExitAsync();
-
-            if (process.ExitCode != 0)
-            {
-                throw new InvalidOperationException($"WinPE Add-on installation failed with exit code {process.ExitCode}");
-            }
+            throw new InvalidOperationException($"{operationName} failed with exit code {process.ExitCode}.");
         }
     }
 
-    private async Task UninstallAdkInternalAsync()
+    private async Task<bool> WaitForInstallStateAsync(
+        bool expectedInstalled,
+        int progressStart,
+        int progressEnd,
+        TimeSpan? timeout = null,
+        int pollDelayMs = InstallStatePollDelayMs,
+        bool reportProgress = true)
     {
-        UpdateOperationProgress(10, "Uninstalling WinPE Add-on...");
+        var effectiveTimeout = timeout ?? InstallStateWaitTimeout;
+        var maxRetries = Math.Max(1, (int)Math.Ceiling(effectiveTimeout.TotalMilliseconds / pollDelayMs));
+        string expectedStateText = expectedInstalled ? "installed" : "uninstalled";
 
-        var adkPath = GetAdkInstallPath();
-        if (!string.IsNullOrEmpty(adkPath))
+        for (int retry = 0; retry < maxRetries; retry++)
         {
-            // Uninstall WinPE Add-on first (if installed)
-            var winPeUninstallerPath = Path.Combine(adkPath, AdkBasePath, WinPeEnvironmentPath, "uninstall.exe");
-            
-            if (File.Exists(winPeUninstallerPath))
+            var currentInstalled = CheckAdkInstalled();
+            if (currentInstalled == expectedInstalled)
             {
-                var startInfo = new ProcessStartInfo
+                if (reportProgress)
                 {
-                    FileName = winPeUninstallerPath,
-                    Arguments = "/quiet",
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using (var process = Process.Start(startInfo))
-                {
-                    if (process != null)
-                    {
-                        await process.WaitForExitAsync();
-                    }
+                    UpdateOperationProgress(progressEnd, $"ADK is now {expectedStateText}.");
                 }
+
+                return true;
             }
 
-            UpdateOperationProgress(50, "Uninstalling ADK...");
-
-            // Uninstall ADK second (if installed)
-            var adkUninstallerPath = Path.Combine(adkPath, AdkBasePath, DeploymentToolsPath, "uninstall.exe");
-            
-            if (File.Exists(adkUninstallerPath))
+            if (reportProgress)
             {
-                var startInfo = new ProcessStartInfo
-                {
-                    FileName = adkUninstallerPath,
-                    Arguments = "/quiet",
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using (var process = Process.Start(startInfo))
-                {
-                    if (process != null)
-                    {
-                        await process.WaitForExitAsync();
-                    }
-                }
+                var progress = progressStart + ((progressEnd - progressStart) * (retry + 1) / maxRetries);
+                UpdateOperationProgress(progress, $"Waiting for ADK to be {expectedStateText}...");
             }
+
+            await Task.Delay(pollDelayMs);
         }
+
+        if (CheckAdkInstalled() == expectedInstalled)
+        {
+            if (reportProgress)
+            {
+                UpdateOperationProgress(progressEnd, $"ADK is now {expectedStateText}.");
+            }
+
+            return true;
+        }
+
+        if (reportProgress)
+        {
+            UpdateOperationProgress(progressEnd, $"Installer finished, but ADK verification is still pending.");
+        }
+
+        return false;
     }
 
-    private async Task WaitForRegistryUpdateAsync()
+    private void StartDeferredStatusRefresh(bool expectedInstalled, SynchronizationContext? synchronizationContext)
     {
-        const int maxRetries = 10;
-        const int delayMs = 500;
-        
-        // Capture the expected state after the operation completes (inverse of current state)
-        // If currently installed, we expect it to be uninstalled after the operation, and vice versa
-        var expectedState = !_isAdkInstalled;
-
-        for (int i = 0; i < maxRetries; i++)
+        _ = Task.Run(async () =>
         {
-            await Task.Delay(delayMs);
-            
-            // Check if registry has been updated to the expected state
-            var currentInstallState = CheckAdkInstalled();
-            if (currentInstallState == expectedState)
-            {
-                // Registry state changed to expected value, update is complete
-                return;
-            }
-        }
+            await WaitForInstallStateAsync(
+                expectedInstalled,
+                progressStart: 100,
+                progressEnd: 100,
+                timeout: DeferredInstallStateWaitTimeout,
+                pollDelayMs: InstallStatePollDelayMs,
+                reportProgress: false).ConfigureAwait(false);
 
-        // Timeout reached, continue anyway
+            if (synchronizationContext != null)
+            {
+                synchronizationContext.Post(_ => RefreshStatus(), null);
+            }
+            else
+            {
+                RefreshStatus();
+            }
+        });
     }
 }
