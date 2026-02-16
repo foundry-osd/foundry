@@ -20,29 +20,12 @@
         <Grid Grid.Row="1" Margin="16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--  Operation Progress  -->
-            <StackPanel
-                Grid.Row="0"
-                Margin="0,0,0,16"
-                Visibility="{Binding IsOperationInProgress, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                    Text="{Binding OperationStatus}" />
-                <ProgressBar
-                    Height="24"
-                    Maximum="100"
-                    Minimum="0"
-                    Value="{Binding OperationProgress}" />
-            </StackPanel>
-
             <!--  Action Buttons  -->
             <StackPanel
-                Grid.Row="1"
+                Grid.Row="0"
                 Margin="0,0,0,16"
                 Orientation="Horizontal">
                 <Button
@@ -59,7 +42,7 @@
 
             <!--  Placeholder Content  -->
             <TextBlock
-                Grid.Row="2"
+                Grid.Row="1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"

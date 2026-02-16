@@ -25,12 +25,6 @@ public sealed partial class StandardPageViewModel : ObservableObject, IDisposabl
     [ObservableProperty]
     private bool isOperationInProgress;
 
-    [ObservableProperty]
-    private int operationProgress;
-
-    [ObservableProperty]
-    private string? operationStatus;
-
     public string Title => "Standard";
 
     public StringsWrapper Strings => _localizationService.Strings;
@@ -47,6 +41,7 @@ public sealed partial class StandardPageViewModel : ObservableObject, IDisposabl
         _localizationService.LanguageChanged += OnLanguageChanged;
 
         UpdateAdkStatus();
+        UpdateOperationState();
     }
 
     public void Dispose()
@@ -138,9 +133,12 @@ public sealed partial class StandardPageViewModel : ObservableObject, IDisposabl
 
     private void OnOperationProgressChanged(object? sender, EventArgs e)
     {
+        UpdateOperationState();
+    }
+
+    private void UpdateOperationState()
+    {
         IsOperationInProgress = _adkService.IsOperationInProgress;
-        OperationProgress = _adkService.OperationProgress;
-        OperationStatus = _adkService.OperationStatus;
     }
 
     private void OnLanguageChanged(object? sender, EventArgs e)

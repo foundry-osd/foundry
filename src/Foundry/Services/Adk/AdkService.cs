@@ -1,3 +1,5 @@
+using Foundry.Services.Localization;
+using Foundry.Services.Operations;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Globalization;
@@ -71,24 +73,28 @@ public sealed class AdkService : IAdkService
     private bool _isAdkInstalled;
     private bool _isAdkCompatible;
     private string? _installedVersion;
-    private bool _isOperationInProgress;
-    private int _operationProgress;
-    private string? _operationStatus;
+    private readonly ILocalizationService _localizationService;
+    private readonly IOperationProgressService _operationProgressService;
     private string? _downloadedAdkInstallerPath;
     private string? _downloadedWinPeInstallerPath;
 
     public bool IsAdkInstalled => _isAdkInstalled;
     public bool IsAdkCompatible => _isAdkCompatible;
     public string? InstalledVersion => _installedVersion;
-    public bool IsOperationInProgress => _isOperationInProgress;
-    public int OperationProgress => _operationProgress;
-    public string? OperationStatus => _operationStatus;
+    public bool IsOperationInProgress => _operationProgressService.IsOperationInProgress;
+    public int OperationProgress => _operationProgressService.Progress;
+    public string? OperationStatus => _operationProgressService.Status;
 
     public event EventHandler? AdkStatusChanged;
     public event EventHandler? OperationProgressChanged;
 
-    public AdkService()
+    public AdkService(
+        ILocalizationService localizationService,
+        IOperationProgressService operationProgressService)
     {
+        _localizationService = localizationService;
+        _operationProgressService = operationProgressService;
+        _operationProgressService.ProgressChanged += OnGlobalProgressChanged;
         RefreshStatus();
     }
 
@@ -105,39 +111,43 @@ public sealed class AdkService : IAdkService
 
     public async Task DownloadAdkAsync()
     {
-        if (_isOperationInProgress)
+        if (!_operationProgressService.TryStart(
+                OperationKind.AdkDownload,
+                L("AdkStatusStartDownload"),
+                DownloadDefaultStart))
         {
             return;
         }
 
         try
         {
-            SetOperationInProgress(true, "Downloading ADK installers...", DownloadDefaultStart);
             await EnsureInstallersDownloadedAsync(DownloadDefaultStart, DownloadDefaultEnd, forceDownload: true);
 
-            UpdateOperationProgress(100, "Download complete");
+            _operationProgressService.Complete(L("AdkStatusDoneDownload"));
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(OperationProgress, $"Download failed: {ex.Message}");
+            _operationProgressService.Fail(Lf("AdkErrorDownload", ex.Message));
             throw;
         }
         finally
         {
-            SetOperationInProgress(false, null, 0);
+            _operationProgressService.ResetToIdle();
         }
     }
 
     public async Task InstallAdkAsync()
     {
-        if (_isOperationInProgress)
+        if (!_operationProgressService.TryStart(
+                OperationKind.AdkInstall,
+                L("AdkStatusStartInstall"),
+                0))
         {
             return;
         }
 
         try
         {
-            SetOperationInProgress(true, "Installing ADK and WinPE Add-on...", 0);
             await EnsureInstallersDownloadedAsync(InstallDownloadStart, InstallDownloadEnd, forceDownload: false);
             await InstallAdkInternalAsync(InstallAdkStart, InstallAdkEnd, InstallWinPeStart, InstallWinPeEnd);
             var synchronizationContext = SynchronizationContext.Current;
@@ -147,23 +157,23 @@ public sealed class AdkService : IAdkService
                 StartDeferredStatusRefresh(expectedInstalled: true, synchronizationContext);
             }
 
-            UpdateOperationProgress(100, "Installation complete");
+            _operationProgressService.Complete(L("AdkStatusDoneInstall"));
             RefreshStatus();
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(OperationProgress, $"Installation failed: {ex.Message}");
+            _operationProgressService.Fail(Lf("AdkErrorInstall", ex.Message));
             throw;
         }
         finally
         {
-            SetOperationInProgress(false, null, 0);
+            _operationProgressService.ResetToIdle();
         }
     }
 
     public async Task UninstallAdkAsync()
     {
-        if (_isOperationInProgress)
+        if (!_operationProgressService.CanStartOperation)
         {
             return;
         }
@@ -175,9 +185,16 @@ public sealed class AdkService : IAdkService
             return;
         }
 
+        if (!_operationProgressService.TryStart(
+                OperationKind.AdkUninstall,
+                L("AdkStatusStartUninstall"),
+                0))
+        {
+            return;
+        }
+
         try
         {
-            SetOperationInProgress(true, "Uninstalling ADK...", 0);
             await EnsureInstallersDownloadedAsync(UninstallDownloadStart, UninstallDownloadEnd, forceDownload: true);
             await UninstallAdkInternalAsync(UninstallWinPeStart, UninstallWinPeEnd, UninstallAdkStart, UninstallAdkEnd);
             var synchronizationContext = SynchronizationContext.Current;
@@ -187,36 +204,42 @@ public sealed class AdkService : IAdkService
                 StartDeferredStatusRefresh(expectedInstalled: false, synchronizationContext);
             }
 
-            UpdateOperationProgress(100, "Uninstallation complete");
+            _operationProgressService.Complete(L("AdkStatusDoneUninstall"));
             RefreshStatus();
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(OperationProgress, $"Uninstallation failed: {ex.Message}");
+            _operationProgressService.Fail(Lf("AdkErrorUninstall", ex.Message));
             throw;
         }
         finally
         {
-            SetOperationInProgress(false, null, 0);
+            _operationProgressService.ResetToIdle();
         }
     }
 
     public async Task UpgradeAdkAsync()
     {
-        if (_isOperationInProgress)
+        if (!_operationProgressService.CanStartOperation)
         {
             return;
         }
 
         // Refresh before upgrade to make uninstall/upgrade branching deterministic.
         RefreshStatus();
+        if (!_operationProgressService.TryStart(
+                OperationKind.AdkUpgrade,
+                L("AdkStatusStartUpgrade"),
+                0))
+        {
+            return;
+        }
+
         try
         {
-            SetOperationInProgress(true, "Upgrading ADK...", 0);
-
             if (_isAdkInstalled)
             {
-                UpdateOperationProgress(UpgradeUninstallPrepStart, "Preparing uninstall binaries...");
+                UpdateOperationProgress(UpgradeUninstallPrepStart, L("AdkStatusPreparingUninstall"));
                 await EnsureInstallersDownloadedAsync(UpgradeUninstallPrepStart, UpgradeUninstallPrepEnd, forceDownload: true);
                 await UninstallAdkInternalAsync(
                     UpgradeUninstallWinPeStart,
@@ -226,10 +249,10 @@ public sealed class AdkService : IAdkService
             }
             else
             {
-                UpdateOperationProgress(UpgradeDownloadStart, "No existing ADK installation detected.");
+                UpdateOperationProgress(UpgradeDownloadStart, L("AdkStatusNoExistingInstall"));
             }
 
-            UpdateOperationProgress(UpgradeDownloadStart, "Downloading upgrade binaries...");
+            UpdateOperationProgress(UpgradeDownloadStart, L("AdkStatusDownloadingUpgradeBinaries"));
             await EnsureInstallersDownloadedAsync(UpgradeDownloadStart, UpgradeDownloadEnd, forceDownload: false);
             await InstallAdkInternalAsync(
                 UpgradeInstallAdkStart,
@@ -243,17 +266,17 @@ public sealed class AdkService : IAdkService
                 StartDeferredStatusRefresh(expectedInstalled: true, synchronizationContext);
             }
 
-            UpdateOperationProgress(100, "Upgrade complete");
+            _operationProgressService.Complete(L("AdkStatusDoneUpgrade"));
             RefreshStatus();
         }
         catch (Exception ex)
         {
-            UpdateOperationProgress(OperationProgress, $"Upgrade failed: {ex.Message}");
+            _operationProgressService.Fail(Lf("AdkErrorUpgrade", ex.Message));
             throw;
         }
         finally
         {
-            SetOperationInProgress(false, null, 0);
+            _operationProgressService.ResetToIdle();
         }
     }
 
@@ -480,26 +503,25 @@ public sealed class AdkService : IAdkService
     }
 
     /// <summary>
-    /// Initializes operation state and emits a progress event.
-    /// </summary>
-    private void SetOperationInProgress(bool inProgress, string? status, int progress)
-    {
-        _isOperationInProgress = inProgress;
-        _operationStatus = status;
-        _operationProgress = Math.Clamp(progress, 0, 100);
-        OperationProgressChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    /// <summary>
     /// Updates operation status while enforcing monotonic progress during active operations.
     /// </summary>
     private void UpdateOperationProgress(int progress, string? status)
     {
-        var normalizedProgress = Math.Clamp(progress, 0, 100);
-        _operationProgress = _isOperationInProgress
-            ? Math.Max(_operationProgress, normalizedProgress)
-            : normalizedProgress;
-        _operationStatus = status;
+        _operationProgressService.Report(progress, status);
+    }
+
+    private string L(string key)
+    {
+        return _localizationService.Strings[key];
+    }
+
+    private string Lf(string key, params object[] args)
+    {
+        return string.Format(_localizationService.CurrentCulture, _localizationService.Strings[key], args);
+    }
+
+    private void OnGlobalProgressChanged(object? sender, EventArgs e)
+    {
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -517,25 +539,27 @@ public sealed class AdkService : IAdkService
         var adkInstallerPath = Path.Combine(tempPath, "adksetup.exe");
         var winPeInstallerPath = Path.Combine(tempPath, "adkwinpesetup.exe");
         var midpoint = progressStart + ((progressEnd - progressStart) / 2);
+        var adkInstallerName = L("AdkComponentInstaller");
+        var winPeInstallerName = L("AdkComponentWinPeInstaller");
 
         if (forceDownload || !File.Exists(adkInstallerPath))
         {
-            UpdateOperationProgress(progressStart, "Downloading ADK installer...");
-            await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, progressStart, midpoint, "ADK installer");
+            UpdateOperationProgress(progressStart, L("AdkStatusDownloadingAdkInstaller"));
+            await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, progressStart, midpoint, adkInstallerName);
         }
         else
         {
-            UpdateOperationProgress(midpoint, "Using cached ADK installer.");
+            UpdateOperationProgress(midpoint, L("AdkStatusUsingCachedAdkInstaller"));
         }
 
         if (forceDownload || !File.Exists(winPeInstallerPath))
         {
-            UpdateOperationProgress(midpoint, "Downloading WinPE Add-on installer...");
-            await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, midpoint, progressEnd, "WinPE Add-on installer");
+            UpdateOperationProgress(midpoint, L("AdkStatusDownloadingWinPeInstaller"));
+            await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, midpoint, progressEnd, winPeInstallerName);
         }
         else
         {
-            UpdateOperationProgress(progressEnd, "Using cached WinPE Add-on installer.");
+            UpdateOperationProgress(progressEnd, L("AdkStatusUsingCachedWinPeInstaller"));
         }
 
         _downloadedAdkInstallerPath = adkInstallerPath;
@@ -571,14 +595,14 @@ public sealed class AdkService : IAdkService
                         {
                             var fileProgress = (int)((totalRead * 100) / totalBytes);
                             var overallProgress = progressStart + ((progressEnd - progressStart) * fileProgress / 100);
-                            UpdateOperationProgress(overallProgress, $"Downloading {componentName}... {fileProgress}%");
+                            UpdateOperationProgress(overallProgress, Lf("AdkStatusDownloadingComponentPercent", componentName, fileProgress));
                         }
                     }
                 }
             }
         }
 
-        UpdateOperationProgress(progressEnd, $"{componentName} download completed.");
+        UpdateOperationProgress(progressEnd, Lf("AdkStatusComponentDownloadComplete", componentName));
     }
 
     /// <summary>
@@ -587,13 +611,13 @@ public sealed class AdkService : IAdkService
     private async Task InstallAdkInternalAsync(int adkProgressStart, int adkProgressEnd, int winPeProgressStart, int winPeProgressEnd)
     {
         EnsureInstallersAvailable();
-        UpdateOperationProgress(adkProgressStart, "Installing ADK Deployment Tools...");
-        await RunProcessOrThrowAsync(_downloadedAdkInstallerPath!, AdkInstallArguments, "ADK installer");
-        UpdateOperationProgress(adkProgressEnd, "ADK Deployment Tools installation completed.");
+        UpdateOperationProgress(adkProgressStart, L("AdkStatusInstallingDeploymentTools"));
+        await RunProcessOrThrowAsync(_downloadedAdkInstallerPath!, AdkInstallArguments, L("AdkComponentInstaller"));
+        UpdateOperationProgress(adkProgressEnd, L("AdkStatusInstalledDeploymentTools"));
 
-        UpdateOperationProgress(winPeProgressStart, "Installing WinPE Add-on...");
-        await RunProcessOrThrowAsync(_downloadedWinPeInstallerPath!, WinPeInstallArguments, "WinPE Add-on installer");
-        UpdateOperationProgress(winPeProgressEnd, "WinPE Add-on installation completed.");
+        UpdateOperationProgress(winPeProgressStart, L("AdkStatusInstallingWinPe"));
+        await RunProcessOrThrowAsync(_downloadedWinPeInstallerPath!, WinPeInstallArguments, L("AdkComponentWinPeInstaller"));
+        UpdateOperationProgress(winPeProgressEnd, L("AdkStatusInstalledWinPe"));
     }
 
     /// <summary>
@@ -602,13 +626,13 @@ public sealed class AdkService : IAdkService
     private async Task UninstallAdkInternalAsync(int winPeProgressStart, int winPeProgressEnd, int adkProgressStart, int adkProgressEnd)
     {
         EnsureInstallersAvailable();
-        UpdateOperationProgress(winPeProgressStart, "Uninstalling WinPE Add-on...");
-        await RunProcessOrThrowAsync(_downloadedWinPeInstallerPath!, WinPeUninstallArguments, "WinPE Add-on installer");
-        UpdateOperationProgress(winPeProgressEnd, "WinPE Add-on uninstallation completed.");
+        UpdateOperationProgress(winPeProgressStart, L("AdkStatusUninstallingWinPe"));
+        await RunProcessOrThrowAsync(_downloadedWinPeInstallerPath!, WinPeUninstallArguments, L("AdkComponentWinPeInstaller"));
+        UpdateOperationProgress(winPeProgressEnd, L("AdkStatusUninstalledWinPe"));
 
-        UpdateOperationProgress(adkProgressStart, "Uninstalling ADK Deployment Tools...");
-        await RunProcessOrThrowAsync(_downloadedAdkInstallerPath!, AdkUninstallArguments, "ADK installer");
-        UpdateOperationProgress(adkProgressEnd, "ADK Deployment Tools uninstallation completed.");
+        UpdateOperationProgress(adkProgressStart, L("AdkStatusUninstallingDeploymentTools"));
+        await RunProcessOrThrowAsync(_downloadedAdkInstallerPath!, AdkUninstallArguments, L("AdkComponentInstaller"));
+        UpdateOperationProgress(adkProgressEnd, L("AdkStatusUninstalledDeploymentTools"));
     }
 
     /// <summary>
@@ -678,7 +702,9 @@ public sealed class AdkService : IAdkService
 
         var effectiveTimeout = timeout ?? InstallStateWaitTimeout;
         var maxRetries = Math.Max(1, (int)Math.Ceiling(effectiveTimeout.TotalMilliseconds / pollDelayMs));
-        string expectedStateText = expectedInstalled ? "installed" : "uninstalled";
+        string expectedStateText = expectedInstalled
+            ? L("AdkStateInstalled")
+            : L("AdkStateUninstalled");
 
         for (int retry = 0; retry < maxRetries; retry++)
         {
@@ -687,7 +713,7 @@ public sealed class AdkService : IAdkService
             {
                 if (reportProgress)
                 {
-                    UpdateOperationProgress(progressEnd, $"ADK is now {expectedStateText}.");
+                    UpdateOperationProgress(progressEnd, Lf("AdkStatusStateReached", expectedStateText));
                 }
 
                 return true;
@@ -696,7 +722,7 @@ public sealed class AdkService : IAdkService
             if (reportProgress)
             {
                 var progress = progressStart + ((progressEnd - progressStart) * (retry + 1) / maxRetries);
-                UpdateOperationProgress(progress, $"Waiting for ADK to be {expectedStateText}...");
+                UpdateOperationProgress(progress, Lf("AdkStatusWaitingForState", expectedStateText));
             }
 
             await Task.Delay(pollDelayMs);
@@ -706,7 +732,7 @@ public sealed class AdkService : IAdkService
         {
             if (reportProgress)
             {
-                UpdateOperationProgress(progressEnd, $"ADK is now {expectedStateText}.");
+                UpdateOperationProgress(progressEnd, Lf("AdkStatusStateReached", expectedStateText));
             }
 
             return true;
@@ -714,7 +740,7 @@ public sealed class AdkService : IAdkService
 
         if (reportProgress)
         {
-            UpdateOperationProgress(progressEnd, $"Installer finished, but ADK verification is still pending.");
+            UpdateOperationProgress(progressEnd, L("AdkStatusVerificationPending"));
         }
 
         return false;

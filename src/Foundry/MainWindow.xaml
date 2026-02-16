@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
@@ -71,5 +72,32 @@
             x:Name="ContentFrame"
             Grid.Row="1"
             NavigationUIVisibility="Hidden" />
+
+        <Border
+            Grid.Row="2"
+            Padding="12,8"
+            Background="Transparent"
+            BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
+            BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,6"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="{Binding GlobalOperationStatusDisplay}" />
+
+                <ProgressBar
+                    Grid.Row="1"
+                    Height="14"
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{Binding GlobalOperationProgress, Mode=OneWay}" />
+            </Grid>
+        </Border>
     </Grid>
 </Window>
