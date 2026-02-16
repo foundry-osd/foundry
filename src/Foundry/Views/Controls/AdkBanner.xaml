@@ -5,7 +5,8 @@
     <Border
         Padding="16,12"
         Background="#D97706"
-        BorderThickness="0,0,0,2"
+        BorderBrush="#B45309"
+        BorderThickness="0,2,0,2"
         Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid>
             <Grid.ColumnDefinitions>
