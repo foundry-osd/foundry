@@ -2,6 +2,7 @@
     x:Class="Foundry.Views.AdvancedPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Foundry.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Advanced"
@@ -13,56 +14,7 @@
         </Grid.RowDefinitions>
 
         <!--  ADK Banner  -->
-        <Border
-            Grid.Row="0"
-            Padding="16,12"
-            Background="#FFFFCC00"
-            BorderBrush="#FFFF9800"
-            BorderThickness="0,0,0,2"
-            Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <!--  Banner Text  -->
-                <TextBlock
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    FontWeight="Bold"
-                    Foreground="Black"
-                    Text="{Binding Strings[AdkBannerMissing]}"
-                    TextWrapping="Wrap"
-                    Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-                <TextBlock
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    FontWeight="Bold"
-                    Foreground="Black"
-                    Text="{Binding Strings[AdkBannerIncompatible]}"
-                    TextWrapping="Wrap"
-                    Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-                <!--  Banner Buttons  -->
-                <Button
-                    Grid.Column="1"
-                    Margin="8,0,0,0"
-                    Command="{Binding InstallAdkCommand}"
-                    Content="{Binding Strings[AdkInstall]}"
-                    IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
-                    Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-                <Button
-                    Grid.Column="1"
-                    Margin="8,0,0,0"
-                    Command="{Binding UpgradeAdkCommand}"
-                    Content="{Binding Strings[AdkUpgrade]}"
-                    IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
-                    Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            </Grid>
-        </Border>
+        <controls:AdkBanner Grid.Row="0" />
 
         <!--  Main Content  -->
         <Grid Grid.Row="1" Margin="16">
