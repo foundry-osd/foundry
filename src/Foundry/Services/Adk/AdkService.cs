@@ -15,6 +15,11 @@ public sealed class AdkService : IAdkService
     private const string AdkRegistryKey = "KitsRoot10";
     private const string AdkDownloadUrl = "https://go.microsoft.com/fwlink/?linkid=2289980"; // Windows ADK for Windows 11, version 24H2
     private const string WinPeAddonDownloadUrl = "https://go.microsoft.com/fwlink/?linkid=2289981"; // WinPE Add-on for Windows 11, version 24H2
+    
+    private const int AdkDownloadProgressStart = 0;
+    private const int AdkDownloadProgressEnd = 50;
+    private const int WinPeDownloadProgressStart = 50;
+    private const int WinPeDownloadProgressEnd = 100;
 
     private bool _isAdkInstalled;
     private bool _isAdkCompatible;
@@ -64,13 +69,13 @@ public sealed class AdkService : IAdkService
             var winPeInstallerPath = Path.Combine(tempPath, "adkwinpesetup.exe");
 
             // Download ADK installer
-            UpdateOperationProgress(0, "Downloading ADK installer...");
-            await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, 0, 50);
+            UpdateOperationProgress(AdkDownloadProgressStart, "Downloading ADK installer...");
+            await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, AdkDownloadProgressStart, AdkDownloadProgressEnd, "ADK installer");
             _downloadedAdkInstallerPath = adkInstallerPath;
 
             // Download WinPE Add-on installer
-            UpdateOperationProgress(50, "Downloading WinPE Add-on installer...");
-            await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, 50, 100);
+            UpdateOperationProgress(WinPeDownloadProgressStart, "Downloading WinPE Add-on installer...");
+            await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, WinPeDownloadProgressStart, WinPeDownloadProgressEnd, "WinPE Add-on installer");
             _downloadedWinPeInstallerPath = winPeInstallerPath;
 
             UpdateOperationProgress(100, "Download complete");
@@ -362,17 +367,17 @@ public sealed class AdkService : IAdkService
         var winPeInstallerPath = Path.Combine(tempPath, "adkwinpesetup.exe");
 
         // Download ADK installer
-        UpdateOperationProgress(0, "Downloading ADK installer...");
-        await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, 0, 50);
+        UpdateOperationProgress(AdkDownloadProgressStart, "Downloading ADK installer...");
+        await DownloadFileAsync(AdkDownloadUrl, adkInstallerPath, AdkDownloadProgressStart, AdkDownloadProgressEnd, "ADK installer");
         _downloadedAdkInstallerPath = adkInstallerPath;
 
         // Download WinPE Add-on installer
-        UpdateOperationProgress(50, "Downloading WinPE Add-on installer...");
-        await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, 50, 100);
+        UpdateOperationProgress(WinPeDownloadProgressStart, "Downloading WinPE Add-on installer...");
+        await DownloadFileAsync(WinPeAddonDownloadUrl, winPeInstallerPath, WinPeDownloadProgressStart, WinPeDownloadProgressEnd, "WinPE Add-on installer");
         _downloadedWinPeInstallerPath = winPeInstallerPath;
     }
 
-    private async Task DownloadFileAsync(string url, string filePath, int progressStart, int progressEnd)
+    private async Task DownloadFileAsync(string url, string filePath, int progressStart, int progressEnd, string componentName)
     {
         using (var httpClient = new HttpClient())
         {
@@ -398,7 +403,7 @@ public sealed class AdkService : IAdkService
                         {
                             var fileProgress = (int)((totalRead * 100) / totalBytes);
                             var overallProgress = progressStart + ((progressEnd - progressStart) * fileProgress / 100);
-                            UpdateOperationProgress(overallProgress, $"Downloading... {fileProgress}%");
+                            UpdateOperationProgress(overallProgress, $"Downloading {componentName}... {fileProgress}%");
                         }
                     }
                 }
