@@ -51,19 +51,19 @@ public interface IAdkService
     void RefreshStatus();
 
     /// <summary>
-    /// Downloads the Windows 11 24H2-compatible ADK installer.
+    /// Downloads the Windows 11 24H2-compatible ADK and WinPE Add-on installers.
     /// </summary>
     /// <returns>A task representing the asynchronous download operation.</returns>
     Task DownloadAdkAsync();
 
     /// <summary>
-    /// Installs the Windows ADK.
+    /// Installs the Windows ADK and WinPE Add-on.
     /// </summary>
     /// <returns>A task representing the asynchronous install operation.</returns>
     Task InstallAdkAsync();
 
     /// <summary>
-    /// Uninstalls the Windows ADK.
+    /// Uninstalls the Windows ADK and WinPE Add-on.
     /// </summary>
     /// <returns>A task representing the asynchronous uninstall operation.</returns>
     Task UninstallAdkAsync();

@@ -15,6 +15,9 @@ public sealed class AdkService : IAdkService
     private const string AdkRegistryKey = "KitsRoot10";
     private const string AdkDownloadUrl = "https://go.microsoft.com/fwlink/?linkid=2289980"; // Windows ADK for Windows 11, version 24H2
     private const string WinPeAddonDownloadUrl = "https://go.microsoft.com/fwlink/?linkid=2289981"; // WinPE Add-on for Windows 11, version 24H2
+    private const string AdkBasePath = "Assessment and Deployment Kit";
+    private const string DeploymentToolsPath = "Deployment Tools";
+    private const string WinPeEnvironmentPath = "Windows Preinstallation Environment";
     
     private const int AdkDownloadProgressStart = 0;
     private const int AdkDownloadProgressEnd = 50;
@@ -268,7 +271,16 @@ public sealed class AdkService : IAdkService
                 }
 
                 var kitsRoot = key.GetValue(AdkRegistryKey) as string;
-                return !string.IsNullOrEmpty(kitsRoot) && Directory.Exists(kitsRoot);
+                if (string.IsNullOrEmpty(kitsRoot) || !Directory.Exists(kitsRoot))
+                {
+                    return false;
+                }
+
+                // Verify both ADK and WinPE Add-on are installed
+                var deploymentToolsPath = Path.Combine(kitsRoot, AdkBasePath, DeploymentToolsPath);
+                var winPePath = Path.Combine(kitsRoot, AdkBasePath, WinPeEnvironmentPath);
+                
+                return Directory.Exists(deploymentToolsPath) && Directory.Exists(winPePath);
             }
         }
         catch
@@ -474,8 +486,8 @@ public sealed class AdkService : IAdkService
         var adkPath = GetAdkInstallPath();
         if (!string.IsNullOrEmpty(adkPath))
         {
-            // Uninstall WinPE Add-on first
-            var winPeUninstallerPath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Windows Preinstallation Environment", "uninstall.exe");
+            // Uninstall WinPE Add-on first (if installed)
+            var winPeUninstallerPath = Path.Combine(adkPath, AdkBasePath, WinPeEnvironmentPath, "uninstall.exe");
             
             if (File.Exists(winPeUninstallerPath))
             {
@@ -498,8 +510,8 @@ public sealed class AdkService : IAdkService
 
             UpdateOperationProgress(50, "Uninstalling ADK...");
 
-            // Uninstall ADK second
-            var adkUninstallerPath = Path.Combine(adkPath, "Assessment and Deployment Kit", "Deployment Tools", "uninstall.exe");
+            // Uninstall ADK second (if installed)
+            var adkUninstallerPath = Path.Combine(adkPath, AdkBasePath, DeploymentToolsPath, "uninstall.exe");
             
             if (File.Exists(adkUninstallerPath))
             {
@@ -526,16 +538,20 @@ public sealed class AdkService : IAdkService
     {
         const int maxRetries = 10;
         const int delayMs = 500;
+        
+        // Capture the expected state after the operation completes (inverse of current state)
+        // If currently installed, we expect it to be uninstalled after the operation, and vice versa
+        var expectedState = !_isAdkInstalled;
 
         for (int i = 0; i < maxRetries; i++)
         {
             await Task.Delay(delayMs);
             
-            // Check if registry has been updated
+            // Check if registry has been updated to the expected state
             var currentInstallState = CheckAdkInstalled();
-            if (currentInstallState != _isAdkInstalled)
+            if (currentInstallState == expectedState)
             {
-                // Registry state changed, update is complete
+                // Registry state changed to expected value, update is complete
                 return;
             }
         }
