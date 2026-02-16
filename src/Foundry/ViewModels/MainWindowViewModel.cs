@@ -18,6 +18,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     public ILocalizationService LocalizationService => _localizationService;
     public CultureInfo CurrentCulture => _localizationService.CurrentCulture;
+    public ThemeMode CurrentTheme => _themeService.CurrentTheme;
     public StringsWrapper Strings => _localizationService.Strings;
 
     public MainWindowViewModel(
@@ -48,18 +49,21 @@ public partial class MainWindowViewModel : ObservableObject
     private void SetSystemTheme()
     {
         _themeService.SetTheme(ThemeMode.System);
+        OnPropertyChanged(nameof(CurrentTheme));
     }
 
     [RelayCommand]
     private void SetLightTheme()
     {
         _themeService.SetTheme(ThemeMode.Light);
+        OnPropertyChanged(nameof(CurrentTheme));
     }
 
     [RelayCommand]
     private void SetDarkTheme()
     {
         _themeService.SetTheme(ThemeMode.Dark);
+        OnPropertyChanged(nameof(CurrentTheme));
     }
 
     [RelayCommand]

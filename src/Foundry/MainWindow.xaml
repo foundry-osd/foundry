@@ -13,6 +13,7 @@
     mc:Ignorable="d">
     <Window.Resources>
         <converters:CultureToBooleanConverter x:Key="CultureToBooleanConverter" />
+        <converters:ThemeModeToBooleanConverter x:Key="ThemeModeToBooleanConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -31,9 +32,21 @@
                     IsChecked="{Binding IsAdvancedEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </MenuItem>
             <MenuItem Header="{Binding Strings[MenuTheme]}">
-                <MenuItem Command="{Binding SetSystemThemeCommand}" Header="{Binding Strings[ThemeSystem]}" />
-                <MenuItem Command="{Binding SetLightThemeCommand}" Header="{Binding Strings[ThemeLight]}" />
-                <MenuItem Command="{Binding SetDarkThemeCommand}" Header="{Binding Strings[ThemeDark]}" />
+                <MenuItem
+                    Command="{Binding SetSystemThemeCommand}"
+                    Header="{Binding Strings[ThemeSystem]}"
+                    IsCheckable="True"
+                    IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=System, Mode=OneWay}" />
+                <MenuItem
+                    Command="{Binding SetLightThemeCommand}"
+                    Header="{Binding Strings[ThemeLight]}"
+                    IsCheckable="True"
+                    IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
+                <MenuItem
+                    Command="{Binding SetDarkThemeCommand}"
+                    Header="{Binding Strings[ThemeDark]}"
+                    IsCheckable="True"
+                    IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
             </MenuItem>
             <MenuItem Header="{Binding Strings[MenuLanguage]}">
                 <MenuItem
