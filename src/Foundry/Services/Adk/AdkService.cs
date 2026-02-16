@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
@@ -24,10 +25,13 @@ public sealed class AdkService : IAdkService
     private const string WinPeInstallArguments = "/quiet /norestart";
     private const string AdkUninstallArguments = "/uninstall /quiet /norestart";
     private const string WinPeUninstallArguments = "/uninstall /quiet /norestart";
+    
+    // Keep these windows configurable in code so status checks are bounded but tolerant.
     private const int InstallStatePollDelayMs = 1000;
     private static readonly TimeSpan InstallStateWaitTimeout = TimeSpan.FromMinutes(5);
     private static readonly TimeSpan DeferredInstallStateWaitTimeout = TimeSpan.FromMinutes(15);
 
+    // Progress ranges are operation-specific to keep progress monotonic within each workflow.
     private const int DownloadDefaultStart = 0;
     private const int DownloadDefaultEnd = 100;
 
@@ -88,6 +92,9 @@ public sealed class AdkService : IAdkService
         RefreshStatus();
     }
 
+    /// <summary>
+    /// Recomputes ADK installation state and notifies subscribers.
+    /// </summary>
     public void RefreshStatus()
     {
         _isAdkInstalled = CheckAdkInstalled();
@@ -161,6 +168,8 @@ public sealed class AdkService : IAdkService
             return;
         }
 
+        // Refresh before evaluating uninstall eligibility to avoid stale cached state.
+        RefreshStatus();
         if (!_isAdkInstalled)
         {
             return;
@@ -199,6 +208,8 @@ public sealed class AdkService : IAdkService
             return;
         }
 
+        // Refresh before upgrade to make uninstall/upgrade branching deterministic.
+        RefreshStatus();
         try
         {
             SetOperationInProgress(true, "Upgrading ADK...", 0);
@@ -246,6 +257,9 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Detects ADK installation by validating expected folders under KitsRoot10.
+    /// </summary>
     private bool CheckAdkInstalled()
     {
         try
@@ -274,6 +288,9 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Resolves installed ADK version using strict uninstall match first, then localized component fallback.
+    /// </summary>
     private string? GetInstalledVersion()
     {
         try
@@ -292,6 +309,9 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Fallback version resolution for environments where the top-level ADK uninstall entry is missing or localized.
+    /// </summary>
     private static string? TryGetAdkVersionFromComponentUninstallEntries()
     {
         try
@@ -326,11 +346,10 @@ public sealed class AdkService : IAdkService
                     // Fallback detection for localized environments where no top-level ADK entry is present.
                     var isDeploymentTools = displayName.Equals("Windows Deployment Tools", StringComparison.OrdinalIgnoreCase);
                     var isWinPeComponent =
-                        displayName.Contains("WinPE", StringComparison.OrdinalIgnoreCase) ||
-                        (displayName.Contains("Windows PE", StringComparison.OrdinalIgnoreCase) &&
-                         (displayName.Contains("Deployment", StringComparison.OrdinalIgnoreCase) ||
-                          displayName.Contains("deploiement", StringComparison.OrdinalIgnoreCase) ||
-                          displayName.Contains("déploiement", StringComparison.OrdinalIgnoreCase)));
+                        ContainsTextIgnoreCaseAndDiacritics(displayName, "WinPE") ||
+                        (ContainsTextIgnoreCaseAndDiacritics(displayName, "Windows PE") &&
+                         (ContainsTextIgnoreCaseAndDiacritics(displayName, "Deployment") ||
+                          ContainsTextIgnoreCaseAndDiacritics(displayName, "deploiement")));
 
                     if (isDeploymentTools || isWinPeComponent)
                     {
@@ -344,6 +363,7 @@ public sealed class AdkService : IAdkService
                 return null;
             }
 
+            // Prefer the most frequent component version, then the highest parsed value.
             var selectedVersion = candidateVersions
                 .GroupBy(v => v, StringComparer.OrdinalIgnoreCase)
                 .Select(group => new
@@ -364,6 +384,9 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Parses a version string safely and returns 0.0.0.0 when parsing fails.
+    /// </summary>
     private static Version TryParseVersionSafe(string value)
     {
         return Version.TryParse(value, out var parsed)
@@ -371,6 +394,20 @@ public sealed class AdkService : IAdkService
             : new Version(0, 0, 0, 0);
     }
 
+    /// <summary>
+    /// Performs case-insensitive, diacritic-insensitive text matching.
+    /// </summary>
+    private static bool ContainsTextIgnoreCaseAndDiacritics(string source, string value)
+    {
+        return CultureInfo.InvariantCulture.CompareInfo.IndexOf(
+            source,
+            value,
+            CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace) >= 0;
+    }
+
+    /// <summary>
+    /// Keeps strict ADK uninstall entry matching by design.
+    /// </summary>
     private static (bool Installed, string? Version) TryGetAdkVersionFromUninstall()
     {
         try
@@ -415,6 +452,9 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Validates the installed ADK version against the supported 24H2 baseline.
+    /// </summary>
     private bool CheckAdkCompatible()
     {
         if (!_isAdkInstalled || string.IsNullOrEmpty(_installedVersion))
@@ -439,6 +479,9 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Initializes operation state and emits a progress event.
+    /// </summary>
     private void SetOperationInProgress(bool inProgress, string? status, int progress)
     {
         _isOperationInProgress = inProgress;
@@ -447,6 +490,9 @@ public sealed class AdkService : IAdkService
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    /// Updates operation status while enforcing monotonic progress during active operations.
+    /// </summary>
     private void UpdateOperationProgress(int progress, string? status)
     {
         var normalizedProgress = Math.Clamp(progress, 0, 100);
@@ -457,6 +503,9 @@ public sealed class AdkService : IAdkService
         OperationProgressChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    /// Ensures ADK and WinPE setup binaries are present in temp storage, downloading when required.
+    /// </summary>
     private async Task EnsureInstallersDownloadedAsync(int progressStart, int progressEnd, bool forceDownload)
     {
         if (progressEnd < progressStart)
@@ -493,6 +542,9 @@ public sealed class AdkService : IAdkService
         _downloadedWinPeInstallerPath = winPeInstallerPath;
     }
 
+    /// <summary>
+    /// Downloads a file and maps per-file progress into the caller's global progress range.
+    /// </summary>
     private async Task DownloadFileAsync(string url, string filePath, int progressStart, int progressEnd, string componentName)
     {
         using (var httpClient = new HttpClient())
@@ -529,6 +581,9 @@ public sealed class AdkService : IAdkService
         UpdateOperationProgress(progressEnd, $"{componentName} download completed.");
     }
 
+    /// <summary>
+    /// Runs ADK and WinPE setup in install mode.
+    /// </summary>
     private async Task InstallAdkInternalAsync(int adkProgressStart, int adkProgressEnd, int winPeProgressStart, int winPeProgressEnd)
     {
         EnsureInstallersAvailable();
@@ -541,6 +596,9 @@ public sealed class AdkService : IAdkService
         UpdateOperationProgress(winPeProgressEnd, "WinPE Add-on installation completed.");
     }
 
+    /// <summary>
+    /// Runs WinPE and ADK setup in uninstall mode.
+    /// </summary>
     private async Task UninstallAdkInternalAsync(int winPeProgressStart, int winPeProgressEnd, int adkProgressStart, int adkProgressEnd)
     {
         EnsureInstallersAvailable();
@@ -553,6 +611,9 @@ public sealed class AdkService : IAdkService
         UpdateOperationProgress(adkProgressEnd, "ADK Deployment Tools uninstallation completed.");
     }
 
+    /// <summary>
+    /// Verifies that downloaded installer paths exist before invoking setup processes.
+    /// </summary>
     private void EnsureInstallersAvailable()
     {
         if (string.IsNullOrWhiteSpace(_downloadedAdkInstallerPath) || !File.Exists(_downloadedAdkInstallerPath))
@@ -566,6 +627,9 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Executes an external process and throws on startup or non-zero exit.
+    /// </summary>
     private static async Task RunProcessOrThrowAsync(string executablePath, string arguments, string operationName)
     {
         if (!File.Exists(executablePath))
@@ -595,6 +659,10 @@ public sealed class AdkService : IAdkService
         }
     }
 
+    /// <summary>
+    /// Polls installation state until expected value is reached or timeout expires.
+    /// Returns false on timeout without throwing to support soft verification behavior.
+    /// </summary>
     private async Task<bool> WaitForInstallStateAsync(
         bool expectedInstalled,
         int progressStart,
@@ -603,6 +671,11 @@ public sealed class AdkService : IAdkService
         int pollDelayMs = InstallStatePollDelayMs,
         bool reportProgress = true)
     {
+        if (pollDelayMs <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pollDelayMs), "Poll delay must be a positive number of milliseconds.");
+        }
+
         var effectiveTimeout = timeout ?? InstallStateWaitTimeout;
         var maxRetries = Math.Max(1, (int)Math.Ceiling(effectiveTimeout.TotalMilliseconds / pollDelayMs));
         string expectedStateText = expectedInstalled ? "installed" : "uninstalled";
@@ -647,8 +720,12 @@ public sealed class AdkService : IAdkService
         return false;
     }
 
+    /// <summary>
+    /// Triggers a background state reconciliation when immediate verification times out.
+    /// </summary>
     private void StartDeferredStatusRefresh(bool expectedInstalled, SynchronizationContext? synchronizationContext)
     {
+        // Fire-and-forget reconciliation in case registry state propagation lags behind setup exit.
         _ = Task.Run(async () =>
         {
             await WaitForInstallStateAsync(
