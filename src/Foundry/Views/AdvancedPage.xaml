@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!--  ADK Banner  -->
-        <controls:AdkBanner Grid.Row="0" />
+        <controls:AdkBanner x:Name="AdkBannerControl" Grid.Row="0" />
 
         <!--  Main Content  -->
         <Grid Grid.Row="1" Margin="16">

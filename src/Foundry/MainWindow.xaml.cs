@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 using Foundry.ViewModels;
 using Foundry.Views;
 
@@ -15,6 +17,8 @@ public partial class MainWindow : Window
     private readonly MainWindowViewModel _viewModel;
     private readonly StandardPage _standardPage;
     private readonly AdvancedPage _advancedPage;
+    private bool _isAdvancedEnabled;
+    private FrameworkElement? _currentBanner;
 
     public MainWindow(
         MainWindowViewModel viewModel,
@@ -29,6 +33,11 @@ public partial class MainWindow : Window
 
         DataContext = _viewModel;
         _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+        _standardPage.Banner.SizeChanged += OnBannerLayoutChanged;
+        _standardPage.Banner.IsVisibleChanged += OnBannerVisibilityChanged;
+        _advancedPage.Banner.SizeChanged += OnBannerLayoutChanged;
+        _advancedPage.Banner.IsVisibleChanged += OnBannerVisibilityChanged;
+        Loaded += OnLoaded;
 
         ApplyMode(_viewModel.IsAdvancedEnabled);
     }
@@ -36,6 +45,11 @@ public partial class MainWindow : Window
     protected override void OnClosed(EventArgs e)
     {
         _viewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        _standardPage.Banner.SizeChanged -= OnBannerLayoutChanged;
+        _standardPage.Banner.IsVisibleChanged -= OnBannerVisibilityChanged;
+        _advancedPage.Banner.SizeChanged -= OnBannerLayoutChanged;
+        _advancedPage.Banner.IsVisibleChanged -= OnBannerVisibilityChanged;
+        Loaded -= OnLoaded;
         base.OnClosed(e);
     }
 
@@ -51,16 +65,59 @@ public partial class MainWindow : Window
 
     private void ApplyMode(bool isAdvancedEnabled)
     {
+        _isAdvancedEnabled = isAdvancedEnabled;
         ContentFrame.Navigate(isAdvancedEnabled ? _advancedPage : _standardPage);
+        _currentBanner = isAdvancedEnabled ? _advancedPage.Banner : _standardPage.Banner;
+        UpdateWindowSizeDeferred();
+    }
 
-        if (isAdvancedEnabled)
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        UpdateWindowSizeDeferred();
+    }
+
+    private void OnBannerLayoutChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (!ReferenceEquals(sender, _currentBanner))
         {
-            Width = AdvancedWidth;
-            Height = AdvancedHeight;
             return;
         }
 
-        Width = StandardWidth;
-        Height = StandardHeight;
+        UpdateWindowSizeDeferred();
+    }
+
+    private void OnBannerVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (!ReferenceEquals(sender, _currentBanner))
+        {
+            return;
+        }
+
+        UpdateWindowSizeDeferred();
+    }
+
+    private void UpdateWindowSizeDeferred()
+    {
+        Dispatcher.BeginInvoke(UpdateWindowSize, DispatcherPriority.Loaded);
+    }
+
+    private void UpdateWindowSize()
+    {
+        var baseWidth = _isAdvancedEnabled ? AdvancedWidth : StandardWidth;
+        var baseHeight = _isAdvancedEnabled ? AdvancedHeight : StandardHeight;
+        var bannerHeight = GetVisibleBannerHeight();
+
+        Width = baseWidth;
+        Height = baseHeight + bannerHeight;
+    }
+
+    private double GetVisibleBannerHeight()
+    {
+        if (_currentBanner is null || !_currentBanner.IsVisible)
+        {
+            return 0;
+        }
+
+        return _currentBanner.ActualHeight;
     }
 }
