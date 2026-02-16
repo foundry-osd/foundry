@@ -98,10 +98,10 @@
     <value>_À propos</value>
   </data>
   <data name="AdkBannerMissing" xml:space="preserve">
-    <value>Windows ADK n'est pas installé. Veuillez installer ADK pour Windows 11 24H2 pour activer la création d'ISO et USB.</value>
+    <value>Windows ADK n’est pas installé. Merci d’installer ADK 11 24H2 pour activer la création d’ISO et USB.</value>
   </data>
   <data name="AdkBannerIncompatible" xml:space="preserve">
-    <value>La version de Windows ADK installée n'est pas compatible avec Windows 11 24H2. Veuillez mettre à niveau pour activer la création d'ISO et USB.</value>
+    <value>La version de Windows ADK installée n'est pas compatible avec Foundry. Veuillez mettre à niveau pour activer la création d'ISO et USB.</value>
   </data>
   <data name="AdkDownload" xml:space="preserve">
     <value>Télécharger ADK</value>

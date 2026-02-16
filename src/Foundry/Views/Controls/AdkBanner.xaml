@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border
         Padding="16,12"
-        Background="#FFFFCC00"
-        BorderBrush="#FFFF9800"
+        Background="{DynamicResource SystemFillColorCriticalBackgroundBrush}"
         BorderThickness="0,0,0,2"
         Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid>
@@ -17,8 +16,8 @@
             <TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                FontWeight="Bold"
-                Foreground="Black"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Text="{Binding Strings[AdkBannerMissing]}"
                 TextWrapping="Wrap"
                 Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -26,15 +25,15 @@
             <TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                FontWeight="Bold"
-                Foreground="Black"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Text="{Binding Strings[AdkBannerIncompatible]}"
                 TextWrapping="Wrap"
                 Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <Button
                 Grid.Column="1"
-                Margin="8,0,0,0"
+                Margin="12,0,0,0"
                 Command="{Binding InstallAdkCommand}"
                 Content="{Binding Strings[AdkInstall]}"
                 IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
@@ -42,7 +41,7 @@
 
             <Button
                 Grid.Column="1"
-                Margin="8,0,0,0"
+                Margin="12,0,0,0"
                 Command="{Binding UpgradeAdkCommand}"
                 Content="{Binding Strings[AdkUpgrade]}"
                 IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
