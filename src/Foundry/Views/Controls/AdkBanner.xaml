@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border
         Padding="16,12"
-        Background="{DynamicResource SystemFillColorCriticalBackgroundBrush}"
+        Background="#D97706"
         BorderThickness="0,0,0,2"
         Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid>
