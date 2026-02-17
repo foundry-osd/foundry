@@ -22,51 +22,57 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0">
-            <MenuItem Header="{Binding Strings[MenuFile]}">
-                <MenuItem Command="{Binding ExitCommand}" Header="{Binding Strings[MenuExit]}" />
-            </MenuItem>
-            <MenuItem Header="{Binding Strings[MenuOptions]}">
-                <MenuItem
-                    Header="{Binding Strings[MenuAdvanced]}"
-                    IsCheckable="True"
-                    IsChecked="{Binding IsAdvancedEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </MenuItem>
-            <MenuItem Header="{Binding Strings[MenuTheme]}">
-                <MenuItem
-                    Command="{Binding SetSystemThemeCommand}"
-                    Header="{Binding Strings[ThemeSystem]}"
-                    IsCheckable="True"
-                    IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=System, Mode=OneWay}" />
-                <MenuItem
-                    Command="{Binding SetLightThemeCommand}"
-                    Header="{Binding Strings[ThemeLight]}"
-                    IsCheckable="True"
-                    IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
-                <MenuItem
-                    Command="{Binding SetDarkThemeCommand}"
-                    Header="{Binding Strings[ThemeDark]}"
-                    IsCheckable="True"
-                    IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
-            </MenuItem>
-            <MenuItem Header="{Binding Strings[MenuLanguage]}">
-                <MenuItem
-                    Command="{Binding SetCultureCommand}"
-                    CommandParameter="en-US"
-                    Header="{Binding Strings[LanguageEnglish]}"
-                    IsCheckable="True"
-                    IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=en-US, Mode=OneWay}" />
-                <MenuItem
-                    Command="{Binding SetCultureCommand}"
-                    CommandParameter="fr-FR"
-                    Header="{Binding Strings[LanguageFrench]}"
-                    IsCheckable="True"
-                    IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=fr-FR, Mode=OneWay}" />
-            </MenuItem>
-            <MenuItem Header="{Binding Strings[MenuHelp]}">
-                <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[MenuAbout]}" />
-            </MenuItem>
-        </Menu>
+        <Border
+            Grid.Row="0"
+            Background="Transparent"
+            BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
+            BorderThickness="0,0,0,1">
+            <Menu>
+                <MenuItem Header="{Binding Strings[MenuFile]}">
+                    <MenuItem Command="{Binding ExitCommand}" Header="{Binding Strings[MenuExit]}" />
+                </MenuItem>
+                <MenuItem Header="{Binding Strings[MenuOptions]}">
+                    <MenuItem
+                        Header="{Binding Strings[MenuAdvanced]}"
+                        IsCheckable="True"
+                        IsChecked="{Binding IsAdvancedEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </MenuItem>
+                <MenuItem Header="{Binding Strings[MenuTheme]}">
+                    <MenuItem
+                        Command="{Binding SetSystemThemeCommand}"
+                        Header="{Binding Strings[ThemeSystem]}"
+                        IsCheckable="True"
+                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=System, Mode=OneWay}" />
+                    <MenuItem
+                        Command="{Binding SetLightThemeCommand}"
+                        Header="{Binding Strings[ThemeLight]}"
+                        IsCheckable="True"
+                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
+                    <MenuItem
+                        Command="{Binding SetDarkThemeCommand}"
+                        Header="{Binding Strings[ThemeDark]}"
+                        IsCheckable="True"
+                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
+                </MenuItem>
+                <MenuItem Header="{Binding Strings[MenuLanguage]}">
+                    <MenuItem
+                        Command="{Binding SetCultureCommand}"
+                        CommandParameter="en-US"
+                        Header="{Binding Strings[LanguageEnglish]}"
+                        IsCheckable="True"
+                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=en-US, Mode=OneWay}" />
+                    <MenuItem
+                        Command="{Binding SetCultureCommand}"
+                        CommandParameter="fr-FR"
+                        Header="{Binding Strings[LanguageFrench]}"
+                        IsCheckable="True"
+                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=fr-FR, Mode=OneWay}" />
+                </MenuItem>
+                <MenuItem Header="{Binding Strings[MenuHelp]}">
+                    <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[MenuAbout]}" />
+                </MenuItem>
+            </Menu>
+        </Border>
 
         <Frame
             x:Name="ContentFrame"
