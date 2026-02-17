@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Border
@@ -74,17 +75,19 @@
             </Menu>
         </Border>
 
+        <!--  Content Frame  -->
         <Frame
             x:Name="ContentFrame"
             Grid.Row="1"
             NavigationUIVisibility="Hidden" />
 
+        <!--  Global Operation Status  -->
         <Border
             Grid.Row="2"
             Padding="12,8"
             Background="Transparent"
             BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
-            BorderThickness="0,1,0,0">
+            BorderThickness="0,1,0,1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -105,5 +108,32 @@
                     Value="{Binding GlobalOperationProgress, Mode=OneWay}" />
             </Grid>
         </Border>
+
+        <!--  Footer  -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Padding="12,8"
+                BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
+                BorderThickness="0,0,1,0">
+                <TextBlock
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Peripheriques USB : 3" />
+            </Border>
+
+            <Border Grid.Column="1" Padding="12,8">
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Version : 1.0.0.0" />
+            </Border>
+        </Grid>
     </Grid>
 </Window>
