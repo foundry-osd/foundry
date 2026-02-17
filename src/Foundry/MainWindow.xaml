@@ -8,7 +8,7 @@
     Title="Foundry"
     Width="600"
     Height="800"
-    ResizeMode="NoResize"
+    ResizeMode="CanMinimize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
