@@ -4,7 +4,6 @@ using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Theme;
 using Foundry.ViewModels;
-using Foundry.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundry;
@@ -30,11 +29,6 @@ public static class Program
         services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
-
-        services.AddSingleton<StandardPage>();
-        services.AddSingleton<AdvancedPage>();
-        services.AddSingleton<StandardPageViewModel>();
-        services.AddSingleton<AdvancedPageViewModel>();
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IThemeService, ThemeService>();

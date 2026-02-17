@@ -1,6 +1,8 @@
+using System.Diagnostics;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
@@ -14,9 +16,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IThemeService _themeService;
     private readonly ILocalizationService _localizationService;
     private readonly IOperationProgressService _operationProgressService;
+    private readonly IAdkService _adkService;
 
     [ObservableProperty]
-    private bool isAdvancedEnabled;
+    private bool showAdkBanner;
+
+    [ObservableProperty]
+    private bool isAdkMissing;
+
+    [ObservableProperty]
+    private bool isAdkIncompatible;
+
+    [ObservableProperty]
+    private bool canCreateMedia;
+
+    [ObservableProperty]
+    private bool isOperationInProgress;
 
     public ILocalizationService LocalizationService => _localizationService;
     public CultureInfo CurrentCulture => _localizationService.CurrentCulture;
@@ -32,21 +47,30 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IApplicationShellService applicationShellService,
         IThemeService themeService,
         ILocalizationService localizationService,
-        IOperationProgressService operationProgressService)
+        IOperationProgressService operationProgressService,
+        IAdkService adkService)
     {
         _applicationShellService = applicationShellService;
         _themeService = themeService;
         _localizationService = localizationService;
         _operationProgressService = operationProgressService;
+        _adkService = adkService;
 
         _localizationService.LanguageChanged += OnLanguageChanged;
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
+        _adkService.AdkStatusChanged += OnAdkStatusChanged;
+        _adkService.OperationProgressChanged += OnAdkOperationProgressChanged;
+
+        UpdateAdkStatus();
+        UpdateOperationState();
     }
 
     public void Dispose()
     {
         _localizationService.LanguageChanged -= OnLanguageChanged;
         _operationProgressService.ProgressChanged -= OnOperationProgressChanged;
+        _adkService.AdkStatusChanged -= OnAdkStatusChanged;
+        _adkService.OperationProgressChanged -= OnAdkOperationProgressChanged;
     }
 
     [RelayCommand]
@@ -88,6 +112,70 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _localizationService.SetCulture(new CultureInfo(cultureName));
     }
 
+    [RelayCommand]
+    private async Task DownloadAdkAsync()
+    {
+        try
+        {
+            await _adkService.DownloadAdkAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error downloading ADK: {ex.Message}");
+        }
+    }
+
+    [RelayCommand]
+    private async Task InstallAdkAsync()
+    {
+        try
+        {
+            await _adkService.InstallAdkAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error installing ADK: {ex.Message}");
+        }
+    }
+
+    [RelayCommand]
+    private async Task UpgradeAdkAsync()
+    {
+        try
+        {
+            await _adkService.UpgradeAdkAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error upgrading ADK: {ex.Message}");
+        }
+    }
+
+    [RelayCommand]
+    private async Task UninstallAdkAsync()
+    {
+        try
+        {
+            await _adkService.UninstallAdkAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error uninstalling ADK: {ex.Message}");
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanCreateMedia))]
+    private void CreateIso()
+    {
+        // TODO: Implement ISO creation.
+    }
+
+    [RelayCommand(CanExecute = nameof(CanCreateMedia))]
+    private void CreateUsb()
+    {
+        // TODO: Implement USB creation.
+    }
+
     private void OnLanguageChanged(object? sender, EventArgs e)
     {
         OnPropertyChanged(nameof(CurrentCulture));
@@ -100,5 +188,31 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(GlobalOperationProgress));
         OnPropertyChanged(nameof(IsGlobalOperationInProgress));
         OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
+    }
+
+    private void OnAdkStatusChanged(object? sender, EventArgs e)
+    {
+        UpdateAdkStatus();
+    }
+
+    private void OnAdkOperationProgressChanged(object? sender, EventArgs e)
+    {
+        UpdateOperationState();
+    }
+
+    private void UpdateAdkStatus()
+    {
+        IsAdkMissing = !_adkService.IsAdkInstalled;
+        IsAdkIncompatible = _adkService.IsAdkInstalled && !_adkService.IsAdkCompatible;
+        ShowAdkBanner = IsAdkMissing || IsAdkIncompatible;
+        CanCreateMedia = _adkService.IsAdkCompatible;
+
+        CreateIsoCommand.NotifyCanExecuteChanged();
+        CreateUsbCommand.NotifyCanExecuteChanged();
+    }
+
+    private void UpdateOperationState()
+    {
+        IsOperationInProgress = _adkService.IsAnyOperationInProgress;
     }
 }
