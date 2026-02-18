@@ -418,16 +418,18 @@ public sealed class MediaOutputService : IMediaOutputService
                 $"Expected path: '{ocRoot}'.");
         }
 
+        // Keep installation order aligned with Microsoft dependency requirements:
+        // WinPE-WMI > WinPE-NetFX > WinPE-Scripting > WinPE-PowerShell > (WinPE-DismCmdlets, WinPE-StorageWMI).
         string[] components =
         [
-            "WinPE-DismCmdlets",
-            "WinPE-Dot3Svc",
-            "WinPE-EnhancedStorage",
+            "WinPE-WMI",
             "WinPE-NetFX",
-            "WinPE-PowerShell",
             "WinPE-Scripting",
+            "WinPE-PowerShell",
+            "WinPE-DismCmdlets",
             "WinPE-StorageWMI",
-            "WinPE-WMI"
+            "WinPE-Dot3Svc",
+            "WinPE-EnhancedStorage"
         ];
         string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
         int installed = 0;
