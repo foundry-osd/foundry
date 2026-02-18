@@ -90,7 +90,7 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             _operationProgressService.Report(48, "Applying image customizations.");
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, options.StartupBootstrapScriptPath, options.StartupBootstrapScriptContent, drivers.Value!, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -190,7 +190,7 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             _operationProgressService.Report(48, "Applying image customizations.");
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, options.StartupBootstrapScriptPath, options.StartupBootstrapScriptContent, drivers.Value!, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -284,7 +284,7 @@ public sealed class MediaOutputService : IMediaOutputService
             : WinPeResult<IReadOnlyList<string>>.Failure(prepared.Error!);
     }
 
-    private async Task<WinPeResult> CustomizeImageAsync(WinPeBuildArtifact artifact, WinPeToolPaths tools, string? scriptPath, string? scriptContent, IReadOnlyList<string> driverDirectories, CancellationToken cancellationToken)
+    private async Task<WinPeResult> CustomizeImageAsync(WinPeBuildArtifact artifact, WinPeToolPaths tools, IReadOnlyList<string> driverDirectories, CancellationToken cancellationToken)
     {
         WinPeResult<WinPeMountSession> mount = await WinPeMountSession.MountAsync(_processRunner, tools.DismPath, artifact.BootWimPath, artifact.MountDirectoryPath, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!mount.IsSuccess)
@@ -311,45 +311,48 @@ public sealed class MediaOutputService : IMediaOutputService
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(scriptPath) || !string.IsNullOrWhiteSpace(scriptContent))
+        WinPeResult addComponentsResult = await AddPowerShellComponentsAsync(
+            session.MountDirectoryPath,
+            artifact.Architecture,
+            tools,
+            artifact.WorkingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+        if (!addComponentsResult.IsSuccess)
         {
-            WinPeResult addComponentsResult = await AddPowerShellComponentsAsync(
-                session.MountDirectoryPath,
-                artifact.Architecture,
-                tools,
-                artifact.WorkingDirectoryPath,
-                cancellationToken).ConfigureAwait(false);
-            if (!addComponentsResult.IsSuccess)
-            {
-                await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
-                return addComponentsResult;
-            }
-
-            if (!string.IsNullOrWhiteSpace(scriptPath) && !File.Exists(scriptPath))
-            {
-                await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
-                return WinPeResult.Failure(
-                    WinPeErrorCodes.ValidationFailed,
-                    "Startup bootstrap script path does not exist.",
-                    $"Path: '{scriptPath}'.");
-            }
-
-            string content = !string.IsNullOrWhiteSpace(scriptContent)
-                ? scriptContent
-                : await File.ReadAllTextAsync(scriptPath!, cancellationToken).ConfigureAwait(false);
-
-            string system32 = Path.Combine(session.MountDirectoryPath, "Windows", "System32");
-            Directory.CreateDirectory(system32);
-            await File.WriteAllTextAsync(Path.Combine(system32, "FoundryBootstrap.ps1"), content, new UTF8Encoding(false), cancellationToken).ConfigureAwait(false);
-            string startnet = Path.Combine(system32, "startnet.cmd");
-            string[] lines = File.Exists(startnet) ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false) : ["wpeinit"];
-            var merged = lines.ToList();
-            if (!merged.Any(line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase)))
-            {
-                merged.Add("powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\\Windows\\System32\\FoundryBootstrap.ps1");
-            }
-            await File.WriteAllLinesAsync(startnet, merged, cancellationToken).ConfigureAwait(false);
+            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            return addComponentsResult;
         }
+
+        string system32 = Path.Combine(session.MountDirectoryPath, "Windows", "System32");
+        Directory.CreateDirectory(system32);
+        string bootstrapScriptContent;
+        try
+        {
+            bootstrapScriptContent = WinPeDefaults.GetDefaultBootstrapScriptContent();
+        }
+        catch (Exception ex)
+        {
+            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                "Failed to load embedded WinPE bootstrap script.",
+                ex.ToString());
+        }
+
+        await File.WriteAllTextAsync(
+            Path.Combine(system32, WinPeDefaults.DefaultBootstrapScriptFileName),
+            bootstrapScriptContent,
+            new UTF8Encoding(false),
+            cancellationToken).ConfigureAwait(false);
+
+        string startnet = Path.Combine(session.MountDirectoryPath, WinPeDefaults.DefaultStartnetPathInImage);
+        string[] lines = File.Exists(startnet) ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false) : ["wpeinit"];
+        var merged = lines.ToList();
+        if (!merged.Any(line => line.Contains(WinPeDefaults.DefaultBootstrapScriptFileName, StringComparison.OrdinalIgnoreCase)))
+        {
+            merged.Add(WinPeDefaults.DefaultBootstrapInvocation);
+        }
+        await File.WriteAllLinesAsync(startnet, merged, cancellationToken).ConfigureAwait(false);
 
         return await session.CommitAsync(cancellationToken).ConfigureAwait(false);
     }

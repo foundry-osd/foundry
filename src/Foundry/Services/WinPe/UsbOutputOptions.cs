@@ -17,8 +17,6 @@ public sealed record UsbOutputOptions
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = Array.Empty<WinPeVendorSelection>();
     public string DriverCatalogUri { get; init; } = WinPeDefaults.DefaultUnifiedCatalogUri;
 
-    public string? StartupBootstrapScriptPath { get; init; }
-    public string? StartupBootstrapScriptContent { get; init; }
     public bool RunPca2023RemediationWhenBootExUnsupported { get; init; }
     public string? Pca2023RemediationScriptPath { get; init; }
 

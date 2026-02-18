@@ -66,9 +66,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool includeHpDrivers;
 
     [ObservableProperty]
-    private string startupBootstrapScriptPath = string.Empty;
-
-    [ObservableProperty]
     private bool enablePcaRemediation;
 
     [ObservableProperty]
@@ -280,7 +277,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
                 DriverVendors = GetSelectedDriverVendors(),
-                StartupBootstrapScriptPath = string.IsNullOrWhiteSpace(StartupBootstrapScriptPath) ? null : StartupBootstrapScriptPath,
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
             });
@@ -339,7 +335,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
                 DriverVendors = GetSelectedDriverVendors(),
-                StartupBootstrapScriptPath = string.IsNullOrWhiteSpace(StartupBootstrapScriptPath) ? null : StartupBootstrapScriptPath,
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
             });
