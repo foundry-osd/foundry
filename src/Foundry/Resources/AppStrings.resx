@@ -247,49 +247,4 @@
   <data name="AdkStatusVerificationPending" xml:space="preserve">
     <value>Installer finished, but ADK verification is still pending.</value>
   </data>
-  <data name="UsbRefreshDisks" xml:space="preserve">
-    <value>Refresh USB</value>
-  </data>
-  <data name="StagingPathLabel" xml:space="preserve">
-    <value>Staging path</value>
-  </data>
-  <data name="IsoOutputPathLabel" xml:space="preserve">
-    <value>ISO output path</value>
-  </data>
-  <data name="ArchitectureLabel" xml:space="preserve">
-    <value>Architecture</value>
-  </data>
-  <data name="SignatureModeLabel" xml:space="preserve">
-    <value>Signature mode</value>
-  </data>
-  <data name="VendorLabel" xml:space="preserve">
-    <value>Driver vendor</value>
-  </data>
-  <data name="MediaOptionsLabel" xml:space="preserve">
-    <value>Media options</value>
-  </data>
-  <data name="IncludeDriversLabel" xml:space="preserve">
-    <value>Include drivers</value>
-  </data>
-  <data name="IncludePreviewDriversLabel" xml:space="preserve">
-    <value>Include preview drivers</value>
-  </data>
-  <data name="UsbDiskLabel" xml:space="preserve">
-    <value>USB target disk</value>
-  </data>
-  <data name="UsbBootDriveLabel" xml:space="preserve">
-    <value>USB boot drive letter</value>
-  </data>
-  <data name="UsbPartitionStyleLabel" xml:space="preserve">
-    <value>USB partition style</value>
-  </data>
-  <data name="UsbExpectedCodeLabel" xml:space="preserve">
-    <value>Expected confirmation code</value>
-  </data>
-  <data name="UsbConfirmationCodeLabel" xml:space="preserve">
-    <value>Confirmation code (1/2)</value>
-  </data>
-  <data name="UsbConfirmationCodeRepeatLabel" xml:space="preserve">
-    <value>Confirmation code (2/2)</value>
-  </data>
 </root>

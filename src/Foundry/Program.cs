@@ -3,7 +3,6 @@ using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Theme;
-using Foundry.Services.WinPe;
 using Foundry.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,10 +35,6 @@ public static class Program
         services.AddSingleton<ILocalizationService, LocalizationService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IAdkService, AdkService>();
-        services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
-        services.AddSingleton<IWinPeDriverCatalogService, WinPeDriverCatalogService>();
-        services.AddSingleton<IWinPeDriverInjectionService, WinPeDriverInjectionService>();
-        services.AddSingleton<IMediaOutputService, MediaOutputService>();
 
         return services.BuildServiceProvider();
     }
