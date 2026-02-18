@@ -247,4 +247,49 @@
   <data name="AdkStatusVerificationPending" xml:space="preserve">
     <value>L’installation est terminée, mais la vérification ADK est toujours en attente.</value>
   </data>
+  <data name="UsbRefreshDisks" xml:space="preserve">
+    <value>Actualiser USB</value>
+  </data>
+  <data name="StagingPathLabel" xml:space="preserve">
+    <value>Chemin de staging</value>
+  </data>
+  <data name="IsoOutputPathLabel" xml:space="preserve">
+    <value>Chemin de sortie ISO</value>
+  </data>
+  <data name="ArchitectureLabel" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="SignatureModeLabel" xml:space="preserve">
+    <value>Mode de signature</value>
+  </data>
+  <data name="VendorLabel" xml:space="preserve">
+    <value>Fournisseur de pilotes</value>
+  </data>
+  <data name="MediaOptionsLabel" xml:space="preserve">
+    <value>Options média</value>
+  </data>
+  <data name="IncludeDriversLabel" xml:space="preserve">
+    <value>Inclure les pilotes</value>
+  </data>
+  <data name="IncludePreviewDriversLabel" xml:space="preserve">
+    <value>Inclure les pilotes preview</value>
+  </data>
+  <data name="UsbDiskLabel" xml:space="preserve">
+    <value>Disque USB cible</value>
+  </data>
+  <data name="UsbBootDriveLabel" xml:space="preserve">
+    <value>Lettre de lecteur BOOT USB</value>
+  </data>
+  <data name="UsbPartitionStyleLabel" xml:space="preserve">
+    <value>Style de partition USB</value>
+  </data>
+  <data name="UsbExpectedCodeLabel" xml:space="preserve">
+    <value>Code de confirmation attendu</value>
+  </data>
+  <data name="UsbConfirmationCodeLabel" xml:space="preserve">
+    <value>Code de confirmation (1/2)</value>
+  </data>
+  <data name="UsbConfirmationCodeRepeatLabel" xml:space="preserve">
+    <value>Code de confirmation (2/2)</value>
+  </data>
 </root>

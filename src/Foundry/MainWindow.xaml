@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Foundry"
-    Width="600"
+    Width="860"
     SizeToContent="Height"
     ResizeMode="CanMinimize"
     WindowStartupLocation="CenterScreen"
@@ -124,24 +124,99 @@
         <Grid Grid.Row="2" Margin="16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <StackPanel
                 Grid.Row="0"
-                Margin="0,0,0,16"
+                Margin="0,0,0,12"
                 Orientation="Horizontal">
                 <Button
                     Width="120"
                     Margin="0,0,8,0"
                     Command="{Binding CreateIsoCommand}"
-                    Content="{Binding Strings[CreateIso]}" />
+                    Content="{Binding Strings[CreateIso]}"
+                    IsEnabled="{Binding CanCreateMedia}" />
 
                 <Button
                     Width="120"
+                    Margin="0,0,8,0"
                     Command="{Binding CreateUsbCommand}"
-                    Content="{Binding Strings[CreateUsb]}" />
+                    Content="{Binding Strings[CreateUsb]}"
+                    IsEnabled="{Binding CanCreateMedia}" />
+
+                <Button
+                    Width="120"
+                    Command="{Binding RefreshUsbCandidatesCommand}"
+                    Content="{Binding Strings[UsbRefreshDisks]}"
+                    IsEnabled="{Binding IsRefreshingUsbCandidates, Converter={StaticResource InverseBooleanConverter}}" />
             </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="12"
+                BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
+                BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[StagingPathLabel]}" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,8" Text="{Binding StagingDirectoryPath, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[IsoOutputPathLabel]}" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,8" Text="{Binding IsoOutputPath, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[ArchitectureLabel]}" />
+                    <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" ItemsSource="{Binding AvailableArchitectures}" SelectedItem="{Binding SelectedArchitecture}" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[SignatureModeLabel]}" />
+                    <ComboBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,8" ItemsSource="{Binding AvailableSignatureModes}" SelectedItem="{Binding SelectedSignatureMode}" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[VendorLabel]}" />
+                    <ComboBox Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" ItemsSource="{Binding AvailableVendors}" SelectedItem="{Binding SelectedVendor}" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[MediaOptionsLabel]}" />
+                    <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,0,0,8">
+                        <CheckBox Margin="0,0,0,6" Content="{Binding Strings[IncludeDriversLabel]}" IsChecked="{Binding IncludeDrivers}" />
+                        <CheckBox Margin="0,0,0,6" Content="{Binding Strings[IncludePreviewDriversLabel]}" IsChecked="{Binding IncludePreviewDrivers}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[UsbDiskLabel]}" />
+                    <ComboBox Grid.Row="6" Grid.Column="1" Margin="0,0,0,8" DisplayMemberPath="DisplayLabel" ItemsSource="{Binding UsbDiskCandidates}" SelectedItem="{Binding SelectedUsbDiskCandidate}" />
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[UsbBootDriveLabel]}" />
+                    <TextBox Grid.Row="7" Grid.Column="1" Margin="0,0,0,8" Text="{Binding UsbBootDriveLetter, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[UsbPartitionStyleLabel]}" />
+                    <ComboBox Grid.Row="8" Grid.Column="1" Margin="0,0,0,8" ItemsSource="{Binding AvailablePartitionStyles}" SelectedItem="{Binding SelectedPartitionStyle}" />
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[UsbExpectedCodeLabel]}" />
+                    <TextBlock Grid.Row="9" Grid.Column="1" Margin="0,0,0,8" Text="{Binding ExpectedUsbConfirmationCode}" />
+
+                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[UsbConfirmationCodeLabel]}" />
+                    <TextBox Grid.Row="10" Grid.Column="1" Margin="0,0,0,8" Text="{Binding UsbConfirmationCode, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="11" Grid.Column="0" Margin="0,0,8,4" Text="{Binding Strings[UsbConfirmationCodeRepeatLabel]}" />
+                    <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding UsbConfirmationCodeRepeat, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </Border>
         </Grid>
 
         <!--  Global Operation Status  -->
@@ -153,6 +228,7 @@
             BorderThickness="0,1,0,1">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -169,6 +245,13 @@
                     Maximum="100"
                     Minimum="0"
                     Value="{Binding GlobalOperationProgress, Mode=OneWay}" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Margin="0,6,0,0"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding MediaActionMessage}" />
             </Grid>
         </Border>
 
@@ -187,7 +270,7 @@
                 <TextBlock
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="USB devices: 3" />
+                    Text="{Binding UsbDiskCandidates.Count, StringFormat=USB devices: {0}}" />
             </Border>
 
             <Border Grid.Column="1" Padding="12,8">
