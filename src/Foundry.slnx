@@ -3,7 +3,6 @@
     <Platform Name="x64" />
     <Platform Name="ARM64" />
   </Configurations>
-
   <Project Path="Foundry/Foundry.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />
