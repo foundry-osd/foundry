@@ -5,6 +5,8 @@ using Foundry.Services.Operations;
 using Foundry.Services.Theme;
 using Foundry.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using System.Security.Principal;
+using System.Windows;
 
 namespace Foundry;
 
@@ -13,6 +15,16 @@ public static class Program
     [STAThread]
     public static void Main()
     {
+        if (!IsRunningAsAdministrator())
+        {
+            MessageBox.Show(
+                "Foundry must be started with administrator privileges.",
+                "Administrator privileges required",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            return;
+        }
+
         using ServiceProvider serviceProvider = BuildServiceProvider();
 
         App app = serviceProvider.GetRequiredService<App>();
@@ -37,5 +49,17 @@ public static class Program
         services.AddSingleton<IAdkService, AdkService>();
 
         return services.BuildServiceProvider();
+    }
+
+    private static bool IsRunningAsAdministrator()
+    {
+        WindowsIdentity? identity = WindowsIdentity.GetCurrent();
+        if (identity is null)
+        {
+            return false;
+        }
+
+        WindowsPrincipal principal = new(identity);
+        return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 }
