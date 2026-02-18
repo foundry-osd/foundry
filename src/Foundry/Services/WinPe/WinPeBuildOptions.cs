@@ -8,5 +8,5 @@ public sealed record WinPeBuildOptions
     public string? AdkRootPath { get; init; }
     public bool CleanExistingWorkingDirectory { get; init; } = true;
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;
-    public WinPeSignatureMode SignatureMode { get; init; } = WinPeSignatureMode.Pca2023;
+    public WinPeSignatureMode SignatureMode { get; init; } = WinPeSignatureMode.Pca2011;
 }

@@ -44,6 +44,14 @@
 | Current code requires typed USB confirmation code | Planned: remove typed confirmation contract from UI flow and use warning dialog |
 | Current code requires user-supplied boot drive letter | Planned: auto-select drive letter in service/VM path |
 | Driver filtering supports only one vendor at a time | Planned: update options/catalog filtering for multi-vendor scenario |
+| Partial implementation accidentally started during plan-only request | Reverted immediately and proceeded with planning-only update before implementation |
+
+## Implementation Outcomes
+- Legacy USB confirmation-code flow was removed from VM and WinPE USB safety validation.
+- Legacy manual boot-letter flow was removed; USB BOOT/CACHE letters are now auto-assigned.
+- Legacy preview-driver option was removed from UI and driver resolution contract.
+- Legacy single-vendor selector was replaced by Dell/HP multi-selection logic.
+- Legacy staging-path field and related UI binding were removed from the main window.
 
 ## Resources
 - `src/Foundry/MainWindow.xaml`

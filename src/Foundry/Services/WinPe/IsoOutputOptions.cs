@@ -8,12 +8,10 @@ public sealed record IsoOutputOptions
     public string? WorkingDirectoryPath { get; init; }
     public string? AdkRootPath { get; init; }
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;
-    public WinPeSignatureMode SignatureMode { get; init; } = WinPeSignatureMode.Pca2023;
+    public WinPeSignatureMode SignatureMode { get; init; } = WinPeSignatureMode.Pca2011;
 
-    public WinPeVendorSelection Vendor { get; init; } = WinPeVendorSelection.Any;
+    public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = Array.Empty<WinPeVendorSelection>();
     public string DriverCatalogUri { get; init; } = WinPeDefaults.DefaultUnifiedCatalogUri;
-    public bool IncludeDrivers { get; init; } = true;
-    public bool IncludePreviewDrivers { get; init; }
 
     public string? StartupBootstrapScriptPath { get; init; }
     public string? StartupBootstrapScriptContent { get; init; }

@@ -83,7 +83,7 @@ public sealed class MediaOutputService : IMediaOutputService
 
             artifact = buildResult.Value!;
             _operationProgressService.Report(30, "Resolving and preparing drivers.");
-            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(options.IncludeDrivers, options.DriverCatalogUri, options.Architecture, options.Vendor, options.IncludePreviewDrivers, artifact, tools, cancellationToken).ConfigureAwait(false);
+            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(options.DriverCatalogUri, options.Architecture, options.DriverVendors, artifact, tools, cancellationToken).ConfigureAwait(false);
             if (!drivers.IsSuccess)
             {
                 return FailWithProgress(drivers.Error!);
@@ -183,7 +183,7 @@ public sealed class MediaOutputService : IMediaOutputService
 
             artifact = buildResult.Value!;
             _operationProgressService.Report(30, "Resolving and preparing drivers.");
-            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(options.IncludeDrivers, options.DriverCatalogUri, options.Architecture, options.Vendor, options.IncludePreviewDrivers, artifact, tools, cancellationToken).ConfigureAwait(false);
+            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(options.DriverCatalogUri, options.Architecture, options.DriverVendors, artifact, tools, cancellationToken).ConfigureAwait(false);
             if (!drivers.IsSuccess)
             {
                 return FailWithProgress(drivers.Error!);
@@ -231,9 +231,20 @@ public sealed class MediaOutputService : IMediaOutputService
         }
     }
 
-    private async Task<WinPeResult<IReadOnlyList<string>>> ResolveDriversAsync(bool includeDrivers, string catalogUri, WinPeArchitecture architecture, WinPeVendorSelection vendor, bool includePreview, WinPeBuildArtifact artifact, WinPeToolPaths tools, CancellationToken cancellationToken)
+    private async Task<WinPeResult<IReadOnlyList<string>>> ResolveDriversAsync(
+        string catalogUri,
+        WinPeArchitecture architecture,
+        IReadOnlyList<WinPeVendorSelection> driverVendors,
+        WinPeBuildArtifact artifact,
+        WinPeToolPaths tools,
+        CancellationToken cancellationToken)
     {
-        if (!includeDrivers)
+        WinPeVendorSelection[] normalizedVendors = driverVendors
+            .Where(vendor => vendor != WinPeVendorSelection.Any)
+            .Distinct()
+            .ToArray();
+
+        if (normalizedVendors.Length == 0)
         {
             return WinPeResult<IReadOnlyList<string>>.Success(Array.Empty<string>());
         }
@@ -242,8 +253,7 @@ public sealed class MediaOutputService : IMediaOutputService
         {
             CatalogUri = catalogUri,
             Architecture = architecture,
-            Vendor = vendor,
-            IncludePreviewDrivers = includePreview
+            Vendors = normalizedVendors
         }, cancellationToken).ConfigureAwait(false);
 
         if (!catalog.IsSuccess)
@@ -251,13 +261,24 @@ public sealed class MediaOutputService : IMediaOutputService
             return WinPeResult<IReadOnlyList<string>>.Failure(catalog.Error!);
         }
 
-        WinPeDriverCatalogEntry? selected = catalog.Value?.OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue).FirstOrDefault();
-        if (selected is null)
+        WinPeDriverCatalogEntry[] selectedPackages = catalog.Value?
+            .GroupBy(item => item.Vendor)
+            .Select(group => group
+                .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+                .First())
+            .ToArray() ?? [];
+
+        if (selectedPackages.Length == 0)
         {
             return WinPeResult<IReadOnlyList<string>>.Success(Array.Empty<string>());
         }
 
-        WinPeResult<WinPePreparedDriverSet> prepared = await _driverPackageService.PrepareAsync([selected], Path.Combine(artifact.DriverWorkspacePath, "downloads"), Path.Combine(artifact.DriverWorkspacePath, "extracted"), tools, cancellationToken).ConfigureAwait(false);
+        WinPeResult<WinPePreparedDriverSet> prepared = await _driverPackageService.PrepareAsync(
+            selectedPackages,
+            Path.Combine(artifact.DriverWorkspacePath, "downloads"),
+            Path.Combine(artifact.DriverWorkspacePath, "extracted"),
+            tools,
+            cancellationToken).ConfigureAwait(false);
         return prepared.IsSuccess
             ? WinPeResult<IReadOnlyList<string>>.Success(prepared.Value!.ExtractionDirectories)
             : WinPeResult<IReadOnlyList<string>>.Failure(prepared.Error!);
@@ -445,7 +466,6 @@ public sealed class MediaOutputService : IMediaOutputService
         if (options is null) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "USB options are required.");
         if (string.IsNullOrWhiteSpace(options.StagingDirectoryPath) || !Directory.Exists(options.StagingDirectoryPath)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Staging directory does not exist.", options.StagingDirectoryPath);
         if (!options.TargetDiskNumber.HasValue) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "TargetDiskNumber is required.");
-        if (string.IsNullOrWhiteSpace(options.TargetDriveLetter)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "TargetDriveLetter is required.");
         if (!Enum.IsDefined(options.Architecture) || !Enum.IsDefined(options.SignatureMode) || !Enum.IsDefined(options.PartitionStyle)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "USB options contain invalid enum values.");
         return null;
     }

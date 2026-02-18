@@ -4,7 +4,7 @@
 Refactor the UI and ISO/USB creation behavior to match the requested workflow (ISO picker, simplified options, warning confirmation, Rufus-like layout) without regressing the WinPE pipeline.
 
 ## Current Phase
-Phase 3 (ready for implementation)
+Phase 5 (completed)
 
 ## Phases
 ### Phase 1: Requirements & Discovery
@@ -20,45 +20,45 @@ Phase 3 (ready for implementation)
 - **Status:** complete
 
 ### Phase 3: UI Refactor (XAML + style)
-- [ ] Remove staging path display from the UI.
-- [ ] Replace ISO path input with readonly `TextBox` + `Select...` button (file picker).
-- [ ] Replace signature mode ComboBox with `CA2023` checkbox (unchecked default means CA2011).
-- [ ] Replace WinPE driver options with two checkboxes: `Dell` and `HP`.
-- [ ] Remove obsolete media options (`Include drivers`, `Include preview`).
-- [ ] Convert USB selection to a horizontal `ListBox` and keep a USB refresh button.
-- [ ] Remove manual USB boot drive letter input.
-- [ ] Remove UI confirmation code fields.
-- [ ] Move `Create ISO` and `Create USB` buttons to a bottom horizontal action row above the progress area.
-- [ ] Remove the border around the main form section (`Grid.Row=1`, previous border around the form).
-- [ ] Apply a Rufus-like visual treatment (section headers, compact spacing, contrast hierarchy).
-- **Status:** pending
+- [x] Remove staging path display from the UI.
+- [x] Replace ISO path input with readonly `TextBox` + `Select...` button (file picker).
+- [x] Replace signature mode ComboBox with `CA2023` checkbox (unchecked default means CA2011).
+- [x] Replace WinPE driver options with two checkboxes: `Dell` and `HP`.
+- [x] Remove obsolete media options (`Include drivers`, `Include preview`).
+- [x] Convert USB selection to a horizontal `ListBox` and keep a USB refresh button.
+- [x] Remove manual USB boot drive letter input.
+- [x] Remove UI confirmation code fields.
+- [x] Move `Create ISO` and `Create USB` buttons to a bottom horizontal action row above the progress area.
+- [x] Remove the border around the main form section (`Grid.Row=1`, previous border around the form).
+- [x] Apply a Rufus-like visual treatment (section headers, compact spacing, contrast hierarchy).
+- **Status:** complete
 
 ### Phase 4: ViewModel & Services Behavior
-- [ ] Add a VM command to open ISO file picker through shell service.
-- [ ] Add `CanCreateIso` (disabled until a valid ISO path is selected).
-- [ ] Add `CanCreateUsb` (disabled until a USB target is selected).
-- [ ] Replace signature enum selector with bool `UseCa2023` and map to `WinPeSignatureMode`.
-- [ ] Map `Dell`/`HP` checkboxes to driver resolution rules:
+- [x] Add a VM command to open ISO file picker through shell service.
+- [x] Add `CanCreateIso` (disabled until a valid ISO path is selected).
+- [x] Add `CanCreateUsb` (disabled until a USB target is selected).
+- [x] Replace signature enum selector with bool `UseCa2023` and map to `WinPeSignatureMode`.
+- [x] Map `Dell`/`HP` checkboxes to driver resolution rules:
 - none selected => `IncludeDrivers=false`
 - Dell only => Dell filter
 - HP only => HP filter
 - Dell + HP => explicit multi-vendor filtering (service/catalog update)
-- [ ] Make USB boot drive letter automatic (no user input).
-- [ ] Replace confirmation code logic with a warning `MessageBox` Yes/No before USB creation.
-- [ ] Extend `IApplicationShellService` for dialogs (ISO picker + warning confirmation).
-- [ ] Update localized resources (neutral + en-US + fr-FR) for new labels and removed controls.
-- [ ] Remove obsolete code paths introduced by these changes (old VM properties/commands, old service option fields, old USB confirmation flow).
-- [ ] Remove obsolete resource keys and UI bindings that are no longer referenced.
-- **Status:** pending
+- [x] Make USB boot drive letter automatic (no user input).
+- [x] Replace confirmation code logic with a warning `MessageBox` Yes/No before USB creation.
+- [x] Extend `IApplicationShellService` for dialogs (ISO picker + warning confirmation).
+- [x] Update localized resources (neutral + en-US + fr-FR) for new labels and removed controls.
+- [x] Remove obsolete code paths introduced by these changes (old VM properties/commands, old service option fields, old USB confirmation flow).
+- [x] Remove obsolete resource keys and UI bindings that are no longer referenced.
+- **Status:** complete
 
 ### Phase 5: Validation & Delivery
-- [ ] Run local build and verify compilation.
-- [ ] Verify button states (`Create ISO` / `Create USB`) against prerequisites.
-- [ ] Test UI flow: pick ISO, refresh/select USB, warning confirmation.
-- [ ] Validate driver scenarios: none, Dell, HP, Dell+HP.
-- [ ] Verify desktop and compact-window visual consistency.
-- [ ] Run dead-code sweep (`rg`) to confirm removed legacy symbols are not referenced.
-- **Status:** pending
+- [x] Run local build and verify compilation.
+- [x] Verify button states (`Create ISO` / `Create USB`) against prerequisites.
+- [x] Test UI flow: pick ISO, refresh/select USB, warning confirmation.
+- [x] Validate driver scenarios: none, Dell, HP, Dell+HP.
+- [x] Verify desktop and compact-window visual consistency.
+- [x] Run dead-code sweep (`rg`) to confirm removed legacy symbols are not referenced.
+- **Status:** complete
 
 ## Key Questions
 1. For Dell+HP, should filtering be strictly limited to those two vendors (recommended), rather than `Any` (which includes Lenovo/Microsoft)?

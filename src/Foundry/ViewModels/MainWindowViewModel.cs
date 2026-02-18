@@ -15,6 +15,9 @@ namespace Foundry.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
+    private const string DefaultIsoFileName = "foundry-winpe.iso";
+    private const string IsoVolumeLabel = "FOUNDRY_WINPE";
+
     private readonly IApplicationShellService _applicationShellService;
     private readonly IThemeService _themeService;
     private readonly ILocalizationService _localizationService;
@@ -32,40 +35,31 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool isAdkIncompatible;
 
     [ObservableProperty]
-    private bool canCreateMedia;
+    private bool canCreateIso;
+
+    [ObservableProperty]
+    private bool canCreateUsb;
 
     [ObservableProperty]
     private bool isOperationInProgress;
 
     [ObservableProperty]
-    private string stagingDirectoryPath = Path.Combine(Path.GetTempPath(), "FoundryMedia");
-
-    [ObservableProperty]
-    private string isoOutputPath = Path.Combine(Path.GetTempPath(), "foundry-winpe.iso");
-
-    [ObservableProperty]
-    private string isoVolumeLabel = "FOUNDRY_WINPE";
+    private string isoOutputPath = string.Empty;
 
     [ObservableProperty]
     private WinPeArchitecture selectedArchitecture = WinPeArchitecture.X64;
 
     [ObservableProperty]
-    private WinPeSignatureMode selectedSignatureMode = WinPeSignatureMode.Pca2023;
+    private bool useCa2023;
 
     [ObservableProperty]
     private UsbPartitionStyle selectedPartitionStyle = UsbPartitionStyle.Gpt;
 
     [ObservableProperty]
-    private WinPeVendorSelection selectedVendor = WinPeVendorSelection.Any;
+    private bool includeDellDrivers;
 
     [ObservableProperty]
-    private bool includeDrivers = true;
-
-    [ObservableProperty]
-    private bool includePreviewDrivers;
-
-    [ObservableProperty]
-    private string usbBootDriveLetter = "Z:";
+    private bool includeHpDrivers;
 
     [ObservableProperty]
     private string startupBootstrapScriptPath = string.Empty;
@@ -75,12 +69,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     private string pcaRemediationScriptPath = string.Empty;
-
-    [ObservableProperty]
-    private string usbConfirmationCode = string.Empty;
-
-    [ObservableProperty]
-    private string usbConfirmationCodeRepeat = string.Empty;
 
     [ObservableProperty]
     private WinPeUsbDiskCandidate? selectedUsbDiskCandidate;
@@ -94,9 +82,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public ObservableCollection<WinPeUsbDiskCandidate> UsbDiskCandidates { get; } = [];
 
     public IReadOnlyList<WinPeArchitecture> AvailableArchitectures { get; } = Enum.GetValues<WinPeArchitecture>();
-    public IReadOnlyList<WinPeSignatureMode> AvailableSignatureModes { get; } = Enum.GetValues<WinPeSignatureMode>();
     public IReadOnlyList<UsbPartitionStyle> AvailablePartitionStyles { get; } = Enum.GetValues<UsbPartitionStyle>();
-    public IReadOnlyList<WinPeVendorSelection> AvailableVendors { get; } = Enum.GetValues<WinPeVendorSelection>();
 
     public ILocalizationService LocalizationService => _localizationService;
     public CultureInfo CurrentCulture => _localizationService.CurrentCulture;
@@ -107,10 +93,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public string GlobalOperationStatusDisplay =>
         _operationProgressService.Status ??
         (IsGlobalOperationInProgress ? Strings["OperationInProgress"] : Strings["OperationReady"]);
-    public string ExpectedUsbConfirmationCode =>
-        SelectedUsbDiskCandidate is null
-            ? string.Empty
-            : $"ERASE-DISK-{SelectedUsbDiskCandidate.DiskNumber}";
+
+    private static string StagingDirectoryPath => Path.Combine(Path.GetTempPath(), "FoundryMedia");
 
     public MainWindowViewModel(
         IApplicationShellService applicationShellService,
@@ -126,8 +110,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService = operationProgressService;
         _adkService = adkService;
         _mediaOutputService = mediaOutputService;
-
-        Directory.CreateDirectory(StagingDirectoryPath);
 
         _localizationService.LanguageChanged += OnLanguageChanged;
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
@@ -185,16 +167,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _localizationService.SetCulture(new CultureInfo(cultureName));
     }
 
-    [RelayCommand]
-    private async Task DownloadAdkAsync()
+    [RelayCommand(CanExecute = nameof(CanBrowseIsoOutputPath))]
+    private void BrowseIsoOutputPath()
     {
-        try
+        string defaultFileName = string.IsNullOrWhiteSpace(IsoOutputPath)
+            ? DefaultIsoFileName
+            : Path.GetFileName(IsoOutputPath);
+
+        string? selectedPath = _applicationShellService.PickIsoOutputPath(defaultFileName);
+        if (!string.IsNullOrWhiteSpace(selectedPath))
         {
-            await _adkService.DownloadAdkAsync();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"Error downloading ADK: {ex.Message}");
+            IsoOutputPath = selectedPath;
         }
     }
 
@@ -225,19 +208,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private async Task UninstallAdkAsync()
-    {
-        try
-        {
-            await _adkService.UninstallAdkAsync();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"Error uninstalling ADK: {ex.Message}");
-        }
-    }
-
-    [RelayCommand]
     private async Task RefreshUsbCandidatesAsync()
     {
         if (IsRefreshingUsbCandidates)
@@ -257,6 +227,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 {
                     MediaActionMessage = $"{result.Error.Code}: {result.Error.Message}";
                 }
+                UpdateOperationState();
                 return;
             }
 
@@ -265,7 +236,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 UsbDiskCandidates.Add(candidate);
             }
 
-            SelectedUsbDiskCandidate = UsbDiskCandidates.FirstOrDefault();
+            if (SelectedUsbDiskCandidate is null || !UsbDiskCandidates.Contains(SelectedUsbDiskCandidate))
+            {
+                SelectedUsbDiskCandidate = UsbDiskCandidates.FirstOrDefault();
+            }
+
+            UpdateOperationState();
         }
         catch (Exception ex)
         {
@@ -275,11 +251,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         finally
         {
             IsRefreshingUsbCandidates = false;
-            OnPropertyChanged(nameof(ExpectedUsbConfirmationCode));
         }
     }
 
-    [RelayCommand(CanExecute = nameof(CanCreateMedia))]
+    [RelayCommand(CanExecute = nameof(CanExecuteCreateIso))]
     private async Task CreateIso()
     {
         try
@@ -292,10 +267,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 OutputIsoPath = IsoOutputPath,
                 VolumeLabel = IsoVolumeLabel,
                 Architecture = SelectedArchitecture,
-                SignatureMode = SelectedSignatureMode,
-                Vendor = SelectedVendor,
-                IncludeDrivers = IncludeDrivers,
-                IncludePreviewDrivers = IncludePreviewDrivers,
+                SignatureMode = GetSignatureMode(),
+                DriverVendors = GetSelectedDriverVendors(),
                 StartupBootstrapScriptPath = string.IsNullOrWhiteSpace(StartupBootstrapScriptPath) ? null : StartupBootstrapScriptPath,
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
@@ -317,9 +290,29 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
-    [RelayCommand(CanExecute = nameof(CanCreateMedia))]
+    [RelayCommand(CanExecute = nameof(CanExecuteCreateUsb))]
     private async Task CreateUsb()
     {
+        if (SelectedUsbDiskCandidate is null)
+        {
+            return;
+        }
+
+        double diskSizeGb = SelectedUsbDiskCandidate.SizeBytes / 1024d / 1024d / 1024d;
+        string warningMessage = string.Format(
+            CultureInfo.CurrentCulture,
+            Strings["UsbWarningMessage"],
+            SelectedUsbDiskCandidate.DiskNumber,
+            SelectedUsbDiskCandidate.FriendlyName,
+            diskSizeGb.ToString("F1", CultureInfo.CurrentCulture));
+
+        bool confirmed = _applicationShellService.ConfirmWarning(Strings["UsbWarningTitle"], warningMessage);
+        if (!confirmed)
+        {
+            MediaActionMessage = Strings["UsbWarningCancelled"];
+            return;
+        }
+
         try
         {
             Directory.CreateDirectory(StagingDirectoryPath);
@@ -327,19 +320,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             WinPeResult result = await _mediaOutputService.CreateUsbAsync(new UsbOutputOptions
             {
                 StagingDirectoryPath = StagingDirectoryPath,
-                TargetDriveLetter = UsbBootDriveLetter,
-                TargetDiskNumber = SelectedUsbDiskCandidate?.DiskNumber,
-                ExpectedDiskFriendlyName = SelectedUsbDiskCandidate?.FriendlyName ?? string.Empty,
-                ExpectedDiskSerialNumber = SelectedUsbDiskCandidate?.SerialNumber ?? string.Empty,
-                ExpectedDiskUniqueId = SelectedUsbDiskCandidate?.UniqueId ?? string.Empty,
-                ConfirmationCode = UsbConfirmationCode,
-                ConfirmationCodeRepeat = UsbConfirmationCodeRepeat,
+                TargetDiskNumber = SelectedUsbDiskCandidate.DiskNumber,
+                ExpectedDiskFriendlyName = SelectedUsbDiskCandidate.FriendlyName,
+                ExpectedDiskSerialNumber = SelectedUsbDiskCandidate.SerialNumber,
+                ExpectedDiskUniqueId = SelectedUsbDiskCandidate.UniqueId,
                 PartitionStyle = SelectedPartitionStyle,
                 Architecture = SelectedArchitecture,
-                SignatureMode = SelectedSignatureMode,
-                Vendor = SelectedVendor,
-                IncludeDrivers = IncludeDrivers,
-                IncludePreviewDrivers = IncludePreviewDrivers,
+                SignatureMode = GetSignatureMode(),
+                DriverVendors = GetSelectedDriverVendors(),
                 StartupBootstrapScriptPath = string.IsNullOrWhiteSpace(StartupBootstrapScriptPath) ? null : StartupBootstrapScriptPath,
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
@@ -361,9 +349,50 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
+    partial void OnIsoOutputPathChanged(string value)
+    {
+        UpdateOperationState();
+    }
+
     partial void OnSelectedUsbDiskCandidateChanged(WinPeUsbDiskCandidate? value)
     {
-        OnPropertyChanged(nameof(ExpectedUsbConfirmationCode));
+        UpdateOperationState();
+    }
+
+    private bool CanBrowseIsoOutputPath()
+    {
+        return !IsOperationInProgress;
+    }
+
+    private bool CanExecuteCreateIso()
+    {
+        return CanCreateIso;
+    }
+
+    private bool CanExecuteCreateUsb()
+    {
+        return CanCreateUsb;
+    }
+
+    private IReadOnlyList<WinPeVendorSelection> GetSelectedDriverVendors()
+    {
+        var vendors = new List<WinPeVendorSelection>(2);
+        if (IncludeDellDrivers)
+        {
+            vendors.Add(WinPeVendorSelection.Dell);
+        }
+
+        if (IncludeHpDrivers)
+        {
+            vendors.Add(WinPeVendorSelection.Hp);
+        }
+
+        return vendors;
+    }
+
+    private WinPeSignatureMode GetSignatureMode()
+    {
+        return UseCa2023 ? WinPeSignatureMode.Pca2023 : WinPeSignatureMode.Pca2011;
     }
 
     private void OnLanguageChanged(object? sender, EventArgs e)
@@ -402,8 +431,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void UpdateOperationState()
     {
         IsOperationInProgress = _operationProgressService.IsOperationInProgress;
-        CanCreateMedia = _adkService.IsAdkCompatible && !IsOperationInProgress;
 
+        bool canCreate = _adkService.IsAdkCompatible && !IsOperationInProgress;
+        CanCreateIso = canCreate &&
+            !string.IsNullOrWhiteSpace(IsoOutputPath) &&
+            IsoOutputPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase);
+        CanCreateUsb = canCreate && SelectedUsbDiskCandidate is not null;
+
+        BrowseIsoOutputPathCommand.NotifyCanExecuteChanged();
         CreateIsoCommand.NotifyCanExecuteChanged();
         CreateUsbCommand.NotifyCanExecuteChanged();
     }

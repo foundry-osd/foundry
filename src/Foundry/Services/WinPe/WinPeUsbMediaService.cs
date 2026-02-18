@@ -24,7 +24,28 @@ internal sealed class WinPeUsbMediaService
     {
         string script = @"
 $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
-$disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemovable,IsSystem,IsBoot,Size | ConvertTo-Json -Compress
+$result = foreach ($disk in $disks) {
+    $letters = @(
+        Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue |
+            Where-Object { $null -ne $_.DriveLetter } |
+            ForEach-Object { ""$($_.DriveLetter):"" }
+    )
+
+    [pscustomobject]@{
+        Number = [int]$disk.Number
+        FriendlyName = [string]$disk.FriendlyName
+        DriveLetters = ($letters -join "", "")
+        SerialNumber = [string]$disk.SerialNumber
+        UniqueId = [string]$disk.UniqueId
+        BusType = [string]$disk.BusType
+        IsRemovable = $disk.IsRemovable
+        IsSystem = [bool]$disk.IsSystem
+        IsBoot = [bool]$disk.IsBoot
+        Size = [uint64]$disk.Size
+    }
+}
+
+$result | ConvertTo-Json -Compress
 ";
         WinPeResult<string> result = await RunPowerShellAsync(script, tools, workingDirectory, cancellationToken).ConfigureAwait(false);
         if (!result.IsSuccess)
@@ -88,7 +109,6 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
         }
 
         int diskNumber = options.TargetDiskNumber.Value;
-        string bootDriveLetter = NormalizeDriveLetter(options.TargetDriveLetter);
 
         WinPeResult<DiskIdentityInfo> diskResult = await GetDiskIdentityAsync(diskNumber, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!diskResult.IsSuccess)
@@ -104,18 +124,16 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
             return WinPeResult<WinPeUsbProvisionResult>.Failure(safetyValidation.Error!);
         }
 
-        WinPeResult driveLetterValidation = await ValidateBootDriveLetterAvailabilityAsync(
-            bootDriveLetter,
-            diskNumber,
-            tools,
-            artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
-        if (!driveLetterValidation.IsSuccess)
+        char bootDriveLetter = FindAvailableDriveLetter('\0');
+        if (bootDriveLetter == '\0')
         {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(driveLetterValidation.Error!);
+            return WinPeResult<WinPeUsbProvisionResult>.Failure(
+                WinPeErrorCodes.UsbProvisioningFailed,
+                "No free drive letter is available for the BOOT partition.",
+                "Free at least two drive letters between D: and Z: and retry.");
         }
 
-        char cacheDriveLetter = FindAvailableDriveLetter(bootDriveLetter[0]);
+        char cacheDriveLetter = FindAvailableDriveLetter(bootDriveLetter);
         if (cacheDriveLetter == '\0')
         {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(
@@ -127,7 +145,7 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
         WinPeResult provisioningResult = await ProvisionDiskAsync(
             diskNumber,
             options.PartitionStyle,
-            bootDriveLetter[0],
+            bootDriveLetter,
             cacheDriveLetter,
             tools,
             artifact.WorkingDirectoryPath,
@@ -137,7 +155,7 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
             return WinPeResult<WinPeUsbProvisionResult>.Failure(provisioningResult.Error!);
         }
 
-        string bootRoot = $"{bootDriveLetter[0]}:\\";
+        string bootRoot = $"{bootDriveLetter}:\\";
         string cacheRoot = $"{cacheDriveLetter}:\\";
 
         WinPeResult copyResult = await CopyMediaAsync(artifact.MediaDirectoryPath, bootRoot, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
@@ -157,7 +175,7 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
 
         return WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
         {
-            BootDriveLetter = bootDriveLetter,
+            BootDriveLetter = $"{bootDriveLetter}:",
             CacheDriveLetter = $"{cacheDriveLetter}:"
         });
     }
@@ -223,51 +241,6 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
                 WinPeErrorCodes.UsbIdentityMismatch,
                 "Target disk unique ID does not match confirmation.",
                 $"Expected contains '{options.ExpectedDiskUniqueId}', actual '{disk.UniqueId}'.");
-        }
-
-        string expectedConfirmation = $"ERASE-DISK-{disk.Number}";
-        if (!string.Equals(options.ConfirmationCode, expectedConfirmation, StringComparison.Ordinal) ||
-            !string.Equals(options.ConfirmationCodeRepeat, expectedConfirmation, StringComparison.Ordinal))
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ValidationFailed,
-                "USB erase confirmation failed.",
-                $"Set both ConfirmationCode and ConfirmationCodeRepeat to '{expectedConfirmation}'.");
-        }
-
-        return WinPeResult.Success();
-    }
-
-    private async Task<WinPeResult> ValidateBootDriveLetterAvailabilityAsync(
-        string bootDriveLetter,
-        int targetDiskNumber,
-        WinPeToolPaths tools,
-        string workingDirectory,
-        CancellationToken cancellationToken)
-    {
-        char driveLetter = bootDriveLetter[0];
-        if (!IsDriveLetterInUse(driveLetter))
-        {
-            return WinPeResult.Success();
-        }
-
-        WinPeResult<int?> mappedDiskResult = await GetDiskNumberFromDriveLetterAsync(
-            driveLetter,
-            tools,
-            workingDirectory,
-            cancellationToken).ConfigureAwait(false);
-        if (!mappedDiskResult.IsSuccess)
-        {
-            return WinPeResult.Failure(mappedDiskResult.Error!);
-        }
-
-        int? existingDisk = mappedDiskResult.Value;
-        if (!existingDisk.HasValue || existingDisk.Value != targetDiskNumber)
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ValidationFailed,
-                "Requested boot drive letter is already in use.",
-                $"Drive letter {driveLetter}: is in use by disk {existingDisk?.ToString() ?? "unknown"}. Pick an unused drive letter.");
         }
 
         return WinPeResult.Success();
@@ -435,46 +408,6 @@ $disk = Get-Disk -Number {diskNumber} -ErrorAction Stop
         }
     }
 
-    private async Task<WinPeResult<int?>> GetDiskNumberFromDriveLetterAsync(
-        char driveLetter,
-        WinPeToolPaths tools,
-        string workingDirectory,
-        CancellationToken cancellationToken)
-    {
-        string script = $@"
-$partition = Get-Partition -DriveLetter '{char.ToUpperInvariant(driveLetter)}' -ErrorAction SilentlyContinue
-if ($null -eq $partition) {{
-    [pscustomobject]@{{ Number = $null }} | ConvertTo-Json -Compress
-}} else {{
-    [pscustomobject]@{{ Number = [int]$partition.DiskNumber }} | ConvertTo-Json -Compress
-}}
-";
-
-        WinPeResult<string> result = await RunPowerShellAsync(script, tools, workingDirectory, cancellationToken).ConfigureAwait(false);
-        if (!result.IsSuccess)
-        {
-            return WinPeResult<int?>.Failure(result.Error!);
-        }
-
-        try
-        {
-            using JsonDocument doc = JsonDocument.Parse(result.Value!);
-            if (!doc.RootElement.TryGetProperty("Number", out JsonElement numberElement) || numberElement.ValueKind is JsonValueKind.Null)
-            {
-                return WinPeResult<int?>.Success(null);
-            }
-
-            return WinPeResult<int?>.Success(numberElement.GetInt32());
-        }
-        catch (Exception ex)
-        {
-            return WinPeResult<int?>.Failure(
-                WinPeErrorCodes.UsbQueryFailed,
-                "Failed to parse drive letter to disk mapping.",
-                ex.Message);
-        }
-    }
-
     private async Task<WinPeResult<string>> RunPowerShellAsync(
         string script,
         WinPeToolPaths tools,
@@ -520,6 +453,7 @@ if ($null -eq $partition) {{
         {
             DiskNumber = diskNumber,
             FriendlyName = GetString(element, "FriendlyName"),
+            DriveLetters = GetString(element, "DriveLetters"),
             SerialNumber = GetString(element, "SerialNumber"),
             UniqueId = GetString(element, "UniqueId"),
             BusType = GetString(element, "BusType"),
@@ -642,19 +576,6 @@ if ($null -eq $partition) {{
         }
 
         return 0;
-    }
-
-    private static string NormalizeDriveLetter(string value)
-    {
-        string candidate = value.Trim().TrimEnd(':').ToUpperInvariant();
-        return $"{candidate}:";
-    }
-
-    private static bool IsDriveLetterInUse(char driveLetter)
-    {
-        string expected = $"{char.ToUpperInvariant(driveLetter)}:";
-        return DriveInfo.GetDrives()
-            .Any(drive => drive.Name.StartsWith(expected, StringComparison.OrdinalIgnoreCase));
     }
 
     private static char FindAvailableDriveLetter(char excludedLetter)

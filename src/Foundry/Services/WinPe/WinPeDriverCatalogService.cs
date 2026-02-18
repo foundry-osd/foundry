@@ -62,6 +62,9 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
     private static IReadOnlyList<WinPeDriverCatalogEntry> ParseDriverPacks(XDocument document, WinPeDriverCatalogOptions options)
     {
         var entries = new List<WinPeDriverCatalogEntry>();
+        HashSet<WinPeVendorSelection> requestedVendors = options.Vendors
+            .Where(vendor => vendor != WinPeVendorSelection.Any)
+            .ToHashSet();
 
         foreach (XElement pack in document.Descendants("DriverPack"))
         {
@@ -72,7 +75,7 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             }
 
             WinPeVendorSelection vendor = ParseVendor((string?)pack.Attribute("manufacturer"));
-            if (options.Vendor != WinPeVendorSelection.Any && vendor != options.Vendor)
+            if (requestedVendors.Count > 0 && !requestedVendors.Contains(vendor))
             {
                 continue;
             }
@@ -92,9 +95,8 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             string sha256 = (string?)pack.Element("Hashes")?.Attribute("sha256") ?? string.Empty;
             DateTimeOffset? releaseDate = TryParseDate((string?)pack.Attribute("releaseDate"));
 
-            if (!options.IncludePreviewDrivers &&
-                (name.Contains("preview", StringComparison.OrdinalIgnoreCase) ||
-                 version.Contains("preview", StringComparison.OrdinalIgnoreCase)))
+            if (name.Contains("preview", StringComparison.OrdinalIgnoreCase) ||
+                version.Contains("preview", StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }
@@ -224,12 +226,15 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                 $"Value: '{options.Architecture}'.");
         }
 
-        if (!Enum.IsDefined(options.Vendor))
+        foreach (WinPeVendorSelection vendor in options.Vendors)
         {
-            return new WinPeDiagnostic(
-                WinPeErrorCodes.ValidationFailed,
-                "Vendor selection value is invalid.",
-                $"Value: '{options.Vendor}'.");
+            if (!Enum.IsDefined(vendor))
+            {
+                return new WinPeDiagnostic(
+                    WinPeErrorCodes.ValidationFailed,
+                    "Vendor selection value is invalid.",
+                    $"Value: '{vendor}'.");
+            }
         }
 
         return null;

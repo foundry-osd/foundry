@@ -4,6 +4,7 @@ public sealed record WinPeUsbDiskCandidate
 {
     public int DiskNumber { get; init; }
     public string FriendlyName { get; init; } = string.Empty;
+    public string DriveLetters { get; init; } = string.Empty;
     public string SerialNumber { get; init; } = string.Empty;
     public string UniqueId { get; init; } = string.Empty;
     public string BusType { get; init; } = string.Empty;
@@ -17,7 +18,10 @@ public sealed record WinPeUsbDiskCandidate
         get
         {
             double sizeGb = SizeBytes / 1024d / 1024d / 1024d;
-            return $"Disk {DiskNumber} - {FriendlyName} ({sizeGb:F1} GB)";
+            string driveSuffix = string.IsNullOrWhiteSpace(DriveLetters)
+                ? string.Empty
+                : $" [{DriveLetters}]";
+            return $"Disk {DiskNumber} - {FriendlyName} ({sizeGb:F1} GB){driveSuffix}";
         }
     }
 }

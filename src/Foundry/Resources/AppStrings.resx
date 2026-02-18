@@ -250,46 +250,46 @@
   <data name="UsbRefreshDisks" xml:space="preserve">
     <value>Refresh USB</value>
   </data>
-  <data name="StagingPathLabel" xml:space="preserve">
-    <value>Staging path</value>
-  </data>
   <data name="IsoOutputPathLabel" xml:space="preserve">
     <value>ISO output path</value>
   </data>
   <data name="ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
-  <data name="SignatureModeLabel" xml:space="preserve">
-    <value>Signature mode</value>
-  </data>
-  <data name="VendorLabel" xml:space="preserve">
-    <value>Driver vendor</value>
-  </data>
-  <data name="MediaOptionsLabel" xml:space="preserve">
-    <value>Media options</value>
-  </data>
-  <data name="IncludeDriversLabel" xml:space="preserve">
-    <value>Include drivers</value>
-  </data>
-  <data name="IncludePreviewDriversLabel" xml:space="preserve">
-    <value>Include preview drivers</value>
-  </data>
   <data name="UsbDiskLabel" xml:space="preserve">
     <value>USB target disk</value>
-  </data>
-  <data name="UsbBootDriveLabel" xml:space="preserve">
-    <value>USB boot drive letter</value>
   </data>
   <data name="UsbPartitionStyleLabel" xml:space="preserve">
     <value>USB partition style</value>
   </data>
-  <data name="UsbExpectedCodeLabel" xml:space="preserve">
-    <value>Expected confirmation code</value>
+  <data name="MediaBuildSectionTitle" xml:space="preserve">
+    <value>Media Build Options</value>
   </data>
-  <data name="UsbConfirmationCodeLabel" xml:space="preserve">
-    <value>Confirmation code (1/2)</value>
+  <data name="IsoBrowseButton" xml:space="preserve">
+    <value>Select...</value>
   </data>
-  <data name="UsbConfirmationCodeRepeatLabel" xml:space="preserve">
-    <value>Confirmation code (2/2)</value>
+  <data name="SignatureCa2023Label" xml:space="preserve">
+    <value>Use CA2023 signature mode (default: CA2011)</value>
+  </data>
+  <data name="WinPeDriversLabel" xml:space="preserve">
+    <value>WinPE drivers</value>
+  </data>
+  <data name="DriverDellLabel" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="DriverHpLabel" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="UsbSectionTitle" xml:space="preserve">
+    <value>USB Target</value>
+  </data>
+  <data name="UsbWarningTitle" xml:space="preserve">
+    <value>USB erase confirmation</value>
+  </data>
+  <data name="UsbWarningMessage" xml:space="preserve">
+    <value>You are about to erase USB disk #{0} ({1}, {2} GB). This operation is destructive. Continue?</value>
+  </data>
+  <data name="UsbWarningCancelled" xml:space="preserve">
+    <value>USB creation canceled by user.</value>
   </data>
 </root>
