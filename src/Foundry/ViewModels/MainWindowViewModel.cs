@@ -136,7 +136,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         UpdateAdkStatus();
         UpdateOperationState();
-        _ = RefreshUsbCandidatesAsync();
     }
 
     public void Dispose()

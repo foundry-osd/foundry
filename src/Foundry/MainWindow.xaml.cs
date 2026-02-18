@@ -9,5 +9,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = viewModel;
+        Loaded += (_, _) => _ = viewModel.RefreshUsbCandidatesCommand.ExecuteAsync(null);
     }
 }
