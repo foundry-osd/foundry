@@ -39,11 +39,14 @@ internal sealed record WinPeProcessExecution
 
 internal sealed class WinPeProcessRunner
 {
+    private const string InternalSetEnvKey = "FOUNDRY_ADK_SETENV_PATH";
+
     public async Task<WinPeProcessExecution> RunAsync(
         string fileName,
         string arguments,
         string workingDirectory,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        IReadOnlyDictionary<string, string>? environmentOverrides = null)
     {
         if (string.IsNullOrWhiteSpace(fileName))
         {
@@ -69,6 +72,19 @@ internal sealed class WinPeProcessRunner
             StandardOutputEncoding = Encoding.UTF8,
             StandardErrorEncoding = Encoding.UTF8
         };
+
+        if (environmentOverrides is not null)
+        {
+            foreach ((string key, string value) in environmentOverrides)
+            {
+                if (key.StartsWith("FOUNDRY_", StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                startInfo.Environment[key] = value;
+            }
+        }
 
         using var process = new Process
         {
@@ -137,15 +153,32 @@ internal sealed class WinPeProcessRunner
         string workingDirectory,
         CancellationToken cancellationToken)
     {
+        if (string.IsNullOrWhiteSpace(scriptPath))
+        {
+            throw new ArgumentException("Script path is required.", nameof(scriptPath));
+        }
+
         var cmdPath = Environment.GetEnvironmentVariable("ComSpec");
         if (string.IsNullOrWhiteSpace(cmdPath))
         {
             cmdPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "cmd.exe");
         }
 
-        string escapedScriptPath = Quote(scriptPath);
-        string arguments = $"/d /s /c \"\"{escapedScriptPath}\" {scriptArguments}\"";
-        return RunAsync(cmdPath, arguments, workingDirectory, cancellationToken);
+        string normalizedScriptArguments = string.IsNullOrWhiteSpace(scriptArguments)
+            ? string.Empty
+            : $" {scriptArguments}";
+
+        string command = $"call {Quote(scriptPath)}{normalizedScriptArguments}";
+        IReadOnlyDictionary<string, string>? environmentOverrides = BuildAdkEnvironmentOverrides(scriptPath);
+        if (environmentOverrides is not null &&
+            environmentOverrides.TryGetValue(InternalSetEnvKey, out string? setEnvPath) &&
+            !string.IsNullOrWhiteSpace(setEnvPath))
+        {
+            command = $"call {Quote(setEnvPath)} >nul 2>&1 && {command}";
+        }
+
+        string arguments = $"/d /s /c \"{command}\"";
+        return RunAsync(cmdPath, arguments, workingDirectory, cancellationToken, environmentOverrides);
     }
 
     public static string Quote(string value)
@@ -153,5 +186,89 @@ internal sealed class WinPeProcessRunner
         return value.Contains(' ', StringComparison.Ordinal)
             ? $"\"{value}\""
             : value;
+    }
+
+    private static IReadOnlyDictionary<string, string>? BuildAdkEnvironmentOverrides(string scriptPath)
+    {
+        string? winPeRoot = FindWinPeRootDirectory(scriptPath);
+        if (winPeRoot is null)
+        {
+            return null;
+        }
+
+        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["WinPERoot"] = winPeRoot
+        };
+
+        string? adkRoot = Directory.GetParent(winPeRoot)?.FullName;
+        if (string.IsNullOrWhiteSpace(adkRoot))
+        {
+            return result;
+        }
+
+        string deploymentToolsRoot = Path.Combine(adkRoot, "Deployment Tools");
+        if (!Directory.Exists(deploymentToolsRoot))
+        {
+            return result;
+        }
+
+        string[] hostArchitectureCandidates = Environment.Is64BitOperatingSystem
+            ? ["amd64", "x86"]
+            : ["x86", "amd64"];
+
+        foreach (string hostArchitecture in hostArchitectureCandidates)
+        {
+            string hostToolsRoot = Path.Combine(deploymentToolsRoot, hostArchitecture);
+            if (!Directory.Exists(hostToolsRoot))
+            {
+                continue;
+            }
+
+            string oscdimgRoot = Path.Combine(hostToolsRoot, "Oscdimg");
+            if (Directory.Exists(oscdimgRoot))
+            {
+                result["OSCDImgRoot"] = oscdimgRoot;
+            }
+
+            string dismRoot = Path.Combine(hostToolsRoot, "DISM");
+            if (Directory.Exists(dismRoot))
+            {
+                result["DISMRoot"] = dismRoot;
+            }
+
+            break;
+        }
+
+        // Internal helper key used to prepend ADK environment initialization in the same cmd.exe session.
+        string setEnvPath = Path.Combine(deploymentToolsRoot, "DandISetEnv.bat");
+        if (File.Exists(setEnvPath))
+        {
+            result[InternalSetEnvKey] = setEnvPath;
+        }
+
+        return result;
+    }
+
+    private static string? FindWinPeRootDirectory(string scriptPath)
+    {
+        string? directoryPath = Path.GetDirectoryName(scriptPath);
+        if (string.IsNullOrWhiteSpace(directoryPath))
+        {
+            return null;
+        }
+
+        var current = new DirectoryInfo(directoryPath);
+        while (current is not null)
+        {
+            if (current.Name.Equals("Windows Preinstallation Environment", StringComparison.OrdinalIgnoreCase))
+            {
+                return current.FullName;
+            }
+
+            current = current.Parent;
+        }
+
+        return null;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Services.Adk;
@@ -26,6 +27,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IOperationProgressService _operationProgressService;
     private readonly IAdkService _adkService;
     private readonly IMediaOutputService _mediaOutputService;
+    private readonly Dispatcher _dispatcher;
 
     [ObservableProperty]
     private bool showAdkBanner;
@@ -116,6 +118,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService = operationProgressService;
         _adkService = adkService;
         _mediaOutputService = mediaOutputService;
+        _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
 
         _localizationService.LanguageChanged += OnLanguageChanged;
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
@@ -405,35 +408,44 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void OnLanguageChanged(object? sender, EventArgs e)
     {
-        OnPropertyChanged(nameof(CurrentCulture));
-        OnPropertyChanged(nameof(Strings));
-        OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
-        OnPropertyChanged(nameof(UsbDevicesCountDisplay));
-        OnPropertyChanged(nameof(VersionDisplay));
+        RunOnUiThread(() =>
+        {
+            OnPropertyChanged(nameof(CurrentCulture));
+            OnPropertyChanged(nameof(Strings));
+            OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
+            OnPropertyChanged(nameof(UsbDevicesCountDisplay));
+            OnPropertyChanged(nameof(VersionDisplay));
+        });
     }
 
     private void OnOperationProgressChanged(object? sender, EventArgs e)
     {
-        OnPropertyChanged(nameof(GlobalOperationProgress));
-        OnPropertyChanged(nameof(IsGlobalOperationInProgress));
-        OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
-        UpdateOperationState();
+        RunOnUiThread(() =>
+        {
+            OnPropertyChanged(nameof(GlobalOperationProgress));
+            OnPropertyChanged(nameof(IsGlobalOperationInProgress));
+            OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
+            UpdateOperationState();
+        });
     }
 
     private void OnAdkStatusChanged(object? sender, EventArgs e)
     {
-        UpdateAdkStatus();
+        RunOnUiThread(UpdateAdkStatus);
     }
 
     private void OnAdkOperationProgressChanged(object? sender, EventArgs e)
     {
-        UpdateOperationState();
+        RunOnUiThread(UpdateOperationState);
     }
 
     private void OnUsbDiskCandidatesCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        OnPropertyChanged(nameof(UsbDevicesCountDisplay));
-        UpdateOperationState();
+        RunOnUiThread(() =>
+        {
+            OnPropertyChanged(nameof(UsbDevicesCountDisplay));
+            UpdateOperationState();
+        });
     }
 
     private void UpdateAdkStatus()
@@ -457,5 +469,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         BrowseIsoOutputPathCommand.NotifyCanExecuteChanged();
         CreateIsoCommand.NotifyCanExecuteChanged();
         CreateUsbCommand.NotifyCanExecuteChanged();
+    }
+
+    private void RunOnUiThread(Action action)
+    {
+        if (_dispatcher.CheckAccess())
+        {
+            action();
+            return;
+        }
+
+        _dispatcher.Invoke(action);
     }
 }
