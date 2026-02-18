@@ -58,7 +58,7 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
             }
 
             IReadOnlyList<WinPeUsbDiskCandidate> filtered = candidates
-                .Where(candidate => candidate.IsRemovable && !candidate.IsSystem && !candidate.IsBoot)
+                .Where(candidate => candidate.IsRemovable != false && !candidate.IsSystem && !candidate.IsBoot)
                 .OrderBy(candidate => candidate.DiskNumber)
                 .ToArray();
 
@@ -172,7 +172,7 @@ $disks | Select-Object Number,FriendlyName,SerialNumber,UniqueId,BusType,IsRemov
                 $"Disk {disk.Number} bus type is '{disk.BusType}'. Only USB disks are allowed.");
         }
 
-        if (!disk.IsRemovable)
+        if (disk.IsRemovable == false)
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.UsbUnsafeTarget,
@@ -397,7 +397,7 @@ $disk = Get-Disk -Number {diskNumber} -ErrorAction Stop
     SerialNumber = [string]$disk.SerialNumber
     UniqueId = [string]$disk.UniqueId
     BusType = [string]$disk.BusType
-    IsRemovable = [bool]$disk.IsRemovable
+    IsRemovable = $disk.IsRemovable
     IsSystem = [bool]$disk.IsSystem
     IsBoot = [bool]$disk.IsBoot
 }} | ConvertTo-Json -Compress
@@ -523,7 +523,7 @@ if ($null -eq $partition) {{
             SerialNumber = GetString(element, "SerialNumber"),
             UniqueId = GetString(element, "UniqueId"),
             BusType = GetString(element, "BusType"),
-            IsRemovable = GetBool(element, "IsRemovable"),
+            IsRemovable = GetNullableBool(element, "IsRemovable"),
             IsSystem = GetBool(element, "IsSystem"),
             IsBoot = GetBool(element, "IsBoot"),
             SizeBytes = GetUInt64(element, "Size")
@@ -589,6 +589,37 @@ if ($null -eq $partition) {{
         }
 
         return false;
+    }
+
+    private static bool? GetNullableBool(JsonElement element, string propertyName)
+    {
+        if (!element.TryGetProperty(propertyName, out JsonElement property))
+        {
+            return null;
+        }
+
+        if (property.ValueKind == JsonValueKind.Null)
+        {
+            return null;
+        }
+
+        if (property.ValueKind == JsonValueKind.True)
+        {
+            return true;
+        }
+
+        if (property.ValueKind == JsonValueKind.False)
+        {
+            return false;
+        }
+
+        if (property.ValueKind == JsonValueKind.String &&
+            bool.TryParse(property.GetString(), out bool parsed))
+        {
+            return parsed;
+        }
+
+        return null;
     }
 
     private static ulong GetUInt64(JsonElement element, string propertyName)
@@ -660,7 +691,7 @@ if ($null -eq $partition) {{
         public string SerialNumber { get; init; } = string.Empty;
         public string UniqueId { get; init; } = string.Empty;
         public string BusType { get; init; } = string.Empty;
-        public bool IsRemovable { get; init; }
+        public bool? IsRemovable { get; init; }
         public bool IsSystem { get; init; }
         public bool IsBoot { get; init; }
         public ulong Size { get; init; }
