@@ -379,7 +379,17 @@ public sealed class MediaOutputService : IMediaOutputService
                 $"Expected path: '{ocRoot}'.");
         }
 
-        string[] components = ["WinPE-WMI", "WinPE-NetFX", "WinPE-Scripting", "WinPE-PowerShell"];
+        string[] components =
+        [
+            "WinPE-DismCmdlets",
+            "WinPE-Dot3Svc",
+            "WinPE-EnhancedStorage",
+            "WinPE-NetFX",
+            "WinPE-PowerShell",
+            "WinPE-Scripting",
+            "WinPE-StorageWMI",
+            "WinPE-WMI"
+        ];
         int installed = 0;
         foreach (string component in components)
         {
@@ -426,7 +436,7 @@ public sealed class MediaOutputService : IMediaOutputService
             ? WinPeResult.Success()
             : WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
-                "PowerShell optional components were not found in ADK.",
+                "Required WinPE optional components were not found in ADK.",
                 $"No required component CAB was found under '{ocRoot}'.");
     }
 
