@@ -256,6 +256,9 @@
   <data name="ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
+  <data name="WinPeLanguageLabel" xml:space="preserve">
+    <value>Langue WinPE</value>
+  </data>
   <data name="UsbPartitionStyleLabel" xml:space="preserve">
     <value>Style de partition USB</value>
   </data>

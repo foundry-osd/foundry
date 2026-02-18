@@ -29,6 +29,43 @@ public sealed class MediaOutputService : IMediaOutputService
         _usbMediaService = new WinPeUsbMediaService(_processRunner);
     }
 
+    public WinPeResult<IReadOnlyList<string>> GetAvailableWinPeLanguages(
+        WinPeArchitecture architecture = WinPeArchitecture.X64,
+        string? adkRootPath = null)
+    {
+        if (!Enum.IsDefined(architecture))
+        {
+            return WinPeResult<IReadOnlyList<string>>.Failure(
+                WinPeErrorCodes.ValidationFailed,
+                "Architecture is invalid.");
+        }
+
+        WinPeResult<WinPeToolPaths> toolsResult = _toolResolver.ResolveTools(adkRootPath);
+        if (!toolsResult.IsSuccess)
+        {
+            return WinPeResult<IReadOnlyList<string>>.Failure(toolsResult.Error!);
+        }
+
+        string ocRoot = GetOptionalComponentsRootPath(toolsResult.Value!.KitsRootPath, architecture);
+        if (!Directory.Exists(ocRoot))
+        {
+            return WinPeResult<IReadOnlyList<string>>.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "WinPE optional components folder was not found.",
+                $"Expected path: '{ocRoot}'.");
+        }
+
+        string[] locales = Directory.GetDirectories(ocRoot)
+            .Select(Path.GetFileName)
+            .Where(name => !string.IsNullOrWhiteSpace(name))
+            .Select(name => NormalizeWinPeLanguageCode(name!))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        return WinPeResult<IReadOnlyList<string>>.Success(locales);
+    }
+
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(CancellationToken cancellationToken = default)
     {
         WinPeResult<WinPeToolPaths> tools = _toolResolver.ResolveTools();
@@ -90,7 +127,7 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             _operationProgressService.Report(48, "Applying image customizations.");
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -190,7 +227,7 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             _operationProgressService.Report(48, "Applying image customizations.");
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -284,7 +321,12 @@ public sealed class MediaOutputService : IMediaOutputService
             : WinPeResult<IReadOnlyList<string>>.Failure(prepared.Error!);
     }
 
-    private async Task<WinPeResult> CustomizeImageAsync(WinPeBuildArtifact artifact, WinPeToolPaths tools, IReadOnlyList<string> driverDirectories, CancellationToken cancellationToken)
+    private async Task<WinPeResult> CustomizeImageAsync(
+        WinPeBuildArtifact artifact,
+        WinPeToolPaths tools,
+        IReadOnlyList<string> driverDirectories,
+        string winPeLanguage,
+        CancellationToken cancellationToken)
     {
         WinPeResult<WinPeMountSession> mount = await WinPeMountSession.MountAsync(_processRunner, tools.DismPath, artifact.BootWimPath, artifact.MountDirectoryPath, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!mount.IsSuccess)
@@ -315,6 +357,7 @@ public sealed class MediaOutputService : IMediaOutputService
             session.MountDirectoryPath,
             artifact.Architecture,
             tools,
+            winPeLanguage,
             artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
         if (!addComponentsResult.IsSuccess)
@@ -361,15 +404,11 @@ public sealed class MediaOutputService : IMediaOutputService
         string mountedImagePath,
         WinPeArchitecture architecture,
         WinPeToolPaths tools,
+        string winPeLanguage,
         string workingDirectoryPath,
         CancellationToken cancellationToken)
     {
-        string ocRoot = Path.Combine(
-            tools.KitsRootPath,
-            "Assessment and Deployment Kit",
-            "Windows Preinstallation Environment",
-            architecture.ToCopypeArchitecture(),
-            "WinPE_OCs");
+        string ocRoot = GetOptionalComponentsRootPath(tools.KitsRootPath, architecture);
 
         if (!Directory.Exists(ocRoot))
         {
@@ -390,6 +429,7 @@ public sealed class MediaOutputService : IMediaOutputService
             "WinPE-StorageWMI",
             "WinPE-WMI"
         ];
+        string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
         int installed = 0;
         foreach (string component in components)
         {
@@ -413,12 +453,25 @@ public sealed class MediaOutputService : IMediaOutputService
                 installed++;
             }
 
-            string locale = Path.Combine(ocRoot, "en-us", $"{component}_en-us.cab");
-            if (File.Exists(locale))
+            string localeCab = Path.Combine(ocRoot, normalizedLocale, $"{component}_{normalizedLocale}.cab");
+            if (!File.Exists(localeCab) &&
+                !normalizedLocale.Equals(WinPeDefaults.DefaultOptionalComponentsLocale, StringComparison.OrdinalIgnoreCase))
+            {
+                string fallbackLocaleCab = Path.Combine(
+                    ocRoot,
+                    WinPeDefaults.DefaultOptionalComponentsLocale,
+                    $"{component}_{WinPeDefaults.DefaultOptionalComponentsLocale}.cab");
+                if (File.Exists(fallbackLocaleCab))
+                {
+                    localeCab = fallbackLocaleCab;
+                }
+            }
+
+            if (File.Exists(localeCab))
             {
                 WinPeProcessExecution addLocale = await _processRunner.RunAsync(
                     tools.DismPath,
-                    $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(locale)}",
+                    $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(localeCab)}",
                     workingDirectoryPath,
                     cancellationToken).ConfigureAwait(false);
 
@@ -471,6 +524,7 @@ public sealed class MediaOutputService : IMediaOutputService
         if (string.IsNullOrWhiteSpace(options.StagingDirectoryPath) || !Directory.Exists(options.StagingDirectoryPath)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Staging directory does not exist.", options.StagingDirectoryPath);
         if (string.IsNullOrWhiteSpace(options.OutputIsoPath) || !options.OutputIsoPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Output ISO path must end with .iso.", options.OutputIsoPath);
         if (!Enum.IsDefined(options.Architecture) || !Enum.IsDefined(options.SignatureMode)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Architecture or signature mode is invalid.");
+        if (string.IsNullOrWhiteSpace(options.WinPeLanguage)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "WinPE language is required.");
         return null;
     }
 
@@ -480,6 +534,7 @@ public sealed class MediaOutputService : IMediaOutputService
         if (string.IsNullOrWhiteSpace(options.StagingDirectoryPath) || !Directory.Exists(options.StagingDirectoryPath)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Staging directory does not exist.", options.StagingDirectoryPath);
         if (!options.TargetDiskNumber.HasValue) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "TargetDiskNumber is required.");
         if (!Enum.IsDefined(options.Architecture) || !Enum.IsDefined(options.SignatureMode) || !Enum.IsDefined(options.PartitionStyle)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "USB options contain invalid enum values.");
+        if (string.IsNullOrWhiteSpace(options.WinPeLanguage)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "WinPE language is required.");
         return null;
     }
 
@@ -514,5 +569,25 @@ public sealed class MediaOutputService : IMediaOutputService
         {
             // Best-effort cleanup.
         }
+    }
+
+    private static string GetOptionalComponentsRootPath(string kitsRootPath, WinPeArchitecture architecture)
+    {
+        return Path.Combine(
+            kitsRootPath,
+            "Assessment and Deployment Kit",
+            "Windows Preinstallation Environment",
+            architecture.ToCopypeArchitecture(),
+            "WinPE_OCs");
+    }
+
+    private static string NormalizeWinPeLanguageCode(string languageCode)
+    {
+        if (string.IsNullOrWhiteSpace(languageCode))
+        {
+            return WinPeDefaults.DefaultOptionalComponentsLocale;
+        }
+
+        return languageCode.Trim().Replace('_', '-').ToLowerInvariant();
     }
 }

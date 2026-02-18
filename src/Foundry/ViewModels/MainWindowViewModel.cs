@@ -80,7 +80,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     private bool isRefreshingUsbCandidates;
 
+    [ObservableProperty]
+    private WinPeLanguageOption? selectedWinPeLanguage;
+
     public ObservableCollection<WinPeUsbDiskCandidate> UsbDiskCandidates { get; } = [];
+    public ObservableCollection<WinPeLanguageOption> AvailableWinPeLanguages { get; } = [];
 
     public IReadOnlyList<WinPeArchitecture> AvailableArchitectures { get; } = Enum.GetValues<WinPeArchitecture>();
     public IReadOnlyList<UsbPartitionStyle> AvailablePartitionStyles { get; } = Enum.GetValues<UsbPartitionStyle>();
@@ -124,6 +128,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         UsbDiskCandidates.CollectionChanged += OnUsbDiskCandidatesCollectionChanged;
 
         UpdateAdkStatus();
+        RefreshWinPeLanguages(preserveSelection: false);
         UpdateOperationState();
     }
 
@@ -276,6 +281,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 VolumeLabel = IsoVolumeLabel,
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
+                WinPeLanguage = SelectedWinPeLanguage?.Code ?? WinPeDefaults.DefaultOptionalComponentsLocale,
                 DriverVendors = GetSelectedDriverVendors(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
@@ -334,6 +340,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 PartitionStyle = SelectedPartitionStyle,
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
+                WinPeLanguage = SelectedWinPeLanguage?.Code ?? WinPeDefaults.DefaultOptionalComponentsLocale,
                 DriverVendors = GetSelectedDriverVendors(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
@@ -363,6 +370,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     partial void OnSelectedUsbDiskCandidateChanged(WinPeUsbDiskCandidate? value)
     {
         UpdateOperationState();
+    }
+
+    partial void OnSelectedArchitectureChanged(WinPeArchitecture value)
+    {
+        RefreshWinPeLanguages(preserveSelection: true);
     }
 
     private bool CanBrowseIsoOutputPath()
@@ -401,6 +413,99 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return UseCa2023 ? WinPeSignatureMode.Pca2023 : WinPeSignatureMode.Pca2011;
     }
 
+    private void RefreshWinPeLanguages(bool preserveSelection)
+    {
+        string? previousSelection = preserveSelection ? SelectedWinPeLanguage?.Code : null;
+
+        WinPeResult<IReadOnlyList<string>> result = _mediaOutputService.GetAvailableWinPeLanguages(SelectedArchitecture);
+        string[] languageCodes = result.IsSuccess && result.Value is { Count: > 0 }
+            ? result.Value.ToArray()
+            : [WinPeDefaults.DefaultOptionalComponentsLocale];
+
+        WinPeLanguageOption[] options = languageCodes
+            .Select(CreateWinPeLanguageOption)
+            .OrderBy(option => option.Code, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        AvailableWinPeLanguages.Clear();
+        foreach (WinPeLanguageOption option in options)
+        {
+            AvailableWinPeLanguages.Add(option);
+        }
+
+        string preferredCode = ResolvePreferredWinPeLanguageCode(options, previousSelection);
+        SelectedWinPeLanguage = AvailableWinPeLanguages.FirstOrDefault(option =>
+            option.Code.Equals(preferredCode, StringComparison.OrdinalIgnoreCase))
+            ?? AvailableWinPeLanguages.FirstOrDefault();
+    }
+
+    private static WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
+    {
+        string normalizedCode = NormalizeLanguageCode(languageCode);
+        if (string.IsNullOrWhiteSpace(normalizedCode))
+        {
+            normalizedCode = WinPeDefaults.DefaultOptionalComponentsLocale;
+        }
+
+        try
+        {
+            CultureInfo culture = CultureInfo.GetCultureInfo(normalizedCode);
+            return new WinPeLanguageOption(normalizedCode, $"{culture.EnglishName} ({culture.Name})");
+        }
+        catch (CultureNotFoundException)
+        {
+            return new WinPeLanguageOption(normalizedCode, normalizedCode);
+        }
+    }
+
+    private static string ResolvePreferredWinPeLanguageCode(
+        IReadOnlyList<WinPeLanguageOption> options,
+        string? previousSelection)
+    {
+        if (options.Count == 0)
+        {
+            return WinPeDefaults.DefaultOptionalComponentsLocale;
+        }
+
+        string normalizedPrevious = NormalizeLanguageCode(previousSelection);
+        if (!string.IsNullOrWhiteSpace(normalizedPrevious))
+        {
+            WinPeLanguageOption? existing = options.FirstOrDefault(option =>
+                option.Code.Equals(normalizedPrevious, StringComparison.OrdinalIgnoreCase));
+            if (existing is not null)
+            {
+                return existing.Code;
+            }
+        }
+
+        string normalizedSystem = NormalizeLanguageCode(CultureInfo.CurrentUICulture.Name);
+        WinPeLanguageOption? systemExact = options.FirstOrDefault(option =>
+            option.Code.Equals(normalizedSystem, StringComparison.OrdinalIgnoreCase));
+        if (systemExact is not null)
+        {
+            return systemExact.Code;
+        }
+
+        string languagePrefix = $"{CultureInfo.CurrentUICulture.TwoLetterISOLanguageName}-";
+        WinPeLanguageOption? systemFamily = options.FirstOrDefault(option =>
+            option.Code.StartsWith(languagePrefix, StringComparison.OrdinalIgnoreCase));
+        if (systemFamily is not null)
+        {
+            return systemFamily.Code;
+        }
+
+        WinPeLanguageOption? fallback = options.FirstOrDefault(option =>
+            option.Code.Equals(WinPeDefaults.DefaultOptionalComponentsLocale, StringComparison.OrdinalIgnoreCase));
+        return fallback?.Code ?? options[0].Code;
+    }
+
+    private static string NormalizeLanguageCode(string? languageCode)
+    {
+        return string.IsNullOrWhiteSpace(languageCode)
+            ? string.Empty
+            : languageCode.Trim().Replace('_', '-').ToLowerInvariant();
+    }
+
     private void OnLanguageChanged(object? sender, EventArgs e)
     {
         RunOnUiThread(() =>
@@ -426,7 +531,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void OnAdkStatusChanged(object? sender, EventArgs e)
     {
-        RunOnUiThread(UpdateAdkStatus);
+        RunOnUiThread(() =>
+        {
+            UpdateAdkStatus();
+            RefreshWinPeLanguages(preserveSelection: true);
+        });
     }
 
     private void OnAdkOperationProgressChanged(object? sender, EventArgs e)

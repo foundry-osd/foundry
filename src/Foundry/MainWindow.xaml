@@ -194,6 +194,27 @@
                         SelectedItem="{Binding SelectedArchitecture}" />
                 </Grid>
 
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource FieldLabelStyle}"
+                        Text="{Binding Strings[WinPeLanguageLabel]}" />
+
+                    <ComboBox
+                        Grid.Column="1"
+                        MinWidth="220"
+                        DisplayMemberPath="DisplayName"
+                        ItemsSource="{Binding AvailableWinPeLanguages}"
+                        SelectedItem="{Binding SelectedWinPeLanguage}" />
+                </Grid>
+
                 <CheckBox
                     Margin="0,2,0,10"
                     Content="{Binding Strings[SignatureCa2023Label]}"
