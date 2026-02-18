@@ -255,27 +255,32 @@ $result | ConvertTo-Json -Compress
         string workingDirectory,
         CancellationToken cancellationToken)
     {
-        string convert = partitionStyle == UsbPartitionStyle.Gpt ? "gpt" : "mbr";
+        string[] conversionLines = partitionStyle == UsbPartitionStyle.Gpt
+            ? ["convert mbr noerr", "convert gpt"]
+            : ["convert mbr"];
         string activeLine = partitionStyle == UsbPartitionStyle.Mbr ? "active" : "";
 
-        string[] scriptLines =
-        [
+        string[] scriptLines = [
             $"select disk {diskNumber}",
             "online disk noerr",
             "attributes disk clear readonly noerr",
             "clean",
-            $"convert {convert}",
+            ..conversionLines,
             "create partition primary size=4096",
             "format fs=fat32 quick label=BOOT",
             $"assign letter={bootDriveLetter}",
             activeLine,
             "create partition primary",
-            "format fs=ntfs quick label=Foundry Cache",
+            "format fs=ntfs quick label=\"Foundry Cache\"",
             $"assign letter={cacheDriveLetter}"
         ];
 
+        string[] effectiveScriptLines = scriptLines
+            .Where(line => !string.IsNullOrWhiteSpace(line))
+            .ToArray();
+
         string scriptPath = Path.Combine(workingDirectory, "diskpart-usb.txt");
-        File.WriteAllLines(scriptPath, scriptLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+        File.WriteAllLines(scriptPath, effectiveScriptLines);
 
         WinPeProcessExecution diskPartResult = await _processRunner.RunAsync(
             "diskpart.exe",
@@ -285,10 +290,14 @@ $result | ConvertTo-Json -Compress
 
         if (!diskPartResult.IsSuccess)
         {
+            string diagnostic = $"{diskPartResult.ToDiagnosticText()}{Environment.NewLine}" +
+                                $"PartitionStyle: {partitionStyle}{Environment.NewLine}" +
+                                "DiskPartScript:" + Environment.NewLine +
+                                string.Join(Environment.NewLine, effectiveScriptLines);
             return WinPeResult.Failure(
                 WinPeErrorCodes.UsbProvisioningFailed,
                 "Failed to partition and format the USB disk.",
-                diskPartResult.ToDiagnosticText());
+                diagnostic);
         }
 
         return WinPeResult.Success();
@@ -584,7 +593,7 @@ $disk = Get-Disk -Number {diskNumber} -ErrorAction Stop
             .Select(drive => char.ToUpperInvariant(drive.Name[0]))
             .ToHashSet();
 
-        for (char letter = 'Z'; letter >= 'D'; letter--)
+        for (char letter = 'D'; letter <= 'Z'; letter++)
         {
             if (letter == char.ToUpperInvariant(excludedLetter))
             {
