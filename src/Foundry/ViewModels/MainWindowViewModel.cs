@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -17,6 +18,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
     private const string DefaultIsoFileName = "foundry-winpe.iso";
     private const string IsoVolumeLabel = "FOUNDRY_WINPE";
+    private const string AppVersion = "1.0.0.0";
 
     private readonly IApplicationShellService _applicationShellService;
     private readonly IThemeService _themeService;
@@ -93,6 +95,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public string GlobalOperationStatusDisplay =>
         _operationProgressService.Status ??
         (IsGlobalOperationInProgress ? Strings["OperationInProgress"] : Strings["OperationReady"]);
+    public string UsbDevicesCountDisplay =>
+        string.Format(CurrentCulture, Strings["UsbDevicesCountFormat"], UsbDiskCandidates.Count);
+    public string VersionDisplay =>
+        string.Format(CurrentCulture, Strings["VersionFormat"], AppVersion);
 
     private static string StagingDirectoryPath => Path.Combine(Path.GetTempPath(), "FoundryMedia");
 
@@ -115,6 +121,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _adkService.AdkStatusChanged += OnAdkStatusChanged;
         _adkService.OperationProgressChanged += OnAdkOperationProgressChanged;
+        UsbDiskCandidates.CollectionChanged += OnUsbDiskCandidatesCollectionChanged;
 
         UpdateAdkStatus();
         UpdateOperationState();
@@ -126,6 +133,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService.ProgressChanged -= OnOperationProgressChanged;
         _adkService.AdkStatusChanged -= OnAdkStatusChanged;
         _adkService.OperationProgressChanged -= OnAdkOperationProgressChanged;
+        UsbDiskCandidates.CollectionChanged -= OnUsbDiskCandidatesCollectionChanged;
     }
 
     [RelayCommand]
@@ -245,7 +253,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            MediaActionMessage = $"USB disk refresh failed: {ex.Message}";
+            MediaActionMessage = string.Format(CurrentCulture, Strings["UsbDiskRefreshFailedFormat"], ex.Message);
             Debug.WriteLine(MediaActionMessage);
         }
         finally
@@ -275,8 +283,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             });
 
             MediaActionMessage = result.IsSuccess
-                ? "ISO created successfully."
-                : $"ISO failed: {result.Error?.Code} {result.Error?.Message}";
+                ? Strings["IsoCreatedSuccessMessage"]
+                : string.Format(CurrentCulture, Strings["IsoFailedMessageFormat"], result.Error?.Code, result.Error?.Message);
 
             if (!result.IsSuccess && result.Error is not null)
             {
@@ -285,7 +293,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            MediaActionMessage = $"Error creating ISO: {ex.Message}";
+            MediaActionMessage = string.Format(CurrentCulture, Strings["IsoCreateErrorFormat"], ex.Message);
             Debug.WriteLine(MediaActionMessage);
         }
     }
@@ -334,8 +342,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             });
 
             MediaActionMessage = result.IsSuccess
-                ? "USB created successfully."
-                : $"USB failed: {result.Error?.Code} {result.Error?.Message}";
+                ? Strings["UsbCreatedSuccessMessage"]
+                : string.Format(CurrentCulture, Strings["UsbFailedMessageFormat"], result.Error?.Code, result.Error?.Message);
 
             if (!result.IsSuccess && result.Error is not null)
             {
@@ -344,7 +352,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            MediaActionMessage = $"Error creating USB: {ex.Message}";
+            MediaActionMessage = string.Format(CurrentCulture, Strings["UsbCreateErrorFormat"], ex.Message);
             Debug.WriteLine(MediaActionMessage);
         }
     }
@@ -400,6 +408,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(CurrentCulture));
         OnPropertyChanged(nameof(Strings));
         OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
+        OnPropertyChanged(nameof(UsbDevicesCountDisplay));
+        OnPropertyChanged(nameof(VersionDisplay));
     }
 
     private void OnOperationProgressChanged(object? sender, EventArgs e)
@@ -417,6 +427,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void OnAdkOperationProgressChanged(object? sender, EventArgs e)
     {
+        UpdateOperationState();
+    }
+
+    private void OnUsbDiskCandidatesCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(UsbDevicesCountDisplay));
         UpdateOperationState();
     }
 

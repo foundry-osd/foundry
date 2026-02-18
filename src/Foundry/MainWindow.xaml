@@ -151,14 +151,15 @@
 
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="128" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
+                        Margin="0,0,8,0"
                         Style="{StaticResource FieldLabelStyle}"
                         Text="{Binding Strings[IsoOutputPathLabel]}" />
 
@@ -176,12 +177,13 @@
 
                 <Grid Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
                         Grid.Column="0"
+                        Margin="0,0,8,0"
                         VerticalAlignment="Center"
                         Style="{StaticResource FieldLabelStyle}"
                         Text="{Binding Strings[ArchitectureLabel]}" />
@@ -225,17 +227,17 @@
                 <TextBlock Style="{StaticResource SectionTitleStyle}" Text="{Binding Strings[UsbSectionTitle]}" />
                 <Separator Style="{StaticResource SectionDividerStyle}" />
 
-                <Grid Margin="0,0,0,8">
+                <Grid Margin="0,8,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="132" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock
+                    <ComboBox
                         Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource FieldLabelStyle}"
-                        Text="{Binding Strings[UsbDiskLabel]}" />
+                        DisplayMemberPath="DisplayLabel"
+                        ItemsSource="{Binding UsbDiskCandidates}"
+                        SelectedItem="{Binding SelectedUsbDiskCandidate}" />
 
                     <Button
                         Grid.Column="1"
@@ -244,12 +246,6 @@
                         Content="{Binding Strings[UsbRefreshDisks]}"
                         IsEnabled="{Binding IsRefreshingUsbCandidates, Converter={StaticResource InverseBooleanConverter}}" />
                 </Grid>
-
-                <ComboBox
-                    Margin="0,0,0,10"
-                    DisplayMemberPath="DisplayLabel"
-                    ItemsSource="{Binding UsbDiskCandidates}"
-                    SelectedItem="{Binding SelectedUsbDiskCandidate}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -272,16 +268,16 @@
 
             <StackPanel
                 Grid.Row="2"
-                Margin="0,12,0,0"
+                Margin="0,24,0,12"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Button
-                    Width="132"
-                    Margin="0,0,8,0"
+                    Width="140"
+                    Margin="0,0,32,0"
                     Command="{Binding CreateIsoCommand}"
                     Content="{Binding Strings[CreateIso]}" />
                 <Button
-                    Width="132"
+                    Width="140"
                     Command="{Binding CreateUsbCommand}"
                     Content="{Binding Strings[CreateUsb]}" />
             </StackPanel>
@@ -336,7 +332,7 @@
                 <TextBlock
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding UsbDiskCandidates.Count, StringFormat=USB devices: {0}}" />
+                    Text="{Binding UsbDevicesCountDisplay}" />
             </Border>
 
             <Border Grid.Column="1" Padding="12,8">
@@ -344,7 +340,7 @@
                     HorizontalAlignment="Right"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Version: 1.0.0.0" />
+                    Text="{Binding VersionDisplay}" />
             </Border>
         </Grid>
     </Grid>

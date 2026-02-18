@@ -251,28 +251,25 @@
     <value>Actualiser USB</value>
   </data>
   <data name="IsoOutputPathLabel" xml:space="preserve">
-    <value>ISO output path</value>
+    <value>Chemin de sortie ISO</value>
   </data>
   <data name="ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
-  <data name="UsbDiskLabel" xml:space="preserve">
-    <value>USB target disk</value>
-  </data>
   <data name="UsbPartitionStyleLabel" xml:space="preserve">
-    <value>USB partition style</value>
+    <value>Style de partition USB</value>
   </data>
   <data name="MediaBuildSectionTitle" xml:space="preserve">
-    <value>Media Build Options</value>
+    <value>Options de creation du media</value>
   </data>
   <data name="IsoBrowseButton" xml:space="preserve">
-    <value>Select...</value>
+    <value>Selectionner...</value>
   </data>
   <data name="SignatureCa2023Label" xml:space="preserve">
-    <value>Use CA2023 signature mode (default: CA2011)</value>
+    <value>Utiliser le mode de signature CA2023 (defaut : CA2011)</value>
   </data>
   <data name="WinPeDriversLabel" xml:space="preserve">
-    <value>WinPE drivers</value>
+    <value>Pilotes WinPE</value>
   </data>
   <data name="DriverDellLabel" xml:space="preserve">
     <value>Dell</value>
@@ -281,15 +278,56 @@
     <value>HP</value>
   </data>
   <data name="UsbSectionTitle" xml:space="preserve">
-    <value>USB Target</value>
+    <value>Cible USB</value>
   </data>
   <data name="UsbWarningTitle" xml:space="preserve">
-    <value>USB erase confirmation</value>
+    <value>Confirmation d'effacement USB</value>
   </data>
   <data name="UsbWarningMessage" xml:space="preserve">
-    <value>You are about to erase USB disk #{0} ({1}, {2} GB). This operation is destructive. Continue?</value>
+    <value>Vous etes sur le point d'effacer le disque USB n°{0} ({1}, {2} Go). Cette operation est destructive. Continuer ?</value>
   </data>
   <data name="UsbWarningCancelled" xml:space="preserve">
-    <value>USB creation canceled by user.</value>
+    <value>Creation USB annulee par l'utilisateur.</value>
+  </data>
+  <data name="UsbDevicesCountFormat" xml:space="preserve">
+    <value>Peripheriques USB : {0}</value>
+  </data>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>Version : {0}</value>
+  </data>
+  <data name="UsbDiskRefreshFailedFormat" xml:space="preserve">
+    <value>Echec de l'actualisation des disques USB : {0}</value>
+  </data>
+  <data name="IsoCreatedSuccessMessage" xml:space="preserve">
+    <value>ISO cree avec succes.</value>
+  </data>
+  <data name="IsoFailedMessageFormat" xml:space="preserve">
+    <value>Echec ISO : {0} {1}</value>
+  </data>
+  <data name="IsoCreateErrorFormat" xml:space="preserve">
+    <value>Erreur lors de la creation de l'ISO : {0}</value>
+  </data>
+  <data name="UsbCreatedSuccessMessage" xml:space="preserve">
+    <value>USB cree avec succes.</value>
+  </data>
+  <data name="UsbFailedMessageFormat" xml:space="preserve">
+    <value>Echec USB : {0} {1}</value>
+  </data>
+  <data name="UsbCreateErrorFormat" xml:space="preserve">
+    <value>Erreur lors de la creation de l'USB : {0}</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>A propos de Foundry</value>
+  </data>
+  <data name="AboutMessage" xml:space="preserve">
+    <value>Foundry
+WPF .NET 10
+Initialisation MVVM prete.</value>
+  </data>
+  <data name="IsoPickerTitle" xml:space="preserve">
+    <value>Selectionner le chemin de sortie ISO</value>
+  </data>
+  <data name="IsoPickerFilter" xml:space="preserve">
+    <value>Image ISO (*.iso)|*.iso</value>
   </data>
 </root>

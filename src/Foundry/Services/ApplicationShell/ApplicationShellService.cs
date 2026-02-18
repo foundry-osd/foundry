@@ -1,3 +1,4 @@
+using Foundry.Services.Localization;
 using Microsoft.Win32;
 using System.Windows;
 
@@ -5,6 +6,13 @@ namespace Foundry.Services.ApplicationShell;
 
 public sealed class ApplicationShellService : IApplicationShellService
 {
+    private readonly ILocalizationService _localizationService;
+
+    public ApplicationShellService(ILocalizationService localizationService)
+    {
+        _localizationService = localizationService;
+    }
+
     public void Shutdown()
     {
         Application.Current.Shutdown();
@@ -12,19 +20,21 @@ public sealed class ApplicationShellService : IApplicationShellService
 
     public void ShowAbout()
     {
+        StringsWrapper strings = _localizationService.Strings;
         MessageBox.Show(
-            "Foundry\nWPF .NET 10\nMVVM bootstrap ready.",
-            "About Foundry",
+            strings["AboutMessage"],
+            strings["AboutTitle"],
             MessageBoxButton.OK,
             MessageBoxImage.Information);
     }
 
     public string? PickIsoOutputPath(string defaultFileName)
     {
+        StringsWrapper strings = _localizationService.Strings;
         var dialog = new SaveFileDialog
         {
-            Title = "Select ISO output path",
-            Filter = "ISO image (*.iso)|*.iso",
+            Title = strings["IsoPickerTitle"],
+            Filter = strings["IsoPickerFilter"],
             DefaultExt = ".iso",
             AddExtension = true,
             FileName = string.IsNullOrWhiteSpace(defaultFileName) ? "foundry-winpe.iso" : defaultFileName,

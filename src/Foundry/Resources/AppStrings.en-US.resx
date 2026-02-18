@@ -256,9 +256,6 @@
   <data name="ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
-  <data name="UsbDiskLabel" xml:space="preserve">
-    <value>USB target disk</value>
-  </data>
   <data name="UsbPartitionStyleLabel" xml:space="preserve">
     <value>USB partition style</value>
   </data>
@@ -291,5 +288,46 @@
   </data>
   <data name="UsbWarningCancelled" xml:space="preserve">
     <value>USB creation canceled by user.</value>
+  </data>
+  <data name="UsbDevicesCountFormat" xml:space="preserve">
+    <value>USB devices: {0}</value>
+  </data>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="UsbDiskRefreshFailedFormat" xml:space="preserve">
+    <value>USB disk refresh failed: {0}</value>
+  </data>
+  <data name="IsoCreatedSuccessMessage" xml:space="preserve">
+    <value>ISO created successfully.</value>
+  </data>
+  <data name="IsoFailedMessageFormat" xml:space="preserve">
+    <value>ISO failed: {0} {1}</value>
+  </data>
+  <data name="IsoCreateErrorFormat" xml:space="preserve">
+    <value>Error creating ISO: {0}</value>
+  </data>
+  <data name="UsbCreatedSuccessMessage" xml:space="preserve">
+    <value>USB created successfully.</value>
+  </data>
+  <data name="UsbFailedMessageFormat" xml:space="preserve">
+    <value>USB failed: {0} {1}</value>
+  </data>
+  <data name="UsbCreateErrorFormat" xml:space="preserve">
+    <value>Error creating USB: {0}</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>About Foundry</value>
+  </data>
+  <data name="AboutMessage" xml:space="preserve">
+    <value>Foundry
+WPF .NET 10
+MVVM bootstrap ready.</value>
+  </data>
+  <data name="IsoPickerTitle" xml:space="preserve">
+    <value>Select ISO output path</value>
+  </data>
+  <data name="IsoPickerFilter" xml:space="preserve">
+    <value>ISO image (*.iso)|*.iso</value>
   </data>
 </root>
