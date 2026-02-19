@@ -14,27 +14,9 @@
     <Window.Resources>
         <converters:CultureToBooleanConverter x:Key="CultureToBooleanConverter" />
         <converters:ThemeModeToBooleanConverter x:Key="ThemeModeToBooleanConverter" />
-
-        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
-            <Setter Property="Margin" Value="0,0,0,6" />
-            <Setter Property="FontSize" Value="30" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-        </Style>
-
-        <Style x:Key="SectionDividerStyle" TargetType="Separator">
-            <Setter Property="Margin" Value="0,0,0,10" />
-            <Setter Property="Background" Value="#4B5563" />
-        </Style>
-
-        <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
-            <Setter Property="Margin" Value="0,0,0,4" />
-            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-        </Style>
     </Window.Resources>
 
-    <Grid Background="#171717">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -45,8 +27,6 @@
 
         <Border
             Grid.Row="0"
-            Background="Transparent"
-            BorderBrush="#404040"
             BorderThickness="0,0,0,1">
             <Menu>
                 <MenuItem Header="{Binding Strings[MenuFile]}">
@@ -138,18 +118,24 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="2" Margin="16,14,16,10">
+        <Grid Grid.Row="2" Margin="16,16,16,12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Margin="0,0,0,12">
-                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="{Binding Strings[MediaBuildSectionTitle]}" />
-                <Separator Style="{StaticResource SectionDividerStyle}" />
+            <StackPanel Grid.Row="0" Margin="0,0,0,24">
+                <TextBlock 
+                    Margin="0,0,0,8"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="{Binding Strings[MediaBuildSectionTitle]}" />
+                <Separator
+                    Margin="0,0,0,12"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
-                <Grid Margin="0,0,0,10">
+                <Grid Margin="0,0,0,12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -160,7 +146,8 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Margin="0,0,8,0"
-                        Style="{StaticResource FieldLabelStyle}"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding Strings[IsoOutputPathLabel]}" />
 
                     <TextBox
@@ -185,7 +172,8 @@
                         Grid.Column="0"
                         Margin="0,0,8,0"
                         VerticalAlignment="Center"
-                        Style="{StaticResource FieldLabelStyle}"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding Strings[ArchitectureLabel]}" />
 
                     <ComboBox
@@ -204,7 +192,8 @@
                         Grid.Column="0"
                         Margin="0,0,8,0"
                         VerticalAlignment="Center"
-                        Style="{StaticResource FieldLabelStyle}"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding Strings[WinPeLanguageLabel]}" />
 
                     <ComboBox
@@ -216,7 +205,7 @@
                 </Grid>
 
                 <CheckBox
-                    Margin="0,2,0,10"
+                    Margin="0,4,0,12"
                     Content="{Binding Strings[SignatureCa2023Label]}"
                     IsChecked="{Binding UseCa2023}" />
 
@@ -229,12 +218,14 @@
                     <TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Style="{StaticResource FieldLabelStyle}"
+                        Margin="0,0,8,0"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding Strings[WinPeDriversLabel]}" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <CheckBox
-                            Margin="0,0,18,0"
+                            Margin="0,0,16,0"
                             Content="{Binding Strings[DriverDellLabel]}"
                             IsChecked="{Binding IncludeDellDrivers}" />
                         <CheckBox
@@ -245,8 +236,14 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1">
-                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="{Binding Strings[UsbSectionTitle]}" />
-                <Separator Style="{StaticResource SectionDividerStyle}" />
+                <TextBlock
+                    Margin="0,0,0,8"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="{Binding Strings[UsbSectionTitle]}" />
+                <Separator
+                    Margin="0,0,0,12"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
                 <Grid Margin="0,8,0,8">
                     <Grid.ColumnDefinitions>
@@ -262,7 +259,7 @@
 
                     <Button
                         Grid.Column="1"
-                        Margin="10,0,0,0"
+                        Margin="12,0,0,0"
                         Command="{Binding RefreshUsbCandidatesCommand}"
                         Content="{Binding Strings[UsbRefreshDisks]}"
                         IsEnabled="{Binding IsRefreshingUsbCandidates, Converter={StaticResource InverseBooleanConverter}}" />
@@ -277,7 +274,9 @@
                     <TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Style="{StaticResource FieldLabelStyle}"
+                        Margin="0,0,8,0"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding Strings[UsbPartitionStyleLabel]}" />
 
                     <ComboBox
@@ -319,7 +318,7 @@
 
                 <TextBlock
                     Grid.Row="0"
-                    Margin="0,0,0,6"
+                    Margin="0,0,0,8"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Text="{Binding GlobalOperationStatusDisplay}" />
 
@@ -332,7 +331,7 @@
 
                 <TextBlock
                     Grid.Row="2"
-                    Margin="0,6,0,0"
+                    Margin="0,8,0,0"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{Binding MediaActionMessage}" />
