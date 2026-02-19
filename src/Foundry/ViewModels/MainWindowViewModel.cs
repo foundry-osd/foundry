@@ -523,8 +523,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (!options.Any(option => option.Mode == selectedMode))
         {
-            SelectedUsbFormatMode = UsbFormatMode.Quick;
+            selectedMode = UsbFormatMode.Quick;
         }
+
+        if (SelectedUsbFormatMode != selectedMode)
+        {
+            SelectedUsbFormatMode = selectedMode;
+        }
+
+        OnPropertyChanged(nameof(SelectedUsbFormatMode));
     }
 
     private string GetUsbFormatModeDisplayName(UsbFormatMode mode)
