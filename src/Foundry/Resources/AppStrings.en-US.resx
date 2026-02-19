@@ -79,6 +79,12 @@
   <data name="MenuLanguage" xml:space="preserve">
     <value>_Language</value>
   </data>
+  <data name="MenuTools" xml:space="preserve">
+    <value>_Tools</value>
+  </data>
+  <data name="MenuLogs" xml:space="preserve">
+    <value>_Logs</value>
+  </data>
   <data name="LanguageEnglish" xml:space="preserve">
     <value>_English</value>
   </data>
@@ -259,11 +265,41 @@
   <data name="WinPeLanguageLabel" xml:space="preserve">
     <value>WinPE language</value>
   </data>
+  <data name="CustomDriverPathLabel" xml:space="preserve">
+    <value>Custom drivers folder</value>
+  </data>
+  <data name="CustomDriverPathPickerTitle" xml:space="preserve">
+    <value>Select custom drivers folder</value>
+  </data>
+  <data name="BrowseFolderButton" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
   <data name="UsbPartitionStyleLabel" xml:space="preserve">
     <value>USB partition style</value>
   </data>
+  <data name="UsbPartitionStyleArm64Hint" xml:space="preserve">
+    <value>ARM64 supports GPT only. MBR is disabled.</value>
+  </data>
+  <data name="UsbPartitionStyleArm64AutoSetMessage" xml:space="preserve">
+    <value>Partition style was switched to GPT because ARM64 requires GPT.</value>
+  </data>
+  <data name="UsbFormatModeLabel" xml:space="preserve">
+    <value>USB format mode</value>
+  </data>
+  <data name="UsbFormatModeQuick" xml:space="preserve">
+    <value>Quick</value>
+  </data>
+  <data name="UsbFormatModeComplete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
   <data name="MediaBuildSectionTitle" xml:space="preserve">
     <value>Media Build Options</value>
+  </data>
+  <data name="StandardConfigurationSectionTitle" xml:space="preserve">
+    <value>Standard configuration</value>
+  </data>
+  <data name="AdvancedOptionsHeader" xml:space="preserve">
+    <value>Advanced options</value>
   </data>
   <data name="IsoBrowseButton" xml:space="preserve">
     <value>Select...</value>
@@ -318,6 +354,15 @@
   </data>
   <data name="UsbCreateErrorFormat" xml:space="preserve">
     <value>Error creating USB: {0}</value>
+  </data>
+  <data name="CustomDriverPathNotFoundFormat" xml:space="preserve">
+    <value>Custom driver folder was not found: {0}</value>
+  </data>
+  <data name="CustomDriverPathNoInfFormat" xml:space="preserve">
+    <value>Custom driver folder contains no .inf files: {0}</value>
+  </data>
+  <data name="CustomDriverPathValidationErrorFormat" xml:space="preserve">
+    <value>Unable to validate custom driver folder: {0}</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>About Foundry</value>

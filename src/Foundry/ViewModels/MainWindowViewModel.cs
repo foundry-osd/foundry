@@ -54,16 +54,25 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private WinPeArchitecture selectedArchitecture = WinPeArchitecture.X64;
 
     [ObservableProperty]
+    private bool isAdvancedOptionsExpanded;
+
+    [ObservableProperty]
     private bool useCa2023;
 
     [ObservableProperty]
     private UsbPartitionStyle selectedPartitionStyle = UsbPartitionStyle.Gpt;
 
     [ObservableProperty]
+    private UsbFormatMode selectedUsbFormatMode = UsbFormatMode.Quick;
+
+    [ObservableProperty]
     private bool includeDellDrivers;
 
     [ObservableProperty]
     private bool includeHpDrivers;
+
+    [ObservableProperty]
+    private string customDriverDirectoryPath = string.Empty;
 
     [ObservableProperty]
     private bool enablePcaRemediation;
@@ -85,6 +94,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public ObservableCollection<WinPeUsbDiskCandidate> UsbDiskCandidates { get; } = [];
     public ObservableCollection<WinPeLanguageOption> AvailableWinPeLanguages { get; } = [];
+    public ObservableCollection<UsbFormatModeOption> AvailableUsbFormatModes { get; } = [];
 
     public IReadOnlyList<WinPeArchitecture> AvailableArchitectures { get; } = Enum.GetValues<WinPeArchitecture>();
     public IReadOnlyList<UsbPartitionStyle> AvailablePartitionStyles { get; } = Enum.GetValues<UsbPartitionStyle>();
@@ -102,6 +112,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string.Format(CurrentCulture, Strings["UsbDevicesCountFormat"], UsbDiskCandidates.Count);
     public string VersionDisplay =>
         string.Format(CurrentCulture, Strings["VersionFormat"], AppVersion);
+    public bool ShowUsbPartitionStyleArm64Hint => SelectedArchitecture == WinPeArchitecture.Arm64;
+    public string UsbPartitionStyleArm64Hint => Strings["UsbPartitionStyleArm64Hint"];
 
     private static string StagingDirectoryPath => Path.Combine(Path.GetTempPath(), "FoundryMedia");
 
@@ -129,6 +141,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         UpdateAdkStatus();
         RefreshWinPeLanguages(preserveSelection: false);
+        RefreshUsbFormatModes();
         UpdateOperationState();
     }
 
@@ -191,6 +204,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             IsoOutputPath = selectedPath;
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanBrowseCustomDriverDirectory))]
+    private void BrowseCustomDriverDirectory()
+    {
+        string? selectedPath = _applicationShellService.PickFolderPath(
+            Strings["CustomDriverPathPickerTitle"],
+            string.IsNullOrWhiteSpace(CustomDriverDirectoryPath) ? null : CustomDriverDirectoryPath);
+        if (!string.IsNullOrWhiteSpace(selectedPath))
+        {
+            CustomDriverDirectoryPath = selectedPath;
         }
     }
 
@@ -274,6 +299,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             Directory.CreateDirectory(StagingDirectoryPath);
 
+            if (!TryValidateCustomDriverDirectory(out string? customDriverValidationError))
+            {
+                MediaActionMessage = customDriverValidationError!;
+                return;
+            }
+
             WinPeResult result = await _mediaOutputService.CreateIsoAsync(new IsoOutputOptions
             {
                 StagingDirectoryPath = StagingDirectoryPath,
@@ -283,6 +314,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 SignatureMode = GetSignatureMode(),
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
+                CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
             });
@@ -330,6 +362,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             Directory.CreateDirectory(StagingDirectoryPath);
 
+            if (!TryValidateCustomDriverDirectory(out string? customDriverValidationError))
+            {
+                MediaActionMessage = customDriverValidationError!;
+                return;
+            }
+
             WinPeResult result = await _mediaOutputService.CreateUsbAsync(new UsbOutputOptions
             {
                 StagingDirectoryPath = StagingDirectoryPath,
@@ -338,10 +376,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 ExpectedDiskSerialNumber = SelectedUsbDiskCandidate.SerialNumber,
                 ExpectedDiskUniqueId = SelectedUsbDiskCandidate.UniqueId,
                 PartitionStyle = SelectedPartitionStyle,
+                FormatMode = SelectedUsbFormatMode,
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
+                CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
             });
@@ -375,9 +415,28 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     partial void OnSelectedArchitectureChanged(WinPeArchitecture value)
     {
         RefreshWinPeLanguages(preserveSelection: true);
+        EnforcePartitionStyleForArchitecture(showInfoMessage: true);
+        OnPropertyChanged(nameof(ShowUsbPartitionStyleArm64Hint));
+        OnPropertyChanged(nameof(UsbPartitionStyleArm64Hint));
+        UpdateOperationState();
+    }
+
+    partial void OnSelectedPartitionStyleChanged(UsbPartitionStyle value)
+    {
+        EnforcePartitionStyleForArchitecture(showInfoMessage: false);
+    }
+
+    partial void OnCustomDriverDirectoryPathChanged(string value)
+    {
+        UpdateOperationState();
     }
 
     private bool CanBrowseIsoOutputPath()
+    {
+        return !IsOperationInProgress;
+    }
+
+    private bool CanBrowseCustomDriverDirectory()
     {
         return !IsOperationInProgress;
     }
@@ -413,6 +472,63 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return UseCa2023 ? WinPeSignatureMode.Pca2023 : WinPeSignatureMode.Pca2011;
     }
 
+    private void EnforcePartitionStyleForArchitecture(bool showInfoMessage)
+    {
+        if (SelectedArchitecture != WinPeArchitecture.Arm64 || SelectedPartitionStyle != UsbPartitionStyle.Mbr)
+        {
+            return;
+        }
+
+        SelectedPartitionStyle = UsbPartitionStyle.Gpt;
+        if (showInfoMessage)
+        {
+            MediaActionMessage = Strings["UsbPartitionStyleArm64AutoSetMessage"];
+        }
+    }
+
+    private string? NormalizeCustomDriverDirectoryPath()
+    {
+        return string.IsNullOrWhiteSpace(CustomDriverDirectoryPath)
+            ? null
+            : CustomDriverDirectoryPath.Trim();
+    }
+
+    private bool TryValidateCustomDriverDirectory(out string? errorMessage)
+    {
+        errorMessage = null;
+
+        string? normalizedCustomPath = NormalizeCustomDriverDirectoryPath();
+        if (string.IsNullOrWhiteSpace(normalizedCustomPath))
+        {
+            return true;
+        }
+
+        if (!Directory.Exists(normalizedCustomPath))
+        {
+            errorMessage = string.Format(CurrentCulture, Strings["CustomDriverPathNotFoundFormat"], normalizedCustomPath);
+            return false;
+        }
+
+        bool hasInf;
+        try
+        {
+            hasInf = Directory.EnumerateFiles(normalizedCustomPath, "*.inf", SearchOption.AllDirectories).Any();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = string.Format(CurrentCulture, Strings["CustomDriverPathValidationErrorFormat"], ex.Message);
+            return false;
+        }
+
+        if (!hasInf)
+        {
+            errorMessage = string.Format(CurrentCulture, Strings["CustomDriverPathNoInfFormat"], normalizedCustomPath);
+            return false;
+        }
+
+        return true;
+    }
+
     private void RefreshWinPeLanguages(bool preserveSelection)
     {
         string? previousSelection = preserveSelection ? SelectedWinPeLanguage?.Code : null;
@@ -437,6 +553,36 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         SelectedWinPeLanguage = AvailableWinPeLanguages.FirstOrDefault(option =>
             option.Code.Equals(preferredCode, StringComparison.OrdinalIgnoreCase))
             ?? AvailableWinPeLanguages.FirstOrDefault();
+    }
+
+    private void RefreshUsbFormatModes()
+    {
+        UsbFormatMode selectedMode = SelectedUsbFormatMode;
+
+        UsbFormatModeOption[] options = Enum.GetValues<UsbFormatMode>()
+            .Select(mode => new UsbFormatModeOption(mode, GetUsbFormatModeDisplayName(mode)))
+            .ToArray();
+
+        AvailableUsbFormatModes.Clear();
+        foreach (UsbFormatModeOption option in options)
+        {
+            AvailableUsbFormatModes.Add(option);
+        }
+
+        if (!options.Any(option => option.Mode == selectedMode))
+        {
+            SelectedUsbFormatMode = UsbFormatMode.Quick;
+        }
+    }
+
+    private string GetUsbFormatModeDisplayName(UsbFormatMode mode)
+    {
+        return mode switch
+        {
+            UsbFormatMode.Quick => Strings["UsbFormatModeQuick"],
+            UsbFormatMode.Complete => Strings["UsbFormatModeComplete"],
+            _ => mode.ToString()
+        };
     }
 
     private static WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
@@ -504,11 +650,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         RunOnUiThread(() =>
         {
+            RefreshUsbFormatModes();
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(Strings));
             OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
             OnPropertyChanged(nameof(UsbDevicesCountDisplay));
             OnPropertyChanged(nameof(VersionDisplay));
+            OnPropertyChanged(nameof(UsbPartitionStyleArm64Hint));
         });
     }
 
@@ -559,15 +707,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IsOperationInProgress = _operationProgressService.IsOperationInProgress;
 
         bool canCreate = _adkService.IsAdkCompatible && !IsOperationInProgress;
+        bool customDriverPathValid = TryValidateCustomDriverDirectory(out _);
         CanCreateIso = canCreate &&
             SelectedWinPeLanguage is not null &&
             !string.IsNullOrWhiteSpace(IsoOutputPath) &&
-            IsoOutputPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase);
+            IsoOutputPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase) &&
+            customDriverPathValid;
         CanCreateUsb = canCreate &&
             SelectedWinPeLanguage is not null &&
-            SelectedUsbDiskCandidate is not null;
+            SelectedUsbDiskCandidate is not null &&
+            customDriverPathValid;
 
         BrowseIsoOutputPathCommand.NotifyCanExecuteChanged();
+        BrowseCustomDriverDirectoryCommand.NotifyCanExecuteChanged();
         CreateIsoCommand.NotifyCanExecuteChanged();
         CreateUsbCommand.NotifyCanExecuteChanged();
     }

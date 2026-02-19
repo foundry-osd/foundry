@@ -145,6 +145,7 @@ $result | ConvertTo-Json -Compress
         WinPeResult provisioningResult = await ProvisionDiskAsync(
             diskNumber,
             options.PartitionStyle,
+            options.FormatMode,
             bootDriveLetter,
             cacheDriveLetter,
             tools,
@@ -249,6 +250,7 @@ $result | ConvertTo-Json -Compress
     private async Task<WinPeResult> ProvisionDiskAsync(
         int diskNumber,
         UsbPartitionStyle partitionStyle,
+        UsbFormatMode formatMode,
         char bootDriveLetter,
         char cacheDriveLetter,
         WinPeToolPaths tools,
@@ -260,6 +262,7 @@ $result | ConvertTo-Json -Compress
             : ["convert mbr"];
         string activeLine = partitionStyle == UsbPartitionStyle.Mbr ? "active" : "";
 
+        string formatSuffix = formatMode == UsbFormatMode.Quick ? " quick" : string.Empty;
         string[] scriptLines = [
             $"select disk {diskNumber}",
             "online disk noerr",
@@ -267,11 +270,11 @@ $result | ConvertTo-Json -Compress
             "clean",
             ..conversionLines,
             "create partition primary size=4096",
-            "format fs=fat32 quick label=BOOT",
+            $"format fs=fat32{formatSuffix} label=BOOT",
             $"assign letter={bootDriveLetter}",
             activeLine,
             "create partition primary",
-            "format fs=ntfs quick label=\"Foundry Cache\"",
+            $"format fs=ntfs{formatSuffix} label=\"Foundry Cache\"",
             $"assign letter={cacheDriveLetter}"
         ];
 

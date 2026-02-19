@@ -44,6 +44,21 @@ public sealed class ApplicationShellService : IApplicationShellService
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
+    public string? PickFolderPath(string title, string? initialPath = null)
+    {
+        var dialog = new OpenFolderDialog
+        {
+            Title = title
+        };
+
+        if (!string.IsNullOrWhiteSpace(initialPath))
+        {
+            dialog.InitialDirectory = initialPath;
+        }
+
+        return dialog.ShowDialog() == true ? dialog.FolderName : null;
+    }
+
     public bool ConfirmWarning(string title, string message)
     {
         MessageBoxResult result = MessageBox.Show(

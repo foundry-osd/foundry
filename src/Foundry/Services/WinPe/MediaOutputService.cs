@@ -121,7 +121,14 @@ public sealed class MediaOutputService : IMediaOutputService
 
             artifact = buildResult.Value!;
             _operationProgressService.Report(30, "Resolving and preparing drivers.");
-            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(options.DriverCatalogUri, options.Architecture, options.DriverVendors, artifact, tools, cancellationToken).ConfigureAwait(false);
+            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(
+                options.DriverCatalogUri,
+                options.Architecture,
+                options.DriverVendors,
+                options.CustomDriverDirectoryPath,
+                artifact,
+                tools,
+                cancellationToken).ConfigureAwait(false);
             if (!drivers.IsSuccess)
             {
                 return FailWithProgress(drivers.Error!);
@@ -221,7 +228,14 @@ public sealed class MediaOutputService : IMediaOutputService
 
             artifact = buildResult.Value!;
             _operationProgressService.Report(30, "Resolving and preparing drivers.");
-            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(options.DriverCatalogUri, options.Architecture, options.DriverVendors, artifact, tools, cancellationToken).ConfigureAwait(false);
+            WinPeResult<IReadOnlyList<string>> drivers = await ResolveDriversAsync(
+                options.DriverCatalogUri,
+                options.Architecture,
+                options.DriverVendors,
+                options.CustomDriverDirectoryPath,
+                artifact,
+                tools,
+                cancellationToken).ConfigureAwait(false);
             if (!drivers.IsSuccess)
             {
                 return FailWithProgress(drivers.Error!);
@@ -273,6 +287,7 @@ public sealed class MediaOutputService : IMediaOutputService
         string catalogUri,
         WinPeArchitecture architecture,
         IReadOnlyList<WinPeVendorSelection> driverVendors,
+        string? customDriverDirectoryPath,
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
         CancellationToken cancellationToken)
@@ -282,44 +297,85 @@ public sealed class MediaOutputService : IMediaOutputService
             .Distinct()
             .ToArray();
 
-        if (normalizedVendors.Length == 0)
+        string normalizedCustomDirectory = customDriverDirectoryPath?.Trim() ?? string.Empty;
+        bool hasCustomDirectory = !string.IsNullOrWhiteSpace(normalizedCustomDirectory);
+
+        if (normalizedVendors.Length == 0 && !hasCustomDirectory)
         {
             return WinPeResult<IReadOnlyList<string>>.Success(Array.Empty<string>());
         }
 
-        WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>> catalog = await _driverCatalogService.GetCatalogAsync(new WinPeDriverCatalogOptions
+        if (hasCustomDirectory)
         {
-            CatalogUri = catalogUri,
-            Architecture = architecture,
-            Vendors = normalizedVendors
-        }, cancellationToken).ConfigureAwait(false);
+            if (!Directory.Exists(normalizedCustomDirectory))
+            {
+                return WinPeResult<IReadOnlyList<string>>.Failure(
+                    WinPeErrorCodes.ValidationFailed,
+                    "Custom driver directory does not exist.",
+                    $"Path: '{normalizedCustomDirectory}'.");
+            }
 
-        if (!catalog.IsSuccess)
-        {
-            return WinPeResult<IReadOnlyList<string>>.Failure(catalog.Error!);
+            bool hasInf = Directory.EnumerateFiles(normalizedCustomDirectory, "*.inf", SearchOption.AllDirectories)
+                .Any();
+            if (!hasInf)
+            {
+                return WinPeResult<IReadOnlyList<string>>.Failure(
+                    WinPeErrorCodes.ValidationFailed,
+                    "Custom driver directory does not contain any .inf files.",
+                    $"Path: '{normalizedCustomDirectory}'.");
+            }
         }
 
-        WinPeDriverCatalogEntry[] selectedPackages = catalog.Value?
-            .GroupBy(item => item.Vendor)
-            .Select(group => group
-                .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
-                .First())
-            .ToArray() ?? [];
+        var resolvedPaths = new List<string>();
 
-        if (selectedPackages.Length == 0)
+        if (normalizedVendors.Length > 0)
         {
-            return WinPeResult<IReadOnlyList<string>>.Success(Array.Empty<string>());
+            WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>> catalog = await _driverCatalogService.GetCatalogAsync(new WinPeDriverCatalogOptions
+            {
+                CatalogUri = catalogUri,
+                Architecture = architecture,
+                Vendors = normalizedVendors
+            }, cancellationToken).ConfigureAwait(false);
+
+            if (!catalog.IsSuccess)
+            {
+                return WinPeResult<IReadOnlyList<string>>.Failure(catalog.Error!);
+            }
+
+            WinPeDriverCatalogEntry[] selectedPackages = catalog.Value?
+                .GroupBy(item => item.Vendor)
+                .Select(group => group
+                    .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+                    .First())
+                .ToArray() ?? [];
+
+            if (selectedPackages.Length > 0)
+            {
+                WinPeResult<WinPePreparedDriverSet> prepared = await _driverPackageService.PrepareAsync(
+                    selectedPackages,
+                    Path.Combine(artifact.DriverWorkspacePath, "downloads"),
+                    Path.Combine(artifact.DriverWorkspacePath, "extracted"),
+                    tools,
+                    cancellationToken).ConfigureAwait(false);
+                if (!prepared.IsSuccess)
+                {
+                    return WinPeResult<IReadOnlyList<string>>.Failure(prepared.Error!);
+                }
+
+                resolvedPaths.AddRange(prepared.Value!.ExtractionDirectories);
+            }
         }
 
-        WinPeResult<WinPePreparedDriverSet> prepared = await _driverPackageService.PrepareAsync(
-            selectedPackages,
-            Path.Combine(artifact.DriverWorkspacePath, "downloads"),
-            Path.Combine(artifact.DriverWorkspacePath, "extracted"),
-            tools,
-            cancellationToken).ConfigureAwait(false);
-        return prepared.IsSuccess
-            ? WinPeResult<IReadOnlyList<string>>.Success(prepared.Value!.ExtractionDirectories)
-            : WinPeResult<IReadOnlyList<string>>.Failure(prepared.Error!);
+        if (hasCustomDirectory)
+        {
+            resolvedPaths.Add(normalizedCustomDirectory);
+        }
+
+        return WinPeResult<IReadOnlyList<string>>.Success(
+            resolvedPaths
+                .Where(path => !string.IsNullOrWhiteSpace(path))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray());
     }
 
     private async Task<WinPeResult> CustomizeImageAsync(
@@ -597,6 +653,12 @@ public sealed class MediaOutputService : IMediaOutputService
         if (string.IsNullOrWhiteSpace(options.OutputIsoPath) || !options.OutputIsoPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Output ISO path must end with .iso.", options.OutputIsoPath);
         if (!Enum.IsDefined(options.Architecture) || !Enum.IsDefined(options.SignatureMode)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Architecture or signature mode is invalid.");
         if (string.IsNullOrWhiteSpace(options.WinPeLanguage)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "WinPE language is required.");
+        if (!string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath))
+        {
+            string customDirectory = options.CustomDriverDirectoryPath.Trim();
+            if (!Directory.Exists(customDirectory)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Custom driver directory does not exist.", customDirectory);
+            if (!Directory.EnumerateFiles(customDirectory, "*.inf", SearchOption.AllDirectories).Any()) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Custom driver directory does not contain any .inf files.", customDirectory);
+        }
         return null;
     }
 
@@ -605,8 +667,15 @@ public sealed class MediaOutputService : IMediaOutputService
         if (options is null) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "USB options are required.");
         if (string.IsNullOrWhiteSpace(options.StagingDirectoryPath) || !Directory.Exists(options.StagingDirectoryPath)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Staging directory does not exist.", options.StagingDirectoryPath);
         if (!options.TargetDiskNumber.HasValue) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "TargetDiskNumber is required.");
-        if (!Enum.IsDefined(options.Architecture) || !Enum.IsDefined(options.SignatureMode) || !Enum.IsDefined(options.PartitionStyle)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "USB options contain invalid enum values.");
+        if (!Enum.IsDefined(options.Architecture) || !Enum.IsDefined(options.SignatureMode) || !Enum.IsDefined(options.PartitionStyle) || !Enum.IsDefined(options.FormatMode)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "USB options contain invalid enum values.");
         if (string.IsNullOrWhiteSpace(options.WinPeLanguage)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "WinPE language is required.");
+        if (options.Architecture == WinPeArchitecture.Arm64 && options.PartitionStyle == UsbPartitionStyle.Mbr) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "ARM64 only supports GPT partition style.");
+        if (!string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath))
+        {
+            string customDirectory = options.CustomDriverDirectoryPath.Trim();
+            if (!Directory.Exists(customDirectory)) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Custom driver directory does not exist.", customDirectory);
+            if (!Directory.EnumerateFiles(customDirectory, "*.inf", SearchOption.AllDirectories).Any()) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Custom driver directory does not contain any .inf files.", customDirectory);
+        }
         return null;
     }
 

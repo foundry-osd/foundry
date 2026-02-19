@@ -79,6 +79,12 @@
   <data name="MenuLanguage" xml:space="preserve">
     <value>_Langue</value>
   </data>
+  <data name="MenuTools" xml:space="preserve">
+    <value>_Outils</value>
+  </data>
+  <data name="MenuLogs" xml:space="preserve">
+    <value>_Logs</value>
+  </data>
   <data name="LanguageEnglish" xml:space="preserve">
     <value>_Anglais</value>
   </data>
@@ -259,11 +265,41 @@
   <data name="WinPeLanguageLabel" xml:space="preserve">
     <value>Langue WinPE</value>
   </data>
+  <data name="CustomDriverPathLabel" xml:space="preserve">
+    <value>Dossier pilotes custom</value>
+  </data>
+  <data name="CustomDriverPathPickerTitle" xml:space="preserve">
+    <value>Selectionner le dossier des pilotes custom</value>
+  </data>
+  <data name="BrowseFolderButton" xml:space="preserve">
+    <value>Parcourir...</value>
+  </data>
   <data name="UsbPartitionStyleLabel" xml:space="preserve">
     <value>Style de partition USB</value>
   </data>
+  <data name="UsbPartitionStyleArm64Hint" xml:space="preserve">
+    <value>ARM64 prend en charge GPT uniquement. MBR est desactive.</value>
+  </data>
+  <data name="UsbPartitionStyleArm64AutoSetMessage" xml:space="preserve">
+    <value>Le style de partition a ete bascule sur GPT car ARM64 exige GPT.</value>
+  </data>
+  <data name="UsbFormatModeLabel" xml:space="preserve">
+    <value>Mode de formatage USB</value>
+  </data>
+  <data name="UsbFormatModeQuick" xml:space="preserve">
+    <value>Rapide</value>
+  </data>
+  <data name="UsbFormatModeComplete" xml:space="preserve">
+    <value>Complet</value>
+  </data>
   <data name="MediaBuildSectionTitle" xml:space="preserve">
     <value>Options de creation du media</value>
+  </data>
+  <data name="StandardConfigurationSectionTitle" xml:space="preserve">
+    <value>Configuration standard</value>
+  </data>
+  <data name="AdvancedOptionsHeader" xml:space="preserve">
+    <value>Options avancees</value>
   </data>
   <data name="IsoBrowseButton" xml:space="preserve">
     <value>Selectionner...</value>
@@ -318,6 +354,15 @@
   </data>
   <data name="UsbCreateErrorFormat" xml:space="preserve">
     <value>Erreur lors de la creation de l'USB : {0}</value>
+  </data>
+  <data name="CustomDriverPathNotFoundFormat" xml:space="preserve">
+    <value>Dossier pilotes custom introuvable : {0}</value>
+  </data>
+  <data name="CustomDriverPathNoInfFormat" xml:space="preserve">
+    <value>Le dossier pilotes custom ne contient aucun fichier .inf : {0}</value>
+  </data>
+  <data name="CustomDriverPathValidationErrorFormat" xml:space="preserve">
+    <value>Impossible de valider le dossier pilotes custom : {0}</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>A propos de Foundry</value>

@@ -13,6 +13,7 @@ public sealed record IsoOutputOptions
 
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = Array.Empty<WinPeVendorSelection>();
     public string DriverCatalogUri { get; init; } = WinPeDefaults.DefaultUnifiedCatalogUri;
+    public string? CustomDriverDirectoryPath { get; init; }
 
     public bool ForceOverwriteOutput { get; init; } = true;
     public bool PreserveBuildWorkspace { get; init; }
