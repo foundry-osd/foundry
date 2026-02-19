@@ -281,7 +281,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 VolumeLabel = IsoVolumeLabel,
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
-                WinPeLanguage = SelectedWinPeLanguage?.Code ?? WinPeDefaults.DefaultOptionalComponentsLocale,
+                WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
@@ -340,7 +340,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 PartitionStyle = SelectedPartitionStyle,
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
-                WinPeLanguage = SelectedWinPeLanguage?.Code ?? WinPeDefaults.DefaultOptionalComponentsLocale,
+                WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
                 Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
@@ -420,7 +420,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         WinPeResult<IReadOnlyList<string>> result = _mediaOutputService.GetAvailableWinPeLanguages(SelectedArchitecture);
         string[] languageCodes = result.IsSuccess && result.Value is { Count: > 0 }
             ? result.Value.ToArray()
-            : [WinPeDefaults.DefaultOptionalComponentsLocale];
+            : [];
 
         WinPeLanguageOption[] options = languageCodes
             .Select(CreateWinPeLanguageOption)
@@ -442,10 +442,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private static WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
     {
         string normalizedCode = NormalizeLanguageCode(languageCode);
-        if (string.IsNullOrWhiteSpace(normalizedCode))
-        {
-            normalizedCode = WinPeDefaults.DefaultOptionalComponentsLocale;
-        }
 
         try
         {
@@ -464,7 +460,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (options.Count == 0)
         {
-            return WinPeDefaults.DefaultOptionalComponentsLocale;
+            return string.Empty;
         }
 
         string normalizedPrevious = NormalizeLanguageCode(previousSelection);
@@ -494,9 +490,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return systemFamily.Code;
         }
 
-        WinPeLanguageOption? fallback = options.FirstOrDefault(option =>
-            option.Code.Equals(WinPeDefaults.DefaultOptionalComponentsLocale, StringComparison.OrdinalIgnoreCase));
-        return fallback?.Code ?? options[0].Code;
+        return options[0].Code;
     }
 
     private static string NormalizeLanguageCode(string? languageCode)
@@ -566,9 +560,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         bool canCreate = _adkService.IsAdkCompatible && !IsOperationInProgress;
         CanCreateIso = canCreate &&
+            SelectedWinPeLanguage is not null &&
             !string.IsNullOrWhiteSpace(IsoOutputPath) &&
             IsoOutputPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase);
-        CanCreateUsb = canCreate && SelectedUsbDiskCandidate is not null;
+        CanCreateUsb = canCreate &&
+            SelectedWinPeLanguage is not null &&
+            SelectedUsbDiskCandidate is not null;
 
         BrowseIsoOutputPathCommand.NotifyCanExecuteChanged();
         CreateIsoCommand.NotifyCanExecuteChanged();

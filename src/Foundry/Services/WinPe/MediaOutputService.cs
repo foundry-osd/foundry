@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Globalization;
 using Foundry.Services.Operations;
 
 namespace Foundry.Services.WinPe;
@@ -328,6 +329,15 @@ public sealed class MediaOutputService : IMediaOutputService
         string winPeLanguage,
         CancellationToken cancellationToken)
     {
+        string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
+        if (!TryResolveInputLocale(normalizedLocale, out string canonicalLocale, out string inputLocale))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ValidationFailed,
+                "Unable to resolve keyboard layout from selected WinPE language.",
+                $"Selected language: '{canonicalLocale}'.");
+        }
+
         WinPeResult<WinPeMountSession> mount = await WinPeMountSession.MountAsync(_processRunner, tools.DismPath, artifact.BootWimPath, artifact.MountDirectoryPath, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!mount.IsSuccess)
         {
@@ -357,13 +367,26 @@ public sealed class MediaOutputService : IMediaOutputService
             session.MountDirectoryPath,
             artifact.Architecture,
             tools,
-            winPeLanguage,
+            normalizedLocale,
             artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
         if (!addComponentsResult.IsSuccess)
         {
             await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
             return addComponentsResult;
+        }
+
+        WinPeResult intlResult = await ApplyInternationalSettingsAsync(
+            session.MountDirectoryPath,
+            tools,
+            canonicalLocale,
+            inputLocale,
+            artifact.WorkingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+        if (!intlResult.IsSuccess)
+        {
+            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            return intlResult;
         }
 
         string system32 = Path.Combine(session.MountDirectoryPath, "Windows", "System32");
@@ -400,6 +423,40 @@ public sealed class MediaOutputService : IMediaOutputService
         return await session.CommitAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    private async Task<WinPeResult> ApplyInternationalSettingsAsync(
+        string mountedImagePath,
+        WinPeToolPaths tools,
+        string canonicalLocale,
+        string inputLocale,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken)
+    {
+        string[] dismCommands =
+        [
+            $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-AllIntl:{canonicalLocale}",
+            $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-InputLocale:{inputLocale}"
+        ];
+
+        foreach (string args in dismCommands)
+        {
+            WinPeProcessExecution execution = await _processRunner.RunAsync(
+                tools.DismPath,
+                args,
+                workingDirectoryPath,
+                cancellationToken).ConfigureAwait(false);
+
+            if (!execution.IsSuccess)
+            {
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.BuildFailed,
+                    "Failed to apply WinPE international settings.",
+                    execution.ToDiagnosticText());
+            }
+        }
+
+        return WinPeResult.Success();
+    }
+
     private async Task<WinPeResult> AddPowerShellComponentsAsync(
         string mountedImagePath,
         WinPeArchitecture architecture,
@@ -432,6 +489,31 @@ public sealed class MediaOutputService : IMediaOutputService
             "WinPE-EnhancedStorage"
         ];
         string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
+        string languagePackCab = Path.Combine(ocRoot, normalizedLocale, "lp.cab");
+        if (File.Exists(languagePackCab))
+        {
+            WinPeProcessExecution addLanguagePack = await _processRunner.RunAsync(
+                tools.DismPath,
+                $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(languagePackCab)}",
+                workingDirectoryPath,
+                cancellationToken).ConfigureAwait(false);
+
+            if (!addLanguagePack.IsSuccess)
+            {
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.BuildFailed,
+                    "Failed to add WinPE language pack.",
+                    addLanguagePack.ToDiagnosticText());
+            }
+        }
+        else
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "The selected WinPE language pack was not found.",
+                $"Expected package: '{languagePackCab}'.");
+        }
+
         int installed = 0;
         foreach (string component in components)
         {
@@ -456,18 +538,6 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             string localeCab = Path.Combine(ocRoot, normalizedLocale, $"{component}_{normalizedLocale}.cab");
-            if (!File.Exists(localeCab) &&
-                !normalizedLocale.Equals(WinPeDefaults.DefaultOptionalComponentsLocale, StringComparison.OrdinalIgnoreCase))
-            {
-                string fallbackLocaleCab = Path.Combine(
-                    ocRoot,
-                    WinPeDefaults.DefaultOptionalComponentsLocale,
-                    $"{component}_{WinPeDefaults.DefaultOptionalComponentsLocale}.cab");
-                if (File.Exists(fallbackLocaleCab))
-                {
-                    localeCab = fallbackLocaleCab;
-                }
-            }
 
             if (File.Exists(localeCab))
             {
@@ -585,11 +655,28 @@ public sealed class MediaOutputService : IMediaOutputService
 
     private static string NormalizeWinPeLanguageCode(string languageCode)
     {
-        if (string.IsNullOrWhiteSpace(languageCode))
-        {
-            return WinPeDefaults.DefaultOptionalComponentsLocale;
-        }
-
-        return languageCode.Trim().Replace('_', '-').ToLowerInvariant();
+        return string.IsNullOrWhiteSpace(languageCode)
+            ? string.Empty
+            : languageCode.Trim().Replace('_', '-').ToLowerInvariant();
     }
+
+    private static bool TryResolveInputLocale(string languageCode, out string canonicalLanguageCode, out string inputLocale)
+    {
+        try
+        {
+            CultureInfo culture = CultureInfo.GetCultureInfo(languageCode);
+            canonicalLanguageCode = culture.Name;
+            int keyboardLayoutId = culture.KeyboardLayoutId;
+            string hex = keyboardLayoutId.ToString("x4", CultureInfo.InvariantCulture);
+            inputLocale = $"{hex}:0000{hex}";
+            return true;
+        }
+        catch (CultureNotFoundException)
+        {
+            canonicalLanguageCode = languageCode;
+            inputLocale = string.Empty;
+            return false;
+        }
+    }
+
 }

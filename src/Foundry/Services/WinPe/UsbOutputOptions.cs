@@ -13,7 +13,7 @@ public sealed record UsbOutputOptions
     public string? AdkRootPath { get; init; }
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;
     public WinPeSignatureMode SignatureMode { get; init; } = WinPeSignatureMode.Pca2011;
-    public string WinPeLanguage { get; init; } = WinPeDefaults.DefaultOptionalComponentsLocale;
+    public string WinPeLanguage { get; init; } = string.Empty;
 
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = Array.Empty<WinPeVendorSelection>();
     public string DriverCatalogUri { get; init; } = WinPeDefaults.DefaultUnifiedCatalogUri;
