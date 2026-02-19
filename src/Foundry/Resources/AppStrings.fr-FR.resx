@@ -292,9 +292,6 @@
   <data name="UsbFormatModeComplete" xml:space="preserve">
     <value>Complet</value>
   </data>
-  <data name="MediaBuildSectionTitle" xml:space="preserve">
-    <value>Options de creation du media</value>
-  </data>
   <data name="StandardConfigurationSectionTitle" xml:space="preserve">
     <value>Configuration standard</value>
   </data>
@@ -354,15 +351,6 @@
   </data>
   <data name="UsbCreateErrorFormat" xml:space="preserve">
     <value>Erreur lors de la creation de l'USB : {0}</value>
-  </data>
-  <data name="CustomDriverPathNotFoundFormat" xml:space="preserve">
-    <value>Dossier pilotes custom introuvable : {0}</value>
-  </data>
-  <data name="CustomDriverPathNoInfFormat" xml:space="preserve">
-    <value>Le dossier pilotes custom ne contient aucun fichier .inf : {0}</value>
-  </data>
-  <data name="CustomDriverPathValidationErrorFormat" xml:space="preserve">
-    <value>Impossible de valider le dossier pilotes custom : {0}</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>A propos de Foundry</value>

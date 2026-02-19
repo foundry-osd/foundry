@@ -292,9 +292,6 @@
   <data name="UsbFormatModeComplete" xml:space="preserve">
     <value>Complete</value>
   </data>
-  <data name="MediaBuildSectionTitle" xml:space="preserve">
-    <value>Media Build Options</value>
-  </data>
   <data name="StandardConfigurationSectionTitle" xml:space="preserve">
     <value>Standard configuration</value>
   </data>
@@ -354,15 +351,6 @@
   </data>
   <data name="UsbCreateErrorFormat" xml:space="preserve">
     <value>Error creating USB: {0}</value>
-  </data>
-  <data name="CustomDriverPathNotFoundFormat" xml:space="preserve">
-    <value>Custom driver folder was not found: {0}</value>
-  </data>
-  <data name="CustomDriverPathNoInfFormat" xml:space="preserve">
-    <value>Custom driver folder contains no .inf files: {0}</value>
-  </data>
-  <data name="CustomDriverPathValidationErrorFormat" xml:space="preserve">
-    <value>Unable to validate custom driver folder: {0}</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>About Foundry</value>

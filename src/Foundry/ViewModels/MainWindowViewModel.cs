@@ -299,12 +299,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             Directory.CreateDirectory(StagingDirectoryPath);
 
-            if (!TryValidateCustomDriverDirectory(out string? customDriverValidationError))
-            {
-                MediaActionMessage = customDriverValidationError!;
-                return;
-            }
-
             WinPeResult result = await _mediaOutputService.CreateIsoAsync(new IsoOutputOptions
             {
                 StagingDirectoryPath = StagingDirectoryPath,
@@ -361,12 +355,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         try
         {
             Directory.CreateDirectory(StagingDirectoryPath);
-
-            if (!TryValidateCustomDriverDirectory(out string? customDriverValidationError))
-            {
-                MediaActionMessage = customDriverValidationError!;
-                return;
-            }
 
             WinPeResult result = await _mediaOutputService.CreateUsbAsync(new UsbOutputOptions
             {
@@ -491,42 +479,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return string.IsNullOrWhiteSpace(CustomDriverDirectoryPath)
             ? null
             : CustomDriverDirectoryPath.Trim();
-    }
-
-    private bool TryValidateCustomDriverDirectory(out string? errorMessage)
-    {
-        errorMessage = null;
-
-        string? normalizedCustomPath = NormalizeCustomDriverDirectoryPath();
-        if (string.IsNullOrWhiteSpace(normalizedCustomPath))
-        {
-            return true;
-        }
-
-        if (!Directory.Exists(normalizedCustomPath))
-        {
-            errorMessage = string.Format(CurrentCulture, Strings["CustomDriverPathNotFoundFormat"], normalizedCustomPath);
-            return false;
-        }
-
-        bool hasInf;
-        try
-        {
-            hasInf = Directory.EnumerateFiles(normalizedCustomPath, "*.inf", SearchOption.AllDirectories).Any();
-        }
-        catch (Exception ex)
-        {
-            errorMessage = string.Format(CurrentCulture, Strings["CustomDriverPathValidationErrorFormat"], ex.Message);
-            return false;
-        }
-
-        if (!hasInf)
-        {
-            errorMessage = string.Format(CurrentCulture, Strings["CustomDriverPathNoInfFormat"], normalizedCustomPath);
-            return false;
-        }
-
-        return true;
     }
 
     private void RefreshWinPeLanguages(bool preserveSelection)
@@ -707,16 +659,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IsOperationInProgress = _operationProgressService.IsOperationInProgress;
 
         bool canCreate = _adkService.IsAdkCompatible && !IsOperationInProgress;
-        bool customDriverPathValid = TryValidateCustomDriverDirectory(out _);
         CanCreateIso = canCreate &&
             SelectedWinPeLanguage is not null &&
             !string.IsNullOrWhiteSpace(IsoOutputPath) &&
-            IsoOutputPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase) &&
-            customDriverPathValid;
+            IsoOutputPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase);
         CanCreateUsb = canCreate &&
             SelectedWinPeLanguage is not null &&
-            SelectedUsbDiskCandidate is not null &&
-            customDriverPathValid;
+            SelectedUsbDiskCandidate is not null;
 
         BrowseIsoOutputPathCommand.NotifyCanExecuteChanged();
         BrowseCustomDriverDirectoryCommand.NotifyCanExecuteChanged();
