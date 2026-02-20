@@ -83,21 +83,40 @@
         <Border
             Grid.Row="1"
             Padding="16,12"
-            Background="#D97706"
-            BorderBrush="#B45309"
-            BorderThickness="0,2,0,2"
+            Background="{DynamicResource SystemFillColorAttentionBrush}"
+            BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"
+            BorderThickness="0,1,0,1"
             Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
+                <!-- Alert indicator -->
+                <Border
+                    Grid.Column="0"
+                    Width="24"
+                    Height="24"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource AccentFillColorTertiaryBrush}"
+                    CornerRadius="12">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+                        FontSize="13"
+                        FontWeight="SemiBold"
+                        Text="!" />
+                </Border>
+
                 <!-- ADK missing message -->
                 <TextBlock
-                    Grid.Column="0"
+                    Grid.Column="1"
                     VerticalAlignment="Center"
-                    Foreground="White"
+                    Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding Strings[AdkBannerMissing]}"
                     TextWrapping="Wrap"
@@ -105,9 +124,9 @@
 
                 <!-- ADK incompatible message -->
                 <TextBlock
-                    Grid.Column="0"
+                    Grid.Column="1"
                     VerticalAlignment="Center"
-                    Foreground="White"
+                    Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding Strings[AdkBannerIncompatible]}"
                     TextWrapping="Wrap"
@@ -115,7 +134,8 @@
 
                 <!-- ADK install action -->
                 <Button
-                    Grid.Column="1"
+                    Grid.Column="2"
+                    MinWidth="132"
                     Margin="12,0,0,0"
                     Command="{Binding InstallAdkCommand}"
                     Content="{Binding Strings[AdkInstall]}"
@@ -124,7 +144,8 @@
 
                 <!-- ADK upgrade action -->
                 <Button
-                    Grid.Column="1"
+                    Grid.Column="2"
+                    MinWidth="132"
                     Margin="12,0,0,0"
                     Command="{Binding UpgradeAdkCommand}"
                     Content="{Binding Strings[AdkUpgrade]}"
