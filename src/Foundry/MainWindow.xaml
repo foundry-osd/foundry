@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Foundry"
     Width="600"
-    SizeToContent="Height"
     ResizeMode="CanMinimize"
+    SizeToContent="Height"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -26,9 +26,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Border
-            Grid.Row="0"
-            BorderThickness="0,0,0,1">
+        <Border Grid.Row="0" BorderThickness="0,0,0,1">
             <Menu>
                 <MenuItem Header="{Binding Strings[MenuFile]}">
                     <MenuItem Command="{Binding ExitCommand}" Header="{Binding Strings[MenuExit]}" />
@@ -135,9 +133,7 @@
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource TitleTextBlockStyle}"
                     Text="{Binding Strings[StandardConfigurationSectionTitle]}" />
-                <Separator
-                    Margin="0,0,0,12"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
                 <Grid Margin="0,0,0,12">
                     <Grid.ColumnDefinitions>
@@ -231,9 +227,9 @@
 
                     <ComboBox
                         Grid.Column="1"
+                        MinWidth="220"
                         DisplayMemberPath="DisplayName"
                         ItemsSource="{Binding AvailableWinPeLanguages}"
-                        MinWidth="220"
                         SelectedItem="{Binding SelectedWinPeLanguage}" />
                 </Grid>
 
@@ -256,9 +252,7 @@
                             Margin="0,0,16,0"
                             Content="{Binding Strings[DriverDellLabel]}"
                             IsChecked="{Binding IncludeDellDrivers}" />
-                        <CheckBox
-                            Content="{Binding Strings[DriverHpLabel]}"
-                            IsChecked="{Binding IncludeHpDrivers}" />
+                        <CheckBox Content="{Binding Strings[DriverHpLabel]}" IsChecked="{Binding IncludeHpDrivers}" />
                     </StackPanel>
                 </Grid>
             </StackPanel>
