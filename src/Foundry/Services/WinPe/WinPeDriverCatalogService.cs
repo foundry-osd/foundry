@@ -74,20 +74,27 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                 continue;
             }
 
+            XElement? osInfo = pack.Element("OsInfo");
             WinPeVendorSelection vendor = ParseVendor((string?)pack.Attribute("manufacturer"));
             if (requestedVendors.Count > 0 && !requestedVendors.Contains(vendor))
             {
                 continue;
             }
 
-            string architectureRaw = (string?)pack.Element("OsInfo")?.Attribute("architecture") ?? string.Empty;
+            string name = (string?)pack.Attribute("name") ?? string.Empty;
+            string releaseId = (string?)osInfo?.Attribute("releaseId") ?? string.Empty;
+            if (!MatchesRequiredWinPeRelease(releaseId, options.RequiredWinPeReleaseId, name))
+            {
+                continue;
+            }
+
+            string architectureRaw = (string?)osInfo?.Attribute("architecture") ?? string.Empty;
             WinPeArchitecture? architecture = ParseArchitecture(architectureRaw);
             if (architecture is null || architecture.Value != options.Architecture)
             {
                 continue;
             }
 
-            string name = (string?)pack.Attribute("name") ?? string.Empty;
             string id = (string?)pack.Attribute("id") ?? string.Empty;
             string version = (string?)pack.Attribute("version") ?? string.Empty;
             string fileName = (string?)pack.Attribute("fileName") ?? string.Empty;
@@ -198,6 +205,41 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
         }
 
         return null;
+    }
+
+    private static bool MatchesRequiredWinPeRelease(string releaseId, string? requiredReleaseId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(requiredReleaseId))
+        {
+            return true;
+        }
+
+        string normalizedRequired = requiredReleaseId.Trim();
+        if (string.IsNullOrWhiteSpace(normalizedRequired))
+        {
+            return true;
+        }
+
+        string[] releaseTokens = SplitReleaseTokens(releaseId);
+        if (releaseTokens.Any(token => token.Equals(normalizedRequired, StringComparison.OrdinalIgnoreCase)))
+        {
+            return true;
+        }
+
+        return name.Contains($"WinPE{normalizedRequired}", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string[] SplitReleaseTokens(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return Array.Empty<string>();
+        }
+
+        return value
+            .Split(['/', '\\', ',', ';', '|', ' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Where(token => !string.IsNullOrWhiteSpace(token))
+            .ToArray();
     }
 
     private static WinPeDiagnostic? ValidateCatalogOptions(WinPeDriverCatalogOptions? options)
