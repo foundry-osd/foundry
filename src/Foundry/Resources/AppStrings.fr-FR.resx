@@ -1,5 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!--  
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -78,6 +137,12 @@
   </data>
   <data name="MenuLanguage" xml:space="preserve">
     <value>_Langue</value>
+  </data>
+  <data name="MenuTools" xml:space="preserve">
+    <value>_Outils</value>
+  </data>
+  <data name="MenuLogs" xml:space="preserve">
+    <value>_Logs</value>
   </data>
   <data name="LanguageEnglish" xml:space="preserve">
     <value>_Anglais</value>
@@ -246,5 +311,118 @@
   </data>
   <data name="AdkStatusVerificationPending" xml:space="preserve">
     <value>L’installation est terminée, mais la vérification ADK est toujours en attente.</value>
+  </data>
+  <data name="UsbRefreshDisks" xml:space="preserve">
+    <value>Actualiser</value>
+  </data>
+  <data name="IsoOutputPathLabel" xml:space="preserve">
+    <value>Chemin de sortie ISO</value>
+  </data>
+  <data name="ArchitectureLabel" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="WinPeLanguageLabel" xml:space="preserve">
+    <value>Langue WinPE</value>
+  </data>
+  <data name="CustomDriverPathLabel" xml:space="preserve">
+    <value>Dossier pilotes custom</value>
+  </data>
+  <data name="CustomDriverPathPickerTitle" xml:space="preserve">
+    <value>Selectionner le dossier des pilotes custom</value>
+  </data>
+  <data name="BrowseFolderButton" xml:space="preserve">
+    <value>Parcourir...</value>
+  </data>
+  <data name="UsbPartitionStyleLabel" xml:space="preserve">
+    <value>Style de partition USB</value>
+  </data>
+  <data name="UsbPartitionStyleArm64Hint" xml:space="preserve">
+    <value>ARM64 prend en charge GPT uniquement. MBR est desactive.</value>
+  </data>
+  <data name="UsbPartitionStyleArm64AutoSetMessage" xml:space="preserve">
+    <value>Le style de partition a ete bascule sur GPT car ARM64 exige GPT.</value>
+  </data>
+  <data name="UsbFormatModeLabel" xml:space="preserve">
+    <value>Mode de formatage USB</value>
+  </data>
+  <data name="UsbFormatModeQuick" xml:space="preserve">
+    <value>Rapide</value>
+  </data>
+  <data name="UsbFormatModeComplete" xml:space="preserve">
+    <value>Complet</value>
+  </data>
+  <data name="StandardConfigurationSectionTitle" xml:space="preserve">
+    <value>Configuration standard</value>
+  </data>
+  <data name="AdvancedOptionsHeader" xml:space="preserve">
+    <value>Options avancees</value>
+  </data>
+  <data name="IsoBrowseButton" xml:space="preserve">
+    <value>Selectionner...</value>
+  </data>
+  <data name="SignatureCa2023Label" xml:space="preserve">
+    <value>Utiliser le mode de signature CA2023 (defaut : CA2011)</value>
+  </data>
+  <data name="WinPeDriversLabel" xml:space="preserve">
+    <value>Pilotes WinPE</value>
+  </data>
+  <data name="DriverDellLabel" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="DriverHpLabel" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="UsbSectionTitle" xml:space="preserve">
+    <value>Cible USB</value>
+  </data>
+  <data name="UsbWarningTitle" xml:space="preserve">
+    <value>Confirmation d'effacement USB</value>
+  </data>
+  <data name="UsbWarningMessage" xml:space="preserve">
+    <value>Vous etes sur le point d'effacer le disque USB n°{0} ({1}, {2} Go). Cette operation est destructive. Continuer ?</value>
+  </data>
+  <data name="UsbWarningCancelled" xml:space="preserve">
+    <value>Creation USB annulee par l'utilisateur.</value>
+  </data>
+  <data name="UsbDevicesCountFormat" xml:space="preserve">
+    <value>Peripheriques USB : {0}</value>
+  </data>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>Version : {0}</value>
+  </data>
+  <data name="UsbDiskRefreshFailedFormat" xml:space="preserve">
+    <value>Echec de l'actualisation des disques USB : {0}</value>
+  </data>
+  <data name="IsoCreatedSuccessMessage" xml:space="preserve">
+    <value>ISO cree avec succes.</value>
+  </data>
+  <data name="IsoFailedMessageFormat" xml:space="preserve">
+    <value>Echec ISO : {0} {1}</value>
+  </data>
+  <data name="IsoCreateErrorFormat" xml:space="preserve">
+    <value>Erreur lors de la creation de l'ISO : {0}</value>
+  </data>
+  <data name="UsbCreatedSuccessMessage" xml:space="preserve">
+    <value>USB cree avec succes.</value>
+  </data>
+  <data name="UsbFailedMessageFormat" xml:space="preserve">
+    <value>Echec USB : {0} {1}</value>
+  </data>
+  <data name="UsbCreateErrorFormat" xml:space="preserve">
+    <value>Erreur lors de la creation de l'USB : {0}</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>A propos de Foundry</value>
+  </data>
+  <data name="AboutMessage" xml:space="preserve">
+    <value>Foundry
+WPF .NET 10
+Initialisation MVVM prete.</value>
+  </data>
+  <data name="IsoPickerTitle" xml:space="preserve">
+    <value>Selectionner le chemin de sortie ISO</value>
+  </data>
+  <data name="IsoPickerFilter" xml:space="preserve">
+    <value>Image ISO (*.iso)|*.iso</value>
   </data>
 </root>

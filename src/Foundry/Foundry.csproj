@@ -19,4 +19,10 @@
     <Page Include="App.xaml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\WinPe\FoundryBootstrap.ps1">
+      <LogicalName>Foundry.WinPe.BootstrapScript</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

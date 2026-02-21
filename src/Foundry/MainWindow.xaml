@@ -6,16 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Foundry"
-    Width="600"
-    SizeToContent="Height"
+    Width="700"
     ResizeMode="CanMinimize"
+    SizeToContent="Height"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
+        <!--  Converters used by view bindings  -->
         <converters:CultureToBooleanConverter x:Key="CultureToBooleanConverter" />
         <converters:ThemeModeToBooleanConverter x:Key="ThemeModeToBooleanConverter" />
+        <converters:PartitionStyleAvailabilityConverter x:Key="PartitionStyleAvailabilityConverter" />
     </Window.Resources>
+
     <Grid>
+        <!--  Main vertical window layout  -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -24,15 +28,17 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <!--  Row 0: Main menu  -->
         <Border
             Grid.Row="0"
-            Background="Transparent"
-            BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
+            BorderBrush="#404040"
             BorderThickness="0,0,0,1">
             <Menu>
+                <!--  File  -->
                 <MenuItem Header="{Binding Strings[MenuFile]}">
                     <MenuItem Command="{Binding ExitCommand}" Header="{Binding Strings[MenuExit]}" />
                 </MenuItem>
+                <!--  Theme  -->
                 <MenuItem Header="{Binding Strings[MenuTheme]}">
                     <MenuItem
                         Command="{Binding SetSystemThemeCommand}"
@@ -50,6 +56,7 @@
                         IsCheckable="True"
                         IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
                 </MenuItem>
+                <!--  Language  -->
                 <MenuItem Header="{Binding Strings[MenuLanguage]}">
                     <MenuItem
                         Command="{Binding SetCultureCommand}"
@@ -64,54 +71,84 @@
                         IsCheckable="True"
                         IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=fr-FR, Mode=OneWay}" />
                 </MenuItem>
+                <!--  Tools  -->
+                <MenuItem Header="{Binding Strings[MenuTools]}">
+                    <MenuItem Header="{Binding Strings[MenuLogs]}" />
+                </MenuItem>
+                <!--  Help  -->
                 <MenuItem Header="{Binding Strings[MenuHelp]}">
                     <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[MenuAbout]}" />
                 </MenuItem>
             </Menu>
         </Border>
 
-        <!--  ADK Banner  -->
+        <!--  Row 1: ADK alert banner (missing/incompatible)  -->
         <Border
             Grid.Row="1"
             Padding="16,12"
-            Background="#D97706"
-            BorderBrush="#B45309"
-            BorderThickness="0,2,0,2"
+            Background="{DynamicResource SystemFillColorAttentionBrush}"
+            BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"
+            BorderThickness="0,1,0,1"
             Visibility="{Binding ShowAdkBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock
+                <!--  Alert indicator  -->
+                <Border
                     Grid.Column="0"
+                    Width="24"
+                    Height="24"
+                    Margin="0,0,12,0"
                     VerticalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Background="{DynamicResource AccentFillColorTertiaryBrush}"
+                    CornerRadius="12">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="13"
+                        FontWeight="SemiBold"
+                        Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+                        Text="!" />
+                </Border>
+
+                <!--  ADK missing message  -->
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding Strings[AdkBannerMissing]}"
                     TextWrapping="Wrap"
                     Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
+                <!--  ADK incompatible message  -->
                 <TextBlock
-                    Grid.Column="0"
+                    Grid.Column="1"
                     VerticalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding Strings[AdkBannerIncompatible]}"
                     TextWrapping="Wrap"
                     Visibility="{Binding IsAdkIncompatible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
+                <!--  ADK install action  -->
                 <Button
-                    Grid.Column="1"
+                    Grid.Column="2"
+                    MinWidth="132"
                     Margin="12,0,0,0"
                     Command="{Binding InstallAdkCommand}"
                     Content="{Binding Strings[AdkInstall]}"
                     IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}"
                     Visibility="{Binding IsAdkMissing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
+                <!--  ADK upgrade action  -->
                 <Button
-                    Grid.Column="1"
+                    Grid.Column="2"
+                    MinWidth="132"
                     Margin="12,0,0,0"
                     Command="{Binding UpgradeAdkCommand}"
                     Content="{Binding Strings[AdkUpgrade]}"
@@ -120,46 +157,300 @@
             </Grid>
         </Border>
 
-        <!--  Main Content  -->
-        <Grid Grid.Row="2" Margin="16">
+        <!--  Row 2: Configuration and actions area  -->
+        <Grid Grid.Row="2" Margin="16,16,16,12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <!--  Section: standard configuration  -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,24">
+                <TextBlock
+                    Margin="0,0,0,8"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="{Binding Strings[StandardConfigurationSectionTitle]}" />
+                <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[IsoOutputPathLabel]}" />
+
+                    <!--  Read-only ISO output folder field  -->
+                    <TextBox
+                        Grid.Column="1"
+                        Margin="0,0,8,0"
+                        IsReadOnly="True"
+                        Text="{Binding IsoOutputPath, Mode=OneWay}" />
+
+                    <!--  ISO folder browse button  -->
+                    <Button
+                        Grid.Column="2"
+                        Width="130"
+                        Command="{Binding BrowseIsoOutputPathCommand}"
+                        Content="{Binding Strings[IsoBrowseButton]}" />
+                </Grid>
+
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[UsbSectionTitle]}" />
+
+                    <!--  List of detected USB disks  -->
+                    <ComboBox
+                        Grid.Column="1"
+                        Margin="0,0,8,0"
+                        DisplayMemberPath="DisplayLabel"
+                        ItemsSource="{Binding UsbDiskCandidates}"
+                        SelectedItem="{Binding SelectedUsbDiskCandidate}" />
+
+                    <!--  Refresh USB devices  -->
+                    <Button
+                        Grid.Column="2"
+                        Width="130"
+                        Command="{Binding RefreshUsbCandidatesCommand}"
+                        Content="{Binding Strings[UsbRefreshDisks]}"
+                        IsEnabled="{Binding IsRefreshingUsbCandidates, Converter={StaticResource InverseBooleanConverter}}" />
+                </Grid>
+
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[ArchitectureLabel]}" />
+
+                    <!--  Target architecture selection  -->
+                    <ComboBox
+                        Grid.Column="1"
+                        ItemsSource="{Binding AvailableArchitectures}"
+                        SelectedItem="{Binding SelectedArchitecture}" />
+                </Grid>
+
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[WinPeLanguageLabel]}" />
+
+                    <!--  WinPE language selection  -->
+                    <ComboBox
+                        Grid.Column="1"
+                        MinWidth="220"
+                        DisplayMemberPath="DisplayName"
+                        ItemsSource="{Binding AvailableWinPeLanguages}"
+                        SelectedItem="{Binding SelectedWinPeLanguage}" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[WinPeDriversLabel]}" />
+
+                    <!--  Driver pack selection  -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <CheckBox
+                            Margin="0,0,16,0"
+                            Content="{Binding Strings[DriverDellLabel]}"
+                            IsChecked="{Binding IncludeDellDrivers}" />
+                        <CheckBox Content="{Binding Strings[DriverHpLabel]}" IsChecked="{Binding IncludeHpDrivers}" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <!--  Section: advanced options  -->
+            <Expander
+                Grid.Row="1"
+                Margin="0,0,0,24"
+                IsExpanded="{Binding IsAdvancedOptionsExpanded}">
+                <Expander.Header>
+                    <TextBlock
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[AdvancedOptionsHeader]}" />
+                </Expander.Header>
+
+                <StackPanel Margin="0,12,0,0">
+                    <CheckBox
+                        Margin="0,0,0,12"
+                        Content="{Binding Strings[SignatureCa2023Label]}"
+                        IsChecked="{Binding UseCa2023}" />
+
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding Strings[UsbPartitionStyleLabel]}" />
+
+                        <!--  USB partition style (enabled based on architecture)  -->
+                        <ComboBox
+                            Grid.Column="1"
+                            ItemsSource="{Binding AvailablePartitionStyles}"
+                            SelectedItem="{Binding SelectedPartitionStyle}">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="IsEnabled">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource PartitionStyleAvailabilityConverter}">
+                                                <Binding Path="DataContext.SelectedArchitecture" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                                <Binding />
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </Grid>
+
+                    <TextBlock
+                        Margin="0,0,0,12"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding UsbPartitionStyleArm64Hint}"
+                        Visibility="{Binding ShowUsbPartitionStyleArm64Hint, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                    <!--  USB drive format mode  -->
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding Strings[UsbFormatModeLabel]}" />
+
+                        <ComboBox
+                            Grid.Column="1"
+                            DisplayMemberPath="DisplayName"
+                            ItemsSource="{Binding AvailableUsbFormatModes}"
+                            SelectedValue="{Binding SelectedUsbFormatMode}"
+                            SelectedValuePath="Mode" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding Strings[CustomDriverPathLabel]}" />
+
+                        <!--  Custom driver directory  -->
+                        <TextBox
+                            Grid.Column="1"
+                            Margin="0,0,8,0"
+                            Text="{Binding CustomDriverDirectoryPath, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <!--  Browse driver directory  -->
+                        <Button
+                            Grid.Column="2"
+                            Command="{Binding BrowseCustomDriverDirectoryCommand}"
+                            Content="{Binding Strings[BrowseFolderButton]}" />
+                    </Grid>
+                </StackPanel>
+            </Expander>
+
+            <!--  Section: main actions  -->
             <StackPanel
-                Grid.Row="0"
-                Margin="0,0,0,16"
+                Grid.Row="2"
+                Margin="0,0,0,12"
+                HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Button
-                    Width="120"
-                    Margin="0,0,8,0"
+                    Width="140"
+                    Margin="0,0,32,0"
                     Command="{Binding CreateIsoCommand}"
                     Content="{Binding Strings[CreateIso]}" />
-
                 <Button
-                    Width="120"
+                    Width="140"
                     Command="{Binding CreateUsbCommand}"
                     Content="{Binding Strings[CreateUsb]}" />
             </StackPanel>
         </Grid>
 
-        <!--  Global Operation Status  -->
+        <!--  Row 3: Global status and progress  -->
         <Border
             Grid.Row="3"
             Padding="12,8"
-            Background="Transparent"
-            BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
+            BorderBrush="#404040"
             BorderThickness="0,1,0,1">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
                     Grid.Row="0"
-                    Margin="0,0,0,6"
+                    Margin="0,0,0,8"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Text="{Binding GlobalOperationStatusDisplay}" />
 
@@ -169,10 +460,17 @@
                     Maximum="100"
                     Minimum="0"
                     Value="{Binding GlobalOperationProgress, Mode=OneWay}" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Margin="0,8,0,0"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding MediaActionMessage}" />
             </Grid>
         </Border>
 
-        <!--  Footer  -->
+        <!--  Row 4: Info bar (devices/version)  -->
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -182,12 +480,12 @@
             <Border
                 Grid.Column="0"
                 Padding="12,8"
-                BorderBrush="{DynamicResource TextFillColorPrimaryBrush}"
+                BorderBrush="#404040"
                 BorderThickness="0,0,1,0">
                 <TextBlock
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="USB devices: 3" />
+                    Text="{Binding UsbDevicesCountDisplay}" />
             </Border>
 
             <Border Grid.Column="1" Padding="12,8">
@@ -195,7 +493,7 @@
                     HorizontalAlignment="Right"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Version: 1.0.0.0" />
+                    Text="{Binding VersionDisplay}" />
             </Border>
         </Grid>
     </Grid>
