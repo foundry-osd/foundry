@@ -518,6 +518,12 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void EnsureCachePathForMode()
     {
+        if (IsDebugSafeMode)
+        {
+            CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Deploy", "Debug");
+            return;
+        }
+
         CacheRootPath = SelectedDeploymentMode switch
         {
             DeploymentMode.Iso => @"C:\Foundry\Deploy",

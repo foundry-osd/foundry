@@ -230,3 +230,32 @@
 
 ## Visual/Browser Findings
 - OSDCloud and remote catalogs were already analyzed earlier in this session and captured above.
+
+## Audit Notes
+- 2026-02-22: Reviewed `MainWindowViewModel` and `DeploymentOrchestrator` to map the wizard UI to orchestration steps and logging flow; noted that the view model blindly confirms wizard steps and selects target disks before hitting orchestrator.
+- 2026-02-22: Reviewed `WindowsDeploymentService` and `AutopilotService`; disk partitioning always does `clean`/`convert gpt` without re-checking disk state, and the autopilot script writes manifests even when registration fails.
+- 2026-02-22: Checked `DeploymentContext`/`DeploymentRuntimeState`; context lacks validation for driver pack or cache path and runtime state never tracks failure markers beyond exception-driven logs, leaving resume state unclear.
+- 2026-02-22: Cache resolution favors ISO root when ISO mode is set but falls back immediately to `X:\Windows\Temp\Foundry\Deploy` when USB cache partition lacks the expected label/folder; `TargetDiskService` blocks the first system/boot/read-only/offline disk but still returns them, trusting the UI to handle warnings.
+- 2026-02-22: Driver pack extraction deletes and reuses the same folder, which is fine, but `DriverPackPreparationService` silently delegates unsupported archives to deferred install; `OperationProgressService` resets after 5 seconds even on failure, which could obscure history while the UI still shows running state.
+- 2026-02-22: Deployment logging always writes a new log file named with timestamp and rewrites `deployment-state.json` each time, so failed steps don't accumulate multiple snapshots; no cleanup path for stale `State` files if cache root switches.
+- 2026-02-22: `ArtifactDownloadService` prefers BITS but never tries to resume partial downloads if BITS fails, and `ProcessRunner` kills processes on cancellation without checking for privileged elevation (could still leave diskpart or powershell orphaned logs).
+- 2026-02-22: `HardwareProfileService` gracefully degrades, but `IsAutopilotCapable` requires TPM and serial; if `Get-CimInstance` returns partial data, autopilot may still run and fail later since the UI always defaults to full Autopilot when the flag toggled on by default.
+- 2026-02-22: `MainWindow` wiring exposes `CacheRootPath` text box but `DeploymentOrchestrator` still resolves cache from `DeploymentMode`; editing the textbox does nothing after the UI re-triggers `EnsureCachePathForMode`, so user edits are silently overwritten.
+- 2026-02-22: `ApplicationShellService.ConfirmWarning` is modal and blocking but there's no timeout or cancellation path, so the orchestrator can remain stuck at the confirmation dialog if WinPE UI is unattended, leaving diskpart ready to run while waiting for operator action.
+
+## Audit Remediation (2026-02-22)
+- Corrected debug-safe cache behavior outside WinPE:
+  - `MainWindowViewModel.EnsureCachePathForMode` now uses `%TEMP%\\Foundry\\Deploy\\Debug` in debug-safe mode instead of `X:\\...`.
+  - file: `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`.
+- Added orchestrator-side disk revalidation (independent of UI) before destructive actions:
+  - validates selected disk still exists and remains eligible before `diskpart clean`.
+  - file: `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`.
+- Added cache-path-to-disk topology check to prevent ISO cache/target disk collision:
+  - detects if resolved cache root is on same disk as deployment target and auto-fallbacks to transient safe cache.
+  - files:
+    - `src/Foundry.Deploy/Services/Hardware/ITargetDiskService.cs`
+    - `src/Foundry.Deploy/Services/Hardware/TargetDiskService.cs`
+    - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`.
+- Hardened log session initialization:
+  - if preferred cache path is invalid/unavailable, logger falls back to transient path to avoid startup crash.
+  - file: `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`.

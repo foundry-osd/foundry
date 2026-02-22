@@ -1,81 +1,37 @@
-# Task Plan: Foundry.Deploy WinPE Orchestrator
+# Task Plan: Foundry.Deploy Consistency Audit
 
 ## Goal
-Define and validate an implementation plan for a new `Foundry.Deploy` .NET 10 WPF project that orchestrates OS deployment in WinPE (wizard + progress/logging), inspired by OSDCloud, aligned with the current `Foundry` architecture and bootstrap flow.
+Audit `src/Foundry.Deploy` for workflow coherence (UI → orchestrator → services), debug-safe behavior, cache/ISO/USB handling, autopilot, and hidden state risks; deliver severity-ordered findings with file/line references and action-oriented recommendations.
 
 ## Current Phase
-Phase 7
+Phase 1
 
 ## Phases
-### Phase 1: Requirements & Discovery
-- [x] Understand user intent
-- [x] Identify constraints and requirements
-- [x] Document findings in findings.md
+### Phase 1: Gather Context & Define Scope
+- [x] Inventory key layers (UI, orchestrator, services) relevant to deployment flow
+- [x] Identify expected safety checks (debug dry-run, confirmations, cache modes, autopilot) from documentation/assumptions
+- [x] Capture any existing gaps or uncertainties in `findings.md`
 - **Status:** complete
 
-### Phase 2: Existing Foundry Analysis
-- [x] Inspect current solution structure and conventions
-- [x] Inspect WinPE bootstrap script and packaging assumptions
-- [x] Extract reusable UI/theme/infrastructure patterns
-- **Status:** complete
-
-### Phase 3: OSDCloud Deep Analysis
-- [x] Analyze architecture and orchestration entry points
-- [x] Analyze cache model and folder conventions
-- [x] Analyze logging, error handling, and resiliency patterns
-- **Status:** complete
-
-### Phase 4: Foundry.Deploy Architecture Proposal
-- [x] Propose project structure aligned with Foundry
-- [x] Propose deployment workflow/state machine
-- [x] Propose cache strategy for USB vs ISO modes
-- [x] Propose bootstrap release/artifact contract
-- **Status:** complete
-
-### Phase 5: Delivery
-- [x] Provide implementation roadmap with milestones
-- [x] List open questions/decisions for user confirmation
-- [x] Summarize risks and validation steps
-- **Status:** complete
-
-### Phase 6: Implementation Kickoff
-- [x] Create `Foundry.Deploy` project skeleton aligned with Foundry architecture
-- [x] Wire Fluent theme, DI, localization, and base wizard/progress UX
-- [x] Implement WinPE bootstrap latest-release download via BITS
-- [x] Validate solution/build integrity
-- **Status:** complete
-
-### Phase 7: Functional Deployment Implementation
-- [x] Replace scaffold step bodies with real deployment actions (diskpart + DISM + BCDBoot + offline drivers)
-- [x] Implement full Autopilot runtime workflow (hash export + online registration attempt + workflow transcript)
-- [x] Implement persistent cache strategy with USB cache partition detection
-- [x] Add structured logs and resume state files
-- [ ] Add integration tests in WinPE-like environment
+### Phase 2: Code Review Analysis
+- [ ] Trace UI → orchestrator → service calls, noting mismatches or missing state validations
+- [ ] Examine safety modes (debug safe, confirmation dialogs, autopilot fallbacks) for edge cases
+- [ ] Evaluate cache handling (USB partition detection, ISO mode, autopilot caching, logs) for destructive/resume risks
+- [ ] Note any hidden state/flags that could leave the system in inconsistent states (resumes, failures, non-validated transitions)
 - **Status:** in_progress
 
+### Phase 3: Summarize Findings
+- [ ] Rank issues by severity (blocking, major, minor)
+- [ ] Reference affected files/lines per issue
+- [ ] Provide concise recommendations for each finding
+- [ ] Update `findings.md` and produce final response
+- **Status:** pending
+
 ## Key Questions
-1. How closely should `Foundry.Deploy` replicate OSDCloud behavior vs keep only selected patterns?
-2. How should cache ownership/persistence differ between USB and ISO mode in WinPE?
-3. What release artifact contract is needed between `FoundryBootstrap.ps1` and GitHub Releases?
-4. What UI/UX flow is mandatory in v1 vs optional for later milestones?
-
-## Decisions Made
-| Decision | Rationale |
-|----------|-----------|
-| Use `planning-with-files` workflow | Task is multi-step research + architecture planning requiring persistent context |
-| Require explicit target disk number in UI before deployment start | Prevents implicit destructive operations on an unintended disk |
-| Execute destructive deployment actions in orchestrator (not placeholders) | Aligns with task-sequence V1 objective in WinPE |
-| Fail deployment if full Autopilot is enabled and online registration fails | Enforces user requirement: "Autopilot complet" in V1 |
-| Replace free-text disk number with assisted `Get-Disk` selection | Reduces operator error and blocks unsafe targets in UI |
-| Require explicit runtime confirmation before disk erase | Adds final operator safety gate before `diskpart clean` |
-| Enable automatic debug-safe dry-run when launched under Visual Studio debugger | Allows full UI/orchestrator navigation without destructive disk writes |
-
-## Errors Encountered
-| Error | Attempt | Resolution |
-|-------|---------|------------|
-| `rg` regex parse error (invalid escape sequence) | 1 | Re-ran searches with `rg -F` fixed-string patterns |
-| PowerShell quoting conflict for literal `$($_.Name)` search | 2 | Used simpler `rg` patterns and direct file scans |
-| `NETSDK1032` RID/platform mismatch on `Foundry.Deploy` | 1 | Moved single-file/self-contained settings to publish profiles |
+1. Are there undocumented side-effects between UI state (MainWindowViewModel) and orchestrator services (DeploymentOrchestrator) that can leave destructive actions unconfirmed?
+2. Does debug safe mode fully isolate `WindowsDeploymentService` actions, especially when Autopilot or cache writes still run?
+3. Are cache paths for ISO/USB and Autopilot state persisted/resumed safely across restarts or failures?
+4. Are there any unvalidated state transitions (e.g., autopilot flagged as complete before hash exported) that could hide failures?
 
 ## Notes
-- Remaining gap is validation in a real WinPE lab run for disk/image/autopilot behavior.
+- Previous architecture plan activity is archived in `findings.md` and `progress.md`; this audit reuses that context but focuses on verifying the implemented behavior.

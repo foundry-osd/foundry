@@ -154,3 +154,32 @@
 | What's the goal? | Deliver a production-ready `Foundry.Deploy` WinPE task-sequence orchestrator |
 | What have I learned? | See `findings.md` |
 | What have I done? | Implemented real deployment actions and full Autopilot runtime flow in orchestrator |
+
+## Session: 2026-02-22 (Audit)
+
+### Phase 1: Context Gathering for Audit
+- **Status:** complete
+- **Started:** 2026-02-22
+- Actions taken:
+  - Reset `task_plan.md` to focus on the audit goal and phases.
+  - Reviewed existing planning/progress/findings files for pertinent context.
+  - Noted the audit scope: UI → orchestrator workflow, safety gates, cache handling, autopilot, hidden states.
+- Files created/modified:
+  - `task_plan.md` (rewritten for audit)
+  - `progress.md` (added audit phase entry)
+
+### Phase 2: Audit Remediation
+- **Status:** complete
+- Actions taken:
+  - Fixed debug-safe cache path to avoid `X:\\...` dependency on non-WinPE developer machines.
+  - Added orchestrator-side revalidation of selected target disk before destructive execution.
+  - Added cache-to-disk topology check and automatic cache fallback when resolved cache disk equals target deployment disk.
+  - Added resilient log-session initialization fallback when preferred cache root is unavailable.
+  - Rebuilt solution for ARM64 and x64 successfully.
+- Files created/modified:
+  - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
+  - `src/Foundry.Deploy/Services/Hardware/ITargetDiskService.cs`
+  - `src/Foundry.Deploy/Services/Hardware/TargetDiskService.cs`
+  - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`
+  - `findings.md`
+  - `progress.md`

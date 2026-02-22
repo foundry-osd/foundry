@@ -79,6 +79,76 @@ $result | ConvertTo-Json -Compress
         }
     }
 
+    public async Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return null;
+        }
+
+        string? root = Path.GetPathRoot(path);
+        if (string.IsNullOrWhiteSpace(root))
+        {
+            return null;
+        }
+
+        string driveLetter = root.TrimEnd('\\').TrimEnd(':');
+        if (driveLetter.Length == 0)
+        {
+            return null;
+        }
+
+        string script = $@"
+$partition = Get-Partition -DriveLetter '{EscapeForSingleQuote(driveLetter)}' -ErrorAction SilentlyContinue
+if ($null -eq $partition) {{
+    return
+}}
+
+[pscustomobject]@{{
+    DiskNumber = [int]$partition.DiskNumber
+}} | ConvertTo-Json -Compress
+";
+
+        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
+        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
+
+        ProcessExecutionResult execution = await _processRunner
+            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
+        {
+            return null;
+        }
+
+        try
+        {
+            using JsonDocument document = JsonDocument.Parse(execution.StandardOutput);
+            JsonElement rootElement = document.RootElement;
+            if (!rootElement.TryGetProperty("DiskNumber", out JsonElement diskNumberElement))
+            {
+                return null;
+            }
+
+            if (diskNumberElement.ValueKind == JsonValueKind.Number && diskNumberElement.TryGetInt32(out int numericValue))
+            {
+                return numericValue;
+            }
+
+            if (diskNumberElement.ValueKind == JsonValueKind.String &&
+                int.TryParse(diskNumberElement.GetString(), out int parsedValue))
+            {
+                return parsedValue;
+            }
+        }
+        catch
+        {
+            return null;
+        }
+
+        return null;
+    }
+
     private static TargetDiskInfo ParseDisk(JsonElement element)
     {
         int diskNumber = ReadInt(element, "Number");
@@ -219,5 +289,10 @@ $result | ConvertTo-Json -Compress
     {
         string normalized = value.Trim();
         return string.IsNullOrWhiteSpace(normalized) ? fallback : normalized;
+    }
+
+    private static string EscapeForSingleQuote(string value)
+    {
+        return value.Replace("'", "''", StringComparison.Ordinal);
     }
 }

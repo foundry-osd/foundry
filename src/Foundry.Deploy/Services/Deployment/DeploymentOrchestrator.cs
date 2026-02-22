@@ -31,6 +31,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly ICacheLocatorService _cacheLocatorService;
     private readonly IDeploymentLogService _deploymentLogService;
     private readonly IHardwareProfileService _hardwareProfileService;
+    private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackCatalogService _driverPackCatalogService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private readonly IArtifactDownloadService _artifactDownloadService;
@@ -43,6 +44,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         ICacheLocatorService cacheLocatorService,
         IDeploymentLogService deploymentLogService,
         IHardwareProfileService hardwareProfileService,
+        ITargetDiskService targetDiskService,
         IDriverPackCatalogService driverPackCatalogService,
         IDriverPackSelectionService driverPackSelectionService,
         IArtifactDownloadService artifactDownloadService,
@@ -54,6 +56,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _cacheLocatorService = cacheLocatorService;
         _deploymentLogService = deploymentLogService;
         _hardwareProfileService = hardwareProfileService;
+        _targetDiskService = targetDiskService;
         _driverPackCatalogService = driverPackCatalogService;
         _driverPackSelectionService = driverPackSelectionService;
         _artifactDownloadService = artifactDownloadService;
@@ -187,13 +190,30 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    DeploymentLogSession session = _deploymentLogService.Initialize(context.CacheRootPath);
-                    await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, "Log session initialized.", cancellationToken).ConfigureAwait(false);
+                    DeploymentLogSession session = InitializeLogSessionWithFallback(context.CacheRootPath);
+                    await _deploymentLogService
+                        .AppendAsync(session, DeploymentLogLevel.Info, $"Log session initialized at '{session.RootPath}'.", cancellationToken)
+                        .ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Workspace initialized.", session);
                 }
 
             case "Validate target configuration":
                 {
+                    IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync(cancellationToken).ConfigureAwait(false);
+                    TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == context.TargetDiskNumber);
+                    if (selectedDisk is null)
+                    {
+                        return StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present.");
+                    }
+
+                    if (!selectedDisk.IsSelectable)
+                    {
+                        return StepExecutionOutcome.Failed(
+                            $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}");
+                    }
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Target disk revalidated: {selectedDisk.DisplayLabel}", cancellationToken).ConfigureAwait(false);
+
                     if (string.IsNullOrWhiteSpace(context.OperatingSystem.Url))
                     {
                         return StepExecutionOutcome.Failed("Operating system URL is missing.");
@@ -217,6 +237,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         .ResolveAsync(context.Mode, context.CacheRootPath, cancellationToken)
                         .ConfigureAwait(false);
 
+                    cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
                     EnsureCacheFolders(cache.RootPath);
@@ -302,6 +323,19 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     string workingDirectory = Path.Combine(cacheRoot, "Temp", "Deployment");
                     Directory.CreateDirectory(workingDirectory);
+
+                    IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync(cancellationToken).ConfigureAwait(false);
+                    TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == context.TargetDiskNumber);
+                    if (selectedDisk is null)
+                    {
+                        return StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present.");
+                    }
+
+                    if (!selectedDisk.IsSelectable)
+                    {
+                        return StepExecutionOutcome.Failed(
+                            $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}");
+                    }
 
                     DeploymentTargetLayout layout = await _windowsDeploymentService
                         .PrepareTargetDiskAsync(context.TargetDiskNumber, workingDirectory, cancellationToken)
@@ -416,7 +450,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    DeploymentLogSession session = _deploymentLogService.Initialize(context.CacheRootPath);
+                    DeploymentLogSession session = InitializeLogSessionWithFallback(context.CacheRootPath);
                     await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, "Debug safe mode log session initialized.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Workspace initialized (simulation).", session);
@@ -437,6 +471,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         .ResolveAsync(context.Mode, context.CacheRootPath, cancellationToken)
                         .ConfigureAwait(false);
 
+                    cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
                     EnsureCacheFolders(cache.RootPath);
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
@@ -632,6 +667,69 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         foreach (string folder in folders)
         {
             Directory.CreateDirectory(Path.Combine(cacheRoot, folder));
+        }
+    }
+
+    private DeploymentLogSession InitializeLogSessionWithFallback(string preferredRootPath)
+    {
+        try
+        {
+            return _deploymentLogService.Initialize(preferredRootPath);
+        }
+        catch
+        {
+            string fallbackRoot = ResolveTransientCacheRoot("LogFallback");
+            return _deploymentLogService.Initialize(fallbackRoot);
+        }
+    }
+
+    private async Task<CacheResolution> AdjustCacheForTargetDiskConflictAsync(
+        CacheResolution resolvedCache,
+        DeploymentContext context,
+        DeploymentLogSession? logSession,
+        CancellationToken cancellationToken)
+    {
+        int? cacheDiskNumber = await _targetDiskService
+            .GetDiskNumberForPathAsync(resolvedCache.RootPath, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!cacheDiskNumber.HasValue || cacheDiskNumber.Value != context.TargetDiskNumber)
+        {
+            return resolvedCache;
+        }
+
+        string safeRoot = ResolveTransientCacheRoot("IsoConflict");
+        var adjusted = new CacheResolution
+        {
+            Mode = resolvedCache.Mode,
+            RootPath = safeRoot,
+            Source = $"{resolvedCache.Source} (conflict fallback)",
+            IsPersistent = false
+        };
+
+        await AppendLogAsync(
+                logSession,
+                DeploymentLogLevel.Warning,
+                $"Cache disk conflict detected (cache disk {cacheDiskNumber.Value} equals target disk {context.TargetDiskNumber}). Switched cache to '{safeRoot}'.",
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        return adjusted;
+    }
+
+    private static string ResolveTransientCacheRoot(string suffix)
+    {
+        string candidate = Path.Combine(@"X:\Windows\Temp\Foundry\Deploy", suffix);
+        try
+        {
+            Directory.CreateDirectory(candidate);
+            return candidate;
+        }
+        catch
+        {
+            string fallback = Path.Combine(Path.GetTempPath(), "Foundry", "Deploy", suffix);
+            Directory.CreateDirectory(fallback);
+            return fallback;
         }
     }
 
