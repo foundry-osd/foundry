@@ -100,6 +100,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             EmitLog($"[INFO] OS: {context.OperatingSystem.DisplayLabel}");
             EmitLog($"[INFO] Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}");
             EmitLog($"[INFO] Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}");
+            EmitLog($"[INFO] Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}");
             EmitLog("[INFO] Telemetry mode: disabled (zero telemetry).");
             EmitLog($"[INFO] Execution mode: {(context.IsDryRun ? "Debug Safe Mode (dry-run)" : "Live")}");
 
@@ -413,6 +414,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                             runtimeState.TargetWindowsPartitionRoot,
                             hardware,
                             context.OperatingSystem,
+                            context.AllowAutopilotDeferredCompletion,
                             cancellationToken)
                         .ConfigureAwait(false);
 
@@ -422,6 +424,22 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     if (!result.IsSuccess)
                     {
                         return StepExecutionOutcome.Failed(result.Message);
+                    }
+
+                    if (result.DeferredCompletionPrepared)
+                    {
+                        await AppendLogAsync(logSession, DeploymentLogLevel.Warning, result.Message, cancellationToken).ConfigureAwait(false);
+                        if (!string.IsNullOrWhiteSpace(result.DeferredScriptPath))
+                        {
+                            await AppendLogAsync(logSession, DeploymentLogLevel.Warning, $"Deferred script: {result.DeferredScriptPath}", cancellationToken).ConfigureAwait(false);
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(result.SetupCompleteHookPath))
+                        {
+                            await AppendLogAsync(logSession, DeploymentLogLevel.Warning, $"SetupComplete hook: {result.SetupCompleteHookPath}", cancellationToken).ConfigureAwait(false);
+                        }
+
+                        return StepExecutionOutcome.Succeeded("Autopilot deferred completion prepared.");
                     }
 
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, result.Message, cancellationToken).ConfigureAwait(false);

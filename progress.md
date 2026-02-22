@@ -175,11 +175,22 @@
   - Added orchestrator-side revalidation of selected target disk before destructive execution.
   - Added cache-to-disk topology check and automatic cache fallback when resolved cache disk equals target deployment disk.
   - Added resilient log-session initialization fallback when preferred cache root is unavailable.
+  - Implemented Autopilot deferred completion policy:
+    - added UI/config flag to allow deferred completion when online registration fails,
+    - orchestrator now treats deferred Autopilot preparation as success (with warning),
+    - writes deferred script + SetupComplete hook into deployed OS for first-boot retry,
+    - keeps strict fail behavior when deferred policy is disabled.
   - Rebuilt solution for ARM64 and x64 successfully.
 - Files created/modified:
   - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
   - `src/Foundry.Deploy/Services/Hardware/ITargetDiskService.cs`
   - `src/Foundry.Deploy/Services/Hardware/TargetDiskService.cs`
   - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`
+  - `src/Foundry.Deploy/Services/Autopilot/AutopilotService.cs`
+  - `src/Foundry.Deploy/Services/Autopilot/IAutopilotService.cs`
+  - `src/Foundry.Deploy/Services/Autopilot/AutopilotExecutionResult.cs`
+  - `src/Foundry.Deploy/Services/Deployment/DeploymentContext.cs`
+  - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
+  - `src/Foundry.Deploy/MainWindow.xaml`
   - `findings.md`
   - `progress.md`

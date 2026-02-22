@@ -9,5 +9,6 @@ public interface IAutopilotService
         string windowsPartitionRoot,
         HardwareProfile hardwareProfile,
         OperatingSystemCatalogItem operatingSystem,
+        bool allowDeferredCompletion,
         CancellationToken cancellationToken = default);
 }

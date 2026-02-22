@@ -11,5 +11,6 @@ public sealed record DeploymentContext
     public DriverPackCatalogItem? DriverPack { get; init; }
     public bool AutoSelectDriverPackWhenEmpty { get; init; } = true;
     public bool UseFullAutopilot { get; init; }
+    public bool AllowAutopilotDeferredCompletion { get; init; } = true;
     public bool IsDryRun { get; init; }
 }

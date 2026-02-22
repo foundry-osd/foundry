@@ -259,3 +259,19 @@
 - Hardened log session initialization:
   - if preferred cache path is invalid/unavailable, logger falls back to transient path to avoid startup crash.
   - file: `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`.
+- Implemented Autopilot deferred completion strategy:
+  - added deployment option `AllowAutopilotDeferredCompletion` with UI toggle.
+  - if online enrollment fails and deferred mode is enabled:
+    - deployment no longer fails globally,
+    - deferred script is written into deployed OS (`C:\ProgramData\Foundry\Autopilot\Invoke-FoundryAutopilot-Deferred.ps1`),
+    - `SetupComplete.cmd` hook is added/extended to execute deferred script on first boot,
+    - status/manifest reflect `state=deferred`.
+  - if deferred mode is disabled, behavior remains strict (Autopilot step fails deployment).
+  - files:
+    - `src/Foundry.Deploy/Services/Autopilot/AutopilotService.cs`
+    - `src/Foundry.Deploy/Services/Autopilot/IAutopilotService.cs`
+    - `src/Foundry.Deploy/Services/Autopilot/AutopilotExecutionResult.cs`
+    - `src/Foundry.Deploy/Services/Deployment/DeploymentContext.cs`
+    - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`
+    - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
+    - `src/Foundry.Deploy/MainWindow.xaml`.

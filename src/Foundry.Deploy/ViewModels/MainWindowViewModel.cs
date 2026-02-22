@@ -91,6 +91,10 @@ public partial class MainWindowViewModel : ObservableObject
     private bool useFullAutopilot = true;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
+    private bool allowAutopilotDeferredCompletion = true;
+
+    [ObservableProperty]
     private string osSearchText = string.Empty;
 
     [ObservableProperty]
@@ -356,6 +360,7 @@ public partial class MainWindowViewModel : ObservableObject
             DriverPack = SelectedDriverPack,
             AutoSelectDriverPackWhenEmpty = AutoSelectDriverPackWhenEmpty,
             UseFullAutopilot = UseFullAutopilot,
+            AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
             IsDryRun = IsDebugSafeMode
         };
 

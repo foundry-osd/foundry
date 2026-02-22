@@ -114,6 +114,11 @@
                                     IsChecked="{Binding UseFullAutopilot}">
                                     <TextBlock Text="Autopilot: Full workflow enabled (V1 scope)." />
                                 </CheckBox>
+                                <CheckBox
+                                    Margin="0,8,0,0"
+                                    IsChecked="{Binding AllowAutopilotDeferredCompletion}">
+                                    <TextBlock Text="Autopilot: Defer completion if online enrollment fails." />
+                                </CheckBox>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -196,6 +201,11 @@
                             <TextBlock
                                 Margin="0,0,0,8"
                                 Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />
+
+                            <TextBlock FontWeight="SemiBold" Text="Autopilot Fallback" />
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Text="{Binding AllowAutopilotDeferredCompletion, StringFormat=Deferred completion allowed: {0}}" />
 
                             <TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
