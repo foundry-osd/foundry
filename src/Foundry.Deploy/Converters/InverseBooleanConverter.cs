@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Foundry.Deploy.Converters;
@@ -7,11 +8,17 @@ public sealed class InverseBooleanConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is bool boolValue && !boolValue;
+        bool isVisible = value is bool boolValue && !boolValue;
+        return isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is bool boolValue && !boolValue;
+        if (value is Visibility visibility)
+        {
+            return visibility != Visibility.Visible;
+        }
+
+        return Binding.DoNothing;
     }
 }
