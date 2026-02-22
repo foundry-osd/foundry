@@ -64,7 +64,7 @@
                         Text="{Binding DetectedHardwareSummary}" />
                 </StackPanel>
 
-                <TabControl Grid.Row="1" IsEnabled="False" SelectedIndex="{Binding WizardStepIndex}">
+                <TabControl Grid.Row="1" SelectedIndex="{Binding WizardStepIndex}">
                     <TabItem Header="1. Mode">
                         <Grid Margin="12">
                             <Grid.RowDefinitions>
@@ -130,17 +130,62 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <DockPanel Margin="0,0,0,8">
-                                <TextBox
-                                    Width="420"
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
-                                    Text="{Binding OsSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button
-                                    Width="140"
-                                    Command="{Binding RefreshCatalogsCommand}"
-                                    Content="Refresh Catalogs" />
-                            </DockPanel>
+                            <StackPanel Margin="0,0,0,8">
+                                <DockPanel Margin="0,0,0,8">
+                                    <Button
+                                        Width="140"
+                                        Command="{Binding RefreshCatalogsCommand}"
+                                        Content="Refresh Catalogs" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="SemiBold"
+                                        Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                </DockPanel>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Margin="0,0,8,8">
+                                        <TextBlock FontWeight="SemiBold" Text="Windows" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding WindowsReleaseFilters}"
+                                            SelectedItem="{Binding SelectedWindowsRelease}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                                        <TextBlock FontWeight="SemiBold" Text="Version" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding ReleaseIdFilters}"
+                                            SelectedItem="{Binding SelectedReleaseId}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" Margin="0,0,8,0">
+                                        <TextBlock FontWeight="SemiBold" Text="Language" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding LanguageFilters}"
+                                            SelectedItem="{Binding SelectedLanguageCode}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,0">
+                                        <TextBlock FontWeight="SemiBold" Text="Edition" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding EditionFilters}"
+                                            SelectedItem="{Binding SelectedEdition}" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
 
                             <ListBox
                                 Grid.Row="1"
@@ -157,9 +202,62 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <TextBox
-                                Margin="0,0,0,8"
-                                Text="{Binding DriverPackSearchText, UpdateSourceTrigger=PropertyChanged}" />
+                            <StackPanel Margin="0,0,0,8">
+                                <DockPanel Margin="0,0,0,8">
+                                    <Button
+                                        Width="140"
+                                        Command="{Binding RefreshCatalogsCommand}"
+                                        Content="Refresh Catalogs" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="SemiBold"
+                                        Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                </DockPanel>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Margin="0,0,8,8">
+                                        <TextBlock FontWeight="SemiBold" Text="Manufacturer" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding DriverManufacturerFilters}"
+                                            SelectedItem="{Binding SelectedDriverManufacturer}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                                        <TextBlock FontWeight="SemiBold" Text="Driver OS" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding DriverOsNameFilters}"
+                                            SelectedItem="{Binding SelectedDriverOsName}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" Margin="0,0,8,0">
+                                        <TextBlock FontWeight="SemiBold" Text="Release Year" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding DriverReleaseYearFilters}"
+                                            SelectedItem="{Binding SelectedDriverReleaseYear}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,0">
+                                        <TextBlock FontWeight="SemiBold" Text="Version" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding DriverVersionFilters}"
+                                            SelectedItem="{Binding SelectedDriverVersion}" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
 
                             <ListBox
                                 Grid.Row="1"
@@ -312,13 +410,8 @@
                     Orientation="Horizontal">
                     <Button
                         Width="140"
-                        Margin="0,0,8,0"
                         Command="{Binding OpenLogsFolderCommand}"
                         Content="Open Logs Folder" />
-                    <Button
-                        Width="140"
-                        Command="{Binding ResetWizardCommand}"
-                        Content="Back To Wizard" />
                 </StackPanel>
             </Grid>
         </Grid>
