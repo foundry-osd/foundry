@@ -103,6 +103,12 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private string detectedHardwareSummary = "Detecting hardware...";
 
+    [ObservableProperty]
+    private bool isAutopilotDeferred;
+
+    [ObservableProperty]
+    private string autopilotDeferredMessage = string.Empty;
+
     public ObservableCollection<OperatingSystemCatalogItem> OperatingSystems { get; } = [];
     public ObservableCollection<OperatingSystemCatalogItem> FilteredOperatingSystems { get; } = [];
     public ObservableCollection<DriverPackCatalogItem> DriverPacks { get; } = [];
@@ -349,6 +355,8 @@ public partial class MainWindowViewModel : ObservableObject
         ShowProgressPage = true;
         IsDeploymentRunning = true;
         DeploymentProgress = 0;
+        IsAutopilotDeferred = false;
+        AutopilotDeferredMessage = string.Empty;
         DeploymentStatus = "Deployment started.";
 
         DeploymentContext context = new()
@@ -394,6 +402,8 @@ public partial class MainWindowViewModel : ObservableObject
         WizardStepIndex = 0;
         DeploymentProgress = 0;
         DeploymentStatus = "Ready";
+        IsAutopilotDeferred = false;
+        AutopilotDeferredMessage = string.Empty;
         DeploymentLogs.Clear();
         DeploymentSteps.Clear();
         _stepIndex.Clear();
@@ -488,6 +498,15 @@ public partial class MainWindowViewModel : ObservableObject
             {
                 vm.State = e.State;
                 vm.Message = e.Message ?? string.Empty;
+            }
+
+            if (string.Equals(e.StepName, "Execute full Autopilot workflow", StringComparison.Ordinal) &&
+                e.State == DeploymentStepState.Succeeded &&
+                !string.IsNullOrWhiteSpace(e.Message) &&
+                e.Message.Contains("deferred", StringComparison.OrdinalIgnoreCase))
+            {
+                IsAutopilotDeferred = true;
+                AutopilotDeferredMessage = e.Message;
             }
 
             DeploymentProgress = Math.Max(DeploymentProgress, e.ProgressPercent);

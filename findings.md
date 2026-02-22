@@ -275,3 +275,9 @@
     - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`
     - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
     - `src/Foundry.Deploy/MainWindow.xaml`.
+  - Added dedicated progress-page visual state for deferred Autopilot:
+    - warning badge appears during deployment progress when Autopilot step reports deferred completion,
+    - message is bound to the Autopilot step outcome text,
+    - files:
+      - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
+      - `src/Foundry.Deploy/MainWindow.xaml`.

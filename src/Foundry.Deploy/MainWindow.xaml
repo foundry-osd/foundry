@@ -257,6 +257,23 @@
                 <StackPanel Grid.Row="1" Margin="0,8,0,12">
                     <ProgressBar Height="18" Maximum="100" Value="{Binding DeploymentProgress}" />
                     <TextBlock Margin="0,6,0,0" Text="{Binding DeploymentStatus}" />
+                    <Border
+                        Margin="0,8,0,0"
+                        Padding="8"
+                        Background="#33FFD966"
+                        BorderBrush="#FFE0A800"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Visibility="{Binding IsAutopilotDeferred, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                            <TextBlock
+                                FontWeight="SemiBold"
+                                Text="Autopilot Deferred Completion" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding AutopilotDeferredMessage, TargetNullValue=Online enrollment failed in WinPE; completion will be retried on first boot.}" />
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
                 <GroupBox Grid.Row="2" Header="Steps">

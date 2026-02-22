@@ -180,6 +180,7 @@
     - orchestrator now treats deferred Autopilot preparation as success (with warning),
     - writes deferred script + SetupComplete hook into deployed OS for first-boot retry,
     - keeps strict fail behavior when deferred policy is disabled.
+  - Added a dedicated “Autopilot Deferred Completion” badge on the deployment progress page when deferred mode is activated.
   - Rebuilt solution for ARM64 and x64 successfully.
 - Files created/modified:
   - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
