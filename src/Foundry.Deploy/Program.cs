@@ -13,11 +13,13 @@ using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Win32;
 
 namespace Foundry.Deploy;
 
 public static class Program
 {
+    private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
     private static readonly string StartupLogPath = ResolveStartupLogPath();
 
     [STAThread]
@@ -26,6 +28,7 @@ public static class Program
         try
         {
             WriteStartupLog("Starting Foundry.Deploy bootstrap.");
+            ConfigureRuntimeCompatibility();
 
             using ServiceProvider serviceProvider = BuildServiceProvider();
 
@@ -45,6 +48,17 @@ public static class Program
             Console.Error.WriteLine($"Startup log: {StartupLogPath}");
             return 1;
         }
+    }
+
+    private static void ConfigureRuntimeCompatibility()
+    {
+        if (!ShouldDisableFluentBackdrop())
+        {
+            return;
+        }
+
+        AppContext.SetSwitch(DisableFluentBackdropSwitch, true);
+        WriteStartupLog($"Enabled '{DisableFluentBackdropSwitch}'.");
     }
 
     private static void WriteStartupLog(string message, Exception? exception = null)
@@ -93,6 +107,63 @@ public static class Program
         }
 
         return "Foundry.Deploy.startup.log";
+    }
+
+    private static bool ShouldDisableFluentBackdrop()
+    {
+        string? overrideValue = Environment.GetEnvironmentVariable("FOUNDRY_DISABLE_FLUENT_BACKDROP");
+        if (!string.IsNullOrWhiteSpace(overrideValue))
+        {
+            return IsTruthy(overrideValue);
+        }
+
+        return IsRunningInWinPe();
+    }
+
+    private static bool IsRunningInWinPe()
+    {
+        string? systemDrive = Environment.GetEnvironmentVariable("SystemDrive");
+        if (systemDrive is not null && systemDrive.Equals("X:", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+        if (!string.IsNullOrWhiteSpace(windowsDirectory) &&
+            windowsDirectory.StartsWith(@"X:\", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        try
+        {
+            using RegistryKey? miniNt = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\MiniNT");
+            if (miniNt is not null)
+            {
+                return true;
+            }
+        }
+        catch
+        {
+            // Ignore registry access errors and continue with fallback checks.
+        }
+
+        return false;
+    }
+
+    private static bool IsTruthy(string value)
+    {
+        return value.Trim() switch
+        {
+            "1" => true,
+            "true" => true,
+            "TRUE" => true,
+            "yes" => true,
+            "YES" => true,
+            "on" => true,
+            "ON" => true,
+            _ => false
+        };
     }
 
     private static ServiceProvider BuildServiceProvider()
