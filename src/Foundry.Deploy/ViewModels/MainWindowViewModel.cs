@@ -21,6 +21,38 @@ namespace Foundry.Deploy.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
     private const string AnyFilterOption = "Any";
+    private static readonly string[] RetailEditionOptions =
+    [
+        "Home",
+        "Home N",
+        "Home Single Language",
+        "Education",
+        "Education N",
+        "Pro",
+        "Pro N",
+        "Enterprise",
+        "Enterprise N"
+    ];
+    private static readonly string[] VolumeEditionOptions =
+    [
+        "Education",
+        "Education N",
+        "Pro",
+        "Pro N",
+        "Enterprise",
+        "Enterprise N"
+    ];
+    private static readonly string[] Arm64RetailEditionOptions =
+    [
+        "Home",
+        "Pro",
+        "Enterprise"
+    ];
+    private static readonly string[] Arm64VolumeEditionOptions =
+    [
+        "Pro",
+        "Enterprise"
+    ];
     private readonly IThemeService _themeService;
     private readonly IApplicationShellService _applicationShellService;
     private readonly IOperationProgressService _operationProgressService;
@@ -112,6 +144,9 @@ public partial class MainWindowViewModel : ObservableObject
     private string selectedLanguageCode = AnyFilterOption;
 
     [ObservableProperty]
+    private string selectedLicenseChannel = AnyFilterOption;
+
+    [ObservableProperty]
     private string selectedEdition = AnyFilterOption;
 
     [ObservableProperty]
@@ -136,6 +171,7 @@ public partial class MainWindowViewModel : ObservableObject
     public ObservableCollection<string> WindowsReleaseFilters { get; } = [];
     public ObservableCollection<string> ReleaseIdFilters { get; } = [];
     public ObservableCollection<string> LanguageFilters { get; } = [];
+    public ObservableCollection<string> LicenseChannelFilters { get; } = [];
     public ObservableCollection<string> EditionFilters { get; } = [];
     public ObservableCollection<DriverPackCatalogItem> DriverPacks { get; } = [];
     public ObservableCollection<string> DriverManufacturerFilters { get; } = [];
@@ -462,39 +498,51 @@ public partial class MainWindowViewModel : ObservableObject
 
     partial void OnSelectedWindowsReleaseChanged(string value)
     {
-        if (_isUpdatingOsFilters)
-        {
-            return;
-        }
-
-        RefreshOsFilterOptions();
-        ApplyOsFilter();
+        HandleOsFilterSelectionChanged();
     }
 
     partial void OnSelectedReleaseIdChanged(string value)
     {
-        if (_isUpdatingOsFilters)
-        {
-            return;
-        }
-
-        RefreshOsFilterOptions();
-        ApplyOsFilter();
+        HandleOsFilterSelectionChanged();
     }
 
     partial void OnSelectedLanguageCodeChanged(string value)
     {
-        if (_isUpdatingOsFilters)
-        {
-            return;
-        }
+        HandleOsFilterSelectionChanged();
+    }
 
-        RefreshOsFilterOptions();
-        ApplyOsFilter();
+    partial void OnSelectedLicenseChannelChanged(string value)
+    {
+        HandleOsFilterSelectionChanged();
     }
 
     partial void OnSelectedEditionChanged(string value)
     {
+        HandleOsFilterSelectionChanged();
+    }
+
+    partial void OnSelectedDriverManufacturerChanged(string value)
+    {
+        HandleDriverFilterSelectionChanged();
+    }
+
+    partial void OnSelectedDriverOsNameChanged(string value)
+    {
+        HandleDriverFilterSelectionChanged();
+    }
+
+    partial void OnSelectedDriverReleaseYearChanged(string value)
+    {
+        HandleDriverFilterSelectionChanged();
+    }
+
+    partial void OnSelectedDriverVersionChanged(string value)
+    {
+        HandleDriverFilterSelectionChanged();
+    }
+
+    private void HandleOsFilterSelectionChanged()
+    {
         if (_isUpdatingOsFilters)
         {
             return;
@@ -504,40 +552,7 @@ public partial class MainWindowViewModel : ObservableObject
         ApplyOsFilter();
     }
 
-    partial void OnSelectedDriverManufacturerChanged(string value)
-    {
-        if (_isUpdatingDriverFilters)
-        {
-            return;
-        }
-
-        RefreshDriverFilterOptions();
-        ApplyDriverFilter();
-    }
-
-    partial void OnSelectedDriverOsNameChanged(string value)
-    {
-        if (_isUpdatingDriverFilters)
-        {
-            return;
-        }
-
-        RefreshDriverFilterOptions();
-        ApplyDriverFilter();
-    }
-
-    partial void OnSelectedDriverReleaseYearChanged(string value)
-    {
-        if (_isUpdatingDriverFilters)
-        {
-            return;
-        }
-
-        RefreshDriverFilterOptions();
-        ApplyDriverFilter();
-    }
-
-    partial void OnSelectedDriverVersionChanged(string value)
+    private void HandleDriverFilterSelectionChanged()
     {
         if (_isUpdatingDriverFilters)
         {
@@ -684,10 +699,18 @@ public partial class MainWindowViewModel : ObservableObject
     {
         OperatingSystemCatalogItem[] filtered = BuildFilteredOperatingSystems();
 
-        if (SelectedOperatingSystem is null || !filtered.Contains(SelectedOperatingSystem))
+        OperatingSystemCatalogItem? matchingCurrent = SelectedOperatingSystem is null
+            ? null
+            : filtered.FirstOrDefault(item => IsSameOperatingSystemMedia(item, SelectedOperatingSystem));
+
+        OperatingSystemCatalogItem? selected = matchingCurrent ?? filtered.FirstOrDefault();
+        if (selected is null)
         {
-            SelectedOperatingSystem = filtered.FirstOrDefault();
+            SelectedOperatingSystem = null;
+            return;
         }
+
+        SelectedOperatingSystem = ApplyEditionSelection(selected);
     }
 
     private void RefreshOsFilterOptions()
@@ -696,30 +719,43 @@ public partial class MainWindowViewModel : ObservableObject
 
         try
         {
+            string previousWindowsRelease = SelectedWindowsRelease;
+            string previousReleaseId = SelectedReleaseId;
+            string previousLanguageCode = SelectedLanguageCode;
+            string previousLicenseChannel = SelectedLicenseChannel;
+            string previousEdition = SelectedEdition;
+
             IEnumerable<OperatingSystemCatalogItem> baseQuery = BuildOsQueryWithArchitecture(OperatingSystems);
 
-            UpdateFilterCollection(
+            SelectedWindowsRelease = UpdateFilterSelection(
                 WindowsReleaseFilters,
-                baseQuery.Select(item => item.WindowsRelease));
-            SelectedWindowsRelease = EnsureFilterSelection(SelectedWindowsRelease, WindowsReleaseFilters);
+                baseQuery.Select(item => item.WindowsRelease),
+                previousWindowsRelease);
 
             IEnumerable<OperatingSystemCatalogItem> releaseScope = ApplyWindowsReleaseFilter(baseQuery);
-            UpdateFilterCollection(
+            SelectedReleaseId = UpdateFilterSelection(
                 ReleaseIdFilters,
-                releaseScope.Select(item => item.ReleaseId));
-            SelectedReleaseId = EnsureFilterSelection(SelectedReleaseId, ReleaseIdFilters);
+                releaseScope.Select(item => item.ReleaseId),
+                previousReleaseId);
 
             IEnumerable<OperatingSystemCatalogItem> languageScope = ApplyReleaseIdFilter(releaseScope);
-            UpdateFilterCollection(
+            SelectedLanguageCode = UpdateFilterSelection(
                 LanguageFilters,
-                languageScope.Select(GetLanguageFilterValue));
-            SelectedLanguageCode = EnsureFilterSelection(SelectedLanguageCode, LanguageFilters);
+                languageScope.Select(GetLanguageFilterValue),
+                previousLanguageCode);
 
-            IEnumerable<OperatingSystemCatalogItem> editionScope = ApplyLanguageFilter(languageScope);
-            UpdateFilterCollection(
+            IEnumerable<OperatingSystemCatalogItem> licenseScope = ApplyLanguageFilter(languageScope);
+            SelectedLicenseChannel = UpdateFilterSelection(
+                LicenseChannelFilters,
+                licenseScope.Select(item => item.LicenseChannel),
+                previousLicenseChannel);
+
+            IEnumerable<OperatingSystemCatalogItem> editionScope = ApplyLicenseChannelFilter(licenseScope);
+            IEnumerable<string> recommendedEditions = BuildRecommendedEditionOptions(editionScope);
+            SelectedEdition = UpdateFilterSelection(
                 EditionFilters,
-                editionScope.Select(item => item.Edition));
-            SelectedEdition = EnsureFilterSelection(SelectedEdition, EditionFilters);
+                recommendedEditions,
+                previousEdition);
         }
         finally
         {
@@ -759,6 +795,13 @@ public partial class MainWindowViewModel : ObservableObject
             : source.Where(item => GetLanguageFilterValue(item).Equals(SelectedLanguageCode, StringComparison.OrdinalIgnoreCase));
     }
 
+    private IEnumerable<OperatingSystemCatalogItem> ApplyLicenseChannelFilter(IEnumerable<OperatingSystemCatalogItem> source)
+    {
+        return IsAnyFilter(SelectedLicenseChannel)
+            ? source
+            : source.Where(item => item.LicenseChannel.Equals(SelectedLicenseChannel, StringComparison.OrdinalIgnoreCase));
+    }
+
     private IEnumerable<OperatingSystemCatalogItem> ApplyEditionFilter(IEnumerable<OperatingSystemCatalogItem> source)
     {
         return IsAnyFilter(SelectedEdition)
@@ -776,6 +819,57 @@ public partial class MainWindowViewModel : ObservableObject
         return !string.IsNullOrWhiteSpace(item.LanguageCode)
             ? item.LanguageCode
             : item.Language;
+    }
+
+    private IEnumerable<string> BuildRecommendedEditionOptions(IEnumerable<OperatingSystemCatalogItem> scope)
+    {
+        string architecture = NormalizeArchitecture(EffectiveOsArchitecture);
+        bool hasRetail = scope.Any(item => item.LicenseChannel.Equals("RET", StringComparison.OrdinalIgnoreCase));
+        bool hasVolume = scope.Any(item => item.LicenseChannel.Equals("VOL", StringComparison.OrdinalIgnoreCase));
+
+        List<string> recommended = [];
+
+        if (IsAnyFilter(SelectedLicenseChannel))
+        {
+            if (hasRetail)
+            {
+                recommended.AddRange(GetEditionOptionsForChannel("RET", architecture));
+            }
+
+            if (hasVolume)
+            {
+                recommended.AddRange(GetEditionOptionsForChannel("VOL", architecture));
+            }
+        }
+        else
+        {
+            recommended.AddRange(GetEditionOptionsForChannel(SelectedLicenseChannel, architecture));
+        }
+
+        // Fall back to raw catalog editions if no curated mapping applies.
+        if (recommended.Count == 0)
+        {
+            recommended.AddRange(scope.Select(item => item.Edition));
+        }
+
+        return recommended;
+    }
+
+    private static IEnumerable<string> GetEditionOptionsForChannel(string licenseChannel, string architecture)
+    {
+        bool isArm64 = architecture.Equals("arm64", StringComparison.OrdinalIgnoreCase);
+
+        if (licenseChannel.Equals("VOL", StringComparison.OrdinalIgnoreCase))
+        {
+            return isArm64 ? Arm64VolumeEditionOptions : VolumeEditionOptions;
+        }
+
+        if (licenseChannel.Equals("RET", StringComparison.OrdinalIgnoreCase))
+        {
+            return isArm64 ? Arm64RetailEditionOptions : RetailEditionOptions;
+        }
+
+        return [];
     }
 
     private static void UpdateFilterCollection(ObservableCollection<string> target, IEnumerable<string> values)
@@ -802,12 +896,19 @@ public partial class MainWindowViewModel : ObservableObject
             return AnyFilterOption;
         }
 
-        if (!options.Contains(selectedValue, StringComparer.OrdinalIgnoreCase))
-        {
-            return options[0];
-        }
+        string? matchingOption = options.FirstOrDefault(option =>
+            option.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
 
-        return selectedValue;
+        return matchingOption ?? options[0];
+    }
+
+    private static string UpdateFilterSelection(
+        ObservableCollection<string> target,
+        IEnumerable<string> values,
+        string previousSelection)
+    {
+        UpdateFilterCollection(target, values);
+        return EnsureFilterSelection(previousSelection, target);
     }
 
     private void ApplyDriverFilter()
@@ -826,30 +927,35 @@ public partial class MainWindowViewModel : ObservableObject
 
         try
         {
+            string previousDriverManufacturer = SelectedDriverManufacturer;
+            string previousDriverOsName = SelectedDriverOsName;
+            string previousDriverReleaseYear = SelectedDriverReleaseYear;
+            string previousDriverVersion = SelectedDriverVersion;
+
             IEnumerable<DriverPackCatalogItem> baseQuery = BuildDriverQueryWithArchitecture(DriverPacks);
 
-            UpdateFilterCollection(
+            SelectedDriverManufacturer = UpdateFilterSelection(
                 DriverManufacturerFilters,
-                baseQuery.Select(item => item.Manufacturer));
-            SelectedDriverManufacturer = EnsureFilterSelection(SelectedDriverManufacturer, DriverManufacturerFilters);
+                baseQuery.Select(item => item.Manufacturer),
+                previousDriverManufacturer);
 
             IEnumerable<DriverPackCatalogItem> manufacturerScope = ApplyDriverManufacturerFilter(baseQuery);
-            UpdateFilterCollection(
+            SelectedDriverOsName = UpdateFilterSelection(
                 DriverOsNameFilters,
-                manufacturerScope.Select(item => item.OsName));
-            SelectedDriverOsName = EnsureFilterSelection(SelectedDriverOsName, DriverOsNameFilters);
+                manufacturerScope.Select(item => item.OsName),
+                previousDriverOsName);
 
             IEnumerable<DriverPackCatalogItem> osScope = ApplyDriverOsNameFilter(manufacturerScope);
-            UpdateFilterCollection(
+            SelectedDriverReleaseYear = UpdateFilterSelection(
                 DriverReleaseYearFilters,
-                osScope.Select(GetDriverReleaseYear));
-            SelectedDriverReleaseYear = EnsureFilterSelection(SelectedDriverReleaseYear, DriverReleaseYearFilters);
+                osScope.Select(GetDriverReleaseYear),
+                previousDriverReleaseYear);
 
             IEnumerable<DriverPackCatalogItem> yearScope = ApplyDriverReleaseYearFilter(osScope);
-            UpdateFilterCollection(
+            SelectedDriverVersion = UpdateFilterSelection(
                 DriverVersionFilters,
-                yearScope.Select(item => item.Version));
-            SelectedDriverVersion = EnsureFilterSelection(SelectedDriverVersion, DriverVersionFilters);
+                yearScope.Select(item => item.Version),
+                previousDriverVersion);
         }
         finally
         {
@@ -909,8 +1015,14 @@ public partial class MainWindowViewModel : ObservableObject
         query = ApplyWindowsReleaseFilter(query);
         query = ApplyReleaseIdFilter(query);
         query = ApplyLanguageFilter(query);
-        query = ApplyEditionFilter(query);
-        return query.ToArray();
+        query = ApplyLicenseChannelFilter(query);
+
+        return query
+            .GroupBy(
+                item => string.IsNullOrWhiteSpace(item.Url) ? item.FileName : item.Url,
+                StringComparer.OrdinalIgnoreCase)
+            .Select(group => group.First())
+            .ToArray();
     }
 
     private DriverPackCatalogItem[] BuildFilteredDriverPacks()
@@ -984,6 +1096,28 @@ public partial class MainWindowViewModel : ObservableObject
         string os = NormalizeArchitecture(osArchitecture);
         string driver = NormalizeArchitecture(driverArchitecture);
         return os.Equals(driver, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private OperatingSystemCatalogItem ApplyEditionSelection(OperatingSystemCatalogItem item)
+    {
+        if (IsAnyFilter(SelectedEdition))
+        {
+            return item;
+        }
+
+        if (item.Edition.Equals(SelectedEdition, StringComparison.OrdinalIgnoreCase))
+        {
+            return item;
+        }
+
+        return item with { Edition = SelectedEdition };
+    }
+
+    private static bool IsSameOperatingSystemMedia(OperatingSystemCatalogItem left, OperatingSystemCatalogItem right)
+    {
+        string leftKey = string.IsNullOrWhiteSpace(left.Url) ? left.FileName : left.Url;
+        string rightKey = string.IsNullOrWhiteSpace(right.Url) ? right.FileName : right.Url;
+        return leftKey.Equals(rightKey, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string NormalizeArchitecture(string architecture)

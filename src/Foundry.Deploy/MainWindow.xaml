@@ -142,6 +142,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -173,7 +174,15 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,0">
-                                        <TextBlock FontWeight="SemiBold" Text="Edition" />
+                                        <TextBlock FontWeight="SemiBold" Text="License Channel" />
+                                        <ComboBox
+                                            Margin="0,4,0,0"
+                                            ItemsSource="{Binding LicenseChannelFilters}"
+                                            SelectedItem="{Binding SelectedLicenseChannel}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                                        <TextBlock FontWeight="SemiBold" Text="Edition (Target)" />
                                         <ComboBox
                                             Margin="0,4,0,0"
                                             ItemsSource="{Binding EditionFilters}"
