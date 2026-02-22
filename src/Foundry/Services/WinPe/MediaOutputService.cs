@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using System.Globalization;
+using System.IO.Compression;
 using Foundry.Services.Operations;
 
 namespace Foundry.Services.WinPe;
@@ -467,6 +468,17 @@ public sealed class MediaOutputService : IMediaOutputService
             new UTF8Encoding(false),
             cancellationToken).ConfigureAwait(false);
 
+        WinPeResult localDeployProvisioning = await ProvisionLocalDeployArchiveInImageAsync(
+            session.MountDirectoryPath,
+            artifact.Architecture,
+            artifact.WorkingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+        if (!localDeployProvisioning.IsSuccess)
+        {
+            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            return localDeployProvisioning;
+        }
+
         string startnet = Path.Combine(session.MountDirectoryPath, WinPeDefaults.DefaultStartnetPathInImage);
         string[] lines = File.Exists(startnet) ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false) : ["wpeinit"];
         var merged = lines.ToList();
@@ -619,6 +631,228 @@ public sealed class MediaOutputService : IMediaOutputService
                 WinPeErrorCodes.ToolNotFound,
                 "Required WinPE optional components were not found in ADK.",
                 $"No required component CAB was found under '{ocRoot}'.");
+    }
+
+    private async Task<WinPeResult> ProvisionLocalDeployArchiveInImageAsync(
+        string mountedImagePath,
+        WinPeArchitecture architecture,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken)
+    {
+        if (!IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployEnableEnvironmentVariable)))
+        {
+            return WinPeResult.Success();
+        }
+
+        WinPeResult<string> archiveResult = await ResolveLocalDeployArchivePathAsync(architecture, workingDirectoryPath, cancellationToken).ConfigureAwait(false);
+        if (!archiveResult.IsSuccess)
+        {
+            return WinPeResult.Failure(archiveResult.Error!);
+        }
+
+        string destinationPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedDeployArchivePathInImage);
+        string? destinationDirectory = Path.GetDirectoryName(destinationPath);
+        if (string.IsNullOrWhiteSpace(destinationDirectory))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                "Failed to resolve destination path for local Foundry.Deploy archive.",
+                $"Destination: '{destinationPath}'.");
+        }
+
+        try
+        {
+            Directory.CreateDirectory(destinationDirectory);
+            File.Copy(archiveResult.Value!, destinationPath, overwrite: true);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to copy local Foundry.Deploy archive into mounted WinPE image.",
+                ex.ToString());
+        }
+    }
+
+    private async Task<WinPeResult<string>> ResolveLocalDeployArchivePathAsync(
+        WinPeArchitecture architecture,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken)
+    {
+        string configuredArchivePath = (Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployArchiveEnvironmentVariable) ?? string.Empty).Trim();
+        if (!string.IsNullOrWhiteSpace(configuredArchivePath))
+        {
+            if (!File.Exists(configuredArchivePath))
+            {
+                return WinPeResult<string>.Failure(
+                    WinPeErrorCodes.ValidationFailed,
+                    "Configured local Foundry.Deploy archive was not found.",
+                    $"Set {WinPeDefaults.LocalDeployArchiveEnvironmentVariable} to an existing .zip file. Path: '{configuredArchivePath}'.");
+            }
+
+            return WinPeResult<string>.Success(configuredArchivePath);
+        }
+
+        string configuredProjectPath = (Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployProjectEnvironmentVariable) ?? string.Empty).Trim();
+        string projectPath;
+        if (!string.IsNullOrWhiteSpace(configuredProjectPath))
+        {
+            if (!File.Exists(configuredProjectPath))
+            {
+                return WinPeResult<string>.Failure(
+                    WinPeErrorCodes.ValidationFailed,
+                    "Configured Foundry.Deploy project file was not found.",
+                    $"Set {WinPeDefaults.LocalDeployProjectEnvironmentVariable} to an existing .csproj file. Path: '{configuredProjectPath}'.");
+            }
+
+            projectPath = configuredProjectPath;
+        }
+        else if (!TryFindFoundryDeployProjectPath(out projectPath))
+        {
+            return WinPeResult<string>.Failure(
+                WinPeErrorCodes.ValidationFailed,
+                "Unable to locate Foundry.Deploy project for local WinPE embedding.",
+                $"Set {WinPeDefaults.LocalDeployArchiveEnvironmentVariable} to a .zip archive or {WinPeDefaults.LocalDeployProjectEnvironmentVariable} to Foundry.Deploy.csproj.");
+        }
+
+        string runtimeIdentifier = architecture.ToDotnetRuntimeIdentifier();
+        string localWorkspace = Path.Combine(workingDirectoryPath, "FoundryDeployLocal");
+        string publishDirectory = Path.Combine(localWorkspace, "publish", runtimeIdentifier);
+        string archivePath = Path.Combine(localWorkspace, $"Foundry.Deploy-{runtimeIdentifier}.zip");
+
+        TryDeleteDirectory(publishDirectory);
+        Directory.CreateDirectory(publishDirectory);
+
+        try
+        {
+            if (File.Exists(archivePath))
+            {
+                File.Delete(archivePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            return WinPeResult<string>.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to prepare local workspace for Foundry.Deploy archive generation.",
+                ex.ToString());
+        }
+
+        string publishArgs = string.Join(" ",
+            "publish",
+            WinPeProcessRunner.Quote(projectPath),
+            "-c", "Release",
+            "-r", runtimeIdentifier,
+            "--self-contained", "true",
+            "/p:PublishSingleFile=true",
+            "/p:PublishTrimmed=false",
+            "-o", WinPeProcessRunner.Quote(publishDirectory));
+
+        WinPeProcessExecution publish = await _processRunner.RunAsync(
+            "dotnet",
+            publishArgs,
+            workingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+
+        if (!publish.IsSuccess)
+        {
+            return WinPeResult<string>.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to publish Foundry.Deploy for local WinPE embedding.",
+                publish.ToDiagnosticText());
+        }
+
+        string executablePath = Path.Combine(publishDirectory, "Foundry.Deploy.exe");
+        if (!File.Exists(executablePath))
+        {
+            return WinPeResult<string>.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Foundry.Deploy publish output is incomplete.",
+                $"Expected executable: '{executablePath}'.");
+        }
+
+        try
+        {
+            ZipFile.CreateFromDirectory(publishDirectory, archivePath, CompressionLevel.Optimal, includeBaseDirectory: false);
+        }
+        catch (Exception ex)
+        {
+            return WinPeResult<string>.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to create Foundry.Deploy archive from local publish output.",
+                ex.ToString());
+        }
+
+        return WinPeResult<string>.Success(archivePath);
+    }
+
+    private static bool TryFindFoundryDeployProjectPath(out string projectPath)
+    {
+        foreach (string root in GetProjectDiscoveryRoots())
+        {
+            if (TryResolveFoundryDeployProjectPath(root, out projectPath))
+            {
+                return true;
+            }
+        }
+
+        projectPath = string.Empty;
+        return false;
+    }
+
+    private static IEnumerable<string> GetProjectDiscoveryRoots()
+    {
+        string current = Directory.GetCurrentDirectory();
+        if (!string.IsNullOrWhiteSpace(current))
+        {
+            yield return current;
+        }
+
+        string baseDirectory = AppContext.BaseDirectory;
+        if (!string.IsNullOrWhiteSpace(baseDirectory) && !baseDirectory.Equals(current, StringComparison.OrdinalIgnoreCase))
+        {
+            yield return baseDirectory;
+        }
+    }
+
+    private static bool TryResolveFoundryDeployProjectPath(string startDirectory, out string projectPath)
+    {
+        var current = new DirectoryInfo(startDirectory);
+        while (current is not null)
+        {
+            string candidate = Path.Combine(current.FullName, "src", "Foundry.Deploy", "Foundry.Deploy.csproj");
+            if (File.Exists(candidate))
+            {
+                projectPath = candidate;
+                return true;
+            }
+
+            current = current.Parent;
+        }
+
+        projectPath = string.Empty;
+        return false;
+    }
+
+    private static bool IsEnabledEnvironmentFlag(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+
+        return value.Trim() switch
+        {
+            "1" => true,
+            "true" => true,
+            "TRUE" => true,
+            "yes" => true,
+            "YES" => true,
+            "on" => true,
+            "ON" => true,
+            _ => false
+        };
     }
 
     private async Task<WinPeResult> RunRemediationIfConfiguredAsync(bool enabled, string? scriptPath, WinPeBuildArtifact artifact, WinPeToolPaths tools, CancellationToken cancellationToken)

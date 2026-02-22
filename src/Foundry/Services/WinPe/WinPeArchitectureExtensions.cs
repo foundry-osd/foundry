@@ -21,4 +21,14 @@ internal static class WinPeArchitectureExtensions
             _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
         };
     }
+
+    public static string ToDotnetRuntimeIdentifier(this WinPeArchitecture architecture)
+    {
+        return architecture switch
+        {
+            WinPeArchitecture.X64 => "win-x64",
+            WinPeArchitecture.Arm64 => "win-arm64",
+            _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
+        };
+    }
 }
