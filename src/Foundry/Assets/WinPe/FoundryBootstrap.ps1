@@ -1,3 +1,5 @@
+Clear-Host
+
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
@@ -15,16 +17,25 @@ function Write-Log {
         [string]$Message
     )
 
+    $Entry = "[$(Get-Date -Format o)] $Message"
+
     try {
         $Directory = Split-Path -Path $LogPath -Parent
         if (-not (Test-Path -Path $Directory)) {
             New-Item -Path $Directory -ItemType Directory -Force | Out-Null
         }
 
-        "[$(Get-Date -Format o)] $Message" | Out-File -FilePath $LogPath -Encoding utf8 -Append
+        $Entry | Out-File -FilePath $LogPath -Encoding utf8 -Append
     }
     catch {
         # Keep bootstrap resilient even if logging fails.
+    }
+
+    try {
+        Write-Host $Entry
+    }
+    catch {
+        # Keep bootstrap resilient even if console output fails.
     }
 }
 

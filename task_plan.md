@@ -1,37 +1,59 @@
-# Task Plan: Foundry.Deploy Consistency Audit
+# Task Plan: Investigate WinPE startup logging
 
 ## Goal
-Audit `src/Foundry.Deploy` for workflow coherence (UI → orchestrator → services), debug-safe behavior, cache/ISO/USB handling, autopilot, and hidden state risks; deliver severity-ordered findings with file/line references and action-oriented recommendations.
+Determine why WinPE bootstrap output is not visible by tracing startup scripts, process launch settings, and UI logging paths.
 
 ## Current Phase
 Phase 1
 
 ## Phases
-### Phase 1: Gather Context & Define Scope
-- [x] Inventory key layers (UI, orchestrator, services) relevant to deployment flow
-- [x] Identify expected safety checks (debug dry-run, confirmations, cache modes, autopilot) from documentation/assumptions
-- [x] Capture any existing gaps or uncertainties in `findings.md`
-- **Status:** complete
 
-### Phase 2: Code Review Analysis
-- [ ] Trace UI → orchestrator → service calls, noting mismatches or missing state validations
-- [ ] Examine safety modes (debug safe, confirmation dialogs, autopilot fallbacks) for edge cases
-- [ ] Evaluate cache handling (USB partition detection, ISO mode, autopilot caching, logs) for destructive/resume risks
-- [ ] Note any hidden state/flags that could leave the system in inconsistent states (resumes, failures, non-validated transitions)
+### Phase 1: Requirements & Discovery
+- [x] Understand user intent
+- [x] Identify constraints (WinPE environment, limited logging)
+- [ ] Document findings in findings.md
 - **Status:** in_progress
 
-### Phase 3: Summarize Findings
-- [ ] Rank issues by severity (blocking, major, minor)
-- [ ] Reference affected files/lines per issue
-- [ ] Provide concise recommendations for each finding
-- [ ] Update `findings.md` and produce final response
+### Phase 2: Planning & Structure
+- [ ] Define technical approach (file locations + logging chain)
+- [ ] Create organization/notes for config references
+- [ ] Document decisions with rationale
+- **Status:** pending
+
+### Phase 3: Implementation
+- [ ] Execute the plan step by step
+- [ ] Collect config excerpts before editing
+- [ ] Test explanations with evidence
+- **Status:** pending
+
+### Phase 4: Testing & Verification
+- [ ] Verify analysis covers bootstrap, startnet.cmd, UseShellExecute/stdout info
+- [ ] Document verification notes in progress.md
+- [ ] Resolve any remaining unknowns
+- **Status:** pending
+
+### Phase 5: Delivery
+- [ ] Review explanation for clarity and citations
+- [ ] Confirm all requested points answered
+- [ ] Deliver findings
 - **Status:** pending
 
 ## Key Questions
-1. Are there undocumented side-effects between UI state (MainWindowViewModel) and orchestrator services (DeploymentOrchestrator) that can leave destructive actions unconfirmed?
-2. Does debug safe mode fully isolate `WindowsDeploymentService` actions, especially when Autopilot or cache writes still run?
-3. Are cache paths for ISO/USB and Autopilot state persisted/resumed safely across restarts or failures?
-4. Are there any unvalidated state transitions (e.g., autopilot flagged as complete before hash exported) that could hide failures?
+1. Which WinPE startup scripts/configs (winpeshl.ini, startnet.cmd, bootstrap) are in this repo and what do they do?
+2. How are processes launched (UseShellExecute, stdout/stderr redirection) and where does UI logging end up?
+
+## Decisions Made
+| Decision | Rationale |
+|----------|-----------|
+|          |           |
+
+## Errors Encountered
+| Error | Attempt | Resolution |
+|-------|---------|------------|
+| Program 'python.exe' failed to run from WindowsApps while trying to execute session-catchup.py | 1 | WindowsApps python binary inaccessible; need a usable interpreter before retrying.
+| Unable to create process using 'python3.exe' for session-catchup.py | 2 | Same WindowsApps sandbox limitation; proceed without catchup until interpreter fix.
 
 ## Notes
-- Previous architecture plan activity is archived in `findings.md` and `progress.md`; this audit reuses that context but focuses on verifying the implemented behavior.
+- Update phase status as you progress: pending → in_progress → complete
+- Re-read this plan before major decisions (attention manipulation)
+- Log ALL errors - they help avoid repetition
