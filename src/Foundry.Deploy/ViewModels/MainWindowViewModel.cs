@@ -133,13 +133,11 @@ public partial class MainWindowViewModel : ObservableObject
     private string autopilotDeferredMessage = string.Empty;
 
     public ObservableCollection<OperatingSystemCatalogItem> OperatingSystems { get; } = [];
-    public ObservableCollection<OperatingSystemCatalogItem> FilteredOperatingSystems { get; } = [];
     public ObservableCollection<string> WindowsReleaseFilters { get; } = [];
     public ObservableCollection<string> ReleaseIdFilters { get; } = [];
     public ObservableCollection<string> LanguageFilters { get; } = [];
     public ObservableCollection<string> EditionFilters { get; } = [];
     public ObservableCollection<DriverPackCatalogItem> DriverPacks { get; } = [];
-    public ObservableCollection<DriverPackCatalogItem> FilteredDriverPacks { get; } = [];
     public ObservableCollection<string> DriverManufacturerFilters { get; } = [];
     public ObservableCollection<string> DriverOsNameFilters { get; } = [];
     public ObservableCollection<string> DriverReleaseYearFilters { get; } = [];
@@ -246,16 +244,6 @@ public partial class MainWindowViewModel : ObservableObject
                 ApplyOsFilter();
                 RefreshDriverFilterOptions();
                 ApplyDriverFilter();
-
-                if (SelectedOperatingSystem is null)
-                {
-                    SelectedOperatingSystem = FilteredOperatingSystems.FirstOrDefault();
-                }
-
-                if (SelectedDriverPack is null)
-                {
-                    SelectedDriverPack = FilteredDriverPacks.FirstOrDefault();
-                }
 
                 AutoSelectDriverPackFromHardware();
 
@@ -694,19 +682,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void ApplyOsFilter()
     {
-        IEnumerable<OperatingSystemCatalogItem> query = BuildOsQueryWithArchitecture(OperatingSystems);
-        query = ApplyWindowsReleaseFilter(query);
-        query = ApplyReleaseIdFilter(query);
-        query = ApplyLanguageFilter(query);
-        query = ApplyEditionFilter(query);
-
-        OperatingSystemCatalogItem[] filtered = query.ToArray();
-
-        FilteredOperatingSystems.Clear();
-        foreach (OperatingSystemCatalogItem item in filtered)
-        {
-            FilteredOperatingSystems.Add(item);
-        }
+        OperatingSystemCatalogItem[] filtered = BuildFilteredOperatingSystems();
 
         if (SelectedOperatingSystem is null || !filtered.Contains(SelectedOperatingSystem))
         {
@@ -836,19 +812,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void ApplyDriverFilter()
     {
-        IEnumerable<DriverPackCatalogItem> query = BuildDriverQueryWithArchitecture(DriverPacks);
-        query = ApplyDriverManufacturerFilter(query);
-        query = ApplyDriverOsNameFilter(query);
-        query = ApplyDriverReleaseYearFilter(query);
-        query = ApplyDriverVersionFilter(query);
-
-        DriverPackCatalogItem[] filtered = query.Take(1000).ToArray();
-
-        FilteredDriverPacks.Clear();
-        foreach (DriverPackCatalogItem item in filtered)
-        {
-            FilteredDriverPacks.Add(item);
-        }
+        DriverPackCatalogItem[] filtered = BuildFilteredDriverPacks();
 
         if (SelectedDriverPack is null || !filtered.Contains(SelectedDriverPack))
         {
@@ -939,6 +903,26 @@ public partial class MainWindowViewModel : ObservableObject
             : source.Where(item => item.Version.Equals(SelectedDriverVersion, StringComparison.OrdinalIgnoreCase));
     }
 
+    private OperatingSystemCatalogItem[] BuildFilteredOperatingSystems()
+    {
+        IEnumerable<OperatingSystemCatalogItem> query = BuildOsQueryWithArchitecture(OperatingSystems);
+        query = ApplyWindowsReleaseFilter(query);
+        query = ApplyReleaseIdFilter(query);
+        query = ApplyLanguageFilter(query);
+        query = ApplyEditionFilter(query);
+        return query.ToArray();
+    }
+
+    private DriverPackCatalogItem[] BuildFilteredDriverPacks()
+    {
+        IEnumerable<DriverPackCatalogItem> query = BuildDriverQueryWithArchitecture(DriverPacks);
+        query = ApplyDriverManufacturerFilter(query);
+        query = ApplyDriverOsNameFilter(query);
+        query = ApplyDriverReleaseYearFilter(query);
+        query = ApplyDriverVersionFilter(query);
+        return query.Take(1000).ToArray();
+    }
+
     private static string GetDriverReleaseYear(DriverPackCatalogItem item)
     {
         return item.ReleaseDate?.Year.ToString() ?? "Unknown";
@@ -989,7 +973,7 @@ public partial class MainWindowViewModel : ObservableObject
             return;
         }
 
-        if (FilteredDriverPacks.Contains(selection.DriverPack))
+        if (BuildFilteredDriverPacks().Contains(selection.DriverPack))
         {
             SelectedDriverPack = selection.DriverPack;
         }

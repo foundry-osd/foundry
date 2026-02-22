@@ -125,11 +125,6 @@
 
                     <TabItem Header="2. OS Catalog">
                         <Grid Margin="12">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
                             <StackPanel Margin="0,0,0,8">
                                 <DockPanel Margin="0,0,0,8">
                                     <Button
@@ -186,22 +181,11 @@
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
-
-                            <ListBox
-                                Grid.Row="1"
-                                DisplayMemberPath="DisplayLabel"
-                                ItemsSource="{Binding FilteredOperatingSystems}"
-                                SelectedItem="{Binding SelectedOperatingSystem}" />
                         </Grid>
                     </TabItem>
 
                     <TabItem Header="3. Driver Catalog">
                         <Grid Margin="12">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
                             <StackPanel Margin="0,0,0,8">
                                 <DockPanel Margin="0,0,0,8">
                                     <Button
@@ -258,12 +242,6 @@
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
-
-                            <ListBox
-                                Grid.Row="1"
-                                DisplayMemberPath="DisplayLabel"
-                                ItemsSource="{Binding FilteredDriverPacks}"
-                                SelectedItem="{Binding SelectedDriverPack}" />
                         </Grid>
                     </TabItem>
 
