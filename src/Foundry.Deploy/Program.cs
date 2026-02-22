@@ -1,3 +1,4 @@
+using System.IO;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
@@ -17,16 +18,81 @@ namespace Foundry.Deploy;
 
 public static class Program
 {
+    private static readonly string StartupLogPath = ResolveStartupLogPath();
+
     [STAThread]
-    public static void Main()
+    public static int Main()
     {
-        using ServiceProvider serviceProvider = BuildServiceProvider();
+        try
+        {
+            WriteStartupLog("Starting Foundry.Deploy bootstrap.");
 
-        App app = serviceProvider.GetRequiredService<App>();
-        app.InitializeComponent();
+            using ServiceProvider serviceProvider = BuildServiceProvider();
 
-        MainWindow mainWindow = serviceProvider.GetRequiredService<MainWindow>();
-        app.Run(mainWindow);
+            App app = serviceProvider.GetRequiredService<App>();
+            app.InitializeComponent();
+
+            MainWindow mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            int exitCode = app.Run(mainWindow);
+
+            WriteStartupLog($"Foundry.Deploy exited with code {exitCode}.");
+            return exitCode;
+        }
+        catch (Exception ex)
+        {
+            WriteStartupLog("Fatal startup error.", ex);
+            Console.Error.WriteLine("Foundry.Deploy failed to start.");
+            Console.Error.WriteLine($"Startup log: {StartupLogPath}");
+            return 1;
+        }
+    }
+
+    private static void WriteStartupLog(string message, Exception? exception = null)
+    {
+        try
+        {
+            string text = $"{DateTime.UtcNow:O} {message}";
+            if (exception is not null)
+            {
+                text += Environment.NewLine + exception;
+            }
+
+            File.AppendAllText(StartupLogPath, text + Environment.NewLine);
+        }
+        catch
+        {
+            // Ignore startup log write failures.
+        }
+    }
+
+    private static string ResolveStartupLogPath()
+    {
+        string[] candidateDirectories =
+        [
+            @"X:\Windows\Temp\Foundry\Deploy",
+            Path.Combine(Path.GetTempPath(), "Foundry", "Deploy"),
+            AppContext.BaseDirectory
+        ];
+
+        foreach (string candidateDirectory in candidateDirectories)
+        {
+            if (string.IsNullOrWhiteSpace(candidateDirectory))
+            {
+                continue;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(candidateDirectory);
+                return Path.Combine(candidateDirectory, "Foundry.Deploy.startup.log");
+            }
+            catch
+            {
+                // Try next location.
+            }
+        }
+
+        return "Foundry.Deploy.startup.log";
     }
 
     private static ServiceProvider BuildServiceProvider()

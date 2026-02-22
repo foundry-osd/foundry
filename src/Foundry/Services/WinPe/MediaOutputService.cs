@@ -829,7 +829,12 @@ public sealed class MediaOutputService : IMediaOutputService
             "-r", runtimeIdentifier,
             "--self-contained", "true",
             "/p:PublishSingleFile=true",
+            "/p:EnableCompressionInSingleFile=true",
+            "/p:IncludeNativeLibrariesForSelfExtract=true",
+            "/p:IncludeAllContentForSelfExtract=true",
             "/p:PublishTrimmed=false",
+            "/p:DebugType=None",
+            "/p:GenerateDocumentationFile=false",
             "-o", WinPeProcessRunner.Quote(publishDirectory));
 
         WinPeProcessExecution publish = await _processRunner.RunAsync(
