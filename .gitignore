@@ -416,3 +416,9 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Keep bundled 7-Zip architecture folders tracked.
+!src/Foundry/Assets/7z/[xX]64/
+!src/Foundry/Assets/7z/[xX]64/**
+!src/Foundry/Assets/7z/[aA][rR][mM]64/
+!src/Foundry/Assets/7z/[aA][rR][mM]64/**

@@ -42,7 +42,6 @@ internal sealed class WinPeToolResolver
 
         string windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
         string dismPath = Path.Combine(windowsDir, "System32", "dism.exe");
-        string expandPath = Path.Combine(windowsDir, "System32", "expand.exe");
         string cmdPath = Path.Combine(windowsDir, "System32", "cmd.exe");
 
         if (!File.Exists(dismPath))
@@ -51,14 +50,6 @@ internal sealed class WinPeToolResolver
                 WinPeErrorCodes.ToolNotFound,
                 "DISM executable was not found.",
                 $"Expected path: '{dismPath}'.");
-        }
-
-        if (!File.Exists(expandPath))
-        {
-            return WinPeResult<WinPeToolPaths>.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "expand.exe was not found.",
-                $"Expected path: '{expandPath}'.");
         }
 
         if (!File.Exists(cmdPath))
@@ -75,7 +66,6 @@ internal sealed class WinPeToolResolver
             CopypePath = copypePath,
             MakeWinPeMediaPath = makeWinPeMediaPath,
             DismPath = dismPath,
-            ExpandPath = expandPath,
             CmdPath = cmdPath,
             PowerShellPath = "powershell.exe"
         });

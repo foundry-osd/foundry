@@ -11,6 +11,7 @@ $BootstrapRoot = 'X:\ProgramData\Foundry\Deploy'
 $EmbeddedArchivePath = Join-Path $BootstrapRoot 'Seed\Foundry.Deploy.zip'
 $DownloadPath = Join-Path $BootstrapRoot 'Foundry.Deploy.zip'
 $ExtractPath = Join-Path $BootstrapRoot 'current'
+$SevenZipToolsPath = Join-Path $BootstrapRoot 'Tools\7zip'
 
 function Write-Log {
     param(
@@ -42,9 +43,6 @@ function Write-Log {
 
 function Get-TargetRuntimeIdentifier {
     $Architecture = [string]$env:PROCESSOR_ARCHITECTURE
-    if ($null -eq $Architecture) {
-        $Architecture = ''
-    }
     $Architecture = $Architecture.Trim().ToUpperInvariant()
     switch ($Architecture) {
         'AMD64' { return 'win-x64' }
@@ -125,9 +123,7 @@ function Download-FileViaBits {
     Ensure-BitsAvailable
 
     Invoke-WithRetry -Action {
-        if (Test-Path -Path $DestinationPath) {
-            Remove-Item -Path $DestinationPath -Force -ErrorAction SilentlyContinue
-        }
+        Remove-Item -Path $DestinationPath -Force -ErrorAction SilentlyContinue
 
         Start-BitsTransfer `
             -Source $SourceUrl `
@@ -191,25 +187,57 @@ function Verify-Sha256IfProvided {
     Write-Log 'SHA256 override verification succeeded.'
 }
 
+function Ensure-7ZipTooling {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RuntimeIdentifier
+    )
+
+    $RuntimeFolder = switch ($RuntimeIdentifier) {
+        'win-x64' { 'x64' }
+        'win-arm64' { 'arm64' }
+        Default { throw "Unsupported runtime '$RuntimeIdentifier' for 7-Zip tools." }
+    }
+    $RuntimeExecutable = Join-Path (Join-Path $SevenZipToolsPath $RuntimeFolder) '7za.exe'
+    if (Test-Path -Path $RuntimeExecutable -PathType Leaf) {
+        return $RuntimeExecutable
+    }
+
+    throw "7-Zip executable was not provisioned in this image. Expected path: '$RuntimeExecutable'."
+}
+
+function Expand-ZipVia7Zip {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ArchivePath,
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationPath,
+        [Parameter(Mandatory = $true)]
+        [string]$RuntimeIdentifier
+    )
+
+    $SevenZipExecutable = Ensure-7ZipTooling -RuntimeIdentifier $RuntimeIdentifier
+    if (-not (Test-Path -Path $DestinationPath -PathType Container)) {
+        New-Item -Path $DestinationPath -ItemType Directory -Force | Out-Null
+    }
+
+    $OutputArgument = "-o$DestinationPath"
+    & $SevenZipExecutable x -y $OutputArgument $ArchivePath
+    if ($LASTEXITCODE -ne 0) {
+        throw "7-Zip extraction failed with exit code $LASTEXITCODE."
+    }
+}
+
 try {
     Write-Log 'Foundry bootstrap started.'
 
     $RuntimeIdentifier = Get-TargetRuntimeIdentifier
     $AssetName = "Foundry.Deploy-$RuntimeIdentifier.zip"
     $ReleaseTagOverride = [string]$env:FOUNDRY_RELEASE_TAG
-    if ($null -eq $ReleaseTagOverride) {
-        $ReleaseTagOverride = ''
-    }
     $ReleaseTagOverride = $ReleaseTagOverride.Trim()
     $ArchiveOverride = [string]$env:FOUNDRY_DEPLOY_ARCHIVE
-    if ($null -eq $ArchiveOverride) {
-        $ArchiveOverride = ''
-    }
     $ArchiveOverride = $ArchiveOverride.Trim()
     $ArchiveOverrideSha256 = [string]$env:FOUNDRY_DEPLOY_ARCHIVE_SHA256
-    if ($null -eq $ArchiveOverrideSha256) {
-        $ArchiveOverrideSha256 = ''
-    }
     $ArchiveOverrideSha256 = $ArchiveOverrideSha256.Trim()
     if ([string]::IsNullOrWhiteSpace($ArchiveOverride) -and (Test-Path -Path $EmbeddedArchivePath -PathType Leaf)) {
         $ArchiveOverride = $EmbeddedArchivePath
@@ -245,9 +273,7 @@ try {
             }
 
             Write-Log "Copying override archive from '$ArchiveOverride'."
-            if (Test-Path -Path $DownloadPath) {
-                Remove-Item -Path $DownloadPath -Force -ErrorAction SilentlyContinue
-            }
+            Remove-Item -Path $DownloadPath -Force -ErrorAction SilentlyContinue
             Copy-Item -Path $ArchiveOverride -Destination $DownloadPath -Force
             $ReleaseDescriptor = "archive-file:$ArchiveOverride"
         }
@@ -291,12 +317,10 @@ try {
         throw "Expected archive not found at '$DownloadPath' after download."
     }
 
-    if (Test-Path -Path $ExtractPath) {
-        Remove-Item -Path $ExtractPath -Recurse -Force -ErrorAction SilentlyContinue
-    }
+    Remove-Item -Path $ExtractPath -Recurse -Force -ErrorAction SilentlyContinue
 
     Write-Log "Extracting archive to '$ExtractPath'."
-    Expand-Archive -Path $DownloadPath -DestinationPath $ExtractPath -Force
+    Expand-ZipVia7Zip -ArchivePath $DownloadPath -DestinationPath $ExtractPath -RuntimeIdentifier $RuntimeIdentifier
 
     $Executable = Get-ChildItem -Path $ExtractPath -Filter 'Foundry.Deploy.exe' -File -Recurse | Select-Object -First 1
     if ($null -eq $Executable) {

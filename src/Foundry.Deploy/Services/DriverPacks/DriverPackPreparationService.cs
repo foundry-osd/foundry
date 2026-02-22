@@ -1,5 +1,5 @@
 using System.IO;
-using System.IO.Compression;
+using System.Runtime.InteropServices;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
 
@@ -40,21 +40,8 @@ public sealed class DriverPackPreparationService : IDriverPackPreparationService
         switch (extension)
         {
             case ".cab":
-                {
-                    string expandExe = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "expand.exe");
-                    ProcessExecutionResult execution = await _processRunner
-                        .RunAsync(expandExe, $"-F:* \"{archivePath}\" \"{extractedPath}\"", extractionRootPath, cancellationToken)
-                        .ConfigureAwait(false);
-                    if (!execution.IsSuccess)
-                    {
-                        throw new InvalidOperationException($"CAB extraction failed: {execution.StandardError}");
-                    }
-
-                    return BuildResult(archivePath, extractedPath);
-                }
-
             case ".zip":
-                ZipFile.ExtractToDirectory(archivePath, extractedPath, overwriteFiles: true);
+                await ExtractWithSevenZipAsync(archivePath, extractedPath, extractionRootPath, cancellationToken).ConfigureAwait(false);
                 return BuildResult(archivePath, extractedPath);
 
             case ".exe":
@@ -75,6 +62,28 @@ public sealed class DriverPackPreparationService : IDriverPackPreparationService
                     RequiresDeferredInstall = true,
                     Message = $"Unsupported extraction format '{extension}'. Deferred installation required."
                 };
+        }
+    }
+
+    private async Task ExtractWithSevenZipAsync(
+        string archivePath,
+        string extractedPath,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        string sevenZipPath = ResolveBundledSevenZipExecutablePath();
+        ProcessExecutionResult execution = await _processRunner
+            .RunAsync(
+                sevenZipPath,
+                $"x -y -o{Quote(extractedPath)} {Quote(archivePath)}",
+                workingDirectory,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!execution.IsSuccess)
+        {
+            throw new InvalidOperationException(
+                $"7-Zip extraction failed (ExitCode={execution.ExitCode}). StdErr: {execution.StandardError}");
         }
     }
 
@@ -101,5 +110,31 @@ public sealed class DriverPackPreparationService : IDriverPackPreparationService
 
         string sanitized = new(value.Select(ch => Path.GetInvalidFileNameChars().Contains(ch) ? '_' : ch).ToArray());
         return sanitized.Trim().TrimEnd('.');
+    }
+
+    private static string ResolveBundledSevenZipExecutablePath()
+    {
+        string runtimeFolder = RuntimeInformation.ProcessArchitecture switch
+        {
+            Architecture.Arm64 => "arm64",
+            _ => "x64"
+        };
+
+        string executablePath = Path.Combine(AppContext.BaseDirectory, "Assets", "7z", runtimeFolder, "7za.exe");
+        if (!File.Exists(executablePath))
+        {
+            throw new FileNotFoundException(
+                "Bundled 7-Zip executable was not found. Expected Assets\\7z to be copied to output.",
+                executablePath);
+        }
+
+        return executablePath;
+    }
+
+    private static string Quote(string value)
+    {
+        return value.Contains(' ', StringComparison.Ordinal)
+            ? $"\"{value}\""
+            : value;
     }
 }

@@ -356,7 +356,6 @@ public sealed class MediaOutputService : IMediaOutputService
                     selectedPackages,
                     Path.Combine(artifact.DriverWorkspacePath, "downloads"),
                     Path.Combine(artifact.DriverWorkspacePath, "extracted"),
-                    tools,
                     cancellationToken).ConfigureAwait(false);
                 if (!prepared.IsSuccess)
                 {
@@ -477,6 +476,15 @@ public sealed class MediaOutputService : IMediaOutputService
         {
             await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
             return localDeployProvisioning;
+        }
+
+        WinPeResult sevenZipProvisioning = ProvisionBundledSevenZipInImage(
+            session.MountDirectoryPath,
+            artifact.Architecture);
+        if (!sevenZipProvisioning.IsSuccess)
+        {
+            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            return sevenZipProvisioning;
         }
 
         string startnet = Path.Combine(session.MountDirectoryPath, WinPeDefaults.DefaultStartnetPathInImage);
@@ -671,6 +679,81 @@ public sealed class MediaOutputService : IMediaOutputService
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to copy local Foundry.Deploy archive into mounted WinPE image.",
+                ex.ToString());
+        }
+    }
+
+    private static WinPeResult ProvisionBundledSevenZipInImage(
+        string mountedImagePath,
+        WinPeArchitecture architecture)
+    {
+        string sourceRootPath = Path.Combine(AppContext.BaseDirectory, WinPeDefaults.BundledSevenZipRelativePath);
+        if (!Directory.Exists(sourceRootPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "Bundled 7-Zip assets were not found.",
+                $"Expected path: '{sourceRootPath}'.");
+        }
+
+        string runtimeFolder = architecture.ToSevenZipRuntimeFolder();
+        string sourceExecutablePath = Path.Combine(sourceRootPath, runtimeFolder, "7za.exe");
+        if (!File.Exists(sourceExecutablePath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "Bundled 7-Zip executable was not found for target architecture.",
+                $"Expected file: '{sourceExecutablePath}'.");
+        }
+
+        string sourceLicensePath = Path.Combine(sourceRootPath, "License.txt");
+        if (!File.Exists(sourceLicensePath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "Bundled 7-Zip license file was not found.",
+                $"Expected file: '{sourceLicensePath}'.");
+        }
+
+        string sourceReadmePath = Path.Combine(sourceRootPath, "readme.txt");
+        if (!File.Exists(sourceReadmePath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "Bundled 7-Zip readme file was not found.",
+                $"Expected file: '{sourceReadmePath}'.");
+        }
+
+        string destinationExecutablePath = Path.Combine(
+            mountedImagePath,
+            WinPeDefaults.EmbeddedSevenZipToolsPathInImage,
+            runtimeFolder,
+            "7za.exe");
+        string destinationToolsRootPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedSevenZipToolsPathInImage);
+
+        string? destinationDirectoryPath = Path.GetDirectoryName(destinationExecutablePath);
+        if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                "Failed to resolve destination path for bundled 7-Zip provisioning.",
+                $"Destination file: '{destinationExecutablePath}'.");
+        }
+
+        try
+        {
+            Directory.CreateDirectory(destinationDirectoryPath);
+            Directory.CreateDirectory(destinationToolsRootPath);
+            File.Copy(sourceExecutablePath, destinationExecutablePath, overwrite: true);
+            File.Copy(sourceLicensePath, Path.Combine(destinationToolsRootPath, "License.txt"), overwrite: true);
+            File.Copy(sourceReadmePath, Path.Combine(destinationToolsRootPath, "readme.txt"), overwrite: true);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision bundled 7-Zip executable into mounted WinPE image.",
                 ex.ToString());
         }
     }

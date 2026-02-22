@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Runtime.InteropServices;
 
 namespace Foundry.Services.WinPe;
 
@@ -26,7 +27,6 @@ internal sealed class WinPeDriverPackageService
         IReadOnlyList<WinPeDriverCatalogEntry> packages,
         string downloadRootPath,
         string extractRootPath,
-        WinPeToolPaths tools,
         CancellationToken cancellationToken)
     {
         Directory.CreateDirectory(downloadRootPath);
@@ -61,7 +61,7 @@ internal sealed class WinPeDriverPackageService
             string extractPath = Path.Combine(extractRootPath, normalizedFolderName);
             WinPeFileSystemHelper.EnsureDirectoryClean(extractPath);
 
-            WinPeResult extractionResult = await ExtractPackageAsync(downloadPath, extractPath, tools, cancellationToken).ConfigureAwait(false);
+            WinPeResult extractionResult = await ExtractPackageAsync(downloadPath, extractPath, cancellationToken).ConfigureAwait(false);
             if (!extractionResult.IsSuccess)
             {
                 return WinPeResult<WinPePreparedDriverSet>.Failure(extractionResult.Error!);
@@ -156,86 +156,89 @@ internal sealed class WinPeDriverPackageService
     private async Task<WinPeResult> ExtractPackageAsync(
         string packagePath,
         string destinationPath,
-        WinPeToolPaths tools,
         CancellationToken cancellationToken)
     {
         string extension = Path.GetExtension(packagePath);
 
-        if (extension.Equals(".cab", StringComparison.OrdinalIgnoreCase))
-        {
-            return await ExtractCabAsync(packagePath, destinationPath, tools, cancellationToken).ConfigureAwait(false);
-        }
-
-        if (extension.Equals(".exe", StringComparison.OrdinalIgnoreCase))
-        {
-            return await ExtractExecutableAsync(packagePath, destinationPath, cancellationToken).ConfigureAwait(false);
-        }
-
-        return WinPeResult.Failure(
-            WinPeErrorCodes.DriverExtractionFailed,
-            "Unsupported driver package format.",
-            $"File: '{packagePath}', extension: '{extension}'. Supported: .cab, .exe");
-    }
-
-    private async Task<WinPeResult> ExtractCabAsync(
-        string cabPath,
-        string destinationPath,
-        WinPeToolPaths tools,
-        CancellationToken cancellationToken)
-    {
-        WinPeProcessExecution expandResult = await _processRunner.RunAsync(
-            tools.ExpandPath,
-            $"-F:* {WinPeProcessRunner.Quote(cabPath)} {WinPeProcessRunner.Quote(destinationPath)}",
-            destinationPath,
-            cancellationToken).ConfigureAwait(false);
-
-        if (!expandResult.IsSuccess)
+        if (!extension.Equals(".cab", StringComparison.OrdinalIgnoreCase) &&
+            !extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) &&
+            !extension.Equals(".zip", StringComparison.OrdinalIgnoreCase))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.DriverExtractionFailed,
-                "Failed to extract CAB driver package.",
-                expandResult.ToDiagnosticText());
+                "Unsupported driver package format.",
+                $"File: '{packagePath}', extension: '{extension}'. Supported: .cab, .exe, .zip");
+        }
+
+        WinPeResult extractionResult = await ExtractArchiveWithSevenZipAsync(packagePath, destinationPath, cancellationToken).ConfigureAwait(false);
+        if (!extractionResult.IsSuccess)
+        {
+            return extractionResult;
+        }
+
+        if (extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) &&
+            !WinPeFileSystemHelper.ContainsFileRecursive(destinationPath, "*.inf"))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.DriverExtractionFailed,
+                "Executable driver package was extracted with 7-Zip but no INF files were found.",
+                $"Archive: '{packagePath}', destination: '{destinationPath}'.");
         }
 
         return WinPeResult.Success();
     }
 
-    private async Task<WinPeResult> ExtractExecutableAsync(
-        string executablePath,
+    private async Task<WinPeResult> ExtractArchiveWithSevenZipAsync(
+        string archivePath,
         string destinationPath,
         CancellationToken cancellationToken)
     {
-        // HP SoftPaq extraction switches differ by package generation; try common variants.
-        string[] argumentCandidates =
-        [
-            $"/s /e /f {WinPeProcessRunner.Quote(destinationPath)}",
-            $"/s /f {WinPeProcessRunner.Quote(destinationPath)}",
-            $"/e /s /f {WinPeProcessRunner.Quote(destinationPath)}",
-            $"/s /extract={WinPeProcessRunner.Quote(destinationPath)}",
-            $"/s /x:{WinPeProcessRunner.Quote(destinationPath)}"
-        ];
-
-        WinPeProcessExecution? lastResult = null;
-
-        foreach (string args in argumentCandidates)
+        WinPeResult<string> sevenZipExecutablePathResult = ResolveBundledSevenZipExecutablePath();
+        if (!sevenZipExecutablePathResult.IsSuccess)
         {
-            WinPeProcessExecution result = await _processRunner.RunAsync(
-                executablePath,
-                args,
-                destinationPath,
-                cancellationToken).ConfigureAwait(false);
-
-            lastResult = result;
-            if (result.IsSuccess && WinPeFileSystemHelper.ContainsFileRecursive(destinationPath, "*.inf"))
-            {
-                return WinPeResult.Success();
-            }
+            return WinPeResult.Failure(sevenZipExecutablePathResult.Error!);
         }
 
-        string details = lastResult?.ToDiagnosticText() ?? "No extraction attempt executed.";
-        return WinPeResult.Failure(
-            WinPeErrorCodes.DriverExtractionFailed,
-            "Failed to extract executable driver package.",
-            details);
+        string sevenZipExecutablePath = sevenZipExecutablePathResult.Value!;
+        WinPeProcessExecution extractionResult = await _processRunner.RunAsync(
+            sevenZipExecutablePath,
+            $"x -y -o{WinPeProcessRunner.Quote(destinationPath)} {WinPeProcessRunner.Quote(archivePath)}",
+            destinationPath,
+            cancellationToken).ConfigureAwait(false);
+
+        if (!extractionResult.IsSuccess)
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.DriverExtractionFailed,
+                "Failed to extract driver package with bundled 7-Zip.",
+                extractionResult.ToDiagnosticText());
+        }
+
+        return WinPeResult.Success();
+    }
+
+    private static WinPeResult<string> ResolveBundledSevenZipExecutablePath()
+    {
+        string runtimeFolderName = RuntimeInformation.ProcessArchitecture switch
+        {
+            Architecture.Arm64 => "arm64",
+            _ => "x64"
+        };
+
+        string executablePath = Path.Combine(
+            AppContext.BaseDirectory,
+            WinPeDefaults.BundledSevenZipRelativePath,
+            runtimeFolderName,
+            "7za.exe");
+
+        if (!File.Exists(executablePath))
+        {
+            return WinPeResult<string>.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "Bundled 7-Zip executable was not found.",
+                $"Expected file: '{executablePath}'. Ensure Assets\\7z is copied to output.");
+        }
+
+        return WinPeResult<string>.Success(executablePath);
     }
 }

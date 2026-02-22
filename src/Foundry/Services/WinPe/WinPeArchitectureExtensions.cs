@@ -31,4 +31,14 @@ internal static class WinPeArchitectureExtensions
             _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
         };
     }
+
+    public static string ToSevenZipRuntimeFolder(this WinPeArchitecture architecture)
+    {
+        return architecture switch
+        {
+            WinPeArchitecture.X64 => "x64",
+            WinPeArchitecture.Arm64 => "arm64",
+            _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
+        };
+    }
 }
