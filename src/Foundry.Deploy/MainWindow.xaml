@@ -118,7 +118,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="2. OS Catalog">
+                    <TabItem Header="2. Operating System Catalog">
                         <Grid Margin="12">
                             <StackPanel Margin="0,0,0,8">
                                 <DockPanel Margin="0,0,0,8">
@@ -145,11 +145,18 @@
                                     </Grid.ColumnDefinitions>
 
                                     <StackPanel Margin="0,0,8,8">
-                                        <TextBlock FontWeight="SemiBold" Text="Windows" />
+                                        <TextBlock FontWeight="SemiBold" Text="Operating System" />
                                         <ComboBox
                                             Margin="0,4,0,0"
                                             ItemsSource="{Binding WindowsReleaseFilters}"
-                                            SelectedItem="{Binding SelectedWindowsRelease}" />
+                                            SelectedItem="{Binding SelectedWindowsRelease}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=WindowsRelease}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Margin="8,0,0,8">
@@ -176,7 +183,14 @@
                                         <ComboBox
                                             Margin="0,4,0,0"
                                             ItemsSource="{Binding LicenseChannelFilters}"
-                                            SelectedItem="{Binding SelectedLicenseChannel}" />
+                                            SelectedItem="{Binding SelectedLicenseChannel}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
                                     </StackPanel>
 
                                     <StackPanel
@@ -187,7 +201,14 @@
                                         <ComboBox
                                             Margin="0,4,0,0"
                                             ItemsSource="{Binding EditionFilters}"
-                                            SelectedItem="{Binding SelectedEdition}" />
+                                            SelectedItem="{Binding SelectedEdition}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=Edition}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -276,7 +297,9 @@
                             <TextBlock Margin="0,0,0,8" Text="{Binding SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Selected Operating System" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedOperatingSystem.DisplayLabel, TargetNullValue=No selection}" />
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Text="{Binding SelectedOperatingSystem, Converter={StaticResource OperatingSystemSummaryConverter}, TargetNullValue=No selection}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Selected Driver Pack" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDriverPack.DisplayLabel, TargetNullValue=None}" />

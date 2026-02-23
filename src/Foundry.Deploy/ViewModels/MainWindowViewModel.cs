@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
@@ -21,6 +22,12 @@ namespace Foundry.Deploy.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
     private const string AnyFilterOption = "Any";
+    private const string DefaultWindowsRelease = "11";
+    private const string DefaultReleaseId = "25H2";
+    private const string DefaultLicenseChannel = "RET";
+    private const string DefaultEdition = "Pro";
+    private const string FallbackLanguageCode = "en-us";
+    private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
         "Home",
@@ -135,19 +142,19 @@ public partial class MainWindowViewModel : ObservableObject
     private string effectiveOsArchitecture = NormalizeArchitecture(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
 
     [ObservableProperty]
-    private string selectedWindowsRelease = AnyFilterOption;
+    private string selectedWindowsRelease = DefaultWindowsRelease;
 
     [ObservableProperty]
-    private string selectedReleaseId = AnyFilterOption;
+    private string selectedReleaseId = DefaultReleaseId;
 
     [ObservableProperty]
-    private string selectedLanguageCode = AnyFilterOption;
+    private string selectedLanguageCode = DefaultLanguageCode;
 
     [ObservableProperty]
-    private string selectedLicenseChannel = AnyFilterOption;
+    private string selectedLicenseChannel = DefaultLicenseChannel;
 
     [ObservableProperty]
-    private string selectedEdition = AnyFilterOption;
+    private string selectedEdition = DefaultEdition;
 
     [ObservableProperty]
     private string selectedDriverManufacturer = AnyFilterOption;
@@ -739,7 +746,7 @@ public partial class MainWindowViewModel : ObservableObject
                 previousReleaseId);
 
             IEnumerable<OperatingSystemCatalogItem> languageScope = ApplyReleaseIdFilter(releaseScope);
-            SelectedLanguageCode = UpdateFilterSelection(
+            SelectedLanguageCode = UpdateLanguageFilterSelection(
                 LanguageFilters,
                 languageScope.Select(GetLanguageFilterValue),
                 previousLanguageCode);
@@ -881,7 +888,6 @@ public partial class MainWindowViewModel : ObservableObject
             .ToArray();
 
         target.Clear();
-        target.Add(AnyFilterOption);
 
         foreach (string value in normalizedValues)
         {
@@ -893,13 +899,18 @@ public partial class MainWindowViewModel : ObservableObject
     {
         if (options.Count == 0)
         {
-            return AnyFilterOption;
+            return string.Empty;
+        }
+
+        if (string.IsNullOrWhiteSpace(selectedValue) || selectedValue.Equals(AnyFilterOption, StringComparison.OrdinalIgnoreCase))
+        {
+            return string.Empty;
         }
 
         string? matchingOption = options.FirstOrDefault(option =>
             option.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
 
-        return matchingOption ?? options[0];
+        return matchingOption ?? string.Empty;
     }
 
     private static string UpdateFilterSelection(
@@ -909,6 +920,102 @@ public partial class MainWindowViewModel : ObservableObject
     {
         UpdateFilterCollection(target, values);
         return EnsureFilterSelection(previousSelection, target);
+    }
+
+    private static string UpdateLanguageFilterSelection(
+        ObservableCollection<string> target,
+        IEnumerable<string> values,
+        string previousSelection)
+    {
+        UpdateFilterCollection(target, values);
+
+        string selected = EnsureLanguageSelection(previousSelection, target);
+        if (!IsAnyFilter(selected))
+        {
+            return selected;
+        }
+
+        selected = EnsureLanguageSelection(DefaultLanguageCode, target);
+        if (!IsAnyFilter(selected))
+        {
+            return selected;
+        }
+
+        selected = EnsureLanguageSelection(FallbackLanguageCode, target);
+        return selected;
+    }
+
+    private static string EnsureLanguageSelection(string languageCode, ObservableCollection<string> options)
+    {
+        if (options.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        if (string.IsNullOrWhiteSpace(languageCode) || IsAnyFilter(languageCode))
+        {
+            return string.Empty;
+        }
+
+        string normalized = NormalizeLanguageCode(languageCode);
+
+        string? exact = options.FirstOrDefault(option =>
+            !IsAnyFilter(option) &&
+            NormalizeLanguageCode(option).Equals(normalized, StringComparison.OrdinalIgnoreCase));
+
+        if (!string.IsNullOrWhiteSpace(exact))
+        {
+            return exact;
+        }
+
+        string neutral = normalized.Split('-', 2, StringSplitOptions.RemoveEmptyEntries)[0];
+        if (!string.IsNullOrWhiteSpace(neutral))
+        {
+            string? sameLanguage = options.FirstOrDefault(option =>
+            {
+                if (IsAnyFilter(option))
+                {
+                    return false;
+                }
+
+                string candidate = NormalizeLanguageCode(option);
+                return candidate.Equals(neutral, StringComparison.OrdinalIgnoreCase) ||
+                       candidate.StartsWith($"{neutral}-", StringComparison.OrdinalIgnoreCase);
+            });
+
+            if (!string.IsNullOrWhiteSpace(sameLanguage))
+            {
+                return sameLanguage;
+            }
+        }
+
+        return string.Empty;
+    }
+
+    private static string ResolveDefaultLanguageCode()
+    {
+        string[] candidates =
+        [
+            CultureInfo.CurrentUICulture.Name,
+            CultureInfo.CurrentCulture.Name,
+            CultureInfo.InstalledUICulture.Name
+        ];
+
+        foreach (string candidate in candidates)
+        {
+            string normalized = NormalizeLanguageCode(candidate);
+            if (!string.IsNullOrWhiteSpace(normalized))
+            {
+                return normalized;
+            }
+        }
+
+        return FallbackLanguageCode;
+    }
+
+    private static string NormalizeLanguageCode(string languageCode)
+    {
+        return languageCode.Trim().Replace('_', '-').ToLowerInvariant();
     }
 
     private void ApplyDriverFilter()

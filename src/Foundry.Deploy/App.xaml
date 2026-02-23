@@ -10,6 +10,8 @@
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters:OsCatalogFilterDisplayConverter x:Key="OsCatalogFilterDisplayConverter" />
+            <converters:OperatingSystemSummaryConverter x:Key="OperatingSystemSummaryConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
