@@ -927,22 +927,25 @@ public partial class MainWindowViewModel : ObservableObject
         }
     }
 
-    private static string EnsureFilterSelection(string selectedValue, ObservableCollection<string> options)
+    private static bool TryGetFilterSelection(string? selectedValue, ObservableCollection<string> options, out string matched)
     {
-        if (options.Count == 0)
-        {
-            return string.Empty;
-        }
+        matched = string.Empty;
 
-        if (IsAnyFilter(selectedValue))
+        if (options.Count == 0 || IsAnyFilter(selectedValue ?? string.Empty))
         {
-            return string.Empty;
+            return false;
         }
 
         string? matchingOption = options.FirstOrDefault(option =>
             option.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
 
-        return matchingOption ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(matchingOption))
+        {
+            return false;
+        }
+
+        matched = matchingOption;
+        return true;
     }
 
     private static string UpdateFilterSelection(
@@ -959,19 +962,15 @@ public partial class MainWindowViewModel : ObservableObject
             return string.Empty;
         }
 
-        string selected = EnsureFilterSelection(previousSelection, target);
-        if (!string.IsNullOrWhiteSpace(selected))
+        if (TryGetFilterSelection(previousSelection, target, out string selected))
         {
             return selected;
         }
 
-        if (!string.IsNullOrWhiteSpace(defaultSelection))
+        if (!string.IsNullOrWhiteSpace(defaultSelection) &&
+            TryGetFilterSelection(defaultSelection, target, out selected))
         {
-            selected = EnsureFilterSelection(defaultSelection, target);
-            if (!string.IsNullOrWhiteSpace(selected))
-            {
-                return selected;
-            }
+            return selected;
         }
 
         return selectFirstWhenNoMatch ? target[0] : string.Empty;
@@ -983,26 +982,21 @@ public partial class MainWindowViewModel : ObservableObject
         string previousSelection)
     {
         UpdateFilterCollection(target, values);
-
-        string selected = EnsureLanguageSelection(previousSelection, target);
-        if (!IsAnyFilter(selected))
+        if (target.Count == 0)
         {
-            return selected;
+            return string.Empty;
         }
 
-        selected = EnsureLanguageSelection(DefaultLanguageCode, target);
-        if (!IsAnyFilter(selected))
+        foreach (string candidate in new[] { previousSelection, DefaultLanguageCode, FallbackLanguageCode })
         {
-            return selected;
+            string selected = EnsureLanguageSelection(candidate, target);
+            if (!string.IsNullOrWhiteSpace(selected))
+            {
+                return selected;
+            }
         }
 
-        selected = EnsureLanguageSelection(FallbackLanguageCode, target);
-        if (!string.IsNullOrWhiteSpace(selected))
-        {
-            return selected;
-        }
-
-        return target.Count > 0 ? target[0] : string.Empty;
+        return target[0];
     }
 
     private static string EnsureLanguageSelection(string languageCode, ObservableCollection<string> options)
@@ -1020,7 +1014,6 @@ public partial class MainWindowViewModel : ObservableObject
         string normalized = NormalizeLanguageCode(languageCode);
 
         string? exact = options.FirstOrDefault(option =>
-            !IsAnyFilter(option) &&
             NormalizeLanguageCode(option).Equals(normalized, StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrWhiteSpace(exact))
@@ -1033,11 +1026,6 @@ public partial class MainWindowViewModel : ObservableObject
         {
             string? sameLanguage = options.FirstOrDefault(option =>
             {
-                if (IsAnyFilter(option))
-                {
-                    return false;
-                }
-
                 string candidate = NormalizeLanguageCode(option);
                 return candidate.Equals(neutral, StringComparison.OrdinalIgnoreCase) ||
                        candidate.StartsWith($"{neutral}-", StringComparison.OrdinalIgnoreCase);
