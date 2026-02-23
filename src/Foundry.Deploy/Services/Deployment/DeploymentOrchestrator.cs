@@ -3,7 +3,6 @@ using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
-using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
@@ -32,8 +31,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly IDeploymentLogService _deploymentLogService;
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly ITargetDiskService _targetDiskService;
-    private readonly IDriverPackCatalogService _driverPackCatalogService;
-    private readonly IDriverPackSelectionService _driverPackSelectionService;
     private readonly IMicrosoftUpdateCatalogDriverService _microsoftUpdateCatalogDriverService;
     private readonly IArtifactDownloadService _artifactDownloadService;
     private readonly IDriverPackPreparationService _driverPackPreparationService;
@@ -46,8 +43,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         IDeploymentLogService deploymentLogService,
         IHardwareProfileService hardwareProfileService,
         ITargetDiskService targetDiskService,
-        IDriverPackCatalogService driverPackCatalogService,
-        IDriverPackSelectionService driverPackSelectionService,
         IMicrosoftUpdateCatalogDriverService microsoftUpdateCatalogDriverService,
         IArtifactDownloadService artifactDownloadService,
         IDriverPackPreparationService driverPackPreparationService,
@@ -59,8 +54,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _deploymentLogService = deploymentLogService;
         _hardwareProfileService = hardwareProfileService;
         _targetDiskService = targetDiskService;
-        _driverPackCatalogService = driverPackCatalogService;
-        _driverPackSelectionService = driverPackSelectionService;
         _microsoftUpdateCatalogDriverService = microsoftUpdateCatalogDriverService;
         _artifactDownloadService = artifactDownloadService;
         _driverPackPreparationService = driverPackPreparationService;
@@ -301,15 +294,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         case DriverPackSelectionKind.OemCatalog:
                             {
                                 DriverPackCatalogItem? driverPack = context.DriverPack;
-
-                                if (driverPack is null && context.AutoSelectDriverPackWhenEmpty)
-                                {
-                                    IReadOnlyList<DriverPackCatalogItem> catalog = await _driverPackCatalogService.GetCatalogAsync(cancellationToken).ConfigureAwait(false);
-                                    HardwareProfile hardware = runtimeState.HardwareProfile ?? await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
-                                    DriverPackSelectionResult selection = _driverPackSelectionService.SelectBest(catalog, hardware, context.OperatingSystem);
-                                    driverPack = selection.DriverPack;
-                                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Driver auto-selection: {selection.SelectionReason}", cancellationToken).ConfigureAwait(false);
-                                }
 
                                 if (driverPack is null)
                                 {

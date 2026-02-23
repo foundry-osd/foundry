@@ -10,7 +10,6 @@ public sealed record DeploymentContext
     public required OperatingSystemCatalogItem OperatingSystem { get; init; }
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public DriverPackCatalogItem? DriverPack { get; init; }
-    public bool AutoSelectDriverPackWhenEmpty { get; init; } = true;
     public bool UseFullAutopilot { get; init; }
     public bool AllowAutopilotDeferredCompletion { get; init; } = true;
     public bool IsDryRun { get; init; }

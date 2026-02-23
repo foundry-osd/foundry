@@ -21,12 +21,14 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    private const string AnyFilterOption = "Any";
     private const string DefaultWindowsRelease = "11";
     private const string DefaultReleaseId = "25H2";
     private const string DefaultLicenseChannel = "RET";
     private const string DefaultEdition = "Pro";
     private const string FallbackLanguageCode = "en-us";
+    private const int MaxDriverPackCandidates = 500;
+    private const string NoneDriverPackOptionKey = "none";
+    private const string MicrosoftUpdateCatalogDriverPackOptionKey = "microsoft-update-catalog";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
@@ -420,7 +422,6 @@ public partial class MainWindowViewModel : ObservableObject
             OperatingSystem = SelectedOperatingSystem,
             DriverPackSelectionKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None,
             DriverPack = SelectedDriverPackOption?.DriverPack,
-            AutoSelectDriverPackWhenEmpty = AutoSelectDriverPackWhenEmpty,
             UseFullAutopilot = UseFullAutopilot,
             AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
             IsDryRun = IsDebugSafeMode
@@ -770,42 +771,35 @@ public partial class MainWindowViewModel : ObservableObject
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyWindowsReleaseFilter(IEnumerable<OperatingSystemCatalogItem> source)
     {
-        return IsAnyFilter(SelectedWindowsRelease)
+        return IsFilterUnset(SelectedWindowsRelease)
             ? source
             : source.Where(item => item.WindowsRelease.Equals(SelectedWindowsRelease, StringComparison.OrdinalIgnoreCase));
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyReleaseIdFilter(IEnumerable<OperatingSystemCatalogItem> source)
     {
-        return IsAnyFilter(SelectedReleaseId)
+        return IsFilterUnset(SelectedReleaseId)
             ? source
             : source.Where(item => item.ReleaseId.Equals(SelectedReleaseId, StringComparison.OrdinalIgnoreCase));
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyLanguageFilter(IEnumerable<OperatingSystemCatalogItem> source)
     {
-        return IsAnyFilter(SelectedLanguageCode)
+        return IsFilterUnset(SelectedLanguageCode)
             ? source
             : source.Where(item => GetLanguageFilterValue(item).Equals(SelectedLanguageCode, StringComparison.OrdinalIgnoreCase));
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyLicenseChannelFilter(IEnumerable<OperatingSystemCatalogItem> source)
     {
-        return IsAnyFilter(SelectedLicenseChannel)
+        return IsFilterUnset(SelectedLicenseChannel)
             ? source
             : source.Where(item => item.LicenseChannel.Equals(SelectedLicenseChannel, StringComparison.OrdinalIgnoreCase));
     }
 
-    private IEnumerable<OperatingSystemCatalogItem> ApplyEditionFilter(IEnumerable<OperatingSystemCatalogItem> source)
+    private static bool IsFilterUnset(string value)
     {
-        return IsAnyFilter(SelectedEdition)
-            ? source
-            : source.Where(item => item.Edition.Equals(SelectedEdition, StringComparison.OrdinalIgnoreCase));
-    }
-
-    private static bool IsAnyFilter(string value)
-    {
-        return string.IsNullOrWhiteSpace(value) || value.Equals(AnyFilterOption, StringComparison.OrdinalIgnoreCase);
+        return string.IsNullOrWhiteSpace(value);
     }
 
     private static string GetLanguageFilterValue(OperatingSystemCatalogItem item)
@@ -823,7 +817,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         List<string> recommended = [];
 
-        if (IsAnyFilter(SelectedLicenseChannel))
+        if (IsFilterUnset(SelectedLicenseChannel))
         {
             if (hasRetail)
             {
@@ -886,7 +880,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         matched = string.Empty;
 
-        if (options.Count == 0 || IsAnyFilter(selectedValue ?? string.Empty))
+        if (options.Count == 0 || IsFilterUnset(selectedValue ?? string.Empty))
         {
             return false;
         }
@@ -961,7 +955,7 @@ public partial class MainWindowViewModel : ObservableObject
             return string.Empty;
         }
 
-        if (string.IsNullOrWhiteSpace(languageCode) || IsAnyFilter(languageCode))
+        if (IsFilterUnset(languageCode))
         {
             return string.Empty;
         }
@@ -1080,19 +1074,22 @@ public partial class MainWindowViewModel : ObservableObject
                 item.OsName.Contains(selectedOsRelease, StringComparison.OrdinalIgnoreCase));
         }
 
+        DriverPackCatalogItem[] baseCandidates = query.ToArray();
         string manufacturer = NormalizeManufacturer(_detectedHardware?.Manufacturer ?? string.Empty);
-        if (!string.IsNullOrWhiteSpace(manufacturer) && !manufacturer.Equals("unknown", StringComparison.OrdinalIgnoreCase))
+        if (IsUnknownManufacturer(manufacturer))
         {
-            query = query.Where(item =>
-                NormalizeManufacturer(item.Manufacturer).Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
+            return SortAndLimitDriverPackCandidates(baseCandidates);
         }
 
-        return query
-            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
-            .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
-            .Take(500)
+        DriverPackCatalogItem[] manufacturerCandidates = baseCandidates
+            .Where(item => NormalizeManufacturer(item.Manufacturer).Equals(manufacturer, StringComparison.OrdinalIgnoreCase))
             .ToArray();
+
+        IEnumerable<DriverPackCatalogItem> finalCandidates = manufacturerCandidates.Length > 0
+            ? manufacturerCandidates
+            : baseCandidates;
+
+        return SortAndLimitDriverPackCandidates(finalCandidates);
     }
 
     private DriverPackOptionItem? ResolveDefaultDriverPackOption(IReadOnlyList<DriverPackOptionItem> options)
@@ -1135,7 +1132,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         return new DriverPackOptionItem
         {
-            Key = "none",
+            Key = NoneDriverPackOptionKey,
             DisplayName = "None",
             Kind = DriverPackSelectionKind.None,
             DriverPack = null
@@ -1146,7 +1143,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         return new DriverPackOptionItem
         {
-            Key = "microsoft-update-catalog",
+            Key = MicrosoftUpdateCatalogDriverPackOptionKey,
             DisplayName = "Microsoft Update Catalog",
             Kind = DriverPackSelectionKind.MicrosoftUpdateCatalog,
             DriverPack = null
@@ -1171,6 +1168,22 @@ public partial class MainWindowViewModel : ObservableObject
     private static string NormalizeIdentityPart(string value)
     {
         return value.Trim().ToLowerInvariant();
+    }
+
+    private static bool IsUnknownManufacturer(string manufacturer)
+    {
+        return string.IsNullOrWhiteSpace(manufacturer) ||
+               manufacturer.Equals("unknown", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static DriverPackCatalogItem[] SortAndLimitDriverPackCandidates(IEnumerable<DriverPackCatalogItem> candidates)
+    {
+        return candidates
+            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+            .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+            .Take(MaxDriverPackCandidates)
+            .ToArray();
     }
 
     private OperatingSystemCatalogItem[] BuildFilteredOperatingSystems()
@@ -1219,7 +1232,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     private OperatingSystemCatalogItem ApplyEditionSelection(OperatingSystemCatalogItem item)
     {
-        if (IsAnyFilter(SelectedEdition))
+        if (IsFilterUnset(SelectedEdition))
         {
             return item;
         }

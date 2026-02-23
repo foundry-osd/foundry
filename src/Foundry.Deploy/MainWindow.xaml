@@ -109,7 +109,7 @@
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
                                 <CheckBox Margin="0,12,0,0" IsChecked="{Binding AutoSelectDriverPackWhenEmpty}">
-                                    <TextBlock Text="Auto-select driver pack based on detected hardware." />
+                                    <TextBlock Text="Auto-select OEM driver pack from detected hardware (fallback to Microsoft Update Catalog)." />
                                 </CheckBox>
                                 <CheckBox Margin="0,8,0,0" IsChecked="{Binding UseFullAutopilot}">
                                     <TextBlock Text="Autopilot: Full workflow enabled (V1 scope)." />
