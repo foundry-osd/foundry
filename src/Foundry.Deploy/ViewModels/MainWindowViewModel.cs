@@ -902,7 +902,7 @@ public partial class MainWindowViewModel : ObservableObject
             return string.Empty;
         }
 
-        if (string.IsNullOrWhiteSpace(selectedValue) || selectedValue.Equals(AnyFilterOption, StringComparison.OrdinalIgnoreCase))
+        if (IsAnyFilter(selectedValue))
         {
             return string.Empty;
         }
