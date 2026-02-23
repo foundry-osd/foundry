@@ -185,6 +185,7 @@ public static class Program
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();
         services.AddSingleton<IDriverPackSelectionService, DriverPackSelectionService>();
+        services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();
         services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
         services.AddSingleton<IDriverPackPreparationService, DriverPackPreparationService>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();

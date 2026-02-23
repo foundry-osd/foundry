@@ -23,6 +23,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         string model = Normalize(hardware.Model);
         string product = Normalize(hardware.Product);
         string targetOsName = operatingSystem.WindowsRelease == "11" ? "Windows 11" : "Windows 10";
+        string targetReleaseId = Normalize(operatingSystem.ReleaseId);
 
         IEnumerable<DriverPackCatalogItem> query = catalog
             .Where(item => NormalizeArchitecture(item.OsArchitecture) == osArch)
@@ -43,7 +44,20 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             };
         }
 
-        DriverPackCatalogItem? exactModel = candidates
+        DriverPackCatalogItem[] releaseCandidates = candidates;
+        if (!string.IsNullOrWhiteSpace(targetReleaseId))
+        {
+            DriverPackCatalogItem[] releaseFiltered = candidates
+                .Where(item => Normalize(item.Name).Contains(targetReleaseId, StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+            if (releaseFiltered.Length > 0)
+            {
+                releaseCandidates = releaseFiltered;
+            }
+        }
+
+        DriverPackCatalogItem? exactModel = releaseCandidates
             .Where(item => item.ModelNames.Any(modelName => ContainsIgnoreCase(modelName, model) || ContainsIgnoreCase(modelName, product)))
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .FirstOrDefault();
@@ -57,7 +71,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             };
         }
 
-        DriverPackCatalogItem latest = candidates
+        DriverPackCatalogItem latest = releaseCandidates
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .First();
 

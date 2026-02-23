@@ -218,7 +218,7 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="3. Driver Catalog">
+                    <TabItem Header="3. Driver Pack">
                         <Grid Margin="12">
                             <StackPanel Margin="0,0,0,8">
                                 <DockPanel Margin="0,0,0,8">
@@ -233,51 +233,16 @@
                                         Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
                                 </DockPanel>
 
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <StackPanel Margin="0,0,8,8">
-                                        <TextBlock FontWeight="SemiBold" Text="Manufacturer" />
-                                        <ComboBox
-                                            Margin="0,4,0,0"
-                                            ItemsSource="{Binding DriverManufacturerFilters}"
-                                            SelectedItem="{Binding SelectedDriverManufacturer}" />
-                                    </StackPanel>
-
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,8">
-                                        <TextBlock FontWeight="SemiBold" Text="Driver OS" />
-                                        <ComboBox
-                                            Margin="0,4,0,0"
-                                            ItemsSource="{Binding DriverOsNameFilters}"
-                                            SelectedItem="{Binding SelectedDriverOsName}" />
-                                    </StackPanel>
-
-                                    <StackPanel Grid.Row="1" Margin="0,0,8,0">
-                                        <TextBlock FontWeight="SemiBold" Text="Release Year" />
-                                        <ComboBox
-                                            Margin="0,4,0,0"
-                                            ItemsSource="{Binding DriverReleaseYearFilters}"
-                                            SelectedItem="{Binding SelectedDriverReleaseYear}" />
-                                    </StackPanel>
-
-                                    <StackPanel
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Margin="8,0,0,0">
-                                        <TextBlock FontWeight="SemiBold" Text="Version" />
-                                        <ComboBox
-                                            Margin="0,4,0,0"
-                                            ItemsSource="{Binding DriverVersionFilters}"
-                                            SelectedItem="{Binding SelectedDriverVersion}" />
-                                    </StackPanel>
-                                </Grid>
+                                <TextBlock FontWeight="SemiBold" Text="Driver Pack" />
+                                <ComboBox
+                                    Margin="0,4,0,0"
+                                    DisplayMemberPath="DisplayName"
+                                    ItemsSource="{Binding DriverPackOptions}"
+                                    SelectedItem="{Binding SelectedDriverPackOption}" />
+                                <TextBlock
+                                    Margin="0,6,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -305,10 +270,10 @@
                                 Text="{Binding SelectedOperatingSystem, Converter={StaticResource OperatingSystemSummaryConverter}, TargetNullValue=No selection}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Selected Driver Pack" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDriverPack.DisplayLabel, TargetNullValue=None}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDriverPackOption.DisplayName, TargetNullValue=None}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Driver Pack Mode" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding AutoSelectDriverPackWhenEmpty, StringFormat=Auto-select when empty: {0}}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackModeDisplay}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Autopilot" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />

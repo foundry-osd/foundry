@@ -19,6 +19,7 @@ public sealed record DeploymentRuntimeState
     public int? AppliedImageIndex { get; set; }
     public string? TargetSystemPartitionRoot { get; set; }
     public string? TargetWindowsPartitionRoot { get; set; }
+    public DriverPackSelectionKind DriverPackSelectionKind { get; set; } = DriverPackSelectionKind.None;
     public string? DriverPackName { get; set; }
     public string? DriverPackUrl { get; set; }
     public string? DownloadedDriverPackPath { get; set; }

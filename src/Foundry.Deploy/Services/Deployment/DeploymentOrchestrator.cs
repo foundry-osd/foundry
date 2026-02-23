@@ -34,6 +34,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackCatalogService _driverPackCatalogService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
+    private readonly IMicrosoftUpdateCatalogDriverService _microsoftUpdateCatalogDriverService;
     private readonly IArtifactDownloadService _artifactDownloadService;
     private readonly IDriverPackPreparationService _driverPackPreparationService;
     private readonly IWindowsDeploymentService _windowsDeploymentService;
@@ -47,6 +48,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         ITargetDiskService targetDiskService,
         IDriverPackCatalogService driverPackCatalogService,
         IDriverPackSelectionService driverPackSelectionService,
+        IMicrosoftUpdateCatalogDriverService microsoftUpdateCatalogDriverService,
         IArtifactDownloadService artifactDownloadService,
         IDriverPackPreparationService driverPackPreparationService,
         IWindowsDeploymentService windowsDeploymentService,
@@ -59,6 +61,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _targetDiskService = targetDiskService;
         _driverPackCatalogService = driverPackCatalogService;
         _driverPackSelectionService = driverPackSelectionService;
+        _microsoftUpdateCatalogDriverService = microsoftUpdateCatalogDriverService;
         _artifactDownloadService = artifactDownloadService;
         _driverPackPreparationService = driverPackPreparationService;
         _windowsDeploymentService = windowsDeploymentService;
@@ -89,7 +92,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             RequestedCacheRootPath = context.CacheRootPath,
             TargetDiskNumber = context.TargetDiskNumber,
             OperatingSystemFileName = context.OperatingSystem.FileName,
-            OperatingSystemUrl = context.OperatingSystem.Url
+            OperatingSystemUrl = context.OperatingSystem.Url,
+            DriverPackSelectionKind = context.DriverPackSelectionKind
         };
 
         try
@@ -98,6 +102,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             EmitLog($"[INFO] Cache root: {context.CacheRootPath}");
             EmitLog($"[INFO] Target disk number: {context.TargetDiskNumber}");
             EmitLog($"[INFO] OS: {context.OperatingSystem.DisplayLabel}");
+            EmitLog($"[INFO] Driver pack mode: {context.DriverPackSelectionKind}");
             EmitLog($"[INFO] Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}");
             EmitLog($"[INFO] Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}");
             EmitLog($"[INFO] Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}");
@@ -273,44 +278,70 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             case "Download and prepare driver pack":
                 {
                     string cacheRoot = EnsureResolvedCache(runtimeState);
-                    DriverPackCatalogItem? driverPack = context.DriverPack;
+                    runtimeState.DriverPackSelectionKind = context.DriverPackSelectionKind;
 
-                    if (driverPack is null && context.AutoSelectDriverPackWhenEmpty)
+                    switch (context.DriverPackSelectionKind)
                     {
-                        IReadOnlyList<DriverPackCatalogItem> catalog = await _driverPackCatalogService.GetCatalogAsync(cancellationToken).ConfigureAwait(false);
-                        HardwareProfile hardware = runtimeState.HardwareProfile ?? await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
-                        DriverPackSelectionResult selection = _driverPackSelectionService.SelectBest(catalog, hardware, context.OperatingSystem);
-                        driverPack = selection.DriverPack;
-                        await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Driver auto-selection: {selection.SelectionReason}", cancellationToken).ConfigureAwait(false);
+                        case DriverPackSelectionKind.None:
+                            return StepExecutionOutcome.Skipped("Driver pack disabled (None selected).");
+
+                        case DriverPackSelectionKind.MicrosoftUpdateCatalog:
+                            {
+                                string destination = Path.Combine(cacheRoot, "Extracted", "Drivers", "MicrosoftUpdateCatalog");
+                                MicrosoftUpdateCatalogDriverResult microsoftResult = await _microsoftUpdateCatalogDriverService
+                                    .DownloadAsync(destination, cancellationToken)
+                                    .ConfigureAwait(false);
+
+                                runtimeState.DriverPackName = "Microsoft Update Catalog";
+                                runtimeState.PreparedDriverPath = microsoftResult.DestinationDirectory;
+                                await AppendLogAsync(logSession, DeploymentLogLevel.Info, microsoftResult.Message, cancellationToken).ConfigureAwait(false);
+                                return StepExecutionOutcome.Succeeded("Microsoft Update Catalog driver payload prepared.");
+                            }
+
+                        case DriverPackSelectionKind.OemCatalog:
+                            {
+                                DriverPackCatalogItem? driverPack = context.DriverPack;
+
+                                if (driverPack is null && context.AutoSelectDriverPackWhenEmpty)
+                                {
+                                    IReadOnlyList<DriverPackCatalogItem> catalog = await _driverPackCatalogService.GetCatalogAsync(cancellationToken).ConfigureAwait(false);
+                                    HardwareProfile hardware = runtimeState.HardwareProfile ?? await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
+                                    DriverPackSelectionResult selection = _driverPackSelectionService.SelectBest(catalog, hardware, context.OperatingSystem);
+                                    driverPack = selection.DriverPack;
+                                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Driver auto-selection: {selection.SelectionReason}", cancellationToken).ConfigureAwait(false);
+                                }
+
+                                if (driverPack is null)
+                                {
+                                    return StepExecutionOutcome.Skipped("OEM driver pack mode selected but no driver pack was provided.");
+                                }
+
+                                runtimeState.DriverPackName = driverPack.Name;
+                                runtimeState.DriverPackUrl = driverPack.DownloadUrl;
+
+                                string driverPackDirectory = Path.Combine(cacheRoot, "DriverPacks", SanitizePathSegment(driverPack.Manufacturer));
+                                Directory.CreateDirectory(driverPackDirectory);
+                                string archiveName = ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
+                                string archivePath = Path.Combine(driverPackDirectory, archiveName);
+
+                                ArtifactDownloadResult download = await _artifactDownloadService
+                                    .DownloadAsync(driverPack.DownloadUrl, archivePath, driverPack.Sha256, preferBits: true, cancellationToken)
+                                    .ConfigureAwait(false);
+
+                                runtimeState.DownloadedDriverPackPath = download.DestinationPath;
+
+                                string extractionRoot = Path.Combine(cacheRoot, "Extracted", "Drivers");
+                                DriverPackPreparationResult preparation = await _driverPackPreparationService
+                                    .PrepareAsync(driverPack, download.DestinationPath, extractionRoot, cancellationToken)
+                                    .ConfigureAwait(false);
+
+                                runtimeState.PreparedDriverPath = preparation.ExtractedDirectoryPath;
+                                await AppendLogAsync(logSession, DeploymentLogLevel.Info, preparation.Message, cancellationToken).ConfigureAwait(false);
+                                return StepExecutionOutcome.Succeeded("OEM driver pack prepared.");
+                            }
                     }
 
-                    if (driverPack is null)
-                    {
-                        return StepExecutionOutcome.Skipped("No driver pack selected.");
-                    }
-
-                    runtimeState.DriverPackName = driverPack.Name;
-                    runtimeState.DriverPackUrl = driverPack.DownloadUrl;
-
-                    string driverPackDirectory = Path.Combine(cacheRoot, "DriverPacks", SanitizePathSegment(driverPack.Manufacturer));
-                    Directory.CreateDirectory(driverPackDirectory);
-                    string archiveName = ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
-                    string archivePath = Path.Combine(driverPackDirectory, archiveName);
-
-                    ArtifactDownloadResult download = await _artifactDownloadService
-                        .DownloadAsync(driverPack.DownloadUrl, archivePath, driverPack.Sha256, preferBits: true, cancellationToken)
-                        .ConfigureAwait(false);
-
-                    runtimeState.DownloadedDriverPackPath = download.DestinationPath;
-
-                    string extractionRoot = Path.Combine(cacheRoot, "Extracted", "Drivers");
-                    DriverPackPreparationResult preparation = await _driverPackPreparationService
-                        .PrepareAsync(driverPack, download.DestinationPath, extractionRoot, cancellationToken)
-                        .ConfigureAwait(false);
-
-                    runtimeState.PreparedDriverPath = preparation.ExtractedDirectoryPath;
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, preparation.Message, cancellationToken).ConfigureAwait(false);
-                    return StepExecutionOutcome.Succeeded("Driver pack prepared.");
+                    return StepExecutionOutcome.Skipped("No driver pack operation for selected mode.");
                 }
 
             case "Apply operating system image":
@@ -527,23 +558,42 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             case "Download and prepare driver pack":
                 {
                     string cacheRoot = EnsureResolvedCache(runtimeState);
-                    DriverPackCatalogItem? driverPack = context.DriverPack;
-                    if (driverPack is null)
+                    runtimeState.DriverPackSelectionKind = context.DriverPackSelectionKind;
+
+                    if (context.DriverPackSelectionKind == DriverPackSelectionKind.None)
                     {
                         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
-                        return StepExecutionOutcome.Skipped("No driver pack selected.");
+                        return StepExecutionOutcome.Skipped("Driver pack disabled (None selected).");
                     }
 
-                    runtimeState.DriverPackName = driverPack.Name;
-                    runtimeState.DriverPackUrl = driverPack.DownloadUrl;
+                    string simulationSegment = context.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog
+                        ? "ms-update-catalog"
+                        : "oem";
 
-                    string driverRoot = Path.Combine(cacheRoot, "Extracted", "Drivers", "dry-run");
+                    if (context.DriverPackSelectionKind == DriverPackSelectionKind.OemCatalog)
+                    {
+                        DriverPackCatalogItem? driverPack = context.DriverPack;
+                        if (driverPack is null)
+                        {
+                            await Task.Delay(120, cancellationToken).ConfigureAwait(false);
+                            return StepExecutionOutcome.Skipped("OEM driver pack mode selected but no driver pack was provided.");
+                        }
+
+                        runtimeState.DriverPackName = driverPack.Name;
+                        runtimeState.DriverPackUrl = driverPack.DownloadUrl;
+                    }
+                    else
+                    {
+                        runtimeState.DriverPackName = "Microsoft Update Catalog";
+                    }
+
+                    string driverRoot = Path.Combine(cacheRoot, "Extracted", "Drivers", "dry-run", simulationSegment);
                     Directory.CreateDirectory(driverRoot);
                     string infPath = Path.Combine(driverRoot, "dryrun.inf");
                     await File.WriteAllTextAsync(infPath, "; dry-run only", cancellationToken).ConfigureAwait(false);
                     runtimeState.PreparedDriverPath = driverRoot;
 
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Driver payload simulated: {driverRoot}", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Driver payload simulated ({context.DriverPackSelectionKind}): {driverRoot}", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(150, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Driver pack prepared (simulation).");
                 }

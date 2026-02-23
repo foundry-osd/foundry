@@ -8,6 +8,7 @@ public sealed record DeploymentContext
     public required string CacheRootPath { get; init; }
     public required int TargetDiskNumber { get; init; }
     public required OperatingSystemCatalogItem OperatingSystem { get; init; }
+    public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public DriverPackCatalogItem? DriverPack { get; init; }
     public bool AutoSelectDriverPackWhenEmpty { get; init; } = true;
     public bool UseFullAutopilot { get; init; }
