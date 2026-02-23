@@ -62,7 +62,10 @@
                         Text="{Binding DetectedHardwareSummary}" />
                 </StackPanel>
 
-                <TabControl Grid.Row="1" SelectedIndex="{Binding WizardStepIndex}">
+                <TabControl
+                    Grid.Row="1"
+                    PreviewMouseDown="WizardTabControl_PreviewMouseDown"
+                    SelectedIndex="{Binding WizardStepIndex}">
                     <TabItem Header="1. Mode">
                         <Grid Margin="12">
                             <Grid.RowDefinitions>

@@ -83,6 +83,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RefreshCatalogsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
     private bool isCatalogLoading;
 
     [ObservableProperty]
@@ -106,6 +107,7 @@ public partial class MainWindowViewModel : ObservableObject
     private int deploymentProgress;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
     private OperatingSystemCatalogItem? selectedOperatingSystem;
 
@@ -682,7 +684,29 @@ public partial class MainWindowViewModel : ObservableObject
 
     private bool CanGoNext()
     {
-        return !IsDeploymentRunning && WizardStepIndex < 3;
+        if (IsDeploymentRunning || WizardStepIndex >= 3)
+        {
+            return false;
+        }
+
+        if (WizardStepIndex == 0)
+        {
+            return IsOsCatalogReadyForNavigation();
+        }
+
+        return true;
+    }
+
+    private bool IsOsCatalogReadyForNavigation()
+    {
+        return !IsCatalogLoading &&
+               OperatingSystems.Count > 0 &&
+               WindowsReleaseFilters.Count > 0 &&
+               ReleaseIdFilters.Count > 0 &&
+               LanguageFilters.Count > 0 &&
+               LicenseChannelFilters.Count > 0 &&
+               EditionFilters.Count > 0 &&
+               SelectedOperatingSystem is not null;
     }
 
     private bool CanStartDeployment()
@@ -737,13 +761,17 @@ public partial class MainWindowViewModel : ObservableObject
             SelectedWindowsRelease = UpdateFilterSelection(
                 WindowsReleaseFilters,
                 baseQuery.Select(item => item.WindowsRelease),
-                previousWindowsRelease);
+                previousWindowsRelease,
+                DefaultWindowsRelease,
+                selectFirstWhenNoMatch: true);
 
             IEnumerable<OperatingSystemCatalogItem> releaseScope = ApplyWindowsReleaseFilter(baseQuery);
             SelectedReleaseId = UpdateFilterSelection(
                 ReleaseIdFilters,
                 releaseScope.Select(item => item.ReleaseId),
-                previousReleaseId);
+                previousReleaseId,
+                DefaultReleaseId,
+                selectFirstWhenNoMatch: true);
 
             IEnumerable<OperatingSystemCatalogItem> languageScope = ApplyReleaseIdFilter(releaseScope);
             SelectedLanguageCode = UpdateLanguageFilterSelection(
@@ -755,14 +783,18 @@ public partial class MainWindowViewModel : ObservableObject
             SelectedLicenseChannel = UpdateFilterSelection(
                 LicenseChannelFilters,
                 licenseScope.Select(item => item.LicenseChannel),
-                previousLicenseChannel);
+                previousLicenseChannel,
+                DefaultLicenseChannel,
+                selectFirstWhenNoMatch: true);
 
             IEnumerable<OperatingSystemCatalogItem> editionScope = ApplyLicenseChannelFilter(licenseScope);
             IEnumerable<string> recommendedEditions = BuildRecommendedEditionOptions(editionScope);
             SelectedEdition = UpdateFilterSelection(
                 EditionFilters,
                 recommendedEditions,
-                previousEdition);
+                previousEdition,
+                DefaultEdition,
+                selectFirstWhenNoMatch: true);
         }
         finally
         {
@@ -916,10 +948,33 @@ public partial class MainWindowViewModel : ObservableObject
     private static string UpdateFilterSelection(
         ObservableCollection<string> target,
         IEnumerable<string> values,
-        string previousSelection)
+        string previousSelection,
+        string? defaultSelection = null,
+        bool selectFirstWhenNoMatch = false)
     {
         UpdateFilterCollection(target, values);
-        return EnsureFilterSelection(previousSelection, target);
+
+        if (target.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        string selected = EnsureFilterSelection(previousSelection, target);
+        if (!string.IsNullOrWhiteSpace(selected))
+        {
+            return selected;
+        }
+
+        if (!string.IsNullOrWhiteSpace(defaultSelection))
+        {
+            selected = EnsureFilterSelection(defaultSelection, target);
+            if (!string.IsNullOrWhiteSpace(selected))
+            {
+                return selected;
+            }
+        }
+
+        return selectFirstWhenNoMatch ? target[0] : string.Empty;
     }
 
     private static string UpdateLanguageFilterSelection(
@@ -942,7 +997,12 @@ public partial class MainWindowViewModel : ObservableObject
         }
 
         selected = EnsureLanguageSelection(FallbackLanguageCode, target);
-        return selected;
+        if (!string.IsNullOrWhiteSpace(selected))
+        {
+            return selected;
+        }
+
+        return target.Count > 0 ? target[0] : string.Empty;
     }
 
     private static string EnsureLanguageSelection(string languageCode, ObservableCollection<string> options)
