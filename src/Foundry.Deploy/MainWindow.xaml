@@ -50,9 +50,7 @@
                         BorderThickness="1"
                         CornerRadius="4"
                         Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock
-                            FontWeight="SemiBold"
-                            Text="DEBUG SAFE MODE ACTIVE: all deployment actions are simulated, no disk/image write is executed." />
+                        <TextBlock FontWeight="SemiBold" Text="DEBUG SAFE MODE ACTIVE: all deployment actions are simulated, no disk/image write is executed." />
                     </Border>
                     <TextBlock
                         Margin="0,6,0,0"
@@ -87,7 +85,10 @@
                                     Margin="0,6,0,0"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Text="ISO mode uses C:\Foundry\Deploy. USB mode will switch to cache partition logic in the deployment engine." />
-                                <TextBlock Margin="0,12,0,0" FontWeight="SemiBold" Text="Target Disk" />
+                                <TextBlock
+                                    Margin="0,12,0,0"
+                                    FontWeight="SemiBold"
+                                    Text="Target Disk" />
                                 <DockPanel Margin="0,6,0,0">
                                     <ComboBox
                                         Width="640"
@@ -104,19 +105,13 @@
                                     Margin="0,6,0,0"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
-                                <CheckBox
-                                    Margin="0,12,0,0"
-                                    IsChecked="{Binding AutoSelectDriverPackWhenEmpty}">
+                                <CheckBox Margin="0,12,0,0" IsChecked="{Binding AutoSelectDriverPackWhenEmpty}">
                                     <TextBlock Text="Auto-select driver pack based on detected hardware." />
                                 </CheckBox>
-                                <CheckBox
-                                    Margin="0,8,0,0"
-                                    IsChecked="{Binding UseFullAutopilot}">
+                                <CheckBox Margin="0,8,0,0" IsChecked="{Binding UseFullAutopilot}">
                                     <TextBlock Text="Autopilot: Full workflow enabled (V1 scope)." />
                                 </CheckBox>
-                                <CheckBox
-                                    Margin="0,8,0,0"
-                                    IsChecked="{Binding AllowAutopilotDeferredCompletion}">
+                                <CheckBox Margin="0,8,0,0" IsChecked="{Binding AllowAutopilotDeferredCompletion}">
                                     <TextBlock Text="Autopilot: Defer completion if online enrollment fails." />
                                 </CheckBox>
                             </StackPanel>
@@ -173,7 +168,10 @@
                                             SelectedItem="{Binding SelectedLanguageCode}" />
                                     </StackPanel>
 
-                                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,0">
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="8,0,0,0">
                                         <TextBlock FontWeight="SemiBold" Text="License Channel" />
                                         <ComboBox
                                             Margin="0,4,0,0"
@@ -181,7 +179,10 @@
                                             SelectedItem="{Binding SelectedLicenseChannel}" />
                                     </StackPanel>
 
-                                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Grid.ColumnSpan="2"
+                                        Margin="0,8,0,0">
                                         <TextBlock FontWeight="SemiBold" Text="Edition (Target)" />
                                         <ComboBox
                                             Margin="0,4,0,0"
@@ -242,7 +243,10 @@
                                             SelectedItem="{Binding SelectedDriverReleaseYear}" />
                                     </StackPanel>
 
-                                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,0">
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="8,0,0,0">
                                         <TextBlock FontWeight="SemiBold" Text="Version" />
                                         <ComboBox
                                             Margin="0,4,0,0"
@@ -278,27 +282,19 @@
                             <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDriverPack.DisplayLabel, TargetNullValue=None}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Driver Pack Mode" />
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                Text="{Binding AutoSelectDriverPackWhenEmpty, StringFormat=Auto-select when empty: {0}}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding AutoSelectDriverPackWhenEmpty, StringFormat=Auto-select when empty: {0}}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Autopilot" />
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />
 
                             <TextBlock FontWeight="SemiBold" Text="Autopilot Fallback" />
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                Text="{Binding AllowAutopilotDeferredCompletion, StringFormat=Deferred completion allowed: {0}}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding AllowAutopilotDeferredCompletion, StringFormat=Deferred completion allowed: {0}}" />
 
+                            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Start launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, Autopilot workflow)." />
                             <TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="Start launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, Autopilot workflow)." />
-                            <TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                Text="Debug Safe Mode: task sequence runs in dry-run simulation." />
+                                Text="Debug Safe Mode: task sequence runs in dry-run simulation."
+                                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                     </TabItem>
                 </TabControl>
@@ -340,7 +336,10 @@
                     Text="Deployment Progress" />
 
                 <StackPanel Grid.Row="1" Margin="0,8,0,12">
-                    <ProgressBar Height="18" Maximum="100" Value="{Binding DeploymentProgress}" />
+                    <ProgressBar
+                        Height="18"
+                        Maximum="100"
+                        Value="{Binding DeploymentProgress}" />
                     <TextBlock Margin="0,6,0,0" Text="{Binding DeploymentStatus}" />
                     <Border
                         Margin="0,8,0,0"
@@ -351,12 +350,8 @@
                         CornerRadius="4"
                         Visibility="{Binding IsAutopilotDeferred, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel>
-                            <TextBlock
-                                FontWeight="SemiBold"
-                                Text="Autopilot Deferred Completion" />
-                            <TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{Binding AutopilotDeferredMessage, TargetNullValue=Online enrollment failed in WinPE; completion will be retried on first boot.}" />
+                            <TextBlock FontWeight="SemiBold" Text="Autopilot Deferred Completion" />
+                            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding AutopilotDeferredMessage, TargetNullValue=Online enrollment failed in WinPE; completion will be retried on first boot.}" />
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -376,9 +371,7 @@
                                         Text="{Binding State}" />
                                     <StackPanel Grid.Column="1">
                                         <TextBlock Text="{Binding StepName}" />
-                                        <TextBlock
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Text="{Binding Message}" />
+                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Message}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
@@ -386,7 +379,10 @@
                     </ListBox>
                 </GroupBox>
 
-                <GroupBox Grid.Row="3" Margin="0,12,0,0" Header="Logs">
+                <GroupBox
+                    Grid.Row="3"
+                    Margin="0,12,0,0"
+                    Header="Logs">
                     <ListBox ItemsSource="{Binding DeploymentLogs}" />
                 </GroupBox>
 
