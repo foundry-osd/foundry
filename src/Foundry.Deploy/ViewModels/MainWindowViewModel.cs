@@ -1046,7 +1046,7 @@ public partial class MainWindowViewModel : ObservableObject
             options.Add(new DriverPackOptionItem
             {
                 Key = BuildDriverPackOptionKey(driverPack),
-                DisplayName = driverPack.Name,
+                DisplayName = BuildDriverPackOptionDisplayName(driverPack),
                 Kind = DriverPackSelectionKind.OemCatalog,
                 DriverPack = driverPack
             });
@@ -1168,6 +1168,77 @@ public partial class MainWindowViewModel : ObservableObject
     private static string NormalizeIdentityPart(string value)
     {
         return value.Trim().ToLowerInvariant();
+    }
+
+    private static string BuildDriverPackOptionDisplayName(DriverPackCatalogItem driverPack)
+    {
+        string packName = ResolveDriverPackFriendlyName(driverPack);
+        string manufacturer = string.IsNullOrWhiteSpace(driverPack.Manufacturer)
+            ? "Unknown"
+            : driverPack.Manufacturer.Trim();
+
+        string osSegment = $"{driverPack.OsName} {driverPack.OsArchitecture}".Trim();
+        if (!string.IsNullOrWhiteSpace(driverPack.OsReleaseId))
+        {
+            osSegment = $"{osSegment} {driverPack.OsReleaseId.Trim()}".Trim();
+        }
+
+        string dateSegment = driverPack.ReleaseDate is null
+            ? string.Empty
+            : $" | {driverPack.ReleaseDate.Value:yyyy-MM}";
+
+        return $"{packName} ({manufacturer}) | {osSegment}{dateSegment}";
+    }
+
+    private static string ResolveDriverPackFriendlyName(DriverPackCatalogItem driverPack)
+    {
+        string[] models = driverPack.ModelNames
+            .Where(model => !string.IsNullOrWhiteSpace(model))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (models.Length > 0)
+        {
+            return models.Length == 1
+                ? models[0]
+                : $"{models[0]} (+{models.Length - 1} models)";
+        }
+
+        if (!LooksLikeArchiveOrInstallerName(driverPack.Name))
+        {
+            return driverPack.Name.Trim();
+        }
+
+        if (!LooksLikeArchiveOrInstallerName(driverPack.PackageId))
+        {
+            return driverPack.PackageId.Trim();
+        }
+
+        string fallback = !string.IsNullOrWhiteSpace(driverPack.FileName)
+            ? driverPack.FileName
+            : driverPack.Name;
+
+        return Path.GetFileNameWithoutExtension(fallback).Trim();
+    }
+
+    private static bool LooksLikeArchiveOrInstallerName(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+
+        string extension = Path.GetExtension(value.Trim());
+        if (string.IsNullOrWhiteSpace(extension))
+        {
+            return false;
+        }
+
+        return extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) ||
+               extension.Equals(".cab", StringComparison.OrdinalIgnoreCase) ||
+               extension.Equals(".msi", StringComparison.OrdinalIgnoreCase) ||
+               extension.Equals(".zip", StringComparison.OrdinalIgnoreCase) ||
+               extension.Equals(".7z", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsUnknownManufacturer(string manufacturer)

@@ -48,7 +48,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         if (!string.IsNullOrWhiteSpace(targetReleaseId))
         {
             DriverPackCatalogItem[] releaseFiltered = candidates
-                .Where(item => Normalize(item.Name).Contains(targetReleaseId, StringComparison.OrdinalIgnoreCase))
+                .Where(item => IsReleaseIdMatch(item, targetReleaseId))
                 .ToArray();
 
             if (releaseFiltered.Length > 0)
@@ -90,6 +90,17 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         }
 
         return source.Contains(value, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsReleaseIdMatch(DriverPackCatalogItem item, string targetReleaseId)
+    {
+        if (string.IsNullOrWhiteSpace(targetReleaseId))
+        {
+            return false;
+        }
+
+        return Normalize(item.Name).Contains(targetReleaseId, StringComparison.OrdinalIgnoreCase) ||
+               Normalize(item.OsReleaseId).Contains(targetReleaseId, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string Normalize(string value)

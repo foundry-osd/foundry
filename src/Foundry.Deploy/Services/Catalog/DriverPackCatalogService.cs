@@ -56,6 +56,7 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
             Type = ReadAttribute(driverPack, "type"),
             ReleaseDate = ParseDate(ReadAttribute(driverPack, "releaseDate")),
             OsName = ReadAttribute(osInfo, "name"),
+            OsReleaseId = ReadAttribute(osInfo, "releaseId"),
             OsArchitecture = NormalizeArchitecture(ReadAttribute(osInfo, "architecture")),
             ModelNames = models,
             Sha256 = ReadAttribute(hashes, "sha256")

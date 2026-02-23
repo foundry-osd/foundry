@@ -14,6 +14,7 @@ public sealed record DriverPackCatalogItem
     public string Type { get; init; } = string.Empty;
     public DateTimeOffset? ReleaseDate { get; init; }
     public string OsName { get; init; } = string.Empty;
+    public string OsReleaseId { get; init; } = string.Empty;
     public string OsArchitecture { get; init; } = string.Empty;
     public IReadOnlyList<string> ModelNames { get; init; } = Array.Empty<string>();
     public string Sha256 { get; init; } = string.Empty;
