@@ -208,20 +208,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             case "Validate target configuration":
                 {
-                    IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync(cancellationToken).ConfigureAwait(false);
-                    TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == context.TargetDiskNumber);
-                    if (selectedDisk is null)
+                    StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
+                    if (validationFailure is not null)
                     {
-                        return StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present.");
+                        return validationFailure;
                     }
-
-                    if (!selectedDisk.IsSelectable)
-                    {
-                        return StepExecutionOutcome.Failed(
-                            $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}");
-                    }
-
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Target disk revalidated: {selectedDisk.DisplayLabel}", cancellationToken).ConfigureAwait(false);
 
                     if (string.IsNullOrWhiteSpace(context.OperatingSystem.Url))
                     {
@@ -267,17 +258,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string workingDirectory = Path.Combine(runtimeRoot, "Temp", "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
-                    IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync(cancellationToken).ConfigureAwait(false);
-                    TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == context.TargetDiskNumber);
-                    if (selectedDisk is null)
+                    StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
+                    if (validationFailure is not null)
                     {
-                        return StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present.");
-                    }
-
-                    if (!selectedDisk.IsSelectable)
-                    {
-                        return StepExecutionOutcome.Failed(
-                            $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}");
+                        return validationFailure;
                     }
 
                     DeploymentTargetLayout layout = await _windowsDeploymentService
@@ -293,11 +277,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         Directory.CreateDirectory(Path.Combine(runtimeState.TargetFoundryRoot, "DriverPack"));
                     }
 
-                    DeploymentLogSession? rebound = logSession;
-                    if (logSession is not null)
-                    {
-                        rebound = await RebindLogSessionToTargetAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
-                    }
+                    DeploymentLogSession? rebound = await RebindLogSessionIfNeededAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
                     await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"Target disk prepared: system='{layout.SystemPartitionRoot}', windows='{layout.WindowsPartitionRoot}'.", cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Target disk layout prepared.", rebound);
@@ -587,11 +567,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     runtimeState.TargetWindowsPartitionRoot = windowsRoot;
                     runtimeState.TargetFoundryRoot = Path.Combine(windowsRoot, "Foundry");
 
-                    DeploymentLogSession? rebound = logSession;
-                    if (logSession is not null)
-                    {
-                        rebound = await RebindLogSessionToTargetAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
-                    }
+                    DeploymentLogSession? rebound = await RebindLogSessionIfNeededAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
                     await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated target disk layout: system='{systemRoot}', windows='{windowsRoot}'.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
@@ -850,6 +826,41 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             .ConfigureAwait(false);
 
         return adjusted;
+    }
+
+    private async Task<StepExecutionOutcome?> ValidateTargetDiskSelectionAsync(
+        DeploymentContext context,
+        DeploymentLogSession? logSession,
+        CancellationToken cancellationToken)
+    {
+        IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync(cancellationToken).ConfigureAwait(false);
+        TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == context.TargetDiskNumber);
+        if (selectedDisk is null)
+        {
+            return StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present.");
+        }
+
+        if (!selectedDisk.IsSelectable)
+        {
+            return StepExecutionOutcome.Failed(
+                $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}");
+        }
+
+        await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Target disk revalidated: {selectedDisk.DisplayLabel}", cancellationToken).ConfigureAwait(false);
+        return null;
+    }
+
+    private async Task<DeploymentLogSession?> RebindLogSessionIfNeededAsync(
+        DeploymentLogSession? currentSession,
+        string targetFoundryRoot,
+        CancellationToken cancellationToken)
+    {
+        if (currentSession is null)
+        {
+            return null;
+        }
+
+        return await RebindLogSessionToTargetAsync(currentSession, targetFoundryRoot, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<DeploymentLogSession> RebindLogSessionToTargetAsync(

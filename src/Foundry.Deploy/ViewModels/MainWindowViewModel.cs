@@ -496,9 +496,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            string logsPath = string.IsNullOrWhiteSpace(_lastLogsDirectoryPath)
-                ? Path.Combine(CacheRootPath, "Logs")
-                : _lastLogsDirectoryPath;
+            string logsPath = ResolveEffectiveLogsPath();
             Directory.CreateDirectory(logsPath);
             _ = Process.Start(new ProcessStartInfo
             {
@@ -511,6 +509,13 @@ public partial class MainWindowViewModel : ObservableObject
         {
             DeploymentStatus = $"Unable to open logs folder: {ex.Message}";
         }
+    }
+
+    private string ResolveEffectiveLogsPath()
+    {
+        return string.IsNullOrWhiteSpace(_lastLogsDirectoryPath)
+            ? Path.Combine(CacheRootPath, "Logs")
+            : _lastLogsDirectoryPath;
     }
 
     partial void OnSelectedOperatingSystemChanged(OperatingSystemCatalogItem? value)

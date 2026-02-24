@@ -70,6 +70,10 @@
     - Final logs/state copy now occurs after deployment completion logging.
     - `Open Logs Folder` now uses the effective logs path returned by orchestrator.
     - Implemented USB persistent `cache-index.json` updates for OS and OEM driver pack artifacts.
+  - Simplification pass:
+    - Extracted shared target-disk validation helper in orchestrator.
+    - Extracted log-session rebind helper for target handoff.
+    - Simplified logs path resolution in `MainWindowViewModel`.
 - Files created/modified:
   - task_plan.md
   - findings.md
