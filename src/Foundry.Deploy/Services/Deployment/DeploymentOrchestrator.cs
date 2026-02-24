@@ -74,7 +74,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
-                Message = "Another operation is already running."
+                Message = "Another operation is already running.",
+                LogsDirectoryPath = string.Empty
             };
         }
 
@@ -146,11 +147,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             _operationProgressService.Complete("Deployment orchestration completed.");
             await AppendLogAsync(logSession, DeploymentLogLevel.Info, "[SUCCESS] Deployment orchestration completed.", cancellationToken).ConfigureAwait(false);
+
+            string summaryPath = await PersistFinalArtifactsAsync(runtimeState, logSession, cancellationToken).ConfigureAwait(false);
+            runtimeState.DeploymentSummaryPath = summaryPath;
+
             CleanupTargetFoundryRoot(runtimeState, logSession);
             return new DeploymentResult
             {
                 IsSuccess = true,
-                Message = "Deployment orchestration completed."
+                Message = "Deployment orchestration completed.",
+                LogsDirectoryPath = ResolveFinalLogsDirectory(runtimeState, logSession)
             };
         }
         catch (OperationCanceledException)
@@ -160,7 +166,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
-                Message = "Deployment cancelled."
+                Message = "Deployment cancelled.",
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(runtimeState, logSession)
             };
         }
         catch (Exception ex)
@@ -170,7 +177,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
-                Message = ex.Message
+                Message = ex.Message,
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(runtimeState, logSession)
             };
         }
     }
@@ -279,6 +287,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     runtimeState.TargetSystemPartitionRoot = layout.SystemPartitionRoot;
                     runtimeState.TargetWindowsPartitionRoot = layout.WindowsPartitionRoot;
                     runtimeState.TargetFoundryRoot = Path.Combine(layout.WindowsPartitionRoot, "Foundry");
+                    if (runtimeState.Mode == DeploymentMode.Iso)
+                    {
+                        Directory.CreateDirectory(Path.Combine(runtimeState.TargetFoundryRoot, "OperatingSystem"));
+                        Directory.CreateDirectory(Path.Combine(runtimeState.TargetFoundryRoot, "DriverPack"));
+                    }
 
                     DeploymentLogSession? rebound = logSession;
                     if (logSession is not null)
@@ -303,13 +316,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         .ConfigureAwait(false);
 
                     runtimeState.DownloadedOperatingSystemPath = result.DestinationPath;
+                    await UpdateCacheIndexAsync(
+                        runtimeState,
+                        artifactType: "OperatingSystem",
+                        sourceUrl: context.OperatingSystem.Url,
+                        destinationPath: result.DestinationPath,
+                        sizeBytes: result.SizeBytes,
+                        expectedHash: expectedOsHash,
+                        cancellationToken).ConfigureAwait(false);
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"OS image {(result.Downloaded ? "downloaded" : "reused")} via {result.Method}: {result.DestinationPath}", cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Operating system image ready.");
                 }
 
             case "Download and prepare driver pack":
                 {
-                    string cacheRoot = EnsureCacheBaseRoot(runtimeState);
                     string runtimeRoot = EnsureResolvedCache(runtimeState);
                     runtimeState.DriverPackSelectionKind = context.DriverPackSelectionKind;
 
@@ -343,7 +363,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                                 runtimeState.DriverPackName = driverPack.Name;
                                 runtimeState.DriverPackUrl = driverPack.DownloadUrl;
 
-                                string driverPackDirectory = Path.Combine(cacheRoot, "DriverPack", SanitizePathSegment(driverPack.Manufacturer));
+                                string driverPackDirectory = Path.Combine(ResolveDriverPackCacheRoot(runtimeState), SanitizePathSegment(driverPack.Manufacturer));
                                 Directory.CreateDirectory(driverPackDirectory);
                                 string archiveName = ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
                                 string archivePath = Path.Combine(driverPackDirectory, archiveName);
@@ -353,6 +373,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                                     .ConfigureAwait(false);
 
                                 runtimeState.DownloadedDriverPackPath = download.DestinationPath;
+                                await UpdateCacheIndexAsync(
+                                    runtimeState,
+                                    artifactType: "DriverPack",
+                                    sourceUrl: driverPack.DownloadUrl,
+                                    destinationPath: download.DestinationPath,
+                                    sizeBytes: download.SizeBytes,
+                                    expectedHash: driverPack.Sha256,
+                                    cancellationToken).ConfigureAwait(false);
 
                                 string extractionRoot = Path.Combine(runtimeRoot, "Extracted", "Drivers");
                                 DriverPackPreparationResult preparation = await _driverPackPreparationService
@@ -490,9 +518,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             case "Finalize deployment and write logs":
                 {
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, "Finalizing deployment artifacts.", cancellationToken).ConfigureAwait(false);
-                    string summaryPath = await PersistFinalArtifactsAsync(runtimeState, logSession, cancellationToken).ConfigureAwait(false);
-                    runtimeState.DeploymentSummaryPath = summaryPath;
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Deployment summary written to '{summaryPath}'.", cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Deployment finalized.");
                 }
         }
@@ -704,8 +729,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             case "Finalize deployment and write logs":
                 {
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, "[DRY-RUN] Finalize step completed.", cancellationToken).ConfigureAwait(false);
-                    string summaryPath = await PersistFinalArtifactsAsync(runtimeState, logSession, cancellationToken).ConfigureAwait(false);
-                    runtimeState.DeploymentSummaryPath = summaryPath;
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Deployment finalized (simulation).");
                 }
@@ -925,7 +948,24 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
     private static string ResolveOperatingSystemCacheRoot(DeploymentRuntimeState runtimeState)
     {
+        if (runtimeState.Mode == DeploymentMode.Iso &&
+            !string.IsNullOrWhiteSpace(runtimeState.TargetFoundryRoot))
+        {
+            return Path.Combine(runtimeState.TargetFoundryRoot, "OperatingSystem");
+        }
+
         return Path.Combine(EnsureCacheBaseRoot(runtimeState), "OperatingSystem");
+    }
+
+    private static string ResolveDriverPackCacheRoot(DeploymentRuntimeState runtimeState)
+    {
+        if (runtimeState.Mode == DeploymentMode.Iso &&
+            !string.IsNullOrWhiteSpace(runtimeState.TargetFoundryRoot))
+        {
+            return Path.Combine(runtimeState.TargetFoundryRoot, "DriverPack");
+        }
+
+        return Path.Combine(EnsureCacheBaseRoot(runtimeState), "DriverPack");
     }
 
     private static string ResolvePreferredHash(string? primaryHash, string? secondaryHash)
@@ -952,6 +992,95 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             Directory.CreateDirectory(fallback);
             return fallback;
         }
+    }
+
+    private async Task UpdateCacheIndexAsync(
+        DeploymentRuntimeState runtimeState,
+        string artifactType,
+        string sourceUrl,
+        string destinationPath,
+        long sizeBytes,
+        string? expectedHash,
+        CancellationToken cancellationToken)
+    {
+        if (!ShouldMaintainUsbCacheIndex(runtimeState))
+        {
+            return;
+        }
+
+        string runtimeRoot = EnsureResolvedCache(runtimeState);
+        Directory.CreateDirectory(runtimeRoot);
+        string indexPath = Path.Combine(runtimeRoot, "cache-index.json");
+
+        CacheIndexDocument document = await ReadCacheIndexAsync(indexPath, cancellationToken).ConfigureAwait(false);
+        string normalizedSourceUrl = sourceUrl.Trim();
+        CacheIndexEntry? entry = document.Items.FirstOrDefault(item =>
+            item.SourceUrl.Equals(normalizedSourceUrl, StringComparison.OrdinalIgnoreCase));
+
+        string normalizedHash = string.IsNullOrWhiteSpace(expectedHash)
+            ? string.Empty
+            : expectedHash.Trim();
+        DateTimeOffset nowUtc = DateTimeOffset.UtcNow;
+
+        if (entry is null)
+        {
+            document.Items.Add(new CacheIndexEntry
+            {
+                ArtifactType = artifactType,
+                SourceUrl = normalizedSourceUrl,
+                DestinationPath = destinationPath,
+                SizeBytes = sizeBytes,
+                ExpectedHash = normalizedHash,
+                LastUpdatedAtUtc = nowUtc
+            });
+        }
+        else
+        {
+            entry.ArtifactType = artifactType;
+            entry.DestinationPath = destinationPath;
+            entry.SizeBytes = sizeBytes;
+            entry.ExpectedHash = normalizedHash;
+            entry.LastUpdatedAtUtc = nowUtc;
+        }
+
+        document.UpdatedAtUtc = nowUtc;
+        string json = JsonSerializer.Serialize(document, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+        await File.WriteAllTextAsync(indexPath, json, cancellationToken).ConfigureAwait(false);
+    }
+
+    private static async Task<CacheIndexDocument> ReadCacheIndexAsync(string indexPath, CancellationToken cancellationToken)
+    {
+        if (!File.Exists(indexPath))
+        {
+            return new CacheIndexDocument();
+        }
+
+        try
+        {
+            string json = await File.ReadAllTextAsync(indexPath, cancellationToken).ConfigureAwait(false);
+            CacheIndexDocument? parsed = JsonSerializer.Deserialize<CacheIndexDocument>(json);
+            if (parsed is null)
+            {
+                return new CacheIndexDocument();
+            }
+
+            parsed.Items ??= [];
+            return parsed;
+        }
+        catch
+        {
+            return new CacheIndexDocument();
+        }
+    }
+
+    private static bool ShouldMaintainUsbCacheIndex(DeploymentRuntimeState runtimeState)
+    {
+        return runtimeState.Mode == DeploymentMode.Usb &&
+               runtimeState.ResolvedCache is not null &&
+               runtimeState.ResolvedCache.IsPersistent;
     }
 
     private static void CopyDirectoryContents(string sourceDirectory, string destinationDirectory)
@@ -1016,6 +1145,36 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         TryDeleteDirectory(runtimeState.TargetFoundryRoot);
     }
 
+    private static string ResolveFinalLogsDirectory(DeploymentRuntimeState runtimeState, DeploymentLogSession? logSession)
+    {
+        if (!string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot))
+        {
+            return Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "Logs");
+        }
+
+        return ResolveCurrentLogsDirectory(runtimeState, logSession);
+    }
+
+    private static string ResolveCurrentLogsDirectory(DeploymentRuntimeState runtimeState, DeploymentLogSession? logSession)
+    {
+        if (logSession is not null && !string.IsNullOrWhiteSpace(logSession.LogsDirectoryPath))
+        {
+            return logSession.LogsDirectoryPath;
+        }
+
+        if (runtimeState.ResolvedCache is not null && !string.IsNullOrWhiteSpace(runtimeState.ResolvedCache.RootPath))
+        {
+            return Path.Combine(runtimeState.ResolvedCache.RootPath, "Logs");
+        }
+
+        if (!string.IsNullOrWhiteSpace(runtimeState.RequestedCacheRootPath))
+        {
+            return Path.Combine(runtimeState.RequestedCacheRootPath, "Logs");
+        }
+
+        return string.Empty;
+    }
+
     private static string ResolveFileName(string preferredFileName, string sourceUrl)
     {
         if (!string.IsNullOrWhiteSpace(preferredFileName))
@@ -1061,5 +1220,21 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         public static StepExecutionOutcome Failed(string message, DeploymentLogSession? rebindLogSession = null)
             => new() { State = DeploymentStepState.Failed, Message = message, RebindLogSession = rebindLogSession };
+    }
+
+    private sealed class CacheIndexDocument
+    {
+        public DateTimeOffset UpdatedAtUtc { get; set; } = DateTimeOffset.UtcNow;
+        public List<CacheIndexEntry> Items { get; set; } = [];
+    }
+
+    private sealed class CacheIndexEntry
+    {
+        public string ArtifactType { get; set; } = string.Empty;
+        public string SourceUrl { get; set; } = string.Empty;
+        public string DestinationPath { get; set; } = string.Empty;
+        public long SizeBytes { get; set; }
+        public string ExpectedHash { get; set; } = string.Empty;
+        public DateTimeOffset LastUpdatedAtUtc { get; set; } = DateTimeOffset.UtcNow;
     }
 }

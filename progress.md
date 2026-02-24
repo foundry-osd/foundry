@@ -65,6 +65,11 @@
   - Built impacted projects in Release.
   - Verified no `ProgramData` references remain in `src`.
   - Verified no legacy `C:\Foundry\Deploy` / `X:\Windows\Temp\Foundry\Deploy` references remain.
+  - Applied post-review fixes:
+    - ISO OS cache now switches to target disk (`<SystemDrive>:\Foundry\OperatingSystem`) after partition.
+    - Final logs/state copy now occurs after deployment completion logging.
+    - `Open Logs Folder` now uses the effective logs path returned by orchestrator.
+    - Implemented USB persistent `cache-index.json` updates for OS and OEM driver pack artifacts.
 - Files created/modified:
   - task_plan.md
   - findings.md

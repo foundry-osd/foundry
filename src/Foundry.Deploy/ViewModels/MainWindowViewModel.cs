@@ -77,6 +77,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly Dispatcher _dispatcher;
     private readonly Dictionary<string, DeploymentStepItemViewModel> _stepIndex = new(StringComparer.Ordinal);
     private HardwareProfile? _detectedHardware;
+    private string _lastLogsDirectoryPath = string.Empty;
     private bool _isUpdatingOsFilters;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
@@ -436,6 +437,7 @@ public partial class MainWindowViewModel : ObservableObject
         ShowProgressPage = true;
         IsDeploymentRunning = true;
         DeploymentProgress = 0;
+        _lastLogsDirectoryPath = string.Empty;
         IsAutopilotDeferred = false;
         AutopilotDeferredMessage = string.Empty;
         DeploymentStatus = "Deployment started.";
@@ -473,6 +475,7 @@ public partial class MainWindowViewModel : ObservableObject
 
             RunOnUi(() =>
             {
+                _lastLogsDirectoryPath = result.LogsDirectoryPath;
                 DeploymentStatus = result.IsSuccess
                     ? "Deployment completed."
                     : $"Deployment failed: {result.Message}";
@@ -493,7 +496,9 @@ public partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            string logsPath = Path.Combine(CacheRootPath, "Logs");
+            string logsPath = string.IsNullOrWhiteSpace(_lastLogsDirectoryPath)
+                ? Path.Combine(CacheRootPath, "Logs")
+                : _lastLogsDirectoryPath;
             Directory.CreateDirectory(logsPath);
             _ = Process.Start(new ProcessStartInfo
             {
