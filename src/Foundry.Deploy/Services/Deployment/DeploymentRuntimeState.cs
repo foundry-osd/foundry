@@ -25,5 +25,7 @@ public sealed record DeploymentRuntimeState
     public string? DownloadedDriverPackPath { get; set; }
     public string? PreparedDriverPath { get; set; }
     public string? AutopilotWorkflowPath { get; set; }
+    public string? TargetFoundryRoot { get; set; }
+    public string? DeploymentSummaryPath { get; set; }
     public List<string> CompletedSteps { get; init; } = [];
 }

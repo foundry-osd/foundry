@@ -23,7 +23,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     public async Task<ArtifactDownloadResult> DownloadAsync(
         string sourceUrl,
         string destinationPath,
-        string? expectedSha256 = null,
+        string? expectedHash = null,
         bool preferBits = true,
         CancellationToken cancellationToken = default)
     {
@@ -41,7 +41,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             ?? throw new InvalidOperationException("Unable to resolve destination directory.");
         Directory.CreateDirectory(destinationDirectory);
 
-        if (File.Exists(destinationPath) && await ValidateHashIfRequestedAsync(destinationPath, expectedSha256, cancellationToken).ConfigureAwait(false))
+        if (File.Exists(destinationPath) && await ValidateHashIfRequestedAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false))
         {
             return new ArtifactDownloadResult
             {
@@ -54,7 +54,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
         if (preferBits && await TryBitsDownloadAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false))
         {
-            await EnsureHashAsync(destinationPath, expectedSha256, cancellationToken).ConfigureAwait(false);
+            await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
             return new ArtifactDownloadResult
             {
                 DestinationPath = destinationPath,
@@ -65,7 +65,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         }
 
         await DownloadWithHttpClientAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false);
-        await EnsureHashAsync(destinationPath, expectedSha256, cancellationToken).ConfigureAwait(false);
+        await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
 
         return new ArtifactDownloadResult
         {
@@ -109,31 +109,33 @@ Start-BitsTransfer -Source '{escapedUrl}' -Destination '{escapedDestination}' -T
         await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
     }
 
-    private static async Task EnsureHashAsync(string filePath, string? expectedSha256, CancellationToken cancellationToken)
+    private static async Task EnsureHashAsync(string filePath, string? expectedHash, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(expectedSha256))
+        if (string.IsNullOrWhiteSpace(expectedHash))
         {
             return;
         }
 
-        string expected = NormalizeHash(expectedSha256);
-        string actual = await ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
+        string expected = NormalizeHash(expectedHash);
+        HashAlgorithmName algorithm = ResolveHashAlgorithm(expected);
+        string actual = await ComputeHashAsync(filePath, algorithm, cancellationToken).ConfigureAwait(false);
         if (!string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase))
         {
             throw new InvalidOperationException(
-                $"Hash verification failed for '{filePath}'. Expected '{expected}', actual '{actual}'.");
+                $"Hash verification failed for '{filePath}' ({algorithm.Name}). Expected '{expected}', actual '{actual}'.");
         }
     }
 
-    private static async Task<bool> ValidateHashIfRequestedAsync(string filePath, string? expectedSha256, CancellationToken cancellationToken)
+    private static async Task<bool> ValidateHashIfRequestedAsync(string filePath, string? expectedHash, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(expectedSha256))
+        if (string.IsNullOrWhiteSpace(expectedHash))
         {
             return true;
         }
 
-        string expected = NormalizeHash(expectedSha256);
-        string actual = await ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
+        string expected = NormalizeHash(expectedHash);
+        HashAlgorithmName algorithm = ResolveHashAlgorithm(expected);
+        string actual = await ComputeHashAsync(filePath, algorithm, cancellationToken).ConfigureAwait(false);
         return string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -145,11 +147,31 @@ Start-BitsTransfer -Source '{escapedUrl}' -Destination '{escapedDestination}' -T
             .ToUpperInvariant();
     }
 
-    private static async Task<string> ComputeSha256Async(string filePath, CancellationToken cancellationToken)
+    private static HashAlgorithmName ResolveHashAlgorithm(string normalizedHash)
     {
-        using var sha256 = SHA256.Create();
+        return normalizedHash.Length switch
+        {
+            40 => HashAlgorithmName.SHA1,
+            64 => HashAlgorithmName.SHA256,
+            _ => throw new InvalidOperationException(
+                $"Unsupported expected hash length ({normalizedHash.Length}). Only SHA1 (40) and SHA256 (64) are supported.")
+        };
+    }
+
+    private static async Task<string> ComputeHashAsync(
+        string filePath,
+        HashAlgorithmName algorithm,
+        CancellationToken cancellationToken)
+    {
+        using HashAlgorithm hashAlgorithm = algorithm.Name switch
+        {
+            "SHA1" => SHA1.Create(),
+            "SHA256" => SHA256.Create(),
+            _ => throw new InvalidOperationException($"Unsupported hash algorithm '{algorithm.Name}'.")
+        };
+
         await using FileStream stream = new(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, useAsync: true);
-        byte[] hash = await sha256.ComputeHashAsync(stream, cancellationToken).ConfigureAwait(false);
+        byte[] hash = await hashAlgorithm.ComputeHashAsync(stream, cancellationToken).ConfigureAwait(false);
         return Convert.ToHexString(hash);
     }
 }

@@ -97,7 +97,7 @@
                                     Margin="0,8,0,0"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="ISO mode uses C:\Foundry\Deploy. USB mode will switch to cache partition logic in the deployment engine." />
+                                    Text="ISO mode starts in X:\Foundry\Runtime. USB mode auto-switches to the secondary cache partition when detected." />
                                 <TextBlock
                                     Margin="0,12,0,0"
                                     Style="{StaticResource BodyStrongTextBlockStyle}"

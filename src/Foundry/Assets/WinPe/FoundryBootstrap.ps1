@@ -3,15 +3,16 @@ Clear-Host
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
-$LogPath = 'X:\Windows\Temp\FoundryBootstrap.log'
+$WinPeRoot = 'X:\Foundry'
+$LogPath = Join-Path $WinPeRoot 'Logs\FoundryBootstrap.log'
 $Owner = 'mchave3'
 $Repository = 'Foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
-$BootstrapRoot = 'X:\ProgramData\Foundry\Deploy'
-$EmbeddedArchivePath = Join-Path $BootstrapRoot 'Seed\Foundry.Deploy.zip'
-$DownloadPath = Join-Path $BootstrapRoot 'Foundry.Deploy.zip'
-$ExtractPath = Join-Path $BootstrapRoot 'current'
-$SevenZipToolsPath = Join-Path $BootstrapRoot 'Tools\7zip'
+$BootstrapRoot = ''
+$EmbeddedArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
+$DownloadPath = ''
+$ExtractPath = ''
+$SevenZipToolsPath = Join-Path $WinPeRoot 'Tools\7zip'
 
 function Write-Log {
     param(
@@ -108,6 +109,41 @@ function Test-HttpUrl {
     catch {
         return $false
     }
+}
+
+function Get-UsbCacheRuntimeRoot {
+    foreach ($Drive in [System.IO.DriveInfo]::GetDrives()) {
+        if (-not $Drive.IsReady) {
+            continue
+        }
+
+        $RootPath = $Drive.RootDirectory.FullName
+
+        try {
+            if ([string]::Equals($Drive.VolumeLabel, 'Foundry Cache', [System.StringComparison]::OrdinalIgnoreCase)) {
+                return Join-Path $RootPath 'Runtime'
+            }
+        }
+        catch {
+            # Ignore drives that do not expose a readable volume label.
+        }
+
+        $MarkerPath = Join-Path $RootPath 'Foundry Cache'
+        if (Test-Path -Path $MarkerPath -PathType Container) {
+            return Join-Path $RootPath 'Runtime'
+        }
+    }
+
+    return $null
+}
+
+function Resolve-BootstrapRoot {
+    $UsbRuntimeRoot = Get-UsbCacheRuntimeRoot
+    if (-not [string]::IsNullOrWhiteSpace($UsbRuntimeRoot)) {
+        return $UsbRuntimeRoot
+    }
+
+    return Join-Path $WinPeRoot 'Runtime'
 }
 
 function Download-FileViaBits {
@@ -229,7 +265,16 @@ function Expand-ZipVia7Zip {
 }
 
 try {
+    if (-not (Test-Path -Path $WinPeRoot -PathType Container)) {
+        New-Item -Path $WinPeRoot -ItemType Directory -Force | Out-Null
+    }
+
+    $BootstrapRoot = Resolve-BootstrapRoot
+    $DownloadPath = Join-Path $BootstrapRoot 'Foundry.Deploy.zip'
+    $ExtractPath = Join-Path $BootstrapRoot 'current'
+
     Write-Log 'Foundry bootstrap started.'
+    Write-Log "Bootstrap runtime root resolved to '$BootstrapRoot'."
 
     $RuntimeIdentifier = Get-TargetRuntimeIdentifier
     $AssetName = "Foundry.Deploy-$RuntimeIdentifier.zip"

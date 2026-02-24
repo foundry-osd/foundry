@@ -267,7 +267,7 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             _operationProgressService.Report(95, "Writing USB metadata.");
-            await WriteMetadataAsync(Path.Combine($"{usb.Value!.CacheDriveLetter}\\", "Foundry Cache", "foundry-media-metadata.json"), options.Architecture, options.SignatureMode, "usb", usb.Value, cancellationToken).ConfigureAwait(false);
+            await WriteMetadataAsync(Path.Combine($"{usb.Value!.CacheDriveLetter}\\", "Runtime", "foundry-media-metadata.json"), options.Architecture, options.SignatureMode, "usb", usb.Value, cancellationToken).ConfigureAwait(false);
             _operationProgressService.Complete("USB creation completed.");
             return WinPeResult.Success();
         }

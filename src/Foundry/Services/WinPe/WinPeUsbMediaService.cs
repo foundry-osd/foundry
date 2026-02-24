@@ -173,6 +173,9 @@ $result | ConvertTo-Json -Compress
 
         string cacheMarkerPath = Path.Combine(cacheRoot, "Foundry Cache");
         Directory.CreateDirectory(cacheMarkerPath);
+        Directory.CreateDirectory(Path.Combine(cacheRoot, "Runtime"));
+        Directory.CreateDirectory(Path.Combine(cacheRoot, "OperatingSystem"));
+        Directory.CreateDirectory(Path.Combine(cacheRoot, "DriverPack"));
 
         return WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
         {

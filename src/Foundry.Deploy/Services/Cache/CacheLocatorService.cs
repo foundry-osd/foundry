@@ -5,9 +5,11 @@ namespace Foundry.Deploy.Services.Cache;
 
 public sealed class CacheLocatorService : ICacheLocatorService
 {
-    private const string IsoRoot = @"C:\Foundry\Deploy";
-    private const string UsbFallbackRoot = @"X:\Windows\Temp\Foundry\Deploy";
-    private const string CacheFolderName = "Foundry Cache";
+    private const string IsoRuntimeRoot = @"X:\Foundry\Runtime";
+    private const string UsbFallbackRuntimeRoot = @"X:\Foundry\Runtime";
+    private const string CacheVolumeLabel = "Foundry Cache";
+    private const string CacheMarkerFolderName = "Foundry Cache";
+    private const string RuntimeFolderName = "Runtime";
 
     public Task<CacheResolution> ResolveAsync(
         DeploymentMode mode,
@@ -16,54 +18,73 @@ public sealed class CacheLocatorService : ICacheLocatorService
     {
         cancellationToken.ThrowIfCancellationRequested();
 
+        string normalizedPreferred = NormalizePath(preferredRootPath);
+
         if (mode == DeploymentMode.Iso)
         {
+            string isoRoot = string.IsNullOrWhiteSpace(normalizedPreferred)
+                ? IsoRuntimeRoot
+                : normalizedPreferred;
+
             return Task.FromResult(new CacheResolution
             {
                 Mode = mode,
-                RootPath = IsoRoot,
-                Source = "ISO policy root",
-                IsPersistent = true
+                RootPath = isoRoot,
+                Source = string.IsNullOrWhiteSpace(normalizedPreferred) ? "ISO policy root" : "Preferred path",
+                IsPersistent = IsPersistentPath(isoRoot)
             });
         }
 
         // USB mode:
-        // 1) honor explicit preferred path if provided
-        // 2) locate dedicated cache partition (label or folder)
-        // 3) fallback to WinPE temp path.
-        if (!string.IsNullOrWhiteSpace(preferredRootPath))
+        // 1) honor explicit preferred path when it is not the WinPE transient placeholder
+        // 2) locate dedicated cache partition (label or marker folder)
+        // 3) use transient WinPE runtime root as fallback.
+        bool hasExplicitPreferred = !string.IsNullOrWhiteSpace(normalizedPreferred) &&
+                                    !IsWinPeTransientPlaceholder(normalizedPreferred);
+        if (hasExplicitPreferred)
         {
             return Task.FromResult(new CacheResolution
             {
                 Mode = mode,
-                RootPath = preferredRootPath.Trim(),
+                RootPath = normalizedPreferred,
                 Source = "Preferred path",
-                IsPersistent = IsPersistentPath(preferredRootPath)
+                IsPersistent = IsPersistentPath(normalizedPreferred)
             });
         }
 
-        string? cachePartitionPath = FindUsbCachePartitionRoot();
-        if (!string.IsNullOrWhiteSpace(cachePartitionPath))
+        string? cacheRuntimePath = FindUsbCacheRuntimeRoot();
+        if (!string.IsNullOrWhiteSpace(cacheRuntimePath))
         {
             return Task.FromResult(new CacheResolution
             {
                 Mode = mode,
-                RootPath = cachePartitionPath,
+                RootPath = cacheRuntimePath,
                 Source = "Detected USB cache partition",
                 IsPersistent = true
+            });
+        }
+
+        if (!string.IsNullOrWhiteSpace(normalizedPreferred))
+        {
+            return Task.FromResult(new CacheResolution
+            {
+                Mode = mode,
+                RootPath = normalizedPreferred,
+                Source = "USB preferred transient root",
+                IsPersistent = IsPersistentPath(normalizedPreferred)
             });
         }
 
         return Task.FromResult(new CacheResolution
         {
             Mode = mode,
-            RootPath = UsbFallbackRoot,
+            RootPath = UsbFallbackRuntimeRoot,
             Source = "USB fallback in WinPE temp",
             IsPersistent = false
         });
     }
 
-    private static string? FindUsbCachePartitionRoot()
+    private static string? FindUsbCacheRuntimeRoot()
     {
         foreach (DriveInfo drive in DriveInfo.GetDrives())
         {
@@ -74,9 +95,9 @@ public sealed class CacheLocatorService : ICacheLocatorService
 
             try
             {
-                if (string.Equals(drive.VolumeLabel, CacheFolderName, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(drive.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
                 {
-                    return Path.Combine(drive.RootDirectory.FullName, CacheFolderName, "Deploy");
+                    return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
                 }
             }
             catch
@@ -84,14 +105,25 @@ public sealed class CacheLocatorService : ICacheLocatorService
                 // Ignore drives that cannot expose label.
             }
 
-            string folderPath = Path.Combine(drive.RootDirectory.FullName, CacheFolderName);
-            if (Directory.Exists(folderPath))
+            string markerPath = Path.Combine(drive.RootDirectory.FullName, CacheMarkerFolderName);
+            if (Directory.Exists(markerPath))
             {
-                return Path.Combine(folderPath, "Deploy");
+                return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
             }
         }
 
         return null;
+    }
+
+    private static string NormalizePath(string? path)
+    {
+        return path?.Trim() ?? string.Empty;
+    }
+
+    private static bool IsWinPeTransientPlaceholder(string path)
+    {
+        return path.Equals(@"X:\Foundry\Runtime", StringComparison.OrdinalIgnoreCase) ||
+               path.Equals(@"X:\Foundry", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsPersistentPath(string path)

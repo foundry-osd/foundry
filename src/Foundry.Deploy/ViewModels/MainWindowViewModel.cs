@@ -145,7 +145,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private string cacheRootPath = @"X:\Windows\Temp\Foundry\Deploy";
+    private string cacheRootPath = @"X:\Foundry\Runtime";
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
@@ -666,14 +666,14 @@ public partial class MainWindowViewModel : ObservableObject
     {
         if (IsDebugSafeMode)
         {
-            CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Deploy", "Debug");
+            CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "Debug");
             return;
         }
 
         CacheRootPath = SelectedDeploymentMode switch
         {
-            DeploymentMode.Iso => @"C:\Foundry\Deploy",
-            _ => @"X:\Windows\Temp\Foundry\Deploy"
+            DeploymentMode.Iso => @"X:\Foundry\Runtime",
+            _ => @"X:\Foundry\Runtime"
         };
     }
 
