@@ -1,0 +1,75 @@
+# Auto-labeler configuration for Foundry
+# https://github.com/actions/labeler
+
+# Main application
+app:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Foundry/**'
+
+# OS deployment (WinPE)
+deploy:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Foundry.Deploy/**'
+
+# UI assets and views
+ui:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.xaml'
+          - 'src/Foundry/ViewModels/**'
+          - 'src/Foundry/Converters/**'
+          - 'src/Foundry/Assets/**'
+          - 'src/Foundry.Deploy/ViewModels/**'
+          - 'src/Foundry.Deploy/Converters/**'
+
+# Tests
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/**/*.Tests/**'
+          - 'src/**/TestInfrastructure/**'
+          - 'src/**/Integration/**'
+          - 'src/**/Unit/**'
+
+# Documentation
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - 'docs/**'
+
+# General source code (shared pieces)
+source:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/**/*.cs'
+          - 'src/**/*.csproj'
+          - 'src/**/*.sln*'
+          - 'src/*.cs'
+          - 'src/*.sln*'
+
+# Dependencies and project metadata
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Directory.Build.props'
+          - 'src/Directory.Build.targets'
+          - 'src/**/*.csproj'
+
+# CI / automation
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**'
+
+# Repo configuration
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.editorconfig'
+          - '.gitignore'
+          - 'src/.editorconfig'
+          - 'src/settings.xamlstyler'
+          - '.vscode/**'

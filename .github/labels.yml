@@ -1,0 +1,199 @@
+# Repository Labels Configuration
+# This file defines all labels used in the repository
+# Run the sync-labels workflow to create/update these labels
+
+# =============================================================================
+# TYPE LABELS - What kind of change is this?
+# =============================================================================
+
+- name: bug
+  color: 'd73a4a'
+  description: Something isn't working
+
+- name: bugfix
+  color: 'd73a4a'
+  description: Fix for a bug
+
+- name: fix
+  color: 'd73a4a'
+  description: A fix for an issue
+
+- name: enhancement
+  color: 'a2eeef'
+  description: New feature or request
+
+- name: feature
+  color: 'a2eeef'
+  description: New feature implementation
+
+- name: documentation
+  color: '0075ca'
+  description: Improvements or additions to documentation
+
+- name: breaking-change
+  color: 'b60205'
+  description: Breaking change that requires major version bump
+
+- name: security
+  color: 'ee0701'
+  description: Security related issue or fix
+
+- name: maintenance
+  color: 'fbca04'
+  description: Maintenance work
+
+- name: chore
+  color: 'fbca04'
+  description: Routine tasks and maintenance
+
+- name: refactor
+  color: 'fbca04'
+  description: Code refactoring without functionality changes
+
+- name: dependencies
+  color: '0366d6'
+  description: Pull requests that update a dependency file
+
+- name: tests
+  color: 'bfd4f2'
+  description: Test related changes
+
+# =============================================================================
+# AREA LABELS - What part of the codebase?
+# =============================================================================
+
+- name: source
+  color: 'c5def5'
+  description: Source code changes across the solution
+
+- name: app
+  color: '1d76db'
+  description: Main Foundry application (WPF)
+
+- name: deploy
+  color: '0e8a16'
+  description: OS deployment tooling (WinPE)
+
+- name: ui
+  color: '7057ff'
+  description: User interface and XAML changes
+
+- name: ci
+  color: 'f9d0c4'
+  description: CI/CD and workflow changes
+
+- name: config
+  color: 'fef2c0'
+  description: Repository and build configuration
+
+# =============================================================================
+# STATUS LABELS - Current state of the issue/PR
+# =============================================================================
+
+- name: help wanted
+  color: '008672'
+  description: Extra attention is needed
+
+- name: good first issue
+  color: '7057ff'
+  description: Good for newcomers
+
+- name: question
+  color: 'd876e3'
+  description: Further information is requested
+
+- name: discussion
+  color: 'd876e3'
+  description: Discussion needed before proceeding
+
+- name: needs-review
+  color: 'fbca04'
+  description: Needs code review
+
+- name: needs-testing
+  color: 'fbca04'
+  description: Requires testing before merge
+
+- name: work-in-progress
+  color: 'fef2c0'
+  description: Work in progress, not ready for review
+
+- name: blocked
+  color: 'b60205'
+  description: Blocked by another issue or external factor
+
+- name: on-hold
+  color: 'c2e0c6'
+  description: Temporarily on hold
+
+# =============================================================================
+# PRIORITY LABELS
+# =============================================================================
+
+- name: priority-critical
+  color: 'b60205'
+  description: Critical priority - needs immediate attention
+
+- name: priority-high
+  color: 'd93f0b'
+  description: High priority
+
+- name: priority-medium
+  color: 'fbca04'
+  description: Medium priority
+
+- name: priority-low
+  color: '0e8a16'
+  description: Low priority
+
+# =============================================================================
+# RESOLUTION LABELS
+# =============================================================================
+
+- name: duplicate
+  color: 'cfd3d7'
+  description: This issue or pull request already exists
+
+- name: invalid
+  color: 'cfd3d7'
+  description: This doesn't seem right
+
+- name: wontfix
+  color: 'cfd3d7'
+  description: This will not be worked on
+
+- name: stale
+  color: 'cfd3d7'
+  description: No recent activity
+
+- name: skip-changelog
+  color: 'ededed'
+  description: Exclude from release notes
+
+# =============================================================================
+# VERSION LABELS - For release drafter
+# =============================================================================
+
+- name: major
+  color: 'b60205'
+  description: Major version bump (breaking changes)
+
+- name: minor
+  color: 'fbca04'
+  description: Minor version bump (new features)
+
+- name: patch
+  color: '0e8a16'
+  description: Patch version bump (bug fixes)
+
+# =============================================================================
+# SPECIAL LABELS
+# =============================================================================
+
+- name: pinned
+  color: '006b75'
+  description: Pinned issue - will not be marked as stale
+
+- name: sponsored
+  color: 'ea4aaa'
+  description: Sponsored feature or issue
