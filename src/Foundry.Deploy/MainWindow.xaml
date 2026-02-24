@@ -1,0 +1,458 @@
+<Window
+    x:Class="Foundry.Deploy.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Foundry.Deploy"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid>
+        <!--  Main vertical window layout  -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Row 0: Top menu  -->
+        <Menu Grid.Row="0">
+            <!--  Theme  -->
+            <MenuItem Header="_Theme">
+                <MenuItem Command="{Binding SetSystemThemeCommand}" Header="System" />
+                <MenuItem Command="{Binding SetLightThemeCommand}" Header="Light" />
+                <MenuItem Command="{Binding SetDarkThemeCommand}" Header="Dark" />
+            </MenuItem>
+            <!--  Tools  -->
+            <MenuItem Header="_Tools">
+                <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
+                <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
+                <MenuItem Command="{Binding OpenLogsFolderCommand}" Header="Open Logs Folder" />
+            </MenuItem>
+        </Menu>
+
+        <!--  Row 1: Main content area  -->
+        <Grid Grid.Row="1" Margin="16">
+            <!--  Wizard page (configuration flow)  -->
+            <Grid Visibility="{Binding ShowProgressPage, Converter={StaticResource InverseBooleanConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  Wizard header and context  -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,16">
+                    <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}" Text="Foundry.Deploy Wizard" />
+                    <Border
+                        Margin="0,8,0,0"
+                        Padding="8"
+                        Background="#33FFAA00"
+                        BorderBrush="#FFFFAA00"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="DEBUG SAFE MODE ACTIVE: all deployment actions are simulated, no disk/image write is executed." />
+                    </Border>
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="Task-sequence orchestrator for OS deployment in WinPE." />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding DetectedHardwareSummary}" />
+                </StackPanel>
+
+                <!--  Wizard steps  -->
+                <TabControl
+                    Grid.Row="1"
+                    PreviewMouseDown="WizardTabControl_PreviewMouseDown"
+                    SelectedIndex="{Binding WizardStepIndex}">
+                    <!--  Step 1: Deployment mode and target disk  -->
+                    <TabItem Header="1. Mode">
+                        <Grid Margin="16">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Deployment Mode" />
+                            <ComboBox
+                                Grid.Row="1"
+                                Margin="0,8,0,16"
+                                ItemsSource="{Binding DeploymentModes}"
+                                SelectedItem="{Binding SelectedDeploymentMode}" />
+
+                            <!--  Step 1 details and toggles  -->
+                            <StackPanel Grid.Row="2">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
+                                <TextBox Margin="0,8,0,0" Text="{Binding CacheRootPath}" />
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="ISO mode uses C:\Foundry\Deploy. USB mode will switch to cache partition logic in the deployment engine." />
+                                <TextBlock
+                                    Margin="0,12,0,0"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Target Disk" />
+                                <DockPanel Margin="0,8,0,0">
+                                    <!--  Available target disks  -->
+                                    <ComboBox
+                                        Width="640"
+                                        DisplayMemberPath="DisplayLabel"
+                                        ItemsSource="{Binding TargetDisks}"
+                                        SelectedItem="{Binding SelectedTargetDisk}" />
+                                    <!--  Force disk rescan  -->
+                                    <Button
+                                        Width="140"
+                                        Margin="8,0,0,0"
+                                        Command="{Binding RefreshTargetDisksCommand}"
+                                        Content="Refresh Disks" />
+                                </DockPanel>
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
+                                <CheckBox Margin="0,12,0,0" IsChecked="{Binding AutoSelectDriverPackWhenEmpty}">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Auto-select OEM driver pack from detected hardware (fallback to Microsoft Update Catalog)." />
+                                </CheckBox>
+                                <CheckBox Margin="0,8,0,0" IsChecked="{Binding UseFullAutopilot}">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Full workflow enabled (V1 scope)." />
+                                </CheckBox>
+                                <CheckBox Margin="0,8,0,0" IsChecked="{Binding AllowAutopilotDeferredCompletion}">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Defer completion if online enrollment fails." />
+                                </CheckBox>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+
+                    <!--  Step 2: Operating system catalog filters  -->
+                    <TabItem Header="2. Operating System Catalog">
+                        <Grid Margin="16">
+                            <StackPanel Margin="0,0,0,12">
+                                <DockPanel Margin="0,0,0,12">
+                                    <!--  Reload catalog sources  -->
+                                    <Button
+                                        Width="140"
+                                        Command="{Binding RefreshCatalogsCommand}"
+                                        Content="Refresh Catalogs" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                </DockPanel>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--  OS family and release  -->
+                                    <StackPanel Margin="0,0,8,8">
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Operating System" />
+                                        <ComboBox
+                                            Margin="0,8,0,0"
+                                            ItemsSource="{Binding WindowsReleaseFilters}"
+                                            SelectedItem="{Binding SelectedWindowsRelease}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=WindowsRelease}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <!--  Release identifier  -->
+                                    <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
+                                        <ComboBox
+                                            Margin="0,8,0,0"
+                                            ItemsSource="{Binding ReleaseIdFilters}"
+                                            SelectedItem="{Binding SelectedReleaseId}" />
+                                    </StackPanel>
+
+                                    <!--  Language and licensing  -->
+                                    <StackPanel Grid.Row="1" Margin="0,0,8,0">
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Language" />
+                                        <ComboBox
+                                            Margin="0,8,0,0"
+                                            ItemsSource="{Binding LanguageFilters}"
+                                            SelectedItem="{Binding SelectedLanguageCode}" />
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="8,0,0,0">
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="License Channel" />
+                                        <ComboBox
+                                            Margin="0,8,0,0"
+                                            ItemsSource="{Binding LicenseChannelFilters}"
+                                            SelectedItem="{Binding SelectedLicenseChannel}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <!--  Target edition  -->
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Grid.ColumnSpan="2"
+                                        Margin="0,8,0,0">
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Edition (Target)" />
+                                        <ComboBox
+                                            Margin="0,8,0,0"
+                                            ItemsSource="{Binding EditionFilters}"
+                                            SelectedItem="{Binding SelectedEdition}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=Edition}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+
+                    <!--  Step 3: Driver pack selection  -->
+                    <TabItem Header="3. Driver Pack">
+                        <Grid Margin="16">
+                            <StackPanel Margin="0,0,0,12">
+                                <DockPanel Margin="0,0,0,12">
+                                    <!--  Reload catalog sources  -->
+                                    <Button
+                                        Width="140"
+                                        Command="{Binding RefreshCatalogsCommand}"
+                                        Content="Refresh Catalogs" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                </DockPanel>
+
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Source" />
+                                <ComboBox
+                                    Margin="0,8,0,0"
+                                    DisplayMemberPath="DisplayName"
+                                    ItemsSource="{Binding DriverPackOptions}"
+                                    SelectedItem="{Binding SelectedDriverPackOption}" />
+                                <!--  Driver model/version refinement  -->
+                                <Grid Margin="0,8,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="12" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Model" />
+                                        <ComboBox
+                                            Margin="0,8,0,0"
+                                            IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
+                                            ItemsSource="{Binding DriverPackModelOptions}"
+                                            SelectedItem="{Binding SelectedDriverPackModel}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
+                                        <ComboBox
+                                            Margin="0,8,0,0"
+                                            IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
+                                            ItemsSource="{Binding DriverPackVersionOptions}"
+                                            SelectedItem="{Binding SelectedDriverPackVersion}" />
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{Binding DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+
+                    <!--  Step 4: Deployment summary before execution  -->
+                    <TabItem Header="4. Summary">
+                        <StackPanel Margin="16">
+                            <TextBlock
+                                Margin="0,0,0,12"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="Deployment Summary" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Mode" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDeploymentMode}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding CacheRootPath}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Target Disk" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Operating System" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedOperatingSystem, Converter={StaticResource OperatingSystemSummaryConverter}, TargetNullValue=No selection}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Driver Pack" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDriverPackSelectionDisplay, TargetNullValue=None}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Pack Mode" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackModeDisplay}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot Fallback" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding AllowAutopilotDeferredCompletion, StringFormat=Deferred completion allowed: {0}}" />
+
+                            <!--  Execution notes and mode hints  -->
+                            <TextBlock
+                                Margin="0,8,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="Start launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, Autopilot workflow)." />
+                            <TextBlock
+                                Margin="0,4,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="Debug Safe Mode: task sequence runs in dry-run simulation."
+                                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+
+                <!--  Wizard navigation actions  -->
+                <StackPanel
+                    Grid.Row="2"
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="120"
+                        Margin="0,0,8,0"
+                        Command="{Binding PreviousWizardStepCommand}"
+                        Content="Previous" />
+                    <Button
+                        Width="120"
+                        Margin="0,0,8,0"
+                        Command="{Binding NextWizardStepCommand}"
+                        Content="Next" />
+                    <Button
+                        Width="160"
+                        Command="{Binding StartDeploymentCommand}"
+                        Content="Start Deployment" />
+                </StackPanel>
+            </Grid>
+
+            <!--  Progress page (execution flow)  -->
+            <Grid Visibility="{Binding ShowProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  Progress header  -->
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Deployment Progress" />
+
+                <!--  Global progress and status  -->
+                <StackPanel Grid.Row="1" Margin="0,8,0,12">
+                    <ProgressBar
+                        Height="18"
+                        Maximum="100"
+                        Value="{Binding DeploymentProgress}" />
+                    <TextBlock Margin="0,8,0,0" Text="{Binding DeploymentStatus}" />
+                    <Border
+                        Margin="0,8,0,0"
+                        Padding="8"
+                        Background="#33FFD966"
+                        BorderBrush="#FFE0A800"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Visibility="{Binding IsAutopilotDeferred, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot Deferred Completion" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding AutopilotDeferredMessage, TargetNullValue=Online enrollment failed in WinPE; completion will be retried on first boot.}" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!--  Step-by-step execution details  -->
+                <GroupBox Grid.Row="2" Header="Steps">
+                    <ListBox ItemsSource="{Binding DeploymentSteps}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="110" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{Binding State}" />
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding StepName}" />
+                                        <TextBlock
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding Message}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+
+                <!--  Log stream  -->
+                <GroupBox
+                    Grid.Row="3"
+                    Margin="0,12,0,0"
+                    Header="Logs">
+                    <ListBox ItemsSource="{Binding DeploymentLogs}" />
+                </GroupBox>
+
+                <!--  Progress page actions  -->
+                <StackPanel
+                    Grid.Row="4"
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="140"
+                        Command="{Binding OpenLogsFolderCommand}"
+                        Content="Open Logs Folder" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!--  Row 2: Bottom status bar  -->
+        <StatusBar Grid.Row="2">
+            <StatusBarItem Content="{Binding DeploymentStatus}" />
+        </StatusBar>
+    </Grid>
+</Window>
