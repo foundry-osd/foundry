@@ -78,6 +78,8 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly Dictionary<string, DeploymentStepItemViewModel> _stepIndex = new(StringComparer.Ordinal);
     private HardwareProfile? _detectedHardware;
     private bool _isUpdatingOsFilters;
+    private bool _isUpdatingDriverPackOptionSelection;
+    private bool _hasUserSelectedDriverPackOption;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
@@ -513,6 +515,12 @@ public partial class MainWindowViewModel : ObservableObject
 
     partial void OnSelectedDriverPackOptionChanged(DriverPackOptionItem? value)
     {
+        if (_isUpdatingDriverPackOptionSelection)
+        {
+            return;
+        }
+
+        _hasUserSelectedDriverPackOption = true;
         RefreshDriverPackModelAndVersionOptions();
     }
 
@@ -1074,20 +1082,35 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void RefreshDriverPackOptions()
     {
-        string previousKey = SelectedDriverPackOption?.Key ?? string.Empty;
+        string previousKey = _hasUserSelectedDriverPackOption
+            ? SelectedDriverPackOption?.Key ?? string.Empty
+            : string.Empty;
         DriverPackOptionItem[] options = BuildDriverPackOptions();
 
-        DriverPackOptions.Clear();
-        foreach (DriverPackOptionItem option in options)
+        _isUpdatingDriverPackOptionSelection = true;
+        try
         {
-            DriverPackOptions.Add(option);
+            DriverPackOptions.Clear();
+            foreach (DriverPackOptionItem option in options)
+            {
+                DriverPackOptions.Add(option);
+            }
+
+            DriverPackOptionItem? selected = null;
+            if (!string.IsNullOrWhiteSpace(previousKey))
+            {
+                selected = options.FirstOrDefault(option =>
+                    option.Key.Equals(previousKey, StringComparison.OrdinalIgnoreCase));
+            }
+
+            selected ??= ResolveDefaultDriverPackOption(options);
+            SelectedDriverPackOption = selected;
+        }
+        finally
+        {
+            _isUpdatingDriverPackOptionSelection = false;
         }
 
-        DriverPackOptionItem? selected = options.FirstOrDefault(option =>
-            option.Key.Equals(previousKey, StringComparison.OrdinalIgnoreCase));
-
-        selected ??= ResolveDefaultDriverPackOption(options);
-        SelectedDriverPackOption = selected;
         RefreshDriverPackModelAndVersionOptions();
     }
 
@@ -1151,7 +1174,7 @@ public partial class MainWindowViewModel : ObservableObject
         {
             string preferredModel = models.FirstOrDefault(model =>
                 model.Equals(previousModel, StringComparison.OrdinalIgnoreCase))
-                ?? models[0];
+                ?? ResolvePreferredModelFromHardware(sourceCandidates, models);
 
             SelectedDriverPackModel = preferredModel;
         }
@@ -1206,6 +1229,69 @@ public partial class MainWindowViewModel : ObservableObject
             .Where(item => GetSelectableModelNames(item).Any(model =>
                 model.Equals(selectedModel, StringComparison.OrdinalIgnoreCase)))
             .ToArray();
+    }
+
+    private string ResolvePreferredModelFromHardware(
+        IReadOnlyList<DriverPackCatalogItem> sourceCandidates,
+        IReadOnlyList<string> modelOptions)
+    {
+        if (modelOptions.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        if (_detectedHardware is null)
+        {
+            return modelOptions[0];
+        }
+
+        string hardwareModel = _detectedHardware.Model.Trim();
+        string hardwareProduct = _detectedHardware.Product.Trim();
+        if (string.IsNullOrWhiteSpace(hardwareModel) && string.IsNullOrWhiteSpace(hardwareProduct))
+        {
+            return modelOptions[0];
+        }
+
+        string? exactOptionMatch = modelOptions.FirstOrDefault(option =>
+            option.Equals(hardwareModel, StringComparison.OrdinalIgnoreCase) ||
+            option.Equals(hardwareProduct, StringComparison.OrdinalIgnoreCase));
+        if (!string.IsNullOrWhiteSpace(exactOptionMatch))
+        {
+            return exactOptionMatch;
+        }
+
+        string? containsOptionMatch = modelOptions.FirstOrDefault(option =>
+            ContainsIgnoreCase(option, hardwareModel) ||
+            ContainsIgnoreCase(option, hardwareProduct) ||
+            ContainsIgnoreCase(hardwareModel, option) ||
+            ContainsIgnoreCase(hardwareProduct, option));
+        if (!string.IsNullOrWhiteSpace(containsOptionMatch))
+        {
+            return containsOptionMatch;
+        }
+
+        DriverPackCatalogItem? bestPackMatch = sourceCandidates
+            .Where(item => item.ModelNames.Any(modelName =>
+                ContainsIgnoreCase(modelName, hardwareModel) ||
+                ContainsIgnoreCase(modelName, hardwareProduct) ||
+                ContainsIgnoreCase(hardwareModel, modelName) ||
+                ContainsIgnoreCase(hardwareProduct, modelName)))
+            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+            .FirstOrDefault();
+
+        if (bestPackMatch is not null)
+        {
+            string? modelFromPack = GetSelectableModelNames(bestPackMatch)
+                .FirstOrDefault(model => modelOptions.Any(option =>
+                    option.Equals(model, StringComparison.OrdinalIgnoreCase)));
+            if (!string.IsNullOrWhiteSpace(modelFromPack))
+            {
+                return modelFromPack;
+            }
+        }
+
+        return modelOptions[0];
     }
 
     private DriverPackCatalogItem[] BuildFilteredDriverPackCandidates(string forceManufacturer = "")
@@ -1508,6 +1594,16 @@ public partial class MainWindowViewModel : ObservableObject
                extension.Equals(".msi", StringComparison.OrdinalIgnoreCase) ||
                extension.Equals(".zip", StringComparison.OrdinalIgnoreCase) ||
                extension.Equals(".7z", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool ContainsIgnoreCase(string source, string value)
+    {
+        if (string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+
+        return source.Contains(value, StringComparison.OrdinalIgnoreCase);
     }
 
     private static DriverPackCatalogItem[] SortDriverPackCandidates(IEnumerable<DriverPackCatalogItem> candidates)
