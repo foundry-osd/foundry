@@ -440,10 +440,10 @@ public partial class MainWindowViewModel : ObservableObject
         AutopilotDeferredMessage = string.Empty;
         DeploymentStatus = "Deployment started.";
 
+        DriverPackSelectionKind effectiveDriverPackKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None;
         DriverPackCatalogItem? effectiveDriverPack = ResolveEffectiveDriverPackSelection();
-        DriverPackSelectionKind effectiveDriverPackKind = ResolveEffectiveDriverPackSelectionKind(effectiveDriverPack);
 
-        if ((SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None) == DriverPackSelectionKind.OemCatalog &&
+        if (effectiveDriverPackKind == DriverPackSelectionKind.OemCatalog &&
             effectiveDriverPack is null)
         {
             DeploymentStatus = "Select a valid OEM model/version before starting deployment.";
@@ -1245,26 +1245,30 @@ public partial class MainWindowViewModel : ObservableObject
             return modelOptions[0];
         }
 
-        string hardwareModel = _detectedHardware.Model.Trim();
-        string hardwareProduct = _detectedHardware.Product.Trim();
-        if (string.IsNullOrWhiteSpace(hardwareModel) && string.IsNullOrWhiteSpace(hardwareProduct))
+        string[] hardwareTokens =
+        [
+            _detectedHardware.Model.Trim(),
+            _detectedHardware.Product.Trim()
+        ];
+        hardwareTokens = hardwareTokens
+            .Where(token => !string.IsNullOrWhiteSpace(token))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (hardwareTokens.Length == 0)
         {
             return modelOptions[0];
         }
 
         string? exactOptionMatch = modelOptions.FirstOrDefault(option =>
-            option.Equals(hardwareModel, StringComparison.OrdinalIgnoreCase) ||
-            option.Equals(hardwareProduct, StringComparison.OrdinalIgnoreCase));
+            hardwareTokens.Any(token => option.Equals(token, StringComparison.OrdinalIgnoreCase)));
         if (!string.IsNullOrWhiteSpace(exactOptionMatch))
         {
             return exactOptionMatch;
         }
 
         string? containsOptionMatch = modelOptions.FirstOrDefault(option =>
-            ContainsIgnoreCase(option, hardwareModel) ||
-            ContainsIgnoreCase(option, hardwareProduct) ||
-            ContainsIgnoreCase(hardwareModel, option) ||
-            ContainsIgnoreCase(hardwareProduct, option));
+            hardwareTokens.Any(token => IsFuzzyModelMatch(option, token)));
         if (!string.IsNullOrWhiteSpace(containsOptionMatch))
         {
             return containsOptionMatch;
@@ -1272,10 +1276,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         DriverPackCatalogItem? bestPackMatch = sourceCandidates
             .Where(item => item.ModelNames.Any(modelName =>
-                ContainsIgnoreCase(modelName, hardwareModel) ||
-                ContainsIgnoreCase(modelName, hardwareProduct) ||
-                ContainsIgnoreCase(hardwareModel, modelName) ||
-                ContainsIgnoreCase(hardwareProduct, modelName)))
+                hardwareTokens.Any(token => IsFuzzyModelMatch(modelName, token))))
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
             .FirstOrDefault();
@@ -1426,17 +1427,6 @@ public partial class MainWindowViewModel : ObservableObject
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
             .FirstOrDefault();
-    }
-
-    private DriverPackSelectionKind ResolveEffectiveDriverPackSelectionKind(DriverPackCatalogItem? effectiveDriverPack)
-    {
-        DriverPackSelectionKind selectionKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None;
-        if (selectionKind != DriverPackSelectionKind.OemCatalog)
-        {
-            return selectionKind;
-        }
-
-        return DriverPackSelectionKind.OemCatalog;
     }
 
     private string BuildSelectedDriverPackSelectionDisplay()
@@ -1604,6 +1594,11 @@ public partial class MainWindowViewModel : ObservableObject
         }
 
         return source.Contains(value, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsFuzzyModelMatch(string source, string value)
+    {
+        return ContainsIgnoreCase(source, value) || ContainsIgnoreCase(value, source);
     }
 
     private static DriverPackCatalogItem[] SortDriverPackCandidates(IEnumerable<DriverPackCatalogItem> candidates)
