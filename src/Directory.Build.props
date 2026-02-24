@@ -33,5 +33,6 @@
     <Nullable>enable</Nullable>
     <Platforms>x64;ARM64</Platforms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 </Project>
