@@ -26,9 +26,12 @@ public partial class MainWindowViewModel : ObservableObject
     private const string DefaultLicenseChannel = "RET";
     private const string DefaultEdition = "Pro";
     private const string FallbackLanguageCode = "en-us";
-    private const int MaxDriverPackCandidates = 500;
     private const string NoneDriverPackOptionKey = "none";
     private const string MicrosoftUpdateCatalogDriverPackOptionKey = "microsoft-update-catalog";
+    private const string DellDriverPackOptionKey = "oem:dell";
+    private const string LenovoDriverPackOptionKey = "oem:lenovo";
+    private const string HpDriverPackOptionKey = "oem:hp";
+    private const string MicrosoftOemDriverPackOptionKey = "oem:microsoft";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
@@ -118,7 +121,22 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DriverPackModeDisplay))]
+    [NotifyPropertyChangedFor(nameof(IsOemDriverSourceSelected))]
+    [NotifyPropertyChangedFor(nameof(IsDriverPackModelSelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsDriverPackVersionSelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(SelectedDriverPackSelectionDisplay))]
+    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
     private DriverPackOptionItem? selectedDriverPackOption;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SelectedDriverPackSelectionDisplay))]
+    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
+    private string selectedDriverPackModel = string.Empty;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SelectedDriverPackSelectionDisplay))]
+    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
+    private string selectedDriverPackVersion = string.Empty;
 
     [ObservableProperty]
     private DeploymentMode selectedDeploymentMode = DeploymentMode.Usb;
@@ -174,6 +192,8 @@ public partial class MainWindowViewModel : ObservableObject
     public ObservableCollection<string> EditionFilters { get; } = [];
     public ObservableCollection<DriverPackCatalogItem> DriverPacks { get; } = [];
     public ObservableCollection<DriverPackOptionItem> DriverPackOptions { get; } = [];
+    public ObservableCollection<string> DriverPackModelOptions { get; } = [];
+    public ObservableCollection<string> DriverPackVersionOptions { get; } = [];
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
     public ObservableCollection<DeploymentStepItemViewModel> DeploymentSteps { get; } = [];
     public ObservableCollection<string> DeploymentLogs { get; } = [];
@@ -188,6 +208,10 @@ public partial class MainWindowViewModel : ObservableObject
         DriverPackSelectionKind.OemCatalog => "OEM Driver Pack",
         _ => "None"
     };
+    public bool IsOemDriverSourceSelected => SelectedDriverPackOption?.Kind == DriverPackSelectionKind.OemCatalog;
+    public bool IsDriverPackModelSelectionEnabled => IsOemDriverSourceSelected && DriverPackModelOptions.Count > 0;
+    public bool IsDriverPackVersionSelectionEnabled => IsDriverPackModelSelectionEnabled && DriverPackVersionOptions.Count > 0;
+    public string SelectedDriverPackSelectionDisplay => BuildSelectedDriverPackSelectionDisplay();
 
     public MainWindowViewModel(
         IThemeService themeService,
@@ -414,14 +438,26 @@ public partial class MainWindowViewModel : ObservableObject
         AutopilotDeferredMessage = string.Empty;
         DeploymentStatus = "Deployment started.";
 
+        DriverPackCatalogItem? effectiveDriverPack = ResolveEffectiveDriverPackSelection();
+        DriverPackSelectionKind effectiveDriverPackKind = ResolveEffectiveDriverPackSelectionKind(effectiveDriverPack);
+
+        if ((SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None) == DriverPackSelectionKind.OemCatalog &&
+            effectiveDriverPack is null)
+        {
+            DeploymentStatus = "Select a valid OEM model/version before starting deployment.";
+            IsDeploymentRunning = false;
+            ShowProgressPage = false;
+            return;
+        }
+
         DeploymentContext context = new()
         {
             Mode = SelectedDeploymentMode,
             CacheRootPath = CacheRootPath,
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
             OperatingSystem = SelectedOperatingSystem,
-            DriverPackSelectionKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None,
-            DriverPack = SelectedDriverPackOption?.DriverPack,
+            DriverPackSelectionKind = effectiveDriverPackKind,
+            DriverPack = effectiveDriverPack,
             UseFullAutopilot = UseFullAutopilot,
             AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
             IsDryRun = IsDebugSafeMode
@@ -473,6 +509,16 @@ public partial class MainWindowViewModel : ObservableObject
     partial void OnSelectedOperatingSystemChanged(OperatingSystemCatalogItem? value)
     {
         RefreshDriverPackOptions();
+    }
+
+    partial void OnSelectedDriverPackOptionChanged(DriverPackOptionItem? value)
+    {
+        RefreshDriverPackModelAndVersionOptions();
+    }
+
+    partial void OnSelectedDriverPackModelChanged(string value)
+    {
+        RefreshDriverPackVersionOptions();
     }
 
     partial void OnSelectedDeploymentModeChanged(DeploymentMode value)
@@ -679,7 +725,18 @@ public partial class MainWindowViewModel : ObservableObject
                !IsTargetDiskLoading &&
                WizardStepIndex == 3 &&
                SelectedOperatingSystem is not null &&
-               hasTargetDisk;
+               hasTargetDisk &&
+               HasValidDriverPackSelection();
+    }
+
+    private bool HasValidDriverPackSelection()
+    {
+        if (SelectedDriverPackOption?.Kind != DriverPackSelectionKind.OemCatalog)
+        {
+            return true;
+        }
+
+        return ResolveEffectiveDriverPackSelection() is not null;
     }
 
     private void ApplyOsFilter()
@@ -1031,31 +1088,127 @@ public partial class MainWindowViewModel : ObservableObject
 
         selected ??= ResolveDefaultDriverPackOption(options);
         SelectedDriverPackOption = selected;
+        RefreshDriverPackModelAndVersionOptions();
     }
 
     private DriverPackOptionItem[] BuildDriverPackOptions()
     {
-        List<DriverPackOptionItem> options =
+        return
         [
             CreateNoneDriverPackOption(),
-            CreateMicrosoftUpdateCatalogOption()
+            CreateMicrosoftUpdateCatalogOption(),
+            CreateOemDriverPackOption(DellDriverPackOptionKey, "Dell"),
+            CreateOemDriverPackOption(LenovoDriverPackOptionKey, "Lenovo"),
+            CreateOemDriverPackOption(HpDriverPackOptionKey, "HP"),
+            CreateOemDriverPackOption(MicrosoftOemDriverPackOptionKey, "Microsoft")
         ];
-
-        foreach (DriverPackCatalogItem driverPack in BuildFilteredDriverPackCandidates())
-        {
-            options.Add(new DriverPackOptionItem
-            {
-                Key = BuildDriverPackOptionKey(driverPack),
-                DisplayName = BuildDriverPackOptionDisplayName(driverPack),
-                Kind = DriverPackSelectionKind.OemCatalog,
-                DriverPack = driverPack
-            });
-        }
-
-        return options.ToArray();
     }
 
-    private DriverPackCatalogItem[] BuildFilteredDriverPackCandidates()
+    private DriverPackCatalogItem[] BuildSourceDriverPackCandidates()
+    {
+        if (!IsOemDriverSourceSelected)
+        {
+            return [];
+        }
+
+        string sourceManufacturer = ResolveManufacturerFromSourceOptionKey(SelectedDriverPackOption?.Key ?? string.Empty);
+        if (string.IsNullOrWhiteSpace(sourceManufacturer))
+        {
+            return [];
+        }
+
+        return BuildFilteredDriverPackCandidates(forceManufacturer: sourceManufacturer);
+    }
+
+    private void RefreshDriverPackModelAndVersionOptions()
+    {
+        string previousModel = SelectedDriverPackModel;
+
+        DriverPackModelOptions.Clear();
+        DriverPackVersionOptions.Clear();
+        SelectedDriverPackModel = string.Empty;
+        SelectedDriverPackVersion = string.Empty;
+
+        if (!IsOemDriverSourceSelected)
+        {
+            NotifyDriverPackSelectionStateChanged();
+            return;
+        }
+
+        DriverPackCatalogItem[] sourceCandidates = BuildSourceDriverPackCandidates();
+        string[] models = sourceCandidates
+            .SelectMany(GetSelectableModelNames)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(model => model, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        foreach (string model in models)
+        {
+            DriverPackModelOptions.Add(model);
+        }
+
+        if (models.Length > 0)
+        {
+            string preferredModel = models.FirstOrDefault(model =>
+                model.Equals(previousModel, StringComparison.OrdinalIgnoreCase))
+                ?? models[0];
+
+            SelectedDriverPackModel = preferredModel;
+        }
+
+        NotifyDriverPackSelectionStateChanged();
+    }
+
+    private void RefreshDriverPackVersionOptions()
+    {
+        string previousVersion = SelectedDriverPackVersion;
+        DriverPackVersionOptions.Clear();
+        SelectedDriverPackVersion = string.Empty;
+
+        if (!IsOemDriverSourceSelected || string.IsNullOrWhiteSpace(SelectedDriverPackModel))
+        {
+            NotifyDriverPackSelectionStateChanged();
+            return;
+        }
+
+        DriverPackCatalogItem[] modelCandidates = FilterDriverPackCandidatesBySelectedModel(BuildSourceDriverPackCandidates());
+        DriverPackCatalogItem[] orderedCandidates = SortDriverPackCandidates(modelCandidates);
+
+        string[] versions = orderedCandidates
+            .Select(GetDriverPackVersionDisplay)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        foreach (string version in versions)
+        {
+            DriverPackVersionOptions.Add(version);
+        }
+
+        if (versions.Length > 0)
+        {
+            SelectedDriverPackVersion = versions.FirstOrDefault(version =>
+                version.Equals(previousVersion, StringComparison.OrdinalIgnoreCase))
+                ?? versions[0];
+        }
+
+        NotifyDriverPackSelectionStateChanged();
+    }
+
+    private DriverPackCatalogItem[] FilterDriverPackCandidatesBySelectedModel(IEnumerable<DriverPackCatalogItem> candidates)
+    {
+        if (string.IsNullOrWhiteSpace(SelectedDriverPackModel))
+        {
+            return candidates.ToArray();
+        }
+
+        string selectedModel = SelectedDriverPackModel.Trim();
+        return candidates
+            .Where(item => GetSelectableModelNames(item).Any(model =>
+                model.Equals(selectedModel, StringComparison.OrdinalIgnoreCase)))
+            .ToArray();
+    }
+
+    private DriverPackCatalogItem[] BuildFilteredDriverPackCandidates(string forceManufacturer = "")
     {
         IEnumerable<DriverPackCatalogItem> query = DriverPacks;
 
@@ -1074,22 +1227,14 @@ public partial class MainWindowViewModel : ObservableObject
                 item.OsName.Contains(selectedOsRelease, StringComparison.OrdinalIgnoreCase));
         }
 
-        DriverPackCatalogItem[] baseCandidates = query.ToArray();
-        string manufacturer = NormalizeManufacturer(_detectedHardware?.Manufacturer ?? string.Empty);
-        if (IsUnknownManufacturer(manufacturer))
+        if (!string.IsNullOrWhiteSpace(forceManufacturer))
         {
-            return SortAndLimitDriverPackCandidates(baseCandidates);
+            query = query.Where(item =>
+                NormalizeManufacturer(item.Manufacturer).Equals(forceManufacturer, StringComparison.OrdinalIgnoreCase));
         }
 
-        DriverPackCatalogItem[] manufacturerCandidates = baseCandidates
-            .Where(item => NormalizeManufacturer(item.Manufacturer).Equals(manufacturer, StringComparison.OrdinalIgnoreCase))
-            .ToArray();
-
-        IEnumerable<DriverPackCatalogItem> finalCandidates = manufacturerCandidates.Length > 0
-            ? manufacturerCandidates
-            : baseCandidates;
-
-        return SortAndLimitDriverPackCandidates(finalCandidates);
+        DriverPackCatalogItem[] baseCandidates = query.ToArray();
+        return SortDriverPackCandidates(baseCandidates);
     }
 
     private DriverPackOptionItem? ResolveDefaultDriverPackOption(IReadOnlyList<DriverPackOptionItem> options)
@@ -1113,7 +1258,7 @@ public partial class MainWindowViewModel : ObservableObject
 
             if (selection.DriverPack is not null)
             {
-                string selectedKey = BuildDriverPackOptionKey(selection.DriverPack);
+                string selectedKey = ResolveSourceOptionKey(selection.DriverPack.Manufacturer);
                 DriverPackOptionItem? oemMatch = options.FirstOrDefault(option =>
                     option.Key.Equals(selectedKey, StringComparison.OrdinalIgnoreCase));
 
@@ -1150,44 +1295,168 @@ public partial class MainWindowViewModel : ObservableObject
         };
     }
 
-    private static string BuildDriverPackOptionKey(DriverPackCatalogItem driverPack)
+    private static DriverPackOptionItem CreateOemDriverPackOption(string key, string displayName)
     {
-        if (!string.IsNullOrWhiteSpace(driverPack.Id))
+        return new DriverPackOptionItem
         {
-            return $"oem:{NormalizeIdentityPart(driverPack.Id)}";
-        }
-
-        return string.Join(
-            ':',
-            "oem",
-            NormalizeIdentityPart(driverPack.Manufacturer),
-            NormalizeIdentityPart(driverPack.Name),
-            NormalizeIdentityPart(driverPack.Version));
+            Key = key,
+            DisplayName = displayName,
+            Kind = DriverPackSelectionKind.OemCatalog,
+            DriverPack = null
+        };
     }
 
-    private static string NormalizeIdentityPart(string value)
+    private DriverPackCatalogItem? ResolveEffectiveDriverPackSelection()
     {
-        return value.Trim().ToLowerInvariant();
-    }
-
-    private static string BuildDriverPackOptionDisplayName(DriverPackCatalogItem driverPack)
-    {
-        string packName = ResolveDriverPackFriendlyName(driverPack);
-        string manufacturer = string.IsNullOrWhiteSpace(driverPack.Manufacturer)
-            ? "Unknown"
-            : driverPack.Manufacturer.Trim();
-
-        string osSegment = $"{driverPack.OsName} {driverPack.OsArchitecture}".Trim();
-        if (!string.IsNullOrWhiteSpace(driverPack.OsReleaseId))
+        DriverPackSelectionKind selectionKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None;
+        if (selectionKind != DriverPackSelectionKind.OemCatalog)
         {
-            osSegment = $"{osSegment} {driverPack.OsReleaseId.Trim()}".Trim();
+            return SelectedDriverPackOption?.DriverPack;
         }
 
-        string dateSegment = driverPack.ReleaseDate is null
-            ? string.Empty
-            : $" | {driverPack.ReleaseDate.Value:yyyy-MM}";
+        DriverPackCatalogItem[] sourceCandidates = BuildSourceDriverPackCandidates();
+        if (sourceCandidates.Length == 0)
+        {
+            return null;
+        }
 
-        return $"{packName} ({manufacturer}) | {osSegment}{dateSegment}";
+        DriverPackCatalogItem[] modelCandidates = FilterDriverPackCandidatesBySelectedModel(sourceCandidates);
+        if (modelCandidates.Length == 0)
+        {
+            return null;
+        }
+
+        DriverPackCatalogItem[] versionCandidates = string.IsNullOrWhiteSpace(SelectedDriverPackVersion)
+            ? modelCandidates
+            : modelCandidates
+                .Where(item => GetDriverPackVersionDisplay(item).Equals(SelectedDriverPackVersion.Trim(), StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+        DriverPackCatalogItem[] finalCandidates = versionCandidates.Length > 0
+            ? versionCandidates
+            : modelCandidates;
+
+        return finalCandidates
+            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+            .FirstOrDefault();
+    }
+
+    private DriverPackSelectionKind ResolveEffectiveDriverPackSelectionKind(DriverPackCatalogItem? effectiveDriverPack)
+    {
+        DriverPackSelectionKind selectionKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None;
+        if (selectionKind != DriverPackSelectionKind.OemCatalog)
+        {
+            return selectionKind;
+        }
+
+        return DriverPackSelectionKind.OemCatalog;
+    }
+
+    private string BuildSelectedDriverPackSelectionDisplay()
+    {
+        DriverPackSelectionKind selectionKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None;
+        if (selectionKind == DriverPackSelectionKind.None)
+        {
+            return "None";
+        }
+
+        if (selectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+        {
+            return "Microsoft Update Catalog";
+        }
+
+        DriverPackCatalogItem? selectedPack = ResolveEffectiveDriverPackSelection();
+        if (selectedPack is null)
+        {
+            string sourceName = SelectedDriverPackOption?.DisplayName ?? "OEM";
+            return $"{sourceName} | No matching model/version";
+        }
+
+        string modelName = string.IsNullOrWhiteSpace(SelectedDriverPackModel)
+            ? ResolveDriverPackFriendlyName(selectedPack)
+            : SelectedDriverPackModel;
+        string version = GetDriverPackVersionDisplay(selectedPack);
+
+        return $"{selectedPack.Manufacturer} | {modelName} | {version}";
+    }
+
+    private static string ResolveManufacturerFromSourceOptionKey(string optionKey)
+    {
+        return optionKey.Trim().ToLowerInvariant() switch
+        {
+            DellDriverPackOptionKey => "dell",
+            LenovoDriverPackOptionKey => "lenovo",
+            HpDriverPackOptionKey => "hp",
+            MicrosoftOemDriverPackOptionKey => "microsoft",
+            _ => string.Empty
+        };
+    }
+
+    private static string ResolveSourceOptionKey(string manufacturer)
+    {
+        string normalized = NormalizeManufacturer(manufacturer);
+        return normalized switch
+        {
+            "dell" => DellDriverPackOptionKey,
+            "lenovo" => LenovoDriverPackOptionKey,
+            "hp" => HpDriverPackOptionKey,
+            "microsoft" => MicrosoftOemDriverPackOptionKey,
+            _ => string.Empty
+        };
+    }
+
+    private static string[] GetSelectableModelNames(DriverPackCatalogItem driverPack)
+    {
+        string[] models = driverPack.ModelNames
+            .Where(model => !string.IsNullOrWhiteSpace(model))
+            .Select(model => model.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (models.Length > 0)
+        {
+            return models;
+        }
+
+        string fallback = ResolveDriverPackFriendlyName(driverPack);
+        return string.IsNullOrWhiteSpace(fallback)
+            ? []
+            : [fallback];
+    }
+
+    private static string GetDriverPackVersionDisplay(DriverPackCatalogItem driverPack)
+    {
+        if (!string.IsNullOrWhiteSpace(driverPack.Version))
+        {
+            return driverPack.Version.Trim();
+        }
+
+        if (driverPack.ReleaseDate is not null)
+        {
+            return driverPack.ReleaseDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        }
+
+        if (!string.IsNullOrWhiteSpace(driverPack.PackageId))
+        {
+            return driverPack.PackageId.Trim();
+        }
+
+        if (!string.IsNullOrWhiteSpace(driverPack.FileName))
+        {
+            return Path.GetFileNameWithoutExtension(driverPack.FileName.Trim());
+        }
+
+        return "Unknown";
+    }
+
+    private void NotifyDriverPackSelectionStateChanged()
+    {
+        OnPropertyChanged(nameof(IsOemDriverSourceSelected));
+        OnPropertyChanged(nameof(IsDriverPackModelSelectionEnabled));
+        OnPropertyChanged(nameof(IsDriverPackVersionSelectionEnabled));
+        OnPropertyChanged(nameof(SelectedDriverPackSelectionDisplay));
+        StartDeploymentCommand.NotifyCanExecuteChanged();
     }
 
     private static string ResolveDriverPackFriendlyName(DriverPackCatalogItem driverPack)
@@ -1241,19 +1510,12 @@ public partial class MainWindowViewModel : ObservableObject
                extension.Equals(".7z", StringComparison.OrdinalIgnoreCase);
     }
 
-    private static bool IsUnknownManufacturer(string manufacturer)
-    {
-        return string.IsNullOrWhiteSpace(manufacturer) ||
-               manufacturer.Equals("unknown", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static DriverPackCatalogItem[] SortAndLimitDriverPackCandidates(IEnumerable<DriverPackCatalogItem> candidates)
+    private static DriverPackCatalogItem[] SortDriverPackCandidates(IEnumerable<DriverPackCatalogItem> candidates)
     {
         return candidates
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
             .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
-            .Take(MaxDriverPackCandidates)
             .ToArray();
     }
 
