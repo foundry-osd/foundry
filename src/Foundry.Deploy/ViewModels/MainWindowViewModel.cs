@@ -12,6 +12,7 @@ using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Theme;
@@ -38,7 +39,6 @@ public partial class MainWindowViewModel : ObservableObject
     private const string CacheMarkerFolderName = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
-    private const string WinPeLogsRoot = @"X:\Foundry\Logs";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
@@ -511,32 +511,34 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OpenLogsFolder()
+    private void OpenLogFile()
     {
         try
         {
-            string logsPath = ResolveEffectiveLogsPath();
-            Directory.CreateDirectory(logsPath);
-            _ = Process.Start(new ProcessStartInfo
+            string logFilePath = ResolveEffectiveLogFilePath();
+            ProcessStartInfo startInfo = new("notepad.exe")
             {
-                FileName = "explorer.exe",
-                Arguments = logsPath,
-                UseShellExecute = true
-            });
-            _logger.LogInformation("Opened logs folder at {LogsPath}.", logsPath);
+                UseShellExecute = false
+            };
+            startInfo.ArgumentList.Add(logFilePath);
+            _ = Process.Start(startInfo);
+            _logger.LogInformation("Opened log file at {LogFilePath}.", logFilePath);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to open logs folder.");
-            DeploymentStatus = $"Unable to open logs folder: {ex.Message}";
+            _logger.LogError(ex, "Failed to open log file.");
+            DeploymentStatus = $"Unable to open log file: {ex.Message}";
         }
     }
 
-    private string ResolveEffectiveLogsPath()
+    private string ResolveEffectiveLogFilePath()
     {
-        return string.IsNullOrWhiteSpace(_lastLogsDirectoryPath)
-            ? WinPeLogsRoot
-            : _lastLogsDirectoryPath;
+        if (!string.IsNullOrWhiteSpace(_lastLogsDirectoryPath))
+        {
+            return Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
+        }
+
+        return FoundryDeployLogging.ResolveStartupLogFilePath();
     }
 
     partial void OnSelectedOperatingSystemChanged(OperatingSystemCatalogItem? value)

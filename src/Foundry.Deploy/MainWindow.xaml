@@ -29,7 +29,7 @@
             <MenuItem Header="_Tools">
                 <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
                 <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
-                <MenuItem Command="{Binding OpenLogsFolderCommand}" Header="Open Logs Folder" />
+                <MenuItem Command="{Binding OpenLogFileCommand}" Header="Open Log File" />
             </MenuItem>
         </Menu>
 
@@ -423,8 +423,8 @@
                     Orientation="Horizontal">
                     <Button
                         Width="140"
-                        Command="{Binding OpenLogsFolderCommand}"
-                        Content="Open Logs Folder" />
+                        Command="{Binding OpenLogFileCommand}"
+                        Content="Open Log File" />
                 </StackPanel>
             </Grid>
         </Grid>
