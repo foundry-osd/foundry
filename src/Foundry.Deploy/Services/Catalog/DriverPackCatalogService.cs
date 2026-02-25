@@ -10,7 +10,7 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class DriverPackCatalogService : IDriverPackCatalogService
 {
     private const string CatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/DriverPack/DriverPack_Unified.xml";
-    private static readonly HttpClient HttpClient = CreateInsecureHttpClient();
+    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<DriverPackCatalogService> _logger;
 
     public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger)
@@ -23,9 +23,10 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
         _logger.LogInformation("Fetching driver pack catalog from {CatalogUri}.", CatalogUri);
         try
         {
-            string xmlContent = await HttpRetryPolicy
-                .ExecuteAsync(
-                    ct => HttpClient.GetStringAsync(CatalogUri, ct),
+            string xmlContent = await HttpTextFetcher
+                .GetStringWithRetryAsync(
+                    HttpClient,
+                    CatalogUri,
                     _logger,
                     "Driver pack catalog download",
                     cancellationToken)
@@ -117,16 +118,4 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
         };
     }
 
-    private static HttpClient CreateInsecureHttpClient()
-    {
-        var handler = new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        };
-
-        return new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromMinutes(60)
-        };
-    }
 }

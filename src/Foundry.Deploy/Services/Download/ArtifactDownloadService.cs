@@ -8,7 +8,7 @@ namespace Foundry.Deploy.Services.Download;
 
 public sealed class ArtifactDownloadService : IArtifactDownloadService
 {
-    private static readonly HttpClient HttpClient = CreateInsecureHttpClient();
+    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(30));
     private static readonly TimeSpan ProgressReportInterval = TimeSpan.FromMilliseconds(500);
     private const int CopyBufferSize = 80 * 1024;
 
@@ -204,19 +204,6 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         return Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri)
             ? uri.Host
             : "invalid-url";
-    }
-
-    private static HttpClient CreateInsecureHttpClient()
-    {
-        var handler = new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        };
-
-        return new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromMinutes(30)
-        };
     }
 
 }

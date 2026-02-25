@@ -10,7 +10,7 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogService
 {
     private const string CatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/OS/OperatingSystem.xml";
-    private static readonly HttpClient HttpClient = CreateInsecureHttpClient();
+    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<OperatingSystemCatalogService> _logger;
 
     public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger)
@@ -23,9 +23,10 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
         _logger.LogInformation("Fetching operating system catalog from {CatalogUri}.", CatalogUri);
         try
         {
-            string xmlContent = await HttpRetryPolicy
-                .ExecuteAsync(
-                    ct => HttpClient.GetStringAsync(CatalogUri, ct),
+            string xmlContent = await HttpTextFetcher
+                .GetStringWithRetryAsync(
+                    HttpClient,
+                    CatalogUri,
                     _logger,
                     "Operating system catalog download",
                     cancellationToken)
@@ -107,16 +108,4 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
         };
     }
 
-    private static HttpClient CreateInsecureHttpClient()
-    {
-        var handler = new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        };
-
-        return new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromMinutes(60)
-        };
-    }
 }
