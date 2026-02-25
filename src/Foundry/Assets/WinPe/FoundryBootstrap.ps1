@@ -137,24 +137,6 @@ function Get-UsbCacheRuntimeRoot {
     return $null
 }
 
-function Resolve-BootstrapRoot {
-    $UsbRuntimeRoot = Get-UsbCacheRuntimeRoot
-    if (-not [string]::IsNullOrWhiteSpace($UsbRuntimeRoot)) {
-        return $UsbRuntimeRoot
-    }
-
-    return Join-Path $WinPeRoot 'Runtime'
-}
-
-function Resolve-DeploymentMode {
-    $UsbRuntimeRoot = Get-UsbCacheRuntimeRoot
-    if (-not [string]::IsNullOrWhiteSpace($UsbRuntimeRoot)) {
-        return 'Usb'
-    }
-
-    return 'Iso'
-}
-
 function Download-FileViaBits {
     param(
         [Parameter(Mandatory = $true)]
@@ -329,8 +311,16 @@ try {
         New-Item -Path $WinPeRoot -ItemType Directory -Force | Out-Null
     }
 
-    $BootstrapRoot = Resolve-BootstrapRoot
-    $DeploymentMode = Resolve-DeploymentMode
+    $UsbRuntimeRoot = Get-UsbCacheRuntimeRoot
+    if (-not [string]::IsNullOrWhiteSpace($UsbRuntimeRoot)) {
+        $BootstrapRoot = $UsbRuntimeRoot
+        $DeploymentMode = 'Usb'
+    }
+    else {
+        $BootstrapRoot = Join-Path $WinPeRoot 'Runtime'
+        $DeploymentMode = 'Iso'
+    }
+
     $DownloadPath = Join-Path $BootstrapRoot 'Foundry.Deploy.zip'
     $ExtractPath = $BootstrapRoot
 

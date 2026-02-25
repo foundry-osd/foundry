@@ -169,7 +169,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 IsSuccess = false,
                 Message = "Deployment cancelled.",
-                LogsDirectoryPath = ResolveCurrentLogsDirectory(runtimeState, logSession)
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession)
             };
         }
         catch (Exception ex)
@@ -180,7 +180,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 IsSuccess = false,
                 Message = ex.Message,
-                LogsDirectoryPath = ResolveCurrentLogsDirectory(runtimeState, logSession)
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession)
             };
         }
     }
@@ -784,32 +784,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return resolvedCache;
         }
 
-        if (resolvedCache.Mode == DeploymentMode.Usb)
-        {
-            string message =
-                $"USB cache conflict: cache path '{resolvedCache.RootPath}' is on target disk {context.TargetDiskNumber}. " +
-                "Deployment is blocked to preserve USB cache consistency.";
-            await AppendLogAsync(logSession, DeploymentLogLevel.Error, message, cancellationToken).ConfigureAwait(false);
-            throw new InvalidOperationException(message);
-        }
-
-        string safeRoot = ResolveWinPeConflictCacheRoot("IsoConflict");
-        var adjusted = new CacheResolution
-        {
-            Mode = resolvedCache.Mode,
-            RootPath = safeRoot,
-            Source = $"{resolvedCache.Source} (conflict fallback)",
-            IsPersistent = false
-        };
-
-        await AppendLogAsync(
-                logSession,
-                DeploymentLogLevel.Warning,
-                $"Cache disk conflict detected (cache disk {cacheDiskNumber.Value} equals target disk {context.TargetDiskNumber}). Switched cache to '{safeRoot}'.",
-                cancellationToken)
-            .ConfigureAwait(false);
-
-        return adjusted;
+        string message =
+            $"Cache conflict: cache path '{resolvedCache.RootPath}' is on target disk {context.TargetDiskNumber}. " +
+            "Deployment is blocked to avoid writing deployment cache on the destination disk.";
+        await AppendLogAsync(logSession, DeploymentLogLevel.Error, message, cancellationToken).ConfigureAwait(false);
+        throw new InvalidOperationException(message);
     }
 
     private async Task<StepExecutionOutcome?> ValidateTargetDiskSelectionAsync(
@@ -973,13 +952,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return secondaryHash?.Trim() ?? string.Empty;
     }
 
-    private static string ResolveWinPeConflictCacheRoot(string suffix)
-    {
-        string path = Path.Combine(WinPeRoot, "Runtime", suffix);
-        Directory.CreateDirectory(path);
-        return path;
-    }
-
     private async Task UpdateCacheIndexAsync(
         DeploymentRuntimeState runtimeState,
         string artifactType,
@@ -1138,10 +1110,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "Logs");
         }
 
-        return ResolveCurrentLogsDirectory(runtimeState, logSession);
+        return ResolveCurrentLogsDirectory(logSession);
     }
 
-    private static string ResolveCurrentLogsDirectory(DeploymentRuntimeState runtimeState, DeploymentLogSession? logSession)
+    private static string ResolveCurrentLogsDirectory(DeploymentLogSession? logSession)
     {
         if (logSession is not null && !string.IsNullOrWhiteSpace(logSession.LogsDirectoryPath))
         {

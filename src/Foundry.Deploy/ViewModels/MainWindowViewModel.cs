@@ -82,6 +82,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentMode _resolvedDeploymentMode;
+    private readonly string? _resolvedUsbCacheRuntimeRoot;
     private readonly Dictionary<string, DeploymentStepItemViewModel> _stepIndex = new(StringComparer.Ordinal);
     private HardwareProfile? _detectedHardware;
     private string _lastLogsDirectoryPath = string.Empty;
@@ -239,7 +240,9 @@ public partial class MainWindowViewModel : ObservableObject
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
-        _resolvedDeploymentMode = ResolveDeploymentMode();
+        (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
+        _resolvedDeploymentMode = resolvedMode;
+        _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -682,7 +685,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         if (_resolvedDeploymentMode == DeploymentMode.Usb)
         {
-            CacheRootPath = TryGetUsbCacheRuntimeRoot() ?? WinPeTransientRuntimeRoot;
+            CacheRootPath = _resolvedUsbCacheRuntimeRoot ?? WinPeTransientRuntimeRoot;
             return;
         }
 
@@ -1727,14 +1730,20 @@ public partial class MainWindowViewModel : ObservableObject
         return normalized;
     }
 
-    private static DeploymentMode ResolveDeploymentMode()
+    private static (DeploymentMode Mode, string? UsbCacheRuntimeRoot) ResolveDeploymentRuntimeContext()
     {
         if (TryResolveDeploymentModeFromEnvironment(out DeploymentMode modeFromEnvironment))
         {
-            return modeFromEnvironment;
+            string? usbRoot = modeFromEnvironment == DeploymentMode.Usb
+                ? TryGetUsbCacheRuntimeRoot()
+                : null;
+            return (modeFromEnvironment, usbRoot);
         }
 
-        return TryGetUsbCacheRuntimeRoot() is not null ? DeploymentMode.Usb : DeploymentMode.Iso;
+        string? detectedUsbRoot = TryGetUsbCacheRuntimeRoot();
+        return string.IsNullOrWhiteSpace(detectedUsbRoot)
+            ? (DeploymentMode.Iso, null)
+            : (DeploymentMode.Usb, detectedUsbRoot);
     }
 
     private static bool TryResolveDeploymentModeFromEnvironment(out DeploymentMode mode)
