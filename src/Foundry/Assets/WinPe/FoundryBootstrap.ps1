@@ -146,6 +146,15 @@ function Resolve-BootstrapRoot {
     return Join-Path $WinPeRoot 'Runtime'
 }
 
+function Resolve-DeploymentMode {
+    $UsbRuntimeRoot = Get-UsbCacheRuntimeRoot
+    if (-not [string]::IsNullOrWhiteSpace($UsbRuntimeRoot)) {
+        return 'Usb'
+    }
+
+    return 'Iso'
+}
+
 function Download-FileViaBits {
     param(
         [Parameter(Mandatory = $true)]
@@ -264,17 +273,72 @@ function Expand-ZipVia7Zip {
     }
 }
 
+function Clear-DirectoryContents {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path,
+        [string[]]$PreserveLeafNames = @()
+    )
+
+    if (-not (Test-Path -Path $Path -PathType Container)) {
+        return
+    }
+
+    $PreserveLookup = @{}
+    foreach ($LeafName in $PreserveLeafNames) {
+        if (-not [string]::IsNullOrWhiteSpace($LeafName)) {
+            $PreserveLookup[$LeafName] = $true
+        }
+    }
+
+    foreach ($Item in Get-ChildItem -Path $Path -Force) {
+        if ($PreserveLookup.ContainsKey($Item.Name)) {
+            continue
+        }
+
+        Remove-Item -Path $Item.FullName -Recurse -Force
+    }
+}
+
+function Resolve-DeployExecutable {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RootPath
+    )
+
+    $PrimaryPath = Join-Path $RootPath 'Foundry.Deploy.exe'
+    if (Test-Path -Path $PrimaryPath -PathType Leaf) {
+        return Get-Item -Path $PrimaryPath
+    }
+
+    $Candidates = @(Get-ChildItem -Path $RootPath -Filter 'Foundry.Deploy.exe' -File -Recurse)
+    if ($Candidates.Count -eq 0) {
+        throw "Unable to find 'Foundry.Deploy.exe' under '$RootPath'."
+    }
+
+    if ($Candidates.Count -gt 1) {
+        $Paths = ($Candidates | Select-Object -ExpandProperty FullName) -join '; '
+        throw "Multiple 'Foundry.Deploy.exe' candidates found under '$RootPath': $Paths"
+    }
+
+    return $Candidates[0]
+}
+
 try {
     if (-not (Test-Path -Path $WinPeRoot -PathType Container)) {
         New-Item -Path $WinPeRoot -ItemType Directory -Force | Out-Null
     }
 
     $BootstrapRoot = Resolve-BootstrapRoot
+    $DeploymentMode = Resolve-DeploymentMode
     $DownloadPath = Join-Path $BootstrapRoot 'Foundry.Deploy.zip'
-    $ExtractPath = Join-Path $BootstrapRoot 'current'
+    $ExtractPath = $BootstrapRoot
 
     Write-Log 'Foundry bootstrap started.'
     Write-Log "Bootstrap runtime root resolved to '$BootstrapRoot'."
+    Write-Log "Deployment mode resolved to '$DeploymentMode'."
+
+    $env:FOUNDRY_DEPLOYMENT_MODE = $DeploymentMode
 
     $RuntimeIdentifier = Get-TargetRuntimeIdentifier
     $AssetName = "Foundry.Deploy-$RuntimeIdentifier.zip"
@@ -362,15 +426,13 @@ try {
         throw "Expected archive not found at '$DownloadPath' after download."
     }
 
-    Remove-Item -Path $ExtractPath -Recurse -Force -ErrorAction SilentlyContinue
+    Write-Log "Cleaning extraction root '$ExtractPath' before extraction."
+    Clear-DirectoryContents -Path $ExtractPath -PreserveLeafNames @((Split-Path -Path $DownloadPath -Leaf))
 
     Write-Log "Extracting archive to '$ExtractPath'."
     Expand-ZipVia7Zip -ArchivePath $DownloadPath -DestinationPath $ExtractPath -RuntimeIdentifier $RuntimeIdentifier
 
-    $Executable = Get-ChildItem -Path $ExtractPath -Filter 'Foundry.Deploy.exe' -File -Recurse | Select-Object -First 1
-    if ($null -eq $Executable) {
-        throw "Unable to find 'Foundry.Deploy.exe' under '$ExtractPath'."
-    }
+    $Executable = Resolve-DeployExecutable -RootPath $ExtractPath
 
     $ReleaseInfoPath = Join-Path $BootstrapRoot 'latest-release.txt'
     Set-Content -Path $ReleaseInfoPath -Value $ReleaseDescriptor -Encoding ascii

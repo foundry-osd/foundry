@@ -13,6 +13,8 @@ namespace Foundry.Deploy.Services.Deployment;
 
 public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 {
+    private const string WinPeRoot = @"X:\Foundry";
+
     private static readonly string[] Steps =
     [
         "Initialize deployment workspace",
@@ -199,7 +201,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    DeploymentLogSession session = InitializeLogSessionWithFallback(context.CacheRootPath);
+                    EnsureWinPeWorkspaceFolders();
+                    DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
                     await _deploymentLogService
                         .AppendAsync(session, DeploymentLogLevel.Info, $"Log session initialized at '{session.RootPath}'.", cancellationToken)
                         .ConfigureAwait(false);
@@ -240,22 +243,13 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
-                    EnsureCacheFolders(cache.RootPath);
-
-                    DeploymentLogSession? rebound = logSession;
-                    if (logSession is null || !cache.RootPath.Equals(logSession.RootPath, StringComparison.OrdinalIgnoreCase))
-                    {
-                        rebound = _deploymentLogService.Initialize(cache.RootPath);
-                        await _deploymentLogService.AppendAsync(rebound, DeploymentLogLevel.Info, "Log session rebound to resolved cache root.", cancellationToken).ConfigureAwait(false);
-                    }
-
-                    return StepExecutionOutcome.Succeeded("Cache strategy resolved.", rebound);
+                    EnsureWinPeWorkspaceFolders();
+                    return StepExecutionOutcome.Succeeded("Cache strategy resolved.");
                 }
 
             case "Prepare target disk layout":
                 {
-                    string runtimeRoot = EnsureResolvedCache(runtimeState);
-                    string workingDirectory = Path.Combine(runtimeRoot, "Temp", "Deployment");
+                    string workingDirectory = Path.Combine(WinPeRoot, "Temp", "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
                     StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
@@ -310,7 +304,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             case "Download and prepare driver pack":
                 {
-                    string runtimeRoot = EnsureResolvedCache(runtimeState);
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
                     runtimeState.DriverPackSelectionKind = context.DriverPackSelectionKind;
 
                     switch (context.DriverPackSelectionKind)
@@ -320,7 +314,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                         case DriverPackSelectionKind.MicrosoftUpdateCatalog:
                             {
-                                string destination = Path.Combine(runtimeRoot, "Extracted", "Drivers", "MicrosoftUpdateCatalog");
+                                string destination = Path.Combine(targetFoundryRoot, "Extracted", "Drivers", "MicrosoftUpdateCatalog");
                                 MicrosoftUpdateCatalogDriverResult microsoftResult = await _microsoftUpdateCatalogDriverService
                                     .DownloadAsync(destination, cancellationToken)
                                     .ConfigureAwait(false);
@@ -362,7 +356,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                                     expectedHash: driverPack.Sha256,
                                     cancellationToken).ConfigureAwait(false);
 
-                                string extractionRoot = Path.Combine(runtimeRoot, "Extracted", "Drivers");
+                                string extractionRoot = Path.Combine(targetFoundryRoot, "Extracted", "Drivers");
                                 DriverPackPreparationResult preparation = await _driverPackPreparationService
                                     .PrepareAsync(driverPack, download.DestinationPath, extractionRoot, cancellationToken)
                                     .ConfigureAwait(false);
@@ -384,14 +378,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         return StepExecutionOutcome.Failed("Target disk layout was not prepared.");
                     }
 
-                    string cacheRoot = EnsureResolvedCache(runtimeState);
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
                     string imagePath = runtimeState.DownloadedOperatingSystemPath ?? string.Empty;
                     if (!File.Exists(imagePath))
                     {
                         return StepExecutionOutcome.Failed("Operating system image was not downloaded.");
                     }
 
-                    string workingDirectory = Path.Combine(cacheRoot, "Temp", "Deployment");
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
                     int imageIndex = await _windowsDeploymentService
@@ -400,7 +394,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     runtimeState.AppliedImageIndex = imageIndex;
 
-                    string scratchDirectory = Path.Combine(cacheRoot, "Temp", "Dism");
+                    string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
                     await _windowsDeploymentService
                         .ApplyImageAsync(imagePath, imageIndex, runtimeState.TargetWindowsPartitionRoot, scratchDirectory, workingDirectory, cancellationToken)
                         .ConfigureAwait(false);
@@ -425,9 +419,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         return StepExecutionOutcome.Failed("Target Windows partition is unavailable.");
                     }
 
-                    string cacheRoot = EnsureResolvedCache(runtimeState);
-                    string workingDirectory = Path.Combine(cacheRoot, "Temp", "Deployment");
-                    string scratchDirectory = Path.Combine(cacheRoot, "Temp", "Dism");
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
 
                     await _windowsDeploymentService
                         .ApplyOfflineDriversAsync(
@@ -450,7 +444,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         return StepExecutionOutcome.Skipped("Autopilot is disabled.");
                     }
 
-                    string cacheRoot = EnsureResolvedCache(runtimeState);
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
                     if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot))
                     {
                         return StepExecutionOutcome.Failed("Target Windows partition is unavailable for Autopilot artifacts.");
@@ -459,7 +453,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     HardwareProfile hardware = runtimeState.HardwareProfile ?? await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
                     AutopilotExecutionResult result = await _autopilotService
                         .ExecuteFullWorkflowAsync(
-                            cacheRoot,
+                            targetFoundryRoot,
                             runtimeState.TargetWindowsPartitionRoot,
                             hardware,
                             context.OperatingSystem,
@@ -517,7 +511,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    DeploymentLogSession session = InitializeLogSessionWithFallback(context.CacheRootPath);
+                    EnsureWinPeWorkspaceFolders();
+                    DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
                     await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, "Debug safe mode log session initialized.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Workspace initialized (simulation).", session);
@@ -540,24 +535,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
-                    EnsureCacheFolders(cache.RootPath);
+                    EnsureWinPeWorkspaceFolders();
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
-
-                    DeploymentLogSession? rebound = logSession;
-                    if (logSession is null || !cache.RootPath.Equals(logSession.RootPath, StringComparison.OrdinalIgnoreCase))
-                    {
-                        rebound = _deploymentLogService.Initialize(cache.RootPath);
-                        await _deploymentLogService.AppendAsync(rebound, DeploymentLogLevel.Info, "Debug safe mode log session rebound.", cancellationToken).ConfigureAwait(false);
-                    }
-
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
-                    return StepExecutionOutcome.Succeeded("Cache strategy resolved (simulation).", rebound);
+                    return StepExecutionOutcome.Succeeded("Cache strategy resolved (simulation).");
                 }
 
             case "Prepare target disk layout":
                 {
-                    string runtimeRoot = EnsureResolvedCache(runtimeState);
-                    string targetRoot = Path.Combine(runtimeRoot, "DryRunTarget");
+                    string targetRoot = Path.Combine(WinPeRoot, "Temp", "DryRunTarget");
                     string systemRoot = Path.Combine(targetRoot, "System");
                     string windowsRoot = Path.Combine(targetRoot, "Windows");
                     Directory.CreateDirectory(systemRoot);
@@ -594,7 +580,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             case "Download and prepare driver pack":
                 {
-                    string cacheRoot = EnsureResolvedCache(runtimeState);
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
                     runtimeState.DriverPackSelectionKind = context.DriverPackSelectionKind;
 
                     if (context.DriverPackSelectionKind == DriverPackSelectionKind.None)
@@ -624,7 +610,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         runtimeState.DriverPackName = "Microsoft Update Catalog";
                     }
 
-                    string driverRoot = Path.Combine(cacheRoot, "Extracted", "Drivers", "dry-run", simulationSegment);
+                    string driverRoot = Path.Combine(targetFoundryRoot, "Extracted", "Drivers", "dry-run", simulationSegment);
                     Directory.CreateDirectory(driverRoot);
                     string infPath = Path.Combine(driverRoot, "dryrun.inf");
                     await File.WriteAllTextAsync(infPath, "; dry-run only", cancellationToken).ConfigureAwait(false);
@@ -643,8 +629,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         return StepExecutionOutcome.Failed("Target disk layout was not prepared.");
                     }
 
-                    string cacheRoot = EnsureResolvedCache(runtimeState);
-                    string targetRoot = Path.Combine(cacheRoot, "DryRunTarget");
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string targetRoot = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(targetRoot);
                     runtimeState.AppliedImageIndex = 1;
 
                     await File.WriteAllTextAsync(
@@ -679,8 +666,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         return StepExecutionOutcome.Skipped("Autopilot is disabled.");
                     }
 
-                    string cacheRoot = EnsureResolvedCache(runtimeState);
-                    string autopilotRoot = Path.Combine(cacheRoot, "Autopilot");
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string autopilotRoot = Path.Combine(targetFoundryRoot, "Autopilot");
                     Directory.CreateDirectory(autopilotRoot);
                     string manifestPath = Path.Combine(autopilotRoot, "autopilot-workflow.dryrun.json");
 
@@ -759,38 +746,26 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return ResolveCacheBaseRoot(EnsureResolvedCache(runtimeState));
     }
 
-    private static void EnsureCacheFolders(string runtimeRoot)
+    private static string EnsureTargetFoundryRoot(DeploymentRuntimeState runtimeState)
     {
-        string[] runtimeFolders =
-        [
-            Path.Combine("Extracted", "Drivers"),
-            "Logs",
-            "State",
-            Path.Combine("Temp", "Deployment"),
-            Path.Combine("Temp", "Dism"),
-            "Autopilot"
-        ];
-
-        foreach (string folder in runtimeFolders)
-        {
-            Directory.CreateDirectory(Path.Combine(runtimeRoot, folder));
-        }
-
-        string cacheBaseRoot = ResolveCacheBaseRoot(runtimeRoot);
-        Directory.CreateDirectory(Path.Combine(cacheBaseRoot, "OperatingSystem"));
-        Directory.CreateDirectory(Path.Combine(cacheBaseRoot, "DriverPack"));
+        return runtimeState.TargetFoundryRoot
+            ?? throw new InvalidOperationException("Target Foundry root is unavailable.");
     }
 
-    private DeploymentLogSession InitializeLogSessionWithFallback(string preferredRootPath)
+    private static void EnsureWinPeWorkspaceFolders()
     {
-        try
+        string[] folders =
+        [
+            WinPeRoot,
+            Path.Combine(WinPeRoot, "Logs"),
+            Path.Combine(WinPeRoot, "Temp"),
+            Path.Combine(WinPeRoot, "State"),
+            Path.Combine(WinPeRoot, "Runtime")
+        ];
+
+        foreach (string folder in folders)
         {
-            return _deploymentLogService.Initialize(preferredRootPath);
-        }
-        catch
-        {
-            string fallbackRoot = ResolveTransientCacheRoot("LogFallback");
-            return _deploymentLogService.Initialize(fallbackRoot);
+            Directory.CreateDirectory(folder);
         }
     }
 
@@ -809,7 +784,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return resolvedCache;
         }
 
-        string safeRoot = ResolveTransientCacheRoot("IsoConflict");
+        if (resolvedCache.Mode == DeploymentMode.Usb)
+        {
+            string message =
+                $"USB cache conflict: cache path '{resolvedCache.RootPath}' is on target disk {context.TargetDiskNumber}. " +
+                "Deployment is blocked to preserve USB cache consistency.";
+            await AppendLogAsync(logSession, DeploymentLogLevel.Error, message, cancellationToken).ConfigureAwait(false);
+            throw new InvalidOperationException(message);
+        }
+
+        string safeRoot = ResolveWinPeConflictCacheRoot("IsoConflict");
         var adjusted = new CacheResolution
         {
             Mode = resolvedCache.Mode,
@@ -989,20 +973,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return secondaryHash?.Trim() ?? string.Empty;
     }
 
-    private static string ResolveTransientCacheRoot(string suffix)
+    private static string ResolveWinPeConflictCacheRoot(string suffix)
     {
-        string candidate = Path.Combine(@"X:\Foundry\Runtime", suffix);
-        try
-        {
-            Directory.CreateDirectory(candidate);
-            return candidate;
-        }
-        catch
-        {
-            string fallback = Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", suffix);
-            Directory.CreateDirectory(fallback);
-            return fallback;
-        }
+        string path = Path.Combine(WinPeRoot, "Runtime", suffix);
+        Directory.CreateDirectory(path);
+        return path;
     }
 
     private async Task UpdateCacheIndexAsync(
@@ -1173,17 +1148,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return logSession.LogsDirectoryPath;
         }
 
-        if (runtimeState.ResolvedCache is not null && !string.IsNullOrWhiteSpace(runtimeState.ResolvedCache.RootPath))
-        {
-            return Path.Combine(runtimeState.ResolvedCache.RootPath, "Logs");
-        }
-
-        if (!string.IsNullOrWhiteSpace(runtimeState.RequestedCacheRootPath))
-        {
-            return Path.Combine(runtimeState.RequestedCacheRootPath, "Logs");
-        }
-
-        return string.Empty;
+        return Path.Combine(WinPeRoot, "Logs");
     }
 
     private static string ResolveFileName(string preferredFileName, string sourceUrl)
