@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows.Threading;
@@ -12,6 +11,7 @@ using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Theme;
 using Foundry.Services.WinPe;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.ViewModels;
 
@@ -27,6 +27,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IOperationProgressService _operationProgressService;
     private readonly IAdkService _adkService;
     private readonly IMediaOutputService _mediaOutputService;
+    private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
 
     [ObservableProperty]
@@ -123,7 +124,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         ILocalizationService localizationService,
         IOperationProgressService operationProgressService,
         IAdkService adkService,
-        IMediaOutputService mediaOutputService)
+        IMediaOutputService mediaOutputService,
+        ILogger<MainWindowViewModel> logger)
     {
         _applicationShellService = applicationShellService;
         _themeService = themeService;
@@ -131,6 +133,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService = operationProgressService;
         _adkService = adkService;
         _mediaOutputService = mediaOutputService;
+        _logger = logger;
         _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
 
         _localizationService.LanguageChanged += OnLanguageChanged;
@@ -228,7 +231,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error installing ADK: {ex.Message}");
+            _logger.LogError(ex, "Error installing ADK.");
         }
     }
 
@@ -241,7 +244,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error upgrading ADK: {ex.Message}");
+            _logger.LogError(ex, "Error upgrading ADK.");
         }
     }
 
@@ -284,7 +287,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             MediaActionMessage = string.Format(CurrentCulture, Strings["UsbDiskRefreshFailedFormat"], ex.Message);
-            Debug.WriteLine(MediaActionMessage);
+            _logger.LogError(ex, "{MediaActionMessage}", MediaActionMessage);
         }
         finally
         {
@@ -319,13 +322,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             if (!result.IsSuccess && result.Error is not null)
             {
-                Debug.WriteLine($"Create ISO failed [{result.Error.Code}] {result.Error.Message} | {result.Error.Details}");
+                _logger.LogError(
+                    "Create ISO failed [{ErrorCode}] {ErrorMessage} | {ErrorDetails}",
+                    result.Error.Code,
+                    result.Error.Message,
+                    result.Error.Details);
             }
         }
         catch (Exception ex)
         {
             MediaActionMessage = string.Format(CurrentCulture, Strings["IsoCreateErrorFormat"], ex.Message);
-            Debug.WriteLine(MediaActionMessage);
+            _logger.LogError(ex, "{MediaActionMessage}", MediaActionMessage);
         }
     }
 
@@ -380,13 +387,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             if (!result.IsSuccess && result.Error is not null)
             {
-                Debug.WriteLine($"Create USB failed [{result.Error.Code}] {result.Error.Message} | {result.Error.Details}");
+                _logger.LogError(
+                    "Create USB failed [{ErrorCode}] {ErrorMessage} | {ErrorDetails}",
+                    result.Error.Code,
+                    result.Error.Message,
+                    result.Error.Details);
             }
         }
         catch (Exception ex)
         {
             MediaActionMessage = string.Format(CurrentCulture, Strings["UsbCreateErrorFormat"], ex.Message);
-            Debug.WriteLine(MediaActionMessage);
+            _logger.LogError(ex, "{MediaActionMessage}", MediaActionMessage);
         }
     }
 

@@ -1,16 +1,19 @@
 using System.Text;
 using System.IO;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.DriverPacks;
 
 public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalogDriverService
 {
     private readonly IProcessRunner _processRunner;
+    private readonly ILogger<MicrosoftUpdateCatalogDriverService> _logger;
 
-    public MicrosoftUpdateCatalogDriverService(IProcessRunner processRunner)
+    public MicrosoftUpdateCatalogDriverService(IProcessRunner processRunner, ILogger<MicrosoftUpdateCatalogDriverService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<MicrosoftUpdateCatalogDriverResult> DownloadAsync(
@@ -22,6 +25,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             throw new ArgumentException("Destination directory is required.", nameof(destinationDirectory));
         }
 
+        _logger.LogInformation("Starting Microsoft Update Catalog driver download. DestinationDirectory={DestinationDirectory}", destinationDirectory);
         Directory.CreateDirectory(destinationDirectory);
 
         string script = BuildScript(destinationDirectory);
@@ -34,6 +38,9 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
 
         if (!execution.IsSuccess)
         {
+            _logger.LogError("Microsoft Update Catalog driver download failed. ExitCode={ExitCode}, StdErr={StdErr}",
+                execution.ExitCode,
+                execution.StandardError);
             throw new InvalidOperationException(
                 "Microsoft Update Catalog download failed." + Environment.NewLine +
                 $"ExitCode: {execution.ExitCode}" + Environment.NewLine +
@@ -43,6 +50,10 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         int infCount = Directory
             .EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories)
             .Count();
+
+        _logger.LogInformation("Microsoft Update Catalog driver download completed. DestinationDirectory={DestinationDirectory}, InfCount={InfCount}",
+            destinationDirectory,
+            infCount);
 
         return new MicrosoftUpdateCatalogDriverResult
         {

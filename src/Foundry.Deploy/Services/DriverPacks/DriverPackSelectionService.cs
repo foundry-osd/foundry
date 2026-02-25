@@ -1,14 +1,29 @@
 using Foundry.Deploy.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.DriverPacks;
 
 public sealed class DriverPackSelectionService : IDriverPackSelectionService
 {
+    private readonly ILogger<DriverPackSelectionService> _logger;
+
+    public DriverPackSelectionService(ILogger<DriverPackSelectionService> logger)
+    {
+        _logger = logger;
+    }
+
     public DriverPackSelectionResult SelectBest(
         IReadOnlyList<DriverPackCatalogItem> catalog,
         HardwareProfile hardware,
         OperatingSystemCatalogItem operatingSystem)
     {
+        _logger.LogInformation("Selecting best driver pack. CatalogCount={CatalogCount}, Manufacturer={Manufacturer}, Model={Model}, OsRelease={OsRelease}, OsArchitecture={OsArchitecture}",
+            catalog.Count,
+            hardware.Manufacturer,
+            hardware.Model,
+            operatingSystem.WindowsRelease,
+            operatingSystem.Architecture);
+
         if (catalog.Count == 0)
         {
             return new DriverPackSelectionResult
@@ -64,6 +79,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
 
         if (exactModel is not null)
         {
+            _logger.LogInformation("Driver pack selected by exact model match. DriverPackId={DriverPackId}, Name={DriverPackName}", exactModel.Id, exactModel.Name);
             return new DriverPackSelectionResult
             {
                 DriverPack = exactModel,
@@ -74,6 +90,8 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         DriverPackCatalogItem latest = releaseCandidates
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .First();
+
+        _logger.LogInformation("Driver pack selected by fallback newest candidate. DriverPackId={DriverPackId}, Name={DriverPackName}", latest.Id, latest.Name);
 
         return new DriverPackSelectionResult
         {

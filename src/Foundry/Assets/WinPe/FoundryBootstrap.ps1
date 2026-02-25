@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
 $WinPeRoot = 'X:\Foundry'
-$LogPath = Join-Path $WinPeRoot 'Logs\FoundryBootstrap.log'
+$LogPath = Join-Path $WinPeRoot 'Logs\FoundryDeploy.log'
 $Owner = 'mchave3'
 $Repository = 'Foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
@@ -20,7 +20,11 @@ function Write-Log {
         [string]$Message
     )
 
-    $Entry = "[$(Get-Date -Format o)] $Message"
+    $Timestamp = [DateTime]::UtcNow.ToString(
+        'yyyy-MM-dd HH:mm:ss',
+        [System.Globalization.CultureInfo]::InvariantCulture
+    )
+    $Entry = "[$Timestamp UTC] $Message"
 
     try {
         $Directory = Split-Path -Path $LogPath -Parent
@@ -435,3 +439,4 @@ try {
 catch {
     Write-Log "Foundry bootstrap failed: $($_.Exception.Message)"
 }
+

@@ -29,7 +29,7 @@
             <MenuItem Header="_Tools">
                 <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
                 <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
-                <MenuItem Command="{Binding OpenLogsFolderCommand}" Header="Open Logs Folder" />
+                <MenuItem Command="{Binding OpenLogFileCommand}" Header="Open Log File" />
             </MenuItem>
         </Menu>
 
@@ -357,7 +357,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="2*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
@@ -416,24 +415,16 @@
                     </ListBox>
                 </GroupBox>
 
-                <!--  Log stream  -->
-                <GroupBox
-                    Grid.Row="3"
-                    Margin="0,12,0,0"
-                    Header="Logs">
-                    <ListBox ItemsSource="{Binding DeploymentLogs}" />
-                </GroupBox>
-
                 <!--  Progress page actions  -->
                 <StackPanel
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Margin="0,12,0,0"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Button
                         Width="140"
-                        Command="{Binding OpenLogsFolderCommand}"
-                        Content="Open Logs Folder" />
+                        Command="{Binding OpenLogFileCommand}"
+                        Content="Open Log File" />
                 </StackPanel>
             </Grid>
         </Grid>

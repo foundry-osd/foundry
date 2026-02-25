@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
 
@@ -11,10 +12,12 @@ internal sealed record WinPeUsbProvisionResult
 internal sealed class WinPeUsbMediaService
 {
     private readonly WinPeProcessRunner _processRunner;
+    private readonly ILogger<WinPeUsbMediaService> _logger;
 
-    public WinPeUsbMediaService(WinPeProcessRunner processRunner)
+    public WinPeUsbMediaService(WinPeProcessRunner processRunner, ILogger<WinPeUsbMediaService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(
@@ -22,6 +25,7 @@ internal sealed class WinPeUsbMediaService
         string workingDirectory,
         CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Querying USB disk candidates. WorkingDirectory={WorkingDirectory}", workingDirectory);
         string script = @"
 $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
 $result = foreach ($disk in $disks) {
@@ -50,6 +54,7 @@ $result | ConvertTo-Json -Compress
         WinPeResult<string> result = await RunPowerShellAsync(script, tools, workingDirectory, cancellationToken).ConfigureAwait(false);
         if (!result.IsSuccess)
         {
+            _logger.LogWarning("USB disk candidate query failed. Code={ErrorCode}, Message={ErrorMessage}", result.Error?.Code, result.Error?.Message);
             return WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>.Failure(result.Error!);
         }
 
@@ -83,10 +88,12 @@ $result | ConvertTo-Json -Compress
                 .OrderBy(candidate => candidate.DiskNumber)
                 .ToArray();
 
+            _logger.LogInformation("Resolved {CandidateCount} USB disk candidates after filtering.", filtered.Count);
             return WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>.Success(filtered);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to parse USB disk candidates from PowerShell output.");
             return WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>.Failure(
                 WinPeErrorCodes.UsbQueryFailed,
                 "Failed to parse USB disk candidates.",
@@ -100,8 +107,14 @@ $result | ConvertTo-Json -Compress
         WinPeToolPaths tools,
         CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Starting USB provisioning for TargetDiskNumber={TargetDiskNumber}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}",
+            options.TargetDiskNumber,
+            options.PartitionStyle,
+            options.FormatMode);
+
         if (!options.TargetDiskNumber.HasValue)
         {
+            _logger.LogWarning("USB provisioning validation failed: target disk number is missing.");
             return WinPeResult<WinPeUsbProvisionResult>.Failure(
                 WinPeErrorCodes.ValidationFailed,
                 "USB target disk number is required.",
@@ -113,6 +126,10 @@ $result | ConvertTo-Json -Compress
         WinPeResult<DiskIdentityInfo> diskResult = await GetDiskIdentityAsync(diskNumber, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!diskResult.IsSuccess)
         {
+            _logger.LogWarning("Failed to query target USB disk identity. DiskNumber={DiskNumber}, Code={ErrorCode}, Message={ErrorMessage}",
+                diskNumber,
+                diskResult.Error?.Code,
+                diskResult.Error?.Message);
             return WinPeResult<WinPeUsbProvisionResult>.Failure(diskResult.Error!);
         }
 
@@ -121,12 +138,17 @@ $result | ConvertTo-Json -Compress
         WinPeResult safetyValidation = ValidateDiskSafety(options, disk);
         if (!safetyValidation.IsSuccess)
         {
+            _logger.LogWarning("USB safety validation failed. DiskNumber={DiskNumber}, Code={ErrorCode}, Message={ErrorMessage}",
+                diskNumber,
+                safetyValidation.Error?.Code,
+                safetyValidation.Error?.Message);
             return WinPeResult<WinPeUsbProvisionResult>.Failure(safetyValidation.Error!);
         }
 
         char bootDriveLetter = FindAvailableDriveLetter('\0');
         if (bootDriveLetter == '\0')
         {
+            _logger.LogWarning("USB provisioning failed: no free drive letter available for BOOT partition.");
             return WinPeResult<WinPeUsbProvisionResult>.Failure(
                 WinPeErrorCodes.UsbProvisioningFailed,
                 "No free drive letter is available for the BOOT partition.",
@@ -136,6 +158,7 @@ $result | ConvertTo-Json -Compress
         char cacheDriveLetter = FindAvailableDriveLetter(bootDriveLetter);
         if (cacheDriveLetter == '\0')
         {
+            _logger.LogWarning("USB provisioning failed: no free drive letter available for cache partition.");
             return WinPeResult<WinPeUsbProvisionResult>.Failure(
                 WinPeErrorCodes.UsbProvisioningFailed,
                 "No free drive letter is available for the cache partition.",
@@ -153,6 +176,9 @@ $result | ConvertTo-Json -Compress
             cancellationToken).ConfigureAwait(false);
         if (!provisioningResult.IsSuccess)
         {
+            _logger.LogWarning("USB disk provisioning command failed. Code={ErrorCode}, Message={ErrorMessage}",
+                provisioningResult.Error?.Code,
+                provisioningResult.Error?.Message);
             return WinPeResult<WinPeUsbProvisionResult>.Failure(provisioningResult.Error!);
         }
 
@@ -162,12 +188,14 @@ $result | ConvertTo-Json -Compress
         WinPeResult copyResult = await CopyMediaAsync(artifact.MediaDirectoryPath, bootRoot, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!copyResult.IsSuccess)
         {
+            _logger.LogWarning("USB media copy failed. Code={ErrorCode}, Message={ErrorMessage}", copyResult.Error?.Code, copyResult.Error?.Message);
             return WinPeResult<WinPeUsbProvisionResult>.Failure(copyResult.Error!);
         }
 
         WinPeResult verifyResult = VerifyBootArtifacts(bootRoot, artifact.Architecture);
         if (!verifyResult.IsSuccess)
         {
+            _logger.LogWarning("USB boot artifact verification failed. Code={ErrorCode}, Message={ErrorMessage}", verifyResult.Error?.Code, verifyResult.Error?.Message);
             return WinPeResult<WinPeUsbProvisionResult>.Failure(verifyResult.Error!);
         }
 
@@ -177,11 +205,17 @@ $result | ConvertTo-Json -Compress
         Directory.CreateDirectory(Path.Combine(cacheRoot, "OperatingSystem"));
         Directory.CreateDirectory(Path.Combine(cacheRoot, "DriverPack"));
 
-        return WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
+        WinPeResult<WinPeUsbProvisionResult> success = WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
         {
             BootDriveLetter = $"{bootDriveLetter}:",
             CacheDriveLetter = $"{cacheDriveLetter}:"
         });
+
+        _logger.LogInformation("USB provisioning completed successfully. DiskNumber={DiskNumber}, BootDrive={BootDrive}, CacheDrive={CacheDrive}",
+            diskNumber,
+            success.Value?.BootDriveLetter,
+            success.Value?.CacheDriveLetter);
+        return success;
     }
 
     private static WinPeResult ValidateDiskSafety(UsbOutputOptions options, DiskIdentityInfo disk)
@@ -300,6 +334,7 @@ $result | ConvertTo-Json -Compress
                                 $"PartitionStyle: {partitionStyle}{Environment.NewLine}" +
                                 "DiskPartScript:" + Environment.NewLine +
                                 string.Join(Environment.NewLine, effectiveScriptLines);
+            _logger.LogWarning("DiskPart USB provisioning failed for DiskNumber={DiskNumber}. Diagnostic={Diagnostic}", diskNumber, diagnostic);
             return WinPeResult.Failure(
                 WinPeErrorCodes.UsbProvisioningFailed,
                 "Failed to partition and format the USB disk.",
@@ -330,9 +365,11 @@ $result | ConvertTo-Json -Compress
         // Robocopy success range: 0-7.
         if (copyResult.ExitCode <= 7)
         {
+            _logger.LogDebug("Robocopy completed successfully for USB media copy. ExitCode={ExitCode}", copyResult.ExitCode);
             return WinPeResult.Success();
         }
 
+        _logger.LogWarning("Robocopy failed for USB media copy. ExitCode={ExitCode}, Diagnostic={Diagnostic}", copyResult.ExitCode, copyResult.ToDiagnosticText());
         return WinPeResult.Failure(
             WinPeErrorCodes.UsbCopyFailed,
             "Failed to copy WinPE media files to USB BOOT partition.",
@@ -416,6 +453,7 @@ $disk = Get-Disk -Number {diskNumber} -ErrorAction Stop
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to parse target USB disk identity. DiskNumber={DiskNumber}", diskNumber);
             return WinPeResult<DiskIdentityInfo>.Failure(
                 WinPeErrorCodes.UsbQueryFailed,
                 "Failed to parse target USB disk details.",
@@ -439,6 +477,7 @@ $disk = Get-Disk -Number {diskNumber} -ErrorAction Stop
 
         if (!result.IsSuccess)
         {
+            _logger.LogWarning("PowerShell USB helper command failed. Code={ExitCode}, Diagnostic={Diagnostic}", result.ExitCode, result.ToDiagnosticText());
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.UsbQueryFailed,
                 "A required PowerShell USB query command failed.",
@@ -448,6 +487,7 @@ $disk = Get-Disk -Number {diskNumber} -ErrorAction Stop
         string output = result.StandardOutput.Trim();
         if (string.IsNullOrWhiteSpace(output))
         {
+            _logger.LogWarning("PowerShell USB helper command returned empty output.");
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.UsbQueryFailed,
                 "A required PowerShell USB query command returned no data.",

@@ -1,11 +1,19 @@
 using System.Diagnostics;
 using System.Text;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.System;
 
 public sealed class ProcessRunner : IProcessRunner
 {
+    private readonly ILogger<ProcessRunner> _logger;
+
+    public ProcessRunner(ILogger<ProcessRunner> logger)
+    {
+        _logger = logger;
+    }
+
     public async Task<ProcessExecutionResult> RunAsync(
         string fileName,
         string arguments,
@@ -23,6 +31,10 @@ public sealed class ProcessRunner : IProcessRunner
         }
 
         Directory.CreateDirectory(workingDirectory);
+        _logger.LogDebug("Starting process. FileName={FileName}, Arguments={Arguments}, WorkingDirectory={WorkingDirectory}",
+            fileName,
+            arguments,
+            workingDirectory);
 
         var startInfo = new ProcessStartInfo
         {
@@ -87,7 +99,7 @@ public sealed class ProcessRunner : IProcessRunner
 
         await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
 
-        return new ProcessExecutionResult
+        ProcessExecutionResult result = new()
         {
             ExitCode = process.ExitCode,
             FileName = fileName,
@@ -96,5 +108,8 @@ public sealed class ProcessRunner : IProcessRunner
             StandardOutput = stdoutBuilder.ToString(),
             StandardError = stderrBuilder.ToString()
         };
+
+        _logger.LogDebug("Process completed. FileName={FileName}, ExitCode={ExitCode}", fileName, result.ExitCode);
+        return result;
     }
 }

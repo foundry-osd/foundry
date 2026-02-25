@@ -1,10 +1,15 @@
-using System.Text.Json;
+using System.Collections.Concurrent;
 using System.IO;
+using System.Text.Json;
+using Serilog;
+using Serilog.Events;
 
 namespace Foundry.Deploy.Services.Logging;
 
-public sealed class DeploymentLogService : IDeploymentLogService
+public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
 {
+    private readonly ConcurrentDictionary<string, ILogger> _sessionLoggers = new(StringComparer.OrdinalIgnoreCase);
+
     public DeploymentLogSession Initialize(string rootPath)
     {
         if (string.IsNullOrWhiteSpace(rootPath))
@@ -18,11 +23,11 @@ public sealed class DeploymentLogService : IDeploymentLogService
         Directory.CreateDirectory(logsDirectory);
         Directory.CreateDirectory(stateDirectory);
 
-        string timestamp = DateTimeOffset.UtcNow.ToString("yyyyMMdd-HHmmss");
-        string logFilePath = Path.Combine(logsDirectory, $"foundry-deploy-{timestamp}.log");
+        string logFilePath = Path.Combine(logsDirectory, FoundryDeployLogging.LogFileName);
         string stateFilePath = Path.Combine(stateDirectory, "deployment-state.json");
 
-        File.WriteAllText(logFilePath, $"[{DateTimeOffset.UtcNow:O}] [Info] Log session created.{Environment.NewLine}");
+        GetOrCreateSessionLogger(logFilePath)
+            .Write(LogEventLevel.Information, "Log session initialized at {RootPath}.", normalizedRoot);
 
         return new DeploymentLogSession
         {
@@ -34,13 +39,25 @@ public sealed class DeploymentLogService : IDeploymentLogService
         };
     }
 
-    public async Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default)
+    public Task AppendAsync(
+        DeploymentLogSession session,
+        DeploymentLogLevel level,
+        string message,
+        CancellationToken cancellationToken = default)
     {
-        string line = $"[{DateTimeOffset.UtcNow:O}] [{level}] {message}{Environment.NewLine}";
-        await File.AppendAllTextAsync(session.LogFilePath, line, cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        LogEventLevel serilogLevel = MapLevel(level);
+
+        GetOrCreateSessionLogger(session.LogFilePath)
+            .Write(serilogLevel, "{LogMessage}", message);
+
+        return Task.CompletedTask;
     }
 
-    public async Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default)
+    public async Task SaveStateAsync<TState>(
+        DeploymentLogSession session,
+        TState state,
+        CancellationToken cancellationToken = default)
     {
         string json = JsonSerializer.Serialize(state, new JsonSerializerOptions
         {
@@ -48,5 +65,34 @@ public sealed class DeploymentLogService : IDeploymentLogService
         });
 
         await File.WriteAllTextAsync(session.StateFilePath, json, cancellationToken).ConfigureAwait(false);
+    }
+
+    public void Dispose()
+    {
+        foreach (ILogger logger in _sessionLoggers.Values)
+        {
+            (logger as IDisposable)?.Dispose();
+        }
+
+        _sessionLoggers.Clear();
+    }
+
+    private ILogger GetOrCreateSessionLogger(string logFilePath)
+    {
+        return _sessionLoggers.GetOrAdd(logFilePath, static path => FoundryDeployLogging.CreateLogger(path));
+    }
+
+    private static LogEventLevel MapLevel(DeploymentLogLevel level)
+    {
+        return level switch
+        {
+            DeploymentLogLevel.Verbose => LogEventLevel.Verbose,
+            DeploymentLogLevel.Debug => LogEventLevel.Debug,
+            DeploymentLogLevel.Info => LogEventLevel.Information,
+            DeploymentLogLevel.Warning => LogEventLevel.Warning,
+            DeploymentLogLevel.Error => LogEventLevel.Error,
+            DeploymentLogLevel.Fatal => LogEventLevel.Fatal,
+            _ => LogEventLevel.Information
+        };
     }
 }

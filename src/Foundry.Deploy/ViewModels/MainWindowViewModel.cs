@@ -12,9 +12,11 @@ using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Theme;
+using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 
 namespace Foundry.Deploy.ViewModels;
@@ -37,7 +39,6 @@ public partial class MainWindowViewModel : ObservableObject
     private const string CacheMarkerFolderName = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
-    private const string WinPeLogsRoot = @"X:\Foundry\Logs";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
@@ -80,6 +81,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
+    private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentMode _resolvedDeploymentMode;
     private readonly string? _resolvedUsbCacheRuntimeRoot;
@@ -204,7 +206,6 @@ public partial class MainWindowViewModel : ObservableObject
     public ObservableCollection<string> DriverPackVersionOptions { get; } = [];
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
     public ObservableCollection<DeploymentStepItemViewModel> DeploymentSteps { get; } = [];
-    public ObservableCollection<string> DeploymentLogs { get; } = [];
 
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
@@ -228,7 +229,8 @@ public partial class MainWindowViewModel : ObservableObject
         IDeploymentOrchestrator deploymentOrchestrator,
         IHardwareProfileService hardwareProfileService,
         ITargetDiskService targetDiskService,
-        IDriverPackSelectionService driverPackSelectionService)
+        IDriverPackSelectionService driverPackSelectionService,
+        ILogger<MainWindowViewModel> logger)
     {
         _themeService = themeService;
         _applicationShellService = applicationShellService;
@@ -239,6 +241,7 @@ public partial class MainWindowViewModel : ObservableObject
         _hardwareProfileService = hardwareProfileService;
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
+        _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
         _resolvedDeploymentMode = resolvedMode;
@@ -246,7 +249,6 @@ public partial class MainWindowViewModel : ObservableObject
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
-        _deploymentOrchestrator.LogEmitted += OnLogEmitted;
 
         EnsureCachePathForMode();
 
@@ -284,6 +286,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanRefreshCatalogs))]
     private async Task RefreshCatalogsAsync()
     {
+        _logger.LogInformation("Refreshing deployment catalogs.");
         if (IsCatalogLoading)
         {
             return;
@@ -322,6 +325,7 @@ public partial class MainWindowViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Catalog refresh failed.");
             RunOnUi(() => DeploymentStatus = $"Catalog load failed: {ex.Message}");
         }
         finally
@@ -333,6 +337,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanRefreshTargetDisks))]
     private async Task RefreshTargetDisksAsync()
     {
+        _logger.LogInformation("Refreshing target disk list.");
         if (IsTargetDiskLoading)
         {
             return;
@@ -381,6 +386,7 @@ public partial class MainWindowViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Target disk discovery failed.");
             RunOnUi(() => DeploymentStatus = $"Target disk discovery failed: {ex.Message}");
         }
         finally
@@ -410,6 +416,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanStartDeployment))]
     private async Task StartDeploymentAsync()
     {
+        _logger.LogInformation("Start deployment requested.");
         if (SelectedOperatingSystem is null)
         {
             return;
@@ -488,9 +495,13 @@ public partial class MainWindowViewModel : ObservableObject
                     ? "Deployment completed."
                     : $"Deployment failed: {result.Message}";
             });
+            _logger.LogInformation("Deployment run completed. IsSuccess={IsSuccess}, LogsDirectoryPath={LogsDirectoryPath}",
+                result.IsSuccess,
+                result.LogsDirectoryPath);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Deployment execution failed in view model.");
             RunOnUi(() => DeploymentStatus = $"Deployment failed: {ex.Message}");
         }
         finally
@@ -500,30 +511,34 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OpenLogsFolder()
+    private void OpenLogFile()
     {
         try
         {
-            string logsPath = ResolveEffectiveLogsPath();
-            Directory.CreateDirectory(logsPath);
-            _ = Process.Start(new ProcessStartInfo
+            string logFilePath = ResolveEffectiveLogFilePath();
+            ProcessStartInfo startInfo = new("notepad.exe")
             {
-                FileName = "explorer.exe",
-                Arguments = logsPath,
-                UseShellExecute = true
-            });
+                UseShellExecute = false
+            };
+            startInfo.ArgumentList.Add(logFilePath);
+            _ = Process.Start(startInfo);
+            _logger.LogInformation("Opened log file at {LogFilePath}.", logFilePath);
         }
         catch (Exception ex)
         {
-            DeploymentStatus = $"Unable to open logs folder: {ex.Message}";
+            _logger.LogError(ex, "Failed to open log file.");
+            DeploymentStatus = $"Unable to open log file: {ex.Message}";
         }
     }
 
-    private string ResolveEffectiveLogsPath()
+    private string ResolveEffectiveLogFilePath()
     {
-        return string.IsNullOrWhiteSpace(_lastLogsDirectoryPath)
-            ? WinPeLogsRoot
-            : _lastLogsDirectoryPath;
+        if (!string.IsNullOrWhiteSpace(_lastLogsDirectoryPath))
+        {
+            return Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
+        }
+
+        return FoundryDeployLogging.ResolveStartupLogFilePath();
     }
 
     partial void OnSelectedOperatingSystemChanged(OperatingSystemCatalogItem? value)
@@ -648,23 +663,9 @@ public partial class MainWindowViewModel : ObservableObject
         });
     }
 
-    private void OnLogEmitted(object? sender, string message)
-    {
-        RunOnUi(() =>
-        {
-            DeploymentLogs.Add(message);
-            const int maxLines = 400;
-            while (DeploymentLogs.Count > maxLines)
-            {
-                DeploymentLogs.RemoveAt(0);
-            }
-        });
-    }
-
     private void InitializeProgressCollections()
     {
         DeploymentSteps.Clear();
-        DeploymentLogs.Clear();
         _stepIndex.Clear();
 
         foreach (string step in _deploymentOrchestrator.PlannedSteps)
@@ -1655,9 +1656,11 @@ public partial class MainWindowViewModel : ObservableObject
                 ApplyOsFilter();
                 RefreshDriverPackOptions();
             });
+            _logger.LogInformation("Hardware profile loaded in view model. DisplayLabel={DisplayLabel}", profile.DisplayLabel);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Hardware profile loading failed in view model.");
             RunOnUi(() => DetectedHardwareSummary = $"Hardware detection failed: {ex.Message}");
         }
     }

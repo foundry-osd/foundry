@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Download;
 
@@ -14,10 +15,12 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     };
 
     private readonly IProcessRunner _processRunner;
+    private readonly ILogger<ArtifactDownloadService> _logger;
 
-    public ArtifactDownloadService(IProcessRunner processRunner)
+    public ArtifactDownloadService(IProcessRunner processRunner, ILogger<ArtifactDownloadService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<ArtifactDownloadResult> DownloadAsync(
@@ -27,6 +30,11 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         bool preferBits = true,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}, PreferBits={PreferBits}",
+            sourceUrl,
+            destinationPath,
+            preferBits);
+
         if (string.IsNullOrWhiteSpace(sourceUrl))
         {
             throw new ArgumentException("Source URL is required.", nameof(sourceUrl));
@@ -41,39 +49,51 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             ?? throw new InvalidOperationException("Unable to resolve destination directory.");
         Directory.CreateDirectory(destinationDirectory);
 
-        if (File.Exists(destinationPath) && await ValidateHashIfRequestedAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false))
+        try
         {
-            return new ArtifactDownloadResult
+            if (File.Exists(destinationPath) && await ValidateHashIfRequestedAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false))
             {
-                DestinationPath = destinationPath,
-                Downloaded = false,
-                Method = "cache-hit",
-                SizeBytes = new FileInfo(destinationPath).Length
-            };
-        }
+                _logger.LogInformation("Artifact cache hit for DestinationPath={DestinationPath}.", destinationPath);
+                return new ArtifactDownloadResult
+                {
+                    DestinationPath = destinationPath,
+                    Downloaded = false,
+                    Method = "cache-hit",
+                    SizeBytes = new FileInfo(destinationPath).Length
+                };
+            }
 
-        if (preferBits && await TryBitsDownloadAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false))
-        {
+            if (preferBits && await TryBitsDownloadAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false))
+            {
+                _logger.LogInformation("Artifact downloaded via BITS. DestinationPath={DestinationPath}", destinationPath);
+                await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
+                return new ArtifactDownloadResult
+                {
+                    DestinationPath = destinationPath,
+                    Downloaded = true,
+                    Method = "bits",
+                    SizeBytes = new FileInfo(destinationPath).Length
+                };
+            }
+
+            _logger.LogInformation("Falling back to HttpClient download. SourceUrl={SourceUrl}", sourceUrl);
+            await DownloadWithHttpClientAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false);
             await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
+
+            _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
             return new ArtifactDownloadResult
             {
                 DestinationPath = destinationPath,
                 Downloaded = true,
-                Method = "bits",
+                Method = "httpclient",
                 SizeBytes = new FileInfo(destinationPath).Length
             };
         }
-
-        await DownloadWithHttpClientAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false);
-        await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
-
-        return new ArtifactDownloadResult
+        catch (Exception ex)
         {
-            DestinationPath = destinationPath,
-            Downloaded = true,
-            Method = "httpclient",
-            SizeBytes = new FileInfo(destinationPath).Length
-        };
+            _logger.LogError(ex, "Artifact download failed. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}", sourceUrl, destinationPath);
+            throw;
+        }
     }
 
     private async Task<bool> TryBitsDownloadAsync(string sourceUrl, string destinationPath, CancellationToken cancellationToken)
@@ -92,6 +112,11 @@ Start-BitsTransfer -Source '{escapedUrl}' -Destination '{escapedDestination}' -T
         ProcessExecutionResult execution = await _processRunner
             .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
             .ConfigureAwait(false);
+
+        if (!execution.IsSuccess)
+        {
+            _logger.LogWarning("BITS download attempt failed. ExitCode={ExitCode}", execution.ExitCode);
+        }
 
         return execution.IsSuccess && File.Exists(destinationPath);
     }

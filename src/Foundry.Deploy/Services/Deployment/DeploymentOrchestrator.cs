@@ -8,6 +8,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -39,6 +40,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly IDriverPackPreparationService _driverPackPreparationService;
     private readonly IWindowsDeploymentService _windowsDeploymentService;
     private readonly IAutopilotService _autopilotService;
+    private readonly ILogger<DeploymentOrchestrator> _logger;
 
     public DeploymentOrchestrator(
         IOperationProgressService operationProgressService,
@@ -50,7 +52,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         IArtifactDownloadService artifactDownloadService,
         IDriverPackPreparationService driverPackPreparationService,
         IWindowsDeploymentService windowsDeploymentService,
-        IAutopilotService autopilotService)
+        IAutopilotService autopilotService,
+        ILogger<DeploymentOrchestrator> logger)
     {
         _operationProgressService = operationProgressService;
         _cacheLocatorService = cacheLocatorService;
@@ -62,17 +65,24 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _driverPackPreparationService = driverPackPreparationService;
         _windowsDeploymentService = windowsDeploymentService;
         _autopilotService = autopilotService;
+        _logger = logger;
     }
 
     public IReadOnlyList<string> PlannedSteps => Steps;
 
     public event EventHandler<DeploymentStepProgress>? StepProgressChanged;
-    public event EventHandler<string>? LogEmitted;
 
     public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, DriverPackSelectionKind={DriverPackSelectionKind}",
+            context.Mode,
+            context.IsDryRun,
+            context.TargetDiskNumber,
+            context.DriverPackSelectionKind);
+
         if (!_operationProgressService.TryStart(OperationKind.Deploy, "Starting Foundry.Deploy orchestration.", 0))
         {
+            _logger.LogWarning("Deployment orchestration rejected because another operation is already in progress.");
             return new DeploymentResult
             {
                 IsSuccess = false,
@@ -95,22 +105,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         try
         {
-            EmitLog($"[INFO] Deployment mode: {context.Mode}");
-            EmitLog($"[INFO] Cache root: {context.CacheRootPath}");
-            EmitLog($"[INFO] Target disk number: {context.TargetDiskNumber}");
-            EmitLog($"[INFO] OS: {context.OperatingSystem.DisplayLabel}");
-            EmitLog($"[INFO] Driver pack mode: {context.DriverPackSelectionKind}");
-            EmitLog($"[INFO] Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}");
-            EmitLog($"[INFO] Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}");
-            EmitLog($"[INFO] Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}");
-            EmitLog("[INFO] Telemetry mode: disabled (zero telemetry).");
-            EmitLog($"[INFO] Execution mode: {(context.IsDryRun ? "Debug Safe Mode (dry-run)" : "Live")}");
+            EnsureWinPeWorkspaceFolders();
+            logSession = _deploymentLogService.Initialize(WinPeRoot);
+            await AppendRunContextAsync(logSession, context, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < Steps.Length; i++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
                 string stepName = Steps[i];
+                _logger.LogInformation("Executing deployment step {StepIndex}/{StepCount}: {StepName}", i + 1, Steps.Length, stepName);
                 runtimeState.CurrentStep = stepName;
                 EmitStep(stepName, DeploymentStepState.Running, i + 1, Steps.Length, $"Starting {stepName}.");
                 await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[STEP] {stepName}", cancellationToken).ConfigureAwait(false);
@@ -133,6 +137,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 if (outcome.State == DeploymentStepState.Failed)
                 {
+                    _logger.LogWarning("Deployment step failed. StepName={StepName}, Message={Message}", stepName, outcome.Message);
                     throw new InvalidOperationException(outcome.Message);
                 }
 
@@ -148,6 +153,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             }
 
             _operationProgressService.Complete("Deployment orchestration completed.");
+            _logger.LogInformation("Deployment orchestration completed successfully.");
             await AppendLogAsync(logSession, DeploymentLogLevel.Info, "[SUCCESS] Deployment orchestration completed.", cancellationToken).ConfigureAwait(false);
 
             string summaryPath = await PersistFinalArtifactsAsync(runtimeState, logSession, cancellationToken).ConfigureAwait(false);
@@ -164,6 +170,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         catch (OperationCanceledException)
         {
             _operationProgressService.Fail("Deployment cancelled.");
+            _logger.LogWarning("Deployment orchestration cancelled.");
             await AppendLogAsync(logSession, DeploymentLogLevel.Warning, "[WARN] Deployment cancelled by user.", cancellationToken).ConfigureAwait(false);
             return new DeploymentResult
             {
@@ -175,7 +182,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         catch (Exception ex)
         {
             _operationProgressService.Fail("Deployment failed.");
-            await AppendLogAsync(logSession, DeploymentLogLevel.Error, $"[ERROR] {ex.Message}", cancellationToken).ConfigureAwait(false);
+            _logger.LogError(ex, "Deployment orchestration failed.");
+            await AppendLogAsync(logSession, DeploymentLogLevel.Error, $"[ERROR] {ex}", cancellationToken).ConfigureAwait(false);
             return new DeploymentResult
             {
                 IsSuccess = false,
@@ -202,11 +210,19 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             case "Initialize deployment workspace":
                 {
                     EnsureWinPeWorkspaceFolders();
-                    DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
+                    if (logSession is null)
+                    {
+                        DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
+                        await _deploymentLogService
+                            .AppendAsync(session, DeploymentLogLevel.Info, $"Log session initialized at '{session.RootPath}'.", cancellationToken)
+                            .ConfigureAwait(false);
+                        return StepExecutionOutcome.Succeeded("Workspace initialized.", session);
+                    }
+
                     await _deploymentLogService
-                        .AppendAsync(session, DeploymentLogLevel.Info, $"Log session initialized at '{session.RootPath}'.", cancellationToken)
+                        .AppendAsync(logSession, DeploymentLogLevel.Info, "Workspace initialization confirmed.", cancellationToken)
                         .ConfigureAwait(false);
-                    return StepExecutionOutcome.Succeeded("Workspace initialized.", session);
+                    return StepExecutionOutcome.Succeeded("Workspace initialized.");
                 }
 
             case "Validate target configuration":
@@ -715,23 +731,40 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         });
     }
 
-    private void EmitLog(string message)
-    {
-        string line = $"[{DateTimeOffset.Now:O}] {message}";
-        LogEmitted?.Invoke(this, line);
-    }
-
     private async Task AppendLogAsync(
         DeploymentLogSession? session,
         DeploymentLogLevel level,
         string message,
         CancellationToken cancellationToken)
     {
-        EmitLog($"[{level}] {message}");
-
         if (session is not null)
         {
             await _deploymentLogService.AppendAsync(session, level, message, cancellationToken).ConfigureAwait(false);
+        }
+    }
+
+    private async Task AppendRunContextAsync(
+        DeploymentLogSession session,
+        DeploymentContext context,
+        CancellationToken cancellationToken)
+    {
+        string[] lines =
+        [
+            $"Deployment mode: {context.Mode}",
+            $"Cache root: {context.CacheRootPath}",
+            $"Target disk number: {context.TargetDiskNumber}",
+            $"OS: {context.OperatingSystem.DisplayLabel}",
+            $"Driver pack mode: {context.DriverPackSelectionKind}",
+            $"Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}",
+            $"Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}",
+            $"Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}",
+            "Telemetry mode: disabled (zero telemetry).",
+            $"Execution mode: {(context.IsDryRun ? "Debug Safe Mode (dry-run)" : "Live")}"
+        ];
+
+        foreach (string line in lines)
+        {
+            await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, line, cancellationToken).ConfigureAwait(false);
         }
     }
 

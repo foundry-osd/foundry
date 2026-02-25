@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Catalog;
 
@@ -12,22 +13,38 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
     {
         Timeout = TimeSpan.FromMinutes(5)
     };
+    private readonly ILogger<DriverPackCatalogService> _logger;
+
+    public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger)
+    {
+        _logger = logger;
+    }
 
     public async Task<IReadOnlyList<DriverPackCatalogItem>> GetCatalogAsync(CancellationToken cancellationToken = default)
     {
-        string xmlContent = await HttpClient.GetStringAsync(CatalogUri, cancellationToken).ConfigureAwait(false);
-        XDocument document = XDocument.Parse(xmlContent);
+        _logger.LogInformation("Fetching driver pack catalog from {CatalogUri}.", CatalogUri);
+        try
+        {
+            string xmlContent = await HttpClient.GetStringAsync(CatalogUri, cancellationToken).ConfigureAwait(false);
+            XDocument document = XDocument.Parse(xmlContent);
 
-        DriverPackCatalogItem[] items = document
-            .Descendants("DriverPack")
-            .Select(ParseItem)
-            .Where(item => !string.IsNullOrWhiteSpace(item.DownloadUrl))
-            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
-            .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
+            DriverPackCatalogItem[] items = document
+                .Descendants("DriverPack")
+                .Select(ParseItem)
+                .Where(item => !string.IsNullOrWhiteSpace(item.DownloadUrl))
+                .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+                .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
 
-        return items;
+            _logger.LogInformation("Loaded {ItemCount} driver pack catalog entries.", items.Length);
+            return items;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Driver pack catalog load failed from {CatalogUri}.", CatalogUri);
+            throw;
+        }
     }
 
     private static DriverPackCatalogItem ParseItem(XElement driverPack)

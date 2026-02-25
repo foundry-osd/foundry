@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Windows.Threading;
+using Foundry.Logging;
 using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
@@ -6,7 +9,8 @@ using Foundry.Services.Theme;
 using Foundry.Services.WinPe;
 using Foundry.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Foundry;
 
@@ -15,20 +19,42 @@ public static class Program
     [STAThread]
     public static void Main()
     {
-        ConfigureLocalWinPeDeployForDebugSession();
+        Log.Logger = FoundryLogging.CreateApplicationLogger();
+        RegisterGlobalExceptionHandlers();
 
-        using ServiceProvider serviceProvider = BuildServiceProvider();
+        try
+        {
+            ConfigureLocalWinPeDeployForDebugSession();
 
-        App app = serviceProvider.GetRequiredService<App>();
-        app.InitializeComponent();
+            using ServiceProvider serviceProvider = BuildServiceProvider();
 
-        MainWindow mainWindow = serviceProvider.GetRequiredService<MainWindow>();
-        app.Run(mainWindow);
+            App app = serviceProvider.GetRequiredService<App>();
+            app.DispatcherUnhandledException += OnDispatcherUnhandledException;
+            app.InitializeComponent();
+
+            MainWindow mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            app.Run(mainWindow);
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Foundry terminated due to an unhandled startup/runtime exception.");
+            throw;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 
     private static ServiceProvider BuildServiceProvider()
     {
         ServiceCollection services = new();
+
+        services.AddLogging(builder =>
+        {
+            builder.ClearProviders();
+            builder.AddSerilog(dispose: false);
+        });
 
         services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
@@ -72,6 +98,33 @@ public static class Program
 
         Environment.SetEnvironmentVariable(WinPeDefaults.LocalDeployProjectEnvironmentVariable, projectPath);
 #endif
+    }
+
+    private static void RegisterGlobalExceptionHandlers()
+    {
+        AppDomain.CurrentDomain.UnhandledException += (_, args) =>
+        {
+            if (args.ExceptionObject is Exception exception)
+            {
+                Log.Fatal(exception, "Unhandled AppDomain exception (IsTerminating={IsTerminating}).", args.IsTerminating);
+                return;
+            }
+
+            Log.Fatal("Unhandled AppDomain exception object (IsTerminating={IsTerminating}): {ExceptionObject}",
+                args.IsTerminating,
+                args.ExceptionObject);
+        };
+
+        TaskScheduler.UnobservedTaskException += (_, args) =>
+        {
+            Log.Error(args.Exception, "Unobserved task exception.");
+            args.SetObserved();
+        };
+    }
+
+    private static void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs args)
+    {
+        Log.Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
     }
 
     private static bool TryFindFoundryDeployProjectPath(out string projectPath)
