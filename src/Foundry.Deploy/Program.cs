@@ -179,6 +179,7 @@ public static class Program
         TaskScheduler.UnobservedTaskException += (_, args) =>
         {
             Log.Error(args.Exception, "Unobserved task exception.");
+            args.SetObserved();
         };
     }
 

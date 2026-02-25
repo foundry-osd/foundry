@@ -62,6 +62,19 @@
   - `src/Foundry.Deploy/MainWindow.xaml`
   - `src/Foundry/Assets/WinPe/FoundryBootstrap.ps1`
 
+### Phase 5: Cleanup pass
+- **Status:** complete
+- Actions taken:
+  - Simplification de `DeploymentLogService` pour utiliser `Serilog.ILogger` (moins de couplage).
+  - Factorisation des logs de contexte initiaux dans `DeploymentOrchestrator.AppendRunContextAsync`.
+  - Durcissement mineur des handlers globaux via `args.SetObserved()` pour `TaskScheduler.UnobservedTaskException`.
+  - Rebuild complet des deux projets.
+- Files created/modified:
+  - `src/Foundry/Program.cs`
+  - `src/Foundry.Deploy/Program.cs`
+  - `src/Foundry.Deploy/Services/Logging/DeploymentLogService.cs`
+  - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -70,6 +83,8 @@
 | Build Foundry | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK | Build OK | OK |
 | Build Foundry.Deploy (1er passage) | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj -nologo` | Build OK | CS0103 (`Path/Directory/File`) | FAIL |
 | Build Foundry.Deploy (2e passage) | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj -nologo` | Build OK | Build OK apres correction `using System.IO;` | OK |
+| Build Foundry apres cleanup | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK | Build OK | OK |
+| Build Foundry.Deploy apres cleanup | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj -nologo` | Build OK | Build OK | OK |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
@@ -79,7 +94,7 @@
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Implementation terminee, validation de build terminee |
+| Where am I? | Cleanup terminee, builds OK |
 | Where am I going? | Validation runtime manuelle (fichier + Debug VS + retention) |
 | What's the goal? | Migration logging Serilog separee pour Foundry + Foundry.Deploy (realisee) |
 | What have I learned? | Voir `findings.md` |

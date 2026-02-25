@@ -37,6 +37,8 @@
 | `deployment-state.json` conserve | Ne pas casser la logique runtime actuelle |
 | Suppression des logs live UI Deploy | Choix utilisateur explicite |
 | Output template unifie: `UtcTimestamp | Level | SourceContext | Message | Exception` | Lisibilite + horodatage UTC ISO-8601 |
+| Simplification `DeploymentLogService` vers `Serilog.ILogger` (au lieu de type concret `Logger`) | Couplage reduit et implementation plus propre |
+| Factorisation des logs de contexte d orchestration dans une methode dediee | Nettoyage et lisibilite sans changement fonctionnel |
 
 ## Issues Encountered
 | Issue | Resolution |

@@ -2,14 +2,13 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Text.Json;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 
 namespace Foundry.Deploy.Services.Logging;
 
 public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
 {
-    private readonly ConcurrentDictionary<string, Logger> _sessionLoggers = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, ILogger> _sessionLoggers = new(StringComparer.OrdinalIgnoreCase);
 
     public DeploymentLogSession Initialize(string rootPath)
     {
@@ -70,17 +69,17 @@ public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
 
     public void Dispose()
     {
-        foreach (Logger logger in _sessionLoggers.Values)
+        foreach (ILogger logger in _sessionLoggers.Values)
         {
-            logger.Dispose();
+            (logger as IDisposable)?.Dispose();
         }
 
         _sessionLoggers.Clear();
     }
 
-    private Logger GetOrCreateSessionLogger(string logFilePath)
+    private ILogger GetOrCreateSessionLogger(string logFilePath)
     {
-        return _sessionLoggers.GetOrAdd(logFilePath, static path => (Logger)FoundryDeployLogging.CreateLogger(path));
+        return _sessionLoggers.GetOrAdd(logFilePath, static path => FoundryDeployLogging.CreateLogger(path));
     }
 
     private static LogEventLevel MapLevel(DeploymentLogLevel level)

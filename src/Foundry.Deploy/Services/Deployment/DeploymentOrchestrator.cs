@@ -96,36 +96,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             EnsureWinPeWorkspaceFolders();
             logSession = _deploymentLogService.Initialize(WinPeRoot);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Deployment mode: {context.Mode}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Cache root: {context.CacheRootPath}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Target disk number: {context.TargetDiskNumber}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"OS: {context.OperatingSystem.DisplayLabel}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Driver pack mode: {context.DriverPackSelectionKind}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, "Telemetry mode: disabled (zero telemetry).", cancellationToken)
-                .ConfigureAwait(false);
-            await _deploymentLogService
-                .AppendAsync(logSession, DeploymentLogLevel.Info, $"Execution mode: {(context.IsDryRun ? "Debug Safe Mode (dry-run)" : "Live")}", cancellationToken)
-                .ConfigureAwait(false);
+            await AppendRunContextAsync(logSession, context, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < Steps.Length; i++)
             {
@@ -753,6 +724,31 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         if (session is not null)
         {
             await _deploymentLogService.AppendAsync(session, level, message, cancellationToken).ConfigureAwait(false);
+        }
+    }
+
+    private async Task AppendRunContextAsync(
+        DeploymentLogSession session,
+        DeploymentContext context,
+        CancellationToken cancellationToken)
+    {
+        string[] lines =
+        [
+            $"Deployment mode: {context.Mode}",
+            $"Cache root: {context.CacheRootPath}",
+            $"Target disk number: {context.TargetDiskNumber}",
+            $"OS: {context.OperatingSystem.DisplayLabel}",
+            $"Driver pack mode: {context.DriverPackSelectionKind}",
+            $"Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}",
+            $"Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}",
+            $"Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}",
+            "Telemetry mode: disabled (zero telemetry).",
+            $"Execution mode: {(context.IsDryRun ? "Debug Safe Mode (dry-run)" : "Live")}"
+        ];
+
+        foreach (string line in lines)
+        {
+            await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, line, cancellationToken).ConfigureAwait(false);
         }
     }
 
