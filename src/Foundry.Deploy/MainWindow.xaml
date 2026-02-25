@@ -357,7 +357,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="2*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
@@ -416,17 +415,9 @@
                     </ListBox>
                 </GroupBox>
 
-                <!--  Log stream  -->
-                <GroupBox
-                    Grid.Row="3"
-                    Margin="0,12,0,0"
-                    Header="Logs">
-                    <ListBox ItemsSource="{Binding DeploymentLogs}" />
-                </GroupBox>
-
                 <!--  Progress page actions  -->
                 <StackPanel
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Margin="0,12,0,0"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">

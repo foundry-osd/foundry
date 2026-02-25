@@ -204,7 +204,6 @@ public partial class MainWindowViewModel : ObservableObject
     public ObservableCollection<string> DriverPackVersionOptions { get; } = [];
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
     public ObservableCollection<DeploymentStepItemViewModel> DeploymentSteps { get; } = [];
-    public ObservableCollection<string> DeploymentLogs { get; } = [];
 
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
@@ -246,7 +245,6 @@ public partial class MainWindowViewModel : ObservableObject
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
-        _deploymentOrchestrator.LogEmitted += OnLogEmitted;
 
         EnsureCachePathForMode();
 
@@ -648,23 +646,9 @@ public partial class MainWindowViewModel : ObservableObject
         });
     }
 
-    private void OnLogEmitted(object? sender, string message)
-    {
-        RunOnUi(() =>
-        {
-            DeploymentLogs.Add(message);
-            const int maxLines = 400;
-            while (DeploymentLogs.Count > maxLines)
-            {
-                DeploymentLogs.RemoveAt(0);
-            }
-        });
-    }
-
     private void InitializeProgressCollections()
     {
         DeploymentSteps.Clear();
-        DeploymentLogs.Clear();
         _stepIndex.Clear();
 
         foreach (string step in _deploymentOrchestrator.PlannedSteps)
