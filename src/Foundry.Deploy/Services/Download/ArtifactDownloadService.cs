@@ -1,25 +1,18 @@
 using System.Net.Http;
 using System.Security.Cryptography;
-using System.Text;
 using System.IO;
-using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Download;
 
 public sealed class ArtifactDownloadService : IArtifactDownloadService
 {
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(30)
-    };
+    private static readonly HttpClient HttpClient = CreateInsecureHttpClient();
 
-    private readonly IProcessRunner _processRunner;
     private readonly ILogger<ArtifactDownloadService> _logger;
 
-    public ArtifactDownloadService(IProcessRunner processRunner, ILogger<ArtifactDownloadService> logger)
+    public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
     {
-        _processRunner = processRunner;
         _logger = logger;
     }
 
@@ -27,13 +20,11 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string sourceUrl,
         string destinationPath,
         string? expectedHash = null,
-        bool preferBits = true,
         CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}, PreferBits={PreferBits}",
+        _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}",
             sourceUrl,
-            destinationPath,
-            preferBits);
+            destinationPath);
 
         if (string.IsNullOrWhiteSpace(sourceUrl))
         {
@@ -63,20 +54,6 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 };
             }
 
-            if (preferBits && await TryBitsDownloadAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false))
-            {
-                _logger.LogInformation("Artifact downloaded via BITS. DestinationPath={DestinationPath}", destinationPath);
-                await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
-                return new ArtifactDownloadResult
-                {
-                    DestinationPath = destinationPath,
-                    Downloaded = true,
-                    Method = "bits",
-                    SizeBytes = new FileInfo(destinationPath).Length
-                };
-            }
-
-            _logger.LogInformation("Falling back to HttpClient download. SourceUrl={SourceUrl}", sourceUrl);
             await DownloadWithHttpClientAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false);
             await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
 
@@ -91,34 +68,14 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Artifact download failed. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}", sourceUrl, destinationPath);
+            _logger.LogError(
+                ex,
+                "Artifact download failed. SourceUrl={SourceUrl}, SourceHost={SourceHost}, DestinationPath={DestinationPath}",
+                sourceUrl,
+                TryGetSourceHost(sourceUrl),
+                destinationPath);
             throw;
         }
-    }
-
-    private async Task<bool> TryBitsDownloadAsync(string sourceUrl, string destinationPath, CancellationToken cancellationToken)
-    {
-        string escapedUrl = sourceUrl.Replace("'", "''");
-        string escapedDestination = destinationPath.Replace("'", "''");
-        string script = $@"
-$ProgressPreference='SilentlyContinue'
-if (!(Get-Command -Name Start-BitsTransfer -ErrorAction SilentlyContinue)) {{ exit 41 }}
-Start-BitsTransfer -Source '{escapedUrl}' -Destination '{escapedDestination}' -TransferType Download -ErrorAction Stop
-";
-
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
-
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess)
-        {
-            _logger.LogWarning("BITS download attempt failed. ExitCode={ExitCode}", execution.ExitCode);
-        }
-
-        return execution.IsSuccess && File.Exists(destinationPath);
     }
 
     private static async Task DownloadWithHttpClientAsync(string sourceUrl, string destinationPath, CancellationToken cancellationToken)
@@ -199,4 +156,25 @@ Start-BitsTransfer -Source '{escapedUrl}' -Destination '{escapedDestination}' -T
         byte[] hash = await hashAlgorithm.ComputeHashAsync(stream, cancellationToken).ConfigureAwait(false);
         return Convert.ToHexString(hash);
     }
+
+    private static string TryGetSourceHost(string sourceUrl)
+    {
+        return Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri)
+            ? uri.Host
+            : "invalid-url";
+    }
+
+    private static HttpClient CreateInsecureHttpClient()
+    {
+        var handler = new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        };
+
+        return new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromMinutes(30)
+        };
+    }
+
 }

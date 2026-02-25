@@ -302,7 +302,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string destinationPath = Path.Combine(osDirectory, fileName);
                     string? expectedOsHash = ResolvePreferredHash(context.OperatingSystem.Sha256, context.OperatingSystem.Sha1);
                     ArtifactDownloadResult result = await _artifactDownloadService
-                        .DownloadAsync(context.OperatingSystem.Url, destinationPath, expectedHash: expectedOsHash, preferBits: true, cancellationToken: cancellationToken)
+                        .DownloadAsync(context.OperatingSystem.Url, destinationPath, expectedHash: expectedOsHash, cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
 
                     runtimeState.DownloadedOperatingSystemPath = result.DestinationPath;
@@ -359,7 +359,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                                 string archivePath = Path.Combine(driverPackDirectory, archiveName);
 
                                 ArtifactDownloadResult download = await _artifactDownloadService
-                                    .DownloadAsync(driverPack.DownloadUrl, archivePath, expectedHash: driverPack.Sha256, preferBits: true, cancellationToken)
+                                    .DownloadAsync(driverPack.DownloadUrl, archivePath, expectedHash: driverPack.Sha256, cancellationToken)
                                     .ConfigureAwait(false);
 
                                 runtimeState.DownloadedDriverPackPath = download.DestinationPath;

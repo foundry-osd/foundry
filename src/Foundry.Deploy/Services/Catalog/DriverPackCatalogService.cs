@@ -9,10 +9,7 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class DriverPackCatalogService : IDriverPackCatalogService
 {
     private const string CatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/DriverPack/DriverPack_Unified.xml";
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(5)
-    };
+    private static readonly HttpClient HttpClient = CreateInsecureHttpClient();
     private readonly ILogger<DriverPackCatalogService> _logger;
 
     public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger)
@@ -110,6 +107,19 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
             "amd64" => "x64",
             "aarch64" => "arm64",
             _ => normalized
+        };
+    }
+
+    private static HttpClient CreateInsecureHttpClient()
+    {
+        var handler = new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        };
+
+        return new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromMinutes(60)
         };
     }
 }

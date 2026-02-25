@@ -9,10 +9,7 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogService
 {
     private const string CatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/OS/OperatingSystem.xml";
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(5)
-    };
+    private static readonly HttpClient HttpClient = CreateInsecureHttpClient();
     private readonly ILogger<OperatingSystemCatalogService> _logger;
 
     public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger)
@@ -100,6 +97,19 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
             "amd64" => "x64",
             "aarch64" => "arm64",
             _ => normalized
+        };
+    }
+
+    private static HttpClient CreateInsecureHttpClient()
+    {
+        var handler = new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        };
+
+        return new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromMinutes(60)
         };
     }
 }
