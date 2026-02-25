@@ -73,31 +73,22 @@
                     Grid.Row="1"
                     PreviewMouseDown="WizardTabControl_PreviewMouseDown"
                     SelectedIndex="{Binding WizardStepIndex}">
-                    <!--  Step 1: Deployment mode and target disk  -->
-                    <TabItem Header="1. Mode">
+                    <!--  Step 1: Target disk and runtime options  -->
+                    <TabItem Header="1. Target">
                         <Grid Margin="16">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Deployment Mode" />
-                            <ComboBox
-                                Grid.Row="1"
-                                Margin="0,8,0,16"
-                                ItemsSource="{Binding DeploymentModes}"
-                                SelectedItem="{Binding SelectedDeploymentMode}" />
-
                             <!--  Step 1 details and toggles  -->
-                            <StackPanel Grid.Row="2">
+                            <StackPanel Grid.Row="0">
                                 <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
-                                <TextBox Margin="0,8,0,0" Text="{Binding CacheRootPath}" />
+                                <TextBox Margin="0,8,0,0" IsReadOnly="True" Text="{Binding CacheRootPath}" />
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="ISO mode uses C:\Foundry\Deploy. USB mode will switch to cache partition logic in the deployment engine." />
+                                    Text="Cache strategy is determined automatically from WinPE startup context." />
                                 <TextBlock
                                     Margin="0,12,0,0"
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -299,9 +290,6 @@
                                 Margin="0,0,0,12"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="Deployment Summary" />
-
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Mode" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDeploymentMode}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding CacheRootPath}" />

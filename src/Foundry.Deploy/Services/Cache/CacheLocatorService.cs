@@ -5,9 +5,11 @@ namespace Foundry.Deploy.Services.Cache;
 
 public sealed class CacheLocatorService : ICacheLocatorService
 {
-    private const string IsoRoot = @"C:\Foundry\Deploy";
-    private const string UsbFallbackRoot = @"X:\Windows\Temp\Foundry\Deploy";
-    private const string CacheFolderName = "Foundry Cache";
+    private const string WinPeTransientRoot = @"X:\Foundry";
+    private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
+    private const string CacheVolumeLabel = "Foundry Cache";
+    private const string CacheMarkerFolderName = "Foundry Cache";
+    private const string RuntimeFolderName = "Runtime";
 
     public Task<CacheResolution> ResolveAsync(
         DeploymentMode mode,
@@ -16,54 +18,68 @@ public sealed class CacheLocatorService : ICacheLocatorService
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (mode == DeploymentMode.Iso)
+        string preferredRoot = NormalizePath(preferredRootPath);
+        CacheResolution resolution = mode switch
         {
-            return Task.FromResult(new CacheResolution
-            {
-                Mode = mode,
-                RootPath = IsoRoot,
-                Source = "ISO policy root",
-                IsPersistent = true
-            });
-        }
+            DeploymentMode.Iso => ResolveIso(mode, preferredRoot),
+            _ => ResolveUsb(mode, preferredRoot)
+        };
 
-        // USB mode:
-        // 1) honor explicit preferred path if provided
-        // 2) locate dedicated cache partition (label or folder)
-        // 3) fallback to WinPE temp path.
-        if (!string.IsNullOrWhiteSpace(preferredRootPath))
-        {
-            return Task.FromResult(new CacheResolution
-            {
-                Mode = mode,
-                RootPath = preferredRootPath.Trim(),
-                Source = "Preferred path",
-                IsPersistent = IsPersistentPath(preferredRootPath)
-            });
-        }
-
-        string? cachePartitionPath = FindUsbCachePartitionRoot();
-        if (!string.IsNullOrWhiteSpace(cachePartitionPath))
-        {
-            return Task.FromResult(new CacheResolution
-            {
-                Mode = mode,
-                RootPath = cachePartitionPath,
-                Source = "Detected USB cache partition",
-                IsPersistent = true
-            });
-        }
-
-        return Task.FromResult(new CacheResolution
-        {
-            Mode = mode,
-            RootPath = UsbFallbackRoot,
-            Source = "USB fallback in WinPE temp",
-            IsPersistent = false
-        });
+        return Task.FromResult(resolution);
     }
 
-    private static string? FindUsbCachePartitionRoot()
+    private static CacheResolution ResolveIso(DeploymentMode mode, string preferredRoot)
+    {
+        bool hasPreferred = !string.IsNullOrWhiteSpace(preferredRoot);
+        return CreateResolution(
+            mode,
+            hasPreferred ? preferredRoot : WinPeTransientRuntimeRoot,
+            hasPreferred ? "Preferred path" : "ISO policy root",
+            isPersistent: false);
+    }
+
+    private static CacheResolution ResolveUsb(DeploymentMode mode, string preferredRoot)
+    {
+        // USB mode:
+        // 1) honor explicit preferred path when it is not the WinPE transient placeholder
+        // 2) locate dedicated cache partition (label or marker folder)
+        // 3) use transient WinPE runtime root as fallback.
+        if (!string.IsNullOrWhiteSpace(preferredRoot) &&
+            !IsWinPeTransientPlaceholder(preferredRoot))
+        {
+            return CreateResolution(mode, preferredRoot, "Preferred path", isPersistent: false);
+        }
+
+        string? cacheRuntimePath = FindUsbCacheRuntimeRoot();
+        if (!string.IsNullOrWhiteSpace(cacheRuntimePath))
+        {
+            return CreateResolution(mode, cacheRuntimePath, "Detected USB cache partition", isPersistent: true);
+        }
+
+        if (!string.IsNullOrWhiteSpace(preferredRoot))
+        {
+            return CreateResolution(mode, preferredRoot, "USB preferred transient root", isPersistent: false);
+        }
+
+        return CreateResolution(mode, WinPeTransientRuntimeRoot, "USB fallback in WinPE temp", isPersistent: false);
+    }
+
+    private static CacheResolution CreateResolution(
+        DeploymentMode mode,
+        string rootPath,
+        string source,
+        bool isPersistent)
+    {
+        return new CacheResolution
+        {
+            Mode = mode,
+            RootPath = rootPath,
+            Source = source,
+            IsPersistent = isPersistent
+        };
+    }
+
+    private static string? FindUsbCacheRuntimeRoot()
     {
         foreach (DriveInfo drive in DriveInfo.GetDrives())
         {
@@ -74,9 +90,9 @@ public sealed class CacheLocatorService : ICacheLocatorService
 
             try
             {
-                if (string.Equals(drive.VolumeLabel, CacheFolderName, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(drive.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
                 {
-                    return Path.Combine(drive.RootDirectory.FullName, CacheFolderName, "Deploy");
+                    return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
                 }
             }
             catch
@@ -84,24 +100,25 @@ public sealed class CacheLocatorService : ICacheLocatorService
                 // Ignore drives that cannot expose label.
             }
 
-            string folderPath = Path.Combine(drive.RootDirectory.FullName, CacheFolderName);
-            if (Directory.Exists(folderPath))
+            string markerPath = Path.Combine(drive.RootDirectory.FullName, CacheMarkerFolderName);
+            if (Directory.Exists(markerPath))
             {
-                return Path.Combine(folderPath, "Deploy");
+                return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
             }
         }
 
         return null;
     }
 
-    private static bool IsPersistentPath(string path)
+    private static string NormalizePath(string? path)
     {
-        string normalized = path.Trim();
-        if (normalized.StartsWith(@"X:\", StringComparison.OrdinalIgnoreCase))
-        {
-            return false;
-        }
-
-        return true;
+        return path?.Trim() ?? string.Empty;
     }
+
+    private static bool IsWinPeTransientPlaceholder(string path)
+    {
+        return path.Equals(WinPeTransientRuntimeRoot, StringComparison.OrdinalIgnoreCase) ||
+               path.Equals(WinPeTransientRoot, StringComparison.OrdinalIgnoreCase);
+    }
+
 }

@@ -32,6 +32,12 @@ public partial class MainWindowViewModel : ObservableObject
     private const string LenovoDriverPackOptionKey = "oem:lenovo";
     private const string HpDriverPackOptionKey = "oem:hp";
     private const string MicrosoftOemDriverPackOptionKey = "oem:microsoft";
+    private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
+    private const string CacheVolumeLabel = "Foundry Cache";
+    private const string CacheMarkerFolderName = "Foundry Cache";
+    private const string RuntimeFolderName = "Runtime";
+    private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
+    private const string WinPeLogsRoot = @"X:\Foundry\Logs";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
@@ -75,8 +81,11 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private readonly Dispatcher _dispatcher;
+    private readonly DeploymentMode _resolvedDeploymentMode;
+    private readonly string? _resolvedUsbCacheRuntimeRoot;
     private readonly Dictionary<string, DeploymentStepItemViewModel> _stepIndex = new(StringComparer.Ordinal);
     private HardwareProfile? _detectedHardware;
+    private string _lastLogsDirectoryPath = string.Empty;
     private bool _isUpdatingOsFilters;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
@@ -141,11 +150,8 @@ public partial class MainWindowViewModel : ObservableObject
     private string selectedDriverPackVersion = string.Empty;
 
     [ObservableProperty]
-    private DeploymentMode selectedDeploymentMode = DeploymentMode.Usb;
-
-    [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private string cacheRootPath = @"X:\Windows\Temp\Foundry\Deploy";
+    private string cacheRootPath = WinPeTransientRuntimeRoot;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
@@ -200,8 +206,6 @@ public partial class MainWindowViewModel : ObservableObject
     public ObservableCollection<DeploymentStepItemViewModel> DeploymentSteps { get; } = [];
     public ObservableCollection<string> DeploymentLogs { get; } = [];
 
-    public IReadOnlyList<DeploymentMode> DeploymentModes { get; } = Enum.GetValues<DeploymentMode>();
-
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
     public string DriverPackModeDisplay => SelectedDriverPackOption?.Kind switch
@@ -236,10 +240,15 @@ public partial class MainWindowViewModel : ObservableObject
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
+        _resolvedDeploymentMode = resolvedMode;
+        _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
         _deploymentOrchestrator.LogEmitted += OnLogEmitted;
+
+        EnsureCachePathForMode();
 
         if (IsDebugSafeMode)
         {
@@ -436,6 +445,7 @@ public partial class MainWindowViewModel : ObservableObject
         ShowProgressPage = true;
         IsDeploymentRunning = true;
         DeploymentProgress = 0;
+        _lastLogsDirectoryPath = string.Empty;
         IsAutopilotDeferred = false;
         AutopilotDeferredMessage = string.Empty;
         DeploymentStatus = "Deployment started.";
@@ -454,7 +464,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         DeploymentContext context = new()
         {
-            Mode = SelectedDeploymentMode,
+            Mode = _resolvedDeploymentMode,
             CacheRootPath = CacheRootPath,
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
             OperatingSystem = SelectedOperatingSystem,
@@ -473,6 +483,7 @@ public partial class MainWindowViewModel : ObservableObject
 
             RunOnUi(() =>
             {
+                _lastLogsDirectoryPath = result.LogsDirectoryPath;
                 DeploymentStatus = result.IsSuccess
                     ? "Deployment completed."
                     : $"Deployment failed: {result.Message}";
@@ -493,7 +504,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            string logsPath = Path.Combine(CacheRootPath, "Logs");
+            string logsPath = ResolveEffectiveLogsPath();
             Directory.CreateDirectory(logsPath);
             _ = Process.Start(new ProcessStartInfo
             {
@@ -506,6 +517,13 @@ public partial class MainWindowViewModel : ObservableObject
         {
             DeploymentStatus = $"Unable to open logs folder: {ex.Message}";
         }
+    }
+
+    private string ResolveEffectiveLogsPath()
+    {
+        return string.IsNullOrWhiteSpace(_lastLogsDirectoryPath)
+            ? WinPeLogsRoot
+            : _lastLogsDirectoryPath;
     }
 
     partial void OnSelectedOperatingSystemChanged(OperatingSystemCatalogItem? value)
@@ -527,11 +545,6 @@ public partial class MainWindowViewModel : ObservableObject
     partial void OnSelectedDriverPackModelChanged(string value)
     {
         RefreshDriverPackVersionOptions();
-    }
-
-    partial void OnSelectedDeploymentModeChanged(DeploymentMode value)
-    {
-        EnsureCachePathForMode();
     }
 
     partial void OnEffectiveOsArchitectureChanged(string value)
@@ -666,15 +679,17 @@ public partial class MainWindowViewModel : ObservableObject
     {
         if (IsDebugSafeMode)
         {
-            CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Deploy", "Debug");
+            CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "Debug");
             return;
         }
 
-        CacheRootPath = SelectedDeploymentMode switch
+        if (_resolvedDeploymentMode == DeploymentMode.Usb)
         {
-            DeploymentMode.Iso => @"C:\Foundry\Deploy",
-            _ => @"X:\Windows\Temp\Foundry\Deploy"
-        };
+            CacheRootPath = _resolvedUsbCacheRuntimeRoot ?? WinPeTransientRuntimeRoot;
+            return;
+        }
+
+        CacheRootPath = WinPeTransientRuntimeRoot;
     }
 
     private bool CanRefreshCatalogs()
@@ -1715,6 +1730,73 @@ public partial class MainWindowViewModel : ObservableObject
         return normalized;
     }
 
+    private static (DeploymentMode Mode, string? UsbCacheRuntimeRoot) ResolveDeploymentRuntimeContext()
+    {
+        if (TryResolveDeploymentModeFromEnvironment(out DeploymentMode modeFromEnvironment))
+        {
+            string? usbRoot = modeFromEnvironment == DeploymentMode.Usb
+                ? TryGetUsbCacheRuntimeRoot()
+                : null;
+            return (modeFromEnvironment, usbRoot);
+        }
+
+        string? detectedUsbRoot = TryGetUsbCacheRuntimeRoot();
+        return string.IsNullOrWhiteSpace(detectedUsbRoot)
+            ? (DeploymentMode.Iso, null)
+            : (DeploymentMode.Usb, detectedUsbRoot);
+    }
+
+    private static bool TryResolveDeploymentModeFromEnvironment(out DeploymentMode mode)
+    {
+        string? raw = Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable);
+        if (string.IsNullOrWhiteSpace(raw))
+        {
+            mode = default;
+            return false;
+        }
+
+        string normalized = raw.Trim().ToLowerInvariant();
+        mode = normalized switch
+        {
+            "usb" => DeploymentMode.Usb,
+            "iso" => DeploymentMode.Iso,
+            _ => default
+        };
+
+        return normalized is "usb" or "iso";
+    }
+
+    private static string? TryGetUsbCacheRuntimeRoot()
+    {
+        foreach (DriveInfo drive in DriveInfo.GetDrives())
+        {
+            if (!drive.IsReady)
+            {
+                continue;
+            }
+
+            try
+            {
+                if (string.Equals(drive.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
+                {
+                    return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
+                }
+            }
+            catch
+            {
+                // Ignore drives that cannot expose a label.
+            }
+
+            string markerPath = Path.Combine(drive.RootDirectory.FullName, CacheMarkerFolderName);
+            if (Directory.Exists(markerPath))
+            {
+                return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
+            }
+        }
+
+        return null;
+    }
+
     private void RunOnUi(Action action)
     {
         if (_dispatcher.CheckAccess())
@@ -1741,8 +1823,6 @@ public partial class MainWindowViewModel : ObservableObject
             $"Size: {sizeGiB}" + Environment.NewLine +
             Environment.NewLine +
             $"OS: {operatingSystem.DisplayLabel}" + Environment.NewLine +
-            $"Mode: {SelectedDeploymentMode}" + Environment.NewLine +
-            Environment.NewLine +
             "Continue?";
 
         return _applicationShellService.ConfirmWarning("Confirm Disk Erase", message);

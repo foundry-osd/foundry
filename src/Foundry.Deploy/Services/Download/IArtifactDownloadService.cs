@@ -5,7 +5,7 @@ public interface IArtifactDownloadService
     Task<ArtifactDownloadResult> DownloadAsync(
         string sourceUrl,
         string destinationPath,
-        string? expectedSha256 = null,
+        string? expectedHash = null,
         bool preferBits = true,
         CancellationToken cancellationToken = default);
 }

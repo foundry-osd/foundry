@@ -35,7 +35,7 @@ public sealed class AutopilotService : IAutopilotService
         string onlineTranscriptPath = Path.Combine(autopilotRoot, "autopilot-transcript.log");
         string hashCsvPath = Path.Combine(autopilotRoot, "autopilot-device.csv");
 
-        string targetAutopilotRoot = Path.Combine(windowsPartitionRoot, "ProgramData", "Foundry", "Autopilot");
+        string targetAutopilotRoot = Path.Combine(windowsPartitionRoot, "Windows", "Temp", "Foundry", "Autopilot");
         Directory.CreateDirectory(targetAutopilotRoot);
         string targetMarkerPath = Path.Combine(targetAutopilotRoot, "autopilot-status.json");
         string targetCsvPath = Path.Combine(targetAutopilotRoot, "autopilot-device.csv");
@@ -212,8 +212,8 @@ Get-WindowsAutopilotInfo -Online -Assign -GroupTag $groupTag -ErrorAction Stop |
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $groupTag = '__GROUPTAG__'
-$statusPath = 'C:\ProgramData\Foundry\Autopilot\autopilot-status.json'
-$csvPath = 'C:\ProgramData\Foundry\Autopilot\autopilot-device.csv'
+$statusPath = 'C:\Windows\Temp\Foundry\Autopilot\autopilot-status.json'
+$csvPath = 'C:\Windows\Temp\Foundry\Autopilot\autopilot-device.csv'
 $maxAttempts = 10
 $sleepSeconds = 30
 
@@ -334,8 +334,8 @@ try {{
 
         string snippet =
             $"{MarkerBegin}{Environment.NewLine}" +
-            "if exist \"C:\\ProgramData\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" (" + Environment.NewLine +
-            "  powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\ProgramData\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" >> \"C:\\ProgramData\\Foundry\\Autopilot\\deferred-autopilot-transcript.log\" 2>&1" + Environment.NewLine +
+            "if exist \"C:\\Windows\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" (" + Environment.NewLine +
+            "  powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Windows\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" >> \"C:\\Windows\\Temp\\Foundry\\Autopilot\\deferred-autopilot-transcript.log\" 2>&1" + Environment.NewLine +
             ")" + Environment.NewLine +
             $"{MarkerEnd}{Environment.NewLine}";
 

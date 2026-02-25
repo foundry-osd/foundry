@@ -17,6 +17,8 @@ public sealed record OperatingSystemCatalogItem
     public long SizeBytes { get; init; }
     public string LicenseChannel { get; init; } = string.Empty;
     public string Url { get; init; } = string.Empty;
+    public string Sha1 { get; init; } = string.Empty;
+    public string Sha256 { get; init; } = string.Empty;
 
     public string DisplayLabel =>
         $"Windows {WindowsRelease} {ReleaseId} | {Architecture} | {LanguageCode} | {Edition} | {LicenseChannel} | {Build}";

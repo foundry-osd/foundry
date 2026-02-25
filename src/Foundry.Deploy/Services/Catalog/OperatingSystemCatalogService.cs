@@ -50,7 +50,9 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
             FileName = ReadElement(item, "fileName"),
             SizeBytes = ParseLong(ReadElement(item, "sizeBytes")),
             LicenseChannel = ReadElement(item, "licenseChannel"),
-            Url = ReadElement(item, "url")
+            Url = ReadElement(item, "url"),
+            Sha1 = ReadElement(item, "sha1"),
+            Sha256 = ReadElement(item, "sha256")
         };
     }
 

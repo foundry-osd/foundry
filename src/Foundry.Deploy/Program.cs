@@ -83,8 +83,8 @@ public static class Program
     {
         string[] candidateDirectories =
         [
-            @"X:\Windows\Temp\Foundry\Deploy",
-            Path.Combine(Path.GetTempPath(), "Foundry", "Deploy"),
+            @"X:\Foundry\Logs",
+            Path.Combine(Path.GetTempPath(), "Foundry", "Logs"),
             AppContext.BaseDirectory
         ];
 
