@@ -8,7 +8,7 @@ internal static class FoundryDeployLogging
     public const string LogFileName = "FoundryDeploy.log";
 
     private const string OutputTemplate =
-        "{UtcTimestamp:O} | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
+        "{UtcTimestamp:yyyy-MM-dd HH:mm:ss} UTC | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
 
     public static string ResolveStartupLogFilePath()
     {
@@ -51,3 +51,4 @@ internal static class FoundryDeployLogging
             .CreateLogger();
     }
 }
+

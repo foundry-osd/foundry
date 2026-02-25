@@ -20,7 +20,11 @@ function Write-Log {
         [string]$Message
     )
 
-    $Entry = "[$(Get-Date -AsUTC -Format 'yyyy-MM-ddTHH:mm:ss.fffffffZ')] $Message"
+    $Timestamp = [DateTime]::UtcNow.ToString(
+        'yyyy-MM-dd HH:mm:ss',
+        [System.Globalization.CultureInfo]::InvariantCulture
+    )
+    $Entry = "[$Timestamp UTC] $Message"
 
     try {
         $Directory = Split-Path -Path $LogPath -Parent
@@ -435,3 +439,4 @@ try {
 catch {
     Write-Log "Foundry bootstrap failed: $($_.Exception.Message)"
 }
+

@@ -6,7 +6,7 @@ internal static class FoundryLogging
 {
     private const int RetentionDays = 7;
     private const string OutputTemplate =
-        "{UtcTimestamp:O} | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
+        "{UtcTimestamp:yyyy-MM-dd HH:mm:ss} UTC | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
 
     public static ILogger CreateApplicationLogger()
     {
@@ -59,3 +59,4 @@ internal static class FoundryLogging
         }
     }
 }
+
