@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Catalog;
@@ -22,7 +23,13 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
         _logger.LogInformation("Fetching operating system catalog from {CatalogUri}.", CatalogUri);
         try
         {
-            string xmlContent = await HttpClient.GetStringAsync(CatalogUri, cancellationToken).ConfigureAwait(false);
+            string xmlContent = await HttpRetryPolicy
+                .ExecuteAsync(
+                    ct => HttpClient.GetStringAsync(CatalogUri, ct),
+                    _logger,
+                    "Operating system catalog download",
+                    cancellationToken)
+                .ConfigureAwait(false);
             XDocument document = XDocument.Parse(xmlContent);
 
             OperatingSystemCatalogItem[] items = document

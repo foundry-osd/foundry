@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.IO;
+using Foundry.Deploy.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Download;
@@ -59,7 +60,13 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 };
             }
 
-            await DownloadWithHttpClientAsync(sourceUrl, destinationPath, progress, cancellationToken).ConfigureAwait(false);
+            await HttpRetryPolicy
+                .ExecuteAsync(
+                    ct => DownloadWithHttpClientAsync(sourceUrl, destinationPath, progress, ct),
+                    _logger,
+                    "Artifact download",
+                    cancellationToken)
+                .ConfigureAwait(false);
             await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
 
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
