@@ -8,6 +8,8 @@ namespace Foundry.Deploy.Services.Download;
 public sealed class ArtifactDownloadService : IArtifactDownloadService
 {
     private static readonly HttpClient HttpClient = CreateInsecureHttpClient();
+    private static readonly TimeSpan ProgressReportInterval = TimeSpan.FromMilliseconds(500);
+    private const int CopyBufferSize = 80 * 1024;
 
     private readonly ILogger<ArtifactDownloadService> _logger;
 
@@ -20,7 +22,8 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string sourceUrl,
         string destinationPath,
         string? expectedHash = null,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IProgress<DownloadProgress>? progress = null)
     {
         _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}",
             sourceUrl,
@@ -44,17 +47,19 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         {
             if (File.Exists(destinationPath) && await ValidateHashIfRequestedAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false))
             {
+                long cachedSize = new FileInfo(destinationPath).Length;
+                progress?.Report(new DownloadProgress(cachedSize, cachedSize));
                 _logger.LogInformation("Artifact cache hit for DestinationPath={DestinationPath}.", destinationPath);
                 return new ArtifactDownloadResult
                 {
                     DestinationPath = destinationPath,
                     Downloaded = false,
                     Method = "cache-hit",
-                    SizeBytes = new FileInfo(destinationPath).Length
+                    SizeBytes = cachedSize
                 };
             }
 
-            await DownloadWithHttpClientAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false);
+            await DownloadWithHttpClientAsync(sourceUrl, destinationPath, progress, cancellationToken).ConfigureAwait(false);
             await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
 
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
@@ -78,17 +83,47 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         }
     }
 
-    private static async Task DownloadWithHttpClientAsync(string sourceUrl, string destinationPath, CancellationToken cancellationToken)
+    private static async Task DownloadWithHttpClientAsync(
+        string sourceUrl,
+        string destinationPath,
+        IProgress<DownloadProgress>? progress,
+        CancellationToken cancellationToken)
     {
         using HttpResponseMessage response = await HttpClient
             .GetAsync(sourceUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
             .ConfigureAwait(false);
 
         response.EnsureSuccessStatusCode();
+        long? totalBytes = response.Content.Headers.ContentLength;
 
         await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-        await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 81920, useAsync: true);
-        await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+        await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, CopyBufferSize, useAsync: true);
+        byte[] buffer = new byte[CopyBufferSize];
+        long bytesDownloaded = 0;
+        DateTimeOffset nextReportAt = DateTimeOffset.UtcNow;
+
+        progress?.Report(new DownloadProgress(bytesDownloaded, totalBytes));
+
+        while (true)
+        {
+            int bytesRead = await sourceStream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken).ConfigureAwait(false);
+            if (bytesRead == 0)
+            {
+                break;
+            }
+
+            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
+            bytesDownloaded += bytesRead;
+
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            if (progress is not null && now >= nextReportAt)
+            {
+                progress.Report(new DownloadProgress(bytesDownloaded, totalBytes));
+                nextReportAt = now + ProgressReportInterval;
+            }
+        }
+
+        progress?.Report(new DownloadProgress(bytesDownloaded, totalBytes));
     }
 
     private static async Task EnsureHashAsync(string filePath, string? expectedHash, CancellationToken cancellationToken)

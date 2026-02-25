@@ -15,6 +15,7 @@ namespace Foundry.Deploy.Services.Deployment;
 public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 {
     private const string WinPeRoot = @"X:\Foundry";
+    private const long UnknownTotalDownloadProgressIncrementBytes = 16L * 1024 * 1024;
 
     private static readonly string[] Steps =
     [
@@ -301,8 +302,19 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string fileName = ResolveFileName(context.OperatingSystem.FileName, context.OperatingSystem.Url);
                     string destinationPath = Path.Combine(osDirectory, fileName);
                     string? expectedOsHash = ResolvePreferredHash(context.OperatingSystem.Sha256, context.OperatingSystem.Sha1);
+                    int stepIndex = ResolveStepIndex(stepName);
+                    IProgress<DownloadProgress> osDownloadProgress = CreateDownloadProgressReporter(
+                        stepName,
+                        "OS image",
+                        stepIndex,
+                        Steps.Length);
                     ArtifactDownloadResult result = await _artifactDownloadService
-                        .DownloadAsync(context.OperatingSystem.Url, destinationPath, expectedHash: expectedOsHash, cancellationToken: cancellationToken)
+                        .DownloadAsync(
+                            context.OperatingSystem.Url,
+                            destinationPath,
+                            expectedHash: expectedOsHash,
+                            cancellationToken: cancellationToken,
+                            progress: osDownloadProgress)
                         .ConfigureAwait(false);
 
                     runtimeState.DownloadedOperatingSystemPath = result.DestinationPath;
@@ -357,9 +369,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                                 Directory.CreateDirectory(driverPackDirectory);
                                 string archiveName = ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
                                 string archivePath = Path.Combine(driverPackDirectory, archiveName);
+                                int stepIndex = ResolveStepIndex(stepName);
+                                IProgress<DownloadProgress> driverPackDownloadProgress = CreateDownloadProgressReporter(
+                                    stepName,
+                                    "Driver pack",
+                                    stepIndex,
+                                    Steps.Length);
 
                                 ArtifactDownloadResult download = await _artifactDownloadService
-                                    .DownloadAsync(driverPack.DownloadUrl, archivePath, expectedHash: driverPack.Sha256, cancellationToken)
+                                    .DownloadAsync(
+                                        driverPack.DownloadUrl,
+                                        archivePath,
+                                        expectedHash: driverPack.Sha256,
+                                        cancellationToken: cancellationToken,
+                                        progress: driverPackDownloadProgress)
                                     .ConfigureAwait(false);
 
                                 runtimeState.DownloadedDriverPackPath = download.DestinationPath;
@@ -719,7 +742,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
     private void EmitStep(string stepName, DeploymentStepState state, int stepIndex, int stepCount, string? message)
     {
-        int progressPercent = (int)Math.Round((double)stepIndex / stepCount * 100d);
+        int progressPercent = CalculateStepProgressPercent(stepIndex, stepCount);
         StepProgressChanged?.Invoke(this, new DeploymentStepProgress
         {
             StepName = stepName,
@@ -729,6 +752,98 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ProgressPercent = progressPercent,
             Message = message
         });
+    }
+
+    private IProgress<DownloadProgress> CreateDownloadProgressReporter(
+        string stepName,
+        string artifactLabel,
+        int stepIndex,
+        int stepCount)
+    {
+        int stepProgressPercent = CalculateStepProgressPercent(stepIndex, stepCount);
+        int? lastKnownPercent = null;
+        long nextUnknownTotalReportThreshold = 0;
+
+        return new CallbackProgress<DownloadProgress>(progress =>
+        {
+            string details;
+            if (progress.TotalBytes is long totalBytes && totalBytes > 0)
+            {
+                int percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
+                bool isFinal = progress.BytesDownloaded >= totalBytes;
+                if (!isFinal && lastKnownPercent == percent)
+                {
+                    return;
+                }
+
+                lastKnownPercent = percent;
+                details = $"{percent}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
+            }
+            else
+            {
+                bool shouldReport = progress.BytesDownloaded == 0 ||
+                                    progress.BytesDownloaded >= nextUnknownTotalReportThreshold;
+                if (!shouldReport)
+                {
+                    return;
+                }
+
+                nextUnknownTotalReportThreshold = progress.BytesDownloaded + UnknownTotalDownloadProgressIncrementBytes;
+                details = $"{FormatByteSize(progress.BytesDownloaded)} downloaded";
+            }
+
+            string status = $"{artifactLabel} download progress: {details}";
+            _logger.LogInformation("{StepName}: {Status}", stepName, status);
+            _operationProgressService.Report(stepProgressPercent, status);
+            EmitStep(stepName, DeploymentStepState.Running, stepIndex, stepCount, status);
+        });
+    }
+
+    private static int ResolveStepIndex(string stepName)
+    {
+        int index = Array.IndexOf(Steps, stepName);
+        return index >= 0 ? index + 1 : 1;
+    }
+
+    private static int CalculateStepProgressPercent(int stepIndex, int stepCount)
+    {
+        return (int)Math.Round((double)stepIndex / stepCount * 100d);
+    }
+
+    private static int CalculateDownloadPercent(long bytesDownloaded, long totalBytes)
+    {
+        if (totalBytes <= 0)
+        {
+            return 0;
+        }
+
+        if (bytesDownloaded >= totalBytes)
+        {
+            return 100;
+        }
+
+        if (bytesDownloaded <= 0)
+        {
+            return 0;
+        }
+
+        return (int)Math.Round((double)bytesDownloaded / totalBytes * 100d);
+    }
+
+    private static string FormatByteSize(long bytes)
+    {
+        string[] units = ["B", "KB", "MB", "GB", "TB"];
+        double size = Math.Max(0, bytes);
+        int unit = 0;
+        while (size >= 1024d && unit < units.Length - 1)
+        {
+            size /= 1024d;
+            unit++;
+        }
+
+        return unit == 0
+            ? $"{size:F0} {units[unit]}"
+            : $"{size:F1} {units[unit]}";
     }
 
     private async Task AppendLogAsync(
@@ -1207,6 +1322,21 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     {
         public DateTimeOffset UpdatedAtUtc { get; set; } = DateTimeOffset.UtcNow;
         public List<CacheIndexEntry> Items { get; set; } = [];
+    }
+
+    private sealed class CallbackProgress<T> : IProgress<T>
+    {
+        private readonly Action<T> _callback;
+
+        public CallbackProgress(Action<T> callback)
+        {
+            _callback = callback ?? throw new ArgumentNullException(nameof(callback));
+        }
+
+        public void Report(T value)
+        {
+            _callback(value);
+        }
     }
 
     private sealed class CacheIndexEntry
