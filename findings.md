@@ -40,11 +40,13 @@
 | Simplification `DeploymentLogService` vers `Serilog.ILogger` (au lieu de type concret `Logger`) | Couplage reduit et implementation plus propre |
 | Factorisation des logs de contexte d orchestration dans une methode dediee | Nettoyage et lisibilite sans changement fonctionnel |
 | Passe additionnelle Foundry-only: instrumenter `AdkService` et `MediaOutputService` via `ILogger<T>` | Couvrir les chemins d erreur/success non traces dans les services critiques |
+| Passe Foundry coverage 2: instrumenter `WinPeBuildService`, `WinPeDriverCatalogService`, `WinPeDriverPackageService`, `WinPeUsbMediaService` et completer les catches WinPE dans `MediaOutputService` | Eliminer les points sans logs explicites sur les chemins operationnels et d exception |
 
 ## Issues Encountered
 | Issue | Resolution |
 |-------|------------|
 | Erreur de build CS0103 (`Path`, `Directory`, `File`) dans nouveaux fichiers logging Deploy | Ajout de `using System.IO;` explicite puis rebuild OK |
+| Impossible de charger/reflechir `Foundry.dll` (`net10.0-windows`) depuis PowerShell de session | Validation runtime faite via probes .NET 10 temporaires reutilisant les fichiers source logging |
 
 ## Resources
 - Serilog docs (Context7 id): `/serilog/serilog`
@@ -63,6 +65,17 @@
 
 ## Visual/Browser Findings
 - Aucune source visuelle externe necessaire pour cette phase.
+
+## Runtime Validation Results
+- Probe Foundry (.NET 10, avec `FoundryLogging.cs` + `UtcTimestampEnricher.cs`):
+  - `fileContainsProbe=true`
+  - `debugContainsProbe=true`
+  - `retentionOldFileDeleted=true`
+  - Log observe dans `C:\\Users\\mchav\\AppData\\Local\\Foundry\\Logs`
+- Probe Foundry.Deploy (.NET 10, avec `FoundryDeployLogging.cs` + `UtcTimestampEnricher.cs`):
+  - `appendLikelyWorking=true` (2 tokens ecrits dans le meme `FoundryDeploy.log`)
+  - `debugContainsBoth=true`
+  - `resolvedLogPath=C:\\Users\\mchav\\AppData\\Local\\Temp\\Foundry\\Logs\\FoundryDeploy.log` dans cet environnement (fallback attendu car `X:` indisponible)
 
 ---
 *Mis a jour pour preparer l implementation sans ambiguite.*

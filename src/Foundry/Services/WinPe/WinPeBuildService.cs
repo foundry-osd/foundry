@@ -1,9 +1,17 @@
+using Microsoft.Extensions.Logging;
+
 namespace Foundry.Services.WinPe;
 
 public sealed class WinPeBuildService : IWinPeBuildService
 {
     private readonly WinPeToolResolver _toolResolver = new();
     private readonly WinPeProcessRunner _processRunner = new();
+    private readonly ILogger<WinPeBuildService> _logger;
+
+    public WinPeBuildService(ILogger<WinPeBuildService> logger)
+    {
+        _logger = logger;
+    }
 
     public async Task<WinPeResult<WinPeBuildArtifact>> BuildAsync(
         WinPeBuildOptions options,
@@ -14,12 +22,24 @@ public sealed class WinPeBuildService : IWinPeBuildService
         WinPeDiagnostic? validationError = ValidateBuildOptions(options);
         if (validationError is not null)
         {
+            _logger.LogWarning("WinPE build validation failed. Code={ErrorCode}, Message={ErrorMessage}",
+                validationError.Code,
+                validationError.Message);
             return WinPeResult<WinPeBuildArtifact>.Failure(validationError);
         }
+
+        _logger.LogInformation(
+            "Starting WinPE workspace build. OutputDirectoryPath={OutputDirectoryPath}, Architecture={Architecture}, SignatureMode={SignatureMode}",
+            options.OutputDirectoryPath,
+            options.Architecture,
+            options.SignatureMode);
 
         WinPeResult<WinPeToolPaths> toolsResult = _toolResolver.ResolveTools(ResolveAdkRootHint(options));
         if (!toolsResult.IsSuccess)
         {
+            _logger.LogWarning("Failed to resolve ADK tooling for WinPE build. Code={ErrorCode}, Message={ErrorMessage}",
+                toolsResult.Error?.Code,
+                toolsResult.Error?.Message);
             return WinPeResult<WinPeBuildArtifact>.Failure(toolsResult.Error!);
         }
 
@@ -30,6 +50,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
         {
             if (Directory.Exists(workingDirectory) && options.CleanExistingWorkingDirectory)
             {
+                _logger.LogDebug("Cleaning existing WinPE working directory: {WorkingDirectoryPath}", workingDirectory);
                 Directory.Delete(workingDirectory, recursive: true);
             }
 
@@ -43,6 +64,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
 
             if (!copyPeResult.IsSuccess)
             {
+                _logger.LogWarning("copype.cmd failed while creating WinPE workspace. Diagnostic={Diagnostic}", copyPeResult.ToDiagnosticText());
                 return WinPeResult<WinPeBuildArtifact>.Failure(
                     WinPeErrorCodes.BuildFailed,
                     "Failed to create WinPE workspace using copype.cmd.",
@@ -53,6 +75,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
             string bootWimPath = Path.Combine(mediaDirectory, "sources", "boot.wim");
             if (!File.Exists(bootWimPath))
             {
+                _logger.LogWarning("WinPE workspace is missing boot.wim. ExpectedPath={BootWimPath}", bootWimPath);
                 return WinPeResult<WinPeBuildArtifact>.Failure(
                     WinPeErrorCodes.BuildFailed,
                     "WinPE workspace was created but boot.wim was not found.",
@@ -67,6 +90,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
             Directory.CreateDirectory(driverWorkspace);
             Directory.CreateDirectory(logsDirectory);
 
+            _logger.LogInformation("WinPE workspace build completed. WorkingDirectoryPath={WorkingDirectoryPath}", workingDirectory);
             return WinPeResult<WinPeBuildArtifact>.Success(new WinPeBuildArtifact
             {
                 WorkingDirectoryPath = workingDirectory,
@@ -83,6 +107,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Unexpected failure while creating WinPE workspace. WorkingDirectoryPath={WorkingDirectoryPath}", workingDirectory);
             return WinPeResult<WinPeBuildArtifact>.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Unexpected failure while creating the WinPE workspace.",

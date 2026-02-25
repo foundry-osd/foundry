@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
 
@@ -17,10 +18,12 @@ internal sealed class WinPeDriverPackageService
     };
 
     private readonly WinPeProcessRunner _processRunner;
+    private readonly ILogger<WinPeDriverPackageService> _logger;
 
-    public WinPeDriverPackageService(WinPeProcessRunner processRunner)
+    public WinPeDriverPackageService(WinPeProcessRunner processRunner, ILogger<WinPeDriverPackageService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<WinPeResult<WinPePreparedDriverSet>> PrepareAsync(
@@ -29,6 +32,11 @@ internal sealed class WinPeDriverPackageService
         string extractRootPath,
         CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Preparing {PackageCount} WinPE driver packages. DownloadRootPath={DownloadRootPath}, ExtractRootPath={ExtractRootPath}",
+            packages.Count,
+            downloadRootPath,
+            extractRootPath);
+
         Directory.CreateDirectory(downloadRootPath);
         Directory.CreateDirectory(extractRootPath);
 
@@ -40,12 +48,23 @@ internal sealed class WinPeDriverPackageService
             cancellationToken.ThrowIfCancellationRequested();
 
             WinPeDriverCatalogEntry package = packages[index];
+            _logger.LogInformation("Processing WinPE driver package {PackageIndex}/{PackageCount}. Vendor={Vendor}, Id={PackageId}, Version={PackageVersion}",
+                index + 1,
+                packages.Count,
+                package.Vendor,
+                package.Id,
+                package.Version);
+
             string fileName = ResolvePackageFileName(package);
             string downloadPath = Path.Combine(downloadRootPath, fileName);
 
             WinPeResult downloadResult = await DownloadPackageAsync(package.DownloadUri, downloadPath, cancellationToken).ConfigureAwait(false);
             if (!downloadResult.IsSuccess)
             {
+                _logger.LogWarning("Failed to download driver package. Id={PackageId}, Code={ErrorCode}, Message={ErrorMessage}",
+                    package.Id,
+                    downloadResult.Error?.Code,
+                    downloadResult.Error?.Message);
                 return WinPeResult<WinPePreparedDriverSet>.Failure(downloadResult.Error!);
             }
 
@@ -54,6 +73,10 @@ internal sealed class WinPeDriverPackageService
             WinPeResult hashValidationResult = await ValidateSha256Async(package, downloadPath, cancellationToken).ConfigureAwait(false);
             if (!hashValidationResult.IsSuccess)
             {
+                _logger.LogWarning("SHA256 validation failed for package Id={PackageId}. Code={ErrorCode}, Message={ErrorMessage}",
+                    package.Id,
+                    hashValidationResult.Error?.Code,
+                    hashValidationResult.Error?.Message);
                 return WinPeResult<WinPePreparedDriverSet>.Failure(hashValidationResult.Error!);
             }
 
@@ -64,12 +87,19 @@ internal sealed class WinPeDriverPackageService
             WinPeResult extractionResult = await ExtractPackageAsync(downloadPath, extractPath, cancellationToken).ConfigureAwait(false);
             if (!extractionResult.IsSuccess)
             {
+                _logger.LogWarning("Driver package extraction failed. Id={PackageId}, Code={ErrorCode}, Message={ErrorMessage}",
+                    package.Id,
+                    extractionResult.Error?.Code,
+                    extractionResult.Error?.Message);
                 return WinPeResult<WinPePreparedDriverSet>.Failure(extractionResult.Error!);
             }
 
             extractedDirectories.Add(extractPath);
         }
 
+        _logger.LogInformation("WinPE driver package preparation completed. Extracted={ExtractedCount}, Downloaded={DownloadedCount}",
+            extractedDirectories.Count,
+            downloadedFiles.Count);
         return WinPeResult<WinPePreparedDriverSet>.Success(new WinPePreparedDriverSet
         {
             ExtractionDirectories = extractedDirectories,
@@ -100,13 +130,14 @@ internal sealed class WinPeDriverPackageService
         return $"{WinPeFileSystemHelper.SanitizePathSegment(package.Id)}{extension}";
     }
 
-    private static async Task<WinPeResult> DownloadPackageAsync(
+    private async Task<WinPeResult> DownloadPackageAsync(
         string sourceUri,
         string destinationPath,
         CancellationToken cancellationToken)
     {
         try
         {
+            _logger.LogDebug("Downloading driver package from {SourceUri} to {DestinationPath}.", sourceUri, destinationPath);
             using HttpResponseMessage response = await HttpClient.GetAsync(sourceUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
@@ -119,10 +150,12 @@ internal sealed class WinPeDriverPackageService
             await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
             await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 81920, useAsync: true);
             await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+            _logger.LogDebug("Downloaded driver package to {DestinationPath}.", destinationPath);
             return WinPeResult.Success();
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to download driver package from {SourceUri}.", sourceUri);
             return WinPeResult.Failure(
                 WinPeErrorCodes.DownloadFailed,
                 "Failed to download driver package.",
@@ -158,6 +191,7 @@ internal sealed class WinPeDriverPackageService
         string destinationPath,
         CancellationToken cancellationToken)
     {
+        _logger.LogDebug("Extracting driver package. PackagePath={PackagePath}, DestinationPath={DestinationPath}", packagePath, destinationPath);
         string extension = Path.GetExtension(packagePath);
 
         if (!extension.Equals(".cab", StringComparison.OrdinalIgnoreCase) &&

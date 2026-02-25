@@ -24,6 +24,7 @@ public sealed class MediaOutputService : IMediaOutputService
         IWinPeBuildService buildService,
         IWinPeDriverCatalogService driverCatalogService,
         IWinPeDriverInjectionService driverInjectionService,
+        ILoggerFactory loggerFactory,
         ILogger<MediaOutputService> logger)
     {
         _operationProgressService = operationProgressService;
@@ -31,8 +32,8 @@ public sealed class MediaOutputService : IMediaOutputService
         _driverCatalogService = driverCatalogService;
         _driverInjectionService = driverInjectionService;
         _logger = logger;
-        _driverPackageService = new WinPeDriverPackageService(_processRunner);
-        _usbMediaService = new WinPeUsbMediaService(_processRunner);
+        _driverPackageService = new WinPeDriverPackageService(_processRunner, loggerFactory.CreateLogger<WinPeDriverPackageService>());
+        _usbMediaService = new WinPeUsbMediaService(_processRunner, loggerFactory.CreateLogger<WinPeUsbMediaService>());
     }
 
     public WinPeResult<IReadOnlyList<string>> GetAvailableWinPeLanguages(
@@ -496,6 +497,7 @@ public sealed class MediaOutputService : IMediaOutputService
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to load embedded WinPE bootstrap script content.");
             await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
             return WinPeResult.Failure(
                 WinPeErrorCodes.InternalError,
@@ -694,9 +696,13 @@ public sealed class MediaOutputService : IMediaOutputService
             return WinPeResult.Success();
         }
 
+        _logger.LogInformation("Provisioning local Foundry.Deploy archive into mounted WinPE image. Architecture={Architecture}", architecture);
         WinPeResult<string> archiveResult = await ResolveLocalDeployArchivePathAsync(architecture, workingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!archiveResult.IsSuccess)
         {
+            _logger.LogWarning("Failed to resolve local Foundry.Deploy archive path. Code={ErrorCode}, Message={ErrorMessage}",
+                archiveResult.Error?.Code,
+                archiveResult.Error?.Message);
             return WinPeResult.Failure(archiveResult.Error!);
         }
 
@@ -718,6 +724,7 @@ public sealed class MediaOutputService : IMediaOutputService
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to copy local Foundry.Deploy archive into mounted WinPE image. DestinationPath={DestinationPath}", destinationPath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to copy local Foundry.Deploy archive into mounted WinPE image.",
@@ -725,13 +732,14 @@ public sealed class MediaOutputService : IMediaOutputService
         }
     }
 
-    private static WinPeResult ProvisionBundledSevenZipInImage(
+    private WinPeResult ProvisionBundledSevenZipInImage(
         string mountedImagePath,
         WinPeArchitecture architecture)
     {
         string sourceRootPath = Path.Combine(AppContext.BaseDirectory, WinPeDefaults.BundledSevenZipRelativePath);
         if (!Directory.Exists(sourceRootPath))
         {
+            _logger.LogWarning("Bundled 7-Zip assets folder not found. SourceRootPath={SourceRootPath}", sourceRootPath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "Bundled 7-Zip assets were not found.",
@@ -742,6 +750,7 @@ public sealed class MediaOutputService : IMediaOutputService
         string sourceExecutablePath = Path.Combine(sourceRootPath, runtimeFolder, "7za.exe");
         if (!File.Exists(sourceExecutablePath))
         {
+            _logger.LogWarning("Bundled 7-Zip executable not found for runtime folder {RuntimeFolder}. Path={ExecutablePath}", runtimeFolder, sourceExecutablePath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "Bundled 7-Zip executable was not found for target architecture.",
@@ -751,6 +760,7 @@ public sealed class MediaOutputService : IMediaOutputService
         string sourceLicensePath = Path.Combine(sourceRootPath, "License.txt");
         if (!File.Exists(sourceLicensePath))
         {
+            _logger.LogWarning("Bundled 7-Zip license file not found. Path={LicensePath}", sourceLicensePath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "Bundled 7-Zip license file was not found.",
@@ -760,6 +770,7 @@ public sealed class MediaOutputService : IMediaOutputService
         string sourceReadmePath = Path.Combine(sourceRootPath, "readme.txt");
         if (!File.Exists(sourceReadmePath))
         {
+            _logger.LogWarning("Bundled 7-Zip readme file not found. Path={ReadmePath}", sourceReadmePath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "Bundled 7-Zip readme file was not found.",
@@ -793,6 +804,7 @@ public sealed class MediaOutputService : IMediaOutputService
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to provision bundled 7-Zip tools into mounted WinPE image. DestinationToolsRootPath={DestinationToolsRootPath}", destinationToolsRootPath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision bundled 7-Zip executable into mounted WinPE image.",
@@ -858,6 +870,7 @@ public sealed class MediaOutputService : IMediaOutputService
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to prepare local workspace for Foundry.Deploy archive generation. ArchivePath={ArchivePath}", archivePath);
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to prepare local workspace for Foundry.Deploy archive generation.",
@@ -908,6 +921,7 @@ public sealed class MediaOutputService : IMediaOutputService
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to create Foundry.Deploy archive from publish output. PublishDirectory={PublishDirectory}, ArchivePath={ArchivePath}", publishDirectory, archivePath);
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to create Foundry.Deploy archive from local publish output.",

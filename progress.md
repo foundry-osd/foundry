@@ -86,6 +86,34 @@
   - `src/Foundry/Services/Adk/AdkService.cs`
   - `src/Foundry/Services/WinPe/MediaOutputService.cs`
 
+### Phase 7: Foundry audit coverage pass 2
+- **Status:** complete
+- Actions taken:
+  - Audit ciblé de `src/Foundry` pour identifier les services WinPE avec exceptions/retours d echec non traces localement.
+  - Ajout de logs structures dans `WinPeBuildService`, `WinPeDriverCatalogService`, `WinPeDriverPackageService` et `WinPeUsbMediaService`.
+  - Passage de `MediaOutputService` a `ILoggerFactory` pour fournir des loggers dedies aux sous-services internes.
+  - Completion des `catch` WinPE restants dans `MediaOutputService` avec logs explicites.
+  - Rebuild final de `Foundry`.
+- Files created/modified:
+  - `src/Foundry/Services/WinPe/WinPeBuildService.cs`
+  - `src/Foundry/Services/WinPe/WinPeDriverCatalogService.cs`
+  - `src/Foundry/Services/WinPe/WinPeDriverPackageService.cs`
+  - `src/Foundry/Services/WinPe/WinPeUsbMediaService.cs`
+  - `src/Foundry/Services/WinPe/MediaOutputService.cs`
+
+### Phase 8: Runtime validation pass
+- **Status:** in_progress
+- Actions taken:
+  - Validation runtime Foundry par probe .NET 10 reutilisant `FoundryLogging.cs` et `UtcTimestampEnricher.cs`.
+  - Verification de l ecriture fichier (`fileContainsProbe=true`), du sink debug (`debugContainsProbe=true`) et de la retention 7 jours (`retentionOldFileDeleted=true`).
+  - Validation runtime Foundry.Deploy par probe .NET 10 reutilisant `FoundryDeployLogging.cs` et `UtcTimestampEnricher.cs`.
+  - Verification append `FoundryDeploy.log` (`appendLikelyWorking=true`) et sink debug (`debugContainsBoth=true`).
+  - Verification du fallback de chemin Deploy dans l environnement courant (absence de lecteur `X:`).
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -97,6 +125,9 @@
 | Build Foundry apres cleanup | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK | Build OK | OK |
 | Build Foundry.Deploy apres cleanup | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj -nologo` | Build OK | Build OK | OK |
 | Build Foundry apres passe logs | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK, 0 warning | Build OK, 0 warning | OK |
+| Build Foundry apres audit coverage 2 | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK, 0 warning | Build OK, 0 warning | OK |
+| Probe runtime Foundry logging | `dotnet run --project .tmp/foundry-serilog-runtime-probe-*/FoundrySerilogProbe.csproj -nologo` | Fichier + Debug + retention valides | `fileContainsProbe=true`, `debugContainsProbe=true`, `retentionOldFileDeleted=true` | OK |
+| Probe runtime Foundry.Deploy logging | `dotnet run --project .tmp/foundrydeploy-serilog-runtime-probe-*/FoundryDeploySerilogProbe.csproj -nologo` | Append + Debug valides | `appendLikelyWorking=true`, `debugContainsBoth=true` | OK |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |

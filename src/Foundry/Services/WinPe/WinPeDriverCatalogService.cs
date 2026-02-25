@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Net.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
 
@@ -9,6 +10,12 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
     {
         Timeout = TimeSpan.FromMinutes(3)
     };
+    private readonly ILogger<WinPeDriverCatalogService> _logger;
+
+    public WinPeDriverCatalogService(ILogger<WinPeDriverCatalogService> logger)
+    {
+        _logger = logger;
+    }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>> GetCatalogAsync(
         WinPeDriverCatalogOptions options,
@@ -19,8 +26,15 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
         WinPeDiagnostic? validationError = ValidateCatalogOptions(options);
         if (validationError is not null)
         {
+            _logger.LogWarning("Driver catalog validation failed. Code={ErrorCode}, Message={ErrorMessage}",
+                validationError.Code,
+                validationError.Message);
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(validationError);
         }
+
+        _logger.LogInformation("Loading WinPE driver catalog from {CatalogUri} for Architecture={Architecture}.",
+            options.CatalogUri,
+            options.Architecture);
 
         string xmlContent;
         try
@@ -29,15 +43,18 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                 (uri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase) ||
                  uri.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase)))
             {
+                _logger.LogDebug("Fetching WinPE driver catalog over HTTP(S). CatalogUri={CatalogUri}", options.CatalogUri);
                 xmlContent = await HttpClient.GetStringAsync(uri, cancellationToken).ConfigureAwait(false);
             }
             else
             {
+                _logger.LogDebug("Reading WinPE driver catalog from local path. CatalogPath={CatalogPath}", options.CatalogUri);
                 xmlContent = await File.ReadAllTextAsync(options.CatalogUri, cancellationToken).ConfigureAwait(false);
             }
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to retrieve WinPE driver catalog from {CatalogUri}.", options.CatalogUri);
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(
                 WinPeErrorCodes.DriverCatalogFetchFailed,
                 "Failed to retrieve the WinPE driver catalog.",
@@ -48,10 +65,14 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
         {
             XDocument document = XDocument.Parse(xmlContent);
             IReadOnlyList<WinPeDriverCatalogEntry> entries = ParseDriverPacks(document, options);
+            _logger.LogInformation("Loaded {EntryCount} WinPE driver catalog entries for Architecture={Architecture}.",
+                entries.Count,
+                options.Architecture);
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Success(entries);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to parse WinPE driver catalog payload from {CatalogUri}.", options.CatalogUri);
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(
                 WinPeErrorCodes.DriverCatalogParseFailed,
                 "Failed to parse the WinPE driver catalog.",

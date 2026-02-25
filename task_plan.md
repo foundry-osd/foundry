@@ -4,7 +4,7 @@
 Definir un plan d implementation complet et decision-complete pour migrer le logging des projets `Foundry` et `Foundry.Deploy` vers Serilog, sans code partage entre projets.
 
 ## Current Phase
-Phase 6
+Phase 8
 
 ## Phases
 
@@ -37,8 +37,8 @@ Phase 6
 
 ### Phase 5: Validation
 - [x] Build des deux projets
-- [ ] Verifier ecriture fichier + sortie Debug VS
-- [ ] Verifier retention Foundry (7 jours) et append Deploy (sans retention)
+- [x] Verifier ecriture fichier + sortie Debug VS
+- [x] Verifier retention Foundry (7 jours) et append Deploy (sans retention)
 - [ ] Verifier hooks exceptions globales
 - **Status:** in_progress
 
@@ -46,6 +46,18 @@ Phase 6
 - [x] Verifier coherence du plan et des impacts
 - [x] Livrer et valider avec l utilisateur
 - **Status:** complete
+
+### Phase 7: Foundry Audit Pass (Coverage)
+- [x] Re-auditer les services Foundry WinPE pour les zones non journalisees (`catch`, retours d echec)
+- [x] Ajouter des logs structures dans les services encore silencieux
+- [x] Rebuild `Foundry` pour verifier l absence de regression
+- **Status:** complete
+
+### Phase 8: Runtime Validation Pass
+- [x] Valider runtime Foundry logging (file + debug sink + retention) via probe .NET 10
+- [x] Valider runtime Foundry.Deploy logging (append + debug sink + path resolution)
+- [ ] Valider manuellement hooks exceptions globales en execution UI
+- **Status:** in_progress
 
 ## Key Questions
 1. Quel format de timestamp utiliser ? -> UTC ISO-8601.
@@ -65,6 +77,7 @@ Phase 6
 | Conserver `deployment-state.json` identique | Eviter regression fonctionnelle de l orchestration |
 | Supprimer logs live UI `DeploymentLogs` dans Deploy | Alignement avec choix utilisateur |
 | Hooks exceptions globales sur les 2 apps | Capturer les erreurs non gerees |
+| Passe de couverture Foundry: logs ajoutes dans Build/Catalog/DriverPackage/Usb + catches WinPE complets | Supprimer les zones silencieuses restantes sur les chemins critiques |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |
