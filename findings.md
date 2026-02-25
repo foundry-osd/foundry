@@ -39,6 +39,7 @@
 | Output template unifie: `UtcTimestamp | Level | SourceContext | Message | Exception` | Lisibilite + horodatage UTC ISO-8601 |
 | Simplification `DeploymentLogService` vers `Serilog.ILogger` (au lieu de type concret `Logger`) | Couplage reduit et implementation plus propre |
 | Factorisation des logs de contexte d orchestration dans une methode dediee | Nettoyage et lisibilite sans changement fonctionnel |
+| Passe additionnelle Foundry-only: instrumenter `AdkService` et `MediaOutputService` via `ILogger<T>` | Couvrir les chemins d erreur/success non traces dans les services critiques |
 
 ## Issues Encountered
 | Issue | Resolution |

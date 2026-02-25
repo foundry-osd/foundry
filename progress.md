@@ -75,6 +75,17 @@
   - `src/Foundry.Deploy/Services/Logging/DeploymentLogService.cs`
   - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`
 
+### Phase 6: Foundry logging coverage pass
+- **Status:** complete
+- Actions taken:
+  - Instrumentation de `AdkService` avec `ILogger<AdkService>` pour tracer start/success/fail/skip et transitions d etat.
+  - Instrumentation de `MediaOutputService` avec `ILogger<MediaOutputService>` pour tracer create ISO/USB, validations, operation busy, erreurs et completion.
+  - Centralisation du logging des echecs operationnels dans `FailWithProgress`.
+  - Build `Foundry` revalide sans avertissement.
+- Files created/modified:
+  - `src/Foundry/Services/Adk/AdkService.cs`
+  - `src/Foundry/Services/WinPe/MediaOutputService.cs`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -85,6 +96,7 @@
 | Build Foundry.Deploy (2e passage) | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj -nologo` | Build OK | Build OK apres correction `using System.IO;` | OK |
 | Build Foundry apres cleanup | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK | Build OK | OK |
 | Build Foundry.Deploy apres cleanup | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj -nologo` | Build OK | Build OK | OK |
+| Build Foundry apres passe logs | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK, 0 warning | Build OK, 0 warning | OK |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
@@ -94,7 +106,7 @@
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Cleanup terminee, builds OK |
+| Where am I? | Passe Foundry-only terminee, build Foundry OK |
 | Where am I going? | Validation runtime manuelle (fichier + Debug VS + retention) |
 | What's the goal? | Migration logging Serilog separee pour Foundry + Foundry.Deploy (realisee) |
 | What have I learned? | Voir `findings.md` |

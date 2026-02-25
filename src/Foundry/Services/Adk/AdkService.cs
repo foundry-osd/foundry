@@ -1,5 +1,6 @@
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Globalization;
@@ -75,6 +76,7 @@ public sealed class AdkService : IAdkService
     private string? _installedVersion;
     private readonly ILocalizationService _localizationService;
     private readonly IOperationProgressService _operationProgressService;
+    private readonly ILogger<AdkService> _logger;
     private string? _downloadedAdkInstallerPath;
     private string? _downloadedWinPeInstallerPath;
 
@@ -93,10 +95,12 @@ public sealed class AdkService : IAdkService
 
     public AdkService(
         ILocalizationService localizationService,
-        IOperationProgressService operationProgressService)
+        IOperationProgressService operationProgressService,
+        ILogger<AdkService> logger)
     {
         _localizationService = localizationService;
         _operationProgressService = operationProgressService;
+        _logger = logger;
         _operationProgressService.ProgressChanged += OnGlobalProgressChanged;
         RefreshStatus();
     }
@@ -109,16 +113,23 @@ public sealed class AdkService : IAdkService
         _isAdkInstalled = CheckAdkInstalled();
         _installedVersion = GetInstalledVersion();
         _isAdkCompatible = CheckAdkCompatible();
+        _logger.LogDebug(
+            "ADK status refreshed. Installed={IsAdkInstalled}, Compatible={IsAdkCompatible}, Version={InstalledVersion}",
+            _isAdkInstalled,
+            _isAdkCompatible,
+            _installedVersion ?? "<none>");
         AdkStatusChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public async Task DownloadAdkAsync()
     {
+        _logger.LogInformation("ADK download requested.");
         if (!_operationProgressService.TryStart(
                 OperationKind.AdkDownload,
                 L("AdkStatusStartDownload"),
                 DownloadDefaultStart))
         {
+            _logger.LogWarning("ADK download skipped because another operation is already in progress.");
             return;
         }
 
@@ -127,21 +138,25 @@ public sealed class AdkService : IAdkService
             await EnsureInstallersDownloadedAsync(DownloadDefaultStart, DownloadDefaultEnd, forceDownload: true);
 
             _operationProgressService.Complete(L("AdkStatusDoneDownload"));
+            _logger.LogInformation("ADK download completed successfully.");
         }
         catch (Exception ex)
         {
             _operationProgressService.Fail(Lf("AdkErrorDownload", ex.Message));
+            _logger.LogError(ex, "ADK download failed.");
             throw;
         }
     }
 
     public async Task InstallAdkAsync()
     {
+        _logger.LogInformation("ADK install requested.");
         if (!_operationProgressService.TryStart(
                 OperationKind.AdkInstall,
                 L("AdkStatusStartInstall"),
                 0))
         {
+            _logger.LogWarning("ADK install skipped because another operation is already in progress.");
             return;
         }
 
@@ -158,18 +173,22 @@ public sealed class AdkService : IAdkService
 
             _operationProgressService.Complete(L("AdkStatusDoneInstall"));
             RefreshStatus();
+            _logger.LogInformation("ADK install completed successfully.");
         }
         catch (Exception ex)
         {
             _operationProgressService.Fail(Lf("AdkErrorInstall", ex.Message));
+            _logger.LogError(ex, "ADK install failed.");
             throw;
         }
     }
 
     public async Task UninstallAdkAsync()
     {
+        _logger.LogInformation("ADK uninstall requested.");
         if (!_operationProgressService.CanStartOperation)
         {
+            _logger.LogWarning("ADK uninstall skipped because another operation is already in progress.");
             return;
         }
 
@@ -177,6 +196,7 @@ public sealed class AdkService : IAdkService
         RefreshStatus();
         if (!_isAdkInstalled)
         {
+            _logger.LogInformation("ADK uninstall skipped because ADK is not installed.");
             return;
         }
 
@@ -185,6 +205,7 @@ public sealed class AdkService : IAdkService
                 L("AdkStatusStartUninstall"),
                 0))
         {
+            _logger.LogWarning("ADK uninstall skipped because another operation is already in progress.");
             return;
         }
 
@@ -201,18 +222,22 @@ public sealed class AdkService : IAdkService
 
             _operationProgressService.Complete(L("AdkStatusDoneUninstall"));
             RefreshStatus();
+            _logger.LogInformation("ADK uninstall completed successfully.");
         }
         catch (Exception ex)
         {
             _operationProgressService.Fail(Lf("AdkErrorUninstall", ex.Message));
+            _logger.LogError(ex, "ADK uninstall failed.");
             throw;
         }
     }
 
     public async Task UpgradeAdkAsync()
     {
+        _logger.LogInformation("ADK upgrade requested.");
         if (!_operationProgressService.CanStartOperation)
         {
+            _logger.LogWarning("ADK upgrade skipped because another operation is already in progress.");
             return;
         }
 
@@ -223,6 +248,7 @@ public sealed class AdkService : IAdkService
                 L("AdkStatusStartUpgrade"),
                 0))
         {
+            _logger.LogWarning("ADK upgrade skipped because another operation is already in progress.");
             return;
         }
 
@@ -259,10 +285,12 @@ public sealed class AdkService : IAdkService
 
             _operationProgressService.Complete(L("AdkStatusDoneUpgrade"));
             RefreshStatus();
+            _logger.LogInformation("ADK upgrade completed successfully.");
         }
         catch (Exception ex)
         {
             _operationProgressService.Fail(Lf("AdkErrorUpgrade", ex.Message));
+            _logger.LogError(ex, "ADK upgrade failed.");
             throw;
         }
     }
@@ -294,6 +322,7 @@ public sealed class AdkService : IAdkService
         }
         catch
         {
+            _logger.LogDebug("ADK installation check failed due to a registry or filesystem access error.");
             return false;
         }
     }
@@ -315,6 +344,7 @@ public sealed class AdkService : IAdkService
         }
         catch
         {
+            _logger.LogDebug("Unable to resolve installed ADK version from uninstall metadata.");
             return null;
         }
     }
@@ -485,6 +515,7 @@ public sealed class AdkService : IAdkService
         catch
         {
             // If version parsing fails, fallback to prefix matching.
+            _logger.LogDebug("ADK version parsing failed for '{InstalledVersion}', applying prefix fallback.", _installedVersion);
             return _installedVersion.StartsWith("10.1.26100.", StringComparison.OrdinalIgnoreCase);
         }
     }
@@ -536,6 +567,11 @@ public sealed class AdkService : IAdkService
         var midpoint = progressStart + ((progressEnd - progressStart) / 2);
         var adkInstallerName = L("AdkComponentInstaller");
         var winPeInstallerName = L("AdkComponentWinPeInstaller");
+        _logger.LogInformation(
+            "Ensuring ADK installers are available. ForceDownload={ForceDownload}, AdkPath={AdkInstallerPath}, WinPePath={WinPeInstallerPath}",
+            forceDownload,
+            adkInstallerPath,
+            winPeInstallerPath);
 
         if (forceDownload || !File.Exists(adkInstallerPath))
         {
@@ -559,6 +595,9 @@ public sealed class AdkService : IAdkService
 
         _downloadedAdkInstallerPath = adkInstallerPath;
         _downloadedWinPeInstallerPath = winPeInstallerPath;
+        _logger.LogDebug("Installer paths cached. AdkInstallerPath={AdkInstallerPath}, WinPeInstallerPath={WinPeInstallerPath}",
+            _downloadedAdkInstallerPath,
+            _downloadedWinPeInstallerPath);
     }
 
     /// <summary>
@@ -566,6 +605,7 @@ public sealed class AdkService : IAdkService
     /// </summary>
     private async Task DownloadFileAsync(string url, string filePath, int progressStart, int progressEnd, string componentName)
     {
+        _logger.LogInformation("Downloading installer component {ComponentName} from {Url} to {FilePath}.", componentName, url, filePath);
         using (var httpClient = new HttpClient())
         {
             httpClient.Timeout = TimeSpan.FromMinutes(30);
@@ -598,6 +638,7 @@ public sealed class AdkService : IAdkService
         }
 
         UpdateOperationProgress(progressEnd, Lf("AdkStatusComponentDownloadComplete", componentName));
+        _logger.LogInformation("Installer component download completed for {ComponentName}.", componentName);
     }
 
     /// <summary>
@@ -738,6 +779,7 @@ public sealed class AdkService : IAdkService
             UpdateOperationProgress(progressEnd, L("AdkStatusVerificationPending"));
         }
 
+        _logger.LogWarning("Timed out while waiting for ADK install state transition. ExpectedInstalled={ExpectedInstalled}", expectedInstalled);
         return false;
     }
 
@@ -747,6 +789,7 @@ public sealed class AdkService : IAdkService
     private void StartDeferredStatusRefresh(bool expectedInstalled, SynchronizationContext? synchronizationContext)
     {
         // Fire-and-forget reconciliation in case registry state propagation lags behind setup exit.
+        _logger.LogInformation("Starting deferred ADK status refresh. ExpectedInstalled={ExpectedInstalled}", expectedInstalled);
         _ = Task.Run(async () =>
         {
             await WaitForInstallStateAsync(

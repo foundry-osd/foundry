@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Globalization;
 using System.IO.Compression;
 using Foundry.Services.Operations;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
 
@@ -16,17 +17,20 @@ public sealed class MediaOutputService : IMediaOutputService
     private readonly WinPeProcessRunner _processRunner = new();
     private readonly WinPeDriverPackageService _driverPackageService;
     private readonly WinPeUsbMediaService _usbMediaService;
+    private readonly ILogger<MediaOutputService> _logger;
 
     public MediaOutputService(
         IOperationProgressService operationProgressService,
         IWinPeBuildService buildService,
         IWinPeDriverCatalogService driverCatalogService,
-        IWinPeDriverInjectionService driverInjectionService)
+        IWinPeDriverInjectionService driverInjectionService,
+        ILogger<MediaOutputService> logger)
     {
         _operationProgressService = operationProgressService;
         _buildService = buildService;
         _driverCatalogService = driverCatalogService;
         _driverInjectionService = driverInjectionService;
+        _logger = logger;
         _driverPackageService = new WinPeDriverPackageService(_processRunner);
         _usbMediaService = new WinPeUsbMediaService(_processRunner);
     }
@@ -35,8 +39,10 @@ public sealed class MediaOutputService : IMediaOutputService
         WinPeArchitecture architecture = WinPeArchitecture.X64,
         string? adkRootPath = null)
     {
+        _logger.LogInformation("Resolving available WinPE languages for Architecture={Architecture}.", architecture);
         if (!Enum.IsDefined(architecture))
         {
+            _logger.LogWarning("Invalid architecture value for WinPE languages resolution: {Architecture}", architecture);
             return WinPeResult<IReadOnlyList<string>>.Failure(
                 WinPeErrorCodes.ValidationFailed,
                 "Architecture is invalid.");
@@ -45,12 +51,14 @@ public sealed class MediaOutputService : IMediaOutputService
         WinPeResult<WinPeToolPaths> toolsResult = _toolResolver.ResolveTools(adkRootPath);
         if (!toolsResult.IsSuccess)
         {
+            _logger.LogWarning("Failed to resolve ADK tools while resolving WinPE languages: {ErrorCode}", toolsResult.Error?.Code);
             return WinPeResult<IReadOnlyList<string>>.Failure(toolsResult.Error!);
         }
 
         string ocRoot = GetOptionalComponentsRootPath(toolsResult.Value!.KitsRootPath, architecture);
         if (!Directory.Exists(ocRoot))
         {
+            _logger.LogWarning("WinPE optional components directory not found: {OptionalComponentsRoot}", ocRoot);
             return WinPeResult<IReadOnlyList<string>>.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "WinPE optional components folder was not found.",
@@ -65,32 +73,52 @@ public sealed class MediaOutputService : IMediaOutputService
             .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
+        _logger.LogInformation("Resolved {LocaleCount} WinPE locales for Architecture={Architecture}.", locales.Length, architecture);
         return WinPeResult<IReadOnlyList<string>>.Success(locales);
     }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Resolving USB disk candidates.");
         WinPeResult<WinPeToolPaths> tools = _toolResolver.ResolveTools();
         if (!tools.IsSuccess)
         {
+            _logger.LogWarning("Failed to resolve ADK tools while querying USB candidates: {ErrorCode}", tools.Error?.Code);
             return WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>.Failure(tools.Error!);
         }
 
         string work = Path.Combine(Path.GetTempPath(), "Foundry", "UsbQuery");
         Directory.CreateDirectory(work);
-        return await _usbMediaService.GetUsbCandidatesAsync(tools.Value!, work, cancellationToken).ConfigureAwait(false);
+        WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>> result =
+            await _usbMediaService.GetUsbCandidatesAsync(tools.Value!, work, cancellationToken).ConfigureAwait(false);
+        if (!result.IsSuccess)
+        {
+            _logger.LogWarning("USB candidate query failed: {ErrorCode} - {ErrorMessage}", result.Error?.Code, result.Error?.Message);
+            return result;
+        }
+
+        _logger.LogInformation("Resolved {CandidateCount} USB disk candidates.", result.Value?.Count ?? 0);
+        return result;
     }
 
     public async Task<WinPeResult> CreateIsoAsync(IsoOutputOptions options, CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
+        _logger.LogInformation("ISO creation requested. OutputIsoPath={OutputIsoPath}, Architecture={Architecture}, SignatureMode={SignatureMode}",
+            options.OutputIsoPath,
+            options.Architecture,
+            options.SignatureMode);
         WinPeDiagnostic? validation = ValidateIsoOptions(options);
         if (validation is not null)
         {
+            _logger.LogWarning("ISO creation validation failed: {ErrorCode} - {ErrorMessage}", validation.Code, validation.Message);
             return WinPeResult.Failure(validation);
         }
 
         if (!_operationProgressService.TryStart(OperationKind.IsoCreate, "Preparing ISO creation.", 0))
         {
+            _logger.LogWarning("ISO creation rejected because another operation is already in progress.");
             return WinPeResult.Failure(WinPeErrorCodes.OperationBusy, "Another operation is already in progress.");
         }
 
@@ -173,10 +201,12 @@ public sealed class MediaOutputService : IMediaOutputService
             _operationProgressService.Report(95, "Writing ISO metadata.");
             await WriteMetadataAsync($"{options.OutputIsoPath}.json", options.Architecture, options.SignatureMode, "iso", null, cancellationToken).ConfigureAwait(false);
             _operationProgressService.Complete("ISO creation completed.");
+            _logger.LogInformation("ISO creation completed successfully. OutputIsoPath={OutputIsoPath}", options.OutputIsoPath);
             return WinPeResult.Success();
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
+            _logger.LogError(ex, "Unexpected ISO creation failure for OutputIsoPath={OutputIsoPath}.", options.OutputIsoPath);
             return FailWithProgress(new WinPeDiagnostic(WinPeErrorCodes.InternalError, "Unexpected ISO creation failure.", ex.ToString()));
         }
         finally
@@ -184,20 +214,29 @@ public sealed class MediaOutputService : IMediaOutputService
             if (artifact is not null && !options.PreserveBuildWorkspace)
             {
                 TryDeleteDirectory(artifact.WorkingDirectoryPath);
+                _logger.LogDebug("ISO working directory cleanup completed. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             }
         }
     }
 
     public async Task<WinPeResult> CreateUsbAsync(UsbOutputOptions options, CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
+        _logger.LogInformation("USB creation requested. TargetDiskNumber={TargetDiskNumber}, Architecture={Architecture}, SignatureMode={SignatureMode}",
+            options.TargetDiskNumber,
+            options.Architecture,
+            options.SignatureMode);
         WinPeDiagnostic? validation = ValidateUsbOptions(options);
         if (validation is not null)
         {
+            _logger.LogWarning("USB creation validation failed: {ErrorCode} - {ErrorMessage}", validation.Code, validation.Message);
             return WinPeResult.Failure(validation);
         }
 
         if (!_operationProgressService.TryStart(OperationKind.UsbCreate, "Preparing USB creation.", 0))
         {
+            _logger.LogWarning("USB creation rejected because another operation is already in progress.");
             return WinPeResult.Failure(WinPeErrorCodes.OperationBusy, "Another operation is already in progress.");
         }
 
@@ -269,10 +308,12 @@ public sealed class MediaOutputService : IMediaOutputService
             _operationProgressService.Report(95, "Writing USB metadata.");
             await WriteMetadataAsync(Path.Combine($"{usb.Value!.CacheDriveLetter}\\", "Runtime", "foundry-media-metadata.json"), options.Architecture, options.SignatureMode, "usb", usb.Value, cancellationToken).ConfigureAwait(false);
             _operationProgressService.Complete("USB creation completed.");
+            _logger.LogInformation("USB creation completed successfully. TargetDiskNumber={TargetDiskNumber}", options.TargetDiskNumber);
             return WinPeResult.Success();
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
+            _logger.LogError(ex, "Unexpected USB creation failure. TargetDiskNumber={TargetDiskNumber}", options.TargetDiskNumber);
             return FailWithProgress(new WinPeDiagnostic(WinPeErrorCodes.InternalError, "Unexpected USB creation failure.", ex.ToString()));
         }
         finally
@@ -280,6 +321,7 @@ public sealed class MediaOutputService : IMediaOutputService
             if (artifact is not null && !options.PreserveBuildWorkspace)
             {
                 TryDeleteDirectory(artifact.WorkingDirectoryPath);
+                _logger.LogDebug("USB working directory cleanup completed. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             }
         }
     }
@@ -965,6 +1007,22 @@ public sealed class MediaOutputService : IMediaOutputService
     private WinPeResult FailWithProgress(WinPeDiagnostic diagnostic)
     {
         _operationProgressService.Fail(diagnostic.Message);
+
+        if (string.Equals(diagnostic.Code, WinPeErrorCodes.InternalError, StringComparison.OrdinalIgnoreCase))
+        {
+            _logger.LogError("WinPE operation failed. Code={ErrorCode}, Message={ErrorMessage}, Details={ErrorDetails}",
+                diagnostic.Code,
+                diagnostic.Message,
+                diagnostic.Details);
+        }
+        else
+        {
+            _logger.LogWarning("WinPE operation failed. Code={ErrorCode}, Message={ErrorMessage}, Details={ErrorDetails}",
+                diagnostic.Code,
+                diagnostic.Message,
+                diagnostic.Details);
+        }
+
         return WinPeResult.Failure(diagnostic);
     }
 
