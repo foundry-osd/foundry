@@ -1,16 +1,19 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment;
 
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
     private readonly IProcessRunner _processRunner;
+    private readonly ILogger<WindowsDeploymentService> _logger;
 
-    public WindowsDeploymentService(IProcessRunner processRunner)
+    public WindowsDeploymentService(IProcessRunner processRunner, ILogger<WindowsDeploymentService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
@@ -23,6 +26,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new ArgumentOutOfRangeException(nameof(diskNumber), "Target disk number must be 0 or greater.");
         }
 
+        _logger.LogInformation("Preparing target disk layout. DiskNumber={DiskNumber}, WorkingDirectory={WorkingDirectory}", diskNumber, workingDirectory);
         (char systemLetter, char windowsLetter) = GetPartitionLetters();
         Directory.CreateDirectory(workingDirectory);
 
@@ -51,10 +55,15 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
+            _logger.LogError("Disk partitioning failed for disk {DiskNumber}. Diagnostic={Diagnostic}", diskNumber, ToDiagnostic(execution));
             throw new InvalidOperationException(
                 $"Disk partitioning failed for disk {diskNumber}.{Environment.NewLine}{ToDiagnostic(execution)}");
         }
 
+        _logger.LogInformation("Target disk layout prepared. DiskNumber={DiskNumber}, SystemPartition={SystemPartition}, WindowsPartition={WindowsPartition}",
+            diskNumber,
+            $"{systemLetter}:\\",
+            $"{windowsLetter}:\\");
         return new DeploymentTargetLayout
         {
             DiskNumber = diskNumber,
@@ -74,6 +83,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new FileNotFoundException("Operating system image was not found.", imagePath);
         }
 
+        _logger.LogInformation("Resolving OS image index. ImagePath={ImagePath}, RequestedEdition={RequestedEdition}", imagePath, requestedEdition);
         ProcessExecutionResult execution = await _processRunner
             .RunAsync(
                 "dism.exe",
@@ -84,6 +94,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
+            _logger.LogError("Failed to resolve OS image index for {ImagePath}. Diagnostic={Diagnostic}", imagePath, ToDiagnostic(execution));
             throw new InvalidOperationException(
                 $"Unable to resolve image index for '{imagePath}'.{Environment.NewLine}{ToDiagnostic(execution)}");
         }
@@ -110,7 +121,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             ContainsNormalized(item.Edition, requested) ||
             ContainsNormalized(item.EditionId, requested));
 
-        return bestMatch?.Index ?? descriptors[0].Index;
+        int resolvedIndex = bestMatch?.Index ?? descriptors[0].Index;
+        _logger.LogInformation("Resolved OS image index {ImageIndex} for ImagePath={ImagePath}", resolvedIndex, imagePath);
+        return resolvedIndex;
     }
 
     public async Task ApplyImageAsync(
@@ -121,6 +134,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Applying OS image. ImagePath={ImagePath}, Index={ImageIndex}, WindowsPartitionRoot={WindowsPartitionRoot}",
+            imagePath,
+            imageIndex,
+            windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
         ProcessExecutionResult execution = await _processRunner
@@ -133,9 +150,15 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
+            _logger.LogError("OS image apply failed. ImagePath={ImagePath}, Index={ImageIndex}, Diagnostic={Diagnostic}",
+                imagePath,
+                imageIndex,
+                ToDiagnostic(execution));
             throw new InvalidOperationException(
                 $"OS image apply failed for index {imageIndex}.{Environment.NewLine}{ToDiagnostic(execution)}");
         }
+
+        _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
     }
 
     public async Task ApplyOfflineDriversAsync(
@@ -145,6 +168,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Applying offline drivers. DriverRoot={DriverRoot}, WindowsPartitionRoot={WindowsPartitionRoot}",
+            driverRoot,
+            windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
         ProcessExecutionResult execution = await _processRunner
@@ -157,9 +183,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
+            _logger.LogError("Offline driver injection failed. DriverRoot={DriverRoot}, Diagnostic={Diagnostic}", driverRoot, ToDiagnostic(execution));
             throw new InvalidOperationException(
                 $"Offline driver injection failed for '{driverRoot}'.{Environment.NewLine}{ToDiagnostic(execution)}");
         }
+
+        _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
 
     public async Task ConfigureBootAsync(
@@ -169,6 +198,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         CancellationToken cancellationToken = default)
     {
         string windowsPath = Path.Combine(windowsPartitionRoot, "Windows");
+        _logger.LogInformation("Configuring boot files. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}", windowsPath, systemPartitionRoot);
         ProcessExecutionResult execution = await _processRunner
             .RunAsync(
                 "bcdboot.exe",
@@ -179,9 +209,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
+            _logger.LogError("BCDBoot configuration failed. Diagnostic={Diagnostic}", ToDiagnostic(execution));
             throw new InvalidOperationException(
                 $"BCDBoot configuration failed.{Environment.NewLine}{ToDiagnostic(execution)}");
         }
+
+        _logger.LogInformation("BCDBoot configuration completed successfully.");
     }
 
     private static (char systemLetter, char windowsLetter) GetPartitionLetters()

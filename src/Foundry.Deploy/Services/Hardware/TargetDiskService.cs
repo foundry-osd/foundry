@@ -3,20 +3,24 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Hardware;
 
 public sealed class TargetDiskService : ITargetDiskService
 {
     private readonly IProcessRunner _processRunner;
+    private readonly ILogger<TargetDiskService> _logger;
 
-    public TargetDiskService(IProcessRunner processRunner)
+    public TargetDiskService(IProcessRunner processRunner, ILogger<TargetDiskService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Querying target disks.");
         string script = @"
 $disks = Get-Disk | Sort-Object -Property Number
 $result = foreach ($disk in $disks) {
@@ -46,6 +50,7 @@ $result | ConvertTo-Json -Compress
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
         {
+            _logger.LogWarning("Target disk query returned no data. ExitCode={ExitCode}", execution.ExitCode);
             return [];
         }
 
@@ -68,13 +73,19 @@ $result | ConvertTo-Json -Compress
                 disks.Add(ParseDisk(root));
             }
 
-            return disks
+            TargetDiskInfo[] orderedDisks = disks
                 .OrderByDescending(disk => disk.IsSelectable)
                 .ThenBy(disk => disk.DiskNumber)
                 .ToArray();
+
+            _logger.LogInformation("Resolved {DiskCount} target disks ({SelectableCount} selectable).",
+                orderedDisks.Length,
+                orderedDisks.Count(disk => disk.IsSelectable));
+            return orderedDisks;
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to parse target disk query output.");
             return [];
         }
     }
@@ -118,6 +129,7 @@ if ($null -eq $partition) {{
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
         {
+            _logger.LogDebug("Disk number lookup for path {Path} returned no data. ExitCode={ExitCode}", path, execution.ExitCode);
             return null;
         }
 
@@ -141,8 +153,9 @@ if ($null -eq $partition) {{
                 return parsedValue;
             }
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to parse disk number for path {Path}.", path);
             return null;
         }
 

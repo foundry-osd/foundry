@@ -2,16 +2,19 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.DriverPacks;
 
 public sealed class DriverPackPreparationService : IDriverPackPreparationService
 {
     private readonly IProcessRunner _processRunner;
+    private readonly ILogger<DriverPackPreparationService> _logger;
 
-    public DriverPackPreparationService(IProcessRunner processRunner)
+    public DriverPackPreparationService(IProcessRunner processRunner, ILogger<DriverPackPreparationService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<DriverPackPreparationResult> PrepareAsync(
@@ -25,6 +28,10 @@ public sealed class DriverPackPreparationService : IDriverPackPreparationService
             throw new FileNotFoundException("Driver pack archive not found.", archivePath);
         }
 
+        _logger.LogInformation("Preparing driver pack. DriverPackId={DriverPackId}, ArchivePath={ArchivePath}, ExtractionRootPath={ExtractionRootPath}",
+            driverPack.Id,
+            archivePath,
+            extractionRootPath);
         Directory.CreateDirectory(extractionRootPath);
         string extension = Path.GetExtension(archivePath).ToLowerInvariant();
         string packageFolderName = SanitizePathSegment(driverPack.Id.Length > 0 ? driverPack.Id : driverPack.FileName);
@@ -42,10 +49,15 @@ public sealed class DriverPackPreparationService : IDriverPackPreparationService
             case ".cab":
             case ".zip":
                 await ExtractWithSevenZipAsync(archivePath, extractedPath, extractionRootPath, cancellationToken).ConfigureAwait(false);
-                return BuildResult(archivePath, extractedPath);
+                DriverPackPreparationResult archiveResult = BuildResult(archivePath, extractedPath);
+                _logger.LogInformation("Driver pack extraction completed. ExtractedDirectoryPath={ExtractedDirectoryPath}, RequiresDeferredInstall={RequiresDeferredInstall}",
+                    archiveResult.ExtractedDirectoryPath,
+                    archiveResult.RequiresDeferredInstall);
+                return archiveResult;
 
             case ".exe":
             case ".msi":
+                _logger.LogWarning("Driver pack requires deferred install (installer format). Extension={Extension}, ArchivePath={ArchivePath}", extension, archivePath);
                 return new DriverPackPreparationResult
                 {
                     ArchivePath = archivePath,
@@ -55,6 +67,7 @@ public sealed class DriverPackPreparationService : IDriverPackPreparationService
                 };
 
             default:
+                _logger.LogWarning("Driver pack uses unsupported extraction format. Extension={Extension}, ArchivePath={ArchivePath}", extension, archivePath);
                 return new DriverPackPreparationResult
                 {
                     ArchivePath = archivePath,
@@ -82,6 +95,10 @@ public sealed class DriverPackPreparationService : IDriverPackPreparationService
 
         if (!execution.IsSuccess)
         {
+            _logger.LogError("7-Zip extraction failed. ArchivePath={ArchivePath}, ExitCode={ExitCode}, StdErr={StdErr}",
+                archivePath,
+                execution.ExitCode,
+                execution.StandardError);
             throw new InvalidOperationException(
                 $"7-Zip extraction failed (ExitCode={execution.ExitCode}). StdErr: {execution.StandardError}");
         }

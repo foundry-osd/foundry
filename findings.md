@@ -41,6 +41,7 @@
 | Factorisation des logs de contexte d orchestration dans une methode dediee | Nettoyage et lisibilite sans changement fonctionnel |
 | Passe additionnelle Foundry-only: instrumenter `AdkService` et `MediaOutputService` via `ILogger<T>` | Couvrir les chemins d erreur/success non traces dans les services critiques |
 | Passe Foundry coverage 2: instrumenter `WinPeBuildService`, `WinPeDriverCatalogService`, `WinPeDriverPackageService`, `WinPeUsbMediaService` et completer les catches WinPE dans `MediaOutputService` | Eliminer les points sans logs explicites sur les chemins operationnels et d exception |
+| Passe Foundry.Deploy coverage: ajout `ILogger<T>` dans services deploiement/caches/download/drivers/catalogs/hardware/system + ViewModel + orchestrateur | Augmenter la profondeur de trace sans modifier les contrats fonctionnels |
 
 ## Issues Encountered
 | Issue | Resolution |
@@ -76,6 +77,10 @@
   - `appendLikelyWorking=true` (2 tokens ecrits dans le meme `FoundryDeploy.log`)
   - `debugContainsBoth=true`
   - `resolvedLogPath=C:\\Users\\mchav\\AppData\\Local\\Temp\\Foundry\\Logs\\FoundryDeploy.log` dans cet environnement (fallback attendu car `X:` indisponible)
+- Probe Foundry.Deploy coverage pass 2 (.NET 10, relance apres instrumentation Deploy):
+  - `appendLikelyWorking=true`
+  - `debugContainsBoth=true`
+  - niveaux multiples verifies (`Debug`, `Information`, `Warning`, `Error`)
 
 ---
 *Mis a jour pour preparer l implementation sans ambiguite.*

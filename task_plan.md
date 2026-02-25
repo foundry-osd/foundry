@@ -4,7 +4,7 @@
 Definir un plan d implementation complet et decision-complete pour migrer le logging des projets `Foundry` et `Foundry.Deploy` vers Serilog, sans code partage entre projets.
 
 ## Current Phase
-Phase 8
+Phase 9
 
 ## Phases
 
@@ -59,6 +59,12 @@ Phase 8
 - [ ] Valider manuellement hooks exceptions globales en execution UI
 - **Status:** in_progress
 
+### Phase 9: Foundry.Deploy Audit Pass (Coverage)
+- [x] Re-auditer les services Foundry.Deploy pour les zones non journalisees (`catch`, erreurs process/download/deployment)
+- [x] Ajouter des logs structures dans les services critiques Deploy et le ViewModel
+- [x] Rebuild `Foundry.Deploy` et revalider runtime (append + sink debug)
+- **Status:** complete
+
 ## Key Questions
 1. Quel format de timestamp utiliser ? -> UTC ISO-8601.
 2. Quels sinks utiliser ? -> Fichier + Debug VS (pas de sink Console).
@@ -78,6 +84,7 @@ Phase 8
 | Supprimer logs live UI `DeploymentLogs` dans Deploy | Alignement avec choix utilisateur |
 | Hooks exceptions globales sur les 2 apps | Capturer les erreurs non gerees |
 | Passe de couverture Foundry: logs ajoutes dans Build/Catalog/DriverPackage/Usb + catches WinPE complets | Supprimer les zones silencieuses restantes sur les chemins critiques |
+| Passe de couverture Foundry.Deploy: instrumentation services critiques (`ProcessRunner`, `CacheLocator`, `WindowsDeployment`, `ArtifactDownload`, `DriverPacks`, `Catalogs`, `TargetDisk`, `HardwareProfile`, `MainWindowViewModel`, `DeploymentOrchestrator`) | Renforcer la tracabilite bout-en-bout dans Deploy sans changer la logique metier |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

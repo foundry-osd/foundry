@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Catalog;
 
@@ -12,24 +13,40 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
     {
         Timeout = TimeSpan.FromMinutes(5)
     };
+    private readonly ILogger<OperatingSystemCatalogService> _logger;
+
+    public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger)
+    {
+        _logger = logger;
+    }
 
     public async Task<IReadOnlyList<OperatingSystemCatalogItem>> GetCatalogAsync(CancellationToken cancellationToken = default)
     {
-        string xmlContent = await HttpClient.GetStringAsync(CatalogUri, cancellationToken).ConfigureAwait(false);
-        XDocument document = XDocument.Parse(xmlContent);
+        _logger.LogInformation("Fetching operating system catalog from {CatalogUri}.", CatalogUri);
+        try
+        {
+            string xmlContent = await HttpClient.GetStringAsync(CatalogUri, cancellationToken).ConfigureAwait(false);
+            XDocument document = XDocument.Parse(xmlContent);
 
-        OperatingSystemCatalogItem[] items = document
-            .Descendants("Item")
-            .Select(ParseItem)
-            .Where(item => !string.IsNullOrWhiteSpace(item.Url))
-            .OrderByDescending(item => item.BuildMajor)
-            .ThenByDescending(item => item.BuildUbr)
-            .ThenBy(item => item.Architecture, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.LanguageCode, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.Edition, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
+            OperatingSystemCatalogItem[] items = document
+                .Descendants("Item")
+                .Select(ParseItem)
+                .Where(item => !string.IsNullOrWhiteSpace(item.Url))
+                .OrderByDescending(item => item.BuildMajor)
+                .ThenByDescending(item => item.BuildUbr)
+                .ThenBy(item => item.Architecture, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.LanguageCode, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.Edition, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
 
-        return items;
+            _logger.LogInformation("Loaded {ItemCount} operating system catalog entries.", items.Length);
+            return items;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Operating system catalog load failed from {CatalogUri}.", CatalogUri);
+            throw;
+        }
     }
 
     private static OperatingSystemCatalogItem ParseItem(XElement item)

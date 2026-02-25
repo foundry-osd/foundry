@@ -15,6 +15,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Theme;
+using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 
 namespace Foundry.Deploy.ViewModels;
@@ -80,6 +81,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
+    private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentMode _resolvedDeploymentMode;
     private readonly string? _resolvedUsbCacheRuntimeRoot;
@@ -227,7 +229,8 @@ public partial class MainWindowViewModel : ObservableObject
         IDeploymentOrchestrator deploymentOrchestrator,
         IHardwareProfileService hardwareProfileService,
         ITargetDiskService targetDiskService,
-        IDriverPackSelectionService driverPackSelectionService)
+        IDriverPackSelectionService driverPackSelectionService,
+        ILogger<MainWindowViewModel> logger)
     {
         _themeService = themeService;
         _applicationShellService = applicationShellService;
@@ -238,6 +241,7 @@ public partial class MainWindowViewModel : ObservableObject
         _hardwareProfileService = hardwareProfileService;
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
+        _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
         _resolvedDeploymentMode = resolvedMode;
@@ -282,6 +286,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanRefreshCatalogs))]
     private async Task RefreshCatalogsAsync()
     {
+        _logger.LogInformation("Refreshing deployment catalogs.");
         if (IsCatalogLoading)
         {
             return;
@@ -320,6 +325,7 @@ public partial class MainWindowViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Catalog refresh failed.");
             RunOnUi(() => DeploymentStatus = $"Catalog load failed: {ex.Message}");
         }
         finally
@@ -331,6 +337,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanRefreshTargetDisks))]
     private async Task RefreshTargetDisksAsync()
     {
+        _logger.LogInformation("Refreshing target disk list.");
         if (IsTargetDiskLoading)
         {
             return;
@@ -379,6 +386,7 @@ public partial class MainWindowViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Target disk discovery failed.");
             RunOnUi(() => DeploymentStatus = $"Target disk discovery failed: {ex.Message}");
         }
         finally
@@ -408,6 +416,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanStartDeployment))]
     private async Task StartDeploymentAsync()
     {
+        _logger.LogInformation("Start deployment requested.");
         if (SelectedOperatingSystem is null)
         {
             return;
@@ -486,9 +495,13 @@ public partial class MainWindowViewModel : ObservableObject
                     ? "Deployment completed."
                     : $"Deployment failed: {result.Message}";
             });
+            _logger.LogInformation("Deployment run completed. IsSuccess={IsSuccess}, LogsDirectoryPath={LogsDirectoryPath}",
+                result.IsSuccess,
+                result.LogsDirectoryPath);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Deployment execution failed in view model.");
             RunOnUi(() => DeploymentStatus = $"Deployment failed: {ex.Message}");
         }
         finally
@@ -510,9 +523,11 @@ public partial class MainWindowViewModel : ObservableObject
                 Arguments = logsPath,
                 UseShellExecute = true
             });
+            _logger.LogInformation("Opened logs folder at {LogsPath}.", logsPath);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to open logs folder.");
             DeploymentStatus = $"Unable to open logs folder: {ex.Message}";
         }
     }
@@ -1639,9 +1654,11 @@ public partial class MainWindowViewModel : ObservableObject
                 ApplyOsFilter();
                 RefreshDriverPackOptions();
             });
+            _logger.LogInformation("Hardware profile loaded in view model. DisplayLabel={DisplayLabel}", profile.DisplayLabel);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Hardware profile loading failed in view model.");
             RunOnUi(() => DetectedHardwareSummary = $"Hardware detection failed: {ex.Message}");
         }
     }

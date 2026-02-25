@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Autopilot;
 
@@ -13,10 +14,12 @@ public sealed class AutopilotService : IAutopilotService
     private const string MarkerEnd = "REM <<< FOUNDRY AUTOPILOT END";
 
     private readonly IProcessRunner _processRunner;
+    private readonly ILogger<AutopilotService> _logger;
 
-    public AutopilotService(IProcessRunner processRunner)
+    public AutopilotService(IProcessRunner processRunner, ILogger<AutopilotService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<AutopilotExecutionResult> ExecuteFullWorkflowAsync(
@@ -27,6 +30,11 @@ public sealed class AutopilotService : IAutopilotService
         bool allowDeferredCompletion,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Starting full Autopilot workflow. CacheRootPath={CacheRootPath}, WindowsPartitionRoot={WindowsPartitionRoot}, AllowDeferredCompletion={AllowDeferredCompletion}",
+            cacheRootPath,
+            windowsPartitionRoot,
+            allowDeferredCompletion);
+
         string autopilotRoot = Path.Combine(cacheRootPath, "Autopilot");
         Directory.CreateDirectory(autopilotRoot);
 
@@ -55,6 +63,7 @@ public sealed class AutopilotService : IAutopilotService
 
         if (onlineExecution.IsSuccess)
         {
+            _logger.LogInformation("Autopilot online registration succeeded in WinPE.");
             string successJson = BuildStatusJson(
                 state: "completed-online",
                 message: "Autopilot online registration completed during WinPE deployment.",
@@ -88,6 +97,7 @@ public sealed class AutopilotService : IAutopilotService
 
         if (!allowDeferredCompletion)
         {
+            _logger.LogWarning("Autopilot online registration failed and deferred completion is disabled. ExitCode={ExitCode}", onlineExecution.ExitCode);
             string failureJson = BuildStatusJson(
                 state: "failed-online",
                 message: "Autopilot online registration failed during WinPE deployment.",
@@ -122,6 +132,9 @@ public sealed class AutopilotService : IAutopilotService
         string deferredScript = BuildDeferredScript();
         await File.WriteAllTextAsync(deferredScriptPath, deferredScript, cancellationToken).ConfigureAwait(false);
         EnsureSetupCompleteHook(setupCompletePath);
+        _logger.LogWarning("Autopilot online registration failed; deferred completion has been prepared. DeferredScriptPath={DeferredScriptPath}, SetupCompletePath={SetupCompletePath}",
+            deferredScriptPath,
+            setupCompletePath);
 
         string deferredJson = BuildStatusJson(
             state: "deferred",
@@ -156,6 +169,7 @@ public sealed class AutopilotService : IAutopilotService
 
     private async Task<ProcessExecutionResult> ExecuteScriptAsync(string scriptPath, CancellationToken cancellationToken)
     {
+        _logger.LogDebug("Executing Autopilot script. ScriptPath={ScriptPath}", scriptPath);
         string args = $"-NoProfile -ExecutionPolicy Bypass -File \"{scriptPath}\"";
         return await _processRunner
             .RunAsync("powershell.exe", args, Path.GetDirectoryName(scriptPath)!, cancellationToken)

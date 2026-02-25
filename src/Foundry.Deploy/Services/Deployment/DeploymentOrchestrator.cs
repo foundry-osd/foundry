@@ -8,6 +8,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -39,6 +40,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly IDriverPackPreparationService _driverPackPreparationService;
     private readonly IWindowsDeploymentService _windowsDeploymentService;
     private readonly IAutopilotService _autopilotService;
+    private readonly ILogger<DeploymentOrchestrator> _logger;
 
     public DeploymentOrchestrator(
         IOperationProgressService operationProgressService,
@@ -50,7 +52,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         IArtifactDownloadService artifactDownloadService,
         IDriverPackPreparationService driverPackPreparationService,
         IWindowsDeploymentService windowsDeploymentService,
-        IAutopilotService autopilotService)
+        IAutopilotService autopilotService,
+        ILogger<DeploymentOrchestrator> logger)
     {
         _operationProgressService = operationProgressService;
         _cacheLocatorService = cacheLocatorService;
@@ -62,6 +65,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _driverPackPreparationService = driverPackPreparationService;
         _windowsDeploymentService = windowsDeploymentService;
         _autopilotService = autopilotService;
+        _logger = logger;
     }
 
     public IReadOnlyList<string> PlannedSteps => Steps;
@@ -70,8 +74,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
     public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, DriverPackSelectionKind={DriverPackSelectionKind}",
+            context.Mode,
+            context.IsDryRun,
+            context.TargetDiskNumber,
+            context.DriverPackSelectionKind);
+
         if (!_operationProgressService.TryStart(OperationKind.Deploy, "Starting Foundry.Deploy orchestration.", 0))
         {
+            _logger.LogWarning("Deployment orchestration rejected because another operation is already in progress.");
             return new DeploymentResult
             {
                 IsSuccess = false,
@@ -103,6 +114,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 cancellationToken.ThrowIfCancellationRequested();
 
                 string stepName = Steps[i];
+                _logger.LogInformation("Executing deployment step {StepIndex}/{StepCount}: {StepName}", i + 1, Steps.Length, stepName);
                 runtimeState.CurrentStep = stepName;
                 EmitStep(stepName, DeploymentStepState.Running, i + 1, Steps.Length, $"Starting {stepName}.");
                 await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[STEP] {stepName}", cancellationToken).ConfigureAwait(false);
@@ -125,6 +137,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 if (outcome.State == DeploymentStepState.Failed)
                 {
+                    _logger.LogWarning("Deployment step failed. StepName={StepName}, Message={Message}", stepName, outcome.Message);
                     throw new InvalidOperationException(outcome.Message);
                 }
 
@@ -140,6 +153,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             }
 
             _operationProgressService.Complete("Deployment orchestration completed.");
+            _logger.LogInformation("Deployment orchestration completed successfully.");
             await AppendLogAsync(logSession, DeploymentLogLevel.Info, "[SUCCESS] Deployment orchestration completed.", cancellationToken).ConfigureAwait(false);
 
             string summaryPath = await PersistFinalArtifactsAsync(runtimeState, logSession, cancellationToken).ConfigureAwait(false);
@@ -156,6 +170,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         catch (OperationCanceledException)
         {
             _operationProgressService.Fail("Deployment cancelled.");
+            _logger.LogWarning("Deployment orchestration cancelled.");
             await AppendLogAsync(logSession, DeploymentLogLevel.Warning, "[WARN] Deployment cancelled by user.", cancellationToken).ConfigureAwait(false);
             return new DeploymentResult
             {
@@ -167,7 +182,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         catch (Exception ex)
         {
             _operationProgressService.Fail("Deployment failed.");
-            await AppendLogAsync(logSession, DeploymentLogLevel.Error, $"[ERROR] {ex.Message}", cancellationToken).ConfigureAwait(false);
+            _logger.LogError(ex, "Deployment orchestration failed.");
+            await AppendLogAsync(logSession, DeploymentLogLevel.Error, $"[ERROR] {ex}", cancellationToken).ConfigureAwait(false);
             return new DeploymentResult
             {
                 IsSuccess = false,

@@ -3,20 +3,24 @@ using System.Text;
 using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Hardware;
 
 public sealed class HardwareProfileService : IHardwareProfileService
 {
     private readonly IProcessRunner _processRunner;
+    private readonly ILogger<HardwareProfileService> _logger;
 
-    public HardwareProfileService(IProcessRunner processRunner)
+    public HardwareProfileService(IProcessRunner processRunner, ILogger<HardwareProfileService> logger)
     {
         _processRunner = processRunner;
+        _logger = logger;
     }
 
     public async Task<HardwareProfile> GetCurrentAsync(CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("Detecting current hardware profile.");
         string script = @"
 $computer = Get-CimInstance -ClassName Win32_ComputerSystem
 $product = Get-CimInstance -ClassName Win32_ComputerSystemProduct
@@ -41,6 +45,7 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
         {
+            _logger.LogWarning("Hardware profile detection returned no data. Using fallback profile. ExitCode={ExitCode}", execution.ExitCode);
             return BuildFallbackProfile();
         }
 
@@ -62,7 +67,7 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
                 !string.IsNullOrWhiteSpace(model) &&
                 isTpmPresent;
 
-            return new HardwareProfile
+            HardwareProfile profile = new()
             {
                 Manufacturer = NormalizeManufacturer(manufacturer),
                 Model = NormalizeValue(model),
@@ -72,9 +77,17 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
                 IsTpmPresent = isTpmPresent,
                 IsAutopilotCapable = isAutopilotCapable
             };
+
+            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsAutopilotCapable={IsAutopilotCapable}",
+                profile.Manufacturer,
+                profile.Model,
+                profile.Architecture,
+                profile.IsAutopilotCapable);
+            return profile;
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError(ex, "Failed to parse hardware profile payload. Falling back to default profile.");
             return BuildFallbackProfile();
         }
     }

@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Cache;
 
@@ -10,6 +11,12 @@ public sealed class CacheLocatorService : ICacheLocatorService
     private const string CacheVolumeLabel = "Foundry Cache";
     private const string CacheMarkerFolderName = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
+    private readonly ILogger<CacheLocatorService> _logger;
+
+    public CacheLocatorService(ILogger<CacheLocatorService> logger)
+    {
+        _logger = logger;
+    }
 
     public Task<CacheResolution> ResolveAsync(
         DeploymentMode mode,
@@ -19,12 +26,17 @@ public sealed class CacheLocatorService : ICacheLocatorService
         cancellationToken.ThrowIfCancellationRequested();
 
         string preferredRoot = NormalizePath(preferredRootPath);
+        _logger.LogInformation("Resolving cache strategy. Mode={Mode}, PreferredRootPath={PreferredRootPath}", mode, preferredRoot);
         CacheResolution resolution = mode switch
         {
             DeploymentMode.Iso => ResolveIso(mode, preferredRoot),
             _ => ResolveUsb(mode, preferredRoot)
         };
 
+        _logger.LogInformation("Resolved cache strategy. RootPath={RootPath}, Source={Source}, IsPersistent={IsPersistent}",
+            resolution.RootPath,
+            resolution.Source,
+            resolution.IsPersistent);
         return Task.FromResult(resolution);
     }
 

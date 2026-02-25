@@ -114,6 +114,36 @@
   - `findings.md`
   - `progress.md`
 
+### Phase 9: Foundry.Deploy audit coverage pass
+- **Status:** complete
+- Actions taken:
+  - Audit `Foundry.Deploy` pour identifier les zones sans logs explicites dans services critiques et ViewModel.
+  - Ajout de `ILogger<T>` et de logs structures dans:
+    - `ProcessRunner`, `CacheLocatorService`, `TargetDiskService`, `HardwareProfileService`
+    - `ArtifactDownloadService`, `WindowsDeploymentService`
+    - `DriverPackPreparationService`, `MicrosoftUpdateCatalogDriverService`, `DriverPackSelectionService`
+    - `OperatingSystemCatalogService`, `DriverPackCatalogService`
+    - `DeploymentOrchestrator`, `MainWindowViewModel`
+  - Renforcement du log d erreur orchestration avec details complets (`ex.ToString()` dans le log de session).
+  - Build `Foundry.Deploy` revalide puis probe runtime Deploy relance (append + Debug sink).
+- Files created/modified:
+  - `src/Foundry.Deploy/Services/Cache/CacheLocatorService.cs`
+  - `src/Foundry.Deploy/Services/Hardware/TargetDiskService.cs`
+  - `src/Foundry.Deploy/Services/Hardware/HardwareProfileService.cs`
+  - `src/Foundry.Deploy/Services/Download/ArtifactDownloadService.cs`
+  - `src/Foundry.Deploy/Services/Deployment/WindowsDeploymentService.cs`
+  - `src/Foundry.Deploy/Services/DriverPacks/DriverPackPreparationService.cs`
+  - `src/Foundry.Deploy/Services/DriverPacks/MicrosoftUpdateCatalogDriverService.cs`
+  - `src/Foundry.Deploy/Services/DriverPacks/DriverPackSelectionService.cs`
+  - `src/Foundry.Deploy/Services/Catalog/OperatingSystemCatalogService.cs`
+  - `src/Foundry.Deploy/Services/Catalog/DriverPackCatalogService.cs`
+  - `src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs`
+  - `src/Foundry.Deploy/Services/System/ProcessRunner.cs`
+  - `src/Foundry.Deploy/ViewModels/MainWindowViewModel.cs`
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -128,6 +158,8 @@
 | Build Foundry apres audit coverage 2 | `dotnet build src/Foundry/Foundry.csproj -nologo` | Build OK, 0 warning | Build OK, 0 warning | OK |
 | Probe runtime Foundry logging | `dotnet run --project .tmp/foundry-serilog-runtime-probe-*/FoundrySerilogProbe.csproj -nologo` | Fichier + Debug + retention valides | `fileContainsProbe=true`, `debugContainsProbe=true`, `retentionOldFileDeleted=true` | OK |
 | Probe runtime Foundry.Deploy logging | `dotnet run --project .tmp/foundrydeploy-serilog-runtime-probe-*/FoundryDeploySerilogProbe.csproj -nologo` | Append + Debug valides | `appendLikelyWorking=true`, `debugContainsBoth=true` | OK |
+| Build Foundry.Deploy apres audit coverage pass | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj -nologo` | Build OK, 0 warning | Build OK, 0 warning | OK |
+| Probe runtime Foundry.Deploy apres instrumentation | `dotnet run --project .tmp/foundrydeploy-serilog-runtime-probe-*/FoundryDeploySerilogProbe.csproj -nologo` | Append + Debug + multi-level valides | `appendLikelyWorking=true`, `debugContainsBoth=true` | OK |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
