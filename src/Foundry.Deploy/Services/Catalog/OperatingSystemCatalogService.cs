@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Catalog;
@@ -9,10 +10,7 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogService
 {
     private const string CatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/OS/OperatingSystem.xml";
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(5)
-    };
+    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<OperatingSystemCatalogService> _logger;
 
     public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger)
@@ -25,7 +23,14 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
         _logger.LogInformation("Fetching operating system catalog from {CatalogUri}.", CatalogUri);
         try
         {
-            string xmlContent = await HttpClient.GetStringAsync(CatalogUri, cancellationToken).ConfigureAwait(false);
+            string xmlContent = await HttpTextFetcher
+                .GetStringWithRetryAsync(
+                    HttpClient,
+                    CatalogUri,
+                    _logger,
+                    "Operating system catalog download",
+                    cancellationToken)
+                .ConfigureAwait(false);
             XDocument document = XDocument.Parse(xmlContent);
 
             OperatingSystemCatalogItem[] items = document
@@ -102,4 +107,5 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
             _ => normalized
         };
     }
+
 }

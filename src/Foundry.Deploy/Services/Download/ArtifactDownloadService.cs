@@ -1,25 +1,21 @@
 using System.Net.Http;
 using System.Security.Cryptography;
-using System.Text;
 using System.IO;
-using Foundry.Deploy.Services.System;
+using Foundry.Deploy.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Download;
 
 public sealed class ArtifactDownloadService : IArtifactDownloadService
 {
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(30)
-    };
+    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(30));
+    private static readonly TimeSpan ProgressReportInterval = TimeSpan.FromMilliseconds(500);
+    private const int CopyBufferSize = 80 * 1024;
 
-    private readonly IProcessRunner _processRunner;
     private readonly ILogger<ArtifactDownloadService> _logger;
 
-    public ArtifactDownloadService(IProcessRunner processRunner, ILogger<ArtifactDownloadService> logger)
+    public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
     {
-        _processRunner = processRunner;
         _logger = logger;
     }
 
@@ -27,13 +23,12 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string sourceUrl,
         string destinationPath,
         string? expectedHash = null,
-        bool preferBits = true,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IProgress<DownloadProgress>? progress = null)
     {
-        _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}, PreferBits={PreferBits}",
+        _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}",
             sourceUrl,
-            destinationPath,
-            preferBits);
+            destinationPath);
 
         if (string.IsNullOrWhiteSpace(sourceUrl))
         {
@@ -53,31 +48,25 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         {
             if (File.Exists(destinationPath) && await ValidateHashIfRequestedAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false))
             {
+                long cachedSize = new FileInfo(destinationPath).Length;
+                progress?.Report(new DownloadProgress(cachedSize, cachedSize));
                 _logger.LogInformation("Artifact cache hit for DestinationPath={DestinationPath}.", destinationPath);
                 return new ArtifactDownloadResult
                 {
                     DestinationPath = destinationPath,
                     Downloaded = false,
                     Method = "cache-hit",
-                    SizeBytes = new FileInfo(destinationPath).Length
+                    SizeBytes = cachedSize
                 };
             }
 
-            if (preferBits && await TryBitsDownloadAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false))
-            {
-                _logger.LogInformation("Artifact downloaded via BITS. DestinationPath={DestinationPath}", destinationPath);
-                await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
-                return new ArtifactDownloadResult
-                {
-                    DestinationPath = destinationPath,
-                    Downloaded = true,
-                    Method = "bits",
-                    SizeBytes = new FileInfo(destinationPath).Length
-                };
-            }
-
-            _logger.LogInformation("Falling back to HttpClient download. SourceUrl={SourceUrl}", sourceUrl);
-            await DownloadWithHttpClientAsync(sourceUrl, destinationPath, cancellationToken).ConfigureAwait(false);
+            await HttpRetryPolicy
+                .ExecuteAsync(
+                    ct => DownloadWithHttpClientAsync(sourceUrl, destinationPath, progress, ct),
+                    _logger,
+                    "Artifact download",
+                    cancellationToken)
+                .ConfigureAwait(false);
             await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
 
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
@@ -91,47 +80,57 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Artifact download failed. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}", sourceUrl, destinationPath);
+            _logger.LogError(
+                ex,
+                "Artifact download failed. SourceUrl={SourceUrl}, SourceHost={SourceHost}, DestinationPath={DestinationPath}",
+                sourceUrl,
+                TryGetSourceHost(sourceUrl),
+                destinationPath);
             throw;
         }
     }
 
-    private async Task<bool> TryBitsDownloadAsync(string sourceUrl, string destinationPath, CancellationToken cancellationToken)
-    {
-        string escapedUrl = sourceUrl.Replace("'", "''");
-        string escapedDestination = destinationPath.Replace("'", "''");
-        string script = $@"
-$ProgressPreference='SilentlyContinue'
-if (!(Get-Command -Name Start-BitsTransfer -ErrorAction SilentlyContinue)) {{ exit 41 }}
-Start-BitsTransfer -Source '{escapedUrl}' -Destination '{escapedDestination}' -TransferType Download -ErrorAction Stop
-";
-
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
-
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess)
-        {
-            _logger.LogWarning("BITS download attempt failed. ExitCode={ExitCode}", execution.ExitCode);
-        }
-
-        return execution.IsSuccess && File.Exists(destinationPath);
-    }
-
-    private static async Task DownloadWithHttpClientAsync(string sourceUrl, string destinationPath, CancellationToken cancellationToken)
+    private static async Task DownloadWithHttpClientAsync(
+        string sourceUrl,
+        string destinationPath,
+        IProgress<DownloadProgress>? progress,
+        CancellationToken cancellationToken)
     {
         using HttpResponseMessage response = await HttpClient
             .GetAsync(sourceUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
             .ConfigureAwait(false);
 
         response.EnsureSuccessStatusCode();
+        long? totalBytes = response.Content.Headers.ContentLength;
 
         await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-        await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 81920, useAsync: true);
-        await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+        await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, CopyBufferSize, useAsync: true);
+        byte[] buffer = new byte[CopyBufferSize];
+        long bytesDownloaded = 0;
+        DateTimeOffset nextReportAt = DateTimeOffset.UtcNow;
+
+        progress?.Report(new DownloadProgress(bytesDownloaded, totalBytes));
+
+        while (true)
+        {
+            int bytesRead = await sourceStream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken).ConfigureAwait(false);
+            if (bytesRead == 0)
+            {
+                break;
+            }
+
+            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
+            bytesDownloaded += bytesRead;
+
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            if (progress is not null && now >= nextReportAt)
+            {
+                progress.Report(new DownloadProgress(bytesDownloaded, totalBytes));
+                nextReportAt = now + ProgressReportInterval;
+            }
+        }
+
+        progress?.Report(new DownloadProgress(bytesDownloaded, totalBytes));
     }
 
     private static async Task EnsureHashAsync(string filePath, string? expectedHash, CancellationToken cancellationToken)
@@ -199,4 +198,12 @@ Start-BitsTransfer -Source '{escapedUrl}' -Destination '{escapedDestination}' -T
         byte[] hash = await hashAlgorithm.ComputeHashAsync(stream, cancellationToken).ConfigureAwait(false);
         return Convert.ToHexString(hash);
     }
+
+    private static string TryGetSourceHost(string sourceUrl)
+    {
+        return Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri)
+            ? uri.Host
+            : "invalid-url";
+    }
+
 }

@@ -6,6 +6,6 @@ public interface IArtifactDownloadService
         string sourceUrl,
         string destinationPath,
         string? expectedHash = null,
-        bool preferBits = true,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken = default,
+        IProgress<DownloadProgress>? progress = null);
 }

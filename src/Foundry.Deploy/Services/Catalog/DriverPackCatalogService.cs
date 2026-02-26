@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Catalog;
@@ -9,10 +10,7 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class DriverPackCatalogService : IDriverPackCatalogService
 {
     private const string CatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/DriverPack/DriverPack_Unified.xml";
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(5)
-    };
+    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<DriverPackCatalogService> _logger;
 
     public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger)
@@ -25,7 +23,14 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
         _logger.LogInformation("Fetching driver pack catalog from {CatalogUri}.", CatalogUri);
         try
         {
-            string xmlContent = await HttpClient.GetStringAsync(CatalogUri, cancellationToken).ConfigureAwait(false);
+            string xmlContent = await HttpTextFetcher
+                .GetStringWithRetryAsync(
+                    HttpClient,
+                    CatalogUri,
+                    _logger,
+                    "Driver pack catalog download",
+                    cancellationToken)
+                .ConfigureAwait(false);
             XDocument document = XDocument.Parse(xmlContent);
 
             DriverPackCatalogItem[] items = document
@@ -112,4 +117,5 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
             _ => normalized
         };
     }
+
 }
