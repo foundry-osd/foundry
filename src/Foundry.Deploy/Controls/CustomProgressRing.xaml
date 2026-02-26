@@ -2,6 +2,7 @@
     x:Class="Foundry.Deploy.Controls.CustomProgressRing"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    ClipToBounds="True"
     MinHeight="120"
     MinWidth="120"
     SnapsToDevicePixels="True"
@@ -32,7 +33,6 @@
             <Path.RenderTransform>
                 <RotateTransform x:Name="IndeterminateRotateTransform" />
             </Path.RenderTransform>
-            <Path.RenderTransformOrigin>0.5,0.5</Path.RenderTransformOrigin>
         </Path>
     </Grid>
 </UserControl>
