@@ -538,30 +538,81 @@
                     Style="{StaticResource TitleLargeTextBlockStyle}"
                     Text="{Binding ComputerNameText}" />
 
-                <StackPanel
-                    Grid.Row="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        Style="{StaticResource TitleTextBlockStyle}"
-                        Text="Deployment completed successfully."
-                        TextAlignment="Center" />
-                    <TextBlock
-                        Margin="0,16,0,24"
-                        HorizontalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding RebootCountdownSeconds, StringFormat=This computer will reboot in {0} seconds...}"
-                        TextAlignment="Center" />
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button
-                            Width="140"
-                            Margin="0,0,8,0"
-                            Command="{Binding RebootNowCommand}"
-                            Content="Reboot now" />
+                <Grid Grid.Row="1">
+                    <!--  Left panel: computer info  -->
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+
+                        <!--  Networking  -->
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Networking" />
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding IpAddress}" />
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding MacAddress}" />
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding SubnetMask}" />
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding GatewayAddress}" />
+
+                        <!--  Start Time  -->
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Start time" />
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding StartTimeText}" />
+
+                        <!--  Elapsed Time  -->
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Elapsed time" />
+                        <TextBlock
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
-                </StackPanel>
+
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="Deployment completed successfully."
+                            TextAlignment="Center" />
+                        <TextBlock
+                            Margin="0,16,0,24"
+                            HorizontalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding RebootCountdownSeconds, StringFormat=This computer will reboot in {0} seconds...}"
+                            TextAlignment="Center" />
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Button
+                                Width="140"
+                                Margin="0,0,8,0"
+                                Command="{Binding RebootNowCommand}"
+                                Content="Reboot now" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             <!--  Error page (failure flow)  -->
@@ -578,49 +629,100 @@
                     Style="{StaticResource TitleLargeTextBlockStyle}"
                     Text="{Binding ComputerNameText}" />
 
-                <StackPanel
-                    Grid.Row="1"
-                    Width="900"
-                    MaxWidth="900"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    <TextBlock
+                <Grid Grid.Row="1">
+                    <!--  Left panel: computer info  -->
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+
+                        <!--  Networking  -->
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Networking" />
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding IpAddress}" />
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding MacAddress}" />
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding SubnetMask}" />
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding GatewayAddress}" />
+
+                        <!--  Start Time  -->
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Start time" />
+                        <TextBlock
+                            Margin="0,0,0,20"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding StartTimeText}" />
+
+                        <!--  Elapsed Time  -->
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Elapsed time" />
+                        <TextBlock
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding ElapsedTimeText}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Width="900"
+                        MaxWidth="900"
                         HorizontalAlignment="Center"
-                        Style="{StaticResource TitleTextBlockStyle}"
-                        Text="Deployment failed"
-                        TextAlignment="Center" />
-                    <TextBlock
-                        Margin="0,16,0,4"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Failed step" />
-                    <TextBlock
-                        Margin="0,0,0,16"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding FailedStepName}" />
-                    <TextBlock
-                        Margin="0,0,0,4"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Error message" />
-                    <Border
-                        Height="220"
-                        Padding="10"
-                        BorderBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <TextBlock
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding FailedStepErrorMessage}"
-                                TextWrapping="Wrap" />
-                        </ScrollViewer>
-                    </Border>
-                    <Button
-                        Width="140"
-                        Margin="0,16,0,0"
-                        HorizontalAlignment="Right"
-                        Command="{Binding OpenLogFileCommand}"
-                        Content="Open Log File" />
-                </StackPanel>
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="Deployment failed"
+                            TextAlignment="Center" />
+                        <TextBlock
+                            Margin="0,16,0,4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Failed step" />
+                        <TextBlock
+                            Margin="0,0,0,16"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding FailedStepName}" />
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Error message" />
+                        <Border
+                            Height="220"
+                            Padding="10"
+                            BorderBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBlock
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding FailedStepErrorMessage}"
+                                    TextWrapping="Wrap" />
+                            </ScrollViewer>
+                        </Border>
+                        <Button
+                            Width="140"
+                            Margin="0,16,0,0"
+                            HorizontalAlignment="Right"
+                            Command="{Binding OpenLogFileCommand}"
+                            Content="Open Log File" />
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
 
