@@ -381,24 +381,44 @@
 
                         <TextBlock
                             Margin="0,0,0,4"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
                             Text="Networking" />
-                        <TextBlock Margin="0,0,0,2" Text="{Binding IpAddress, StringFormat=IP: {0}}" />
-                        <TextBlock Margin="0,0,0,2" Text="{Binding SubnetMask, StringFormat=Subnet: {0}}" />
-                        <TextBlock Margin="0,0,0,2" Text="{Binding GatewayAddress, StringFormat=Gateway: {0}}" />
-                        <TextBlock Margin="0,0,0,10" Text="{Binding MacAddress, StringFormat=MAC: {0}}" />
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding IpAddress, StringFormat=IP: {0}}" />
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding SubnetMask, StringFormat=Subnet: {0}}" />
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding GatewayAddress, StringFormat=Gateway: {0}}" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding MacAddress, StringFormat=MAC: {0}}" />
 
                         <TextBlock
                             Margin="0,0,0,4"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
                             Text="Start Time" />
-                        <TextBlock Margin="0,0,0,10" Text="{Binding StartTimeText}" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding StartTimeText}" />
 
                         <TextBlock
                             Margin="0,0,0,4"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
                             Text="Elapsed Time" />
-                        <TextBlock Text="{Binding ElapsedTimeText}" />
+                        <TextBlock
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
                     <StackPanel
@@ -407,14 +427,14 @@
                         <TextBlock
                             Margin="0,0,0,8"
                             HorizontalAlignment="Center"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="Current Step" />
                         <TextBlock
                             Width="640"
                             Margin="0,0,0,16"
                             HorizontalAlignment="Center"
-                            FontSize="28"
-                            FontWeight="SemiBold"
+                            Style="{StaticResource TitleLargeTextBlockStyle}"
                             Text="{Binding CurrentStepName}"
                             TextAlignment="Center"
                             TextWrapping="Wrap" />
@@ -425,13 +445,14 @@
                             Margin="0,0,0,16">
                             <controls:CustomProgressRing
                                 IsIndeterminate="{Binding IsGlobalProgressIndeterminate}"
+                                ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
                                 Thickness="14"
+                                TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
                                 Value="{Binding DeploymentProgress}" />
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontSize="38"
-                                FontWeight="SemiBold"
+                                Style="{StaticResource DisplayTextBlockStyle}"
                                 Text="{Binding GlobalProgressPercentText}" />
                         </Grid>
 
