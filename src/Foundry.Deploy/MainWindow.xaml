@@ -363,91 +363,89 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!--  Progress header  -->
+                <!--  Progress header: machine name  -->
                 <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,16"
                     HorizontalAlignment="Center"
                     Style="{StaticResource TitleTextBlockStyle}"
-                    Text="Deployment Progress" />
+                    Text="{Binding ComputerNameText}" />
 
-                <Grid Grid.Row="1" Margin="0,12,0,12">
+                <!--  Main 3-column layout  -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Left panel: computer info  -->
                     <StackPanel
-                        Width="340"
-                        HorizontalAlignment="Left"
+                        Grid.Column="0"
+                        Margin="8,0,16,0"
                         VerticalAlignment="Center">
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding ComputerNameText, StringFormat=Computer: {0}}" />
 
+                        <!--  Networking  -->
                         <TextBlock
-                            Margin="0,0,0,8"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="Networking" />
                         <TextBlock
-                            Margin="0,0,0,4"
+                            Margin="0,0,0,2"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding IpAddress, StringFormat=IP: {0}}" />
+                            Text="{Binding IpAddress}" />
                         <TextBlock
-                            Margin="0,0,0,4"
+                            Margin="0,0,0,2"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding SubnetMask, StringFormat=Subnet: {0}}" />
+                            Text="{Binding MacAddress}" />
                         <TextBlock
-                            Margin="0,0,0,4"
+                            Margin="0,0,0,2"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding GatewayAddress, StringFormat=Gateway: {0}}" />
+                            Text="{Binding SubnetMask}" />
                         <TextBlock
-                            Margin="0,0,0,12"
+                            Margin="0,0,0,20"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding MacAddress, StringFormat=MAC: {0}}" />
+                            Text="{Binding GatewayAddress}" />
 
+                        <!--  Start Time  -->
                         <TextBlock
-                            Margin="0,0,0,8"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="Start Time" />
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Start time" />
                         <TextBlock
-                            Margin="0,0,0,12"
+                            Margin="0,0,0,20"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{Binding StartTimeText}" />
 
+                        <!--  Elapsed Time  -->
                         <TextBlock
-                            Margin="0,0,0,8"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="Elapsed Time" />
+                            Margin="0,0,0,4"
+                            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Elapsed time" />
                         <TextBlock
-                            Margin="0,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
+                    <!--  Center panel: ring + step name + sub-progress  -->
                     <StackPanel
+                        Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="Current Step" />
-                        <TextBlock
-                            Width="640"
-                            Margin="0,0,0,16"
-                            HorizontalAlignment="Center"
-                            Style="{StaticResource TitleLargeTextBlockStyle}"
-                            Text="{Binding CurrentStepName}"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
 
+                        <!--  Progress ring  -->
                         <Grid
-                            Width="240"
-                            Height="240"
-                            Margin="0,0,0,16">
+                            Width="280"
+                            Height="280"
+                            Margin="0,0,0,24"
+                            HorizontalAlignment="Center">
                             <controls:CustomProgressRing
                                 IsIndeterminate="{Binding IsGlobalProgressIndeterminate}"
                                 ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
-                                Thickness="14"
+                                Thickness="16"
                                 TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
                                 Value="{Binding DeploymentProgress}" />
                             <TextBlock
@@ -457,27 +455,38 @@
                                 Text="{Binding GlobalProgressPercentText}" />
                         </Grid>
 
+                        <!--  Current step name  -->
                         <TextBlock
+                            Width="480"
+                            Margin="0,0,0,20"
                             HorizontalAlignment="Center"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Current Step Progress" />
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{Binding CurrentStepName}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <!--  Sub-step progress  -->
                         <ProgressBar
-                            Width="560"
-                            Height="10"
-                            Margin="0,8,0,0"
+                            Width="320"
+                            Height="4"
+                            Margin="0,0,0,8"
+                            HorizontalAlignment="Center"
                             IsIndeterminate="{Binding IsCurrentStepProgressIndeterminate}"
                             Maximum="100"
                             Value="{Binding CurrentStepProgress}" />
                         <TextBlock
-                            Margin="0,8,0,0"
                             HorizontalAlignment="Center"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="{Binding CurrentStepProgressText}" />
                     </StackPanel>
+
+                    <!--  Right panel: reserved  -->
+                    <Grid Grid.Column="2" />
                 </Grid>
 
-                <Grid Grid.Row="2" Margin="0,8,0,0">
+                <!--  Bottom: step counter + log button  -->
+                <Grid Grid.Row="2" Margin="0,12,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
