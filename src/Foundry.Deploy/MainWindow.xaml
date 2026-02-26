@@ -380,7 +380,7 @@
                             Text="{Binding ComputerNameText, StringFormat=Computer: {0}}" />
 
                         <TextBlock
-                            Margin="0,0,0,4"
+                            Margin="0,0,0,8"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="Networking" />
@@ -402,7 +402,7 @@
                             Text="{Binding MacAddress, StringFormat=MAC: {0}}" />
 
                         <TextBlock
-                            Margin="0,0,0,4"
+                            Margin="0,0,0,8"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="Start Time" />
@@ -412,11 +412,12 @@
                             Text="{Binding StartTimeText}" />
 
                         <TextBlock
-                            Margin="0,0,0,4"
+                            Margin="0,0,0,8"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="Elapsed Time" />
                         <TextBlock
+                            Margin="0,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
