@@ -368,21 +368,15 @@
                     Grid.Row="0"
                     Margin="0,0,0,16"
                     HorizontalAlignment="Center"
-                    Style="{StaticResource TitleTextBlockStyle}"
+                    Style="{StaticResource DisplayTextBlockStyle}"
                     Text="{Binding ComputerNameText}" />
 
-                <!--  Main 3-column layout  -->
+                <!--  Main content  -->
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="300" />
-                    </Grid.ColumnDefinitions>
 
                     <!--  Left panel: computer info  -->
                     <StackPanel
-                        Grid.Column="0"
-                        Margin="8,0,16,0"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center">
 
                         <!--  Networking  -->
@@ -432,7 +426,6 @@
 
                     <!--  Center panel: ring + step name + sub-progress  -->
                     <StackPanel
-                        Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
 
@@ -457,13 +450,11 @@
 
                         <!--  Current step name  -->
                         <TextBlock
-                            Width="480"
                             Margin="0,0,0,20"
                             HorizontalAlignment="Center"
-                            Style="{StaticResource TitleTextBlockStyle}"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="{Binding CurrentStepName}"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
+                            TextAlignment="Center" />
 
                         <!--  Sub-step progress  -->
                         <ProgressBar
@@ -480,9 +471,6 @@
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="{Binding CurrentStepProgressText}" />
                     </StackPanel>
-
-                    <!--  Right panel: reserved  -->
-                    <Grid Grid.Column="2" />
                 </Grid>
 
                 <!--  Bottom: step counter + log button  -->
