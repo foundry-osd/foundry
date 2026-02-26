@@ -15,6 +15,7 @@ namespace Foundry.Deploy.Services.Deployment;
 public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 {
     private const string WinPeRoot = @"X:\Foundry";
+    private static readonly string WinPeDriveRoot = Path.GetPathRoot(WinPeRoot) ?? @"X:\";
     private const long UnknownTotalDownloadProgressIncrementBytes = 16L * 1024 * 1024;
 
     private static readonly string[] Steps =
@@ -95,6 +96,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         DeploymentLogSession? logSession = null;
         var runtimeState = new DeploymentRuntimeState
         {
+            WorkspaceRoot = ResolveWorkspaceRoot(context),
             Mode = context.Mode,
             IsDryRun = context.IsDryRun,
             RequestedCacheRootPath = context.CacheRootPath,
@@ -106,8 +108,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         try
         {
-            EnsureWinPeWorkspaceFolders();
-            logSession = _deploymentLogService.Initialize(WinPeRoot);
+            EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
+            logSession = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
             await AppendRunContextAsync(logSession, context, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < Steps.Length; i++)
@@ -192,7 +194,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 IsSuccess = false,
                 Message = "Deployment cancelled.",
-                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession)
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession, runtimeState)
             };
         }
         catch (Exception ex)
@@ -204,7 +206,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 IsSuccess = false,
                 Message = ex.Message,
-                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession)
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession, runtimeState)
             };
         }
     }
@@ -225,10 +227,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    EnsureWinPeWorkspaceFolders();
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
                     if (logSession is null)
                     {
-                        DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
+                        DeploymentLogSession session = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
                         await _deploymentLogService
                             .AppendAsync(session, DeploymentLogLevel.Info, $"Log session initialized at '{session.RootPath}'.", cancellationToken)
                             .ConfigureAwait(false);
@@ -275,13 +277,13 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
-                    EnsureWinPeWorkspaceFolders();
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
                     return StepExecutionOutcome.Succeeded("Cache strategy resolved.");
                 }
 
             case "Prepare target disk layout":
                 {
-                    string workingDirectory = Path.Combine(WinPeRoot, "Temp", "Deployment");
+                    string workingDirectory = Path.Combine(runtimeState.WorkspaceRoot, "Temp", "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
                     StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
@@ -565,8 +567,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    EnsureWinPeWorkspaceFolders();
-                    DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
+                    DeploymentLogSession session = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
                     await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, "Debug safe mode log session initialized.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Workspace initialized (simulation).", session);
@@ -589,7 +591,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
-                    EnsureWinPeWorkspaceFolders();
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Cache strategy resolved (simulation).");
@@ -597,7 +599,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             case "Prepare target disk layout":
                 {
-                    string targetRoot = Path.Combine(WinPeRoot, "Temp", "DryRunTarget");
+                    string targetRoot = Path.Combine(runtimeState.WorkspaceRoot, "Temp", "DryRunTarget");
                     string systemRoot = Path.Combine(targetRoot, "System");
                     string windowsRoot = Path.Combine(targetRoot, "Windows");
                     Directory.CreateDirectory(systemRoot);
@@ -938,21 +940,38 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ?? throw new InvalidOperationException("Target Foundry root is unavailable.");
     }
 
-    private static void EnsureWinPeWorkspaceFolders()
+    private static void EnsureWorkspaceFolders(string workspaceRoot)
     {
+        if (string.IsNullOrWhiteSpace(workspaceRoot))
+        {
+            throw new InvalidOperationException("Workspace root is required.");
+        }
+
         string[] folders =
         [
-            WinPeRoot,
-            Path.Combine(WinPeRoot, "Logs"),
-            Path.Combine(WinPeRoot, "Temp"),
-            Path.Combine(WinPeRoot, "State"),
-            Path.Combine(WinPeRoot, "Runtime")
+            workspaceRoot,
+            Path.Combine(workspaceRoot, "Logs"),
+            Path.Combine(workspaceRoot, "Temp"),
+            Path.Combine(workspaceRoot, "State"),
+            Path.Combine(workspaceRoot, "Runtime")
         ];
 
         foreach (string folder in folders)
         {
             Directory.CreateDirectory(folder);
         }
+    }
+
+    private static string ResolveWorkspaceRoot(DeploymentContext context)
+    {
+        bool hasWinPeDrive = Directory.Exists(WinPeDriveRoot);
+        if (hasWinPeDrive)
+        {
+            return WinPeRoot;
+        }
+
+        string modeFolder = context.IsDryRun ? "DryRun" : "Runtime";
+        return Path.Combine(Path.GetTempPath(), "Foundry", modeFolder);
     }
 
     private async Task<CacheResolution> AdjustCacheForTargetDiskConflictAsync(
@@ -1296,17 +1315,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "Logs");
         }
 
-        return ResolveCurrentLogsDirectory(logSession);
+        return ResolveCurrentLogsDirectory(logSession, runtimeState);
     }
 
-    private static string ResolveCurrentLogsDirectory(DeploymentLogSession? logSession)
+    private static string ResolveCurrentLogsDirectory(DeploymentLogSession? logSession, DeploymentRuntimeState runtimeState)
     {
         if (logSession is not null && !string.IsNullOrWhiteSpace(logSession.LogsDirectoryPath))
         {
             return logSession.LogsDirectoryPath;
         }
 
-        return Path.Combine(WinPeRoot, "Logs");
+        string workspaceRoot = string.IsNullOrWhiteSpace(runtimeState.WorkspaceRoot)
+            ? WinPeRoot
+            : runtimeState.WorkspaceRoot;
+        return Path.Combine(workspaceRoot, "Logs");
     }
 
     private static string ResolveFileName(string preferredFileName, string sourceUrl)
