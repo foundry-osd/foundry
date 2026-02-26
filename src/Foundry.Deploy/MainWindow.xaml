@@ -368,7 +368,7 @@
                     Grid.Row="0"
                     Margin="0,0,0,16"
                     HorizontalAlignment="Center"
-                    Style="{StaticResource DisplayTextBlockStyle}"
+                    Style="{StaticResource TitleLargeTextBlockStyle}"
                     Text="{Binding ComputerNameText}" />
 
                 <!--  Main content  -->
@@ -431,20 +431,20 @@
 
                         <!--  Progress ring  -->
                         <Grid
-                            Width="280"
-                            Height="280"
+                            Width="180"
+                            Height="180"
                             Margin="0,0,0,24"
                             HorizontalAlignment="Center">
                             <controls:CustomProgressRing
                                 IsIndeterminate="{Binding IsGlobalProgressIndeterminate}"
                                 ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
-                                Thickness="16"
+                                Thickness="14"
                                 TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
                                 Value="{Binding DeploymentProgress}" />
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Style="{StaticResource DisplayTextBlockStyle}"
+                                Style="{StaticResource TitleLargeTextBlockStyle}"
                                 Text="{Binding GlobalProgressPercentText}" />
                         </Grid>
 
