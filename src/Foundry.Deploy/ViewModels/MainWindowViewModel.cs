@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,7 +22,7 @@ using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 
 namespace Foundry.Deploy.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
     private const string DefaultWindowsRelease = "11";
     private const string DefaultReleaseId = "25H2";
@@ -85,12 +86,15 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentMode _resolvedDeploymentMode;
     private readonly string? _resolvedUsbCacheRuntimeRoot;
-    private readonly Dictionary<string, DeploymentStepItemViewModel> _stepIndex = new(StringComparer.Ordinal);
     private HardwareProfile? _detectedHardware;
+    private DispatcherTimer? _elapsedTimeTimer;
+    private DateTimeOffset? _deploymentStartTimeUtc;
+    private int _activeStepIndex;
     private string _lastLogsDirectoryPath = string.Empty;
     private bool _isUpdatingOsFilters;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
+    private bool _isDisposed;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
@@ -122,6 +126,48 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty]
     private int deploymentProgress;
+
+    [ObservableProperty]
+    private bool isGlobalProgressIndeterminate = true;
+
+    [ObservableProperty]
+    private string globalProgressPercentText = "0%";
+
+    [ObservableProperty]
+    private string currentStepName = "Waiting for deployment...";
+
+    [ObservableProperty]
+    private string stepCounterText = "Step: ? of ?";
+
+    [ObservableProperty]
+    private int currentStepProgress;
+
+    [ObservableProperty]
+    private bool isCurrentStepProgressIndeterminate = true;
+
+    [ObservableProperty]
+    private string currentStepProgressText = "Waiting for progress...";
+
+    [ObservableProperty]
+    private string computerNameText = Environment.MachineName;
+
+    [ObservableProperty]
+    private string ipAddress = "N/A";
+
+    [ObservableProperty]
+    private string subnetMask = "N/A";
+
+    [ObservableProperty]
+    private string gatewayAddress = "N/A";
+
+    [ObservableProperty]
+    private string macAddress = "N/A";
+
+    [ObservableProperty]
+    private string startTimeText = "N/A";
+
+    [ObservableProperty]
+    private string elapsedTimeText = "00:00:00";
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
@@ -188,12 +234,6 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private string selectedEdition = DefaultEdition;
 
-    [ObservableProperty]
-    private bool isAutopilotDeferred;
-
-    [ObservableProperty]
-    private string autopilotDeferredMessage = string.Empty;
-
     public ObservableCollection<OperatingSystemCatalogItem> OperatingSystems { get; } = [];
     public ObservableCollection<string> WindowsReleaseFilters { get; } = [];
     public ObservableCollection<string> ReleaseIdFilters { get; } = [];
@@ -205,7 +245,6 @@ public partial class MainWindowViewModel : ObservableObject
     public ObservableCollection<string> DriverPackModelOptions { get; } = [];
     public ObservableCollection<string> DriverPackVersionOptions { get; } = [];
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
-    public ObservableCollection<DeploymentStepItemViewModel> DeploymentSteps { get; } = [];
 
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
@@ -446,17 +485,6 @@ public partial class MainWindowViewModel : ObservableObject
             return;
         }
 
-        EnsureCachePathForMode();
-        InitializeProgressCollections();
-
-        ShowProgressPage = true;
-        IsDeploymentRunning = true;
-        DeploymentProgress = 0;
-        _lastLogsDirectoryPath = string.Empty;
-        IsAutopilotDeferred = false;
-        AutopilotDeferredMessage = string.Empty;
-        DeploymentStatus = "Deployment started.";
-
         DriverPackSelectionKind effectiveDriverPackKind = SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None;
         DriverPackCatalogItem? effectiveDriverPack = ResolveEffectiveDriverPackSelection();
 
@@ -464,10 +492,18 @@ public partial class MainWindowViewModel : ObservableObject
             effectiveDriverPack is null)
         {
             DeploymentStatus = "Select a valid OEM model/version before starting deployment.";
-            IsDeploymentRunning = false;
-            ShowProgressPage = false;
             return;
         }
+
+        EnsureCachePathForMode();
+        RunOnUi(() =>
+        {
+            IsDeploymentRunning = true;
+            InitializeProgressState();
+            ShowProgressPage = true;
+            _lastLogsDirectoryPath = string.Empty;
+            DeploymentStatus = "Deployment started.";
+        });
 
         DeploymentContext context = new()
         {
@@ -506,7 +542,11 @@ public partial class MainWindowViewModel : ObservableObject
         }
         finally
         {
-            RunOnUi(() => IsDeploymentRunning = false);
+            RunOnUi(() =>
+            {
+                IsDeploymentRunning = false;
+                StopElapsedTimeTracking();
+            });
         }
     }
 
@@ -632,7 +672,17 @@ public partial class MainWindowViewModel : ObservableObject
     {
         RunOnUi(() =>
         {
-            DeploymentProgress = _operationProgressService.Progress;
+            if (!IsDeploymentRunning &&
+                !_operationProgressService.IsOperationInProgress &&
+                string.IsNullOrWhiteSpace(_operationProgressService.Status))
+            {
+                return;
+            }
+
+            int normalizedProgress = Math.Clamp(_operationProgressService.Progress, 0, 100);
+            DeploymentProgress = Math.Max(DeploymentProgress, normalizedProgress);
+            UpdateGlobalProgressVisuals(DeploymentProgress);
+
             if (!string.IsNullOrWhiteSpace(_operationProgressService.Status))
             {
                 DeploymentStatus = _operationProgressService.Status!;
@@ -644,35 +694,179 @@ public partial class MainWindowViewModel : ObservableObject
     {
         RunOnUi(() =>
         {
-            if (_stepIndex.TryGetValue(e.StepName, out DeploymentStepItemViewModel? vm))
+            if (e.StepIndex != _activeStepIndex)
             {
-                vm.State = e.State;
-                vm.Message = e.Message ?? string.Empty;
+                _activeStepIndex = e.StepIndex;
+                CurrentStepProgress = 0;
+                IsCurrentStepProgressIndeterminate = true;
+                CurrentStepProgressText = "Starting step...";
             }
 
-            if (string.Equals(e.StepName, "Execute full Autopilot workflow", StringComparison.Ordinal) &&
-                e.State == DeploymentStepState.Succeeded &&
-                !string.IsNullOrWhiteSpace(e.Message) &&
-                e.Message.Contains("deferred", StringComparison.OrdinalIgnoreCase))
-            {
-                IsAutopilotDeferred = true;
-                AutopilotDeferredMessage = e.Message;
-            }
+            CurrentStepName = e.StepName;
+            StepCounterText = $"Step: {e.StepIndex} of {e.StepCount}";
 
             DeploymentProgress = Math.Max(DeploymentProgress, e.ProgressPercent);
+            UpdateGlobalProgressVisuals(DeploymentProgress);
+            UpdateCurrentStepProgressVisuals(e);
+
+            if (!string.IsNullOrWhiteSpace(e.Message))
+            {
+                DeploymentStatus = e.Message;
+            }
         });
     }
 
-    private void InitializeProgressCollections()
+    private void InitializeProgressState()
     {
-        DeploymentSteps.Clear();
-        _stepIndex.Clear();
+        _activeStepIndex = 0;
+        DeploymentProgress = 0;
+        UpdateGlobalProgressVisuals(0);
 
-        foreach (string step in _deploymentOrchestrator.PlannedSteps)
+        CurrentStepName = "Preparing deployment...";
+        CurrentStepProgress = 0;
+        IsCurrentStepProgressIndeterminate = true;
+        CurrentStepProgressText = "Waiting for progress...";
+
+        int plannedStepCount = _deploymentOrchestrator.PlannedSteps.Count;
+        StepCounterText = plannedStepCount > 0 ? $"Step: 0 of {plannedStepCount}" : "Step: ? of ?";
+
+        ComputerNameText = Environment.MachineName;
+        CaptureNetworkSnapshot();
+
+        _deploymentStartTimeUtc = DateTimeOffset.Now;
+        StartTimeText = _deploymentStartTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+        ElapsedTimeText = "00:00:00";
+        StartElapsedTimeTracking();
+    }
+
+    private void UpdateGlobalProgressVisuals(int progressValue)
+    {
+        int clampedProgress = Math.Clamp(progressValue, 0, 100);
+        GlobalProgressPercentText = $"{clampedProgress}%";
+        IsGlobalProgressIndeterminate = IsDeploymentRunning && clampedProgress <= 0;
+    }
+
+    private void UpdateCurrentStepProgressVisuals(DeploymentStepProgress stepProgress)
+    {
+        if (stepProgress.State == DeploymentStepState.Succeeded)
         {
-            DeploymentStepItemViewModel vm = new(step);
-            DeploymentSteps.Add(vm);
-            _stepIndex[step] = vm;
+            CurrentStepProgress = 100;
+            IsCurrentStepProgressIndeterminate = false;
+            CurrentStepProgressText = stepProgress.StepSubProgressLabel ?? "Step completed.";
+            return;
+        }
+
+        if (stepProgress.State == DeploymentStepState.Failed)
+        {
+            IsCurrentStepProgressIndeterminate = false;
+            CurrentStepProgressText = stepProgress.Message ?? "Step failed.";
+            return;
+        }
+
+        if (stepProgress.State == DeploymentStepState.Skipped)
+        {
+            IsCurrentStepProgressIndeterminate = false;
+            CurrentStepProgressText = stepProgress.Message ?? "Step skipped.";
+            return;
+        }
+
+        if (stepProgress.StepSubProgressPercent.HasValue)
+        {
+            int normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0, 100);
+            CurrentStepProgress = Math.Max(CurrentStepProgress, normalized);
+            IsCurrentStepProgressIndeterminate = false;
+            CurrentStepProgressText = string.IsNullOrWhiteSpace(stepProgress.StepSubProgressLabel)
+                ? $"{normalized}%"
+                : stepProgress.StepSubProgressLabel!;
+            return;
+        }
+
+        if (stepProgress.StepSubProgressIndeterminate)
+        {
+            IsCurrentStepProgressIndeterminate = true;
+            CurrentStepProgressText = stepProgress.StepSubProgressLabel ?? "In progress...";
+        }
+    }
+
+    private void StartElapsedTimeTracking()
+    {
+        StopElapsedTimeTracking();
+        _elapsedTimeTimer = new DispatcherTimer(DispatcherPriority.Background, _dispatcher)
+        {
+            Interval = TimeSpan.FromSeconds(1)
+        };
+        _elapsedTimeTimer.Tick += OnElapsedTimeTick;
+        _elapsedTimeTimer.Start();
+    }
+
+    private void StopElapsedTimeTracking()
+    {
+        if (_elapsedTimeTimer is null)
+        {
+            return;
+        }
+
+        _elapsedTimeTimer.Tick -= OnElapsedTimeTick;
+        _elapsedTimeTimer.Stop();
+        _elapsedTimeTimer = null;
+    }
+
+    private void OnElapsedTimeTick(object? sender, EventArgs e)
+    {
+        if (!_deploymentStartTimeUtc.HasValue)
+        {
+            return;
+        }
+
+        TimeSpan elapsed = DateTimeOffset.Now - _deploymentStartTimeUtc.Value;
+        ElapsedTimeText = elapsed.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+    }
+
+    private void CaptureNetworkSnapshot()
+    {
+        IpAddress = "N/A";
+        SubnetMask = "N/A";
+        GatewayAddress = "N/A";
+        MacAddress = "N/A";
+
+        try
+        {
+            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (networkInterface.OperationalStatus != OperationalStatus.Up)
+                {
+                    continue;
+                }
+
+                if (networkInterface.NetworkInterfaceType is NetworkInterfaceType.Loopback or NetworkInterfaceType.Tunnel)
+                {
+                    continue;
+                }
+
+                IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
+                UnicastIPAddressInformation? ipv4AddressInfo = ipProperties.UnicastAddresses
+                    .FirstOrDefault(item => item.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                if (ipv4AddressInfo is null)
+                {
+                    continue;
+                }
+
+                GatewayIPAddressInformation? gatewayInfo = ipProperties.GatewayAddresses
+                    .FirstOrDefault(item => item.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                byte[] macBytes = networkInterface.GetPhysicalAddress().GetAddressBytes();
+
+                IpAddress = ipv4AddressInfo.Address.ToString();
+                SubnetMask = ipv4AddressInfo.IPv4Mask?.ToString() ?? "N/A";
+                GatewayAddress = gatewayInfo?.Address.ToString() ?? "N/A";
+                MacAddress = macBytes.Length == 0
+                    ? "N/A"
+                    : string.Join("-", macBytes.Select(value => value.ToString("X2", CultureInfo.InvariantCulture)));
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogDebug(ex, "Unable to resolve network snapshot for the progress page.");
         }
     }
 
@@ -1849,6 +2043,19 @@ public partial class MainWindowViewModel : ObservableObject
             IsSelectable = true,
             SelectionWarning = string.Empty
         };
+    }
+
+    public void Dispose()
+    {
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        _operationProgressService.ProgressChanged -= OnOperationProgressChanged;
+        _deploymentOrchestrator.StepProgressChanged -= OnStepProgressChanged;
+        StopElapsedTimeTracking();
+        _isDisposed = true;
     }
 
 }

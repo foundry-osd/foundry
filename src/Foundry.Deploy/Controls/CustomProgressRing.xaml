@@ -1,0 +1,38 @@
+<UserControl
+    x:Class="Foundry.Deploy.Controls.CustomProgressRing"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    MinHeight="120"
+    MinWidth="120"
+    SnapsToDevicePixels="True"
+    UseLayoutRounding="True">
+    <Grid>
+        <Ellipse
+            x:Name="TrackCircle"
+            Fill="Transparent"
+            Stroke="{Binding TrackBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+        <Path
+            x:Name="DeterminateArc"
+            Fill="Transparent"
+            Stroke="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            StrokeEndLineCap="Round"
+            StrokeStartLineCap="Round"
+            StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+        <Path
+            x:Name="IndeterminateArc"
+            Fill="Transparent"
+            Stroke="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            StrokeEndLineCap="Round"
+            StrokeStartLineCap="Round"
+            StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            Visibility="Collapsed">
+            <Path.RenderTransform>
+                <RotateTransform x:Name="IndeterminateRotateTransform" />
+            </Path.RenderTransform>
+            <Path.RenderTransformOrigin>0.5,0.5</Path.RenderTransformOrigin>
+        </Path>
+    </Grid>
+</UserControl>

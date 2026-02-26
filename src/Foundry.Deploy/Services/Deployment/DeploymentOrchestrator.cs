@@ -117,7 +117,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 string stepName = Steps[i];
                 _logger.LogInformation("Executing deployment step {StepIndex}/{StepCount}: {StepName}", i + 1, Steps.Length, stepName);
                 runtimeState.CurrentStep = stepName;
-                EmitStep(stepName, DeploymentStepState.Running, i + 1, Steps.Length, $"Starting {stepName}.");
+                EmitStep(
+                    stepName,
+                    DeploymentStepState.Running,
+                    i + 1,
+                    Steps.Length,
+                    $"Starting {stepName}.",
+                    stepSubProgressIndeterminate: true,
+                    stepSubProgressLabel: "Step started");
                 await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[STEP] {stepName}", cancellationToken).ConfigureAwait(false);
 
                 StepExecutionOutcome outcome = await ExecuteStepAsync(
@@ -134,7 +141,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 int progressPercent = (int)Math.Round((double)(i + 1) / Steps.Length * 100d);
                 _operationProgressService.Report(progressPercent, outcome.Message);
-                EmitStep(stepName, outcome.State, i + 1, Steps.Length, outcome.Message);
+                EmitStep(
+                    stepName,
+                    outcome.State,
+                    i + 1,
+                    Steps.Length,
+                    outcome.Message,
+                    stepSubProgressPercent: outcome.State == DeploymentStepState.Succeeded ? 100 : null,
+                    stepSubProgressIndeterminate: outcome.State != DeploymentStepState.Succeeded,
+                    stepSubProgressLabel: outcome.Message);
 
                 if (outcome.State == DeploymentStepState.Failed)
                 {
@@ -740,7 +755,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return StepExecutionOutcome.Skipped("No operation for step.");
     }
 
-    private void EmitStep(string stepName, DeploymentStepState state, int stepIndex, int stepCount, string? message)
+    private void EmitStep(
+        string stepName,
+        DeploymentStepState state,
+        int stepIndex,
+        int stepCount,
+        string? message,
+        int? stepSubProgressPercent = null,
+        bool stepSubProgressIndeterminate = true,
+        string? stepSubProgressLabel = null)
     {
         int progressPercent = CalculateStepProgressPercent(stepIndex, stepCount);
         StepProgressChanged?.Invoke(this, new DeploymentStepProgress
@@ -750,7 +773,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             StepIndex = stepIndex,
             StepCount = stepCount,
             ProgressPercent = progressPercent,
-            Message = message
+            Message = message,
+            StepSubProgressPercent = stepSubProgressPercent,
+            StepSubProgressIndeterminate = stepSubProgressIndeterminate,
+            StepSubProgressLabel = stepSubProgressLabel
         });
     }
 
@@ -767,6 +793,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return new CallbackProgress<DownloadProgress>(progress =>
         {
             string details;
+            int? stepSubProgressPercent = null;
+            bool stepSubProgressIndeterminate = true;
             if (progress.TotalBytes is long totalBytes && totalBytes > 0)
             {
                 int percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
@@ -778,6 +806,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 lastKnownPercent = percent;
                 details = $"{percent}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
+                stepSubProgressPercent = percent;
+                stepSubProgressIndeterminate = false;
             }
             else
             {
@@ -795,7 +825,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             string status = $"{artifactLabel} download progress: {details}";
             _logger.LogInformation("{StepName}: {Status}", stepName, status);
             _operationProgressService.Report(stepProgressPercent, status);
-            EmitStep(stepName, DeploymentStepState.Running, stepIndex, stepCount, status);
+            EmitStep(
+                stepName,
+                DeploymentStepState.Running,
+                stepIndex,
+                stepCount,
+                status,
+                stepSubProgressPercent,
+                stepSubProgressIndeterminate,
+                details);
         });
     }
 

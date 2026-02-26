@@ -8,4 +8,7 @@ public sealed record DeploymentStepProgress
     public required int StepCount { get; init; }
     public required int ProgressPercent { get; init; }
     public string? Message { get; init; }
+    public int? StepSubProgressPercent { get; init; }
+    public bool StepSubProgressIndeterminate { get; init; } = true;
+    public string? StepSubProgressLabel { get; init; }
 }

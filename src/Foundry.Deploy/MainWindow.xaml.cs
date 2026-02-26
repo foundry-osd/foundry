@@ -25,4 +25,14 @@ public partial class MainWindow : Window
             e.Handled = true;
         }
     }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        if (DataContext is MainWindowViewModel viewModel)
+        {
+            viewModel.Dispose();
+        }
+
+        base.OnClosed(e);
+    }
 }

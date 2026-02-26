@@ -1,6 +1,7 @@
 <Window
     x:Class="Foundry.Deploy.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -355,77 +356,123 @@
             <Grid Visibility="{Binding ShowProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!--  Progress header  -->
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Deployment Progress" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="Deployment Progress" />
 
-                <!--  Global progress and status  -->
-                <StackPanel Grid.Row="1" Margin="0,8,0,12">
-                    <ProgressBar
-                        Height="18"
-                        Maximum="100"
-                        Value="{Binding DeploymentProgress}" />
-                    <TextBlock Margin="0,8,0,0" Text="{Binding DeploymentStatus}" />
-                    <Border
-                        Margin="0,8,0,0"
-                        Padding="8"
-                        Background="#33FFD966"
-                        BorderBrush="#FFE0A800"
-                        BorderThickness="1"
-                        CornerRadius="4"
-                        Visibility="{Binding IsAutopilotDeferred, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot Deferred Completion" />
+                <Grid Grid.Row="1" Margin="0,12,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="380" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding ComputerNameText, StringFormat=Computer: {0}}" />
+
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Networking" />
+                        <TextBlock Margin="0,0,0,2" Text="{Binding IpAddress, StringFormat=IP: {0}}" />
+                        <TextBlock Margin="0,0,0,2" Text="{Binding SubnetMask, StringFormat=Subnet: {0}}" />
+                        <TextBlock Margin="0,0,0,2" Text="{Binding GatewayAddress, StringFormat=Gateway: {0}}" />
+                        <TextBlock Margin="0,0,0,10" Text="{Binding MacAddress, StringFormat=MAC: {0}}" />
+
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Start Time" />
+                        <TextBlock Margin="0,0,0,10" Text="{Binding StartTimeText}" />
+
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Elapsed Time" />
+                        <TextBlock Text="{Binding ElapsedTimeText}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Current Step" />
+                        <TextBlock
+                            Width="640"
+                            Margin="0,0,0,16"
+                            HorizontalAlignment="Center"
+                            FontSize="28"
+                            FontWeight="SemiBold"
+                            Text="{Binding CurrentStepName}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <Grid Width="240" Height="240" Margin="0,0,0,16">
+                            <controls:CustomProgressRing
+                                Thickness="14"
+                                IsIndeterminate="{Binding IsGlobalProgressIndeterminate}"
+                                Value="{Binding DeploymentProgress}" />
                             <TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{Binding AutopilotDeferredMessage, TargetNullValue=Online enrollment failed in WinPE; completion will be retried on first boot.}" />
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="38"
+                                FontWeight="SemiBold"
+                                Text="{Binding GlobalProgressPercentText}" />
+                        </Grid>
 
-                <!--  Step-by-step execution details  -->
-                <GroupBox Grid.Row="2" Header="Steps">
-                    <ListBox ItemsSource="{Binding DeploymentSteps}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="110" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{Binding State}" />
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding StepName}" />
-                                        <TextBlock
-                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="{Binding Message}" />
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </GroupBox>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Current Step Progress" />
+                        <ProgressBar
+                            Width="560"
+                            Height="10"
+                            Margin="0,8,0,0"
+                            IsIndeterminate="{Binding IsCurrentStepProgressIndeterminate}"
+                            Maximum="100"
+                            Value="{Binding CurrentStepProgress}" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            HorizontalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{Binding CurrentStepProgressText}" />
+                    </StackPanel>
+                </Grid>
 
-                <!--  Progress page actions  -->
-                <StackPanel
-                    Grid.Row="3"
-                    Margin="0,12,0,0"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
+                <Grid Grid.Row="2" Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding StepCounterText}" />
+
                     <Button
+                        Grid.Column="2"
                         Width="140"
+                        HorizontalAlignment="Right"
                         Command="{Binding OpenLogFileCommand}"
                         Content="Open Log File" />
-                </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
 
