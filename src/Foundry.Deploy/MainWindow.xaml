@@ -37,7 +37,7 @@
         <!--  Row 1: Main content area  -->
         <Grid Grid.Row="1" Margin="16">
             <!--  Wizard page (configuration flow)  -->
-            <Grid Visibility="{Binding ShowProgressPage, Converter={StaticResource InverseBooleanConverter}}">
+            <Grid Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -333,30 +333,57 @@
                 </TabControl>
 
                 <!--  Wizard navigation actions  -->
-                <StackPanel
-                    Grid.Row="2"
-                    Margin="0,12,0,0"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
-                    <Button
-                        Width="120"
-                        Margin="0,0,8,0"
-                        Command="{Binding PreviousWizardStepCommand}"
-                        Content="Previous" />
-                    <Button
-                        Width="120"
-                        Margin="0,0,8,0"
-                        Command="{Binding NextWizardStepCommand}"
-                        Content="Next" />
-                    <Button
-                        Width="160"
-                        Command="{Binding StartDeploymentCommand}"
-                        Content="Start Deployment" />
-                </StackPanel>
+                <Grid Grid.Row="2" Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal"
+                        Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Button
+                            Width="140"
+                            Margin="0,0,8,0"
+                            Command="{Binding ShowDebugProgressPageCommand}"
+                            Content="Debug: Progress" />
+                        <Button
+                            Width="140"
+                            Margin="0,0,8,0"
+                            Command="{Binding ShowDebugSuccessPageCommand}"
+                            Content="Debug: Success" />
+                        <Button
+                            Width="140"
+                            Command="{Binding ShowDebugErrorPageCommand}"
+                            Content="Debug: Error" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="120"
+                            Margin="0,0,8,0"
+                            Command="{Binding PreviousWizardStepCommand}"
+                            Content="Previous" />
+                        <Button
+                            Width="120"
+                            Margin="0,0,8,0"
+                            Command="{Binding NextWizardStepCommand}"
+                            Content="Next" />
+                        <Button
+                            Width="160"
+                            Command="{Binding StartDeploymentCommand}"
+                            Content="Start Deployment" />
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             <!--  Progress page (execution flow)  -->
-            <Grid Visibility="{Binding ShowProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -496,10 +523,111 @@
                         Content="Open Log File" />
                 </Grid>
             </Grid>
+
+            <!--  Success page (completion flow)  -->
+            <Grid Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,16"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource TitleLargeTextBlockStyle}"
+                    Text="{Binding ComputerNameText}" />
+
+                <StackPanel
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Deployment completed successfully."
+                        TextAlignment="Center" />
+                    <TextBlock
+                        Margin="0,16,0,24"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding RebootCountdownSeconds, StringFormat=This computer will reboot in {0} seconds...}"
+                        TextAlignment="Center" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button
+                            Width="140"
+                            Margin="0,0,8,0"
+                            Command="{Binding RebootNowCommand}"
+                            Content="Reboot now" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <!--  Error page (failure flow)  -->
+            <Grid Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,16"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource TitleLargeTextBlockStyle}"
+                    Text="{Binding ComputerNameText}" />
+
+                <StackPanel
+                    Grid.Row="1"
+                    Width="900"
+                    MaxWidth="900"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Deployment failed"
+                        TextAlignment="Center" />
+                    <TextBlock
+                        Margin="0,16,0,4"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="Failed step" />
+                    <TextBlock
+                        Margin="0,0,0,16"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding FailedStepName}" />
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="Error message" />
+                    <Border
+                        Height="220"
+                        Padding="10"
+                        BorderBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding FailedStepErrorMessage}"
+                                TextWrapping="Wrap" />
+                        </ScrollViewer>
+                    </Border>
+                    <Button
+                        Width="140"
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Right"
+                        Command="{Binding OpenLogFileCommand}"
+                        Content="Open Log File" />
+                </StackPanel>
+            </Grid>
         </Grid>
 
         <!--  Row 2: Bottom status bar  -->
-        <StatusBar Grid.Row="2">
+        <StatusBar
+            Grid.Row="2"
+            Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StatusBarItem Content="{Binding DeploymentStatus}" />
         </StatusBar>
     </Grid>

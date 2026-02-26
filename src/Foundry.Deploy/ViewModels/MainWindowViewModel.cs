@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Catalog;
@@ -16,6 +17,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
@@ -82,18 +84,21 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
+    private readonly IProcessRunner _processRunner;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentMode _resolvedDeploymentMode;
     private readonly string? _resolvedUsbCacheRuntimeRoot;
     private HardwareProfile? _detectedHardware;
     private DispatcherTimer? _elapsedTimeTimer;
+    private DispatcherTimer? _rebootCountdownTimer;
     private DateTimeOffset? _deploymentStartTimeUtc;
     private int _activeStepIndex;
     private string _lastLogsDirectoryPath = string.Empty;
     private bool _isUpdatingOsFilters;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
+    private bool _isRebootInProgress;
     private bool _isDisposed;
 
     [ObservableProperty]
@@ -116,10 +121,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
     [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ShowDebugProgressPageCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ShowDebugSuccessPageCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
     private bool isDeploymentRunning;
 
     [ObservableProperty]
-    private bool showProgressPage;
+    [NotifyPropertyChangedFor(nameof(IsWizardPage))]
+    [NotifyPropertyChangedFor(nameof(IsProgressPage))]
+    [NotifyPropertyChangedFor(nameof(IsSuccessPage))]
+    [NotifyPropertyChangedFor(nameof(IsErrorPage))]
+    [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
+    private DeploymentPage currentPage = DeploymentPage.Wizard;
 
     [ObservableProperty]
     private string deploymentStatus = "Ready";
@@ -168,6 +181,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     private string elapsedTimeText = "00:00:00";
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
+    private int rebootCountdownSeconds = 10;
+
+    [ObservableProperty]
+    private string failedStepName = string.Empty;
+
+    [ObservableProperty]
+    private string failedStepErrorMessage = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
@@ -248,6 +271,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
+    public bool IsWizardPage => CurrentPage == DeploymentPage.Wizard;
+    public bool IsProgressPage => CurrentPage == DeploymentPage.Progress;
+    public bool IsSuccessPage => CurrentPage == DeploymentPage.Success;
+    public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
     public string DriverPackModeDisplay => SelectedDriverPackOption?.Kind switch
     {
         DriverPackSelectionKind.MicrosoftUpdateCatalog => "Microsoft Update Catalog",
@@ -269,6 +296,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IHardwareProfileService hardwareProfileService,
         ITargetDiskService targetDiskService,
         IDriverPackSelectionService driverPackSelectionService,
+        IProcessRunner processRunner,
         ILogger<MainWindowViewModel> logger)
     {
         _themeService = themeService;
@@ -280,6 +308,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _hardwareProfileService = hardwareProfileService;
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
+        _processRunner = processRunner;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
@@ -499,8 +528,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RunOnUi(() =>
         {
             IsDeploymentRunning = true;
+            ClearFailureDetails();
             InitializeProgressState();
-            ShowProgressPage = true;
+            CurrentPage = DeploymentPage.Progress;
             _lastLogsDirectoryPath = string.Empty;
             DeploymentStatus = "Deployment started.";
         });
@@ -527,9 +557,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             RunOnUi(() =>
             {
                 _lastLogsDirectoryPath = result.LogsDirectoryPath;
-                DeploymentStatus = result.IsSuccess
-                    ? "Deployment completed."
-                    : $"Deployment failed: {result.Message}";
+                if (result.IsSuccess)
+                {
+                    DeploymentStatus = "Deployment completed.";
+                    CurrentPage = DeploymentPage.Success;
+                    return;
+                }
+
+                string fallbackStep = string.IsNullOrWhiteSpace(FailedStepName)
+                    ? CurrentStepName
+                    : FailedStepName;
+                string fallbackMessage = string.IsNullOrWhiteSpace(FailedStepErrorMessage)
+                    ? result.Message
+                    : FailedStepErrorMessage;
+                SetFailureDetails(fallbackStep, fallbackMessage);
+                DeploymentStatus = $"Deployment failed: {result.Message}";
+                CurrentPage = DeploymentPage.Error;
             });
             _logger.LogInformation("Deployment run completed. IsSuccess={IsSuccess}, LogsDirectoryPath={LogsDirectoryPath}",
                 result.IsSuccess,
@@ -538,7 +581,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Deployment execution failed in view model.");
-            RunOnUi(() => DeploymentStatus = $"Deployment failed: {ex.Message}");
+            RunOnUi(() =>
+            {
+                SetFailureDetails(CurrentStepName, ex.Message);
+                DeploymentStatus = $"Deployment failed: {ex.Message}";
+                CurrentPage = DeploymentPage.Error;
+            });
         }
         finally
         {
@@ -569,6 +617,58 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _logger.LogError(ex, "Failed to open log file.");
             DeploymentStatus = $"Unable to open log file: {ex.Message}";
         }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanRebootNow))]
+    private async Task RebootNowAsync()
+    {
+        await ExecuteRebootAsync("Manual reboot requested.").ConfigureAwait(false);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
+    private void ShowDebugProgressPage()
+    {
+        ClearFailureDetails();
+        InitializeProgressState();
+        DeploymentProgress = 42;
+        UpdateGlobalProgressVisuals(DeploymentProgress);
+        CurrentStepName = "Apply operating system image";
+        StepCounterText = "Step: 7 of 10";
+        CurrentStepProgress = 65;
+        IsCurrentStepProgressIndeterminate = false;
+        CurrentStepProgressText = "Applying image: 65%";
+        DeploymentStatus = "Debug preview: progress page.";
+        CurrentPage = DeploymentPage.Progress;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
+    private void ShowDebugSuccessPage()
+    {
+        StopElapsedTimeTracking();
+        ClearFailureDetails();
+        DeploymentProgress = 100;
+        UpdateGlobalProgressVisuals(DeploymentProgress);
+        CurrentStepName = "Finalize deployment and write logs";
+        StepCounterText = "Step: 10 of 10";
+        CurrentStepProgress = 100;
+        IsCurrentStepProgressIndeterminate = false;
+        CurrentStepProgressText = "Step completed.";
+        DeploymentStatus = "Debug preview: success page.";
+        CurrentPage = DeploymentPage.Success;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
+    private void ShowDebugErrorPage()
+    {
+        StopElapsedTimeTracking();
+        SetFailureDetails(
+            "Apply operating system image",
+            "Debug preview: DISM apply failed because the target partition is read-only.\n\n" +
+            "ErrorCode=0x80070005\n" +
+            "Details: Access denied while mounting image to target path.\n" +
+            "Action: Verify disk attributes and retry deployment.");
+        DeploymentStatus = "Debug preview: error page.";
+        CurrentPage = DeploymentPage.Error;
     }
 
     private string ResolveEffectiveLogFilePath()
@@ -668,6 +768,25 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
+    partial void OnCurrentPageChanged(DeploymentPage value)
+    {
+        if (value == DeploymentPage.Success)
+        {
+            StartRebootCountdown();
+        }
+        else
+        {
+            StopRebootCountdown(resetSeconds: true);
+        }
+
+        if (value != DeploymentPage.Progress && !IsDeploymentRunning)
+        {
+            StopElapsedTimeTracking();
+        }
+
+        RebootNowCommand.NotifyCanExecuteChanged();
+    }
+
     private void OnOperationProgressChanged(object? sender, EventArgs e)
     {
         RunOnUi(() =>
@@ -712,6 +831,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             if (!string.IsNullOrWhiteSpace(e.Message))
             {
                 DeploymentStatus = e.Message;
+            }
+
+            if (e.State == DeploymentStepState.Failed)
+            {
+                SetFailureDetails(e.StepName, e.Message ?? "Step failed.");
             }
         });
     }
@@ -820,6 +944,126 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         TimeSpan elapsed = DateTimeOffset.Now - _deploymentStartTimeUtc.Value;
         ElapsedTimeText = elapsed.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+    }
+
+    private void StartRebootCountdown()
+    {
+        StopRebootCountdown(resetSeconds: false);
+        RebootCountdownSeconds = 10;
+        _rebootCountdownTimer = new DispatcherTimer(DispatcherPriority.Background, _dispatcher)
+        {
+            Interval = TimeSpan.FromSeconds(1)
+        };
+        _rebootCountdownTimer.Tick += OnRebootCountdownTick;
+        _rebootCountdownTimer.Start();
+    }
+
+    private void StopRebootCountdown(bool resetSeconds)
+    {
+        if (_rebootCountdownTimer is not null)
+        {
+            _rebootCountdownTimer.Tick -= OnRebootCountdownTick;
+            _rebootCountdownTimer.Stop();
+            _rebootCountdownTimer = null;
+        }
+
+        if (resetSeconds)
+        {
+            RebootCountdownSeconds = 10;
+        }
+    }
+
+    private void OnRebootCountdownTick(object? sender, EventArgs e)
+    {
+        if (RebootCountdownSeconds > 0)
+        {
+            RebootCountdownSeconds--;
+        }
+
+        if (RebootCountdownSeconds > 0)
+        {
+            return;
+        }
+
+        StopRebootCountdown(resetSeconds: false);
+        if (!IsDebugSafeMode)
+        {
+            _ = ExecuteRebootAsync("Automatic reboot countdown completed.");
+        }
+    }
+
+    private bool CanRebootNow()
+    {
+        return IsSuccessPage && !IsDebugSafeMode && !_isRebootInProgress;
+    }
+
+    private bool CanShowDebugPages()
+    {
+        return IsDebugSafeMode && !IsDeploymentRunning;
+    }
+
+    private async Task ExecuteRebootAsync(string reason)
+    {
+        if (IsDebugSafeMode || _isRebootInProgress)
+        {
+            return;
+        }
+
+        _isRebootInProgress = true;
+        RebootNowCommand.NotifyCanExecuteChanged();
+        StopRebootCountdown(resetSeconds: false);
+
+        try
+        {
+            _logger.LogInformation("Issuing reboot command. Reason={Reason}", reason);
+            DeploymentStatus = "Rebooting now...";
+
+            ProcessExecutionResult result = await _processRunner
+                .RunAsync("shutdown.exe", "/r /t 0 /f", Path.GetTempPath())
+                .ConfigureAwait(false);
+
+            if (result.ExitCode == 0)
+            {
+                return;
+            }
+
+            RunOnUi(() =>
+            {
+                SetFailureDetails("System reboot", $"shutdown.exe failed with exit code {result.ExitCode}. {result.StandardError}".Trim());
+                DeploymentStatus = "Reboot command failed.";
+                CurrentPage = DeploymentPage.Error;
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to execute reboot command.");
+            RunOnUi(() =>
+            {
+                SetFailureDetails("System reboot", ex.Message);
+                DeploymentStatus = $"Reboot command failed: {ex.Message}";
+                CurrentPage = DeploymentPage.Error;
+            });
+        }
+        finally
+        {
+            RunOnUi(() =>
+            {
+                _isRebootInProgress = false;
+                RebootNowCommand.NotifyCanExecuteChanged();
+            });
+        }
+    }
+
+    private void SetFailureDetails(string? stepName, string? errorMessage)
+    {
+        FailedStepName = string.IsNullOrWhiteSpace(stepName) ? "Unknown step" : stepName;
+        FailedStepErrorMessage = string.IsNullOrWhiteSpace(errorMessage) ? "No error details were provided." : errorMessage;
+    }
+
+    private void ClearFailureDetails()
+    {
+        FailedStepName = string.Empty;
+        FailedStepErrorMessage = string.Empty;
     }
 
     private void CaptureNetworkSnapshot()
@@ -2055,6 +2299,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService.ProgressChanged -= OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged -= OnStepProgressChanged;
         StopElapsedTimeTracking();
+        StopRebootCountdown(resetSeconds: false);
         _isDisposed = true;
     }
 
