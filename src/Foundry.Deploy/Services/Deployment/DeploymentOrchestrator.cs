@@ -15,6 +15,13 @@ namespace Foundry.Deploy.Services.Deployment;
 public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 {
     private const string WinPeRoot = @"X:\Foundry";
+    private static readonly string WinPeDriveRoot = Path.GetPathRoot(WinPeRoot) ?? @"X:\";
+    private const string LogsFolderName = "Logs";
+    private const string TempFolderName = "Temp";
+    private const string StateFolderName = "State";
+    private const string RuntimeFolderName = "Runtime";
+    private const string DryRunWorkspaceFolderName = "DryRun";
+    private const string RuntimeWorkspaceFolderName = "Runtime";
     private const long UnknownTotalDownloadProgressIncrementBytes = 16L * 1024 * 1024;
 
     private static readonly string[] Steps =
@@ -95,6 +102,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         DeploymentLogSession? logSession = null;
         var runtimeState = new DeploymentRuntimeState
         {
+            WorkspaceRoot = ResolveWorkspaceRoot(context),
             Mode = context.Mode,
             IsDryRun = context.IsDryRun,
             RequestedCacheRootPath = context.CacheRootPath,
@@ -106,8 +114,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         try
         {
-            EnsureWinPeWorkspaceFolders();
-            logSession = _deploymentLogService.Initialize(WinPeRoot);
+            _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
+            EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
+            logSession = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
             await AppendRunContextAsync(logSession, context, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < Steps.Length; i++)
@@ -117,7 +126,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 string stepName = Steps[i];
                 _logger.LogInformation("Executing deployment step {StepIndex}/{StepCount}: {StepName}", i + 1, Steps.Length, stepName);
                 runtimeState.CurrentStep = stepName;
-                EmitStep(stepName, DeploymentStepState.Running, i + 1, Steps.Length, $"Starting {stepName}.");
+                EmitStep(
+                    stepName,
+                    DeploymentStepState.Running,
+                    i + 1,
+                    Steps.Length,
+                    $"Starting {stepName}.",
+                    stepSubProgressIndeterminate: true,
+                    stepSubProgressLabel: "Step started");
                 await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[STEP] {stepName}", cancellationToken).ConfigureAwait(false);
 
                 StepExecutionOutcome outcome = await ExecuteStepAsync(
@@ -134,7 +150,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 int progressPercent = (int)Math.Round((double)(i + 1) / Steps.Length * 100d);
                 _operationProgressService.Report(progressPercent, outcome.Message);
-                EmitStep(stepName, outcome.State, i + 1, Steps.Length, outcome.Message);
+                EmitStep(
+                    stepName,
+                    outcome.State,
+                    i + 1,
+                    Steps.Length,
+                    outcome.Message,
+                    stepSubProgressPercent: outcome.State == DeploymentStepState.Succeeded ? 100 : null,
+                    stepSubProgressIndeterminate: outcome.State != DeploymentStepState.Succeeded,
+                    stepSubProgressLabel: outcome.Message);
 
                 if (outcome.State == DeploymentStepState.Failed)
                 {
@@ -177,7 +201,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 IsSuccess = false,
                 Message = "Deployment cancelled.",
-                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession)
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession, runtimeState)
             };
         }
         catch (Exception ex)
@@ -189,7 +213,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 IsSuccess = false,
                 Message = ex.Message,
-                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession)
+                LogsDirectoryPath = ResolveCurrentLogsDirectory(logSession, runtimeState)
             };
         }
     }
@@ -210,10 +234,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    EnsureWinPeWorkspaceFolders();
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
                     if (logSession is null)
                     {
-                        DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
+                        DeploymentLogSession session = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
                         await _deploymentLogService
                             .AppendAsync(session, DeploymentLogLevel.Info, $"Log session initialized at '{session.RootPath}'.", cancellationToken)
                             .ConfigureAwait(false);
@@ -260,13 +284,13 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
-                    EnsureWinPeWorkspaceFolders();
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
                     return StepExecutionOutcome.Succeeded("Cache strategy resolved.");
                 }
 
             case "Prepare target disk layout":
                 {
-                    string workingDirectory = Path.Combine(WinPeRoot, "Temp", "Deployment");
+                    string workingDirectory = ResolveWorkspaceTempPath(runtimeState, "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
                     StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
@@ -550,8 +574,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             case "Initialize deployment workspace":
                 {
-                    EnsureWinPeWorkspaceFolders();
-                    DeploymentLogSession session = _deploymentLogService.Initialize(WinPeRoot);
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
+                    DeploymentLogSession session = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
                     await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, "Debug safe mode log session initialized.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Workspace initialized (simulation).", session);
@@ -574,7 +598,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, logSession, cancellationToken).ConfigureAwait(false);
                     runtimeState.ResolvedCache = cache;
-                    EnsureWinPeWorkspaceFolders();
+                    EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Cache strategy resolved (simulation).");
@@ -582,7 +606,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             case "Prepare target disk layout":
                 {
-                    string targetRoot = Path.Combine(WinPeRoot, "Temp", "DryRunTarget");
+                    string targetRoot = ResolveWorkspaceTempPath(runtimeState, "DryRunTarget");
                     string systemRoot = Path.Combine(targetRoot, "System");
                     string windowsRoot = Path.Combine(targetRoot, "Windows");
                     Directory.CreateDirectory(systemRoot);
@@ -740,7 +764,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return StepExecutionOutcome.Skipped("No operation for step.");
     }
 
-    private void EmitStep(string stepName, DeploymentStepState state, int stepIndex, int stepCount, string? message)
+    private void EmitStep(
+        string stepName,
+        DeploymentStepState state,
+        int stepIndex,
+        int stepCount,
+        string? message,
+        int? stepSubProgressPercent = null,
+        bool stepSubProgressIndeterminate = true,
+        string? stepSubProgressLabel = null)
     {
         int progressPercent = CalculateStepProgressPercent(stepIndex, stepCount);
         StepProgressChanged?.Invoke(this, new DeploymentStepProgress
@@ -750,7 +782,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             StepIndex = stepIndex,
             StepCount = stepCount,
             ProgressPercent = progressPercent,
-            Message = message
+            Message = message,
+            StepSubProgressPercent = stepSubProgressPercent,
+            StepSubProgressIndeterminate = stepSubProgressIndeterminate,
+            StepSubProgressLabel = stepSubProgressLabel
         });
     }
 
@@ -767,6 +802,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return new CallbackProgress<DownloadProgress>(progress =>
         {
             string details;
+            int? stepSubProgressPercent = null;
+            bool stepSubProgressIndeterminate = true;
             if (progress.TotalBytes is long totalBytes && totalBytes > 0)
             {
                 int percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
@@ -778,6 +815,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 lastKnownPercent = percent;
                 details = $"{percent}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
+                stepSubProgressPercent = percent;
+                stepSubProgressIndeterminate = false;
             }
             else
             {
@@ -795,7 +834,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             string status = $"{artifactLabel} download progress: {details}";
             _logger.LogInformation("{StepName}: {Status}", stepName, status);
             _operationProgressService.Report(stepProgressPercent, status);
-            EmitStep(stepName, DeploymentStepState.Running, stepIndex, stepCount, status);
+            EmitStep(
+                stepName,
+                DeploymentStepState.Running,
+                stepIndex,
+                stepCount,
+                status,
+                stepSubProgressPercent,
+                stepSubProgressIndeterminate,
+                details);
         });
     }
 
@@ -900,21 +947,53 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ?? throw new InvalidOperationException("Target Foundry root is unavailable.");
     }
 
-    private static void EnsureWinPeWorkspaceFolders()
+    private static void EnsureWorkspaceFolders(string workspaceRoot)
     {
-        string[] folders =
-        [
-            WinPeRoot,
-            Path.Combine(WinPeRoot, "Logs"),
-            Path.Combine(WinPeRoot, "Temp"),
-            Path.Combine(WinPeRoot, "State"),
-            Path.Combine(WinPeRoot, "Runtime")
-        ];
-
-        foreach (string folder in folders)
+        if (string.IsNullOrWhiteSpace(workspaceRoot))
         {
-            Directory.CreateDirectory(folder);
+            throw new InvalidOperationException("Workspace root is required.");
         }
+
+        Directory.CreateDirectory(workspaceRoot);
+        Directory.CreateDirectory(Path.Combine(workspaceRoot, LogsFolderName));
+        Directory.CreateDirectory(Path.Combine(workspaceRoot, TempFolderName));
+        Directory.CreateDirectory(Path.Combine(workspaceRoot, StateFolderName));
+        Directory.CreateDirectory(Path.Combine(workspaceRoot, RuntimeFolderName));
+    }
+
+    private static string ResolveWorkspaceRoot(DeploymentContext context)
+    {
+        bool hasWinPeDrive = Directory.Exists(WinPeDriveRoot);
+        if (hasWinPeDrive)
+        {
+            return WinPeRoot;
+        }
+
+        string modeFolder = context.IsDryRun ? DryRunWorkspaceFolderName : RuntimeWorkspaceFolderName;
+        return Path.Combine(Path.GetTempPath(), "Foundry", modeFolder);
+    }
+
+    private static string ResolveWorkspaceRoot(DeploymentRuntimeState runtimeState)
+    {
+        return string.IsNullOrWhiteSpace(runtimeState.WorkspaceRoot)
+            ? WinPeRoot
+            : runtimeState.WorkspaceRoot;
+    }
+
+    private static string ResolveWorkspaceLogsPath(DeploymentRuntimeState runtimeState)
+    {
+        return Path.Combine(ResolveWorkspaceRoot(runtimeState), LogsFolderName);
+    }
+
+    private static string ResolveWorkspaceTempPath(DeploymentRuntimeState runtimeState, params string[] relativeSegments)
+    {
+        string currentPath = Path.Combine(ResolveWorkspaceRoot(runtimeState), TempFolderName);
+        foreach (string segment in relativeSegments)
+        {
+            currentPath = Path.Combine(currentPath, segment);
+        }
+
+        return currentPath;
     }
 
     private async Task<CacheResolution> AdjustCacheForTargetDiskConflictAsync(
@@ -1258,17 +1337,17 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "Logs");
         }
 
-        return ResolveCurrentLogsDirectory(logSession);
+        return ResolveCurrentLogsDirectory(logSession, runtimeState);
     }
 
-    private static string ResolveCurrentLogsDirectory(DeploymentLogSession? logSession)
+    private static string ResolveCurrentLogsDirectory(DeploymentLogSession? logSession, DeploymentRuntimeState runtimeState)
     {
         if (logSession is not null && !string.IsNullOrWhiteSpace(logSession.LogsDirectoryPath))
         {
             return logSession.LogsDirectoryPath;
         }
 
-        return Path.Combine(WinPeRoot, "Logs");
+        return ResolveWorkspaceLogsPath(runtimeState);
     }
 
     private static string ResolveFileName(string preferredFileName, string sourceUrl)

@@ -6,6 +6,7 @@ namespace Foundry.Deploy.Services.Deployment;
 public sealed record DeploymentRuntimeState
 {
     public DateTimeOffset StartedAtUtc { get; init; } = DateTimeOffset.UtcNow;
+    public string WorkspaceRoot { get; init; } = string.Empty;
     public string CurrentStep { get; set; } = string.Empty;
     public DeploymentMode Mode { get; init; }
     public bool IsDryRun { get; init; }
