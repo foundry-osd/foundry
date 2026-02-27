@@ -26,6 +26,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
     private static readonly string[] Steps =
     [
+        "Gather deployment variables",
         "Initialize deployment workspace",
         "Validate target configuration",
         "Resolve cache strategy",
@@ -111,7 +112,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             TargetDiskNumber = context.TargetDiskNumber,
             OperatingSystemFileName = context.OperatingSystem.FileName,
             OperatingSystemUrl = context.OperatingSystem.Url,
-            DriverPackSelectionKind = context.DriverPackSelectionKind
+            DriverPackSelectionKind = context.DriverPackSelectionKind,
+            DriverPackName = context.DriverPack?.DisplayLabel,
+            DriverPackUrl = context.DriverPack?.DownloadUrl
         };
 
         try
@@ -119,7 +122,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
             EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
             logSession = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
-            await AppendRunContextAsync(logSession, context, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < Steps.Length; i++)
             {
@@ -234,6 +236,17 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         switch (stepName)
         {
+            case "Gather deployment variables":
+                {
+                    if (logSession is null)
+                    {
+                        return StepExecutionOutcome.Failed("Deployment log session is unavailable.");
+                    }
+
+                    await AppendRunContextAsync(logSession, context, runtimeState, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Deployment variables gathered.");
+                }
+
             case "Initialize deployment workspace":
                 {
                     EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
@@ -701,6 +714,18 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     {
         switch (stepName)
         {
+            case "Gather deployment variables":
+                {
+                    if (logSession is null)
+                    {
+                        return StepExecutionOutcome.Failed("Deployment log session is unavailable.");
+                    }
+
+                    await AppendRunContextAsync(logSession, context, runtimeState, cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(120, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Deployment variables gathered (simulation).");
+                }
+
             case "Initialize deployment workspace":
                 {
                     EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
@@ -1087,26 +1112,93 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private async Task AppendRunContextAsync(
         DeploymentLogSession session,
         DeploymentContext context,
+        DeploymentRuntimeState runtimeState,
         CancellationToken cancellationToken)
     {
-        string[] lines =
-        [
-            $"Deployment mode: {context.Mode}",
-            $"Cache root: {context.CacheRootPath}",
-            $"Target disk number: {context.TargetDiskNumber}",
-            $"OS: {context.OperatingSystem.DisplayLabel}",
-            $"Driver pack mode: {context.DriverPackSelectionKind}",
-            $"Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}",
-            $"Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}",
-            $"Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}",
-            "Telemetry mode: disabled (zero telemetry).",
-            $"Execution mode: {(context.IsDryRun ? "Debug Safe Mode (dry-run)" : "Live")}"
-        ];
-
-        foreach (string line in lines)
+        string json = JsonSerializer.Serialize(new
         {
-            await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, line, cancellationToken).ConfigureAwait(false);
-        }
+            gatheredAtUtc = DateTimeOffset.UtcNow,
+            plannedSteps = Steps,
+            context = new
+            {
+                mode = context.Mode.ToString(),
+                cacheRootPath = context.CacheRootPath,
+                targetDiskNumber = context.TargetDiskNumber,
+                driverPackSelectionKind = context.DriverPackSelectionKind.ToString(),
+                useFullAutopilot = context.UseFullAutopilot,
+                allowAutopilotDeferredCompletion = context.AllowAutopilotDeferredCompletion,
+                isDryRun = context.IsDryRun,
+                telemetryMode = "disabled",
+                operatingSystem = new
+                {
+                    context.OperatingSystem.SourceId,
+                    context.OperatingSystem.ClientType,
+                    context.OperatingSystem.WindowsRelease,
+                    context.OperatingSystem.ReleaseId,
+                    context.OperatingSystem.Build,
+                    context.OperatingSystem.BuildMajor,
+                    context.OperatingSystem.BuildUbr,
+                    context.OperatingSystem.Architecture,
+                    context.OperatingSystem.LanguageCode,
+                    context.OperatingSystem.Language,
+                    context.OperatingSystem.Edition,
+                    context.OperatingSystem.FileName,
+                    context.OperatingSystem.SizeBytes,
+                    context.OperatingSystem.LicenseChannel,
+                    context.OperatingSystem.Url,
+                    context.OperatingSystem.Sha1,
+                    context.OperatingSystem.Sha256,
+                    displayLabel = context.OperatingSystem.DisplayLabel
+                },
+                driverPack = context.DriverPack is null
+                    ? null
+                    : new
+                    {
+                        context.DriverPack.Id,
+                        context.DriverPack.PackageId,
+                        context.DriverPack.Manufacturer,
+                        context.DriverPack.Name,
+                        context.DriverPack.Version,
+                        context.DriverPack.FileName,
+                        downloadUrl = context.DriverPack.DownloadUrl,
+                        context.DriverPack.SizeBytes,
+                        context.DriverPack.Format,
+                        context.DriverPack.Type,
+                        context.DriverPack.ReleaseDate,
+                        context.DriverPack.OsName,
+                        context.DriverPack.OsReleaseId,
+                        context.DriverPack.OsArchitecture,
+                        context.DriverPack.ModelNames,
+                        context.DriverPack.Sha256,
+                        displayLabel = context.DriverPack.DisplayLabel
+                    }
+            },
+            runtimeState = new
+            {
+                runtimeState.StartedAtUtc,
+                runtimeState.WorkspaceRoot,
+                runtimeState.CurrentStep,
+                mode = runtimeState.Mode.ToString(),
+                runtimeState.IsDryRun,
+                runtimeState.RequestedCacheRootPath,
+                runtimeState.TargetDiskNumber,
+                runtimeState.OperatingSystemFileName,
+                runtimeState.OperatingSystemUrl,
+                driverPackSelectionKind = runtimeState.DriverPackSelectionKind.ToString(),
+                runtimeState.DriverPackName,
+                runtimeState.DriverPackUrl,
+                runtimeState.TargetFoundryRoot,
+                runtimeState.DeploymentSummaryPath,
+                completedSteps = runtimeState.CompletedSteps
+            }
+        }, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+
+        await _deploymentLogService
+            .AppendAsync(session, DeploymentLogLevel.Info, $"[GATHER] Deployment variables snapshot:{Environment.NewLine}{json}", cancellationToken)
+            .ConfigureAwait(false);
     }
 
     private static string EnsureResolvedCache(DeploymentRuntimeState runtimeState)
