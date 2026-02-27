@@ -9,7 +9,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
     private const int EfiPartitionSizeMb = 260;
     private const int MsrPartitionSizeMb = 16;
-    private const int RecoveryPartitionSizeMb = 990;
+    private const int RecoveryPartitionSizeMb = 2048;
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
