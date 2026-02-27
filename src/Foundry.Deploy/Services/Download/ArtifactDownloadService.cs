@@ -26,6 +26,8 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         CancellationToken cancellationToken = default,
         IProgress<DownloadProgress>? progress = null)
     {
+        string effectiveSourceUrl = NormalizeSourceUrl(sourceUrl);
+
         _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}",
             sourceUrl,
             destinationPath);
@@ -43,6 +45,14 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string destinationDirectory = Path.GetDirectoryName(destinationPath)
             ?? throw new InvalidOperationException("Unable to resolve destination directory.");
         Directory.CreateDirectory(destinationDirectory);
+
+        if (!string.Equals(sourceUrl, effectiveSourceUrl, StringComparison.Ordinal))
+        {
+            _logger.LogInformation(
+                "Normalized artifact source URL for Windows Update content host. OriginalSourceUrl={OriginalSourceUrl}, EffectiveSourceUrl={EffectiveSourceUrl}",
+                sourceUrl,
+                effectiveSourceUrl);
+        }
 
         try
         {
@@ -62,7 +72,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
             await HttpRetryPolicy
                 .ExecuteAsync(
-                    ct => DownloadWithHttpClientAsync(sourceUrl, destinationPath, progress, ct),
+                    ct => DownloadWithHttpClientAsync(effectiveSourceUrl, destinationPath, progress, ct),
                     _logger,
                     "Artifact download",
                     cancellationToken)
@@ -82,9 +92,10 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         {
             _logger.LogError(
                 ex,
-                "Artifact download failed. SourceUrl={SourceUrl}, SourceHost={SourceHost}, DestinationPath={DestinationPath}",
+                "Artifact download failed. SourceUrl={SourceUrl}, EffectiveSourceUrl={EffectiveSourceUrl}, SourceHost={SourceHost}, DestinationPath={DestinationPath}",
                 sourceUrl,
-                TryGetSourceHost(sourceUrl),
+                effectiveSourceUrl,
+                TryGetSourceHost(effectiveSourceUrl),
                 destinationPath);
             throw;
         }
@@ -204,6 +215,38 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         return Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri)
             ? uri.Host
             : "invalid-url";
+    }
+
+    private static string NormalizeSourceUrl(string sourceUrl)
+    {
+        if (!Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri))
+        {
+            return sourceUrl;
+        }
+
+        if (!string.Equals(uri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+        {
+            return sourceUrl;
+        }
+
+        if (!IsWindowsUpdateContentHost(uri.Host))
+        {
+            return sourceUrl;
+        }
+
+        UriBuilder builder = new(uri)
+        {
+            Scheme = Uri.UriSchemeHttp,
+            Port = uri.Port == 443 ? 80 : uri.Port
+        };
+
+        return builder.Uri.AbsoluteUri;
+    }
+
+    private static bool IsWindowsUpdateContentHost(string host)
+    {
+        return host.Equals("dl.delivery.mp.microsoft.com", StringComparison.OrdinalIgnoreCase) ||
+               host.EndsWith(".dl.delivery.mp.microsoft.com", StringComparison.OrdinalIgnoreCase);
     }
 
 }
