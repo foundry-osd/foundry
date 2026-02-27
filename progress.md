@@ -109,6 +109,30 @@
   - findings.md (updated)
   - progress.md (updated)
 
+### Phase 9: Diskpart Hardening
+- **Status:** complete
+- Actions taken:
+  - Revue de l'option la plus propre pour supprimer l'hypothese `partition 4` en restant en `diskpart`.
+  - Consultation Context7 pour confirmer le type GPT Recovery et la logique de typage a la creation cote Microsoft.
+  - Choix retenu: conserver `set id`, mais l'executer immediatement apres la creation de la partition Recovery.
+  - Patch minimal de `WindowsDeploymentService.PrepareTargetDiskAsync`.
+  - Verification de compilation apres ce durcissement.
+- Files created/modified:
+  - src/Foundry.Deploy/Services/Deployment/WindowsDeploymentService.cs (updated)
+  - task_plan.md (updated)
+  - findings.md (updated)
+  - progress.md (updated)
+
+### Phase 10: Runtime Audit
+- **Status:** complete
+- Actions taken:
+  - Relecture du flux final `diskpart -> apply image -> bcdboot -> reagentc -> drivers -> seal`.
+  - Identification des points qui compilent mais doivent etre valides sur vraie machine WinPE.
+  - Journalisation des hypotheses runtime restantes dans `findings.md`.
+- Files created/modified:
+  - findings.md (updated)
+  - progress.md (updated)
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -125,6 +149,9 @@
 | OSDCloud parity review | Relecture OSDCloud vs Foundry end-to-end | Identifier ecarts restants | 3 ecarts identifies puis traites | Passed |
 | Context7 alignment pass | Query `/microsoftdocs/windows-driver-docs` | Recouper `bcdboot` + servicing offline DISM | OK | Passed |
 | Project build (alignment pass) | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Build compile sans erreur apres second passage | `0 Warning(s)`, `0 Error(s)` | Passed |
+| Context7 diskpart hardening | Query `/microsoftdocs/windows-driver-docs` | Confirmer base Microsoft pour type GPT Recovery | OK | Passed |
+| Project build (diskpart hardening) | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Build compile sans erreur apres suppression de `partition 4` | `0 Warning(s)`, `0 Error(s)` | Passed |
+| Runtime audit | Relecture du flux final de deploiement | Identifier les hypotheses runtime restantes | Audit complete, points a valider listes | Passed |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
@@ -135,11 +162,11 @@
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Phase 8 (Alignment Pass with OSDCloud) |
+| Where am I? | Phase 10 (Runtime Audit) |
 | Where am I going? | Validation terrain WinPE et ajout de tests cibles |
-| What's the goal? | Livrer un flux de deploiement plus proche d'OSDCloud tout en gardant la robustesse WinRE de Foundry |
-| What have I learned? | Le point cle etait de ne pas sceller Recovery avant le servicing du vrai `winre.wim` |
-| What have I done? | Analyse, implementation Recovery V1, revue de parite OSDCloud, second passage d'alignement, puis verification de compilation |
+| What's the goal? | Isoler les derniers risques purement runtime avant test sur vraie machine |
+| What have I learned? | Le build est propre, mais quelques hypotheses restent liees au comportement reel de WinPE, DISM, BCDBoot et ReAgentC |
+| What have I done? | Analyse, implementation Recovery V1, alignement OSDCloud, durcissement `diskpart`, puis audit final des risques runtime |
 
 ---
 *Update after completing each phase or encountering errors*

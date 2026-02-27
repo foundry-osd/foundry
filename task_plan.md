@@ -155,3 +155,12 @@ Phase 4
   - injection des drivers dans Windows puis dans WinRE,
   - scellement de la partition Recovery apres servicing, et non avant.
 - Verification effectuee apres ce second passage: `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` reussi avec `0 Warning(s)` et `0 Error(s)`.
+
+## Diskpart Hardening Status
+- Le script `diskpart` de `PrepareTargetDiskAsync` a ete durci pour supprimer l'hypothese implicite `select partition 4`.
+- Choix retenu:
+  - conserver `set id`,
+  - mais l'executer immediatement apres `create partition primary size=...`,
+  - puis appliquer les attributs GPT avant format/assignation de lettre.
+- Ce choix garde un changement minimal et reste 100% coherent avec l'architecture `diskpart` existante de Foundry.
+- Verification effectuee apres ce durcissement: `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` reussi avec `0 Warning(s)` et `0 Error(s)`.

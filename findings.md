@@ -119,6 +119,26 @@
   - `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj`
   - resultat: `0 Warning(s)`, `0 Error(s)`
 
+## Diskpart Hardening Findings
+- Le point fragile `select partition 4` a ete retire du script `diskpart` de `PrepareTargetDiskAsync`.
+- Le flux Recovery est maintenant:
+  - `create partition primary size=990`
+  - `set id=\"de94...\"`
+  - `gpt attributes=0x8000000000000001`
+  - `format quick fs=ntfs label=Recovery`
+  - `assign letter=<temp>`
+- Cela supprime la dependance a un numero de partition suppose tout en restant en `diskpart` pur.
+- Choix retenu: conserver `set id` plutot que basculer vers `create partition ... id=...`
+  - raison: changement minimal,
+  - plus faible surface de regression,
+  - conserve la logique deja presente dans le script.
+- Context7 a confirme la base Microsoft utile:
+  - le type GPT Recovery correct (`de94bba4-06d1-4d40-a16a-bfd50179d6ac`)
+  - la possibilite conceptuelle de definir le type GPT au moment de la creation cote API Storage (`GptType`)
+- Verification de compilation apres ce durcissement:
+  - `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj`
+  - resultat: `0 Warning(s)`, `0 Error(s)`
+
 ## Context7 Notes
 - Documentation Microsoft consultee via Context7 (`/microsoftdocs/windows-driver-docs`) pour verifier l'alignement avec les recommandations UEFI/GPT et la configuration offline de WinRE.
 - Direction retenue: conserver les bons elements structurels d'OSDCloud (partition Recovery correctement typée) tout en rendant la configuration WinRE explicite et verifiable dans Foundry.
@@ -127,11 +147,33 @@
   - le pattern DISM de servicing offline (mount/add-driver/unmount) applique a `winre.wim`
 
 ## Remaining Risks
-- La syntaxe `diskpart` retenue (`set id=\"GUID\"` sur la partition 4) compile cote code mais doit etre validee en execution WinPE reelle sur une machine cible.
-- Le layout suppose que la partition Recovery finale reste la partition 4 sur un disque nettoye (`clean` + `convert gpt`), ce qui est coherent ici mais doit etre confirme en test terrain.
+- La syntaxe `diskpart` retenue (`set id=\"GUID\"` immediatement apres `create partition primary`) doit etre validee en execution WinPE reelle sur une machine cible.
 - Aucun test unitaire/integration n'a ete ajoute dans ce cycle; seule la compilation a ete verifiee.
 - Le parsing `Current Edition` depend de la sortie textuelle DISM en anglais (`/English`) et doit etre confirme sur l'environnement cible.
 - Le servicing WinRE suppose que `winre.wim` est present et montable directement depuis `Recovery\\WindowsRE\\winre.wim`, ce qui doit etre confirme en test WinPE reel.
+
+## Runtime Audit Findings
+- `diskpart` reste dependant du focus implicite sur la partition Recovery fraichement creee:
+  - `create partition primary size=990`
+  - `set id=\"de94...\"`
+  - `gpt attributes=0x8000000000000001`
+  - enchainement a valider sur une vraie session WinPE
+- `bcdboot.exe` est appele via le binaire resolu dans l'environnement courant, pas explicitement via le binaire de l'OS offline applique.
+  - le choix des options depend du `BuildMajor` de l'image cible (`/bootex` a partir de 26200)
+  - si le WinPE utilise un `bcdboot.exe` plus ancien que l'image cible, il faut valider que ce binaire supporte bien les options envoyees
+- La partition Recovery est fixee a `990MB` alors qu'elle recoit:
+  - copie de `winre.wim`
+  - activation WinRE
+  - injection potentielle de drivers dans `winre.wim`
+  - cela doit etre valide sur materiel reel, surtout avec des packs drivers volumineux
+- `reagentc /setreimage`, `/enable` et `/info` sont lances depuis l'environnement courant avec `/target` sur l'OS offline.
+  - la sequence est logique, mais il faut confirmer le comportement reel en WinPE sur plusieurs builds
+- Le montage et demontage de `winre.wim` reposent sur DISM et un point de montage temporaire dans `TargetFoundryRoot\\Temp\\Deployment`.
+  - le commit reel doit etre valide sur machine pour confirmer qu'il n'y a pas de verrouillage/fichier occupe inattendu
+- La verification du masquage Recovery repose sur `Directory.Exists(recoveryPartitionRoot)` apres `remove letter=<X>`.
+  - c'est un controle utile, mais indirect; il faut confirmer que le volume n'est plus expose comme attendu en pratique
+- L'allocation dynamique des lettres (`S/W/R` preferee puis fallback libre) depend de l'etat des lettres deja montees dans WinPE.
+  - a valider sur des machines avec medias USB, volumes OEM, ou mappings atypiques
 
 ## Issues Encountered
 | Issue | Resolution |

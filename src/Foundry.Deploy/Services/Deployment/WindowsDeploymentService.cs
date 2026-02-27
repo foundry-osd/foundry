@@ -53,11 +53,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             $"assign letter={windowsLetter}",
             $"shrink desired={RecoveryPartitionSizeMb} minimum={RecoveryPartitionSizeMb}",
             $"create partition primary size={RecoveryPartitionSizeMb}",
-            $"format quick fs=ntfs label={RecoveryPartitionLabel}",
-            $"assign letter={recoveryLetter}",
-            "select partition 4",
             $"set id=\"{RecoveryPartitionGuid}\"",
-            $"gpt attributes={RecoveryPartitionAttributes}"
+            $"gpt attributes={RecoveryPartitionAttributes}",
+            $"format quick fs=ntfs label={RecoveryPartitionLabel}",
+            $"assign letter={recoveryLetter}"
         ];
 
         string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
