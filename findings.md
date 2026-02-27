@@ -88,14 +88,50 @@
   - `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj`
   - resultat: `0 Warning(s)`, `0 Error(s)`
 
+## Alignment Pass Findings
+- Un second passage a ete implemente pour recuperer trois points que OSDCloud couvrait mieux dans son workflow:
+  - servicing du vrai `winre.wim`,
+  - options `bcdboot` plus robustes,
+  - verification post-apply de l'edition offline.
+- `IWindowsDeploymentService` expose maintenant:
+  - `GetAppliedWindowsEditionAsync`
+  - `ApplyRecoveryDriversAsync`
+  - une signature `ConfigureBootAsync` enrichie avec `operatingSystemBuildMajor`
+- `WindowsDeploymentService.GetAppliedWindowsEditionAsync` interroge l'image offline via `dism /Image:<root> /Get-CurrentEdition` et parse `Current Edition`.
+- `WindowsDeploymentService.ConfigureBootAsync` aligne la logique sur OSDCloud:
+  - builds < 26200: `bcdboot ... /c /v`
+  - builds >= 26200: `bcdboot ... /c /bootex`
+- `WindowsDeploymentService.ApplyRecoveryDriversAsync` service maintenant le WinRE actif de la partition Recovery:
+  - monte `Recovery\\WindowsRE\\winre.wim`
+  - injecte les drivers offline via `dism /Add-Driver`
+  - demonte avec `Commit` en cas de succes, `Discard` sinon
+  - tente un cleanup du point de montage
+- `DeploymentOrchestrator` a ete ajuste:
+  - verification non bloquante de l'edition offline juste apres `ApplyImageAsync`
+  - injection des drivers dans Windows puis dans WinRE si `WinReConfigured`
+  - nouvelle etape explicite `Seal recovery partition`
+  - scellement de Recovery deplace apres le servicing drivers, ce qui corrige le trou fonctionnel initial
+- Le dry-run a ete mis a jour pour refleter:
+  - verification simulee de l'edition appliquee
+  - injection simulee Windows + WinRE
+  - nouvelle etape `Seal recovery partition`
+- Verification de compilation apres ce second passage:
+  - `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj`
+  - resultat: `0 Warning(s)`, `0 Error(s)`
+
 ## Context7 Notes
 - Documentation Microsoft consultee via Context7 (`/microsoftdocs/windows-driver-docs`) pour verifier l'alignement avec les recommandations UEFI/GPT et la configuration offline de WinRE.
 - Direction retenue: conserver les bons elements structurels d'OSDCloud (partition Recovery correctement typée) tout en rendant la configuration WinRE explicite et verifiable dans Foundry.
+- Second usage Context7 pour recouper:
+  - la logique `bcdboot` en contexte UEFI
+  - le pattern DISM de servicing offline (mount/add-driver/unmount) applique a `winre.wim`
 
 ## Remaining Risks
 - La syntaxe `diskpart` retenue (`set id=\"GUID\"` sur la partition 4) compile cote code mais doit etre validee en execution WinPE reelle sur une machine cible.
 - Le layout suppose que la partition Recovery finale reste la partition 4 sur un disque nettoye (`clean` + `convert gpt`), ce qui est coherent ici mais doit etre confirme en test terrain.
 - Aucun test unitaire/integration n'a ete ajoute dans ce cycle; seule la compilation a ete verifiee.
+- Le parsing `Current Edition` depend de la sortie textuelle DISM en anglais (`/English`) et doit etre confirme sur l'environnement cible.
+- Le servicing WinRE suppose que `winre.wim` est present et montable directement depuis `Recovery\\WindowsRE\\winre.wim`, ce qui doit etre confirme en test WinPE reel.
 
 ## Issues Encountered
 | Issue | Resolution |

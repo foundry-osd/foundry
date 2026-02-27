@@ -143,3 +143,15 @@ Phase 4
 - `WindowsDeploymentService` genere desormais un layout GPT avec EFI + MSR + Windows + Recovery (990MB), configure WinRE via `reagentc`, puis retire la lettre de la partition Recovery.
 - `DeploymentOrchestrator` integre une etape explicite `Configure recovery environment` en execution reelle et en dry-run, et persiste le diagnostic `reagentc-info.txt` dans l'etat de logs.
 - Verification effectuee: `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` reussi avec `0 Warning(s)` et `0 Error(s)`.
+
+## Follow-up Alignment Status
+- Un second passage d'alignement OSDCloud a ete implemente pour couvrir les ecarts identifies apres revue de bout en bout.
+- `IWindowsDeploymentService` expose maintenant:
+  - lecture de l'edition Windows appliquee offline,
+  - servicing de `winre.wim` pour l'injection de drivers dans WinRE,
+  - configuration `bcdboot` dependante du build OS cible.
+- `DeploymentOrchestrator` orchestre desormais:
+  - verification post-apply de l'edition offline,
+  - injection des drivers dans Windows puis dans WinRE,
+  - scellement de la partition Recovery apres servicing, et non avant.
+- Verification effectuee apres ce second passage: `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` reussi avec `0 Warning(s)` et `0 Error(s)`.

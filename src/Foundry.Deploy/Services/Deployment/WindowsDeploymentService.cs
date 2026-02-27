@@ -169,6 +169,44 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
     }
 
+    public async Task<string?> GetAppliedWindowsEditionAsync(
+        string windowsPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(windowsPartitionRoot))
+        {
+            throw new ArgumentException("Windows partition root is required.", nameof(windowsPartitionRoot));
+        }
+
+        ProcessExecutionResult execution = await RunRequiredProcessAsync(
+            "dism.exe",
+            $"/English /Image:\"{windowsPartitionRoot}\" /Get-CurrentEdition",
+            workingDirectory,
+            "Failed to query the applied Windows edition",
+            cancellationToken).ConfigureAwait(false);
+
+        Match editionMatch = Regex.Match(
+            execution.StandardOutput,
+            @"Current\s+Edition\s*:\s*(.+)",
+            RegexOptions.IgnoreCase);
+
+        if (!editionMatch.Success)
+        {
+            _logger.LogWarning("Unable to parse the applied Windows edition from DISM output.");
+            return null;
+        }
+
+        string edition = editionMatch.Groups[1].Value.Trim();
+        if (edition.Length == 0)
+        {
+            return null;
+        }
+
+        _logger.LogInformation("Detected applied Windows edition. Edition={Edition}", edition);
+        return edition;
+    }
+
     public async Task ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
         string recoveryPartitionRoot,
@@ -294,18 +332,122 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
 
+    public async Task ApplyRecoveryDriversAsync(
+        string recoveryPartitionRoot,
+        string driverRoot,
+        string scratchDirectory,
+        string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
+        {
+            throw new ArgumentException("Recovery partition root is required.", nameof(recoveryPartitionRoot));
+        }
+
+        if (string.IsNullOrWhiteSpace(driverRoot))
+        {
+            throw new ArgumentException("Driver root is required.", nameof(driverRoot));
+        }
+
+        string winReImagePath = Path.Combine(recoveryPartitionRoot, "Recovery", "WindowsRE", "winre.wim");
+        if (!File.Exists(winReImagePath))
+        {
+            throw new FileNotFoundException("The recovery partition does not contain winre.wim.", winReImagePath);
+        }
+
+        Directory.CreateDirectory(scratchDirectory);
+        Directory.CreateDirectory(workingDirectory);
+
+        string mountPath = Path.Combine(workingDirectory, "Mount-WindowsRE");
+        ResetWorkingDirectory(mountPath);
+
+        _logger.LogInformation(
+            "Applying recovery drivers. DriverRoot={DriverRoot}, WinReImagePath={WinReImagePath}, MountPath={MountPath}",
+            driverRoot,
+            winReImagePath,
+            mountPath);
+
+        Exception? pendingException = null;
+        bool mounted = false;
+        bool shouldCommit = false;
+
+        try
+        {
+            await RunRequiredProcessAsync(
+                "dism.exe",
+                $"/Mount-Image /ImageFile:\"{winReImagePath}\" /Index:1 /MountDir:\"{mountPath}\" /ScratchDir:\"{scratchDirectory}\"",
+                workingDirectory,
+                "Failed to mount the Windows RE image",
+                cancellationToken).ConfigureAwait(false);
+
+            mounted = true;
+
+            await RunRequiredProcessAsync(
+                "dism.exe",
+                $"/Image:\"{mountPath}\" /Add-Driver /Driver:\"{driverRoot}\" /Recurse /ScratchDir:\"{scratchDirectory}\"",
+                workingDirectory,
+                $"Recovery driver injection failed for '{driverRoot}'",
+                cancellationToken).ConfigureAwait(false);
+
+            shouldCommit = true;
+        }
+        catch (Exception ex)
+        {
+            pendingException = ex;
+        }
+        finally
+        {
+            if (mounted)
+            {
+                string unmountArguments = shouldCommit
+                    ? $"/Unmount-Image /MountDir:\"{mountPath}\" /Commit"
+                    : $"/Unmount-Image /MountDir:\"{mountPath}\" /Discard";
+
+                ProcessExecutionResult unmountExecution = await _processRunner
+                    .RunAsync("dism.exe", unmountArguments, workingDirectory, cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (!unmountExecution.IsSuccess)
+                {
+                    string diagnostic = ToDiagnostic(unmountExecution);
+                    _logger.LogError("Failed to unmount the Windows RE image. Diagnostic={Diagnostic}", diagnostic);
+
+                    pendingException = pendingException is null
+                        ? new InvalidOperationException($"Failed to unmount the Windows RE image.{Environment.NewLine}{diagnostic}")
+                        : new InvalidOperationException(
+                            $"Windows RE servicing failed and the image could not be unmounted cleanly.{Environment.NewLine}{diagnostic}",
+                            pendingException);
+                }
+            }
+
+            TryDeleteDirectory(mountPath);
+        }
+
+        if (pendingException is not null)
+        {
+            throw pendingException;
+        }
+
+        _logger.LogInformation("Recovery driver injection completed. DriverRoot={DriverRoot}", driverRoot);
+    }
+
     public async Task ConfigureBootAsync(
         string windowsPartitionRoot,
         string systemPartitionRoot,
+        int operatingSystemBuildMajor,
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
         string windowsPath = Path.Combine(windowsPartitionRoot, "Windows");
         _logger.LogInformation("Configuring boot files. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}", windowsPath, systemPartitionRoot);
 
+        string arguments = operatingSystemBuildMajor >= 26200
+            ? $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI /c /bootex"
+            : $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI /c /v";
+
         await RunRequiredProcessAsync(
             "bcdboot.exe",
-            $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI",
+            arguments,
             workingDirectory,
             "BCDBoot configuration failed",
             cancellationToken).ConfigureAwait(false);
@@ -369,6 +511,29 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         throw new InvalidOperationException("No drive letter is available for deployment partitions.");
+    }
+
+    private static void ResetWorkingDirectory(string path)
+    {
+        TryDeleteDirectory(path);
+        Directory.CreateDirectory(path);
+    }
+
+    private static void TryDeleteDirectory(string path)
+    {
+        if (!Directory.Exists(path))
+        {
+            return;
+        }
+
+        try
+        {
+            Directory.Delete(path, recursive: true);
+        }
+        catch
+        {
+            // Best effort cleanup; a later DISM failure will surface if the mount path is unusable.
+        }
     }
 
     private static void ValidateRecoveryConfiguration(string reagentInfoOutput)

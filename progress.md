@@ -90,6 +90,25 @@
   - findings.md (updated)
   - progress.md (updated)
 
+### Phase 8: Alignment Pass with OSDCloud
+- **Status:** complete
+- Actions taken:
+  - Verification de bout en bout du flux Foundry contre OSDCloud sans modification initiale.
+  - Identification des ecarts restants:
+    - servicing du WinRE actif,
+    - options `bcdboot`,
+    - verification de l'edition offline apres apply.
+  - Consultation des references Microsoft via Context7 pour recouper `bcdboot` et le pattern de servicing DISM offline.
+  - Mise a jour de `IWindowsDeploymentService`, `WindowsDeploymentService` et `DeploymentOrchestrator` pour combler ces ecarts.
+  - Verification de compilation apres ce second passage.
+- Files created/modified:
+  - src/Foundry.Deploy/Services/Deployment/IWindowsDeploymentService.cs (updated)
+  - src/Foundry.Deploy/Services/Deployment/WindowsDeploymentService.cs (updated)
+  - src/Foundry.Deploy/Services/Deployment/DeploymentOrchestrator.cs (updated)
+  - task_plan.md (updated)
+  - findings.md (updated)
+  - progress.md (updated)
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -103,6 +122,9 @@
 | Recovery planning pass | Relecture ciblage `WindowsDeploymentService`/`DeploymentOrchestrator` | Plan Recovery V1 decision-complete | OK | Passed |
 | Context7 validation | Query `/microsoftdocs/windows-driver-docs` | Confirmer direction Microsoft UEFI/GPT + WinRE | OK | Passed |
 | Project build | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Build compile sans erreur | `0 Warning(s)`, `0 Error(s)` | Passed |
+| OSDCloud parity review | Relecture OSDCloud vs Foundry end-to-end | Identifier ecarts restants | 3 ecarts identifies puis traites | Passed |
+| Context7 alignment pass | Query `/microsoftdocs/windows-driver-docs` | Recouper `bcdboot` + servicing offline DISM | OK | Passed |
+| Project build (alignment pass) | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Build compile sans erreur apres second passage | `0 Warning(s)`, `0 Error(s)` | Passed |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
@@ -113,11 +135,11 @@
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Phase 7 (Implementation Recovery V1) |
-| Where am I going? | Validation terrain WinPE et durcissement des tests |
-| What's the goal? | Livrer Recovery V1 fonctionnelle et verifiee dans Foundry |
-| What have I learned? | Le coeur du changement tient dans le layout disque, `reagentc`, et la persistance du diagnostic WinRE |
-| What have I done? | Analyse OSDCloud/Foundry, planification, implementation du code, puis verification de compilation |
+| Where am I? | Phase 8 (Alignment Pass with OSDCloud) |
+| Where am I going? | Validation terrain WinPE et ajout de tests cibles |
+| What's the goal? | Livrer un flux de deploiement plus proche d'OSDCloud tout en gardant la robustesse WinRE de Foundry |
+| What have I learned? | Le point cle etait de ne pas sceller Recovery avant le servicing du vrai `winre.wim` |
+| What have I done? | Analyse, implementation Recovery V1, revue de parite OSDCloud, second passage d'alignement, puis verification de compilation |
 
 ---
 *Update after completing each phase or encountering errors*

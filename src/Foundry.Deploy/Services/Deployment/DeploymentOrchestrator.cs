@@ -35,6 +35,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         "Apply operating system image",
         "Configure recovery environment",
         "Apply offline drivers",
+        "Seal recovery partition",
         "Execute full Autopilot workflow",
         "Finalize deployment and write logs"
     ];
@@ -470,8 +471,41 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         .ConfigureAwait(false);
 
                     await _windowsDeploymentService
-                        .ConfigureBootAsync(runtimeState.TargetWindowsPartitionRoot, runtimeState.TargetSystemPartitionRoot, workingDirectory, cancellationToken)
+                        .ConfigureBootAsync(
+                            runtimeState.TargetWindowsPartitionRoot,
+                            runtimeState.TargetSystemPartitionRoot,
+                            context.OperatingSystem.BuildMajor,
+                            workingDirectory,
+                            cancellationToken)
                         .ConfigureAwait(false);
+
+                    try
+                    {
+                        string? appliedEdition = await _windowsDeploymentService
+                            .GetAppliedWindowsEditionAsync(runtimeState.TargetWindowsPartitionRoot, workingDirectory, cancellationToken)
+                            .ConfigureAwait(false);
+
+                        if (!string.IsNullOrWhiteSpace(appliedEdition))
+                        {
+                            DeploymentLogLevel editionLogLevel = EditionsMatch(context.OperatingSystem.Edition, appliedEdition)
+                                ? DeploymentLogLevel.Info
+                                : DeploymentLogLevel.Warning;
+
+                            string message = editionLogLevel == DeploymentLogLevel.Info
+                                ? $"Applied Windows edition verified: {appliedEdition}."
+                                : $"Applied Windows edition '{appliedEdition}' does not closely match requested edition '{context.OperatingSystem.Edition}'.";
+
+                            await AppendLogAsync(logSession, editionLogLevel, message, cancellationToken).ConfigureAwait(false);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await AppendLogAsync(
+                            logSession,
+                            DeploymentLogLevel.Warning,
+                            $"Unable to verify the applied Windows edition: {ex.Message}",
+                            cancellationToken).ConfigureAwait(false);
+                    }
 
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"OS image applied to {runtimeState.TargetWindowsPartitionRoot} (index {imageIndex}); boot configured on {runtimeState.TargetSystemPartitionRoot}.", cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Operating system image applied.");
@@ -511,19 +545,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         runtimeState.WinReInfoOutputPath = recoveryInfoPath;
                     }
 
-                    await _windowsDeploymentService
-                        .SealRecoveryPartitionAsync(
-                            runtimeState.TargetRecoveryPartitionRoot,
-                            runtimeState.TargetRecoveryPartitionLetter.Value,
-                            workingDirectory,
-                            cancellationToken)
-                        .ConfigureAwait(false);
-
                     runtimeState.WinReConfigured = true;
                     await AppendLogAsync(
                         logSession,
                         DeploymentLogLevel.Info,
-                        $"Recovery environment configured and sealed. Recovery='{runtimeState.TargetRecoveryPartitionRoot}', ReAgentInfo='{runtimeState.WinReInfoOutputPath}'.",
+                        $"Recovery environment configured. Recovery='{runtimeState.TargetRecoveryPartitionRoot}', ReAgentInfo='{runtimeState.WinReInfoOutputPath}'.",
                         cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Recovery environment configured.");
                 }
@@ -553,9 +579,54 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                             cancellationToken)
                         .ConfigureAwait(false);
 
+                    if (runtimeState.WinReConfigured &&
+                        !string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot))
+                    {
+                        await _windowsDeploymentService
+                            .ApplyRecoveryDriversAsync(
+                                runtimeState.TargetRecoveryPartitionRoot,
+                                runtimeState.PreparedDriverPath,
+                                scratchDirectory,
+                                workingDirectory,
+                                cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+
                     int infCount = Directory.EnumerateFiles(runtimeState.PreparedDriverPath, "*.inf", SearchOption.AllDirectories).Count();
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Offline drivers injected: {infCount} INF files from '{runtimeState.PreparedDriverPath}'.", cancellationToken).ConfigureAwait(false);
+                    string driverMessage = runtimeState.WinReConfigured
+                        ? $"Offline drivers injected into Windows and WinRE: {infCount} INF files from '{runtimeState.PreparedDriverPath}'."
+                        : $"Offline drivers injected: {infCount} INF files from '{runtimeState.PreparedDriverPath}'.";
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, driverMessage, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Offline drivers applied.");
+                }
+
+            case "Seal recovery partition":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot) ||
+                        !runtimeState.TargetRecoveryPartitionLetter.HasValue)
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(workingDirectory);
+
+                    await _windowsDeploymentService
+                        .SealRecoveryPartitionAsync(
+                            runtimeState.TargetRecoveryPartitionRoot,
+                            runtimeState.TargetRecoveryPartitionLetter.Value,
+                            workingDirectory,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    await AppendLogAsync(
+                        logSession,
+                        DeploymentLogLevel.Info,
+                        $"Recovery partition sealed. Recovery='{runtimeState.TargetRecoveryPartitionRoot}'.",
+                        cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery partition sealed.");
                 }
 
             case "Execute full Autopilot workflow":
@@ -765,6 +836,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         cancellationToken).ConfigureAwait(false);
 
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated OS apply to {runtimeState.TargetWindowsPartitionRoot}.", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated applied Windows edition: {context.OperatingSystem.Edition}.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(180, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Operating system image applied (simulation).");
                 }
@@ -807,9 +879,25 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     }
 
                     int infCount = Directory.EnumerateFiles(runtimeState.PreparedDriverPath, "*.inf", SearchOption.AllDirectories).Count();
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated offline driver injection: {infCount} INF files.", cancellationToken).ConfigureAwait(false);
+                    string driverMessage = runtimeState.WinReConfigured
+                        ? $"[DRY-RUN] Simulated offline driver injection for Windows and WinRE: {infCount} INF files."
+                        : $"[DRY-RUN] Simulated offline driver injection: {infCount} INF files.";
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, driverMessage, cancellationToken).ConfigureAwait(false);
                     await Task.Delay(150, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Offline drivers applied (simulation).");
+                }
+
+            case "Seal recovery partition":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot))
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated recovery partition seal: {runtimeState.TargetRecoveryPartitionRoot}", cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(120, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery partition sealed (simulation).");
                 }
 
             case "Execute full Autopilot workflow":
@@ -1224,6 +1312,35 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         });
 
         await File.WriteAllTextAsync(path, json, cancellationToken).ConfigureAwait(false);
+    }
+
+    private static bool EditionsMatch(string requestedEdition, string appliedEdition)
+    {
+        string requested = NormalizeEditionToken(requestedEdition);
+        string applied = NormalizeEditionToken(appliedEdition);
+
+        if (requested.Length == 0 || applied.Length == 0)
+        {
+            return false;
+        }
+
+        return requested.Contains(applied, StringComparison.OrdinalIgnoreCase) ||
+               applied.Contains(requested, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string NormalizeEditionToken(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return string.Empty;
+        }
+
+        char[] filtered = value
+            .ToLowerInvariant()
+            .Where(char.IsLetterOrDigit)
+            .ToArray();
+
+        return new string(filtered);
     }
 
     private static string ResolveCacheBaseRoot(string runtimeRoot)
