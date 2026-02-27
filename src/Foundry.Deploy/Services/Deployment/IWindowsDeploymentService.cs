@@ -21,6 +21,18 @@ public interface IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default);
 
+    Task ConfigureRecoveryEnvironmentAsync(
+        string windowsPartitionRoot,
+        string recoveryPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken = default);
+
+    Task SealRecoveryPartitionAsync(
+        string recoveryPartitionRoot,
+        char recoveryPartitionLetter,
+        string workingDirectory,
+        CancellationToken cancellationToken = default);
+
     Task ApplyOfflineDriversAsync(
         string windowsPartitionRoot,
         string driverRoot,

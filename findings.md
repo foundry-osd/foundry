@@ -59,6 +59,44 @@
 | Produire un plan decision-complete avant implementation | Exigence user explicite |
 | Cibler d'abord `WindowsDeploymentService` et `DeploymentOrchestrator` | Ce sont les points d'orchestration et commandes systeme |
 
+## Implementation Findings
+- `DeploymentTargetLayout` expose maintenant `RecoveryPartitionRoot` et `RecoveryPartitionLetter`, ce qui permet a l'orchestrateur de piloter explicitement la partition Recovery.
+- `DeploymentRuntimeState` conserve `TargetRecoveryPartitionRoot`, `TargetRecoveryPartitionLetter`, `WinReConfigured` et `WinReInfoOutputPath`, ce qui rend la phase Recovery observable dans les logs finaux.
+- `IWindowsDeploymentService` a ete etendu avec deux operations dediees:
+  - `ConfigureRecoveryEnvironmentAsync`
+  - `SealRecoveryPartitionAsync`
+- `WindowsDeploymentService.PrepareTargetDiskAsync` cree maintenant un layout GPT en 4 partitions:
+  - EFI 260MB
+  - MSR 16MB
+  - Windows primaire NTFS
+  - Recovery 990MB NTFS
+- Le script `diskpart` applique egalement le type Recovery Microsoft (`de94bba4-06d1-4d40-a16a-bfd50179d6ac`) et les attributs GPT `0x8000000000000001`, ce qui recupere le bon comportement structurel vu dans OSDCloud.
+- La configuration WinRE suit une approche plus robuste qu'OSDCloud:
+  - copie de `winre.wim` depuis l'image offline appliquee
+  - `reagentc /setreimage`
+  - `reagentc /enable`
+  - `reagentc /info`
+  - validation bloquante du statut `Enabled` et d'un chemin contenant `Recovery\\WindowsRE`
+- La partition Recovery est ensuite masquee en retirant sa lettre temporaire via un second script `diskpart`.
+- `DeploymentOrchestrator` a ete etendu avec une etape explicite `Configure recovery environment` entre l'application de l'image OS et l'injection des drivers offline.
+- Le dry-run reste coherent avec ce nouveau workflow:
+  - creation d'une racine Recovery simulee
+  - production d'un `reagentc-info.txt` simule
+  - mise a jour de `WinReConfigured`
+- Le diagnostic `reagentc-info.txt` est persiste dans `logSession.StateDirectoryPath`, ce qui evite de le perdre lorsque `TargetFoundryRoot` est nettoye en fin de run.
+- Verification de compilation effectuee:
+  - `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj`
+  - resultat: `0 Warning(s)`, `0 Error(s)`
+
+## Context7 Notes
+- Documentation Microsoft consultee via Context7 (`/microsoftdocs/windows-driver-docs`) pour verifier l'alignement avec les recommandations UEFI/GPT et la configuration offline de WinRE.
+- Direction retenue: conserver les bons elements structurels d'OSDCloud (partition Recovery correctement typée) tout en rendant la configuration WinRE explicite et verifiable dans Foundry.
+
+## Remaining Risks
+- La syntaxe `diskpart` retenue (`set id=\"GUID\"` sur la partition 4) compile cote code mais doit etre validee en execution WinPE reelle sur une machine cible.
+- Le layout suppose que la partition Recovery finale reste la partition 4 sur un disque nettoye (`clean` + `convert gpt`), ce qui est coherent ici mais doit etre confirme en test terrain.
+- Aucun test unitaire/integration n'a ete ajoute dans ce cycle; seule la compilation a ete verifiee.
+
 ## Issues Encountered
 | Issue | Resolution |
 |-------|------------|

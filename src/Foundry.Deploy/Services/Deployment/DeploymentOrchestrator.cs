@@ -33,6 +33,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         "Download operating system image",
         "Download and prepare driver pack",
         "Apply operating system image",
+        "Configure recovery environment",
         "Apply offline drivers",
         "Execute full Autopilot workflow",
         "Finalize deployment and write logs"
@@ -305,6 +306,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     runtimeState.TargetSystemPartitionRoot = layout.SystemPartitionRoot;
                     runtimeState.TargetWindowsPartitionRoot = layout.WindowsPartitionRoot;
+                    runtimeState.TargetRecoveryPartitionRoot = layout.RecoveryPartitionRoot;
+                    runtimeState.TargetRecoveryPartitionLetter = layout.RecoveryPartitionLetter;
                     runtimeState.TargetFoundryRoot = Path.Combine(layout.WindowsPartitionRoot, "Foundry");
                     if (runtimeState.Mode == DeploymentMode.Iso)
                     {
@@ -314,7 +317,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     DeploymentLogSession? rebound = await RebindLogSessionIfNeededAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
-                    await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"Target disk prepared: system='{layout.SystemPartitionRoot}', windows='{layout.WindowsPartitionRoot}'.", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(
+                        rebound,
+                        DeploymentLogLevel.Info,
+                        $"Target disk prepared: system='{layout.SystemPartitionRoot}', windows='{layout.WindowsPartitionRoot}', recovery='{layout.RecoveryPartitionRoot}'.",
+                        cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Target disk layout prepared.", rebound);
                 }
 
@@ -470,6 +477,57 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     return StepExecutionOutcome.Succeeded("Operating system image applied.");
                 }
 
+            case "Configure recovery environment":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ||
+                        string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot) ||
+                        !runtimeState.TargetRecoveryPartitionLetter.HasValue)
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(workingDirectory);
+
+                    await _windowsDeploymentService
+                        .ConfigureRecoveryEnvironmentAsync(
+                            runtimeState.TargetWindowsPartitionRoot,
+                            runtimeState.TargetRecoveryPartitionRoot,
+                            workingDirectory,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    string recoveryInfoPath = Path.Combine(workingDirectory, "reagentc-info.txt");
+                    if (File.Exists(recoveryInfoPath) && logSession is not null)
+                    {
+                        string persistedInfoPath = Path.Combine(logSession.StateDirectoryPath, "reagentc-info.txt");
+                        Directory.CreateDirectory(logSession.StateDirectoryPath);
+                        File.Copy(recoveryInfoPath, persistedInfoPath, overwrite: true);
+                        runtimeState.WinReInfoOutputPath = persistedInfoPath;
+                    }
+                    else
+                    {
+                        runtimeState.WinReInfoOutputPath = recoveryInfoPath;
+                    }
+
+                    await _windowsDeploymentService
+                        .SealRecoveryPartitionAsync(
+                            runtimeState.TargetRecoveryPartitionRoot,
+                            runtimeState.TargetRecoveryPartitionLetter.Value,
+                            workingDirectory,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    runtimeState.WinReConfigured = true;
+                    await AppendLogAsync(
+                        logSession,
+                        DeploymentLogLevel.Info,
+                        $"Recovery environment configured and sealed. Recovery='{runtimeState.TargetRecoveryPartitionRoot}', ReAgentInfo='{runtimeState.WinReInfoOutputPath}'.",
+                        cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery environment configured.");
+                }
+
             case "Apply offline drivers":
                 {
                     if (string.IsNullOrWhiteSpace(runtimeState.PreparedDriverPath))
@@ -609,16 +667,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string targetRoot = ResolveWorkspaceTempPath(runtimeState, "DryRunTarget");
                     string systemRoot = Path.Combine(targetRoot, "System");
                     string windowsRoot = Path.Combine(targetRoot, "Windows");
+                    string recoveryRoot = Path.Combine(targetRoot, "Recovery");
                     Directory.CreateDirectory(systemRoot);
                     Directory.CreateDirectory(windowsRoot);
+                    Directory.CreateDirectory(recoveryRoot);
 
                     runtimeState.TargetSystemPartitionRoot = systemRoot;
                     runtimeState.TargetWindowsPartitionRoot = windowsRoot;
+                    runtimeState.TargetRecoveryPartitionRoot = recoveryRoot;
+                    runtimeState.TargetRecoveryPartitionLetter = 'R';
                     runtimeState.TargetFoundryRoot = Path.Combine(windowsRoot, "Foundry");
 
                     DeploymentLogSession? rebound = await RebindLogSessionIfNeededAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
-                    await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated target disk layout: system='{systemRoot}', windows='{windowsRoot}'.", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated target disk layout: system='{systemRoot}', windows='{windowsRoot}', recovery='{recoveryRoot}'.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Target disk layout prepared (simulation).", rebound);
                 }
@@ -705,6 +767,35 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated OS apply to {runtimeState.TargetWindowsPartitionRoot}.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(180, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Operating system image applied (simulation).");
+                }
+
+            case "Configure recovery environment":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot))
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(workingDirectory);
+
+                    string reagentInfoPath = logSession is not null
+                        ? Path.Combine(logSession.StateDirectoryPath, "reagentc-info.txt")
+                        : Path.Combine(workingDirectory, "reagentc-info.txt");
+
+                    string reagentInfo = string.Join(
+                        Environment.NewLine,
+                        "Windows RE status: Enabled",
+                        $"Windows RE location: {Path.Combine(runtimeState.TargetRecoveryPartitionRoot, "Recovery", "WindowsRE")}");
+
+                    await File.WriteAllTextAsync(reagentInfoPath, reagentInfo, cancellationToken).ConfigureAwait(false);
+                    runtimeState.WinReConfigured = true;
+                    runtimeState.WinReInfoOutputPath = reagentInfoPath;
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated recovery environment configuration: {reagentInfoPath}", cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(150, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery environment configured (simulation).");
                 }
 
             case "Apply offline drivers":
@@ -1122,6 +1213,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             preparedDriverPath = runtimeState.PreparedDriverPath,
             targetSystemPartitionRoot = runtimeState.TargetSystemPartitionRoot,
             targetWindowsPartitionRoot = runtimeState.TargetWindowsPartitionRoot,
+            targetRecoveryPartitionRoot = runtimeState.TargetRecoveryPartitionRoot,
+            winReConfigured = runtimeState.WinReConfigured,
+            winReInfoOutputPath = runtimeState.WinReInfoOutputPath,
             autopilotWorkflowPath = runtimeState.AutopilotWorkflowPath,
             completedSteps = runtimeState.CompletedSteps
         }, new JsonSerializerOptions

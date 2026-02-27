@@ -1,10 +1,10 @@
-# Task Plan: Foundry Recovery V1 (UEFI/GPT) - Plan uniquement
+# Task Plan: Foundry Recovery V1 (UEFI/GPT)
 
 ## Goal
-Definir un plan decision-complete pour ajouter dans `Foundry.Deploy` une partition de recuperation pleinement fonctionnelle en V1, en combinant les bonnes bases OSDCloud et les bonnes pratiques Microsoft, sans implementer le code dans cette etape.
+Implementer dans `Foundry.Deploy` une partition de recuperation pleinement fonctionnelle en V1, en combinant les bonnes bases OSDCloud et les bonnes pratiques Microsoft, puis verifier que le projet compile proprement.
 
 ## Current Phase
-Phase 2
+Phase 4
 
 ## Phases
 ### Phase 1: Cadrage et decisions
@@ -20,15 +20,16 @@ Phase 2
 - **Status:** complete
 
 ### Phase 3: Preparation implementation
-- [ ] Lister fichiers a modifier et ordre d'execution
-- [ ] Lister risques techniques et mitigations
-- [ ] Preparer checklist de livraison
-- **Status:** pending
+- [x] Lister fichiers a modifier et ordre d'execution
+- [x] Lister risques techniques et mitigations
+- [x] Preparer checklist de livraison
+- **Status:** complete
 
 ### Phase 4: Handover
-- [ ] Produire un plan final executable par un implementeur
-- [ ] Confirmer explicitement qu'aucune implementation n'a ete faite
-- **Status:** pending
+- [x] Implementer les changements cibles dans les services de deploiement
+- [x] Verifier la compilation du projet
+- [x] Documenter le resultat dans les fichiers de suivi
+- **Status:** complete
 
 ## Key Questions
 1. Quelles modifications minimales d'architecture sont necessaires pour supporter Recovery + WinRE proprement ?
@@ -45,7 +46,7 @@ Phase 2
 | Partition Recovery cachee en fin de workflow | Eviter exposition d'une partition systeme a l'utilisateur |
 | Direction: Microsoft best-practice (pas strict OSDCloud) | Recovery doit etre fonctionnelle et verifiable en V1 |
 | Echec bloquant si chaine Recovery/WinRE invalide | Exigence de robustesse fonctionnelle des la V1 |
-| Pas d'implementation dans cette etape | Demande explicite: plan uniquement |
+| Pas de changement UI en V1 | Le comportement reste toujours actif et sans option supplementaire |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |
@@ -56,7 +57,7 @@ Phase 2
 ## Notes
 - Changement cible principal: `WindowsDeploymentService` + `DeploymentOrchestrator`.
 - `MainWindow` et `MainWindowViewModel` restent sans nouvelle option Recovery en V1.
-- Les modifications code sont planifiees mais non executees a ce stade.
+- L'implementation a finalement ete executee dans ce cycle sur les services de deploiement.
 
 ## Implementation Plan (No Execution)
 ### Scope
@@ -79,6 +80,7 @@ Phase 2
 3. `src/Foundry.Deploy/Services/Deployment/DeploymentRuntimeState.cs`
 - Ajouter:
   - `TargetRecoveryPartitionRoot` (string?)
+  - `TargetRecoveryPartitionLetter` (char?)
   - `WinReConfigured` (bool)
   - `WinReInfoOutputPath` (string?)
 
@@ -134,3 +136,10 @@ Phase 2
 - Recovery sans lettre visible.
 - WinRE `Enabled` et associe a la partition Recovery.
 - Echec explicite si chaine Recovery/WinRE non valide.
+
+## Implementation Status
+- `DeploymentTargetLayout` et `DeploymentRuntimeState` ont ete etendus pour suivre la partition Recovery et l'etat WinRE.
+- `IWindowsDeploymentService` expose maintenant la configuration WinRE et le masquage de la partition Recovery.
+- `WindowsDeploymentService` genere desormais un layout GPT avec EFI + MSR + Windows + Recovery (990MB), configure WinRE via `reagentc`, puis retire la lettre de la partition Recovery.
+- `DeploymentOrchestrator` integre une etape explicite `Configure recovery environment` en execution reelle et en dry-run, et persiste le diagnostic `reagentc-info.txt` dans l'etat de logs.
+- Verification effectuee: `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` reussi avec `0 Warning(s)` et `0 Error(s)`.

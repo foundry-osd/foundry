@@ -7,6 +7,13 @@ namespace Foundry.Deploy.Services.Deployment;
 
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
+    private const int EfiPartitionSizeMb = 260;
+    private const int MsrPartitionSizeMb = 16;
+    private const int RecoveryPartitionSizeMb = 990;
+    private const string RecoveryPartitionLabel = "Recovery";
+    private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
+    private const string RecoveryPartitionAttributes = "0x8000000000000001";
+
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<WindowsDeploymentService> _logger;
 
@@ -27,7 +34,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         _logger.LogInformation("Preparing target disk layout. DiskNumber={DiskNumber}, WorkingDirectory={WorkingDirectory}", diskNumber, workingDirectory);
-        (char systemLetter, char windowsLetter) = GetPartitionLetters();
+        (char systemLetter, char windowsLetter, char recoveryLetter) = GetPartitionLetters();
         Directory.CreateDirectory(workingDirectory);
 
         string[] scriptLines =
@@ -37,38 +44,50 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "attributes disk clear readonly noerr",
             "clean",
             "convert gpt",
-            "create partition efi size=260",
+            $"create partition efi size={EfiPartitionSizeMb}",
             "format quick fs=fat32 label=System",
             $"assign letter={systemLetter}",
-            "create partition msr size=16",
+            $"create partition msr size={MsrPartitionSizeMb}",
             "create partition primary",
             "format quick fs=ntfs label=Windows",
-            $"assign letter={windowsLetter}"
+            $"assign letter={windowsLetter}",
+            $"shrink desired={RecoveryPartitionSizeMb} minimum={RecoveryPartitionSizeMb}",
+            $"create partition primary size={RecoveryPartitionSizeMb}",
+            $"format quick fs=ntfs label={RecoveryPartitionLabel}",
+            $"assign letter={recoveryLetter}",
+            "select partition 4",
+            $"set id=\"{RecoveryPartitionGuid}\"",
+            $"gpt attributes={RecoveryPartitionAttributes}"
         ];
 
         string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
         await File.WriteAllLinesAsync(scriptPath, scriptLines, cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync("diskpart.exe", $"/s \"{scriptPath}\"", workingDirectory, cancellationToken)
-            .ConfigureAwait(false);
+        await RunRequiredProcessAsync(
+            "diskpart.exe",
+            $"/s \"{scriptPath}\"",
+            workingDirectory,
+            $"Disk partitioning failed for disk {diskNumber}",
+            cancellationToken).ConfigureAwait(false);
 
-        if (!execution.IsSuccess)
-        {
-            _logger.LogError("Disk partitioning failed for disk {DiskNumber}. Diagnostic={Diagnostic}", diskNumber, ToDiagnostic(execution));
-            throw new InvalidOperationException(
-                $"Disk partitioning failed for disk {diskNumber}.{Environment.NewLine}{ToDiagnostic(execution)}");
-        }
+        string systemPartitionRoot = $"{systemLetter}:\\";
+        string windowsPartitionRoot = $"{windowsLetter}:\\";
+        string recoveryPartitionRoot = $"{recoveryLetter}:\\";
 
-        _logger.LogInformation("Target disk layout prepared. DiskNumber={DiskNumber}, SystemPartition={SystemPartition}, WindowsPartition={WindowsPartition}",
+        _logger.LogInformation(
+            "Target disk layout prepared. DiskNumber={DiskNumber}, SystemPartition={SystemPartition}, WindowsPartition={WindowsPartition}, RecoveryPartition={RecoveryPartition}",
             diskNumber,
-            $"{systemLetter}:\\",
-            $"{windowsLetter}:\\");
+            systemPartitionRoot,
+            windowsPartitionRoot,
+            recoveryPartitionRoot);
+
         return new DeploymentTargetLayout
         {
             DiskNumber = diskNumber,
-            SystemPartitionRoot = $"{systemLetter}:\\",
-            WindowsPartitionRoot = $"{windowsLetter}:\\"
+            SystemPartitionRoot = systemPartitionRoot,
+            WindowsPartitionRoot = windowsPartitionRoot,
+            RecoveryPartitionRoot = recoveryPartitionRoot,
+            RecoveryPartitionLetter = recoveryLetter
         };
     }
 
@@ -140,25 +159,117 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync(
-                "dism.exe",
-                $"/Apply-Image /ImageFile:\"{imagePath}\" /Index:{imageIndex} /ApplyDir:\"{windowsPartitionRoot}\" /CheckIntegrity /ScratchDir:\"{scratchDirectory}\"",
-                workingDirectory,
-                cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess)
-        {
-            _logger.LogError("OS image apply failed. ImagePath={ImagePath}, Index={ImageIndex}, Diagnostic={Diagnostic}",
-                imagePath,
-                imageIndex,
-                ToDiagnostic(execution));
-            throw new InvalidOperationException(
-                $"OS image apply failed for index {imageIndex}.{Environment.NewLine}{ToDiagnostic(execution)}");
-        }
+        await RunRequiredProcessAsync(
+            "dism.exe",
+            $"/Apply-Image /ImageFile:\"{imagePath}\" /Index:{imageIndex} /ApplyDir:\"{windowsPartitionRoot}\" /CheckIntegrity /ScratchDir:\"{scratchDirectory}\"",
+            workingDirectory,
+            $"OS image apply failed for index {imageIndex}",
+            cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
+    }
+
+    public async Task ConfigureRecoveryEnvironmentAsync(
+        string windowsPartitionRoot,
+        string recoveryPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(windowsPartitionRoot))
+        {
+            throw new ArgumentException("Windows partition root is required.", nameof(windowsPartitionRoot));
+        }
+
+        if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
+        {
+            throw new ArgumentException("Recovery partition root is required.", nameof(recoveryPartitionRoot));
+        }
+
+        Directory.CreateDirectory(workingDirectory);
+
+        string windowsPath = Path.Combine(windowsPartitionRoot, "Windows");
+        string sourceWinRePath = Path.Combine(windowsPath, "System32", "Recovery", "winre.wim");
+        if (!File.Exists(sourceWinRePath))
+        {
+            throw new FileNotFoundException("The offline Windows image does not contain winre.wim.", sourceWinRePath);
+        }
+
+        string recoveryDirectory = Path.Combine(recoveryPartitionRoot, "Recovery", "WindowsRE");
+        Directory.CreateDirectory(recoveryDirectory);
+
+        string targetWinRePath = Path.Combine(recoveryDirectory, "winre.wim");
+        File.Copy(sourceWinRePath, targetWinRePath, overwrite: true);
+
+        _logger.LogInformation(
+            "Configuring recovery environment. WindowsPath={WindowsPath}, RecoveryDirectory={RecoveryDirectory}",
+            windowsPath,
+            recoveryDirectory);
+
+        await RunRequiredProcessAsync(
+            "reagentc.exe",
+            $"/setreimage /path \"{recoveryDirectory}\" /target \"{windowsPath}\"",
+            workingDirectory,
+            "Failed to set the Windows RE image location",
+            cancellationToken).ConfigureAwait(false);
+
+        await RunRequiredProcessAsync(
+            "reagentc.exe",
+            $"/enable /target \"{windowsPath}\"",
+            workingDirectory,
+            "Failed to enable Windows RE",
+            cancellationToken).ConfigureAwait(false);
+
+        ProcessExecutionResult infoExecution = await RunRequiredProcessAsync(
+            "reagentc.exe",
+            $"/info /target \"{windowsPath}\"",
+            workingDirectory,
+            "Failed to query Windows RE status",
+            cancellationToken).ConfigureAwait(false);
+
+        string infoOutputPath = Path.Combine(workingDirectory, "reagentc-info.txt");
+        await File.WriteAllTextAsync(infoOutputPath, infoExecution.StandardOutput, cancellationToken).ConfigureAwait(false);
+
+        ValidateRecoveryConfiguration(infoExecution.StandardOutput);
+
+        _logger.LogInformation("Recovery environment configured successfully. ReAgentInfoPath={ReAgentInfoPath}", infoOutputPath);
+    }
+
+    public async Task SealRecoveryPartitionAsync(
+        string recoveryPartitionRoot,
+        char recoveryPartitionLetter,
+        string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
+        {
+            throw new ArgumentException("Recovery partition root is required.", nameof(recoveryPartitionRoot));
+        }
+
+        char normalizedLetter = char.ToUpperInvariant(recoveryPartitionLetter);
+        Directory.CreateDirectory(workingDirectory);
+
+        string[] scriptLines =
+        [
+            $"select volume {normalizedLetter}",
+            $"remove letter={normalizedLetter} noerr"
+        ];
+
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-hide-recovery.txt");
+        await File.WriteAllLinesAsync(scriptPath, scriptLines, cancellationToken).ConfigureAwait(false);
+
+        await RunRequiredProcessAsync(
+            "diskpart.exe",
+            $"/s \"{scriptPath}\"",
+            workingDirectory,
+            "Failed to hide the recovery partition",
+            cancellationToken).ConfigureAwait(false);
+
+        if (Directory.Exists(recoveryPartitionRoot))
+        {
+            throw new InvalidOperationException($"Recovery partition letter '{normalizedLetter}' is still accessible after sealing.");
+        }
+
+        _logger.LogInformation("Recovery partition sealed successfully. RecoveryPartitionLetter={RecoveryPartitionLetter}", normalizedLetter);
     }
 
     public async Task ApplyOfflineDriversAsync(
@@ -173,20 +284,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync(
-                "dism.exe",
-                $"/Image:\"{windowsPartitionRoot}\" /Add-Driver /Driver:\"{driverRoot}\" /Recurse /ScratchDir:\"{scratchDirectory}\"",
-                workingDirectory,
-                cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess)
-        {
-            _logger.LogError("Offline driver injection failed. DriverRoot={DriverRoot}, Diagnostic={Diagnostic}", driverRoot, ToDiagnostic(execution));
-            throw new InvalidOperationException(
-                $"Offline driver injection failed for '{driverRoot}'.{Environment.NewLine}{ToDiagnostic(execution)}");
-        }
+        await RunRequiredProcessAsync(
+            "dism.exe",
+            $"/Image:\"{windowsPartitionRoot}\" /Add-Driver /Driver:\"{driverRoot}\" /Recurse /ScratchDir:\"{scratchDirectory}\"",
+            workingDirectory,
+            $"Offline driver injection failed for '{driverRoot}'",
+            cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
@@ -199,35 +302,51 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     {
         string windowsPath = Path.Combine(windowsPartitionRoot, "Windows");
         _logger.LogInformation("Configuring boot files. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}", windowsPath, systemPartitionRoot);
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync(
-                "bcdboot.exe",
-                $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI",
-                workingDirectory,
-                cancellationToken)
-            .ConfigureAwait(false);
 
-        if (!execution.IsSuccess)
-        {
-            _logger.LogError("BCDBoot configuration failed. Diagnostic={Diagnostic}", ToDiagnostic(execution));
-            throw new InvalidOperationException(
-                $"BCDBoot configuration failed.{Environment.NewLine}{ToDiagnostic(execution)}");
-        }
+        await RunRequiredProcessAsync(
+            "bcdboot.exe",
+            $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI",
+            workingDirectory,
+            "BCDBoot configuration failed",
+            cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation("BCDBoot configuration completed successfully.");
     }
 
-    private static (char systemLetter, char windowsLetter) GetPartitionLetters()
+    private async Task<ProcessExecutionResult> RunRequiredProcessAsync(
+        string fileName,
+        string arguments,
+        string workingDirectory,
+        string failureSummary,
+        CancellationToken cancellationToken)
+    {
+        ProcessExecutionResult execution = await _processRunner
+            .RunAsync(fileName, arguments, workingDirectory, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!execution.IsSuccess)
+        {
+            _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, ToDiagnostic(execution));
+            throw new InvalidOperationException($"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}");
+        }
+
+        return execution;
+    }
+
+    private static (char systemLetter, char windowsLetter, char recoveryLetter) GetPartitionLetters()
     {
         HashSet<char> usedLetters = DriveInfo.GetDrives()
             .Select(drive => char.ToUpperInvariant(drive.Name[0]))
             .ToHashSet();
 
-        char systemLetter = GetAvailableLetter(usedLetters, ['S', 'T', 'R', 'U', 'V', 'W']);
+        char systemLetter = GetAvailableLetter(usedLetters, ['S', 'T', 'U', 'V', 'W']);
         usedLetters.Add(systemLetter);
 
-        char windowsLetter = GetAvailableLetter(usedLetters, ['W', 'V', 'U', 'T', 'R', 'Q']);
-        return (systemLetter, windowsLetter);
+        char windowsLetter = GetAvailableLetter(usedLetters, ['W', 'V', 'U', 'T', 'Q', 'P']);
+        usedLetters.Add(windowsLetter);
+
+        char recoveryLetter = GetAvailableLetter(usedLetters, ['R', 'X', 'Y', 'Z']);
+        return (systemLetter, windowsLetter, recoveryLetter);
     }
 
     private static char GetAvailableLetter(HashSet<char> usedLetters, IReadOnlyList<char> preferred)
@@ -250,6 +369,47 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         throw new InvalidOperationException("No drive letter is available for deployment partitions.");
+    }
+
+    private static void ValidateRecoveryConfiguration(string reagentInfoOutput)
+    {
+        if (string.IsNullOrWhiteSpace(reagentInfoOutput))
+        {
+            throw new InvalidOperationException("Windows RE status output is empty.");
+        }
+
+        Match statusMatch = Regex.Match(
+            reagentInfoOutput,
+            @"Windows\s+RE\s+status:\s*(.+)",
+            RegexOptions.IgnoreCase);
+
+        if (!statusMatch.Success ||
+            !statusMatch.Groups[1].Value.Contains("Enabled", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                $"Windows RE is not enabled.{Environment.NewLine}{reagentInfoOutput}");
+        }
+
+        Match locationMatch = Regex.Match(
+            reagentInfoOutput,
+            @"Windows\s+RE\s+location:\s*(.+)",
+            RegexOptions.IgnoreCase);
+
+        if (!locationMatch.Success)
+        {
+            throw new InvalidOperationException(
+                $"Windows RE location could not be determined.{Environment.NewLine}{reagentInfoOutput}");
+        }
+
+        string normalizedLocation = locationMatch.Groups[1].Value
+            .Trim()
+            .Replace('/', '\\');
+
+        if (!normalizedLocation.Contains(@"Recovery\WindowsRE", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                $"Windows RE is not mapped to the recovery partition.{Environment.NewLine}{reagentInfoOutput}");
+        }
     }
 
     private static IReadOnlyList<ImageIndexDescriptor> ParseImageDescriptors(string output)
@@ -338,7 +498,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         char[] filtered = value
             .ToLowerInvariant()
-            .Where(ch => char.IsLetterOrDigit(ch))
+            .Where(char.IsLetterOrDigit)
             .ToArray();
 
         return new string(filtered);
