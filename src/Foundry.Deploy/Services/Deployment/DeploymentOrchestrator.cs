@@ -480,42 +480,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
                     int stepIndex = ResolveStepIndex(stepName);
-                    object applyProgressSync = new();
-                    double lastReportedApplyPercent = 0d;
                     string applyStepMessage = "Applying OS image...";
-
-                    EmitStep(
+                    IProgress<double> applyImageProgress = CreateStepPercentProgressReporter(
                         stepName,
-                        DeploymentStepState.Running,
-                        stepIndex,
-                        Steps.Length,
                         applyStepMessage,
-                        stepSubProgressPercent: 0d,
-                        stepSubProgressIndeterminate: false,
-                        stepSubProgressLabel: "Applying image: 0%");
-
-                    IProgress<double> applyImageProgress = new CallbackProgress<double>(percent =>
-                    {
-                        double normalized = Math.Clamp(percent, 0d, 100d);
-                        lock (applyProgressSync)
-                        {
-                            if (normalized <= lastReportedApplyPercent)
-                            {
-                                return;
-                            }
-
-                            lastReportedApplyPercent = normalized;
-                        }
-                        EmitStep(
-                            stepName,
-                            DeploymentStepState.Running,
-                            stepIndex,
-                            Steps.Length,
-                            applyStepMessage,
-                            stepSubProgressPercent: normalized,
-                            stepSubProgressIndeterminate: false,
-                            stepSubProgressLabel: $"Applying image: {normalized:0.#}%");
-                    });
+                        "Applying image",
+                        stepIndex,
+                        Steps.Length);
+                    applyImageProgress.Report(0d);
 
                     await _windowsDeploymentService
                         .ApplyImageAsync(
@@ -1093,6 +1065,41 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 stepSubProgressPercent,
                 stepSubProgressIndeterminate,
                 details);
+        });
+    }
+
+    private IProgress<double> CreateStepPercentProgressReporter(
+        string stepName,
+        string stepMessage,
+        string stepLabelPrefix,
+        int stepIndex,
+        int stepCount)
+    {
+        object progressSync = new();
+        double lastReportedPercent = double.NaN;
+
+        return new CallbackProgress<double>(percent =>
+        {
+            double normalized = Math.Clamp(percent, 0d, 100d);
+            lock (progressSync)
+            {
+                if (!double.IsNaN(lastReportedPercent) && normalized <= lastReportedPercent)
+                {
+                    return;
+                }
+
+                lastReportedPercent = normalized;
+            }
+
+            EmitStep(
+                stepName,
+                DeploymentStepState.Running,
+                stepIndex,
+                stepCount,
+                stepMessage,
+                stepSubProgressPercent: normalized,
+                stepSubProgressIndeterminate: false,
+                stepSubProgressLabel: $"{stepLabelPrefix}: {normalized:0.#}%");
         });
     }
 
