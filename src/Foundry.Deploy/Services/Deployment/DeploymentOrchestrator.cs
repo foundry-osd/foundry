@@ -479,8 +479,53 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     runtimeState.AppliedImageIndex = imageIndex;
 
                     string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
+                    int stepIndex = ResolveStepIndex(stepName);
+                    object applyProgressSync = new();
+                    double lastReportedApplyPercent = 0d;
+                    string applyStepMessage = "Applying OS image...";
+
+                    EmitStep(
+                        stepName,
+                        DeploymentStepState.Running,
+                        stepIndex,
+                        Steps.Length,
+                        applyStepMessage,
+                        stepSubProgressPercent: 0d,
+                        stepSubProgressIndeterminate: false,
+                        stepSubProgressLabel: "Applying image: 0%");
+
+                    IProgress<double> applyImageProgress = new CallbackProgress<double>(percent =>
+                    {
+                        double normalized = Math.Clamp(percent, 0d, 100d);
+                        lock (applyProgressSync)
+                        {
+                            if (normalized <= lastReportedApplyPercent)
+                            {
+                                return;
+                            }
+
+                            lastReportedApplyPercent = normalized;
+                        }
+                        EmitStep(
+                            stepName,
+                            DeploymentStepState.Running,
+                            stepIndex,
+                            Steps.Length,
+                            applyStepMessage,
+                            stepSubProgressPercent: normalized,
+                            stepSubProgressIndeterminate: false,
+                            stepSubProgressLabel: $"Applying image: {normalized:0.#}%");
+                    });
+
                     await _windowsDeploymentService
-                        .ApplyImageAsync(imagePath, imageIndex, runtimeState.TargetWindowsPartitionRoot, scratchDirectory, workingDirectory, cancellationToken)
+                        .ApplyImageAsync(
+                            imagePath,
+                            imageIndex,
+                            runtimeState.TargetWindowsPartitionRoot,
+                            scratchDirectory,
+                            workingDirectory,
+                            cancellationToken,
+                            applyImageProgress)
                         .ConfigureAwait(false);
 
                     await _windowsDeploymentService

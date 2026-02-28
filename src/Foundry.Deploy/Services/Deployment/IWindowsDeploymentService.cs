@@ -19,7 +19,8 @@ public interface IWindowsDeploymentService
         string windowsPartitionRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null);
 
     Task<string?> GetAppliedWindowsEditionAsync(
         string windowsPartitionRoot,

@@ -15,4 +15,12 @@ public interface IProcessRunner
         IEnumerable<string> arguments,
         string workingDirectory,
         CancellationToken cancellationToken = default);
+
+    Task<ProcessExecutionResult> RunAsync(
+        string fileName,
+        IEnumerable<string> arguments,
+        string workingDirectory,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData,
+        CancellationToken cancellationToken = default);
 }

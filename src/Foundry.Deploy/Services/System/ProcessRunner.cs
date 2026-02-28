@@ -26,6 +26,8 @@ public sealed class ProcessRunner : IProcessRunner
             workingDirectory,
             startInfo => startInfo.Arguments = arguments,
             arguments,
+            onOutputData: null,
+            onErrorData: null,
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -33,6 +35,23 @@ public sealed class ProcessRunner : IProcessRunner
         string fileName,
         IEnumerable<string> arguments,
         string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        return await RunAsync(
+            fileName,
+            arguments,
+            workingDirectory,
+            onOutputData: null,
+            onErrorData: null,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<ProcessExecutionResult> RunAsync(
+        string fileName,
+        IEnumerable<string> arguments,
+        string workingDirectory,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(arguments);
@@ -55,6 +74,8 @@ public sealed class ProcessRunner : IProcessRunner
                 }
             },
             argumentsDisplay,
+            onOutputData,
+            onErrorData,
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -63,6 +84,8 @@ public sealed class ProcessRunner : IProcessRunner
         string workingDirectory,
         Action<ProcessStartInfo> configureArguments,
         string argumentsDisplay,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(fileName))
@@ -108,6 +131,7 @@ public sealed class ProcessRunner : IProcessRunner
             if (args.Data is not null)
             {
                 stdoutBuilder.AppendLine(args.Data);
+                InvokeCallback(onOutputData, args.Data);
             }
         };
 
@@ -116,6 +140,7 @@ public sealed class ProcessRunner : IProcessRunner
             if (args.Data is not null)
             {
                 stderrBuilder.AppendLine(args.Data);
+                InvokeCallback(onErrorData, args.Data);
             }
         };
 
@@ -156,5 +181,22 @@ public sealed class ProcessRunner : IProcessRunner
 
         _logger.LogDebug("Process completed. FileName={FileName}, ExitCode={ExitCode}", fileName, result.ExitCode);
         return result;
+    }
+
+    private void InvokeCallback(Action<string>? callback, string data)
+    {
+        if (callback is null)
+        {
+            return;
+        }
+
+        try
+        {
+            callback(data);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Process output callback failed.");
+        }
     }
 }

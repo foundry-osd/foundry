@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using Foundry.Deploy.Services.System;
@@ -7,6 +8,7 @@ namespace Foundry.Deploy.Services.Deployment;
 
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
+    private static readonly Regex PercentageRegex = new(@"(?<percent>\d{1,3}(?:[.,]\d+)?)\s*%", RegexOptions.Compiled);
     private const int EfiPartitionSizeMb = 260;
     private const int MsrPartitionSizeMb = 16;
     private const int RecoveryPartitionSizeMb = 2048;
@@ -150,13 +152,16 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string windowsPartitionRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null)
     {
         _logger.LogInformation("Applying OS image. ImagePath={ImagePath}, Index={ImageIndex}, WindowsPartitionRoot={WindowsPartitionRoot}",
             imagePath,
             imageIndex,
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
+        object progressSync = new();
+        double[] reportedPercent = [double.NaN];
 
         string[] arguments =
         [
@@ -173,7 +178,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             arguments,
             workingDirectory,
             $"OS image apply failed for index {imageIndex}",
-            cancellationToken).ConfigureAwait(false);
+            cancellationToken,
+            line => TryReportPercentage(line, progress, progressSync, reportedPercent),
+            line => TryReportPercentage(line, progress, progressSync, reportedPercent)).ConfigureAwait(false);
 
         _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
     }
@@ -491,8 +498,27 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string failureSummary,
         CancellationToken cancellationToken)
     {
+        return await RunRequiredProcessAsync(
+            fileName,
+            arguments,
+            workingDirectory,
+            failureSummary,
+            cancellationToken,
+            onOutputData: null,
+            onErrorData: null).ConfigureAwait(false);
+    }
+
+    private async Task<ProcessExecutionResult> RunRequiredProcessAsync(
+        string fileName,
+        IEnumerable<string> arguments,
+        string workingDirectory,
+        string failureSummary,
+        CancellationToken cancellationToken,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData)
+    {
         ProcessExecutionResult execution = await _processRunner
-            .RunAsync(fileName, arguments, workingDirectory, cancellationToken)
+            .RunAsync(fileName, arguments, workingDirectory, onOutputData, onErrorData, cancellationToken)
             .ConfigureAwait(false);
 
         if (!execution.IsSuccess)
@@ -502,6 +528,43 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         return execution;
+    }
+
+    private static void TryReportPercentage(
+        string line,
+        IProgress<double>? progress,
+        object progressSync,
+        double[] reportedPercent)
+    {
+        if (progress is null || string.IsNullOrWhiteSpace(line))
+        {
+            return;
+        }
+
+        Match match = PercentageRegex.Match(line);
+        if (!match.Success)
+        {
+            return;
+        }
+
+        string rawPercent = match.Groups["percent"].Value.Replace(',', '.');
+        if (!double.TryParse(rawPercent, NumberStyles.Float, CultureInfo.InvariantCulture, out double percent))
+        {
+            return;
+        }
+
+        double normalized = Math.Clamp(percent, 0d, 100d);
+        lock (progressSync)
+        {
+            if (!double.IsNaN(reportedPercent[0]) && normalized <= reportedPercent[0])
+            {
+                return;
+            }
+
+            reportedPercent[0] = normalized;
+        }
+
+        progress.Report(normalized);
     }
 
     private static (char systemLetter, char windowsLetter, char recoveryLetter) GetPartitionLetters()
