@@ -158,9 +158,19 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
+        string[] arguments =
+        [
+            "/Apply-Image",
+            $"/ImageFile:{imagePath}",
+            $"/Index:{imageIndex}",
+            $"/ApplyDir:{windowsPartitionRoot}",
+            "/CheckIntegrity",
+            $"/ScratchDir:{scratchDirectory}"
+        ];
+
         await RunRequiredProcessAsync(
             "dism.exe",
-            $"/Apply-Image /ImageFile:\"{imagePath}\" /Index:{imageIndex} /ApplyDir:\"{windowsPartitionRoot}\" /CheckIntegrity /ScratchDir:\"{scratchDirectory}\"",
+            arguments,
             workingDirectory,
             $"OS image apply failed for index {imageIndex}",
             cancellationToken).ConfigureAwait(false);
@@ -457,6 +467,26 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private async Task<ProcessExecutionResult> RunRequiredProcessAsync(
         string fileName,
         string arguments,
+        string workingDirectory,
+        string failureSummary,
+        CancellationToken cancellationToken)
+    {
+        ProcessExecutionResult execution = await _processRunner
+            .RunAsync(fileName, arguments, workingDirectory, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!execution.IsSuccess)
+        {
+            _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, ToDiagnostic(execution));
+            throw new InvalidOperationException($"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}");
+        }
+
+        return execution;
+    }
+
+    private async Task<ProcessExecutionResult> RunRequiredProcessAsync(
+        string fileName,
+        IEnumerable<string> arguments,
         string workingDirectory,
         string failureSummary,
         CancellationToken cancellationToken)
