@@ -9,7 +9,7 @@ namespace Foundry.Deploy.Services.Download;
 public sealed class ArtifactDownloadService : IArtifactDownloadService
 {
     private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(30));
-    private static readonly TimeSpan ProgressReportInterval = TimeSpan.FromMilliseconds(500);
+    private static readonly TimeSpan ProgressReportInterval = TimeSpan.FromMilliseconds(100);
     private const int CopyBufferSize = 80 * 1024;
 
     private readonly ILogger<ArtifactDownloadService> _logger;

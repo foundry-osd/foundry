@@ -153,7 +153,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string stepCounterText = "Step: ? of ?";
 
     [ObservableProperty]
-    private int currentStepProgress;
+    private double currentStepProgress;
 
     [ObservableProperty]
     private bool isCurrentStepProgressIndeterminate = true;
@@ -896,11 +896,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (stepProgress.StepSubProgressPercent.HasValue)
         {
-            int normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0, 100);
+            double normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0d, 100d);
             CurrentStepProgress = Math.Max(CurrentStepProgress, normalized);
             IsCurrentStepProgressIndeterminate = false;
             CurrentStepProgressText = string.IsNullOrWhiteSpace(stepProgress.StepSubProgressLabel)
-                ? $"{normalized}%"
+                ? $"{normalized:0.#}%"
                 : stepProgress.StepSubProgressLabel!;
             return;
         }

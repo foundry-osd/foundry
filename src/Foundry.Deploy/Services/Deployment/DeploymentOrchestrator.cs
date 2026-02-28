@@ -974,7 +974,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         int stepIndex,
         int stepCount,
         string? message,
-        int? stepSubProgressPercent = null,
+        double? stepSubProgressPercent = null,
         bool stepSubProgressIndeterminate = true,
         string? stepSubProgressLabel = null)
     {
@@ -1000,25 +1000,27 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         int stepCount)
     {
         int stepProgressPercent = CalculateStepProgressPercent(stepIndex, stepCount);
-        int? lastKnownPercent = null;
+        double? lastReportedPercent = null;
         long nextUnknownTotalReportThreshold = 0;
 
         return new CallbackProgress<DownloadProgress>(progress =>
         {
             string details;
-            int? stepSubProgressPercent = null;
+            double? stepSubProgressPercent = null;
             bool stepSubProgressIndeterminate = true;
             if (progress.TotalBytes is long totalBytes && totalBytes > 0)
             {
-                int percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
+                double percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
                 bool isFinal = progress.BytesDownloaded >= totalBytes;
-                if (!isFinal && lastKnownPercent == percent)
+                if (!isFinal &&
+                    lastReportedPercent.HasValue &&
+                    percent <= lastReportedPercent.Value)
                 {
                     return;
                 }
 
-                lastKnownPercent = percent;
-                details = $"{percent}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
+                lastReportedPercent = percent;
+                details = $"{percent:0.#}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
                 stepSubProgressPercent = percent;
                 stepSubProgressIndeterminate = false;
             }
@@ -1035,15 +1037,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 details = $"{FormatByteSize(progress.BytesDownloaded)} downloaded";
             }
 
-            string status = $"{artifactLabel} download progress: {details}";
-            _logger.LogInformation("{StepName}: {Status}", stepName, status);
-            _operationProgressService.Report(stepProgressPercent, status);
+            string stepMessage = $"Downloading {artifactLabel}...";
+            _operationProgressService.Report(stepProgressPercent, stepMessage);
             EmitStep(
                 stepName,
                 DeploymentStepState.Running,
                 stepIndex,
                 stepCount,
-                status,
+                stepMessage,
                 stepSubProgressPercent,
                 stepSubProgressIndeterminate,
                 details);
@@ -1061,24 +1062,24 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return (int)Math.Round((double)stepIndex / stepCount * 100d);
     }
 
-    private static int CalculateDownloadPercent(long bytesDownloaded, long totalBytes)
+    private static double CalculateDownloadPercent(long bytesDownloaded, long totalBytes)
     {
         if (totalBytes <= 0)
         {
-            return 0;
+            return 0d;
         }
 
         if (bytesDownloaded >= totalBytes)
         {
-            return 100;
+            return 100d;
         }
 
         if (bytesDownloaded <= 0)
         {
-            return 0;
+            return 0d;
         }
 
-        return (int)Math.Round((double)bytesDownloaded / totalBytes * 100d);
+        return Math.Clamp((double)bytesDownloaded / totalBytes * 100d, 0d, 100d);
     }
 
     private static string FormatByteSize(long bytes)
