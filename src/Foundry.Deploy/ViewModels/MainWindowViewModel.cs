@@ -1015,11 +1015,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         try
         {
-            _logger.LogInformation("Issuing reboot command. Reason={Reason}", reason);
+            string rebootExecutablePath = Path.Combine(Environment.SystemDirectory, "wpeutil.exe");
+            if (!File.Exists(rebootExecutablePath))
+            {
+                throw new FileNotFoundException("Required reboot executable 'wpeutil.exe' was not found.", rebootExecutablePath);
+            }
+
             DeploymentStatus = "Rebooting now...";
 
             ProcessExecutionResult result = await _processRunner
-                .RunAsync("shutdown.exe", "/r /t 0 /f", Path.GetTempPath())
+                .RunAsync(rebootExecutablePath, "Reboot", Path.GetTempPath())
                 .ConfigureAwait(false);
 
             if (result.ExitCode == 0)
@@ -1029,14 +1034,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             RunOnUi(() =>
             {
-                SetFailureDetails("System reboot", $"shutdown.exe failed with exit code {result.ExitCode}. {result.StandardError}".Trim());
+                string diagnostic = string.IsNullOrWhiteSpace(result.StandardError)
+                    ? result.StandardOutput
+                    : result.StandardError;
+                SetFailureDetails("System reboot", $"wpeutil.exe failed with exit code {result.ExitCode}. {diagnostic}".Trim());
                 DeploymentStatus = "Reboot command failed.";
                 CurrentPage = DeploymentPage.Error;
             });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to execute reboot command.");
             RunOnUi(() =>
             {
                 SetFailureDetails("System reboot", ex.Message);

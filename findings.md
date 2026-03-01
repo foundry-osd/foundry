@@ -48,6 +48,10 @@
 - Le nouvel échec vient de `ValidateRecoveryConfiguration`, qui exige que la sortie de `winrecfg /info /target W:\\Windows` contienne `R:\\Recovery\\WindowsRE`.
 - Or la sortie réelle indique `État WinRE : Disabled` et `Emplacement WinRE :` vide. Cela signifie que `winrecfg /setreimage` a accepté la commande, mais que `winrecfg /info` ne reflète pas une activation/mise en correspondance effective vers la partition Recovery dans ce contexte WinPE.
 - Le blocage actuel est donc une hypothèse métier locale trop forte (validation par présence du chemin), pas un échec du binaire `winrecfg.exe`.
+- Le flux de reboot final appelait encore `shutdown.exe /r /t 0 /f` dans `MainWindowViewModel`. En WinPE, il faut cibler `wpeutil.exe Reboot`, et le code ne journalisait pas explicitement les échecs de code de retour.
+- Le correctif appliqué choisit `wpeutil.exe Reboot` en WinPE, conserve `shutdown.exe` hors WinPE, et journalise maintenant explicitement le code de retour ainsi que `StdOut`/`StdErr` si la commande de redémarrage échoue.
+- Sur demande utilisateur, ce flux a été simplifié davantage: `MainWindowViewModel` n'utilise plus aucune logique de sélection et exécute uniquement `wpeutil.exe Reboot`.
+- Les logs spécifiques ajoutés pour le reboot ont été retirés; seul le logging générique du `ProcessRunner` subsiste si le niveau `Debug`/`Verbose` reste activé.
 
 ## Technical Decisions
 | Decision | Rationale |

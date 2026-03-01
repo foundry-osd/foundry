@@ -71,6 +71,20 @@ Phase 6
 - [x] Recompiler `Foundry.Deploy`
 - **Status:** complete
 
+### Phase 11: Correctif Reboot WinPE
+- [x] Analyser le flux de redémarrage final
+- [x] Utiliser `wpeutil.exe Reboot` en WinPE
+- [x] Ajouter un vrai log en cas d'échec du code de retour
+- [x] Recompiler `Foundry.Deploy`
+- **Status:** complete
+
+### Phase 12: Simplification Reboot
+- [x] Supprimer la logique de sélection dynamique du reboot
+- [x] Conserver uniquement `wpeutil.exe Reboot`
+- [x] Supprimer les logs spécifiques au reboot
+- [x] Recompiler `Foundry.Deploy`
+- **Status:** complete
+
 ## Key Questions
 1. Pourquoi `DISM /Get-CurrentEdition` retourne-t-il `1639` après l'application de l'image ?
 2. Pourquoi `reagentc.exe` est-il introuvable dans ce contexte WinPE, et comment OSDCloud évite ou contourne-t-il cela ?
@@ -90,6 +104,8 @@ Phase 6
 | Ajouter `WinPE-WinReCfg` dans `src/Foundry` | Sans ce CAB dans le `boot.wim` généré, `Foundry.Deploy` ne trouvera pas `winrecfg.exe` en WinPE |
 | Revenir à un `shrink` DiskPart | Sur ce flux WinPE, DiskPart gère mieux l'alignement réel du disque que le pré-calcul en MiB de la partition Windows |
 | Ne pas appeler `/enable` avec `winrecfg.exe` | Le binaire présent dans WinPE n'expose pas cette commande; seul le sous-ensemble supporté doit être utilisé |
+| Utiliser `wpeutil.exe` pour le reboot en WinPE | `shutdown.exe` n'est pas le bon outil à cibler pour un redémarrage WinPE; `wpeutil Reboot` est la commande native prévue |
+| Simplifier le reboot à une seule commande | L'utilisateur veut éliminer la sélection contextuelle et n'utiliser que `wpeutil.exe Reboot` |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

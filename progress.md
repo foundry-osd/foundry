@@ -76,6 +76,13 @@
   - Rebuild de `Foundry.Deploy.csproj` après le correctif `WINRECFG.EXE`
   - Analyse du nouveau `FoundryDeploy.log`
   - Identification d'un nouveau blocage: `WINRECFG.EXE` réussit, mais la validation locale échoue car `winrecfg /info` retourne `WinRE Disabled` et aucun emplacement
+  - Analyse du flux de redémarrage final dans le view model
+  - Bascule vers `wpeutil.exe Reboot` en WinPE avec résolution explicite du binaire
+  - Ajout d'un log d'erreur explicite quand la commande de reboot renvoie un code non nul
+  - Rebuild de `Foundry.Deploy.csproj` après correctif du reboot
+  - Simplification du reboot à une commande unique `wpeutil.exe Reboot`
+  - Suppression de la logique de sélection dynamique et des logs spécifiques au reboot
+  - Rebuild de `Foundry.Deploy.csproj` après simplification du reboot
 - Files created/modified:
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\WindowsDeploymentService.cs` (modified)
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\DeploymentOrchestrator.cs` (modified)
@@ -97,6 +104,8 @@
 | Rebuild après suppression du log WinRE | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 | Rebuild après correctif DiskPart `shrink` | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 | Rebuild après correctif `WINRECFG.EXE` | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
+| Rebuild après correctif reboot WinPE | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
+| Rebuild après simplification du reboot | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
