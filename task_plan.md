@@ -50,6 +50,13 @@ Phase 6
 - [x] Recompiler
 - **Status:** complete
 
+### Phase 8: Alignement builder WinPE
+- [x] Vérifier si le projet `Foundry` ajoute `WinPE-WinReCfg`
+- [x] Ajouter `WinPE-WinReCfg` au builder WinPE
+- [x] Supprimer toute référence à `winre-config-info.txt`
+- [x] Recompiler `Foundry` et `Foundry.Deploy`
+- **Status:** complete
+
 ## Key Questions
 1. Pourquoi `DISM /Get-CurrentEdition` retourne-t-il `1639` après l'application de l'image ?
 2. Pourquoi `reagentc.exe` est-il introuvable dans ce contexte WinPE, et comment OSDCloud évite ou contourne-t-il cela ?
@@ -66,6 +73,7 @@ Phase 6
 | Supprimer finalement tout usage de `reagentc` | L'utilisateur veut un alignement OSDCloud complet sur le traitement de WinRE |
 | Revenir à `reagentc` avec la doc Microsoft | L'utilisateur veut que la partition Recovery porte réellement WinRE et soit activée correctement |
 | Basculer maintenant vers `winrecfg.exe` | C'est l'outil WinPE prévu par Microsoft quand `WinPE-WinReCfg` est intégré au `boot.wim` |
+| Ajouter `WinPE-WinReCfg` dans `src/Foundry` | Sans ce CAB dans le `boot.wim` généré, `Foundry.Deploy` ne trouvera pas `winrecfg.exe` en WinPE |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

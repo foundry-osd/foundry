@@ -23,7 +23,6 @@ public sealed record DeploymentRuntimeState
     public string? TargetRecoveryPartitionRoot { get; set; }
     public char? TargetRecoveryPartitionLetter { get; set; }
     public bool WinReConfigured { get; set; }
-    public string? WinReInfoOutputPath { get; set; }
     public DriverPackSelectionKind DriverPackSelectionKind { get; set; } = DriverPackSelectionKind.None;
     public string? DriverPackName { get; set; }
     public string? DriverPackUrl { get; set; }

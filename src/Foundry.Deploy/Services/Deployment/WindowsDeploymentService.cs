@@ -15,9 +15,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
-    private const string WinReRelativeDirectory = @"Recovery\WindowsRE";
     private const string WinReImageFileName = "winre.wim";
-    private const string WinReConfigInfoFileName = "winre-config-info.txt";
 
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<WindowsDeploymentService> _logger;
@@ -323,12 +321,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "Failed to query Windows RE status",
             cancellationToken).ConfigureAwait(false);
 
-        string infoOutputPath = Path.Combine(workingDirectory, WinReConfigInfoFileName);
-        await File.WriteAllTextAsync(infoOutputPath, infoExecution.StandardOutput, cancellationToken).ConfigureAwait(false);
-
         ValidateRecoveryConfiguration(infoExecution.StandardOutput, recoveryDirectory);
-
-        _logger.LogInformation("Recovery environment configured successfully. WinReInfoPath={WinReInfoPath}", infoOutputPath);
+        _logger.LogInformation("Recovery environment configured successfully.");
     }
 
     public async Task SealRecoveryPartitionAsync(

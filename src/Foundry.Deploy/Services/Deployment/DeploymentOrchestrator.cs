@@ -22,7 +22,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private const string RuntimeFolderName = "Runtime";
     private const string DryRunWorkspaceFolderName = "DryRun";
     private const string RuntimeWorkspaceFolderName = "Runtime";
-    private const string WinReConfigInfoFileName = "winre-config-info.txt";
     private const long UnknownTotalDownloadProgressIncrementBytes = 16L * 1024 * 1024;
 
     private static readonly string[] Steps =
@@ -577,24 +576,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                             cancellationToken)
                         .ConfigureAwait(false);
 
-                    string recoveryInfoPath = Path.Combine(workingDirectory, WinReConfigInfoFileName);
-                    if (File.Exists(recoveryInfoPath) && logSession is not null)
-                    {
-                        string persistedInfoPath = Path.Combine(logSession.StateDirectoryPath, WinReConfigInfoFileName);
-                        Directory.CreateDirectory(logSession.StateDirectoryPath);
-                        File.Copy(recoveryInfoPath, persistedInfoPath, overwrite: true);
-                        runtimeState.WinReInfoOutputPath = persistedInfoPath;
-                    }
-                    else
-                    {
-                        runtimeState.WinReInfoOutputPath = recoveryInfoPath;
-                    }
-
                     runtimeState.WinReConfigured = true;
                     await AppendLogAsync(
                         logSession,
                         DeploymentLogLevel.Info,
-                        $"Recovery environment configured. Recovery='{runtimeState.TargetRecoveryPartitionRoot}', WinReInfo='{runtimeState.WinReInfoOutputPath}'.",
+                        $"Recovery environment configured. Recovery='{runtimeState.TargetRecoveryPartitionRoot}'.",
                         cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Recovery environment configured.");
                 }
@@ -905,26 +891,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
                     }
 
-                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
-                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
-                    Directory.CreateDirectory(workingDirectory);
-
-                    string winReInfoPath = logSession is not null
-                        ? Path.Combine(logSession.StateDirectoryPath, WinReConfigInfoFileName)
-                        : Path.Combine(workingDirectory, WinReConfigInfoFileName);
-
-                    string recoveryDirectory = Path.Combine(runtimeState.TargetRecoveryPartitionRoot!, "Recovery", "WindowsRE");
-                    string winReInfo = string.Join(
-                        Environment.NewLine,
-                        "Windows RE status: Enabled",
-                        $"Windows RE location: {recoveryDirectory}",
-                        $"Windows RE image: {Path.Combine(recoveryDirectory, "winre.wim")}");
-
-                    await File.WriteAllTextAsync(winReInfoPath, winReInfo, cancellationToken).ConfigureAwait(false);
                     runtimeState.WinReConfigured = true;
-                    runtimeState.WinReInfoOutputPath = winReInfoPath;
 
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated WinRE configuration: {winReInfoPath}", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated WinRE configuration for '{runtimeState.TargetRecoveryPartitionRoot}'.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(150, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Recovery environment configured (simulation).");
                 }
@@ -1465,7 +1434,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             targetWindowsPartitionRoot = runtimeState.TargetWindowsPartitionRoot,
             targetRecoveryPartitionRoot = runtimeState.TargetRecoveryPartitionRoot,
             winReConfigured = runtimeState.WinReConfigured,
-            winReInfoOutputPath = runtimeState.WinReInfoOutputPath,
             autopilotWorkflowPath = runtimeState.AutopilotWorkflowPath,
             completedSteps = runtimeState.CompletedSteps
         }, new JsonSerializerOptions

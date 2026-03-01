@@ -32,6 +32,9 @@
 - Context7 sur la doc Microsoft Windows n'a pas remonté d'extrait exploitable sur `winrecfg.exe`; la décision repose donc sur la doc Microsoft déjà identifiée et sur le code local.
 - Le flux local a été aligné sur cette contrainte: `winre.wim` reste copié vers `Recovery\\WindowsRE`, puis `winrecfg.exe` est appelé sans fallback pour `/setreimage`, `/enable /osguid`, et `/info /target`.
 - Si `winrecfg.exe` est absent du WinPE courant, Foundry échoue désormais immédiatement avec un message explicite demandant d'ajouter `WinPE-WinReCfg`.
+- Côté `src/Foundry`, le builder WinPE n'ajoutait pas initialement `WinPE-WinReCfg`; la liste de composants optionnels contenait PowerShell/WMI/NetFX/etc. mais pas ce CAB.
+- Le builder WinPE ajoute maintenant explicitement `WinPE-WinReCfg`, ce qui met `winrecfg.exe` dans le `boot.wim` généré par Foundry.
+- `winre-config-info.txt` n'était pas utilisé fonctionnellement; il a été supprimé du flux, ainsi que le champ de runtime et l'export de summary associés.
 
 ## Technical Decisions
 | Decision | Rationale |
@@ -42,6 +45,7 @@
 | Supprimer toute la logique `reagentc` après validation | Plus simple, plus cohérent avec OSDCloud, et conforme à la demande utilisateur |
 | Réintroduire `reagentc` avec `osguid` | C'est la voie correcte si l'objectif est une partition Recovery réellement utilisée par WinRE |
 | Remplacer `reagentc.exe` par `winrecfg.exe` sans fallback | L'utilisateur veut une stratégie WinPE propre, centrée sur `WinPE-WinReCfg`, sans chemin de secours implicite |
+| Supprimer `winre-config-info.txt` | Ce fichier ne sert qu'au reporting et ajoute du bruit sans participer à la décision métier |
 
 ## Issues Encountered
 | Issue | Resolution |
