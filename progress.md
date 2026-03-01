@@ -74,6 +74,8 @@
   - Suppression de l'appel invalide `/enable /osguid` avec `winrecfg.exe`
   - Suppression du code BCD/GUID et du paramètre `systemPartitionRoot` devenus inutiles pour la config WinRE
   - Rebuild de `Foundry.Deploy.csproj` après le correctif `WINRECFG.EXE`
+  - Analyse du nouveau `FoundryDeploy.log`
+  - Identification d'un nouveau blocage: `WINRECFG.EXE` réussit, mais la validation locale échoue car `winrecfg /info` retourne `WinRE Disabled` et aucun emplacement
 - Files created/modified:
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\WindowsDeploymentService.cs` (modified)
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\DeploymentOrchestrator.cs` (modified)

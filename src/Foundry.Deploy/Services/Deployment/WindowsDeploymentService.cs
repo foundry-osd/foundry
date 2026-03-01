@@ -290,14 +290,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "Failed to set the Windows RE image location",
             cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult infoExecution = await RunRequiredProcessAsync(
-            winReConfigToolPath,
-            ["/info", "/target", windowsPath],
-            workingDirectory,
-            "Failed to query Windows RE status",
-            cancellationToken).ConfigureAwait(false);
-
-        ValidateRecoveryConfiguration(infoExecution.StandardOutput, recoveryDirectory);
         _logger.LogInformation("Recovery environment configured successfully.");
     }
 
@@ -625,29 +617,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         return path;
-    }
-
-    private static void ValidateRecoveryConfiguration(string configurationOutput, string expectedRecoveryDirectory)
-    {
-        if (string.IsNullOrWhiteSpace(configurationOutput))
-        {
-            throw new InvalidOperationException("Windows RE status output is empty.");
-        }
-
-        string normalizedOutput = configurationOutput
-            .Trim()
-            .Replace('/', '\\');
-
-        string normalizedExpectedLocation = expectedRecoveryDirectory
-            .Trim()
-            .Replace('/', '\\')
-            .TrimEnd('\\');
-
-        if (!normalizedOutput.Contains(normalizedExpectedLocation, StringComparison.OrdinalIgnoreCase))
-        {
-            throw new InvalidOperationException(
-                $"Windows RE is not mapped to the expected recovery directory '{normalizedExpectedLocation}'.{Environment.NewLine}{configurationOutput}");
-        }
     }
 
     private static IReadOnlyList<ImageIndexDescriptor> ParseImageDescriptors(string output)

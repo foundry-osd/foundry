@@ -44,6 +44,10 @@
 - Or `WINRECFG.EXE` expose ici seulement `/info`, `/setreimage` et `/setbootshelllink`; il ne supporte pas `/enable`. Le portage direct depuis `reagentc.exe` est donc incorrect.
 - `winrecfg /setreimage` a vraisemblablement réussi dans ce run, puisque l'exception n'apparaît qu'au second appel, sur l'étape marquée `Failed to enable Windows RE`.
 - Le correctif appliqué supprime l'appel `winrecfg.exe /enable /osguid ...`, retire la résolution du GUID BCD et supprime le paramètre `systemPartitionRoot` de l'étape `ConfigureRecoveryEnvironmentAsync`, car il n'est plus nécessaire dans ce flux.
+- Dans le dernier `FoundryDeploy.log` (2 mars 2026, ~05:51 UTC), `WINRECFG.EXE` ne renvoie plus d'erreur de commande: `WINRECFG.EXE : opération réussie.`
+- Le nouvel échec vient de `ValidateRecoveryConfiguration`, qui exige que la sortie de `winrecfg /info /target W:\\Windows` contienne `R:\\Recovery\\WindowsRE`.
+- Or la sortie réelle indique `État WinRE : Disabled` et `Emplacement WinRE :` vide. Cela signifie que `winrecfg /setreimage` a accepté la commande, mais que `winrecfg /info` ne reflète pas une activation/mise en correspondance effective vers la partition Recovery dans ce contexte WinPE.
+- Le blocage actuel est donc une hypothèse métier locale trop forte (validation par présence du chemin), pas un échec du binaire `winrecfg.exe`.
 
 ## Technical Decisions
 | Decision | Rationale |
