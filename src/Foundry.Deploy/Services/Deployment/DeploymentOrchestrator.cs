@@ -22,6 +22,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private const string RuntimeFolderName = "Runtime";
     private const string DryRunWorkspaceFolderName = "DryRun";
     private const string RuntimeWorkspaceFolderName = "Runtime";
+    private const string WinReConfigInfoFileName = "winre-config-info.txt";
     private const long UnknownTotalDownloadProgressIncrementBytes = 16L * 1024 * 1024;
 
     private static readonly string[] Steps =
@@ -576,10 +577,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                             cancellationToken)
                         .ConfigureAwait(false);
 
-                    string recoveryInfoPath = Path.Combine(workingDirectory, "reagentc-info.txt");
+                    string recoveryInfoPath = Path.Combine(workingDirectory, WinReConfigInfoFileName);
                     if (File.Exists(recoveryInfoPath) && logSession is not null)
                     {
-                        string persistedInfoPath = Path.Combine(logSession.StateDirectoryPath, "reagentc-info.txt");
+                        string persistedInfoPath = Path.Combine(logSession.StateDirectoryPath, WinReConfigInfoFileName);
                         Directory.CreateDirectory(logSession.StateDirectoryPath);
                         File.Copy(recoveryInfoPath, persistedInfoPath, overwrite: true);
                         runtimeState.WinReInfoOutputPath = persistedInfoPath;
@@ -593,7 +594,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     await AppendLogAsync(
                         logSession,
                         DeploymentLogLevel.Info,
-                        $"Recovery environment configured. Recovery='{runtimeState.TargetRecoveryPartitionRoot}', ReAgentInfo='{runtimeState.WinReInfoOutputPath}'.",
+                        $"Recovery environment configured. Recovery='{runtimeState.TargetRecoveryPartitionRoot}', WinReInfo='{runtimeState.WinReInfoOutputPath}'.",
                         cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Recovery environment configured.");
                 }
@@ -908,22 +909,22 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
-                    string reagentInfoPath = logSession is not null
-                        ? Path.Combine(logSession.StateDirectoryPath, "reagentc-info.txt")
-                        : Path.Combine(workingDirectory, "reagentc-info.txt");
+                    string winReInfoPath = logSession is not null
+                        ? Path.Combine(logSession.StateDirectoryPath, WinReConfigInfoFileName)
+                        : Path.Combine(workingDirectory, WinReConfigInfoFileName);
 
                     string recoveryDirectory = Path.Combine(runtimeState.TargetRecoveryPartitionRoot!, "Recovery", "WindowsRE");
-                    string reagentInfo = string.Join(
+                    string winReInfo = string.Join(
                         Environment.NewLine,
                         "Windows RE status: Enabled",
                         $"Windows RE location: {recoveryDirectory}",
                         $"Windows RE image: {Path.Combine(recoveryDirectory, "winre.wim")}");
 
-                    await File.WriteAllTextAsync(reagentInfoPath, reagentInfo, cancellationToken).ConfigureAwait(false);
+                    await File.WriteAllTextAsync(winReInfoPath, winReInfo, cancellationToken).ConfigureAwait(false);
                     runtimeState.WinReConfigured = true;
-                    runtimeState.WinReInfoOutputPath = reagentInfoPath;
+                    runtimeState.WinReInfoOutputPath = winReInfoPath;
 
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated ReAgentC WinRE configuration: {reagentInfoPath}", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated WinRE configuration: {winReInfoPath}", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(150, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Recovery environment configured (simulation).");
                 }

@@ -15,6 +15,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
+    private const string WinReRelativeDirectory = @"Recovery\WindowsRE";
+    private const string WinReImageFileName = "winre.wim";
+    private const string WinReConfigInfoFileName = "winre-config-info.txt";
 
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<WindowsDeploymentService> _logger;
@@ -273,16 +276,16 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         Directory.CreateDirectory(workingDirectory);
 
         string windowsPath = Path.Combine(windowsPartitionRoot, "Windows");
-        string sourceWinRePath = Path.Combine(windowsPath, "System32", "Recovery", "winre.wim");
+        string sourceWinRePath = Path.Combine(windowsPath, "System32", "Recovery", WinReImageFileName);
         if (!File.Exists(sourceWinRePath))
         {
             throw new FileNotFoundException("The offline Windows image does not contain winre.wim.", sourceWinRePath);
         }
 
-        string recoveryDirectory = Path.Combine(recoveryPartitionRoot, "Recovery", "WindowsRE");
+        string recoveryDirectory = GetRecoveryDirectoryPath(recoveryPartitionRoot);
         Directory.CreateDirectory(recoveryDirectory);
 
-        string targetWinRePath = Path.Combine(recoveryDirectory, "winre.wim");
+        string targetWinRePath = GetRecoveryImagePath(recoveryPartitionRoot);
         File.Copy(sourceWinRePath, targetWinRePath, overwrite: true);
 
         _logger.LogInformation(
@@ -291,11 +294,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             systemPartitionRoot,
             recoveryDirectory);
 
-        string reagentcPath = ResolveRequiredSystemExecutablePath("reagentc.exe");
+        string winReConfigToolPath = ResolveRequiredWinReConfigToolPath();
         string bcdStorePath = GetBcdStorePath(systemPartitionRoot);
 
         await RunRequiredProcessAsync(
-            reagentcPath,
+            winReConfigToolPath,
             ["/setreimage", "/path", recoveryDirectory, "/target", windowsPath],
             workingDirectory,
             "Failed to set the Windows RE image location",
@@ -307,25 +310,25 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             cancellationToken).ConfigureAwait(false);
 
         await RunRequiredProcessAsync(
-            reagentcPath,
+            winReConfigToolPath,
             ["/enable", "/osguid", targetOsGuid],
             workingDirectory,
             "Failed to enable Windows RE",
             cancellationToken).ConfigureAwait(false);
 
         ProcessExecutionResult infoExecution = await RunRequiredProcessAsync(
-            reagentcPath,
+            winReConfigToolPath,
             ["/info", "/target", windowsPath],
             workingDirectory,
             "Failed to query Windows RE status",
             cancellationToken).ConfigureAwait(false);
 
-        string infoOutputPath = Path.Combine(workingDirectory, "reagentc-info.txt");
+        string infoOutputPath = Path.Combine(workingDirectory, WinReConfigInfoFileName);
         await File.WriteAllTextAsync(infoOutputPath, infoExecution.StandardOutput, cancellationToken).ConfigureAwait(false);
 
         ValidateRecoveryConfiguration(infoExecution.StandardOutput, recoveryDirectory);
 
-        _logger.LogInformation("Recovery environment configured successfully. ReAgentInfoPath={ReAgentInfoPath}", infoOutputPath);
+        _logger.LogInformation("Recovery environment configured successfully. WinReInfoPath={WinReInfoPath}", infoOutputPath);
     }
 
     public async Task SealRecoveryPartitionAsync(
@@ -405,7 +408,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new ArgumentException("Driver root is required.", nameof(driverRoot));
         }
 
-        string winReImagePath = Path.Combine(recoveryPartitionRoot, "Recovery", "WindowsRE", "winre.wim");
+        string winReImagePath = GetRecoveryImagePath(recoveryPartitionRoot);
         if (!File.Exists(winReImagePath))
         {
             throw new FileNotFoundException("The recovery partition does not contain winre.wim.", winReImagePath);
@@ -700,6 +703,29 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         throw new FileNotFoundException("The target BCD store was not found on the system partition.", gptBcdStorePath);
     }
 
+    private static string GetRecoveryDirectoryPath(string recoveryPartitionRoot)
+    {
+        return Path.Combine(recoveryPartitionRoot, "Recovery", "WindowsRE");
+    }
+
+    private static string GetRecoveryImagePath(string recoveryPartitionRoot)
+    {
+        return Path.Combine(GetRecoveryDirectoryPath(recoveryPartitionRoot), WinReImageFileName);
+    }
+
+    private static string ResolveRequiredWinReConfigToolPath()
+    {
+        string path = Path.Combine(Environment.SystemDirectory, "winrecfg.exe");
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException(
+                "Required WinPE executable 'winrecfg.exe' was not found. Add the WinPE-WinReCfg optional component to the WinPE image.",
+                path);
+        }
+
+        return path;
+    }
+
     private static string ResolveRequiredSystemExecutablePath(string executableName)
     {
         string path = Path.Combine(Environment.SystemDirectory, executableName);
@@ -711,14 +737,14 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return path;
     }
 
-    private static void ValidateRecoveryConfiguration(string reagentInfoOutput, string expectedRecoveryDirectory)
+    private static void ValidateRecoveryConfiguration(string configurationOutput, string expectedRecoveryDirectory)
     {
-        if (string.IsNullOrWhiteSpace(reagentInfoOutput))
+        if (string.IsNullOrWhiteSpace(configurationOutput))
         {
             throw new InvalidOperationException("Windows RE status output is empty.");
         }
 
-        string normalizedOutput = reagentInfoOutput
+        string normalizedOutput = configurationOutput
             .Trim()
             .Replace('/', '\\');
 
@@ -730,7 +756,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         if (!normalizedOutput.Contains(normalizedExpectedLocation, StringComparison.OrdinalIgnoreCase))
         {
             throw new InvalidOperationException(
-                $"Windows RE is not mapped to the expected recovery directory '{normalizedExpectedLocation}'.{Environment.NewLine}{reagentInfoOutput}");
+                $"Windows RE is not mapped to the expected recovery directory '{normalizedExpectedLocation}'.{Environment.NewLine}{configurationOutput}");
         }
     }
 

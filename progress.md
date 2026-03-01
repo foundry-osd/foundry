@@ -56,6 +56,10 @@
   - Copie de `winre.wim` vers la partition Recovery avant `/setreimage`
   - Activation WinRE via `reagentc /enable /osguid` après résolution du GUID dans le BCD cible
   - Rebuild final après correction d'un warning de nullabilité
+  - Validation du pivot `WinPE-WinReCfg` via Context7 + doc Microsoft
+  - Remplacement de `reagentc.exe` par `winrecfg.exe` sans fallback
+  - Nettoyage des artefacts de statut WinRE (`winre-config-info.txt`)
+  - Rebuild final après alignement `WinPE-WinReCfg`
 - Files created/modified:
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\WindowsDeploymentService.cs` (modified)
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\DeploymentOrchestrator.cs` (modified)
@@ -72,6 +76,7 @@
 | Rebuild après refactor | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 | Rebuild après retrait de `reagentc` | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 | Rebuild après réintroduction de `reagentc` | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
+| Rebuild après alignement `WinPE-WinReCfg` | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |

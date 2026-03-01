@@ -28,6 +28,10 @@
 - La doc Microsoft `REAgentC` montre que `/setreimage` prend le répertoire qui contient `winre.wim`; l'exemple offline officiel utilise un chemin de partition de récupération du type `T:\\Recovery\\WindowsRE` avec `/target W:\\Windows`.
 - Avec cette contrainte, `winre.wim` doit bien être copié dans la partition de récupération avant `reagentc /setreimage`.
 - La doc indique aussi l'usage de `/enable /osguid <GUID>` depuis Windows PE après `bcdboot`; le GUID doit donc être résolu depuis le store BCD cible.
+- La doc Microsoft sur les composants optionnels WinPE indique que `WinPE-WinReCfg` fournit `winrecfg.exe`; c'est l'outil prévu dans WinPE pour configurer WinRE sans embarquer `reagentc.exe`.
+- Context7 sur la doc Microsoft Windows n'a pas remonté d'extrait exploitable sur `winrecfg.exe`; la décision repose donc sur la doc Microsoft déjà identifiée et sur le code local.
+- Le flux local a été aligné sur cette contrainte: `winre.wim` reste copié vers `Recovery\\WindowsRE`, puis `winrecfg.exe` est appelé sans fallback pour `/setreimage`, `/enable /osguid`, et `/info /target`.
+- Si `winrecfg.exe` est absent du WinPE courant, Foundry échoue désormais immédiatement avec un message explicite demandant d'ajouter `WinPE-WinReCfg`.
 
 ## Technical Decisions
 | Decision | Rationale |
@@ -37,6 +41,7 @@
 | Faire de `reagentc` une optimisation et non un prérequis | C'est le moyen d'aligner Foundry sur la robustesse d'OSDCloud sans supprimer la partition Recovery |
 | Supprimer toute la logique `reagentc` après validation | Plus simple, plus cohérent avec OSDCloud, et conforme à la demande utilisateur |
 | Réintroduire `reagentc` avec `osguid` | C'est la voie correcte si l'objectif est une partition Recovery réellement utilisée par WinRE |
+| Remplacer `reagentc.exe` par `winrecfg.exe` sans fallback | L'utilisateur veut une stratégie WinPE propre, centrée sur `WinPE-WinReCfg`, sans chemin de secours implicite |
 
 ## Issues Encountered
 | Issue | Resolution |
