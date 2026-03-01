@@ -34,6 +34,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         "Download operating system image",
         "Download and prepare driver pack",
         "Apply operating system image",
+        "Configure target computer name",
         "Configure recovery environment",
         "Apply offline drivers",
         "Seal recovery partition",
@@ -85,10 +86,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
     public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, DriverPackSelectionKind={DriverPackSelectionKind}",
+        _logger.LogInformation("Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, TargetComputerName={TargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}",
             context.Mode,
             context.IsDryRun,
             context.TargetDiskNumber,
+            context.TargetComputerName,
             context.DriverPackSelectionKind);
 
         if (!_operationProgressService.TryStart(OperationKind.Deploy, "Starting Foundry.Deploy orchestration.", 0))
@@ -110,6 +112,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             IsDryRun = context.IsDryRun,
             RequestedCacheRootPath = context.CacheRootPath,
             TargetDiskNumber = context.TargetDiskNumber,
+            TargetComputerName = context.TargetComputerName,
             OperatingSystemFileName = context.OperatingSystem.FileName,
             OperatingSystemUrl = context.OperatingSystem.Url,
             DriverPackSelectionKind = context.DriverPackSelectionKind,
@@ -552,6 +555,34 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     return StepExecutionOutcome.Succeeded("Operating system image applied.");
                 }
 
+            case "Configure target computer name":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot))
+                    {
+                        return StepExecutionOutcome.Failed("Target Windows partition is unavailable.");
+                    }
+
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(workingDirectory);
+
+                    await _windowsDeploymentService
+                        .ConfigureOfflineComputerNameAsync(
+                            runtimeState.TargetWindowsPartitionRoot,
+                            runtimeState.TargetComputerName,
+                            context.OperatingSystem.Architecture,
+                            workingDirectory,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    await AppendLogAsync(
+                        logSession,
+                        DeploymentLogLevel.Info,
+                        $"Target computer name configured: {runtimeState.TargetComputerName}.",
+                        cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Target computer name configured.");
+                }
+
             case "Configure recovery environment":
                 {
                     if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ||
@@ -881,6 +912,35 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     return StepExecutionOutcome.Succeeded("Operating system image applied (simulation).");
                 }
 
+            case "Configure target computer name":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot))
+                    {
+                        return StepExecutionOutcome.Failed("Target Windows partition is unavailable.");
+                    }
+
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(workingDirectory);
+
+                    await _windowsDeploymentService
+                        .ConfigureOfflineComputerNameAsync(
+                            runtimeState.TargetWindowsPartitionRoot,
+                            runtimeState.TargetComputerName,
+                            context.OperatingSystem.Architecture,
+                            workingDirectory,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    await AppendLogAsync(
+                        logSession,
+                        DeploymentLogLevel.Info,
+                        $"[DRY-RUN] Simulated target computer name configuration: {runtimeState.TargetComputerName}.",
+                        cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(120, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Target computer name configured (simulation).");
+                }
+
             case "Configure recovery environment":
                 {
                     if (string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot))
@@ -1160,6 +1220,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 mode = context.Mode.ToString(),
                 cacheRootPath = context.CacheRootPath,
                 targetDiskNumber = context.TargetDiskNumber,
+                targetComputerName = context.TargetComputerName,
                 driverPackSelectionKind = context.DriverPackSelectionKind.ToString(),
                 useFullAutopilot = context.UseFullAutopilot,
                 allowAutopilotDeferredCompletion = context.AllowAutopilotDeferredCompletion,
@@ -1422,6 +1483,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             mode = runtimeState.Mode.ToString(),
             isDryRun = runtimeState.IsDryRun,
             targetDiskNumber = runtimeState.TargetDiskNumber,
+            targetComputerName = runtimeState.TargetComputerName,
             operatingSystemFileName = runtimeState.OperatingSystemFileName,
             operatingSystemUrl = runtimeState.OperatingSystemUrl,
             downloadedOperatingSystemPath = runtimeState.DownloadedOperatingSystemPath,

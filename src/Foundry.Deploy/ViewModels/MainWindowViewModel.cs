@@ -19,6 +19,7 @@ using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
+using Foundry.Deploy.Validation;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 
@@ -162,7 +163,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string currentStepProgressText = "Waiting for progress...";
 
     [ObservableProperty]
-    private string computerNameText = Environment.MachineName;
+    private string computerNameText = ResolveInitialComputerName();
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
+    private string targetComputerName = ResolveInitialComputerName();
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
+    private string targetComputerNameValidationMessage = string.Empty;
 
     [ObservableProperty]
     private string ipAddress = "N/A";
@@ -285,6 +294,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsDriverPackModelSelectionEnabled => IsOemDriverSourceSelected && DriverPackModelOptions.Count > 0;
     public bool IsDriverPackVersionSelectionEnabled => IsDriverPackModelSelectionEnabled && DriverPackVersionOptions.Count > 0;
     public string SelectedDriverPackSelectionDisplay => BuildSelectedDriverPackSelectionDisplay();
+    public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
     public MainWindowViewModel(
         IThemeService themeService,
@@ -314,6 +324,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
         _resolvedDeploymentMode = resolvedMode;
         _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
+        TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(TargetComputerName);
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -490,6 +501,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
+        string normalizedComputerName = ComputerNameRules.Normalize(TargetComputerName);
+        if (!ComputerNameRules.IsValid(normalizedComputerName))
+        {
+            DeploymentStatus = "Enter a valid computer name.";
+            return;
+        }
+
+        if (!normalizedComputerName.Equals(TargetComputerName, StringComparison.Ordinal))
+        {
+            TargetComputerName = normalizedComputerName;
+        }
+
         TargetDiskInfo? effectiveTargetDisk = SelectedTargetDisk;
         if (effectiveTargetDisk is null && IsDebugSafeMode)
         {
@@ -540,6 +563,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             Mode = _resolvedDeploymentMode,
             CacheRootPath = CacheRootPath,
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
+            TargetComputerName = normalizedComputerName,
             OperatingSystem = SelectedOperatingSystem,
             DriverPackSelectionKind = effectiveDriverPackKind,
             DriverPack = effectiveDriverPack,
@@ -632,8 +656,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         InitializeProgressState();
         DeploymentProgress = 42;
         UpdateGlobalProgressVisuals(DeploymentProgress);
+        ComputerNameText = TargetComputerName;
         CurrentStepName = "Apply operating system image";
-        StepCounterText = "Step: 7 of 10";
+        StepCounterText = BuildStepCounterText(8);
         CurrentStepProgress = 65;
         IsCurrentStepProgressIndeterminate = false;
         CurrentStepProgressText = "Applying image: 65%";
@@ -648,8 +673,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         ClearFailureDetails();
         DeploymentProgress = 100;
         UpdateGlobalProgressVisuals(DeploymentProgress);
+        ComputerNameText = TargetComputerName;
         CurrentStepName = "Finalize deployment and write logs";
-        StepCounterText = "Step: 10 of 10";
+        StepCounterText = BuildStepCounterText(_deploymentOrchestrator.PlannedSteps.Count);
         CurrentStepProgress = 100;
         IsCurrentStepProgressIndeterminate = false;
         CurrentStepProgressText = "Step completed.";
@@ -661,6 +687,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void ShowDebugErrorPage()
     {
         StopElapsedTimeTracking();
+        ComputerNameText = TargetComputerName;
+        StepCounterText = BuildStepCounterText(8);
         SetFailureDetails(
             "Apply operating system image",
             "Debug preview: DISM apply failed because the target partition is read-only.\n\n" +
@@ -684,6 +712,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     partial void OnSelectedOperatingSystemChanged(OperatingSystemCatalogItem? value)
     {
         RefreshDriverPackOptions();
+    }
+
+    partial void OnTargetComputerNameChanged(string value)
+    {
+        string normalized = ComputerNameRules.Normalize(value);
+        if (!normalized.Equals(value, StringComparison.Ordinal))
+        {
+            TargetComputerName = normalized;
+            return;
+        }
+
+        TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(normalized);
     }
 
     partial void OnSelectedDriverPackOptionChanged(DriverPackOptionItem? value)
@@ -851,10 +891,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IsCurrentStepProgressIndeterminate = true;
         CurrentStepProgressText = "Waiting for progress...";
 
-        int plannedStepCount = _deploymentOrchestrator.PlannedSteps.Count;
-        StepCounterText = plannedStepCount > 0 ? $"Step: 0 of {plannedStepCount}" : "Step: ? of ?";
-
-        ComputerNameText = Environment.MachineName;
+        StepCounterText = BuildStepCounterText(0);
+        ComputerNameText = TargetComputerName;
         CaptureNetworkSnapshot();
 
         _deploymentStartTimeUtc = DateTimeOffset.Now;
@@ -1193,6 +1231,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                !IsCatalogLoading &&
                !IsTargetDiskLoading &&
                WizardStepIndex == 3 &&
+               ComputerNameRules.IsValid(TargetComputerName) &&
                SelectedOperatingSystem is not null &&
                hasTargetDisk &&
                HasValidDriverPackSelection();
@@ -2117,6 +2156,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return os.Equals(driver, StringComparison.OrdinalIgnoreCase);
     }
 
+    private string BuildStepCounterText(int currentStep)
+    {
+        int plannedStepCount = _deploymentOrchestrator.PlannedSteps.Count;
+        if (plannedStepCount <= 0)
+        {
+            return "Step: ? of ?";
+        }
+
+        int normalizedStep = Math.Clamp(currentStep, 0, plannedStepCount);
+        return $"Step: {normalizedStep} of {plannedStepCount}";
+    }
+
     private OperatingSystemCatalogItem ApplyEditionSelection(OperatingSystemCatalogItem item)
     {
         if (IsFilterUnset(SelectedEdition))
@@ -2137,6 +2188,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string leftKey = string.IsNullOrWhiteSpace(left.Url) ? left.FileName : left.Url;
         string rightKey = string.IsNullOrWhiteSpace(right.Url) ? right.FileName : right.Url;
         return leftKey.Equals(rightKey, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string ResolveInitialComputerName()
+    {
+        string normalized = ComputerNameRules.Normalize(Environment.MachineName);
+        return normalized.Length > 0
+            ? normalized
+            : ComputerNameRules.FallbackName;
     }
 
     private static string NormalizeArchitecture(string architecture)
