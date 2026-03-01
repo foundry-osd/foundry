@@ -35,6 +35,10 @@
 - Côté `src/Foundry`, le builder WinPE n'ajoutait pas initialement `WinPE-WinReCfg`; la liste de composants optionnels contenait PowerShell/WMI/NetFX/etc. mais pas ce CAB.
 - Le builder WinPE ajoute maintenant explicitement `WinPE-WinReCfg`, ce qui met `winrecfg.exe` dans le `boot.wim` généré par Foundry.
 - `winre-config-info.txt` n'était pas utilisé fonctionnellement; il a été supprimé du flux, ainsi que le champ de runtime et l'export de summary associés.
+- Dans le log du 2 mars 2026, l'échec `diskpart` survient après la création et le formatage de la partition Windows: c'est la création de la partition Recovery 2048 MB qui échoue avec `Espace libre utilisable introuvable`.
+- La cause est le calcul de taille dans `PrepareTargetDiskAsync`: `diskSizeBytes` vaut exactement `130048 MiB`, et la formule réserve seulement `1 MiB` de buffer GPT. Avec `260 + 16 + 127723 + 2048 = 130047 MiB`, le placement aligné de la première partition consomme déjà le seul MiB de marge; il ne reste donc plus assez d'espace pour la partition Recovery plus la fin de disque GPT.
+- Les messages `Le disque est déjà en ligne` et `DiskPart n'a pas pu effacer les attributs de disque` sont secondaires dans ce log: le script continue et le blocage réel est bien le manque d'espace libre au dernier `create partition primary size=2048`.
+- Le correctif retenu est de laisser DiskPart créer la partition Windows à la taille maximale, puis de faire `shrink desired=2048 minimum=2048` avant de créer la partition Recovery. Cela supprime le pré-calcul C# de taille de partition Windows, qui était la source du décalage.
 
 ## Technical Decisions
 | Decision | Rationale |

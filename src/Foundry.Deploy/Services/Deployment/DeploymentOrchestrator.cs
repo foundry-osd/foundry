@@ -312,7 +312,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string workingDirectory = ResolveWorkspaceTempPath(runtimeState, "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
-                    (TargetDiskInfo? selectedDisk, StepExecutionOutcome? validationFailure) = await TryGetValidatedTargetDiskAsync(
+                    (TargetDiskInfo? _, StepExecutionOutcome? validationFailure) = await TryGetValidatedTargetDiskAsync(
                         context,
                         logSession,
                         cancellationToken).ConfigureAwait(false);
@@ -325,7 +325,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     DeploymentTargetLayout layout = await _windowsDeploymentService
                         .PrepareTargetDiskAsync(
                             context.TargetDiskNumber,
-                            selectedDisk!.SizeBytes,
                             workingDirectory,
                             cancellationToken)
                         .ConfigureAwait(false);

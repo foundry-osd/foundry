@@ -7,11 +7,9 @@ namespace Foundry.Deploy.Services.Deployment;
 
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
-    private const ulong BytesPerMegabyte = 1024UL * 1024UL;
     private const int EfiPartitionSizeMb = 260;
     private const int MsrPartitionSizeMb = 16;
     private const int RecoveryPartitionSizeMb = 2048;
-    private const int GptTailSafetyBufferMb = 1;
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
@@ -28,7 +26,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
     public async Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
         int diskNumber,
-        ulong diskSizeBytes,
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
@@ -37,13 +34,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new ArgumentOutOfRangeException(nameof(diskNumber), "Target disk number must be 0 or greater.");
         }
 
-        int windowsPartitionSizeMb = CalculateWindowsPartitionSizeMb(diskSizeBytes);
-
         _logger.LogInformation(
-            "Preparing target disk layout. DiskNumber={DiskNumber}, DiskSizeBytes={DiskSizeBytes}, WindowsPartitionSizeMb={WindowsPartitionSizeMb}, WorkingDirectory={WorkingDirectory}",
+            "Preparing target disk layout. DiskNumber={DiskNumber}, RecoveryPartitionSizeMb={RecoveryPartitionSizeMb}, WorkingDirectory={WorkingDirectory}",
             diskNumber,
-            diskSizeBytes,
-            windowsPartitionSizeMb,
+            RecoveryPartitionSizeMb,
             workingDirectory);
         (char systemLetter, char windowsLetter, char recoveryLetter) = GetPartitionLetters();
         Directory.CreateDirectory(workingDirectory);
@@ -59,9 +53,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "format quick fs=fat32 label=System",
             $"assign letter={systemLetter}",
             $"create partition msr size={MsrPartitionSizeMb}",
-            $"create partition primary size={windowsPartitionSizeMb}",
+            "create partition primary",
             "format quick fs=ntfs label=Windows",
             $"assign letter={windowsLetter}",
+            $"select volume {windowsLetter}",
+            $"shrink desired={RecoveryPartitionSizeMb} minimum={RecoveryPartitionSizeMb}",
             $"create partition primary size={RecoveryPartitionSizeMb}",
             $"set id=\"{RecoveryPartitionGuid}\"",
             $"gpt attributes={RecoveryPartitionAttributes}",
@@ -626,29 +622,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         {
             // Best effort cleanup; a later DISM failure will surface if the mount path is unusable.
         }
-    }
-
-    private static int CalculateWindowsPartitionSizeMb(ulong diskSizeBytes)
-    {
-        if (diskSizeBytes == 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(diskSizeBytes), "Target disk size must be greater than zero.");
-        }
-
-        ulong totalSizeMb = diskSizeBytes / BytesPerMegabyte;
-        ulong reservedSizeMb = (ulong)(EfiPartitionSizeMb + MsrPartitionSizeMb + RecoveryPartitionSizeMb + GptTailSafetyBufferMb);
-        if (totalSizeMb <= reservedSizeMb)
-        {
-            throw new InvalidOperationException("Target disk is too small for the required EFI, MSR, Windows, and Recovery partitions.");
-        }
-
-        ulong windowsPartitionSizeMb = totalSizeMb - reservedSizeMb;
-        if (windowsPartitionSizeMb > int.MaxValue)
-        {
-            throw new InvalidOperationException("Calculated Windows partition size exceeds the supported DiskPart range.");
-        }
-
-        return (int)windowsPartitionSizeMb;
     }
 
     private async Task<string> ResolveTargetOsGuidAsync(

@@ -64,6 +64,11 @@
   - Ajout de `WinPE-WinReCfg` à la liste de composants optionnels du `boot.wim`
   - Suppression complète du fichier `winre-config-info.txt`, du runtime state associé et de l'export de summary
   - Rebuild de `Foundry.csproj` et `Foundry.Deploy.csproj`
+  - Analyse d'un nouveau log de déploiement
+  - Identification de l'échec DiskPart sur la création de la partition Recovery, causé par une marge GPT insuffisante
+  - Réintroduction d'un flux DiskPart avec `shrink` de la partition Windows
+  - Suppression du calcul de taille Windows et de la donnée `diskSizeBytes` dans le contrat du service
+  - Rebuild de `Foundry.Deploy.csproj` après le correctif DiskPart
 - Files created/modified:
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\WindowsDeploymentService.cs` (modified)
   - `e:\\Github\\Foundry\\src\\Foundry.Deploy\\Services\\Deployment\\DeploymentOrchestrator.cs` (modified)
@@ -83,6 +88,7 @@
 | Rebuild après alignement `WinPE-WinReCfg` | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 | Build du builder WinPE | `dotnet build src/Foundry/Foundry.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 | Rebuild après suppression du log WinRE | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
+| Rebuild après correctif DiskPart `shrink` | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Compiler sans erreur | Build OK, 0 avertissement, 0 erreur | ✓ |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |

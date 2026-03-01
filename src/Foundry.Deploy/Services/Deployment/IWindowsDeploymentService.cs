@@ -4,7 +4,6 @@ public interface IWindowsDeploymentService
 {
     Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
         int diskNumber,
-        ulong diskSizeBytes,
         string workingDirectory,
         CancellationToken cancellationToken = default);
 

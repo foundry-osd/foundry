@@ -57,6 +57,13 @@ Phase 6
 - [x] Recompiler `Foundry` et `Foundry.Deploy`
 - **Status:** complete
 
+### Phase 9: Correctif DiskPart
+- [x] Analyser l'échec DiskPart dans le log
+- [x] Remettre un flux `shrink` pour la partition Windows
+- [x] Simplifier le service en supprimant le calcul de taille devenu inutile
+- [x] Recompiler `Foundry.Deploy`
+- **Status:** complete
+
 ## Key Questions
 1. Pourquoi `DISM /Get-CurrentEdition` retourne-t-il `1639` après l'application de l'image ?
 2. Pourquoi `reagentc.exe` est-il introuvable dans ce contexte WinPE, et comment OSDCloud évite ou contourne-t-il cela ?
@@ -74,6 +81,7 @@ Phase 6
 | Revenir à `reagentc` avec la doc Microsoft | L'utilisateur veut que la partition Recovery porte réellement WinRE et soit activée correctement |
 | Basculer maintenant vers `winrecfg.exe` | C'est l'outil WinPE prévu par Microsoft quand `WinPE-WinReCfg` est intégré au `boot.wim` |
 | Ajouter `WinPE-WinReCfg` dans `src/Foundry` | Sans ce CAB dans le `boot.wim` généré, `Foundry.Deploy` ne trouvera pas `winrecfg.exe` en WinPE |
+| Revenir à un `shrink` DiskPart | Sur ce flux WinPE, DiskPart gère mieux l'alignement réel du disque que le pré-calcul en MiB de la partition Windows |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |
