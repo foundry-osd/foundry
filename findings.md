@@ -19,12 +19,24 @@
 - Dans OSDCloud, la vérification de l'édition passe par `Get-WindowsEdition -Path 'C:\'` dans un `try/catch`; en cas d'échec, le step émet `Unable to get Windows Edition. OK.` et continue.
 - Dans OSDCloud, sur VM, le partitionnement désactive par défaut la partition Recovery (`if ($IsVM -eq $true) { $RecoveryPartition = $false }`).
 - Dans OSDCloud, la gestion WinRE trouvée jusqu'ici passe par la présence de `C:\Windows\System32\Recovery\winre.wim`, avec gardes `Test-Path` et plusieurs `-ErrorAction SilentlyContinue`, sans usage de `reagentc.exe` sur ce flux.
+- L'orchestrateur local revalide déjà le disque cible avant partitionnement; il peut donc fournir `SizeBytes` au service de déploiement.
+- Le chemin le plus propre pour l'alignement OSDCloud est donc de calculer la taille de la partition Windows côté C# et de supprimer `shrink`.
+- Pour WinRE, un fallback de "staging" (copie de `winre.wim` + rapport synthétique) permet de conserver la partition de récupération obligatoire, tout en évitant un échec fatal en WinPE.
+- Sur demande utilisateur, le fallback a été retiré lui aussi: Foundry n'utilise désormais plus du tout `reagentc`.
+- Foundry traite maintenant `winre.wim` comme OSDCloud: le fichier reste sous `Windows\\System32\\Recovery`, le rapport de statut est purement informatif, et l'injection de drivers WinRE cible cette image offline.
+- Le step "Seal recovery partition" a été converti en no-op pour laisser la partition montée pendant la session, comme dans le flux OSDCloud observé.
+- La doc Microsoft `REAgentC` montre que `/setreimage` prend le répertoire qui contient `winre.wim`; l'exemple offline officiel utilise un chemin de partition de récupération du type `T:\\Recovery\\WindowsRE` avec `/target W:\\Windows`.
+- Avec cette contrainte, `winre.wim` doit bien être copié dans la partition de récupération avant `reagentc /setreimage`.
+- La doc indique aussi l'usage de `/enable /osguid <GUID>` depuis Windows PE après `bcdboot`; le GUID doit donc être résolu depuis le store BCD cible.
 
 ## Technical Decisions
 | Decision | Rationale |
 |----------|-----------|
 | Distinguer erreurs non bloquantes et bloquantes | Le log montre explicitement un warning suivi d'une erreur fatale |
 | Basculer `GetAppliedWindowsEditionAsync` vers `ArgumentList` | Supprime le risque de quoting sur `W:\` et reste minimal |
+| Faire de `reagentc` une optimisation et non un prérequis | C'est le moyen d'aligner Foundry sur la robustesse d'OSDCloud sans supprimer la partition Recovery |
+| Supprimer toute la logique `reagentc` après validation | Plus simple, plus cohérent avec OSDCloud, et conforme à la demande utilisateur |
+| Réintroduire `reagentc` avec `osguid` | C'est la voie correcte si l'objectif est une partition Recovery réellement utilisée par WinRE |
 
 ## Issues Encountered
 | Issue | Resolution |
@@ -37,6 +49,8 @@
 - `e:\Github\Foundry\src\Foundry.Deploy\Services\Deployment\WindowsDeploymentService.cs`
 - `e:\Github\Foundry\src\Foundry.Deploy\Services\Deployment\DeploymentOrchestrator.cs`
 - `e:\Github\Foundry\src\Foundry.Deploy\Services\System\ProcessRunner.cs`
+- `Context7: /websites/learn_microsoft_en-us_dotnet`
+- `Context7: /dotnet/runtime`
 - `https://github.com/OSDeploy/OSDCloud`
 - `C:\Users\mchav\AppData\Local\Temp\OSDCloud-main-20260301\private\steps\4-install\step-install-expandwindowsimage.ps1`
 - `C:\Users\mchav\AppData\Local\Temp\OSDCloud-main-20260301\private\steps\4-install\step-install-bcdboot.ps1`
@@ -45,6 +59,7 @@
 - `C:\Users\mchav\AppData\Local\Temp\OSDCloud-main-20260301\private\steps\5-drivers\step-drivers-recast-winre.ps1`
 - `https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-windows-edition-servicing-command-line-options?view=windows-11`
 - `https://learn.microsoft.com/en-us/powershell/module/dism/get-windowsedition?view=windowsserver2025-ps`
+- `https://learn.microsoft.com/fr-fr/windows-hardware/manufacture/desktop/reagentc-command-line-options?view=windows-11`
 
 ## Visual/Browser Findings
 - Aucun pour l'instant.

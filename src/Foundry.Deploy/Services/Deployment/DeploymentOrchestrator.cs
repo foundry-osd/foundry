@@ -267,7 +267,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             case "Validate target configuration":
                 {
-                    StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
+                    (TargetDiskInfo? _, StepExecutionOutcome? validationFailure) = await TryGetValidatedTargetDiskAsync(
+                        context,
+                        logSession,
+                        cancellationToken).ConfigureAwait(false);
+
                     if (validationFailure is not null)
                     {
                         return validationFailure;
@@ -308,14 +312,22 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string workingDirectory = ResolveWorkspaceTempPath(runtimeState, "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
-                    StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
+                    (TargetDiskInfo? selectedDisk, StepExecutionOutcome? validationFailure) = await TryGetValidatedTargetDiskAsync(
+                        context,
+                        logSession,
+                        cancellationToken).ConfigureAwait(false);
+
                     if (validationFailure is not null)
                     {
                         return validationFailure;
                     }
 
                     DeploymentTargetLayout layout = await _windowsDeploymentService
-                        .PrepareTargetDiskAsync(context.TargetDiskNumber, workingDirectory, cancellationToken)
+                        .PrepareTargetDiskAsync(
+                            context.TargetDiskNumber,
+                            selectedDisk!.SizeBytes,
+                            workingDirectory,
+                            cancellationToken)
                         .ConfigureAwait(false);
 
                     runtimeState.TargetSystemPartitionRoot = layout.SystemPartitionRoot;
@@ -544,6 +556,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             case "Configure recovery environment":
                 {
                     if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ||
+                        string.IsNullOrWhiteSpace(runtimeState.TargetSystemPartitionRoot) ||
                         string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot) ||
                         !runtimeState.TargetRecoveryPartitionLetter.HasValue)
                     {
@@ -557,6 +570,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     await _windowsDeploymentService
                         .ConfigureRecoveryEnvironmentAsync(
                             runtimeState.TargetWindowsPartitionRoot,
+                            runtimeState.TargetSystemPartitionRoot,
                             runtimeState.TargetRecoveryPartitionRoot,
                             workingDirectory,
                             cancellationToken)
@@ -898,16 +912,18 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         ? Path.Combine(logSession.StateDirectoryPath, "reagentc-info.txt")
                         : Path.Combine(workingDirectory, "reagentc-info.txt");
 
+                    string recoveryDirectory = Path.Combine(runtimeState.TargetRecoveryPartitionRoot!, "Recovery", "WindowsRE");
                     string reagentInfo = string.Join(
                         Environment.NewLine,
                         "Windows RE status: Enabled",
-                        $"Windows RE location: {Path.Combine(runtimeState.TargetRecoveryPartitionRoot, "Recovery", "WindowsRE")}");
+                        $"Windows RE location: {recoveryDirectory}",
+                        $"Windows RE image: {Path.Combine(recoveryDirectory, "winre.wim")}");
 
                     await File.WriteAllTextAsync(reagentInfoPath, reagentInfo, cancellationToken).ConfigureAwait(false);
                     runtimeState.WinReConfigured = true;
                     runtimeState.WinReInfoOutputPath = reagentInfoPath;
 
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated recovery environment configuration: {reagentInfoPath}", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated ReAgentC WinRE configuration: {reagentInfoPath}", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(150, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Recovery environment configured (simulation).");
                 }
@@ -1342,7 +1358,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         throw new InvalidOperationException(message);
     }
 
-    private async Task<StepExecutionOutcome?> ValidateTargetDiskSelectionAsync(
+    private async Task<(TargetDiskInfo? SelectedDisk, StepExecutionOutcome? Failure)> TryGetValidatedTargetDiskAsync(
         DeploymentContext context,
         DeploymentLogSession? logSession,
         CancellationToken cancellationToken)
@@ -1351,17 +1367,17 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == context.TargetDiskNumber);
         if (selectedDisk is null)
         {
-            return StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present.");
+            return (null, StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present."));
         }
 
         if (!selectedDisk.IsSelectable)
         {
-            return StepExecutionOutcome.Failed(
-                $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}");
+            return (null, StepExecutionOutcome.Failed(
+                $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}"));
         }
 
         await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Target disk revalidated: {selectedDisk.DisplayLabel}", cancellationToken).ConfigureAwait(false);
-        return null;
+        return (selectedDisk, null);
     }
 
     private async Task<DeploymentLogSession?> RebindLogSessionIfNeededAsync(

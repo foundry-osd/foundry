@@ -7,9 +7,11 @@ namespace Foundry.Deploy.Services.Deployment;
 
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
+    private const ulong BytesPerMegabyte = 1024UL * 1024UL;
     private const int EfiPartitionSizeMb = 260;
     private const int MsrPartitionSizeMb = 16;
     private const int RecoveryPartitionSizeMb = 2048;
+    private const int GptTailSafetyBufferMb = 1;
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
@@ -25,6 +27,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
     public async Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
         int diskNumber,
+        ulong diskSizeBytes,
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
@@ -33,7 +36,14 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new ArgumentOutOfRangeException(nameof(diskNumber), "Target disk number must be 0 or greater.");
         }
 
-        _logger.LogInformation("Preparing target disk layout. DiskNumber={DiskNumber}, WorkingDirectory={WorkingDirectory}", diskNumber, workingDirectory);
+        int windowsPartitionSizeMb = CalculateWindowsPartitionSizeMb(diskSizeBytes);
+
+        _logger.LogInformation(
+            "Preparing target disk layout. DiskNumber={DiskNumber}, DiskSizeBytes={DiskSizeBytes}, WindowsPartitionSizeMb={WindowsPartitionSizeMb}, WorkingDirectory={WorkingDirectory}",
+            diskNumber,
+            diskSizeBytes,
+            windowsPartitionSizeMb,
+            workingDirectory);
         (char systemLetter, char windowsLetter, char recoveryLetter) = GetPartitionLetters();
         Directory.CreateDirectory(workingDirectory);
 
@@ -48,10 +58,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "format quick fs=fat32 label=System",
             $"assign letter={systemLetter}",
             $"create partition msr size={MsrPartitionSizeMb}",
-            "create partition primary",
+            $"create partition primary size={windowsPartitionSizeMb}",
             "format quick fs=ntfs label=Windows",
             $"assign letter={windowsLetter}",
-            $"shrink desired={RecoveryPartitionSizeMb} minimum={RecoveryPartitionSizeMb}",
             $"create partition primary size={RecoveryPartitionSizeMb}",
             $"set id=\"{RecoveryPartitionGuid}\"",
             $"gpt attributes={RecoveryPartitionAttributes}",
@@ -241,6 +250,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
     public async Task ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
+        string systemPartitionRoot,
         string recoveryPartitionRoot,
         string workingDirectory,
         CancellationToken cancellationToken = default)
@@ -253,6 +263,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
         {
             throw new ArgumentException("Recovery partition root is required.", nameof(recoveryPartitionRoot));
+        }
+
+        if (string.IsNullOrWhiteSpace(systemPartitionRoot))
+        {
+            throw new ArgumentException("System partition root is required.", nameof(systemPartitionRoot));
         }
 
         Directory.CreateDirectory(workingDirectory);
@@ -271,27 +286,36 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         File.Copy(sourceWinRePath, targetWinRePath, overwrite: true);
 
         _logger.LogInformation(
-            "Configuring recovery environment. WindowsPath={WindowsPath}, RecoveryDirectory={RecoveryDirectory}",
+            "Configuring recovery environment. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}, RecoveryDirectory={RecoveryDirectory}",
             windowsPath,
+            systemPartitionRoot,
             recoveryDirectory);
 
+        string reagentcPath = ResolveRequiredSystemExecutablePath("reagentc.exe");
+        string bcdStorePath = GetBcdStorePath(systemPartitionRoot);
+
         await RunRequiredProcessAsync(
-            "reagentc.exe",
-            $"/setreimage /path \"{recoveryDirectory}\" /target \"{windowsPath}\"",
+            reagentcPath,
+            ["/setreimage", "/path", recoveryDirectory, "/target", windowsPath],
             workingDirectory,
             "Failed to set the Windows RE image location",
             cancellationToken).ConfigureAwait(false);
 
+        string targetOsGuid = await ResolveTargetOsGuidAsync(
+            bcdStorePath,
+            workingDirectory,
+            cancellationToken).ConfigureAwait(false);
+
         await RunRequiredProcessAsync(
-            "reagentc.exe",
-            $"/enable /target \"{windowsPath}\"",
+            reagentcPath,
+            ["/enable", "/osguid", targetOsGuid],
             workingDirectory,
             "Failed to enable Windows RE",
             cancellationToken).ConfigureAwait(false);
 
         ProcessExecutionResult infoExecution = await RunRequiredProcessAsync(
-            "reagentc.exe",
-            $"/info /target \"{windowsPath}\"",
+            reagentcPath,
+            ["/info", "/target", windowsPath],
             workingDirectory,
             "Failed to query Windows RE status",
             cancellationToken).ConfigureAwait(false);
@@ -299,7 +323,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string infoOutputPath = Path.Combine(workingDirectory, "reagentc-info.txt");
         await File.WriteAllTextAsync(infoOutputPath, infoExecution.StandardOutput, cancellationToken).ConfigureAwait(false);
 
-        ValidateRecoveryConfiguration(infoExecution.StandardOutput);
+        ValidateRecoveryConfiguration(infoExecution.StandardOutput, recoveryDirectory);
 
         _logger.LogInformation("Recovery environment configured successfully. ReAgentInfoPath={ReAgentInfoPath}", infoOutputPath);
     }
@@ -545,6 +569,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         return execution;
     }
+
     private static (char systemLetter, char windowsLetter, char recoveryLetter) GetPartitionLetters()
     {
         HashSet<char> usedLetters = DriveInfo.GetDrives()
@@ -606,44 +631,106 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
     }
 
-    private static void ValidateRecoveryConfiguration(string reagentInfoOutput)
+    private static int CalculateWindowsPartitionSizeMb(ulong diskSizeBytes)
+    {
+        if (diskSizeBytes == 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(diskSizeBytes), "Target disk size must be greater than zero.");
+        }
+
+        ulong totalSizeMb = diskSizeBytes / BytesPerMegabyte;
+        ulong reservedSizeMb = (ulong)(EfiPartitionSizeMb + MsrPartitionSizeMb + RecoveryPartitionSizeMb + GptTailSafetyBufferMb);
+        if (totalSizeMb <= reservedSizeMb)
+        {
+            throw new InvalidOperationException("Target disk is too small for the required EFI, MSR, Windows, and Recovery partitions.");
+        }
+
+        ulong windowsPartitionSizeMb = totalSizeMb - reservedSizeMb;
+        if (windowsPartitionSizeMb > int.MaxValue)
+        {
+            throw new InvalidOperationException("Calculated Windows partition size exceeds the supported DiskPart range.");
+        }
+
+        return (int)windowsPartitionSizeMb;
+    }
+
+    private async Task<string> ResolveTargetOsGuidAsync(
+        string bcdStorePath,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        string bcdeditPath = ResolveRequiredSystemExecutablePath("bcdedit.exe");
+
+        ProcessExecutionResult execution = await RunRequiredProcessAsync(
+            bcdeditPath,
+            ["/store", bcdStorePath, "/enum", "{default}", "/v"],
+            workingDirectory,
+            "Failed to enumerate the default target BCD entry",
+            cancellationToken).ConfigureAwait(false);
+
+        Match guidMatch = Regex.Match(
+            execution.StandardOutput,
+            @"\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}");
+
+        if (guidMatch.Success)
+        {
+            string targetOsGuid = guidMatch.Value;
+            _logger.LogInformation("Resolved target OS BCD identifier {TargetOsGuid}", targetOsGuid);
+            return targetOsGuid;
+        }
+
+        throw new InvalidOperationException(
+            $"Unable to resolve the target Windows BCD identifier from '{bcdStorePath}'.");
+    }
+
+    private static string GetBcdStorePath(string systemPartitionRoot)
+    {
+        string gptBcdStorePath = Path.Combine(systemPartitionRoot, "EFI", "Microsoft", "Boot", "BCD");
+        if (File.Exists(gptBcdStorePath))
+        {
+            return gptBcdStorePath;
+        }
+
+        string biosBcdStorePath = Path.Combine(systemPartitionRoot, "Boot", "BCD");
+        if (File.Exists(biosBcdStorePath))
+        {
+            return biosBcdStorePath;
+        }
+
+        throw new FileNotFoundException("The target BCD store was not found on the system partition.", gptBcdStorePath);
+    }
+
+    private static string ResolveRequiredSystemExecutablePath(string executableName)
+    {
+        string path = Path.Combine(Environment.SystemDirectory, executableName);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Required system executable '{executableName}' was not found.", path);
+        }
+
+        return path;
+    }
+
+    private static void ValidateRecoveryConfiguration(string reagentInfoOutput, string expectedRecoveryDirectory)
     {
         if (string.IsNullOrWhiteSpace(reagentInfoOutput))
         {
             throw new InvalidOperationException("Windows RE status output is empty.");
         }
 
-        Match statusMatch = Regex.Match(
-            reagentInfoOutput,
-            @"Windows\s+RE\s+status:\s*(.+)",
-            RegexOptions.IgnoreCase);
-
-        if (!statusMatch.Success ||
-            !statusMatch.Groups[1].Value.Contains("Enabled", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new InvalidOperationException(
-                $"Windows RE is not enabled.{Environment.NewLine}{reagentInfoOutput}");
-        }
-
-        Match locationMatch = Regex.Match(
-            reagentInfoOutput,
-            @"Windows\s+RE\s+location:\s*(.+)",
-            RegexOptions.IgnoreCase);
-
-        if (!locationMatch.Success)
-        {
-            throw new InvalidOperationException(
-                $"Windows RE location could not be determined.{Environment.NewLine}{reagentInfoOutput}");
-        }
-
-        string normalizedLocation = locationMatch.Groups[1].Value
+        string normalizedOutput = reagentInfoOutput
             .Trim()
             .Replace('/', '\\');
 
-        if (!normalizedLocation.Contains(@"Recovery\WindowsRE", StringComparison.OrdinalIgnoreCase))
+        string normalizedExpectedLocation = expectedRecoveryDirectory
+            .Trim()
+            .Replace('/', '\\')
+            .TrimEnd('\\');
+
+        if (!normalizedOutput.Contains(normalizedExpectedLocation, StringComparison.OrdinalIgnoreCase))
         {
             throw new InvalidOperationException(
-                $"Windows RE is not mapped to the recovery partition.{Environment.NewLine}{reagentInfoOutput}");
+                $"Windows RE is not mapped to the expected recovery directory '{normalizedExpectedLocation}'.{Environment.NewLine}{reagentInfoOutput}");
         }
     }
 

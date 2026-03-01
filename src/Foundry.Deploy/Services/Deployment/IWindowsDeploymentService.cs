@@ -4,6 +4,7 @@ public interface IWindowsDeploymentService
 {
     Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
         int diskNumber,
+        ulong diskSizeBytes,
         string workingDirectory,
         CancellationToken cancellationToken = default);
 
@@ -29,6 +30,7 @@ public interface IWindowsDeploymentService
 
     Task ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
+        string systemPartitionRoot,
         string recoveryPartitionRoot,
         string workingDirectory,
         CancellationToken cancellationToken = default);
