@@ -204,9 +204,16 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new ArgumentException("Windows partition root is required.", nameof(windowsPartitionRoot));
         }
 
+        string[] arguments =
+        [
+            "/English",
+            $"/Image:{windowsPartitionRoot}",
+            "/Get-CurrentEdition"
+        ];
+
         ProcessExecutionResult execution = await RunRequiredProcessAsync(
             "dism.exe",
-            $"/English /Image:\"{windowsPartitionRoot}\" /Get-CurrentEdition",
+            arguments,
             workingDirectory,
             "Failed to query the applied Windows edition",
             cancellationToken).ConfigureAwait(false);
