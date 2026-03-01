@@ -27,6 +27,13 @@ public interface IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default);
 
+    Task ConfigureOfflineComputerNameAsync(
+        string windowsPartitionRoot,
+        string computerName,
+        string processorArchitecture,
+        string workingDirectory,
+        CancellationToken cancellationToken = default);
+
     Task ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
         string recoveryPartitionRoot,

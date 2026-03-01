@@ -12,6 +12,7 @@ public sealed record DeploymentRuntimeState
     public bool IsDryRun { get; init; }
     public string RequestedCacheRootPath { get; init; } = string.Empty;
     public int TargetDiskNumber { get; init; } = -1;
+    public string TargetComputerName { get; set; } = string.Empty;
     public CacheResolution? ResolvedCache { get; set; }
     public HardwareProfile? HardwareProfile { get; set; }
     public string OperatingSystemFileName { get; init; } = string.Empty;

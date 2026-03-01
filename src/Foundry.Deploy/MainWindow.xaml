@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
+    xmlns:rules="clr-namespace:Foundry.Deploy.Validation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Foundry.Deploy"
@@ -93,6 +94,27 @@
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="Cache strategy is determined automatically from WinPE startup context." />
+                                <TextBlock
+                                    Margin="0,12,0,0"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Computer Name" />
+                                <TextBox
+                                    x:Name="TargetComputerNameTextBox"
+                                    Margin="0,8,0,0"
+                                    MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
+                                    PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
+                                    Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="1-15 characters. A-Z, a-z, 0-9, and hyphen only." />
+                                <TextBlock
+                                    Margin="0,4,0,0"
+                                    Foreground="#FFC42B1C"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{Binding TargetComputerNameValidationMessage}"
+                                    Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <TextBlock
                                     Margin="0,12,0,0"
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
