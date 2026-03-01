@@ -247,7 +247,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
     public async Task ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
-        string systemPartitionRoot,
         string recoveryPartitionRoot,
         string workingDirectory,
         CancellationToken cancellationToken = default)
@@ -260,11 +259,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
         {
             throw new ArgumentException("Recovery partition root is required.", nameof(recoveryPartitionRoot));
-        }
-
-        if (string.IsNullOrWhiteSpace(systemPartitionRoot))
-        {
-            throw new ArgumentException("System partition root is required.", nameof(systemPartitionRoot));
         }
 
         Directory.CreateDirectory(workingDirectory);
@@ -283,31 +277,17 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         File.Copy(sourceWinRePath, targetWinRePath, overwrite: true);
 
         _logger.LogInformation(
-            "Configuring recovery environment. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}, RecoveryDirectory={RecoveryDirectory}",
+            "Configuring recovery environment. WindowsPath={WindowsPath}, RecoveryDirectory={RecoveryDirectory}",
             windowsPath,
-            systemPartitionRoot,
             recoveryDirectory);
 
         string winReConfigToolPath = ResolveRequiredWinReConfigToolPath();
-        string bcdStorePath = GetBcdStorePath(systemPartitionRoot);
 
         await RunRequiredProcessAsync(
             winReConfigToolPath,
             ["/setreimage", "/path", recoveryDirectory, "/target", windowsPath],
             workingDirectory,
             "Failed to set the Windows RE image location",
-            cancellationToken).ConfigureAwait(false);
-
-        string targetOsGuid = await ResolveTargetOsGuidAsync(
-            bcdStorePath,
-            workingDirectory,
-            cancellationToken).ConfigureAwait(false);
-
-        await RunRequiredProcessAsync(
-            winReConfigToolPath,
-            ["/enable", "/osguid", targetOsGuid],
-            workingDirectory,
-            "Failed to enable Windows RE",
             cancellationToken).ConfigureAwait(false);
 
         ProcessExecutionResult infoExecution = await RunRequiredProcessAsync(
@@ -624,52 +604,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
     }
 
-    private async Task<string> ResolveTargetOsGuidAsync(
-        string bcdStorePath,
-        string workingDirectory,
-        CancellationToken cancellationToken)
-    {
-        string bcdeditPath = ResolveRequiredSystemExecutablePath("bcdedit.exe");
-
-        ProcessExecutionResult execution = await RunRequiredProcessAsync(
-            bcdeditPath,
-            ["/store", bcdStorePath, "/enum", "{default}", "/v"],
-            workingDirectory,
-            "Failed to enumerate the default target BCD entry",
-            cancellationToken).ConfigureAwait(false);
-
-        Match guidMatch = Regex.Match(
-            execution.StandardOutput,
-            @"\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}");
-
-        if (guidMatch.Success)
-        {
-            string targetOsGuid = guidMatch.Value;
-            _logger.LogInformation("Resolved target OS BCD identifier {TargetOsGuid}", targetOsGuid);
-            return targetOsGuid;
-        }
-
-        throw new InvalidOperationException(
-            $"Unable to resolve the target Windows BCD identifier from '{bcdStorePath}'.");
-    }
-
-    private static string GetBcdStorePath(string systemPartitionRoot)
-    {
-        string gptBcdStorePath = Path.Combine(systemPartitionRoot, "EFI", "Microsoft", "Boot", "BCD");
-        if (File.Exists(gptBcdStorePath))
-        {
-            return gptBcdStorePath;
-        }
-
-        string biosBcdStorePath = Path.Combine(systemPartitionRoot, "Boot", "BCD");
-        if (File.Exists(biosBcdStorePath))
-        {
-            return biosBcdStorePath;
-        }
-
-        throw new FileNotFoundException("The target BCD store was not found on the system partition.", gptBcdStorePath);
-    }
-
     private static string GetRecoveryDirectoryPath(string recoveryPartitionRoot)
     {
         return Path.Combine(recoveryPartitionRoot, "Recovery", "WindowsRE");
@@ -688,17 +622,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new FileNotFoundException(
                 "Required WinPE executable 'winrecfg.exe' was not found. Add the WinPE-WinReCfg optional component to the WinPE image.",
                 path);
-        }
-
-        return path;
-    }
-
-    private static string ResolveRequiredSystemExecutablePath(string executableName)
-    {
-        string path = Path.Combine(Environment.SystemDirectory, executableName);
-        if (!File.Exists(path))
-        {
-            throw new FileNotFoundException($"Required system executable '{executableName}' was not found.", path);
         }
 
         return path;

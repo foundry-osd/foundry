@@ -29,7 +29,6 @@ public interface IWindowsDeploymentService
 
     Task ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
-        string systemPartitionRoot,
         string recoveryPartitionRoot,
         string workingDirectory,
         CancellationToken cancellationToken = default);

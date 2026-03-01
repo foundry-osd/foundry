@@ -64,6 +64,13 @@ Phase 6
 - [x] Recompiler `Foundry.Deploy`
 - **Status:** complete
 
+### Phase 10: Correctif WINRECFG
+- [x] Analyser l'échec `WINRECFG.EXE` dans le log
+- [x] Supprimer l'appel invalide `/enable /osguid`
+- [x] Nettoyer le code hérité de `reagentc` devenu inutile
+- [x] Recompiler `Foundry.Deploy`
+- **Status:** complete
+
 ## Key Questions
 1. Pourquoi `DISM /Get-CurrentEdition` retourne-t-il `1639` après l'application de l'image ?
 2. Pourquoi `reagentc.exe` est-il introuvable dans ce contexte WinPE, et comment OSDCloud évite ou contourne-t-il cela ?
@@ -82,6 +89,7 @@ Phase 6
 | Basculer maintenant vers `winrecfg.exe` | C'est l'outil WinPE prévu par Microsoft quand `WinPE-WinReCfg` est intégré au `boot.wim` |
 | Ajouter `WinPE-WinReCfg` dans `src/Foundry` | Sans ce CAB dans le `boot.wim` généré, `Foundry.Deploy` ne trouvera pas `winrecfg.exe` en WinPE |
 | Revenir à un `shrink` DiskPart | Sur ce flux WinPE, DiskPart gère mieux l'alignement réel du disque que le pré-calcul en MiB de la partition Windows |
+| Ne pas appeler `/enable` avec `winrecfg.exe` | Le binaire présent dans WinPE n'expose pas cette commande; seul le sous-ensemble supporté doit être utilisé |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

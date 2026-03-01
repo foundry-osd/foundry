@@ -39,6 +39,11 @@
 - La cause est le calcul de taille dans `PrepareTargetDiskAsync`: `diskSizeBytes` vaut exactement `130048 MiB`, et la formule réserve seulement `1 MiB` de buffer GPT. Avec `260 + 16 + 127723 + 2048 = 130047 MiB`, le placement aligné de la première partition consomme déjà le seul MiB de marge; il ne reste donc plus assez d'espace pour la partition Recovery plus la fin de disque GPT.
 - Les messages `Le disque est déjà en ligne` et `DiskPart n'a pas pu effacer les attributs de disque` sont secondaires dans ce log: le script continue et le blocage réel est bien le manque d'espace libre au dernier `create partition primary size=2048`.
 - Le correctif retenu est de laisser DiskPart créer la partition Windows à la taille maximale, puis de faire `shrink desired=2048 minimum=2048` avant de créer la partition Recovery. Cela supprime le pré-calcul C# de taille de partition Windows, qui était la source du décalage.
+- Dans `FoundryDeploy2.log` (2 mars 2026), `diskpart` réussit et l'échec suivant survient à l'étape `Configure recovery environment`.
+- Le message d'aide affiché par `WINRECFG.EXE` avec `ExitCode=87` montre que la commande passée est invalide pour cet outil. Le log indique explicitement `Failed to enable Windows RE`, et le code appelle encore `winrecfg.exe /enable /osguid <GUID>`.
+- Or `WINRECFG.EXE` expose ici seulement `/info`, `/setreimage` et `/setbootshelllink`; il ne supporte pas `/enable`. Le portage direct depuis `reagentc.exe` est donc incorrect.
+- `winrecfg /setreimage` a vraisemblablement réussi dans ce run, puisque l'exception n'apparaît qu'au second appel, sur l'étape marquée `Failed to enable Windows RE`.
+- Le correctif appliqué supprime l'appel `winrecfg.exe /enable /osguid ...`, retire la résolution du GUID BCD et supprime le paramètre `systemPartitionRoot` de l'étape `ConfigureRecoveryEnvironmentAsync`, car il n'est plus nécessaire dans ce flux.
 
 ## Technical Decisions
 | Decision | Rationale |

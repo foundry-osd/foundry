@@ -555,7 +555,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             case "Configure recovery environment":
                 {
                     if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ||
-                        string.IsNullOrWhiteSpace(runtimeState.TargetSystemPartitionRoot) ||
                         string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot) ||
                         !runtimeState.TargetRecoveryPartitionLetter.HasValue)
                     {
@@ -569,7 +568,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     await _windowsDeploymentService
                         .ConfigureRecoveryEnvironmentAsync(
                             runtimeState.TargetWindowsPartitionRoot,
-                            runtimeState.TargetSystemPartitionRoot,
                             runtimeState.TargetRecoveryPartitionRoot,
                             workingDirectory,
                             cancellationToken)
