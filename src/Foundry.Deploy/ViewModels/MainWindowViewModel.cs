@@ -153,7 +153,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string stepCounterText = "Step: ? of ?";
 
     [ObservableProperty]
-    private int currentStepProgress;
+    private double currentStepProgress;
 
     [ObservableProperty]
     private bool isCurrentStepProgressIndeterminate = true;
@@ -896,11 +896,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (stepProgress.StepSubProgressPercent.HasValue)
         {
-            int normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0, 100);
+            double normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0d, 100d);
             CurrentStepProgress = Math.Max(CurrentStepProgress, normalized);
             IsCurrentStepProgressIndeterminate = false;
             CurrentStepProgressText = string.IsNullOrWhiteSpace(stepProgress.StepSubProgressLabel)
-                ? $"{normalized}%"
+                ? $"{normalized:0.#}%"
                 : stepProgress.StepSubProgressLabel!;
             return;
         }
@@ -1015,11 +1015,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         try
         {
-            _logger.LogInformation("Issuing reboot command. Reason={Reason}", reason);
+            string rebootExecutablePath = Path.Combine(Environment.SystemDirectory, "wpeutil.exe");
+            if (!File.Exists(rebootExecutablePath))
+            {
+                throw new FileNotFoundException("Required reboot executable 'wpeutil.exe' was not found.", rebootExecutablePath);
+            }
+
             DeploymentStatus = "Rebooting now...";
 
             ProcessExecutionResult result = await _processRunner
-                .RunAsync("shutdown.exe", "/r /t 0 /f", Path.GetTempPath())
+                .RunAsync(rebootExecutablePath, "Reboot", Path.GetTempPath())
                 .ConfigureAwait(false);
 
             if (result.ExitCode == 0)
@@ -1029,14 +1034,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             RunOnUi(() =>
             {
-                SetFailureDetails("System reboot", $"shutdown.exe failed with exit code {result.ExitCode}. {result.StandardError}".Trim());
+                string diagnostic = string.IsNullOrWhiteSpace(result.StandardError)
+                    ? result.StandardOutput
+                    : result.StandardError;
+                SetFailureDetails("System reboot", $"wpeutil.exe failed with exit code {result.ExitCode}. {diagnostic}".Trim());
                 DeploymentStatus = "Reboot command failed.";
                 CurrentPage = DeploymentPage.Error;
             });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to execute reboot command.");
             RunOnUi(() =>
             {
                 SetFailureDetails("System reboot", ex.Message);

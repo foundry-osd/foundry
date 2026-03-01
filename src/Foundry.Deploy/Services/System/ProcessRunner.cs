@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.IO;
 using Microsoft.Extensions.Logging;
@@ -20,6 +21,73 @@ public sealed class ProcessRunner : IProcessRunner
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
+        return await RunAsyncCore(
+            fileName,
+            workingDirectory,
+            startInfo => startInfo.Arguments = arguments,
+            arguments,
+            onOutputData: null,
+            onErrorData: null,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<ProcessExecutionResult> RunAsync(
+        string fileName,
+        IEnumerable<string> arguments,
+        string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        return await RunAsync(
+            fileName,
+            arguments,
+            workingDirectory,
+            onOutputData: null,
+            onErrorData: null,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<ProcessExecutionResult> RunAsync(
+        string fileName,
+        IEnumerable<string> arguments,
+        string workingDirectory,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(arguments);
+
+        List<string> argumentList = [.. arguments];
+        string argumentsDisplay = string.Join(
+            " ",
+            argumentList.Select(static argument => argument.Any(char.IsWhiteSpace)
+                ? $"\"{argument}\""
+                : argument));
+
+        return await RunAsyncCore(
+            fileName,
+            workingDirectory,
+            startInfo =>
+            {
+                foreach (string argument in argumentList)
+                {
+                    startInfo.ArgumentList.Add(argument);
+                }
+            },
+            argumentsDisplay,
+            onOutputData,
+            onErrorData,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<ProcessExecutionResult> RunAsyncCore(
+        string fileName,
+        string workingDirectory,
+        Action<ProcessStartInfo> configureArguments,
+        string argumentsDisplay,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData,
+        CancellationToken cancellationToken)
+    {
         if (string.IsNullOrWhiteSpace(fileName))
         {
             throw new ArgumentException("Executable path is required.", nameof(fileName));
@@ -33,13 +101,12 @@ public sealed class ProcessRunner : IProcessRunner
         Directory.CreateDirectory(workingDirectory);
         _logger.LogDebug("Starting process. FileName={FileName}, Arguments={Arguments}, WorkingDirectory={WorkingDirectory}",
             fileName,
-            arguments,
+            argumentsDisplay,
             workingDirectory);
 
         var startInfo = new ProcessStartInfo
         {
             FileName = fileName,
-            Arguments = arguments,
             WorkingDirectory = workingDirectory,
             UseShellExecute = false,
             RedirectStandardOutput = true,
@@ -48,6 +115,7 @@ public sealed class ProcessRunner : IProcessRunner
             StandardOutputEncoding = Encoding.UTF8,
             StandardErrorEncoding = Encoding.UTF8
         };
+        configureArguments(startInfo);
 
         using var process = new Process
         {
@@ -63,6 +131,7 @@ public sealed class ProcessRunner : IProcessRunner
             if (args.Data is not null)
             {
                 stdoutBuilder.AppendLine(args.Data);
+                InvokeCallback(onOutputData, args.Data);
             }
         };
 
@@ -71,6 +140,7 @@ public sealed class ProcessRunner : IProcessRunner
             if (args.Data is not null)
             {
                 stderrBuilder.AppendLine(args.Data);
+                InvokeCallback(onErrorData, args.Data);
             }
         };
 
@@ -103,7 +173,7 @@ public sealed class ProcessRunner : IProcessRunner
         {
             ExitCode = process.ExitCode,
             FileName = fileName,
-            Arguments = arguments,
+            Arguments = argumentsDisplay,
             WorkingDirectory = workingDirectory,
             StandardOutput = stdoutBuilder.ToString(),
             StandardError = stderrBuilder.ToString()
@@ -111,5 +181,22 @@ public sealed class ProcessRunner : IProcessRunner
 
         _logger.LogDebug("Process completed. FileName={FileName}, ExitCode={ExitCode}", fileName, result.ExitCode);
         return result;
+    }
+
+    private void InvokeCallback(Action<string>? callback, string data)
+    {
+        if (callback is null)
+        {
+            return;
+        }
+
+        try
+        {
+            callback(data);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Process output callback failed.");
+        }
     }
 }

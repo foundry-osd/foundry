@@ -26,6 +26,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
     private static readonly string[] Steps =
     [
+        "Gather deployment variables",
         "Initialize deployment workspace",
         "Validate target configuration",
         "Resolve cache strategy",
@@ -33,7 +34,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         "Download operating system image",
         "Download and prepare driver pack",
         "Apply operating system image",
+        "Configure recovery environment",
         "Apply offline drivers",
+        "Seal recovery partition",
         "Execute full Autopilot workflow",
         "Finalize deployment and write logs"
     ];
@@ -109,7 +112,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             TargetDiskNumber = context.TargetDiskNumber,
             OperatingSystemFileName = context.OperatingSystem.FileName,
             OperatingSystemUrl = context.OperatingSystem.Url,
-            DriverPackSelectionKind = context.DriverPackSelectionKind
+            DriverPackSelectionKind = context.DriverPackSelectionKind,
+            DriverPackName = context.DriverPack?.DisplayLabel,
+            DriverPackUrl = context.DriverPack?.DownloadUrl
         };
 
         try
@@ -117,7 +122,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
             EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
             logSession = _deploymentLogService.Initialize(runtimeState.WorkspaceRoot);
-            await AppendRunContextAsync(logSession, context, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < Steps.Length; i++)
             {
@@ -232,6 +236,17 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         switch (stepName)
         {
+            case "Gather deployment variables":
+                {
+                    if (logSession is null)
+                    {
+                        return StepExecutionOutcome.Failed("Deployment log session is unavailable.");
+                    }
+
+                    await AppendRunContextAsync(logSession, context, runtimeState, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Deployment variables gathered.");
+                }
+
             case "Initialize deployment workspace":
                 {
                     EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
@@ -252,7 +267,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
             case "Validate target configuration":
                 {
-                    StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
+                    (TargetDiskInfo? _, StepExecutionOutcome? validationFailure) = await TryGetValidatedTargetDiskAsync(
+                        context,
+                        logSession,
+                        cancellationToken).ConfigureAwait(false);
+
                     if (validationFailure is not null)
                     {
                         return validationFailure;
@@ -293,18 +312,27 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string workingDirectory = ResolveWorkspaceTempPath(runtimeState, "Deployment");
                     Directory.CreateDirectory(workingDirectory);
 
-                    StepExecutionOutcome? validationFailure = await ValidateTargetDiskSelectionAsync(context, logSession, cancellationToken).ConfigureAwait(false);
+                    (TargetDiskInfo? _, StepExecutionOutcome? validationFailure) = await TryGetValidatedTargetDiskAsync(
+                        context,
+                        logSession,
+                        cancellationToken).ConfigureAwait(false);
+
                     if (validationFailure is not null)
                     {
                         return validationFailure;
                     }
 
                     DeploymentTargetLayout layout = await _windowsDeploymentService
-                        .PrepareTargetDiskAsync(context.TargetDiskNumber, workingDirectory, cancellationToken)
+                        .PrepareTargetDiskAsync(
+                            context.TargetDiskNumber,
+                            workingDirectory,
+                            cancellationToken)
                         .ConfigureAwait(false);
 
                     runtimeState.TargetSystemPartitionRoot = layout.SystemPartitionRoot;
                     runtimeState.TargetWindowsPartitionRoot = layout.WindowsPartitionRoot;
+                    runtimeState.TargetRecoveryPartitionRoot = layout.RecoveryPartitionRoot;
+                    runtimeState.TargetRecoveryPartitionLetter = layout.RecoveryPartitionLetter;
                     runtimeState.TargetFoundryRoot = Path.Combine(layout.WindowsPartitionRoot, "Foundry");
                     if (runtimeState.Mode == DeploymentMode.Iso)
                     {
@@ -314,7 +342,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                     DeploymentLogSession? rebound = await RebindLogSessionIfNeededAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
-                    await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"Target disk prepared: system='{layout.SystemPartitionRoot}', windows='{layout.WindowsPartitionRoot}'.", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(
+                        rebound,
+                        DeploymentLogLevel.Info,
+                        $"Target disk prepared: system='{layout.SystemPartitionRoot}', windows='{layout.WindowsPartitionRoot}', recovery='{layout.RecoveryPartitionRoot}'.",
+                        cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Target disk layout prepared.", rebound);
                 }
 
@@ -458,16 +490,96 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     runtimeState.AppliedImageIndex = imageIndex;
 
                     string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
+                    int stepIndex = ResolveStepIndex(stepName);
+                    string applyStepMessage = "Applying OS image...";
+                    IProgress<double> applyImageProgress = CreateStepPercentProgressReporter(
+                        stepName,
+                        applyStepMessage,
+                        "Applying image",
+                        stepIndex,
+                        Steps.Length);
+                    applyImageProgress.Report(0d);
+
                     await _windowsDeploymentService
-                        .ApplyImageAsync(imagePath, imageIndex, runtimeState.TargetWindowsPartitionRoot, scratchDirectory, workingDirectory, cancellationToken)
+                        .ApplyImageAsync(
+                            imagePath,
+                            imageIndex,
+                            runtimeState.TargetWindowsPartitionRoot,
+                            scratchDirectory,
+                            workingDirectory,
+                            cancellationToken,
+                            applyImageProgress)
                         .ConfigureAwait(false);
 
                     await _windowsDeploymentService
-                        .ConfigureBootAsync(runtimeState.TargetWindowsPartitionRoot, runtimeState.TargetSystemPartitionRoot, workingDirectory, cancellationToken)
+                        .ConfigureBootAsync(
+                            runtimeState.TargetWindowsPartitionRoot,
+                            runtimeState.TargetSystemPartitionRoot,
+                            context.OperatingSystem.BuildMajor,
+                            workingDirectory,
+                            cancellationToken)
                         .ConfigureAwait(false);
+
+                    try
+                    {
+                        string? appliedEdition = await _windowsDeploymentService
+                            .GetAppliedWindowsEditionAsync(runtimeState.TargetWindowsPartitionRoot, workingDirectory, cancellationToken)
+                            .ConfigureAwait(false);
+
+                        if (!string.IsNullOrWhiteSpace(appliedEdition))
+                        {
+                            DeploymentLogLevel editionLogLevel = EditionsMatch(context.OperatingSystem.Edition, appliedEdition)
+                                ? DeploymentLogLevel.Info
+                                : DeploymentLogLevel.Warning;
+
+                            string message = editionLogLevel == DeploymentLogLevel.Info
+                                ? $"Applied Windows edition verified: {appliedEdition}."
+                                : $"Applied Windows edition '{appliedEdition}' does not closely match requested edition '{context.OperatingSystem.Edition}'.";
+
+                            await AppendLogAsync(logSession, editionLogLevel, message, cancellationToken).ConfigureAwait(false);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await AppendLogAsync(
+                            logSession,
+                            DeploymentLogLevel.Warning,
+                            $"Unable to verify the applied Windows edition: {ex.Message}",
+                            cancellationToken).ConfigureAwait(false);
+                    }
 
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"OS image applied to {runtimeState.TargetWindowsPartitionRoot} (index {imageIndex}); boot configured on {runtimeState.TargetSystemPartitionRoot}.", cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Operating system image applied.");
+                }
+
+            case "Configure recovery environment":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ||
+                        string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot) ||
+                        !runtimeState.TargetRecoveryPartitionLetter.HasValue)
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(workingDirectory);
+
+                    await _windowsDeploymentService
+                        .ConfigureRecoveryEnvironmentAsync(
+                            runtimeState.TargetWindowsPartitionRoot,
+                            runtimeState.TargetRecoveryPartitionRoot,
+                            workingDirectory,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    runtimeState.WinReConfigured = true;
+                    await AppendLogAsync(
+                        logSession,
+                        DeploymentLogLevel.Info,
+                        $"Recovery environment configured. Recovery='{runtimeState.TargetRecoveryPartitionRoot}'.",
+                        cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery environment configured.");
                 }
 
             case "Apply offline drivers":
@@ -495,9 +607,54 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                             cancellationToken)
                         .ConfigureAwait(false);
 
+                    if (runtimeState.WinReConfigured &&
+                        !string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot))
+                    {
+                        await _windowsDeploymentService
+                            .ApplyRecoveryDriversAsync(
+                                runtimeState.TargetRecoveryPartitionRoot,
+                                runtimeState.PreparedDriverPath,
+                                scratchDirectory,
+                                workingDirectory,
+                                cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+
                     int infCount = Directory.EnumerateFiles(runtimeState.PreparedDriverPath, "*.inf", SearchOption.AllDirectories).Count();
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Offline drivers injected: {infCount} INF files from '{runtimeState.PreparedDriverPath}'.", cancellationToken).ConfigureAwait(false);
+                    string driverMessage = runtimeState.WinReConfigured
+                        ? $"Offline drivers injected into Windows and WinRE: {infCount} INF files from '{runtimeState.PreparedDriverPath}'."
+                        : $"Offline drivers injected: {infCount} INF files from '{runtimeState.PreparedDriverPath}'.";
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, driverMessage, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Offline drivers applied.");
+                }
+
+            case "Seal recovery partition":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot) ||
+                        !runtimeState.TargetRecoveryPartitionLetter.HasValue)
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    string targetFoundryRoot = EnsureTargetFoundryRoot(runtimeState);
+                    string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
+                    Directory.CreateDirectory(workingDirectory);
+
+                    await _windowsDeploymentService
+                        .SealRecoveryPartitionAsync(
+                            runtimeState.TargetRecoveryPartitionRoot,
+                            runtimeState.TargetRecoveryPartitionLetter.Value,
+                            workingDirectory,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    await AppendLogAsync(
+                        logSession,
+                        DeploymentLogLevel.Info,
+                        $"Recovery partition sealed. Recovery='{runtimeState.TargetRecoveryPartitionRoot}'.",
+                        cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery partition sealed.");
                 }
 
             case "Execute full Autopilot workflow":
@@ -572,6 +729,18 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     {
         switch (stepName)
         {
+            case "Gather deployment variables":
+                {
+                    if (logSession is null)
+                    {
+                        return StepExecutionOutcome.Failed("Deployment log session is unavailable.");
+                    }
+
+                    await AppendRunContextAsync(logSession, context, runtimeState, cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(120, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Deployment variables gathered (simulation).");
+                }
+
             case "Initialize deployment workspace":
                 {
                     EnsureWorkspaceFolders(runtimeState.WorkspaceRoot);
@@ -609,16 +778,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     string targetRoot = ResolveWorkspaceTempPath(runtimeState, "DryRunTarget");
                     string systemRoot = Path.Combine(targetRoot, "System");
                     string windowsRoot = Path.Combine(targetRoot, "Windows");
+                    string recoveryRoot = Path.Combine(targetRoot, "Recovery");
                     Directory.CreateDirectory(systemRoot);
                     Directory.CreateDirectory(windowsRoot);
+                    Directory.CreateDirectory(recoveryRoot);
 
                     runtimeState.TargetSystemPartitionRoot = systemRoot;
                     runtimeState.TargetWindowsPartitionRoot = windowsRoot;
+                    runtimeState.TargetRecoveryPartitionRoot = recoveryRoot;
+                    runtimeState.TargetRecoveryPartitionLetter = 'R';
                     runtimeState.TargetFoundryRoot = Path.Combine(windowsRoot, "Foundry");
 
                     DeploymentLogSession? rebound = await RebindLogSessionIfNeededAsync(logSession, runtimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
-                    await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated target disk layout: system='{systemRoot}', windows='{windowsRoot}'.", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(rebound, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated target disk layout: system='{systemRoot}', windows='{windowsRoot}', recovery='{recoveryRoot}'.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Target disk layout prepared (simulation).", rebound);
                 }
@@ -703,8 +876,23 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                         cancellationToken).ConfigureAwait(false);
 
                     await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated OS apply to {runtimeState.TargetWindowsPartitionRoot}.", cancellationToken).ConfigureAwait(false);
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated applied Windows edition: {context.OperatingSystem.Edition}.", cancellationToken).ConfigureAwait(false);
                     await Task.Delay(180, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Operating system image applied (simulation).");
+                }
+
+            case "Configure recovery environment":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot))
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    runtimeState.WinReConfigured = true;
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated WinRE configuration for '{runtimeState.TargetRecoveryPartitionRoot}'.", cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(150, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery environment configured (simulation).");
                 }
 
             case "Apply offline drivers":
@@ -716,9 +904,25 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     }
 
                     int infCount = Directory.EnumerateFiles(runtimeState.PreparedDriverPath, "*.inf", SearchOption.AllDirectories).Count();
-                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated offline driver injection: {infCount} INF files.", cancellationToken).ConfigureAwait(false);
+                    string driverMessage = runtimeState.WinReConfigured
+                        ? $"[DRY-RUN] Simulated offline driver injection for Windows and WinRE: {infCount} INF files."
+                        : $"[DRY-RUN] Simulated offline driver injection: {infCount} INF files.";
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, driverMessage, cancellationToken).ConfigureAwait(false);
                     await Task.Delay(150, cancellationToken).ConfigureAwait(false);
                     return StepExecutionOutcome.Succeeded("Offline drivers applied (simulation).");
+                }
+
+            case "Seal recovery partition":
+                {
+                    if (string.IsNullOrWhiteSpace(runtimeState.TargetRecoveryPartitionRoot))
+                    {
+                        return StepExecutionOutcome.Failed("Recovery partition is unavailable.");
+                    }
+
+                    await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"[DRY-RUN] Simulated recovery partition seal: {runtimeState.TargetRecoveryPartitionRoot}", cancellationToken).ConfigureAwait(false);
+                    await Task.Delay(120, cancellationToken).ConfigureAwait(false);
+                    return StepExecutionOutcome.Succeeded("Recovery partition sealed (simulation).");
                 }
 
             case "Execute full Autopilot workflow":
@@ -770,7 +974,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         int stepIndex,
         int stepCount,
         string? message,
-        int? stepSubProgressPercent = null,
+        double? stepSubProgressPercent = null,
         bool stepSubProgressIndeterminate = true,
         string? stepSubProgressLabel = null)
     {
@@ -796,25 +1000,27 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         int stepCount)
     {
         int stepProgressPercent = CalculateStepProgressPercent(stepIndex, stepCount);
-        int? lastKnownPercent = null;
+        double? lastReportedPercent = null;
         long nextUnknownTotalReportThreshold = 0;
 
         return new CallbackProgress<DownloadProgress>(progress =>
         {
             string details;
-            int? stepSubProgressPercent = null;
+            double? stepSubProgressPercent = null;
             bool stepSubProgressIndeterminate = true;
             if (progress.TotalBytes is long totalBytes && totalBytes > 0)
             {
-                int percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
+                double percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
                 bool isFinal = progress.BytesDownloaded >= totalBytes;
-                if (!isFinal && lastKnownPercent == percent)
+                if (!isFinal &&
+                    lastReportedPercent.HasValue &&
+                    percent <= lastReportedPercent.Value)
                 {
                     return;
                 }
 
-                lastKnownPercent = percent;
-                details = $"{percent}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
+                lastReportedPercent = percent;
+                details = $"{percent:0.#}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
                 stepSubProgressPercent = percent;
                 stepSubProgressIndeterminate = false;
             }
@@ -831,18 +1037,52 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 details = $"{FormatByteSize(progress.BytesDownloaded)} downloaded";
             }
 
-            string status = $"{artifactLabel} download progress: {details}";
-            _logger.LogInformation("{StepName}: {Status}", stepName, status);
-            _operationProgressService.Report(stepProgressPercent, status);
+            string stepMessage = $"Downloading {artifactLabel}...";
+            _operationProgressService.Report(stepProgressPercent, stepMessage);
             EmitStep(
                 stepName,
                 DeploymentStepState.Running,
                 stepIndex,
                 stepCount,
-                status,
+                stepMessage,
                 stepSubProgressPercent,
                 stepSubProgressIndeterminate,
                 details);
+        });
+    }
+
+    private IProgress<double> CreateStepPercentProgressReporter(
+        string stepName,
+        string stepMessage,
+        string stepLabelPrefix,
+        int stepIndex,
+        int stepCount)
+    {
+        object progressSync = new();
+        double lastReportedPercent = double.NaN;
+
+        return new CallbackProgress<double>(percent =>
+        {
+            double normalized = Math.Clamp(percent, 0d, 100d);
+            lock (progressSync)
+            {
+                if (!double.IsNaN(lastReportedPercent) && normalized <= lastReportedPercent)
+                {
+                    return;
+                }
+
+                lastReportedPercent = normalized;
+            }
+
+            EmitStep(
+                stepName,
+                DeploymentStepState.Running,
+                stepIndex,
+                stepCount,
+                stepMessage,
+                stepSubProgressPercent: normalized,
+                stepSubProgressIndeterminate: false,
+                stepSubProgressLabel: $"{stepLabelPrefix}: {normalized:0.#}%");
         });
     }
 
@@ -857,24 +1097,24 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return (int)Math.Round((double)stepIndex / stepCount * 100d);
     }
 
-    private static int CalculateDownloadPercent(long bytesDownloaded, long totalBytes)
+    private static double CalculateDownloadPercent(long bytesDownloaded, long totalBytes)
     {
         if (totalBytes <= 0)
         {
-            return 0;
+            return 0d;
         }
 
         if (bytesDownloaded >= totalBytes)
         {
-            return 100;
+            return 100d;
         }
 
         if (bytesDownloaded <= 0)
         {
-            return 0;
+            return 0d;
         }
 
-        return (int)Math.Round((double)bytesDownloaded / totalBytes * 100d);
+        return Math.Clamp((double)bytesDownloaded / totalBytes * 100d, 0d, 100d);
     }
 
     private static string FormatByteSize(long bytes)
@@ -908,26 +1148,93 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private async Task AppendRunContextAsync(
         DeploymentLogSession session,
         DeploymentContext context,
+        DeploymentRuntimeState runtimeState,
         CancellationToken cancellationToken)
     {
-        string[] lines =
-        [
-            $"Deployment mode: {context.Mode}",
-            $"Cache root: {context.CacheRootPath}",
-            $"Target disk number: {context.TargetDiskNumber}",
-            $"OS: {context.OperatingSystem.DisplayLabel}",
-            $"Driver pack mode: {context.DriverPackSelectionKind}",
-            $"Driver pack: {(context.DriverPack?.DisplayLabel ?? "None")}",
-            $"Autopilot mode: {(context.UseFullAutopilot ? "Full" : "Disabled")}",
-            $"Autopilot deferred completion: {(context.AllowAutopilotDeferredCompletion ? "Enabled" : "Disabled")}",
-            "Telemetry mode: disabled (zero telemetry).",
-            $"Execution mode: {(context.IsDryRun ? "Debug Safe Mode (dry-run)" : "Live")}"
-        ];
-
-        foreach (string line in lines)
+        string json = JsonSerializer.Serialize(new
         {
-            await _deploymentLogService.AppendAsync(session, DeploymentLogLevel.Info, line, cancellationToken).ConfigureAwait(false);
-        }
+            gatheredAtUtc = DateTimeOffset.UtcNow,
+            plannedSteps = Steps,
+            context = new
+            {
+                mode = context.Mode.ToString(),
+                cacheRootPath = context.CacheRootPath,
+                targetDiskNumber = context.TargetDiskNumber,
+                driverPackSelectionKind = context.DriverPackSelectionKind.ToString(),
+                useFullAutopilot = context.UseFullAutopilot,
+                allowAutopilotDeferredCompletion = context.AllowAutopilotDeferredCompletion,
+                isDryRun = context.IsDryRun,
+                telemetryMode = "disabled",
+                operatingSystem = new
+                {
+                    context.OperatingSystem.SourceId,
+                    context.OperatingSystem.ClientType,
+                    context.OperatingSystem.WindowsRelease,
+                    context.OperatingSystem.ReleaseId,
+                    context.OperatingSystem.Build,
+                    context.OperatingSystem.BuildMajor,
+                    context.OperatingSystem.BuildUbr,
+                    context.OperatingSystem.Architecture,
+                    context.OperatingSystem.LanguageCode,
+                    context.OperatingSystem.Language,
+                    context.OperatingSystem.Edition,
+                    context.OperatingSystem.FileName,
+                    context.OperatingSystem.SizeBytes,
+                    context.OperatingSystem.LicenseChannel,
+                    context.OperatingSystem.Url,
+                    context.OperatingSystem.Sha1,
+                    context.OperatingSystem.Sha256,
+                    displayLabel = context.OperatingSystem.DisplayLabel
+                },
+                driverPack = context.DriverPack is null
+                    ? null
+                    : new
+                    {
+                        context.DriverPack.Id,
+                        context.DriverPack.PackageId,
+                        context.DriverPack.Manufacturer,
+                        context.DriverPack.Name,
+                        context.DriverPack.Version,
+                        context.DriverPack.FileName,
+                        downloadUrl = context.DriverPack.DownloadUrl,
+                        context.DriverPack.SizeBytes,
+                        context.DriverPack.Format,
+                        context.DriverPack.Type,
+                        context.DriverPack.ReleaseDate,
+                        context.DriverPack.OsName,
+                        context.DriverPack.OsReleaseId,
+                        context.DriverPack.OsArchitecture,
+                        context.DriverPack.ModelNames,
+                        context.DriverPack.Sha256,
+                        displayLabel = context.DriverPack.DisplayLabel
+                    }
+            },
+            runtimeState = new
+            {
+                runtimeState.StartedAtUtc,
+                runtimeState.WorkspaceRoot,
+                runtimeState.CurrentStep,
+                mode = runtimeState.Mode.ToString(),
+                runtimeState.IsDryRun,
+                runtimeState.RequestedCacheRootPath,
+                runtimeState.TargetDiskNumber,
+                runtimeState.OperatingSystemFileName,
+                runtimeState.OperatingSystemUrl,
+                driverPackSelectionKind = runtimeState.DriverPackSelectionKind.ToString(),
+                runtimeState.DriverPackName,
+                runtimeState.DriverPackUrl,
+                runtimeState.TargetFoundryRoot,
+                runtimeState.DeploymentSummaryPath,
+                completedSteps = runtimeState.CompletedSteps
+            }
+        }, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+
+        await _deploymentLogService
+            .AppendAsync(session, DeploymentLogLevel.Info, $"[GATHER] Deployment variables snapshot:{Environment.NewLine}{json}", cancellationToken)
+            .ConfigureAwait(false);
     }
 
     private static string EnsureResolvedCache(DeploymentRuntimeState runtimeState)
@@ -1018,7 +1325,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         throw new InvalidOperationException(message);
     }
 
-    private async Task<StepExecutionOutcome?> ValidateTargetDiskSelectionAsync(
+    private async Task<(TargetDiskInfo? SelectedDisk, StepExecutionOutcome? Failure)> TryGetValidatedTargetDiskAsync(
         DeploymentContext context,
         DeploymentLogSession? logSession,
         CancellationToken cancellationToken)
@@ -1027,17 +1334,17 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == context.TargetDiskNumber);
         if (selectedDisk is null)
         {
-            return StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present.");
+            return (null, StepExecutionOutcome.Failed($"Target disk {context.TargetDiskNumber} is no longer present."));
         }
 
         if (!selectedDisk.IsSelectable)
         {
-            return StepExecutionOutcome.Failed(
-                $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}");
+            return (null, StepExecutionOutcome.Failed(
+                $"Target disk {context.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}"));
         }
 
         await AppendLogAsync(logSession, DeploymentLogLevel.Info, $"Target disk revalidated: {selectedDisk.DisplayLabel}", cancellationToken).ConfigureAwait(false);
-        return null;
+        return (selectedDisk, null);
     }
 
     private async Task<DeploymentLogSession?> RebindLogSessionIfNeededAsync(
@@ -1122,6 +1429,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             preparedDriverPath = runtimeState.PreparedDriverPath,
             targetSystemPartitionRoot = runtimeState.TargetSystemPartitionRoot,
             targetWindowsPartitionRoot = runtimeState.TargetWindowsPartitionRoot,
+            targetRecoveryPartitionRoot = runtimeState.TargetRecoveryPartitionRoot,
+            winReConfigured = runtimeState.WinReConfigured,
             autopilotWorkflowPath = runtimeState.AutopilotWorkflowPath,
             completedSteps = runtimeState.CompletedSteps
         }, new JsonSerializerOptions
@@ -1130,6 +1439,35 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         });
 
         await File.WriteAllTextAsync(path, json, cancellationToken).ConfigureAwait(false);
+    }
+
+    private static bool EditionsMatch(string requestedEdition, string appliedEdition)
+    {
+        string requested = NormalizeEditionToken(requestedEdition);
+        string applied = NormalizeEditionToken(appliedEdition);
+
+        if (requested.Length == 0 || applied.Length == 0)
+        {
+            return false;
+        }
+
+        return requested.Contains(applied, StringComparison.OrdinalIgnoreCase) ||
+               applied.Contains(requested, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string NormalizeEditionToken(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return string.Empty;
+        }
+
+        char[] filtered = value
+            .ToLowerInvariant()
+            .Where(char.IsLetterOrDigit)
+            .ToArray();
+
+        return new string(filtered);
     }
 
     private static string ResolveCacheBaseRoot(string runtimeRoot)

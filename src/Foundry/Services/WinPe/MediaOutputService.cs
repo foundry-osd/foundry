@@ -462,7 +462,7 @@ public sealed class MediaOutputService : IMediaOutputService
             }
         }
 
-        WinPeResult addComponentsResult = await AddPowerShellComponentsAsync(
+        WinPeResult addComponentsResult = await AddRequiredOptionalComponentsAsync(
             session.MountDirectoryPath,
             artifact.Architecture,
             tools,
@@ -577,7 +577,7 @@ public sealed class MediaOutputService : IMediaOutputService
         return WinPeResult.Success();
     }
 
-    private async Task<WinPeResult> AddPowerShellComponentsAsync(
+    private async Task<WinPeResult> AddRequiredOptionalComponentsAsync(
         string mountedImagePath,
         WinPeArchitecture architecture,
         WinPeToolPaths tools,
@@ -597,12 +597,14 @@ public sealed class MediaOutputService : IMediaOutputService
 
         // Keep installation order aligned with Microsoft dependency requirements:
         // WinPE-WMI > WinPE-NetFX > WinPE-Scripting > WinPE-PowerShell > (WinPE-DismCmdlets, WinPE-StorageWMI).
+        // WinPE-WinReCfg is added explicitly so winrecfg.exe is available in the generated WinPE image.
         string[] components =
         [
             "WinPE-WMI",
             "WinPE-NetFX",
             "WinPE-Scripting",
             "WinPE-PowerShell",
+            "WinPE-WinReCfg",
             "WinPE-DismCmdlets",
             "WinPE-StorageWMI",
             "WinPE-Dot3Svc",

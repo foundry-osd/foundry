@@ -19,6 +19,24 @@ public interface IWindowsDeploymentService
         string windowsPartitionRoot,
         string scratchDirectory,
         string workingDirectory,
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null);
+
+    Task<string?> GetAppliedWindowsEditionAsync(
+        string windowsPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken = default);
+
+    Task ConfigureRecoveryEnvironmentAsync(
+        string windowsPartitionRoot,
+        string recoveryPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken = default);
+
+    Task SealRecoveryPartitionAsync(
+        string recoveryPartitionRoot,
+        char recoveryPartitionLetter,
+        string workingDirectory,
         CancellationToken cancellationToken = default);
 
     Task ApplyOfflineDriversAsync(
@@ -28,9 +46,17 @@ public interface IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default);
 
+    Task ApplyRecoveryDriversAsync(
+        string recoveryPartitionRoot,
+        string driverRoot,
+        string scratchDirectory,
+        string workingDirectory,
+        CancellationToken cancellationToken = default);
+
     Task ConfigureBootAsync(
         string windowsPartitionRoot,
         string systemPartitionRoot,
+        int operatingSystemBuildMajor,
         string workingDirectory,
         CancellationToken cancellationToken = default);
 }
