@@ -1,5 +1,4 @@
 using System.IO;
-using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Download;
@@ -211,62 +210,6 @@ public sealed class DeploymentStepExecutionContext
             ?? throw new InvalidOperationException("Target Foundry root is unavailable.");
     }
 
-    public async Task UpdateCacheIndexAsync(
-        string artifactType,
-        string sourceUrl,
-        string destinationPath,
-        long sizeBytes,
-        string? expectedHash,
-        CancellationToken cancellationToken = default)
-    {
-        if (!ShouldMaintainUsbCacheIndex(RuntimeState))
-        {
-            return;
-        }
-
-        string runtimeRoot = EnsureResolvedCache();
-        Directory.CreateDirectory(runtimeRoot);
-        string indexPath = Path.Combine(runtimeRoot, "cache-index.json");
-
-        CacheIndexDocument document = await ReadCacheIndexAsync(indexPath, cancellationToken).ConfigureAwait(false);
-        string normalizedSourceUrl = sourceUrl.Trim();
-        CacheIndexEntry? entry = document.Items.FirstOrDefault(item =>
-            item.SourceUrl.Equals(normalizedSourceUrl, StringComparison.OrdinalIgnoreCase));
-
-        string normalizedHash = string.IsNullOrWhiteSpace(expectedHash)
-            ? string.Empty
-            : expectedHash.Trim();
-        DateTimeOffset nowUtc = DateTimeOffset.UtcNow;
-
-        if (entry is null)
-        {
-            document.Items.Add(new CacheIndexEntry
-            {
-                ArtifactType = artifactType,
-                SourceUrl = normalizedSourceUrl,
-                DestinationPath = destinationPath,
-                SizeBytes = sizeBytes,
-                ExpectedHash = normalizedHash,
-                LastUpdatedAtUtc = nowUtc
-            });
-        }
-        else
-        {
-            entry.ArtifactType = artifactType;
-            entry.DestinationPath = destinationPath;
-            entry.SizeBytes = sizeBytes;
-            entry.ExpectedHash = normalizedHash;
-            entry.LastUpdatedAtUtc = nowUtc;
-        }
-
-        document.UpdatedAtUtc = nowUtc;
-        string json = JsonSerializer.Serialize(document, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
-        await File.WriteAllTextAsync(indexPath, json, cancellationToken).ConfigureAwait(false);
-    }
-
     public IProgress<DownloadProgress> CreateDownloadProgressReporter(string artifactLabel)
     {
         double? lastReportedPercent = null;
@@ -397,13 +340,6 @@ public sealed class DeploymentStepExecutionContext
         return ResolveCacheBaseRoot(EnsureResolvedCache());
     }
 
-    private static bool ShouldMaintainUsbCacheIndex(DeploymentRuntimeState runtimeState)
-    {
-        return runtimeState.Mode == DeploymentMode.Usb &&
-               runtimeState.ResolvedCache is not null &&
-               runtimeState.ResolvedCache.IsPersistent;
-    }
-
     private static string ResolveWorkspaceRoot(DeploymentRuntimeState runtimeState)
     {
         return string.IsNullOrWhiteSpace(runtimeState.WorkspaceRoot)
@@ -438,31 +374,6 @@ public sealed class DeploymentStepExecutionContext
         return string.IsNullOrWhiteSpace(parent)
             ? runtimeRoot
             : parent;
-    }
-
-    private static async Task<CacheIndexDocument> ReadCacheIndexAsync(string indexPath, CancellationToken cancellationToken)
-    {
-        if (!File.Exists(indexPath))
-        {
-            return new CacheIndexDocument();
-        }
-
-        try
-        {
-            string json = await File.ReadAllTextAsync(indexPath, cancellationToken).ConfigureAwait(false);
-            CacheIndexDocument? parsed = JsonSerializer.Deserialize<CacheIndexDocument>(json);
-            if (parsed is null)
-            {
-                return new CacheIndexDocument();
-            }
-
-            parsed.Items ??= [];
-            return parsed;
-        }
-        catch
-        {
-            return new CacheIndexDocument();
-        }
     }
 
     private static int CalculateStepProgressPercent(int stepIndex, int stepCount)
@@ -533,28 +444,6 @@ public sealed class DeploymentStepExecutionContext
 
             File.Copy(sourceFilePath, destinationPath, overwrite: true);
         }
-    }
-
-    private sealed class CacheIndexDocument
-    {
-        public DateTimeOffset UpdatedAtUtc { get; set; } = DateTimeOffset.UtcNow;
-
-        public List<CacheIndexEntry> Items { get; set; } = [];
-    }
-
-    private sealed class CacheIndexEntry
-    {
-        public string ArtifactType { get; set; } = string.Empty;
-
-        public string SourceUrl { get; set; } = string.Empty;
-
-        public string DestinationPath { get; set; } = string.Empty;
-
-        public long SizeBytes { get; set; }
-
-        public string ExpectedHash { get; set; } = string.Empty;
-
-        public DateTimeOffset LastUpdatedAtUtc { get; set; } = DateTimeOffset.UtcNow;
     }
 
     private sealed class DelegateProgress<T> : IProgress<T>

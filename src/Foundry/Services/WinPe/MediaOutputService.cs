@@ -1,5 +1,4 @@
 using System.Text;
-using System.Text.Json;
 using System.Globalization;
 using System.IO.Compression;
 using Foundry.Services.Operations;
@@ -199,8 +198,6 @@ public sealed class MediaOutputService : IMediaOutputService
                 return FailWithProgress(new WinPeDiagnostic(WinPeErrorCodes.IsoCreateFailed, "Failed to create ISO media.", makeIso.ToDiagnosticText()));
             }
 
-            _operationProgressService.Report(95, "Writing ISO metadata.");
-            await WriteMetadataAsync($"{options.OutputIsoPath}.json", options.Architecture, options.SignatureMode, "iso", null, cancellationToken).ConfigureAwait(false);
             _operationProgressService.Complete("ISO creation completed.");
             _logger.LogInformation("ISO creation completed successfully. OutputIsoPath={OutputIsoPath}", options.OutputIsoPath);
             return WinPeResult.Success();
@@ -306,8 +303,6 @@ public sealed class MediaOutputService : IMediaOutputService
                 return FailWithProgress(usb.Error!);
             }
 
-            _operationProgressService.Report(95, "Writing USB metadata.");
-            await WriteMetadataAsync(Path.Combine($"{usb.Value!.CacheDriveLetter}\\", "Runtime", "foundry-media-metadata.json"), options.Architecture, options.SignatureMode, "usb", usb.Value, cancellationToken).ConfigureAwait(false);
             _operationProgressService.Complete("USB creation completed.");
             _logger.LogInformation("USB creation completed successfully. TargetDiskNumber={TargetDiskNumber}", options.TargetDiskNumber);
             return WinPeResult.Success();
@@ -1073,24 +1068,6 @@ public sealed class MediaOutputService : IMediaOutputService
             if (!Directory.EnumerateFiles(customDirectory, "*.inf", SearchOption.AllDirectories).Any()) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "Custom driver directory does not contain any .inf files.", customDirectory);
         }
         return null;
-    }
-
-    private static async Task WriteMetadataAsync(string path, WinPeArchitecture architecture, WinPeSignatureMode signatureMode, string mediaType, WinPeUsbProvisionResult? usb, CancellationToken cancellationToken)
-    {
-        string? directoryPath = Path.GetDirectoryName(path);
-        if (!string.IsNullOrWhiteSpace(directoryPath))
-        {
-            Directory.CreateDirectory(directoryPath);
-        }
-        string json = JsonSerializer.Serialize(new
-        {
-            createdAtUtc = DateTimeOffset.UtcNow,
-            mediaType,
-            architecture = architecture.ToString(),
-            signatureMode = signatureMode.ToString(),
-            usb
-        }, new JsonSerializerOptions { WriteIndented = true });
-        await File.WriteAllTextAsync(path, json, cancellationToken).ConfigureAwait(false);
     }
 
     private static void TryDeleteDirectory(string path)
