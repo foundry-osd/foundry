@@ -24,6 +24,7 @@
 | Add a reusable `SetupComplete` service | Avoids duplicating marker/idempotence logic with Autopilot |
 | Use 7-Zip progress parsing when possible and weighted/jump progress otherwise | Keeps extraction progress visible even when native progress is unavailable |
 | Split Microsoft Update Catalog into download and expand methods | Enables distinct deployment steps and separate progress states |
+| Reset step sub-progress by phase for multi-operation servicing steps | Makes repeated DISM operations visible (`mount`, `apply`, `unmount`) instead of forcing one monotonically increasing sub-bar |
 
 ## Issues Encountered
 | Issue | Resolution |
@@ -38,3 +39,15 @@
 
 ## Visual/Browser Findings
 - OSDCloud’s `step-drivers-driverpack.ps1` separates download, expansion, and apply logic implicitly by package type and stages deferred packages via `SetupComplete.cmd`.
+
+## Investigation: DISM Deployment Steps (2026-03-02)
+
+### Requirements
+- Map deployment steps to DISM operations, including indirect calls through `WindowsDeploymentService`.
+- Flag steps that run more than one DISM sub-operation in a single step and could use sub-progress resets between phases.
+
+### Research Findings
+- `Foundry.Deploy` registers the deployment pipeline steps in `Program.cs`; the relevant DISM-capable steps are `ApplyOperatingSystemImageStep` and `ApplyDriverPackStep`.
+- `ApplyOperatingSystemImageStep` chains three `IWindowsDeploymentService` calls that reach `dism.exe`: `ResolveImageIndexAsync` (`/Get-ImageInfo`), `ApplyImageAsync` (`/Apply-Image`), and `GetAppliedWindowsEditionAsync` (`/Get-CurrentEdition`).
+- `ApplyDriverPackStep` in `OfflineInf` mode always calls `ApplyOfflineDriversAsync` (`/Add-Driver` for the offline Windows image), and when WinRE is configured it also calls `ApplyRecoveryDriversAsync`, which performs `dism.exe /Mount-Image`, `dism.exe /Add-Driver`, and `dism.exe /Unmount-Image`.
+- No deployment step class launches `dism.exe` directly; the step classes route through `IWindowsDeploymentService`, and the actual DISM process launches are concentrated in `WindowsDeploymentService`.

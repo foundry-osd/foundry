@@ -24,6 +24,7 @@
   - Split Microsoft Update Catalog handling into separate download and expand phases.
   - Removed the transitional `PreparedDriverPath` runtime field and its summary output during a third cleanup pass.
   - Updated `DismProgressReporter` to parse `x of y` / `x sur y` output from `DISM /Add-Driver`, so DriverPack apply progress moves even when DISM does not emit `%` lines.
+  - Added per-phase sub-progress resets for `Apply driver pack` and `Apply operating system image`, including distinct labels for repeated servicing phases.
 - Files created/modified:
   - `task_plan.md`
   - `findings.md`
@@ -53,3 +54,18 @@
 | What's the goal? | Split and harden the DriverPack pipeline with progress |
 | What have I learned? | See findings.md |
 | What have I done? | See above |
+
+## Session: 2026-03-02 (DISM deployment-step investigation)
+
+### Phase 1: Codebase inspection
+- **Status:** complete
+- **Started:** 2026-03-02
+- Actions taken:
+  - Read existing planning files from the prior DriverPack refactor task.
+  - Added a scoped investigation entry for tracing deployment-step DISM usage.
+  - Traced `IDeploymentStep` registrations to the relevant step implementations.
+  - Followed `ApplyOperatingSystemImageStep` and `ApplyDriverPackStep` into `WindowsDeploymentService` to enumerate the exact DISM commands and phase boundaries.
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`

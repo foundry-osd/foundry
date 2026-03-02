@@ -484,7 +484,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string scratchDirectory,
         string workingDirectory,
         CancellationToken cancellationToken = default,
-        IProgress<double>? progress = null)
+        IProgress<double>? mountProgress = null,
+        IProgress<double>? applyProgress = null,
+        IProgress<double>? unmountProgress = null)
     {
         if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
         {
@@ -520,6 +522,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         try
         {
+            mountProgress?.Report(0d);
             await RunRequiredProcessAsync(
                 "dism.exe",
                 $"/Mount-Image /ImageFile:\"{winReImagePath}\" /Index:1 /MountDir:\"{mountPath}\" /ScratchDir:\"{scratchDirectory}\"",
@@ -528,8 +531,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 cancellationToken).ConfigureAwait(false);
 
             mounted = true;
+            mountProgress?.Report(100d);
 
-            if (progress is null)
+            applyProgress?.Report(0d);
+            if (applyProgress is null)
             {
                 await RunRequiredProcessAsync(
                     "dism.exe",
@@ -546,7 +551,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             }
             else
             {
-                DismProgressReporter progressReporter = new(progress);
+                DismProgressReporter progressReporter = new(applyProgress);
                 await RunRequiredProcessAsync(
                     "dism.exe",
                     [
@@ -564,6 +569,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             }
 
             shouldCommit = true;
+            applyProgress?.Report(100d);
         }
         catch (Exception ex)
         {
@@ -577,6 +583,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                     ? $"/Unmount-Image /MountDir:\"{mountPath}\" /Commit"
                     : $"/Unmount-Image /MountDir:\"{mountPath}\" /Discard";
 
+                unmountProgress?.Report(0d);
                 ProcessExecutionResult unmountExecution = await _processRunner
                     .RunAsync("dism.exe", unmountArguments, workingDirectory, cancellationToken)
                     .ConfigureAwait(false);
@@ -591,6 +598,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                         : new InvalidOperationException(
                             $"Windows RE servicing failed and the image could not be unmounted cleanly.{Environment.NewLine}{diagnostic}",
                             pendingException);
+                }
+                else
+                {
+                    unmountProgress?.Report(100d);
                 }
             }
 

@@ -64,15 +64,13 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
-        IProgress<double> stepProgress = context.CreateStepPercentProgressReporter("Applying driver pack...", "Applying");
-        stepProgress.Report(0d);
+        const string stepMessage = "Applying driver pack...";
 
         bool applyRecovery = context.RuntimeState.WinReConfigured &&
                              !string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot);
 
-        IProgress<double> windowsProgress = applyRecovery
-            ? new Progress<double>(percent => stepProgress.Report(MapProgress(percent, 0d, 70d)))
-            : stepProgress;
+        IProgress<double> windowsProgress = context.CreateStepPercentProgressReporter(stepMessage, "Applying Windows drivers");
+        windowsProgress.Report(0d);
 
         await _windowsDeploymentService
             .ApplyOfflineDriversAsync(
@@ -83,10 +81,14 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                 cancellationToken,
                 windowsProgress)
             .ConfigureAwait(false);
+        windowsProgress.Report(100d);
 
         if (applyRecovery)
         {
-            IProgress<double> recoveryProgress = new Progress<double>(percent => stepProgress.Report(MapProgress(percent, 70d, 100d)));
+            IProgress<double> mountRecoveryProgress = context.CreateStepPercentProgressReporter(stepMessage, "Mounting WinRE");
+            IProgress<double> applyRecoveryProgress = context.CreateStepPercentProgressReporter(stepMessage, "Applying WinRE drivers");
+            IProgress<double> unmountRecoveryProgress = context.CreateStepPercentProgressReporter(stepMessage, "Unmounting WinRE");
+
             await _windowsDeploymentService
                 .ApplyRecoveryDriversAsync(
                     context.RuntimeState.TargetRecoveryPartitionRoot!,
@@ -94,12 +96,13 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                     scratchDirectory,
                     workingDirectory,
                     cancellationToken,
-                    recoveryProgress)
+                    mountProgress: mountRecoveryProgress,
+                    applyProgress: applyRecoveryProgress,
+                    unmountProgress: unmountRecoveryProgress)
                 .ConfigureAwait(false);
         }
 
         int infCount = Directory.EnumerateFiles(driverRoot, "*.inf", SearchOption.AllDirectories).Count();
-        stepProgress.Report(100d);
 
         string driverMessage = applyRecovery
             ? $"Driver pack applied offline to Windows and WinRE: {infCount} INF files from '{driverRoot}'."
@@ -330,4 +333,5 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         double normalized = Math.Clamp(percent, 0d, 100d);
         return start + (normalized / 100d * (end - start));
     }
+
 }

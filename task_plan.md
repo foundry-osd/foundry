@@ -57,3 +57,14 @@ Phase 5
 | Error | Attempt | Resolution |
 |-------|---------|------------|
 |       | 1       |            |
+
+## Investigation: DISM Deployment Steps (2026-03-02)
+
+### Goal
+Identify which deployment steps invoke DISM directly or through `WindowsDeploymentService`, and determine which steps bundle multiple DISM phases that could benefit from resetting sub-progress between phases.
+
+### Phases
+- [x] Search deployment steps and DISM call sites
+- [x] Trace step-to-service call chains
+- [x] Summarize steps with single vs multi-phase DISM usage
+- **Status:** complete

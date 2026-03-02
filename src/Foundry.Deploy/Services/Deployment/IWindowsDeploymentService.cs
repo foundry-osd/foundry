@@ -60,7 +60,9 @@ public interface IWindowsDeploymentService
         string scratchDirectory,
         string workingDirectory,
         CancellationToken cancellationToken = default,
-        IProgress<double>? progress = null);
+        IProgress<double>? mountProgress = null,
+        IProgress<double>? applyProgress = null,
+        IProgress<double>? unmountProgress = null);
 
     Task ConfigureBootAsync(
         string windowsPartitionRoot,
