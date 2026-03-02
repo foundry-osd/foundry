@@ -6,6 +6,7 @@ namespace Foundry.Deploy.Services.Deployment;
 internal sealed class DismProgressReporter
 {
     private static readonly Regex PercentageRegex = new(@"(?<percent>\d{1,3}(?:[.,]\d+)?)\s*%", RegexOptions.Compiled);
+    private static readonly Regex OrdinalProgressRegex = new(@"(?<!\d)(?<current>\d+)\s+(?:of|sur)\s+(?<total>\d+)(?!\d)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private readonly IProgress<double> _progress;
     private readonly object _sync = new();
@@ -18,7 +19,7 @@ internal sealed class DismProgressReporter
 
     public void HandleOutput(string line)
     {
-        if (!TryParsePercent(line, out double percent))
+        if (!TryParseProgress(line, out double percent))
         {
             return;
         }
@@ -34,6 +35,16 @@ internal sealed class DismProgressReporter
         }
 
         _progress.Report(percent);
+    }
+
+    private static bool TryParseProgress(string? line, out double percent)
+    {
+        if (TryParsePercent(line, out percent))
+        {
+            return true;
+        }
+
+        return TryParseOrdinalProgress(line, out percent);
     }
 
     private static bool TryParsePercent(string? line, out double percent)
@@ -57,6 +68,32 @@ internal sealed class DismProgressReporter
         }
 
         percent = Math.Clamp(parsed, 0d, 100d);
+        return true;
+    }
+
+    private static bool TryParseOrdinalProgress(string? line, out double percent)
+    {
+        percent = 0d;
+        if (string.IsNullOrWhiteSpace(line))
+        {
+            return false;
+        }
+
+        Match match = OrdinalProgressRegex.Match(line);
+        if (!match.Success)
+        {
+            return false;
+        }
+
+        if (!int.TryParse(match.Groups["current"].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int current) ||
+            !int.TryParse(match.Groups["total"].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int total) ||
+            current <= 0 ||
+            total <= 0)
+        {
+            return false;
+        }
+
+        percent = Math.Clamp((double)current / total * 100d, 0d, 100d);
         return true;
     }
 }

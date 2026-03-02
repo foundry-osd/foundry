@@ -23,6 +23,7 @@
   - Updated Windows driver injection to use safe DISM argument separation and progress callbacks.
   - Split Microsoft Update Catalog handling into separate download and expand phases.
   - Removed the transitional `PreparedDriverPath` runtime field and its summary output during a third cleanup pass.
+  - Updated `DismProgressReporter` to parse `x of y` / `x sur y` output from `DISM /Add-Driver`, so DriverPack apply progress moves even when DISM does not emit `%` lines.
 - Files created/modified:
   - `task_plan.md`
   - `findings.md`
