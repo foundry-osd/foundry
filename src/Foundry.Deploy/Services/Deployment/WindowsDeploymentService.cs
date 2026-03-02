@@ -522,13 +522,37 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         try
         {
+            string[] mountArguments =
+            [
+                "/Mount-Image",
+                $"/ImageFile:{winReImagePath}",
+                "/Index:1",
+                $"/MountDir:{mountPath}",
+                $"/ScratchDir:{scratchDirectory}"
+            ];
+
             mountProgress?.Report(0d);
-            await RunRequiredProcessAsync(
-                "dism.exe",
-                $"/Mount-Image /ImageFile:\"{winReImagePath}\" /Index:1 /MountDir:\"{mountPath}\" /ScratchDir:\"{scratchDirectory}\"",
-                workingDirectory,
-                "Failed to mount the Windows RE image",
-                cancellationToken).ConfigureAwait(false);
+            if (mountProgress is null)
+            {
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    mountArguments,
+                    workingDirectory,
+                    "Failed to mount the Windows RE image",
+                    cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                DismProgressReporter mountProgressReporter = new(mountProgress);
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    mountArguments,
+                    workingDirectory,
+                    "Failed to mount the Windows RE image",
+                    cancellationToken,
+                    mountProgressReporter.HandleOutput,
+                    mountProgressReporter.HandleOutput).ConfigureAwait(false);
+            }
 
             mounted = true;
             mountProgress?.Report(100d);
@@ -579,14 +603,31 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         {
             if (mounted)
             {
-                string unmountArguments = shouldCommit
-                    ? $"/Unmount-Image /MountDir:\"{mountPath}\" /Commit"
-                    : $"/Unmount-Image /MountDir:\"{mountPath}\" /Discard";
+                string[] unmountArguments = shouldCommit
+                    ? ["/Unmount-Image", $"/MountDir:{mountPath}", "/Commit"]
+                    : ["/Unmount-Image", $"/MountDir:{mountPath}", "/Discard"];
 
                 unmountProgress?.Report(0d);
-                ProcessExecutionResult unmountExecution = await _processRunner
-                    .RunAsync("dism.exe", unmountArguments, workingDirectory, cancellationToken)
-                    .ConfigureAwait(false);
+                ProcessExecutionResult unmountExecution;
+                if (unmountProgress is null)
+                {
+                    unmountExecution = await _processRunner
+                        .RunAsync("dism.exe", unmountArguments, workingDirectory, cancellationToken)
+                        .ConfigureAwait(false);
+                }
+                else
+                {
+                    DismProgressReporter unmountProgressReporter = new(unmountProgress);
+                    unmountExecution = await _processRunner
+                        .RunAsync(
+                            "dism.exe",
+                            unmountArguments,
+                            workingDirectory,
+                            unmountProgressReporter.HandleOutput,
+                            unmountProgressReporter.HandleOutput,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+                }
 
                 if (!unmountExecution.IsSuccess)
                 {

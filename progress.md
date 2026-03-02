@@ -25,6 +25,7 @@
   - Removed the transitional `PreparedDriverPath` runtime field and its summary output during a third cleanup pass.
   - Updated `DismProgressReporter` to parse `x of y` / `x sur y` output from `DISM /Add-Driver`, so DriverPack apply progress moves even when DISM does not emit `%` lines.
   - Added per-phase sub-progress resets for `Apply driver pack` and `Apply operating system image`, including distinct labels for repeated servicing phases.
+  - Extended WinRE `Mount-Image` and `Unmount-Image` to use `DismProgressReporter` too, so those phases can show real DISM progress instead of only a synthetic `0 -> 100`.
 - Files created/modified:
   - `task_plan.md`
   - `findings.md`
