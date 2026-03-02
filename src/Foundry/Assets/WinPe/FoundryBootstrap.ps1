@@ -356,7 +356,6 @@ try {
         New-Item -Path $BootstrapRoot -ItemType Directory -Force | Out-Null
     }
 
-    $ReleaseDescriptor = ''
     if (-not [string]::IsNullOrWhiteSpace($ArchiveOverride)) {
         if (-not [string]::IsNullOrWhiteSpace($ReleaseTagOverride)) {
             Write-Log "FOUNDRY_DEPLOY_ARCHIVE is set; ignoring FOUNDRY_RELEASE_TAG '$ReleaseTagOverride'."
@@ -368,7 +367,6 @@ try {
                 -SourceUrl $ArchiveOverride `
                 -DestinationPath $DownloadPath `
                 -Description "Foundry Deploy bootstrap override download ($RuntimeIdentifier)"
-            $ReleaseDescriptor = "archive-url:$ArchiveOverride"
         }
         else {
             if (-not (Test-Path -Path $ArchiveOverride -PathType Leaf)) {
@@ -378,7 +376,6 @@ try {
             Write-Log "Copying override archive from '$ArchiveOverride'."
             Remove-Item -Path $DownloadPath -Force -ErrorAction SilentlyContinue
             Copy-Item -Path $ArchiveOverride -Destination $DownloadPath -Force
-            $ReleaseDescriptor = "archive-file:$ArchiveOverride"
         }
 
         Verify-Sha256IfProvided -FilePath $DownloadPath -ExpectedSha256 $ArchiveOverrideSha256
@@ -413,7 +410,6 @@ try {
             -Description "Foundry Deploy bootstrap download ($RuntimeIdentifier)"
 
         Verify-DownloadDigestIfAvailable -Asset $Asset -FilePath $DownloadPath
-        $ReleaseDescriptor = "$($Release.tag_name)"
     }
 
     if (-not (Test-Path -Path $DownloadPath)) {
@@ -427,9 +423,6 @@ try {
     Expand-ZipVia7Zip -ArchivePath $DownloadPath -DestinationPath $ExtractPath -RuntimeIdentifier $RuntimeIdentifier
 
     $Executable = Resolve-DeployExecutable -RootPath $ExtractPath
-
-    $ReleaseInfoPath = Join-Path $BootstrapRoot 'latest-release.txt'
-    Set-Content -Path $ReleaseInfoPath -Value $ReleaseDescriptor -Encoding ascii
 
     Write-Log "Launching '$($Executable.FullName)'."
     Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null

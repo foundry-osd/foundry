@@ -41,13 +41,6 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             .ConfigureAwait(false);
 
         context.RuntimeState.DownloadedOperatingSystemPath = result.DestinationPath;
-        await context.UpdateCacheIndexAsync(
-            artifactType: "OperatingSystem",
-            sourceUrl: context.Request.OperatingSystem.Url,
-            destinationPath: result.DestinationPath,
-            sizeBytes: result.SizeBytes,
-            expectedHash: expectedOsHash,
-            cancellationToken: cancellationToken).ConfigureAwait(false);
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
             $"OS image {(result.Downloaded ? "downloaded" : "reused")} via {result.Method}: {result.DestinationPath}",

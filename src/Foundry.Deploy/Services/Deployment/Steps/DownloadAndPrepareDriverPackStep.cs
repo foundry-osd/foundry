@@ -79,13 +79,6 @@ public sealed class DownloadAndPrepareDriverPackStep : DeploymentStepBase
                     .ConfigureAwait(false);
 
                 context.RuntimeState.DownloadedDriverPackPath = download.DestinationPath;
-                await context.UpdateCacheIndexAsync(
-                    artifactType: "DriverPack",
-                    sourceUrl: driverPack.DownloadUrl,
-                    destinationPath: download.DestinationPath,
-                    sizeBytes: download.SizeBytes,
-                    expectedHash: driverPack.Sha256,
-                    cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 string extractionRoot = Path.Combine(targetFoundryRoot, "Extracted", "Drivers");
                 DriverPackPreparationResult preparation = await _driverPackPreparationService
