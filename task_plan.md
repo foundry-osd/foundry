@@ -68,3 +68,14 @@ Identify which deployment steps invoke DISM directly or through `WindowsDeployme
 - [x] Trace step-to-service call chains
 - [x] Summarize steps with single vs multi-phase DISM usage
 - **Status:** complete
+
+## Investigation: Deployment Progress Dead-Code Review (2026-03-02)
+
+### Goal
+Inspect the recent deployment-progress changes in `Foundry.Deploy` and identify any definitely dead code versus low-risk redundancy in the updated deployment services and steps.
+
+### Phases
+- [x] Review the recent commits touching deployment progress
+- [x] Trace references for the named interfaces, steps, and helpers
+- [x] Classify findings as definitely dead vs low-risk redundancy
+- **Status:** complete

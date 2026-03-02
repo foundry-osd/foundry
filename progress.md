@@ -69,3 +69,17 @@
   - `task_plan.md`
   - `findings.md`
   - `progress.md`
+
+## Session: 2026-03-02 (deployment progress dead-code review)
+
+### Phase 1: Review and reference tracing
+- **Status:** complete
+- **Started:** 2026-03-02
+- Actions taken:
+  - Reviewed the recent deployment-progress commits (`ccb6f27`, `e2146fc`) and the current implementations of the targeted deployment files.
+  - Traced call sites for the new progress parameters and helper methods to separate live members from likely leftovers.
+  - Confirmed there is no definitely dead code in the requested scope; only low-risk defensive redundancy remains.
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`

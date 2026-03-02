@@ -51,3 +51,15 @@
 - `ApplyOperatingSystemImageStep` chains three `IWindowsDeploymentService` calls that reach `dism.exe`: `ResolveImageIndexAsync` (`/Get-ImageInfo`), `ApplyImageAsync` (`/Apply-Image`), and `GetAppliedWindowsEditionAsync` (`/Get-CurrentEdition`).
 - `ApplyDriverPackStep` in `OfflineInf` mode always calls `ApplyOfflineDriversAsync` (`/Add-Driver` for the offline Windows image), and when WinRE is configured it also calls `ApplyRecoveryDriversAsync`, which performs `dism.exe /Mount-Image`, `dism.exe /Add-Driver`, and `dism.exe /Unmount-Image`.
 - No deployment step class launches `dism.exe` directly; the step classes route through `IWindowsDeploymentService`, and the actual DISM process launches are concentrated in `WindowsDeploymentService`.
+
+## Investigation: Deployment Progress Dead-Code Review (2026-03-02)
+
+### Requirements
+- Check the recent deployment-progress commits for the named deployment service/step types.
+- Distinguish definitely dead or unused members from benign redundancy.
+
+### Research Findings
+- No definitely dead or unreachable members were found in `IWindowsDeploymentService`, `WindowsDeploymentService`, `ApplyDriverPackStep`, `ApplyOperatingSystemImageStep`, or `DismProgressReporter` after tracing the current call sites.
+- The newly split `ApplyRecoveryDriversAsync` progress parameters (`mountProgress`, `applyProgress`, `unmountProgress`) are live end-to-end: declared in the interface, passed by `ApplyDriverPackStep`, and consumed in `WindowsDeploymentService`.
+- The likely cleanup candidate `MapProgress` in `ApplyDriverPackStep` is still used by deferred driver-pack staging, so it is not orphaned.
+- The only noticeable leftovers are low-risk redundancies: several explicit terminal `Report(100d)` calls can become no-ops when DISM already reported 100%, and the same `DismProgressReporter.HandleOutput` callback is intentionally attached to both stdout and stderr.
