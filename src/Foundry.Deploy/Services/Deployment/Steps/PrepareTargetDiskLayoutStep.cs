@@ -47,10 +47,7 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
             Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "DriverPack"));
         }
 
-        if (context.LogSession is not null)
-        {
-            await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
-        }
+        await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
@@ -76,10 +73,7 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         context.RuntimeState.TargetRecoveryPartitionLetter = 'R';
         context.RuntimeState.TargetFoundryRoot = Path.Combine(windowsRoot, "Foundry");
 
-        if (context.LogSession is not null)
-        {
-            await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
-        }
+        await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,

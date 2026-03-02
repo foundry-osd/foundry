@@ -60,11 +60,8 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
         string targetWindowsTempRoot = Path.Combine(context.RuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry");
         Directory.CreateDirectory(targetWindowsTempRoot);
 
-        if (context.LogSession is not null)
-        {
-            CopyDirectoryContents(context.LogSession.LogsDirectoryPath, Path.Combine(targetWindowsTempRoot, "Logs"));
-            CopyDirectoryContents(context.LogSession.StateDirectoryPath, Path.Combine(targetWindowsTempRoot, "State"));
-        }
+        CopyDirectoryContents(context.LogSession.LogsDirectoryPath, Path.Combine(targetWindowsTempRoot, "Logs"));
+        CopyDirectoryContents(context.LogSession.StateDirectoryPath, Path.Combine(targetWindowsTempRoot, "State"));
 
         string finalSummaryPath = Path.Combine(targetWindowsTempRoot, "deployment-summary.json");
         await WriteDeploymentSummaryAsync(finalSummaryPath, context.RuntimeState, cancellationToken).ConfigureAwait(false);

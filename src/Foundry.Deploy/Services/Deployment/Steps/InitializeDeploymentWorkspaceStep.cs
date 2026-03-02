@@ -11,17 +11,6 @@ public sealed class InitializeDeploymentWorkspaceStep : DeploymentStepBase
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         context.EnsureWorkspaceFolders();
-        if (context.LogSession is null)
-        {
-            var session = context.InitializeLogSession();
-            await context.AppendLogAsync(
-                DeploymentLogLevel.Info,
-                $"Log session initialized at '{session.RootPath}'.",
-                cancellationToken).ConfigureAwait(false);
-
-            return DeploymentStepResult.Succeeded("Workspace initialized.");
-        }
-
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
             "Workspace initialization confirmed.",
@@ -33,11 +22,6 @@ public sealed class InitializeDeploymentWorkspaceStep : DeploymentStepBase
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         context.EnsureWorkspaceFolders();
-        if (context.LogSession is null)
-        {
-            context.InitializeLogSession();
-        }
-
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
             "Debug safe mode log session initialized.",

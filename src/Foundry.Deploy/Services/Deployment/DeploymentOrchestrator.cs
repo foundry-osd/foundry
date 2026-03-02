@@ -207,7 +207,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return Path.Combine(effectiveRuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "Logs");
         }
 
-        if (executionContext?.LogSession is not null &&
+        if (executionContext is not null &&
             !string.IsNullOrWhiteSpace(executionContext.LogSession.LogsDirectoryPath))
         {
             return executionContext.LogSession.LogsDirectoryPath;

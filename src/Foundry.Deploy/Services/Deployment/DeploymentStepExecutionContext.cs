@@ -53,7 +53,7 @@ public sealed class DeploymentStepExecutionContext
 
     public IReadOnlyList<string> PlannedSteps { get; }
 
-    public DeploymentLogSession? LogSession { get; private set; }
+    public DeploymentLogSession LogSession { get; private set; }
 
     public int StepIndex { get; private set; }
 
@@ -110,45 +110,23 @@ public sealed class DeploymentStepExecutionContext
         _operationProgressService.Report(CalculateStepProgressPercent(StepIndex, StepCount), message);
     }
 
-    public DeploymentLogSession InitializeLogSession()
-    {
-        EnsureWorkspaceFolders();
-        LogSession = _deploymentLogService.Initialize(RuntimeState.WorkspaceRoot);
-        return LogSession;
-    }
-
     public Task AppendLogAsync(
         DeploymentLogLevel level,
         string message,
         CancellationToken cancellationToken = default)
     {
-        if (LogSession is null)
-        {
-            return Task.CompletedTask;
-        }
-
         return _deploymentLogService.AppendAsync(LogSession, level, message, cancellationToken);
     }
 
     public Task SaveRuntimeStateAsync(CancellationToken cancellationToken = default)
     {
-        if (LogSession is null)
-        {
-            return Task.CompletedTask;
-        }
-
         return _deploymentLogService.SaveStateAsync(LogSession, RuntimeState, cancellationToken);
     }
 
-    public async Task<DeploymentLogSession?> RebindLogSessionToTargetAsync(
+    public async Task RebindLogSessionToTargetAsync(
         string targetFoundryRoot,
         CancellationToken cancellationToken = default)
     {
-        if (LogSession is null)
-        {
-            return null;
-        }
-
         DeploymentLogSession rebound = _deploymentLogService.Initialize(targetFoundryRoot);
         CopyDirectoryContents(LogSession.LogsDirectoryPath, rebound.LogsDirectoryPath);
         CopyDirectoryContents(LogSession.StateDirectoryPath, rebound.StateDirectoryPath);
@@ -162,7 +140,6 @@ public sealed class DeploymentStepExecutionContext
             .ConfigureAwait(false);
 
         LogSession = rebound;
-        return rebound;
     }
 
     public async Task<(TargetDiskInfo? SelectedDisk, DeploymentStepResult? Failure)> TryGetValidatedTargetDiskAsync(
