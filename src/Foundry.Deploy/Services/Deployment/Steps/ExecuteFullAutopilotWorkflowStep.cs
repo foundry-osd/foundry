@@ -20,7 +20,7 @@ public sealed class ExecuteFullAutopilotWorkflowStep : DeploymentStepBase
         _hardwareProfileService = hardwareProfileService;
     }
 
-    public override int Order => 13;
+    public override int Order => 14;
 
     public override string Name => DeploymentStepNames.ExecuteFullAutopilotWorkflow;
 

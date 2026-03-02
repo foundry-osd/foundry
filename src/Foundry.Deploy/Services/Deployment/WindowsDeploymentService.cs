@@ -433,19 +433,47 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string driverRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null)
     {
         _logger.LogInformation("Applying offline drivers. DriverRoot={DriverRoot}, WindowsPartitionRoot={WindowsPartitionRoot}",
             driverRoot,
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
-        await RunRequiredProcessAsync(
-            "dism.exe",
-            $"/Image:\"{windowsPartitionRoot}\" /Add-Driver /Driver:\"{driverRoot}\" /Recurse /ScratchDir:\"{scratchDirectory}\"",
-            workingDirectory,
-            $"Offline driver injection failed for '{driverRoot}'",
-            cancellationToken).ConfigureAwait(false);
+        if (progress is null)
+        {
+            await RunRequiredProcessAsync(
+                "dism.exe",
+                [
+                    $"/Image:{windowsPartitionRoot}",
+                    "/Add-Driver",
+                    $"/Driver:{driverRoot}",
+                    "/Recurse",
+                    $"/ScratchDir:{scratchDirectory}"
+                ],
+                workingDirectory,
+                $"Offline driver injection failed for '{driverRoot}'",
+                cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            DismProgressReporter progressReporter = new(progress);
+            await RunRequiredProcessAsync(
+                "dism.exe",
+                [
+                    $"/Image:{windowsPartitionRoot}",
+                    "/Add-Driver",
+                    $"/Driver:{driverRoot}",
+                    "/Recurse",
+                    $"/ScratchDir:{scratchDirectory}"
+                ],
+                workingDirectory,
+                $"Offline driver injection failed for '{driverRoot}'",
+                cancellationToken,
+                progressReporter.HandleOutput,
+                progressReporter.HandleOutput).ConfigureAwait(false);
+        }
 
         _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
@@ -455,7 +483,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string driverRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null)
     {
         if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
         {
@@ -500,12 +529,39 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
             mounted = true;
 
-            await RunRequiredProcessAsync(
-                "dism.exe",
-                $"/Image:\"{mountPath}\" /Add-Driver /Driver:\"{driverRoot}\" /Recurse /ScratchDir:\"{scratchDirectory}\"",
-                workingDirectory,
-                $"Recovery driver injection failed for '{driverRoot}'",
-                cancellationToken).ConfigureAwait(false);
+            if (progress is null)
+            {
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    [
+                        $"/Image:{mountPath}",
+                        "/Add-Driver",
+                        $"/Driver:{driverRoot}",
+                        "/Recurse",
+                        $"/ScratchDir:{scratchDirectory}"
+                    ],
+                    workingDirectory,
+                    $"Recovery driver injection failed for '{driverRoot}'",
+                    cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                DismProgressReporter progressReporter = new(progress);
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    [
+                        $"/Image:{mountPath}",
+                        "/Add-Driver",
+                        $"/Driver:{driverRoot}",
+                        "/Recurse",
+                        $"/ScratchDir:{scratchDirectory}"
+                    ],
+                    workingDirectory,
+                    $"Recovery driver injection failed for '{driverRoot}'",
+                    cancellationToken,
+                    progressReporter.HandleOutput,
+                    progressReporter.HandleOutput).ConfigureAwait(false);
+            }
 
             shouldCommit = true;
         }

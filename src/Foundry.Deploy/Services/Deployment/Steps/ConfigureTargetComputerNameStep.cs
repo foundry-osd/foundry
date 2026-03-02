@@ -12,7 +12,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 9;
+    public override int Order => 10;
 
     public override string Name => DeploymentStepNames.ConfigureTargetComputerName;
 
