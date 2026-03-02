@@ -14,12 +14,13 @@
 - OSDCloud handles CAB/ZIP as offline-injectable, HP EXE with 7-Zip extraction, Lenovo EXE as deferred, and Surface MSI as deferred.
 - `Foundry.Deploy` builds successfully after the refactor.
 - A second pass found the old preparation layer (`IDriverPackPreparationService`, `DriverPackPreparationService`, `DriverPackPreparationResult`) fully orphaned after the refactor and safe to delete.
+- A third cleanup pass confirmed the remaining `PreparedDriverPath` compatibility alias was fully internal and safe to remove.
 
 ## Technical Decisions
 | Decision | Rationale |
 |----------|-----------|
 | Introduce explicit strategy and extraction services | Keeps step logic thin and testable |
-| Preserve `PreparedDriverPath` temporarily as a compatibility alias | Reduces regression risk while new state fields are introduced |
+| Remove `PreparedDriverPath` once the refactor is internally consistent | Avoids carrying a redundant state alias and duplicate summary data |
 | Add a reusable `SetupComplete` service | Avoids duplicating marker/idempotence logic with Autopilot |
 | Use 7-Zip progress parsing when possible and weighted/jump progress otherwise | Keeps extraction progress visible even when native progress is unavailable |
 | Split Microsoft Update Catalog into download and expand methods | Enables distinct deployment steps and separate progress states |

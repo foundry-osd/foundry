@@ -90,7 +90,6 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             extractedDriverPackPath = runtimeState.ExtractedDriverPackPath,
             deferredDriverPackagePath = runtimeState.DeferredDriverPackagePath,
             driverPackSetupCompleteHookPath = runtimeState.DriverPackSetupCompleteHookPath,
-            preparedDriverPath = runtimeState.PreparedDriverPath,
             targetSystemPartitionRoot = runtimeState.TargetSystemPartitionRoot,
             targetWindowsPartitionRoot = runtimeState.TargetWindowsPartitionRoot,
             targetRecoveryPartitionRoot = runtimeState.TargetRecoveryPartitionRoot,

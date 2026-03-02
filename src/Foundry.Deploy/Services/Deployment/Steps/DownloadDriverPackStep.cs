@@ -156,7 +156,6 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         runtimeState.ExtractedDriverPackPath = null;
         runtimeState.DeferredDriverPackagePath = null;
         runtimeState.DriverPackSetupCompleteHookPath = null;
-        runtimeState.PreparedDriverPath = null;
     }
 
     private static void ResetDirectory(string path)

@@ -51,7 +51,6 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         context.RuntimeState.DriverPackInstallMode = result.ExecutionPlan.InstallMode;
         context.RuntimeState.DriverPackExtractionMethod = result.ExecutionPlan.ExtractionMethod.ToString();
         context.RuntimeState.ExtractedDriverPackPath = result.ExtractedDirectoryPath;
-        context.RuntimeState.PreparedDriverPath = result.ExtractedDirectoryPath;
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
@@ -99,7 +98,6 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
             string infPath = Path.Combine(extractionPath, "dryrun.inf");
             await File.WriteAllTextAsync(infPath, "; dry-run only", cancellationToken).ConfigureAwait(false);
             context.RuntimeState.ExtractedDriverPackPath = extractionPath;
-            context.RuntimeState.PreparedDriverPath = extractionPath;
 
             await context.AppendLogAsync(
                 DeploymentLogLevel.Info,
@@ -109,7 +107,6 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         else
         {
             context.RuntimeState.ExtractedDriverPackPath = null;
-            context.RuntimeState.PreparedDriverPath = null;
             await context.AppendLogAsync(
                 DeploymentLogLevel.Info,
                 "[DRY-RUN] Simulated deferred driver pack preparation.",

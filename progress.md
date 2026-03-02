@@ -22,6 +22,7 @@
   - Added a shared `SetupComplete` service and integrated it into DriverPack staging and Autopilot.
   - Updated Windows driver injection to use safe DISM argument separation and progress callbacks.
   - Split Microsoft Update Catalog handling into separate download and expand phases.
+  - Removed the transitional `PreparedDriverPath` runtime field and its summary output during a third cleanup pass.
 - Files created/modified:
   - `task_plan.md`
   - `findings.md`
@@ -36,6 +37,7 @@
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
 | Build Foundry.Deploy | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Project compiles | Build succeeded with 0 warnings and 0 errors | ✓ |
+| Build after compatibility cleanup | `dotnet build src/Foundry.Deploy/Foundry.Deploy.csproj` | Project still compiles after removing `PreparedDriverPath` | Build succeeded with 0 warnings and 0 errors | ✓ |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
