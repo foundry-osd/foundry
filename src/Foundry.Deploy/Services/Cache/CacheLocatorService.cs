@@ -29,28 +29,25 @@ public sealed class CacheLocatorService : ICacheLocatorService
         _logger.LogInformation("Resolving cache strategy. Mode={Mode}, PreferredRootPath={PreferredRootPath}", mode, preferredRoot);
         CacheResolution resolution = mode switch
         {
-            DeploymentMode.Iso => ResolveIso(mode, preferredRoot),
-            _ => ResolveUsb(mode, preferredRoot)
+            DeploymentMode.Iso => ResolveIso(preferredRoot),
+            _ => ResolveUsb(preferredRoot)
         };
 
-        _logger.LogInformation("Resolved cache strategy. RootPath={RootPath}, Source={Source}, IsPersistent={IsPersistent}",
+        _logger.LogInformation("Resolved cache strategy. RootPath={RootPath}, Source={Source}",
             resolution.RootPath,
-            resolution.Source,
-            resolution.IsPersistent);
+            resolution.Source);
         return Task.FromResult(resolution);
     }
 
-    private static CacheResolution ResolveIso(DeploymentMode mode, string preferredRoot)
+    private static CacheResolution ResolveIso(string preferredRoot)
     {
         bool hasPreferred = !string.IsNullOrWhiteSpace(preferredRoot);
         return CreateResolution(
-            mode,
             hasPreferred ? preferredRoot : WinPeTransientRuntimeRoot,
-            hasPreferred ? "Preferred path" : "ISO policy root",
-            isPersistent: false);
+            hasPreferred ? "Preferred path" : "ISO policy root");
     }
 
-    private static CacheResolution ResolveUsb(DeploymentMode mode, string preferredRoot)
+    private static CacheResolution ResolveUsb(string preferredRoot)
     {
         // USB mode:
         // 1) honor explicit preferred path when it is not the WinPE transient placeholder
@@ -59,35 +56,31 @@ public sealed class CacheLocatorService : ICacheLocatorService
         if (!string.IsNullOrWhiteSpace(preferredRoot) &&
             !IsWinPeTransientPlaceholder(preferredRoot))
         {
-            return CreateResolution(mode, preferredRoot, "Preferred path", isPersistent: false);
+            return CreateResolution(preferredRoot, "Preferred path");
         }
 
         string? cacheRuntimePath = FindUsbCacheRuntimeRoot();
         if (!string.IsNullOrWhiteSpace(cacheRuntimePath))
         {
-            return CreateResolution(mode, cacheRuntimePath, "Detected USB cache partition", isPersistent: true);
+            return CreateResolution(cacheRuntimePath, "Detected USB cache partition");
         }
 
         if (!string.IsNullOrWhiteSpace(preferredRoot))
         {
-            return CreateResolution(mode, preferredRoot, "USB preferred transient root", isPersistent: false);
+            return CreateResolution(preferredRoot, "USB preferred transient root");
         }
 
-        return CreateResolution(mode, WinPeTransientRuntimeRoot, "USB fallback in WinPE temp", isPersistent: false);
+        return CreateResolution(WinPeTransientRuntimeRoot, "USB fallback in WinPE temp");
     }
 
     private static CacheResolution CreateResolution(
-        DeploymentMode mode,
         string rootPath,
-        string source,
-        bool isPersistent)
+        string source)
     {
         return new CacheResolution
         {
-            Mode = mode,
             RootPath = rootPath,
-            Source = source,
-            IsPersistent = isPersistent
+            Source = source
         };
     }
 
