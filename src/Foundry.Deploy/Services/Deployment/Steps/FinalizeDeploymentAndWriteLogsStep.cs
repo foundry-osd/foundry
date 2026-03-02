@@ -58,10 +58,7 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
         }
 
         string targetWindowsTempRoot = Path.Combine(context.RuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry");
-        Directory.CreateDirectory(targetWindowsTempRoot);
-
-        CopyDirectoryContents(context.LogSession.LogsDirectoryPath, Path.Combine(targetWindowsTempRoot, "Logs"));
-        CopyDirectoryContents(context.LogSession.StateDirectoryPath, Path.Combine(targetWindowsTempRoot, "State"));
+        await context.RebindLogSessionToTargetAsync(targetWindowsTempRoot, cancellationToken).ConfigureAwait(false);
 
         string finalSummaryPath = Path.Combine(targetWindowsTempRoot, "deployment-summary.json");
         await WriteDeploymentSummaryAsync(finalSummaryPath, context.RuntimeState, cancellationToken).ConfigureAwait(false);
@@ -139,30 +136,6 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
         catch
         {
             // Best-effort cleanup only.
-        }
-    }
-
-    private static void CopyDirectoryContents(string sourceDirectory, string destinationDirectory)
-    {
-        if (string.IsNullOrWhiteSpace(sourceDirectory) ||
-            !Directory.Exists(sourceDirectory) ||
-            sourceDirectory.Equals(destinationDirectory, StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
-        Directory.CreateDirectory(destinationDirectory);
-        foreach (string sourceFilePath in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
-        {
-            string relativePath = Path.GetRelativePath(sourceDirectory, sourceFilePath);
-            string destinationPath = Path.Combine(destinationDirectory, relativePath);
-            string? destinationFolder = Path.GetDirectoryName(destinationPath);
-            if (!string.IsNullOrWhiteSpace(destinationFolder))
-            {
-                Directory.CreateDirectory(destinationFolder);
-            }
-
-            File.Copy(sourceFilePath, destinationPath, overwrite: true);
         }
     }
 }
