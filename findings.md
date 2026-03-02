@@ -13,6 +13,7 @@
 - The driver catalog is dominated by `.exe` payloads, so treating only `.cab` and `.zip` as extractable is insufficient.
 - OSDCloud handles CAB/ZIP as offline-injectable, HP EXE with 7-Zip extraction, Lenovo EXE as deferred, and Surface MSI as deferred.
 - `Foundry.Deploy` builds successfully after the refactor.
+- A second pass found the old preparation layer (`IDriverPackPreparationService`, `DriverPackPreparationService`, `DriverPackPreparationResult`) fully orphaned after the refactor and safe to delete.
 
 ## Technical Decisions
 | Decision | Rationale |

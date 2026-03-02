@@ -30,6 +30,7 @@
   - `src/Foundry.Deploy/Services/Autopilot/AutopilotService.cs`
   - `src/Foundry.Deploy/Services/Deployment/*`
   - `src/Foundry.Deploy/Services/DriverPacks/*`
+  - Removed orphaned preparation-layer files after the second-pass dead-code review
 
 ## Test Results
 | Test | Input | Expected | Actual | Status |
