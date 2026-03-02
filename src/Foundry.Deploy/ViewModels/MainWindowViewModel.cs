@@ -657,7 +657,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         DeploymentProgress = 42;
         UpdateGlobalProgressVisuals(DeploymentProgress);
         ComputerNameText = TargetComputerName;
-        CurrentStepName = "Apply operating system image";
+        CurrentStepName = DeploymentStepNames.ApplyOperatingSystemImage;
         StepCounterText = BuildStepCounterText(8);
         CurrentStepProgress = 65;
         IsCurrentStepProgressIndeterminate = false;
@@ -674,7 +674,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         DeploymentProgress = 100;
         UpdateGlobalProgressVisuals(DeploymentProgress);
         ComputerNameText = TargetComputerName;
-        CurrentStepName = "Finalize deployment and write logs";
+        CurrentStepName = DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
         StepCounterText = BuildStepCounterText(_deploymentOrchestrator.PlannedSteps.Count);
         CurrentStepProgress = 100;
         IsCurrentStepProgressIndeterminate = false;
@@ -690,7 +690,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         ComputerNameText = TargetComputerName;
         StepCounterText = BuildStepCounterText(8);
         SetFailureDetails(
-            "Apply operating system image",
+            DeploymentStepNames.ApplyOperatingSystemImage,
             "Debug preview: DISM apply failed because the target partition is read-only.\n\n" +
             "ErrorCode=0x80070005\n" +
             "Details: Access denied while mounting image to target path.\n" +

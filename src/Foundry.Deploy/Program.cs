@@ -4,6 +4,7 @@ using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
@@ -156,6 +157,20 @@ public static class Program
         services.AddSingleton<IDriverPackPreparationService, DriverPackPreparationService>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<IAutopilotService, AutopilotService>();
+        services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
+        services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
+        services.AddSingleton<IDeploymentStep, ValidateTargetConfigurationStep>();
+        services.AddSingleton<IDeploymentStep, ResolveCacheStrategyStep>();
+        services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
+        services.AddSingleton<IDeploymentStep, DownloadOperatingSystemImageStep>();
+        services.AddSingleton<IDeploymentStep, DownloadAndPrepareDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, ApplyOperatingSystemImageStep>();
+        services.AddSingleton<IDeploymentStep, ConfigureTargetComputerNameStep>();
+        services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
+        services.AddSingleton<IDeploymentStep, ApplyOfflineDriversStep>();
+        services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
+        services.AddSingleton<IDeploymentStep, ExecuteFullAutopilotWorkflowStep>();
+        services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();
         services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
 
         return services.BuildServiceProvider();
