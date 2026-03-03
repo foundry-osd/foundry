@@ -83,6 +83,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IDriverPackCatalogService _driverPackCatalogService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IHardwareProfileService _hardwareProfileService;
+    private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private readonly IProcessRunner _processRunner;
@@ -304,6 +305,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IDriverPackCatalogService driverPackCatalogService,
         IDeploymentOrchestrator deploymentOrchestrator,
         IHardwareProfileService hardwareProfileService,
+        IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         ITargetDiskService targetDiskService,
         IDriverPackSelectionService driverPackSelectionService,
         IProcessRunner processRunner,
@@ -316,6 +318,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _driverPackCatalogService = driverPackCatalogService;
         _deploymentOrchestrator = deploymentOrchestrator;
         _hardwareProfileService = hardwareProfileService;
+        _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
         _processRunner = processRunner;
@@ -336,6 +339,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             DeploymentStatus = "Debug Safe Mode enabled: deployment actions are simulated.";
         }
 
+        _ = LoadOfflineComputerNameAsync();
         _ = LoadHardwareProfileAsync();
         _ = RefreshTargetDisksAsync();
         _ = RefreshCatalogsAsync();
@@ -2188,6 +2192,30 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string leftKey = string.IsNullOrWhiteSpace(left.Url) ? left.FileName : left.Url;
         string rightKey = string.IsNullOrWhiteSpace(right.Url) ? right.FileName : right.Url;
         return leftKey.Equals(rightKey, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private async Task LoadOfflineComputerNameAsync()
+    {
+        try
+        {
+            string? offlineName = await _offlineWindowsComputerNameService
+                .TryGetOfflineComputerNameAsync()
+                .ConfigureAwait(false);
+
+            if (!string.IsNullOrWhiteSpace(offlineName))
+            {
+                RunOnUi(() =>
+                {
+                    TargetComputerName = offlineName;
+                    ComputerNameText = offlineName;
+                    TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(offlineName);
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to load offline Windows computer name.");
+        }
     }
 
     private static string ResolveInitialComputerName()
