@@ -21,6 +21,7 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
     {
         string osDirectory = context.ResolveOperatingSystemCacheRoot();
         Directory.CreateDirectory(osDirectory);
+        const string stepMessage = "Downloading OS image...";
 
         string fileName = DeploymentStepExecutionContext.ResolveFileName(
             context.Request.OperatingSystem.FileName,
@@ -30,6 +31,7 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             context.Request.OperatingSystem.Sha256,
             context.Request.OperatingSystem.Sha1);
 
+        context.EmitCurrentStepIndeterminate(stepMessage, "Checking cache...");
         IProgress<DownloadProgress> osDownloadProgress = context.CreateDownloadProgressReporter("OS image");
         ArtifactDownloadResult result = await _artifactDownloadService
             .DownloadAsync(
@@ -46,7 +48,10 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             $"OS image {(result.Downloaded ? "downloaded" : "reused")} via {result.Method}: {result.DestinationPath}",
             cancellationToken).ConfigureAwait(false);
 
-        return DeploymentStepResult.Succeeded("Operating system image ready.");
+        return DeploymentStepResult.Succeeded(
+            result.Downloaded
+                ? "Operating system image downloaded."
+                : "Operating system image resolved from cache.");
     }
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

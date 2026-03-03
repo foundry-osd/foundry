@@ -27,6 +27,7 @@
   - Added per-phase sub-progress resets for `Apply driver pack` and `Apply operating system image`, including distinct labels for repeated servicing phases.
   - Extended WinRE `Mount-Image` and `Unmount-Image` to use `DismProgressReporter` too, so those phases can show real DISM progress instead of only a synthetic `0 -> 100`.
   - Replaced remaining synthetic phase jumps with `indeterminate` phase states when no true telemetry is available, while still switching to determinate mode automatically when real progress is parsed.
+  - Added a `Checking cache...` sub-phase to artifact-backed download steps and made cache-hit completions explicit without introducing a separate deployment step.
 - Files created/modified:
   - `task_plan.md`
   - `findings.md`
