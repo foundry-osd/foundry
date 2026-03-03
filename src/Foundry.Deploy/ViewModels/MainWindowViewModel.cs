@@ -935,7 +935,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (stepProgress.StepSubProgressPercent.HasValue)
         {
             double normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0d, 100d);
-            CurrentStepProgress = Math.Max(CurrentStepProgress, normalized);
+            CurrentStepProgress = normalized;
             IsCurrentStepProgressIndeterminate = false;
             CurrentStepProgressText = string.IsNullOrWhiteSpace(stepProgress.StepSubProgressLabel)
                 ? $"{normalized:0.#}%"

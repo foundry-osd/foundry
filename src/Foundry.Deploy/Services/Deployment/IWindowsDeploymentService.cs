@@ -51,14 +51,21 @@ public interface IWindowsDeploymentService
         string driverRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null);
 
     Task ApplyRecoveryDriversAsync(
         string recoveryPartitionRoot,
         string driverRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken = default,
+        IProgress<double>? mountProgress = null,
+        IProgress<double>? applyProgress = null,
+        IProgress<double>? unmountProgress = null,
+        Action? onMountStarted = null,
+        Action? onApplyStarted = null,
+        Action? onUnmountStarted = null);
 
     Task ConfigureBootAsync(
         string windowsPartitionRoot,

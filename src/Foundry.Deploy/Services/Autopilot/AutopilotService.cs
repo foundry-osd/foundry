@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
@@ -10,15 +11,18 @@ namespace Foundry.Deploy.Services.Autopilot;
 public sealed class AutopilotService : IAutopilotService
 {
     private const string GroupTag = "Foundry";
-    private const string MarkerBegin = "REM >>> FOUNDRY AUTOPILOT BEGIN";
-    private const string MarkerEnd = "REM <<< FOUNDRY AUTOPILOT END";
 
     private readonly IProcessRunner _processRunner;
+    private readonly ISetupCompleteScriptService _setupCompleteScriptService;
     private readonly ILogger<AutopilotService> _logger;
 
-    public AutopilotService(IProcessRunner processRunner, ILogger<AutopilotService> logger)
+    public AutopilotService(
+        IProcessRunner processRunner,
+        ISetupCompleteScriptService setupCompleteScriptService,
+        ILogger<AutopilotService> logger)
     {
         _processRunner = processRunner;
+        _setupCompleteScriptService = setupCompleteScriptService;
         _logger = logger;
     }
 
@@ -131,7 +135,7 @@ public sealed class AutopilotService : IAutopilotService
 
         string deferredScript = BuildDeferredScript();
         await File.WriteAllTextAsync(deferredScriptPath, deferredScript, cancellationToken).ConfigureAwait(false);
-        EnsureSetupCompleteHook(setupCompletePath);
+        _setupCompleteScriptService.EnsureBlock(setupCompletePath, "FOUNDRY AUTOPILOT", BuildSetupCompleteScriptBody());
         _logger.LogWarning("Autopilot online registration failed; deferred completion has been prepared. DeferredScriptPath={DeferredScriptPath}, SetupCompletePath={SetupCompletePath}",
             deferredScriptPath,
             setupCompletePath);
@@ -226,8 +230,8 @@ Get-WindowsAutopilotInfo -Online -Assign -GroupTag $groupTag -ErrorAction Stop |
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $groupTag = '__GROUPTAG__'
-$statusPath = 'C:\Windows\Temp\Foundry\Autopilot\autopilot-status.json'
-$csvPath = 'C:\Windows\Temp\Foundry\Autopilot\autopilot-device.csv'
+$statusPath = Join-Path $env:SystemRoot 'Temp\Foundry\Autopilot\autopilot-status.json'
+$csvPath = Join-Path $env:SystemRoot 'Temp\Foundry\Autopilot\autopilot-device.csv'
 $maxAttempts = 10
 $sleepSeconds = 30
 
@@ -340,33 +344,12 @@ try {{
         });
     }
 
-    private static void EnsureSetupCompleteHook(string setupCompletePath)
+    private static string BuildSetupCompleteScriptBody()
     {
-        string directory = Path.GetDirectoryName(setupCompletePath)
-            ?? throw new InvalidOperationException("Unable to resolve SetupComplete directory.");
-        Directory.CreateDirectory(directory);
-
-        string snippet =
-            $"{MarkerBegin}{Environment.NewLine}" +
-            "if exist \"C:\\Windows\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" (" + Environment.NewLine +
-            "  powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Windows\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" >> \"C:\\Windows\\Temp\\Foundry\\Autopilot\\deferred-autopilot-transcript.log\" 2>&1" + Environment.NewLine +
-            ")" + Environment.NewLine +
-            $"{MarkerEnd}{Environment.NewLine}";
-
-        if (!File.Exists(setupCompletePath))
-        {
-            File.WriteAllText(setupCompletePath, "@echo off" + Environment.NewLine + snippet);
-            return;
-        }
-
-        string existing = File.ReadAllText(setupCompletePath);
-        if (existing.Contains(MarkerBegin, StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
-        string separator = existing.EndsWith(Environment.NewLine, StringComparison.Ordinal) ? string.Empty : Environment.NewLine;
-        File.WriteAllText(setupCompletePath, existing + separator + snippet);
+        return
+            "if exist \"%SystemRoot%\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" (" + Environment.NewLine +
+            "  powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" >> \"%SystemRoot%\\Temp\\Foundry\\Autopilot\\deferred-autopilot-transcript.log\" 2>&1" + Environment.NewLine +
+            ")";
     }
 
     private static string BuildTranscript(ProcessExecutionResult execution)

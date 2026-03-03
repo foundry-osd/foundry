@@ -11,7 +11,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
     private const int EfiPartitionSizeMb = 260;
     private const int MsrPartitionSizeMb = 16;
-    private const int RecoveryPartitionSizeMb = 2048;
+    private const int RecoveryPartitionSizeMb = 5120;
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
@@ -203,6 +203,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 cancellationToken,
                 progressReporter.HandleOutput,
                 progressReporter.HandleOutput).ConfigureAwait(false);
+
+            if (progressReporter.HasReportedProgress)
+            {
+                progress.Report(100d);
+            }
         }
 
         _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
@@ -433,19 +438,52 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string driverRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null)
     {
         _logger.LogInformation("Applying offline drivers. DriverRoot={DriverRoot}, WindowsPartitionRoot={WindowsPartitionRoot}",
             driverRoot,
             windowsPartitionRoot);
         Directory.CreateDirectory(scratchDirectory);
 
-        await RunRequiredProcessAsync(
-            "dism.exe",
-            $"/Image:\"{windowsPartitionRoot}\" /Add-Driver /Driver:\"{driverRoot}\" /Recurse /ScratchDir:\"{scratchDirectory}\"",
-            workingDirectory,
-            $"Offline driver injection failed for '{driverRoot}'",
-            cancellationToken).ConfigureAwait(false);
+        if (progress is null)
+        {
+            await RunRequiredProcessAsync(
+                "dism.exe",
+                [
+                    $"/Image:{windowsPartitionRoot}",
+                    "/Add-Driver",
+                    $"/Driver:{driverRoot}",
+                    "/Recurse",
+                    $"/ScratchDir:{scratchDirectory}"
+                ],
+                workingDirectory,
+                $"Offline driver injection failed for '{driverRoot}'",
+                cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            DismProgressReporter progressReporter = new(progress);
+            await RunRequiredProcessAsync(
+                "dism.exe",
+                [
+                    $"/Image:{windowsPartitionRoot}",
+                    "/Add-Driver",
+                    $"/Driver:{driverRoot}",
+                    "/Recurse",
+                    $"/ScratchDir:{scratchDirectory}"
+                ],
+                workingDirectory,
+                $"Offline driver injection failed for '{driverRoot}'",
+                cancellationToken,
+                progressReporter.HandleOutput,
+                progressReporter.HandleOutput).ConfigureAwait(false);
+
+            if (progressReporter.HasReportedProgress)
+            {
+                progress.Report(100d);
+            }
+        }
 
         _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
@@ -455,7 +493,13 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string driverRoot,
         string scratchDirectory,
         string workingDirectory,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IProgress<double>? mountProgress = null,
+        IProgress<double>? applyProgress = null,
+        IProgress<double>? unmountProgress = null,
+        Action? onMountStarted = null,
+        Action? onApplyStarted = null,
+        Action? onUnmountStarted = null)
     {
         if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
         {
@@ -491,23 +535,86 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         try
         {
-            await RunRequiredProcessAsync(
-                "dism.exe",
-                $"/Mount-Image /ImageFile:\"{winReImagePath}\" /Index:1 /MountDir:\"{mountPath}\" /ScratchDir:\"{scratchDirectory}\"",
-                workingDirectory,
-                "Failed to mount the Windows RE image",
-                cancellationToken).ConfigureAwait(false);
+            string[] mountArguments =
+            [
+                "/Mount-Image",
+                $"/ImageFile:{winReImagePath}",
+                "/Index:1",
+                $"/MountDir:{mountPath}",
+                $"/ScratchDir:{scratchDirectory}"
+            ];
+
+            onMountStarted?.Invoke();
+            DismProgressReporter? mountProgressReporter = null;
+            if (mountProgress is null)
+            {
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    mountArguments,
+                    workingDirectory,
+                    "Failed to mount the Windows RE image",
+                    cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                mountProgressReporter = new(mountProgress);
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    mountArguments,
+                    workingDirectory,
+                    "Failed to mount the Windows RE image",
+                    cancellationToken,
+                    mountProgressReporter.HandleOutput,
+                    mountProgressReporter.HandleOutput).ConfigureAwait(false);
+            }
 
             mounted = true;
+            if (mountProgressReporter is not null && mountProgressReporter.HasReportedProgress)
+            {
+                mountProgress!.Report(100d);
+            }
 
-            await RunRequiredProcessAsync(
-                "dism.exe",
-                $"/Image:\"{mountPath}\" /Add-Driver /Driver:\"{driverRoot}\" /Recurse /ScratchDir:\"{scratchDirectory}\"",
-                workingDirectory,
-                $"Recovery driver injection failed for '{driverRoot}'",
-                cancellationToken).ConfigureAwait(false);
+            onApplyStarted?.Invoke();
+            DismProgressReporter? progressReporter = null;
+            if (applyProgress is null)
+            {
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    [
+                        $"/Image:{mountPath}",
+                        "/Add-Driver",
+                        $"/Driver:{driverRoot}",
+                        "/Recurse",
+                        $"/ScratchDir:{scratchDirectory}"
+                    ],
+                    workingDirectory,
+                    $"Recovery driver injection failed for '{driverRoot}'",
+                    cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                progressReporter = new(applyProgress);
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    [
+                        $"/Image:{mountPath}",
+                        "/Add-Driver",
+                        $"/Driver:{driverRoot}",
+                        "/Recurse",
+                        $"/ScratchDir:{scratchDirectory}"
+                    ],
+                    workingDirectory,
+                    $"Recovery driver injection failed for '{driverRoot}'",
+                    cancellationToken,
+                    progressReporter.HandleOutput,
+                    progressReporter.HandleOutput).ConfigureAwait(false);
+            }
 
             shouldCommit = true;
+            if (progressReporter is not null && progressReporter.HasReportedProgress)
+            {
+                applyProgress!.Report(100d);
+            }
         }
         catch (Exception ex)
         {
@@ -517,13 +624,32 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         {
             if (mounted)
             {
-                string unmountArguments = shouldCommit
-                    ? $"/Unmount-Image /MountDir:\"{mountPath}\" /Commit"
-                    : $"/Unmount-Image /MountDir:\"{mountPath}\" /Discard";
+                string[] unmountArguments = shouldCommit
+                    ? ["/Unmount-Image", $"/MountDir:{mountPath}", "/Commit"]
+                    : ["/Unmount-Image", $"/MountDir:{mountPath}", "/Discard"];
 
-                ProcessExecutionResult unmountExecution = await _processRunner
-                    .RunAsync("dism.exe", unmountArguments, workingDirectory, cancellationToken)
-                    .ConfigureAwait(false);
+                onUnmountStarted?.Invoke();
+                ProcessExecutionResult unmountExecution;
+                DismProgressReporter? unmountProgressReporter = null;
+                if (unmountProgress is null)
+                {
+                    unmountExecution = await _processRunner
+                        .RunAsync("dism.exe", unmountArguments, workingDirectory, cancellationToken)
+                        .ConfigureAwait(false);
+                }
+                else
+                {
+                    unmountProgressReporter = new(unmountProgress);
+                    unmountExecution = await _processRunner
+                        .RunAsync(
+                            "dism.exe",
+                            unmountArguments,
+                            workingDirectory,
+                            unmountProgressReporter.HandleOutput,
+                            unmountProgressReporter.HandleOutput,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+                }
 
                 if (!unmountExecution.IsSuccess)
                 {
@@ -535,6 +661,13 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                         : new InvalidOperationException(
                             $"Windows RE servicing failed and the image could not be unmounted cleanly.{Environment.NewLine}{diagnostic}",
                             pendingException);
+                }
+                else
+                {
+                    if (unmountProgressReporter is not null && unmountProgressReporter.HasReportedProgress)
+                    {
+                        unmountProgress!.Report(100d);
+                    }
                 }
             }
 

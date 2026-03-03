@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Cache;
+using Foundry.Deploy.Services.DriverPacks;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -28,7 +29,11 @@ public sealed record DeploymentRuntimeState
     public string? DriverPackName { get; set; }
     public string? DriverPackUrl { get; set; }
     public string? DownloadedDriverPackPath { get; set; }
-    public string? PreparedDriverPath { get; set; }
+    public DriverPackInstallMode DriverPackInstallMode { get; set; } = DriverPackInstallMode.None;
+    public string? DriverPackExtractionMethod { get; set; }
+    public string? ExtractedDriverPackPath { get; set; }
+    public string? DeferredDriverPackagePath { get; set; }
+    public string? DriverPackSetupCompleteHookPath { get; set; }
     public string? AutopilotWorkflowPath { get; set; }
     public string? TargetFoundryRoot { get; set; }
     public string? DeploymentSummaryPath { get; set; }

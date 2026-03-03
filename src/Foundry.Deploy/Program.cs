@@ -154,8 +154,10 @@ public static class Program
         services.AddSingleton<IDriverPackSelectionService, DriverPackSelectionService>();
         services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();
         services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
-        services.AddSingleton<IDriverPackPreparationService, DriverPackPreparationService>();
+        services.AddSingleton<IDriverPackStrategyResolver, DriverPackStrategyResolver>();
+        services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
+        services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IAutopilotService, AutopilotService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
@@ -163,11 +165,12 @@ public static class Program
         services.AddSingleton<IDeploymentStep, ResolveCacheStrategyStep>();
         services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
         services.AddSingleton<IDeploymentStep, DownloadOperatingSystemImageStep>();
-        services.AddSingleton<IDeploymentStep, DownloadAndPrepareDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ApplyOperatingSystemImageStep>();
         services.AddSingleton<IDeploymentStep, ConfigureTargetComputerNameStep>();
         services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
-        services.AddSingleton<IDeploymentStep, ApplyOfflineDriversStep>();
+        services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
         services.AddSingleton<IDeploymentStep, ExecuteFullAutopilotWorkflowStep>();
         services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();
