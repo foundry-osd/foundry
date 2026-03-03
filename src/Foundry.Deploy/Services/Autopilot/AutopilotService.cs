@@ -230,8 +230,8 @@ Get-WindowsAutopilotInfo -Online -Assign -GroupTag $groupTag -ErrorAction Stop |
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $groupTag = '__GROUPTAG__'
-$statusPath = 'C:\Windows\Temp\Foundry\Autopilot\autopilot-status.json'
-$csvPath = 'C:\Windows\Temp\Foundry\Autopilot\autopilot-device.csv'
+$statusPath = Join-Path $env:SystemRoot 'Temp\Foundry\Autopilot\autopilot-status.json'
+$csvPath = Join-Path $env:SystemRoot 'Temp\Foundry\Autopilot\autopilot-device.csv'
 $maxAttempts = 10
 $sleepSeconds = 30
 
@@ -347,8 +347,8 @@ try {{
     private static string BuildSetupCompleteScriptBody()
     {
         return
-            "if exist \"C:\\Windows\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" (" + Environment.NewLine +
-            "  powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Windows\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" >> \"C:\\Windows\\Temp\\Foundry\\Autopilot\\deferred-autopilot-transcript.log\" 2>&1" + Environment.NewLine +
+            "if exist \"%SystemRoot%\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" (" + Environment.NewLine +
+            "  powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\Autopilot\\Invoke-FoundryAutopilot-Deferred.ps1\" >> \"%SystemRoot%\\Temp\\Foundry\\Autopilot\\deferred-autopilot-transcript.log\" 2>&1" + Environment.NewLine +
             ")";
     }
 

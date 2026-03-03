@@ -63,3 +63,15 @@
 - The newly split `ApplyRecoveryDriversAsync` progress parameters (`mountProgress`, `applyProgress`, `unmountProgress`) are live end-to-end: declared in the interface, passed by `ApplyDriverPackStep`, and consumed in `WindowsDeploymentService`.
 - The likely cleanup candidate `MapProgress` in `ApplyDriverPackStep` is still used by deferred driver-pack staging, so it is not orphaned.
 - The only noticeable leftovers are low-risk redundancies: several explicit terminal `Report(100d)` calls can become no-ops when DISM already reported 100%, and the same `DismProgressReporter.HandleOutput` callback is intentionally attached to both stdout and stderr.
+
+## Investigation: Lenovo and Microsoft Driver Application Flow (2026-03-03)
+
+### Requirements
+- Identify exactly where Lenovo and Microsoft driver packages are downloaded, extracted, and applied during deployment.
+- Call out the conditions that choose offline INF injection versus deferred first-boot staging.
+- Provide concrete file references with line numbers for the main control-flow points.
+
+### Research Findings
+- The deployment pipeline registers `DownloadDriverPackStep`, `ExtractDriverPackStep`, and `ApplyDriverPackStep` in sequence between OS image download and finalization.
+- `ApplyDriverPackStep` dispatches entirely from `context.RuntimeState.DriverPackInstallMode`, so the strategy chosen during extraction determines whether drivers are injected offline or only staged for `SetupComplete.cmd`.
+- `WindowsDeploymentService` remains the only service in the deployment stack that directly shells out to `dism.exe`; step classes delegate driver injection to it.

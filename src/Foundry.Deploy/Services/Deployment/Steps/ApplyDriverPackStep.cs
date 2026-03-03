@@ -143,7 +143,15 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             "Foundry",
             "DriverPack",
             "Packages");
-        string targetPackagePath = Path.Combine(packagesDirectory, Path.GetFileName(sourcePath));
+        string packageFileName = Path.GetFileName(sourcePath);
+        string targetPackagePath = Path.Combine(packagesDirectory, packageFileName);
+        string runtimePackagePath = Path.Combine(
+            "%SystemRoot%",
+            "Temp",
+            "Foundry",
+            "DriverPack",
+            "Packages",
+            packageFileName);
         string setupCompletePath = Path.Combine(
             context.RuntimeState.TargetWindowsPartitionRoot,
             "Windows",
@@ -160,7 +168,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             .ConfigureAwait(false);
 
         stepProgress.Report(85d);
-        string scriptBody = BuildDeferredScript(targetPackagePath, executionPlan.DeferredCommandKind);
+        string scriptBody = BuildDeferredScript(runtimePackagePath, executionPlan.DeferredCommandKind);
         _setupCompleteScriptService.EnsureBlock(setupCompletePath, "FOUNDRY DRIVERPACK", scriptBody);
 
         context.RuntimeState.DeferredDriverPackagePath = targetPackagePath;

@@ -84,3 +84,17 @@
   - `task_plan.md`
   - `findings.md`
   - `progress.md`
+
+## Session: 2026-03-03 (Lenovo and Microsoft driver-application investigation)
+
+### Phase 1: Pipeline discovery
+- **Status:** in_progress
+- **Started:** 2026-03-03
+- Actions taken:
+  - Read the existing planning files to avoid clobbering prior investigation context.
+  - Located the deployment step registrations and searched the driver-pack services for Lenovo and Microsoft-specific logic.
+  - Confirmed the current driver-pack pipeline is split into download, extract, and apply steps, with `WindowsDeploymentService` handling actual DISM execution.
+- Files created/modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`

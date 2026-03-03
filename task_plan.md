@@ -79,3 +79,15 @@ Inspect the recent deployment-progress changes in `Foundry.Deploy` and identify 
 - [x] Trace references for the named interfaces, steps, and helpers
 - [x] Classify findings as definitely dead vs low-risk redundancy
 - **Status:** complete
+
+## Investigation: Lenovo and Microsoft Driver Application Flow (2026-03-03)
+
+### Goal
+Trace the exact deployment control flow that applies Lenovo and Microsoft drivers to the target Windows image, including step ordering, strategy decisions, and the `WindowsDeploymentService` calls that actually inject offline drivers.
+
+### Phases
+- [x] Identify the registered deployment steps for driver-pack handling
+- [ ] Trace Microsoft Update Catalog flow through download, extract, and apply
+- [ ] Trace Lenovo OEM flow through extract/apply and deferred staging
+- [ ] Summarize exact methods, conditions, and file/line references for delivery
+- **Status:** in_progress
