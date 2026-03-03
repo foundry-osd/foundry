@@ -164,11 +164,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string currentStepProgressText = "Waiting for progress...";
 
     [ObservableProperty]
-    private string computerNameText = ResolveInitialComputerName();
+    private string computerNameText = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private string targetComputerName = ResolveInitialComputerName();
+    private string targetComputerName = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
@@ -327,7 +327,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
         _resolvedDeploymentMode = resolvedMode;
         _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
-        TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(TargetComputerName);
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -2196,26 +2195,34 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private async Task LoadOfflineComputerNameAsync()
     {
+        string? resolvedName = null;
         try
         {
-            string? offlineName = await _offlineWindowsComputerNameService
+            resolvedName = await _offlineWindowsComputerNameService
                 .TryGetOfflineComputerNameAsync()
                 .ConfigureAwait(false);
-
-            if (!string.IsNullOrWhiteSpace(offlineName))
-            {
-                RunOnUi(() =>
-                {
-                    TargetComputerName = offlineName;
-                    ComputerNameText = offlineName;
-                    TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(offlineName);
-                });
-            }
         }
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Failed to load offline Windows computer name.");
         }
+
+        string effectiveName = !string.IsNullOrWhiteSpace(resolvedName)
+            ? resolvedName
+            : ResolveInitialComputerName();
+
+        RunOnUi(() =>
+        {
+            // Only apply if the user hasn't typed anything yet.
+            if (!string.IsNullOrEmpty(TargetComputerName))
+            {
+                return;
+            }
+
+            TargetComputerName = effectiveName;
+            ComputerNameText = effectiveName;
+            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(effectiveName);
+        });
     }
 
     private static string ResolveInitialComputerName()
