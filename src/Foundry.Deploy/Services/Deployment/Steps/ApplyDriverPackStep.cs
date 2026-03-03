@@ -69,8 +69,8 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         bool applyRecovery = context.RuntimeState.WinReConfigured &&
                              !string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot);
 
+        context.EmitCurrentStepIndeterminate(stepMessage, "Applying Windows drivers...");
         IProgress<double> windowsProgress = context.CreateStepPercentProgressReporter(stepMessage, "Applying Windows drivers");
-        windowsProgress.Report(0d);
 
         await _windowsDeploymentService
             .ApplyOfflineDriversAsync(
@@ -81,7 +81,6 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                 cancellationToken,
                 windowsProgress)
             .ConfigureAwait(false);
-        windowsProgress.Report(100d);
 
         if (applyRecovery)
         {
@@ -98,7 +97,10 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                     cancellationToken,
                     mountProgress: mountRecoveryProgress,
                     applyProgress: applyRecoveryProgress,
-                    unmountProgress: unmountRecoveryProgress)
+                    unmountProgress: unmountRecoveryProgress,
+                    onMountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Mounting WinRE..."),
+                    onApplyStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Applying WinRE drivers..."),
+                    onUnmountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Unmounting WinRE..."))
                 .ConfigureAwait(false);
         }
 
@@ -159,7 +161,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             "Scripts",
             "SetupComplete.cmd");
 
-        stepProgress.Report(0d);
+        context.EmitCurrentStepIndeterminate("Applying driver pack...", "Staging package...");
         await CopyFileWithProgressAsync(
                 sourcePath,
                 targetPackagePath,
@@ -167,13 +169,12 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                 cancellationToken)
             .ConfigureAwait(false);
 
-        stepProgress.Report(85d);
+        context.EmitCurrentStepIndeterminate("Applying driver pack...", "Updating SetupComplete hook...");
         string scriptBody = BuildDeferredScript(runtimePackagePath, executionPlan.DeferredCommandKind);
         _setupCompleteScriptService.EnsureBlock(setupCompletePath, "FOUNDRY DRIVERPACK", scriptBody);
 
         context.RuntimeState.DeferredDriverPackagePath = targetPackagePath;
         context.RuntimeState.DriverPackSetupCompleteHookPath = setupCompletePath;
-        stepProgress.Report(100d);
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Warning,

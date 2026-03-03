@@ -26,6 +26,7 @@
   - Updated `DismProgressReporter` to parse `x of y` / `x sur y` output from `DISM /Add-Driver`, so DriverPack apply progress moves even when DISM does not emit `%` lines.
   - Added per-phase sub-progress resets for `Apply driver pack` and `Apply operating system image`, including distinct labels for repeated servicing phases.
   - Extended WinRE `Mount-Image` and `Unmount-Image` to use `DismProgressReporter` too, so those phases can show real DISM progress instead of only a synthetic `0 -> 100`.
+  - Replaced remaining synthetic phase jumps with `indeterminate` phase states when no true telemetry is available, while still switching to determinate mode automatically when real progress is parsed.
 - Files created/modified:
   - `task_plan.md`
   - `findings.md`

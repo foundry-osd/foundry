@@ -62,7 +62,10 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default,
         IProgress<double>? mountProgress = null,
         IProgress<double>? applyProgress = null,
-        IProgress<double>? unmountProgress = null);
+        IProgress<double>? unmountProgress = null,
+        Action? onMountStarted = null,
+        Action? onApplyStarted = null,
+        Action? onUnmountStarted = null);
 
     Task ConfigureBootAsync(
         string windowsPartitionRoot,

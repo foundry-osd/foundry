@@ -25,6 +25,7 @@
 | Use 7-Zip progress parsing when possible and weighted/jump progress otherwise | Keeps extraction progress visible even when native progress is unavailable |
 | Split Microsoft Update Catalog into download and expand methods | Enables distinct deployment steps and separate progress states |
 | Reset step sub-progress by phase for multi-operation servicing steps | Makes repeated DISM operations visible (`mount`, `apply`, `unmount`) instead of forcing one monotonically increasing sub-bar |
+| Prefer indeterminate phase state over synthetic `0 -> 100` jumps when telemetry is unavailable | Avoids showing fake precision while still keeping the active phase visible |
 
 ## Issues Encountered
 | Issue | Resolution |

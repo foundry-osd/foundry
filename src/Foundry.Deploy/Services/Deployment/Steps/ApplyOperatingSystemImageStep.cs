@@ -35,19 +35,16 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         Directory.CreateDirectory(workingDirectory);
         const string applyStepMessage = "Applying OS image...";
 
-        IProgress<double> inspectImageProgress = context.CreateStepPercentProgressReporter(applyStepMessage, "Inspecting image");
-        inspectImageProgress.Report(0d);
-
+        context.EmitCurrentStepIndeterminate(applyStepMessage, "Inspecting image...");
         int imageIndex = await _windowsDeploymentService
             .ResolveImageIndexAsync(imagePath, context.Request.OperatingSystem.Edition, workingDirectory, cancellationToken)
             .ConfigureAwait(false);
-        inspectImageProgress.Report(100d);
 
         context.RuntimeState.AppliedImageIndex = imageIndex;
 
         string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
+        context.EmitCurrentStepIndeterminate(applyStepMessage, "Applying image...");
         IProgress<double> applyImageProgress = context.CreateStepPercentProgressReporter(applyStepMessage, "Applying image");
-        applyImageProgress.Report(0d);
 
         await _windowsDeploymentService
             .ApplyImageAsync(
@@ -59,11 +56,8 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 cancellationToken,
                 applyImageProgress)
             .ConfigureAwait(false);
-        applyImageProgress.Report(100d);
 
-        IProgress<double> bootProgress = context.CreateStepPercentProgressReporter(applyStepMessage, "Configuring boot");
-        bootProgress.Report(0d);
-
+        context.EmitCurrentStepIndeterminate(applyStepMessage, "Configuring boot...");
         await _windowsDeploymentService
             .ConfigureBootAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
@@ -72,11 +66,8 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 workingDirectory,
                 cancellationToken)
             .ConfigureAwait(false);
-        bootProgress.Report(100d);
 
-        IProgress<double> verifyImageProgress = context.CreateStepPercentProgressReporter(applyStepMessage, "Verifying image");
-        verifyImageProgress.Report(0d);
-
+        context.EmitCurrentStepIndeterminate(applyStepMessage, "Verifying image...");
         try
         {
             string? appliedEdition = await _windowsDeploymentService
@@ -102,10 +93,6 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 DeploymentLogLevel.Warning,
                 $"Unable to verify the applied Windows edition: {ex.Message}",
                 cancellationToken).ConfigureAwait(false);
-        }
-        finally
-        {
-            verifyImageProgress.Report(100d);
         }
 
         await context.AppendLogAsync(

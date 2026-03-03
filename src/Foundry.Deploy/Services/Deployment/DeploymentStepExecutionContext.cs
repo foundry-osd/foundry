@@ -104,6 +104,16 @@ public sealed class DeploymentStepExecutionContext
         });
     }
 
+    public void EmitCurrentStepIndeterminate(string stepMessage, string stepSubProgressLabel)
+    {
+        EmitCurrentStep(
+            DeploymentStepState.Running,
+            stepMessage,
+            stepSubProgressPercent: null,
+            stepSubProgressIndeterminate: true,
+            stepSubProgressLabel: stepSubProgressLabel);
+    }
+
     public void ReportCurrentStepProgress(string message)
     {
         _operationProgressService.Report(CalculateStepProgressPercent(StepIndex, StepCount), message);

@@ -17,6 +17,17 @@ internal sealed class DismProgressReporter
         _progress = progress ?? throw new ArgumentNullException(nameof(progress));
     }
 
+    public bool HasReportedProgress
+    {
+        get
+        {
+            lock (_sync)
+            {
+                return !double.IsNaN(_lastReportedPercent);
+            }
+        }
+    }
+
     public void HandleOutput(string line)
     {
         if (!TryParseProgress(line, out double percent))

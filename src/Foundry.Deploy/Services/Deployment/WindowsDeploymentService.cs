@@ -203,6 +203,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 cancellationToken,
                 progressReporter.HandleOutput,
                 progressReporter.HandleOutput).ConfigureAwait(false);
+
+            if (progressReporter.HasReportedProgress)
+            {
+                progress.Report(100d);
+            }
         }
 
         _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
@@ -473,6 +478,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 cancellationToken,
                 progressReporter.HandleOutput,
                 progressReporter.HandleOutput).ConfigureAwait(false);
+
+            if (progressReporter.HasReportedProgress)
+            {
+                progress.Report(100d);
+            }
         }
 
         _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
@@ -486,7 +496,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         CancellationToken cancellationToken = default,
         IProgress<double>? mountProgress = null,
         IProgress<double>? applyProgress = null,
-        IProgress<double>? unmountProgress = null)
+        IProgress<double>? unmountProgress = null,
+        Action? onMountStarted = null,
+        Action? onApplyStarted = null,
+        Action? onUnmountStarted = null)
     {
         if (string.IsNullOrWhiteSpace(recoveryPartitionRoot))
         {
@@ -531,7 +544,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 $"/ScratchDir:{scratchDirectory}"
             ];
 
-            mountProgress?.Report(0d);
+            onMountStarted?.Invoke();
+            DismProgressReporter? mountProgressReporter = null;
             if (mountProgress is null)
             {
                 await RunRequiredProcessAsync(
@@ -543,7 +557,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             }
             else
             {
-                DismProgressReporter mountProgressReporter = new(mountProgress);
+                mountProgressReporter = new(mountProgress);
                 await RunRequiredProcessAsync(
                     "dism.exe",
                     mountArguments,
@@ -555,9 +569,13 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             }
 
             mounted = true;
-            mountProgress?.Report(100d);
+            if (mountProgressReporter is not null && mountProgressReporter.HasReportedProgress)
+            {
+                mountProgress!.Report(100d);
+            }
 
-            applyProgress?.Report(0d);
+            onApplyStarted?.Invoke();
+            DismProgressReporter? progressReporter = null;
             if (applyProgress is null)
             {
                 await RunRequiredProcessAsync(
@@ -575,7 +593,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             }
             else
             {
-                DismProgressReporter progressReporter = new(applyProgress);
+                progressReporter = new(applyProgress);
                 await RunRequiredProcessAsync(
                     "dism.exe",
                     [
@@ -593,7 +611,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             }
 
             shouldCommit = true;
-            applyProgress?.Report(100d);
+            if (progressReporter is not null && progressReporter.HasReportedProgress)
+            {
+                applyProgress!.Report(100d);
+            }
         }
         catch (Exception ex)
         {
@@ -607,8 +628,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                     ? ["/Unmount-Image", $"/MountDir:{mountPath}", "/Commit"]
                     : ["/Unmount-Image", $"/MountDir:{mountPath}", "/Discard"];
 
-                unmountProgress?.Report(0d);
+                onUnmountStarted?.Invoke();
                 ProcessExecutionResult unmountExecution;
+                DismProgressReporter? unmountProgressReporter = null;
                 if (unmountProgress is null)
                 {
                     unmountExecution = await _processRunner
@@ -617,7 +639,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 }
                 else
                 {
-                    DismProgressReporter unmountProgressReporter = new(unmountProgress);
+                    unmountProgressReporter = new(unmountProgress);
                     unmountExecution = await _processRunner
                         .RunAsync(
                             "dism.exe",
@@ -642,7 +664,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 }
                 else
                 {
-                    unmountProgress?.Report(100d);
+                    if (unmountProgressReporter is not null && unmountProgressReporter.HasReportedProgress)
+                    {
+                        unmountProgress!.Report(100d);
+                    }
                 }
             }
 
