@@ -96,22 +96,6 @@ function Invoke-WithRetry {
     }
 }
 
-function Ensure-BitsAvailable {
-    if (-not (Get-Command -Name Start-BitsTransfer -ErrorAction SilentlyContinue)) {
-        throw 'Start-BitsTransfer is not available in this WinPE image.'
-    }
-
-    try {
-        $service = Get-Service -Name BITS -ErrorAction SilentlyContinue
-        if ($null -ne $service -and $service.Status -ne 'Running') {
-            Start-Service -Name BITS -ErrorAction SilentlyContinue
-        }
-    }
-    catch {
-        Write-Log "Unable to start BITS service explicitly: $($_.Exception.Message). Continuing."
-    }
-}
-
 function Test-HttpUrl {
     param(
         [Parameter(Mandatory = $true)]
@@ -237,27 +221,46 @@ function Get-DeployExecutablePath {
     return Join-Path $RootPath 'Foundry.Deploy.exe'
 }
 
-function Download-FileViaBits {
+function Download-FileViaWebRequest {
     param(
         [Parameter(Mandatory = $true)]
         [string]$SourceUrl,
         [Parameter(Mandatory = $true)]
-        [string]$DestinationPath,
-        [Parameter(Mandatory = $true)]
-        [string]$Description
+        [string]$DestinationPath
     )
-
-    Ensure-BitsAvailable
 
     Invoke-WithRetry -Action {
         Remove-FileIfPresent -Path $DestinationPath
 
-        Start-BitsTransfer `
-            -Source $SourceUrl `
-            -Destination $DestinationPath `
-            -TransferType Download `
-            -Description $Description `
-            -ErrorAction Stop
+        $invokeWebRequestCommand = Get-Command -Name Invoke-WebRequest -ErrorAction Stop
+        $requestArguments = @{
+            Uri = $SourceUrl
+            OutFile = $DestinationPath
+            Headers = @{
+                'User-Agent' = 'FoundryBootstrap/1.0'
+            }
+            ErrorAction = 'Stop'
+        }
+
+        if ($invokeWebRequestCommand.Parameters.ContainsKey('UseBasicParsing')) {
+            $requestArguments['UseBasicParsing'] = $true
+        }
+
+        if ($invokeWebRequestCommand.Parameters.ContainsKey('SkipCertificateCheck')) {
+            $requestArguments['SkipCertificateCheck'] = $true
+            Invoke-WebRequest @requestArguments
+            return
+        }
+
+        # WinPE commonly uses Windows PowerShell 5.1 where SkipCertificateCheck is unavailable.
+        $previousCertificateValidationCallback = [System.Net.ServicePointManager]::ServerCertificateValidationCallback
+        try {
+            [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+            Invoke-WebRequest @requestArguments
+        }
+        finally {
+            [System.Net.ServicePointManager]::ServerCertificateValidationCallback = $previousCertificateValidationCallback
+        }
     }
 }
 
@@ -696,11 +699,10 @@ try {
         }
 
         if (Test-HttpUrl -Value $archiveOverride) {
-            Write-Log "Downloading override archive via BITS: $archiveOverride"
-            Download-FileViaBits `
+            Write-Log "Downloading override archive via Invoke-WebRequest (insecure TLS): $archiveOverride"
+            Download-FileViaWebRequest `
                 -SourceUrl $archiveOverride `
-                -DestinationPath $downloadPath `
-                -Description "Foundry Deploy bootstrap override download ($runtimeIdentifier)"
+                -DestinationPath $downloadPath
         }
         else {
             Write-Log "Copying override archive from '$archiveOverride'."
@@ -752,11 +754,10 @@ try {
             }
             else {
                 try {
-                    Write-Log "Downloading asset via BITS: $($asset.browser_download_url)"
-                    Download-FileViaBits `
+                    Write-Log "Downloading asset via Invoke-WebRequest (insecure TLS): $($asset.browser_download_url)"
+                    Download-FileViaWebRequest `
                         -SourceUrl $asset.browser_download_url `
-                        -DestinationPath $downloadPath `
-                        -Description "Foundry Deploy bootstrap download ($runtimeIdentifier)"
+                        -DestinationPath $downloadPath
 
                     $archiveSha256 = Get-FileSha256 -Path $downloadPath
                     $expectedSha256 = Get-ReleaseAssetSha256 -Asset $asset
