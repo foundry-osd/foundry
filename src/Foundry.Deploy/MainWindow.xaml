@@ -19,21 +19,36 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--  Row 0: Top menu  -->
-        <Menu Grid.Row="0">
-            <!--  Theme  -->
-            <MenuItem Header="_Theme">
-                <MenuItem Command="{Binding SetSystemThemeCommand}" Header="System" />
-                <MenuItem Command="{Binding SetLightThemeCommand}" Header="Light" />
-                <MenuItem Command="{Binding SetDarkThemeCommand}" Header="Dark" />
-            </MenuItem>
-            <!--  Tools  -->
-            <MenuItem Header="_Tools">
-                <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
-                <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
-                <MenuItem Command="{Binding OpenLogFileCommand}" Header="Open Log File" />
-            </MenuItem>
-        </Menu>
+        <!--  Row 0: Top menu and app version  -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Menu Grid.Column="0">
+                <!--  Theme  -->
+                <MenuItem Header="_Theme">
+                    <MenuItem Command="{Binding SetSystemThemeCommand}" Header="System" />
+                    <MenuItem Command="{Binding SetLightThemeCommand}" Header="Light" />
+                    <MenuItem Command="{Binding SetDarkThemeCommand}" Header="Dark" />
+                </MenuItem>
+                <!--  Tools  -->
+                <MenuItem Header="_Tools">
+                    <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
+                    <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
+                    <MenuItem Command="{Binding OpenLogFileCommand}" Header="Open Log File" />
+                </MenuItem>
+            </Menu>
+
+            <TextBlock
+                Grid.Column="1"
+                Margin="0,0,16,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding VersionDisplay}" />
+        </Grid>
 
         <!--  Row 1: Main content area  -->
         <Grid Grid.Row="1" Margin="16">

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -43,6 +44,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private const string CacheMarkerFolderName = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
+    private static readonly string AppVersion = ResolveAppVersion();
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
@@ -296,6 +298,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsDriverPackVersionSelectionEnabled => IsDriverPackModelSelectionEnabled && DriverPackVersionOptions.Count > 0;
     public string SelectedDriverPackSelectionDisplay => BuildSelectedDriverPackSelectionDisplay();
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
+    public string VersionDisplay => $"Version: {AppVersion}";
+
+    private static string ResolveAppVersion()
+    {
+        Assembly assembly = typeof(MainWindowViewModel).Assembly;
+        string? informationalVersion = assembly
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            .InformationalVersion;
+
+        if (!string.IsNullOrWhiteSpace(informationalVersion))
+        {
+            return informationalVersion.Trim();
+        }
+
+        return assembly.GetName().Version?.ToString() ?? "0.0.0.0";
+    }
 
     public MainWindowViewModel(
         IThemeService themeService,
