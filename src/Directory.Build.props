@@ -5,16 +5,17 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <InformationalVersion>1.0.0.0</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
 
   <!-- NuGet Package Metadata (common) -->
   <PropertyGroup>
-    <Authors>Foundry Contributors</Authors>
-    <Company>Foundry Project</Company>
+    <Authors>Mickaël CHAVE &amp; Foundry Contributors</Authors>
+    <Company>Mickaël CHAVE</Company>
     <Copyright>Copyright (c) Foundry Project. All rights reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/foundry-project/foundry</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/foundry-project/foundry.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mchave3/Foundry</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mchave3/Foundry.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

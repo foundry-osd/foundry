@@ -388,7 +388,7 @@
     <value>Peripheriques USB : {0}</value>
   </data>
   <data name="VersionFormat" xml:space="preserve">
-    <value>Version : {0}</value>
+    <value>Version: {0}</value>
   </data>
   <data name="UsbDiskRefreshFailedFormat" xml:space="preserve">
     <value>Echec de l'actualisation des disques USB : {0}</value>

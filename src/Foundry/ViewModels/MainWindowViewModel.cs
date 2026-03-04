@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,7 +20,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
     private const string DefaultIsoFileName = "foundry-winpe.iso";
     private const string IsoVolumeLabel = "FOUNDRY_WINPE";
-    private const string AppVersion = "1.0.0.0";
+    private static readonly string AppVersion = ResolveAppVersion();
 
     private readonly IApplicationShellService _applicationShellService;
     private readonly IThemeService _themeService;
@@ -117,6 +118,21 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public string UsbPartitionStyleArm64Hint => Strings["UsbPartitionStyleArm64Hint"];
 
     private static string StagingDirectoryPath => Path.Combine(Path.GetTempPath(), "FoundryMedia");
+
+    private static string ResolveAppVersion()
+    {
+        Assembly assembly = typeof(MainWindowViewModel).Assembly;
+        string? informationalVersion = assembly
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            .InformationalVersion;
+
+        if (!string.IsNullOrWhiteSpace(informationalVersion))
+        {
+            return informationalVersion.Trim();
+        }
+
+        return assembly.GetName().Version?.ToString() ?? "0.0.0.0";
+    }
 
     public MainWindowViewModel(
         IApplicationShellService applicationShellService,
