@@ -221,7 +221,20 @@ function Get-DeployExecutablePath {
     return Join-Path $RootPath 'Foundry.Deploy.exe'
 }
 
+function Test-CommandCurlExe {
+    [CmdletBinding()]
+    param ()
+
+    if (Get-Command 'curl.exe' -ErrorAction SilentlyContinue) {
+        return $true
+    }
+    else {
+        return $false
+    }
+}
+
 function Download-FileViaWebRequest {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         [string]$SourceUrl,
@@ -229,38 +242,101 @@ function Download-FileViaWebRequest {
         [string]$DestinationPath
     )
 
-    Invoke-WithRetry -Action {
-        Remove-FileIfPresent -Path $DestinationPath
+    $DestinationDirectory = Split-Path -Path $DestinationPath -Parent
+    $DestinationName = Split-Path -Path $DestinationPath -Leaf
 
-        $invokeWebRequestCommand = Get-Command -Name Invoke-WebRequest -ErrorAction Stop
-        $requestArguments = @{
-            Uri = $SourceUrl
-            OutFile = $DestinationPath
-            Headers = @{
-                'User-Agent' = 'FoundryBootstrap/1.0'
+    if ([string]::IsNullOrWhiteSpace($DestinationDirectory) -or [string]::IsNullOrWhiteSpace($DestinationName)) {
+        throw "Could not resolve DestinationDirectory or DestinationName from '$DestinationPath'."
+    }
+
+    if (Test-Path "$DestinationDirectory") {
+    }
+    else {
+        New-Item -Path "$DestinationDirectory" -ItemType Directory -Force -ErrorAction Stop | Out-Null
+    }
+
+    $DestinationNewItem = New-Item -Path (Join-Path $DestinationDirectory "$(Get-Random).txt") -ItemType File
+
+    if (Test-Path $DestinationNewItem.FullName) {
+        $DestinationDirectory = $DestinationNewItem | Select-Object -ExpandProperty Directory
+        Remove-Item -Path $DestinationNewItem.FullName -Force | Out-Null
+    }
+    else {
+        Write-Warning 'Unable to write to Destination Directory'
+        return $null
+    }
+
+    $DestinationDirectoryItem = (Get-Item $DestinationDirectory -Force).FullName
+    $DestinationFullName = Join-Path $DestinationDirectoryItem $DestinationName
+
+    $SourceUrl = [Uri]::EscapeUriString($SourceUrl.Replace('%', '~')).Replace('~', '%')
+
+    $UseWebClient = $false
+    if (([System.Net.WebRequest]::DefaultWebProxy).Address) {
+        $UseWebClient = $true
+    }
+    elseif (!(Test-CommandCurlExe)) {
+        $UseWebClient = $true
+    }
+
+    if ($UseWebClient -eq $true) {
+        [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls1
+        $WebClient = New-Object System.Net.WebClient
+        $WebClient.DownloadFile($SourceUrl, $DestinationFullName)
+        $WebClient.Dispose()
+    }
+    else {
+        $remote = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $SourceUrl
+        $remoteLength = [Int64]($remote.Headers.'Content-Length' | Select-Object -First 1)
+        $remoteAcceptsRanges = ($remote.Headers.'Accept-Ranges' | Select-Object -First 1) -eq 'bytes'
+
+        $curlCommandExpression = "& curl.exe --insecure --location --output `"$DestinationFullName`" --url `"$SourceUrl`""
+
+        if ($host.name -match 'PowerShell ISE Host') {
+            $Quiet = Invoke-Expression ($curlCommandExpression + ' 2>&1')
+        }
+        else {
+            Invoke-Expression $curlCommandExpression
+        }
+
+        if (Test-Path $DestinationFullName) {
+            $localExists = $true
+        }
+
+        $RetryDelaySeconds = 1
+        $MaxRetryCount = 10
+        $RetryCount = 0
+        while (
+            $localExists `
+                -and ((Get-Item $DestinationFullName).Length -lt $remoteLength) `
+                -and $remoteAcceptsRanges `
+                -and ($RetryCount -lt $MaxRetryCount)
+        ) {
+            Start-Sleep -Seconds $RetryDelaySeconds
+            $RetryDelaySeconds *= 2
+            $RetryCount += 1
+            $curlCommandExpression = "& curl.exe --insecure --location --continue-at - --output `"$DestinationFullName`" --url `"$SourceUrl`""
+
+            if ($host.name -match 'PowerShell ISE Host') {
+                $Quiet = Invoke-Expression ($curlCommandExpression + ' 2>&1')
             }
-            ErrorAction = 'Stop'
+            else {
+                Invoke-Expression $curlCommandExpression
+            }
         }
 
-        if ($invokeWebRequestCommand.Parameters.ContainsKey('UseBasicParsing')) {
-            $requestArguments['UseBasicParsing'] = $true
+        if ($localExists -and ((Get-Item $DestinationFullName).Length -lt $remoteLength)) {
+            Write-Warning "Could not download $DestinationFullName"
+            return $null
         }
+    }
 
-        if ($invokeWebRequestCommand.Parameters.ContainsKey('SkipCertificateCheck')) {
-            $requestArguments['SkipCertificateCheck'] = $true
-            Invoke-WebRequest @requestArguments
-            return
-        }
-
-        # WinPE commonly uses Windows PowerShell 5.1 where SkipCertificateCheck is unavailable.
-        $previousCertificateValidationCallback = [System.Net.ServicePointManager]::ServerCertificateValidationCallback
-        try {
-            [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
-            Invoke-WebRequest @requestArguments
-        }
-        finally {
-            [System.Net.ServicePointManager]::ServerCertificateValidationCallback = $previousCertificateValidationCallback
-        }
+    if (Test-Path $DestinationFullName) {
+        return Get-Item $DestinationFullName -Force
+    }
+    else {
+        Write-Warning "Could not download $DestinationFullName"
+        return $null
     }
 }
 
@@ -699,7 +775,7 @@ try {
         }
 
         if (Test-HttpUrl -Value $archiveOverride) {
-            Write-Log "Downloading override archive via Invoke-WebRequest (insecure TLS): $archiveOverride"
+            Write-Log "Downloading override archive (curl.exe/WebClient): $archiveOverride"
             Download-FileViaWebRequest `
                 -SourceUrl $archiveOverride `
                 -DestinationPath $downloadPath
@@ -754,7 +830,7 @@ try {
             }
             else {
                 try {
-                    Write-Log "Downloading asset via Invoke-WebRequest (insecure TLS): $($asset.browser_download_url)"
+                    Write-Log "Downloading asset (curl.exe/WebClient): $($asset.browser_download_url)"
                     Download-FileViaWebRequest `
                         -SourceUrl $asset.browser_download_url `
                         -DestinationPath $downloadPath
