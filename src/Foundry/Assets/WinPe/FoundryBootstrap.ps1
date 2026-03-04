@@ -440,7 +440,7 @@ function Expand-ZipVia7Zip {
     Ensure-Directory -Path $DestinationPath
 
     $outputArgument = "-o$DestinationPath"
-    & $sevenZipExecutable x -y $outputArgument $ArchivePath
+    & $sevenZipExecutable x -y $outputArgument $ArchivePath | Out-Null
     if ($LASTEXITCODE -ne 0) {
         throw "7-Zip extraction failed with exit code $LASTEXITCODE."
     }
@@ -726,6 +726,27 @@ function Start-DeployExecutable {
     Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
 }
 
+function Resolve-SingleExecutable {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Candidate
+    )
+
+    $candidates = @($Candidate)
+    $fileInfo = $candidates | Where-Object { $_ -is [System.IO.FileInfo] } | Select-Object -Last 1
+    if ($null -ne $fileInfo) {
+        return $fileInfo
+    }
+
+    $pathCandidate = $candidates | Where-Object { $_ -is [string] -and -not [string]::IsNullOrWhiteSpace($_) } | Select-Object -Last 1
+    if ($null -ne $pathCandidate -and (Test-Path -Path $pathCandidate -PathType Leaf)) {
+        return Get-Item -Path $pathCandidate
+    }
+
+    $typeName = if ($null -eq $Candidate) { '<null>' } else { $Candidate.GetType().FullName }
+    throw "Could not resolve a single deploy executable from value of type '$typeName'."
+}
+
 try {
     Ensure-Directory -Path $WinPeRoot
 
@@ -778,7 +799,7 @@ try {
             Write-Log "Downloading override archive (curl.exe/WebClient): $archiveOverride"
             Download-FileViaWebRequest `
                 -SourceUrl $archiveOverride `
-                -DestinationPath $downloadPath
+                -DestinationPath $downloadPath | Out-Null
         }
         else {
             Write-Log "Copying override archive from '$archiveOverride'."
@@ -833,7 +854,8 @@ try {
                     Write-Log "Downloading asset (curl.exe/WebClient): $($asset.browser_download_url)"
                     Download-FileViaWebRequest `
                         -SourceUrl $asset.browser_download_url `
-                        -DestinationPath $downloadPath
+                        -DestinationPath $downloadPath | Out-Null
+                    Write-Log "Download completed. Validating archive integrity."
 
                     $archiveSha256 = Get-FileSha256 -Path $downloadPath
                     $expectedSha256 = Get-ReleaseAssetSha256 -Asset $asset
@@ -866,6 +888,7 @@ try {
         }
     }
 
+    $executable = Resolve-SingleExecutable -Candidate $executable
     Start-DeployExecutable -Executable $executable
     Write-Log 'Foundry bootstrap completed successfully.'
 }
