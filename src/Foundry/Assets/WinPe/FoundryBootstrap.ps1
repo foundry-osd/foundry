@@ -4,8 +4,6 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $PSNativeCommandUseErrorActionPreference = $true
 
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
-
 $WinPeRoot = 'X:\Foundry'
 $LogPath = Join-Path $WinPeRoot 'Logs\FoundryDeploy.log'
 $Owner = 'mchave3'
@@ -236,6 +234,7 @@ function Test-CommandCurlExe {
 }
 
 function Download-FileViaWebRequest {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         [string]$SourceUrl,
@@ -243,106 +242,101 @@ function Download-FileViaWebRequest {
         [string]$DestinationPath
     )
 
-    $destinationDirectory = Split-Path -Path $DestinationPath -Parent
-    if ([string]::IsNullOrWhiteSpace($destinationDirectory)) {
-        throw "Could not resolve destination directory from '$DestinationPath'."
+    $DestinationDirectory = Split-Path -Path $DestinationPath -Parent
+    $DestinationName = Split-Path -Path $DestinationPath -Leaf
+
+    if ([string]::IsNullOrWhiteSpace($DestinationDirectory) -or [string]::IsNullOrWhiteSpace($DestinationName)) {
+        throw "Could not resolve DestinationDirectory or DestinationName from '$DestinationPath'."
     }
 
-    Ensure-Directory -Path $destinationDirectory
-    Remove-FileIfPresent -Path $DestinationPath
+    if (Test-Path "$DestinationDirectory") {
+    }
+    else {
+        New-Item -Path "$DestinationDirectory" -ItemType Directory -Force -ErrorAction Stop | Out-Null
+    }
+
+    $DestinationNewItem = New-Item -Path (Join-Path $DestinationDirectory "$(Get-Random).txt") -ItemType File
+
+    if (Test-Path $DestinationNewItem.FullName) {
+        $DestinationDirectory = $DestinationNewItem | Select-Object -ExpandProperty Directory
+        Remove-Item -Path $DestinationNewItem.FullName -Force | Out-Null
+    }
+    else {
+        Write-Warning 'Unable to write to Destination Directory'
+        return $null
+    }
+
+    $DestinationDirectoryItem = (Get-Item $DestinationDirectory -Force).FullName
+    $DestinationFullName = Join-Path $DestinationDirectoryItem $DestinationName
 
     $SourceUrl = [Uri]::EscapeUriString($SourceUrl.Replace('%', '~')).Replace('~', '%')
-    $UseWebClient = $false
 
+    $UseWebClient = $false
     if (([System.Net.WebRequest]::DefaultWebProxy).Address) {
         $UseWebClient = $true
-        Write-Log 'Default proxy detected; using WebClient.'
     }
     elseif (!(Test-CommandCurlExe)) {
         $UseWebClient = $true
-        Write-Log 'curl.exe was not found; using WebClient.'
     }
 
     if ($UseWebClient -eq $true) {
-        Write-Log "Downloading via WebClient: $SourceUrl"
-        [System.Net.ServicePointManager]::SecurityProtocol = `
-            [System.Net.ServicePointManager]::SecurityProtocol -bor `
-            [System.Net.SecurityProtocolType]::Tls12
-
-        $webClient = New-Object System.Net.WebClient
-        try {
-            $webClient.Headers.Add('User-Agent', 'FoundryBootstrap/1.0')
-            $webClient.DownloadFile($SourceUrl, $DestinationPath)
-        }
-        finally {
-            $webClient.Dispose()
-        }
+        [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls1
+        $WebClient = New-Object System.Net.WebClient
+        $WebClient.DownloadFile($SourceUrl, $DestinationFullName)
+        $WebClient.Dispose()
     }
     else {
-        $remoteLength = $null
-        $remoteAcceptsRanges = $false
+        $remote = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $SourceUrl
+        $remoteLength = [Int64]($remote.Headers.'Content-Length' | Select-Object -First 1)
+        $remoteAcceptsRanges = ($remote.Headers.'Accept-Ranges' | Select-Object -First 1) -eq 'bytes'
 
-        try {
-            $invokeWebRequestCommand = Get-Command -Name 'Invoke-WebRequest' -ErrorAction Stop
-            $headArguments = @{
-                Method = 'Head'
-                Uri = $SourceUrl
-                Headers = @{ 'User-Agent' = 'FoundryBootstrap/1.0' }
-                ErrorAction = 'Stop'
-            }
+        $curlCommandExpression = "& curl.exe --insecure --location --output `"$DestinationFullName`" --url `"$SourceUrl`""
 
-            if ($invokeWebRequestCommand.Parameters.ContainsKey('UseBasicParsing')) {
-                $headArguments['UseBasicParsing'] = $true
-            }
-
-            $remote = Invoke-WebRequest @headArguments
-            $remoteLength = [Int64]($remote.Headers.'Content-Length' | Select-Object -First 1)
-            $remoteAcceptsRanges = ([string]($remote.Headers.'Accept-Ranges' | Select-Object -First 1)) -eq 'bytes'
+        if ($host.name -match 'PowerShell ISE Host') {
+            $Quiet = Invoke-Expression ($curlCommandExpression + ' 2>&1')
         }
-        catch {
-            Write-Log "HEAD request failed for '$SourceUrl': $($_.Exception.Message)"
+        else {
+            Invoke-Expression $curlCommandExpression
         }
 
-        Write-Log "Downloading via curl.exe: $SourceUrl"
-        & curl.exe --silent --show-error --insecure --location --output $DestinationPath --url $SourceUrl
-        if ($LASTEXITCODE -ne 0) {
-            throw "curl.exe failed with exit code $LASTEXITCODE downloading '$SourceUrl'."
+        if (Test-Path $DestinationFullName) {
+            $localExists = $true
         }
 
-        $localExists = Test-Path -Path $DestinationPath -PathType Leaf
-        $retryDelaySeconds = 1
-        $maxRetryCount = 10
-        $retryCount = 0
-
+        $RetryDelaySeconds = 1
+        $MaxRetryCount = 10
+        $RetryCount = 0
         while (
-            $localExists -and `
-            ($remoteLength -is [long]) -and `
-            ((Get-Item -Path $DestinationPath).Length -lt $remoteLength) -and `
-            $remoteAcceptsRanges -and `
-            ($retryCount -lt $maxRetryCount)
+            $localExists `
+                -and ((Get-Item $DestinationFullName).Length -lt $remoteLength) `
+                -and $remoteAcceptsRanges `
+                -and ($RetryCount -lt $MaxRetryCount)
         ) {
-            Write-Log "Download is incomplete; retrying with curl --continue-at in $retryDelaySeconds second(s)."
-            Start-Sleep -Seconds $retryDelaySeconds
-            $retryDelaySeconds = [Math]::Min($retryDelaySeconds * 2, 20)
-            $retryCount++
+            Start-Sleep -Seconds $RetryDelaySeconds
+            $RetryDelaySeconds *= 2
+            $RetryCount += 1
+            $curlCommandExpression = "& curl.exe --insecure --location --continue-at - --output `"$DestinationFullName`" --url `"$SourceUrl`""
 
-            & curl.exe --silent --show-error --insecure --location --continue-at - --output $DestinationPath --url $SourceUrl
-            if ($LASTEXITCODE -ne 0) {
-                throw "curl.exe resume failed with exit code $LASTEXITCODE downloading '$SourceUrl'."
+            if ($host.name -match 'PowerShell ISE Host') {
+                $Quiet = Invoke-Expression ($curlCommandExpression + ' 2>&1')
+            }
+            else {
+                Invoke-Expression $curlCommandExpression
             }
         }
 
-        if (
-            $localExists -and `
-            ($remoteLength -is [long]) -and `
-            ((Get-Item -Path $DestinationPath).Length -lt $remoteLength)
-        ) {
-            throw "curl.exe download is incomplete for '$SourceUrl' after $retryCount retry attempt(s)."
+        if ($localExists -and ((Get-Item $DestinationFullName).Length -lt $remoteLength)) {
+            Write-Warning "Could not download $DestinationFullName"
+            return $null
         }
     }
 
-    if (-not (Test-Path -Path $DestinationPath -PathType Leaf)) {
-        throw "Download did not create '$DestinationPath'."
+    if (Test-Path $DestinationFullName) {
+        return Get-Item $DestinationFullName -Force
+    }
+    else {
+        Write-Warning "Could not download $DestinationFullName"
+        return $null
     }
 }
 
