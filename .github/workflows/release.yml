@@ -1,0 +1,167 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  publish-release-assets:
+    name: Publish Release Assets
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Validate release tag and apply version
+        shell: pwsh
+        run: |
+          $tag = '${{ github.event.release.tag_name }}'
+          $match = [regex]::Match($tag, '^v(?<year>\d{2})\.(?<month>\d{1,2})\.(?<day>\d{1,2})\.(?<build>[1-9]\d*)$')
+          if (-not $match.Success) {
+              throw "Release tag '$tag' must use the format vYY.M.D.B."
+          }
+
+          $year = 2000 + [int]$match.Groups['year'].Value
+          $month = [int]$match.Groups['month'].Value
+          $day = [int]$match.Groups['day'].Value
+
+          try {
+              [void][datetime]::new($year, $month, $day, 0, 0, 0, [DateTimeKind]::Utc)
+          }
+          catch {
+              throw "Release tag '$tag' does not contain a valid calendar date."
+          }
+
+          $version = $tag.Substring(1)
+          $propsPath = Join-Path $env:GITHUB_WORKSPACE 'src\Directory.Build.props'
+          $content = Get-Content -Path $propsPath -Raw
+
+          foreach ($propertyName in @('Version', 'AssemblyVersion', 'FileVersion', 'InformationalVersion')) {
+              $pattern = "(?<=<$propertyName>)[^<]+(?=</$propertyName>)"
+              if (-not [regex]::IsMatch($content, $pattern)) {
+                  throw "Unable to locate <$propertyName> in '$propsPath'."
+              }
+
+              $content = [regex]::Replace($content, $pattern, $version)
+          }
+
+          Set-Content -Path $propsPath -Value $content -NoNewline
+
+          Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_VERSION=$version"
+
+      - name: Build release assets
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          $releaseRoot = Join-Path $workspace 'artifacts\release'
+          $publishRoot = Join-Path $releaseRoot 'publish'
+          $foundryProject = Join-Path $workspace 'src\Foundry\Foundry.csproj'
+          $deployProject = Join-Path $workspace 'src\Foundry.Deploy\Foundry.Deploy.csproj'
+          $publishProperties = @(
+              'PublishSingleFile=true',
+              'EnableCompressionInSingleFile=true',
+              'IncludeNativeLibrariesForSelfExtract=true',
+              'IncludeAllContentForSelfExtract=true',
+              'DebugType=None',
+              'GenerateDocumentationFile=false'
+          )
+
+          function Invoke-Publish {
+              param(
+                  [Parameter(Mandatory = $true)]
+                  [string]$ProjectPath,
+                  [Parameter(Mandatory = $true)]
+                  [string]$RuntimeIdentifier,
+                  [Parameter(Mandatory = $true)]
+                  [string]$OutputPath
+              )
+
+              if (Test-Path -Path $OutputPath) {
+                  Remove-Item -Path $OutputPath -Recurse -Force
+              }
+
+              New-Item -Path $OutputPath -ItemType Directory -Force | Out-Null
+
+              $publishArgs = @(
+                  'publish',
+                  $ProjectPath,
+                  '-c', 'Release',
+                  '-r', $RuntimeIdentifier,
+                  '--self-contained', 'true',
+                  '-o', $OutputPath,
+                  '--nologo'
+              )
+
+              foreach ($property in $publishProperties) {
+                  $publishArgs += "-p:$property"
+              }
+
+              dotnet @publishArgs
+              if ($LASTEXITCODE -ne 0) {
+                  throw "dotnet publish failed for '$ProjectPath' ($RuntimeIdentifier)."
+              }
+          }
+
+          if (Test-Path -Path $releaseRoot) {
+              Remove-Item -Path $releaseRoot -Recurse -Force
+          }
+
+          New-Item -Path $releaseRoot -ItemType Directory -Force | Out-Null
+          New-Item -Path $publishRoot -ItemType Directory -Force | Out-Null
+
+          foreach ($runtimeIdentifier in @('win-x64', 'win-arm64')) {
+              $architecture = if ($runtimeIdentifier -eq 'win-x64') { 'x64' } else { 'arm64' }
+
+              $foundryPublishPath = Join-Path $publishRoot (Join-Path 'Foundry' $runtimeIdentifier)
+              Invoke-Publish -ProjectPath $foundryProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $foundryPublishPath
+
+              $foundryExecutable = Join-Path $foundryPublishPath 'Foundry.exe'
+              if (-not (Test-Path -Path $foundryExecutable -PathType Leaf)) {
+                  throw "Expected Foundry executable not found: '$foundryExecutable'."
+              }
+
+              $foundryAssetPath = Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_${architecture}.exe"
+              Copy-Item -Path $foundryExecutable -Destination $foundryAssetPath -Force
+
+              $deployPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Deploy' $runtimeIdentifier)
+              Invoke-Publish -ProjectPath $deployProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $deployPublishPath
+
+              $deployExecutable = Join-Path $deployPublishPath 'Foundry.Deploy.exe'
+              if (-not (Test-Path -Path $deployExecutable -PathType Leaf)) {
+                  throw "Expected Foundry.Deploy executable not found: '$deployExecutable'."
+              }
+
+              $deployAssetPath = Join-Path $releaseRoot "Foundry.Deploy-$runtimeIdentifier.zip"
+              Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
+          }
+
+      - name: Upload release assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $releaseTag = '${{ github.event.release.tag_name }}'
+          $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts\release'
+          $assets = @(
+              (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_x64.exe"),
+              (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_arm64.exe"),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip')
+          )
+
+          foreach ($asset in $assets) {
+              if (-not (Test-Path -Path $asset -PathType Leaf)) {
+                  throw "Release asset was not created: '$asset'."
+              }
+          }
+
+          gh release upload $releaseTag @assets --clobber
