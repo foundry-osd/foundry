@@ -19,7 +19,6 @@ $publishProperties = @(
     'EnableCompressionInSingleFile=true',
     'IncludeNativeLibrariesForSelfExtract=true',
     'IncludeAllContentForSelfExtract=true',
-    'PublishTrimmed=false',
     'DebugType=None',
     'GenerateDocumentationFile=false'
 )

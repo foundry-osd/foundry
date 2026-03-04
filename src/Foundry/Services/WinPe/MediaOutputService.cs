@@ -884,7 +884,6 @@ public sealed class MediaOutputService : IMediaOutputService
             "/p:EnableCompressionInSingleFile=true",
             "/p:IncludeNativeLibrariesForSelfExtract=true",
             "/p:IncludeAllContentForSelfExtract=true",
-            "/p:PublishTrimmed=false",
             "/p:DebugType=None",
             "/p:GenerateDocumentationFile=false",
             "-o", WinPeProcessRunner.Quote(publishDirectory));
