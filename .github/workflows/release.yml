@@ -22,7 +22,6 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Validate release tag and apply version
-        id: version
         shell: pwsh
         run: |
           $tag = '${{ github.event.release.tag_name }}'
@@ -57,14 +56,10 @@ jobs:
 
           Set-Content -Path $propsPath -Value $content -NoNewline
 
-          Add-Content -Path $env:GITHUB_OUTPUT -Value "tag=$tag"
-          Add-Content -Path $env:GITHUB_OUTPUT -Value "version=$version"
+          Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_VERSION=$version"
 
       - name: Build release assets
-        id: build
         shell: pwsh
-        env:
-          RELEASE_VERSION: ${{ steps.version.outputs.version }}
         run: |
           $workspace = $env:GITHUB_WORKSPACE
           $releaseRoot = Join-Path $workspace 'artifacts\release'
@@ -149,21 +144,18 @@ jobs:
               Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
           }
 
-          Add-Content -Path $env:GITHUB_OUTPUT -Value "release_root=$releaseRoot"
-
       - name: Upload release assets
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ steps.version.outputs.tag }}
-          RELEASE_VERSION: ${{ steps.version.outputs.version }}
-          RELEASE_ROOT: ${{ steps.build.outputs.release_root }}
         run: |
+          $releaseTag = '${{ github.event.release.tag_name }}'
+          $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts\release'
           $assets = @(
-              (Join-Path $env:RELEASE_ROOT "Foundry-$($env:RELEASE_VERSION)_x64.exe"),
-              (Join-Path $env:RELEASE_ROOT "Foundry-$($env:RELEASE_VERSION)_arm64.exe"),
-              (Join-Path $env:RELEASE_ROOT 'Foundry.Deploy-win-x64.zip'),
-              (Join-Path $env:RELEASE_ROOT 'Foundry.Deploy-win-arm64.zip')
+              (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_x64.exe"),
+              (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_arm64.exe"),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip')
           )
 
           foreach ($asset in $assets) {
@@ -172,4 +164,4 @@ jobs:
               }
           }
 
-          gh release upload $env:RELEASE_TAG @assets --clobber
+          gh release upload $releaseTag @assets --clobber
