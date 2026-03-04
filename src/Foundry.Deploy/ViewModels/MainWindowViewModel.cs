@@ -83,6 +83,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IDriverPackCatalogService _driverPackCatalogService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IHardwareProfileService _hardwareProfileService;
+    private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private readonly IProcessRunner _processRunner;
@@ -163,11 +164,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string currentStepProgressText = "Waiting for progress...";
 
     [ObservableProperty]
-    private string computerNameText = ResolveInitialComputerName();
+    private string computerNameText = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private string targetComputerName = ResolveInitialComputerName();
+    private string targetComputerName = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
@@ -304,6 +305,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IDriverPackCatalogService driverPackCatalogService,
         IDeploymentOrchestrator deploymentOrchestrator,
         IHardwareProfileService hardwareProfileService,
+        IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         ITargetDiskService targetDiskService,
         IDriverPackSelectionService driverPackSelectionService,
         IProcessRunner processRunner,
@@ -316,6 +318,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _driverPackCatalogService = driverPackCatalogService;
         _deploymentOrchestrator = deploymentOrchestrator;
         _hardwareProfileService = hardwareProfileService;
+        _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
         _processRunner = processRunner;
@@ -324,7 +327,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
         _resolvedDeploymentMode = resolvedMode;
         _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
-        TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(TargetComputerName);
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -336,6 +338,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             DeploymentStatus = "Debug Safe Mode enabled: deployment actions are simulated.";
         }
 
+        _ = LoadOfflineComputerNameAsync();
         _ = LoadHardwareProfileAsync();
         _ = RefreshTargetDisksAsync();
         _ = RefreshCatalogsAsync();
@@ -2188,6 +2191,38 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string leftKey = string.IsNullOrWhiteSpace(left.Url) ? left.FileName : left.Url;
         string rightKey = string.IsNullOrWhiteSpace(right.Url) ? right.FileName : right.Url;
         return leftKey.Equals(rightKey, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private async Task LoadOfflineComputerNameAsync()
+    {
+        string? resolvedName = null;
+        try
+        {
+            resolvedName = await _offlineWindowsComputerNameService
+                .TryGetOfflineComputerNameAsync()
+                .ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to load offline Windows computer name.");
+        }
+
+        string effectiveName = !string.IsNullOrWhiteSpace(resolvedName)
+            ? resolvedName
+            : ResolveInitialComputerName();
+
+        RunOnUi(() =>
+        {
+            // Only apply if the user hasn't typed anything yet.
+            if (!string.IsNullOrEmpty(TargetComputerName))
+            {
+                return;
+            }
+
+            TargetComputerName = effectiveName;
+            ComputerNameText = effectiveName;
+            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(effectiveName);
+        });
     }
 
     private static string ResolveInitialComputerName()

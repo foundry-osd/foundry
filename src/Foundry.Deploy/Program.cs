@@ -148,6 +148,7 @@ public static class Program
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
+        services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
         services.AddSingleton<ITargetDiskService, TargetDiskService>();
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();
