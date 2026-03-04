@@ -4,6 +4,8 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $PSNativeCommandUseErrorActionPreference = $true
 
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+
 $WinPeRoot = 'X:\Foundry'
 $LogPath = Join-Path $WinPeRoot 'Logs\FoundryDeploy.log'
 $Owner = 'mchave3'
@@ -221,6 +223,14 @@ function Get-DeployExecutablePath {
     return Join-Path $RootPath 'Foundry.Deploy.exe'
 }
 
+function Test-CommandCurlExe {
+    if (Get-Command -Name 'curl.exe' -ErrorAction SilentlyContinue) {
+        return $true
+    }
+
+    return $false
+}
+
 function Download-FileViaWebRequest {
     param(
         [Parameter(Mandatory = $true)]
@@ -232,34 +242,126 @@ function Download-FileViaWebRequest {
     Invoke-WithRetry -Action {
         Remove-FileIfPresent -Path $DestinationPath
 
-        $invokeWebRequestCommand = Get-Command -Name Invoke-WebRequest -ErrorAction Stop
-        $requestArguments = @{
-            Uri = $SourceUrl
-            OutFile = $DestinationPath
-            Headers = @{
-                'User-Agent' = 'FoundryBootstrap/1.0'
+        $sourceUrlEscaped = [Uri]::EscapeUriString($SourceUrl.Replace('%', '~')).Replace('~', '%')
+
+        $useWebClient = $false
+        if (([System.Net.WebRequest]::DefaultWebProxy).Address) {
+            $useWebClient = $true
+            Write-Log "Default web proxy detected; using WebClient."
+        }
+        elseif (-not (Test-CommandCurlExe)) {
+            $useWebClient = $true
+        }
+
+        if ($useWebClient) {
+            Write-Log "Downloading via WebClient: $sourceUrlEscaped"
+            [System.Net.ServicePointManager]::SecurityProtocol = `
+                [System.Net.ServicePointManager]::SecurityProtocol -bor `
+                [System.Net.SecurityProtocolType]::Tls12
+            $webClient = New-Object System.Net.WebClient
+            try {
+                $webClient.Headers.Add('User-Agent', 'FoundryBootstrap/1.0')
+                $webClient.DownloadFile($sourceUrlEscaped, $DestinationPath)
             }
-            ErrorAction = 'Stop'
-        }
+            finally {
+                $webClient.Dispose()
+            }
 
-        if ($invokeWebRequestCommand.Parameters.ContainsKey('UseBasicParsing')) {
-            $requestArguments['UseBasicParsing'] = $true
-        }
+            if (-not (Test-Path -Path $DestinationPath -PathType Leaf)) {
+                throw "WebClient download did not create '$DestinationPath'."
+            }
 
-        if ($invokeWebRequestCommand.Parameters.ContainsKey('SkipCertificateCheck')) {
-            $requestArguments['SkipCertificateCheck'] = $true
-            Invoke-WebRequest @requestArguments
             return
         }
 
-        # WinPE commonly uses Windows PowerShell 5.1 where SkipCertificateCheck is unavailable.
-        $previousCertificateValidationCallback = [System.Net.ServicePointManager]::ServerCertificateValidationCallback
+        Write-Log "Downloading via curl.exe: $sourceUrlEscaped"
+
+        $remoteLength = $null
+        $remoteAcceptsRanges = $false
         try {
-            [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
-            Invoke-WebRequest @requestArguments
+            $invokeWebRequestCommand = Get-Command -Name 'Invoke-WebRequest' -ErrorAction Stop
+            $headRequestArguments = @{
+                Method = 'Head'
+                Uri = $sourceUrlEscaped
+                Headers = @{ 'User-Agent' = 'FoundryBootstrap/1.0' }
+                ErrorAction = 'Stop'
+            }
+
+            if ($invokeWebRequestCommand.Parameters.ContainsKey('UseBasicParsing')) {
+                $headRequestArguments['UseBasicParsing'] = $true
+            }
+
+            $headResponse = Invoke-WebRequest @headRequestArguments
+
+            $contentLengthHeader = [string]($headResponse.Headers.'Content-Length' | Select-Object -First 1)
+            if (-not [string]::IsNullOrWhiteSpace($contentLengthHeader)) {
+                [Int64]$parsedLength = 0
+                if ([Int64]::TryParse($contentLengthHeader, [ref]$parsedLength)) {
+                    $remoteLength = $parsedLength
+                }
+            }
+
+            $acceptRangesHeader = [string]($headResponse.Headers.'Accept-Ranges' | Select-Object -First 1)
+            $remoteAcceptsRanges = [string]::Equals(
+                $acceptRangesHeader,
+                'bytes',
+                [System.StringComparison]::OrdinalIgnoreCase
+            )
         }
-        finally {
-            [System.Net.ServicePointManager]::ServerCertificateValidationCallback = $previousCertificateValidationCallback
+        catch {
+            Write-Log "HEAD request failed for '$sourceUrlEscaped': $($_.Exception.Message). Continuing without resume metadata."
+        }
+
+        & curl.exe `
+            --silent `
+            --show-error `
+            --insecure `
+            --location `
+            --output $DestinationPath `
+            --url $sourceUrlEscaped
+        if ($LASTEXITCODE -ne 0) {
+            throw "curl.exe failed with exit code $LASTEXITCODE downloading '$sourceUrlEscaped'."
+        }
+
+        $retryDelaySeconds = 1
+        $maxRetryCount = 10
+        $retryCount = 0
+
+        while (
+            (Test-Path -Path $DestinationPath -PathType Leaf) -and `
+            ($remoteLength -is [long]) -and `
+            ((Get-Item -Path $DestinationPath).Length -lt $remoteLength) -and `
+            $remoteAcceptsRanges -and `
+            ($retryCount -lt $maxRetryCount)
+        ) {
+            Write-Log "Download is incomplete; retrying with curl resume in $retryDelaySeconds second(s)."
+            Start-Sleep -Seconds $retryDelaySeconds
+            $retryDelaySeconds = [Math]::Min($retryDelaySeconds * 2, 20)
+            $retryCount++
+
+            & curl.exe `
+                --silent `
+                --show-error `
+                --insecure `
+                --location `
+                --continue-at - `
+                --output $DestinationPath `
+                --url $sourceUrlEscaped
+            if ($LASTEXITCODE -ne 0) {
+                throw "curl.exe resume failed with exit code $LASTEXITCODE downloading '$sourceUrlEscaped'."
+            }
+        }
+
+        if (
+            (Test-Path -Path $DestinationPath -PathType Leaf) -and `
+            ($remoteLength -is [long]) -and `
+            ((Get-Item -Path $DestinationPath).Length -lt $remoteLength)
+        ) {
+            throw "curl.exe download is incomplete for '$sourceUrlEscaped'."
+        }
+
+        if (-not (Test-Path -Path $DestinationPath -PathType Leaf)) {
+            throw "curl.exe download did not create '$DestinationPath'."
         }
     }
 }
@@ -699,7 +801,7 @@ try {
         }
 
         if (Test-HttpUrl -Value $archiveOverride) {
-            Write-Log "Downloading override archive via Invoke-WebRequest (insecure TLS): $archiveOverride"
+            Write-Log "Downloading override archive (curl.exe/WebClient): $archiveOverride"
             Download-FileViaWebRequest `
                 -SourceUrl $archiveOverride `
                 -DestinationPath $downloadPath
@@ -754,7 +856,7 @@ try {
             }
             else {
                 try {
-                    Write-Log "Downloading asset via Invoke-WebRequest (insecure TLS): $($asset.browser_download_url)"
+                    Write-Log "Downloading asset (curl.exe/WebClient): $($asset.browser_download_url)"
                     Download-FileViaWebRequest `
                         -SourceUrl $asset.browser_download_url `
                         -DestinationPath $downloadPath
