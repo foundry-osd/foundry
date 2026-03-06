@@ -145,6 +145,7 @@ public static class Program
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
+        services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();

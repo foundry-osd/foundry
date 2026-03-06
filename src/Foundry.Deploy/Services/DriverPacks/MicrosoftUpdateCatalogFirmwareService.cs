@@ -8,20 +8,20 @@ namespace Foundry.Deploy.Services.DriverPacks;
 
 public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCatalogFirmwareService
 {
+    private readonly IArchiveExtractionService _archiveExtractionService;
     private readonly IMicrosoftUpdateCatalogClient _catalogClient;
     private readonly IArtifactDownloadService _artifactDownloadService;
-    private readonly IProcessRunner _processRunner;
     private readonly ILogger<MicrosoftUpdateCatalogFirmwareService> _logger;
 
     public MicrosoftUpdateCatalogFirmwareService(
+        IArchiveExtractionService archiveExtractionService,
         IMicrosoftUpdateCatalogClient catalogClient,
         IArtifactDownloadService artifactDownloadService,
-        IProcessRunner processRunner,
         ILogger<MicrosoftUpdateCatalogFirmwareService> logger)
     {
+        _archiveExtractionService = archiveExtractionService;
         _catalogClient = catalogClient;
         _artifactDownloadService = artifactDownloadService;
-        _processRunner = processRunner;
         _logger = logger;
     }
 
@@ -153,25 +153,16 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             string cabDestination = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(folderName));
             Directory.CreateDirectory(cabDestination);
 
-            ProcessExecutionResult execution = await _processRunner
-                .RunAsync(
-                    "expand.exe",
-                    [cabPath, "-F:*", cabDestination],
+            double rangeStart = 75d + (double)index / cabFiles.Length * 25d;
+            double rangeEnd = 75d + (double)(index + 1) / cabFiles.Length * 25d;
+            await _archiveExtractionService
+                .ExtractWithSevenZipAsync(
+                    cabPath,
+                    cabDestination,
                     destinationDirectory,
-                    cancellationToken)
+                    cancellationToken,
+                    CreateMappedProgress(progress, rangeStart, rangeEnd))
                 .ConfigureAwait(false);
-
-            if (!execution.IsSuccess)
-            {
-                throw new InvalidOperationException(
-                    "Firmware payload expansion failed." + Environment.NewLine +
-                    $"ExitCode: {execution.ExitCode}" + Environment.NewLine +
-                    execution.StandardOutput + Environment.NewLine +
-                    execution.StandardError);
-            }
-
-            double percent = 75d + (double)(index + 1) / cabFiles.Length * 25d;
-            progress?.Report(percent);
         }
 
         return Directory.EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories).Count();
@@ -196,5 +187,19 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         }
 
         Directory.CreateDirectory(path);
+    }
+
+    private static IProgress<double>? CreateMappedProgress(IProgress<double>? progress, double start, double end)
+    {
+        if (progress is null)
+        {
+            return null;
+        }
+
+        return new Progress<double>(percent =>
+        {
+            double normalized = Math.Clamp(percent, 0d, 100d);
+            progress.Report(start + (normalized / 100d * (end - start)));
+        });
     }
 }

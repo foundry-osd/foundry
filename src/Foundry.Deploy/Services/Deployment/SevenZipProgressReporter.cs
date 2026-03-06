@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Foundry.Deploy.Services.Deployment;
+namespace Foundry.Deploy.Services.System;
 
 internal sealed class SevenZipProgressReporter
 {

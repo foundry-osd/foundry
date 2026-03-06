@@ -1,6 +1,5 @@
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
@@ -9,15 +8,18 @@ namespace Foundry.Deploy.Services.DriverPacks;
 
 public sealed class DriverPackExtractionService : IDriverPackExtractionService
 {
+    private readonly IArchiveExtractionService _archiveExtractionService;
     private readonly IMicrosoftUpdateCatalogDriverService _microsoftUpdateCatalogDriverService;
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<DriverPackExtractionService> _logger;
 
     public DriverPackExtractionService(
+        IArchiveExtractionService archiveExtractionService,
         IMicrosoftUpdateCatalogDriverService microsoftUpdateCatalogDriverService,
         IProcessRunner processRunner,
         ILogger<DriverPackExtractionService> logger)
     {
+        _archiveExtractionService = archiveExtractionService;
         _microsoftUpdateCatalogDriverService = microsoftUpdateCatalogDriverService;
         _processRunner = processRunner;
         _logger = logger;
@@ -136,35 +138,9 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
         CancellationToken cancellationToken,
         IProgress<double>? progress)
     {
-        string sevenZipPath = ResolveSevenZipExecutablePath();
-        progress?.Report(5d);
-
-        SevenZipProgressReporter? reporter = progress is null ? null : new(progress);
-        Action<string>? onOutput = reporter is null ? null : reporter.HandleOutput;
-        Action<string>? onError = reporter is null ? null : reporter.HandleOutput;
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync(
-                sevenZipPath,
-                [
-                    "x",
-                    "-y",
-                    "-bsp1",
-                    $"-o{extractedPath}",
-                    archivePath
-                ],
-                workingDirectory,
-                onOutput,
-                onError,
-                cancellationToken)
+        await _archiveExtractionService
+            .ExtractWithSevenZipAsync(archivePath, extractedPath, workingDirectory, cancellationToken, progress)
             .ConfigureAwait(false);
-
-        if (!execution.IsSuccess)
-        {
-            throw new InvalidOperationException(
-                $"7-Zip extraction failed for '{archivePath}'.{Environment.NewLine}{ToDiagnostic(execution)}");
-        }
-
-        progress?.Report(95d);
     }
 
     private async Task ExtractDellSelfExtractorAsync(
@@ -193,37 +169,6 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
         }
 
         progress?.Report(95d);
-    }
-
-    private static string ResolveSevenZipExecutablePath()
-    {
-        string winPePath = Path.Combine(Environment.SystemDirectory, "7za.exe");
-        if (File.Exists(winPePath))
-        {
-            return winPePath;
-        }
-
-        string runtimeFolder = RuntimeInformation.ProcessArchitecture switch
-        {
-            Architecture.Arm64 => "arm64",
-            _ => "x64"
-        };
-
-        string architectureSpecific = Path.Combine(AppContext.BaseDirectory, "Assets", "7z", runtimeFolder, "7za.exe");
-        if (File.Exists(architectureSpecific))
-        {
-            return architectureSpecific;
-        }
-
-        string bundledPath = Path.Combine(AppContext.BaseDirectory, "Assets", "7z", "7za.exe");
-        if (File.Exists(bundledPath))
-        {
-            return bundledPath;
-        }
-
-        throw new FileNotFoundException(
-            "No usable 7-Zip executable was found. Expected a WinPE copy in System32 or the bundled Assets\\7z payload.",
-            architectureSpecific);
     }
 
     private static void ResetDirectory(string path)
