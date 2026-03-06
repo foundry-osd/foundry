@@ -11,12 +11,14 @@ public sealed class GatherDeploymentVariablesStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        context.EmitCurrentStepIndeterminate("Gathering deployment variables...", "Collecting deployment context...");
         await AppendRunContextAsync(context, cancellationToken).ConfigureAwait(false);
         return DeploymentStepResult.Succeeded("Deployment variables gathered.");
     }
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        context.EmitCurrentStepIndeterminate("Gathering deployment variables...", "Collecting deployment context...");
         await AppendRunContextAsync(context, cancellationToken).ConfigureAwait(false);
         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
         return DeploymentStepResult.Succeeded("Deployment variables gathered (simulation).");

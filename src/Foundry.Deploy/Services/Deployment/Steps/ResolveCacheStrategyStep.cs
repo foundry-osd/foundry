@@ -21,10 +21,12 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        context.EmitCurrentStepIndeterminate("Resolving cache strategy...", "Resolving cache location...");
         CacheResolution cache = await _cacheLocatorService
             .ResolveAsync(context.Request.Mode, context.Request.CacheRootPath, cancellationToken)
             .ConfigureAwait(false);
 
+        context.EmitCurrentStepIndeterminate("Resolving cache strategy...", "Checking cache disk conflict...");
         cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, cancellationToken).ConfigureAwait(false);
         context.RuntimeState.ResolvedCache = cache;
         await context.AppendLogAsync(DeploymentLogLevel.Info, $"Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
@@ -35,10 +37,12 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        context.EmitCurrentStepIndeterminate("Resolving cache strategy...", "Resolving cache location...");
         CacheResolution cache = await _cacheLocatorService
             .ResolveAsync(context.Request.Mode, context.Request.CacheRootPath, cancellationToken)
             .ConfigureAwait(false);
 
+        context.EmitCurrentStepIndeterminate("Resolving cache strategy...", "Checking cache disk conflict...");
         cache = await AdjustCacheForTargetDiskConflictAsync(cache, context, cancellationToken).ConfigureAwait(false);
         context.RuntimeState.ResolvedCache = cache;
         context.EnsureWorkspaceFolders();

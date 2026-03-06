@@ -37,8 +37,10 @@ public sealed class ExecuteFullAutopilotWorkflowStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable for Autopilot artifacts.");
         }
 
+        context.EmitCurrentStepIndeterminate("Executing full Autopilot workflow...", "Preparing Autopilot workflow...");
         HardwareProfile hardware = context.RuntimeState.HardwareProfile
             ?? await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
+        context.EmitCurrentStepIndeterminate("Executing full Autopilot workflow...", "Running Autopilot workflow...");
         AutopilotExecutionResult result = await _autopilotService
             .ExecuteFullWorkflowAsync(
                 targetFoundryRoot,
@@ -90,6 +92,7 @@ public sealed class ExecuteFullAutopilotWorkflowStep : DeploymentStepBase
         Directory.CreateDirectory(autopilotRoot);
         string manifestPath = Path.Combine(autopilotRoot, "autopilot-workflow.dryrun.json");
 
+        context.EmitCurrentStepIndeterminate("Executing full Autopilot workflow...", "Preparing Autopilot workflow...");
         string manifest = JsonSerializer.Serialize(new
         {
             createdAtUtc = DateTimeOffset.UtcNow,
@@ -100,6 +103,7 @@ public sealed class ExecuteFullAutopilotWorkflowStep : DeploymentStepBase
             WriteIndented = true
         });
 
+        context.EmitCurrentStepIndeterminate("Executing full Autopilot workflow...", "Writing Autopilot dry-run manifest...");
         await File.WriteAllTextAsync(manifestPath, manifest, cancellationToken).ConfigureAwait(false);
         context.RuntimeState.AutopilotWorkflowPath = manifestPath;
 

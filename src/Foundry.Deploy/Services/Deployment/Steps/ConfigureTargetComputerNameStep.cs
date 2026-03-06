@@ -27,6 +27,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         Directory.CreateDirectory(workingDirectory);
 
+        context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...");
         await _windowsDeploymentService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
@@ -55,6 +56,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         Directory.CreateDirectory(workingDirectory);
 
+        context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...");
         await _windowsDeploymentService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
