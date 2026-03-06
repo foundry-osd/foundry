@@ -14,6 +14,8 @@ public static class DeploymentStepNames
     public const string ConfigureTargetComputerName = "Configure target computer name";
     public const string ConfigureRecoveryEnvironment = "Configure recovery environment";
     public const string ApplyDriverPack = "Apply driver pack";
+    public const string DownloadFirmwareUpdate = "Download firmware update";
+    public const string ApplyFirmwareUpdate = "Apply firmware update";
     public const string SealRecoveryPartition = "Seal recovery partition";
     public const string ExecuteFullAutopilotWorkflow = "Execute full Autopilot workflow";
     public const string FinalizeDeploymentAndWriteLogs = "Finalize deployment and write logs";
@@ -32,6 +34,8 @@ public static class DeploymentStepNames
         DownloadDriverPack,
         ExtractDriverPack,
         ApplyDriverPack,
+        DownloadFirmwareUpdate,
+        ApplyFirmwareUpdate,
         SealRecoveryPartition,
         ExecuteFullAutopilotWorkflow,
         FinalizeDeploymentAndWriteLogs

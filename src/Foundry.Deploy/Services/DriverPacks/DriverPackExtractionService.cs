@@ -60,8 +60,9 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
             };
         }
 
-        string packageFolderName = SanitizePathSegment(
-            Path.GetFileNameWithoutExtension(executionPlan.DownloadedPath));
+        string packageFolderName = executionPlan.ExtractionMethod == DriverPackExtractionMethod.MicrosoftUpdateCatalogExpand
+            ? "MicrosoftUpdateCatalog"
+            : SanitizePathSegment(Path.GetFileNameWithoutExtension(executionPlan.DownloadedPath));
         string extractedPath = Path.Combine(extractionRootPath, packageFolderName);
         ResetDirectory(extractedPath);
 

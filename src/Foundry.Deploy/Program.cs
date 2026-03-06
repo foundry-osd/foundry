@@ -153,7 +153,9 @@ public static class Program
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();
         services.AddSingleton<IDriverPackSelectionService, DriverPackSelectionService>();
+        services.AddSingleton<IMicrosoftUpdateCatalogClient, MicrosoftUpdateCatalogClient>();
         services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();
+        services.AddSingleton<IMicrosoftUpdateCatalogFirmwareService, MicrosoftUpdateCatalogFirmwareService>();
         services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
         services.AddSingleton<IDriverPackStrategyResolver, DriverPackStrategyResolver>();
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
@@ -172,6 +174,8 @@ public static class Program
         services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
+        services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
         services.AddSingleton<IDeploymentStep, ExecuteFullAutopilotWorkflowStep>();
         services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();

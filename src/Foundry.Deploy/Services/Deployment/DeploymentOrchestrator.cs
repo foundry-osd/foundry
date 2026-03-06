@@ -53,12 +53,13 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation(
-            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, TargetComputerName={TargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}",
+            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, TargetComputerName={TargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}",
             context.Mode,
             context.IsDryRun,
             context.TargetDiskNumber,
             context.TargetComputerName,
-            context.DriverPackSelectionKind);
+            context.DriverPackSelectionKind,
+            context.ApplyFirmwareUpdates);
 
         if (!_operationProgressService.TryStart(OperationKind.Deploy, "Starting Foundry.Deploy orchestration.", 0))
         {
@@ -83,7 +84,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             OperatingSystemUrl = context.OperatingSystem.Url,
             DriverPackSelectionKind = context.DriverPackSelectionKind,
             DriverPackName = context.DriverPack?.DisplayLabel,
-            DriverPackUrl = context.DriverPack?.DownloadUrl
+            DriverPackUrl = context.DriverPack?.DownloadUrl,
+            ApplyFirmwareUpdates = context.ApplyFirmwareUpdates
         };
 
         DeploymentStepExecutionContext? executionContext = null;

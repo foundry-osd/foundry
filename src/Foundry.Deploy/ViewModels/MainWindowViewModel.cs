@@ -102,6 +102,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool _isUpdatingOsFilters;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
+    private bool _isUpdatingFirmwareOptionSelection;
+    private bool _hasUserSelectedFirmwareOption;
+    private bool _firmwareUpdatesPreference = true;
     private bool _isRebootInProgress;
     private bool _isDisposed;
 
@@ -242,6 +245,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
+    private bool applyFirmwareUpdates = true;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
     private bool useFullAutopilot = true;
 
     [ObservableProperty]
@@ -296,6 +303,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsOemDriverSourceSelected => SelectedDriverPackOption?.Kind == DriverPackSelectionKind.OemCatalog;
     public bool IsDriverPackModelSelectionEnabled => IsOemDriverSourceSelected && DriverPackModelOptions.Count > 0;
     public bool IsDriverPackVersionSelectionEnabled => IsDriverPackModelSelectionEnabled && DriverPackVersionOptions.Count > 0;
+    public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
     public string SelectedDriverPackSelectionDisplay => BuildSelectedDriverPackSelectionDisplay();
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
     public string VersionDisplay => $"Version: {AppVersion}";
@@ -588,6 +596,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             OperatingSystem = SelectedOperatingSystem,
             DriverPackSelectionKind = effectiveDriverPackKind,
             DriverPack = effectiveDriverPack,
+            ApplyFirmwareUpdates = ApplyFirmwareUpdates,
             UseFullAutopilot = UseFullAutopilot,
             AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
             IsDryRun = IsDebugSafeMode
@@ -814,6 +823,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     partial void OnAutoSelectDriverPackWhenEmptyChanged(bool value)
     {
         RefreshDriverPackOptions();
+    }
+
+    partial void OnApplyFirmwareUpdatesChanged(bool value)
+    {
+        if (_isUpdatingFirmwareOptionSelection)
+        {
+            return;
+        }
+
+        _hasUserSelectedFirmwareOption = true;
+        _firmwareUpdatesPreference = value;
     }
 
     partial void OnSelectedTargetDiskChanged(TargetDiskInfo? value)
@@ -2162,7 +2182,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             {
                 _detectedHardware = profile;
                 EffectiveOsArchitecture = NormalizeArchitecture(profile.Architecture);
-                DetectedHardwareSummary = $"{profile.DisplayLabel} | TPM: {(profile.IsTpmPresent ? "Yes" : "No")} | Autopilot: {(profile.IsAutopilotCapable ? "Capable" : "Needs checks")}";
+                SyncFirmwareOptionFromHardware(profile);
+                DetectedHardwareSummary =
+                    $"{profile.DisplayLabel} | TPM: {(profile.IsTpmPresent ? "Yes" : "No")} | Autopilot: {(profile.IsAutopilotCapable ? "Capable" : "Needs checks")} | Power: {(profile.IsOnBattery ? "Battery" : "AC")} | Firmware: {(profile.SystemFirmwareHardwareId.Length > 0 ? "Detected" : "Unavailable")}";
                 RefreshOsFilterOptions();
                 ApplyOsFilter();
                 RefreshDriverPackOptions();
@@ -2181,6 +2203,27 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string os = NormalizeArchitecture(osArchitecture);
         string driver = NormalizeArchitecture(driverArchitecture);
         return os.Equals(driver, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private void SyncFirmwareOptionFromHardware(HardwareProfile profile)
+    {
+        bool desiredValue = profile.IsVirtualMachine
+            ? false
+            : _hasUserSelectedFirmwareOption
+                ? _firmwareUpdatesPreference
+                : true;
+
+        _isUpdatingFirmwareOptionSelection = true;
+        try
+        {
+            ApplyFirmwareUpdates = desiredValue;
+        }
+        finally
+        {
+            _isUpdatingFirmwareOptionSelection = false;
+        }
+
+        OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
     }
 
     private string BuildStepCounterText(int currentStep)

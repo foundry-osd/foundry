@@ -35,20 +35,28 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
 
             case DriverPackSelectionKind.MicrosoftUpdateCatalog:
             {
+                HardwareProfile hardwareProfile = context.RuntimeState.HardwareProfile
+                    ?? throw new InvalidOperationException("Hardware profile is unavailable for Microsoft Update Catalog lookup.");
                 string rawDirectory = context.ResolveWorkspaceTempPath("DriverPack", "MicrosoftUpdateCatalog", "Raw");
                 ResetDirectory(rawDirectory);
                 context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Preparing download...");
                 IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading driver pack...", "Downloading");
 
                 MicrosoftUpdateCatalogDriverResult result = await _microsoftUpdateCatalogDriverService
-                    .DownloadAsync(rawDirectory, cancellationToken, progress)
+                    .DownloadAsync(hardwareProfile, context.Request.OperatingSystem, rawDirectory, cancellationToken, progress)
                     .ConfigureAwait(false);
 
                 context.RuntimeState.DriverPackName = "Microsoft Update Catalog";
                 context.RuntimeState.DriverPackUrl = null;
-                context.RuntimeState.DownloadedDriverPackPath = result.DestinationDirectory;
                 await context.AppendLogAsync(DeploymentLogLevel.Info, result.Message, cancellationToken).ConfigureAwait(false);
 
+                if (!result.IsPayloadAvailable)
+                {
+                    context.RuntimeState.DownloadedDriverPackPath = null;
+                    return DeploymentStepResult.Skipped(result.Message);
+                }
+
+                context.RuntimeState.DownloadedDriverPackPath = result.DestinationDirectory;
                 return DeploymentStepResult.Succeeded("Driver pack downloaded.");
             }
 
@@ -155,6 +163,8 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
     private static void ResetDriverPackRuntimeState(DeploymentRuntimeState runtimeState)
     {
         runtimeState.DownloadedDriverPackPath = null;
+        runtimeState.DriverPackName = null;
+        runtimeState.DriverPackUrl = null;
         runtimeState.DriverPackInstallMode = DriverPackInstallMode.None;
         runtimeState.DriverPackExtractionMethod = null;
         runtimeState.ExtractedDriverPackPath = null;
