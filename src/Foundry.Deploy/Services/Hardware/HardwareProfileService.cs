@@ -59,6 +59,7 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
             string product = ReadProperty(root, "Product");
             string serial = ReadProperty(root, "SerialNumber");
             string architecture = NormalizeArchitecture(ReadProperty(root, "Architecture"));
+            bool isVirtualMachine = IsVirtualMachine(manufacturer, model, product);
             bool isTpmPresent = ReadBoolProperty(root, "IsTpmPresent");
 
             bool isAutopilotCapable =
@@ -74,14 +75,16 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
                 Product = NormalizeValue(product),
                 SerialNumber = NormalizeValue(serial),
                 Architecture = architecture,
+                IsVirtualMachine = isVirtualMachine,
                 IsTpmPresent = isTpmPresent,
                 IsAutopilotCapable = isAutopilotCapable
             };
 
-            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsAutopilotCapable={IsAutopilotCapable}",
+            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsVirtualMachine={IsVirtualMachine}, IsAutopilotCapable={IsAutopilotCapable}",
                 profile.Manufacturer,
                 profile.Model,
                 profile.Architecture,
+                profile.IsVirtualMachine,
                 profile.IsAutopilotCapable);
             return profile;
         }
@@ -102,6 +105,7 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
             Product = "Unknown",
             SerialNumber = "Unknown",
             Architecture = architecture,
+            IsVirtualMachine = false,
             IsTpmPresent = false,
             IsAutopilotCapable = false
         };
@@ -123,6 +127,26 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
 
         return value.ValueKind == JsonValueKind.True ||
                (value.ValueKind == JsonValueKind.String && bool.TryParse(value.GetString(), out bool parsed) && parsed);
+    }
+
+    private static bool IsVirtualMachine(string manufacturer, string model, string product)
+    {
+        string combined = string.Join(" | ", manufacturer, model, product).ToLowerInvariant();
+
+        if (combined.Contains("vmware") ||
+            combined.Contains("virtualbox") ||
+            combined.Contains("virtual machine") ||
+            combined.Contains("kvm") ||
+            combined.Contains("qemu") ||
+            combined.Contains("xen") ||
+            combined.Contains("hvm domu") ||
+            combined.Contains("parallels") ||
+            combined.Contains("bhyve"))
+        {
+            return true;
+        }
+
+        return combined.Contains("microsoft corporation") && combined.Contains("virtual");
     }
 
     private static string NormalizeManufacturer(string value)

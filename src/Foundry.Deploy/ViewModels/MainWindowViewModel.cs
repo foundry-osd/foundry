@@ -1857,6 +1857,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return options.FirstOrDefault(option => option.Kind == DriverPackSelectionKind.None) ?? options[0];
         }
 
+        if (_detectedHardware?.IsVirtualMachine == true)
+        {
+            return options.FirstOrDefault(option => option.Kind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+                   ?? options[0];
+        }
+
         if (_detectedHardware is not null && SelectedOperatingSystem is not null && DriverPacks.Count > 0)
         {
             DriverPackSelectionResult selection = _driverPackSelectionService.SelectBest(

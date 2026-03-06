@@ -7,6 +7,7 @@ public sealed record HardwareProfile
     public string Product { get; init; } = "Unknown";
     public string SerialNumber { get; init; } = "Unknown";
     public string Architecture { get; init; } = string.Empty;
+    public bool IsVirtualMachine { get; init; }
     public bool IsTpmPresent { get; init; }
     public bool IsAutopilotCapable { get; init; }
 
