@@ -679,7 +679,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         UpdateGlobalProgressVisuals(DeploymentProgress);
         ComputerNameText = TargetComputerName;
         CurrentStepName = DeploymentStepNames.ApplyOperatingSystemImage;
-        StepCounterText = BuildStepCounterText(8);
+        StepCounterText = BuildStepCounterText(7);
         CurrentStepProgress = 65;
         IsCurrentStepProgressIndeterminate = false;
         CurrentStepProgressText = "Applying image: 65%";
@@ -709,7 +709,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         StopElapsedTimeTracking();
         ComputerNameText = TargetComputerName;
-        StepCounterText = BuildStepCounterText(8);
+        StepCounterText = BuildStepCounterText(7);
         SetFailureDetails(
             DeploymentStepNames.ApplyOperatingSystemImage,
             "Debug preview: DISM apply failed because the target partition is read-only.\n\n" +

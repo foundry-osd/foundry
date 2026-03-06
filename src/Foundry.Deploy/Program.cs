@@ -166,11 +166,11 @@ public static class Program
         services.AddSingleton<IDeploymentStep, ResolveCacheStrategyStep>();
         services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
         services.AddSingleton<IDeploymentStep, DownloadOperatingSystemImageStep>();
-        services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
-        services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ApplyOperatingSystemImageStep>();
         services.AddSingleton<IDeploymentStep, ConfigureTargetComputerNameStep>();
         services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
+        services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
         services.AddSingleton<IDeploymentStep, ExecuteFullAutopilotWorkflowStep>();

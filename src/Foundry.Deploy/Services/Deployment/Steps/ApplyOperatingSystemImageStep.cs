@@ -12,7 +12,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 9;
+    public override int Order => 7;
 
     public override string Name => DeploymentStepNames.ApplyOperatingSystemImage;
 
