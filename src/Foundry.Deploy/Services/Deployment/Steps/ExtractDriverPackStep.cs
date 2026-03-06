@@ -18,7 +18,7 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         _driverPackExtractionService = driverPackExtractionService;
     }
 
-    public override int Order => 8;
+    public override int Order => 11;
 
     public override string Name => DeploymentStepNames.ExtractDriverPack;
 

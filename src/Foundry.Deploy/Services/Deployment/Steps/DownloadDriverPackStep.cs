@@ -19,7 +19,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         _artifactDownloadService = artifactDownloadService;
     }
 
-    public override int Order => 7;
+    public override int Order => 10;
 
     public override string Name => DeploymentStepNames.DownloadDriverPack;
 
