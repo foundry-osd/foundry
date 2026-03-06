@@ -22,12 +22,14 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         string workingDirectory = context.ResolveWorkspaceTempPath("Deployment");
         Directory.CreateDirectory(workingDirectory);
 
+        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Revalidating target disk...");
         (_, DeploymentStepResult? validationFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
         if (validationFailure is not null)
         {
             return validationFailure;
         }
 
+        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Partitioning target disk...");
         DeploymentTargetLayout layout = await _windowsDeploymentService
             .PrepareTargetDiskAsync(
                 context.Request.TargetDiskNumber,
@@ -47,6 +49,7 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
             Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "DriverPack"));
         }
 
+        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Preparing target workspace...");
         await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
         await context.AppendLogAsync(
@@ -63,6 +66,8 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         string systemRoot = Path.Combine(targetRoot, "System");
         string windowsRoot = Path.Combine(targetRoot, "Windows");
         string recoveryRoot = Path.Combine(targetRoot, "Recovery");
+
+        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Creating simulated partitions...");
         Directory.CreateDirectory(systemRoot);
         Directory.CreateDirectory(windowsRoot);
         Directory.CreateDirectory(recoveryRoot);
@@ -73,6 +78,7 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         context.RuntimeState.TargetRecoveryPartitionLetter = 'R';
         context.RuntimeState.TargetFoundryRoot = Path.Combine(windowsRoot, "Foundry");
 
+        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Preparing target workspace...");
         await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
         await context.AppendLogAsync(

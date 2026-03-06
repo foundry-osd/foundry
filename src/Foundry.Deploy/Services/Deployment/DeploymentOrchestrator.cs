@@ -117,7 +117,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     DeploymentStepState.Running,
                     $"Starting {step.Name}.",
                     stepSubProgressIndeterminate: true,
-                    stepSubProgressLabel: "Step started");
+                    stepSubProgressLabel: $"Starting {step.Name}...");
                 await executionContext.AppendLogAsync(DeploymentLogLevel.Info, $"[STEP] {step.Name}", cancellationToken).ConfigureAwait(false);
 
                 DeploymentStepResult result = await step.ExecuteAsync(executionContext, cancellationToken).ConfigureAwait(false);

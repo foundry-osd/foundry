@@ -10,6 +10,7 @@ public sealed class InitializeDeploymentWorkspaceStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        context.EmitCurrentStepIndeterminate("Initializing deployment workspace...", "Creating workspace folders...");
         context.EnsureWorkspaceFolders();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
@@ -21,6 +22,7 @@ public sealed class InitializeDeploymentWorkspaceStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        context.EmitCurrentStepIndeterminate("Initializing deployment workspace...", "Creating workspace folders...");
         context.EnsureWorkspaceFolders();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
