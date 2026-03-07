@@ -55,6 +55,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 IsPayloadAvailable = false,
                 CabCount = 0,
                 InfCount = 0,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
                 Message = "No eligible Plug and Play devices were found for Microsoft Update Catalog driver lookup."
             };
         }
@@ -68,6 +69,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 IsPayloadAvailable = false,
                 CabCount = 0,
                 InfCount = 0,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
                 Message = "Microsoft Update Catalog is not reachable; skipping driver lookup."
             };
         }
@@ -105,11 +107,13 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 IsPayloadAvailable = false,
                 CabCount = 0,
                 InfCount = 0,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
                 Message = "Microsoft Update Catalog did not return any applicable driver payloads for the detected hardware."
             };
         }
 
         int downloadIndex = 0;
+        List<MicrosoftUpdateCatalogDownloadedDriver> downloadedDrivers = [];
         foreach (CatalogDownloadCandidate candidate in matchedUpdates.Values.OrderBy(static item => item.Update.Title, StringComparer.OrdinalIgnoreCase))
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -123,6 +127,15 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             await _artifactDownloadService
                 .DownloadAsync(candidate.DownloadUrl, destinationPath, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
+
+            downloadedDrivers.Add(new MicrosoftUpdateCatalogDownloadedDriver
+            {
+                UpdateId = candidate.Update.UpdateId,
+                Title = candidate.Update.Title,
+                Version = candidate.Update.Version,
+                Size = candidate.Update.Size,
+                DownloadUrl = candidate.DownloadUrl
+            });
 
             downloadIndex++;
             progress?.Report(60d + (double)downloadIndex / matchedUpdates.Count * 40d);
@@ -139,6 +152,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             UpdateCount = matchedUpdates.Count,
             CabCount = cabCount,
             InfCount = infCount,
+            DownloadedDrivers = downloadedDrivers,
             Message = cabCount > 0
                 ? $"Microsoft Update Catalog payload downloaded: {cabCount} CAB files across {matchedUpdates.Count} updates."
                 : infCount > 0
@@ -188,6 +202,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 IsPayloadAvailable = existingInfCount > 0,
                 CabCount = 0,
                 InfCount = existingInfCount,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
                 Message = existingInfCount > 0
                     ? $"Microsoft Update Catalog payload is already expanded: {existingInfCount} INF files."
                     : "Microsoft Update Catalog expand completed, but no CAB or INF files were found."
@@ -225,6 +240,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             UpdateCount = cabFiles.Length,
             CabCount = cabFiles.Length,
             InfCount = infCount,
+            DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
             Message = infCount > 0
                 ? $"Microsoft Update Catalog payload expanded: {infCount} INF files from {cabFiles.Length} CAB files."
                 : $"Microsoft Update Catalog payload expanded from {cabFiles.Length} CAB files, but no INF files were found."

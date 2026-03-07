@@ -49,6 +49,13 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                 context.RuntimeState.DriverPackName = "Microsoft Update Catalog";
                 context.RuntimeState.DriverPackUrl = null;
                 await context.AppendLogAsync(DeploymentLogLevel.Info, result.Message, cancellationToken).ConfigureAwait(false);
+                foreach (MicrosoftUpdateCatalogDownloadedDriver downloadedDriver in result.DownloadedDrivers)
+                {
+                    await context.AppendLogAsync(
+                        DeploymentLogLevel.Info,
+                        $"Microsoft Update Catalog driver downloaded | UpdateId={downloadedDriver.UpdateId} | Title={downloadedDriver.Title} | Version={downloadedDriver.Version} | Size={downloadedDriver.Size} | Url={downloadedDriver.DownloadUrl}",
+                        cancellationToken).ConfigureAwait(false);
+                }
 
                 if (!result.IsPayloadAvailable)
                 {

@@ -7,5 +7,6 @@ public sealed record MicrosoftUpdateCatalogDriverResult
     public int UpdateCount { get; init; }
     public int CabCount { get; init; }
     public int InfCount { get; init; }
+    public IReadOnlyList<MicrosoftUpdateCatalogDownloadedDriver> DownloadedDrivers { get; init; } = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>();
     public required string Message { get; init; }
 }
