@@ -12,7 +12,7 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 13;
+    public override int Order => 15;
 
     public override string Name => DeploymentStepNames.SealRecoveryPartition;
 

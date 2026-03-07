@@ -34,6 +34,11 @@ public sealed record DeploymentRuntimeState
     public string? ExtractedDriverPackPath { get; set; }
     public string? DeferredDriverPackagePath { get; set; }
     public string? DriverPackSetupCompleteHookPath { get; set; }
+    public bool ApplyFirmwareUpdates { get; set; } = true;
+    public string? DownloadedFirmwarePath { get; set; }
+    public string? ExtractedFirmwarePath { get; set; }
+    public string? FirmwareUpdateId { get; set; }
+    public string? FirmwareUpdateTitle { get; set; }
     public string? AutopilotWorkflowPath { get; set; }
     public string? TargetFoundryRoot { get; set; }
     public string? DeploymentSummaryPath { get; set; }

@@ -32,6 +32,11 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         string downloadedPath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
         if (!PathExists(downloadedPath))
         {
+            if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+            {
+                return DeploymentStepResult.Skipped("Microsoft Update Catalog did not produce a driver payload.");
+            }
+
             return DeploymentStepResult.Failed("Driver pack was not downloaded.");
         }
 
@@ -75,6 +80,12 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         string downloadedPath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
         if (!PathExists(downloadedPath))
         {
+            if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+            {
+                await Task.Delay(120, cancellationToken).ConfigureAwait(false);
+                return DeploymentStepResult.Skipped("Microsoft Update Catalog did not produce a driver payload.");
+            }
+
             return DeploymentStepResult.Failed("Driver pack was not downloaded.");
         }
 

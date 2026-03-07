@@ -145,6 +145,7 @@ public static class Program
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
+        services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
@@ -153,7 +154,9 @@ public static class Program
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();
         services.AddSingleton<IDriverPackSelectionService, DriverPackSelectionService>();
+        services.AddSingleton<IMicrosoftUpdateCatalogClient, MicrosoftUpdateCatalogClient>();
         services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();
+        services.AddSingleton<IMicrosoftUpdateCatalogFirmwareService, MicrosoftUpdateCatalogFirmwareService>();
         services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
         services.AddSingleton<IDriverPackStrategyResolver, DriverPackStrategyResolver>();
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
@@ -172,6 +175,8 @@ public static class Program
         services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
+        services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
         services.AddSingleton<IDeploymentStep, ExecuteFullAutopilotWorkflowStep>();
         services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();

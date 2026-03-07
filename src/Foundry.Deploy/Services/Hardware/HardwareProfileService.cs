@@ -22,10 +22,43 @@ public sealed class HardwareProfileService : IHardwareProfileService
     {
         _logger.LogInformation("Detecting current hardware profile.");
         string script = @"
+function ConvertTo-TrimmedString {
+    param (
+        [Parameter(ValueFromPipeline = $true)]
+        $Value
+    )
+
+    process {
+        if ($null -eq $Value) {
+            return ''
+        }
+
+        return $Value.ToString().Trim()
+    }
+}
+
 $computer = Get-CimInstance -ClassName Win32_ComputerSystem
 $product = Get-CimInstance -ClassName Win32_ComputerSystemProduct
 $bios = Get-CimInstance -ClassName Win32_BIOS
 $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName Win32_Tpm -ErrorAction SilentlyContinue
+$battery = Get-CimInstance -ClassName Win32_Battery -ErrorAction SilentlyContinue
+$pnpDevices = @(Get-CimInstance -ClassName Win32_PnpEntity -Property Name,DeviceID,HardwareID,ClassGuid,Manufacturer,PNPClass -ErrorAction SilentlyContinue | ForEach-Object {
+    $hardwareIds = @($_.HardwareID | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.ToString().Trim() })
+    [pscustomobject]@{
+        Name = [string]($_.Name | ConvertTo-TrimmedString)
+        DeviceId = [string]($_.DeviceID | ConvertTo-TrimmedString)
+        HardwareIds = $hardwareIds
+        ClassGuid = [string]($_.ClassGuid | ConvertTo-TrimmedString)
+        Manufacturer = [string]($_.Manufacturer | ConvertTo-TrimmedString)
+        PnpClass = [string]($_.PNPClass | ConvertTo-TrimmedString)
+    }
+})
+$firmwareDevice = $pnpDevices | Where-Object { $_.ClassGuid -eq '{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}' } | Select-Object -First 1
+$systemFirmwareHardwareId = ''
+if ($firmwareDevice -and $firmwareDevice.DeviceId -match '\{?(([0-9a-f]){8}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){12})\}?') {
+    $systemFirmwareHardwareId = $Matches[1]
+}
+$isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
 
 [pscustomobject]@{
     Manufacturer = [string]$computer.Manufacturer
@@ -33,8 +66,11 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
     Product = [string]$product.Version
     SerialNumber = [string]$bios.SerialNumber
     Architecture = [string]$env:PROCESSOR_ARCHITECTURE
+    IsOnBattery = [bool]$isOnBattery
     IsTpmPresent = [bool]($null -ne $tpm)
-} | ConvertTo-Json -Compress
+    SystemFirmwareHardwareId = [string]$systemFirmwareHardwareId
+    PnpDevices = $pnpDevices
+} | ConvertTo-Json -Compress -Depth 8
 ";
 
         string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
@@ -60,7 +96,10 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
             string serial = ReadProperty(root, "SerialNumber");
             string architecture = NormalizeArchitecture(ReadProperty(root, "Architecture"));
             bool isVirtualMachine = IsVirtualMachine(manufacturer, model, product);
+            bool isOnBattery = ReadBoolProperty(root, "IsOnBattery");
             bool isTpmPresent = ReadBoolProperty(root, "IsTpmPresent");
+            string systemFirmwareHardwareId = ReadProperty(root, "SystemFirmwareHardwareId");
+            IReadOnlyList<PnpDeviceInfo> pnpDevices = ReadPnpDevices(root);
 
             bool isAutopilotCapable =
                 !string.IsNullOrWhiteSpace(serial) &&
@@ -76,15 +115,19 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
                 SerialNumber = NormalizeValue(serial),
                 Architecture = architecture,
                 IsVirtualMachine = isVirtualMachine,
+                IsOnBattery = isOnBattery,
                 IsTpmPresent = isTpmPresent,
-                IsAutopilotCapable = isAutopilotCapable
+                IsAutopilotCapable = isAutopilotCapable,
+                SystemFirmwareHardwareId = systemFirmwareHardwareId.Trim(),
+                PnpDevices = pnpDevices
             };
 
-            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsVirtualMachine={IsVirtualMachine}, IsAutopilotCapable={IsAutopilotCapable}",
+            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsVirtualMachine={IsVirtualMachine}, IsOnBattery={IsOnBattery}, IsAutopilotCapable={IsAutopilotCapable}",
                 profile.Manufacturer,
                 profile.Model,
                 profile.Architecture,
                 profile.IsVirtualMachine,
+                profile.IsOnBattery,
                 profile.IsAutopilotCapable);
             return profile;
         }
@@ -106,8 +149,11 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
             SerialNumber = "Unknown",
             Architecture = architecture,
             IsVirtualMachine = false,
+            IsOnBattery = false,
             IsTpmPresent = false,
-            IsAutopilotCapable = false
+            IsAutopilotCapable = false,
+            SystemFirmwareHardwareId = string.Empty,
+            PnpDevices = Array.Empty<PnpDeviceInfo>()
         };
     }
 
@@ -127,6 +173,64 @@ $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName 
 
         return value.ValueKind == JsonValueKind.True ||
                (value.ValueKind == JsonValueKind.String && bool.TryParse(value.GetString(), out bool parsed) && parsed);
+    }
+
+    private static IReadOnlyList<PnpDeviceInfo> ReadPnpDevices(JsonElement root)
+    {
+        if (!root.TryGetProperty("PnpDevices", out JsonElement devicesElement) ||
+            devicesElement.ValueKind != JsonValueKind.Array)
+        {
+            return Array.Empty<PnpDeviceInfo>();
+        }
+
+        var devices = new List<PnpDeviceInfo>();
+        foreach (JsonElement deviceElement in devicesElement.EnumerateArray())
+        {
+            if (deviceElement.ValueKind != JsonValueKind.Object)
+            {
+                continue;
+            }
+
+            devices.Add(new PnpDeviceInfo
+            {
+                Name = ReadProperty(deviceElement, "Name"),
+                DeviceId = ReadProperty(deviceElement, "DeviceId"),
+                HardwareIds = ReadStringArrayProperty(deviceElement, "HardwareIds"),
+                ClassGuid = ReadProperty(deviceElement, "ClassGuid"),
+                Manufacturer = ReadProperty(deviceElement, "Manufacturer"),
+                PnpClass = ReadProperty(deviceElement, "PnpClass")
+            });
+        }
+
+        return devices;
+    }
+
+    private static IReadOnlyList<string> ReadStringArrayProperty(JsonElement root, string propertyName)
+    {
+        if (!root.TryGetProperty(propertyName, out JsonElement value))
+        {
+            return Array.Empty<string>();
+        }
+
+        if (value.ValueKind == JsonValueKind.Array)
+        {
+            return value
+                .EnumerateArray()
+                .Select(item => item.ValueKind == JsonValueKind.String ? item.GetString() ?? string.Empty : string.Empty)
+                .Where(item => !string.IsNullOrWhiteSpace(item))
+                .Select(item => item.Trim())
+                .ToArray();
+        }
+
+        if (value.ValueKind == JsonValueKind.String)
+        {
+            string? stringValue = value.GetString();
+            return string.IsNullOrWhiteSpace(stringValue)
+                ? Array.Empty<string>()
+                : [stringValue.Trim()];
+        }
+
+        return Array.Empty<string>();
     }
 
     private static bool IsVirtualMachine(string manufacturer, string model, string product)

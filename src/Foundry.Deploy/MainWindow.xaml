@@ -156,6 +156,12 @@
                                 <CheckBox Margin="0,12,0,0" IsChecked="{Binding AutoSelectDriverPackWhenEmpty}">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Auto-select OEM driver pack from detected hardware (fallback to Microsoft Update Catalog)." />
                                 </CheckBox>
+                                <CheckBox
+                                    Margin="0,8,0,0"
+                                    IsChecked="{Binding ApplyFirmwareUpdates}"
+                                    IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Firmware: Microsoft Update Catalog update enabled." />
+                                </CheckBox>
                                 <CheckBox Margin="0,8,0,0" IsChecked="{Binding UseFullAutopilot}">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Full workflow enabled (V1 scope)." />
                                 </CheckBox>
@@ -346,6 +352,9 @@
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Pack Mode" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackModeDisplay}" />
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Firmware" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />

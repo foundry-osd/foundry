@@ -1,5 +1,6 @@
-using System.Text;
 using System.IO;
+using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
@@ -7,73 +8,157 @@ namespace Foundry.Deploy.Services.DriverPacks;
 
 public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalogDriverService
 {
-    private readonly IProcessRunner _processRunner;
+    private const string FirmwareClassGuid = "{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}";
+    private static readonly string[] CriticalPnpClasses =
+    [
+        "DiskDrive",
+        "Net",
+        "SCSIAdapter"
+    ];
+
+    private readonly IArchiveExtractionService _archiveExtractionService;
+    private readonly IMicrosoftUpdateCatalogClient _catalogClient;
+    private readonly IArtifactDownloadService _artifactDownloadService;
     private readonly ILogger<MicrosoftUpdateCatalogDriverService> _logger;
 
-    public MicrosoftUpdateCatalogDriverService(IProcessRunner processRunner, ILogger<MicrosoftUpdateCatalogDriverService> logger)
+    public MicrosoftUpdateCatalogDriverService(
+        IArchiveExtractionService archiveExtractionService,
+        IMicrosoftUpdateCatalogClient catalogClient,
+        IArtifactDownloadService artifactDownloadService,
+        ILogger<MicrosoftUpdateCatalogDriverService> logger)
     {
-        _processRunner = processRunner;
+        _archiveExtractionService = archiveExtractionService;
+        _catalogClient = catalogClient;
+        _artifactDownloadService = artifactDownloadService;
         _logger = logger;
     }
 
     public async Task<MicrosoftUpdateCatalogDriverResult> DownloadAsync(
+        HardwareProfile hardwareProfile,
+        OperatingSystemCatalogItem operatingSystem,
         string destinationDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
+        ArgumentNullException.ThrowIfNull(hardwareProfile);
+        ArgumentNullException.ThrowIfNull(operatingSystem);
+
         if (string.IsNullOrWhiteSpace(destinationDirectory))
         {
             throw new ArgumentException("Destination directory is required.", nameof(destinationDirectory));
         }
 
-        _logger.LogInformation("Starting Microsoft Update Catalog driver download. DestinationDirectory={DestinationDirectory}", destinationDirectory);
-        Directory.CreateDirectory(destinationDirectory);
+        ResetDirectory(destinationDirectory);
         progress?.Report(5d);
 
-        string script = BuildScript(destinationDirectory);
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
-        progress?.Report(15d);
-
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, destinationDirectory, cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess)
+        DriverSearchTarget[] searchTargets = BuildSearchTargets(hardwareProfile);
+        if (searchTargets.Length == 0)
         {
-            _logger.LogError("Microsoft Update Catalog driver download failed. ExitCode={ExitCode}, StdErr={StdErr}",
-                execution.ExitCode,
-                execution.StandardError);
-            throw new InvalidOperationException(
-                "Microsoft Update Catalog download failed." + Environment.NewLine +
-                $"ExitCode: {execution.ExitCode}" + Environment.NewLine +
-                execution.StandardError);
+            progress?.Report(100d);
+            return new MicrosoftUpdateCatalogDriverResult
+            {
+                DestinationDirectory = destinationDirectory,
+                IsPayloadAvailable = false,
+                InfCount = 0,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
+                Message = "No eligible critical Plug and Play devices (DiskDrive, Net, SCSIAdapter) were found for Microsoft Update Catalog driver lookup."
+            };
         }
-        progress?.Report(90d);
 
-        int cabCount = Directory
-            .EnumerateFiles(destinationDirectory, "*.cab", SearchOption.AllDirectories)
-            .Count();
-        int infCount = Directory
-            .EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories)
-            .Count();
+        if (!await _catalogClient.IsAvailableAsync(cancellationToken).ConfigureAwait(false))
+        {
+            progress?.Report(100d);
+            return new MicrosoftUpdateCatalogDriverResult
+            {
+                DestinationDirectory = destinationDirectory,
+                IsPayloadAvailable = false,
+                InfCount = 0,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
+                Message = "Microsoft Update Catalog is not reachable; skipping driver lookup."
+            };
+        }
 
-        _logger.LogInformation("Microsoft Update Catalog driver download completed. DestinationDirectory={DestinationDirectory}, CabCount={CabCount}, InfCount={InfCount}",
-            destinationDirectory,
-            cabCount,
-            infCount);
+        progress?.Report(15d);
+        string[] releaseSearchOrder = MicrosoftUpdateCatalogSupport.BuildReleaseSearchOrder(operatingSystem.ReleaseId);
+        var matchedUpdates = new Dictionary<string, CatalogDownloadCandidate>(StringComparer.OrdinalIgnoreCase);
+
+        for (int index = 0; index < searchTargets.Length; index++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            DriverSearchTarget searchTarget = searchTargets[index];
+            CatalogDownloadCandidate? candidate = await FindCandidateAsync(
+                    searchTarget,
+                    releaseSearchOrder,
+                    operatingSystem.Architecture,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            if (candidate is not null)
+            {
+                matchedUpdates.TryAdd(candidate.Update.UpdateId, candidate);
+            }
+
+            progress?.Report(15d + (double)(index + 1) / searchTargets.Length * 45d);
+        }
+
+        if (matchedUpdates.Count == 0)
+        {
+            progress?.Report(100d);
+            return new MicrosoftUpdateCatalogDriverResult
+            {
+                DestinationDirectory = destinationDirectory,
+                IsPayloadAvailable = false,
+                InfCount = 0,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
+                Message = "Microsoft Update Catalog did not return any applicable driver payloads for the detected critical devices (DiskDrive, Net, SCSIAdapter)."
+            };
+        }
+
+        int downloadIndex = 0;
+        List<MicrosoftUpdateCatalogDownloadedDriver> downloadedDrivers = [];
+        foreach (CatalogDownloadCandidate candidate in matchedUpdates.Values.OrderBy(static item => item.Update.Title, StringComparer.OrdinalIgnoreCase))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            string updateDirectory = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(candidate.Update.UpdateId));
+            Directory.CreateDirectory(updateDirectory);
+
+            string fileName = MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(candidate.DownloadUrl);
+            string destinationPath = Path.Combine(updateDirectory, fileName);
+
+            await _artifactDownloadService
+                .DownloadAsync(candidate.DownloadUrl, destinationPath, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+
+            downloadedDrivers.Add(new MicrosoftUpdateCatalogDownloadedDriver
+            {
+                UpdateId = candidate.Update.UpdateId,
+                Title = candidate.Update.Title,
+                Version = candidate.Update.Version,
+                Size = candidate.Update.Size,
+                DownloadUrl = candidate.DownloadUrl
+            });
+
+            downloadIndex++;
+            progress?.Report(60d + (double)downloadIndex / matchedUpdates.Count * 40d);
+        }
+
+        int cabCount = Directory.EnumerateFiles(destinationDirectory, "*.cab", SearchOption.AllDirectories).Count();
+        int infCount = Directory.EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories).Count();
         progress?.Report(100d);
 
         return new MicrosoftUpdateCatalogDriverResult
         {
             DestinationDirectory = destinationDirectory,
-            CabCount = cabCount,
+            IsPayloadAvailable = cabCount > 0 || infCount > 0,
             InfCount = infCount,
+            DownloadedDrivers = downloadedDrivers,
             Message = cabCount > 0
-                ? $"Microsoft Update Catalog payload downloaded: {cabCount} CAB files."
+                ? $"Microsoft Update Catalog payload downloaded: {cabCount} CAB files across {matchedUpdates.Count} updates."
                 : infCount > 0
-                    ? $"Microsoft Update Catalog payload downloaded and already contains {infCount} INF files."
-                    : "Microsoft Update Catalog completed, but no CAB or INF files were found."
+                    ? $"Microsoft Update Catalog payload resolved directly as INF content: {infCount} INF files across {matchedUpdates.Count} updates."
+                    : "Microsoft Update Catalog returned updates, but no CAB or INF files were downloaded."
         };
     }
 
@@ -115,8 +200,9 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             return new MicrosoftUpdateCatalogDriverResult
             {
                 DestinationDirectory = existingInfCount > 0 ? sourceDirectory : destinationDirectory,
-                CabCount = 0,
+                IsPayloadAvailable = existingInfCount > 0,
                 InfCount = existingInfCount,
+                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
                 Message = existingInfCount > 0
                     ? $"Microsoft Update Catalog payload is already expanded: {existingInfCount} INF files."
                     : "Microsoft Update Catalog expand completed, but no CAB or INF files were found."
@@ -126,34 +212,20 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         for (int index = 0; index < cabFiles.Length; index++)
         {
             string cabPath = cabFiles[index];
-            string cabDestination = Path.Combine(
-                destinationDirectory,
-                SanitizePathSegment(Path.GetFileNameWithoutExtension(cabPath)));
+            string folderName = ResolveExpandedFolderName(cabPath, sourceDirectory);
+            string cabDestination = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(folderName));
             Directory.CreateDirectory(cabDestination);
 
-            ProcessExecutionResult execution = await _processRunner
-                .RunAsync(
-                    "expand.exe",
-                    [
-                        cabPath,
-                        "-F:*",
-                        cabDestination
-                    ],
+            double rangeStart = 10d + (double)index / cabFiles.Length * 85d;
+            double rangeEnd = 10d + (double)(index + 1) / cabFiles.Length * 85d;
+            await _archiveExtractionService
+                .ExtractWithSevenZipAsync(
+                    cabPath,
+                    cabDestination,
                     destinationDirectory,
-                    cancellationToken)
+                    cancellationToken,
+                    CreateMappedProgress(progress, rangeStart, rangeEnd))
                 .ConfigureAwait(false);
-
-            if (!execution.IsSuccess)
-            {
-                throw new InvalidOperationException(
-                    "Microsoft Update Catalog expand failed." + Environment.NewLine +
-                    $"ExitCode: {execution.ExitCode}" + Environment.NewLine +
-                    execution.StandardOutput + Environment.NewLine +
-                    execution.StandardError);
-            }
-
-            double percent = 10d + (double)(index + 1) / cabFiles.Length * 85d;
-            progress?.Report(percent);
         }
 
         int infCount = Directory
@@ -164,59 +236,230 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         return new MicrosoftUpdateCatalogDriverResult
         {
             DestinationDirectory = destinationDirectory,
-            CabCount = cabFiles.Length,
+            IsPayloadAvailable = infCount > 0,
             InfCount = infCount,
+            DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
             Message = infCount > 0
                 ? $"Microsoft Update Catalog payload expanded: {infCount} INF files from {cabFiles.Length} CAB files."
                 : $"Microsoft Update Catalog payload expanded from {cabFiles.Length} CAB files, but no INF files were found."
         };
     }
 
-    private static string BuildScript(string destinationDirectory)
+    private async Task<CatalogDownloadCandidate?> FindCandidateAsync(
+        DriverSearchTarget searchTarget,
+        IReadOnlyList<string> releaseSearchOrder,
+        string targetArchitecture,
+        CancellationToken cancellationToken)
     {
-        string escapedDestination = destinationDirectory.Replace("'", "''");
+        MicrosoftUpdateCatalogUpdate? update = await SearchByReleaseAsync(
+                searchTarget.NormalizedHardwareId,
+                releaseSearchOrder,
+                cancellationToken)
+            .ConfigureAwait(false);
 
-        string template = @"
-$ErrorActionPreference = 'Stop'
-$ProgressPreference = 'SilentlyContinue'
-$destination = '__DESTINATION__'
-
-function Ensure-Module([string]$Name) {
-    if (Get-Module -ListAvailable -Name $Name) {
-        return
-    }
-
-    if (-not (Get-PackageProvider -Name NuGet -ListAvailable -ErrorAction SilentlyContinue)) {
-        Install-PackageProvider -Name NuGet -Scope AllUsers -Force -ErrorAction Stop
-    }
-
-    try {
-        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted -ErrorAction Stop
-    } catch {
-        Write-Warning $_.Exception.Message
-    }
-
-    Install-Module -Name $Name -Scope AllUsers -Force -AllowClobber -ErrorAction Stop
-}
-
-Ensure-Module -Name 'OSD'
-Import-Module OSD -Force -ErrorAction Stop
-
-Save-MsUpCatDriver -DestinationDirectory $destination -ErrorAction Stop
-";
-
-        return template.Replace("__DESTINATION__", escapedDestination, StringComparison.Ordinal);
-    }
-
-    private static string SanitizePathSegment(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
+        if (update is null)
         {
-            return "package";
+            update = await SearchByRawHardwareIdAsync(searchTarget.RawFallbackTerms, cancellationToken).ConfigureAwait(false);
         }
 
-        char[] invalid = Path.GetInvalidFileNameChars();
-        string sanitized = new(value.Select(ch => invalid.Contains(ch) ? '_' : ch).ToArray());
-        return sanitized.Trim().TrimEnd('.');
+        if (update is null)
+        {
+            _logger.LogDebug("No Microsoft Update Catalog match found for device '{DeviceName}'.", searchTarget.DeviceName);
+            return null;
+        }
+
+        IReadOnlyList<string> downloadUrls = await _catalogClient
+            .GetDownloadUrlsAsync(update.UpdateId, cancellationToken)
+            .ConfigureAwait(false);
+
+        string? selectedUrl = MicrosoftUpdateCatalogSupport.SelectPreferredCabUrl(downloadUrls, targetArchitecture);
+        if (string.IsNullOrWhiteSpace(selectedUrl))
+        {
+            _logger.LogInformation(
+                "Microsoft Update Catalog update '{Title}' ({UpdateId}) has no CAB payload compatible with architecture '{Architecture}'.",
+                update.Title,
+                update.UpdateId,
+                MicrosoftUpdateCatalogSupport.NormalizeArchitecture(targetArchitecture));
+            return null;
+        }
+
+        return new CatalogDownloadCandidate
+        {
+            Update = update,
+            DownloadUrl = selectedUrl
+        };
+    }
+
+    private async Task<MicrosoftUpdateCatalogUpdate?> SearchByReleaseAsync(
+        string normalizedHardwareId,
+        IReadOnlyList<string> releaseSearchOrder,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(normalizedHardwareId))
+        {
+            return null;
+        }
+
+        foreach (string releaseId in releaseSearchOrder)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            string query = MicrosoftUpdateCatalogSupport.BuildSearchQuery(releaseId, normalizedHardwareId);
+            IReadOnlyList<MicrosoftUpdateCatalogUpdate> results = await _catalogClient
+                .SearchAsync(query, descending: true, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+
+            MicrosoftUpdateCatalogUpdate? update = results.FirstOrDefault();
+            if (update is not null)
+            {
+                _logger.LogInformation(
+                    "Found Microsoft Update Catalog match. ReleaseId={ReleaseId}, HardwareId={HardwareId}, UpdateId={UpdateId}, Title={Title}",
+                    releaseId,
+                    normalizedHardwareId,
+                    update.UpdateId,
+                    update.Title);
+                return update;
+            }
+        }
+
+        return null;
+    }
+
+    private async Task<MicrosoftUpdateCatalogUpdate?> SearchByRawHardwareIdAsync(
+        IReadOnlyList<string> rawFallbackTerms,
+        CancellationToken cancellationToken)
+    {
+        foreach (string rawHardwareId in rawFallbackTerms)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            IReadOnlyList<MicrosoftUpdateCatalogUpdate> results = await _catalogClient
+                .SearchAsync(rawHardwareId, descending: true, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+
+            MicrosoftUpdateCatalogUpdate? update = results.FirstOrDefault();
+            if (update is not null)
+            {
+                _logger.LogInformation(
+                    "Found Microsoft Update Catalog fallback match. RawHardwareId={RawHardwareId}, UpdateId={UpdateId}, Title={Title}",
+                    rawHardwareId,
+                    update.UpdateId,
+                    update.Title);
+                return update;
+            }
+        }
+
+        return null;
+    }
+
+    private static DriverSearchTarget[] BuildSearchTargets(HardwareProfile hardwareProfile)
+    {
+        var seenKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var targets = new List<DriverSearchTarget>();
+
+        foreach (PnpDeviceInfo device in hardwareProfile.PnpDevices)
+        {
+            if (device.ClassGuid.Equals(FirmwareClassGuid, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            if (!IsCriticalCatalogDevice(device))
+            {
+                continue;
+            }
+
+            string normalizedHardwareId = MicrosoftUpdateCatalogSupport.TryExtractDriverSearchHardwareId(device) ?? string.Empty;
+            string[] rawFallbackTerms = device.HardwareIds
+                .Prepend(device.DeviceId)
+                .Where(value => !string.IsNullOrWhiteSpace(value))
+                .Select(value => value.Trim())
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .Where(value => !value.Equals(normalizedHardwareId, StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+            string dedupeKey = !string.IsNullOrWhiteSpace(normalizedHardwareId)
+                ? normalizedHardwareId
+                : rawFallbackTerms.FirstOrDefault() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(dedupeKey) || !seenKeys.Add(dedupeKey))
+            {
+                continue;
+            }
+
+            targets.Add(new DriverSearchTarget
+            {
+                DeviceName = ResolveDeviceName(device),
+                NormalizedHardwareId = normalizedHardwareId,
+                RawFallbackTerms = rawFallbackTerms
+            });
+        }
+
+        return targets.ToArray();
+    }
+
+    private static bool IsCriticalCatalogDevice(PnpDeviceInfo device)
+    {
+        string normalizedPnpClass = device.PnpClass.Trim();
+        return CriticalPnpClasses.Contains(normalizedPnpClass, StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static string ResolveExpandedFolderName(string cabPath, string sourceDirectory)
+    {
+        string parentFolder = Path.GetFileName(Path.GetDirectoryName(cabPath) ?? string.Empty);
+        string sourceFolder = Path.GetFileName(sourceDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+
+        return !string.IsNullOrWhiteSpace(parentFolder) &&
+               !parentFolder.Equals(sourceFolder, StringComparison.OrdinalIgnoreCase)
+            ? parentFolder
+            : Path.GetFileNameWithoutExtension(cabPath);
+    }
+
+    private static string ResolveDeviceName(PnpDeviceInfo device)
+    {
+        if (!string.IsNullOrWhiteSpace(device.Name))
+        {
+            return device.Name.Trim();
+        }
+
+        return !string.IsNullOrWhiteSpace(device.DeviceId)
+            ? device.DeviceId.Trim()
+            : "Unknown device";
+    }
+
+    private static void ResetDirectory(string path)
+    {
+        if (Directory.Exists(path))
+        {
+            Directory.Delete(path, recursive: true);
+        }
+
+        Directory.CreateDirectory(path);
+    }
+
+    private sealed record DriverSearchTarget
+    {
+        public required string DeviceName { get; init; }
+        public required string NormalizedHardwareId { get; init; }
+        public required IReadOnlyList<string> RawFallbackTerms { get; init; }
+    }
+
+    private sealed record CatalogDownloadCandidate
+    {
+        public required MicrosoftUpdateCatalogUpdate Update { get; init; }
+        public required string DownloadUrl { get; init; }
+    }
+
+    private static IProgress<double>? CreateMappedProgress(IProgress<double>? progress, double start, double end)
+    {
+        if (progress is null)
+        {
+            return null;
+        }
+
+        return new Progress<double>(percent =>
+        {
+            double normalized = Math.Clamp(percent, 0d, 100d);
+            progress.Report(start + (normalized / 100d * (end - start)));
+        });
     }
 }
