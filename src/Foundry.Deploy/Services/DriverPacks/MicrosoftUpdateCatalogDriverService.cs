@@ -9,6 +9,12 @@ namespace Foundry.Deploy.Services.DriverPacks;
 public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalogDriverService
 {
     private const string FirmwareClassGuid = "{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}";
+    private static readonly string[] CriticalPnpClasses =
+    [
+        "DiskDrive",
+        "Net",
+        "SCSIAdapter"
+    ];
 
     private readonly IArchiveExtractionService _archiveExtractionService;
     private readonly IMicrosoftUpdateCatalogClient _catalogClient;
@@ -56,7 +62,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 CabCount = 0,
                 InfCount = 0,
                 DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
-                Message = "No eligible Plug and Play devices were found for Microsoft Update Catalog driver lookup."
+                Message = "No eligible critical Plug and Play devices (DiskDrive, Net, SCSIAdapter) were found for Microsoft Update Catalog driver lookup."
             };
         }
 
@@ -108,7 +114,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 CabCount = 0,
                 InfCount = 0,
                 DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
-                Message = "Microsoft Update Catalog did not return any applicable driver payloads for the detected hardware."
+                Message = "Microsoft Update Catalog did not return any applicable driver payloads for the detected critical devices (DiskDrive, Net, SCSIAdapter)."
             };
         }
 
@@ -366,6 +372,11 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 continue;
             }
 
+            if (!IsCriticalCatalogDevice(device))
+            {
+                continue;
+            }
+
             string normalizedHardwareId = MicrosoftUpdateCatalogSupport.TryExtractDriverSearchHardwareId(device) ?? string.Empty;
             string[] rawFallbackTerms = device.HardwareIds
                 .Prepend(device.DeviceId)
@@ -392,6 +403,12 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         }
 
         return targets.ToArray();
+    }
+
+    private static bool IsCriticalCatalogDevice(PnpDeviceInfo device)
+    {
+        string normalizedPnpClass = device.PnpClass.Trim();
+        return CriticalPnpClasses.Contains(normalizedPnpClass, StringComparer.OrdinalIgnoreCase);
     }
 
     private static string ResolveExpandedFolderName(string cabPath, string sourceDirectory)
