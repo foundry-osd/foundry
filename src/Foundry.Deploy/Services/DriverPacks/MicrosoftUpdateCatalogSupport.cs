@@ -77,27 +77,6 @@ internal static partial class MicrosoftUpdateCatalogSupport
         return match.Success ? match.Value : null;
     }
 
-    public static string? TryExtractGuid(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return null;
-        }
-
-        Match match = GuidRegex().Match(value);
-        return match.Success
-            ? match.Value.Replace("{", string.Empty, StringComparison.Ordinal)
-                .Replace("}", string.Empty, StringComparison.Ordinal)
-            : null;
-    }
-
-    public static string EscapeCatalogSearchValue(string value)
-    {
-        return string.IsNullOrWhiteSpace(value)
-            ? string.Empty
-            : value.Trim().Replace("&", "%26", StringComparison.Ordinal);
-    }
-
     public static string BuildSearchQuery(params string[] segments)
     {
         return string.Join(
@@ -223,7 +202,4 @@ internal static partial class MicrosoftUpdateCatalogSupport
 
     [GeneratedRegex("mshw0[0-1]([0-9]){2}", RegexOptions.IgnoreCase)]
     private static partial Regex SurfaceHardwareIdRegex();
-
-    [GeneratedRegex("\\{?(([0-9a-f]){8}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){12})\\}?", RegexOptions.IgnoreCase)]
-    private static partial Regex GuidRegex();
 }

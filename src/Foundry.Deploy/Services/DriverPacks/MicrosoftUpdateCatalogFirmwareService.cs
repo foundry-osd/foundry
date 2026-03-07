@@ -126,7 +126,6 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             ExtractedDirectory = extractedDirectory,
             UpdateId = update.UpdateId,
             Title = update.Title,
-            InfCount = infCount,
             Message = $"Firmware update prepared: {update.Title} ({infCount} INF files)."
         };
     }
