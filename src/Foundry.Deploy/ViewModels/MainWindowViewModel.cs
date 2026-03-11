@@ -28,8 +28,8 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
-    private const string DefaultWindowsRelease = "11";
-    private const string DefaultReleaseId = "25H2";
+    private const string DefaultWindowsRelease = OperatingSystemSupportMatrix.SupportedWindowsRelease;
+    private const string DefaultReleaseId = OperatingSystemSupportMatrix.DefaultReleaseId;
     private const string DefaultLicenseChannel = "RET";
     private const string DefaultEdition = "Pro";
     private const string FallbackLanguageCode = "en-us";
@@ -1366,13 +1366,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private IEnumerable<OperatingSystemCatalogItem> BuildOsQueryWithArchitecture(IEnumerable<OperatingSystemCatalogItem> source)
     {
+        IEnumerable<OperatingSystemCatalogItem> supportedSource = source.Where(OperatingSystemSupportMatrix.IsSupported);
         string architecture = NormalizeArchitecture(EffectiveOsArchitecture);
         if (string.IsNullOrWhiteSpace(architecture))
         {
-            return source;
+            return supportedSource;
         }
 
-        return source.Where(item => IsArchitectureMatch(item.Architecture, architecture));
+        return supportedSource.Where(item => IsArchitectureMatch(item.Architecture, architecture));
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyWindowsReleaseFilter(IEnumerable<OperatingSystemCatalogItem> source)

@@ -33,16 +33,30 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
                 .ConfigureAwait(false);
             XDocument document = XDocument.Parse(xmlContent);
 
-            OperatingSystemCatalogItem[] items = document
+            OperatingSystemCatalogItem[] parsedItems = document
                 .Descendants("Item")
                 .Select(ParseItem)
                 .Where(item => !string.IsNullOrWhiteSpace(item.Url))
+                .ToArray();
+
+            OperatingSystemCatalogItem[] items = parsedItems
+                .Where(OperatingSystemSupportMatrix.IsSupported)
                 .OrderByDescending(item => item.BuildMajor)
                 .ThenByDescending(item => item.BuildUbr)
                 .ThenBy(item => item.Architecture, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.LanguageCode, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.Edition, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
+
+            int filteredCount = parsedItems.Length - items.Length;
+            if (filteredCount > 0)
+            {
+                _logger.LogInformation(
+                    "Filtered {FilteredCount} unsupported operating system entries. SupportedScope=Windows {WindowsRelease} {ReleaseIds}",
+                    filteredCount,
+                    OperatingSystemSupportMatrix.SupportedWindowsRelease,
+                    string.Join(", ", OperatingSystemSupportMatrix.ReleaseSearchOrder));
+            }
 
             _logger.LogInformation("Loaded {ItemCount} operating system catalog entries.", items.Length);
             return items;

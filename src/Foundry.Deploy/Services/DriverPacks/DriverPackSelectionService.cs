@@ -33,11 +33,21 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             };
         }
 
+        if (!OperatingSystemSupportMatrix.IsSupported(operatingSystem))
+        {
+            return new DriverPackSelectionResult
+            {
+                DriverPack = null,
+                SelectionReason =
+                    $"Unsupported operating system selection. Foundry.Deploy supports Windows {OperatingSystemSupportMatrix.SupportedWindowsRelease} 23H2, 24H2, and 25H2 only."
+            };
+        }
+
         string osArch = NormalizeArchitecture(operatingSystem.Architecture);
         string manufacturer = NormalizeManufacturer(hardware.Manufacturer);
         string model = Normalize(hardware.Model);
         string product = Normalize(hardware.Product);
-        string targetOsName = operatingSystem.WindowsRelease == "11" ? "Windows 11" : "Windows 10";
+        string targetOsName = "Windows 11";
         string targetReleaseId = Normalize(operatingSystem.ReleaseId);
 
         IEnumerable<DriverPackCatalogItem> query = catalog
