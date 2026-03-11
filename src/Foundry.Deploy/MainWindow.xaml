@@ -3,10 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
-    xmlns:rules="clr-namespace:Foundry.Deploy.Validation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rules="clr-namespace:Foundry.Deploy.Validation"
     Title="Foundry.Deploy"
+    Icon="/Assets/Icons/app.ico"
     ResizeMode="NoResize"
     WindowState="Maximized"
     WindowStyle="None"
@@ -200,10 +201,13 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <!--  OS family -->
+                                    <!--  OS family  -->
                                     <StackPanel Margin="0,0,8,8">
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Operating System" />
-                                        <TextBox Margin="0,8,0,0" Text="Windows 11" IsReadOnly="True" />
+                                        <TextBox
+                                            Margin="0,8,0,0"
+                                            IsReadOnly="True"
+                                            Text="Windows 11" />
                                     </StackPanel>
 
                                     <!--  Release identifier  -->
@@ -439,9 +443,7 @@
                 <Grid Grid.Row="1">
 
                     <!--  Left panel: computer info  -->
-                    <StackPanel
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
 
                         <!--  Networking  -->
                         <TextBlock
@@ -483,15 +485,11 @@
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="Elapsed time" />
-                        <TextBlock
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding ElapsedTimeText}" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
                     <!--  Center panel: ring + step name + sub-progress  -->
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
                         <!--  Progress ring  -->
                         <Grid
@@ -577,9 +575,7 @@
 
                 <Grid Grid.Row="1">
                     <!--  Left panel: computer info  -->
-                    <StackPanel
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
 
                         <!--  Networking  -->
                         <TextBlock
@@ -621,14 +617,10 @@
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="Elapsed time" />
-                        <TextBlock
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding ElapsedTimeText}" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock
                             HorizontalAlignment="Center"
                             Style="{StaticResource TitleTextBlockStyle}"
@@ -668,9 +660,7 @@
 
                 <Grid Grid.Row="1">
                     <!--  Left panel: computer info  -->
-                    <StackPanel
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
 
                         <!--  Networking  -->
                         <TextBlock
@@ -712,9 +702,7 @@
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="Elapsed time" />
-                        <TextBlock
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding ElapsedTimeText}" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
                     <StackPanel
@@ -764,9 +752,7 @@
         </Grid>
 
         <!--  Row 2: Bottom status bar  -->
-        <StatusBar
-            Grid.Row="2"
-            Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <StatusBar Grid.Row="2" Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StatusBarItem Content="{Binding DeploymentStatus}" />
         </StatusBar>
     </Grid>
