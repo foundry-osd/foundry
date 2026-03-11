@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="Assets/GitHub/readme-logo.png" alt="Foundry logo" width="220">
+</p>
+
 # Foundry
 
 ## Third-Party Components
