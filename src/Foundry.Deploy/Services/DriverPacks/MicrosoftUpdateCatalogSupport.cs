@@ -6,29 +6,19 @@ namespace Foundry.Deploy.Services.DriverPacks;
 
 internal static partial class MicrosoftUpdateCatalogSupport
 {
-    private static readonly string[] BaseReleaseSearchOrder =
-    [
-        "25H2",
-        "24H2",
-        "23H2",
-        "22H2",
-        "21H2",
-        "Vibranium",
-        "1903",
-        "1809"
-    ];
-
     public static string[] BuildReleaseSearchOrder(string targetReleaseId)
     {
         var order = new List<string>();
-        string normalizedTarget = targetReleaseId.Trim();
+        string normalizedTarget = string.IsNullOrWhiteSpace(targetReleaseId)
+            ? string.Empty
+            : targetReleaseId.Trim();
 
-        if (!string.IsNullOrWhiteSpace(normalizedTarget))
+        if (OperatingSystemSupportMatrix.IsSupportedReleaseId(normalizedTarget))
         {
             order.Add(normalizedTarget);
         }
 
-        foreach (string release in BaseReleaseSearchOrder)
+        foreach (string release in OperatingSystemSupportMatrix.ReleaseSearchOrder)
         {
             if (!order.Contains(release, StringComparer.OrdinalIgnoreCase))
             {
