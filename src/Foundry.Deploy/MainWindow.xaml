@@ -200,19 +200,10 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <!--  OS family and release  -->
+                                    <!--  OS family -->
                                     <StackPanel Margin="0,0,8,8">
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Operating System" />
-                                        <ComboBox
-                                            Margin="0,8,0,0"
-                                            ItemsSource="{Binding WindowsReleaseFilters}"
-                                            SelectedItem="{Binding SelectedWindowsRelease}">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=WindowsRelease}" />
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
+                                        <TextBox Margin="0,8,0,0" Text="Windows 11" IsReadOnly="True" />
                                     </StackPanel>
 
                                     <!--  Release identifier  -->

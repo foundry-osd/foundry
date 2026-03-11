@@ -28,7 +28,6 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
-    private const string DefaultWindowsRelease = OperatingSystemSupportMatrix.SupportedWindowsRelease;
     private const string DefaultReleaseId = OperatingSystemSupportMatrix.DefaultReleaseId;
     private const string DefaultLicenseChannel = "RET";
     private const string DefaultEdition = "Pro";
@@ -262,9 +261,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string effectiveOsArchitecture = NormalizeArchitecture(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
 
     [ObservableProperty]
-    private string selectedWindowsRelease = DefaultWindowsRelease;
-
-    [ObservableProperty]
     private string selectedReleaseId = DefaultReleaseId;
 
     [ObservableProperty]
@@ -277,7 +273,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string selectedEdition = DefaultEdition;
 
     public ObservableCollection<OperatingSystemCatalogItem> OperatingSystems { get; } = [];
-    public ObservableCollection<string> WindowsReleaseFilters { get; } = [];
     public ObservableCollection<string> ReleaseIdFilters { get; } = [];
     public ObservableCollection<string> LanguageFilters { get; } = [];
     public ObservableCollection<string> LicenseChannelFilters { get; } = [];
@@ -784,11 +779,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RefreshDriverPackOptions();
     }
 
-    partial void OnSelectedWindowsReleaseChanged(string value)
-    {
-        HandleOsFilterSelectionChanged();
-    }
-
     partial void OnSelectedReleaseIdChanged(string value)
     {
         HandleOsFilterSelectionChanged();
@@ -1251,7 +1241,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         return !IsCatalogLoading &&
                OperatingSystems.Count > 0 &&
-               WindowsReleaseFilters.Count > 0 &&
                ReleaseIdFilters.Count > 0 &&
                LanguageFilters.Count > 0 &&
                LicenseChannelFilters.Count > 0 &&
@@ -1312,7 +1301,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         try
         {
-            string previousWindowsRelease = SelectedWindowsRelease;
             string previousReleaseId = SelectedReleaseId;
             string previousLanguageCode = SelectedLanguageCode;
             string previousLicenseChannel = SelectedLicenseChannel;
@@ -1320,14 +1308,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             IEnumerable<OperatingSystemCatalogItem> baseQuery = BuildOsQueryWithArchitecture(OperatingSystems);
 
-            SelectedWindowsRelease = UpdateFilterSelection(
-                WindowsReleaseFilters,
-                baseQuery.Select(item => item.WindowsRelease),
-                previousWindowsRelease,
-                DefaultWindowsRelease,
-                selectFirstWhenNoMatch: true);
-
-            IEnumerable<OperatingSystemCatalogItem> releaseScope = ApplyWindowsReleaseFilter(baseQuery);
+            IEnumerable<OperatingSystemCatalogItem> releaseScope = baseQuery;
             SelectedReleaseId = UpdateFilterSelection(
                 ReleaseIdFilters,
                 releaseScope.Select(item => item.ReleaseId),
@@ -1374,13 +1355,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         return supportedSource.Where(item => IsArchitectureMatch(item.Architecture, architecture));
-    }
-
-    private IEnumerable<OperatingSystemCatalogItem> ApplyWindowsReleaseFilter(IEnumerable<OperatingSystemCatalogItem> source)
-    {
-        return IsFilterUnset(SelectedWindowsRelease)
-            ? source
-            : source.Where(item => item.WindowsRelease.Equals(SelectedWindowsRelease, StringComparison.OrdinalIgnoreCase));
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyReleaseIdFilter(IEnumerable<OperatingSystemCatalogItem> source)
@@ -2161,7 +2135,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private OperatingSystemCatalogItem[] BuildFilteredOperatingSystems()
     {
         IEnumerable<OperatingSystemCatalogItem> query = BuildOsQueryWithArchitecture(OperatingSystems);
-        query = ApplyWindowsReleaseFilter(query);
         query = ApplyReleaseIdFilter(query);
         query = ApplyLanguageFilter(query);
         query = ApplyLicenseChannelFilter(query);

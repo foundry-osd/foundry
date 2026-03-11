@@ -17,7 +17,6 @@ public sealed class OsCatalogFilterDisplayConverter : IValueConverter
         {
             "LICENSECHANNEL" => OperatingSystemDisplayFormatter.FormatLicenseChannel(source),
             "EDITION" => OperatingSystemDisplayFormatter.FormatEdition(source),
-            "WINDOWSRELEASE" => OperatingSystemDisplayFormatter.FormatWindowsRelease(source),
             _ => source
         };
     }
