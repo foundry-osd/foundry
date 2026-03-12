@@ -181,6 +181,40 @@ internal sealed class WinPeProcessRunner
         return RunAsync(cmdPath, arguments, workingDirectory, cancellationToken, environmentOverrides);
     }
 
+    public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(
+        string scriptPath,
+        string scriptArguments,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(scriptPath))
+        {
+            throw new ArgumentException("Script path is required.", nameof(scriptPath));
+        }
+
+        var cmdPath = Environment.GetEnvironmentVariable("ComSpec");
+        if (string.IsNullOrWhiteSpace(cmdPath))
+        {
+            cmdPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "cmd.exe");
+        }
+
+        string normalizedScriptArguments = string.IsNullOrWhiteSpace(scriptArguments)
+            ? string.Empty
+            : $" {scriptArguments}";
+
+        string command = $"{Quote(scriptPath)}{normalizedScriptArguments}";
+        IReadOnlyDictionary<string, string>? environmentOverrides = BuildAdkEnvironmentOverrides(scriptPath);
+        if (environmentOverrides is not null &&
+            environmentOverrides.TryGetValue(InternalSetEnvKey, out string? setEnvPath) &&
+            !string.IsNullOrWhiteSpace(setEnvPath))
+        {
+            command = $"call {Quote(setEnvPath)} >nul 2>&1 && {command}";
+        }
+
+        string arguments = $"/d /c \"{command}\"";
+        return RunAsync(cmdPath, arguments, workingDirectory, cancellationToken, environmentOverrides);
+    }
+
     public static string Quote(string value)
     {
         return value.Contains(' ', StringComparison.Ordinal)
