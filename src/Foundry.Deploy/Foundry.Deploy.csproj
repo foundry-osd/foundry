@@ -7,6 +7,7 @@
     <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
     <StartupObject>Foundry.Deploy.Program</StartupObject>
     <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
+    <PackageIcon>app.ico</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Icons\app.ico" />
     <Resource Include="Assets\Icons\app.ico" />
   </ItemGroup>
 
@@ -34,6 +34,13 @@
       <Link>Assets\7z\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Icons\app.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
