@@ -28,7 +28,8 @@ internal sealed class WinPeUsbMediaService
         _logger.LogInformation("Querying USB disk candidates. WorkingDirectory={WorkingDirectory}", workingDirectory);
         string script = @"
 $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
-$result = foreach ($disk in $disks) {
+$result = @(
+foreach ($disk in $disks) {
     $letters = @(
         Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue |
             Where-Object { $null -ne $_.DriveLetter } |
@@ -48,8 +49,14 @@ $result = foreach ($disk in $disks) {
         Size = [uint64]$disk.Size
     }
 }
+)
 
-$result | ConvertTo-Json -Compress
+if ($result.Count -eq 0) {
+    '[]'
+}
+else {
+    $result | ConvertTo-Json -Compress
+}
 ";
         WinPeResult<string> result = await RunPowerShellAsync(script, tools, workingDirectory, cancellationToken).ConfigureAwait(false);
         if (!result.IsSuccess)
