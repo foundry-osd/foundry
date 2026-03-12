@@ -333,6 +333,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         try
         {
+            MediaActionMessage = string.Empty;
             Directory.CreateDirectory(StagingDirectoryPath);
 
             WinPeResult result = await _mediaOutputService.CreateIsoAsync(new IsoOutputOptions
@@ -394,6 +395,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         try
         {
+            MediaActionMessage = string.Empty;
             Directory.CreateDirectory(StagingDirectoryPath);
 
             WinPeResult result = await _mediaOutputService.CreateUsbAsync(new UsbOutputOptions
