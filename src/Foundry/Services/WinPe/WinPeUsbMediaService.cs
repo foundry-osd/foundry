@@ -172,6 +172,12 @@ else {
                 "Free at least one drive letter between D: and Z: and retry.");
         }
 
+        _logger.LogInformation(
+            "Resolved USB target disk identity and drive letters. DiskNumber={DiskNumber}, FriendlyName={FriendlyName}, BootDriveLetter={BootDriveLetter}, CacheDriveLetter={CacheDriveLetter}",
+            diskNumber,
+            disk.FriendlyName,
+            $"{bootDriveLetter}:",
+            $"{cacheDriveLetter}:");
         WinPeResult provisioningResult = await ProvisionDiskAsync(
             diskNumber,
             options.PartitionStyle,
@@ -191,7 +197,9 @@ else {
 
         string bootRoot = $"{bootDriveLetter}:\\";
         string cacheRoot = $"{cacheDriveLetter}:\\";
+        _logger.LogInformation("USB disk partitioning and formatting completed. DiskNumber={DiskNumber}, BootRoot={BootRoot}, CacheRoot={CacheRoot}", diskNumber, bootRoot, cacheRoot);
 
+        _logger.LogInformation("Copying prepared WinPE media to USB boot partition. SourceMediaDirectoryPath={SourceMediaDirectoryPath}, BootRoot={BootRoot}", artifact.MediaDirectoryPath, bootRoot);
         WinPeResult copyResult = await CopyMediaAsync(artifact.MediaDirectoryPath, bootRoot, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!copyResult.IsSuccess)
         {
@@ -199,6 +207,7 @@ else {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(copyResult.Error!);
         }
 
+        _logger.LogInformation("Copied prepared WinPE media to USB boot partition successfully. BootRoot={BootRoot}", bootRoot);
         WinPeResult verifyResult = VerifyBootArtifacts(bootRoot, artifact.Architecture);
         if (!verifyResult.IsSuccess)
         {
@@ -206,11 +215,13 @@ else {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(verifyResult.Error!);
         }
 
+        _logger.LogInformation("Verified USB boot artifacts successfully. BootRoot={BootRoot}, Architecture={Architecture}", bootRoot, artifact.Architecture);
         string cacheMarkerPath = Path.Combine(cacheRoot, "Foundry Cache");
         Directory.CreateDirectory(cacheMarkerPath);
         Directory.CreateDirectory(Path.Combine(cacheRoot, "Runtime"));
         Directory.CreateDirectory(Path.Combine(cacheRoot, "OperatingSystem"));
         Directory.CreateDirectory(Path.Combine(cacheRoot, "DriverPack"));
+        _logger.LogInformation("Initialized USB cache partition directories. CacheRoot={CacheRoot}", cacheRoot);
 
         WinPeResult<WinPeUsbProvisionResult> success = WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
         {

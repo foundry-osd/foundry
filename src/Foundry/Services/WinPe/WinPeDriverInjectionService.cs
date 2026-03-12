@@ -1,8 +1,16 @@
+using Microsoft.Extensions.Logging;
+
 namespace Foundry.Services.WinPe;
 
 public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
 {
     private readonly WinPeProcessRunner _processRunner = new();
+    private readonly ILogger<WinPeDriverInjectionService> _logger;
+
+    public WinPeDriverInjectionService(ILogger<WinPeDriverInjectionService> logger)
+    {
+        _logger = logger;
+    }
 
     public async Task<WinPeResult> InjectAsync(
         WinPeDriverInjectionOptions options,
@@ -28,6 +36,12 @@ public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
                 $"Expected path: '{dismPath}'.");
         }
 
+        _logger.LogInformation(
+            "Injecting {DriverPathCount} driver package path(s) into mounted image. MountedImagePath={MountedImagePath}, RecurseSubdirectories={RecurseSubdirectories}",
+            options.DriverPackagePaths.Count,
+            options.MountedImagePath,
+            options.RecurseSubdirectories);
+
         foreach (string packagePath in options.DriverPackagePaths)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -35,6 +49,8 @@ public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
             string normalizedPath = packagePath.Trim();
             string recurse = options.RecurseSubdirectories ? " /Recurse" : string.Empty;
             string args = $"/Image:{WinPeProcessRunner.Quote(options.MountedImagePath)} /Add-Driver /Driver:{WinPeProcessRunner.Quote(normalizedPath)}{recurse}";
+
+            _logger.LogDebug("Injecting driver package path into mounted image. DriverPackagePath={DriverPackagePath}", normalizedPath);
 
             WinPeProcessExecution result = await _processRunner.RunAsync(
                 dismPath,
@@ -51,6 +67,7 @@ public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
             }
         }
 
+        _logger.LogInformation("Driver injection completed successfully. MountedImagePath={MountedImagePath}", options.MountedImagePath);
         return WinPeResult.Success();
     }
 

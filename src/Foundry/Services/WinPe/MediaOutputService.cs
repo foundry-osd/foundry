@@ -133,6 +133,10 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             WinPeToolPaths tools = toolsResult.Value!;
+            _logger.LogInformation(
+                "Resolved ADK tooling for ISO creation. DismPath={DismPath}, MakeWinPeMediaPath={MakeWinPeMediaPath}",
+                tools.DismPath,
+                tools.MakeWinPeMediaPath);
             _operationProgressService.Report(16, "Creating WinPE workspace.");
             WinPeResult<WinPeBuildArtifact> buildResult = await _buildService.BuildAsync(new WinPeBuildOptions
             {
@@ -163,18 +167,30 @@ public sealed class MediaOutputService : IMediaOutputService
                 return FailWithProgress(drivers.Error!);
             }
 
+            _logger.LogInformation(
+                "Resolved {DriverDirectoryCount} driver directory path(s) for ISO creation. WorkingDirectoryPath={WorkingDirectoryPath}",
+                drivers.Value!.Count,
+                artifact.WorkingDirectoryPath);
             _operationProgressService.Report(48, "Applying image customizations.");
+            _logger.LogInformation(
+                "Starting WinPE image customization for ISO creation. WorkingDirectoryPath={WorkingDirectoryPath}, DriverDirectoryCount={DriverDirectoryCount}, WinPeLanguage={WinPeLanguage}",
+                artifact.WorkingDirectoryPath,
+                drivers.Value!.Count,
+                options.WinPeLanguage);
             WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
             }
 
+            _logger.LogInformation("WinPE image customization completed for ISO creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             _operationProgressService.Report(66, "Applying signature policy.");
             bool bootEx = false;
             if (options.SignatureMode == WinPeSignatureMode.Pca2023)
             {
+                _logger.LogInformation("Evaluating PCA2023 signature policy for ISO creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
                 bootEx = await _toolResolver.IsBootExSupportedAsync(tools, _processRunner, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
+                _logger.LogInformation("PCA2023 signature policy evaluated for ISO creation. BootExSupported={BootExSupported}", bootEx);
                 if (!bootEx)
                 {
                     WinPeResult remediation = await RunRemediationIfConfiguredAsync(options.RunPca2023RemediationWhenBootExUnsupported, options.Pca2023RemediationScriptPath, artifact, tools, cancellationToken).ConfigureAwait(false);
@@ -182,22 +198,31 @@ public sealed class MediaOutputService : IMediaOutputService
                     {
                         return FailWithProgress(remediation.Error!);
                     }
+
+                    _logger.LogInformation("PCA2023 remediation fallback completed for ISO creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
                 }
             }
 
             _operationProgressService.Report(82, "Creating ISO media.");
             if (options.ForceOverwriteOutput && File.Exists(options.OutputIsoPath))
             {
+                _logger.LogInformation("Deleting existing ISO before overwrite. OutputIsoPath={OutputIsoPath}", options.OutputIsoPath);
                 File.Delete(options.OutputIsoPath);
             }
 
             string args = $"/ISO /F{(bootEx ? " /bootex" : string.Empty)} {WinPeProcessRunner.Quote(artifact.WorkingDirectoryPath)} {WinPeProcessRunner.Quote(options.OutputIsoPath)}";
+            _logger.LogInformation(
+                "Creating ISO media from prepared workspace. WorkingDirectoryPath={WorkingDirectoryPath}, OutputIsoPath={OutputIsoPath}, UseBootEx={UseBootEx}",
+                artifact.WorkingDirectoryPath,
+                options.OutputIsoPath,
+                bootEx);
             WinPeProcessExecution makeIso = await _processRunner.RunCmdScriptAsync(tools.MakeWinPeMediaPath, args, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
             if (!makeIso.IsSuccess || !File.Exists(options.OutputIsoPath))
             {
                 return FailWithProgress(new WinPeDiagnostic(WinPeErrorCodes.IsoCreateFailed, "Failed to create ISO media.", makeIso.ToDiagnosticText()));
             }
 
+            _logger.LogInformation("ISO media file created successfully. OutputIsoPath={OutputIsoPath}", options.OutputIsoPath);
             _operationProgressService.Complete("ISO creation completed.");
             _logger.LogInformation("ISO creation completed successfully. OutputIsoPath={OutputIsoPath}", options.OutputIsoPath);
             return WinPeResult.Success();
@@ -213,6 +238,10 @@ public sealed class MediaOutputService : IMediaOutputService
             {
                 TryDeleteDirectory(artifact.WorkingDirectoryPath);
                 _logger.LogDebug("ISO working directory cleanup completed. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+            }
+            else if (artifact is not null)
+            {
+                _logger.LogInformation("ISO working directory preserved. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             }
         }
     }
@@ -249,6 +278,10 @@ public sealed class MediaOutputService : IMediaOutputService
             }
 
             WinPeToolPaths tools = toolsResult.Value!;
+            _logger.LogInformation(
+                "Resolved ADK tooling for USB creation. DismPath={DismPath}, MakeWinPeMediaPath={MakeWinPeMediaPath}",
+                tools.DismPath,
+                tools.MakeWinPeMediaPath);
             _operationProgressService.Report(16, "Creating WinPE workspace.");
             WinPeResult<WinPeBuildArtifact> buildResult = await _buildService.BuildAsync(new WinPeBuildOptions
             {
@@ -279,13 +312,23 @@ public sealed class MediaOutputService : IMediaOutputService
                 return FailWithProgress(drivers.Error!);
             }
 
+            _logger.LogInformation(
+                "Resolved {DriverDirectoryCount} driver directory path(s) for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}",
+                drivers.Value!.Count,
+                artifact.WorkingDirectoryPath);
             _operationProgressService.Report(48, "Applying image customizations.");
+            _logger.LogInformation(
+                "Starting WinPE image customization for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}, DriverDirectoryCount={DriverDirectoryCount}, WinPeLanguage={WinPeLanguage}",
+                artifact.WorkingDirectoryPath,
+                drivers.Value!.Count,
+                options.WinPeLanguage);
             WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
             }
 
+            _logger.LogInformation("WinPE image customization completed for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             _operationProgressService.Report(62, "Applying signature policy.");
             if (options.SignatureMode == WinPeSignatureMode.Pca2023)
             {
@@ -294,15 +337,26 @@ public sealed class MediaOutputService : IMediaOutputService
                 {
                     return FailWithProgress(remediation.Error!);
                 }
+
+                _logger.LogInformation("PCA2023 remediation workflow completed for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             }
 
             _operationProgressService.Report(80, "Provisioning and populating USB.");
+            _logger.LogInformation(
+                "Starting USB provisioning and media population. WorkingDirectoryPath={WorkingDirectoryPath}, TargetDiskNumber={TargetDiskNumber}",
+                artifact.WorkingDirectoryPath,
+                options.TargetDiskNumber);
             WinPeResult<WinPeUsbProvisionResult> usb = await _usbMediaService.ProvisionAndPopulateAsync(options, artifact, tools, cancellationToken).ConfigureAwait(false);
             if (!usb.IsSuccess)
             {
                 return FailWithProgress(usb.Error!);
             }
 
+            _logger.LogInformation(
+                "USB provisioning and media population completed. TargetDiskNumber={TargetDiskNumber}, BootDrive={BootDrive}, CacheDrive={CacheDrive}",
+                options.TargetDiskNumber,
+                usb.Value?.BootDriveLetter,
+                usb.Value?.CacheDriveLetter);
             _operationProgressService.Complete("USB creation completed.");
             _logger.LogInformation("USB creation completed successfully. TargetDiskNumber={TargetDiskNumber}", options.TargetDiskNumber);
             return WinPeResult.Success();
@@ -318,6 +372,10 @@ public sealed class MediaOutputService : IMediaOutputService
             {
                 TryDeleteDirectory(artifact.WorkingDirectoryPath);
                 _logger.LogDebug("USB working directory cleanup completed. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+            }
+            else if (artifact is not null)
+            {
+                _logger.LogInformation("USB working directory preserved. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             }
         }
     }
@@ -432,6 +490,11 @@ public sealed class MediaOutputService : IMediaOutputService
                 $"Selected language: '{canonicalLocale}'.");
         }
 
+        _logger.LogInformation(
+            "Mounting WinPE image for customization. BootWimPath={BootWimPath}, MountDirectoryPath={MountDirectoryPath}, WinPeLanguage={WinPeLanguage}",
+            artifact.BootWimPath,
+            artifact.MountDirectoryPath,
+            normalizedLocale);
         WinPeResult<WinPeMountSession> mount = await WinPeMountSession.MountAsync(_processRunner, tools.DismPath, artifact.BootWimPath, artifact.MountDirectoryPath, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!mount.IsSuccess)
         {
@@ -439,8 +502,13 @@ public sealed class MediaOutputService : IMediaOutputService
         }
 
         await using WinPeMountSession session = mount.Value!;
+        _logger.LogInformation("Mounted WinPE image for customization. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         if (driverDirectories.Count > 0)
         {
+            _logger.LogInformation(
+                "Starting driver injection into mounted WinPE image. DriverDirectoryCount={DriverDirectoryCount}, MountDirectoryPath={MountDirectoryPath}",
+                driverDirectories.Count,
+                session.MountDirectoryPath);
             WinPeResult inject = await _driverInjectionService.InjectAsync(new WinPeDriverInjectionOptions
             {
                 MountedImagePath = session.MountDirectoryPath,
@@ -455,8 +523,15 @@ public sealed class MediaOutputService : IMediaOutputService
                 await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
                 return inject;
             }
+
+            _logger.LogInformation("Driver injection completed for mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        }
+        else
+        {
+            _logger.LogInformation("Skipping driver injection because no driver directories were resolved. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         }
 
+        _logger.LogInformation("Adding required WinPE optional components. MountDirectoryPath={MountDirectoryPath}, WinPeLanguage={WinPeLanguage}", session.MountDirectoryPath, normalizedLocale);
         WinPeResult addComponentsResult = await AddRequiredOptionalComponentsAsync(
             session.MountDirectoryPath,
             artifact.Architecture,
@@ -470,6 +545,8 @@ public sealed class MediaOutputService : IMediaOutputService
             return addComponentsResult;
         }
 
+        _logger.LogInformation("Required WinPE optional components added successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        _logger.LogInformation("Applying WinPE international settings. CanonicalLocale={CanonicalLocale}, InputLocale={InputLocale}", canonicalLocale, inputLocale);
         WinPeResult intlResult = await ApplyInternationalSettingsAsync(
             session.MountDirectoryPath,
             tools,
@@ -483,6 +560,7 @@ public sealed class MediaOutputService : IMediaOutputService
             return intlResult;
         }
 
+        _logger.LogInformation("Applied WinPE international settings successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         string system32 = Path.Combine(session.MountDirectoryPath, "Windows", "System32");
         Directory.CreateDirectory(system32);
         string bootstrapScriptContent;
@@ -505,6 +583,7 @@ public sealed class MediaOutputService : IMediaOutputService
             bootstrapScriptContent,
             new UTF8Encoding(false),
             cancellationToken).ConfigureAwait(false);
+        _logger.LogInformation("Wrote bootstrap script into mounted WinPE image. System32Path={System32Path}", system32);
 
         WinPeResult localDeployProvisioning = await ProvisionLocalDeployArchiveInImageAsync(
             session.MountDirectoryPath,
@@ -517,6 +596,7 @@ public sealed class MediaOutputService : IMediaOutputService
             return localDeployProvisioning;
         }
 
+        _logger.LogInformation("Provisioned local Foundry.Deploy archive into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         WinPeResult sevenZipProvisioning = ProvisionBundledSevenZipInImage(
             session.MountDirectoryPath,
             artifact.Architecture);
@@ -526,6 +606,7 @@ public sealed class MediaOutputService : IMediaOutputService
             return sevenZipProvisioning;
         }
 
+        _logger.LogInformation("Provisioned bundled 7-Zip tools into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         string startnet = Path.Combine(session.MountDirectoryPath, WinPeDefaults.DefaultStartnetPathInImage);
         string[] lines = File.Exists(startnet) ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false) : ["wpeinit"];
         var merged = lines.ToList();
@@ -534,8 +615,16 @@ public sealed class MediaOutputService : IMediaOutputService
             merged.Add(WinPeDefaults.DefaultBootstrapInvocation);
         }
         await File.WriteAllLinesAsync(startnet, merged, cancellationToken).ConfigureAwait(false);
+        _logger.LogInformation("Updated startnet.cmd in mounted WinPE image. StartnetPath={StartnetPath}", startnet);
 
-        return await session.CommitAsync(cancellationToken).ConfigureAwait(false);
+        _logger.LogInformation("Committing mounted WinPE image changes. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        WinPeResult commit = await session.CommitAsync(cancellationToken).ConfigureAwait(false);
+        if (commit.IsSuccess)
+        {
+            _logger.LogInformation("Committed mounted WinPE image changes successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        }
+
+        return commit;
     }
 
     private async Task<WinPeResult> ApplyInternationalSettingsAsync(
