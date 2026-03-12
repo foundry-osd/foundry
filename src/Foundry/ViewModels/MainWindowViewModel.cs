@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.Logging;
 using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
@@ -183,6 +184,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void ShowAbout()
     {
         _applicationShellService.ShowAbout();
+    }
+
+    [RelayCommand]
+    private void OpenLogFolder()
+    {
+        string logFolderPath = FoundryLogging.GetLogsDirectoryPath();
+
+        try
+        {
+            Directory.CreateDirectory(logFolderPath);
+            _applicationShellService.OpenFolder(logFolderPath);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to open log folder. LogFolderPath={LogFolderPath}", logFolderPath);
+        }
     }
 
     [RelayCommand]

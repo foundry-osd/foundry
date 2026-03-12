@@ -74,7 +74,7 @@
                 </MenuItem>
                 <!--  Tools  -->
                 <MenuItem Header="{Binding Strings[MenuTools]}">
-                    <MenuItem Header="{Binding Strings[MenuLogs]}" />
+                    <MenuItem Command="{Binding OpenLogFolderCommand}" Header="{Binding Strings[MenuLogs]}" />
                 </MenuItem>
                 <!--  Help  -->
                 <MenuItem Header="{Binding Strings[MenuHelp]}">

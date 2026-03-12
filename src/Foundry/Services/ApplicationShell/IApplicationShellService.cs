@@ -10,5 +10,7 @@ public interface IApplicationShellService
 
     string? PickFolderPath(string title, string? initialPath = null);
 
+    void OpenFolder(string path);
+
     bool ConfirmWarning(string title, string message);
 }
