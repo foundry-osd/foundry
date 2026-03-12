@@ -4,19 +4,15 @@ namespace Foundry.Logging;
 
 internal static class FoundryLogging
 {
-    private const int RetentionDays = 7;
     private const string OutputTemplate =
         "{UtcTimestamp:yyyy-MM-dd HH:mm:ss} UTC | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
+    private const string LogFileName = "Foundry.log";
 
     public static ILogger CreateApplicationLogger()
     {
-        string logsDirectoryPath = ResolveLogsDirectoryPath();
+        string logsDirectoryPath = GetLogsDirectoryPath();
         Directory.CreateDirectory(logsDirectoryPath);
-        PurgeExpiredLogs(logsDirectoryPath);
-
-        string filePath = Path.Combine(
-            logsDirectoryPath,
-            $"foundry-{DateTimeOffset.UtcNow:yyyyMMdd-HHmmss}.log");
+        string filePath = Path.Combine(logsDirectoryPath, LogFileName);
 
         return new LoggerConfiguration()
             .MinimumLevel.Verbose()
@@ -27,7 +23,7 @@ internal static class FoundryLogging
             .CreateLogger();
     }
 
-    private static string ResolveLogsDirectoryPath()
+    public static string GetLogsDirectoryPath()
     {
         string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         if (!string.IsNullOrWhiteSpace(localAppDataPath))
@@ -36,27 +32,6 @@ internal static class FoundryLogging
         }
 
         return Path.Combine(Path.GetTempPath(), "Foundry", "Logs");
-    }
-
-    private static void PurgeExpiredLogs(string logsDirectoryPath)
-    {
-        DateTime cutoffUtc = DateTime.UtcNow.AddDays(-RetentionDays);
-
-        foreach (string path in Directory.EnumerateFiles(logsDirectoryPath, "*.log", SearchOption.TopDirectoryOnly))
-        {
-            try
-            {
-                DateTime lastWriteUtc = File.GetLastWriteTimeUtc(path);
-                if (lastWriteUtc < cutoffUtc)
-                {
-                    File.Delete(path);
-                }
-            }
-            catch
-            {
-                // Best-effort retention cleanup.
-            }
-        }
     }
 }
 

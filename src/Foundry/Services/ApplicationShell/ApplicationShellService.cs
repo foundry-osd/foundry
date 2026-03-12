@@ -1,5 +1,6 @@
 using Foundry.Services.Localization;
 using Microsoft.Win32;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Foundry.Services.ApplicationShell;
@@ -57,6 +58,18 @@ public sealed class ApplicationShellService : IApplicationShellService
         }
 
         return dialog.ShowDialog() == true ? dialog.FolderName : null;
+    }
+
+    public void OpenFolder(string path)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "explorer.exe",
+            Arguments = $"\"{path}\"",
+            UseShellExecute = true
+        });
     }
 
     public bool ConfirmWarning(string title, string message)

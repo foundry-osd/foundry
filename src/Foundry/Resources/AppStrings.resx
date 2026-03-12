@@ -142,7 +142,7 @@
     <value>_Tools</value>
   </data>
   <data name="MenuLogs" xml:space="preserve">
-    <value>_Logs</value>
+    <value>Open _Log Folder</value>
   </data>
   <data name="LanguageEnglish" xml:space="preserve">
     <value>_English</value>
