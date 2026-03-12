@@ -153,22 +153,52 @@ internal sealed class WinPeProcessRunner
         string workingDirectory,
         CancellationToken cancellationToken)
     {
+        return RunCmdScriptCoreAsync(
+            scriptPath,
+            scriptArguments,
+            workingDirectory,
+            cancellationToken,
+            callTargetScript: true,
+            useCommandExtensionsStripQuoteRules: true);
+    }
+
+    public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(
+        string scriptPath,
+        string scriptArguments,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        return RunCmdScriptCoreAsync(
+            scriptPath,
+            scriptArguments,
+            workingDirectory,
+            cancellationToken,
+            callTargetScript: false,
+            useCommandExtensionsStripQuoteRules: false);
+    }
+
+    private Task<WinPeProcessExecution> RunCmdScriptCoreAsync(
+        string scriptPath,
+        string scriptArguments,
+        string workingDirectory,
+        CancellationToken cancellationToken,
+        bool callTargetScript,
+        bool useCommandExtensionsStripQuoteRules)
+    {
         if (string.IsNullOrWhiteSpace(scriptPath))
         {
             throw new ArgumentException("Script path is required.", nameof(scriptPath));
-        }
-
-        var cmdPath = Environment.GetEnvironmentVariable("ComSpec");
-        if (string.IsNullOrWhiteSpace(cmdPath))
-        {
-            cmdPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "cmd.exe");
         }
 
         string normalizedScriptArguments = string.IsNullOrWhiteSpace(scriptArguments)
             ? string.Empty
             : $" {scriptArguments}";
 
-        string command = $"call {Quote(scriptPath)}{normalizedScriptArguments}";
+        string scriptCommand = $"{Quote(scriptPath)}{normalizedScriptArguments}";
+        string command = callTargetScript
+            ? $"call {scriptCommand}"
+            : scriptCommand;
+
         IReadOnlyDictionary<string, string>? environmentOverrides = BuildAdkEnvironmentOverrides(scriptPath);
         if (environmentOverrides is not null &&
             environmentOverrides.TryGetValue(InternalSetEnvKey, out string? setEnvPath) &&
@@ -177,8 +207,9 @@ internal sealed class WinPeProcessRunner
             command = $"call {Quote(setEnvPath)} >nul 2>&1 && {command}";
         }
 
-        string arguments = $"/d /s /c \"{command}\"";
-        return RunAsync(cmdPath, arguments, workingDirectory, cancellationToken, environmentOverrides);
+        string switchS = useCommandExtensionsStripQuoteRules ? " /s" : string.Empty;
+        string arguments = $"/d{switchS} /c \"{command}\"";
+        return RunAsync(GetCommandProcessorPath(), arguments, workingDirectory, cancellationToken, environmentOverrides);
     }
 
     public static string Quote(string value)
@@ -186,6 +217,17 @@ internal sealed class WinPeProcessRunner
         return value.Contains(' ', StringComparison.Ordinal)
             ? $"\"{value}\""
             : value;
+    }
+
+    private static string GetCommandProcessorPath()
+    {
+        var cmdPath = Environment.GetEnvironmentVariable("ComSpec");
+        if (!string.IsNullOrWhiteSpace(cmdPath))
+        {
+            return cmdPath;
+        }
+
+        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "cmd.exe");
     }
 
     private static IReadOnlyDictionary<string, string>? BuildAdkEnvironmentOverrides(string scriptPath)

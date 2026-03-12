@@ -210,7 +210,7 @@ public sealed class MediaOutputService : IMediaOutputService
                 File.Delete(options.OutputIsoPath);
             }
 
-            string args = $"/ISO /F{(bootEx ? " /bootex" : string.Empty)} {WinPeProcessRunner.Quote(artifact.WorkingDirectoryPath)} {WinPeProcessRunner.Quote(options.OutputIsoPath)}";
+            string args = $"/ISO /F {WinPeProcessRunner.Quote(artifact.WorkingDirectoryPath)} {WinPeProcessRunner.Quote(options.OutputIsoPath)}{(bootEx ? " /bootex" : string.Empty)}";
             _logger.LogInformation(
                 "Creating ISO media from prepared workspace. WorkingDirectoryPath={WorkingDirectoryPath}, OutputIsoPath={OutputIsoPath}, UseBootEx={UseBootEx}",
                 artifact.WorkingDirectoryPath,

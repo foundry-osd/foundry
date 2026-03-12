@@ -77,7 +77,7 @@ internal sealed class WinPeToolResolver
         string workingDirectory,
         CancellationToken cancellationToken)
     {
-        WinPeProcessExecution helpResult = await processRunner.RunCmdScriptAsync(
+        WinPeProcessExecution helpResult = await processRunner.RunCmdScriptDirectAsync(
             toolPaths.MakeWinPeMediaPath,
             "/?",
             workingDirectory,
