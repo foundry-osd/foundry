@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -8,6 +8,7 @@
     <StartupObject>Foundry.Program</StartupObject>
     <Win32Manifest>app.manifest</Win32Manifest>
     <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
+    <PackageIcon>app.ico</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Icons\app.ico" />
     <Resource Include="Assets\Icons\app.ico" />
   </ItemGroup>
 
@@ -39,6 +39,13 @@
     <Content Include="Assets\7z\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Icons\app.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
