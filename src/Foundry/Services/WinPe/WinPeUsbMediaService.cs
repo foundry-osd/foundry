@@ -112,6 +112,7 @@ else {
         UsbOutputOptions options,
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
+        bool useBootEx,
         CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting USB provisioning for TargetDiskNumber={TargetDiskNumber}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}",
@@ -208,6 +209,19 @@ else {
         }
 
         _logger.LogInformation("Copied prepared WinPE media to USB boot partition successfully. BootRoot={BootRoot}", bootRoot);
+        if (useBootEx)
+        {
+            _logger.LogInformation("Reconfiguring USB boot files with BootEx support. BootRoot={BootRoot}, PartitionStyle={PartitionStyle}", bootRoot, options.PartitionStyle);
+            WinPeResult bootConfigResult = await ConfigureBootFilesAsync(bootRoot, options.PartitionStyle, artifact, tools, cancellationToken).ConfigureAwait(false);
+            if (!bootConfigResult.IsSuccess)
+            {
+                _logger.LogWarning("USB BootEx boot file configuration failed. Code={ErrorCode}, Message={ErrorMessage}", bootConfigResult.Error?.Code, bootConfigResult.Error?.Message);
+                return WinPeResult<WinPeUsbProvisionResult>.Failure(bootConfigResult.Error!);
+            }
+
+            _logger.LogInformation("USB boot files reconfigured with BootEx support successfully. BootRoot={BootRoot}", bootRoot);
+        }
+
         WinPeResult verifyResult = VerifyBootArtifacts(bootRoot, artifact.Architecture);
         if (!verifyResult.IsSuccess)
         {
@@ -234,6 +248,87 @@ else {
             success.Value?.BootDriveLetter,
             success.Value?.CacheDriveLetter);
         return success;
+    }
+
+    private async Task<WinPeResult> ConfigureBootFilesAsync(
+        string bootRoot,
+        UsbPartitionStyle partitionStyle,
+        WinPeBuildArtifact artifact,
+        WinPeToolPaths tools,
+        CancellationToken cancellationToken)
+    {
+        string bootWimPath = Path.Combine(bootRoot, "sources", "boot.wim");
+        if (!File.Exists(bootWimPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.UsbProvisioningFailed,
+                "USB boot configuration failed: boot.wim not found.",
+                $"Expected '{bootWimPath}'.");
+        }
+
+        string bcdbootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "bcdboot.exe");
+        if (!File.Exists(bcdbootPath))
+        {
+            bcdbootPath = "bcdboot.exe";
+        }
+
+        WinPeProcessExecution helpResult = await _processRunner.RunAsync(
+            bcdbootPath,
+            "/?",
+            artifact.WorkingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+
+        string combinedHelp = string.Concat(helpResult.StandardOutput, "\n", helpResult.StandardError);
+        if (combinedHelp.IndexOf("/bootex", StringComparison.OrdinalIgnoreCase) < 0)
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BootExUnsupported,
+                "PCA2023 USB creation requires BCDBoot support for /bootex or remediation fallback.",
+                helpResult.ToDiagnosticText());
+        }
+
+        string mountDirectoryPath = Path.Combine(artifact.WorkingDirectoryPath, "bootex-bcdboot-mount");
+        if (Directory.Exists(mountDirectoryPath))
+        {
+            Directory.Delete(mountDirectoryPath, recursive: true);
+        }
+
+        WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
+            _processRunner,
+            tools.DismPath,
+            bootWimPath,
+            mountDirectoryPath,
+            artifact.WorkingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+        if (!mountResult.IsSuccess)
+        {
+            return WinPeResult.Failure(mountResult.Error!);
+        }
+
+        await using WinPeMountSession mount = mountResult.Value!;
+        string windowsPath = Path.Combine(mount.MountDirectoryPath, "Windows");
+        if (!Directory.Exists(windowsPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.UsbProvisioningFailed,
+                "USB boot configuration failed: mounted WinPE Windows folder not found.",
+                $"Expected '{windowsPath}'.");
+        }
+
+        string firmwareMode = partitionStyle == UsbPartitionStyle.Gpt ? "UEFI" : "ALL";
+        string arguments = $"{WinPeProcessRunner.Quote(windowsPath)} /s {WinPeProcessRunner.Quote(bootRoot)} /f {firmwareMode} /c /bootex";
+        WinPeProcessExecution result = await _processRunner.RunAsync(
+            bcdbootPath,
+            arguments,
+            artifact.WorkingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
+
+        return result.IsSuccess
+            ? WinPeResult.Success()
+            : WinPeResult.Failure(
+                WinPeErrorCodes.UsbProvisioningFailed,
+                "Failed to configure USB boot files with /bootex.",
+                result.ToDiagnosticText());
     }
 
     private static WinPeResult ValidateDiskSafety(UsbOutputOptions options, DiskIdentityInfo disk)
@@ -325,12 +420,16 @@ else {
             "clean",
             ..conversionLines,
             "create partition primary size=4096",
-            $"format fs=fat32{formatSuffix} label=BOOT",
+            "select partition 1",
             $"assign letter={bootDriveLetter}",
+            $"select volume={bootDriveLetter}",
+            $"format fs=fat32{formatSuffix} label=BOOT",
             activeLine,
             "create partition primary",
-            $"format fs=ntfs{formatSuffix} label=\"Foundry Cache\"",
-            $"assign letter={cacheDriveLetter}"
+            "select partition 2",
+            $"assign letter={cacheDriveLetter}",
+            $"select volume={cacheDriveLetter}",
+            $"format fs=ntfs{formatSuffix} label=\"Foundry Cache\""
         ];
 
         string[] effectiveScriptLines = scriptLines

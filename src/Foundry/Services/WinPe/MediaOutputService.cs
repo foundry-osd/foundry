@@ -330,23 +330,31 @@ public sealed class MediaOutputService : IMediaOutputService
 
             _logger.LogInformation("WinPE image customization completed for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
             _operationProgressService.Report(62, "Applying signature policy.");
+            bool bootEx = false;
             if (options.SignatureMode == WinPeSignatureMode.Pca2023)
             {
-                WinPeResult remediation = await RunRemediationIfConfiguredAsync(options.RunPca2023RemediationWhenBootExUnsupported, options.Pca2023RemediationScriptPath, artifact, tools, cancellationToken).ConfigureAwait(false);
-                if (!remediation.IsSuccess)
+                _logger.LogInformation("Evaluating PCA2023 signature policy for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+                bootEx = await _toolResolver.IsBootExSupportedAsync(tools, _processRunner, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
+                _logger.LogInformation("PCA2023 signature policy evaluated for USB creation. BootExSupported={BootExSupported}", bootEx);
+                if (!bootEx)
                 {
-                    return FailWithProgress(remediation.Error!);
-                }
+                    WinPeResult remediation = await RunRemediationIfConfiguredAsync(options.RunPca2023RemediationWhenBootExUnsupported, options.Pca2023RemediationScriptPath, artifact, tools, cancellationToken).ConfigureAwait(false);
+                    if (!remediation.IsSuccess)
+                    {
+                        return FailWithProgress(remediation.Error!);
+                    }
 
-                _logger.LogInformation("PCA2023 remediation workflow completed for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+                    _logger.LogInformation("PCA2023 remediation fallback completed for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+                }
             }
 
             _operationProgressService.Report(80, "Provisioning and populating USB.");
             _logger.LogInformation(
-                "Starting USB provisioning and media population. WorkingDirectoryPath={WorkingDirectoryPath}, TargetDiskNumber={TargetDiskNumber}",
+                "Starting USB provisioning and media population. WorkingDirectoryPath={WorkingDirectoryPath}, TargetDiskNumber={TargetDiskNumber}, UseBootEx={UseBootEx}",
                 artifact.WorkingDirectoryPath,
-                options.TargetDiskNumber);
-            WinPeResult<WinPeUsbProvisionResult> usb = await _usbMediaService.ProvisionAndPopulateAsync(options, artifact, tools, cancellationToken).ConfigureAwait(false);
+                options.TargetDiskNumber,
+                bootEx);
+            WinPeResult<WinPeUsbProvisionResult> usb = await _usbMediaService.ProvisionAndPopulateAsync(options, artifact, tools, bootEx, cancellationToken).ConfigureAwait(false);
             if (!usb.IsSuccess)
             {
                 return FailWithProgress(usb.Error!);
