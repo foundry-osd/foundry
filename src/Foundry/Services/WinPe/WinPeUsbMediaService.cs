@@ -211,7 +211,7 @@ else {
         if (useBootEx)
         {
             _logger.LogInformation("Reconfiguring USB boot files with BootEx support. BootRoot={BootRoot}, PartitionStyle={PartitionStyle}", bootRoot, options.PartitionStyle);
-            WinPeResult bootConfigResult = await ConfigureBootFilesAsync(bootRoot, options.PartitionStyle, artifact, tools, cancellationToken).ConfigureAwait(false);
+            WinPeResult bootConfigResult = ConfigureBootFiles(bootRoot, artifact);
             if (!bootConfigResult.IsSuccess)
             {
                 _logger.LogWarning("USB BootEx boot file configuration failed. Code={ErrorCode}, Message={ErrorMessage}", bootConfigResult.Error?.Code, bootConfigResult.Error?.Message);
@@ -249,85 +249,38 @@ else {
         return success;
     }
 
-    private async Task<WinPeResult> ConfigureBootFilesAsync(
+    private WinPeResult ConfigureBootFiles(
         string bootRoot,
-        UsbPartitionStyle partitionStyle,
-        WinPeBuildArtifact artifact,
-        WinPeToolPaths tools,
-        CancellationToken cancellationToken)
+        WinPeBuildArtifact artifact)
     {
-        string bootWimPath = Path.Combine(bootRoot, "sources", "boot.wim");
-        if (!File.Exists(bootWimPath))
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.UsbProvisioningFailed,
-                "USB boot configuration failed: boot.wim not found.",
-                $"Expected '{bootWimPath}'.");
-        }
-
-        string bcdbootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "bcdboot.exe");
-        if (!File.Exists(bcdbootPath))
-        {
-            bcdbootPath = "bcdboot.exe";
-        }
-
-        WinPeProcessExecution helpResult = await _processRunner.RunAsync(
-            bcdbootPath,
-            "/?",
-            artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
-
-        string combinedHelp = string.Concat(helpResult.StandardOutput, "\n", helpResult.StandardError);
-        if (combinedHelp.IndexOf("/bootex", StringComparison.OrdinalIgnoreCase) < 0)
+        string bootManagerSourcePath = Path.Combine(artifact.WorkingDirectoryPath, "bootbins", "bootmgfw_EX.efi");
+        if (!File.Exists(bootManagerSourcePath))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.BootExUnsupported,
-                "PCA2023 USB creation requires BCDBoot support for /bootex or remediation fallback.",
-                helpResult.ToDiagnosticText());
+                "PCA2023 USB creation requires BootEx EFI binaries in the WinPE workspace.",
+                $"Expected '{bootManagerSourcePath}'.");
         }
 
-        string mountDirectoryPath = Path.Combine(artifact.WorkingDirectoryPath, "bootex-bcdboot-mount");
-        if (Directory.Exists(mountDirectoryPath))
+        string efiBootPath = Path.Combine(bootRoot, "EFI", "Boot", artifact.Architecture.ToBootEfiName());
+        if (File.Exists(efiBootPath))
         {
-            Directory.Delete(mountDirectoryPath, recursive: true);
+            File.Copy(bootManagerSourcePath, efiBootPath, overwrite: true);
         }
 
-        WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
-            _processRunner,
-            tools.DismPath,
-            bootWimPath,
-            mountDirectoryPath,
-            artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
-        if (!mountResult.IsSuccess)
-        {
-            return WinPeResult.Failure(mountResult.Error!);
-        }
-
-        await using WinPeMountSession mount = mountResult.Value!;
-        string windowsPath = Path.Combine(mount.MountDirectoryPath, "Windows");
-        if (!Directory.Exists(windowsPath))
+        string efiMicrosoftBootManagerPath = Path.Combine(bootRoot, "EFI", "Microsoft", "Boot", "bootmgfw.efi");
+        string? efiMicrosoftBootDirectoryPath = Path.GetDirectoryName(efiMicrosoftBootManagerPath);
+        if (string.IsNullOrWhiteSpace(efiMicrosoftBootDirectoryPath))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.UsbProvisioningFailed,
-                "USB boot configuration failed: mounted WinPE Windows folder not found.",
-                $"Expected '{windowsPath}'.");
+                "USB boot configuration failed: EFI Microsoft boot manager path is invalid.",
+                $"Expected '{efiMicrosoftBootManagerPath}'.");
         }
 
-        string firmwareMode = partitionStyle == UsbPartitionStyle.Gpt ? "UEFI" : "ALL";
-        string arguments = $"{WinPeProcessRunner.Quote(windowsPath)} /s {WinPeProcessRunner.Quote(bootRoot)} /f {firmwareMode} /c /bootex";
-        WinPeProcessExecution result = await _processRunner.RunAsync(
-            bcdbootPath,
-            arguments,
-            artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
-
-        return result.IsSuccess
-            ? WinPeResult.Success()
-            : WinPeResult.Failure(
-                WinPeErrorCodes.UsbProvisioningFailed,
-                "Failed to configure USB boot files with /bootex.",
-                result.ToDiagnosticText());
+        Directory.CreateDirectory(efiMicrosoftBootDirectoryPath);
+        File.Copy(bootManagerSourcePath, efiMicrosoftBootManagerPath, overwrite: true);
+        return WinPeResult.Success();
     }
 
     private static WinPeResult ValidateDiskSafety(UsbOutputOptions options, DiskIdentityInfo disk)
