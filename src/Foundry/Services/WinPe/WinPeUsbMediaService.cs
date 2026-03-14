@@ -112,6 +112,7 @@ else {
         UsbOutputOptions options,
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
+        bool useBootEx,
         CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting USB provisioning for TargetDiskNumber={TargetDiskNumber}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}",
@@ -184,7 +185,6 @@ else {
             options.FormatMode,
             bootDriveLetter,
             cacheDriveLetter,
-            tools,
             artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
         if (!provisioningResult.IsSuccess)
@@ -208,6 +208,19 @@ else {
         }
 
         _logger.LogInformation("Copied prepared WinPE media to USB boot partition successfully. BootRoot={BootRoot}", bootRoot);
+        if (useBootEx)
+        {
+            _logger.LogInformation("Reconfiguring USB boot files with BootEx support. BootRoot={BootRoot}, PartitionStyle={PartitionStyle}", bootRoot, options.PartitionStyle);
+            WinPeResult bootConfigResult = ConfigureBootFiles(bootRoot, artifact);
+            if (!bootConfigResult.IsSuccess)
+            {
+                _logger.LogWarning("USB BootEx boot file configuration failed. Code={ErrorCode}, Message={ErrorMessage}", bootConfigResult.Error?.Code, bootConfigResult.Error?.Message);
+                return WinPeResult<WinPeUsbProvisionResult>.Failure(bootConfigResult.Error!);
+            }
+
+            _logger.LogInformation("USB boot files reconfigured with BootEx support successfully. BootRoot={BootRoot}", bootRoot);
+        }
+
         WinPeResult verifyResult = VerifyBootArtifacts(bootRoot, artifact.Architecture);
         if (!verifyResult.IsSuccess)
         {
@@ -234,6 +247,40 @@ else {
             success.Value?.BootDriveLetter,
             success.Value?.CacheDriveLetter);
         return success;
+    }
+
+    private WinPeResult ConfigureBootFiles(
+        string bootRoot,
+        WinPeBuildArtifact artifact)
+    {
+        string bootManagerSourcePath = Path.Combine(artifact.WorkingDirectoryPath, "bootbins", "bootmgfw_EX.efi");
+        if (!File.Exists(bootManagerSourcePath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BootExUnsupported,
+                "PCA2023 USB creation requires BootEx EFI binaries in the WinPE workspace.",
+                $"Expected '{bootManagerSourcePath}'.");
+        }
+
+        string efiBootPath = Path.Combine(bootRoot, "EFI", "Boot", artifact.Architecture.ToBootEfiName());
+        if (File.Exists(efiBootPath))
+        {
+            File.Copy(bootManagerSourcePath, efiBootPath, overwrite: true);
+        }
+
+        string efiMicrosoftBootManagerPath = Path.Combine(bootRoot, "EFI", "Microsoft", "Boot", "bootmgfw.efi");
+        string? efiMicrosoftBootDirectoryPath = Path.GetDirectoryName(efiMicrosoftBootManagerPath);
+        if (string.IsNullOrWhiteSpace(efiMicrosoftBootDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.UsbProvisioningFailed,
+                "USB boot configuration failed: EFI Microsoft boot manager path is invalid.",
+                $"Expected '{efiMicrosoftBootManagerPath}'.");
+        }
+
+        Directory.CreateDirectory(efiMicrosoftBootDirectoryPath);
+        File.Copy(bootManagerSourcePath, efiMicrosoftBootManagerPath, overwrite: true);
+        return WinPeResult.Success();
     }
 
     private static WinPeResult ValidateDiskSafety(UsbOutputOptions options, DiskIdentityInfo disk)
@@ -308,7 +355,6 @@ else {
         UsbFormatMode formatMode,
         char bootDriveLetter,
         char cacheDriveLetter,
-        WinPeToolPaths tools,
         string workingDirectory,
         CancellationToken cancellationToken)
     {
@@ -325,12 +371,16 @@ else {
             "clean",
             ..conversionLines,
             "create partition primary size=4096",
-            $"format fs=fat32{formatSuffix} label=BOOT",
+            "select partition 1",
             $"assign letter={bootDriveLetter}",
+            $"select volume={bootDriveLetter}",
+            $"format fs=fat32{formatSuffix} label=BOOT",
             activeLine,
             "create partition primary",
-            $"format fs=ntfs{formatSuffix} label=\"Foundry Cache\"",
-            $"assign letter={cacheDriveLetter}"
+            "select partition 2",
+            $"assign letter={cacheDriveLetter}",
+            $"select volume={cacheDriveLetter}",
+            $"format fs=ntfs{formatSuffix} label=\"Foundry Cache\""
         ];
 
         string[] effectiveScriptLines = scriptLines
