@@ -185,7 +185,6 @@ else {
             options.FormatMode,
             bootDriveLetter,
             cacheDriveLetter,
-            tools,
             artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
         if (!provisioningResult.IsSuccess)
@@ -403,7 +402,6 @@ else {
         UsbFormatMode formatMode,
         char bootDriveLetter,
         char cacheDriveLetter,
-        WinPeToolPaths tools,
         string workingDirectory,
         CancellationToken cancellationToken)
     {
