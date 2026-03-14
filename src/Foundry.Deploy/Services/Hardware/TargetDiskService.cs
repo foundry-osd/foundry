@@ -65,12 +65,25 @@ $result | ConvertTo-Json -Compress
                 foreach (JsonElement diskElement in root.EnumerateArray())
                 {
                     TargetDiskInfo info = ParseDisk(diskElement);
+                    if (ShouldExcludeFromTargets(info))
+                    {
+                        _logger.LogInformation(
+                            "Skipping disk {DiskNumber} from target selection because it is attached over USB. FriendlyName={FriendlyName}",
+                            info.DiskNumber,
+                            info.FriendlyName);
+                        continue;
+                    }
+
                     disks.Add(info);
                 }
             }
             else if (root.ValueKind == JsonValueKind.Object)
             {
-                disks.Add(ParseDisk(root));
+                TargetDiskInfo info = ParseDisk(root);
+                if (!ShouldExcludeFromTargets(info))
+                {
+                    disks.Add(info);
+                }
             }
 
             TargetDiskInfo[] orderedDisks = disks
@@ -220,6 +233,9 @@ if ($null -eq $partition) {{
 
         return string.Empty;
     }
+
+    private static bool ShouldExcludeFromTargets(TargetDiskInfo disk)
+        => string.Equals(disk.BusType, "USB", StringComparison.OrdinalIgnoreCase);
 
     private static string ReadString(JsonElement root, string propertyName)
     {
