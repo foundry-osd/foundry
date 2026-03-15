@@ -30,6 +30,12 @@ public partial class MainWindow : Window
 
     private void TargetComputerNameTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
     {
+        if (sender is TextBox { IsReadOnly: true })
+        {
+            e.Handled = true;
+            return;
+        }
+
         if (!ComputerNameRules.IsAllowedText(e.Text))
         {
             e.Handled = true;
@@ -39,6 +45,12 @@ public partial class MainWindow : Window
     private void TargetComputerNameTextBox_OnPaste(object sender, DataObjectPastingEventArgs e)
     {
         if (sender is not TextBox textBox)
+        {
+            e.CancelCommand();
+            return;
+        }
+
+        if (textBox.IsReadOnly)
         {
             e.CancelCommand();
             return;

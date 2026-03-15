@@ -3,6 +3,7 @@ using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
+using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Download;
@@ -144,6 +145,7 @@ public static class Program
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
+        services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();

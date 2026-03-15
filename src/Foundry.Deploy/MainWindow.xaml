@@ -117,6 +117,7 @@
                                 <TextBox
                                     x:Name="TargetComputerNameTextBox"
                                     Margin="0,8,0,0"
+                                    IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
                                     MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
                                     PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
                                     Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
@@ -224,6 +225,7 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Language" />
                                         <ComboBox
                                             Margin="0,8,0,0"
+                                            IsEnabled="{Binding IsLanguageSelectionEnabled}"
                                             ItemsSource="{Binding LanguageFilters}"
                                             SelectedItem="{Binding SelectedLanguageCode}" />
                                     </StackPanel>
