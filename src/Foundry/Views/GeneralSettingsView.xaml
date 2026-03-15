@@ -239,30 +239,6 @@
                         Command="{Binding BrowseCustomDriverDirectoryCommand}"
                         Content="{Binding Strings[BrowseFolderButton]}" />
                 </Grid>
-
-                <CheckBox
-                    Margin="0,0,0,12"
-                    Content="{Binding Strings[PcaRemediationLabel]}"
-                    IsChecked="{Binding EnablePcaRemediation}" />
-
-                <Grid IsEnabled="{Binding EnablePcaRemediation}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock
-                        Grid.Column="0"
-                        Margin="0,0,8,0"
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding Strings[PcaRemediationScriptLabel]}" />
-
-                    <TextBox
-                        Grid.Column="1"
-                        Text="{Binding PcaRemediationScriptPath, UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
             </StackPanel>
         </Expander>
     </StackPanel>

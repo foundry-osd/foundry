@@ -13,6 +13,4 @@ public sealed record GeneralSettings
     public bool IncludeDellDrivers { get; init; }
     public bool IncludeHpDrivers { get; init; }
     public string? CustomDriverDirectoryPath { get; init; }
-    public bool EnablePcaRemediation { get; init; }
-    public string? PcaRemediationScriptPath { get; init; }
 }

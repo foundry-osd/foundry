@@ -16,7 +16,6 @@ public static class WinPeErrorCodes
     public const string HashMismatch = "WINPE_HASH_MISMATCH";
     public const string IsoCreateFailed = "WINPE_ISO_CREATE_FAILED";
     public const string BootExUnsupported = "WINPE_BOOTEX_UNSUPPORTED";
-    public const string PcaRemediationFailed = "WINPE_PCA_REMEDIATION_FAILED";
     public const string UsbQueryFailed = "WINPE_USB_QUERY_FAILED";
     public const string UsbUnsafeTarget = "WINPE_USB_UNSAFE_TARGET";
     public const string UsbIdentityMismatch = "WINPE_USB_IDENTITY_MISMATCH";

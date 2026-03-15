@@ -545,10 +545,4 @@ Initialisation MVVM prete.</value>
   <data name="ComingLaterLabel" xml:space="preserve">
     <value>Bientôt disponible</value>
   </data>
-  <data name="PcaRemediationLabel" xml:space="preserve">
-    <value>Activer le contournement PCA2023</value>
-  </data>
-  <data name="PcaRemediationScriptLabel" xml:space="preserve">
-    <value>Chemin du script de contournement</value>
-  </data>
 </root>

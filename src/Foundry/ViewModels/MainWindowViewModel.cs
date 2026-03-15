@@ -84,12 +84,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string customDriverDirectoryPath = string.Empty;
 
     [ObservableProperty]
-    private bool enablePcaRemediation;
-
-    [ObservableProperty]
-    private string pcaRemediationScriptPath = string.Empty;
-
-    [ObservableProperty]
     private WinPeUsbDiskCandidate? selectedUsbDiskCandidate;
 
     [ObservableProperty]
@@ -478,8 +472,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
-                RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
-                Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath,
                 ExpertDeployConfigurationJson = BuildDeployConfigurationJsonForCurrentMode()
             });
 
@@ -545,8 +537,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
-                RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
-                Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath,
                 ExpertDeployConfigurationJson = BuildDeployConfigurationJsonForCurrentMode()
             });
 
@@ -848,11 +838,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 UsbFormatMode = SelectedUsbFormatMode,
                 IncludeDellDrivers = IncludeDellDrivers,
                 IncludeHpDrivers = IncludeHpDrivers,
-                CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
-                EnablePcaRemediation = EnablePcaRemediation,
-                PcaRemediationScriptPath = EnablePcaRemediation && !string.IsNullOrWhiteSpace(PcaRemediationScriptPath)
-                    ? PcaRemediationScriptPath.Trim()
-                    : null
+                CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath()
             },
             Network = Network.BuildSettings(),
             Localization = Localization.BuildSettings(),
@@ -872,8 +858,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IncludeDellDrivers = document.General.IncludeDellDrivers;
         IncludeHpDrivers = document.General.IncludeHpDrivers;
         CustomDriverDirectoryPath = document.General.CustomDriverDirectoryPath ?? string.Empty;
-        EnablePcaRemediation = document.General.EnablePcaRemediation;
-        PcaRemediationScriptPath = document.General.PcaRemediationScriptPath ?? string.Empty;
 
         RefreshWinPeLanguages(preserveSelection: false);
         if (!string.IsNullOrWhiteSpace(document.General.WinPeLanguage))

@@ -545,10 +545,4 @@ MVVM bootstrap ready.</value>
   <data name="ComingLaterLabel" xml:space="preserve">
     <value>Coming later</value>
   </data>
-  <data name="PcaRemediationLabel" xml:space="preserve">
-    <value>Enable PCA2023 remediation fallback</value>
-  </data>
-  <data name="PcaRemediationScriptLabel" xml:space="preserve">
-    <value>Remediation script path</value>
-  </data>
 </root>

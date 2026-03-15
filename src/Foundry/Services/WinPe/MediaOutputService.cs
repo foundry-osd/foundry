@@ -199,13 +199,9 @@ public sealed class MediaOutputService : IMediaOutputService
                 _logger.LogInformation("PCA2023 signature policy evaluated for ISO creation. BootExSupported={BootExSupported}", bootEx);
                 if (!bootEx)
                 {
-                    WinPeResult remediation = await RunRemediationIfConfiguredAsync(options.RunPca2023RemediationWhenBootExUnsupported, options.Pca2023RemediationScriptPath, artifact, tools, cancellationToken).ConfigureAwait(false);
-                    if (!remediation.IsSuccess)
-                    {
-                        return FailWithProgress(remediation.Error!);
-                    }
-
-                    _logger.LogInformation("PCA2023 remediation fallback completed for ISO creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+                    return FailWithProgress(new WinPeDiagnostic(
+                        WinPeErrorCodes.BootExUnsupported,
+                        "PCA2023 requires /bootex support in the WinPE workspace."));
                 }
             }
 
@@ -350,13 +346,9 @@ public sealed class MediaOutputService : IMediaOutputService
                 _logger.LogInformation("PCA2023 signature policy evaluated for USB creation. BootExSupported={BootExSupported}", bootEx);
                 if (!bootEx)
                 {
-                    WinPeResult remediation = await RunRemediationIfConfiguredAsync(options.RunPca2023RemediationWhenBootExUnsupported, options.Pca2023RemediationScriptPath, artifact, tools, cancellationToken).ConfigureAwait(false);
-                    if (!remediation.IsSuccess)
-                    {
-                        return FailWithProgress(remediation.Error!);
-                    }
-
-                    _logger.LogInformation("PCA2023 remediation fallback completed for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+                    return FailWithProgress(new WinPeDiagnostic(
+                        WinPeErrorCodes.BootExUnsupported,
+                        "PCA2023 requires /bootex support in the WinPE workspace."));
                 }
             }
 
@@ -1158,25 +1150,6 @@ public sealed class MediaOutputService : IMediaOutputService
             "ON" => true,
             _ => false
         };
-    }
-
-    private async Task<WinPeResult> RunRemediationIfConfiguredAsync(bool enabled, string? scriptPath, WinPeBuildArtifact artifact, WinPeToolPaths tools, CancellationToken cancellationToken)
-    {
-        if (!enabled)
-        {
-            return WinPeResult.Failure(WinPeErrorCodes.BootExUnsupported, "PCA2023 requires /bootex or remediation fallback.");
-        }
-
-        if (string.IsNullOrWhiteSpace(scriptPath) || !File.Exists(scriptPath))
-        {
-            return WinPeResult.Failure(WinPeErrorCodes.BootExUnsupported, "Remediation script was not found.", $"Path: '{scriptPath ?? "<null>"}'.");
-        }
-
-        string args = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -File {WinPeProcessRunner.Quote(scriptPath)} -MediaPath {WinPeProcessRunner.Quote(artifact.MediaDirectoryPath)}";
-        WinPeProcessExecution run = await _processRunner.RunAsync(tools.PowerShellPath, args, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
-        return run.IsSuccess
-            ? WinPeResult.Success()
-            : WinPeResult.Failure(WinPeErrorCodes.PcaRemediationFailed, "PCA2023 remediation fallback failed.", run.ToDiagnosticText());
     }
 
     private WinPeResult FailWithProgress(WinPeDiagnostic diagnostic)
