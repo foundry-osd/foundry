@@ -20,4 +20,5 @@ public sealed record IsoOutputOptions
 
     public bool RunPca2023RemediationWhenBootExUnsupported { get; init; }
     public string? Pca2023RemediationScriptPath { get; init; }
+    public string? ExpertDeployConfigurationJson { get; init; }
 }

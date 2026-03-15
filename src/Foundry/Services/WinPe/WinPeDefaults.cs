@@ -13,6 +13,7 @@ internal static class WinPeDefaults
     public const string DefaultBootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
     public const string DefaultBootstrapScriptResourceName = "Foundry.WinPe.BootstrapScript";
     public const string EmbeddedDeployArchivePathInImage = @"Foundry\Seed\Foundry.Deploy.zip";
+    public const string EmbeddedDeployConfigPathInImage = @"Foundry\Config\foundry.deploy.config.json";
     public const string EmbeddedSevenZipToolsPathInImage = @"Foundry\Tools\7zip";
     public const string BundledSevenZipRelativePath = @"Assets\7z";
     public const string LocalDeployEnableEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_DEPLOY";

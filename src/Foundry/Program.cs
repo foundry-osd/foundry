@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Windows.Threading;
 using Foundry.Logging;
+using Foundry.Services.Configuration;
 using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
@@ -61,6 +62,9 @@ public static class Program
         services.AddSingleton<MainWindowViewModel>();
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
+        services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
+        services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<ILocalizationService, LocalizationService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();

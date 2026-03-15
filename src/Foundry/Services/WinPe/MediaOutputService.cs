@@ -177,7 +177,13 @@ public sealed class MediaOutputService : IMediaOutputService
                 artifact.WorkingDirectoryPath,
                 drivers.Value!.Count,
                 options.WinPeLanguage);
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(
+                artifact,
+                tools,
+                drivers.Value!,
+                options.WinPeLanguage,
+                options.ExpertDeployConfigurationJson,
+                cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -322,7 +328,13 @@ public sealed class MediaOutputService : IMediaOutputService
                 artifact.WorkingDirectoryPath,
                 drivers.Value!.Count,
                 options.WinPeLanguage);
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(
+                artifact,
+                tools,
+                drivers.Value!,
+                options.WinPeLanguage,
+                options.ExpertDeployConfigurationJson,
+                cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -487,6 +499,7 @@ public sealed class MediaOutputService : IMediaOutputService
         WinPeToolPaths tools,
         IReadOnlyList<string> driverDirectories,
         string winPeLanguage,
+        string? expertDeployConfigurationJson,
         CancellationToken cancellationToken)
     {
         string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
@@ -615,6 +628,21 @@ public sealed class MediaOutputService : IMediaOutputService
         }
 
         _logger.LogInformation("Provisioned bundled 7-Zip tools into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        WinPeResult deployConfigurationProvisioning = await ProvisionDeployConfigurationInImageAsync(
+            session.MountDirectoryPath,
+            expertDeployConfigurationJson,
+            cancellationToken).ConfigureAwait(false);
+        if (!deployConfigurationProvisioning.IsSuccess)
+        {
+            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            return deployConfigurationProvisioning;
+        }
+
+        if (!string.IsNullOrWhiteSpace(expertDeployConfigurationJson))
+        {
+            _logger.LogInformation("Provisioned Foundry.Deploy expert configuration into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        }
+
         string startnet = Path.Combine(session.MountDirectoryPath, WinPeDefaults.DefaultStartnetPathInImage);
         string[] lines = File.Exists(startnet) ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false) : ["wpeinit"];
         var merged = lines.ToList();
@@ -902,6 +930,46 @@ public sealed class MediaOutputService : IMediaOutputService
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision bundled 7-Zip executable into mounted WinPE image.",
+                ex.ToString());
+        }
+    }
+
+    private async Task<WinPeResult> ProvisionDeployConfigurationInImageAsync(
+        string mountedImagePath,
+        string? expertDeployConfigurationJson,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(expertDeployConfigurationJson))
+        {
+            return WinPeResult.Success();
+        }
+
+        string destinationPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedDeployConfigPathInImage);
+        string? destinationDirectoryPath = Path.GetDirectoryName(destinationPath);
+        if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                "Failed to resolve destination path for Foundry.Deploy expert configuration.",
+                $"Destination file: '{destinationPath}'.");
+        }
+
+        try
+        {
+            Directory.CreateDirectory(destinationDirectoryPath);
+            await File.WriteAllTextAsync(
+                destinationPath,
+                expertDeployConfigurationJson,
+                new UTF8Encoding(false),
+                cancellationToken).ConfigureAwait(false);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to provision Foundry.Deploy expert configuration into mounted WinPE image. DestinationPath={DestinationPath}", destinationPath);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision Foundry.Deploy expert configuration into mounted WinPE image.",
                 ex.ToString());
         }
     }
