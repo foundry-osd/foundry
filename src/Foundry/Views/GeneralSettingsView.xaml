@@ -1,0 +1,269 @@
+<UserControl
+    x:Class="Foundry.Views.GeneralSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,8"
+            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{Binding Strings[StandardConfigurationSectionTitle]}" />
+        <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+        <Grid Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[IsoOutputPathLabel]}" />
+
+            <TextBox
+                Grid.Column="1"
+                Margin="0,0,8,0"
+                IsReadOnly="True"
+                Text="{Binding IsoOutputPath, Mode=OneWay}" />
+
+            <Button
+                Grid.Column="2"
+                Width="130"
+                Command="{Binding BrowseIsoOutputPathCommand}"
+                Content="{Binding Strings[IsoBrowseButton]}" />
+        </Grid>
+
+        <Grid Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[UsbSectionTitle]}" />
+
+            <ComboBox
+                Grid.Column="1"
+                Margin="0,0,8,0"
+                DisplayMemberPath="DisplayLabel"
+                ItemsSource="{Binding UsbDiskCandidates}"
+                SelectedItem="{Binding SelectedUsbDiskCandidate}" />
+
+            <Button
+                Grid.Column="2"
+                Width="130"
+                Command="{Binding RefreshUsbCandidatesCommand}"
+                Content="{Binding Strings[UsbRefreshDisks]}"
+                IsEnabled="{Binding IsRefreshingUsbCandidates, Converter={StaticResource InverseBooleanConverter}}" />
+        </Grid>
+
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[ArchitectureLabel]}" />
+
+            <ComboBox
+                Grid.Column="1"
+                ItemsSource="{Binding AvailableArchitectures}"
+                SelectedItem="{Binding SelectedArchitecture}" />
+        </Grid>
+
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[WinPeLanguageLabel]}" />
+
+            <ComboBox
+                Grid.Column="1"
+                MinWidth="220"
+                DisplayMemberPath="DisplayName"
+                ItemsSource="{Binding AvailableWinPeLanguages}"
+                SelectedItem="{Binding SelectedWinPeLanguage}" />
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[WinPeDriversLabel]}" />
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <CheckBox
+                    Margin="0,0,16,0"
+                    Content="{Binding Strings[DriverDellLabel]}"
+                    IsChecked="{Binding IncludeDellDrivers}" />
+                <CheckBox Content="{Binding Strings[DriverHpLabel]}" IsChecked="{Binding IncludeHpDrivers}" />
+            </StackPanel>
+        </Grid>
+
+        <Expander
+            Margin="0,24,0,0"
+            IsExpanded="{Binding IsAdvancedOptionsExpanded}">
+            <Expander.Header>
+                <TextBlock
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding Strings[AdvancedOptionsHeader]}" />
+            </Expander.Header>
+
+            <StackPanel Margin="0,12,0,0">
+                <CheckBox
+                    Margin="0,0,0,12"
+                    Content="{Binding Strings[SignatureCa2023Label]}"
+                    IsChecked="{Binding UseCa2023}" />
+
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[UsbPartitionStyleLabel]}" />
+
+                    <ComboBox
+                        Grid.Column="1"
+                        ItemsSource="{Binding AvailablePartitionStyles}"
+                        SelectedItem="{Binding SelectedPartitionStyle}">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="IsEnabled">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource PartitionStyleAvailabilityConverter}">
+                                            <Binding Path="SelectedArchitecture" />
+                                            <Binding />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
+                </Grid>
+
+                <TextBlock
+                    Margin="0,0,0,12"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding UsbPartitionStyleArm64Hint}"
+                    Visibility="{Binding ShowUsbPartitionStyleArm64Hint, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[UsbFormatModeLabel]}" />
+
+                    <ComboBox
+                        Grid.Column="1"
+                        DisplayMemberPath="DisplayName"
+                        ItemsSource="{Binding AvailableUsbFormatModes}"
+                        SelectedValue="{Binding SelectedUsbFormatMode}"
+                        SelectedValuePath="Mode" />
+                </Grid>
+
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[CustomDriverPathLabel]}" />
+
+                    <TextBox
+                        Grid.Column="1"
+                        Margin="0,0,8,0"
+                        Text="{Binding CustomDriverDirectoryPath, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Button
+                        Grid.Column="2"
+                        Command="{Binding BrowseCustomDriverDirectoryCommand}"
+                        Content="{Binding Strings[BrowseFolderButton]}" />
+                </Grid>
+
+                <CheckBox
+                    Margin="0,0,0,12"
+                    Content="{Binding Strings[PcaRemediationLabel]}"
+                    IsChecked="{Binding EnablePcaRemediation}" />
+
+                <Grid IsEnabled="{Binding EnablePcaRemediation}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[PcaRemediationScriptLabel]}" />
+
+                    <TextBox
+                        Grid.Column="1"
+                        Text="{Binding PcaRemediationScriptPath, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </StackPanel>
+        </Expander>
+    </StackPanel>
+</UserControl>

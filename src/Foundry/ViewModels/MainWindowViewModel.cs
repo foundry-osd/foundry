@@ -7,8 +7,10 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Logging;
+using Foundry.Models.Configuration;
 using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
+using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Theme;
@@ -20,6 +22,8 @@ namespace Foundry.ViewModels;
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
     private const string DefaultIsoFileName = "foundry-winpe.iso";
+    private const string DefaultExpertConfigFileName = "foundry.expert.config.json";
+    private const string DefaultDeployConfigFileName = "foundry.deploy.config.json";
     private const string IsoVolumeLabel = "FOUNDRY_WINPE";
     private static readonly string AppVersion = ResolveAppVersion();
 
@@ -29,6 +33,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IOperationProgressService _operationProgressService;
     private readonly IAdkService _adkService;
     private readonly IMediaOutputService _mediaOutputService;
+    private readonly IExpertConfigurationService _expertConfigurationService;
+    private readonly IDeployConfigurationGenerator _deployConfigurationGenerator;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
 
@@ -95,9 +101,20 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     private WinPeLanguageOption? selectedWinPeLanguage;
 
+    [ObservableProperty]
+    private bool isExpertMode;
+
+    [ObservableProperty]
+    private ExpertSectionItem? selectedExpertSection;
+
     public ObservableCollection<WinPeUsbDiskCandidate> UsbDiskCandidates { get; } = [];
     public ObservableCollection<WinPeLanguageOption> AvailableWinPeLanguages { get; } = [];
     public ObservableCollection<UsbFormatModeOption> AvailableUsbFormatModes { get; } = [];
+    public ObservableCollection<ExpertSectionItem> ExpertSections { get; } = [];
+
+    public NetworkSettingsViewModel Network { get; }
+    public LocalizationSettingsViewModel Localization { get; }
+    public CustomizationSettingsViewModel Customization { get; }
 
     public IReadOnlyList<WinPeArchitecture> AvailableArchitectures { get; } = Enum.GetValues<WinPeArchitecture>();
     public IReadOnlyList<UsbPartitionStyle> AvailablePartitionStyles { get; } = Enum.GetValues<UsbPartitionStyle>();
@@ -117,6 +134,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string.Format(CurrentCulture, Strings["VersionFormat"], AppVersion);
     public bool ShowUsbPartitionStyleArm64Hint => SelectedArchitecture == WinPeArchitecture.Arm64;
     public string UsbPartitionStyleArm64Hint => Strings["UsbPartitionStyleArm64Hint"];
+    public bool IsStandardMode => !IsExpertMode;
 
     private static string StagingDirectoryPath => Path.Combine(Path.GetTempPath(), "FoundryMedia");
 
@@ -142,6 +160,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IOperationProgressService operationProgressService,
         IAdkService adkService,
         IMediaOutputService mediaOutputService,
+        IExpertConfigurationService expertConfigurationService,
+        IDeployConfigurationGenerator deployConfigurationGenerator,
+        ILanguageRegistryService languageRegistryService,
         ILogger<MainWindowViewModel> logger)
     {
         _applicationShellService = applicationShellService;
@@ -150,8 +171,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService = operationProgressService;
         _adkService = adkService;
         _mediaOutputService = mediaOutputService;
+        _expertConfigurationService = expertConfigurationService;
+        _deployConfigurationGenerator = deployConfigurationGenerator;
         _logger = logger;
         _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+
+        Network = new NetworkSettingsViewModel();
+        Localization = new LocalizationSettingsViewModel(languageRegistryService.GetLanguages());
+        Customization = new CustomizationSettingsViewModel();
 
         _localizationService.LanguageChanged += OnLanguageChanged;
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
@@ -159,6 +186,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _adkService.OperationProgressChanged += OnAdkOperationProgressChanged;
         UsbDiskCandidates.CollectionChanged += OnUsbDiskCandidatesCollectionChanged;
 
+        RefreshExpertSections();
+        SelectedExpertSection = ExpertSections.FirstOrDefault();
         UpdateAdkStatus();
         RefreshWinPeLanguages(preserveSelection: false);
         RefreshUsbFormatModes();
@@ -199,6 +228,97 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to open log folder. LogFolderPath={LogFolderPath}", logFolderPath);
+        }
+    }
+
+    [RelayCommand]
+    private void SetStandardMode()
+    {
+        IsExpertMode = false;
+    }
+
+    [RelayCommand]
+    private void SetExpertMode()
+    {
+        IsExpertMode = true;
+        SelectedExpertSection ??= ExpertSections.FirstOrDefault();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanImportExpertConfiguration))]
+    private async Task ImportExpertConfigurationAsync()
+    {
+        string? path = _applicationShellService.PickOpenJsonFilePath(
+            Strings["ExpertConfigImportTitle"],
+            Strings["JsonPickerFilter"]);
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
+
+        try
+        {
+            FoundryExpertConfigurationDocument document = await _expertConfigurationService.LoadAsync(path).ConfigureAwait(false);
+            RunOnUiThread(() =>
+            {
+                ApplyExpertConfigurationDocument(document);
+                IsExpertMode = true;
+                SelectedExpertSection = ExpertSections.FirstOrDefault(section => string.Equals(section.Key, "general", StringComparison.OrdinalIgnoreCase));
+                MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportedFormat"], Path.GetFileName(path));
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to import expert configuration. Path={Path}", path);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportFailedFormat"], ex.Message);
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanExportExpertConfiguration))]
+    private async Task ExportExpertConfigurationAsync()
+    {
+        string? path = _applicationShellService.PickSaveJsonFilePath(
+            Strings["ExpertConfigExportTitle"],
+            Strings["JsonPickerFilter"],
+            DefaultExpertConfigFileName);
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
+
+        try
+        {
+            await _expertConfigurationService.SaveAsync(path, BuildExpertConfigurationDocument()).ConfigureAwait(false);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportedFormat"], Path.GetFileName(path));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to export expert configuration. Path={Path}", path);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportFailedFormat"], ex.Message);
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanExportDeployConfiguration))]
+    private async Task ExportDeployConfigurationAsync()
+    {
+        string? path = _applicationShellService.PickSaveJsonFilePath(
+            Strings["DeployConfigExportTitle"],
+            Strings["JsonPickerFilter"],
+            DefaultDeployConfigFileName);
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
+
+        try
+        {
+            string json = BuildDeployConfigurationJsonForCurrentMode() ?? string.Empty;
+            await File.WriteAllTextAsync(path, json).ConfigureAwait(false);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportedFormat"], Path.GetFileName(path));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to export deploy configuration. Path={Path}", path);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportFailedFormat"], ex.Message);
         }
     }
 
@@ -252,6 +372,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             CustomDriverDirectoryPath = selectedPath;
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanBrowseDot1xCertificate))]
+    private void BrowseDot1xCertificate()
+    {
+        string? selectedPath = _applicationShellService.PickOpenJsonFilePath(
+            Strings["Dot1xCertificatePickerTitle"],
+            Strings["CertificatePickerFilter"]);
+        if (!string.IsNullOrWhiteSpace(selectedPath))
+        {
+            Network.CertificatePath = selectedPath;
         }
     }
 
@@ -347,7 +479,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
-                Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
+                Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath,
+                ExpertDeployConfigurationJson = BuildDeployConfigurationJsonForCurrentMode()
             });
 
             MediaActionMessage = result.IsSuccess
@@ -413,7 +546,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
                 RunPca2023RemediationWhenBootExUnsupported = EnablePcaRemediation,
-                Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath
+                Pca2023RemediationScriptPath = string.IsNullOrWhiteSpace(PcaRemediationScriptPath) ? null : PcaRemediationScriptPath,
+                ExpertDeployConfigurationJson = BuildDeployConfigurationJsonForCurrentMode()
             });
 
             MediaActionMessage = result.IsSuccess
@@ -465,12 +599,39 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         UpdateOperationState();
     }
 
+    partial void OnIsExpertModeChanged(bool value)
+    {
+        OnPropertyChanged(nameof(IsStandardMode));
+        ExportExpertConfigurationCommand.NotifyCanExecuteChanged();
+        ExportDeployConfigurationCommand.NotifyCanExecuteChanged();
+    }
+
+    private bool CanImportExpertConfiguration()
+    {
+        return !IsOperationInProgress;
+    }
+
+    private bool CanExportExpertConfiguration()
+    {
+        return IsExpertMode && !IsOperationInProgress;
+    }
+
+    private bool CanExportDeployConfiguration()
+    {
+        return IsExpertMode && !IsOperationInProgress;
+    }
+
     private bool CanBrowseIsoOutputPath()
     {
         return !IsOperationInProgress;
     }
 
     private bool CanBrowseCustomDriverDirectory()
+    {
+        return !IsOperationInProgress;
+    }
+
+    private bool CanBrowseDot1xCertificate()
     {
         return !IsOperationInProgress;
     }
@@ -651,11 +812,100 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             : languageCode.Trim().Replace('_', '-').ToLowerInvariant();
     }
 
+    private void RefreshExpertSections()
+    {
+        string? selectedKey = SelectedExpertSection?.Key;
+        ExpertSectionItem[] sections =
+        [
+            new("general", Strings["ExpertSectionGeneral"], this),
+            new("network", Strings["ExpertSectionNetwork"], Network),
+            new("localization", Strings["ExpertSectionLocalization"], Localization),
+            new("customization", Strings["ExpertSectionCustomization"], Customization)
+        ];
+
+        ExpertSections.Clear();
+        foreach (ExpertSectionItem section in sections)
+        {
+            ExpertSections.Add(section);
+        }
+
+        SelectedExpertSection = ExpertSections.FirstOrDefault(section =>
+                                  string.Equals(section.Key, selectedKey, StringComparison.OrdinalIgnoreCase))
+                              ?? ExpertSections.FirstOrDefault();
+    }
+
+    private FoundryExpertConfigurationDocument BuildExpertConfigurationDocument()
+    {
+        return new FoundryExpertConfigurationDocument
+        {
+            General = new GeneralSettings
+            {
+                IsoOutputPath = string.IsNullOrWhiteSpace(IsoOutputPath) ? null : IsoOutputPath.Trim(),
+                Architecture = SelectedArchitecture,
+                WinPeLanguage = SelectedWinPeLanguage?.Code,
+                UseCa2023 = UseCa2023,
+                UsbPartitionStyle = SelectedPartitionStyle,
+                UsbFormatMode = SelectedUsbFormatMode,
+                IncludeDellDrivers = IncludeDellDrivers,
+                IncludeHpDrivers = IncludeHpDrivers,
+                CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
+                EnablePcaRemediation = EnablePcaRemediation,
+                PcaRemediationScriptPath = EnablePcaRemediation && !string.IsNullOrWhiteSpace(PcaRemediationScriptPath)
+                    ? PcaRemediationScriptPath.Trim()
+                    : null
+            },
+            Network = Network.BuildSettings(),
+            Localization = Localization.BuildSettings(),
+            Customization = Customization.BuildSettings()
+        };
+    }
+
+    private void ApplyExpertConfigurationDocument(FoundryExpertConfigurationDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+
+        IsoOutputPath = document.General.IsoOutputPath ?? string.Empty;
+        SelectedArchitecture = document.General.Architecture;
+        UseCa2023 = document.General.UseCa2023;
+        SelectedPartitionStyle = document.General.UsbPartitionStyle;
+        SelectedUsbFormatMode = document.General.UsbFormatMode;
+        IncludeDellDrivers = document.General.IncludeDellDrivers;
+        IncludeHpDrivers = document.General.IncludeHpDrivers;
+        CustomDriverDirectoryPath = document.General.CustomDriverDirectoryPath ?? string.Empty;
+        EnablePcaRemediation = document.General.EnablePcaRemediation;
+        PcaRemediationScriptPath = document.General.PcaRemediationScriptPath ?? string.Empty;
+
+        RefreshWinPeLanguages(preserveSelection: false);
+        if (!string.IsNullOrWhiteSpace(document.General.WinPeLanguage))
+        {
+            SelectedWinPeLanguage = AvailableWinPeLanguages.FirstOrDefault(option =>
+                option.Code.Equals(document.General.WinPeLanguage, StringComparison.OrdinalIgnoreCase))
+                ?? SelectedWinPeLanguage;
+        }
+
+        Network.ApplySettings(document.Network);
+        Localization.ApplySettings(document.Localization);
+        Customization.ApplySettings(document.Customization);
+        UpdateOperationState();
+    }
+
+    private string? BuildDeployConfigurationJsonForCurrentMode()
+    {
+        if (!IsExpertMode)
+        {
+            return null;
+        }
+
+        return _deployConfigurationGenerator.Serialize(
+            _deployConfigurationGenerator.Generate(BuildExpertConfigurationDocument()));
+    }
+
     private void OnLanguageChanged(object? sender, EventArgs e)
     {
         RunOnUiThread(() =>
         {
             RefreshUsbFormatModes();
+            RefreshExpertSections();
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(Strings));
             OnPropertyChanged(nameof(GlobalOperationStatusDisplay));
@@ -722,6 +972,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         BrowseIsoOutputPathCommand.NotifyCanExecuteChanged();
         BrowseCustomDriverDirectoryCommand.NotifyCanExecuteChanged();
+        BrowseDot1xCertificateCommand.NotifyCanExecuteChanged();
+        ImportExpertConfigurationCommand.NotifyCanExecuteChanged();
+        ExportExpertConfigurationCommand.NotifyCanExecuteChanged();
+        ExportDeployConfigurationCommand.NotifyCanExecuteChanged();
         CreateIsoCommand.NotifyCanExecuteChanged();
         CreateUsbCommand.NotifyCanExecuteChanged();
     }

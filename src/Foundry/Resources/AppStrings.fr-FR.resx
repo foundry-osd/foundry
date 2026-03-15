@@ -425,4 +425,130 @@ Initialisation MVVM prete.</value>
   <data name="IsoPickerFilter" xml:space="preserve">
     <value>Image ISO (*.iso)|*.iso</value>
   </data>
+  <data name="MenuMode" xml:space="preserve">
+    <value>_Mode</value>
+  </data>
+  <data name="ModeStandard" xml:space="preserve">
+    <value>_Standard</value>
+  </data>
+  <data name="ModeExpert" xml:space="preserve">
+    <value>E_xpert</value>
+  </data>
+  <data name="MenuImportExpertConfig" xml:space="preserve">
+    <value>_Importer la configuration Expert</value>
+  </data>
+  <data name="MenuExportExpertConfig" xml:space="preserve">
+    <value>Exporter la configuration _Expert</value>
+  </data>
+  <data name="MenuExportDeployConfig" xml:space="preserve">
+    <value>Exporter la configuration _Deploy</value>
+  </data>
+  <data name="JsonPickerFilter" xml:space="preserve">
+    <value>Fichier JSON (*.json)|*.json</value>
+  </data>
+  <data name="ExpertConfigImportTitle" xml:space="preserve">
+    <value>Importer une configuration Expert</value>
+  </data>
+  <data name="ExpertConfigExportTitle" xml:space="preserve">
+    <value>Exporter la configuration Expert</value>
+  </data>
+  <data name="DeployConfigExportTitle" xml:space="preserve">
+    <value>Exporter la configuration Deploy</value>
+  </data>
+  <data name="ExpertConfigImportedFormat" xml:space="preserve">
+    <value>Configuration Expert importée : {0}</value>
+  </data>
+  <data name="ExpertConfigImportFailedFormat" xml:space="preserve">
+    <value>Échec de l'import de la configuration Expert : {0}</value>
+  </data>
+  <data name="ExpertConfigExportedFormat" xml:space="preserve">
+    <value>Configuration Expert exportée : {0}</value>
+  </data>
+  <data name="ExpertConfigExportFailedFormat" xml:space="preserve">
+    <value>Échec de l'export de la configuration Expert : {0}</value>
+  </data>
+  <data name="DeployConfigExportedFormat" xml:space="preserve">
+    <value>Configuration Deploy exportée : {0}</value>
+  </data>
+  <data name="DeployConfigExportFailedFormat" xml:space="preserve">
+    <value>Échec de l'export de la configuration Deploy : {0}</value>
+  </data>
+  <data name="ExpertNavigationTitle" xml:space="preserve">
+    <value>Sections Expert</value>
+  </data>
+  <data name="ExpertSectionGeneral" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="ExpertSectionNetwork" xml:space="preserve">
+    <value>Réseau</value>
+  </data>
+  <data name="ExpertSectionLocalization" xml:space="preserve">
+    <value>Localisation</value>
+  </data>
+  <data name="ExpertSectionCustomization" xml:space="preserve">
+    <value>Personnalisation</value>
+  </data>
+  <data name="Dot1xEnableLabel" xml:space="preserve">
+    <value>Activer 802.1X dans WinPE</value>
+  </data>
+  <data name="Dot1xCertificateLabel" xml:space="preserve">
+    <value>Fichier certificat</value>
+  </data>
+  <data name="Dot1xCertificatePickerTitle" xml:space="preserve">
+    <value>Sélectionner le certificat 802.1X</value>
+  </data>
+  <data name="CertificatePickerFilter" xml:space="preserve">
+    <value>Fichier certificat (*.cer;*.crt;*.pfx)|*.cer;*.crt;*.pfx|Tous les fichiers (*.*)|*.*</value>
+  </data>
+  <data name="BrowseFileButton" xml:space="preserve">
+    <value>Parcourir...</value>
+  </data>
+  <data name="WifiEnableLabel" xml:space="preserve">
+    <value>Activer le Wi-Fi dans WinPE</value>
+  </data>
+  <data name="WifiSsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="WifiSecurityTypeLabel" xml:space="preserve">
+    <value>Type de sécurité</value>
+  </data>
+  <data name="LocalizationVisibleLanguagesLabel" xml:space="preserve">
+    <value>Langues visibles dans Foundry.Deploy</value>
+  </data>
+  <data name="LocalizationDefaultOverrideLabel" xml:space="preserve">
+    <value>Surcharge de langue par défaut</value>
+  </data>
+  <data name="LocalizationForceSingleLabel" xml:space="preserve">
+    <value>Forcer l'unique langue visible lorsqu'un seul choix reste</value>
+  </data>
+  <data name="MachineNamingEnableLabel" xml:space="preserve">
+    <value>Activer les règles de nommage machine</value>
+  </data>
+  <data name="MachineNamingPrefixLabel" xml:space="preserve">
+    <value>Préfixe</value>
+  </data>
+  <data name="MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>Générer automatiquement le suffixe après le préfixe</value>
+  </data>
+  <data name="MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>Autoriser l'édition manuelle après le préfixe</value>
+  </data>
+  <data name="CustomizationAutopilotPlaceholder" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="CustomizationAppxPlaceholder" xml:space="preserve">
+    <value>Suppression APPX</value>
+  </data>
+  <data name="CustomizationDeployConfigPlaceholder" xml:space="preserve">
+    <value>Configuration Deploy personnalisée</value>
+  </data>
+  <data name="ComingLaterLabel" xml:space="preserve">
+    <value>Bientôt disponible</value>
+  </data>
+  <data name="PcaRemediationLabel" xml:space="preserve">
+    <value>Activer le contournement PCA2023</value>
+  </data>
+  <data name="PcaRemediationScriptLabel" xml:space="preserve">
+    <value>Chemin du script de contournement</value>
+  </data>
 </root>

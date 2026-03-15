@@ -1,0 +1,101 @@
+<UserControl
+    x:Class="Foundry.Views.CustomizationSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,8"
+            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{Binding DataContext.Strings[ExpertSectionCustomization], RelativeSource={RelativeSource AncestorType=Window}}" />
+        <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+        <Border
+            Padding="12"
+            Margin="0,0,0,16"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <StackPanel>
+                <CheckBox
+                    Margin="0,0,0,12"
+                    Content="{Binding DataContext.Strings[MachineNamingEnableLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+                    IsChecked="{Binding IsMachineNamingEnabled}" />
+
+                <Grid IsEnabled="{Binding IsMachineNamingEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="0,0,8,8"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding DataContext.Strings[MachineNamingPrefixLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,0,0,8"
+                        Text="{Binding MachineNamePrefix, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <CheckBox
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,0,8"
+                        Content="{Binding DataContext.Strings[MachineNamingAutoGenerateLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+                        IsChecked="{Binding MachineNameAutoGenerate}" />
+
+                    <CheckBox
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        Content="{Binding DataContext.Strings[MachineNamingAllowManualSuffixLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+                        IsChecked="{Binding AllowManualSuffixEdit}" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <Expander IsEnabled="False">
+            <Expander.Header>
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding DataContext.Strings[CustomizationAutopilotPlaceholder], RelativeSource={RelativeSource AncestorType=Window}}" />
+            </Expander.Header>
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding DataContext.Strings[ComingLaterLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+        </Expander>
+
+        <Expander Margin="0,12,0,0" IsEnabled="False">
+            <Expander.Header>
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding DataContext.Strings[CustomizationAppxPlaceholder], RelativeSource={RelativeSource AncestorType=Window}}" />
+            </Expander.Header>
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding DataContext.Strings[ComingLaterLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+        </Expander>
+
+        <Expander Margin="0,12,0,0" IsEnabled="False">
+            <Expander.Header>
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding DataContext.Strings[CustomizationDeployConfigPlaceholder], RelativeSource={RelativeSource AncestorType=Window}}" />
+            </Expander.Header>
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding DataContext.Strings[ComingLaterLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+        </Expander>
+    </StackPanel>
+</UserControl>
