@@ -219,7 +219,9 @@
                 </Border>
 
                 <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
-                    <ContentControl Content="{Binding SelectedExpertSection.ViewModel}" />
+                    <Border Padding="0,0,16,0">
+                        <ContentControl Content="{Binding SelectedExpertSection.ViewModel}" />
+                    </Border>
                 </ScrollViewer>
             </Grid>
 
