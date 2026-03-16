@@ -8,10 +8,10 @@
     xmlns:viewModels="clr-namespace:Foundry.ViewModels"
     xmlns:views="clr-namespace:Foundry.Views"
     Title="Foundry"
-    Width="1180"
-    Height="860"
-    MinWidth="1180"
-    MinHeight="860"
+    Width="1200"
+    Height="850"
+    MinWidth="1200"
+    MinHeight="850"
     Icon="/Assets/Icons/app.ico"
     ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen"
@@ -179,7 +179,11 @@
         </Border>
 
         <Grid Grid.Row="2" Margin="16,16,16,12">
-            <ContentControl Content="{Binding}" Visibility="{Binding IsStandardMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Border
+                Padding="24,0,24,0"
+                Visibility="{Binding IsStandardMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ContentControl Content="{Binding}" />
+            </Border>
 
             <Grid Visibility="{Binding IsExpertMode, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
