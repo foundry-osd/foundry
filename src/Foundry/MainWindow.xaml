@@ -179,14 +179,9 @@
         </Border>
 
         <Grid Grid.Row="2" Margin="16,16,16,12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+            <ContentControl Content="{Binding}" Visibility="{Binding IsStandardMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ContentControl Grid.Row="0" Content="{Binding}" Visibility="{Binding IsStandardMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-            <Grid Grid.Row="0" Visibility="{Binding IsExpertMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Visibility="{Binding IsExpertMode, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="220" />
                     <ColumnDefinition Width="24" />
@@ -224,22 +219,6 @@
                     </Border>
                 </ScrollViewer>
             </Grid>
-
-            <StackPanel
-                Grid.Row="1"
-                Margin="0,24,0,12"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <Button
-                    Width="140"
-                    Margin="0,0,32,0"
-                    Command="{Binding CreateIsoCommand}"
-                    Content="{Binding Strings[CreateIso]}" />
-                <Button
-                    Width="140"
-                    Command="{Binding CreateUsbCommand}"
-                    Content="{Binding Strings[CreateUsb]}" />
-            </StackPanel>
         </Grid>
 
         <Border
@@ -248,31 +227,59 @@
             BorderBrush="#404040"
             BorderThickness="0,1,0,1">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="0,0,0,8"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                    Text="{Binding GlobalOperationStatusDisplay}" />
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <ProgressBar
-                    Grid.Row="1"
-                    Height="14"
-                    Maximum="100"
-                    Minimum="0"
-                    Value="{Binding GlobalOperationProgress, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,0,0,8"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Text="{Binding GlobalOperationStatusDisplay}" />
 
-                <TextBlock
-                    Grid.Row="2"
-                    Margin="0,8,0,0"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding MediaActionMessage}" />
+                    <ProgressBar
+                        Grid.Row="1"
+                        Height="14"
+                        Maximum="100"
+                        Minimum="0"
+                        Value="{Binding GlobalOperationProgress, Mode=OneWay}" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="0,8,0,0"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding MediaActionMessage}" />
+                </Grid>
+
+                <Border
+                    Grid.Column="1"
+                    Margin="24,0,0,0"
+                    Padding="24,0,0,0"
+                    BorderBrush="#404040"
+                    BorderThickness="1,0,0,0">
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="140"
+                            Margin="0,0,24,0"
+                            Command="{Binding CreateIsoCommand}"
+                            Content="{Binding Strings[CreateIso]}" />
+                        <Button
+                            Width="140"
+                            Command="{Binding CreateUsbCommand}"
+                            Content="{Binding Strings[CreateUsb]}" />
+                    </StackPanel>
+                </Border>
             </Grid>
         </Border>
 
