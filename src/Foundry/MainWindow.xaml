@@ -8,11 +8,12 @@
     xmlns:viewModels="clr-namespace:Foundry.ViewModels"
     xmlns:views="clr-namespace:Foundry.Views"
     Title="Foundry"
-    Width="960"
-    MinWidth="860"
+    Width="1180"
+    Height="860"
+    MinWidth="1180"
+    MinHeight="860"
     Icon="/Assets/Icons/app.ico"
     ResizeMode="CanResize"
-    SizeToContent="Height"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
