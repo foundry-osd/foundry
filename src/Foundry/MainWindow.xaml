@@ -223,16 +223,18 @@
 
         <Border
             Grid.Row="3"
-            Padding="12,8"
             BorderBrush="#404040"
             BorderThickness="0,1,0,1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
+                <Grid
+                    Grid.Column="0"
+                    Margin="12,8,12,8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -262,24 +264,25 @@
 
                 <Border
                     Grid.Column="1"
-                    Margin="24,0,0,0"
-                    Padding="24,0,0,0"
                     BorderBrush="#404040"
                     BorderThickness="1,0,0,0">
-                    <StackPanel
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                        <Button
-                            Width="140"
-                            Margin="0,0,24,0"
-                            Command="{Binding CreateIsoCommand}"
-                            Content="{Binding Strings[CreateIso]}" />
-                        <Button
-                            Width="140"
-                            Command="{Binding CreateUsbCommand}"
-                            Content="{Binding Strings[CreateUsb]}" />
-                    </StackPanel>
                 </Border>
+
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="24,8,12,8"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="140"
+                        Margin="0,0,24,0"
+                        Command="{Binding CreateIsoCommand}"
+                        Content="{Binding Strings[CreateIso]}" />
+                    <Button
+                        Width="140"
+                        Command="{Binding CreateUsbCommand}"
+                        Content="{Binding Strings[CreateUsb]}" />
+                </StackPanel>
             </Grid>
         </Border>
 
