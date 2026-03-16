@@ -270,7 +270,7 @@
 
                 <StackPanel
                     Grid.Column="2"
-                    Margin="24,8,12,8"
+                    Margin="24,8,24,8"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <Button
