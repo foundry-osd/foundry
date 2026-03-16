@@ -171,7 +171,9 @@
                         ItemsSource="{Binding AvailablePartitionStyles}"
                         SelectedItem="{Binding SelectedPartitionStyle}">
                         <ComboBox.ItemContainerStyle>
-                            <Style TargetType="ComboBoxItem">
+                            <Style
+                                BasedOn="{StaticResource {x:Type ComboBoxItem}}"
+                                TargetType="ComboBoxItem">
                                 <Setter Property="IsEnabled">
                                     <Setter.Value>
                                         <MultiBinding Converter="{StaticResource PartitionStyleAvailabilityConverter}">
