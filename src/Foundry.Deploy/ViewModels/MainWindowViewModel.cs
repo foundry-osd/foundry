@@ -115,8 +115,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool _isUpdatingFirmwareOptionSelection;
     private bool _hasUserSelectedFirmwareOption;
     private bool _firmwareUpdatesPreference = true;
+    private bool _isInitialized;
     private bool _isRebootInProgress;
     private bool _isDisposed;
+    private Task? _initializationTask;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
@@ -368,6 +370,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
+    }
+
+    public Task InitializeAsync()
+    {
+        return _initializationTask ??= InitializeCoreAsync();
+    }
+
+    private async Task InitializeCoreAsync()
+    {
+        if (_isInitialized)
+        {
+            return;
+        }
 
         LoadExpertDeployConfiguration();
         EnsureCachePathForMode();
@@ -377,10 +392,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             DeploymentStatus = "Debug Safe Mode enabled: deployment actions are simulated.";
         }
 
-        _ = LoadOfflineComputerNameAsync();
-        _ = LoadHardwareProfileAsync();
-        _ = RefreshTargetDisksAsync();
-        _ = RefreshCatalogsAsync();
+        await Task.WhenAll(
+                LoadOfflineComputerNameAsync(),
+                LoadHardwareProfileAsync(),
+                RefreshTargetDisksAsync(),
+                RefreshCatalogsAsync())
+            .ConfigureAwait(false);
+
+        _isInitialized = true;
     }
 
     private void LoadExpertDeployConfiguration()
