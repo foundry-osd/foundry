@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
+        services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();

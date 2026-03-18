@@ -99,7 +99,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
 
             if (_isDebugSafeMode && !TargetDisks.Any(item => item.IsSelectable))
             {
-                TargetDisks.Insert(0, CreateDebugVirtualDisk());
+                TargetDisks.Insert(0, TargetDiskInfoFactory.CreateDebugVirtualDisk());
             }
 
             if (TargetDisks.Count == 0)
@@ -115,7 +115,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
 
             SelectedTargetDisk = currentSelection
                 ?? TargetDisks.FirstOrDefault(item => item.IsSelectable)
-                ?? (_isDebugSafeMode ? TargetDisks.FirstOrDefault(item => item.DiskNumber == CreateDebugVirtualDisk().DiskNumber) : null)
+                ?? (_isDebugSafeMode ? TargetDisks.FirstOrDefault(item => item.DiskNumber == TargetDiskInfoFactory.CreateDebugVirtualDisk().DiskNumber) : null)
                 ?? TargetDisks.FirstOrDefault();
 
             PublishStatus($"Target disks loaded: {TargetDisks.Count} detected.");
@@ -408,23 +408,4 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         return !IsTargetDiskLoading;
     }
 
-    public static TargetDiskInfo CreateDebugVirtualDisk()
-    {
-        return new TargetDiskInfo
-        {
-            DiskNumber = 999,
-            FriendlyName = "DEBUG VIRTUAL TARGET",
-            SerialNumber = "DEBUG-ONLY",
-            BusType = "Virtual",
-            PartitionStyle = "GPT",
-            SizeBytes = 128UL * 1024UL * 1024UL * 1024UL,
-            IsSystem = false,
-            IsBoot = false,
-            IsReadOnly = false,
-            IsOffline = false,
-            IsRemovable = false,
-            IsSelectable = true,
-            SelectionWarning = string.Empty
-        };
-    }
 }

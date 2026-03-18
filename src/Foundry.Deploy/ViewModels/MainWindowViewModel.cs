@@ -10,7 +10,6 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Models;
-using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
@@ -31,10 +30,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
     private static readonly string AppVersion = ResolveAppVersion();
     private readonly IThemeService _themeService;
-    private readonly IApplicationShellService _applicationShellService;
     private readonly IExpertDeployConfigurationService _expertDeployConfigurationService;
     private readonly IOperatingSystemCatalogService _operatingSystemCatalogService;
     private readonly IDriverPackCatalogService _driverPackCatalogService;
+    private readonly IDeploymentLaunchPreparationService _deploymentLaunchPreparationService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
@@ -100,12 +99,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public MainWindowViewModel(
         IThemeService themeService,
-        IApplicationShellService applicationShellService,
         IOperationProgressService operationProgressService,
         IExpertDeployConfigurationService expertDeployConfigurationService,
         IDeploymentRuntimeContextService deploymentRuntimeContextService,
         IOperatingSystemCatalogService operatingSystemCatalogService,
         IDriverPackCatalogService driverPackCatalogService,
+        IDeploymentLaunchPreparationService deploymentLaunchPreparationService,
         IDeploymentOrchestrator deploymentOrchestrator,
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
@@ -115,10 +114,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         ILogger<MainWindowViewModel> logger)
     {
         _themeService = themeService;
-        _applicationShellService = applicationShellService;
         _expertDeployConfigurationService = expertDeployConfigurationService;
         _operatingSystemCatalogService = operatingSystemCatalogService;
         _driverPackCatalogService = driverPackCatalogService;
+        _deploymentLaunchPreparationService = deploymentLaunchPreparationService;
         _deploymentOrchestrator = deploymentOrchestrator;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
@@ -284,83 +283,46 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private async Task StartDeploymentAsync()
     {
         _logger.LogInformation("Start deployment requested.");
-        if (OperatingSystemCatalog.SelectedOperatingSystem is null)
-        {
-            return;
-        }
-
-        string normalizedComputerName = ComputerNameRules.Normalize(Preparation.TargetComputerName);
-        if (!ComputerNameRules.IsValid(normalizedComputerName))
-        {
-            Session.SetStatus("Enter a valid computer name.");
-            return;
-        }
-
-        if (!normalizedComputerName.Equals(Preparation.TargetComputerName, StringComparison.Ordinal))
-        {
-            Preparation.TargetComputerName = normalizedComputerName;
-        }
-
-        TargetDiskInfo? effectiveTargetDisk = Preparation.SelectedTargetDisk;
-        if (effectiveTargetDisk is null && IsDebugSafeMode)
-        {
-            effectiveTargetDisk = DeploymentPreparationViewModel.CreateDebugVirtualDisk();
-        }
-
-        if (effectiveTargetDisk is null)
-        {
-            Session.SetStatus("Select a target disk.");
-            return;
-        }
-
-        if (!IsDebugSafeMode && !effectiveTargetDisk.IsSelectable)
-        {
-            Session.SetStatus($"Selected disk is blocked: {effectiveTargetDisk.SelectionWarning}");
-            return;
-        }
-
-        if (!IsDebugSafeMode && !ConfirmDestructiveDeployment(effectiveTargetDisk, OperatingSystemCatalog.SelectedOperatingSystem))
-        {
-            Session.SetStatus("Deployment cancelled by user.");
-            return;
-        }
-
+        EnsureCachePathForMode();
         DriverPackSelectionKind effectiveDriverPackKind = DriverPackSelection.EffectiveSelectionKind;
         DriverPackCatalogItem? effectiveDriverPack = DriverPackSelection.ResolveEffectiveSelection();
+        DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
+            new DeploymentLaunchRequest
+            {
+                Mode = _deploymentRuntimeContext.Mode,
+                CacheRootPath = Preparation.CacheRootPath,
+                TargetComputerName = Preparation.TargetComputerName,
+                SelectedTargetDisk = Preparation.SelectedTargetDisk,
+                SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
+                DriverPackSelectionKind = effectiveDriverPackKind,
+                SelectedDriverPack = effectiveDriverPack,
+                ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
+                UseFullAutopilot = UseFullAutopilot,
+                AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
+                IsDryRun = IsDebugSafeMode
+            });
 
-        if (effectiveDriverPackKind == DriverPackSelectionKind.OemCatalog &&
-            effectiveDriverPack is null)
+        if (!string.Equals(Preparation.TargetComputerName, launchPreparation.NormalizedComputerName, StringComparison.Ordinal))
         {
-            Session.SetStatus("Select a valid OEM model/version before starting deployment.");
+            Preparation.TargetComputerName = launchPreparation.NormalizedComputerName;
+        }
+
+        if (!launchPreparation.IsReadyToStart || launchPreparation.Context is null)
+        {
+            Session.SetStatus(launchPreparation.StatusMessage);
             return;
         }
 
-        EnsureCachePathForMode();
         RunOnUi(() =>
         {
             IsDeploymentRunning = true;
-            Session.BeginDeployment(normalizedComputerName, _deploymentOrchestrator.PlannedSteps.Count);
+            Session.BeginDeployment(launchPreparation.NormalizedComputerName, _deploymentOrchestrator.PlannedSteps.Count);
         });
-
-        DeploymentContext context = new()
-        {
-            Mode = _deploymentRuntimeContext.Mode,
-            CacheRootPath = Preparation.CacheRootPath,
-            TargetDiskNumber = effectiveTargetDisk.DiskNumber,
-            TargetComputerName = normalizedComputerName,
-            OperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
-            DriverPackSelectionKind = effectiveDriverPackKind,
-            DriverPack = effectiveDriverPack,
-            ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
-            UseFullAutopilot = UseFullAutopilot,
-            AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
-            IsDryRun = IsDebugSafeMode
-        };
 
         try
         {
             DeploymentResult result = await _deploymentOrchestrator
-                .RunAsync(context)
+                .RunAsync(launchPreparation.Context)
                 .ConfigureAwait(false);
 
             RunOnUi(() =>
@@ -587,26 +549,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         _dispatcher.Invoke(action);
-    }
-
-    private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemCatalogItem operatingSystem)
-    {
-        string sizeGiB = targetDisk.SizeBytes > 0
-            ? $"{(targetDisk.SizeBytes / 1024d / 1024d / 1024d):0.0} GiB"
-            : "Unknown size";
-
-        string message =
-            "This operation will ERASE the selected disk and apply a new operating system." + Environment.NewLine +
-            Environment.NewLine +
-            $"Disk: {targetDisk.DiskNumber}" + Environment.NewLine +
-            $"Model: {targetDisk.FriendlyName}" + Environment.NewLine +
-            $"Bus: {targetDisk.BusType}" + Environment.NewLine +
-            $"Size: {sizeGiB}" + Environment.NewLine +
-            Environment.NewLine +
-            $"OS: {operatingSystem.DisplayLabel}" + Environment.NewLine +
-            "Continue?";
-
-        return _applicationShellService.ConfirmWarning("Confirm Disk Erase", message);
     }
 
     public void Dispose()
