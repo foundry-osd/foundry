@@ -13,6 +13,7 @@ using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
+using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,6 +29,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
@@ -41,6 +43,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ITargetDiskService, TargetDiskService>();
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();
+        services.AddSingleton<IDeploymentCatalogLoadService, DeploymentCatalogLoadService>();
         services.AddSingleton<IDriverPackSelectionService, DriverPackSelectionService>();
         services.AddSingleton<IMicrosoftUpdateCatalogClient, MicrosoftUpdateCatalogClient>();
         services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();

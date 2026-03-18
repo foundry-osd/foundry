@@ -19,6 +19,7 @@ using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
+using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.Validation;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
@@ -31,9 +32,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private static readonly string AppVersion = ResolveAppVersion();
     private readonly IThemeService _themeService;
     private readonly IExpertDeployConfigurationService _expertDeployConfigurationService;
-    private readonly IOperatingSystemCatalogService _operatingSystemCatalogService;
-    private readonly IDriverPackCatalogService _driverPackCatalogService;
+    private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
     private readonly IDeploymentLaunchPreparationService _deploymentLaunchPreparationService;
+    private readonly IDeploymentWizardStateService _deploymentWizardStateService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
@@ -102,9 +103,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IOperationProgressService operationProgressService,
         IExpertDeployConfigurationService expertDeployConfigurationService,
         IDeploymentRuntimeContextService deploymentRuntimeContextService,
-        IOperatingSystemCatalogService operatingSystemCatalogService,
-        IDriverPackCatalogService driverPackCatalogService,
+        IDeploymentCatalogLoadService deploymentCatalogLoadService,
         IDeploymentLaunchPreparationService deploymentLaunchPreparationService,
+        IDeploymentWizardStateService deploymentWizardStateService,
         IDeploymentOrchestrator deploymentOrchestrator,
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
@@ -115,9 +116,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         _themeService = themeService;
         _expertDeployConfigurationService = expertDeployConfigurationService;
-        _operatingSystemCatalogService = operatingSystemCatalogService;
-        _driverPackCatalogService = driverPackCatalogService;
+        _deploymentCatalogLoadService = deploymentCatalogLoadService;
         _deploymentLaunchPreparationService = deploymentLaunchPreparationService;
+        _deploymentWizardStateService = deploymentWizardStateService;
         _deploymentOrchestrator = deploymentOrchestrator;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
@@ -237,15 +238,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         try
         {
-            IReadOnlyList<OperatingSystemCatalogItem> operatingSystems =
-                await _operatingSystemCatalogService.GetCatalogAsync().ConfigureAwait(false);
-            IReadOnlyList<DriverPackCatalogItem> driverPacks =
-                await _driverPackCatalogService.GetCatalogAsync().ConfigureAwait(false);
+            DeploymentCatalogSnapshot snapshot = await _deploymentCatalogLoadService.LoadAsync().ConfigureAwait(false);
 
             RunOnUi(() =>
             {
-                OperatingSystemCatalog.ApplyCatalog(operatingSystems);
-                DriverPackSelection.ReplaceCatalog(driverPacks);
+                OperatingSystemCatalog.ApplyCatalog(snapshot.OperatingSystems);
+                DriverPackSelection.ReplaceCatalog(snapshot.DriverPacks);
                 RefreshDriverPackSelectionContext();
                 Session.SetStatus($"Catalogs loaded: {OperatingSystemCatalog.OperatingSystems.Count} OS entries, {DriverPackSelection.CatalogCount} driver packs.");
             });
@@ -455,22 +453,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private bool CanGoPrevious()
     {
-        return !IsDeploymentRunning && WizardStepIndex > 0;
+        return _deploymentWizardStateService.CanGoPrevious(BuildWizardStateSnapshot());
     }
 
     private bool CanGoNext()
     {
-        if (IsDeploymentRunning || WizardStepIndex >= 3)
-        {
-            return false;
-        }
-
-        if (WizardStepIndex == 0)
-        {
-            return IsOsCatalogReadyForNavigation();
-        }
-
-        return true;
+        return _deploymentWizardStateService.CanGoNext(BuildWizardStateSnapshot());
     }
 
     private bool IsOsCatalogReadyForNavigation()
@@ -481,26 +469,30 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private bool CanStartDeployment()
     {
-        bool hasTargetDisk = Preparation.SelectedTargetDisk is not null && (IsDebugSafeMode || Preparation.SelectedTargetDisk.IsSelectable);
-
-        if (IsDebugSafeMode && Preparation.SelectedTargetDisk is null)
-        {
-            hasTargetDisk = true;
-        }
-
-        return !IsDeploymentRunning &&
-               !IsCatalogLoading &&
-               !Preparation.IsTargetDiskLoading &&
-               WizardStepIndex == 3 &&
-               ComputerNameRules.IsValid(Preparation.TargetComputerName) &&
-               OperatingSystemCatalog.SelectedOperatingSystem is not null &&
-               hasTargetDisk &&
-               HasValidDriverPackSelection();
+        return _deploymentWizardStateService.CanStartDeployment(BuildWizardStateSnapshot());
     }
 
     private bool HasValidDriverPackSelection()
     {
         return DriverPackSelection.HasValidSelection();
+    }
+
+    private DeploymentWizardStateSnapshot BuildWizardStateSnapshot()
+    {
+        return new DeploymentWizardStateSnapshot
+        {
+            WizardStepIndex = WizardStepIndex,
+            IsDeploymentRunning = IsDeploymentRunning,
+            IsCatalogLoading = IsCatalogLoading,
+            IsTargetDiskLoading = Preparation.IsTargetDiskLoading,
+            IsDebugSafeMode = IsDebugSafeMode,
+            IsTargetComputerNameValid = ComputerNameRules.IsValid(Preparation.TargetComputerName),
+            HasSelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem is not null,
+            HasTargetDiskSelection = Preparation.SelectedTargetDisk is not null,
+            IsSelectedTargetDiskSelectable = Preparation.SelectedTargetDisk?.IsSelectable ?? false,
+            HasValidDriverPackSelection = HasValidDriverPackSelection(),
+            IsOperatingSystemCatalogReadyForNavigation = IsOsCatalogReadyForNavigation()
+        };
     }
 
     private void RefreshDriverPackSelectionContext()
