@@ -48,12 +48,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly DeploymentMode _resolvedDeploymentMode;
     private readonly string? _resolvedUsbCacheRuntimeRoot;
     private HardwareProfile? _detectedHardware;
-    private DeployMachineNamingSettings _machineNamingConfiguration = new();
-    private string _lockedComputerNamePrefix = string.Empty;
-    private bool _isApplyingManagedComputerName;
-    private bool _isUpdatingFirmwareOptionSelection;
-    private bool _hasUserSelectedFirmwareOption;
-    private bool _firmwareUpdatesPreference = true;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
@@ -85,39 +79,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private string targetComputerName = string.Empty;
-
-    [ObservableProperty]
-    private bool isTargetComputerNameReadOnly;
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
-    private string targetComputerNameValidationMessage = string.Empty;
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
-    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private TargetDiskInfo? selectedTargetDisk;
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private string cacheRootPath = WinPeTransientRuntimeRoot;
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private bool applyFirmwareUpdates = true;
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
     private bool useFullAutopilot = true;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
     private bool allowAutopilotDeferredCompletion = true;
 
-    [ObservableProperty]
-    private string detectedHardwareSummary = "Detecting hardware...";
-    public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
+    public DeploymentPreparationViewModel Preparation { get; }
     public DeploymentSessionViewModel Session { get; }
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
@@ -126,8 +94,44 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
     public string EffectiveOsArchitecture => OperatingSystemCatalog.EffectiveOsArchitecture;
     public OperatingSystemCatalogItem? SelectedOperatingSystem => OperatingSystemCatalog.SelectedOperatingSystem;
-    public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
-    public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
+    public ObservableCollection<TargetDiskInfo> TargetDisks => Preparation.TargetDisks;
+    public string TargetComputerName
+    {
+        get => Preparation.TargetComputerName;
+        set => Preparation.TargetComputerName = value;
+    }
+    public bool IsTargetComputerNameReadOnly
+    {
+        get => Preparation.IsTargetComputerNameReadOnly;
+        set => Preparation.IsTargetComputerNameReadOnly = value;
+    }
+    public string TargetComputerNameValidationMessage
+    {
+        get => Preparation.TargetComputerNameValidationMessage;
+        set => Preparation.TargetComputerNameValidationMessage = value;
+    }
+    public TargetDiskInfo? SelectedTargetDisk
+    {
+        get => Preparation.SelectedTargetDisk;
+        set => Preparation.SelectedTargetDisk = value;
+    }
+    public string CacheRootPath
+    {
+        get => Preparation.CacheRootPath;
+        set => Preparation.CacheRootPath = value;
+    }
+    public bool ApplyFirmwareUpdates
+    {
+        get => Preparation.ApplyFirmwareUpdates;
+        set => Preparation.ApplyFirmwareUpdates = value;
+    }
+    public string DetectedHardwareSummary
+    {
+        get => Preparation.DetectedHardwareSummary;
+        set => Preparation.DetectedHardwareSummary = value;
+    }
+    public bool IsFirmwareUpdatesOptionEnabled => Preparation.IsFirmwareUpdatesOptionEnabled;
+    public bool HasTargetComputerNameValidationError => Preparation.HasTargetComputerNameValidationError;
     public string VersionDisplay => $"Version: {AppVersion}";
 
     private static string ResolveAppVersion()
@@ -174,6 +178,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
         _resolvedDeploymentMode = resolvedMode;
         _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
+        Preparation = new DeploymentPreparationViewModel();
+        Preparation.StateChanged += OnPreparationStateChanged;
         OperatingSystemCatalog = new OperatingSystemCatalogViewModel(
             _logger,
             Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
@@ -239,17 +245,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             document.Localization.VisibleLanguageCodes,
             document.Localization.DefaultLanguageCodeOverride,
             document.Localization.ForceSingleVisibleLanguage);
-        _machineNamingConfiguration = document.Customization.MachineNaming ?? new DeployMachineNamingSettings();
-        _lockedComputerNamePrefix = ComputerNameRules.Normalize(_machineNamingConfiguration.Prefix);
-        IsTargetComputerNameReadOnly = _machineNamingConfiguration.IsEnabled && !_machineNamingConfiguration.AllowManualSuffixEdit;
-
-        if (_machineNamingConfiguration.IsEnabled)
-        {
-            string seed = string.IsNullOrWhiteSpace(TargetComputerName)
+        Preparation.ApplyMachineNamingConfiguration(
+            document.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
+            string.IsNullOrWhiteSpace(TargetComputerName)
                 ? ResolveInitialComputerName()
-                : TargetComputerName;
-            ApplyManagedComputerNameValue(BuildConfiguredComputerName(seed));
-        }
+                : TargetComputerName);
     }
 
     [RelayCommand]
@@ -544,48 +544,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             "Action: Verify disk attributes and retry deployment.");
     }
 
-    partial void OnTargetComputerNameChanged(string value)
-    {
-        if (_isApplyingManagedComputerName)
-        {
-            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(value);
-            return;
-        }
-
-        string normalized = NormalizeManagedComputerNameValue(value);
-        if (!normalized.Equals(value, StringComparison.Ordinal))
-        {
-            ApplyManagedComputerNameValue(normalized);
-            return;
-        }
-
-        TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(normalized);
-    }
-
-    partial void OnApplyFirmwareUpdatesChanged(bool value)
-    {
-        if (_isUpdatingFirmwareOptionSelection)
-        {
-            return;
-        }
-
-        _hasUserSelectedFirmwareOption = true;
-        _firmwareUpdatesPreference = value;
-    }
-
-    partial void OnSelectedTargetDiskChanged(TargetDiskInfo? value)
-    {
-        if (value is null)
-        {
-            return;
-        }
-
-        if (!IsDebugSafeMode && !value.IsSelectable)
-        {
-            Session.SetStatus($"Selected disk blocked: {value.SelectionWarning}");
-        }
-    }
-
     private void OnOperatingSystemCatalogStateChanged(object? sender, EventArgs e)
     {
         OnPropertyChanged(nameof(EffectiveOsArchitecture));
@@ -598,6 +556,27 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void OnDriverPackSelectionStateChanged(object? sender, EventArgs e)
     {
         StartDeploymentCommand.NotifyCanExecuteChanged();
+    }
+
+    private void OnPreparationStateChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(TargetComputerName));
+        OnPropertyChanged(nameof(IsTargetComputerNameReadOnly));
+        OnPropertyChanged(nameof(TargetComputerNameValidationMessage));
+        OnPropertyChanged(nameof(HasTargetComputerNameValidationError));
+        OnPropertyChanged(nameof(SelectedTargetDisk));
+        OnPropertyChanged(nameof(CacheRootPath));
+        OnPropertyChanged(nameof(ApplyFirmwareUpdates));
+        OnPropertyChanged(nameof(DetectedHardwareSummary));
+        OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+        RefreshTargetDisksCommand.NotifyCanExecuteChanged();
+        NextWizardStepCommand.NotifyCanExecuteChanged();
+        StartDeploymentCommand.NotifyCanExecuteChanged();
+
+        if (SelectedTargetDisk is not null && !IsDebugSafeMode && !SelectedTargetDisk.IsSelectable)
+        {
+            Session.SetStatus($"Selected disk blocked: {SelectedTargetDisk.SelectionWarning}");
+        }
     }
 
     private bool CanShowDebugPages()
@@ -690,120 +669,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             OperatingSystemCatalog.EffectiveOsArchitecture);
     }
 
-    private string NormalizeManagedComputerNameValue(string? value)
-    {
-        string normalized = ComputerNameRules.Normalize(value);
-        if (!_machineNamingConfiguration.IsEnabled)
-        {
-            return normalized;
-        }
-
-        if (string.IsNullOrWhiteSpace(_lockedComputerNamePrefix))
-        {
-            return normalized;
-        }
-
-        if (!_machineNamingConfiguration.AllowManualSuffixEdit)
-        {
-            return BuildConfiguredComputerName(normalized);
-        }
-
-        string suffix = normalized.StartsWith(_lockedComputerNamePrefix, StringComparison.OrdinalIgnoreCase)
-            ? normalized[_lockedComputerNamePrefix.Length..]
-            : normalized;
-
-        return CombineComputerName(_lockedComputerNamePrefix, suffix);
-    }
-
-    private string BuildConfiguredComputerName(string seed)
-    {
-        string normalizedSeed = ComputerNameRules.Normalize(seed);
-        if (!_machineNamingConfiguration.IsEnabled)
-        {
-            return normalizedSeed;
-        }
-
-        if (string.IsNullOrWhiteSpace(_lockedComputerNamePrefix))
-        {
-            return _machineNamingConfiguration.AutoGenerateName
-                ? NormalizeAutoGeneratedComputerNameSuffix(normalizedSeed)
-                : normalizedSeed;
-        }
-
-        if (_machineNamingConfiguration.AutoGenerateName)
-        {
-            string generatedSuffix = NormalizeAutoGeneratedComputerNameSuffix(
-                ExtractComputerNameSuffix(normalizedSeed, _lockedComputerNamePrefix));
-            return CombineComputerName(_lockedComputerNamePrefix, generatedSuffix);
-        }
-
-        string existingSuffix = ExtractComputerNameSuffix(TargetComputerName, _lockedComputerNamePrefix);
-        return CombineComputerName(_lockedComputerNamePrefix, existingSuffix);
-    }
-
-    private void ApplyManagedComputerNameValue(string value)
-    {
-        _isApplyingManagedComputerName = true;
-
-        try
-        {
-            TargetComputerName = value;
-            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(value);
-        }
-        finally
-        {
-            _isApplyingManagedComputerName = false;
-        }
-    }
-
-    private static string CombineComputerName(string prefix, string suffix)
-    {
-        string normalizedPrefix = ComputerNameRules.Normalize(prefix);
-        if (normalizedPrefix.Length >= ComputerNameRules.MaxLength)
-        {
-            return normalizedPrefix[..ComputerNameRules.MaxLength];
-        }
-
-        string normalizedSuffix = ComputerNameRules.Normalize(suffix);
-        int remainingLength = ComputerNameRules.MaxLength - normalizedPrefix.Length;
-        if (remainingLength <= 0)
-        {
-            return normalizedPrefix;
-        }
-
-        if (normalizedSuffix.Length > remainingLength)
-        {
-            normalizedSuffix = normalizedSuffix[..remainingLength];
-        }
-
-        return $"{normalizedPrefix}{normalizedSuffix}";
-    }
-
-    private static string ExtractComputerNameSuffix(string? computerName, string prefix)
-    {
-        string normalizedPrefix = ComputerNameRules.Normalize(prefix);
-        if (string.IsNullOrWhiteSpace(normalizedPrefix))
-        {
-            return ComputerNameRules.Normalize(computerName);
-        }
-
-        string normalizedComputerName = ComputerNameRules.Normalize(computerName);
-        if (normalizedComputerName.StartsWith(normalizedPrefix, StringComparison.OrdinalIgnoreCase))
-        {
-            return normalizedComputerName[normalizedPrefix.Length..];
-        }
-
-        return normalizedComputerName;
-    }
-
-    private static string NormalizeAutoGeneratedComputerNameSuffix(string? value)
-    {
-        string normalized = ComputerNameRules.Normalize(value);
-        return string.IsNullOrWhiteSpace(normalized)
-            ? ComputerNameRules.FallbackName
-            : normalized;
-    }
-
     private async Task LoadHardwareProfileAsync()
     {
         try
@@ -814,38 +679,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 _detectedHardware = profile;
                 OperatingSystemCatalog.SetEffectiveArchitecture(profile.Architecture);
                 RefreshDriverPackSelectionContext();
-                SyncFirmwareOptionFromHardware(profile);
-                DetectedHardwareSummary =
-                    $"{profile.DisplayLabel} | TPM: {(profile.IsTpmPresent ? "Yes" : "No")} | Autopilot: {(profile.IsAutopilotCapable ? "Capable" : "Needs checks")} | Power: {(profile.IsOnBattery ? "Battery" : "AC")} | Firmware: {(profile.SystemFirmwareHardwareId.Length > 0 ? "Detected" : "Unavailable")}";
+                Preparation.SetDetectedHardware(profile);
             });
             _logger.LogInformation("Hardware profile loaded in view model. DisplayLabel={DisplayLabel}", profile.DisplayLabel);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Hardware profile loading failed in view model.");
-            RunOnUi(() => DetectedHardwareSummary = $"Hardware detection failed: {ex.Message}");
+            RunOnUi(() => Preparation.SetHardwareDetectionFailure($"Hardware detection failed: {ex.Message}"));
         }
-    }
-
-    private void SyncFirmwareOptionFromHardware(HardwareProfile profile)
-    {
-        bool desiredValue = profile.IsVirtualMachine
-            ? false
-            : _hasUserSelectedFirmwareOption
-                ? _firmwareUpdatesPreference
-                : true;
-
-        _isUpdatingFirmwareOptionSelection = true;
-        try
-        {
-            ApplyFirmwareUpdates = desiredValue;
-        }
-        finally
-        {
-            _isUpdatingFirmwareOptionSelection = false;
-        }
-
-        OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
     }
 
     private async Task LoadOfflineComputerNameAsync()
@@ -868,14 +710,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         RunOnUi(() =>
         {
-            // Only apply if the user hasn't typed anything yet.
-            if (!string.IsNullOrEmpty(TargetComputerName))
-            {
-                return;
-            }
-
-            string configuredName = BuildConfiguredComputerName(effectiveName);
-            ApplyManagedComputerNameValue(configuredName);
+            Preparation.ApplyOfflineComputerName(effectiveName);
             Session.SetComputerName(TargetComputerName);
         });
     }
@@ -1013,6 +848,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
+        Preparation.StateChanged -= OnPreparationStateChanged;
         OperatingSystemCatalog.StateChanged -= OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged -= OnDriverPackSelectionStateChanged;
         Session.Dispose();
