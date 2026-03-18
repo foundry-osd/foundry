@@ -100,69 +100,69 @@
 
                             <!--  Step 1 details and toggles  -->
                             <StackPanel Grid.Row="0">
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
-                                <TextBox
-                                    Margin="0,8,0,0"
-                                    IsReadOnly="True"
-                                    Text="{Binding CacheRootPath}" />
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="Cache strategy is determined automatically from WinPE startup context." />
-                                <TextBlock
-                                    Margin="0,12,0,0"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="Computer Name" />
-                                <TextBox
-                                    x:Name="TargetComputerNameTextBox"
-                                    Margin="0,8,0,0"
-                                    IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
-                                    MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
-                                    PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
-                                    Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="1-15 characters. A-Z, a-z, 0-9, and hyphen only." />
-                                <TextBlock
-                                    Margin="0,4,0,0"
-                                    Foreground="#FFC42B1C"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding TargetComputerNameValidationMessage}"
-                                    Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                <TextBlock
-                                    Margin="0,12,0,0"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="Target Disk" />
-                                <DockPanel Margin="0,8,0,0">
-                                    <!--  Available target disks  -->
-                                    <ComboBox
-                                        Width="640"
-                                        DisplayMemberPath="DisplayLabel"
-                                        ItemsSource="{Binding TargetDisks}"
-                                        SelectedItem="{Binding SelectedTargetDisk}" />
-                                    <!--  Force disk rescan  -->
-                                    <Button
-                                        Width="140"
-                                        Margin="8,0,0,0"
-                                        Command="{Binding RefreshTargetDisksCommand}"
-                                        Content="Refresh Disks" />
-                                </DockPanel>
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
+                                <StackPanel DataContext="{Binding Preparation}">
+                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
+                                    <TextBox
+                                        Margin="0,8,0,0"
+                                        IsReadOnly="True"
+                                        Text="{Binding CacheRootPath}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="Cache strategy is determined automatically from WinPE startup context." />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Computer Name" />
+                                    <TextBox
+                                        x:Name="TargetComputerNameTextBox"
+                                        Margin="0,8,0,0"
+                                        IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
+                                        MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
+                                        PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
+                                        Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="1-15 characters. A-Z, a-z, 0-9, and hyphen only." />
+                                    <TextBlock
+                                        Margin="0,4,0,0"
+                                        Foreground="#FFC42B1C"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding TargetComputerNameValidationMessage}"
+                                        Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Target Disk" />
+                                    <DockPanel Margin="0,8,0,0">
+                                        <ComboBox
+                                            Width="640"
+                                            DisplayMemberPath="DisplayLabel"
+                                            ItemsSource="{Binding TargetDisks}"
+                                            SelectedItem="{Binding SelectedTargetDisk}" />
+                                        <Button
+                                            Width="140"
+                                            Margin="8,0,0,0"
+                                            Command="{Binding DataContext.RefreshTargetDisksCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            Content="Refresh Disks" />
+                                    </DockPanel>
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
+                                    <CheckBox
+                                        Margin="0,8,0,0"
+                                        IsChecked="{Binding ApplyFirmwareUpdates}"
+                                        IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Firmware: Microsoft Update Catalog update enabled." />
+                                    </CheckBox>
+                                </StackPanel>
                                 <CheckBox Margin="0,12,0,0" IsChecked="{Binding DriverPackSelection.AutoSelectDriverPackWhenEmpty}">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Auto-select OEM driver pack from detected hardware (fallback to Microsoft Update Catalog)." />
-                                </CheckBox>
-                                <CheckBox
-                                    Margin="0,8,0,0"
-                                    IsChecked="{Binding ApplyFirmwareUpdates}"
-                                    IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Firmware: Microsoft Update Catalog update enabled." />
                                 </CheckBox>
                                 <CheckBox Margin="0,8,0,0" IsChecked="{Binding UseFullAutopilot}">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Full workflow enabled (V1 scope)." />
@@ -338,10 +338,10 @@
                                 Text="Deployment Summary" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding CacheRootPath}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.CacheRootPath}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Target Disk" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Operating System" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding SelectedOperatingSystem, Converter={StaticResource OperatingSystemSummaryConverter}, TargetNullValue=No selection}" />
@@ -353,7 +353,7 @@
                             <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.DriverPackModeDisplay}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Firmware" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />

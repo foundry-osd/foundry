@@ -94,44 +94,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
     public string EffectiveOsArchitecture => OperatingSystemCatalog.EffectiveOsArchitecture;
     public OperatingSystemCatalogItem? SelectedOperatingSystem => OperatingSystemCatalog.SelectedOperatingSystem;
-    public ObservableCollection<TargetDiskInfo> TargetDisks => Preparation.TargetDisks;
-    public string TargetComputerName
-    {
-        get => Preparation.TargetComputerName;
-        set => Preparation.TargetComputerName = value;
-    }
-    public bool IsTargetComputerNameReadOnly
-    {
-        get => Preparation.IsTargetComputerNameReadOnly;
-        set => Preparation.IsTargetComputerNameReadOnly = value;
-    }
-    public string TargetComputerNameValidationMessage
-    {
-        get => Preparation.TargetComputerNameValidationMessage;
-        set => Preparation.TargetComputerNameValidationMessage = value;
-    }
-    public TargetDiskInfo? SelectedTargetDisk
-    {
-        get => Preparation.SelectedTargetDisk;
-        set => Preparation.SelectedTargetDisk = value;
-    }
-    public string CacheRootPath
-    {
-        get => Preparation.CacheRootPath;
-        set => Preparation.CacheRootPath = value;
-    }
-    public bool ApplyFirmwareUpdates
-    {
-        get => Preparation.ApplyFirmwareUpdates;
-        set => Preparation.ApplyFirmwareUpdates = value;
-    }
-    public string DetectedHardwareSummary
-    {
-        get => Preparation.DetectedHardwareSummary;
-        set => Preparation.DetectedHardwareSummary = value;
-    }
-    public bool IsFirmwareUpdatesOptionEnabled => Preparation.IsFirmwareUpdatesOptionEnabled;
-    public bool HasTargetComputerNameValidationError => Preparation.HasTargetComputerNameValidationError;
     public string VersionDisplay => $"Version: {AppVersion}";
 
     private static string ResolveAppVersion()
@@ -247,9 +209,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             document.Localization.ForceSingleVisibleLanguage);
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
-            string.IsNullOrWhiteSpace(TargetComputerName)
+            string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
                 ? ResolveInitialComputerName()
-                : TargetComputerName);
+                : Preparation.TargetComputerName);
     }
 
     [RelayCommand]
@@ -331,34 +293,34 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             RunOnUi(() =>
             {
-                TargetDisks.Clear();
+                Preparation.TargetDisks.Clear();
                 foreach (TargetDiskInfo disk in disks)
                 {
-                    TargetDisks.Add(disk);
+                    Preparation.TargetDisks.Add(disk);
                 }
 
-                if (IsDebugSafeMode && !TargetDisks.Any(item => item.IsSelectable))
+                if (IsDebugSafeMode && !Preparation.TargetDisks.Any(item => item.IsSelectable))
                 {
-                    TargetDisks.Insert(0, BuildDebugVirtualDisk());
+                    Preparation.TargetDisks.Insert(0, BuildDebugVirtualDisk());
                 }
 
-                if (TargetDisks.Count == 0)
+                if (Preparation.TargetDisks.Count == 0)
                 {
-                    SelectedTargetDisk = null;
+                    Preparation.SelectedTargetDisk = null;
                     Session.SetStatus("No disks detected.");
                     return;
                 }
 
-                TargetDiskInfo? currentSelection = SelectedTargetDisk is null
+                TargetDiskInfo? currentSelection = Preparation.SelectedTargetDisk is null
                     ? null
-                    : TargetDisks.FirstOrDefault(item => item.DiskNumber == SelectedTargetDisk.DiskNumber);
+                    : Preparation.TargetDisks.FirstOrDefault(item => item.DiskNumber == Preparation.SelectedTargetDisk.DiskNumber);
 
-                SelectedTargetDisk = currentSelection
-                    ?? TargetDisks.FirstOrDefault(item => item.IsSelectable)
-                    ?? (IsDebugSafeMode ? TargetDisks.FirstOrDefault(item => item.DiskNumber == BuildDebugVirtualDisk().DiskNumber) : null)
-                    ?? TargetDisks.FirstOrDefault();
+                Preparation.SelectedTargetDisk = currentSelection
+                    ?? Preparation.TargetDisks.FirstOrDefault(item => item.IsSelectable)
+                    ?? (IsDebugSafeMode ? Preparation.TargetDisks.FirstOrDefault(item => item.DiskNumber == BuildDebugVirtualDisk().DiskNumber) : null)
+                    ?? Preparation.TargetDisks.FirstOrDefault();
 
-                Session.SetStatus($"Target disks loaded: {TargetDisks.Count} detected.");
+                Session.SetStatus($"Target disks loaded: {Preparation.TargetDisks.Count} detected.");
             });
         }
         catch (Exception ex)
@@ -399,19 +361,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        string normalizedComputerName = ComputerNameRules.Normalize(TargetComputerName);
+        string normalizedComputerName = ComputerNameRules.Normalize(Preparation.TargetComputerName);
         if (!ComputerNameRules.IsValid(normalizedComputerName))
         {
             Session.SetStatus("Enter a valid computer name.");
             return;
         }
 
-        if (!normalizedComputerName.Equals(TargetComputerName, StringComparison.Ordinal))
+        if (!normalizedComputerName.Equals(Preparation.TargetComputerName, StringComparison.Ordinal))
         {
-            TargetComputerName = normalizedComputerName;
+            Preparation.TargetComputerName = normalizedComputerName;
         }
 
-        TargetDiskInfo? effectiveTargetDisk = SelectedTargetDisk;
+        TargetDiskInfo? effectiveTargetDisk = Preparation.SelectedTargetDisk;
         if (effectiveTargetDisk is null && IsDebugSafeMode)
         {
             effectiveTargetDisk = BuildDebugVirtualDisk();
@@ -455,13 +417,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         DeploymentContext context = new()
         {
             Mode = _resolvedDeploymentMode,
-            CacheRootPath = CacheRootPath,
+            CacheRootPath = Preparation.CacheRootPath,
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
             TargetComputerName = normalizedComputerName,
             OperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
             DriverPackSelectionKind = effectiveDriverPackKind,
             DriverPack = effectiveDriverPack,
-            ApplyFirmwareUpdates = ApplyFirmwareUpdates,
+            ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
             UseFullAutopilot = UseFullAutopilot,
             AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
             IsDryRun = IsDebugSafeMode
@@ -514,7 +476,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void ShowDebugProgressPage()
     {
         Session.ShowDebugProgress(
-            TargetComputerName,
+            Preparation.TargetComputerName,
             currentStepIndex: 7,
             plannedStepCount: _deploymentOrchestrator.PlannedSteps.Count,
             currentStepName: DeploymentStepNames.ApplyOperatingSystemImage,
@@ -525,7 +487,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void ShowDebugSuccessPage()
     {
         Session.ShowDebugSuccess(
-            TargetComputerName,
+            Preparation.TargetComputerName,
             _deploymentOrchestrator.PlannedSteps.Count,
             DeploymentStepNames.FinalizeDeploymentAndWriteLogs);
     }
@@ -534,7 +496,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void ShowDebugErrorPage()
     {
         Session.ShowDebugError(
-            TargetComputerName,
+            Preparation.TargetComputerName,
             currentStepIndex: 7,
             failedStepName: DeploymentStepNames.ApplyOperatingSystemImage,
             failedStepErrorMessage:
@@ -560,22 +522,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void OnPreparationStateChanged(object? sender, EventArgs e)
     {
-        OnPropertyChanged(nameof(TargetComputerName));
-        OnPropertyChanged(nameof(IsTargetComputerNameReadOnly));
-        OnPropertyChanged(nameof(TargetComputerNameValidationMessage));
-        OnPropertyChanged(nameof(HasTargetComputerNameValidationError));
-        OnPropertyChanged(nameof(SelectedTargetDisk));
-        OnPropertyChanged(nameof(CacheRootPath));
-        OnPropertyChanged(nameof(ApplyFirmwareUpdates));
-        OnPropertyChanged(nameof(DetectedHardwareSummary));
-        OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
         RefreshTargetDisksCommand.NotifyCanExecuteChanged();
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
 
-        if (SelectedTargetDisk is not null && !IsDebugSafeMode && !SelectedTargetDisk.IsSelectable)
+        if (Preparation.SelectedTargetDisk is not null && !IsDebugSafeMode && !Preparation.SelectedTargetDisk.IsSelectable)
         {
-            Session.SetStatus($"Selected disk blocked: {SelectedTargetDisk.SelectionWarning}");
+            Session.SetStatus($"Selected disk blocked: {Preparation.SelectedTargetDisk.SelectionWarning}");
         }
     }
 
@@ -588,17 +541,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (IsDebugSafeMode)
         {
-            CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "Debug");
+            Preparation.CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "Debug");
             return;
         }
 
         if (_resolvedDeploymentMode == DeploymentMode.Usb)
         {
-            CacheRootPath = _resolvedUsbCacheRuntimeRoot ?? WinPeTransientRuntimeRoot;
+            Preparation.CacheRootPath = _resolvedUsbCacheRuntimeRoot ?? WinPeTransientRuntimeRoot;
             return;
         }
 
-        CacheRootPath = WinPeTransientRuntimeRoot;
+        Preparation.CacheRootPath = WinPeTransientRuntimeRoot;
     }
 
     private bool CanRefreshCatalogs()
@@ -639,9 +592,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private bool CanStartDeployment()
     {
-        bool hasTargetDisk = SelectedTargetDisk is not null && (IsDebugSafeMode || SelectedTargetDisk.IsSelectable);
+        bool hasTargetDisk = Preparation.SelectedTargetDisk is not null && (IsDebugSafeMode || Preparation.SelectedTargetDisk.IsSelectable);
 
-        if (IsDebugSafeMode && SelectedTargetDisk is null)
+        if (IsDebugSafeMode && Preparation.SelectedTargetDisk is null)
         {
             hasTargetDisk = true;
         }
@@ -650,7 +603,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                !IsCatalogLoading &&
                !IsTargetDiskLoading &&
                WizardStepIndex == 3 &&
-               ComputerNameRules.IsValid(TargetComputerName) &&
+               ComputerNameRules.IsValid(Preparation.TargetComputerName) &&
                OperatingSystemCatalog.SelectedOperatingSystem is not null &&
                hasTargetDisk &&
                HasValidDriverPackSelection();
@@ -711,7 +664,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RunOnUi(() =>
         {
             Preparation.ApplyOfflineComputerName(effectiveName);
-            Session.SetComputerName(TargetComputerName);
+            Session.SetComputerName(Preparation.TargetComputerName);
         });
     }
 
