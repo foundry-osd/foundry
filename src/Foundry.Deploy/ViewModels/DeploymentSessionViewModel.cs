@@ -123,6 +123,8 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
 
     public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
 
+    public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
+
     public void SetStatus(string status)
     {
         DeploymentStatus = status;
@@ -187,6 +189,50 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         SetFailureDetails(stepName, errorMessage);
         DeploymentStatus = status;
         CurrentPage = DeploymentPage.Error;
+    }
+
+    public void ApplyExecutionOutcome(DeploymentExecutionOutcome outcome)
+    {
+        ArgumentNullException.ThrowIfNull(outcome);
+
+        if (outcome.IsSuccess)
+        {
+            CompleteDeployment(outcome.Message, outcome.LogsDirectoryPath);
+            return;
+        }
+
+        string fallbackStep = string.IsNullOrWhiteSpace(FailedStepName)
+            ? CurrentStepName
+            : FailedStepName;
+        string fallbackMessage = string.IsNullOrWhiteSpace(FailedStepErrorMessage)
+            ? outcome.Message
+            : FailedStepErrorMessage;
+
+        FailDeployment($"Deployment failed: {outcome.Message}", fallbackStep, fallbackMessage, outcome.LogsDirectoryPath);
+    }
+
+    public void ApplyExecutionRunResult(DeploymentExecutionRunResult executionRunResult)
+    {
+        ArgumentNullException.ThrowIfNull(executionRunResult);
+
+        if (executionRunResult.IsSuccess)
+        {
+            CompleteDeployment("Deployment completed.", executionRunResult.LogsDirectoryPath);
+            return;
+        }
+
+        string fallbackStep = string.IsNullOrWhiteSpace(FailedStepName)
+            ? CurrentStepName
+            : FailedStepName;
+        string fallbackMessage = string.IsNullOrWhiteSpace(FailedStepErrorMessage)
+            ? executionRunResult.Message
+            : FailedStepErrorMessage;
+
+        FailDeployment(
+            $"Deployment failed: {executionRunResult.Message}",
+            fallbackStep,
+            fallbackMessage,
+            executionRunResult.LogsDirectoryPath);
     }
 
     public void ShowDebugProgress(string computerName, int currentStepIndex, int plannedStepCount, string currentStepName, int progressPercent)

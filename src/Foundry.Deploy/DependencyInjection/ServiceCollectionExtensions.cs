@@ -36,10 +36,12 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
+        services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
+        services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
         services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
         services.AddSingleton<ITargetDiskService, TargetDiskService>();

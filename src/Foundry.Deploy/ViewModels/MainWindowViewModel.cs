@@ -34,6 +34,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IDeploymentStartupCoordinator _deploymentStartupCoordinator;
     private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
     private readonly IDeploymentLaunchPreparationService _deploymentLaunchPreparationService;
+    private readonly IDeploymentExecutionService _deploymentExecutionService;
     private readonly IDeploymentWizardStateService _deploymentWizardStateService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly ILogger<MainWindowViewModel> _logger;
@@ -104,6 +105,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IDeploymentRuntimeContextService deploymentRuntimeContextService,
         IDeploymentCatalogLoadService deploymentCatalogLoadService,
         IDeploymentLaunchPreparationService deploymentLaunchPreparationService,
+        IDeploymentExecutionService deploymentExecutionService,
         IDeploymentWizardStateService deploymentWizardStateService,
         IDeploymentOrchestrator deploymentOrchestrator,
         IHardwareProfileService hardwareProfileService,
@@ -117,6 +119,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _deploymentStartupCoordinator = deploymentStartupCoordinator;
         _deploymentCatalogLoadService = deploymentCatalogLoadService;
         _deploymentLaunchPreparationService = deploymentLaunchPreparationService;
+        _deploymentExecutionService = deploymentExecutionService;
         _deploymentWizardStateService = deploymentWizardStateService;
         _deploymentOrchestrator = deploymentOrchestrator;
         _logger = logger;
@@ -288,37 +291,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         try
         {
-            DeploymentResult result = await _deploymentOrchestrator
-                .RunAsync(launchPreparation.Context)
+            DeploymentExecutionRunResult executionRunResult = await _deploymentExecutionService
+                .ExecuteAsync(launchPreparation.Context)
                 .ConfigureAwait(false);
 
-            RunOnUi(() =>
-            {
-                if (result.IsSuccess)
-                {
-                    Session.CompleteDeployment("Deployment completed.", result.LogsDirectoryPath);
-                    return;
-                }
-
-                string fallbackStep = string.IsNullOrWhiteSpace(Session.FailedStepName)
-                    ? Session.CurrentStepName
-                    : Session.FailedStepName;
-                string fallbackMessage = string.IsNullOrWhiteSpace(Session.FailedStepErrorMessage)
-                    ? result.Message
-                    : Session.FailedStepErrorMessage;
-                Session.FailDeployment($"Deployment failed: {result.Message}", fallbackStep, fallbackMessage, result.LogsDirectoryPath);
-            });
-            _logger.LogInformation("Deployment run completed. IsSuccess={IsSuccess}, LogsDirectoryPath={LogsDirectoryPath}",
-                result.IsSuccess,
-                result.LogsDirectoryPath);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Deployment execution failed in view model.");
-            RunOnUi(() =>
-            {
-                Session.FailDeployment($"Deployment failed: {ex.Message}", Session.CurrentStepName, ex.Message);
-            });
+            RunOnUi(() => Session.ApplyExecutionRunResult(executionRunResult));
         }
         finally
         {
