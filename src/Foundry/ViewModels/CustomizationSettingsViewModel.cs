@@ -1,10 +1,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Models.Configuration;
+using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-public partial class CustomizationSettingsViewModel : ObservableObject
+public partial class CustomizationSettingsViewModel : LocalizedViewModelBase
 {
+    public CustomizationSettingsViewModel(ILocalizationService localizationService)
+        : base(localizationService)
+    {
+    }
+
     [ObservableProperty]
     private bool isMachineNamingEnabled;
 

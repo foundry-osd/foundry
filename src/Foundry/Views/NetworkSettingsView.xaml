@@ -7,12 +7,12 @@
             Margin="0,0,0,8"
             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
             Style="{StaticResource TitleTextBlockStyle}"
-            Text="{Binding DataContext.Strings[ExpertSectionNetwork], RelativeSource={RelativeSource AncestorType=Window}}" />
+            Text="{Binding Strings[ExpertSectionNetwork]}" />
         <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
         <CheckBox
             Margin="0,0,0,12"
-            Content="{Binding DataContext.Strings[Dot1xEnableLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+            Content="{Binding Strings[Dot1xEnableLabel]}"
             IsChecked="{Binding IsDot1xEnabled}" />
 
         <Grid Margin="0,0,0,24" IsEnabled="{Binding IsDot1xEnabled}">
@@ -27,20 +27,20 @@
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding DataContext.Strings[Dot1xCertificateLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+                Text="{Binding Strings[Dot1xCertificateLabel]}" />
             <TextBox
                 Grid.Column="1"
                 Margin="0,0,8,0"
                 Text="{Binding CertificatePath, UpdateSourceTrigger=PropertyChanged}" />
             <Button
                 Grid.Column="2"
-                Command="{Binding DataContext.BrowseDot1xCertificateCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                Content="{Binding DataContext.Strings[BrowseFileButton], RelativeSource={RelativeSource AncestorType=Window}}" />
+                Command="{Binding BrowseCertificateCommand}"
+                Content="{Binding Strings[BrowseFileButton]}" />
         </Grid>
 
         <CheckBox
             Margin="0,0,0,12"
-            Content="{Binding DataContext.Strings[WifiEnableLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+            Content="{Binding Strings[WifiEnableLabel]}"
             IsChecked="{Binding IsWifiEnabled}" />
 
         <Grid IsEnabled="{Binding IsWifiEnabled}">
@@ -59,7 +59,7 @@
                 Margin="0,0,8,8"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding DataContext.Strings[WifiSsidLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+                Text="{Binding Strings[WifiSsidLabel]}" />
             <TextBox
                 Grid.Row="0"
                 Grid.Column="1"
@@ -72,7 +72,7 @@
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding DataContext.Strings[WifiSecurityTypeLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+                Text="{Binding Strings[WifiSecurityTypeLabel]}" />
             <ComboBox
                 Grid.Row="1"
                 Grid.Column="1"

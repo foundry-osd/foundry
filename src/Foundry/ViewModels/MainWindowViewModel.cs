@@ -170,9 +170,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _logger = logger;
         _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
 
-        Network = new NetworkSettingsViewModel();
-        Localization = new LocalizationSettingsViewModel(languageRegistryService.GetLanguages());
-        Customization = new CustomizationSettingsViewModel();
+        Network = new NetworkSettingsViewModel(localizationService, applicationShellService, operationProgressService);
+        Localization = new LocalizationSettingsViewModel(localizationService, languageRegistryService.GetLanguages());
+        Customization = new CustomizationSettingsViewModel(localizationService);
 
         _localizationService.LanguageChanged += OnLanguageChanged;
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
@@ -195,6 +195,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _adkService.AdkStatusChanged -= OnAdkStatusChanged;
         _adkService.OperationProgressChanged -= OnAdkOperationProgressChanged;
         UsbDiskCandidates.CollectionChanged -= OnUsbDiskCandidatesCollectionChanged;
+        Network.Dispose();
+        Localization.Dispose();
+        Customization.Dispose();
     }
 
     [RelayCommand]
@@ -241,7 +244,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(CanImportExpertConfiguration))]
     private async Task ImportExpertConfigurationAsync()
     {
-        string? path = _applicationShellService.PickOpenJsonFilePath(
+        string? path = _applicationShellService.PickOpenFilePath(
             Strings["ExpertConfigImportTitle"],
             Strings["JsonPickerFilter"]);
         if (string.IsNullOrWhiteSpace(path))
@@ -270,7 +273,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(CanExportExpertConfiguration))]
     private async Task ExportExpertConfigurationAsync()
     {
-        string? path = _applicationShellService.PickSaveJsonFilePath(
+        string? path = _applicationShellService.PickSaveFilePath(
             Strings["ExpertConfigExportTitle"],
             Strings["JsonPickerFilter"],
             DefaultExpertConfigFileName);
@@ -294,7 +297,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(CanExportDeployConfiguration))]
     private async Task ExportDeployConfigurationAsync()
     {
-        string? path = _applicationShellService.PickSaveJsonFilePath(
+        string? path = _applicationShellService.PickSaveFilePath(
             Strings["DeployConfigExportTitle"],
             Strings["JsonPickerFilter"],
             DefaultDeployConfigFileName);
@@ -366,18 +369,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             CustomDriverDirectoryPath = selectedPath;
-        }
-    }
-
-    [RelayCommand(CanExecute = nameof(CanBrowseDot1xCertificate))]
-    private void BrowseDot1xCertificate()
-    {
-        string? selectedPath = _applicationShellService.PickOpenJsonFilePath(
-            Strings["Dot1xCertificatePickerTitle"],
-            Strings["CertificatePickerFilter"]);
-        if (!string.IsNullOrWhiteSpace(selectedPath))
-        {
-            Network.CertificatePath = selectedPath;
         }
     }
 
@@ -617,11 +608,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     }
 
     private bool CanBrowseCustomDriverDirectory()
-    {
-        return !IsOperationInProgress;
-    }
-
-    private bool CanBrowseDot1xCertificate()
     {
         return !IsOperationInProgress;
     }
@@ -956,7 +942,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         BrowseIsoOutputPathCommand.NotifyCanExecuteChanged();
         BrowseCustomDriverDirectoryCommand.NotifyCanExecuteChanged();
-        BrowseDot1xCertificateCommand.NotifyCanExecuteChanged();
         ImportExpertConfigurationCommand.NotifyCanExecuteChanged();
         ExportExpertConfigurationCommand.NotifyCanExecuteChanged();
         ExportDeployConfigurationCommand.NotifyCanExecuteChanged();

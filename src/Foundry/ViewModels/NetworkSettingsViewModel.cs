@@ -1,10 +1,28 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Foundry.Models.Configuration;
+using Foundry.Services.ApplicationShell;
+using Foundry.Services.Localization;
+using Foundry.Services.Operations;
 
 namespace Foundry.ViewModels;
 
-public partial class NetworkSettingsViewModel : ObservableObject
+public partial class NetworkSettingsViewModel : LocalizedViewModelBase
 {
+    private readonly IApplicationShellService _applicationShellService;
+    private readonly IOperationProgressService _operationProgressService;
+
+    public NetworkSettingsViewModel(
+        ILocalizationService localizationService,
+        IApplicationShellService applicationShellService,
+        IOperationProgressService operationProgressService)
+        : base(localizationService)
+    {
+        _applicationShellService = applicationShellService ?? throw new ArgumentNullException(nameof(applicationShellService));
+        _operationProgressService = operationProgressService ?? throw new ArgumentNullException(nameof(operationProgressService));
+        _operationProgressService.ProgressChanged += OnOperationProgressChanged;
+    }
+
     public IReadOnlyList<string> AvailableSecurityTypes { get; } =
     [
         "WPA2-Enterprise",
@@ -26,6 +44,18 @@ public partial class NetworkSettingsViewModel : ObservableObject
 
     [ObservableProperty]
     private string wifiSecurityType = "WPA2-Enterprise";
+
+    [RelayCommand(CanExecute = nameof(CanBrowseCertificate))]
+    private void BrowseCertificate()
+    {
+        string? selectedPath = _applicationShellService.PickOpenFilePath(
+            Strings["Dot1xCertificatePickerTitle"],
+            Strings["CertificatePickerFilter"]);
+        if (!string.IsNullOrWhiteSpace(selectedPath))
+        {
+            CertificatePath = selectedPath;
+        }
+    }
 
     public NetworkSettings BuildSettings()
     {
@@ -62,5 +92,21 @@ public partial class NetworkSettingsViewModel : ObservableObject
         WifiSecurityType = string.IsNullOrWhiteSpace(settings.Wifi.SecurityType)
             ? "WPA2-Enterprise"
             : settings.Wifi.SecurityType;
+    }
+
+    public override void Dispose()
+    {
+        _operationProgressService.ProgressChanged -= OnOperationProgressChanged;
+        base.Dispose();
+    }
+
+    private bool CanBrowseCertificate()
+    {
+        return !_operationProgressService.IsOperationInProgress;
+    }
+
+    private void OnOperationProgressChanged(object? sender, EventArgs e)
+    {
+        BrowseCertificateCommand.NotifyCanExecuteChanged();
     }
 }
