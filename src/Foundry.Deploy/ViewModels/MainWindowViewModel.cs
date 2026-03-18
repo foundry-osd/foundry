@@ -178,7 +178,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _logger,
             Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
         OperatingSystemCatalog.StateChanged += OnOperatingSystemCatalogStateChanged;
-        DriverPackSelection = new DriverPackSelectionViewModel(driverPackSelectionService);
+        DriverPackSelection = new DriverPackSelectionViewModel(
+            driverPackSelectionService,
+            OperatingSystemCatalog.EffectiveOsArchitecture);
         DriverPackSelection.StateChanged += OnDriverPackSelectionStateChanged;
         Session = new DeploymentSessionViewModel(
             _dispatcher,
@@ -294,11 +296,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             {
                 OperatingSystemCatalog.ApplyCatalog(operatingSystems);
                 DriverPackSelection.ReplaceCatalog(driverPacks);
-                DriverPackSelection.SetOperatingSystemContext(
-                    OperatingSystemCatalog.SelectedOperatingSystem,
-                    OperatingSystemCatalog.EffectiveOsArchitecture);
-
-                Session.SetStatus($"Catalogs loaded: {OperatingSystemCatalog.OperatingSystems.Count} OS entries, {DriverPackSelection.DriverPacks.Count} driver packs.");
+                RefreshDriverPackSelectionContext();
+                Session.SetStatus($"Catalogs loaded: {OperatingSystemCatalog.OperatingSystems.Count} OS entries, {DriverPackSelection.CatalogCount} driver packs.");
             });
         }
         catch (Exception ex)
@@ -591,9 +590,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         OnPropertyChanged(nameof(EffectiveOsArchitecture));
         OnPropertyChanged(nameof(SelectedOperatingSystem));
-        DriverPackSelection.SetOperatingSystemContext(
-            OperatingSystemCatalog.SelectedOperatingSystem,
-            OperatingSystemCatalog.EffectiveOsArchitecture);
+        RefreshDriverPackSelectionContext();
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -683,6 +680,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool HasValidDriverPackSelection()
     {
         return DriverPackSelection.HasValidSelection();
+    }
+
+    private void RefreshDriverPackSelectionContext()
+    {
+        DriverPackSelection.UpdateSelectionContext(
+            _detectedHardware,
+            OperatingSystemCatalog.SelectedOperatingSystem,
+            OperatingSystemCatalog.EffectiveOsArchitecture);
     }
 
     private string NormalizeManagedComputerNameValue(string? value)
@@ -808,7 +813,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             {
                 _detectedHardware = profile;
                 OperatingSystemCatalog.SetEffectiveArchitecture(profile.Architecture);
-                DriverPackSelection.SetDetectedHardware(profile);
+                RefreshDriverPackSelectionContext();
                 SyncFirmwareOptionFromHardware(profile);
                 DetectedHardwareSummary =
                     $"{profile.DisplayLabel} | TPM: {(profile.IsTpmPresent ? "Yes" : "No")} | Autopilot: {(profile.IsAutopilotCapable ? "Capable" : "Needs checks")} | Power: {(profile.IsOnBattery ? "Battery" : "AC")} | Firmware: {(profile.SystemFirmwareHardwareId.Length > 0 ? "Detected" : "Unavailable")}";
@@ -820,13 +825,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _logger.LogError(ex, "Hardware profile loading failed in view model.");
             RunOnUi(() => DetectedHardwareSummary = $"Hardware detection failed: {ex.Message}");
         }
-    }
-
-    private static bool IsArchitectureMatch(string osArchitecture, string driverArchitecture)
-    {
-        string os = NormalizeArchitecture(osArchitecture);
-        string driver = NormalizeArchitecture(driverArchitecture);
-        return os.Equals(driver, StringComparison.OrdinalIgnoreCase);
     }
 
     private void SyncFirmwareOptionFromHardware(HardwareProfile profile)
@@ -888,45 +886,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return normalized.Length > 0
             ? normalized
             : ComputerNameRules.FallbackName;
-    }
-
-    private static string NormalizeArchitecture(string architecture)
-    {
-        string normalized = architecture.Trim().ToLowerInvariant();
-        return normalized switch
-        {
-            "amd64" => "x64",
-            "x64" => "x64",
-            "arm64" => "arm64",
-            "aarch64" => "arm64",
-            _ => normalized
-        };
-    }
-
-    private static string NormalizeManufacturer(string manufacturer)
-    {
-        string normalized = manufacturer.Trim().ToLowerInvariant();
-        if (normalized.Contains("hewlett") || normalized == "hp")
-        {
-            return "hp";
-        }
-
-        if (normalized.Contains("dell"))
-        {
-            return "dell";
-        }
-
-        if (normalized.Contains("lenovo"))
-        {
-            return "lenovo";
-        }
-
-        if (normalized.Contains("microsoft"))
-        {
-            return "microsoft";
-        }
-
-        return normalized;
     }
 
     private static (DeploymentMode Mode, string? UsbCacheRuntimeRoot) ResolveDeploymentRuntimeContext()

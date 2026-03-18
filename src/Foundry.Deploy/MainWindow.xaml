@@ -286,43 +286,45 @@
                                         Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
                                 </DockPanel>
 
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Source" />
-                                <ComboBox
-                                    Margin="0,8,0,0"
-                                    DisplayMemberPath="DisplayName"
-                                    ItemsSource="{Binding DriverPackSelection.DriverPackOptions}"
-                                    SelectedItem="{Binding DriverPackSelection.SelectedDriverPackOption}" />
-                                <!--  Driver model/version refinement  -->
-                                <Grid Margin="0,8,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="12" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <StackPanel DataContext="{Binding DriverPackSelection}">
+                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Source" />
+                                    <ComboBox
+                                        Margin="0,8,0,0"
+                                        DisplayMemberPath="DisplayName"
+                                        ItemsSource="{Binding DriverPackOptions}"
+                                        SelectedItem="{Binding SelectedDriverPackOption}" />
+                                    <!--  Driver model/version refinement  -->
+                                    <Grid Margin="0,8,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <StackPanel Grid.Column="0">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Model" />
-                                        <ComboBox
-                                            Margin="0,8,0,0"
-                                            IsEnabled="{Binding DriverPackSelection.IsDriverPackModelSelectionEnabled}"
-                                            ItemsSource="{Binding DriverPackSelection.DriverPackModelOptions}"
-                                            SelectedItem="{Binding DriverPackSelection.SelectedDriverPackModel}" />
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Model" />
+                                            <ComboBox
+                                                Margin="0,8,0,0"
+                                                IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
+                                                ItemsSource="{Binding DriverPackModelOptions}"
+                                                SelectedItem="{Binding SelectedDriverPackModel}" />
+                                        </StackPanel>
 
-                                    <StackPanel Grid.Column="2">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
-                                        <ComboBox
-                                            Margin="0,8,0,0"
-                                            IsEnabled="{Binding DriverPackSelection.IsDriverPackVersionSelectionEnabled}"
-                                            ItemsSource="{Binding DriverPackSelection.DriverPackVersionOptions}"
-                                            SelectedItem="{Binding DriverPackSelection.SelectedDriverPackVersion}" />
-                                    </StackPanel>
-                                </Grid>
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding DriverPackSelection.DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
+                                            <ComboBox
+                                                Margin="0,8,0,0"
+                                                IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
+                                                ItemsSource="{Binding DriverPackVersionOptions}"
+                                                SelectedItem="{Binding SelectedDriverPackVersion}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
                     </TabItem>
