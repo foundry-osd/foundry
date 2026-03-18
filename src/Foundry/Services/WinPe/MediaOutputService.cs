@@ -64,7 +64,7 @@ internal sealed class MediaOutputService : IMediaOutputService
         string[] locales = Directory.GetDirectories(ocRoot)
             .Select(Path.GetFileName)
             .Where(name => !string.IsNullOrWhiteSpace(name))
-            .Select(name => NormalizeWinPeLanguageCode(name!))
+            .Select(name => WinPeLanguageUtility.Normalize(name!))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
             .ToArray();
@@ -441,10 +441,4 @@ internal sealed class MediaOutputService : IMediaOutputService
             "WinPE_OCs");
     }
 
-    private static string NormalizeWinPeLanguageCode(string languageCode)
-    {
-        return string.IsNullOrWhiteSpace(languageCode)
-            ? string.Empty
-            : languageCode.Trim().Replace('_', '-').ToLowerInvariant();
-    }
 }

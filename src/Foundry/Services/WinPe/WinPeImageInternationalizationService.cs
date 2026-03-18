@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
@@ -16,32 +15,6 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
         _logger = logger;
     }
 
-    public string NormalizeWinPeLanguageCode(string languageCode)
-    {
-        return string.IsNullOrWhiteSpace(languageCode)
-            ? string.Empty
-            : languageCode.Trim().Replace('_', '-').ToLowerInvariant();
-    }
-
-    public bool TryResolveInputLocale(string languageCode, out string canonicalLanguageCode, out string inputLocale)
-    {
-        try
-        {
-            CultureInfo culture = CultureInfo.GetCultureInfo(languageCode);
-            canonicalLanguageCode = culture.Name;
-            int keyboardLayoutId = culture.KeyboardLayoutId;
-            string hex = keyboardLayoutId.ToString("x4", CultureInfo.InvariantCulture);
-            inputLocale = $"{hex}:0000{hex}";
-            return true;
-        }
-        catch (CultureNotFoundException)
-        {
-            canonicalLanguageCode = languageCode;
-            inputLocale = string.Empty;
-            return false;
-        }
-    }
-
     public async Task<WinPeResult> ApplyAsync(
         string mountedImagePath,
         WinPeArchitecture architecture,
@@ -50,8 +23,8 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
         string workingDirectoryPath,
         CancellationToken cancellationToken)
     {
-        string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
-        if (!TryResolveInputLocale(normalizedLocale, out string canonicalLocale, out string inputLocale))
+        string normalizedLocale = WinPeLanguageUtility.Normalize(winPeLanguage);
+        if (!WinPeLanguageUtility.TryResolveInputLocale(normalizedLocale, out string canonicalLocale, out string inputLocale))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.ValidationFailed,
@@ -150,7 +123,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
             "WinPE-Dot3Svc",
             "WinPE-EnhancedStorage"
         ];
-        string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
+        string normalizedLocale = WinPeLanguageUtility.Normalize(winPeLanguage);
         string languagePackCab = Path.Combine(ocRoot, normalizedLocale, "lp.cab");
         if (File.Exists(languagePackCab))
         {

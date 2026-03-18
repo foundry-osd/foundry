@@ -33,20 +33,11 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        string normalizedLocale = _imageInternationalizationService.NormalizeWinPeLanguageCode(request.WinPeLanguage);
-        if (!_imageInternationalizationService.TryResolveInputLocale(normalizedLocale, out _, out _))
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ValidationFailed,
-                "Unable to resolve keyboard layout from selected WinPE language.",
-                $"Selected language: '{normalizedLocale}'.");
-        }
-
         _logger.LogInformation(
             "Mounting WinPE image for customization. BootWimPath={BootWimPath}, MountDirectoryPath={MountDirectoryPath}, WinPeLanguage={WinPeLanguage}",
             request.Artifact.BootWimPath,
             request.Artifact.MountDirectoryPath,
-            normalizedLocale);
+            request.WinPeLanguage);
         WinPeResult<WinPeMountSession> mount = await WinPeMountSession.MountAsync(
             _processRunner,
             request.Tools.DismPath,
@@ -77,7 +68,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
             session.MountDirectoryPath,
             request.Artifact.Architecture,
             request.Tools,
-            normalizedLocale,
+            request.WinPeLanguage,
             request.Artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
         if (!internationalizationResult.IsSuccess)
