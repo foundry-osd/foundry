@@ -1,13 +1,22 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Validation;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
 
 public sealed partial class DeploymentPreparationViewModel : ObservableObject
 {
+    private readonly ITargetDiskService _targetDiskService;
+    private readonly IHardwareProfileService _hardwareProfileService;
+    private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
+    private readonly ILogger _logger;
+    private readonly bool _isDebugSafeMode;
     private HardwareProfile? _detectedHardware;
     private DeployMachineNamingSettings _machineNamingConfiguration = new();
     private string _lockedComputerNamePrefix = string.Empty;
@@ -16,7 +25,22 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     private bool _hasUserSelectedFirmwareOption;
     private bool _firmwareUpdatesPreference = true;
 
+    public DeploymentPreparationViewModel(
+        ITargetDiskService targetDiskService,
+        IHardwareProfileService hardwareProfileService,
+        IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
+        ILogger logger,
+        bool isDebugSafeMode)
+    {
+        _targetDiskService = targetDiskService;
+        _hardwareProfileService = hardwareProfileService;
+        _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
+        _logger = logger;
+        _isDebugSafeMode = isDebugSafeMode;
+    }
+
     public event EventHandler? StateChanged;
+    public event Action<string>? StatusMessageGenerated;
 
     [ObservableProperty]
     private string targetComputerName = string.Empty;
@@ -39,11 +63,107 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     [ObservableProperty]
     private string detectedHardwareSummary = "Detecting hardware...";
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(RefreshTargetDisksCommand))]
+    private bool isTargetDiskLoading;
+
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
 
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
+
+    public HardwareProfile? DetectedHardware => _detectedHardware;
+
+    [RelayCommand(CanExecute = nameof(CanRefreshTargetDisks))]
+    private async Task RefreshTargetDisksAsync()
+    {
+        _logger.LogInformation("Refreshing target disk list.");
+        if (IsTargetDiskLoading)
+        {
+            return;
+        }
+
+        IsTargetDiskLoading = true;
+        PublishStatus("Loading target disks...");
+
+        try
+        {
+            IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync();
+
+            TargetDisks.Clear();
+            foreach (TargetDiskInfo disk in disks)
+            {
+                TargetDisks.Add(disk);
+            }
+
+            if (_isDebugSafeMode && !TargetDisks.Any(item => item.IsSelectable))
+            {
+                TargetDisks.Insert(0, CreateDebugVirtualDisk());
+            }
+
+            if (TargetDisks.Count == 0)
+            {
+                SelectedTargetDisk = null;
+                PublishStatus("No disks detected.");
+                return;
+            }
+
+            TargetDiskInfo? currentSelection = SelectedTargetDisk is null
+                ? null
+                : TargetDisks.FirstOrDefault(item => item.DiskNumber == SelectedTargetDisk.DiskNumber);
+
+            SelectedTargetDisk = currentSelection
+                ?? TargetDisks.FirstOrDefault(item => item.IsSelectable)
+                ?? (_isDebugSafeMode ? TargetDisks.FirstOrDefault(item => item.DiskNumber == CreateDebugVirtualDisk().DiskNumber) : null)
+                ?? TargetDisks.FirstOrDefault();
+
+            PublishStatus($"Target disks loaded: {TargetDisks.Count} detected.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Target disk discovery failed.");
+            PublishStatus($"Target disk discovery failed: {ex.Message}");
+        }
+        finally
+        {
+            IsTargetDiskLoading = false;
+            RaiseStateChanged();
+        }
+    }
+
+    public async Task LoadHardwareProfileAsync()
+    {
+        try
+        {
+            HardwareProfile profile = await _hardwareProfileService.GetCurrentAsync();
+            SetDetectedHardware(profile);
+            _logger.LogInformation("Hardware profile loaded in preparation view model. DisplayLabel={DisplayLabel}", profile.DisplayLabel);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Hardware profile loading failed in preparation view model.");
+            SetHardwareDetectionFailure($"Hardware detection failed: {ex.Message}");
+        }
+    }
+
+    public async Task LoadOfflineComputerNameAsync(string fallbackName)
+    {
+        string? resolvedName = null;
+        try
+        {
+            resolvedName = await _offlineWindowsComputerNameService.TryGetOfflineComputerNameAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to load offline Windows computer name.");
+        }
+
+        string effectiveName = !string.IsNullOrWhiteSpace(resolvedName)
+            ? resolvedName
+            : fallbackName;
+        ApplyOfflineComputerName(effectiveName);
+    }
 
     public void ApplyMachineNamingConfiguration(DeployMachineNamingSettings settings, string seed)
     {
@@ -276,5 +396,35 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     private void RaiseStateChanged()
     {
         StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void PublishStatus(string message)
+    {
+        StatusMessageGenerated?.Invoke(message);
+    }
+
+    private bool CanRefreshTargetDisks()
+    {
+        return !IsTargetDiskLoading;
+    }
+
+    public static TargetDiskInfo CreateDebugVirtualDisk()
+    {
+        return new TargetDiskInfo
+        {
+            DiskNumber = 999,
+            FriendlyName = "DEBUG VIRTUAL TARGET",
+            SerialNumber = "DEBUG-ONLY",
+            BusType = "Virtual",
+            PartitionStyle = "GPT",
+            SizeBytes = 128UL * 1024UL * 1024UL * 1024UL,
+            IsSystem = false,
+            IsBoot = false,
+            IsReadOnly = false,
+            IsOffline = false,
+            IsRemovable = false,
+            IsSelectable = true,
+            SelectionWarning = string.Empty
+        };
     }
 }

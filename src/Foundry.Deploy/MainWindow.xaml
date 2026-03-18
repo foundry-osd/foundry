@@ -37,7 +37,7 @@
                 <!--  Tools  -->
                 <MenuItem Header="_Tools">
                     <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
-                    <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
+                    <MenuItem Command="{Binding Preparation.RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
                     <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="Open Log File" />
                 </MenuItem>
             </Menu>
@@ -83,7 +83,7 @@
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding DetectedHardwareSummary}" />
+                        Text="{Binding Preparation.DetectedHardwareSummary}" />
                 </StackPanel>
 
                 <!--  Wizard steps  -->
@@ -146,7 +146,7 @@
                                         <Button
                                             Width="140"
                                             Margin="8,0,0,0"
-                                            Command="{Binding DataContext.RefreshTargetDisksCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            Command="{Binding RefreshTargetDisksCommand}"
                                             Content="Refresh Disks" />
                                     </DockPanel>
                                     <TextBlock

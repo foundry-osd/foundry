@@ -28,10 +28,6 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
-    private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
-    private const string CacheVolumeLabel = "Foundry Cache";
-    private const string CacheMarkerFolderName = "Foundry Cache";
-    private const string RuntimeFolderName = "Runtime";
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
     private static readonly string AppVersion = ResolveAppVersion();
     private readonly IThemeService _themeService;
@@ -40,13 +36,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IOperatingSystemCatalogService _operatingSystemCatalogService;
     private readonly IDriverPackCatalogService _driverPackCatalogService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
-    private readonly IHardwareProfileService _hardwareProfileService;
-    private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
-    private readonly ITargetDiskService _targetDiskService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
-    private readonly DeploymentMode _resolvedDeploymentMode;
-    private readonly string? _resolvedUsbCacheRuntimeRoot;
+    private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
     private HardwareProfile? _detectedHardware;
     private bool _isInitialized;
     private bool _isDisposed;
@@ -62,11 +54,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [NotifyCanExecuteChangedFor(nameof(RefreshCatalogsCommand))]
     [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
     private bool isCatalogLoading;
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(RefreshTargetDisksCommand))]
-    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private bool isTargetDiskLoading;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
@@ -116,6 +103,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IApplicationShellService applicationShellService,
         IOperationProgressService operationProgressService,
         IExpertDeployConfigurationService expertDeployConfigurationService,
+        IDeploymentRuntimeContextService deploymentRuntimeContextService,
         IOperatingSystemCatalogService operatingSystemCatalogService,
         IDriverPackCatalogService driverPackCatalogService,
         IDeploymentOrchestrator deploymentOrchestrator,
@@ -132,16 +120,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operatingSystemCatalogService = operatingSystemCatalogService;
         _driverPackCatalogService = driverPackCatalogService;
         _deploymentOrchestrator = deploymentOrchestrator;
-        _hardwareProfileService = hardwareProfileService;
-        _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
-        _targetDiskService = targetDiskService;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
-        (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
-        _resolvedDeploymentMode = resolvedMode;
-        _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
-        Preparation = new DeploymentPreparationViewModel();
+        _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
+        Preparation = new DeploymentPreparationViewModel(
+            targetDiskService,
+            hardwareProfileService,
+            offlineWindowsComputerNameService,
+            _logger,
+            IsDebugSafeMode);
         Preparation.StateChanged += OnPreparationStateChanged;
+        Preparation.StatusMessageGenerated += OnPreparationStatusMessageGenerated;
         OperatingSystemCatalog = new OperatingSystemCatalogViewModel(
             _logger,
             Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
@@ -182,7 +171,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         await Task.WhenAll(
                 LoadOfflineComputerNameAsync(),
                 LoadHardwareProfileAsync(),
-                RefreshTargetDisksAsync(),
+                Preparation.RefreshTargetDisksCommand.ExecuteAsync(null),
                 RefreshCatalogsAsync())
             .ConfigureAwait(false);
 
@@ -210,8 +199,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
             string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
-                ? ResolveInitialComputerName()
-                : Preparation.TargetComputerName);
+            ? ResolveInitialComputerName()
+            : Preparation.TargetComputerName);
     }
 
     [RelayCommand]
@@ -273,67 +262,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
-    [RelayCommand(CanExecute = nameof(CanRefreshTargetDisks))]
-    private async Task RefreshTargetDisksAsync()
-    {
-        _logger.LogInformation("Refreshing target disk list.");
-        if (IsTargetDiskLoading)
-        {
-            return;
-        }
-
-        IsTargetDiskLoading = true;
-        Session.SetStatus("Loading target disks...");
-
-        try
-        {
-            IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService
-                .GetDisksAsync()
-                .ConfigureAwait(false);
-
-            RunOnUi(() =>
-            {
-                Preparation.TargetDisks.Clear();
-                foreach (TargetDiskInfo disk in disks)
-                {
-                    Preparation.TargetDisks.Add(disk);
-                }
-
-                if (IsDebugSafeMode && !Preparation.TargetDisks.Any(item => item.IsSelectable))
-                {
-                    Preparation.TargetDisks.Insert(0, BuildDebugVirtualDisk());
-                }
-
-                if (Preparation.TargetDisks.Count == 0)
-                {
-                    Preparation.SelectedTargetDisk = null;
-                    Session.SetStatus("No disks detected.");
-                    return;
-                }
-
-                TargetDiskInfo? currentSelection = Preparation.SelectedTargetDisk is null
-                    ? null
-                    : Preparation.TargetDisks.FirstOrDefault(item => item.DiskNumber == Preparation.SelectedTargetDisk.DiskNumber);
-
-                Preparation.SelectedTargetDisk = currentSelection
-                    ?? Preparation.TargetDisks.FirstOrDefault(item => item.IsSelectable)
-                    ?? (IsDebugSafeMode ? Preparation.TargetDisks.FirstOrDefault(item => item.DiskNumber == BuildDebugVirtualDisk().DiskNumber) : null)
-                    ?? Preparation.TargetDisks.FirstOrDefault();
-
-                Session.SetStatus($"Target disks loaded: {Preparation.TargetDisks.Count} detected.");
-            });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Target disk discovery failed.");
-            RunOnUi(() => Session.SetStatus($"Target disk discovery failed: {ex.Message}"));
-        }
-        finally
-        {
-            RunOnUi(() => IsTargetDiskLoading = false);
-        }
-    }
-
     [RelayCommand(CanExecute = nameof(CanGoPrevious))]
     private void PreviousWizardStep()
     {
@@ -376,7 +304,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         TargetDiskInfo? effectiveTargetDisk = Preparation.SelectedTargetDisk;
         if (effectiveTargetDisk is null && IsDebugSafeMode)
         {
-            effectiveTargetDisk = BuildDebugVirtualDisk();
+            effectiveTargetDisk = DeploymentPreparationViewModel.CreateDebugVirtualDisk();
         }
 
         if (effectiveTargetDisk is null)
@@ -416,7 +344,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         DeploymentContext context = new()
         {
-            Mode = _resolvedDeploymentMode,
+            Mode = _deploymentRuntimeContext.Mode,
             CacheRootPath = Preparation.CacheRootPath,
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
             TargetComputerName = normalizedComputerName,
@@ -522,7 +450,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void OnPreparationStateChanged(object? sender, EventArgs e)
     {
-        RefreshTargetDisksCommand.NotifyCanExecuteChanged();
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
 
@@ -530,6 +457,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             Session.SetStatus($"Selected disk blocked: {Preparation.SelectedTargetDisk.SelectionWarning}");
         }
+    }
+
+    private void OnPreparationStatusMessageGenerated(string message)
+    {
+        Session.SetStatus(message);
     }
 
     private bool CanShowDebugPages()
@@ -545,9 +477,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        if (_resolvedDeploymentMode == DeploymentMode.Usb)
+        if (_deploymentRuntimeContext.Mode == DeploymentMode.Usb)
         {
-            Preparation.CacheRootPath = _resolvedUsbCacheRuntimeRoot ?? WinPeTransientRuntimeRoot;
+            Preparation.CacheRootPath = _deploymentRuntimeContext.UsbCacheRuntimeRoot ?? WinPeTransientRuntimeRoot;
             return;
         }
 
@@ -557,11 +489,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool CanRefreshCatalogs()
     {
         return !IsCatalogLoading && !IsDeploymentRunning;
-    }
-
-    private bool CanRefreshTargetDisks()
-    {
-        return !IsTargetDiskLoading && !IsDeploymentRunning;
     }
 
     private bool CanGoPrevious()
@@ -601,7 +528,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         return !IsDeploymentRunning &&
                !IsCatalogLoading &&
-               !IsTargetDiskLoading &&
+               !Preparation.IsTargetDiskLoading &&
                WizardStepIndex == 3 &&
                ComputerNameRules.IsValid(Preparation.TargetComputerName) &&
                OperatingSystemCatalog.SelectedOperatingSystem is not null &&
@@ -624,48 +551,23 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private async Task LoadHardwareProfileAsync()
     {
-        try
+        await Preparation.LoadHardwareProfileAsync().ConfigureAwait(false);
+        RunOnUi(() =>
         {
-            HardwareProfile profile = await _hardwareProfileService.GetCurrentAsync().ConfigureAwait(false);
-            RunOnUi(() =>
+            _detectedHardware = Preparation.DetectedHardware;
+            if (Preparation.DetectedHardware is not null)
             {
-                _detectedHardware = profile;
-                OperatingSystemCatalog.SetEffectiveArchitecture(profile.Architecture);
-                RefreshDriverPackSelectionContext();
-                Preparation.SetDetectedHardware(profile);
-            });
-            _logger.LogInformation("Hardware profile loaded in view model. DisplayLabel={DisplayLabel}", profile.DisplayLabel);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Hardware profile loading failed in view model.");
-            RunOnUi(() => Preparation.SetHardwareDetectionFailure($"Hardware detection failed: {ex.Message}"));
-        }
+                OperatingSystemCatalog.SetEffectiveArchitecture(Preparation.DetectedHardware.Architecture);
+            }
+
+            RefreshDriverPackSelectionContext();
+        });
     }
 
     private async Task LoadOfflineComputerNameAsync()
     {
-        string? resolvedName = null;
-        try
-        {
-            resolvedName = await _offlineWindowsComputerNameService
-                .TryGetOfflineComputerNameAsync()
-                .ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, "Failed to load offline Windows computer name.");
-        }
-
-        string effectiveName = !string.IsNullOrWhiteSpace(resolvedName)
-            ? resolvedName
-            : ResolveInitialComputerName();
-
-        RunOnUi(() =>
-        {
-            Preparation.ApplyOfflineComputerName(effectiveName);
-            Session.SetComputerName(Preparation.TargetComputerName);
-        });
+        await Preparation.LoadOfflineComputerNameAsync(ResolveInitialComputerName()).ConfigureAwait(false);
+        RunOnUi(() => Session.SetComputerName(Preparation.TargetComputerName));
     }
 
     private static string ResolveInitialComputerName()
@@ -674,73 +576,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return normalized.Length > 0
             ? normalized
             : ComputerNameRules.FallbackName;
-    }
-
-    private static (DeploymentMode Mode, string? UsbCacheRuntimeRoot) ResolveDeploymentRuntimeContext()
-    {
-        if (TryResolveDeploymentModeFromEnvironment(out DeploymentMode modeFromEnvironment))
-        {
-            string? usbRoot = modeFromEnvironment == DeploymentMode.Usb
-                ? TryGetUsbCacheRuntimeRoot()
-                : null;
-            return (modeFromEnvironment, usbRoot);
-        }
-
-        string? detectedUsbRoot = TryGetUsbCacheRuntimeRoot();
-        return string.IsNullOrWhiteSpace(detectedUsbRoot)
-            ? (DeploymentMode.Iso, null)
-            : (DeploymentMode.Usb, detectedUsbRoot);
-    }
-
-    private static bool TryResolveDeploymentModeFromEnvironment(out DeploymentMode mode)
-    {
-        string? raw = Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable);
-        if (string.IsNullOrWhiteSpace(raw))
-        {
-            mode = default;
-            return false;
-        }
-
-        string normalized = raw.Trim().ToLowerInvariant();
-        mode = normalized switch
-        {
-            "usb" => DeploymentMode.Usb,
-            "iso" => DeploymentMode.Iso,
-            _ => default
-        };
-
-        return normalized is "usb" or "iso";
-    }
-
-    private static string? TryGetUsbCacheRuntimeRoot()
-    {
-        foreach (DriveInfo drive in DriveInfo.GetDrives())
-        {
-            if (!drive.IsReady)
-            {
-                continue;
-            }
-
-            try
-            {
-                if (string.Equals(drive.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
-                {
-                    return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
-                }
-            }
-            catch
-            {
-                // Ignore drives that cannot expose a label.
-            }
-
-            string markerPath = Path.Combine(drive.RootDirectory.FullName, CacheMarkerFolderName);
-            if (Directory.Exists(markerPath))
-            {
-                return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
-            }
-        }
-
-        return null;
     }
 
     private void RunOnUi(Action action)
@@ -774,26 +609,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return _applicationShellService.ConfirmWarning("Confirm Disk Erase", message);
     }
 
-    private static TargetDiskInfo BuildDebugVirtualDisk()
-    {
-        return new TargetDiskInfo
-        {
-            DiskNumber = 999,
-            FriendlyName = "DEBUG VIRTUAL TARGET",
-            SerialNumber = "DEBUG-ONLY",
-            BusType = "Virtual",
-            PartitionStyle = "GPT",
-            SizeBytes = 128UL * 1024UL * 1024UL * 1024UL,
-            IsSystem = false,
-            IsBoot = false,
-            IsReadOnly = false,
-            IsOffline = false,
-            IsRemovable = false,
-            IsSelectable = true,
-            SelectionWarning = string.Empty
-        };
-    }
-
     public void Dispose()
     {
         if (_isDisposed)
@@ -801,6 +616,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
+        Preparation.StatusMessageGenerated -= OnPreparationStatusMessageGenerated;
         Preparation.StateChanged -= OnPreparationStateChanged;
         OperatingSystemCatalog.StateChanged -= OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged -= OnDriverPackSelectionStateChanged;

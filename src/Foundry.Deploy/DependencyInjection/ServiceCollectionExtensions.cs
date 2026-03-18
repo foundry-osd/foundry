@@ -10,6 +10,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.ViewModels;
@@ -28,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
+        services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
