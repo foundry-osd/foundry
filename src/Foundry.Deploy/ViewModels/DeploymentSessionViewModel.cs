@@ -191,26 +191,6 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         CurrentPage = DeploymentPage.Error;
     }
 
-    public void ApplyExecutionOutcome(DeploymentExecutionOutcome outcome)
-    {
-        ArgumentNullException.ThrowIfNull(outcome);
-
-        if (outcome.IsSuccess)
-        {
-            CompleteDeployment(outcome.Message, outcome.LogsDirectoryPath);
-            return;
-        }
-
-        string fallbackStep = string.IsNullOrWhiteSpace(FailedStepName)
-            ? CurrentStepName
-            : FailedStepName;
-        string fallbackMessage = string.IsNullOrWhiteSpace(FailedStepErrorMessage)
-            ? outcome.Message
-            : FailedStepErrorMessage;
-
-        FailDeployment($"Deployment failed: {outcome.Message}", fallbackStep, fallbackMessage, outcome.LogsDirectoryPath);
-    }
-
     public void ApplyExecutionRunResult(DeploymentExecutionRunResult executionRunResult)
     {
         ArgumentNullException.ThrowIfNull(executionRunResult);
