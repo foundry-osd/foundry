@@ -32,6 +32,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<WinPeToolResolver>();
         services.AddSingleton<WinPeProcessRunner>();
         services.AddSingleton<WinPeDriverPackageService>();
+        services.AddSingleton<IWinPeImageInternationalizationService, WinPeImageInternationalizationService>();
         services.AddSingleton<IWinPeLocalDeployEmbeddingService, WinPeLocalDeployEmbeddingService>();
         services.AddSingleton<IWinPeMountedImageAssetProvisioningService, WinPeMountedImageAssetProvisioningService>();
         services.AddSingleton<WinPeUsbMediaService>();

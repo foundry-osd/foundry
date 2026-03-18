@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
@@ -8,6 +7,7 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
     private readonly IWinPeDriverCatalogService _driverCatalogService;
     private readonly IWinPeDriverInjectionService _driverInjectionService;
     private readonly WinPeDriverPackageService _driverPackageService;
+    private readonly IWinPeImageInternationalizationService _imageInternationalizationService;
     private readonly IWinPeLocalDeployEmbeddingService _localDeployEmbeddingService;
     private readonly IWinPeMountedImageAssetProvisioningService _mountedImageAssetProvisioningService;
     private readonly WinPeToolResolver _toolResolver;
@@ -18,6 +18,7 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
         IWinPeDriverCatalogService driverCatalogService,
         IWinPeDriverInjectionService driverInjectionService,
         WinPeDriverPackageService driverPackageService,
+        IWinPeImageInternationalizationService imageInternationalizationService,
         IWinPeLocalDeployEmbeddingService localDeployEmbeddingService,
         IWinPeMountedImageAssetProvisioningService mountedImageAssetProvisioningService,
         WinPeToolResolver toolResolver,
@@ -27,6 +28,7 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
         _driverCatalogService = driverCatalogService;
         _driverInjectionService = driverInjectionService;
         _driverPackageService = driverPackageService;
+        _imageInternationalizationService = imageInternationalizationService;
         _localDeployEmbeddingService = localDeployEmbeddingService;
         _mountedImageAssetProvisioningService = mountedImageAssetProvisioningService;
         _toolResolver = toolResolver;
@@ -210,13 +212,13 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
         string? expertDeployConfigurationJson,
         CancellationToken cancellationToken)
     {
-        string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
-        if (!TryResolveInputLocale(normalizedLocale, out string canonicalLocale, out string inputLocale))
+        string normalizedLocale = _imageInternationalizationService.NormalizeWinPeLanguageCode(winPeLanguage);
+        if (!_imageInternationalizationService.TryResolveInputLocale(normalizedLocale, out _, out _))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.ValidationFailed,
                 "Unable to resolve keyboard layout from selected WinPE language.",
-                $"Selected language: '{canonicalLocale}'.");
+                $"Selected language: '{normalizedLocale}'.");
         }
 
         _logger.LogInformation(
@@ -266,33 +268,17 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
             _logger.LogInformation("Skipping driver injection because no driver directories were resolved. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         }
 
-        _logger.LogInformation("Adding required WinPE optional components. MountDirectoryPath={MountDirectoryPath}, WinPeLanguage={WinPeLanguage}", session.MountDirectoryPath, normalizedLocale);
-        WinPeResult addComponentsResult = await AddRequiredOptionalComponentsAsync(
+        WinPeResult internationalizationResult = await _imageInternationalizationService.ApplyAsync(
             session.MountDirectoryPath,
             artifact.Architecture,
             tools,
             normalizedLocale,
             artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
-        if (!addComponentsResult.IsSuccess)
+        if (!internationalizationResult.IsSuccess)
         {
             await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
-            return addComponentsResult;
-        }
-
-        _logger.LogInformation("Required WinPE optional components added successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
-        _logger.LogInformation("Applying WinPE international settings. CanonicalLocale={CanonicalLocale}, InputLocale={InputLocale}", canonicalLocale, inputLocale);
-        WinPeResult intlResult = await ApplyInternationalSettingsAsync(
-            session.MountDirectoryPath,
-            tools,
-            canonicalLocale,
-            inputLocale,
-            artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
-        if (!intlResult.IsSuccess)
-        {
-            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
-            return intlResult;
+            return internationalizationResult;
         }
 
         _logger.LogInformation("Applied WinPE international settings successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
@@ -330,179 +316,4 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
         return commit;
     }
 
-    private async Task<WinPeResult> ApplyInternationalSettingsAsync(
-        string mountedImagePath,
-        WinPeToolPaths tools,
-        string canonicalLocale,
-        string inputLocale,
-        string workingDirectoryPath,
-        CancellationToken cancellationToken)
-    {
-        string[] dismCommands =
-        [
-            $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-AllIntl:{canonicalLocale}",
-            $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-InputLocale:{inputLocale}"
-        ];
-
-        foreach (string args in dismCommands)
-        {
-            WinPeProcessExecution execution = await _processRunner.RunAsync(
-                tools.DismPath,
-                args,
-                workingDirectoryPath,
-                cancellationToken).ConfigureAwait(false);
-
-            if (!execution.IsSuccess)
-            {
-                return WinPeResult.Failure(
-                    WinPeErrorCodes.BuildFailed,
-                    "Failed to apply WinPE international settings.",
-                    execution.ToDiagnosticText());
-            }
-        }
-
-        return WinPeResult.Success();
-    }
-
-    private async Task<WinPeResult> AddRequiredOptionalComponentsAsync(
-        string mountedImagePath,
-        WinPeArchitecture architecture,
-        WinPeToolPaths tools,
-        string winPeLanguage,
-        string workingDirectoryPath,
-        CancellationToken cancellationToken)
-    {
-        string ocRoot = GetOptionalComponentsRootPath(tools.KitsRootPath, architecture);
-
-        if (!Directory.Exists(ocRoot))
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "WinPE optional components folder was not found.",
-                $"Expected path: '{ocRoot}'.");
-        }
-
-        string[] components =
-        [
-            "WinPE-WMI",
-            "WinPE-NetFX",
-            "WinPE-Scripting",
-            "WinPE-PowerShell",
-            "WinPE-WinReCfg",
-            "WinPE-DismCmdlets",
-            "WinPE-StorageWMI",
-            "WinPE-Dot3Svc",
-            "WinPE-EnhancedStorage"
-        ];
-        string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
-        string languagePackCab = Path.Combine(ocRoot, normalizedLocale, "lp.cab");
-        if (File.Exists(languagePackCab))
-        {
-            WinPeProcessExecution addLanguagePack = await _processRunner.RunAsync(
-                tools.DismPath,
-                $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(languagePackCab)}",
-                workingDirectoryPath,
-                cancellationToken).ConfigureAwait(false);
-
-            if (!addLanguagePack.IsSuccess)
-            {
-                return WinPeResult.Failure(
-                    WinPeErrorCodes.BuildFailed,
-                    "Failed to add WinPE language pack.",
-                    addLanguagePack.ToDiagnosticText());
-            }
-        }
-        else
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "The selected WinPE language pack was not found.",
-                $"Expected package: '{languagePackCab}'.");
-        }
-
-        int installed = 0;
-        foreach (string component in components)
-        {
-            string neutral = Path.Combine(ocRoot, $"{component}.cab");
-            if (File.Exists(neutral))
-            {
-                WinPeProcessExecution addNeutral = await _processRunner.RunAsync(
-                    tools.DismPath,
-                    $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(neutral)}",
-                    workingDirectoryPath,
-                    cancellationToken).ConfigureAwait(false);
-
-                if (!addNeutral.IsSuccess)
-                {
-                    return WinPeResult.Failure(
-                        WinPeErrorCodes.BuildFailed,
-                        $"Failed to add optional component '{component}'.",
-                        addNeutral.ToDiagnosticText());
-                }
-
-                installed++;
-            }
-
-            string localeCab = Path.Combine(ocRoot, normalizedLocale, $"{component}_{normalizedLocale}.cab");
-
-            if (File.Exists(localeCab))
-            {
-                WinPeProcessExecution addLocale = await _processRunner.RunAsync(
-                    tools.DismPath,
-                    $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(localeCab)}",
-                    workingDirectoryPath,
-                    cancellationToken).ConfigureAwait(false);
-
-                if (!addLocale.IsSuccess)
-                {
-                    return WinPeResult.Failure(
-                        WinPeErrorCodes.BuildFailed,
-                        $"Failed to add localized optional component '{component}'.",
-                        addLocale.ToDiagnosticText());
-                }
-            }
-        }
-
-        return installed > 0
-            ? WinPeResult.Success()
-            : WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "Required WinPE optional components were not found in ADK.",
-                $"No required component CAB was found under '{ocRoot}'.");
-    }
-    private static string GetOptionalComponentsRootPath(string kitsRootPath, WinPeArchitecture architecture)
-    {
-        return Path.Combine(
-            kitsRootPath,
-            "Assessment and Deployment Kit",
-            "Windows Preinstallation Environment",
-            architecture.ToCopypeArchitecture(),
-            "WinPE_OCs");
-    }
-
-    private static string NormalizeWinPeLanguageCode(string languageCode)
-    {
-        return string.IsNullOrWhiteSpace(languageCode)
-            ? string.Empty
-            : languageCode.Trim().Replace('_', '-').ToLowerInvariant();
-    }
-
-    private static bool TryResolveInputLocale(string languageCode, out string canonicalLanguageCode, out string inputLocale)
-    {
-        try
-        {
-            CultureInfo culture = CultureInfo.GetCultureInfo(languageCode);
-            canonicalLanguageCode = culture.Name;
-            int keyboardLayoutId = culture.KeyboardLayoutId;
-            string hex = keyboardLayoutId.ToString("x4", CultureInfo.InvariantCulture);
-            inputLocale = $"{hex}:0000{hex}";
-            return true;
-        }
-        catch (CultureNotFoundException)
-        {
-            canonicalLanguageCode = languageCode;
-            inputLocale = string.Empty;
-            return false;
-        }
-    }
 }
