@@ -155,7 +155,7 @@
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
-                                <CheckBox Margin="0,12,0,0" IsChecked="{Binding AutoSelectDriverPackWhenEmpty}">
+                                <CheckBox Margin="0,12,0,0" IsChecked="{Binding DriverPackSelection.AutoSelectDriverPackWhenEmpty}">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Auto-select OEM driver pack from detected hardware (fallback to Microsoft Update Catalog)." />
                                 </CheckBox>
                                 <CheckBox
@@ -290,8 +290,8 @@
                                 <ComboBox
                                     Margin="0,8,0,0"
                                     DisplayMemberPath="DisplayName"
-                                    ItemsSource="{Binding DriverPackOptions}"
-                                    SelectedItem="{Binding SelectedDriverPackOption}" />
+                                    ItemsSource="{Binding DriverPackSelection.DriverPackOptions}"
+                                    SelectedItem="{Binding DriverPackSelection.SelectedDriverPackOption}" />
                                 <!--  Driver model/version refinement  -->
                                 <Grid Margin="0,8,0,0">
                                     <Grid.ColumnDefinitions>
@@ -304,25 +304,25 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Model" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
-                                            ItemsSource="{Binding DriverPackModelOptions}"
-                                            SelectedItem="{Binding SelectedDriverPackModel}" />
+                                            IsEnabled="{Binding DriverPackSelection.IsDriverPackModelSelectionEnabled}"
+                                            ItemsSource="{Binding DriverPackSelection.DriverPackModelOptions}"
+                                            SelectedItem="{Binding DriverPackSelection.SelectedDriverPackModel}" />
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="2">
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
-                                            ItemsSource="{Binding DriverPackVersionOptions}"
-                                            SelectedItem="{Binding SelectedDriverPackVersion}" />
+                                            IsEnabled="{Binding DriverPackSelection.IsDriverPackVersionSelectionEnabled}"
+                                            ItemsSource="{Binding DriverPackSelection.DriverPackVersionOptions}"
+                                            SelectedItem="{Binding DriverPackSelection.SelectedDriverPackVersion}" />
                                     </StackPanel>
                                 </Grid>
                                 <TextBlock
                                     Margin="0,8,0,0"
                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
+                                    Text="{Binding DriverPackSelection.DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -345,10 +345,10 @@
                             <TextBlock Margin="0,0,0,8" Text="{Binding SelectedOperatingSystem, Converter={StaticResource OperatingSystemSummaryConverter}, TargetNullValue=No selection}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Driver Pack" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDriverPackSelectionDisplay, TargetNullValue=None}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay, TargetNullValue=None}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Pack Mode" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackModeDisplay}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.DriverPackModeDisplay}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Firmware" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
