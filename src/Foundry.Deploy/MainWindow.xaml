@@ -188,7 +188,7 @@
                                         Margin="12,0,0,0"
                                         VerticalAlignment="Center"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                        Text="{Binding OperatingSystemCatalog.EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
                                 </DockPanel>
 
                                 <Grid>
@@ -216,8 +216,8 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            ItemsSource="{Binding ReleaseIdFilters}"
-                                            SelectedItem="{Binding SelectedReleaseId}" />
+                                            ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
                                     </StackPanel>
 
                                     <!--  Language and licensing  -->
@@ -225,9 +225,9 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Language" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            IsEnabled="{Binding IsLanguageSelectionEnabled}"
-                                            ItemsSource="{Binding LanguageFilters}"
-                                            SelectedItem="{Binding SelectedLanguageCode}" />
+                                            IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
+                                            ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
                                     </StackPanel>
 
                                     <StackPanel
@@ -237,8 +237,8 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="License Channel" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            ItemsSource="{Binding LicenseChannelFilters}"
-                                            SelectedItem="{Binding SelectedLicenseChannel}">
+                                            ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
@@ -255,8 +255,8 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Edition (Target)" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            ItemsSource="{Binding EditionFilters}"
-                                            SelectedItem="{Binding SelectedEdition}">
+                                            ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=Edition}" />
