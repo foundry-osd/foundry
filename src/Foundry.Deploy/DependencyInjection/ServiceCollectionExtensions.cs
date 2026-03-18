@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
+        services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
@@ -41,7 +42,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
-        services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
         services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
         services.AddSingleton<ITargetDiskService, TargetDiskService>();

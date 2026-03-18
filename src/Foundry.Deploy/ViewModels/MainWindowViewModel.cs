@@ -1,20 +1,15 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy;
-using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Catalog;
-using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
-using Foundry.Deploy.Services.DriverPacks;
-using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Startup;
@@ -40,6 +35,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
+    private readonly DeploymentWizardContext _wizardContext;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
@@ -108,10 +104,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IDeploymentExecutionService deploymentExecutionService,
         IDeploymentWizardStateService deploymentWizardStateService,
         IDeploymentOrchestrator deploymentOrchestrator,
-        IHardwareProfileService hardwareProfileService,
-        IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
-        ITargetDiskService targetDiskService,
-        IDriverPackSelectionService driverPackSelectionService,
+        IDeploymentWizardContextFactory deploymentWizardContextFactory,
         IProcessRunner processRunner,
         ILogger<MainWindowViewModel> logger)
     {
@@ -125,22 +118,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
-        Preparation = new DeploymentPreparationViewModel(
-            targetDiskService,
-            hardwareProfileService,
-            offlineWindowsComputerNameService,
-            _logger,
-            IsDebugSafeMode);
-        Preparation.StateChanged += OnPreparationStateChanged;
-        Preparation.StatusMessageGenerated += OnPreparationStatusMessageGenerated;
-        OperatingSystemCatalog = new OperatingSystemCatalogViewModel(
-            _logger,
-            Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
-        OperatingSystemCatalog.StateChanged += OnOperatingSystemCatalogStateChanged;
-        DriverPackSelection = new DriverPackSelectionViewModel(
-            driverPackSelectionService,
-            OperatingSystemCatalog.EffectiveOsArchitecture);
-        DriverPackSelection.StateChanged += OnDriverPackSelectionStateChanged;
+        _wizardContext = deploymentWizardContextFactory.Create(IsDebugSafeMode);
+        _wizardContext.StateChanged += OnWizardContextStateChanged;
+        _wizardContext.StatusMessageGenerated += OnWizardContextStatusMessageGenerated;
+        Preparation = _wizardContext.Preparation;
+        OperatingSystemCatalog = _wizardContext.OperatingSystemCatalog;
+        DriverPackSelection = _wizardContext.DriverPackSelection;
         Session = new DeploymentSessionViewModel(
             _dispatcher,
             _logger,
@@ -215,9 +198,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             RunOnUi(() =>
             {
-                OperatingSystemCatalog.ApplyCatalog(snapshot.OperatingSystems);
-                DriverPackSelection.ReplaceCatalog(snapshot.DriverPacks);
-                RefreshDriverPackSelectionContext();
+                _wizardContext.ApplyCatalogSnapshot(snapshot);
                 Session.SetStatus($"Catalogs loaded: {OperatingSystemCatalog.OperatingSystems.Count} OS entries, {DriverPackSelection.CatalogCount} driver packs.");
             });
         }
@@ -340,32 +321,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             "Action: Verify disk attributes and retry deployment.");
     }
 
-    private void OnOperatingSystemCatalogStateChanged(object? sender, EventArgs e)
+    private void OnWizardContextStateChanged(object? sender, EventArgs e)
     {
         OnPropertyChanged(nameof(EffectiveOsArchitecture));
         OnPropertyChanged(nameof(SelectedOperatingSystem));
-        RefreshDriverPackSelectionContext();
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
 
-    private void OnDriverPackSelectionStateChanged(object? sender, EventArgs e)
-    {
-        StartDeploymentCommand.NotifyCanExecuteChanged();
-    }
-
-    private void OnPreparationStateChanged(object? sender, EventArgs e)
-    {
-        NextWizardStepCommand.NotifyCanExecuteChanged();
-        StartDeploymentCommand.NotifyCanExecuteChanged();
-
-        if (Preparation.SelectedTargetDisk is not null && !IsDebugSafeMode && !Preparation.SelectedTargetDisk.IsSelectable)
-        {
-            Session.SetStatus($"Selected disk blocked: {Preparation.SelectedTargetDisk.SelectionWarning}");
-        }
-    }
-
-    private void OnPreparationStatusMessageGenerated(string message)
+    private void OnWizardContextStatusMessageGenerated(string message)
     {
         Session.SetStatus(message);
     }
@@ -388,12 +352,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool CanGoNext()
     {
         return _deploymentWizardStateService.CanGoNext(BuildWizardStateSnapshot());
-    }
-
-    private bool IsOsCatalogReadyForNavigation()
-    {
-        return !IsCatalogLoading &&
-               OperatingSystemCatalog.IsReadyForNavigation();
     }
 
     private bool CanStartDeployment()
@@ -420,16 +378,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             HasTargetDiskSelection = Preparation.SelectedTargetDisk is not null,
             IsSelectedTargetDiskSelectable = Preparation.SelectedTargetDisk?.IsSelectable ?? false,
             HasValidDriverPackSelection = HasValidDriverPackSelection(),
-            IsOperatingSystemCatalogReadyForNavigation = IsOsCatalogReadyForNavigation()
+            IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && OperatingSystemCatalog.IsReadyForNavigation()
         };
-    }
-
-    private void RefreshDriverPackSelectionContext()
-    {
-        DriverPackSelection.UpdateSelectionContext(
-            Preparation.DetectedHardware,
-            OperatingSystemCatalog.SelectedOperatingSystem,
-            OperatingSystemCatalog.EffectiveOsArchitecture);
     }
 
     private static string ResolveInitialComputerName()
@@ -444,48 +394,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         ArgumentNullException.ThrowIfNull(startupSnapshot);
 
-        Preparation.CacheRootPath = startupSnapshot.CacheRootPath;
-
-        if (!string.IsNullOrWhiteSpace(startupSnapshot.StartupStatusMessage))
-        {
-            Session.SetStatus(startupSnapshot.StartupStatusMessage);
-        }
-
-        if (startupSnapshot.ExpertConfigurationDocument is not null)
-        {
-            OperatingSystemCatalog.ApplyExpertLocalization(
-                startupSnapshot.ExpertConfigurationDocument.Localization.VisibleLanguageCodes,
-                startupSnapshot.ExpertConfigurationDocument.Localization.DefaultLanguageCodeOverride,
-                startupSnapshot.ExpertConfigurationDocument.Localization.ForceSingleVisibleLanguage);
-            Preparation.ApplyMachineNamingConfiguration(
-                startupSnapshot.ExpertConfigurationDocument.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
-                string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
-                    ? ResolveInitialComputerName()
-                    : Preparation.TargetComputerName);
-        }
-
-        Preparation.ApplyOfflineComputerName(startupSnapshot.EffectiveComputerName);
+        string startupStatusMessage = _wizardContext.ApplyStartupSnapshot(startupSnapshot);
         Session.SetComputerName(Preparation.TargetComputerName);
-
-        if (startupSnapshot.DetectedHardware is not null)
-        {
-            Preparation.SetDetectedHardware(startupSnapshot.DetectedHardware);
-            OperatingSystemCatalog.SetEffectiveArchitecture(startupSnapshot.DetectedHardware.Architecture);
-        }
-        else if (!string.IsNullOrWhiteSpace(startupSnapshot.HardwareDetectionFailureMessage))
-        {
-            Preparation.SetHardwareDetectionFailure(startupSnapshot.HardwareDetectionFailureMessage);
-        }
-
-        string targetDiskStatusMessage = Preparation.ApplyTargetDisks(startupSnapshot.TargetDisks);
-        OperatingSystemCatalog.ApplyCatalog(startupSnapshot.CatalogSnapshot.OperatingSystems);
-        DriverPackSelection.ReplaceCatalog(startupSnapshot.CatalogSnapshot.DriverPacks);
-        RefreshDriverPackSelectionContext();
 
         Session.SetStatus(
             !string.IsNullOrWhiteSpace(startupSnapshot.TargetDiskStatusMessage)
                 ? startupSnapshot.TargetDiskStatusMessage
-                : $"Catalogs loaded: {OperatingSystemCatalog.OperatingSystems.Count} OS entries, {DriverPackSelection.CatalogCount} driver packs.");
+                : startupStatusMessage);
     }
 
     private void RunOnUi(Action action)
@@ -506,10 +421,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        Preparation.StatusMessageGenerated -= OnPreparationStatusMessageGenerated;
-        Preparation.StateChanged -= OnPreparationStateChanged;
-        OperatingSystemCatalog.StateChanged -= OnOperatingSystemCatalogStateChanged;
-        DriverPackSelection.StateChanged -= OnDriverPackSelectionStateChanged;
+        _wizardContext.StatusMessageGenerated -= OnWizardContextStatusMessageGenerated;
+        _wizardContext.StateChanged -= OnWizardContextStateChanged;
+        _wizardContext.Dispose();
         Session.Dispose();
         _isDisposed = true;
     }
