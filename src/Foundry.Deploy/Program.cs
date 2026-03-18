@@ -4,6 +4,7 @@ using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
+using Foundry.Deploy.DependencyInjection;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Download;
@@ -15,6 +16,7 @@ using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Serilog;
@@ -26,7 +28,7 @@ public static class Program
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
 
     [STAThread]
-    public static int Main()
+    public static int Main(string[] args)
     {
         string startupLogFilePath = FoundryDeployLogging.ResolveStartupLogFilePath();
         Log.Logger = FoundryDeployLogging.CreateLogger(startupLogFilePath);
@@ -37,13 +39,13 @@ public static class Program
             Log.Information("Starting Foundry.Deploy bootstrap.");
             ConfigureRuntimeCompatibility();
 
-            using ServiceProvider serviceProvider = BuildServiceProvider();
+            using IHost host = BuildHost(args);
 
-            App app = serviceProvider.GetRequiredService<App>();
+            App app = host.Services.GetRequiredService<App>();
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
             app.InitializeComponent();
 
-            MainWindow mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
             int exitCode = app.Run(mainWindow);
 
             Log.Information("Foundry.Deploy exited with code {ExitCode}.", exitCode);
@@ -128,63 +130,16 @@ public static class Program
         };
     }
 
-    private static ServiceProvider BuildServiceProvider()
+    private static IHost BuildHost(string[] args)
     {
-        ServiceCollection services = new();
+        HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
-        services.AddLogging(builder =>
-        {
-            builder.ClearProviders();
-            builder.AddSerilog(dispose: false);
-        });
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(dispose: false);
 
-        services.AddSingleton<App>();
-        services.AddSingleton<MainWindow>();
-        services.AddSingleton<MainWindowViewModel>();
+        builder.Services.AddFoundryDeployApplicationServices();
 
-        services.AddSingleton<IThemeService, ThemeService>();
-        services.AddSingleton<IApplicationShellService, ApplicationShellService>();
-        services.AddSingleton<IOperationProgressService, OperationProgressService>();
-        services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
-        services.AddSingleton<IProcessRunner, ProcessRunner>();
-        services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
-        services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
-        services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
-        services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
-        services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
-        services.AddSingleton<ITargetDiskService, TargetDiskService>();
-        services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
-        services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();
-        services.AddSingleton<IDriverPackSelectionService, DriverPackSelectionService>();
-        services.AddSingleton<IMicrosoftUpdateCatalogClient, MicrosoftUpdateCatalogClient>();
-        services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();
-        services.AddSingleton<IMicrosoftUpdateCatalogFirmwareService, MicrosoftUpdateCatalogFirmwareService>();
-        services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
-        services.AddSingleton<IDriverPackStrategyResolver, DriverPackStrategyResolver>();
-        services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
-        services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
-        services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
-        services.AddSingleton<IAutopilotService, AutopilotService>();
-        services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
-        services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
-        services.AddSingleton<IDeploymentStep, ValidateTargetConfigurationStep>();
-        services.AddSingleton<IDeploymentStep, ResolveCacheStrategyStep>();
-        services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
-        services.AddSingleton<IDeploymentStep, DownloadOperatingSystemImageStep>();
-        services.AddSingleton<IDeploymentStep, ApplyOperatingSystemImageStep>();
-        services.AddSingleton<IDeploymentStep, ConfigureTargetComputerNameStep>();
-        services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
-        services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
-        services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
-        services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
-        services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
-        services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
-        services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
-        services.AddSingleton<IDeploymentStep, ExecuteFullAutopilotWorkflowStep>();
-        services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();
-        services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
-
-        return services.BuildServiceProvider();
+        return builder.Build();
     }
 
     private static void RegisterGlobalExceptionHandlers()
