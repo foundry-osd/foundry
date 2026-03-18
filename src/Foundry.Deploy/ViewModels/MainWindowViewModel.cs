@@ -17,6 +17,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
@@ -28,10 +29,9 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
-    private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
     private static readonly string AppVersion = ResolveAppVersion();
     private readonly IThemeService _themeService;
-    private readonly IExpertDeployConfigurationService _expertDeployConfigurationService;
+    private readonly IDeploymentStartupCoordinator _deploymentStartupCoordinator;
     private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
     private readonly IDeploymentLaunchPreparationService _deploymentLaunchPreparationService;
     private readonly IDeploymentWizardStateService _deploymentWizardStateService;
@@ -39,7 +39,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
-    private HardwareProfile? _detectedHardware;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
@@ -101,7 +100,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public MainWindowViewModel(
         IThemeService themeService,
         IOperationProgressService operationProgressService,
-        IExpertDeployConfigurationService expertDeployConfigurationService,
+        IDeploymentStartupCoordinator deploymentStartupCoordinator,
         IDeploymentRuntimeContextService deploymentRuntimeContextService,
         IDeploymentCatalogLoadService deploymentCatalogLoadService,
         IDeploymentLaunchPreparationService deploymentLaunchPreparationService,
@@ -115,7 +114,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         ILogger<MainWindowViewModel> logger)
     {
         _themeService = themeService;
-        _expertDeployConfigurationService = expertDeployConfigurationService;
+        _deploymentStartupCoordinator = deploymentStartupCoordinator;
         _deploymentCatalogLoadService = deploymentCatalogLoadService;
         _deploymentLaunchPreparationService = deploymentLaunchPreparationService;
         _deploymentWizardStateService = deploymentWizardStateService;
@@ -160,47 +159,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        LoadExpertDeployConfiguration();
-        EnsureCachePathForMode();
-
-        if (IsDebugSafeMode)
-        {
-            Session.SetStatus("Debug Safe Mode enabled: deployment actions are simulated.");
-        }
-
-        await Task.WhenAll(
-                LoadOfflineComputerNameAsync(),
-                LoadHardwareProfileAsync(),
-                Preparation.RefreshTargetDisksCommand.ExecuteAsync(null),
-                RefreshCatalogsAsync())
+        DeploymentStartupSnapshot startupSnapshot = await _deploymentStartupCoordinator.InitializeAsync(
+                new DeploymentStartupRequest
+                {
+                    RuntimeContext = _deploymentRuntimeContext,
+                    IsDebugSafeMode = IsDebugSafeMode,
+                    FallbackComputerName = ResolveInitialComputerName()
+                })
             .ConfigureAwait(false);
 
+        RunOnUi(() => ApplyStartupSnapshot(startupSnapshot));
+
         _isInitialized = true;
-    }
-
-    private void LoadExpertDeployConfiguration()
-    {
-        ExpertDeployConfigurationLoadResult loadResult = _expertDeployConfigurationService.LoadOptional();
-        if (loadResult.Document is null)
-        {
-            return;
-        }
-
-        ApplyExpertDeployConfiguration(loadResult.Document);
-    }
-
-    private void ApplyExpertDeployConfiguration(FoundryDeployConfigurationDocument document)
-    {
-        ArgumentNullException.ThrowIfNull(document);
-        OperatingSystemCatalog.ApplyExpertLocalization(
-            document.Localization.VisibleLanguageCodes,
-            document.Localization.DefaultLanguageCodeOverride,
-            document.Localization.ForceSingleVisibleLanguage);
-        Preparation.ApplyMachineNamingConfiguration(
-            document.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
-            string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
-            ? ResolveInitialComputerName()
-            : Preparation.TargetComputerName);
     }
 
     [RelayCommand]
@@ -281,7 +251,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private async Task StartDeploymentAsync()
     {
         _logger.LogInformation("Start deployment requested.");
-        EnsureCachePathForMode();
         DriverPackSelectionKind effectiveDriverPackKind = DriverPackSelection.EffectiveSelectionKind;
         DriverPackCatalogItem? effectiveDriverPack = DriverPackSelection.ResolveEffectiveSelection();
         DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
@@ -429,23 +398,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return IsDebugSafeMode && !IsDeploymentRunning;
     }
 
-    private void EnsureCachePathForMode()
-    {
-        if (IsDebugSafeMode)
-        {
-            Preparation.CacheRootPath = Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "Debug");
-            return;
-        }
-
-        if (_deploymentRuntimeContext.Mode == DeploymentMode.Usb)
-        {
-            Preparation.CacheRootPath = _deploymentRuntimeContext.UsbCacheRuntimeRoot ?? WinPeTransientRuntimeRoot;
-            return;
-        }
-
-        Preparation.CacheRootPath = WinPeTransientRuntimeRoot;
-    }
-
     private bool CanRefreshCatalogs()
     {
         return !IsCatalogLoading && !IsDeploymentRunning;
@@ -498,30 +450,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void RefreshDriverPackSelectionContext()
     {
         DriverPackSelection.UpdateSelectionContext(
-            _detectedHardware,
+            Preparation.DetectedHardware,
             OperatingSystemCatalog.SelectedOperatingSystem,
             OperatingSystemCatalog.EffectiveOsArchitecture);
-    }
-
-    private async Task LoadHardwareProfileAsync()
-    {
-        await Preparation.LoadHardwareProfileAsync().ConfigureAwait(false);
-        RunOnUi(() =>
-        {
-            _detectedHardware = Preparation.DetectedHardware;
-            if (Preparation.DetectedHardware is not null)
-            {
-                OperatingSystemCatalog.SetEffectiveArchitecture(Preparation.DetectedHardware.Architecture);
-            }
-
-            RefreshDriverPackSelectionContext();
-        });
-    }
-
-    private async Task LoadOfflineComputerNameAsync()
-    {
-        await Preparation.LoadOfflineComputerNameAsync(ResolveInitialComputerName()).ConfigureAwait(false);
-        RunOnUi(() => Session.SetComputerName(Preparation.TargetComputerName));
     }
 
     private static string ResolveInitialComputerName()
@@ -530,6 +461,54 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return normalized.Length > 0
             ? normalized
             : ComputerNameRules.FallbackName;
+    }
+
+    private void ApplyStartupSnapshot(DeploymentStartupSnapshot startupSnapshot)
+    {
+        ArgumentNullException.ThrowIfNull(startupSnapshot);
+
+        Preparation.CacheRootPath = startupSnapshot.CacheRootPath;
+
+        if (!string.IsNullOrWhiteSpace(startupSnapshot.StartupStatusMessage))
+        {
+            Session.SetStatus(startupSnapshot.StartupStatusMessage);
+        }
+
+        if (startupSnapshot.ExpertConfigurationDocument is not null)
+        {
+            OperatingSystemCatalog.ApplyExpertLocalization(
+                startupSnapshot.ExpertConfigurationDocument.Localization.VisibleLanguageCodes,
+                startupSnapshot.ExpertConfigurationDocument.Localization.DefaultLanguageCodeOverride,
+                startupSnapshot.ExpertConfigurationDocument.Localization.ForceSingleVisibleLanguage);
+            Preparation.ApplyMachineNamingConfiguration(
+                startupSnapshot.ExpertConfigurationDocument.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
+                string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
+                    ? ResolveInitialComputerName()
+                    : Preparation.TargetComputerName);
+        }
+
+        Preparation.ApplyOfflineComputerName(startupSnapshot.EffectiveComputerName);
+        Session.SetComputerName(Preparation.TargetComputerName);
+
+        if (startupSnapshot.DetectedHardware is not null)
+        {
+            Preparation.SetDetectedHardware(startupSnapshot.DetectedHardware);
+            OperatingSystemCatalog.SetEffectiveArchitecture(startupSnapshot.DetectedHardware.Architecture);
+        }
+        else if (!string.IsNullOrWhiteSpace(startupSnapshot.HardwareDetectionFailureMessage))
+        {
+            Preparation.SetHardwareDetectionFailure(startupSnapshot.HardwareDetectionFailureMessage);
+        }
+
+        string targetDiskStatusMessage = Preparation.ApplyTargetDisks(startupSnapshot.TargetDisks);
+        OperatingSystemCatalog.ApplyCatalog(startupSnapshot.CatalogSnapshot.OperatingSystems);
+        DriverPackSelection.ReplaceCatalog(startupSnapshot.CatalogSnapshot.DriverPacks);
+        RefreshDriverPackSelectionContext();
+
+        Session.SetStatus(
+            !string.IsNullOrWhiteSpace(startupSnapshot.TargetDiskStatusMessage)
+                ? startupSnapshot.TargetDiskStatusMessage
+                : $"Catalogs loaded: {OperatingSystemCatalog.OperatingSystems.Count} OS entries, {DriverPackSelection.CatalogCount} driver packs.");
     }
 
     private void RunOnUi(Action action)

@@ -11,6 +11,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
@@ -30,6 +31,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
+        services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();

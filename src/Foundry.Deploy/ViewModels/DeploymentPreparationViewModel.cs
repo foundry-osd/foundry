@@ -90,35 +90,8 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         try
         {
             IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync();
-
-            TargetDisks.Clear();
-            foreach (TargetDiskInfo disk in disks)
-            {
-                TargetDisks.Add(disk);
-            }
-
-            if (_isDebugSafeMode && !TargetDisks.Any(item => item.IsSelectable))
-            {
-                TargetDisks.Insert(0, TargetDiskInfoFactory.CreateDebugVirtualDisk());
-            }
-
-            if (TargetDisks.Count == 0)
-            {
-                SelectedTargetDisk = null;
-                PublishStatus("No disks detected.");
-                return;
-            }
-
-            TargetDiskInfo? currentSelection = SelectedTargetDisk is null
-                ? null
-                : TargetDisks.FirstOrDefault(item => item.DiskNumber == SelectedTargetDisk.DiskNumber);
-
-            SelectedTargetDisk = currentSelection
-                ?? TargetDisks.FirstOrDefault(item => item.IsSelectable)
-                ?? (_isDebugSafeMode ? TargetDisks.FirstOrDefault(item => item.DiskNumber == TargetDiskInfoFactory.CreateDebugVirtualDisk().DiskNumber) : null)
-                ?? TargetDisks.FirstOrDefault();
-
-            PublishStatus($"Target disks loaded: {TargetDisks.Count} detected.");
+            string statusMessage = ApplyTargetDisks(disks);
+            PublishStatus(statusMessage);
         }
         catch (Exception ex)
         {
@@ -217,6 +190,41 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         string configuredName = BuildConfiguredComputerName(effectiveName);
         ApplyManagedComputerNameValue(configuredName);
         RaiseStateChanged();
+    }
+
+    public string ApplyTargetDisks(IReadOnlyList<TargetDiskInfo> disks)
+    {
+        ArgumentNullException.ThrowIfNull(disks);
+
+        TargetDisks.Clear();
+        foreach (TargetDiskInfo disk in disks)
+        {
+            TargetDisks.Add(disk);
+        }
+
+        if (_isDebugSafeMode && !TargetDisks.Any(item => item.IsSelectable))
+        {
+            TargetDisks.Insert(0, TargetDiskInfoFactory.CreateDebugVirtualDisk());
+        }
+
+        if (TargetDisks.Count == 0)
+        {
+            SelectedTargetDisk = null;
+            RaiseStateChanged();
+            return "No disks detected.";
+        }
+
+        TargetDiskInfo? currentSelection = SelectedTargetDisk is null
+            ? null
+            : TargetDisks.FirstOrDefault(item => item.DiskNumber == SelectedTargetDisk.DiskNumber);
+
+        SelectedTargetDisk = currentSelection
+            ?? TargetDisks.FirstOrDefault(item => item.IsSelectable)
+            ?? (_isDebugSafeMode ? TargetDisks.FirstOrDefault(item => item.DiskNumber == TargetDiskInfoFactory.CreateDebugVirtualDisk().DiskNumber) : null)
+            ?? TargetDisks.FirstOrDefault();
+
+        RaiseStateChanged();
+        return $"Target disks loaded: {TargetDisks.Count} detected.";
     }
 
     partial void OnTargetComputerNameChanged(string value)
