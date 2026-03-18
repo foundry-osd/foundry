@@ -38,7 +38,7 @@
                 <MenuItem Header="_Tools">
                     <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
                     <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
-                    <MenuItem Command="{Binding OpenLogFileCommand}" Header="Open Log File" />
+                    <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="Open Log File" />
                 </MenuItem>
             </Menu>
 
@@ -54,7 +54,7 @@
         <!--  Row 1: Main content area  -->
         <Grid Grid.Row="1" Margin="16">
             <!--  Wizard page (configuration flow)  -->
-            <Grid Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Visibility="{Binding Session.IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -426,7 +426,9 @@
             </Grid>
 
             <!--  Progress page (execution flow)  -->
-            <Grid Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid
+                DataContext="{Binding Session}"
+                Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -562,7 +564,9 @@
             </Grid>
 
             <!--  Success page (completion flow)  -->
-            <Grid Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid
+                DataContext="{Binding Session}"
+                Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -647,7 +651,9 @@
             </Grid>
 
             <!--  Error page (failure flow)  -->
-            <Grid Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid
+                DataContext="{Binding Session}"
+                Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -754,8 +760,8 @@
         </Grid>
 
         <!--  Row 2: Bottom status bar  -->
-        <StatusBar Grid.Row="2" Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <StatusBarItem Content="{Binding DeploymentStatus}" />
+        <StatusBar Grid.Row="2" Visibility="{Binding Session.IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StatusBarItem Content="{Binding Session.DeploymentStatus}" />
         </StatusBar>
     </Grid>
 </Window>

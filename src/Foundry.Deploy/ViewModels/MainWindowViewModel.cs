@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
@@ -17,7 +17,6 @@ using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
-using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
@@ -81,7 +80,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     ];
     private readonly IThemeService _themeService;
     private readonly IApplicationShellService _applicationShellService;
-    private readonly IOperationProgressService _operationProgressService;
     private readonly IExpertDeployConfigurationService _expertDeployConfigurationService;
     private readonly IOperatingSystemCatalogService _operatingSystemCatalogService;
     private readonly IDriverPackCatalogService _driverPackCatalogService;
@@ -90,7 +88,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
-    private readonly IProcessRunner _processRunner;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentMode _resolvedDeploymentMode;
@@ -98,12 +95,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly HashSet<string> _configuredVisibleLanguageCodes = new(StringComparer.OrdinalIgnoreCase);
     private HardwareProfile? _detectedHardware;
     private DeployMachineNamingSettings _machineNamingConfiguration = new();
-    private DispatcherTimer? _elapsedTimeTimer;
-    private DispatcherTimer? _rebootCountdownTimer;
-    private DateTimeOffset? _deploymentStartTimeUtc;
-    private int _activeStepIndex;
     private string? _configuredDefaultLanguageCodeOverride;
-    private string _lastLogsDirectoryPath = string.Empty;
     private string _lockedComputerNamePrefix = string.Empty;
     private bool _forceSingleVisibleLanguageSelection;
     private bool _hasLoggedUnavailableConfiguredLanguages;
@@ -116,7 +108,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool _hasUserSelectedFirmwareOption;
     private bool _firmwareUpdatesPreference = true;
     private bool _isInitialized;
-    private bool _isRebootInProgress;
     private bool _isDisposed;
     private Task? _initializationTask;
 
@@ -146,44 +137,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool isDeploymentRunning;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsWizardPage))]
-    [NotifyPropertyChangedFor(nameof(IsProgressPage))]
-    [NotifyPropertyChangedFor(nameof(IsSuccessPage))]
-    [NotifyPropertyChangedFor(nameof(IsErrorPage))]
-    [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
-    private DeploymentPage currentPage = DeploymentPage.Wizard;
-
-    [ObservableProperty]
-    private string deploymentStatus = "Ready";
-
-    [ObservableProperty]
-    private int deploymentProgress;
-
-    [ObservableProperty]
-    private bool isGlobalProgressIndeterminate = true;
-
-    [ObservableProperty]
-    private string globalProgressPercentText = "0%";
-
-    [ObservableProperty]
-    private string currentStepName = "Waiting for deployment...";
-
-    [ObservableProperty]
-    private string stepCounterText = "Step: ? of ?";
-
-    [ObservableProperty]
-    private double currentStepProgress;
-
-    [ObservableProperty]
-    private bool isCurrentStepProgressIndeterminate = true;
-
-    [ObservableProperty]
-    private string currentStepProgressText = "Waiting for progress...";
-
-    [ObservableProperty]
-    private string computerNameText = string.Empty;
-
-    [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
     private string targetComputerName = string.Empty;
 
@@ -193,34 +146,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
     private string targetComputerNameValidationMessage = string.Empty;
-
-    [ObservableProperty]
-    private string ipAddress = "N/A";
-
-    [ObservableProperty]
-    private string subnetMask = "N/A";
-
-    [ObservableProperty]
-    private string gatewayAddress = "N/A";
-
-    [ObservableProperty]
-    private string macAddress = "N/A";
-
-    [ObservableProperty]
-    private string startTimeText = "N/A";
-
-    [ObservableProperty]
-    private string elapsedTimeText = "00:00:00";
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
-    private int rebootCountdownSeconds = 10;
-
-    [ObservableProperty]
-    private string failedStepName = string.Empty;
-
-    [ObservableProperty]
-    private string failedStepErrorMessage = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
@@ -298,13 +223,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public ObservableCollection<string> DriverPackModelOptions { get; } = [];
     public ObservableCollection<string> DriverPackVersionOptions { get; } = [];
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
+    public DeploymentSessionViewModel Session { get; }
 
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
-    public bool IsWizardPage => CurrentPage == DeploymentPage.Wizard;
-    public bool IsProgressPage => CurrentPage == DeploymentPage.Progress;
-    public bool IsSuccessPage => CurrentPage == DeploymentPage.Success;
-    public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
     public string DriverPackModeDisplay => SelectedDriverPackOption?.Kind switch
     {
         DriverPackSelectionKind.MicrosoftUpdateCatalog => "Microsoft Update Catalog",
@@ -352,7 +274,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         _themeService = themeService;
         _applicationShellService = applicationShellService;
-        _operationProgressService = operationProgressService;
         _expertDeployConfigurationService = expertDeployConfigurationService;
         _operatingSystemCatalogService = operatingSystemCatalogService;
         _driverPackCatalogService = driverPackCatalogService;
@@ -361,15 +282,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _targetDiskService = targetDiskService;
         _driverPackSelectionService = driverPackSelectionService;
-        _processRunner = processRunner;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         (DeploymentMode resolvedMode, string? resolvedUsbCacheRuntimeRoot) = ResolveDeploymentRuntimeContext();
         _resolvedDeploymentMode = resolvedMode;
         _resolvedUsbCacheRuntimeRoot = resolvedUsbCacheRuntimeRoot;
-
-        _operationProgressService.ProgressChanged += OnOperationProgressChanged;
-        _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
+        Session = new DeploymentSessionViewModel(
+            _dispatcher,
+            _logger,
+            operationProgressService,
+            _deploymentOrchestrator,
+            processRunner,
+            IsDebugSafeMode);
     }
 
     public Task InitializeAsync()
@@ -389,7 +313,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (IsDebugSafeMode)
         {
-            DeploymentStatus = "Debug Safe Mode enabled: deployment actions are simulated.";
+            Session.SetStatus("Debug Safe Mode enabled: deployment actions are simulated.");
         }
 
         await Task.WhenAll(
@@ -475,7 +399,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         IsCatalogLoading = true;
-        DeploymentStatus = "Loading catalogs...";
+        Session.SetStatus("Loading catalogs...");
 
         try
         {
@@ -502,13 +426,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 ApplyOsFilter();
                 RefreshDriverPackOptions();
 
-                DeploymentStatus = $"Catalogs loaded: {OperatingSystems.Count} OS entries, {DriverPacks.Count} driver packs.";
+                Session.SetStatus($"Catalogs loaded: {OperatingSystems.Count} OS entries, {DriverPacks.Count} driver packs.");
             });
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Catalog refresh failed.");
-            RunOnUi(() => DeploymentStatus = $"Catalog load failed: {ex.Message}");
+            RunOnUi(() => Session.SetStatus($"Catalog load failed: {ex.Message}"));
         }
         finally
         {
@@ -526,7 +450,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         IsTargetDiskLoading = true;
-        DeploymentStatus = "Loading target disks...";
+        Session.SetStatus("Loading target disks...");
 
         try
         {
@@ -550,7 +474,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 if (TargetDisks.Count == 0)
                 {
                     SelectedTargetDisk = null;
-                    DeploymentStatus = "No disks detected.";
+                    Session.SetStatus("No disks detected.");
                     return;
                 }
 
@@ -563,13 +487,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                     ?? (IsDebugSafeMode ? TargetDisks.FirstOrDefault(item => item.DiskNumber == BuildDebugVirtualDisk().DiskNumber) : null)
                     ?? TargetDisks.FirstOrDefault();
 
-                DeploymentStatus = $"Target disks loaded: {TargetDisks.Count} detected.";
+                Session.SetStatus($"Target disks loaded: {TargetDisks.Count} detected.");
             });
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Target disk discovery failed.");
-            RunOnUi(() => DeploymentStatus = $"Target disk discovery failed: {ex.Message}");
+            RunOnUi(() => Session.SetStatus($"Target disk discovery failed: {ex.Message}"));
         }
         finally
         {
@@ -607,7 +531,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string normalizedComputerName = ComputerNameRules.Normalize(TargetComputerName);
         if (!ComputerNameRules.IsValid(normalizedComputerName))
         {
-            DeploymentStatus = "Enter a valid computer name.";
+            Session.SetStatus("Enter a valid computer name.");
             return;
         }
 
@@ -624,19 +548,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (effectiveTargetDisk is null)
         {
-            DeploymentStatus = "Select a target disk.";
+            Session.SetStatus("Select a target disk.");
             return;
         }
 
         if (!IsDebugSafeMode && !effectiveTargetDisk.IsSelectable)
         {
-            DeploymentStatus = $"Selected disk is blocked: {effectiveTargetDisk.SelectionWarning}";
+            Session.SetStatus($"Selected disk is blocked: {effectiveTargetDisk.SelectionWarning}");
             return;
         }
 
         if (!IsDebugSafeMode && !ConfirmDestructiveDeployment(effectiveTargetDisk, SelectedOperatingSystem))
         {
-            DeploymentStatus = "Deployment cancelled by user.";
+            Session.SetStatus("Deployment cancelled by user.");
             return;
         }
 
@@ -646,7 +570,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (effectiveDriverPackKind == DriverPackSelectionKind.OemCatalog &&
             effectiveDriverPack is null)
         {
-            DeploymentStatus = "Select a valid OEM model/version before starting deployment.";
+            Session.SetStatus("Select a valid OEM model/version before starting deployment.");
             return;
         }
 
@@ -654,11 +578,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RunOnUi(() =>
         {
             IsDeploymentRunning = true;
-            ClearFailureDetails();
-            InitializeProgressState();
-            CurrentPage = DeploymentPage.Progress;
-            _lastLogsDirectoryPath = string.Empty;
-            DeploymentStatus = "Deployment started.";
+            Session.BeginDeployment(normalizedComputerName, _deploymentOrchestrator.PlannedSteps.Count);
         });
 
         DeploymentContext context = new()
@@ -684,23 +604,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             RunOnUi(() =>
             {
-                _lastLogsDirectoryPath = result.LogsDirectoryPath;
                 if (result.IsSuccess)
                 {
-                    DeploymentStatus = "Deployment completed.";
-                    CurrentPage = DeploymentPage.Success;
+                    Session.CompleteDeployment("Deployment completed.", result.LogsDirectoryPath);
                     return;
                 }
 
-                string fallbackStep = string.IsNullOrWhiteSpace(FailedStepName)
-                    ? CurrentStepName
-                    : FailedStepName;
-                string fallbackMessage = string.IsNullOrWhiteSpace(FailedStepErrorMessage)
+                string fallbackStep = string.IsNullOrWhiteSpace(Session.FailedStepName)
+                    ? Session.CurrentStepName
+                    : Session.FailedStepName;
+                string fallbackMessage = string.IsNullOrWhiteSpace(Session.FailedStepErrorMessage)
                     ? result.Message
-                    : FailedStepErrorMessage;
-                SetFailureDetails(fallbackStep, fallbackMessage);
-                DeploymentStatus = $"Deployment failed: {result.Message}";
-                CurrentPage = DeploymentPage.Error;
+                    : Session.FailedStepErrorMessage;
+                Session.FailDeployment($"Deployment failed: {result.Message}", fallbackStep, fallbackMessage, result.LogsDirectoryPath);
             });
             _logger.LogInformation("Deployment run completed. IsSuccess={IsSuccess}, LogsDirectoryPath={LogsDirectoryPath}",
                 result.IsSuccess,
@@ -711,9 +627,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _logger.LogError(ex, "Deployment execution failed in view model.");
             RunOnUi(() =>
             {
-                SetFailureDetails(CurrentStepName, ex.Message);
-                DeploymentStatus = $"Deployment failed: {ex.Message}";
-                CurrentPage = DeploymentPage.Error;
+                Session.FailDeployment($"Deployment failed: {ex.Message}", Session.CurrentStepName, ex.Message);
             });
         }
         finally
@@ -721,96 +635,42 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             RunOnUi(() =>
             {
                 IsDeploymentRunning = false;
-                StopElapsedTimeTracking();
             });
         }
-    }
-
-    [RelayCommand]
-    private void OpenLogFile()
-    {
-        try
-        {
-            string logFilePath = ResolveEffectiveLogFilePath();
-            ProcessStartInfo startInfo = new("notepad.exe")
-            {
-                UseShellExecute = false
-            };
-            startInfo.ArgumentList.Add(logFilePath);
-            _ = Process.Start(startInfo);
-            _logger.LogInformation("Opened log file at {LogFilePath}.", logFilePath);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to open log file.");
-            DeploymentStatus = $"Unable to open log file: {ex.Message}";
-        }
-    }
-
-    [RelayCommand(CanExecute = nameof(CanRebootNow))]
-    private async Task RebootNowAsync()
-    {
-        await ExecuteRebootAsync("Manual reboot requested.").ConfigureAwait(false);
     }
 
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
     private void ShowDebugProgressPage()
     {
-        ClearFailureDetails();
-        InitializeProgressState();
-        DeploymentProgress = 42;
-        UpdateGlobalProgressVisuals(DeploymentProgress);
-        ComputerNameText = TargetComputerName;
-        CurrentStepName = DeploymentStepNames.ApplyOperatingSystemImage;
-        StepCounterText = BuildStepCounterText(7);
-        CurrentStepProgress = 65;
-        IsCurrentStepProgressIndeterminate = false;
-        CurrentStepProgressText = "Applying image: 65%";
-        DeploymentStatus = "Debug preview: progress page.";
-        CurrentPage = DeploymentPage.Progress;
+        Session.ShowDebugProgress(
+            TargetComputerName,
+            currentStepIndex: 7,
+            plannedStepCount: _deploymentOrchestrator.PlannedSteps.Count,
+            currentStepName: DeploymentStepNames.ApplyOperatingSystemImage,
+            progressPercent: 42);
     }
 
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
     private void ShowDebugSuccessPage()
     {
-        StopElapsedTimeTracking();
-        ClearFailureDetails();
-        DeploymentProgress = 100;
-        UpdateGlobalProgressVisuals(DeploymentProgress);
-        ComputerNameText = TargetComputerName;
-        CurrentStepName = DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
-        StepCounterText = BuildStepCounterText(_deploymentOrchestrator.PlannedSteps.Count);
-        CurrentStepProgress = 100;
-        IsCurrentStepProgressIndeterminate = false;
-        CurrentStepProgressText = "Step completed.";
-        DeploymentStatus = "Debug preview: success page.";
-        CurrentPage = DeploymentPage.Success;
+        Session.ShowDebugSuccess(
+            TargetComputerName,
+            _deploymentOrchestrator.PlannedSteps.Count,
+            DeploymentStepNames.FinalizeDeploymentAndWriteLogs);
     }
 
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
     private void ShowDebugErrorPage()
     {
-        StopElapsedTimeTracking();
-        ComputerNameText = TargetComputerName;
-        StepCounterText = BuildStepCounterText(7);
-        SetFailureDetails(
-            DeploymentStepNames.ApplyOperatingSystemImage,
+        Session.ShowDebugError(
+            TargetComputerName,
+            currentStepIndex: 7,
+            failedStepName: DeploymentStepNames.ApplyOperatingSystemImage,
+            failedStepErrorMessage:
             "Debug preview: DISM apply failed because the target partition is read-only.\n\n" +
             "ErrorCode=0x80070005\n" +
             "Details: Access denied while mounting image to target path.\n" +
             "Action: Verify disk attributes and retry deployment.");
-        DeploymentStatus = "Debug preview: error page.";
-        CurrentPage = DeploymentPage.Error;
-    }
-
-    private string ResolveEffectiveLogFilePath()
-    {
-        if (!string.IsNullOrWhiteSpace(_lastLogsDirectoryPath))
-        {
-            return Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
-        }
-
-        return FoundryDeployLogging.ResolveStartupLogFilePath();
     }
 
     partial void OnSelectedOperatingSystemChanged(OperatingSystemCatalogItem? value)
@@ -920,359 +780,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (!IsDebugSafeMode && !value.IsSelectable)
         {
-            DeploymentStatus = $"Selected disk blocked: {value.SelectionWarning}";
+            Session.SetStatus($"Selected disk blocked: {value.SelectionWarning}");
         }
-    }
-
-    partial void OnCurrentPageChanged(DeploymentPage value)
-    {
-        if (value == DeploymentPage.Success)
-        {
-            StartRebootCountdown();
-        }
-        else
-        {
-            StopRebootCountdown(resetSeconds: true);
-        }
-
-        if (value != DeploymentPage.Progress && !IsDeploymentRunning)
-        {
-            StopElapsedTimeTracking();
-        }
-
-        RebootNowCommand.NotifyCanExecuteChanged();
-    }
-
-    private void OnOperationProgressChanged(object? sender, EventArgs e)
-    {
-        RunOnUi(() =>
-        {
-            if (!IsDeploymentRunning &&
-                !_operationProgressService.IsOperationInProgress &&
-                string.IsNullOrWhiteSpace(_operationProgressService.Status))
-            {
-                return;
-            }
-
-            int normalizedProgress = Math.Clamp(_operationProgressService.Progress, 0, 100);
-            DeploymentProgress = Math.Max(DeploymentProgress, normalizedProgress);
-            UpdateGlobalProgressVisuals(DeploymentProgress);
-
-            if (!string.IsNullOrWhiteSpace(_operationProgressService.Status))
-            {
-                DeploymentStatus = _operationProgressService.Status!;
-            }
-        });
-    }
-
-    private void OnStepProgressChanged(object? sender, DeploymentStepProgress e)
-    {
-        RunOnUi(() =>
-        {
-            if (e.StepIndex != _activeStepIndex)
-            {
-                _activeStepIndex = e.StepIndex;
-                CurrentStepProgress = 0;
-                IsCurrentStepProgressIndeterminate = true;
-                CurrentStepProgressText = "Starting step...";
-            }
-
-            CurrentStepName = e.StepName;
-            StepCounterText = $"Step: {e.StepIndex} of {e.StepCount}";
-
-            DeploymentProgress = Math.Max(DeploymentProgress, e.ProgressPercent);
-            UpdateGlobalProgressVisuals(DeploymentProgress);
-            UpdateCurrentStepProgressVisuals(e);
-
-            if (!string.IsNullOrWhiteSpace(e.Message))
-            {
-                DeploymentStatus = e.Message;
-            }
-
-            if (e.State == DeploymentStepState.Failed)
-            {
-                SetFailureDetails(e.StepName, e.Message ?? "Step failed.");
-            }
-        });
-    }
-
-    private void InitializeProgressState()
-    {
-        _activeStepIndex = 0;
-        DeploymentProgress = 0;
-        UpdateGlobalProgressVisuals(0);
-
-        CurrentStepName = "Preparing deployment...";
-        CurrentStepProgress = 0;
-        IsCurrentStepProgressIndeterminate = true;
-        CurrentStepProgressText = "Waiting for progress...";
-
-        StepCounterText = BuildStepCounterText(0);
-        ComputerNameText = TargetComputerName;
-        CaptureNetworkSnapshot();
-
-        _deploymentStartTimeUtc = DateTimeOffset.Now;
-        StartTimeText = _deploymentStartTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-        ElapsedTimeText = "00:00:00";
-        StartElapsedTimeTracking();
-    }
-
-    private void UpdateGlobalProgressVisuals(int progressValue)
-    {
-        int clampedProgress = Math.Clamp(progressValue, 0, 100);
-        GlobalProgressPercentText = $"{clampedProgress}%";
-        IsGlobalProgressIndeterminate = IsDeploymentRunning && clampedProgress <= 0;
-    }
-
-    private void UpdateCurrentStepProgressVisuals(DeploymentStepProgress stepProgress)
-    {
-        if (stepProgress.State == DeploymentStepState.Succeeded)
-        {
-            CurrentStepProgress = 100;
-            IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = stepProgress.StepSubProgressLabel ?? "Step completed.";
-            return;
-        }
-
-        if (stepProgress.State == DeploymentStepState.Failed)
-        {
-            IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = stepProgress.Message ?? "Step failed.";
-            return;
-        }
-
-        if (stepProgress.State == DeploymentStepState.Skipped)
-        {
-            IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = stepProgress.Message ?? "Step skipped.";
-            return;
-        }
-
-        if (stepProgress.StepSubProgressPercent.HasValue)
-        {
-            double normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0d, 100d);
-            CurrentStepProgress = normalized;
-            IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = string.IsNullOrWhiteSpace(stepProgress.StepSubProgressLabel)
-                ? $"{normalized:0.#}%"
-                : stepProgress.StepSubProgressLabel!;
-            return;
-        }
-
-        if (stepProgress.StepSubProgressIndeterminate)
-        {
-            IsCurrentStepProgressIndeterminate = true;
-            CurrentStepProgressText = stepProgress.StepSubProgressLabel ?? "In progress...";
-        }
-    }
-
-    private void StartElapsedTimeTracking()
-    {
-        StopElapsedTimeTracking();
-        _elapsedTimeTimer = new DispatcherTimer(DispatcherPriority.Background, _dispatcher)
-        {
-            Interval = TimeSpan.FromSeconds(1)
-        };
-        _elapsedTimeTimer.Tick += OnElapsedTimeTick;
-        _elapsedTimeTimer.Start();
-    }
-
-    private void StopElapsedTimeTracking()
-    {
-        if (_elapsedTimeTimer is null)
-        {
-            return;
-        }
-
-        _elapsedTimeTimer.Tick -= OnElapsedTimeTick;
-        _elapsedTimeTimer.Stop();
-        _elapsedTimeTimer = null;
-    }
-
-    private void OnElapsedTimeTick(object? sender, EventArgs e)
-    {
-        if (!_deploymentStartTimeUtc.HasValue)
-        {
-            return;
-        }
-
-        TimeSpan elapsed = DateTimeOffset.Now - _deploymentStartTimeUtc.Value;
-        ElapsedTimeText = elapsed.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
-    }
-
-    private void StartRebootCountdown()
-    {
-        StopRebootCountdown(resetSeconds: false);
-        RebootCountdownSeconds = 10;
-        _rebootCountdownTimer = new DispatcherTimer(DispatcherPriority.Background, _dispatcher)
-        {
-            Interval = TimeSpan.FromSeconds(1)
-        };
-        _rebootCountdownTimer.Tick += OnRebootCountdownTick;
-        _rebootCountdownTimer.Start();
-    }
-
-    private void StopRebootCountdown(bool resetSeconds)
-    {
-        if (_rebootCountdownTimer is not null)
-        {
-            _rebootCountdownTimer.Tick -= OnRebootCountdownTick;
-            _rebootCountdownTimer.Stop();
-            _rebootCountdownTimer = null;
-        }
-
-        if (resetSeconds)
-        {
-            RebootCountdownSeconds = 10;
-        }
-    }
-
-    private void OnRebootCountdownTick(object? sender, EventArgs e)
-    {
-        if (RebootCountdownSeconds > 0)
-        {
-            RebootCountdownSeconds--;
-        }
-
-        if (RebootCountdownSeconds > 0)
-        {
-            return;
-        }
-
-        StopRebootCountdown(resetSeconds: false);
-        if (!IsDebugSafeMode)
-        {
-            _ = ExecuteRebootAsync("Automatic reboot countdown completed.");
-        }
-    }
-
-    private bool CanRebootNow()
-    {
-        return IsSuccessPage && !IsDebugSafeMode && !_isRebootInProgress;
     }
 
     private bool CanShowDebugPages()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
-    }
-
-    private async Task ExecuteRebootAsync(string reason)
-    {
-        if (IsDebugSafeMode || _isRebootInProgress)
-        {
-            return;
-        }
-
-        _isRebootInProgress = true;
-        RebootNowCommand.NotifyCanExecuteChanged();
-        StopRebootCountdown(resetSeconds: false);
-
-        try
-        {
-            string rebootExecutablePath = Path.Combine(Environment.SystemDirectory, "wpeutil.exe");
-            if (!File.Exists(rebootExecutablePath))
-            {
-                throw new FileNotFoundException("Required reboot executable 'wpeutil.exe' was not found.", rebootExecutablePath);
-            }
-
-            DeploymentStatus = "Rebooting now...";
-
-            ProcessExecutionResult result = await _processRunner
-                .RunAsync(rebootExecutablePath, "Reboot", Path.GetTempPath())
-                .ConfigureAwait(false);
-
-            if (result.ExitCode == 0)
-            {
-                return;
-            }
-
-            RunOnUi(() =>
-            {
-                string diagnostic = string.IsNullOrWhiteSpace(result.StandardError)
-                    ? result.StandardOutput
-                    : result.StandardError;
-                SetFailureDetails("System reboot", $"wpeutil.exe failed with exit code {result.ExitCode}. {diagnostic}".Trim());
-                DeploymentStatus = "Reboot command failed.";
-                CurrentPage = DeploymentPage.Error;
-            });
-        }
-        catch (Exception ex)
-        {
-            RunOnUi(() =>
-            {
-                SetFailureDetails("System reboot", ex.Message);
-                DeploymentStatus = $"Reboot command failed: {ex.Message}";
-                CurrentPage = DeploymentPage.Error;
-            });
-        }
-        finally
-        {
-            RunOnUi(() =>
-            {
-                _isRebootInProgress = false;
-                RebootNowCommand.NotifyCanExecuteChanged();
-            });
-        }
-    }
-
-    private void SetFailureDetails(string? stepName, string? errorMessage)
-    {
-        FailedStepName = string.IsNullOrWhiteSpace(stepName) ? "Unknown step" : stepName;
-        FailedStepErrorMessage = string.IsNullOrWhiteSpace(errorMessage) ? "No error details were provided." : errorMessage;
-    }
-
-    private void ClearFailureDetails()
-    {
-        FailedStepName = string.Empty;
-        FailedStepErrorMessage = string.Empty;
-    }
-
-    private void CaptureNetworkSnapshot()
-    {
-        IpAddress = "N/A";
-        SubnetMask = "N/A";
-        GatewayAddress = "N/A";
-        MacAddress = "N/A";
-
-        try
-        {
-            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (networkInterface.OperationalStatus != OperationalStatus.Up)
-                {
-                    continue;
-                }
-
-                if (networkInterface.NetworkInterfaceType is NetworkInterfaceType.Loopback or NetworkInterfaceType.Tunnel)
-                {
-                    continue;
-                }
-
-                IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
-                UnicastIPAddressInformation? ipv4AddressInfo = ipProperties.UnicastAddresses
-                    .FirstOrDefault(item => item.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                if (ipv4AddressInfo is null)
-                {
-                    continue;
-                }
-
-                GatewayIPAddressInformation? gatewayInfo = ipProperties.GatewayAddresses
-                    .FirstOrDefault(item => item.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                byte[] macBytes = networkInterface.GetPhysicalAddress().GetAddressBytes();
-
-                IpAddress = ipv4AddressInfo.Address.ToString();
-                SubnetMask = ipv4AddressInfo.IPv4Mask?.ToString() ?? "N/A";
-                GatewayAddress = gatewayInfo?.Address.ToString() ?? "N/A";
-                MacAddress = macBytes.Length == 0
-                    ? "N/A"
-                    : string.Join("-", macBytes.Select(value => value.ToString("X2", CultureInfo.InvariantCulture)));
-                return;
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogDebug(ex, "Unable to resolve network snapshot for the progress page.");
-        }
     }
 
     private void EnsureCachePathForMode()
@@ -2464,18 +1978,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
     }
 
-    private string BuildStepCounterText(int currentStep)
-    {
-        int plannedStepCount = _deploymentOrchestrator.PlannedSteps.Count;
-        if (plannedStepCount <= 0)
-        {
-            return "Step: ? of ?";
-        }
-
-        int normalizedStep = Math.Clamp(currentStep, 0, plannedStepCount);
-        return $"Step: {normalizedStep} of {plannedStepCount}";
-    }
-
     private OperatingSystemCatalogItem ApplyEditionSelection(OperatingSystemCatalogItem item)
     {
         if (IsFilterUnset(SelectedEdition))
@@ -2526,7 +2028,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             string configuredName = BuildConfiguredComputerName(effectiveName);
             ApplyManagedComputerNameValue(configuredName);
-            ComputerNameText = TargetComputerName;
+            Session.SetComputerName(TargetComputerName);
         });
     }
 
@@ -2702,10 +2204,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        _operationProgressService.ProgressChanged -= OnOperationProgressChanged;
-        _deploymentOrchestrator.StepProgressChanged -= OnStepProgressChanged;
-        StopElapsedTimeTracking();
-        StopRebootCountdown(resetSeconds: false);
+        Session.Dispose();
         _isDisposed = true;
     }
 
