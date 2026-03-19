@@ -375,7 +375,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(CanBrowseDot1xCertificate))]
     private void BrowseDot1xCertificate()
     {
-        string? selectedPath = _applicationShellService.PickOpenJsonFilePath(
+        string? selectedPath = _applicationShellService.PickOpenFilePath(
             Strings["Dot1xCertificatePickerTitle"],
             Strings["CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
