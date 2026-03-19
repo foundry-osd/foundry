@@ -7,8 +7,10 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Catalog;
+using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
@@ -157,6 +159,48 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RunOnUi(() => ApplyStartupSnapshot(startupSnapshot));
 
         _isInitialized = true;
+    }
+
+    private void LoadExpertDeployConfiguration()
+    {
+        ExpertDeployConfigurationLoadResult loadResult = _expertDeployConfigurationService.LoadOptional();
+        if (loadResult.Document is null)
+        {
+            return;
+        }
+
+        ApplyExpertDeployConfiguration(loadResult.Document);
+    }
+
+    private void ApplyExpertDeployConfiguration(FoundryDeployConfigurationDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+
+        _configuredVisibleLanguageCodes.Clear();
+        foreach (string languageCode in document.Localization.VisibleLanguageCodes)
+        {
+            string normalized = NormalizeLanguageCode(languageCode);
+            if (!string.IsNullOrWhiteSpace(normalized))
+            {
+                _configuredVisibleLanguageCodes.Add(normalized);
+            }
+        }
+
+        _configuredDefaultLanguageCodeOverride = NormalizeOptionalLanguageCode(document.Localization.DefaultLanguageCodeOverride);
+        _forceSingleVisibleLanguageSelection = document.Localization.ForceSingleVisibleLanguage;
+        _machineNamingConfiguration = document.Customization.MachineNaming ?? new DeployMachineNamingSettings();
+        _lockedComputerNamePrefix = ComputerNameRules.Normalize(_machineNamingConfiguration.Prefix);
+        IsTargetComputerNameReadOnly = _machineNamingConfiguration.IsEnabled && !_machineNamingConfiguration.AllowManualSuffixEdit;
+
+        if (_machineNamingConfiguration.IsEnabled)
+        {
+            string seed = string.IsNullOrWhiteSpace(TargetComputerName)
+                ? ResolveInitialComputerName()
+                : TargetComputerName;
+            ApplyManagedComputerNameValue(BuildConfiguredComputerName(seed));
+        }
+
+        OnPropertyChanged(nameof(IsLanguageSelectionEnabled));
     }
 
     [RelayCommand]

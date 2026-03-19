@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Windows.Threading;
 using Foundry.DependencyInjection;
 using Foundry.Logging;
+using Foundry.Services.Configuration;
 using Foundry.Services.Adk;
 using Foundry.Services.WinPe;
 using Microsoft.Extensions.DependencyInjection;

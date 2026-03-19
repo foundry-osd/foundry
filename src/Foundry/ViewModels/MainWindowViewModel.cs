@@ -372,6 +372,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
+    [RelayCommand(CanExecute = nameof(CanBrowseDot1xCertificate))]
+    private void BrowseDot1xCertificate()
+    {
+        string? selectedPath = _applicationShellService.PickOpenJsonFilePath(
+            Strings["Dot1xCertificatePickerTitle"],
+            Strings["CertificatePickerFilter"]);
+        if (!string.IsNullOrWhiteSpace(selectedPath))
+        {
+            Network.CertificatePath = selectedPath;
+        }
+    }
+
     [RelayCommand]
     private async Task InstallAdkAsync()
     {
@@ -608,6 +620,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     }
 
     private bool CanBrowseCustomDriverDirectory()
+    {
+        return !IsOperationInProgress;
+    }
+
+    private bool CanBrowseDot1xCertificate()
     {
         return !IsOperationInProgress;
     }
