@@ -52,9 +52,6 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(SelectedDriverPackSelectionDisplay))]
     private string selectedDriverPackVersion = string.Empty;
 
-    [ObservableProperty]
-    private bool autoSelectDriverPackWhenEmpty = true;
-
     public ObservableCollection<DriverPackCatalogItem> DriverPacks { get; } = [];
 
     public ObservableCollection<DriverPackOptionItem> DriverPackOptions { get; } = [];
@@ -155,11 +152,6 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
     partial void OnSelectedDriverPackVersionChanged(string value)
     {
         NotifyDriverPackSelectionStateChanged();
-    }
-
-    partial void OnAutoSelectDriverPackWhenEmptyChanged(bool value)
-    {
-        RefreshDriverPackOptions();
     }
 
     public DriverPackCatalogItem? ResolveEffectiveDriverPackSelection()
@@ -452,11 +444,6 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
         if (options.Count == 0)
         {
             return null;
-        }
-
-        if (!AutoSelectDriverPackWhenEmpty)
-        {
-            return options.FirstOrDefault(option => option.Kind == DriverPackSelectionKind.None) ?? options[0];
         }
 
         if (_detectedHardware?.IsVirtualMachine == true)
