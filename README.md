@@ -5,14 +5,14 @@
 <h1 align="center">Foundry</h1>
 
 <p align="center">
-  <a href="https://github.com/mchave3/Foundry/releases/latest"><img src="https://img.shields.io/github/v/release/mchave3/Foundry?display_name=tag&sort=semver&style=flat-square&label=Version&color=2563EB" alt="Latest release"></a>
-  <a href="https://github.com/mchave3/Foundry/releases"><img src="https://img.shields.io/github/downloads/mchave3/Foundry/total?style=flat-square&label=Downloads&color=CA8A04" alt="Downloads"></a>
-  <a href="https://github.com/mchave3/Foundry/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/mchave3/Foundry/release.yml?branch=main&style=flat-square&label=CI/CD" alt="Foundry release"></a>
+  <a href="https://github.com/mchave3/Foundry/releases/latest"><img src="https://img.shields.io/github/v/release/mchave3/Foundry?display_name=tag&sort=semver&style=flat-square&label=Version" alt="Latest release"></a>
+  <a href="https://github.com/mchave3/Foundry/releases"><img src="https://img.shields.io/github/downloads/mchave3/Foundry/total?style=flat-square&label=Downloads" alt="Total release asset downloads"></a>
+  <a href="https://github.com/mchave3/Foundry/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/mchave3/Foundry/ci.yml?branch=main&style=flat-square&label=CI" alt="Foundry CI"></a>
   <a href="https://github.com/mchave3/Foundry.Automation/actions/workflows/run-scripts-daily.yml"><img src="https://img.shields.io/github/actions/workflow/status/mchave3/Foundry.Automation/run-scripts-daily.yml?branch=main&style=flat-square&label=Catalog" alt="Foundry.Automation"></a>
-  <a href="https://github.com/mchave3/Foundry/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mchave3/Foundry?style=flat-square&label=License&color=16A34A" alt="License"></a>
-  <img src="https://img.shields.io/badge/Windows-11-0078D6?style=flat-square" alt="Windows 11">
+  <a href="https://github.com/mchave3/Foundry/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mchave3/Foundry?style=flat-square&label=License" alt="License"></a>
+  <img src="https://img.shields.io/badge/Windows-11-2563EB?style=flat-square" alt="Windows 11">
   <img src="https://img.shields.io/badge/Architecture-x64%20%2F%20ARM64-2563EB?style=flat-square" alt="Architecture x64 / ARM64">
-  <img src="https://img.shields.io/badge/.NET-10-512BD4?style=flat-square" alt=".NET 10">
+  <img src="https://img.shields.io/badge/.NET-10-2563EB?style=flat-square" alt=".NET 10">
 </p>
 
 <p align="center">
