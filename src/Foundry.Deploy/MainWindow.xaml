@@ -101,18 +101,7 @@
                             <!--  Step 1 details and toggles  -->
                             <StackPanel Grid.Row="0">
                                 <StackPanel DataContext="{Binding Preparation}">
-                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
-                                    <TextBox
-                                        Margin="0,8,0,0"
-                                        IsReadOnly="True"
-                                        Text="{Binding CacheRootPath}" />
                                     <TextBlock
-                                        Margin="0,8,0,0"
-                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="Cache strategy is determined automatically from WinPE startup context." />
-                                    <TextBlock
-                                        Margin="0,12,0,0"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
                                         Text="Computer Name" />
                                     <TextBox
@@ -333,9 +322,6 @@
                                 Margin="0,0,0,12"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="Deployment Summary" />
-
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.CacheRootPath}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Target Disk" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
