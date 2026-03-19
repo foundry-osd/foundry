@@ -7,13 +7,13 @@
             Margin="0,0,0,8"
             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
             Style="{StaticResource TitleTextBlockStyle}"
-            Text="{Binding DataContext.Strings[ExpertSectionLocalization], RelativeSource={RelativeSource AncestorType=Window}}" />
+            Text="{Binding Strings[ExpertSectionLocalization]}" />
         <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
         <TextBlock
             Margin="0,0,0,8"
             Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="{Binding DataContext.Strings[LocalizationVisibleLanguagesLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+            Text="{Binding Strings[LocalizationVisibleLanguagesLabel]}" />
 
         <Border
             Padding="12"
@@ -40,7 +40,7 @@
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding DataContext.Strings[LocalizationDefaultOverrideLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+                Text="{Binding Strings[LocalizationDefaultOverrideLabel]}" />
             <ComboBox
                 Grid.Column="1"
                 DisplayMemberPath="DisplayName"
@@ -50,7 +50,7 @@
         </Grid>
 
         <CheckBox
-            Content="{Binding DataContext.Strings[LocalizationForceSingleLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+            Content="{Binding Strings[LocalizationForceSingleLabel]}"
             IsChecked="{Binding ForceSingleVisibleLanguage}" />
     </StackPanel>
 </UserControl>

@@ -1,13 +1,15 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Models.Configuration;
+using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-public partial class LocalizationSettingsViewModel : ObservableObject
+public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
 {
-    public LocalizationSettingsViewModel(IReadOnlyList<LanguageRegistryEntry> languages)
+    public LocalizationSettingsViewModel(ILocalizationService localizationService, IReadOnlyList<LanguageRegistryEntry> languages)
+        : base(localizationService)
     {
         foreach (LanguageRegistryEntry language in languages)
         {

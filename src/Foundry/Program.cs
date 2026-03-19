@@ -1,15 +1,12 @@
 using System.Diagnostics;
 using System.Windows.Threading;
+using Foundry.DependencyInjection;
 using Foundry.Logging;
 using Foundry.Services.Configuration;
 using Foundry.Services.Adk;
-using Foundry.Services.ApplicationShell;
-using Foundry.Services.Localization;
-using Foundry.Services.Operations;
-using Foundry.Services.Theme;
 using Foundry.Services.WinPe;
-using Foundry.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
@@ -18,7 +15,7 @@ namespace Foundry;
 public static class Program
 {
     [STAThread]
-    public static void Main()
+    public static void Main(string[] args)
     {
         Log.Logger = FoundryLogging.CreateApplicationLogger();
         RegisterGlobalExceptionHandlers();
@@ -27,13 +24,13 @@ public static class Program
         {
             ConfigureLocalWinPeDeployForDebugSession();
 
-            using ServiceProvider serviceProvider = BuildServiceProvider();
+            using IHost host = BuildHost(args);
 
-            App app = serviceProvider.GetRequiredService<App>();
+            App app = host.Services.GetRequiredService<App>();
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
             app.InitializeComponent();
 
-            MainWindow mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
             app.Run(mainWindow);
         }
         catch (Exception ex)
@@ -47,34 +44,16 @@ public static class Program
         }
     }
 
-    private static ServiceProvider BuildServiceProvider()
+    private static IHost BuildHost(string[] args)
     {
-        ServiceCollection services = new();
+        HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
-        services.AddLogging(builder =>
-        {
-            builder.ClearProviders();
-            builder.AddSerilog(dispose: false);
-        });
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(dispose: false);
 
-        services.AddSingleton<App>();
-        services.AddSingleton<MainWindow>();
-        services.AddSingleton<MainWindowViewModel>();
+        builder.Services.AddFoundryApplicationServices();
 
-        services.AddSingleton<IApplicationShellService, ApplicationShellService>();
-        services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
-        services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
-        services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
-        services.AddSingleton<IThemeService, ThemeService>();
-        services.AddSingleton<ILocalizationService, LocalizationService>();
-        services.AddSingleton<IOperationProgressService, OperationProgressService>();
-        services.AddSingleton<IAdkService, AdkService>();
-        services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
-        services.AddSingleton<IWinPeDriverCatalogService, WinPeDriverCatalogService>();
-        services.AddSingleton<IWinPeDriverInjectionService, WinPeDriverInjectionService>();
-        services.AddSingleton<IMediaOutputService, MediaOutputService>();
-
-        return services.BuildServiceProvider();
+        return builder.Build();
     }
 
     private static void ConfigureLocalWinPeDeployForDebugSession()

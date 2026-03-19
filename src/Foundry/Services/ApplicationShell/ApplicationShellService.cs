@@ -45,7 +45,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    public string? PickOpenJsonFilePath(string title, string filter)
+    public string? PickOpenFilePath(string title, string filter)
     {
         var dialog = new OpenFileDialog
         {
@@ -59,7 +59,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    public string? PickSaveJsonFilePath(string title, string filter, string defaultFileName)
+    public string? PickSaveFilePath(string title, string filter, string defaultFileName)
     {
         var dialog = new SaveFileDialog
         {

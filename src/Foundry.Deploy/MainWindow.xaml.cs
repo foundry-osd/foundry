@@ -13,6 +13,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataObject.AddPastingHandler(TargetComputerNameTextBox, TargetComputerNameTextBox_OnPaste);
         DataContext = viewModel;
+        Loaded += async (_, _) => await viewModel.InitializeAsync();
     }
 
     private void WizardTabControl_PreviewMouseDown(object sender, MouseButtonEventArgs e)

@@ -37,8 +37,8 @@
                 <!--  Tools  -->
                 <MenuItem Header="_Tools">
                     <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
-                    <MenuItem Command="{Binding RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
-                    <MenuItem Command="{Binding OpenLogFileCommand}" Header="Open Log File" />
+                    <MenuItem Command="{Binding Preparation.RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
+                    <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="Open Log File" />
                 </MenuItem>
             </Menu>
 
@@ -54,7 +54,7 @@
         <!--  Row 1: Main content area  -->
         <Grid Grid.Row="1" Margin="16">
             <!--  Wizard page (configuration flow)  -->
-            <Grid Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Visibility="{Binding Session.IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -83,7 +83,7 @@
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding DetectedHardwareSummary}" />
+                        Text="{Binding Preparation.DetectedHardwareSummary}" />
                 </StackPanel>
 
                 <!--  Wizard steps  -->
@@ -100,69 +100,69 @@
 
                             <!--  Step 1 details and toggles  -->
                             <StackPanel Grid.Row="0">
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
-                                <TextBox
-                                    Margin="0,8,0,0"
-                                    IsReadOnly="True"
-                                    Text="{Binding CacheRootPath}" />
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="Cache strategy is determined automatically from WinPE startup context." />
-                                <TextBlock
-                                    Margin="0,12,0,0"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="Computer Name" />
-                                <TextBox
-                                    x:Name="TargetComputerNameTextBox"
-                                    Margin="0,8,0,0"
-                                    IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
-                                    MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
-                                    PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
-                                    Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="1-15 characters. A-Z, a-z, 0-9, and hyphen only." />
-                                <TextBlock
-                                    Margin="0,4,0,0"
-                                    Foreground="#FFC42B1C"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding TargetComputerNameValidationMessage}"
-                                    Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                <TextBlock
-                                    Margin="0,12,0,0"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="Target Disk" />
-                                <DockPanel Margin="0,8,0,0">
-                                    <!--  Available target disks  -->
-                                    <ComboBox
-                                        Width="640"
-                                        DisplayMemberPath="DisplayLabel"
-                                        ItemsSource="{Binding TargetDisks}"
-                                        SelectedItem="{Binding SelectedTargetDisk}" />
-                                    <!--  Force disk rescan  -->
-                                    <Button
-                                        Width="140"
-                                        Margin="8,0,0,0"
-                                        Command="{Binding RefreshTargetDisksCommand}"
-                                        Content="Refresh Disks" />
-                                </DockPanel>
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
-                                <CheckBox Margin="0,12,0,0" IsChecked="{Binding AutoSelectDriverPackWhenEmpty}">
+                                <StackPanel DataContext="{Binding Preparation}">
+                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
+                                    <TextBox
+                                        Margin="0,8,0,0"
+                                        IsReadOnly="True"
+                                        Text="{Binding CacheRootPath}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="Cache strategy is determined automatically from WinPE startup context." />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Computer Name" />
+                                    <TextBox
+                                        x:Name="TargetComputerNameTextBox"
+                                        Margin="0,8,0,0"
+                                        IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
+                                        MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
+                                        PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
+                                        Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="1-15 characters. A-Z, a-z, 0-9, and hyphen only." />
+                                    <TextBlock
+                                        Margin="0,4,0,0"
+                                        Foreground="#FFC42B1C"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding TargetComputerNameValidationMessage}"
+                                        Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Target Disk" />
+                                    <DockPanel Margin="0,8,0,0">
+                                        <ComboBox
+                                            Width="640"
+                                            DisplayMemberPath="DisplayLabel"
+                                            ItemsSource="{Binding TargetDisks}"
+                                            SelectedItem="{Binding SelectedTargetDisk}" />
+                                        <Button
+                                            Width="140"
+                                            Margin="8,0,0,0"
+                                            Command="{Binding RefreshTargetDisksCommand}"
+                                            Content="Refresh Disks" />
+                                    </DockPanel>
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
+                                    <CheckBox
+                                        Margin="0,8,0,0"
+                                        IsChecked="{Binding ApplyFirmwareUpdates}"
+                                        IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Firmware: Microsoft Update Catalog update enabled." />
+                                    </CheckBox>
+                                </StackPanel>
+                                <CheckBox Margin="0,12,0,0" IsChecked="{Binding DriverPackSelection.AutoSelectDriverPackWhenEmpty}">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Auto-select OEM driver pack from detected hardware (fallback to Microsoft Update Catalog)." />
-                                </CheckBox>
-                                <CheckBox
-                                    Margin="0,8,0,0"
-                                    IsChecked="{Binding ApplyFirmwareUpdates}"
-                                    IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Firmware: Microsoft Update Catalog update enabled." />
                                 </CheckBox>
                                 <CheckBox Margin="0,8,0,0" IsChecked="{Binding UseFullAutopilot}">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Full workflow enabled (V1 scope)." />
@@ -188,7 +188,7 @@
                                         Margin="12,0,0,0"
                                         VerticalAlignment="Center"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                        Text="{Binding OperatingSystemCatalog.EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
                                 </DockPanel>
 
                                 <Grid>
@@ -216,8 +216,8 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            ItemsSource="{Binding ReleaseIdFilters}"
-                                            SelectedItem="{Binding SelectedReleaseId}" />
+                                            ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
                                     </StackPanel>
 
                                     <!--  Language and licensing  -->
@@ -225,9 +225,9 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Language" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            IsEnabled="{Binding IsLanguageSelectionEnabled}"
-                                            ItemsSource="{Binding LanguageFilters}"
-                                            SelectedItem="{Binding SelectedLanguageCode}" />
+                                            IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
+                                            ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
                                     </StackPanel>
 
                                     <StackPanel
@@ -237,8 +237,8 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="License Channel" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            ItemsSource="{Binding LicenseChannelFilters}"
-                                            SelectedItem="{Binding SelectedLicenseChannel}">
+                                            ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
@@ -255,8 +255,8 @@
                                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Edition (Target)" />
                                         <ComboBox
                                             Margin="0,8,0,0"
-                                            ItemsSource="{Binding EditionFilters}"
-                                            SelectedItem="{Binding SelectedEdition}">
+                                            ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
+                                            SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=Edition}" />
@@ -286,43 +286,45 @@
                                         Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
                                 </DockPanel>
 
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Source" />
-                                <ComboBox
-                                    Margin="0,8,0,0"
-                                    DisplayMemberPath="DisplayName"
-                                    ItemsSource="{Binding DriverPackOptions}"
-                                    SelectedItem="{Binding SelectedDriverPackOption}" />
-                                <!--  Driver model/version refinement  -->
-                                <Grid Margin="0,8,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="12" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <StackPanel DataContext="{Binding DriverPackSelection}">
+                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Source" />
+                                    <ComboBox
+                                        Margin="0,8,0,0"
+                                        DisplayMemberPath="DisplayName"
+                                        ItemsSource="{Binding DriverPackOptions}"
+                                        SelectedItem="{Binding SelectedDriverPackOption}" />
+                                    <!--  Driver model/version refinement  -->
+                                    <Grid Margin="0,8,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <StackPanel Grid.Column="0">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Model" />
-                                        <ComboBox
-                                            Margin="0,8,0,0"
-                                            IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
-                                            ItemsSource="{Binding DriverPackModelOptions}"
-                                            SelectedItem="{Binding SelectedDriverPackModel}" />
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Model" />
+                                            <ComboBox
+                                                Margin="0,8,0,0"
+                                                IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
+                                                ItemsSource="{Binding DriverPackModelOptions}"
+                                                SelectedItem="{Binding SelectedDriverPackModel}" />
+                                        </StackPanel>
 
-                                    <StackPanel Grid.Column="2">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
-                                        <ComboBox
-                                            Margin="0,8,0,0"
-                                            IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
-                                            ItemsSource="{Binding DriverPackVersionOptions}"
-                                            SelectedItem="{Binding SelectedDriverPackVersion}" />
-                                    </StackPanel>
-                                </Grid>
-                                <TextBlock
-                                    Margin="0,8,0,0"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{Binding DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
+                                            <ComboBox
+                                                Margin="0,8,0,0"
+                                                IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
+                                                ItemsSource="{Binding DriverPackVersionOptions}"
+                                                SelectedItem="{Binding SelectedDriverPackVersion}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -336,22 +338,22 @@
                                 Text="Deployment Summary" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Cache Root" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding CacheRootPath}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.CacheRootPath}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Target Disk" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Operating System" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding SelectedOperatingSystem, Converter={StaticResource OperatingSystemSummaryConverter}, TargetNullValue=No selection}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Driver Pack" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedDriverPackSelectionDisplay, TargetNullValue=None}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay, TargetNullValue=None}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Pack Mode" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackModeDisplay}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.DriverPackModeDisplay}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Firmware" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />
@@ -426,7 +428,9 @@
             </Grid>
 
             <!--  Progress page (execution flow)  -->
-            <Grid Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid
+                DataContext="{Binding Session}"
+                Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -562,7 +566,9 @@
             </Grid>
 
             <!--  Success page (completion flow)  -->
-            <Grid Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid
+                DataContext="{Binding Session}"
+                Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -647,7 +653,9 @@
             </Grid>
 
             <!--  Error page (failure flow)  -->
-            <Grid Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid
+                DataContext="{Binding Session}"
+                Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -754,8 +762,8 @@
         </Grid>
 
         <!--  Row 2: Bottom status bar  -->
-        <StatusBar Grid.Row="2" Visibility="{Binding IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <StatusBarItem Content="{Binding DeploymentStatus}" />
+        <StatusBar Grid.Row="2" Visibility="{Binding Session.IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StatusBarItem Content="{Binding Session.DeploymentStatus}" />
         </StatusBar>
     </Grid>
 </Window>
