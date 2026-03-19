@@ -136,19 +136,24 @@ public sealed class DeploymentStepExecutionContext
         string targetFoundryRoot,
         CancellationToken cancellationToken = default)
     {
+        DeploymentLogSession previousSession = LogSession;
         DeploymentLogSession rebound = _deploymentLogService.Initialize(targetFoundryRoot);
-        CopyDirectoryContents(LogSession.LogsDirectoryPath, rebound.LogsDirectoryPath);
-        CopyDirectoryContents(LogSession.StateDirectoryPath, rebound.StateDirectoryPath);
+        CopyDirectoryContents(previousSession.LogsDirectoryPath, rebound.LogsDirectoryPath);
+        CopyDirectoryContents(previousSession.StateDirectoryPath, rebound.StateDirectoryPath);
 
         await _deploymentLogService
             .AppendAsync(
                 rebound,
                 DeploymentLogLevel.Info,
-                $"Log session transferred from '{LogSession.RootPath}' to '{targetFoundryRoot}'.",
+                $"Log session transferred from '{previousSession.RootPath}' to '{targetFoundryRoot}'.",
                 cancellationToken)
             .ConfigureAwait(false);
 
         LogSession = rebound;
+        if (!previousSession.LogFilePath.Equals(rebound.LogFilePath, StringComparison.OrdinalIgnoreCase))
+        {
+            _deploymentLogService.Release(previousSession);
+        }
     }
 
     public async Task<(TargetDiskInfo? SelectedDisk, DeploymentStepResult? Failure)> TryGetValidatedTargetDiskAsync(

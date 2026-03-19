@@ -67,6 +67,16 @@ public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
         await File.WriteAllTextAsync(session.StateFilePath, json, cancellationToken).ConfigureAwait(false);
     }
 
+    public void Release(DeploymentLogSession session)
+    {
+        ArgumentNullException.ThrowIfNull(session);
+
+        if (_sessionLoggers.TryRemove(session.LogFilePath, out ILogger? logger))
+        {
+            (logger as IDisposable)?.Dispose();
+        }
+    }
+
     public void Dispose()
     {
         foreach (ILogger logger in _sessionLoggers.Values)
