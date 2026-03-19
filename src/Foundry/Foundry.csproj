@@ -33,6 +33,9 @@
     <EmbeddedResource Include="Assets\WinPe\FoundryBootstrap.ps1">
       <LogicalName>Foundry.WinPe.BootstrapScript</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\Configuration\languages.json">
+      <LogicalName>Foundry.Configuration.Languages</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

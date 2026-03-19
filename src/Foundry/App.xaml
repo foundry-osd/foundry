@@ -9,7 +9,10 @@
                 <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:CultureToBooleanConverter x:Key="CultureToBooleanConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters:PartitionStyleAvailabilityConverter x:Key="PartitionStyleAvailabilityConverter" />
+            <converters:ThemeModeToBooleanConverter x:Key="ThemeModeToBooleanConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -177,7 +177,13 @@ public sealed class MediaOutputService : IMediaOutputService
                 artifact.WorkingDirectoryPath,
                 drivers.Value!.Count,
                 options.WinPeLanguage);
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(
+                artifact,
+                tools,
+                drivers.Value!,
+                options.WinPeLanguage,
+                options.ExpertDeployConfigurationJson,
+                cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -193,13 +199,9 @@ public sealed class MediaOutputService : IMediaOutputService
                 _logger.LogInformation("PCA2023 signature policy evaluated for ISO creation. BootExSupported={BootExSupported}", bootEx);
                 if (!bootEx)
                 {
-                    WinPeResult remediation = await RunRemediationIfConfiguredAsync(options.RunPca2023RemediationWhenBootExUnsupported, options.Pca2023RemediationScriptPath, artifact, tools, cancellationToken).ConfigureAwait(false);
-                    if (!remediation.IsSuccess)
-                    {
-                        return FailWithProgress(remediation.Error!);
-                    }
-
-                    _logger.LogInformation("PCA2023 remediation fallback completed for ISO creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+                    return FailWithProgress(new WinPeDiagnostic(
+                        WinPeErrorCodes.BootExUnsupported,
+                        "PCA2023 requires /bootex support in the WinPE workspace."));
                 }
             }
 
@@ -322,7 +324,13 @@ public sealed class MediaOutputService : IMediaOutputService
                 artifact.WorkingDirectoryPath,
                 drivers.Value!.Count,
                 options.WinPeLanguage);
-            WinPeResult customize = await CustomizeImageAsync(artifact, tools, drivers.Value!, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
+            WinPeResult customize = await CustomizeImageAsync(
+                artifact,
+                tools,
+                drivers.Value!,
+                options.WinPeLanguage,
+                options.ExpertDeployConfigurationJson,
+                cancellationToken).ConfigureAwait(false);
             if (!customize.IsSuccess)
             {
                 return FailWithProgress(customize.Error!);
@@ -338,13 +346,9 @@ public sealed class MediaOutputService : IMediaOutputService
                 _logger.LogInformation("PCA2023 signature policy evaluated for USB creation. BootExSupported={BootExSupported}", bootEx);
                 if (!bootEx)
                 {
-                    WinPeResult remediation = await RunRemediationIfConfiguredAsync(options.RunPca2023RemediationWhenBootExUnsupported, options.Pca2023RemediationScriptPath, artifact, tools, cancellationToken).ConfigureAwait(false);
-                    if (!remediation.IsSuccess)
-                    {
-                        return FailWithProgress(remediation.Error!);
-                    }
-
-                    _logger.LogInformation("PCA2023 remediation fallback completed for USB creation. WorkingDirectoryPath={WorkingDirectoryPath}", artifact.WorkingDirectoryPath);
+                    return FailWithProgress(new WinPeDiagnostic(
+                        WinPeErrorCodes.BootExUnsupported,
+                        "PCA2023 requires /bootex support in the WinPE workspace."));
                 }
             }
 
@@ -487,6 +491,7 @@ public sealed class MediaOutputService : IMediaOutputService
         WinPeToolPaths tools,
         IReadOnlyList<string> driverDirectories,
         string winPeLanguage,
+        string? expertDeployConfigurationJson,
         CancellationToken cancellationToken)
     {
         string normalizedLocale = NormalizeWinPeLanguageCode(winPeLanguage);
@@ -615,6 +620,21 @@ public sealed class MediaOutputService : IMediaOutputService
         }
 
         _logger.LogInformation("Provisioned bundled 7-Zip tools into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        WinPeResult deployConfigurationProvisioning = await ProvisionDeployConfigurationInImageAsync(
+            session.MountDirectoryPath,
+            expertDeployConfigurationJson,
+            cancellationToken).ConfigureAwait(false);
+        if (!deployConfigurationProvisioning.IsSuccess)
+        {
+            await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            return deployConfigurationProvisioning;
+        }
+
+        if (!string.IsNullOrWhiteSpace(expertDeployConfigurationJson))
+        {
+            _logger.LogInformation("Provisioned Foundry.Deploy expert configuration into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        }
+
         string startnet = Path.Combine(session.MountDirectoryPath, WinPeDefaults.DefaultStartnetPathInImage);
         string[] lines = File.Exists(startnet) ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false) : ["wpeinit"];
         var merged = lines.ToList();
@@ -906,6 +926,46 @@ public sealed class MediaOutputService : IMediaOutputService
         }
     }
 
+    private async Task<WinPeResult> ProvisionDeployConfigurationInImageAsync(
+        string mountedImagePath,
+        string? expertDeployConfigurationJson,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(expertDeployConfigurationJson))
+        {
+            return WinPeResult.Success();
+        }
+
+        string destinationPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedDeployConfigPathInImage);
+        string? destinationDirectoryPath = Path.GetDirectoryName(destinationPath);
+        if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                "Failed to resolve destination path for Foundry.Deploy expert configuration.",
+                $"Destination file: '{destinationPath}'.");
+        }
+
+        try
+        {
+            Directory.CreateDirectory(destinationDirectoryPath);
+            await File.WriteAllTextAsync(
+                destinationPath,
+                expertDeployConfigurationJson,
+                new UTF8Encoding(false),
+                cancellationToken).ConfigureAwait(false);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to provision Foundry.Deploy expert configuration into mounted WinPE image. DestinationPath={DestinationPath}", destinationPath);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision Foundry.Deploy expert configuration into mounted WinPE image.",
+                ex.ToString());
+        }
+    }
+
     private async Task<WinPeResult<string>> ResolveLocalDeployArchivePathAsync(
         WinPeArchitecture architecture,
         string workingDirectoryPath,
@@ -1090,25 +1150,6 @@ public sealed class MediaOutputService : IMediaOutputService
             "ON" => true,
             _ => false
         };
-    }
-
-    private async Task<WinPeResult> RunRemediationIfConfiguredAsync(bool enabled, string? scriptPath, WinPeBuildArtifact artifact, WinPeToolPaths tools, CancellationToken cancellationToken)
-    {
-        if (!enabled)
-        {
-            return WinPeResult.Failure(WinPeErrorCodes.BootExUnsupported, "PCA2023 requires /bootex or remediation fallback.");
-        }
-
-        if (string.IsNullOrWhiteSpace(scriptPath) || !File.Exists(scriptPath))
-        {
-            return WinPeResult.Failure(WinPeErrorCodes.BootExUnsupported, "Remediation script was not found.", $"Path: '{scriptPath ?? "<null>"}'.");
-        }
-
-        string args = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -File {WinPeProcessRunner.Quote(scriptPath)} -MediaPath {WinPeProcessRunner.Quote(artifact.MediaDirectoryPath)}";
-        WinPeProcessExecution run = await _processRunner.RunAsync(tools.PowerShellPath, args, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
-        return run.IsSuccess
-            ? WinPeResult.Success()
-            : WinPeResult.Failure(WinPeErrorCodes.PcaRemediationFailed, "PCA2023 remediation fallback failed.", run.ToDiagnosticText());
     }
 
     private WinPeResult FailWithProgress(WinPeDiagnostic diagnostic)

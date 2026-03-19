@@ -8,6 +8,10 @@ public interface IApplicationShellService
 
     string? PickIsoOutputPath(string defaultFileName);
 
+    string? PickOpenJsonFilePath(string title, string filter);
+
+    string? PickSaveJsonFilePath(string title, string filter, string defaultFileName);
+
     string? PickFolderPath(string title, string? initialPath = null);
 
     void OpenFolder(string path);

@@ -9,9 +9,11 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Catalog;
+using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
@@ -80,6 +82,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IThemeService _themeService;
     private readonly IApplicationShellService _applicationShellService;
     private readonly IOperationProgressService _operationProgressService;
+    private readonly IExpertDeployConfigurationService _expertDeployConfigurationService;
     private readonly IOperatingSystemCatalogService _operatingSystemCatalogService;
     private readonly IDriverPackCatalogService _driverPackCatalogService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
@@ -92,12 +95,20 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentMode _resolvedDeploymentMode;
     private readonly string? _resolvedUsbCacheRuntimeRoot;
+    private readonly HashSet<string> _configuredVisibleLanguageCodes = new(StringComparer.OrdinalIgnoreCase);
     private HardwareProfile? _detectedHardware;
+    private DeployMachineNamingSettings _machineNamingConfiguration = new();
     private DispatcherTimer? _elapsedTimeTimer;
     private DispatcherTimer? _rebootCountdownTimer;
     private DateTimeOffset? _deploymentStartTimeUtc;
     private int _activeStepIndex;
+    private string? _configuredDefaultLanguageCodeOverride;
     private string _lastLogsDirectoryPath = string.Empty;
+    private string _lockedComputerNamePrefix = string.Empty;
+    private bool _forceSingleVisibleLanguageSelection;
+    private bool _hasLoggedUnavailableConfiguredLanguages;
+    private bool _hasLoggedUnavailableDefaultLanguageOverride;
+    private bool _isApplyingManagedComputerName;
     private bool _isUpdatingOsFilters;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
@@ -173,6 +184,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
     private string targetComputerName = string.Empty;
+
+    [ObservableProperty]
+    private bool isTargetComputerNameReadOnly;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
@@ -299,6 +313,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsDriverPackModelSelectionEnabled => IsOemDriverSourceSelected && DriverPackModelOptions.Count > 0;
     public bool IsDriverPackVersionSelectionEnabled => IsDriverPackModelSelectionEnabled && DriverPackVersionOptions.Count > 0;
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
+    public bool IsLanguageSelectionEnabled => !(_forceSingleVisibleLanguageSelection && LanguageFilters.Count == 1);
     public string SelectedDriverPackSelectionDisplay => BuildSelectedDriverPackSelectionDisplay();
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
     public string VersionDisplay => $"Version: {AppVersion}";
@@ -322,6 +337,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IThemeService themeService,
         IApplicationShellService applicationShellService,
         IOperationProgressService operationProgressService,
+        IExpertDeployConfigurationService expertDeployConfigurationService,
         IOperatingSystemCatalogService operatingSystemCatalogService,
         IDriverPackCatalogService driverPackCatalogService,
         IDeploymentOrchestrator deploymentOrchestrator,
@@ -335,6 +351,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _themeService = themeService;
         _applicationShellService = applicationShellService;
         _operationProgressService = operationProgressService;
+        _expertDeployConfigurationService = expertDeployConfigurationService;
         _operatingSystemCatalogService = operatingSystemCatalogService;
         _driverPackCatalogService = driverPackCatalogService;
         _deploymentOrchestrator = deploymentOrchestrator;
@@ -352,6 +369,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
 
+        LoadExpertDeployConfiguration();
         EnsureCachePathForMode();
 
         if (IsDebugSafeMode)
@@ -363,6 +381,48 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _ = LoadHardwareProfileAsync();
         _ = RefreshTargetDisksAsync();
         _ = RefreshCatalogsAsync();
+    }
+
+    private void LoadExpertDeployConfiguration()
+    {
+        ExpertDeployConfigurationLoadResult loadResult = _expertDeployConfigurationService.LoadOptional();
+        if (loadResult.Document is null)
+        {
+            return;
+        }
+
+        ApplyExpertDeployConfiguration(loadResult.Document);
+    }
+
+    private void ApplyExpertDeployConfiguration(FoundryDeployConfigurationDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+
+        _configuredVisibleLanguageCodes.Clear();
+        foreach (string languageCode in document.Localization.VisibleLanguageCodes)
+        {
+            string normalized = NormalizeLanguageCode(languageCode);
+            if (!string.IsNullOrWhiteSpace(normalized))
+            {
+                _configuredVisibleLanguageCodes.Add(normalized);
+            }
+        }
+
+        _configuredDefaultLanguageCodeOverride = NormalizeOptionalLanguageCode(document.Localization.DefaultLanguageCodeOverride);
+        _forceSingleVisibleLanguageSelection = document.Localization.ForceSingleVisibleLanguage;
+        _machineNamingConfiguration = document.Customization.MachineNaming ?? new DeployMachineNamingSettings();
+        _lockedComputerNamePrefix = ComputerNameRules.Normalize(_machineNamingConfiguration.Prefix);
+        IsTargetComputerNameReadOnly = _machineNamingConfiguration.IsEnabled && !_machineNamingConfiguration.AllowManualSuffixEdit;
+
+        if (_machineNamingConfiguration.IsEnabled)
+        {
+            string seed = string.IsNullOrWhiteSpace(TargetComputerName)
+                ? ResolveInitialComputerName()
+                : TargetComputerName;
+            ApplyManagedComputerNameValue(BuildConfiguredComputerName(seed));
+        }
+
+        OnPropertyChanged(nameof(IsLanguageSelectionEnabled));
     }
 
     [RelayCommand]
@@ -741,10 +801,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     partial void OnTargetComputerNameChanged(string value)
     {
-        string normalized = ComputerNameRules.Normalize(value);
+        if (_isApplyingManagedComputerName)
+        {
+            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(value);
+            return;
+        }
+
+        string normalized = NormalizeManagedComputerNameValue(value);
         if (!normalized.Equals(value, StringComparison.Ordinal))
         {
-            TargetComputerName = normalized;
+            ApplyManagedComputerNameValue(normalized);
             return;
         }
 
@@ -1317,10 +1383,27 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 selectFirstWhenNoMatch: true);
 
             IEnumerable<OperatingSystemCatalogItem> languageScope = ApplyReleaseIdFilter(releaseScope);
+            IEnumerable<string> effectiveLanguageValues = BuildEffectiveLanguageFilterValues(languageScope);
             SelectedLanguageCode = UpdateLanguageFilterSelection(
                 LanguageFilters,
-                languageScope.Select(GetLanguageFilterValue),
+                effectiveLanguageValues,
                 previousLanguageCode);
+
+            string configuredDefaultLanguageCode = EnsureLanguageSelection(
+                _configuredDefaultLanguageCodeOverride ?? string.Empty,
+                LanguageFilters);
+            if (!string.IsNullOrWhiteSpace(configuredDefaultLanguageCode))
+            {
+                SelectedLanguageCode = configuredDefaultLanguageCode;
+            }
+            else if (!_hasLoggedUnavailableDefaultLanguageOverride &&
+                     !string.IsNullOrWhiteSpace(_configuredDefaultLanguageCodeOverride))
+            {
+                _logger.LogWarning(
+                    "Configured default language override '{LanguageCode}' is not available in the current catalog scope and was ignored.",
+                    _configuredDefaultLanguageCodeOverride);
+                _hasLoggedUnavailableDefaultLanguageOverride = true;
+            }
 
             IEnumerable<OperatingSystemCatalogItem> licenseScope = ApplyLanguageFilter(languageScope);
             SelectedLicenseChannel = UpdateFilterSelection(
@@ -1342,6 +1425,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         finally
         {
             _isUpdatingOsFilters = false;
+            OnPropertyChanged(nameof(IsLanguageSelectionEnabled));
         }
     }
 
@@ -1369,6 +1453,40 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return IsFilterUnset(SelectedLanguageCode)
             ? source
             : source.Where(item => GetLanguageFilterValue(item).Equals(SelectedLanguageCode, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private IEnumerable<string> BuildEffectiveLanguageFilterValues(IEnumerable<OperatingSystemCatalogItem> source)
+    {
+        string[] availableLanguageValues = source
+            .Select(GetLanguageFilterValue)
+            .Where(value => !string.IsNullOrWhiteSpace(value))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (_configuredVisibleLanguageCodes.Count == 0)
+        {
+            return availableLanguageValues;
+        }
+
+        string[] filteredLanguageValues = availableLanguageValues
+            .Where(value => _configuredVisibleLanguageCodes.Contains(NormalizeLanguageCode(value)))
+            .ToArray();
+
+        if (filteredLanguageValues.Length > 0)
+        {
+            return filteredLanguageValues;
+        }
+
+        if (!_hasLoggedUnavailableConfiguredLanguages)
+        {
+            string configuredLanguages = string.Join(", ", _configuredVisibleLanguageCodes.OrderBy(value => value, StringComparer.OrdinalIgnoreCase));
+            _logger.LogWarning(
+                "Configured visible languages [{ConfiguredLanguages}] do not match the current catalog scope. Falling back to the catalog languages.",
+                configuredLanguages);
+            _hasLoggedUnavailableConfiguredLanguages = true;
+        }
+
+        return availableLanguageValues;
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyLicenseChannelFilter(IEnumerable<OperatingSystemCatalogItem> source)
@@ -1591,9 +1709,136 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return FallbackLanguageCode;
     }
 
+    private static string? NormalizeOptionalLanguageCode(string? languageCode)
+    {
+        if (string.IsNullOrWhiteSpace(languageCode))
+        {
+            return null;
+        }
+
+        string normalized = NormalizeLanguageCode(languageCode);
+        return string.IsNullOrWhiteSpace(normalized)
+            ? null
+            : normalized;
+    }
+
     private static string NormalizeLanguageCode(string languageCode)
     {
         return languageCode.Trim().Replace('_', '-').ToLowerInvariant();
+    }
+
+    private string NormalizeManagedComputerNameValue(string? value)
+    {
+        string normalized = ComputerNameRules.Normalize(value);
+        if (!_machineNamingConfiguration.IsEnabled)
+        {
+            return normalized;
+        }
+
+        if (string.IsNullOrWhiteSpace(_lockedComputerNamePrefix))
+        {
+            return normalized;
+        }
+
+        if (!_machineNamingConfiguration.AllowManualSuffixEdit)
+        {
+            return BuildConfiguredComputerName(normalized);
+        }
+
+        string suffix = normalized.StartsWith(_lockedComputerNamePrefix, StringComparison.OrdinalIgnoreCase)
+            ? normalized[_lockedComputerNamePrefix.Length..]
+            : normalized;
+
+        return CombineComputerName(_lockedComputerNamePrefix, suffix);
+    }
+
+    private string BuildConfiguredComputerName(string seed)
+    {
+        string normalizedSeed = ComputerNameRules.Normalize(seed);
+        if (!_machineNamingConfiguration.IsEnabled)
+        {
+            return normalizedSeed;
+        }
+
+        if (string.IsNullOrWhiteSpace(_lockedComputerNamePrefix))
+        {
+            return _machineNamingConfiguration.AutoGenerateName
+                ? NormalizeAutoGeneratedComputerNameSuffix(normalizedSeed)
+                : normalizedSeed;
+        }
+
+        if (_machineNamingConfiguration.AutoGenerateName)
+        {
+            string generatedSuffix = NormalizeAutoGeneratedComputerNameSuffix(
+                ExtractComputerNameSuffix(normalizedSeed, _lockedComputerNamePrefix));
+            return CombineComputerName(_lockedComputerNamePrefix, generatedSuffix);
+        }
+
+        string existingSuffix = ExtractComputerNameSuffix(TargetComputerName, _lockedComputerNamePrefix);
+        return CombineComputerName(_lockedComputerNamePrefix, existingSuffix);
+    }
+
+    private void ApplyManagedComputerNameValue(string value)
+    {
+        _isApplyingManagedComputerName = true;
+
+        try
+        {
+            TargetComputerName = value;
+            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(value);
+        }
+        finally
+        {
+            _isApplyingManagedComputerName = false;
+        }
+    }
+
+    private static string CombineComputerName(string prefix, string suffix)
+    {
+        string normalizedPrefix = ComputerNameRules.Normalize(prefix);
+        if (normalizedPrefix.Length >= ComputerNameRules.MaxLength)
+        {
+            return normalizedPrefix[..ComputerNameRules.MaxLength];
+        }
+
+        string normalizedSuffix = ComputerNameRules.Normalize(suffix);
+        int remainingLength = ComputerNameRules.MaxLength - normalizedPrefix.Length;
+        if (remainingLength <= 0)
+        {
+            return normalizedPrefix;
+        }
+
+        if (normalizedSuffix.Length > remainingLength)
+        {
+            normalizedSuffix = normalizedSuffix[..remainingLength];
+        }
+
+        return $"{normalizedPrefix}{normalizedSuffix}";
+    }
+
+    private static string ExtractComputerNameSuffix(string? computerName, string prefix)
+    {
+        string normalizedPrefix = ComputerNameRules.Normalize(prefix);
+        if (string.IsNullOrWhiteSpace(normalizedPrefix))
+        {
+            return ComputerNameRules.Normalize(computerName);
+        }
+
+        string normalizedComputerName = ComputerNameRules.Normalize(computerName);
+        if (normalizedComputerName.StartsWith(normalizedPrefix, StringComparison.OrdinalIgnoreCase))
+        {
+            return normalizedComputerName[normalizedPrefix.Length..];
+        }
+
+        return normalizedComputerName;
+    }
+
+    private static string NormalizeAutoGeneratedComputerNameSuffix(string? value)
+    {
+        string normalized = ComputerNameRules.Normalize(value);
+        return string.IsNullOrWhiteSpace(normalized)
+            ? ComputerNameRules.FallbackName
+            : normalized;
     }
 
     private void RefreshDriverPackOptions()
@@ -2260,9 +2505,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 return;
             }
 
-            TargetComputerName = effectiveName;
-            ComputerNameText = effectiveName;
-            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(effectiveName);
+            string configuredName = BuildConfiguredComputerName(effectiveName);
+            ApplyManagedComputerNameValue(configuredName);
+            ComputerNameText = TargetComputerName;
         });
     }
 

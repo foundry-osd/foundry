@@ -1,0 +1,83 @@
+<UserControl
+    x:Class="Foundry.Views.NetworkSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,8"
+            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{Binding DataContext.Strings[ExpertSectionNetwork], RelativeSource={RelativeSource AncestorType=Window}}" />
+        <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+        <CheckBox
+            Margin="0,0,0,12"
+            Content="{Binding DataContext.Strings[Dot1xEnableLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+            IsChecked="{Binding IsDot1xEnabled}" />
+
+        <Grid Margin="0,0,0,24" IsEnabled="{Binding IsDot1xEnabled}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding DataContext.Strings[Dot1xCertificateLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+            <TextBox
+                Grid.Column="1"
+                Margin="0,0,8,0"
+                Text="{Binding CertificatePath, UpdateSourceTrigger=PropertyChanged}" />
+            <Button
+                Grid.Column="2"
+                Command="{Binding DataContext.BrowseDot1xCertificateCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                Content="{Binding DataContext.Strings[BrowseFileButton], RelativeSource={RelativeSource AncestorType=Window}}" />
+        </Grid>
+
+        <CheckBox
+            Margin="0,0,0,12"
+            Content="{Binding DataContext.Strings[WifiEnableLabel], RelativeSource={RelativeSource AncestorType=Window}}"
+            IsChecked="{Binding IsWifiEnabled}" />
+
+        <Grid IsEnabled="{Binding IsWifiEnabled}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,8,8"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding DataContext.Strings[WifiSsidLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,0,0,8"
+                Text="{Binding WifiSsid, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding DataContext.Strings[WifiSecurityTypeLabel], RelativeSource={RelativeSource AncestorType=Window}}" />
+            <ComboBox
+                Grid.Row="1"
+                Grid.Column="1"
+                ItemsSource="{Binding AvailableSecurityTypes}"
+                SelectedItem="{Binding WifiSecurityType}" />
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -45,6 +45,35 @@ public sealed class ApplicationShellService : IApplicationShellService
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
+    public string? PickOpenJsonFilePath(string title, string filter)
+    {
+        var dialog = new OpenFileDialog
+        {
+            Title = title,
+            Filter = filter,
+            DefaultExt = ".json",
+            CheckFileExists = true,
+            Multiselect = false
+        };
+
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
+    }
+
+    public string? PickSaveJsonFilePath(string title, string filter, string defaultFileName)
+    {
+        var dialog = new SaveFileDialog
+        {
+            Title = title,
+            Filter = filter,
+            DefaultExt = ".json",
+            AddExtension = true,
+            FileName = defaultFileName,
+            OverwritePrompt = true
+        };
+
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
+    }
+
     public string? PickFolderPath(string title, string? initialPath = null)
     {
         var dialog = new OpenFolderDialog

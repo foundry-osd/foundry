@@ -425,4 +425,124 @@ MVVM bootstrap ready.</value>
   <data name="IsoPickerFilter" xml:space="preserve">
     <value>ISO image (*.iso)|*.iso</value>
   </data>
+  <data name="MenuMode" xml:space="preserve">
+    <value>_Mode</value>
+  </data>
+  <data name="ModeStandard" xml:space="preserve">
+    <value>_Standard</value>
+  </data>
+  <data name="ModeExpert" xml:space="preserve">
+    <value>_Expert</value>
+  </data>
+  <data name="MenuImportExpertConfig" xml:space="preserve">
+    <value>_Import Expert Configuration</value>
+  </data>
+  <data name="MenuExportExpertConfig" xml:space="preserve">
+    <value>Export Expert _Configuration</value>
+  </data>
+  <data name="MenuExportDeployConfig" xml:space="preserve">
+    <value>Export _Deploy Configuration</value>
+  </data>
+  <data name="JsonPickerFilter" xml:space="preserve">
+    <value>JSON file (*.json)|*.json</value>
+  </data>
+  <data name="ExpertConfigImportTitle" xml:space="preserve">
+    <value>Import expert configuration</value>
+  </data>
+  <data name="ExpertConfigExportTitle" xml:space="preserve">
+    <value>Export expert configuration</value>
+  </data>
+  <data name="DeployConfigExportTitle" xml:space="preserve">
+    <value>Export deploy configuration</value>
+  </data>
+  <data name="ExpertConfigImportedFormat" xml:space="preserve">
+    <value>Expert configuration imported: {0}</value>
+  </data>
+  <data name="ExpertConfigImportFailedFormat" xml:space="preserve">
+    <value>Expert configuration import failed: {0}</value>
+  </data>
+  <data name="ExpertConfigExportedFormat" xml:space="preserve">
+    <value>Expert configuration exported: {0}</value>
+  </data>
+  <data name="ExpertConfigExportFailedFormat" xml:space="preserve">
+    <value>Expert configuration export failed: {0}</value>
+  </data>
+  <data name="DeployConfigExportedFormat" xml:space="preserve">
+    <value>Deploy configuration exported: {0}</value>
+  </data>
+  <data name="DeployConfigExportFailedFormat" xml:space="preserve">
+    <value>Deploy configuration export failed: {0}</value>
+  </data>
+  <data name="ExpertNavigationTitle" xml:space="preserve">
+    <value>Expert sections</value>
+  </data>
+  <data name="ExpertSectionGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ExpertSectionNetwork" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="ExpertSectionLocalization" xml:space="preserve">
+    <value>Localization</value>
+  </data>
+  <data name="ExpertSectionCustomization" xml:space="preserve">
+    <value>Customization</value>
+  </data>
+  <data name="Dot1xEnableLabel" xml:space="preserve">
+    <value>Enable 802.1X in WinPE</value>
+  </data>
+  <data name="Dot1xCertificateLabel" xml:space="preserve">
+    <value>Certificate file</value>
+  </data>
+  <data name="Dot1xCertificatePickerTitle" xml:space="preserve">
+    <value>Select 802.1X certificate</value>
+  </data>
+  <data name="CertificatePickerFilter" xml:space="preserve">
+    <value>Certificate file (*.cer;*.crt;*.pfx)|*.cer;*.crt;*.pfx|All files (*.*)|*.*</value>
+  </data>
+  <data name="BrowseFileButton" xml:space="preserve">
+    <value>Browse file...</value>
+  </data>
+  <data name="WifiEnableLabel" xml:space="preserve">
+    <value>Enable Wi-Fi in WinPE</value>
+  </data>
+  <data name="WifiSsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="WifiSecurityTypeLabel" xml:space="preserve">
+    <value>Security type</value>
+  </data>
+  <data name="LocalizationVisibleLanguagesLabel" xml:space="preserve">
+    <value>Visible languages in Foundry.Deploy</value>
+  </data>
+  <data name="LocalizationDefaultOverrideLabel" xml:space="preserve">
+    <value>Default language override</value>
+  </data>
+  <data name="LocalizationForceSingleLabel" xml:space="preserve">
+    <value>Force the only visible language when a single choice remains</value>
+  </data>
+  <data name="MachineNamingEnableLabel" xml:space="preserve">
+    <value>Enable machine naming rules</value>
+  </data>
+  <data name="MachineNamingPrefixLabel" xml:space="preserve">
+    <value>Prefix</value>
+  </data>
+  <data name="MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>Auto-generate the suffix after the prefix</value>
+  </data>
+  <data name="MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>Allow manual editing after the prefix</value>
+  </data>
+  <data name="CustomizationAutopilotPlaceholder" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="CustomizationAppxPlaceholder" xml:space="preserve">
+    <value>APPX removal</value>
+  </data>
+  <data name="CustomizationDeployConfigPlaceholder" xml:space="preserve">
+    <value>Custom deploy configuration</value>
+  </data>
+  <data name="ComingLaterLabel" xml:space="preserve">
+    <value>Coming later</value>
+  </data>
 </root>
