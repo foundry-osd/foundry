@@ -1,25 +1,41 @@
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Azure.Core;
+using Azure.Identity;
 using Foundry.Models.Configuration;
-using Foundry.Services.Execution;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.Autopilot;
 
 public sealed class AutopilotProfileService : IAutopilotProfileService
 {
-    private const string PowerShellExecutable = "powershell.exe";
+    private const string ClientIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID";
+    private const string TenantIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_TENANT_ID";
+    private const string DefaultTenantId = "common";
+    private const string DefaultRedirectUri = "http://localhost";
     private const string ProfileFileName = "AutopilotConfigurationFile.json";
+    private const string OrganizationRequestPath = "v1.0/organization?$select=id,verifiedDomains";
+    private const string AutopilotProfilesRequestPath = "beta/deviceManagement/windowsAutopilotDeploymentProfiles";
 
-    private readonly IProcessExecutionService _processExecutionService;
+    private static readonly string[] GraphScopes =
+    [
+        "DeviceManagementServiceConfig.Read.All",
+        "User.Read"
+    ];
+
+    private static readonly HttpClient GraphHttpClient = new()
+    {
+        BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
+    };
+
     private readonly ILogger<AutopilotProfileService> _logger;
 
-    public AutopilotProfileService(
-        IProcessExecutionService processExecutionService,
-        ILogger<AutopilotProfileService> logger)
+    public AutopilotProfileService(ILogger<AutopilotProfileService> logger)
     {
-        _processExecutionService = processExecutionService;
         _logger = logger;
     }
 
@@ -37,74 +53,29 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
 
     public async Task<IReadOnlyList<AutopilotProfileSettings>> DownloadFromTenantAsync(CancellationToken cancellationToken = default)
     {
-        string workingDirectory = Path.Combine(
-            Path.GetTempPath(),
-            "Foundry",
-            "Autopilot",
-            Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(workingDirectory);
+        TokenCredential credential = CreateCredential();
+        string accessToken = await AcquireAccessTokenAsync(credential, cancellationToken).ConfigureAwait(false);
+        OrganizationInfo organization = await GetOrganizationAsync(accessToken, cancellationToken).ConfigureAwait(false);
+        IReadOnlyList<AutopilotDeploymentProfile> profiles = await GetAutopilotProfilesAsync(accessToken, cancellationToken).ConfigureAwait(false);
 
-        string scriptPath = Path.Combine(workingDirectory, "Export-FoundryAutopilotProfiles.ps1");
-        string manifestPath = Path.Combine(workingDirectory, "manifest.json");
-        await File.WriteAllTextAsync(
-            scriptPath,
-            BuildDownloadScript(),
-            new UTF8Encoding(false),
-            cancellationToken).ConfigureAwait(false);
-
-        string arguments =
-            $"-NoProfile -ExecutionPolicy Bypass -File {Quote(scriptPath)} " +
-            $"-TargetDirectory {Quote(workingDirectory)} " +
-            $"-ManifestPath {Quote(manifestPath)}";
-
-        ProcessExecutionResult result = await _processExecutionService
-            .RunAsync(PowerShellExecutable, arguments, workingDirectory, cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!result.IsSuccess)
+        var downloadedProfiles = new List<AutopilotProfileSettings>(profiles.Count);
+        foreach (AutopilotDeploymentProfile profile in profiles)
         {
-            _logger.LogWarning("Autopilot tenant download failed. ExitCode={ExitCode}", result.ExitCode);
-            throw new InvalidOperationException(result.ToDiagnosticText());
-        }
-
-        if (!File.Exists(manifestPath))
-        {
-            throw new InvalidOperationException("The Autopilot tenant download completed without a manifest file.");
-        }
-
-        await using FileStream manifestStream = File.OpenRead(manifestPath);
-        ExportManifestItem[] manifestItems = await JsonSerializer.DeserializeAsync<ExportManifestItem[]>(
-                manifestStream,
-                Foundry.Services.Configuration.ConfigurationJsonDefaults.SerializerOptions,
-                cancellationToken)
-            .ConfigureAwait(false)
-            ?? [];
-
-        List<AutopilotProfileSettings> profiles = [];
-        foreach (ExportManifestItem item in manifestItems)
-        {
-            string profilePath = Path.Combine(workingDirectory, item.FolderName, ProfileFileName);
-            if (!File.Exists(profilePath))
-            {
-                _logger.LogWarning(
-                    "Skipping downloaded Autopilot profile because its JSON file is missing. ProfilePath={ProfilePath}",
-                    profilePath);
-                continue;
-            }
-
-            string json = await File.ReadAllTextAsync(profilePath, cancellationToken).ConfigureAwait(false);
-            using JsonDocument _ = ValidateJsonContent(json, profilePath);
-
-            profiles.Add(CreateProfileSettings(
-                string.IsNullOrWhiteSpace(item.Id) ? BuildManualProfileId(json) : item.Id.Trim(),
-                item.DisplayName,
+            string displayName = string.IsNullOrWhiteSpace(profile.DisplayName)
+                ? "Autopilot profile"
+                : profile.DisplayName.Trim();
+            string json = BuildOfflineConfigurationJson(profile, organization);
+            downloadedProfiles.Add(CreateProfileSettings(
+                string.IsNullOrWhiteSpace(profile.Id) ? BuildManualProfileId(json) : profile.Id.Trim(),
+                displayName,
                 json,
                 "Tenant download",
                 DateTimeOffset.UtcNow,
-                item.FolderName));
+                preferredFolderName: null));
         }
 
-        return profiles;
+        _logger.LogInformation("Downloaded {ProfileCount} Autopilot profile(s) from Microsoft Graph.", downloadedProfiles.Count);
+        return downloadedProfiles;
     }
 
     private static AutopilotProfileSettings CreateProfileSettings(
@@ -214,93 +185,234 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
         return fileName;
     }
 
-    private static string Quote(string value)
+    private static TokenCredential CreateCredential()
     {
-        return value.Contains(' ', StringComparison.Ordinal)
-            ? $"\"{value}\""
-            : value;
+        string? clientId = Environment.GetEnvironmentVariable(ClientIdEnvironmentVariableName);
+        if (string.IsNullOrWhiteSpace(clientId))
+        {
+            throw new InvalidOperationException(
+                $"Set the environment variable '{ClientIdEnvironmentVariableName}' to the client ID of a Microsoft Entra public client app registration that has delegated Microsoft Graph access.");
+        }
+
+        string? tenantId = Environment.GetEnvironmentVariable(TenantIdEnvironmentVariableName);
+        return new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions
+        {
+            ClientId = clientId.Trim(),
+            TenantId = string.IsNullOrWhiteSpace(tenantId) ? DefaultTenantId : tenantId.Trim(),
+            RedirectUri = new Uri(DefaultRedirectUri, UriKind.Absolute),
+            TokenCachePersistenceOptions = new TokenCachePersistenceOptions
+            {
+                Name = "FoundryAutopilotGraph"
+            }
+        });
     }
 
-    private static string BuildDownloadScript()
+    private static async Task<string> AcquireAccessTokenAsync(TokenCredential credential, CancellationToken cancellationToken)
     {
-        return """
-param(
-    [Parameter(Mandatory = $true)]
-    [string] $TargetDirectory,
-
-    [Parameter(Mandatory = $true)]
-    [string] $ManifestPath
-)
-
-$ErrorActionPreference = "Stop"
-
-function Assert-Command {
-    param([string] $Name)
-
-    if (-not (Get-Command -Name $Name -ErrorAction SilentlyContinue)) {
-        throw "Required PowerShell command '$Name' was not found. Install the Microsoft Graph and Windows Autopilot profile prerequisites before downloading profiles."
-    }
-}
-
-function Get-SafeFolderName {
-    param(
-        [string] $DisplayName,
-        [string] $Id
-    )
-
-    $candidate = if ([string]::IsNullOrWhiteSpace($DisplayName)) { "AutopilotProfile" } else { $DisplayName.Trim() }
-    $invalidChars = [System.IO.Path]::GetInvalidFileNameChars()
-    foreach ($character in $invalidChars) {
-        $candidate = $candidate.Replace([string]$character, "_")
+        AccessToken accessToken = await credential.GetTokenAsync(new TokenRequestContext(GraphScopes), cancellationToken).ConfigureAwait(false);
+        return accessToken.Token;
     }
 
-    $candidate = $candidate.Replace(" ", "_")
-    $safeId = if ([string]::IsNullOrWhiteSpace($Id)) { "" } else { ($Id -replace "[^a-zA-Z0-9_-]", "") }
-    if ($safeId.Length -gt 12) {
-        $safeId = $safeId.Substring(0, 12)
-    }
-
-    if ([string]::IsNullOrWhiteSpace($safeId)) {
-        return $candidate
-    }
-
-    return "$candidate`__$safeId"
-}
-
-Assert-Command -Name "Connect-MgGraph"
-Assert-Command -Name "Get-AutopilotProfile"
-Assert-Command -Name "ConvertTo-AutopilotConfigurationJSON"
-
-New-Item -ItemType Directory -Path $TargetDirectory -Force | Out-Null
-
-Connect-MgGraph -Scopes "Device.ReadWrite.All", "DeviceManagementManagedDevices.ReadWrite.All", "DeviceManagementServiceConfig.ReadWrite.All", "Domain.ReadWrite.All", "Group.ReadWrite.All", "GroupMember.ReadWrite.All", "User.Read" | Out-Null
-$profiles = @(Get-AutopilotProfile)
-$manifest = @()
-
-foreach ($profile in $profiles) {
-    $profileId = [string]$profile.id
-    $displayName = [string]$profile.displayName
-    $folderName = Get-SafeFolderName -DisplayName $displayName -Id $profileId
-    $profileDirectory = Join-Path $TargetDirectory $folderName
-    New-Item -ItemType Directory -Path $profileDirectory -Force | Out-Null
-
-    $profile | ConvertTo-AutopilotConfigurationJSON | Set-Content -Encoding Ascii (Join-Path $profileDirectory "AutopilotConfigurationFile.json")
-
-    $manifest += [PSCustomObject]@{
-        id = $profileId
-        displayName = $displayName
-        folderName = $folderName
-    }
-}
-
-$manifest | ConvertTo-Json -Depth 4 | Set-Content -Encoding UTF8 $ManifestPath
-""";
-    }
-
-    private sealed record ExportManifestItem
+    private static string BuildOfflineConfigurationJson(AutopilotDeploymentProfile profile, OrganizationInfo organization)
     {
-        public string Id { get; init; } = string.Empty;
-        public string DisplayName { get; init; } = string.Empty;
-        public string FolderName { get; init; } = string.Empty;
+        OutOfBoxExperienceSettings oobeSettings = profile.OutOfBoxExperienceSettings ?? new OutOfBoxExperienceSettings();
+        int forcedEnrollment = oobeSettings.HideEscapeLink == true ? 1 : 0;
+        int oobeConfig = 8 + 256;
+
+        if (string.Equals(oobeSettings.UserType, "standard", StringComparison.OrdinalIgnoreCase))
+        {
+            oobeConfig += 2;
+        }
+
+        if (oobeSettings.HidePrivacySettings == true)
+        {
+            oobeConfig += 4;
+        }
+
+        if (oobeSettings.HideEula == true)
+        {
+            oobeConfig += 16;
+        }
+
+        if (oobeSettings.SkipKeyboardSelectionPage == true)
+        {
+            oobeConfig += 1024;
+        }
+
+        if (string.Equals(oobeSettings.DeviceUsageType, "shared", StringComparison.OrdinalIgnoreCase))
+        {
+            oobeConfig += 96;
+        }
+
+        var json = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            ["Comment_File"] = $"Profile {profile.DisplayName}",
+            ["Version"] = 2049,
+            ["ZtdCorrelationId"] = profile.Id ?? string.Empty,
+            ["CloudAssignedDomainJoinMethod"] = string.Equals(
+                profile.ODataType,
+                "#microsoft.graph.activeDirectoryWindowsAutopilotDeploymentProfile",
+                StringComparison.OrdinalIgnoreCase) ? 1 : 0,
+            ["CloudAssignedOobeConfig"] = oobeConfig,
+            ["CloudAssignedForcedEnrollment"] = forcedEnrollment,
+            ["CloudAssignedTenantId"] = organization.Id,
+            ["CloudAssignedTenantDomain"] = organization.DefaultDomain,
+            ["CloudAssignedAadServerData"] = JsonSerializer.Serialize(new
+            {
+                ZeroTouchConfig = new
+                {
+                    CloudAssignedTenantDomain = organization.DefaultDomain,
+                    CloudAssignedTenantUpn = string.Empty,
+                    ForcedEnrollment = forcedEnrollment
+                }
+            }),
+            ["CloudAssignedAutopilotUpdateDisabled"] = 1,
+            ["CloudAssignedAutopilotUpdateTimeout"] = 1800000
+        };
+
+        if (!string.IsNullOrWhiteSpace(profile.DeviceNameTemplate))
+        {
+            json["CloudAssignedDeviceName"] = profile.DeviceNameTemplate;
+        }
+
+        if (oobeSettings.SkipKeyboardSelectionPage == true && !string.IsNullOrWhiteSpace(profile.Language))
+        {
+            json["CloudAssignedLanguage"] = profile.Language;
+            json["CloudAssignedRegion"] = profile.Language;
+        }
+
+        if (profile.HybridAzureAdJoinSkipConnectivityCheck == true)
+        {
+            json["HybridJoinSkipDCConnectivityCheck"] = 1;
+        }
+
+        return JsonSerializer.Serialize(json, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+    }
+
+    private async Task<OrganizationInfo> GetOrganizationAsync(string accessToken, CancellationToken cancellationToken)
+    {
+        GraphCollectionResponse<OrganizationResponse>? response = await SendGraphRequestAsync<GraphCollectionResponse<OrganizationResponse>>(
+            OrganizationRequestPath,
+            accessToken,
+            cancellationToken).ConfigureAwait(false);
+
+        OrganizationResponse organization = response?.Value?.FirstOrDefault()
+            ?? throw new InvalidOperationException("Microsoft Graph did not return organization information for the signed-in tenant.");
+
+        string defaultDomain = organization.VerifiedDomains?
+            .FirstOrDefault(domain => domain.IsDefault)?
+            .Name
+            ?? organization.VerifiedDomains?.FirstOrDefault()?.Name
+            ?? throw new InvalidOperationException("Microsoft Graph did not return a verified domain for the signed-in tenant.");
+
+        return new OrganizationInfo
+        {
+            Id = organization.Id ?? throw new InvalidOperationException("Microsoft Graph did not return the tenant organization ID."),
+            DefaultDomain = defaultDomain
+        };
+    }
+
+    private async Task<IReadOnlyList<AutopilotDeploymentProfile>> GetAutopilotProfilesAsync(string accessToken, CancellationToken cancellationToken)
+    {
+        var profiles = new List<AutopilotDeploymentProfile>();
+        string? requestPath = AutopilotProfilesRequestPath;
+
+        while (!string.IsNullOrWhiteSpace(requestPath))
+        {
+            GraphCollectionResponse<AutopilotDeploymentProfile>? response =
+                await SendGraphRequestAsync<GraphCollectionResponse<AutopilotDeploymentProfile>>(
+                    requestPath,
+                    accessToken,
+                    cancellationToken).ConfigureAwait(false);
+
+            if (response?.Value is not null)
+            {
+                profiles.AddRange(response.Value.Where(profile =>
+                    !string.IsNullOrWhiteSpace(profile.Id) &&
+                    !string.IsNullOrWhiteSpace(profile.DisplayName)));
+            }
+
+            requestPath = response?.NextLink;
+        }
+
+        return profiles;
+    }
+
+    private async Task<T?> SendGraphRequestAsync<T>(string requestPath, string accessToken, CancellationToken cancellationToken)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, requestPath);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+        using HttpResponseMessage response = await GraphHttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        string responseBody = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+        if (!response.IsSuccessStatusCode)
+        {
+            _logger.LogWarning(
+                "Microsoft Graph request failed. RequestPath={RequestPath}, StatusCode={StatusCode}",
+                requestPath,
+                response.StatusCode);
+            throw new InvalidOperationException(
+                $"Microsoft Graph request failed for '{requestPath}' with status code {(int)response.StatusCode}: {responseBody}");
+        }
+
+        return JsonSerializer.Deserialize<T>(responseBody);
+    }
+
+    private sealed record OrganizationInfo
+    {
+        public required string Id { get; init; }
+        public required string DefaultDomain { get; init; }
+    }
+
+    private sealed record GraphCollectionResponse<TItem>
+    {
+        public List<TItem>? Value { get; init; }
+
+        [JsonPropertyName("@odata.nextLink")]
+        public string? NextLink { get; init; }
+    }
+
+    private sealed record OrganizationResponse
+    {
+        public string? Id { get; init; }
+        public List<VerifiedDomain>? VerifiedDomains { get; init; }
+    }
+
+    private sealed record VerifiedDomain
+    {
+        public string? Name { get; init; }
+        public bool IsDefault { get; init; }
+    }
+
+    private sealed record AutopilotDeploymentProfile
+    {
+        [JsonPropertyName("@odata.type")]
+        public string? ODataType { get; init; }
+
+        public string? Id { get; init; }
+        public string? DisplayName { get; init; }
+        public string? DeviceNameTemplate { get; init; }
+        public string? Language { get; init; }
+
+        [JsonPropertyName("hybridAzureADJoinSkipConnectivityCheck")]
+        public bool? HybridAzureAdJoinSkipConnectivityCheck { get; init; }
+
+        public OutOfBoxExperienceSettings? OutOfBoxExperienceSettings { get; init; }
+    }
+
+    private sealed record OutOfBoxExperienceSettings
+    {
+        public string? UserType { get; init; }
+        public bool? HidePrivacySettings { get; init; }
+
+        [JsonPropertyName("hideEULA")]
+        public bool? HideEula { get; init; }
+
+        public bool? SkipKeyboardSelectionPage { get; init; }
+        public string? DeviceUsageType { get; init; }
+        public bool? HideEscapeLink { get; init; }
     }
 }

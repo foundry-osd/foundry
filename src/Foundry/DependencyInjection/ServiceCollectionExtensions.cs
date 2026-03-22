@@ -2,7 +2,6 @@ using Foundry.Services.Autopilot;
 using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Configuration;
-using Foundry.Services.Execution;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Theme;
@@ -22,7 +21,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<AutopilotSettingsViewModel>();
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
-        services.AddSingleton<IProcessExecutionService, ProcessExecutionService>();
         services.AddSingleton<IAutopilotProfileService, AutopilotProfileService>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
