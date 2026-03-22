@@ -1,0 +1,155 @@
+<UserControl
+    x:Class="Foundry.Views.AutopilotSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,8"
+            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{Binding Strings[ExpertSectionAutopilot]}" />
+        <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+        <CheckBox
+            Margin="0,0,0,12"
+            Content="{Binding Strings[AutopilotEnableLabel]}"
+            IsChecked="{Binding IsAutopilotEnabled}" />
+
+        <StackPanel IsEnabled="{Binding IsAutopilotEnabled}">
+            <TextBlock
+                Margin="0,0,0,4"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[AutopilotStorageLabel]}" />
+            <TextBlock
+                Margin="0,0,0,12"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding BootImageStoragePath}" />
+
+            <TextBlock
+                Margin="0,0,0,4"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[AutopilotInjectionLabel]}" />
+            <TextBlock
+                Margin="0,0,0,12"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding OfflineInjectionPath}" />
+
+            <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                <Button
+                    MinWidth="110"
+                    Margin="0,0,8,0"
+                    Command="{Binding ImportProfileCommand}"
+                    Content="{Binding Strings[AutopilotImportButton]}" />
+                <Button
+                    MinWidth="170"
+                    Margin="0,0,8,0"
+                    Command="{Binding DownloadProfilesCommand}"
+                    Content="{Binding Strings[AutopilotDownloadButton]}" />
+                <Button
+                    MinWidth="110"
+                    Command="{Binding RemoveSelectedProfileCommand}"
+                    Content="{Binding Strings[AutopilotRemoveButton]}" />
+            </StackPanel>
+
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding Strings[AutopilotDefaultProfileLabel]}" />
+                <ComboBox
+                    Grid.Column="1"
+                    DisplayMemberPath="DisplayName"
+                    ItemsSource="{Binding Profiles}"
+                    SelectedItem="{Binding SelectedDefaultProfile}" />
+            </Grid>
+
+            <Border
+                Padding="12"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[AutopilotProfilesLabel]}" />
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <ListView
+                            x:Name="ImportedProfilesListView"
+                            MinHeight="220"
+                            ItemsSource="{Binding Profiles}"
+                            SelectedItem="{Binding SelectedProfile}">
+                            <ListView.InputBindings>
+                                <KeyBinding
+                                    Key="Delete"
+                                    Command="{Binding RemoveSelectedProfileCommand}" />
+                            </ListView.InputBindings>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="220" DisplayMemberBinding="{Binding DisplayName}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnName], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="160" DisplayMemberBinding="{Binding Source}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnSource], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding ImportedAtDisplay}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnImported], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="260" DisplayMemberBinding="{Binding FolderName}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnFolder], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Margin="0,8,0,0"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{Binding Strings[AutopilotProfilesEmptyLabel]}">
+                            <TextBlock.Style>
+                                <Style BasedOn="{StaticResource CaptionTextBlockStyle}" TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasProfiles}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

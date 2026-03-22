@@ -1,3 +1,5 @@
+using Foundry.Models.Configuration;
+
 namespace Foundry.Services.WinPe;
 
 internal sealed record WinPeMountedImageCustomizationRequest
@@ -11,4 +13,5 @@ internal sealed record WinPeMountedImageCustomizationRequest
     public required string WinPeLanguage { get; init; }
 
     public string? ExpertDeployConfigurationJson { get; init; }
+    public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
 }

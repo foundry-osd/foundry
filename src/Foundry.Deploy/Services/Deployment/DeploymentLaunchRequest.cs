@@ -12,7 +12,7 @@ public sealed record DeploymentLaunchRequest
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public required DriverPackCatalogItem? SelectedDriverPack { get; init; }
     public required bool ApplyFirmwareUpdates { get; init; }
-    public required bool UseFullAutopilot { get; init; }
-    public required bool AllowAutopilotDeferredCompletion { get; init; }
+    public required bool IsAutopilotEnabled { get; init; }
+    public required AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
     public required bool IsDryRun { get; init; }
 }

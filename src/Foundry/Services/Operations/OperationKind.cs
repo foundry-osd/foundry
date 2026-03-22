@@ -6,6 +6,8 @@ public enum OperationKind
     AdkInstall,
     AdkUpgrade,
     AdkUninstall,
+    AutopilotProfileImport,
+    AutopilotProfileDownload,
     IsoCreate,
     UsbCreate
 }

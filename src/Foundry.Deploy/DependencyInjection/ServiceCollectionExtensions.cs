@@ -57,7 +57,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
-        services.AddSingleton<IAutopilotService, AutopilotService>();
+        services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
         services.AddSingleton<IDeploymentStep, ValidateTargetConfigurationStep>();
@@ -73,7 +73,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
-        services.AddSingleton<IDeploymentStep, ExecuteFullAutopilotWorkflowStep>();
+        services.AddSingleton<IDeploymentStep, StageAutopilotConfigurationStep>();
         services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();
         services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
 

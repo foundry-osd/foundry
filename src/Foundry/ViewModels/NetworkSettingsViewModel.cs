@@ -107,6 +107,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
 
     private void OnOperationProgressChanged(object? sender, EventArgs e)
     {
-        BrowseCertificateCommand.NotifyCanExecuteChanged();
+        RunOnUiThread(() => BrowseCertificateCommand.NotifyCanExecuteChanged());
     }
 }

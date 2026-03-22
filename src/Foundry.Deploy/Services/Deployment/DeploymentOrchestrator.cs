@@ -85,7 +85,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             DriverPackSelectionKind = context.DriverPackSelectionKind,
             DriverPackName = context.DriverPack?.DisplayLabel,
             DriverPackUrl = context.DriverPack?.DownloadUrl,
-            ApplyFirmwareUpdates = context.ApplyFirmwareUpdates
+            ApplyFirmwareUpdates = context.ApplyFirmwareUpdates,
+            IsAutopilotEnabled = context.IsAutopilotEnabled,
+            SelectedAutopilotProfileFolderName = context.SelectedAutopilotProfile?.FolderName,
+            SelectedAutopilotProfileDisplayName = context.SelectedAutopilotProfile?.DisplayName
         };
 
         DeploymentStepExecutionContext? executionContext = null;

@@ -1,4 +1,5 @@
 using System.Text;
+using Foundry.Models.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
@@ -16,6 +17,7 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         string mountedImagePath,
         WinPeArchitecture architecture,
         string? expertDeployConfigurationJson,
+        IReadOnlyList<AutopilotProfileSettings> autopilotProfiles,
         CancellationToken cancellationToken)
     {
         string system32 = Path.Combine(mountedImagePath, "Windows", "System32");
@@ -63,6 +65,15 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         if (!string.IsNullOrWhiteSpace(expertDeployConfigurationJson))
         {
             _logger.LogInformation("Provisioned Foundry.Deploy expert configuration into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
+        }
+
+        WinPeResult autopilotProvisioning = await ProvisionAutopilotProfilesInImageAsync(
+            mountedImagePath,
+            autopilotProfiles,
+            cancellationToken).ConfigureAwait(false);
+        if (!autopilotProvisioning.IsSuccess)
+        {
+            return autopilotProvisioning;
         }
 
         string startnet = Path.Combine(mountedImagePath, WinPeDefaults.DefaultStartnetPathInImage);
@@ -194,6 +205,46 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision Foundry.Deploy expert configuration into mounted WinPE image.",
+                ex.ToString());
+        }
+    }
+
+    private async Task<WinPeResult> ProvisionAutopilotProfilesInImageAsync(
+        string mountedImagePath,
+        IReadOnlyList<AutopilotProfileSettings> autopilotProfiles,
+        CancellationToken cancellationToken)
+    {
+        if (autopilotProfiles.Count == 0)
+        {
+            return WinPeResult.Success();
+        }
+
+        string autopilotRoot = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedAutopilotProfilesPathInImage);
+
+        try
+        {
+            Directory.CreateDirectory(autopilotRoot);
+            foreach (AutopilotProfileSettings profile in autopilotProfiles)
+            {
+                string profileDirectory = Path.Combine(autopilotRoot, profile.FolderName);
+                Directory.CreateDirectory(profileDirectory);
+
+                string profilePath = Path.Combine(profileDirectory, "AutopilotConfigurationFile.json");
+                await File.WriteAllTextAsync(
+                    profilePath,
+                    profile.JsonContent,
+                    Encoding.ASCII,
+                    cancellationToken).ConfigureAwait(false);
+            }
+
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to provision Autopilot profiles into mounted WinPE image. AutopilotRoot={AutopilotRoot}", autopilotRoot);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision Autopilot profiles into mounted WinPE image.",
                 ex.ToString());
         }
     }

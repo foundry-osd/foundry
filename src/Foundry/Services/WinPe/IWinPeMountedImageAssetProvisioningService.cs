@@ -1,3 +1,5 @@
+using Foundry.Models.Configuration;
+
 namespace Foundry.Services.WinPe;
 
 internal interface IWinPeMountedImageAssetProvisioningService
@@ -6,5 +8,6 @@ internal interface IWinPeMountedImageAssetProvisioningService
         string mountedImagePath,
         WinPeArchitecture architecture,
         string? expertDeployConfigurationJson,
+        IReadOnlyList<AutopilotProfileSettings> autopilotProfiles,
         CancellationToken cancellationToken);
 }

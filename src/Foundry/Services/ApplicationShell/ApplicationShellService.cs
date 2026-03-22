@@ -1,4 +1,7 @@
+using Foundry.Models.Configuration;
 using Foundry.Services.Localization;
+using Foundry.ViewModels;
+using Foundry.Views;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows;
@@ -74,6 +77,36 @@ public sealed class ApplicationShellService : IApplicationShellService
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
+    public IReadOnlyList<AutopilotProfileSettings>? PickAutopilotProfilesForImport(IReadOnlyList<AutopilotProfileSettings> availableProfiles)
+    {
+        ArgumentNullException.ThrowIfNull(availableProfiles);
+
+        var viewModel = new AutopilotProfileSelectionDialogViewModel(_localizationService, availableProfiles);
+        var dialog = new AutopilotProfileSelectionDialog
+        {
+            DataContext = viewModel,
+            Owner = ResolveOwnerWindow()
+        };
+
+        try
+        {
+            viewModel.CloseRequested += (_, result) =>
+            {
+                dialog.DialogResult = result;
+                dialog.Close();
+            };
+
+            bool? dialogResult = dialog.ShowDialog();
+            return dialogResult == true
+                ? viewModel.GetSelectedProfiles()
+                : null;
+        }
+        finally
+        {
+            viewModel.Dispose();
+        }
+    }
+
     public string? PickFolderPath(string title, string? initialPath = null)
     {
         var dialog = new OpenFolderDialog
@@ -111,5 +144,23 @@ public sealed class ApplicationShellService : IApplicationShellService
             MessageBoxResult.No);
 
         return result == MessageBoxResult.Yes;
+    }
+
+    private static Window? ResolveOwnerWindow()
+    {
+        if (Application.Current?.Windows is null)
+        {
+            return Application.Current?.MainWindow;
+        }
+
+        foreach (Window window in Application.Current.Windows)
+        {
+            if (window.IsActive)
+            {
+                return window;
+            }
+        }
+
+        return Application.Current.MainWindow;
     }
 }

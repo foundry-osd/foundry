@@ -485,6 +485,9 @@ Initialisation MVVM prete.</value>
   <data name="ExpertSectionLocalization" xml:space="preserve">
     <value>Localisation</value>
   </data>
+  <data name="ExpertSectionAutopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
   <data name="ExpertSectionCustomization" xml:space="preserve">
     <value>Personnalisation</value>
   </data>
@@ -533,8 +536,101 @@ Initialisation MVVM prete.</value>
   <data name="MachineNamingAllowManualSuffixLabel" xml:space="preserve">
     <value>Autoriser l'édition manuelle après le préfixe</value>
   </data>
-  <data name="CustomizationAutopilotPlaceholder" xml:space="preserve">
-    <value>Autopilot</value>
+  <data name="AutopilotEnableLabel" xml:space="preserve">
+    <value>Activer Windows Autopilot dans Foundry.Deploy</value>
+  </data>
+  <data name="AutopilotStorageLabel" xml:space="preserve">
+    <value>Emplacement des profils dans l'image de boot</value>
+  </data>
+  <data name="AutopilotInjectionLabel" xml:space="preserve">
+    <value>Chemin d'injection dans Windows hors ligne</value>
+  </data>
+  <data name="AutopilotImportButton" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="AutopilotDownloadButton" xml:space="preserve">
+    <value>Télécharger depuis le tenant</value>
+  </data>
+  <data name="AutopilotRemoveButton" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="AutopilotDefaultProfileLabel" xml:space="preserve">
+    <value>Profil par défaut pour Foundry.Deploy</value>
+  </data>
+  <data name="AutopilotProfilesLabel" xml:space="preserve">
+    <value>Profils Autopilot importés</value>
+  </data>
+  <data name="AutopilotProfilesEmptyLabel" xml:space="preserve">
+    <value>Aucun profil Autopilot n'est actuellement importé.</value>
+  </data>
+  <data name="AutopilotColumnName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="AutopilotColumnSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="AutopilotColumnImported" xml:space="preserve">
+    <value>Importé</value>
+  </data>
+  <data name="AutopilotColumnFolder" xml:space="preserve">
+    <value>Dossier</value>
+  </data>
+  <data name="AutopilotImportTitle" xml:space="preserve">
+    <value>Importer un profil JSON Autopilot</value>
+  </data>
+  <data name="AutopilotImportInProgress" xml:space="preserve">
+    <value>Importation du profil Autopilot...</value>
+  </data>
+  <data name="AutopilotImportValidating" xml:space="preserve">
+    <value>Validation du profil Autopilot...</value>
+  </data>
+  <data name="AutopilotImportCompletedFormat" xml:space="preserve">
+    <value>Profil Autopilot importé : {0}</value>
+  </data>
+  <data name="AutopilotImportFailedFormat" xml:space="preserve">
+    <value>L'import du profil Autopilot a échoué : {0}</value>
+  </data>
+  <data name="AutopilotDownloadInProgress" xml:space="preserve">
+    <value>Téléchargement des profils Autopilot depuis le tenant...</value>
+  </data>
+  <data name="AutopilotDownloadConnecting" xml:space="preserve">
+    <value>Connexion à Microsoft Graph...</value>
+  </data>
+  <data name="AutopilotDownloadSelectProfiles" xml:space="preserve">
+    <value>Sélectionnez les profils Autopilot à importer.</value>
+  </data>
+  <data name="AutopilotDownloadCanceled" xml:space="preserve">
+    <value>L'import des profils Autopilot a été annulé.</value>
+  </data>
+  <data name="AutopilotDownloadCompletedFormat" xml:space="preserve">
+    <value>{0} profil(s) Autopilot importé(s) depuis le tenant.</value>
+  </data>
+  <data name="AutopilotDownloadCompletedNoProfiles" xml:space="preserve">
+    <value>Aucun profil Autopilot n'a été renvoyé par le tenant.</value>
+  </data>
+  <data name="AutopilotDownloadFailedFormat" xml:space="preserve">
+    <value>Le téléchargement des profils Autopilot a échoué : {0}</value>
+  </data>
+  <data name="AutopilotTenantPickerTitle" xml:space="preserve">
+    <value>Sélectionner les profils Autopilot</value>
+  </data>
+  <data name="AutopilotTenantPickerDescription" xml:space="preserve">
+    <value>Choisissez les profils du tenant à importer dans Foundry.</value>
+  </data>
+  <data name="AutopilotTenantPickerSelectAll" xml:space="preserve">
+    <value>Tout sélectionner</value>
+  </data>
+  <data name="AutopilotTenantPickerClear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="AutopilotTenantPickerImport" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="AutopilotTenantPickerCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="AutopilotTenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>{0} profil(s) sélectionné(s) sur {1}</value>
   </data>
   <data name="CustomizationAppxPlaceholder" xml:space="preserve">
     <value>Suppression APPX</value>

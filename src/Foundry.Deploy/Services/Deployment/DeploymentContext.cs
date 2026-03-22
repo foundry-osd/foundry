@@ -12,7 +12,7 @@ public sealed record DeploymentContext
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public DriverPackCatalogItem? DriverPack { get; init; }
     public bool ApplyFirmwareUpdates { get; init; } = true;
-    public bool UseFullAutopilot { get; init; }
-    public bool AllowAutopilotDeferredCompletion { get; init; } = true;
+    public bool IsAutopilotEnabled { get; init; }
+    public AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
     public bool IsDryRun { get; init; }
 }

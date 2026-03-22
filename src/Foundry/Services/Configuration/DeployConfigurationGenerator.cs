@@ -31,6 +31,13 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     AllowManualSuffixEdit = !document.Customization.MachineNaming.IsEnabled ||
                                             document.Customization.MachineNaming.AllowManualSuffixEdit
                 }
+            },
+            Autopilot = new DeployAutopilotSettings
+            {
+                IsEnabled = document.Autopilot.IsEnabled,
+                DefaultProfileFolderName = document.Autopilot.Profiles
+                    .FirstOrDefault(profile => string.Equals(profile.Id, document.Autopilot.DefaultProfileId, StringComparison.OrdinalIgnoreCase))
+                    ?.FolderName
             }
         };
     }

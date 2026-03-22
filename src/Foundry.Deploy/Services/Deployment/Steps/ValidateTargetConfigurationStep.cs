@@ -40,7 +40,6 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
         HardwareProfile hardware = await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
         context.RuntimeState.HardwareProfile = hardware;
         await context.AppendLogAsync(DeploymentLogLevel.Info, $"Detected hardware: {hardware.DisplayLabel}", cancellationToken).ConfigureAwait(false);
-        await context.AppendLogAsync(DeploymentLogLevel.Info, $"Autopilot capable: {hardware.IsAutopilotCapable}", cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Target configuration validated.");
     }

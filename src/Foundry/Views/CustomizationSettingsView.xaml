@@ -62,18 +62,6 @@
             </StackPanel>
         </Border>
 
-        <Expander IsEnabled="False">
-            <Expander.Header>
-                <TextBlock
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[CustomizationAutopilotPlaceholder]}" />
-            </Expander.Header>
-            <TextBlock
-                Margin="0,12,0,0"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{Binding Strings[ComingLaterLabel]}" />
-        </Expander>
-
         <Expander Margin="0,12,0,0" IsEnabled="False">
             <Expander.Header>
                 <TextBlock

@@ -1,3 +1,4 @@
+using Foundry.Services.Autopilot;
 using Foundry.Services.Adk;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Configuration;
@@ -17,8 +18,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<AutopilotSettingsViewModel>();
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton<IAutopilotProfileService, AutopilotProfileService>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();

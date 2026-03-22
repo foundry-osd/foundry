@@ -65,7 +65,8 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
                 Tools = request.Tools,
                 DriverDirectories = drivers.Value!,
                 WinPeLanguage = request.WinPeLanguage,
-                ExpertDeployConfigurationJson = request.ExpertDeployConfigurationJson
+                ExpertDeployConfigurationJson = request.ExpertDeployConfigurationJson,
+                AutopilotProfiles = request.AutopilotProfiles
             },
             cancellationToken).ConfigureAwait(false);
         if (!customize.IsSuccess)

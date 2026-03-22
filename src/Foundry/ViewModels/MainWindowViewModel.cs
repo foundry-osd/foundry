@@ -108,6 +108,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public NetworkSettingsViewModel Network { get; }
     public LocalizationSettingsViewModel Localization { get; }
+    public AutopilotSettingsViewModel Autopilot { get; }
     public CustomizationSettingsViewModel Customization { get; }
 
     public IReadOnlyList<WinPeArchitecture> AvailableArchitectures { get; } = Enum.GetValues<WinPeArchitecture>();
@@ -157,6 +158,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IExpertConfigurationService expertConfigurationService,
         IDeployConfigurationGenerator deployConfigurationGenerator,
         ILanguageRegistryService languageRegistryService,
+        AutopilotSettingsViewModel autopilotSettingsViewModel,
         ILogger<MainWindowViewModel> logger)
     {
         _applicationShellService = applicationShellService;
@@ -172,6 +174,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         Network = new NetworkSettingsViewModel(localizationService, applicationShellService, operationProgressService);
         Localization = new LocalizationSettingsViewModel(localizationService, languageRegistryService.GetLanguages());
+        Autopilot = autopilotSettingsViewModel;
         Customization = new CustomizationSettingsViewModel(localizationService);
 
         _localizationService.LanguageChanged += OnLanguageChanged;
@@ -197,6 +200,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         UsbDiskCandidates.CollectionChanged -= OnUsbDiskCandidatesCollectionChanged;
         Network.Dispose();
         Localization.Dispose();
+        Autopilot.Dispose();
         Customization.Dispose();
     }
 
@@ -266,7 +270,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to import expert configuration. Path={Path}", path);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportFailedFormat"], ex.Message);
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportFailedFormat"], ex.Message));
         }
     }
 
@@ -285,12 +289,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         try
         {
             await _expertConfigurationService.SaveAsync(path, BuildExpertConfigurationDocument()).ConfigureAwait(false);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportedFormat"], Path.GetFileName(path));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export expert configuration. Path={Path}", path);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportFailedFormat"], ex.Message);
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportFailedFormat"], ex.Message));
         }
     }
 
@@ -310,12 +314,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             string json = BuildDeployConfigurationJsonForCurrentMode() ?? string.Empty;
             await File.WriteAllTextAsync(path, json).ConfigureAwait(false);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportedFormat"], Path.GetFileName(path));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export deploy configuration. Path={Path}", path);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportFailedFormat"], ex.Message);
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportFailedFormat"], ex.Message));
         }
     }
 
@@ -464,6 +468,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             MediaActionMessage = Strings["OperationInProgress"];
             Directory.CreateDirectory(StagingDirectoryPath);
+            FoundryExpertConfigurationDocument? expertConfiguration = IsExpertMode
+                ? BuildExpertConfigurationDocument()
+                : null;
 
             WinPeResult result = await _mediaOutputService.CreateIsoAsync(new IsoOutputOptions
             {
@@ -475,7 +482,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
-                ExpertDeployConfigurationJson = BuildDeployConfigurationJsonForCurrentMode()
+                ExpertDeployConfigurationJson = expertConfiguration is null
+                    ? null
+                    : _deployConfigurationGenerator.Serialize(_deployConfigurationGenerator.Generate(expertConfiguration)),
+                AutopilotProfiles = expertConfiguration?.Autopilot.Profiles ?? []
             });
 
             MediaActionMessage = result.IsSuccess
@@ -525,6 +535,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             MediaActionMessage = Strings["OperationInProgress"];
             Directory.CreateDirectory(StagingDirectoryPath);
+            FoundryExpertConfigurationDocument? expertConfiguration = IsExpertMode
+                ? BuildExpertConfigurationDocument()
+                : null;
 
             WinPeResult result = await _mediaOutputService.CreateUsbAsync(new UsbOutputOptions
             {
@@ -540,7 +553,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
-                ExpertDeployConfigurationJson = BuildDeployConfigurationJsonForCurrentMode()
+                ExpertDeployConfigurationJson = expertConfiguration is null
+                    ? null
+                    : _deployConfigurationGenerator.Serialize(_deployConfigurationGenerator.Generate(expertConfiguration)),
+                AutopilotProfiles = expertConfiguration?.Autopilot.Profiles ?? []
             });
 
             MediaActionMessage = result.IsSuccess
@@ -813,6 +829,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             new("general", Strings["ExpertSectionGeneral"], this),
             new("network", Strings["ExpertSectionNetwork"], Network),
             new("localization", Strings["ExpertSectionLocalization"], Localization),
+            new("autopilot", Strings["ExpertSectionAutopilot"], Autopilot),
             new("customization", Strings["ExpertSectionCustomization"], Customization)
         ];
 
@@ -845,6 +862,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             },
             Network = Network.BuildSettings(),
             Localization = Localization.BuildSettings(),
+            Autopilot = Autopilot.BuildSettings(),
             Customization = Customization.BuildSettings()
         };
     }
@@ -872,6 +890,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         Network.ApplySettings(document.Network);
         Localization.ApplySettings(document.Localization);
+        Autopilot.ApplySettings(document.Autopilot);
         Customization.ApplySettings(document.Customization);
         UpdateOperationState();
     }

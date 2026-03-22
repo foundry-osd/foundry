@@ -56,6 +56,13 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
                 normalizedComputerName);
         }
 
+        if (request.IsAutopilotEnabled && request.SelectedAutopilotProfile is null)
+        {
+            return DeploymentLaunchPreparationResult.Failure(
+                "Select an Autopilot profile or disable Autopilot before starting deployment.",
+                normalizedComputerName);
+        }
+
         if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem))
         {
             return DeploymentLaunchPreparationResult.Failure("Deployment cancelled by user.", normalizedComputerName);
@@ -71,8 +78,8 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             DriverPackSelectionKind = request.DriverPackSelectionKind,
             DriverPack = request.SelectedDriverPack,
             ApplyFirmwareUpdates = request.ApplyFirmwareUpdates,
-            UseFullAutopilot = request.UseFullAutopilot,
-            AllowAutopilotDeferredCompletion = request.AllowAutopilotDeferredCompletion,
+            IsAutopilotEnabled = request.IsAutopilotEnabled,
+            SelectedAutopilotProfile = request.SelectedAutopilotProfile,
             IsDryRun = request.IsDryRun
         };
 

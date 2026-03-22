@@ -38,8 +38,13 @@ public sealed class GatherDeploymentVariablesStep : DeploymentStepBase
                 targetComputerName = context.Request.TargetComputerName,
                 driverPackSelectionKind = context.Request.DriverPackSelectionKind.ToString(),
                 applyFirmwareUpdates = context.Request.ApplyFirmwareUpdates,
-                useFullAutopilot = context.Request.UseFullAutopilot,
-                allowAutopilotDeferredCompletion = context.Request.AllowAutopilotDeferredCompletion,
+                autopilot = new
+                {
+                    isEnabled = context.Request.IsAutopilotEnabled,
+                    selectedProfileFolderName = context.Request.SelectedAutopilotProfile?.FolderName,
+                    selectedProfileDisplayName = context.Request.SelectedAutopilotProfile?.DisplayName,
+                    selectedProfileConfigurationFilePath = context.Request.SelectedAutopilotProfile?.ConfigurationFilePath
+                },
                 isDryRun = context.Request.IsDryRun,
                 telemetryMode = "disabled",
                 operatingSystem = new
@@ -105,6 +110,10 @@ public sealed class GatherDeploymentVariablesStep : DeploymentStepBase
                 context.RuntimeState.ExtractedFirmwarePath,
                 context.RuntimeState.FirmwareUpdateId,
                 context.RuntimeState.FirmwareUpdateTitle,
+                context.RuntimeState.IsAutopilotEnabled,
+                context.RuntimeState.SelectedAutopilotProfileFolderName,
+                context.RuntimeState.SelectedAutopilotProfileDisplayName,
+                context.RuntimeState.StagedAutopilotConfigurationPath,
                 context.RuntimeState.TargetFoundryRoot,
                 context.RuntimeState.DeploymentSummaryPath,
                 completedSteps = context.RuntimeState.CompletedSteps

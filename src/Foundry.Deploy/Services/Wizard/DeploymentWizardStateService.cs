@@ -45,6 +45,7 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
                snapshot.IsTargetComputerNameValid &&
                snapshot.HasSelectedOperatingSystem &&
                hasTargetDisk &&
-               snapshot.HasValidDriverPackSelection;
+               snapshot.HasValidDriverPackSelection &&
+               snapshot.HasValidAutopilotSelection;
     }
 }
