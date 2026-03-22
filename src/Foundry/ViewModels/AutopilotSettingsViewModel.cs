@@ -65,15 +65,17 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         {
             _operationProgressService.Report(40, Strings["AutopilotImportValidating"]);
             AutopilotProfileSettings profile = await _autopilotProfileService
-                .ImportFromJsonFileAsync(filePath)
-                .ConfigureAwait(false);
+                .ImportFromJsonFileAsync(filePath);
 
-            MergeProfiles([profile]);
-            _operationProgressService.Complete(string.Format(Strings["AutopilotImportCompletedFormat"], profile.DisplayName));
+            RunOnUiThread(() =>
+            {
+                MergeProfiles([profile]);
+                _operationProgressService.Complete(string.Format(Strings["AutopilotImportCompletedFormat"], profile.DisplayName));
+            });
         }
         catch (Exception ex)
         {
-            _operationProgressService.Fail(string.Format(Strings["AutopilotImportFailedFormat"], ex.Message));
+            RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["AutopilotImportFailedFormat"], ex.Message)));
         }
     }
 
@@ -89,18 +91,20 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         {
             _operationProgressService.Report(20, Strings["AutopilotDownloadConnecting"]);
             IReadOnlyList<AutopilotProfileSettings> profiles = await _autopilotProfileService
-                .DownloadFromTenantAsync()
-                .ConfigureAwait(false);
+                .DownloadFromTenantAsync();
 
-            MergeProfiles(profiles);
-            _operationProgressService.Complete(
-                profiles.Count == 0
-                    ? Strings["AutopilotDownloadCompletedNoProfiles"]
-                    : string.Format(Strings["AutopilotDownloadCompletedFormat"], profiles.Count));
+            RunOnUiThread(() =>
+            {
+                MergeProfiles(profiles);
+                _operationProgressService.Complete(
+                    profiles.Count == 0
+                        ? Strings["AutopilotDownloadCompletedNoProfiles"]
+                        : string.Format(Strings["AutopilotDownloadCompletedFormat"], profiles.Count));
+            });
         }
         catch (Exception ex)
         {
-            _operationProgressService.Fail(string.Format(Strings["AutopilotDownloadFailedFormat"], ex.Message));
+            RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["AutopilotDownloadFailedFormat"], ex.Message)));
         }
     }
 
@@ -223,8 +227,11 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
 
     private void OnOperationProgressChanged(object? sender, EventArgs e)
     {
-        ImportProfileCommand.NotifyCanExecuteChanged();
-        DownloadProfilesCommand.NotifyCanExecuteChanged();
-        RemoveSelectedProfileCommand.NotifyCanExecuteChanged();
+        RunOnUiThread(() =>
+        {
+            ImportProfileCommand.NotifyCanExecuteChanged();
+            DownloadProfilesCommand.NotifyCanExecuteChanged();
+            RemoveSelectedProfileCommand.NotifyCanExecuteChanged();
+        });
     }
 }

@@ -270,7 +270,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to import expert configuration. Path={Path}", path);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportFailedFormat"], ex.Message);
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportFailedFormat"], ex.Message));
         }
     }
 
@@ -289,12 +289,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         try
         {
             await _expertConfigurationService.SaveAsync(path, BuildExpertConfigurationDocument()).ConfigureAwait(false);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportedFormat"], Path.GetFileName(path));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export expert configuration. Path={Path}", path);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportFailedFormat"], ex.Message);
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportFailedFormat"], ex.Message));
         }
     }
 
@@ -314,12 +314,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             string json = BuildDeployConfigurationJsonForCurrentMode() ?? string.Empty;
             await File.WriteAllTextAsync(path, json).ConfigureAwait(false);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportedFormat"], Path.GetFileName(path));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export deploy configuration. Path={Path}", path);
-            MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportFailedFormat"], ex.Message);
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportFailedFormat"], ex.Message));
         }
     }
 
