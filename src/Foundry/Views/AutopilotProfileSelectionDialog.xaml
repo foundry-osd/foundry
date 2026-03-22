@@ -91,17 +91,7 @@
                                 <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnName], ElementName=ProfilesListView}" />
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn Width="160" DisplayMemberBinding="{Binding Source}">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnSource], ElementName=ProfilesListView}" />
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="180" DisplayMemberBinding="{Binding ImportedAtDisplay}">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnImported], ElementName=ProfilesListView}" />
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="260" DisplayMemberBinding="{Binding FolderName}">
+                        <GridViewColumn Width="460" DisplayMemberBinding="{Binding FolderName}">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnFolder], ElementName=ProfilesListView}" />
                             </GridViewColumn.Header>

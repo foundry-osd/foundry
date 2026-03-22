@@ -45,7 +45,7 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
 
     public bool HasProfiles => Profiles.Count > 0;
 
-    public string BootImageStoragePath => @"X:\Foundry\Config\Autopilot";
+    public string BootImageStoragePath => $@"X:\{Services.WinPe.WinPeDefaults.EmbeddedAutopilotProfilesPathInImage}";
 
     public string OfflineInjectionPath => @"%SystemDrive%\Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json";
 

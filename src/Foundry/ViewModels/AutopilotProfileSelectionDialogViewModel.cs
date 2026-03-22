@@ -112,10 +112,6 @@ public sealed partial class SelectableAutopilotProfileEntry : ObservableObject
 
     public string DisplayName => Profile.DisplayName;
 
-    public string Source => Profile.Source;
-
-    public string ImportedAtDisplay => Profile.ImportedAtUtc.ToLocalTime().ToString("g");
-
     public string FolderName => Profile.FolderName;
 
     [ObservableProperty]

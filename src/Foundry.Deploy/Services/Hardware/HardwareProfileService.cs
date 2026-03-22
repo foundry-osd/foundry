@@ -101,12 +101,6 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
             string systemFirmwareHardwareId = ReadProperty(root, "SystemFirmwareHardwareId");
             IReadOnlyList<PnpDeviceInfo> pnpDevices = ReadPnpDevices(root);
 
-            bool isAutopilotCapable =
-                !string.IsNullOrWhiteSpace(serial) &&
-                !string.IsNullOrWhiteSpace(manufacturer) &&
-                !string.IsNullOrWhiteSpace(model) &&
-                isTpmPresent;
-
             HardwareProfile profile = new()
             {
                 Manufacturer = NormalizeManufacturer(manufacturer),
@@ -117,18 +111,17 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
                 IsVirtualMachine = isVirtualMachine,
                 IsOnBattery = isOnBattery,
                 IsTpmPresent = isTpmPresent,
-                IsAutopilotCapable = isAutopilotCapable,
                 SystemFirmwareHardwareId = systemFirmwareHardwareId.Trim(),
                 PnpDevices = pnpDevices
             };
 
-            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsVirtualMachine={IsVirtualMachine}, IsOnBattery={IsOnBattery}, IsAutopilotCapable={IsAutopilotCapable}",
+            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsVirtualMachine={IsVirtualMachine}, IsOnBattery={IsOnBattery}, IsTpmPresent={IsTpmPresent}",
                 profile.Manufacturer,
                 profile.Model,
                 profile.Architecture,
                 profile.IsVirtualMachine,
                 profile.IsOnBattery,
-                profile.IsAutopilotCapable);
+                profile.IsTpmPresent);
             return profile;
         }
         catch (Exception ex)
@@ -151,7 +144,6 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
             IsVirtualMachine = false,
             IsOnBattery = false,
             IsTpmPresent = false,
-            IsAutopilotCapable = false,
             SystemFirmwareHardwareId = string.Empty,
             PnpDevices = Array.Empty<PnpDeviceInfo>()
         };

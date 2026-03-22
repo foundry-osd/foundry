@@ -10,7 +10,6 @@ public sealed record HardwareProfile
     public bool IsVirtualMachine { get; init; }
     public bool IsOnBattery { get; init; }
     public bool IsTpmPresent { get; init; }
-    public bool IsAutopilotCapable { get; init; }
     public string SystemFirmwareHardwareId { get; init; } = string.Empty;
     public IReadOnlyList<PnpDeviceInfo> PnpDevices { get; init; } = Array.Empty<PnpDeviceInfo>();
 

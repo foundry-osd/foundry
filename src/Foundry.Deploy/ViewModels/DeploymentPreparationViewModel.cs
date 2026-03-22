@@ -205,7 +205,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
 
         SyncFirmwareOptionFromHardware(profile);
         DetectedHardwareSummary =
-            $"{profile.DisplayLabel} | TPM: {(profile.IsTpmPresent ? "Yes" : "No")} | Autopilot: {(profile.IsAutopilotCapable ? "Capable" : "Needs checks")} | Power: {(profile.IsOnBattery ? "Battery" : "AC")} | Firmware: {(profile.SystemFirmwareHardwareId.Length > 0 ? "Detected" : "Unavailable")}";
+            $"{profile.DisplayLabel} | TPM: {(profile.IsTpmPresent ? "Yes" : "No")} | Power: {(profile.IsOnBattery ? "Battery" : "AC")} | Firmware: {(profile.SystemFirmwareHardwareId.Length > 0 ? "Detected" : "Unavailable")}";
         OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
         RaiseStateChanged();
     }
