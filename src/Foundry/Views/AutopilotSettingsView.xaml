@@ -96,6 +96,7 @@
                         </Grid.RowDefinitions>
 
                         <ListView
+                            x:Name="ImportedProfilesListView"
                             MinHeight="220"
                             ItemsSource="{Binding Profiles}"
                             SelectedItem="{Binding SelectedProfile}">
@@ -106,22 +107,26 @@
                             </ListView.InputBindings>
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn
-                                        Width="220"
-                                        DisplayMemberBinding="{Binding DisplayName}"
-                                        Header="{Binding DataContext.Strings[AutopilotColumnName], RelativeSource={RelativeSource AncestorType=UserControl}}" />
-                                    <GridViewColumn
-                                        Width="160"
-                                        DisplayMemberBinding="{Binding Source}"
-                                        Header="{Binding DataContext.Strings[AutopilotColumnSource], RelativeSource={RelativeSource AncestorType=UserControl}}" />
-                                    <GridViewColumn
-                                        Width="180"
-                                        DisplayMemberBinding="{Binding ImportedAtDisplay}"
-                                        Header="{Binding DataContext.Strings[AutopilotColumnImported], RelativeSource={RelativeSource AncestorType=UserControl}}" />
-                                    <GridViewColumn
-                                        Width="260"
-                                        DisplayMemberBinding="{Binding FolderName}"
-                                        Header="{Binding DataContext.Strings[AutopilotColumnFolder], RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                                    <GridViewColumn Width="220" DisplayMemberBinding="{Binding DisplayName}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnName], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="160" DisplayMemberBinding="{Binding Source}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnSource], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding ImportedAtDisplay}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnImported], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="260" DisplayMemberBinding="{Binding FolderName}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnFolder], ElementName=ImportedProfilesListView}" />
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
