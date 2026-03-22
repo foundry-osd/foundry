@@ -1,9 +1,13 @@
+using System.Windows;
+using System.Windows.Threading;
+
 namespace Foundry.Deploy.Services.Operations;
 
 public sealed class OperationProgressService : IOperationProgressService
 {
     private static readonly TimeSpan TerminalStatusRetention = TimeSpan.FromSeconds(5);
     private readonly object _sync = new();
+    private readonly Dispatcher? _dispatcher = Application.Current?.Dispatcher;
     private bool _isOperationInProgress;
     private int _progress;
     private string? _status;
@@ -219,6 +223,18 @@ public sealed class OperationProgressService : IOperationProgressService
 
     private void RaiseProgressChanged()
     {
-        ProgressChanged?.Invoke(this, EventArgs.Empty);
+        EventHandler? handler = ProgressChanged;
+        if (handler is null)
+        {
+            return;
+        }
+
+        if (_dispatcher is null || _dispatcher.CheckAccess())
+        {
+            handler(this, EventArgs.Empty);
+            return;
+        }
+
+        _ = _dispatcher.InvokeAsync(() => handler(this, EventArgs.Empty), DispatcherPriority.DataBind);
     }
 }
