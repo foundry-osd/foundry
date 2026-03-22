@@ -149,13 +149,25 @@
                                         IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
                                         <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Firmware: Microsoft Update Catalog update enabled." />
                                     </CheckBox>
+                                    <CheckBox Margin="0,8,0,0" IsChecked="{Binding IsAutopilotEnabled}">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Enable offline profile staging." />
+                                    </CheckBox>
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Autopilot Profile" />
+                                    <ComboBox
+                                        Margin="0,8,0,0"
+                                        DisplayMemberPath="DisplayName"
+                                        IsEnabled="{Binding IsAutopilotProfileSelectionEnabled}"
+                                        ItemsSource="{Binding AutopilotProfiles}"
+                                        SelectedItem="{Binding SelectedAutopilotProfile}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding AutopilotProfileHint}" />
                                 </StackPanel>
-                                <CheckBox Margin="0,8,0,0" IsChecked="{Binding UseFullAutopilot}">
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Full workflow enabled (V1 scope)." />
-                                </CheckBox>
-                                <CheckBox Margin="0,8,0,0" IsChecked="{Binding AllowAutopilotDeferredCompletion}">
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Defer completion if online enrollment fails." />
-                                </CheckBox>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -339,17 +351,15 @@
                             <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding UseFullAutopilot, StringFormat=Full workflow enabled: {0}}" />
-
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot Fallback" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding AllowAutopilotDeferredCompletion, StringFormat=Deferred completion allowed: {0}}" />
+                            <TextBlock Margin="0,0,0,4" Text="{Binding Preparation.IsAutopilotEnabled, StringFormat=Enabled: {0}}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.SelectedAutopilotProfile.DisplayName, StringFormat=Selected profile: {0}, TargetNullValue=Selected profile: none}" />
 
                             <!--  Execution notes and mode hints  -->
                             <TextBlock
                                 Margin="0,8,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Start launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, Autopilot workflow)." />
+                                Text="Start launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, offline Autopilot profile staging)." />
                             <TextBlock
                                 Margin="0,4,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"

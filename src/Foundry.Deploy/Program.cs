@@ -1,6 +1,5 @@
 using System.Windows.Threading;
 using Foundry.Deploy.Services.ApplicationShell;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;

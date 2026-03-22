@@ -132,6 +132,7 @@ internal sealed class MediaOutputService : IMediaOutputService
                 options.CustomDriverDirectoryPath,
                 options.WinPeLanguage,
                 options.ExpertDeployConfigurationJson,
+                options.AutopilotProfiles,
                 stage => stage switch
                 {
                     WinPeWorkspacePreparationStage.ResolvingDrivers => (30, "Resolving and preparing drivers."),
@@ -221,6 +222,7 @@ internal sealed class MediaOutputService : IMediaOutputService
                 options.CustomDriverDirectoryPath,
                 options.WinPeLanguage,
                 options.ExpertDeployConfigurationJson,
+                options.AutopilotProfiles,
                 stage => stage switch
                 {
                     WinPeWorkspacePreparationStage.ResolvingDrivers => (30, "Resolving and preparing drivers."),
@@ -284,6 +286,7 @@ internal sealed class MediaOutputService : IMediaOutputService
         string? customDriverDirectoryPath,
         string winPeLanguage,
         string? expertDeployConfigurationJson,
+        IReadOnlyList<Foundry.Models.Configuration.AutopilotProfileSettings> autopilotProfiles,
         Func<WinPeWorkspacePreparationStage, (int Progress, string Message)> progressMap,
         CancellationToken cancellationToken)
     {
@@ -331,7 +334,8 @@ internal sealed class MediaOutputService : IMediaOutputService
                 CustomDriverDirectoryPath = customDriverDirectoryPath,
                 SignatureMode = signatureMode,
                 WinPeLanguage = winPeLanguage,
-                ExpertDeployConfigurationJson = expertDeployConfigurationJson
+                ExpertDeployConfigurationJson = expertDeployConfigurationJson,
+                AutopilotProfiles = autopilotProfiles
             },
             progress,
             cancellationToken).ConfigureAwait(false);

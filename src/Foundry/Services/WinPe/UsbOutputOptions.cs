@@ -1,3 +1,5 @@
+using Foundry.Models.Configuration;
+
 namespace Foundry.Services.WinPe;
 
 public sealed record UsbOutputOptions
@@ -20,6 +22,7 @@ public sealed record UsbOutputOptions
     public string DriverCatalogUri { get; init; } = WinPeDefaults.DefaultUnifiedCatalogUri;
     public string? CustomDriverDirectoryPath { get; init; }
     public string? ExpertDeployConfigurationJson { get; init; }
+    public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
 
     public bool PreserveBuildWorkspace { get; init; }
 }

@@ -12,5 +12,6 @@ public sealed record DeploymentWizardStateSnapshot
     public required bool HasTargetDiskSelection { get; init; }
     public required bool IsSelectedTargetDiskSelectable { get; init; }
     public required bool HasValidDriverPackSelection { get; init; }
+    public required bool HasValidAutopilotSelection { get; init; }
     public required bool IsOperatingSystemCatalogReadyForNavigation { get; init; }
 }

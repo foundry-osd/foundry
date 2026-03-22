@@ -60,14 +60,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
     private bool isDeploymentRunning;
 
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private bool useFullAutopilot = true;
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(StartDeploymentCommand))]
-    private bool allowAutopilotDeferredCompletion = true;
-
     public DeploymentPreparationViewModel Preparation { get; }
     public DeploymentSessionViewModel Session { get; }
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
@@ -248,8 +240,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 DriverPackSelectionKind = effectiveDriverPackKind,
                 SelectedDriverPack = effectiveDriverPack,
                 ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
-                UseFullAutopilot = UseFullAutopilot,
-                AllowAutopilotDeferredCompletion = AllowAutopilotDeferredCompletion,
+                IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
+                SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
                 IsDryRun = IsDebugSafeMode
             });
 
@@ -378,6 +370,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             HasTargetDiskSelection = Preparation.SelectedTargetDisk is not null,
             IsSelectedTargetDiskSelectable = Preparation.SelectedTargetDisk?.IsSelectable ?? false,
             HasValidDriverPackSelection = HasValidDriverPackSelection(),
+            HasValidAutopilotSelection = !Preparation.IsAutopilotEnabled || Preparation.SelectedAutopilotProfile is not null,
             IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && OperatingSystemCatalog.IsReadyForNavigation()
         };
     }

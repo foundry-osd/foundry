@@ -39,7 +39,10 @@ public sealed record DeploymentRuntimeState
     public string? ExtractedFirmwarePath { get; set; }
     public string? FirmwareUpdateId { get; set; }
     public string? FirmwareUpdateTitle { get; set; }
-    public string? AutopilotWorkflowPath { get; set; }
+    public bool IsAutopilotEnabled { get; set; }
+    public string? SelectedAutopilotProfileFolderName { get; set; }
+    public string? SelectedAutopilotProfileDisplayName { get; set; }
+    public string? StagedAutopilotConfigurationPath { get; set; }
     public string? TargetFoundryRoot { get; set; }
     public string? DeploymentSummaryPath { get; set; }
     public List<string> CompletedSteps { get; init; } = [];

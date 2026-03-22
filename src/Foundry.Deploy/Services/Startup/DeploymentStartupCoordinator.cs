@@ -1,6 +1,7 @@
 using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Hardware;
@@ -14,6 +15,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
 
     private readonly IExpertDeployConfigurationService _expertDeployConfigurationService;
+    private readonly IAutopilotProfileCatalogService _autopilotProfileCatalogService;
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly ITargetDiskService _targetDiskService;
@@ -22,6 +24,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
 
     public DeploymentStartupCoordinator(
         IExpertDeployConfigurationService expertDeployConfigurationService,
+        IAutopilotProfileCatalogService autopilotProfileCatalogService,
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         ITargetDiskService targetDiskService,
@@ -29,6 +32,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         ILogger<DeploymentStartupCoordinator> logger)
     {
         _expertDeployConfigurationService = expertDeployConfigurationService;
+        _autopilotProfileCatalogService = autopilotProfileCatalogService;
         _hardwareProfileService = hardwareProfileService;
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _targetDiskService = targetDiskService;
@@ -41,6 +45,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         ArgumentNullException.ThrowIfNull(request);
 
         ExpertDeployConfigurationLoadResult expertConfigLoadResult = _expertDeployConfigurationService.LoadOptional();
+        IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles = _autopilotProfileCatalogService.LoadAvailableProfiles();
         string cacheRootPath = ResolveCacheRootPath(request.RuntimeContext, request.IsDebugSafeMode);
         string? startupStatusMessage = request.IsDebugSafeMode
             ? "Debug Safe Mode enabled: deployment actions are simulated."
@@ -58,6 +63,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             CacheRootPath = cacheRootPath,
             StartupStatusMessage = startupStatusMessage,
             ExpertConfigurationDocument = expertConfigLoadResult.Document,
+            AutopilotProfiles = autopilotProfiles,
             EffectiveComputerName = computerNameTask.Result,
             DetectedHardware = hardwareTask.Result.Profile,
             HardwareDetectionFailureMessage = hardwareTask.Result.ErrorMessage,

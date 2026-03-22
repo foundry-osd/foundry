@@ -93,6 +93,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
             session.MountDirectoryPath,
             request.Artifact.Architecture,
             request.ExpertDeployConfigurationJson,
+            request.AutopilotProfiles,
             cancellationToken).ConfigureAwait(false);
         if (!assetProvisioning.IsSuccess)
         {

@@ -1,3 +1,4 @@
+using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Startup;
@@ -44,7 +45,14 @@ public sealed class DeploymentWizardContext : IDisposable
 
         if (startupSnapshot.ExpertConfigurationDocument is not null)
         {
-            ApplyExpertConfiguration(startupSnapshot.ExpertConfigurationDocument, startupSnapshot.EffectiveComputerName);
+            ApplyExpertConfiguration(
+                startupSnapshot.ExpertConfigurationDocument,
+                startupSnapshot.EffectiveComputerName,
+                startupSnapshot.AutopilotProfiles);
+        }
+        else
+        {
+            Preparation.ApplyAutopilotConfiguration(new DeployAutopilotSettings(), startupSnapshot.AutopilotProfiles);
         }
 
         Preparation.ApplyOfflineComputerName(startupSnapshot.EffectiveComputerName);
@@ -90,7 +98,10 @@ public sealed class DeploymentWizardContext : IDisposable
         _isDisposed = true;
     }
 
-    private void ApplyExpertConfiguration(FoundryDeployConfigurationDocument document, string seedComputerName)
+    private void ApplyExpertConfiguration(
+        FoundryDeployConfigurationDocument document,
+        string seedComputerName,
+        IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
         OperatingSystemCatalog.ApplyExpertLocalization(
             document.Localization.VisibleLanguageCodes,
@@ -101,6 +112,7 @@ public sealed class DeploymentWizardContext : IDisposable
             string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
                 ? seedComputerName
                 : Preparation.TargetComputerName);
+        Preparation.ApplyAutopilotConfiguration(document.Autopilot ?? new DeployAutopilotSettings(), autopilotProfiles);
     }
 
     private void OnPreparationStateChanged(object? sender, EventArgs e)

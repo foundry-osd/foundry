@@ -98,11 +98,14 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             extractedFirmwarePath = runtimeState.ExtractedFirmwarePath,
             firmwareUpdateId = runtimeState.FirmwareUpdateId,
             firmwareUpdateTitle = runtimeState.FirmwareUpdateTitle,
+            autopilotEnabled = runtimeState.IsAutopilotEnabled,
+            selectedAutopilotProfileFolderName = runtimeState.SelectedAutopilotProfileFolderName,
+            selectedAutopilotProfileDisplayName = runtimeState.SelectedAutopilotProfileDisplayName,
             targetSystemPartitionRoot = runtimeState.TargetSystemPartitionRoot,
             targetWindowsPartitionRoot = runtimeState.TargetWindowsPartitionRoot,
             targetRecoveryPartitionRoot = runtimeState.TargetRecoveryPartitionRoot,
             winReConfigured = runtimeState.WinReConfigured,
-            autopilotWorkflowPath = runtimeState.AutopilotWorkflowPath,
+            stagedAutopilotConfigurationPath = runtimeState.StagedAutopilotConfigurationPath,
             completedSteps = runtimeState.CompletedSteps
         }, new JsonSerializerOptions
         {

@@ -61,6 +61,12 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     private bool applyFirmwareUpdates = true;
 
     [ObservableProperty]
+    private bool isAutopilotEnabled;
+
+    [ObservableProperty]
+    private AutopilotProfileCatalogItem? selectedAutopilotProfile;
+
+    [ObservableProperty]
     private string detectedHardwareSummary = "Detecting hardware...";
 
     [ObservableProperty]
@@ -68,8 +74,15 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     private bool isTargetDiskLoading;
 
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
+    public ObservableCollection<AutopilotProfileCatalogItem> AutopilotProfiles { get; } = [];
 
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
+    public bool HasAutopilotProfiles => AutopilotProfiles.Count > 0;
+    public bool IsAutopilotProfileSelectionEnabled => IsAutopilotEnabled && HasAutopilotProfiles;
+    public string AutopilotProfileHint =>
+        HasAutopilotProfiles
+            ? $"Profiles available: {AutopilotProfiles.Count}"
+            : "No imported Autopilot profiles were found in X:\\Foundry\\Config\\Autopilot.";
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
@@ -151,6 +164,29 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
                 : TargetComputerName;
             ApplyManagedComputerNameValue(BuildConfiguredComputerName(effectiveSeed));
         }
+
+        RaiseStateChanged();
+    }
+
+    public void ApplyAutopilotConfiguration(
+        DeployAutopilotSettings settings,
+        IReadOnlyList<AutopilotProfileCatalogItem> profiles)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        ArgumentNullException.ThrowIfNull(profiles);
+
+        AutopilotProfiles.Clear();
+        foreach (AutopilotProfileCatalogItem profile in profiles)
+        {
+            AutopilotProfiles.Add(profile);
+        }
+
+        OnPropertyChanged(nameof(HasAutopilotProfiles));
+        OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
+        OnPropertyChanged(nameof(AutopilotProfileHint));
+
+        SelectedAutopilotProfile = ResolveDefaultAutopilotProfile(settings.DefaultProfileFolderName);
+        IsAutopilotEnabled = settings.IsEnabled && SelectedAutopilotProfile is not null;
 
         RaiseStateChanged();
     }
@@ -263,6 +299,18 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
 
         _hasUserSelectedFirmwareOption = true;
         _firmwareUpdatesPreference = value;
+        RaiseStateChanged();
+    }
+
+    partial void OnIsAutopilotEnabledChanged(bool value)
+    {
+        OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
+        RaiseStateChanged();
+    }
+
+    partial void OnSelectedAutopilotProfileChanged(AutopilotProfileCatalogItem? value)
+    {
+        OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         RaiseStateChanged();
     }
 
@@ -399,6 +447,21 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         return string.IsNullOrWhiteSpace(normalized)
             ? ComputerNameRules.FallbackName
             : normalized;
+    }
+
+    private AutopilotProfileCatalogItem? ResolveDefaultAutopilotProfile(string? defaultProfileFolderName)
+    {
+        if (!string.IsNullOrWhiteSpace(defaultProfileFolderName))
+        {
+            AutopilotProfileCatalogItem? matchingProfile = AutopilotProfiles.FirstOrDefault(profile =>
+                profile.FolderName.Equals(defaultProfileFolderName, StringComparison.OrdinalIgnoreCase));
+            if (matchingProfile is not null)
+            {
+                return matchingProfile;
+            }
+        }
+
+        return AutopilotProfiles.FirstOrDefault();
     }
 
     private void RaiseStateChanged()

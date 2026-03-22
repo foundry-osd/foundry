@@ -31,6 +31,9 @@
         <DataTemplate DataType="{x:Type viewModels:LocalizationSettingsViewModel}">
             <views:LocalizationSettingsView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:AutopilotSettingsViewModel}">
+            <views:AutopilotSettingsView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewModels:CustomizationSettingsViewModel}">
             <views:CustomizationSettingsView />
         </DataTemplate>

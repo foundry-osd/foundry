@@ -1,3 +1,5 @@
+using Foundry.Models.Configuration;
+
 namespace Foundry.Services.WinPe;
 
 internal sealed record WinPeWorkspacePreparationRequest
@@ -17,4 +19,5 @@ internal sealed record WinPeWorkspacePreparationRequest
     public required string WinPeLanguage { get; init; }
 
     public string? ExpertDeployConfigurationJson { get; init; }
+    public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
 }
