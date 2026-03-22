@@ -546,13 +546,13 @@ MVVM bootstrap ready.</value>
     <value>Offline Windows injection path</value>
   </data>
   <data name="AutopilotImportButton" xml:space="preserve">
-    <value>Import JSON profile</value>
+    <value>Import</value>
   </data>
   <data name="AutopilotDownloadButton" xml:space="preserve">
     <value>Download from tenant</value>
   </data>
   <data name="AutopilotRemoveButton" xml:space="preserve">
-    <value>Remove selected profile</value>
+    <value>Remove</value>
   </data>
   <data name="AutopilotDefaultProfileLabel" xml:space="preserve">
     <value>Default profile for Foundry.Deploy</value>
@@ -594,16 +594,43 @@ MVVM bootstrap ready.</value>
     <value>Downloading Autopilot profiles from tenant...</value>
   </data>
   <data name="AutopilotDownloadConnecting" xml:space="preserve">
-    <value>Connecting to Microsoft Graph PowerShell...</value>
+    <value>Connecting to Microsoft Graph...</value>
+  </data>
+  <data name="AutopilotDownloadSelectProfiles" xml:space="preserve">
+    <value>Select the Autopilot profiles to import.</value>
+  </data>
+  <data name="AutopilotDownloadCanceled" xml:space="preserve">
+    <value>Autopilot profile import was canceled.</value>
   </data>
   <data name="AutopilotDownloadCompletedFormat" xml:space="preserve">
-    <value>Downloaded {0} Autopilot profile(s).</value>
+    <value>Imported {0} Autopilot profile(s) from the tenant.</value>
   </data>
   <data name="AutopilotDownloadCompletedNoProfiles" xml:space="preserve">
     <value>No Autopilot profiles were returned by the tenant.</value>
   </data>
   <data name="AutopilotDownloadFailedFormat" xml:space="preserve">
     <value>Autopilot profile download failed: {0}</value>
+  </data>
+  <data name="AutopilotTenantPickerTitle" xml:space="preserve">
+    <value>Select Autopilot profiles</value>
+  </data>
+  <data name="AutopilotTenantPickerDescription" xml:space="preserve">
+    <value>Choose which tenant profiles should be imported into Foundry.</value>
+  </data>
+  <data name="AutopilotTenantPickerSelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="AutopilotTenantPickerClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="AutopilotTenantPickerImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="AutopilotTenantPickerCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AutopilotTenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>{0} of {1} profile(s) selected</value>
   </data>
   <data name="CustomizationAppxPlaceholder" xml:space="preserve">
     <value>APPX removal</value>

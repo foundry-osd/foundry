@@ -104,18 +104,39 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         {
             _logger.LogInformation("Starting Autopilot profile download from tenant.");
             _operationProgressService.Report(20, Strings["AutopilotDownloadConnecting"]);
-            IReadOnlyList<AutopilotProfileSettings> profiles = await _autopilotProfileService
+            IReadOnlyList<AutopilotProfileSettings> availableProfiles = await _autopilotProfileService
                 .DownloadFromTenantAsync();
+
+            if (availableProfiles.Count == 0)
+            {
+                RunOnUiThread(() => _operationProgressService.Complete(Strings["AutopilotDownloadCompletedNoProfiles"]));
+                _logger.LogInformation("Autopilot tenant download completed. ProfileCount=0");
+                return;
+            }
+
+            _operationProgressService.Report(70, Strings["AutopilotDownloadSelectProfiles"]);
+            IReadOnlyList<AutopilotProfileSettings>? selectedProfiles = null;
+            RunOnUiThread(() =>
+            {
+                selectedProfiles = _applicationShellService.PickAutopilotProfilesForImport(availableProfiles);
+            });
+
+            if (selectedProfiles is null)
+            {
+                _logger.LogInformation("Autopilot tenant download was canceled from the profile picker dialog.");
+                RunOnUiThread(() => _operationProgressService.Complete(Strings["AutopilotDownloadCanceled"]));
+                return;
+            }
 
             RunOnUiThread(() =>
             {
-                MergeProfiles(profiles);
-                _operationProgressService.Complete(
-                    profiles.Count == 0
-                        ? Strings["AutopilotDownloadCompletedNoProfiles"]
-                        : string.Format(Strings["AutopilotDownloadCompletedFormat"], profiles.Count));
+                MergeProfiles(selectedProfiles);
+                _operationProgressService.Complete(string.Format(Strings["AutopilotDownloadCompletedFormat"], selectedProfiles.Count));
             });
-            _logger.LogInformation("Autopilot tenant download completed. ProfileCount={ProfileCount}", profiles.Count);
+            _logger.LogInformation(
+                "Autopilot tenant download completed. RetrievedProfileCount={RetrievedProfileCount}, ImportedProfileCount={ImportedProfileCount}",
+                availableProfiles.Count,
+                selectedProfiles.Count);
         }
         catch (Exception ex)
         {
