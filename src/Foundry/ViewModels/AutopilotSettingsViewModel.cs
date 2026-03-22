@@ -6,6 +6,7 @@ using Foundry.Services.ApplicationShell;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.ViewModels;
 
@@ -14,17 +15,20 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
     private readonly IApplicationShellService _applicationShellService;
     private readonly IAutopilotProfileService _autopilotProfileService;
     private readonly IOperationProgressService _operationProgressService;
+    private readonly ILogger<AutopilotSettingsViewModel> _logger;
 
     public AutopilotSettingsViewModel(
         ILocalizationService localizationService,
         IApplicationShellService applicationShellService,
         IAutopilotProfileService autopilotProfileService,
-        IOperationProgressService operationProgressService)
+        IOperationProgressService operationProgressService,
+        ILogger<AutopilotSettingsViewModel> logger)
         : base(localizationService)
     {
         _applicationShellService = applicationShellService;
         _autopilotProfileService = autopilotProfileService;
         _operationProgressService = operationProgressService;
+        _logger = logger;
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
     }
 
@@ -58,11 +62,13 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
 
         if (!_operationProgressService.TryStart(OperationKind.AutopilotProfileImport, Strings["AutopilotImportInProgress"], 0))
         {
+            _logger.LogDebug("Skipped Autopilot profile import because another operation is already in progress.");
             return;
         }
 
         try
         {
+            _logger.LogInformation("Starting manual Autopilot profile import. FilePath={FilePath}", filePath);
             _operationProgressService.Report(40, Strings["AutopilotImportValidating"]);
             AutopilotProfileSettings profile = await _autopilotProfileService
                 .ImportFromJsonFileAsync(filePath);
@@ -72,9 +78,15 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
                 MergeProfiles([profile]);
                 _operationProgressService.Complete(string.Format(Strings["AutopilotImportCompletedFormat"], profile.DisplayName));
             });
+            _logger.LogInformation(
+                "Imported Autopilot profile successfully. ProfileId={ProfileId}, DisplayName={DisplayName}, FolderName={FolderName}",
+                profile.Id,
+                profile.DisplayName,
+                profile.FolderName);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Manual Autopilot profile import failed. FilePath={FilePath}", filePath);
             RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["AutopilotImportFailedFormat"], ex.Message)));
         }
     }
@@ -84,11 +96,13 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
     {
         if (!_operationProgressService.TryStart(OperationKind.AutopilotProfileDownload, Strings["AutopilotDownloadInProgress"], 0))
         {
+            _logger.LogDebug("Skipped Autopilot tenant download because another operation is already in progress.");
             return;
         }
 
         try
         {
+            _logger.LogInformation("Starting Autopilot profile download from tenant.");
             _operationProgressService.Report(20, Strings["AutopilotDownloadConnecting"]);
             IReadOnlyList<AutopilotProfileSettings> profiles = await _autopilotProfileService
                 .DownloadFromTenantAsync();
@@ -101,9 +115,11 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
                         ? Strings["AutopilotDownloadCompletedNoProfiles"]
                         : string.Format(Strings["AutopilotDownloadCompletedFormat"], profiles.Count));
             });
+            _logger.LogInformation("Autopilot tenant download completed. ProfileCount={ProfileCount}", profiles.Count);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Autopilot tenant download failed.");
             RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["AutopilotDownloadFailedFormat"], ex.Message)));
         }
     }
@@ -115,6 +131,11 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         {
             return;
         }
+
+        _logger.LogInformation(
+            "Removed imported Autopilot profile. ProfileId={ProfileId}, DisplayName={DisplayName}",
+            SelectedProfile.Id,
+            SelectedProfile.DisplayName);
 
         string removedId = SelectedProfile.Id;
         int index = Profiles.IndexOf(SelectedProfile);

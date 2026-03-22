@@ -44,19 +44,32 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
 
+        _logger.LogInformation("Loading Autopilot profile JSON from disk. FilePath={FilePath}", filePath);
         string json = await File.ReadAllTextAsync(filePath, cancellationToken).ConfigureAwait(false);
         using JsonDocument document = ValidateJsonContent(json, filePath);
         string displayName = ResolveDisplayName(document.RootElement, filePath);
         string id = BuildManualProfileId(json);
 
-        return CreateProfileSettings(id, displayName, json, "Manual import", DateTimeOffset.UtcNow, preferredFolderName: null);
+        AutopilotProfileSettings profile = CreateProfileSettings(id, displayName, json, "Manual import", DateTimeOffset.UtcNow, preferredFolderName: null);
+        _logger.LogInformation(
+            "Validated manual Autopilot profile JSON. ProfileId={ProfileId}, DisplayName={DisplayName}, FolderName={FolderName}",
+            profile.Id,
+            profile.DisplayName,
+            profile.FolderName);
+
+        return profile;
     }
 
     public async Task<IReadOnlyList<AutopilotProfileSettings>> DownloadFromTenantAsync(CancellationToken cancellationToken = default)
     {
         TokenCredential credential = CreateCredential();
+        _logger.LogInformation("Authenticating to Microsoft Graph for Autopilot profile download.");
         string accessToken = await AcquireAccessTokenAsync(credential, cancellationToken).ConfigureAwait(false);
         OrganizationInfo organization = await GetOrganizationAsync(accessToken, cancellationToken).ConfigureAwait(false);
+        _logger.LogInformation(
+            "Authenticated to Microsoft Graph for Autopilot profile download. TenantId={TenantId}, TenantDomain={TenantDomain}",
+            organization.Id,
+            organization.DefaultDomain);
         IReadOnlyList<AutopilotDeploymentProfile> profiles = await GetAutopilotProfilesAsync(accessToken, cancellationToken).ConfigureAwait(false);
 
         var downloadedProfiles = new List<AutopilotProfileSettings>(profiles.Count);
@@ -315,6 +328,7 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
     {
         var profiles = new List<AutopilotDeploymentProfile>();
         string? requestPath = AutopilotProfilesRequestPath;
+        _logger.LogInformation("Requesting Autopilot deployment profiles from Microsoft Graph.");
 
         while (!string.IsNullOrWhiteSpace(requestPath))
         {
@@ -334,6 +348,7 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
             requestPath = response?.NextLink;
         }
 
+        _logger.LogInformation("Retrieved {ProfileCount} Autopilot deployment profile record(s) from Microsoft Graph.", profiles.Count);
         return profiles;
     }
 
