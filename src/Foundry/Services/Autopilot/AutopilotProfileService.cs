@@ -32,6 +32,10 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
     {
         BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
     };
+    private static readonly JsonSerializerOptions GraphJsonSerializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
 
     private readonly ILogger<AutopilotProfileService> _logger;
 
@@ -369,7 +373,7 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
                 $"Microsoft Graph request failed for '{requestPath}' with status code {(int)response.StatusCode}: {responseBody}");
         }
 
-        return JsonSerializer.Deserialize<T>(responseBody);
+        return JsonSerializer.Deserialize<T>(responseBody, GraphJsonSerializerOptions);
     }
 
     private sealed record OrganizationInfo
