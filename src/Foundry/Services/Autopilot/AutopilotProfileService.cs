@@ -13,6 +13,7 @@ namespace Foundry.Services.Autopilot;
 
 public sealed class AutopilotProfileService : IAutopilotProfileService
 {
+    private const string DefaultClientId = "83eb3a92-030d-49b7-881b-32a1eb3e110a";
     private const string ClientIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID";
     private const string TenantIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_TENANT_ID";
     private const string DefaultTenantId = "common";
@@ -187,17 +188,12 @@ public sealed class AutopilotProfileService : IAutopilotProfileService
 
     private static TokenCredential CreateCredential()
     {
-        string? clientId = Environment.GetEnvironmentVariable(ClientIdEnvironmentVariableName);
-        if (string.IsNullOrWhiteSpace(clientId))
-        {
-            throw new InvalidOperationException(
-                $"Set the environment variable '{ClientIdEnvironmentVariableName}' to the client ID of a Microsoft Entra public client app registration that has delegated Microsoft Graph access.");
-        }
-
+        string clientId = Environment.GetEnvironmentVariable(ClientIdEnvironmentVariableName)?.Trim()
+            ?? DefaultClientId;
         string? tenantId = Environment.GetEnvironmentVariable(TenantIdEnvironmentVariableName);
         return new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions
         {
-            ClientId = clientId.Trim(),
+            ClientId = clientId,
             TenantId = string.IsNullOrWhiteSpace(tenantId) ? DefaultTenantId : tenantId.Trim(),
             RedirectUri = new Uri(DefaultRedirectUri, UriKind.Absolute),
             TokenCachePersistenceOptions = new TokenCachePersistenceOptions
