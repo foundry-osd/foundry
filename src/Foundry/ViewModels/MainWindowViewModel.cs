@@ -131,7 +131,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public string UsbPartitionStyleArm64Hint => Strings["UsbPartitionStyleArm64Hint"];
     public bool IsStandardMode => !IsExpertMode;
 
-    private static string StagingDirectoryPath => Path.Combine(Path.GetTempPath(), "FoundryMedia");
+    private static string StagingDirectoryPath => WinPeDefaults.GetWinPeWorkspaceRootPath();
 
     private static string ResolveAppVersion()
     {

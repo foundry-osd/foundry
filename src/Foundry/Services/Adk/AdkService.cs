@@ -1,5 +1,6 @@
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
+using Foundry.Services.WinPe;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System.Diagnostics;
@@ -552,7 +553,7 @@ public sealed class AdkService : IAdkService
     }
 
     /// <summary>
-    /// Ensures ADK and WinPE setup binaries are present in temp storage, downloading when required.
+    /// Ensures ADK and WinPE setup binaries are present in shared cache storage, downloading when required.
     /// </summary>
     private async Task EnsureInstallersDownloadedAsync(int progressStart, int progressEnd, bool forceDownload)
     {
@@ -561,15 +562,18 @@ public sealed class AdkService : IAdkService
             throw new ArgumentOutOfRangeException(nameof(progressEnd), "The end progress must be greater than or equal to the start progress.");
         }
 
-        var tempPath = Path.GetTempPath();
-        var adkInstallerPath = Path.Combine(tempPath, "adksetup.exe");
-        var winPeInstallerPath = Path.Combine(tempPath, "adkwinpesetup.exe");
+        string installerCacheDirectoryPath = WinPeDefaults.GetInstallerCacheDirectoryPath();
+        Directory.CreateDirectory(installerCacheDirectoryPath);
+
+        var adkInstallerPath = Path.Combine(installerCacheDirectoryPath, "adksetup.exe");
+        var winPeInstallerPath = Path.Combine(installerCacheDirectoryPath, "adkwinpesetup.exe");
         var midpoint = progressStart + ((progressEnd - progressStart) / 2);
         var adkInstallerName = L("AdkComponentInstaller");
         var winPeInstallerName = L("AdkComponentWinPeInstaller");
         _logger.LogInformation(
-            "Ensuring ADK installers are available. ForceDownload={ForceDownload}, AdkPath={AdkInstallerPath}, WinPePath={WinPeInstallerPath}",
+            "Ensuring ADK installers are available. ForceDownload={ForceDownload}, InstallerCacheDirectoryPath={InstallerCacheDirectoryPath}, AdkPath={AdkInstallerPath}, WinPePath={WinPeInstallerPath}",
             forceDownload,
+            installerCacheDirectoryPath,
             adkInstallerPath,
             winPeInstallerPath);
 

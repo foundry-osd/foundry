@@ -83,7 +83,7 @@ internal sealed class MediaOutputService : IMediaOutputService
             return WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>.Failure(tools.Error!);
         }
 
-        string work = Path.Combine(Path.GetTempPath(), "Foundry", "UsbQuery");
+        string work = WinPeDefaults.GetUsbQueryWorkingDirectoryPath();
         Directory.CreateDirectory(work);
         WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>> result =
             await _usbMediaService.GetUsbCandidatesAsync(tools.Value!, work, cancellationToken).ConfigureAwait(false);
@@ -119,6 +119,8 @@ internal sealed class MediaOutputService : IMediaOutputService
         }
 
         WinPeBuildArtifact? artifact = null;
+        string? isoWorkspacePath = null;
+        string? preparedIsoOutputPath = null;
         try
         {
             WinPeResult<WinPePreparedMediaWorkspace> preparedWorkspace = await PrepareWorkspaceAsync(
@@ -147,29 +149,36 @@ internal sealed class MediaOutputService : IMediaOutputService
             }
 
             artifact = preparedWorkspace.Value!.Artifact;
+            EnsureIsoOutputDirectoryExists(options.OutputIsoPath);
+            isoWorkspacePath = PrepareIsoWorkspacePath(artifact.WorkingDirectoryPath);
+            preparedIsoOutputPath = PrepareIsoOutputPath(options.OutputIsoPath);
 
             _operationProgressService.Report(82, "Creating ISO media.");
-            if (options.ForceOverwriteOutput && File.Exists(options.OutputIsoPath))
+            if (options.ForceOverwriteOutput && File.Exists(preparedIsoOutputPath))
             {
-                _logger.LogInformation("Deleting existing ISO before overwrite. OutputIsoPath={OutputIsoPath}", options.OutputIsoPath);
-                File.Delete(options.OutputIsoPath);
+                _logger.LogInformation("Deleting existing ISO before overwrite. OutputIsoPath={OutputIsoPath}", preparedIsoOutputPath);
+                File.Delete(preparedIsoOutputPath);
             }
 
-            string args = $"/ISO /F {WinPeProcessRunner.Quote(artifact.WorkingDirectoryPath)} {WinPeProcessRunner.Quote(options.OutputIsoPath)}{(preparedWorkspace.Value.UseBootEx ? " /bootex" : string.Empty)}";
+            string args = $"/ISO /F {WinPeProcessRunner.Quote(isoWorkspacePath)} {WinPeProcessRunner.Quote(preparedIsoOutputPath)}{(preparedWorkspace.Value.UseBootEx ? " /bootex" : string.Empty)}";
             _logger.LogInformation(
-                "Creating ISO media from prepared workspace. WorkingDirectoryPath={WorkingDirectoryPath}, OutputIsoPath={OutputIsoPath}, UseBootEx={UseBootEx}",
+                "Creating ISO media from prepared workspace. SourceWorkspacePath={SourceWorkspacePath}, IsoWorkspacePath={IsoWorkspacePath}, PreparedIsoOutputPath={PreparedIsoOutputPath}, RequestedOutputIsoPath={RequestedOutputIsoPath}, UseBootEx={UseBootEx}",
                 artifact.WorkingDirectoryPath,
+                isoWorkspacePath,
+                preparedIsoOutputPath,
                 options.OutputIsoPath,
                 preparedWorkspace.Value.UseBootEx);
             WinPeProcessExecution makeIso = await _processRunner.RunCmdScriptAsync(
                 preparedWorkspace.Value.Tools.MakeWinPeMediaPath,
                 args,
-                artifact.WorkingDirectoryPath,
+                isoWorkspacePath,
                 cancellationToken).ConfigureAwait(false);
-            if (!makeIso.IsSuccess || !File.Exists(options.OutputIsoPath))
+            if (!makeIso.IsSuccess || !File.Exists(preparedIsoOutputPath))
             {
                 return FailWithProgress(new WinPeDiagnostic(WinPeErrorCodes.IsoCreateFailed, "Failed to create ISO media.", makeIso.ToDiagnosticText()));
             }
+
+            FinalizeIsoOutput(preparedIsoOutputPath, options.OutputIsoPath);
 
             _logger.LogInformation("ISO media file created successfully. OutputIsoPath={OutputIsoPath}", options.OutputIsoPath);
             _operationProgressService.Complete("ISO creation completed.");
@@ -183,6 +192,8 @@ internal sealed class MediaOutputService : IMediaOutputService
         }
         finally
         {
+            CleanupPreparedIsoOutput(options.OutputIsoPath, preparedIsoOutputPath);
+            CleanupIsoWorkspace(artifact?.WorkingDirectoryPath, isoWorkspacePath);
             CleanupWorkspace(artifact, options.PreserveBuildWorkspace, "ISO");
         }
     }
@@ -387,6 +398,32 @@ internal sealed class MediaOutputService : IMediaOutputService
         }
     }
 
+    private void CleanupIsoWorkspace(string? sourceWorkspacePath, string? isoWorkspacePath)
+    {
+        if (string.IsNullOrWhiteSpace(sourceWorkspacePath) ||
+            string.IsNullOrWhiteSpace(isoWorkspacePath) ||
+            string.Equals(sourceWorkspacePath, isoWorkspacePath, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        TryDeleteDirectory(isoWorkspacePath);
+        _logger.LogDebug("ASCII-safe ISO workspace cleanup completed. WorkingDirectoryPath={WorkingDirectoryPath}", isoWorkspacePath);
+    }
+
+    private void CleanupPreparedIsoOutput(string requestedIsoOutputPath, string? preparedIsoOutputPath)
+    {
+        if (string.IsNullOrWhiteSpace(preparedIsoOutputPath) ||
+            string.Equals(requestedIsoOutputPath, preparedIsoOutputPath, StringComparison.OrdinalIgnoreCase) ||
+            !File.Exists(preparedIsoOutputPath))
+        {
+            return;
+        }
+
+        TryDeleteFile(preparedIsoOutputPath);
+        _logger.LogDebug("ASCII-safe prepared ISO output cleanup completed. OutputIsoPath={OutputIsoPath}", preparedIsoOutputPath);
+    }
+
     private static WinPeDiagnostic? ValidateIsoOptions(IsoOutputOptions? options)
     {
         if (options is null) return new WinPeDiagnostic(WinPeErrorCodes.ValidationFailed, "ISO options are required.");
@@ -432,6 +469,129 @@ internal sealed class MediaOutputService : IMediaOutputService
         catch
         {
             // Best-effort cleanup.
+        }
+    }
+
+    private static void TryDeleteFile(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup.
+        }
+    }
+
+    private void EnsureIsoOutputDirectoryExists(string outputIsoPath)
+    {
+        string? outputDirectoryPath = Path.GetDirectoryName(outputIsoPath);
+        if (string.IsNullOrWhiteSpace(outputDirectoryPath))
+        {
+            return;
+        }
+
+        Directory.CreateDirectory(outputDirectoryPath);
+    }
+
+    private string PrepareIsoOutputPath(string requestedOutputIsoPath)
+    {
+        if (!ContainsNonAscii(requestedOutputIsoPath))
+        {
+            return requestedOutputIsoPath;
+        }
+
+        string isoOutputRoot = WinPeDefaults.GetIsoOutputTempRootPath();
+        Directory.CreateDirectory(isoOutputRoot);
+
+        string fileName = Path.GetFileName(requestedOutputIsoPath);
+        string safeFileName = string.IsNullOrWhiteSpace(fileName)
+            ? $"foundry-winpe-{DateTime.UtcNow:yyyyMMdd_HHmmssfff}.iso"
+            : WinPeFileSystemHelper.SanitizePathSegment(fileName);
+        if (!safeFileName.EndsWith(".iso", StringComparison.OrdinalIgnoreCase))
+        {
+            safeFileName += ".iso";
+        }
+
+        string preparedIsoOutputPath = Path.Combine(isoOutputRoot, safeFileName);
+        _logger.LogInformation(
+            "Redirecting ISO creation to ASCII-safe output path. RequestedOutputIsoPath={RequestedOutputIsoPath}, PreparedIsoOutputPath={PreparedIsoOutputPath}",
+            requestedOutputIsoPath,
+            preparedIsoOutputPath);
+
+        return preparedIsoOutputPath;
+    }
+
+    private void FinalizeIsoOutput(string preparedIsoOutputPath, string requestedOutputIsoPath)
+    {
+        if (string.Equals(preparedIsoOutputPath, requestedOutputIsoPath, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        string? requestedOutputDirectoryPath = Path.GetDirectoryName(requestedOutputIsoPath);
+        if (!string.IsNullOrWhiteSpace(requestedOutputDirectoryPath))
+        {
+            Directory.CreateDirectory(requestedOutputDirectoryPath);
+        }
+
+        File.Copy(preparedIsoOutputPath, requestedOutputIsoPath, overwrite: true);
+        _logger.LogInformation(
+            "Copied prepared ISO from ASCII-safe output path to requested destination. PreparedIsoOutputPath={PreparedIsoOutputPath}, RequestedOutputIsoPath={RequestedOutputIsoPath}",
+            preparedIsoOutputPath,
+            requestedOutputIsoPath);
+    }
+
+    private string PrepareIsoWorkspacePath(string sourceWorkspacePath)
+    {
+        if (!ContainsNonAscii(sourceWorkspacePath))
+        {
+            return sourceWorkspacePath;
+        }
+
+        string isoWorkspaceRoot = WinPeDefaults.GetIsoWorkspaceRootPath();
+        string directoryName = $"{WinPeFileSystemHelper.SanitizePathSegment(Path.GetFileName(sourceWorkspacePath))}_{DateTime.UtcNow:yyyyMMdd_HHmmssfff}";
+        string isoWorkspacePath = Path.Combine(isoWorkspaceRoot, directoryName);
+
+        _logger.LogInformation(
+            "Mirroring WinPE workspace to ASCII-safe path for ISO creation. SourceWorkspacePath={SourceWorkspacePath}, IsoWorkspacePath={IsoWorkspacePath}",
+            sourceWorkspacePath,
+            isoWorkspacePath);
+
+        CopyDirectory(sourceWorkspacePath, isoWorkspacePath);
+        return isoWorkspacePath;
+    }
+
+    private static bool ContainsNonAscii(string value)
+    {
+        return value.Any(character => character > 127);
+    }
+
+    private static void CopyDirectory(string sourceDirectoryPath, string destinationDirectoryPath)
+    {
+        Directory.CreateDirectory(destinationDirectoryPath);
+
+        foreach (string directoryPath in Directory.EnumerateDirectories(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativePath = Path.GetRelativePath(sourceDirectoryPath, directoryPath);
+            Directory.CreateDirectory(Path.Combine(destinationDirectoryPath, relativePath));
+        }
+
+        foreach (string filePath in Directory.EnumerateFiles(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativePath = Path.GetRelativePath(sourceDirectoryPath, filePath);
+            string destinationFilePath = Path.Combine(destinationDirectoryPath, relativePath);
+            string? destinationParentPath = Path.GetDirectoryName(destinationFilePath);
+            if (!string.IsNullOrWhiteSpace(destinationParentPath))
+            {
+                Directory.CreateDirectory(destinationParentPath);
+            }
+
+            File.Copy(filePath, destinationFilePath, overwrite: true);
         }
     }
 

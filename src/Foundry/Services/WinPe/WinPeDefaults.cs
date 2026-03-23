@@ -21,6 +21,38 @@ internal static class WinPeDefaults
     public const string LocalDeployArchiveEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_DEPLOY_ARCHIVE";
     public const string LocalDeployProjectEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_DEPLOY_PROJECT";
 
+    public static string GetProgramDataRootPath()
+    {
+        return Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            "Foundry");
+    }
+
+    public static string GetWinPeWorkspaceRootPath()
+    {
+        return Path.Combine(GetProgramDataRootPath(), "WinPeWorkspace");
+    }
+
+    public static string GetUsbQueryWorkingDirectoryPath()
+    {
+        return Path.Combine(GetProgramDataRootPath(), "UsbQuery");
+    }
+
+    public static string GetInstallerCacheDirectoryPath()
+    {
+        return Path.Combine(GetProgramDataRootPath(), "Installers");
+    }
+
+    public static string GetIsoWorkspaceRootPath()
+    {
+        return Path.Combine(GetProgramDataRootPath(), "IsoWorkspace");
+    }
+
+    public static string GetIsoOutputTempRootPath()
+    {
+        return Path.Combine(GetProgramDataRootPath(), "IsoOutputTemp");
+    }
+
     public static string GetDefaultBootstrapScriptContent()
     {
         return BootstrapScriptContent.Value;
