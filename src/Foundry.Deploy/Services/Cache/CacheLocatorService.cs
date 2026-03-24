@@ -9,7 +9,6 @@ public sealed class CacheLocatorService : ICacheLocatorService
     private const string WinPeTransientRoot = @"X:\Foundry";
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
     private const string CacheVolumeLabel = "Foundry Cache";
-    private const string CacheMarkerFolderName = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
     private readonly ILogger<CacheLocatorService> _logger;
 
@@ -51,7 +50,7 @@ public sealed class CacheLocatorService : ICacheLocatorService
     {
         // USB mode:
         // 1) honor explicit preferred path when it is not the WinPE transient placeholder
-        // 2) locate dedicated cache partition (label or marker folder)
+        // 2) locate dedicated cache partition by volume label
         // 3) use transient WinPE runtime root as fallback.
         if (!string.IsNullOrWhiteSpace(preferredRoot) &&
             !IsWinPeTransientPlaceholder(preferredRoot))
@@ -105,11 +104,6 @@ public sealed class CacheLocatorService : ICacheLocatorService
                 // Ignore drives that cannot expose label.
             }
 
-            string markerPath = Path.Combine(drive.RootDirectory.FullName, CacheMarkerFolderName);
-            if (Directory.Exists(markerPath))
-            {
-                return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
-            }
         }
 
         return null;
