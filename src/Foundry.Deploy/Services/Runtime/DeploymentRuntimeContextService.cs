@@ -7,7 +7,6 @@ public sealed class DeploymentRuntimeContextService : IDeploymentRuntimeContextS
 {
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
     private const string CacheVolumeLabel = "Foundry Cache";
-    private const string CacheMarkerFolderName = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
 
     public DeploymentRuntimeContext Resolve()
@@ -67,11 +66,6 @@ public sealed class DeploymentRuntimeContextService : IDeploymentRuntimeContextS
                 // Ignore drives that cannot expose a label.
             }
 
-            string markerPath = Path.Combine(drive.RootDirectory.FullName, CacheMarkerFolderName);
-            if (Directory.Exists(markerPath))
-            {
-                return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
-            }
         }
 
         return null;

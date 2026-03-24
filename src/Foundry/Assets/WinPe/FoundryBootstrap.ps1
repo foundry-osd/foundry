@@ -128,10 +128,6 @@ function Get-UsbCacheRuntimeRoot {
             # Ignore drives that do not expose a readable volume label.
         }
 
-        $markerPath = Join-Path $rootPath 'Foundry Cache'
-        if (Test-Path -Path $markerPath -PathType Container) {
-            return Join-Path $rootPath 'Runtime'
-        }
     }
 
     return $null
