@@ -410,7 +410,7 @@ function Save-WebFile {
         }
 
         Write-Log "Downloading '$SourceUrl' to '$DestinationFullName' with curl.exe." -Level Debug
-        & curl.exe --fail --insecure --location --silent --show-error --output $DestinationFullName --url $SourceUrl
+        & curl.exe --fail --insecure --location --progress-bar --show-error --output $DestinationFullName --url $SourceUrl
         if ($LASTEXITCODE -ne 0) {
             throw "curl.exe failed with exit code $LASTEXITCODE."
         }
@@ -435,7 +435,7 @@ function Save-WebFile {
             Start-Sleep -Seconds $RetryDelaySeconds
             $RetryDelaySeconds *= 2
             $RetryCount += 1
-            & curl.exe --fail --insecure --location --silent --show-error --continue-at - --output $DestinationFullName --url $SourceUrl
+            & curl.exe --fail --insecure --location --progress-bar --show-error --continue-at - --output $DestinationFullName --url $SourceUrl
             if ($LASTEXITCODE -ne 0) {
                 throw "curl.exe resume failed with exit code $LASTEXITCODE."
             }
