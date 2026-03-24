@@ -1,3 +1,5 @@
+using System.IO.Compression;
+using System.Net.Http;
 using System.Text;
 using Foundry.Models.Configuration;
 using Microsoft.Extensions.Logging;
@@ -6,6 +8,14 @@ namespace Foundry.Services.WinPe;
 
 internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedImageAssetProvisioningService
 {
+    private const string CurlX64PackageUrl = "https://curl.se/windows/latest.cgi?p=win64-mingw.zip";
+    private const string CurlArm64PackageUrl = "https://curl.se/windows/latest.cgi?p=win64a-mingw.zip";
+
+    private static readonly HttpClient HttpClient = new()
+    {
+        Timeout = TimeSpan.FromMinutes(10)
+    };
+
     private readonly ILogger<WinPeMountedImageAssetProvisioningService> _logger;
 
     public WinPeMountedImageAssetProvisioningService(ILogger<WinPeMountedImageAssetProvisioningService> logger)
@@ -44,6 +54,16 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             cancellationToken).ConfigureAwait(false);
         _logger.LogInformation("Wrote bootstrap script into mounted WinPE image. System32Path={System32Path}", system32);
 
+        WinPeResult curlProvisioning = await ProvisionCurlInImageAsync(
+            system32,
+            architecture,
+            cancellationToken).ConfigureAwait(false);
+        if (!curlProvisioning.IsSuccess)
+        {
+            return curlProvisioning;
+        }
+
+        _logger.LogInformation("Provisioned curl.exe into mounted WinPE image. System32Path={System32Path}", system32);
         WinPeResult sevenZipProvisioning = ProvisionBundledSevenZipInImage(
             mountedImagePath,
             architecture);
@@ -87,6 +107,137 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         await File.WriteAllLinesAsync(startnet, merged, cancellationToken).ConfigureAwait(false);
         _logger.LogInformation("Updated startnet.cmd in mounted WinPE image. StartnetPath={StartnetPath}", startnet);
         return WinPeResult.Success();
+    }
+
+    private async Task<WinPeResult> ProvisionCurlInImageAsync(
+        string system32Path,
+        WinPeArchitecture architecture,
+        CancellationToken cancellationToken)
+    {
+        string cacheRootPath = Path.Combine(WinPeDefaults.GetInstallerCacheDirectoryPath(), "curl");
+        Directory.CreateDirectory(cacheRootPath);
+
+        string packageUrl = architecture switch
+        {
+            WinPeArchitecture.X64 => CurlX64PackageUrl,
+            WinPeArchitecture.Arm64 => CurlArm64PackageUrl,
+            _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
+        };
+
+        string packageFileName = architecture switch
+        {
+            WinPeArchitecture.X64 => "curl-x64.zip",
+            WinPeArchitecture.Arm64 => "curl-arm64.zip",
+            _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
+        };
+
+        string extractDirectoryName = architecture switch
+        {
+            WinPeArchitecture.X64 => "curl-x64",
+            WinPeArchitecture.Arm64 => "curl-arm64",
+            _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
+        };
+
+        string packagePath = Path.Combine(cacheRootPath, packageFileName);
+        string extractPath = Path.Combine(cacheRootPath, extractDirectoryName);
+        string destinationPath = Path.Combine(system32Path, "curl.exe");
+
+        try
+        {
+            if (!File.Exists(packagePath))
+            {
+                try
+                {
+                    _logger.LogInformation("Downloading curl package for Architecture={Architecture} from {PackageUrl}.", architecture, packageUrl);
+                    using HttpResponseMessage response = await HttpClient.GetAsync(packageUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return WinPeResult.Failure(
+                            WinPeErrorCodes.DownloadFailed,
+                            "Failed to download curl package for WinPE image provisioning.",
+                            $"Architecture: '{architecture}', URI: '{packageUrl}', HTTP status: {(int)response.StatusCode} {response.ReasonPhrase}");
+                    }
+
+                    await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                    await using FileStream destinationStream = new(packagePath, FileMode.Create, FileAccess.Write, FileShare.None, 81920, useAsync: true);
+                    await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to download curl package for Architecture={Architecture} from {PackageUrl}.", architecture, packageUrl);
+                    return WinPeResult.Failure(
+                        WinPeErrorCodes.DownloadFailed,
+                        "Failed to download curl package for WinPE image provisioning.",
+                        $"Architecture: '{architecture}', URI: '{packageUrl}'. Error: {ex.Message}");
+                }
+            }
+
+            WinPeFileSystemHelper.EnsureDirectoryClean(extractPath);
+            try
+            {
+                ZipFile.ExtractToDirectory(packagePath, extractPath);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to extract curl package. PackagePath={PackagePath}, ExtractPath={ExtractPath}", packagePath, extractPath);
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.BuildFailed,
+                    "Failed to extract curl package for WinPE image provisioning.",
+                    $"Package: '{packagePath}', ExtractPath: '{extractPath}'. Error: {ex.Message}");
+            }
+
+            string? sourceCurlPath = Directory
+                .EnumerateFiles(extractPath, "curl.exe", SearchOption.AllDirectories)
+                .FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(sourceCurlPath))
+            {
+                _logger.LogWarning("Extracted curl package did not contain curl.exe. ExtractPath={ExtractPath}", extractPath);
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.ToolNotFound,
+                    "The downloaded curl package did not contain curl.exe.",
+                    $"ExtractPath: '{extractPath}'.");
+            }
+
+            try
+            {
+                File.Copy(sourceCurlPath, destinationPath, overwrite: true);
+                return WinPeResult.Success();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to copy curl.exe into mounted WinPE image. SourcePath={SourcePath}, DestinationPath={DestinationPath}", sourceCurlPath, destinationPath);
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.BuildFailed,
+                    "Failed to provision curl.exe into mounted WinPE image.",
+                    $"Source: '{sourceCurlPath}', Destination: '{destinationPath}'. Error: {ex.Message}");
+            }
+        }
+        finally
+        {
+            try
+            {
+                if (File.Exists(packagePath))
+                {
+                    File.Delete(packagePath);
+                }
+            }
+            catch
+            {
+                // Best-effort cleanup.
+            }
+
+            try
+            {
+                if (Directory.Exists(extractPath))
+                {
+                    Directory.Delete(extractPath, recursive: true);
+                }
+            }
+            catch
+            {
+                // Best-effort cleanup.
+            }
+        }
     }
 
     private WinPeResult ProvisionBundledSevenZipInImage(

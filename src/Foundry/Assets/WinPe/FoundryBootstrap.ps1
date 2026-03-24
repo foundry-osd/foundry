@@ -1,47 +1,128 @@
 Clear-Host
 
+#region Bootstrap Configuration
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $PSNativeCommandUseErrorActionPreference = $true
 
 $WinPeRoot = 'X:\Foundry'
 $LogPath = Join-Path $WinPeRoot 'Logs\FoundryDeploy.log'
+$ConsoleLogLevel = 'Info'
+$FileLogLevel = 'Debug'
 $Owner = 'mchave3'
 $Repository = 'Foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
 $EmbeddedArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
 $SevenZipToolsPath = Join-Path $WinPeRoot 'Tools\7zip'
+#endregion
+
+#region General Helpers
+
+function Get-LogLevelRank {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [string]$LogLevel
+    )
+
+    switch ($LogLevel) {
+        'Debug' { return 0 }
+        'Info' { return 1 }
+        'Warning' { return 2 }
+        'Error' { return 3 }
+        default { throw "Unsupported log level '$LogLevel'." }
+    }
+}
+
+function Test-LogLevelEnabled {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [string]$MessageLevel,
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [string]$MinimumLevel
+    )
+
+    return (Get-LogLevelRank -LogLevel $MessageLevel) -ge (Get-LogLevelRank -LogLevel $MinimumLevel)
+}
 
 function Write-Log {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$Message
+        [string]$Message,
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [string]$Level = 'Info',
+        [string]$ConsoleMessage,
+        [switch]$ConsoleSpacingBefore
     )
 
     $timestamp = [DateTime]::UtcNow.ToString(
         'yyyy-MM-dd HH:mm:ss',
         [System.Globalization.CultureInfo]::InvariantCulture
     )
-    $entry = "[$timestamp UTC] $Message"
+    $entry = "[$timestamp UTC] [$Level] $Message"
 
-    try {
-        $directory = Split-Path -Path $LogPath -Parent
-        if (-not (Test-Path -Path $directory)) {
-            New-Item -Path $directory -ItemType Directory -Force | Out-Null
+    if (Test-LogLevelEnabled -MessageLevel $Level -MinimumLevel $FileLogLevel) {
+        try {
+            $directory = Split-Path -Path $LogPath -Parent
+            if (-not (Test-Path -Path $directory)) {
+                New-Item -Path $directory -ItemType Directory -Force | Out-Null
+            }
+
+            $entry | Out-File -FilePath $LogPath -Encoding utf8 -Append
         }
-
-        $entry | Out-File -FilePath $LogPath -Encoding utf8 -Append
-    }
-    catch {
-        # Keep bootstrap resilient even if logging fails.
+        catch {
+            # Keep bootstrap resilient even if logging fails.
+        }
     }
 
-    try {
-        Write-Host $entry
+    if (Test-LogLevelEnabled -MessageLevel $Level -MinimumLevel $ConsoleLogLevel) {
+        try {
+            if ($ConsoleSpacingBefore) {
+                Write-Host ''
+            }
+
+            $displayMessage = if ([string]::IsNullOrWhiteSpace($ConsoleMessage)) {
+                $Message
+            }
+            else {
+                $ConsoleMessage
+            }
+
+            switch ($Level) {
+                'Debug' { $displayMessage = "[Debug] $displayMessage" }
+                'Warning' { $displayMessage = "Warning: $displayMessage" }
+                'Error' { $displayMessage = "Error: $displayMessage" }
+            }
+
+            Write-Host $displayMessage
+        }
+        catch {
+            # Keep bootstrap resilient even if console output fails.
+        }
     }
-    catch {
-        # Keep bootstrap resilient even if console output fails.
+}
+
+function Format-FileSize {
+    param(
+        [Parameter(Mandatory = $true)]
+        [Int64]$Bytes
+    )
+
+    if ($Bytes -ge 1GB) {
+        return ('{0:N1} GB' -f ($Bytes / 1GB))
     }
+
+    if ($Bytes -ge 1MB) {
+        return ('{0:N1} MB' -f ($Bytes / 1MB))
+    }
+
+    if ($Bytes -ge 1KB) {
+        return ('{0:N1} KB' -f ($Bytes / 1KB))
+    }
+
+    return "$Bytes bytes"
 }
 
 function Get-TargetRuntimeIdentifier {
@@ -88,7 +169,7 @@ function Invoke-WithRetry {
                 throw
             }
 
-            Write-Log "Attempt $attempt failed: $($_.Exception.Message). Retrying in $delay second(s)."
+            Write-Log "Attempt $attempt failed: $($_.Exception.Message). Retrying in $delay second(s)." -Level Debug
             Start-Sleep -Seconds $delay
             $delay = [Math]::Min($delay * 2, 20)
             $attempt++
@@ -110,6 +191,9 @@ function Test-HttpUrl {
         return $false
     }
 }
+#endregion
+
+#region Runtime And Filesystem Helpers
 
 function Get-UsbCacheRuntimeRoot {
     foreach ($drive in [System.IO.DriveInfo]::GetDrives()) {
@@ -216,6 +300,9 @@ function Get-DeployExecutablePath {
 
     return Join-Path $RootPath 'Foundry.Deploy.exe'
 }
+#endregion
+
+#region Network And Time Helpers
 
 function Test-CommandCurlExe {
     [CmdletBinding()]
@@ -229,7 +316,7 @@ function Test-CommandCurlExe {
     }
 }
 
-function Download-FileViaWebRequest {
+function Save-WebFile {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
@@ -245,12 +332,11 @@ function Download-FileViaWebRequest {
         throw "Could not resolve DestinationDirectory or DestinationName from '$DestinationPath'."
     }
 
-    if (Test-Path "$DestinationDirectory") {
-    }
-    else {
+    if (-not (Test-Path "$DestinationDirectory")) {
         New-Item -Path "$DestinationDirectory" -ItemType Directory -Force -ErrorAction Stop | Out-Null
     }
 
+    # Validate the target directory up front so transport failures are not masked by local IO issues.
     $DestinationNewItem = New-Item -Path (Join-Path $DestinationDirectory "$(Get-Random).txt") -ItemType File
 
     if (Test-Path $DestinationNewItem.FullName) {
@@ -258,7 +344,7 @@ function Download-FileViaWebRequest {
         Remove-Item -Path $DestinationNewItem.FullName -Force | Out-Null
     }
     else {
-        Write-Warning 'Unable to write to Destination Directory'
+        Write-Log "Unable to write to destination directory '$DestinationDirectory'." -Level Error -ConsoleMessage 'Unable to write to the destination directory.'
         return $null
     }
 
@@ -266,9 +352,21 @@ function Download-FileViaWebRequest {
     $DestinationFullName = Join-Path $DestinationDirectoryItem $DestinationName
 
     $SourceUrl = [Uri]::EscapeUriString($SourceUrl.Replace('%', '~')).Replace('~', '%')
+    $proxyAddress = $null
 
+    try {
+        $defaultProxy = [System.Net.WebRequest]::DefaultWebProxy
+        if ($null -ne $defaultProxy) {
+            $proxyAddress = $defaultProxy.Address
+        }
+    }
+    catch {
+        $proxyAddress = $null
+    }
+
+    # Use curl.exe for file payloads and keep WebClient only as a compatibility fallback.
     $UseWebClient = $false
-    if (([System.Net.WebRequest]::DefaultWebProxy).Address) {
+    if ($null -ne $proxyAddress) {
         $UseWebClient = $true
     }
     elseif (!(Test-CommandCurlExe)) {
@@ -276,25 +374,48 @@ function Download-FileViaWebRequest {
     }
 
     if ($UseWebClient -eq $true) {
+        $transportReason = if ($null -ne $proxyAddress) {
+            "proxy '$proxyAddress' is configured"
+        }
+        else {
+            'curl.exe is unavailable'
+        }
+
+        Write-Log "Downloading '$SourceUrl' to '$DestinationFullName' with System.Net.WebClient because $transportReason." -Level Debug
         [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls1
         $WebClient = New-Object System.Net.WebClient
         $WebClient.DownloadFile($SourceUrl, $DestinationFullName)
         $WebClient.Dispose()
     }
     else {
-        $remote = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $SourceUrl
-        $remoteLength = [Int64]($remote.Headers.'Content-Length' | Select-Object -First 1)
-        $remoteAcceptsRanges = ($remote.Headers.'Accept-Ranges' | Select-Object -First 1) -eq 'bytes'
+        $remoteLength = 0L
+        $remoteAcceptsRanges = $false
 
-        $curlCommandExpression = "& curl.exe --insecure --location --output `"$DestinationFullName`" --url `"$SourceUrl`""
+        # A HEAD request gives us header-only metadata for logging and download resume decisions.
+        try {
+            Write-Log "Requesting remote headers for '$SourceUrl'." -Level Debug
+            $remote = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $SourceUrl -ErrorAction Stop
+            $contentLengthHeader = [string]($remote.Headers.'Content-Length' | Select-Object -First 1)
+            $acceptRangesHeader = [string]($remote.Headers.'Accept-Ranges' | Select-Object -First 1)
 
-        if ($host.name -match 'PowerShell ISE Host') {
-            $Quiet = Invoke-Expression ($curlCommandExpression + ' 2>&1')
+            if (-not [string]::IsNullOrWhiteSpace($contentLengthHeader)) {
+                [Int64]::TryParse($contentLengthHeader, [ref]$remoteLength) | Out-Null
+            }
+
+            $remoteAcceptsRanges = [string]::Equals($acceptRangesHeader, 'bytes', [System.StringComparison]::OrdinalIgnoreCase)
+            Write-Log "HEAD probe for '$SourceUrl' returned Content-Length='$contentLengthHeader' and Accept-Ranges='$acceptRangesHeader'." -Level Debug
         }
-        else {
-            Invoke-Expression $curlCommandExpression
+        catch {
+            Write-Log "HEAD probe for '$SourceUrl' failed: $($_.Exception.Message). Continuing with a direct curl.exe download." -Level Warning -ConsoleMessage 'Header probe failed. Continuing with a direct download.'
         }
 
+        Write-Log "Downloading '$SourceUrl' to '$DestinationFullName' with curl.exe." -Level Debug
+        & curl.exe --fail --insecure --location --progress-bar --show-error --output $DestinationFullName --url $SourceUrl
+        if ($LASTEXITCODE -ne 0) {
+            throw "curl.exe failed with exit code $LASTEXITCODE."
+        }
+
+        $localExists = $false
         if (Test-Path $DestinationFullName) {
             $localExists = $true
         }
@@ -304,37 +425,103 @@ function Download-FileViaWebRequest {
         $RetryCount = 0
         while (
             $localExists `
+                -and ($remoteLength -gt 0) `
                 -and ((Get-Item $DestinationFullName).Length -lt $remoteLength) `
                 -and $remoteAcceptsRanges `
                 -and ($RetryCount -lt $MaxRetryCount)
         ) {
+            # Only retry with resume when the server explicitly advertises byte ranges.
+            Write-Log "Download is incomplete for '$DestinationFullName'. Retrying with curl.exe resume in $RetryDelaySeconds second(s)." -Level Warning -ConsoleMessage 'Download incomplete. Retrying...'
             Start-Sleep -Seconds $RetryDelaySeconds
             $RetryDelaySeconds *= 2
             $RetryCount += 1
-            $curlCommandExpression = "& curl.exe --insecure --location --continue-at - --output `"$DestinationFullName`" --url `"$SourceUrl`""
-
-            if ($host.name -match 'PowerShell ISE Host') {
-                $Quiet = Invoke-Expression ($curlCommandExpression + ' 2>&1')
-            }
-            else {
-                Invoke-Expression $curlCommandExpression
+            & curl.exe --fail --insecure --location --progress-bar --show-error --continue-at - --output $DestinationFullName --url $SourceUrl
+            if ($LASTEXITCODE -ne 0) {
+                throw "curl.exe resume failed with exit code $LASTEXITCODE."
             }
         }
 
-        if ($localExists -and ((Get-Item $DestinationFullName).Length -lt $remoteLength)) {
-            Write-Warning "Could not download $DestinationFullName"
+        if ($localExists -and ($remoteLength -gt 0) -and ((Get-Item $DestinationFullName).Length -lt $remoteLength)) {
+            Write-Log "Download remained incomplete for '$DestinationFullName' after $RetryCount resume attempt(s)." -Level Error -ConsoleMessage 'Download remained incomplete.'
             return $null
         }
     }
 
     if (Test-Path $DestinationFullName) {
-        return Get-Item $DestinationFullName -Force
+        $downloadedFile = Get-Item $DestinationFullName -Force
+        Write-Log "Download completed: '$DestinationFullName' ($($downloadedFile.Length) bytes)." -ConsoleMessage "Download completed ($(Format-FileSize -Bytes $downloadedFile.Length))."
+        return $downloadedFile
     }
     else {
-        Write-Warning "Could not download $DestinationFullName"
+        Write-Log "Download failed because '$DestinationFullName' was not created." -Level Error -ConsoleMessage 'Download failed.'
         return $null
     }
 }
+
+function Sync-WinPeInternetDateTime {
+    [CmdletBinding()]
+    param(
+        [ValidateRange(1, 1440)]
+        [int]$ThresholdMinutes = 5
+    )
+
+    if (-not [string]::Equals($env:SystemDrive, 'X:', [System.StringComparison]::OrdinalIgnoreCase)) {
+        Write-Log 'Skipping clock synchronization because the bootstrap is not running from the WinPE system drive.' -Level Debug
+        return
+    }
+
+    $internetDateTime = $null
+    $probeUrls = @(
+        'http://www.msftconnecttest.com/connecttest.txt',
+        'http://www.google.com'
+    )
+
+    # Use HTTP time probes so clock recovery is still possible when TLS would fail due to skew.
+    foreach ($probeUrl in $probeUrls) {
+        try {
+            Write-Log "Requesting internet time from '$probeUrl'." -Level Debug
+            $response = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $probeUrl -ErrorAction Stop
+            $dateHeader = [string]($response.Headers['Date'] | Select-Object -First 1)
+
+            if (-not [string]::IsNullOrWhiteSpace($dateHeader)) {
+                $internetDateTime = Get-Date $dateHeader
+                break
+            }
+
+            Write-Log "The time probe '$probeUrl' did not return an HTTP Date header." -Level Debug
+        }
+        catch {
+            Write-Log "The time probe '$probeUrl' failed: $($_.Exception.Message)." -Level Debug
+        }
+    }
+
+    if ($null -eq $internetDateTime) {
+        Write-Log 'Could not resolve internet time. Continuing without clock synchronization.' -Level Warning -ConsoleMessage 'Clock sync unavailable. Continuing.'
+        return
+    }
+
+    $localDateTime = Get-Date
+    $differenceMinutes = [Math]::Abs(($internetDateTime - $localDateTime).TotalMinutes)
+    $roundedDifferenceMinutes = [Math]::Round($differenceMinutes)
+
+    if ($differenceMinutes -le $ThresholdMinutes) {
+        Write-Log "System clock is already within $ThresholdMinutes minute(s) of internet time." -ConsoleMessage 'Clock: already within threshold.'
+        return
+    }
+
+    Write-Log "System clock differs from internet time by $roundedDifferenceMinutes minute(s). Updating the WinPE clock." -ConsoleMessage "Clock drift detected ($roundedDifferenceMinutes minute(s)). Updating..."
+
+    try {
+        Set-Date -Date $internetDateTime -ErrorAction Stop | Out-Null
+        Write-Log "System clock updated to '$($internetDateTime.ToString('o', [System.Globalization.CultureInfo]::InvariantCulture))'." -ConsoleMessage 'Clock: updated from internet time.'
+    }
+    catch {
+        Write-Log "Failed to update the WinPE clock: $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Clock update failed. Continuing.'
+    }
+}
+#endregion
+
+#region Archive Integrity Helpers
 
 function Copy-LocalArchive {
     param(
@@ -401,6 +588,9 @@ function Assert-ExpectedSha256 {
         throw "SHA256 mismatch for $Context. Expected '$normalized', actual '$ActualSha256'."
     }
 }
+#endregion
+
+#region Archive Staging And Cache Helpers
 
 function Ensure-7ZipTooling {
     param(
@@ -597,6 +787,7 @@ function Test-CacheCurrent {
 
     $manifest = Read-Manifest -ManifestPath (Get-ManifestPath -RootPath $RuntimeCacheRoot)
     if ($null -ne $manifest) {
+        # Prefer manifest comparisons because they remain stable even when executable version metadata is absent.
         $manifestAsset = [string]$manifest['Asset']
         if (-not [string]::Equals($manifestAsset, $AssetName, [System.StringComparison]::OrdinalIgnoreCase)) {
             return $false
@@ -679,6 +870,7 @@ function Update-CacheFromArchiveFile {
     Remove-DirectoryIfPresent -Path $stagingRoot
 
     try {
+        # Extract into a staging directory first so the active cache remains valid until promotion succeeds.
         Ensure-Directory -Path $stagingRoot
         Expand-ZipVia7Zip -ArchivePath $ArchivePath -DestinationPath $stagingRoot -RuntimeIdentifier $RuntimeIdentifier
 
@@ -711,6 +903,9 @@ function Update-CacheFromArchiveFile {
         Remove-DirectoryIfPresent -Path $stagingRoot
     }
 }
+#endregion
+
+#region Release Resolution Helpers
 
 function Start-DeployExecutable {
     param(
@@ -718,7 +913,7 @@ function Start-DeployExecutable {
         [System.IO.FileInfo]$Executable
     )
 
-    Write-Log "Launching '$($Executable.FullName)'."
+    Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Launching Foundry.Deploy.exe...' -ConsoleSpacingBefore
     Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
 }
 
@@ -742,10 +937,14 @@ function Resolve-SingleExecutable {
     $typeName = if ($null -eq $Candidate) { '<null>' } else { $Candidate.GetType().FullName }
     throw "Could not resolve a single deploy executable from value of type '$typeName'."
 }
+#endregion
+
+#region Bootstrap Execution
 
 try {
     Ensure-Directory -Path $WinPeRoot
 
+    # USB cache media takes precedence; otherwise the ISO-backed runtime directory is used.
     $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
     if (-not [string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
         $bootstrapRoot = $usbRuntimeRoot
@@ -759,10 +958,11 @@ try {
     Ensure-Directory -Path $bootstrapRoot
 
     Write-Log 'Foundry bootstrap started.'
-    Write-Log "Bootstrap root resolved to '$bootstrapRoot'."
-    Write-Log "Deployment mode resolved to '$deploymentMode'."
+    Write-Log "Bootstrap root resolved to '$bootstrapRoot'." -ConsoleMessage "Runtime root: $bootstrapRoot" -ConsoleSpacingBefore
+    Write-Log "Deployment mode resolved to '$deploymentMode'." -ConsoleMessage "Mode: $deploymentMode"
 
     $env:FOUNDRY_DEPLOYMENT_MODE = $deploymentMode
+    Sync-WinPeInternetDateTime -ThresholdMinutes 5
 
     $runtimeIdentifier = Get-TargetRuntimeIdentifier
     $assetName = Resolve-DeployAssetName -RuntimeIdentifier $runtimeIdentifier
@@ -778,34 +978,35 @@ try {
 
     if ([string]::IsNullOrWhiteSpace($archiveOverride) -and (Test-Path -Path $EmbeddedArchivePath -PathType Leaf)) {
         $archiveOverride = $EmbeddedArchivePath
-        Write-Log "Using embedded deploy archive from '$EmbeddedArchivePath'."
+        Write-Log "Using embedded deploy archive from '$EmbeddedArchivePath'." -ConsoleMessage 'Using embedded deploy archive.'
     }
 
     $headers = @{
         'User-Agent' = 'FoundryBootstrap/1.0'
-        'Accept' = 'application/vnd.github+json'
+        'Accept'     = 'application/vnd.github+json'
     }
 
+    # An explicit archive override short-circuits GitHub release discovery.
     if (-not [string]::IsNullOrWhiteSpace($archiveOverride)) {
         if (-not [string]::IsNullOrWhiteSpace($releaseTagOverride)) {
-            Write-Log "FOUNDRY_DEPLOY_ARCHIVE is set; ignoring FOUNDRY_RELEASE_TAG '$releaseTagOverride'."
+            Write-Log "FOUNDRY_DEPLOY_ARCHIVE is set; ignoring FOUNDRY_RELEASE_TAG '$releaseTagOverride'." -Level Warning -ConsoleMessage 'Archive override is set; release tag override ignored.'
         }
 
         if (Test-HttpUrl -Value $archiveOverride) {
-            Write-Log "Downloading override archive (curl.exe/WebClient): $archiveOverride"
-            Download-FileViaWebRequest `
+            Write-Log "Starting override archive download from '$archiveOverride'." -ConsoleMessage 'Downloading override archive...' -ConsoleSpacingBefore
+            Save-WebFile `
                 -SourceUrl $archiveOverride `
                 -DestinationPath $downloadPath | Out-Null
         }
         else {
-            Write-Log "Copying override archive from '$archiveOverride'."
+            Write-Log "Copying override archive from '$archiveOverride'." -ConsoleMessage 'Using local override archive.' -ConsoleSpacingBefore
             Copy-LocalArchive -SourcePath $archiveOverride -DestinationPath $downloadPath
         }
 
         $archiveSha256 = Get-FileSha256 -Path $downloadPath
         Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $archiveOverrideSha256 -Context 'override archive'
 
-        Write-Log "Refreshing deploy cache for runtime '$runtimeIdentifier' from override archive."
+        Write-Log "Refreshing deploy cache for runtime '$runtimeIdentifier' from override archive." -ConsoleMessage 'Refreshing deploy cache...' -ConsoleSpacingBefore
         $executable = Update-CacheFromArchiveFile `
             -ArchivePath $downloadPath `
             -BootstrapRoot $bootstrapRoot `
@@ -817,15 +1018,16 @@ try {
             -ArchiveSha256 $archiveSha256
     }
     else {
+        # Default flow: resolve the latest release, reuse cache when current, otherwise refresh it.
         $releaseApiUrl = Resolve-ReleaseApiUrl -ReleaseTagOverride $releaseTagOverride
         $release = $null
 
         try {
-            Write-Log "Resolving release metadata from $releaseApiUrl."
+            Write-Log "Resolving release metadata from $releaseApiUrl." -Level Debug
             $release = Invoke-WithRetry -Action { Invoke-RestMethod -Uri $releaseApiUrl -Headers $headers -Method Get }
         }
         catch {
-            Write-Log "Failed to resolve release metadata: $($_.Exception.Message). Falling back to the existing cache."
+            Write-Log "Failed to resolve release metadata: $($_.Exception.Message). Falling back to the existing cache." -Level Warning -ConsoleMessage 'Release lookup failed. Falling back to cached deploy content.'
             $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot
         }
 
@@ -834,24 +1036,24 @@ try {
             $releaseTag = [string]$release.tag_name
             $releaseVersion = Get-ReleaseVersion -Tag $releaseTag
 
-            Write-Log "Using release tag '$releaseTag' and asset '$($asset.name)'."
+            Write-Log "Using release tag '$releaseTag' and asset '$($asset.name)'." -ConsoleMessage "Release: $releaseTag" -ConsoleSpacingBefore
+            Write-Log "Selected asset '$($asset.name)' for runtime '$runtimeIdentifier'." -ConsoleMessage "Asset: $($asset.name)"
 
             if (Test-CacheCurrent `
-                -RuntimeCacheRoot $runtimeCacheRoot `
-                -AssetName $assetName `
-                -ReleaseTag $releaseTag `
-                -ReleaseVersion $releaseVersion `
-                -Asset $asset) {
-                Write-Log "The cached deploy content for '$runtimeIdentifier' is already current."
+                    -RuntimeCacheRoot $runtimeCacheRoot `
+                    -AssetName $assetName `
+                    -ReleaseTag $releaseTag `
+                    -ReleaseVersion $releaseVersion `
+                    -Asset $asset) {
+                Write-Log "The cached deploy content for '$runtimeIdentifier' is already current." -ConsoleMessage 'Cached deploy content is current.'
                 $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot
             }
             else {
                 try {
-                    Write-Log "Downloading asset (curl.exe/WebClient): $($asset.browser_download_url)"
-                    Download-FileViaWebRequest `
+                    Write-Log "Starting release asset download from '$($asset.browser_download_url)'." -ConsoleMessage "Downloading $($asset.name)..." -ConsoleSpacingBefore
+                    Save-WebFile `
                         -SourceUrl $asset.browser_download_url `
                         -DestinationPath $downloadPath | Out-Null
-                    Write-Log "Download completed. Validating archive integrity."
 
                     $archiveSha256 = Get-FileSha256 -Path $downloadPath
                     $expectedSha256 = Get-ReleaseAssetSha256 -Asset $asset
@@ -859,13 +1061,13 @@ try {
                         Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $expectedSha256 -Context "release asset '$($asset.name)'"
                     }
                     elseif (-not [string]::IsNullOrWhiteSpace([string]$asset.digest)) {
-                        Write-Log "Release asset digest '$($asset.digest)' is not a supported SHA256 value. Continuing without digest validation."
+                        Write-Log "Release asset digest '$($asset.digest)' is not a supported SHA256 value. Continuing without digest validation." -Level Warning -ConsoleMessage 'Release digest format is unsupported. Continuing without digest validation.'
                     }
                     else {
-                        Write-Log 'No release asset digest was provided. Continuing without digest validation.'
+                        Write-Log 'No release asset digest was provided. Continuing without digest validation.' -Level Warning -ConsoleMessage 'No release digest was provided. Continuing without digest validation.'
                     }
 
-                    Write-Log "Refreshing deploy cache for runtime '$runtimeIdentifier'."
+                    Write-Log "Refreshing deploy cache for runtime '$runtimeIdentifier'." -ConsoleMessage 'Refreshing deploy cache...' -ConsoleSpacingBefore
                     $executable = Update-CacheFromArchiveFile `
                         -ArchivePath $downloadPath `
                         -BootstrapRoot $bootstrapRoot `
@@ -877,7 +1079,7 @@ try {
                         -ArchiveSha256 $archiveSha256
                 }
                 catch {
-                    Write-Log "Failed to refresh the deploy cache: $($_.Exception.Message). Falling back to the existing cache."
+                    Write-Log "Failed to refresh the deploy cache: $($_.Exception.Message). Falling back to the existing cache." -Level Warning -ConsoleMessage 'Cache refresh failed. Falling back to cached deploy content.'
                     $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot
                 }
             }
@@ -886,8 +1088,9 @@ try {
 
     $executable = Resolve-SingleExecutable -Candidate $executable
     Start-DeployExecutable -Executable $executable
-    Write-Log 'Foundry bootstrap completed successfully.'
+    Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.' -ConsoleSpacingBefore
 }
 catch {
-    Write-Log "Foundry bootstrap failed: $($_.Exception.Message)"
+    Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Error -ConsoleMessage 'Foundry bootstrap failed.'
 }
+#endregion
