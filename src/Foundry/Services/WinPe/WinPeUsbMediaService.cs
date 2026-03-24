@@ -229,8 +229,6 @@ else {
         }
 
         _logger.LogInformation("Verified USB boot artifacts successfully. BootRoot={BootRoot}, Architecture={Architecture}", bootRoot, artifact.Architecture);
-        string cacheMarkerPath = Path.Combine(cacheRoot, "Foundry Cache");
-        Directory.CreateDirectory(cacheMarkerPath);
         Directory.CreateDirectory(Path.Combine(cacheRoot, "Runtime"));
         Directory.CreateDirectory(Path.Combine(cacheRoot, "OperatingSystem"));
         Directory.CreateDirectory(Path.Combine(cacheRoot, "DriverPack"));
