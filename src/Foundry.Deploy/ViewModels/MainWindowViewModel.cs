@@ -123,6 +123,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _deploymentOrchestrator,
             processRunner,
             IsDebugSafeMode);
+        Session.PropertyChanged += OnSessionPropertyChanged;
     }
 
     public Task InitializeAsync()
@@ -221,6 +222,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             WizardStepIndex++;
         }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanBeginWizard))]
+    private void BeginWizard()
+    {
+        Session.ShowWizard();
     }
 
     [RelayCommand(CanExecute = nameof(CanStartDeployment))]
@@ -326,6 +333,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         Session.SetStatus(message);
     }
 
+    private void OnSessionPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(e.PropertyName) &&
+            e.PropertyName is not nameof(DeploymentSessionViewModel.IsStartupInitializing) &&
+            e.PropertyName is not nameof(DeploymentSessionViewModel.CurrentPage))
+        {
+            return;
+        }
+
+        RefreshCatalogsCommand.NotifyCanExecuteChanged();
+        BeginWizardCommand.NotifyCanExecuteChanged();
+    }
+
     private bool CanShowDebugPages()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
@@ -333,7 +353,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private bool CanRefreshCatalogs()
     {
-        return !IsCatalogLoading && !IsDeploymentRunning;
+        return Session.IsStartupReady && !IsCatalogLoading && !IsDeploymentRunning;
+    }
+
+    private bool CanBeginWizard()
+    {
+        return Session.IsSplashPage && Session.IsStartupReady;
     }
 
     private bool CanGoPrevious()
@@ -394,6 +419,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             !string.IsNullOrWhiteSpace(startupSnapshot.TargetDiskStatusMessage)
                 ? startupSnapshot.TargetDiskStatusMessage
                 : startupStatusMessage);
+        Session.CompleteStartupInitialization();
     }
 
     private void RunOnUi(Action action)
@@ -416,6 +442,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         _wizardContext.StatusMessageGenerated -= OnWizardContextStatusMessageGenerated;
         _wizardContext.StateChanged -= OnWizardContextStateChanged;
+        Session.PropertyChanged -= OnSessionPropertyChanged;
         _wizardContext.Dispose();
         Session.Dispose();
         _isDisposed = true;
