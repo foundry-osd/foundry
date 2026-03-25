@@ -6,14 +6,17 @@ namespace Foundry.Services.WinPe;
 internal static class WinPeDefaults
 {
     private static readonly Lazy<string> BootstrapScriptContent = new(LoadDefaultBootstrapScriptContent);
+    private static readonly Lazy<string> IanaWindowsTimeZoneMapContent = new(LoadIanaWindowsTimeZoneMapContent);
 
     public const string DefaultUnifiedCatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/WinPE/WinPE_Unified.xml";
     public const string DefaultStartnetPathInImage = @"Windows\System32\startnet.cmd";
     public const string DefaultBootstrapScriptFileName = "FoundryBootstrap.ps1";
     public const string DefaultBootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
     public const string DefaultBootstrapScriptResourceName = "Foundry.WinPe.BootstrapScript";
+    public const string DefaultTimeZoneMapResourceName = "Foundry.Configuration.IanaWindowsTimeZones";
     public const string EmbeddedDeployArchivePathInImage = @"Foundry\Seed\Foundry.Deploy.zip";
     public const string EmbeddedDeployConfigPathInImage = @"Foundry\Config\foundry.deploy.config.json";
+    public const string EmbeddedTimeZoneMapPathInImage = @"Foundry\Config\iana-windows-timezones.json";
     public const string EmbeddedAutopilotProfilesPathInImage = @"Foundry\Config\Autopilot";
     public const string EmbeddedSevenZipToolsPathInImage = @"Foundry\Tools\7zip";
     public const string BundledSevenZipRelativePath = @"Assets\7z";
@@ -58,14 +61,29 @@ internal static class WinPeDefaults
         return BootstrapScriptContent.Value;
     }
 
+    public static string GetIanaWindowsTimeZoneMapContent()
+    {
+        return IanaWindowsTimeZoneMapContent.Value;
+    }
+
     private static string LoadDefaultBootstrapScriptContent()
     {
+        return LoadEmbeddedText(DefaultBootstrapScriptResourceName);
+    }
+
+    private static string LoadIanaWindowsTimeZoneMapContent()
+    {
+        return LoadEmbeddedText(DefaultTimeZoneMapResourceName);
+    }
+
+    private static string LoadEmbeddedText(string resourceName)
+    {
         Assembly assembly = typeof(WinPeDefaults).Assembly;
-        using Stream? stream = assembly.GetManifestResourceStream(DefaultBootstrapScriptResourceName);
+        using Stream? stream = assembly.GetManifestResourceStream(resourceName);
         if (stream is null)
         {
             throw new InvalidOperationException(
-                $"Embedded WinPE bootstrap script resource '{DefaultBootstrapScriptResourceName}' was not found.");
+                $"Embedded resource '{resourceName}' was not found.");
         }
 
         using var reader = new StreamReader(stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true);

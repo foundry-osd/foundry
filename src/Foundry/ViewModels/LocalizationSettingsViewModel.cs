@@ -8,6 +8,8 @@ namespace Foundry.ViewModels;
 
 public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
 {
+    private const string AutomaticTimeZoneId = "";
+
     public LocalizationSettingsViewModel(ILocalizationService localizationService, IReadOnlyList<LanguageRegistryEntry> languages)
         : base(localizationService)
     {
@@ -18,6 +20,8 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
             AvailableLanguages.Add(option);
         }
 
+        LocalizationService.LanguageChanged += OnAppLanguageChanged;
+        RefreshAvailableTimeZones();
         VisibleLanguages.CollectionChanged += OnVisibleLanguagesCollectionChanged;
         RefreshVisibleLanguages();
     }
@@ -26,11 +30,21 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
     private string selectedDefaultLanguageCode = string.Empty;
 
     [ObservableProperty]
+    private string selectedTimeZoneId = AutomaticTimeZoneId;
+
+    [ObservableProperty]
     private bool forceSingleVisibleLanguage;
 
     public ObservableCollection<SelectableLanguageOptionViewModel> AvailableLanguages { get; } = [];
+    public ObservableCollection<TimeZoneOption> AvailableTimeZones { get; } = [];
 
     public ObservableCollection<LanguageRegistryEntry> VisibleLanguages { get; } = [];
+
+    public override void Dispose()
+    {
+        LocalizationService.LanguageChanged -= OnAppLanguageChanged;
+        base.Dispose();
+    }
 
     public LocalizationSettings BuildSettings()
     {
@@ -47,6 +61,7 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
         {
             VisibleLanguageCodes = visibleCodes,
             DefaultLanguageCodeOverride = defaultCode,
+            DefaultTimeZoneId = NormalizeOptionalTimeZoneId(SelectedTimeZoneId),
             ForceSingleVisibleLanguage = ForceSingleVisibleLanguage
         };
     }
@@ -72,6 +87,10 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
                 language.Code.Equals(settings.DefaultLanguageCodeOverride, StringComparison.OrdinalIgnoreCase))
             ? settings.DefaultLanguageCodeOverride ?? string.Empty
             : string.Empty;
+        SelectedTimeZoneId = AvailableTimeZones.Any(option =>
+                option.Id.Equals(settings.DefaultTimeZoneId, StringComparison.OrdinalIgnoreCase))
+            ? settings.DefaultTimeZoneId ?? AutomaticTimeZoneId
+            : AutomaticTimeZoneId;
     }
 
     private void OnLanguageOptionPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -109,5 +128,42 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
         {
             VisibleLanguages.Add(language);
         }
+    }
+
+    private void OnAppLanguageChanged(object? sender, EventArgs e)
+    {
+        RunOnUiThread(RefreshAvailableTimeZones);
+    }
+
+    private void RefreshAvailableTimeZones()
+    {
+        string preservedSelection = SelectedTimeZoneId;
+        List<TimeZoneOption> timeZones =
+        [
+            new(AutomaticTimeZoneId, Strings["LocalizationTimeZoneAutomatic"])
+        ];
+        timeZones.AddRange(
+            TimeZoneInfo.GetSystemTimeZones()
+                .OrderBy(timeZone => timeZone.BaseUtcOffset)
+                .ThenBy(timeZone => timeZone.DisplayName, StringComparer.CurrentCulture)
+                .Select(timeZone => new TimeZoneOption(timeZone.Id, $"{timeZone.DisplayName} ({timeZone.Id})")));
+
+        AvailableTimeZones.Clear();
+        foreach (TimeZoneOption timeZone in timeZones)
+        {
+            AvailableTimeZones.Add(timeZone);
+        }
+
+        SelectedTimeZoneId = AvailableTimeZones.Any(option =>
+                option.Id.Equals(preservedSelection, StringComparison.OrdinalIgnoreCase))
+            ? preservedSelection
+            : AutomaticTimeZoneId;
+    }
+
+    private static string? NormalizeOptionalTimeZoneId(string? timeZoneId)
+    {
+        return string.IsNullOrWhiteSpace(timeZoneId)
+            ? null
+            : timeZoneId.Trim();
     }
 }

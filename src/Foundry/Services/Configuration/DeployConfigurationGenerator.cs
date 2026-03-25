@@ -16,6 +16,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             {
                 VisibleLanguageCodes = document.Localization.VisibleLanguageCodes,
                 DefaultLanguageCodeOverride = document.Localization.DefaultLanguageCodeOverride,
+                DefaultTimeZoneId = document.Localization.DefaultTimeZoneId,
                 ForceSingleVisibleLanguage = document.Localization.ForceSingleVisibleLanguage
             },
             Customization = new DeployCustomizationSettings

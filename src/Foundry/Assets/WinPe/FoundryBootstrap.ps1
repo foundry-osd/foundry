@@ -13,7 +13,10 @@ $Owner = 'mchave3'
 $Repository = 'Foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
 $EmbeddedArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
+$EmbeddedDeployConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.deploy.config.json'
 $SevenZipToolsPath = Join-Path $WinPeRoot 'Tools\7zip'
+$TimeZoneMapPath = Join-Path $WinPeRoot 'Config\iana-windows-timezones.json'
+$DefaultWinPeTimeZoneId = 'UTC'
 #endregion
 
 #region General Helpers
@@ -519,6 +522,307 @@ function Sync-WinPeInternetDateTime {
         Write-Log "Failed to update the WinPE clock: $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Clock update failed. Continuing.'
     }
 }
+
+function Get-WinPeConfiguredTimeZone {
+    [CmdletBinding()]
+    param ()
+
+    $environmentTimeZoneId = [string]$env:FOUNDRY_WINPE_TIMEZONE_ID
+    $environmentTimeZoneId = $environmentTimeZoneId.Trim()
+
+    if (-not [string]::IsNullOrWhiteSpace($environmentTimeZoneId)) {
+        return [PSCustomObject]@{
+            Id     = $environmentTimeZoneId
+            Source = 'environment variable FOUNDRY_WINPE_TIMEZONE_ID'
+        }
+    }
+
+    if (-not (Test-Path -Path $EmbeddedDeployConfigurationPath -PathType Leaf)) {
+        return $null
+    }
+
+    try {
+        $configurationJson = Get-Content -Path $EmbeddedDeployConfigurationPath -Raw -ErrorAction Stop
+        if ([string]::IsNullOrWhiteSpace($configurationJson)) {
+            return $null
+        }
+
+        $configuration = $configurationJson | ConvertFrom-Json -ErrorAction Stop
+        $configuredTimeZoneId = [string]$configuration.localization.defaultTimeZoneId
+        $configuredTimeZoneId = $configuredTimeZoneId.Trim()
+
+        if (-not [string]::IsNullOrWhiteSpace($configuredTimeZoneId)) {
+            return [PSCustomObject]@{
+                Id     = $configuredTimeZoneId
+                Source = "embedded deploy configuration '$EmbeddedDeployConfigurationPath'"
+            }
+        }
+    }
+    catch {
+        Write-Log "Failed to read the embedded deploy configuration for timezone detection: $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Timezone config unavailable. Using fallback.'
+    }
+
+    return $null
+}
+
+function Test-WindowsTimeZoneId {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TimeZoneId
+    )
+
+    if ([string]::IsNullOrWhiteSpace($TimeZoneId)) {
+        return $false
+    }
+
+    try {
+        [System.TimeZoneInfo]::FindSystemTimeZoneById($TimeZoneId.Trim()) | Out-Null
+        return $true
+    }
+    catch {
+        return $false
+    }
+}
+
+function Get-IanaWindowsTimeZoneMap {
+    [CmdletBinding()]
+    param ()
+
+    if ($script:IanaWindowsTimeZoneMap) {
+        return $script:IanaWindowsTimeZoneMap
+    }
+
+    if (-not (Test-Path -Path $TimeZoneMapPath -PathType Leaf)) {
+        Write-Log "IANA to Windows timezone map was not found at '$TimeZoneMapPath'." -Level Warning -ConsoleMessage 'Timezone map unavailable. Auto-detect skipped.'
+        return $null
+    }
+
+    try {
+        $mapJson = Get-Content -Path $TimeZoneMapPath -Raw -ErrorAction Stop
+        $parsedMap = ConvertFrom-Json -InputObject $mapJson -ErrorAction Stop
+        $map = @{}
+
+        foreach ($property in $parsedMap.PSObject.Properties) {
+            $map[[string]$property.Name] = [string]$property.Value
+        }
+
+        $script:IanaWindowsTimeZoneMap = $map
+        return $script:IanaWindowsTimeZoneMap
+    }
+    catch {
+        Write-Log "Failed to load IANA to Windows timezone map from '$TimeZoneMapPath': $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Timezone map load failed. Auto-detect skipped.'
+        return $null
+    }
+}
+
+function Convert-IanaTimeZoneIdToWindowsId {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$IanaTimeZoneId
+    )
+
+    $normalizedTimeZoneId = $IanaTimeZoneId.Trim()
+    if ([string]::IsNullOrWhiteSpace($normalizedTimeZoneId)) {
+        return $null
+    }
+
+    $map = Get-IanaWindowsTimeZoneMap
+    if ($null -eq $map) {
+        return $null
+    }
+
+    if ($map.ContainsKey($normalizedTimeZoneId)) {
+        return [string]$map[$normalizedTimeZoneId]
+    }
+
+    return $null
+}
+
+function Resolve-WindowsTimeZoneId {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TimeZoneCandidate
+    )
+
+    $normalizedCandidate = $TimeZoneCandidate.Trim()
+    if ([string]::IsNullOrWhiteSpace($normalizedCandidate)) {
+        return $null
+    }
+
+    if (Test-WindowsTimeZoneId -TimeZoneId $normalizedCandidate) {
+        return $normalizedCandidate
+    }
+
+    $convertedTimeZoneId = Convert-IanaTimeZoneIdToWindowsId -IanaTimeZoneId $normalizedCandidate
+    if (Test-WindowsTimeZoneId -TimeZoneId $convertedTimeZoneId) {
+        return $convertedTimeZoneId
+    }
+
+    return $null
+}
+
+function Get-PublicIpTimeZoneId {
+    [CmdletBinding()]
+    param ()
+
+    $providers = @(
+        @{
+            Name = 'time.now'
+            Uri = 'https://time.now/developer/api/ip'
+            ResponseType = 'Json'
+        },
+        @{
+            Name = 'ipapi.co'
+            Uri = 'https://ipapi.co/timezone/'
+            ResponseType = 'Text'
+        },
+        @{
+            Name = 'geojs'
+            Uri = 'https://get.geojs.io/v1/ip/geo.json'
+            ResponseType = 'Json'
+        }
+    )
+
+    foreach ($provider in $providers) {
+        try {
+            Write-Log "Resolving public IP timezone from '$($provider.Name)'." -Level Debug
+
+            $candidate = switch ($provider.ResponseType) {
+                'Text' {
+                    [string](Invoke-WebRequest -UseBasicParsing -Method Get -Uri $provider.Uri -TimeoutSec 10 -ErrorAction Stop).Content
+                }
+                'Json' {
+                    [string](Invoke-RestMethod -Method Get -Uri $provider.Uri -TimeoutSec 10 -ErrorAction Stop).timezone
+                }
+                default {
+                    $null
+                }
+            }
+
+            $candidate = $candidate.Trim()
+            if (-not [string]::IsNullOrWhiteSpace($candidate)) {
+                Write-Log "Public IP timezone provider '$($provider.Name)' returned '$candidate'." -Level Debug
+                return $candidate
+            }
+        }
+        catch {
+            Write-Log "Public IP timezone lookup against '$($provider.Name)' failed: $($_.Exception.Message)." -Level Debug
+        }
+    }
+
+    return $null
+}
+
+function Get-WinPeAutomaticTimeZone {
+    [CmdletBinding()]
+    param ()
+
+    $publicIpTimeZoneId = Get-PublicIpTimeZoneId
+    if ([string]::IsNullOrWhiteSpace($publicIpTimeZoneId)) {
+        return $null
+    }
+
+    $resolvedTimeZoneId = Resolve-WindowsTimeZoneId -TimeZoneCandidate $publicIpTimeZoneId
+    if (-not [string]::IsNullOrWhiteSpace($resolvedTimeZoneId)) {
+        return [PSCustomObject]@{
+            Id     = $resolvedTimeZoneId
+            Source = "public IP lookup '$publicIpTimeZoneId'"
+        }
+    }
+
+    Write-Log "Public IP timezone '$publicIpTimeZoneId' could not be converted to a Windows timezone ID." -Level Warning -ConsoleMessage 'Public IP timezone could not be mapped. Using fallback.'
+    return $null
+}
+
+function Get-CurrentWinPeTimeZoneId {
+    [CmdletBinding()]
+    param ()
+
+    try {
+        if (Get-Command 'Get-TimeZone' -ErrorAction SilentlyContinue) {
+            return ([string](Get-TimeZone).Id).Trim()
+        }
+
+        return $null
+    }
+    catch {
+        Write-Log "Failed to query the current WinPE timezone: $($_.Exception.Message)." -Level Debug
+        return $null
+    }
+}
+
+function Set-WinPeTimeZone {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FallbackTimeZoneId
+    )
+
+    if (-not [string]::Equals($env:SystemDrive, 'X:', [System.StringComparison]::OrdinalIgnoreCase)) {
+        Write-Log 'Skipping timezone configuration because the bootstrap is not running from the WinPE system drive.' -Level Debug
+        return
+    }
+
+    $configuredTimeZone = Get-WinPeConfiguredTimeZone
+    if ($null -ne $configuredTimeZone) {
+        $configuredTimeZoneId = Resolve-WindowsTimeZoneId -TimeZoneCandidate $configuredTimeZone.Id
+        if (-not [string]::IsNullOrWhiteSpace($configuredTimeZoneId)) {
+            $targetTimeZoneId = $configuredTimeZoneId
+            $targetTimeZoneSource = $configuredTimeZone.Source
+        }
+        else {
+            Write-Log "Configured timezone '$($configuredTimeZone.Id)' is invalid. Trying automatic detection." -Level Warning -ConsoleMessage 'Configured timezone invalid. Trying auto-detect.'
+        }
+    }
+
+    if ([string]::IsNullOrWhiteSpace($targetTimeZoneId)) {
+        $automaticTimeZone = Get-WinPeAutomaticTimeZone
+        if ($null -ne $automaticTimeZone) {
+            $targetTimeZoneId = $automaticTimeZone.Id
+            $targetTimeZoneSource = $automaticTimeZone.Source
+        }
+    }
+
+    if ([string]::IsNullOrWhiteSpace($targetTimeZoneId)) {
+        $targetTimeZoneId = $FallbackTimeZoneId
+        $targetTimeZoneSource = 'bootstrap fallback'
+    }
+
+    if ([string]::IsNullOrWhiteSpace($targetTimeZoneId)) {
+        Write-Log 'Skipping timezone configuration because no target timezone was resolved.' -Level Debug
+        return
+    }
+
+    $currentTimeZoneId = Get-CurrentWinPeTimeZoneId
+    if ([string]::Equals($currentTimeZoneId, $targetTimeZoneId, [System.StringComparison]::OrdinalIgnoreCase)) {
+        Write-Log "WinPE timezone is already '$targetTimeZoneId'." -ConsoleMessage "Timezone: already '$targetTimeZoneId'."
+        return
+    }
+
+    Write-Log "Applying WinPE timezone '$targetTimeZoneId' from $targetTimeZoneSource." -ConsoleMessage "Timezone: applying '$targetTimeZoneId'..."
+
+    try {
+        if (Get-Command 'Set-TimeZone' -ErrorAction SilentlyContinue) {
+            Set-TimeZone -Id $targetTimeZoneId -ErrorAction Stop
+        }
+        else {
+            throw 'Set-TimeZone is not available in WinPE.'
+        }
+
+        $resolvedTimeZoneId = Get-CurrentWinPeTimeZoneId
+        if ([string]::IsNullOrWhiteSpace($resolvedTimeZoneId)) {
+            $resolvedTimeZoneId = $targetTimeZoneId
+        }
+
+        Write-Log "WinPE timezone set to '$resolvedTimeZoneId'." -ConsoleMessage "Timezone: set to '$resolvedTimeZoneId'."
+    }
+    catch {
+        Write-Log "Failed to set the WinPE timezone to '$targetTimeZoneId': $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Timezone update failed. Continuing.'
+    }
+}
 #endregion
 
 #region Archive Integrity Helpers
@@ -963,6 +1267,7 @@ try {
 
     $env:FOUNDRY_DEPLOYMENT_MODE = $deploymentMode
     Sync-WinPeInternetDateTime -ThresholdMinutes 5
+    Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
 
     $runtimeIdentifier = Get-TargetRuntimeIdentifier
     $assetName = Resolve-DeployAssetName -RuntimeIdentifier $runtimeIdentifier

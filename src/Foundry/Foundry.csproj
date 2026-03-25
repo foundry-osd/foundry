@@ -33,6 +33,9 @@
     <EmbeddedResource Include="Assets\Configuration\languages.json">
       <LogicalName>Foundry.Configuration.Languages</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\Configuration\iana-windows-timezones.json">
+      <LogicalName>Foundry.Configuration.IanaWindowsTimeZones</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
