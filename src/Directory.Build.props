@@ -35,5 +35,10 @@
     <Platforms>x64;ARM64</Platforms>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
+    <PackageIcon>app.ico</PackageIcon>
   </PropertyGroup>
 </Project>
