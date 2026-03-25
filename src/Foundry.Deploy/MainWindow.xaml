@@ -37,7 +37,10 @@
                 <!--  Tools  -->
                 <MenuItem Header="_Tools">
                     <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
-                    <MenuItem Command="{Binding Preparation.RefreshTargetDisksCommand}" Header="Refresh Target Disks" />
+                    <MenuItem
+                        Command="{Binding Preparation.RefreshTargetDisksCommand}"
+                        Header="Refresh Target Disks"
+                        IsEnabled="{Binding Session.IsStartupReady}" />
                     <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="Open Log File" />
                 </MenuItem>
             </Menu>
@@ -101,9 +104,7 @@
                             <!--  Step 1 details and toggles  -->
                             <StackPanel Grid.Row="0">
                                 <StackPanel DataContext="{Binding Preparation}">
-                                    <TextBlock
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="Computer Name" />
+                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Computer Name" />
                                     <TextBox
                                         x:Name="TargetComputerNameTextBox"
                                         Margin="0,8,0,0"
@@ -421,9 +422,7 @@
             </Grid>
 
             <!--  Progress page (execution flow)  -->
-            <Grid
-                DataContext="{Binding Session}"
-                Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid DataContext="{Binding Session}" Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -559,9 +558,7 @@
             </Grid>
 
             <!--  Success page (completion flow)  -->
-            <Grid
-                DataContext="{Binding Session}"
-                Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid DataContext="{Binding Session}" Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -646,9 +643,7 @@
             </Grid>
 
             <!--  Error page (failure flow)  -->
-            <Grid
-                DataContext="{Binding Session}"
-                Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid DataContext="{Binding Session}" Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -758,5 +753,45 @@
         <StatusBar Grid.Row="2" Visibility="{Binding Session.IsWizardPage, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StatusBarItem Content="{Binding Session.DeploymentStatus}" />
         </StatusBar>
+
+        <!--  Splash page (startup flow)  -->
+        <Grid
+            Grid.RowSpan="3"
+            Panel.ZIndex="1"
+            Visibility="{Binding Session.IsSplashPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Margin="16">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource DisplayTextBlockStyle}"
+                    Text="Welcome"
+                    TextAlignment="Center" />
+
+                <StackPanel
+                    Width="360"
+                    Margin="0,160,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ProgressBar Height="6" IsIndeterminate="True" />
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="Initializing components..."
+                        TextAlignment="Center" />
+                </StackPanel>
+
+                <Button
+                    Width="160"
+                    Margin="0,0,0,24"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding BeginWizardCommand}"
+                    Content="Begin"
+                    Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

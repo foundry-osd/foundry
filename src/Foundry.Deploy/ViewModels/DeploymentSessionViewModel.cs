@@ -51,11 +51,16 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     }
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsStartupReady))]
+    private bool isStartupInitializing = true;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsSplashPage))]
     [NotifyPropertyChangedFor(nameof(IsWizardPage))]
     [NotifyPropertyChangedFor(nameof(IsProgressPage))]
     [NotifyPropertyChangedFor(nameof(IsSuccessPage))]
     [NotifyPropertyChangedFor(nameof(IsErrorPage))]
-    private DeploymentPage currentPage = DeploymentPage.Wizard;
+    private DeploymentPage currentPage = DeploymentPage.Splash;
 
     [ObservableProperty]
     private string deploymentStatus = "Ready";
@@ -115,6 +120,8 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     [ObservableProperty]
     private string failedStepErrorMessage = string.Empty;
 
+    public bool IsSplashPage => CurrentPage == DeploymentPage.Splash;
+
     public bool IsWizardPage => CurrentPage == DeploymentPage.Wizard;
 
     public bool IsProgressPage => CurrentPage == DeploymentPage.Progress;
@@ -122,6 +129,8 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     public bool IsSuccessPage => CurrentPage == DeploymentPage.Success;
 
     public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
+
+    public bool IsStartupReady => !IsStartupInitializing;
 
     public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
 
@@ -135,13 +144,17 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         ComputerNameText = computerName;
     }
 
-    public void ResetToWizard(string? status = null)
+    public void CompleteStartupInitialization()
     {
-        _isDeploymentInProgress = false;
-        _lastLogsDirectoryPath = string.Empty;
-        if (!string.IsNullOrWhiteSpace(status))
+        IsStartupInitializing = false;
+        CurrentPage = DeploymentPage.Splash;
+    }
+
+    public void ShowWizard()
+    {
+        if (IsStartupInitializing)
         {
-            DeploymentStatus = status;
+            return;
         }
 
         CurrentPage = DeploymentPage.Wizard;
