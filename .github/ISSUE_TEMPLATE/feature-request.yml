@@ -1,0 +1,63 @@
+name: Feature request
+description: Suggest an improvement or a new capability
+title: "[Feature]: "
+labels:
+  - feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep feature requests focused and tied to a concrete deployment or usage scenario.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected scope
+      description: Select the current repository label that best matches the request.
+      options:
+        - "project: foundry"
+        - "project: foundry-deploy"
+        - ui
+        - ci
+        - config
+        - unknown
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Describe the current limitation or friction.
+      placeholder: What is difficult, missing, or unclear today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the change you would like to see.
+      placeholder: What should Foundry do differently?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe any workaround or alternative you considered.
+      placeholder: Optional, but useful for tradeoff discussion.
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: Explain when and why this would be used.
+      placeholder: Real deployment scenario, workflow, or contributor need.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched for existing issues before submitting this request.
+          required: true
+        - label: This request describes a specific improvement, not a general question.
+          required: true

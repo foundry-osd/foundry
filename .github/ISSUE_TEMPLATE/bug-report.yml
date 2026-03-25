@@ -1,0 +1,78 @@
+name: Bug report
+description: Report a reproducible problem in Foundry
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues before opening a new bug report.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected scope
+      description: Select the current repository label that best matches the problem.
+      options:
+        - "project: foundry"
+        - "project: foundry-deploy"
+        - ui
+        - ci
+        - config
+        - unknown
+    validations:
+      required: true
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current behavior
+      description: Describe the problem and what is failing.
+      placeholder: A concise description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Describe what you expected to happen instead.
+      placeholder: A concise description of the expected result.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide a reliable reproduction path.
+      placeholder: |
+        1. Open ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include anything relevant for troubleshooting.
+      placeholder: |
+        Foundry version:
+        Windows version:
+        Architecture:
+        Device or OEM:
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste logs or add screenshots if they help explain the issue.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched for existing issues before submitting this report.
+          required: true
+        - label: I can reproduce this issue on a current version of Foundry.
+          required: true
