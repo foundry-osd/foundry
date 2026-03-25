@@ -638,6 +638,12 @@ MVVM bootstrap ready.</value>
   <data name="CustomizationDeployConfigPlaceholder" xml:space="preserve">
     <value>Custom deploy configuration</value>
   </data>
+  <data name="LocalizationTimeZoneAutomatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="LocalizationTimeZoneLabel" xml:space="preserve">
+    <value>WinPE time zone</value>
+  </data>
   <data name="ComingLaterLabel" xml:space="preserve">
     <value>Coming later</value>
   </data>

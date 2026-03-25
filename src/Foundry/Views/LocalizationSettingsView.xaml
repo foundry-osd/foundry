@@ -49,6 +49,26 @@
                 SelectedValuePath="Code" />
         </Grid>
 
+        <Grid Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding Strings[LocalizationTimeZoneLabel]}" />
+            <ComboBox
+                Grid.Column="1"
+                DisplayMemberPath="DisplayName"
+                ItemsSource="{Binding AvailableTimeZones}"
+                SelectedValue="{Binding SelectedTimeZoneId}"
+                SelectedValuePath="Id" />
+        </Grid>
+
         <CheckBox
             Content="{Binding Strings[LocalizationForceSingleLabel]}"
             IsChecked="{Binding ForceSingleVisibleLanguage}" />

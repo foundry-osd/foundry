@@ -87,6 +87,15 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             _logger.LogInformation("Provisioned Foundry.Deploy expert configuration into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
         }
 
+        WinPeResult timeZoneMapProvisioning = await ProvisionTimeZoneMapInImageAsync(
+            mountedImagePath,
+            cancellationToken).ConfigureAwait(false);
+        if (!timeZoneMapProvisioning.IsSuccess)
+        {
+            return timeZoneMapProvisioning;
+        }
+
+        _logger.LogInformation("Provisioned IANA to Windows timezone map into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
         WinPeResult autopilotProvisioning = await ProvisionAutopilotProfilesInImageAsync(
             mountedImagePath,
             autopilotProfiles,
@@ -356,6 +365,40 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision Foundry.Deploy expert configuration into mounted WinPE image.",
+                ex.ToString());
+        }
+    }
+
+    private async Task<WinPeResult> ProvisionTimeZoneMapInImageAsync(
+        string mountedImagePath,
+        CancellationToken cancellationToken)
+    {
+        string destinationPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedTimeZoneMapPathInImage);
+        string? destinationDirectoryPath = Path.GetDirectoryName(destinationPath);
+        if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                "Failed to resolve destination path for the IANA to Windows timezone map.",
+                $"Destination file: '{destinationPath}'.");
+        }
+
+        try
+        {
+            Directory.CreateDirectory(destinationDirectoryPath);
+            await File.WriteAllTextAsync(
+                destinationPath,
+                WinPeDefaults.GetIanaWindowsTimeZoneMapContent(),
+                new UTF8Encoding(false),
+                cancellationToken).ConfigureAwait(false);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to provision the IANA to Windows timezone map into mounted WinPE image. DestinationPath={DestinationPath}", destinationPath);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision the IANA to Windows timezone map into mounted WinPE image.",
                 ex.ToString());
         }
     }
