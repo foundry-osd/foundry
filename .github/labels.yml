@@ -72,6 +72,10 @@
   color: '7057ff'
   description: Suitable for a first contribution
 
+- name: question
+  color: 'd876e3'
+  description: Usage, setup, or contribution question
+
 - name: blocked
   color: 'b60205'
   description: Blocked by another task or external dependency

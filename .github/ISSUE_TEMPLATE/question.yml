@@ -1,0 +1,70 @@
+name: Question
+description: Ask a usage, setup, or contribution question about Foundry
+title: "[Question]: "
+labels:
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for focused questions about using, building, or contributing to Foundry.
+        Do not use this form to report bugs or request new features.
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Question scope
+      description: Select the area that best matches your question.
+      options:
+        - "project: foundry"
+        - "project: foundry-deploy"
+        - ui
+        - ci
+        - config
+        - other
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Question type
+      description: Select the kind of help you need.
+      options:
+        - Usage
+        - Setup
+        - Build
+        - Deployment workflow
+        - Contribution
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: Ask the question as clearly as possible.
+      placeholder: What are you trying to do, and where are you blocked?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Add any relevant details that would help answer the question.
+      placeholder: |
+        Foundry version:
+        Windows version:
+        Architecture:
+        What you already tried:
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste logs or add screenshots if they help explain the question.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and documentation before submitting this question.
+          required: true
