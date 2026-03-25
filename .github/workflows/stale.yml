@@ -58,8 +58,8 @@ jobs:
             If you'd like to continue working on this, feel free to reopen it or create a new PR.
 
           # Labels to exempt from stale
-          exempt-issue-labels: 'pinned,security,blocked,on-hold'
-          exempt-pr-labels: 'pinned,security,work-in-progress,blocked,on-hold'
+          exempt-issue-labels: 'pinned,security,blocked'
+          exempt-pr-labels: 'pinned,security,blocked'
 
           # Don't stale issues/PRs with these assignees
           exempt-all-assignees: true

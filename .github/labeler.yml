@@ -1,14 +1,14 @@
 # Auto-labeler configuration for Foundry
 # https://github.com/actions/labeler
 
-# Main application
-app:
+# Foundry desktop application
+'project: foundry':
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry/**'
 
-# OS deployment (WinPE)
-deploy:
+# Foundry deployment application
+'project: foundry-deploy':
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry.Deploy/**'
@@ -39,16 +39,6 @@ documentation:
       - any-glob-to-any-file:
           - '**/*.md'
           - 'docs/**'
-
-# General source code (shared pieces)
-source:
-  - changed-files:
-      - any-glob-to-any-file:
-          - 'src/**/*.cs'
-          - 'src/**/*.csproj'
-          - 'src/**/*.sln*'
-          - 'src/*.cs'
-          - 'src/*.sln*'
 
 # Dependencies and project metadata
 dependencies:
