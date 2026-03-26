@@ -435,10 +435,10 @@ MVVM bootstrap ready.</value>
     <value>Check for updates:</value>
   </data>
   <data name="AboutDescriptionLine1" xml:space="preserve">
-    <value>Foundry gives you a modern UI to build WinPE media and deploy Windows.</value>
+    <value>Foundry is a modern Windows deployment solution built around a desktop app and WinPE.</value>
   </data>
   <data name="AboutDescriptionLine2" xml:space="preserve">
-    <value>It keeps deployment fast, guided, and ready with the right drivers and content.</value>
+    <value>This software is provided as-is. Review your deployment settings before use.</value>
   </data>
   <data name="AboutLicenseLink" xml:space="preserve">
     <value>License</value>

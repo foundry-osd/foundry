@@ -16,8 +16,8 @@
 </p>
 
 <p align="center">
-  Foundry is designed to simplify Windows deployment for end users and IT administrators.
-  It helps you create deployment media, boot a device, choose a Windows version, and start a guided deployment experience with a cleaner, more repeatable workflow.
+  Foundry is a modern Windows deployment solution built around a desktop app and a WinPE deployment experience.
+  It helps you create deployment media, boot a device, and run a guided deployment with the right OS, drivers, firmware, and configuration.
 </p>
 
 <p align="center">
@@ -32,11 +32,11 @@
 
 ## What Foundry Does
 
-Foundry is built around a simple goal: make Windows deployment easier to prepare, easier to run, and easier to repeat.
+Foundry is built to make modern Windows deployment easier to prepare, easier to run, and easier to repeat.
 
-Instead of relying on a fully manual installation process, Foundry helps you create ready-to-use deployment media and launch a guided deployment experience once the target device boots from it.
+It combines a desktop app for building deployment media with a WinPE deployment experience that runs on the target device.
 
-It is intended for people who want a more practical way to deploy Windows with fewer manual steps, less repetition, and a workflow that is easier to standardize across devices.
+Instead of relying on a fully manual process, Foundry helps you boot a device, select deployment options, retrieve the right content, and complete deployment with a cleaner and more repeatable workflow.
 
 ## Highlights
 
@@ -86,10 +86,10 @@ dotnet run --project .\src\Foundry\Foundry.csproj
 
 ### Deployment scope
 
-Foundry currently targets WinPE-based Windows deployment from prepared media.
-It is designed to simplify Windows deployment, hardware-aware driver handling, and repeatable deployment workflows for real-world IT usage.
+Foundry targets WinPE-based Windows deployment from prepared media.
+It is designed for guided, hardware-aware deployment with modern UI, online content retrieval, and repeatable configuration.
 
-Today, Foundry focuses on Windows 11 deployment for versions `23H2`, `24H2`, and `25H2`, with support for both `x64` and `ARM64`, broad language coverage, automatic OEM driver pack selection for supported hardware, Microsoft Update Catalog driver retrieval, and CA2023-capable boot media.
+Today, Foundry focuses on Windows 11 deployment for versions `23H2`, `24H2`, and `25H2`, with support for both `x64` and `ARM64`, broad language coverage, automatic OEM driver pack selection for supported hardware, Microsoft Update Catalog driver retrieval, optional firmware updates, and CA2023-capable boot media.
 
 ## Contributing
 
