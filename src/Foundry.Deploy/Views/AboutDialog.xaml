@@ -2,7 +2,7 @@
     x:Class="Foundry.Deploy.Views.AboutDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="About Foundry Deploy"
+    Title="{Binding AboutTitle}"
     MinWidth="640"
     MinHeight="380"
     Icon="/Assets/Icons/app.ico"

@@ -4,15 +4,33 @@ namespace Foundry.Deploy.ViewModels;
 
 public sealed partial class AboutDialogViewModel
 {
-    public string AppName => FoundryDeployApplicationInfo.AppName;
+    public AboutDialogViewModel(
+        string aboutTitle,
+        string appName,
+        string version,
+        string descriptionLine1,
+        string descriptionLine2,
+        string footer)
+    {
+        AboutTitle = aboutTitle;
+        AppName = appName;
+        Version = version;
+        DescriptionLine1 = descriptionLine1;
+        DescriptionLine2 = descriptionLine2;
+        Footer = footer;
+    }
 
-    public string Version => FoundryDeployApplicationInfo.Version;
+    public string AboutTitle { get; }
 
-    public string DescriptionLine1 => FoundryDeployApplicationInfo.DescriptionLine1;
+    public string AppName { get; }
 
-    public string DescriptionLine2 => FoundryDeployApplicationInfo.DescriptionLine2;
+    public string Version { get; }
 
-    public string Footer => FoundryDeployApplicationInfo.Footer;
+    public string DescriptionLine1 { get; }
+
+    public string DescriptionLine2 { get; }
+
+    public string Footer { get; }
 
     public event EventHandler? CloseRequested;
 

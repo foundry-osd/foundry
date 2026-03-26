@@ -8,7 +8,13 @@ public sealed class ApplicationShellService : IApplicationShellService
 {
     public void ShowAbout()
     {
-        var viewModel = new AboutDialogViewModel();
+        var viewModel = new AboutDialogViewModel(
+            FoundryDeployApplicationInfo.AboutTitle,
+            FoundryDeployApplicationInfo.AppName,
+            FoundryDeployApplicationInfo.Version,
+            FoundryDeployApplicationInfo.DescriptionLine1,
+            FoundryDeployApplicationInfo.DescriptionLine2,
+            FoundryDeployApplicationInfo.Footer);
         var dialog = new AboutDialog
         {
             DataContext = viewModel,
