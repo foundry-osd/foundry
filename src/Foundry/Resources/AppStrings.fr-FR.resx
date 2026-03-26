@@ -431,6 +431,27 @@
 WPF .NET 10
 Initialisation MVVM prete.</value>
   </data>
+  <data name="AboutCheckForUpdatesLabel" xml:space="preserve">
+    <value>Rechercher des mises à jour :</value>
+  </data>
+  <data name="AboutDescriptionLine1" xml:space="preserve">
+    <value>Foundry simplifie la création de supports de déploiement Windows et les workflows de déploiement guidé.</value>
+  </data>
+  <data name="AboutDescriptionLine2" xml:space="preserve">
+    <value>Il aide les administrateurs IT et les utilisateurs à préparer des déploiements WinPE reproductibles avec moins d’étapes manuelles.</value>
+  </data>
+  <data name="AboutLicenseLink" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="AboutAuthorsLink" xml:space="preserve">
+    <value>Auteurs</value>
+  </data>
+  <data name="AboutSupportLink" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="AboutFooter" xml:space="preserve">
+    <value>Copyright (c) Projet Foundry. Tous droits réservés.</value>
+  </data>
   <data name="IsoPickerTitle" xml:space="preserve">
     <value>Selectionner le chemin de sortie ISO</value>
   </data>

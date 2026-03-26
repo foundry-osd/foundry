@@ -431,6 +431,27 @@
 WPF .NET 10
 MVVM bootstrap ready.</value>
   </data>
+  <data name="AboutCheckForUpdatesLabel" xml:space="preserve">
+    <value>Check for updates:</value>
+  </data>
+  <data name="AboutDescriptionLine1" xml:space="preserve">
+    <value>Foundry simplifies Windows deployment media creation and guided deployment workflows.</value>
+  </data>
+  <data name="AboutDescriptionLine2" xml:space="preserve">
+    <value>It helps IT administrators and end users prepare repeatable WinPE-based deployments with fewer manual steps.</value>
+  </data>
+  <data name="AboutLicenseLink" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="AboutAuthorsLink" xml:space="preserve">
+    <value>Authors</value>
+  </data>
+  <data name="AboutSupportLink" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="AboutFooter" xml:space="preserve">
+    <value>Copyright (c) Foundry Project. All rights reserved.</value>
+  </data>
   <data name="IsoPickerTitle" xml:space="preserve">
     <value>Select ISO output path</value>
   </data>
