@@ -34,7 +34,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Source="/Assets/Images/foundry-about-logo.png"
-                Stretch="Uniform" />
+                Stretch="None" />
 
             <StackPanel Grid.Column="2">
                 <TextBlock
