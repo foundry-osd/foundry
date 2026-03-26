@@ -12,7 +12,7 @@
   <PropertyGroup>
     <Authors>Mickaël CHAVE &amp; Foundry Contributors</Authors>
     <Company>Mickaël CHAVE</Company>
-    <Copyright>Copyright (c) Foundry Project. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2026 Foundry Contributors. Licensed under the MIT License.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/mchave3/Foundry</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mchave3/Foundry.git</RepositoryUrl>

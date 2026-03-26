@@ -10,7 +10,7 @@ public static class FoundryDeployApplicationInfo
     public const string AboutTitle = "About Foundry Deploy";
     public const string DescriptionLine1 = "Foundry Deploy is the WinPE deployment experience for Foundry.";
     public const string DescriptionLine2 = "This software is provided as-is. Review your deployment settings before use.";
-    public const string Footer = "Copyright (c) Project Foundry. All rights reserved.";
+    public const string Footer = "Copyright (c) 2026 Foundry Contributors. Licensed under the MIT License.";
 
     public static string Version => AppVersion;
 
