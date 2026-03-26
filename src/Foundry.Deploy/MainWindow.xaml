@@ -43,9 +43,8 @@
                         IsEnabled="{Binding Session.IsStartupReady}" />
                     <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="Open Log File" />
                 </MenuItem>
-                <MenuItem Header="_Help">
-                    <MenuItem Command="{Binding ShowAboutCommand}" Header="_About" />
-                </MenuItem>
+                <!--  About  -->
+                <MenuItem Command="{Binding ShowAboutCommand}" Header="_About" />
             </Menu>
 
             <TextBlock
