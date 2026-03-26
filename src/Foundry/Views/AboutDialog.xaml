@@ -31,8 +31,6 @@
 
             <Image
                 Grid.Column="0"
-                Width="220"
-                Height="180"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Source="/Assets/Images/foundry-about-logo.png"
