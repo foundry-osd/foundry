@@ -445,7 +445,7 @@
     <value>Support</value>
   </data>
   <data name="AboutFooter" xml:space="preserve">
-    <value>Copyright (c) Projet Foundry. Tous droits réservés.</value>
+    <value>Copyright (c) 2026 Contributeurs Foundry. Sous licence MIT.</value>
   </data>
   <data name="IsoPickerTitle" xml:space="preserve">
     <value>Selectionner le chemin de sortie ISO</value>
