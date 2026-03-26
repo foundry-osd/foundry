@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -13,6 +12,7 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Startup;
+using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
@@ -24,7 +24,6 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
-    private static readonly string AppVersion = ResolveAppVersion();
     private readonly IThemeService _themeService;
     private readonly IDeploymentStartupCoordinator _deploymentStartupCoordinator;
     private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
@@ -32,6 +31,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IDeploymentExecutionService _deploymentExecutionService;
     private readonly IDeploymentWizardStateService _deploymentWizardStateService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
+    private readonly IApplicationShellService _applicationShellService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
@@ -69,22 +69,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
     public string EffectiveOsArchitecture => OperatingSystemCatalog.EffectiveOsArchitecture;
     public OperatingSystemCatalogItem? SelectedOperatingSystem => OperatingSystemCatalog.SelectedOperatingSystem;
-    public string VersionDisplay => $"Version: {AppVersion}";
-
-    private static string ResolveAppVersion()
-    {
-        Assembly assembly = typeof(MainWindowViewModel).Assembly;
-        string? informationalVersion = assembly
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
-            .InformationalVersion;
-
-        if (!string.IsNullOrWhiteSpace(informationalVersion))
-        {
-            return informationalVersion.Trim();
-        }
-
-        return assembly.GetName().Version?.ToString() ?? "0.0.0.0";
-    }
+    public string VersionDisplay => $"Version: {FoundryDeployApplicationInfo.Version}";
 
     public MainWindowViewModel(
         IThemeService themeService,
@@ -96,6 +81,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IDeploymentExecutionService deploymentExecutionService,
         IDeploymentWizardStateService deploymentWizardStateService,
         IDeploymentOrchestrator deploymentOrchestrator,
+        IApplicationShellService applicationShellService,
         IDeploymentWizardContextFactory deploymentWizardContextFactory,
         IProcessRunner processRunner,
         ILogger<MainWindowViewModel> logger)
@@ -107,6 +93,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _deploymentExecutionService = deploymentExecutionService;
         _deploymentWizardStateService = deploymentWizardStateService;
         _deploymentOrchestrator = deploymentOrchestrator;
+        _applicationShellService = applicationShellService;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
@@ -171,6 +158,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         _themeService.SetTheme(DeployThemeMode.Dark);
         OnPropertyChanged(nameof(CurrentTheme));
+    }
+
+    [RelayCommand]
+    private void ShowAbout()
+    {
+        _applicationShellService.ShowAbout();
     }
 
     [RelayCommand(CanExecute = nameof(CanRefreshCatalogs))]

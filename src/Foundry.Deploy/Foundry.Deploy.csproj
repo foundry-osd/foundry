@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Resource Include="Assets\Icons\app.ico" />
+    <Resource Include="Assets\Images\foundry-deploy-about-logo.png" />
   </ItemGroup>
 
   <ItemGroup>
