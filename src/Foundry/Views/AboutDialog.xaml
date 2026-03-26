@@ -95,6 +95,7 @@
             Grid.Row="1"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             Style="{StaticResource CaptionTextBlockStyle}"
+            HorizontalAlignment="Center"
             Text="{Binding Strings[AboutFooter], Mode=OneWay}"
             TextWrapping="Wrap" />
     </Grid>
