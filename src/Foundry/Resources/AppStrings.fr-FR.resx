@@ -435,10 +435,10 @@ Initialisation MVVM prete.</value>
     <value>Rechercher des mises à jour :</value>
   </data>
   <data name="AboutDescriptionLine1" xml:space="preserve">
-    <value>Foundry simplifie la création de supports de déploiement Windows et les workflows de déploiement guidé.</value>
+    <value>Foundry vous aide à créer un média WinPE pour déployer Windows.</value>
   </data>
   <data name="AboutDescriptionLine2" xml:space="preserve">
-    <value>Il aide les administrateurs IT et les utilisateurs à préparer des déploiements WinPE reproductibles avec moins d’étapes manuelles.</value>
+    <value>Il guide l’installation, ajoute les bons pilotes et simplifie le déploiement.</value>
   </data>
   <data name="AboutLicenseLink" xml:space="preserve">
     <value>Licence</value>
