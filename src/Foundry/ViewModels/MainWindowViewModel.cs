@@ -25,7 +25,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private const string DefaultExpertConfigFileName = "foundry.expert.config.json";
     private const string DefaultDeployConfigFileName = "foundry.deploy.config.json";
     private const string IsoVolumeLabel = "FOUNDRY_WINPE";
-    private static readonly string AppVersion = ResolveAppVersion();
 
     private readonly IApplicationShellService _applicationShellService;
     private readonly IThemeService _themeService;
@@ -126,27 +125,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public string UsbDevicesCountDisplay =>
         string.Format(CurrentCulture, Strings["UsbDevicesCountFormat"], UsbDiskCandidates.Count);
     public string VersionDisplay =>
-        string.Format(CurrentCulture, Strings["VersionFormat"], AppVersion);
+        string.Format(CurrentCulture, Strings["VersionFormat"], FoundryApplicationInfo.Version);
     public bool ShowUsbPartitionStyleArm64Hint => SelectedArchitecture == WinPeArchitecture.Arm64;
     public string UsbPartitionStyleArm64Hint => Strings["UsbPartitionStyleArm64Hint"];
     public bool IsStandardMode => !IsExpertMode;
 
     private static string StagingDirectoryPath => WinPeDefaults.GetWinPeWorkspaceRootPath();
-
-    private static string ResolveAppVersion()
-    {
-        Assembly assembly = typeof(MainWindowViewModel).Assembly;
-        string? informationalVersion = assembly
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
-            .InformationalVersion;
-
-        if (!string.IsNullOrWhiteSpace(informationalVersion))
-        {
-            return informationalVersion.Trim();
-        }
-
-        return assembly.GetName().Version?.ToString() ?? "0.0.0.0";
-    }
 
     public MainWindowViewModel(
         IApplicationShellService applicationShellService,
@@ -214,6 +198,30 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void ShowAbout()
     {
         _applicationShellService.ShowAbout();
+    }
+
+    [RelayCommand]
+    private void OpenDocumentation()
+    {
+        _applicationShellService.OpenUrl(FoundryApplicationInfo.DocumentationUrl);
+    }
+
+    [RelayCommand]
+    private void OpenGitHubRepository()
+    {
+        _applicationShellService.OpenUrl(FoundryApplicationInfo.RepositoryUrl);
+    }
+
+    [RelayCommand]
+    private void OpenGitHubIssues()
+    {
+        _applicationShellService.OpenUrl(FoundryApplicationInfo.IssuesUrl);
+    }
+
+    [RelayCommand]
+    private void CheckForUpdates()
+    {
+        _applicationShellService.OpenUrl(FoundryApplicationInfo.LatestReleaseUrl);
     }
 
     [RelayCommand]

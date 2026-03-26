@@ -24,12 +24,33 @@ public sealed class ApplicationShellService : IApplicationShellService
 
     public void ShowAbout()
     {
-        StringsWrapper strings = _localizationService.Strings;
-        MessageBox.Show(
-            strings["AboutMessage"],
-            strings["AboutTitle"],
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        var viewModel = new AboutDialogViewModel(_localizationService, this);
+        var dialog = new AboutDialog
+        {
+            DataContext = viewModel,
+            Owner = ResolveOwnerWindow()
+        };
+
+        try
+        {
+            viewModel.CloseRequested += (_, _) => dialog.Close();
+            _ = dialog.ShowDialog();
+        }
+        finally
+        {
+            viewModel.Dispose();
+        }
+    }
+
+    public void OpenUrl(string url)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(url);
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = url,
+            UseShellExecute = true
+        });
     }
 
     public string? PickIsoOutputPath(string defaultFileName)

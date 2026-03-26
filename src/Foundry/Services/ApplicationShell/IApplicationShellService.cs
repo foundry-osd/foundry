@@ -8,6 +8,8 @@ public interface IApplicationShellService
 
     void ShowAbout();
 
+    void OpenUrl(string url);
+
     string? PickIsoOutputPath(string defaultFileName);
 
     string? PickOpenFilePath(string title, string filter);

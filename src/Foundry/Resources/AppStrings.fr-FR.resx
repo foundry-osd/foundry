@@ -156,6 +156,18 @@
   <data name="MenuAbout" xml:space="preserve">
     <value>_À propos</value>
   </data>
+  <data name="MenuDocumentation" xml:space="preserve">
+    <value>Documentation en _ligne</value>
+  </data>
+  <data name="MenuGitHubRepository" xml:space="preserve">
+    <value>Dépôt _GitHub</value>
+  </data>
+  <data name="MenuGitHubIssues" xml:space="preserve">
+    <value>Issues _GitHub</value>
+  </data>
+  <data name="MenuCheckForUpdates" xml:space="preserve">
+    <value>Rechercher les _mises à jour...</value>
+  </data>
   <data name="AdkBannerMissing" xml:space="preserve">
     <value>Windows ADK n’est pas installé. Merci d’installer ADK 11 24H2 pour activer la création d’ISO et USB.</value>
   </data>
@@ -414,10 +426,26 @@
   <data name="AboutTitle" xml:space="preserve">
     <value>A propos de Foundry</value>
   </data>
-  <data name="AboutMessage" xml:space="preserve">
-    <value>Foundry
-WPF .NET 10
-Initialisation MVVM prete.</value>
+  <data name="AboutCheckForUpdatesLabel" xml:space="preserve">
+    <value>Rechercher des mises à jour :</value>
+  </data>
+  <data name="AboutDescriptionLine1" xml:space="preserve">
+    <value>Foundry est une solution moderne de déploiement Windows basée sur une application desktop et WinPE.</value>
+  </data>
+  <data name="AboutDescriptionLine2" xml:space="preserve">
+    <value>Ce logiciel est fourni tel quel. Vérifiez vos paramètres de déploiement avant utilisation.</value>
+  </data>
+  <data name="AboutLicenseLink" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="AboutAuthorsLink" xml:space="preserve">
+    <value>Auteurs</value>
+  </data>
+  <data name="AboutSupportLink" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="AboutFooter" xml:space="preserve">
+    <value>Copyright (c) Projet Foundry. Tous droits réservés.</value>
   </data>
   <data name="IsoPickerTitle" xml:space="preserve">
     <value>Selectionner le chemin de sortie ISO</value>

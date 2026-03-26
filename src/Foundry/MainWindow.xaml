@@ -107,6 +107,12 @@
                     <MenuItem Command="{Binding OpenLogFolderCommand}" Header="{Binding Strings[MenuLogs]}" />
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[MenuHelp]}">
+                    <MenuItem Command="{Binding OpenDocumentationCommand}" Header="{Binding Strings[MenuDocumentation]}" />
+                    <MenuItem Command="{Binding OpenGitHubRepositoryCommand}" Header="{Binding Strings[MenuGitHubRepository]}" />
+                    <MenuItem Command="{Binding OpenGitHubIssuesCommand}" Header="{Binding Strings[MenuGitHubIssues]}" />
+                    <Separator />
+                    <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{Binding Strings[MenuCheckForUpdates]}" />
+                    <Separator />
                     <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[MenuAbout]}" />
                 </MenuItem>
             </Menu>
@@ -182,9 +188,7 @@
         </Border>
 
         <Grid Grid.Row="2" Margin="16,16,16,12">
-            <Border
-                Padding="24,0,24,0"
-                Visibility="{Binding IsStandardMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="24,0,24,0" Visibility="{Binding IsStandardMode, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ContentControl Content="{Binding}" />
             </Border>
 
@@ -239,9 +243,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Grid
-                    Grid.Column="0"
-                    Margin="12,8,12,8">
+                <Grid Grid.Column="0" Margin="12,8,12,8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -272,8 +274,7 @@
                 <Border
                     Grid.Column="1"
                     BorderBrush="#404040"
-                    BorderThickness="1,0,0,0">
-                </Border>
+                    BorderThickness="1,0,0,0" />
 
                 <StackPanel
                     Grid.Column="2"
