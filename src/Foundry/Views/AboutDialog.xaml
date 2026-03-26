@@ -25,18 +25,17 @@
         <Grid Grid.Row="0" Margin="0,0,0,24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="24" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Image
                 Grid.Column="0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 Source="/Assets/Images/foundry-about-logo.png"
                 Stretch="None" />
 
-            <StackPanel Grid.Column="2">
+            <StackPanel Grid.Column="1" Margin="24,0,0,0">
                 <TextBlock
                     Style="{DynamicResource TitleLargeTextBlockStyle}"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
