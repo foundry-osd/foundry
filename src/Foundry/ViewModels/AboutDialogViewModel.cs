@@ -20,7 +20,7 @@ public sealed partial class AboutDialogViewModel : LocalizedViewModelBase
 
     public string Version => FoundryApplicationInfo.Version;
 
-    public string CheckForUpdatesLinkText => "github.com/mchave3/Foundry/releases/latest";
+    public string CheckForUpdatesLinkText => FoundryApplicationInfo.LatestReleaseDisplayUrl;
 
     public event EventHandler? CloseRequested;
 

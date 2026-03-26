@@ -15,6 +15,7 @@ public static class FoundryApplicationInfo
     public const string LicenseUrl = RepositoryBaseUrl + "/blob/main/LICENSE";
     public const string AuthorsUrl = RepositoryBaseUrl + "/graphs/contributors";
     public const string SupportUrl = IssuesUrl;
+    public static string LatestReleaseDisplayUrl => FormatDisplayUrl(LatestReleaseUrl);
 
     public static string Version => AppVersion;
 
@@ -31,5 +32,15 @@ public static class FoundryApplicationInfo
         }
 
         return assembly.GetName().Version?.ToString() ?? "0.0.0.0";
+    }
+
+    private static string FormatDisplayUrl(string url)
+    {
+        if (Uri.TryCreate(url, UriKind.Absolute, out Uri? uri))
+        {
+            return uri.Host + uri.AbsolutePath;
+        }
+
+        return url;
     }
 }

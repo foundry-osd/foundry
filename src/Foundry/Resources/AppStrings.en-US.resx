@@ -426,11 +426,6 @@
   <data name="AboutTitle" xml:space="preserve">
     <value>About Foundry</value>
   </data>
-  <data name="AboutMessage" xml:space="preserve">
-    <value>Foundry
-WPF .NET 10
-MVVM bootstrap ready.</value>
-  </data>
   <data name="AboutCheckForUpdatesLabel" xml:space="preserve">
     <value>Check for updates:</value>
   </data>

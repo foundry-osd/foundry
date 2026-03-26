@@ -426,11 +426,6 @@
   <data name="AboutTitle" xml:space="preserve">
     <value>A propos de Foundry</value>
   </data>
-  <data name="AboutMessage" xml:space="preserve">
-    <value>Foundry
-WPF .NET 10
-Initialisation MVVM prete.</value>
-  </data>
   <data name="AboutCheckForUpdatesLabel" xml:space="preserve">
     <value>Rechercher des mises à jour :</value>
   </data>
