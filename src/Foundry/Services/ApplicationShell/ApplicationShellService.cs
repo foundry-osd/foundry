@@ -32,6 +32,17 @@ public sealed class ApplicationShellService : IApplicationShellService
             MessageBoxImage.Information);
     }
 
+    public void OpenUrl(string url)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(url);
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = url,
+            UseShellExecute = true
+        });
+    }
+
     public string? PickIsoOutputPath(string defaultFileName)
     {
         StringsWrapper strings = _localizationService.Strings;

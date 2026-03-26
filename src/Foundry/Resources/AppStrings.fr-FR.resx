@@ -156,6 +156,18 @@
   <data name="MenuAbout" xml:space="preserve">
     <value>_À propos</value>
   </data>
+  <data name="MenuDocumentation" xml:space="preserve">
+    <value>Documentation en _ligne</value>
+  </data>
+  <data name="MenuGitHubRepository" xml:space="preserve">
+    <value>Dépôt _GitHub</value>
+  </data>
+  <data name="MenuGitHubIssues" xml:space="preserve">
+    <value>Issues _GitHub</value>
+  </data>
+  <data name="MenuCheckForUpdates" xml:space="preserve">
+    <value>Rechercher les _mises à jour...</value>
+  </data>
   <data name="AdkBannerMissing" xml:space="preserve">
     <value>Windows ADK n’est pas installé. Merci d’installer ADK 11 24H2 pour activer la création d’ISO et USB.</value>
   </data>

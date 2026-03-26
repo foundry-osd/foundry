@@ -107,6 +107,12 @@
                     <MenuItem Command="{Binding OpenLogFolderCommand}" Header="{Binding Strings[MenuLogs]}" />
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[MenuHelp]}">
+                    <MenuItem Command="{Binding OpenDocumentationCommand}" Header="{Binding Strings[MenuDocumentation]}" />
+                    <MenuItem Command="{Binding OpenGitHubRepositoryCommand}" Header="{Binding Strings[MenuGitHubRepository]}" />
+                    <MenuItem Command="{Binding OpenGitHubIssuesCommand}" Header="{Binding Strings[MenuGitHubIssues]}" />
+                    <Separator />
+                    <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{Binding Strings[MenuCheckForUpdates]}" />
+                    <Separator />
                     <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[MenuAbout]}" />
                 </MenuItem>
             </Menu>
