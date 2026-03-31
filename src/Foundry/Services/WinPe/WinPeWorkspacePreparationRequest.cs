@@ -18,6 +18,7 @@ internal sealed record WinPeWorkspacePreparationRequest
     public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;
 
     public required string WinPeLanguage { get; init; }
+    public IProgress<WinPeMountedImageCustomizationProgress>? CustomizationProgress { get; init; }
 
     public string? ExpertDeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();

@@ -6,5 +6,6 @@ internal interface IWinReBootImagePreparationService
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
         string winPeLanguage,
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
         CancellationToken cancellationToken);
 }

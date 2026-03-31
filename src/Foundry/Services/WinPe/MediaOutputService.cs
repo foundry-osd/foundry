@@ -332,10 +332,26 @@ internal sealed class MediaOutputService : IMediaOutputService
         }
 
         WinPeBuildArtifact artifact = buildResult.Value!;
+        (int customizationStartProgress, _) = progressMap(WinPeWorkspacePreparationStage.CustomizingImage);
+        (int signaturePolicyStartProgress, _) = progressMap(WinPeWorkspacePreparationStage.EvaluatingSignaturePolicy);
+        int customizationProgressRange = Math.Max(0, signaturePolicyStartProgress - customizationStartProgress - 1);
         var progress = new Progress<WinPeWorkspacePreparationStage>(stage =>
         {
             (int progressValue, string message) = progressMap(stage);
             _operationProgressService.Report(progressValue, message);
+        });
+        var customizationProgress = new Progress<WinPeMountedImageCustomizationProgress>(update =>
+        {
+            int normalizedPercent = Math.Clamp(update.Percent, 0, 100);
+            int absoluteProgress = customizationStartProgress;
+            if (customizationProgressRange > 0)
+            {
+                absoluteProgress += (int)Math.Round(
+                    customizationProgressRange * (normalizedPercent / 100d),
+                    MidpointRounding.AwayFromZero);
+            }
+
+            _operationProgressService.Report(absoluteProgress, update.Status);
         });
 
         WinPeResult<WinPeWorkspacePreparationResult> preparation = await _workspacePreparationService.PrepareAsync(
@@ -349,6 +365,7 @@ internal sealed class MediaOutputService : IMediaOutputService
                 SignatureMode = signatureMode,
                 BootImageSource = bootImageSource,
                 WinPeLanguage = winPeLanguage,
+                CustomizationProgress = customizationProgress,
                 ExpertDeployConfigurationJson = expertDeployConfigurationJson,
                 AutopilotProfiles = autopilotProfiles
             },

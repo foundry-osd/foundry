@@ -29,12 +29,14 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
         string winPeLanguage,
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(artifact);
         ArgumentNullException.ThrowIfNull(tools);
 
         string normalizedLanguage = WinPeLanguageUtility.Normalize(winPeLanguage);
+        ReportProgress(progress, 2, "Resolving WinRE source catalog.");
         WinPeResult<IReadOnlyList<WinReSourceCandidate>> selection = await SelectCatalogCandidatesAsync(
             artifact.Architecture,
             normalizedLanguage,
@@ -57,14 +59,17 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                 candidate.Source.ClientType,
                 candidate.Source.LicenseChannel,
                 candidate.Source.FileName);
+            ReportProgress(progress, 6, $"Preparing WinRE source from {candidate.RequestedEdition} media.");
 
             WinPeResult attempt = await TryReplaceBootWimFromSourceAsync(
                 artifact,
                 tools,
                 candidate,
+                progress,
                 cancellationToken).ConfigureAwait(false);
             if (attempt.IsSuccess)
             {
+                ReportProgress(progress, 100, "WinRE boot image is ready.");
                 return attempt;
             }
 
@@ -188,17 +193,30 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         string destinationPath,
         string? expectedSha256,
         string workingDirectory,
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
         CancellationToken cancellationToken)
     {
         try
         {
-            if (File.Exists(destinationPath) &&
-                await ValidateHashIfRequestedAsync(destinationPath, expectedSha256, cancellationToken).ConfigureAwait(false))
+            if (File.Exists(destinationPath))
             {
-                return WinPeResult.Success();
+                _logger.LogInformation("Found cached WinRE source image. DestinationPath={DestinationPath}", destinationPath);
+                if (await ValidateHashIfRequestedAsync(destinationPath, expectedSha256, cancellationToken).ConfigureAwait(false))
+                {
+                    ReportProgress(progress, 70, "Using cached WinRE source package.");
+                    return WinPeResult.Success();
+                }
+
+                _logger.LogWarning("Cached WinRE source image failed hash validation and will be re-downloaded. DestinationPath={DestinationPath}", destinationPath);
+                TryDeleteFile(destinationPath);
             }
 
             string effectiveSourceUrl = NormalizeSourceUrl(sourceUrl);
+            _logger.LogInformation(
+                "Downloading WinRE source image. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}",
+                effectiveSourceUrl,
+                destinationPath);
+            ReportProgress(progress, 10, "Starting WinRE source download.");
             using HttpResponseMessage response = await HttpClient
                 .GetAsync(effectiveSourceUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
                 .ConfigureAwait(false);
@@ -217,9 +235,17 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                 Directory.CreateDirectory(directory);
             }
 
-            await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 81920, useAsync: true);
-            await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+            long? totalBytes = response.Content.Headers.ContentLength;
+            await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 128, useAsync: true);
+            await CopyToFileWithProgressAsync(
+                sourceStream,
+                destinationStream,
+                totalBytes,
+                progress,
+                cancellationToken).ConfigureAwait(false);
 
+            _logger.LogInformation("Completed WinRE source image download. DestinationPath={DestinationPath}", destinationPath);
+            ReportProgress(progress, 72, "Validating downloaded WinRE source package.");
             if (!await ValidateHashIfRequestedAsync(destinationPath, expectedSha256, cancellationToken).ConfigureAwait(false))
             {
                 return WinPeResult.Failure(
@@ -244,6 +270,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
         WinReSourceCandidate candidate,
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
         CancellationToken cancellationToken)
     {
         string cacheRoot = Path.Combine(WinPeDefaults.GetInstallerCacheDirectoryPath(), "os");
@@ -259,12 +286,18 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             esdPath,
             candidate.Source.Sha256,
             artifact.WorkingDirectoryPath,
+            CreateNestedProgress(progress, 10, 70),
             cancellationToken).ConfigureAwait(false);
         if (!download.IsSuccess)
         {
             return download;
         }
 
+        _logger.LogInformation(
+            "Resolving WinRE source image index. RequestedEdition={RequestedEdition}, ImagePath={ImagePath}",
+            candidate.RequestedEdition,
+            esdPath);
+        ReportProgress(progress, 74, $"Resolving {candidate.RequestedEdition} image index.");
         WinPeResult<int> imageIndex = await ResolveImageIndexAsync(
             tools.DismPath,
             esdPath,
@@ -275,6 +308,11 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         {
             return WinPeResult.Failure(imageIndex.Error!);
         }
+        _logger.LogInformation(
+            "Resolved WinRE source image index. RequestedEdition={RequestedEdition}, ImagePath={ImagePath}, ImageIndex={ImageIndex}",
+            candidate.RequestedEdition,
+            esdPath,
+            imageIndex.Value);
 
         string sourceWorkspaceName = NormalizeToken(candidate.RequestedEdition);
         string winReWorkspace = Path.Combine(artifact.WorkingDirectoryPath, $"winre-source-{sourceWorkspaceName}");
@@ -286,6 +324,13 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
 
         try
         {
+            _logger.LogInformation(
+                "Exporting WinRE source image index to temporary WIM. RequestedEdition={RequestedEdition}, SourceImagePath={SourceImagePath}, SourceIndex={SourceIndex}, DestinationImagePath={DestinationImagePath}",
+                candidate.RequestedEdition,
+                esdPath,
+                imageIndex.Value,
+                installWimPath);
+            ReportProgress(progress, 82, $"Exporting {candidate.RequestedEdition} image to temporary WIM.");
             WinPeProcessExecution exportExecution = await _processRunner.RunAsync(
                 tools.DismPath,
                 $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(esdPath)} /SourceIndex:{imageIndex.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
@@ -298,7 +343,10 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                     "Failed to export the selected operating system image for WinRE extraction.",
                     exportExecution.ToDiagnosticText());
             }
+            _logger.LogInformation("Exported WinRE source image successfully. TemporaryWimPath={TemporaryWimPath}", installWimPath);
 
+            _logger.LogInformation("Mounting exported WinRE source image. TemporaryWimPath={TemporaryWimPath}, MountDirectoryPath={MountDirectoryPath}", installWimPath, installMountPath);
+            ReportProgress(progress, 90, "Mounting exported WinRE source image.");
             WinPeResult<WinPeMountSession> mount = await WinPeMountSession.MountAsync(
                 _processRunner,
                 tools.DismPath,
@@ -315,6 +363,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             }
 
             await using WinPeMountSession session = mount.Value!;
+            _logger.LogInformation("Mounted exported WinRE source image successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
             string sourceWinRePath = Path.Combine(session.MountDirectoryPath, "Windows", "System32", "Recovery", "winre.wim");
             if (!File.Exists(sourceWinRePath))
             {
@@ -327,6 +376,11 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                     cancellationToken).ConfigureAwait(false);
             }
 
+            _logger.LogInformation(
+                "Copying extracted winre.wim into WinPE workspace boot image. SourceWinRePath={SourceWinRePath}, BootWimPath={BootWimPath}",
+                sourceWinRePath,
+                artifact.BootWimPath);
+            ReportProgress(progress, 96, "Copying extracted winre.wim into workspace.");
             File.Copy(sourceWinRePath, artifact.BootWimPath, overwrite: true);
             WinPeResult discard = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
             if (!discard.IsSuccess)
@@ -345,6 +399,10 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         {
             TryDeleteDirectory(installMountPath);
             TryDeleteDirectory(exportDirectory);
+            _logger.LogDebug(
+                "Cleaned temporary WinRE extraction workspace. ExportDirectoryPath={ExportDirectoryPath}, MountDirectoryPath={MountDirectoryPath}",
+                exportDirectory,
+                installMountPath);
         }
     }
 
@@ -391,6 +449,66 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         }
 
         return WinPeResult<int>.Success(bestMatch.Index);
+    }
+
+    private async Task CopyToFileWithProgressAsync(
+        Stream sourceStream,
+        FileStream destinationStream,
+        long? totalBytes,
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
+        CancellationToken cancellationToken)
+    {
+        byte[] buffer = new byte[1024 * 128];
+        long bytesWritten = 0;
+        int lastReportedTenths = -1;
+        DateTimeOffset lastReportAt = DateTimeOffset.MinValue;
+        while (true)
+        {
+            int bytesRead = await sourceStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
+            if (bytesRead == 0)
+            {
+                break;
+            }
+
+            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
+            bytesWritten += bytesRead;
+
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            if (totalBytes.HasValue && totalBytes.Value > 0)
+            {
+                double downloadPercent = Math.Min(100d, bytesWritten * 100d / totalBytes.Value);
+                int percentTenths = (int)Math.Floor(downloadPercent * 10d);
+                if (percentTenths != lastReportedTenths || now - lastReportAt >= TimeSpan.FromSeconds(1))
+                {
+                    lastReportedTenths = percentTenths;
+                    lastReportAt = now;
+                    ReportProgress(
+                        progress,
+                        (int)Math.Round(downloadPercent, MidpointRounding.AwayFromZero),
+                        $"Downloading WinRE source {downloadPercent:F1}% ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)})");
+                }
+            }
+            else if (now - lastReportAt >= TimeSpan.FromSeconds(1))
+            {
+                lastReportAt = now;
+                ReportProgress(
+                    progress,
+                    50,
+                    $"Downloading WinRE source ({FormatBytes(bytesWritten)} downloaded)");
+            }
+        }
+
+        if (totalBytes.HasValue && totalBytes.Value > 0)
+        {
+            ReportProgress(
+                progress,
+                100,
+                $"Downloading WinRE source 100.0% ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)})");
+        }
+        else
+        {
+            ReportProgress(progress, 100, $"Downloaded WinRE source ({FormatBytes(bytesWritten)}).");
+        }
     }
 
     private static async Task<bool> ValidateHashIfRequestedAsync(string filePath, string? expectedHash, CancellationToken cancellationToken)
@@ -619,6 +737,62 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         return new string(filtered);
     }
 
+    private static IProgress<WinPeMountedImageCustomizationProgress>? CreateNestedProgress(
+        IProgress<WinPeMountedImageCustomizationProgress>? parent,
+        int startPercent,
+        int endPercent)
+    {
+        if (parent is null)
+        {
+            return null;
+        }
+
+        int start = Math.Clamp(startPercent, 0, 100);
+        int end = Math.Clamp(endPercent, start, 100);
+        int range = end - start;
+        return new Progress<WinPeMountedImageCustomizationProgress>(update =>
+        {
+            int normalizedPercent = Math.Clamp(update.Percent, 0, 100);
+            int nestedPercent = start;
+            if (range > 0)
+            {
+                nestedPercent += (int)Math.Round(range * (normalizedPercent / 100d), MidpointRounding.AwayFromZero);
+            }
+
+            parent.Report(new WinPeMountedImageCustomizationProgress
+            {
+                Percent = nestedPercent,
+                Status = update.Status
+            });
+        });
+    }
+
+    private static void ReportProgress(
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
+        int percent,
+        string status)
+    {
+        progress?.Report(new WinPeMountedImageCustomizationProgress
+        {
+            Percent = percent,
+            Status = status
+        });
+    }
+
+    private static string FormatBytes(long bytes)
+    {
+        string[] units = ["B", "KB", "MB", "GB", "TB"];
+        double value = bytes;
+        int unitIndex = 0;
+        while (value >= 1024d && unitIndex < units.Length - 1)
+        {
+            value /= 1024d;
+            unitIndex++;
+        }
+
+        return $"{value:F1} {units[unitIndex]}";
+    }
+
     private static void TryDeleteDirectory(string path)
     {
         try
@@ -626,6 +800,21 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             if (Directory.Exists(path))
             {
                 Directory.Delete(path, recursive: true);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup.
+        }
+    }
+
+    private static void TryDeleteFile(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
             }
         }
         catch

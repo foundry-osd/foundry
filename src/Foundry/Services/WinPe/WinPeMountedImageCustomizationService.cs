@@ -35,20 +35,31 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
+        ReportProgress(request.Progress, 0, "Preparing boot image customization.");
 
         if (request.BootImageSource == WinPeBootImageSource.WinReWifi)
         {
+            _logger.LogInformation(
+                "Replacing WinPE boot.wim with WinRE source before customization. WorkingDirectoryPath={WorkingDirectoryPath}, WinPeLanguage={WinPeLanguage}",
+                request.Artifact.WorkingDirectoryPath,
+                request.WinPeLanguage);
             WinPeResult replaceBootImage = await _winReBootImagePreparationService.ReplaceBootWimAsync(
                 request.Artifact,
                 request.Tools,
                 request.WinPeLanguage,
+                CreateNestedProgress(request.Progress, 0, 25),
                 cancellationToken).ConfigureAwait(false);
             if (!replaceBootImage.IsSuccess)
             {
                 return replaceBootImage;
             }
         }
+        else
+        {
+            ReportProgress(request.Progress, 25, "Using standard WinPE boot image.");
+        }
 
+        ReportProgress(request.Progress, 30, "Mounting boot image.");
         _logger.LogInformation(
             "Mounting WinPE image for customization. BootWimPath={BootWimPath}, MountDirectoryPath={MountDirectoryPath}, WinPeLanguage={WinPeLanguage}",
             request.Artifact.BootWimPath,
@@ -69,6 +80,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         await using WinPeMountSession session = mount.Value!;
         _logger.LogInformation("Mounted WinPE image for customization. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
 
+        ReportProgress(request.Progress, 40, "Injecting drivers into mounted image.");
         WinPeResult inject = await InjectDriversAsync(
             session.MountDirectoryPath,
             request.DriverDirectories,
@@ -80,6 +92,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
             return await FailWithDiscardAsync(inject.Error!, session, cancellationToken).ConfigureAwait(false);
         }
 
+        ReportProgress(request.Progress, 55, "Applying language and optional components.");
         WinPeResult internationalizationResult = await _imageInternationalizationService.ApplyAsync(
             session.MountDirectoryPath,
             request.Artifact.Architecture,
@@ -94,6 +107,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
 
         _logger.LogInformation("Applied WinPE international settings successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
 
+        ReportProgress(request.Progress, 68, "Provisioning local Foundry.Deploy payload.");
         WinPeResult localDeployProvisioning = await _localDeployEmbeddingService.ProvisionAsync(
             session.MountDirectoryPath,
             request.Artifact.Architecture,
@@ -105,6 +119,12 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         }
 
         _logger.LogInformation("Provisioned local Foundry.Deploy archive into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        _logger.LogInformation(
+            "Starting mounted image asset provisioning. MountDirectoryPath={MountDirectoryPath}, AutopilotProfileCount={AutopilotProfileCount}, HasExpertConfiguration={HasExpertConfiguration}",
+            session.MountDirectoryPath,
+            request.AutopilotProfiles.Count,
+            !string.IsNullOrWhiteSpace(request.ExpertDeployConfigurationJson));
+        ReportProgress(request.Progress, 80, "Provisioning embedded assets.");
         WinPeResult assetProvisioning = await _mountedImageAssetProvisioningService.ProvisionAsync(
             session.MountDirectoryPath,
             request.Artifact.Architecture,
@@ -116,11 +136,14 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
             return await FailWithDiscardAsync(assetProvisioning.Error!, session, cancellationToken).ConfigureAwait(false);
         }
 
+        _logger.LogInformation("Mounted image asset provisioning completed successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        ReportProgress(request.Progress, 92, "Committing image changes.");
         _logger.LogInformation("Committing mounted WinPE image changes. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         WinPeResult commit = await session.CommitAsync(cancellationToken).ConfigureAwait(false);
         if (commit.IsSuccess)
         {
             _logger.LogInformation("Committed mounted WinPE image changes successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+            ReportProgress(request.Progress, 100, "Image customization completed.");
         }
 
         return commit;
@@ -181,5 +204,48 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
             primaryDiagnostic.Code,
             primaryDiagnostic.Message,
             details));
+    }
+
+    private static IProgress<WinPeMountedImageCustomizationProgress>? CreateNestedProgress(
+        IProgress<WinPeMountedImageCustomizationProgress>? parent,
+        int startPercent,
+        int endPercent)
+    {
+        if (parent is null)
+        {
+            return null;
+        }
+
+        int start = Math.Clamp(startPercent, 0, 100);
+        int end = Math.Clamp(endPercent, start, 100);
+        int range = end - start;
+
+        return new Progress<WinPeMountedImageCustomizationProgress>(update =>
+        {
+            int normalizedPercent = Math.Clamp(update.Percent, 0, 100);
+            int nestedPercent = start;
+            if (range > 0)
+            {
+                nestedPercent += (int)Math.Round(range * (normalizedPercent / 100d), MidpointRounding.AwayFromZero);
+            }
+
+            parent.Report(new WinPeMountedImageCustomizationProgress
+            {
+                Percent = nestedPercent,
+                Status = update.Status
+            });
+        });
+    }
+
+    private static void ReportProgress(
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
+        int percent,
+        string status)
+    {
+        progress?.Report(new WinPeMountedImageCustomizationProgress
+        {
+            Percent = percent,
+            Status = status
+        });
     }
 }

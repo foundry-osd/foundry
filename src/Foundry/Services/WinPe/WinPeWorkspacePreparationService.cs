@@ -66,6 +66,7 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
                 DriverDirectories = drivers.Value!,
                 BootImageSource = request.BootImageSource,
                 WinPeLanguage = request.WinPeLanguage,
+                Progress = request.CustomizationProgress,
                 ExpertDeployConfigurationJson = request.ExpertDeployConfigurationJson,
                 AutopilotProfiles = request.AutopilotProfiles
             },
