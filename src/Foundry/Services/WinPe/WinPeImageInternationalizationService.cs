@@ -133,7 +133,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
                 workingDirectoryPath,
                 cancellationToken).ConfigureAwait(false);
 
-            if (!addLanguagePack.IsSuccess)
+            if (!addLanguagePack.IsSuccess && !IsIgnorablePackageFailure(addLanguagePack))
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.BuildFailed,
@@ -161,7 +161,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
                     workingDirectoryPath,
                     cancellationToken).ConfigureAwait(false);
 
-                if (!addNeutral.IsSuccess)
+                if (!addNeutral.IsSuccess && !IsIgnorablePackageFailure(addNeutral))
                 {
                     return WinPeResult.Failure(
                         WinPeErrorCodes.BuildFailed,
@@ -182,7 +182,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
                     workingDirectoryPath,
                     cancellationToken).ConfigureAwait(false);
 
-                if (!addLocale.IsSuccess)
+                if (!addLocale.IsSuccess && !IsIgnorablePackageFailure(addLocale))
                 {
                     return WinPeResult.Failure(
                         WinPeErrorCodes.BuildFailed,
@@ -208,5 +208,14 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
             "Windows Preinstallation Environment",
             architecture.ToCopypeArchitecture(),
             "WinPE_OCs");
+    }
+
+    private static bool IsIgnorablePackageFailure(WinPeProcessExecution execution)
+    {
+        string diagnostic = $"{execution.StandardOutput}{Environment.NewLine}{execution.StandardError}";
+        return diagnostic.Contains("0x800f081e", StringComparison.OrdinalIgnoreCase) ||
+               diagnostic.Contains("not applicable", StringComparison.OrdinalIgnoreCase) ||
+               diagnostic.Contains("already installed", StringComparison.OrdinalIgnoreCase) ||
+               diagnostic.Contains("already exists", StringComparison.OrdinalIgnoreCase);
     }
 }

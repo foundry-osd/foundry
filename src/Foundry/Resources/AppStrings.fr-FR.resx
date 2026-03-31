@@ -535,7 +535,7 @@
     <value>Parcourir...</value>
   </data>
   <data name="WifiEnableLabel" xml:space="preserve">
-    <value>Activer le Wi-Fi dans WinPE</value>
+    <value>Activer la prise en charge Wi-Fi (WinRE)</value>
   </data>
   <data name="WifiSsidLabel" xml:space="preserve">
     <value>SSID</value>

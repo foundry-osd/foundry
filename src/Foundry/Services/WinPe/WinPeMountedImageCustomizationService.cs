@@ -8,6 +8,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
     private readonly IWinPeImageInternationalizationService _imageInternationalizationService;
     private readonly IWinPeLocalDeployEmbeddingService _localDeployEmbeddingService;
     private readonly IWinPeMountedImageAssetProvisioningService _mountedImageAssetProvisioningService;
+    private readonly IWinReBootImagePreparationService _winReBootImagePreparationService;
     private readonly WinPeProcessRunner _processRunner;
     private readonly ILogger<WinPeMountedImageCustomizationService> _logger;
 
@@ -16,6 +17,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         IWinPeImageInternationalizationService imageInternationalizationService,
         IWinPeLocalDeployEmbeddingService localDeployEmbeddingService,
         IWinPeMountedImageAssetProvisioningService mountedImageAssetProvisioningService,
+        IWinReBootImagePreparationService winReBootImagePreparationService,
         WinPeProcessRunner processRunner,
         ILogger<WinPeMountedImageCustomizationService> logger)
     {
@@ -23,6 +25,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         _imageInternationalizationService = imageInternationalizationService;
         _localDeployEmbeddingService = localDeployEmbeddingService;
         _mountedImageAssetProvisioningService = mountedImageAssetProvisioningService;
+        _winReBootImagePreparationService = winReBootImagePreparationService;
         _processRunner = processRunner;
         _logger = logger;
     }
@@ -32,6 +35,19 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
+
+        if (request.BootImageSource == WinPeBootImageSource.WinReWifi)
+        {
+            WinPeResult replaceBootImage = await _winReBootImagePreparationService.ReplaceBootWimAsync(
+                request.Artifact,
+                request.Tools,
+                request.WinPeLanguage,
+                cancellationToken).ConfigureAwait(false);
+            if (!replaceBootImage.IsSuccess)
+            {
+                return replaceBootImage;
+            }
+        }
 
         _logger.LogInformation(
             "Mounting WinPE image for customization. BootWimPath={BootWimPath}, MountDirectoryPath={MountDirectoryPath}, WinPeLanguage={WinPeLanguage}",

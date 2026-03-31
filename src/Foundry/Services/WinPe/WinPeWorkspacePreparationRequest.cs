@@ -15,6 +15,7 @@ internal sealed record WinPeWorkspacePreparationRequest
     public string? CustomDriverDirectoryPath { get; init; }
 
     public required WinPeSignatureMode SignatureMode { get; init; }
+    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;
 
     public required string WinPeLanguage { get; init; }
 

@@ -64,6 +64,7 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
                 Artifact = request.Artifact,
                 Tools = request.Tools,
                 DriverDirectories = drivers.Value!,
+                BootImageSource = request.BootImageSource,
                 WinPeLanguage = request.WinPeLanguage,
                 ExpertDeployConfigurationJson = request.ExpertDeployConfigurationJson,
                 AutopilotProfiles = request.AutopilotProfiles
