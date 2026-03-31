@@ -123,12 +123,16 @@ internal sealed class WinPeDriverPackageService
             }
         }
 
-        string extension = package.Format.Equals("cab", StringComparison.OrdinalIgnoreCase)
-            ? ".cab"
-            : ".exe";
+        string extension = package.Format.ToLowerInvariant() switch
+        {
+            "cab" => ".cab",
+            "zip" => ".zip",
+            _ => ".exe"
+        };
 
         return $"{WinPeFileSystemHelper.SanitizePathSegment(package.Id)}{extension}";
     }
+
 
     private async Task<WinPeResult> DownloadPackageAsync(
         string sourceUri,

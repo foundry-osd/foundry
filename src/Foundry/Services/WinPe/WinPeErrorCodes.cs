@@ -14,6 +14,11 @@ public static class WinPeErrorCodes
     public const string DriverExtractionFailed = "WINPE_DRIVER_EXTRACTION_FAILED";
     public const string DownloadFailed = "WINPE_DOWNLOAD_FAILED";
     public const string HashMismatch = "WINPE_HASH_MISMATCH";
+    public const string OperatingSystemCatalogFetchFailed = "WINPE_OS_CATALOG_FETCH_FAILED";
+    public const string OperatingSystemCatalogParseFailed = "WINPE_OS_CATALOG_PARSE_FAILED";
+    public const string WinReSourceSelectionFailed = "WINPE_WINRE_SOURCE_SELECTION_FAILED";
+    public const string WinReIndexResolutionFailed = "WINPE_WINRE_INDEX_RESOLUTION_FAILED";
+    public const string WinReExtractionFailed = "WINPE_WINRE_EXTRACTION_FAILED";
     public const string IsoCreateFailed = "WINPE_ISO_CREATE_FAILED";
     public const string BootExUnsupported = "WINPE_BOOTEX_UNSUPPORTED";
     public const string UsbQueryFailed = "WINPE_USB_QUERY_FAILED";

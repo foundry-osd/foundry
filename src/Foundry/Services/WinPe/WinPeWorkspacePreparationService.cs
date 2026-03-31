@@ -37,6 +37,7 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
             {
                 CatalogUri = request.DriverCatalogUri,
                 Architecture = request.Artifact.Architecture,
+                BootImageSource = request.BootImageSource,
                 DriverVendors = request.DriverVendors,
                 CustomDriverDirectoryPath = request.CustomDriverDirectoryPath,
                 Artifact = request.Artifact
@@ -64,7 +65,9 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
                 Artifact = request.Artifact,
                 Tools = request.Tools,
                 DriverDirectories = drivers.Value!,
+                BootImageSource = request.BootImageSource,
                 WinPeLanguage = request.WinPeLanguage,
+                Progress = request.CustomizationProgress,
                 ExpertDeployConfigurationJson = request.ExpertDeployConfigurationJson,
                 AutopilotProfiles = request.AutopilotProfiles
             },

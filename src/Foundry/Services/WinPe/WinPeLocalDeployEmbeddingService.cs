@@ -24,6 +24,7 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
     {
         if (!IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployEnableEnvironmentVariable)))
         {
+            _logger.LogDebug("Skipping local Foundry.Deploy embedding because the feature flag is disabled.");
             return WinPeResult.Success();
         }
 
@@ -50,7 +51,12 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
         try
         {
             Directory.CreateDirectory(destinationDirectory);
+            _logger.LogInformation(
+                "Copying local Foundry.Deploy archive into mounted WinPE image. ArchivePath={ArchivePath}, DestinationPath={DestinationPath}",
+                archiveResult.Value!,
+                destinationPath);
             File.Copy(archiveResult.Value!, destinationPath, overwrite: true);
+            _logger.LogInformation("Copied local Foundry.Deploy archive into mounted WinPE image successfully. DestinationPath={DestinationPath}", destinationPath);
             return WinPeResult.Success();
         }
         catch (Exception ex)
@@ -79,6 +85,7 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
                     $"Set {WinPeDefaults.LocalDeployArchiveEnvironmentVariable} to an existing .zip file. Path: '{configuredArchivePath}'.");
             }
 
+            _logger.LogInformation("Using configured local Foundry.Deploy archive. ArchivePath={ArchivePath}", configuredArchivePath);
             return WinPeResult<string>.Success(configuredArchivePath);
         }
 
@@ -95,6 +102,7 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
             }
 
             projectPath = configuredProjectPath;
+            _logger.LogInformation("Using configured Foundry.Deploy project path. ProjectPath={ProjectPath}", projectPath);
         }
         else if (!TryFindFoundryDeployProjectPath(out projectPath))
         {
@@ -102,6 +110,10 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
                 WinPeErrorCodes.ValidationFailed,
                 "Unable to locate Foundry.Deploy project for local WinPE embedding.",
                 $"Set {WinPeDefaults.LocalDeployArchiveEnvironmentVariable} to a .zip archive or {WinPeDefaults.LocalDeployProjectEnvironmentVariable} to Foundry.Deploy.csproj.");
+        }
+        else
+        {
+            _logger.LogInformation("Discovered Foundry.Deploy project path automatically. ProjectPath={ProjectPath}", projectPath);
         }
 
         string runtimeIdentifier = architecture.ToDotnetRuntimeIdentifier();
@@ -142,6 +154,10 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
             "/p:GenerateDocumentationFile=false",
             "-o", WinPeProcessRunner.Quote(publishDirectory));
 
+        _logger.LogInformation(
+            "Publishing local Foundry.Deploy payload. RuntimeIdentifier={RuntimeIdentifier}, PublishDirectory={PublishDirectory}",
+            runtimeIdentifier,
+            publishDirectory);
         WinPeProcessExecution publish = await _processRunner.RunAsync(
             "dotnet",
             publishArgs,
@@ -155,6 +171,7 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
                 "Failed to publish Foundry.Deploy for local WinPE embedding.",
                 publish.ToDiagnosticText());
         }
+        _logger.LogInformation("Published local Foundry.Deploy payload successfully. PublishDirectory={PublishDirectory}", publishDirectory);
 
         string executablePath = Path.Combine(publishDirectory, "Foundry.Deploy.exe");
         if (!File.Exists(executablePath))
@@ -167,6 +184,7 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
 
         try
         {
+            _logger.LogInformation("Creating local Foundry.Deploy archive from publish output. ArchivePath={ArchivePath}", archivePath);
             ZipFile.CreateFromDirectory(publishDirectory, archivePath, CompressionLevel.Optimal, includeBaseDirectory: false);
         }
         catch (Exception ex)
@@ -178,6 +196,7 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
                 ex.ToString());
         }
 
+        _logger.LogInformation("Created local Foundry.Deploy archive successfully. ArchivePath={ArchivePath}", archivePath);
         return WinPeResult<string>.Success(archivePath);
     }
 

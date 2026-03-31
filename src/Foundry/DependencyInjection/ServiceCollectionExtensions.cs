@@ -37,6 +37,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<WinPeDriverPackageService>();
         services.AddSingleton<IWinPeDriverResolutionService, WinPeDriverResolutionService>();
         services.AddSingleton<IWinPeImageInternationalizationService, WinPeImageInternationalizationService>();
+        services.AddSingleton<IWinReBootImagePreparationService, WinReBootImagePreparationService>();
         services.AddSingleton<IWinPeLocalDeployEmbeddingService, WinPeLocalDeployEmbeddingService>();
         services.AddSingleton<IWinPeMountedImageAssetProvisioningService, WinPeMountedImageAssetProvisioningService>();
         services.AddSingleton<IWinPeMountedImageCustomizationService, WinPeMountedImageCustomizationService>();

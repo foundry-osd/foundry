@@ -487,6 +487,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 VolumeLabel = IsoVolumeLabel,
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
+                BootImageSource = ResolveBootImageSource(),
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
@@ -558,6 +559,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 FormatMode = SelectedUsbFormatMode,
                 Architecture = SelectedArchitecture,
                 SignatureMode = GetSignatureMode(),
+                BootImageSource = ResolveBootImageSource(),
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
@@ -682,6 +684,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private WinPeSignatureMode GetSignatureMode()
     {
         return UseCa2023 ? WinPeSignatureMode.Pca2023 : WinPeSignatureMode.Pca2011;
+    }
+
+    private WinPeBootImageSource ResolveBootImageSource()
+    {
+        return IsExpertMode && Network.IsWifiEnabled
+            ? WinPeBootImageSource.WinReWifi
+            : WinPeBootImageSource.WinPe;
     }
 
     private void EnforcePartitionStyleForArchitecture(bool showInfoMessage)

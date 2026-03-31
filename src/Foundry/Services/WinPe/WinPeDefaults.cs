@@ -9,6 +9,7 @@ internal static class WinPeDefaults
     private static readonly Lazy<string> IanaWindowsTimeZoneMapContent = new(LoadIanaWindowsTimeZoneMapContent);
 
     public const string DefaultUnifiedCatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/WinPE/WinPE_Unified.xml";
+    public const string DefaultOperatingSystemCatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/OS/OperatingSystem.xml";
     public const string DefaultStartnetPathInImage = @"Windows\System32\startnet.cmd";
     public const string DefaultBootstrapScriptFileName = "FoundryBootstrap.ps1";
     public const string DefaultBootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";

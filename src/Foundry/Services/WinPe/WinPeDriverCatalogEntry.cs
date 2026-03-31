@@ -6,6 +6,8 @@ public sealed record WinPeDriverCatalogEntry
     public string Name { get; init; } = string.Empty;
     public string Version { get; init; } = string.Empty;
     public WinPeVendorSelection Vendor { get; init; }
+    public WinPeDriverPackageRole PackageRole { get; init; } = WinPeDriverPackageRole.BaseDriverPack;
+    public WinPeDriverFamily DriverFamily { get; init; } = WinPeDriverFamily.None;
     public WinPeArchitecture Architecture { get; init; }
     public string DownloadUri { get; init; } = string.Empty;
     public string FileName { get; init; } = string.Empty;
