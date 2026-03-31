@@ -37,6 +37,7 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
             {
                 CatalogUri = request.DriverCatalogUri,
                 Architecture = request.Artifact.Architecture,
+                BootImageSource = request.BootImageSource,
                 DriverVendors = request.DriverVendors,
                 CustomDriverDirectoryPath = request.CustomDriverDirectoryPath,
                 Artifact = request.Artifact

@@ -6,6 +6,8 @@ internal sealed record WinPeDriverResolutionRequest
 
     public required WinPeArchitecture Architecture { get; init; }
 
+    public required WinPeBootImageSource BootImageSource { get; init; }
+
     public required IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; }
 
     public string? CustomDriverDirectoryPath { get; init; }

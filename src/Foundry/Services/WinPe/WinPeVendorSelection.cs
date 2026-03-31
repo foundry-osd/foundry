@@ -6,5 +6,6 @@ public enum WinPeVendorSelection
     Dell,
     Hp,
     Lenovo,
-    Microsoft
+    Microsoft,
+    Intel
 }
