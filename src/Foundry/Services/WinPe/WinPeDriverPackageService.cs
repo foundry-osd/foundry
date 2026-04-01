@@ -12,10 +12,7 @@ internal sealed record WinPePreparedDriverSet
 
 internal sealed class WinPeDriverPackageService
 {
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(30)
-    };
+    private static readonly HttpClient HttpClient = CreateHttpClient();
 
     private readonly WinPeProcessRunner _processRunner;
     private readonly ILogger<WinPeDriverPackageService> _logger;
@@ -24,6 +21,16 @@ internal sealed class WinPeDriverPackageService
     {
         _processRunner = processRunner;
         _logger = logger;
+    }
+
+    private static HttpClient CreateHttpClient()
+    {
+        HttpClient client = new()
+        {
+            Timeout = TimeSpan.FromMinutes(30)
+        };
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("Foundry/1.0");
+        return client;
     }
 
     public async Task<WinPeResult<WinPePreparedDriverSet>> PrepareAsync(
@@ -123,12 +130,16 @@ internal sealed class WinPeDriverPackageService
             }
         }
 
-        string extension = package.Format.Equals("cab", StringComparison.OrdinalIgnoreCase)
-            ? ".cab"
-            : ".exe";
+        string extension = package.Format.ToLowerInvariant() switch
+        {
+            "cab" => ".cab",
+            "zip" => ".zip",
+            _ => ".exe"
+        };
 
         return $"{WinPeFileSystemHelper.SanitizePathSegment(package.Id)}{extension}";
     }
+
 
     private async Task<WinPeResult> DownloadPackageAsync(
         string sourceUri,

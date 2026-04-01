@@ -97,6 +97,8 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
 
             XElement? osInfo = pack.Element("OsInfo");
             WinPeVendorSelection vendor = ParseVendor((string?)pack.Attribute("manufacturer"));
+            WinPeDriverPackageRole packageRole = ParsePackageRole((string?)pack.Attribute("packageRole"));
+            WinPeDriverFamily driverFamily = ParseDriverFamily((string?)pack.Attribute("driverFamily"));
             if (requestedVendors.Count > 0 && !requestedVendors.Contains(vendor))
             {
                 continue;
@@ -149,6 +151,8 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                 Name = name,
                 Version = version,
                 Vendor = vendor,
+                PackageRole = packageRole,
+                DriverFamily = driverFamily,
                 Architecture = architecture.Value,
                 DownloadUri = downloadUrl,
                 FileName = fileName,
@@ -194,7 +198,40 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             return WinPeVendorSelection.Microsoft;
         }
 
+        if (normalized.Equals("intel", StringComparison.OrdinalIgnoreCase))
+        {
+            return WinPeVendorSelection.Intel;
+        }
+
         return WinPeVendorSelection.Any;
+    }
+
+    private static WinPeDriverPackageRole ParsePackageRole(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return WinPeDriverPackageRole.BaseDriverPack;
+        }
+
+        return value.Trim() switch
+        {
+            "WifiSupplement" => WinPeDriverPackageRole.WifiSupplement,
+            _ => WinPeDriverPackageRole.BaseDriverPack
+        };
+    }
+
+    private static WinPeDriverFamily ParseDriverFamily(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return WinPeDriverFamily.None;
+        }
+
+        return value.Trim() switch
+        {
+            "IntelWireless" => WinPeDriverFamily.IntelWireless,
+            _ => WinPeDriverFamily.None
+        };
     }
 
     private static WinPeArchitecture? ParseArchitecture(string? value)

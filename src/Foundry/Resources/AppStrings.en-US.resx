@@ -535,7 +535,7 @@
     <value>Browse file...</value>
   </data>
   <data name="WifiEnableLabel" xml:space="preserve">
-    <value>Enable Wi-Fi in WinPE</value>
+    <value>Enable Wi-Fi support (WinRE)</value>
   </data>
   <data name="WifiSsidLabel" xml:space="preserve">
     <value>SSID</value>

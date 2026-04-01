@@ -30,6 +30,12 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         IReadOnlyList<AutopilotProfileSettings> autopilotProfiles,
         CancellationToken cancellationToken)
     {
+        _logger.LogInformation(
+            "Starting mounted image asset provisioning. MountDirectoryPath={MountDirectoryPath}, Architecture={Architecture}, AutopilotProfileCount={AutopilotProfileCount}, HasExpertConfiguration={HasExpertConfiguration}",
+            mountedImagePath,
+            architecture,
+            autopilotProfiles.Count,
+            !string.IsNullOrWhiteSpace(expertDeployConfigurationJson));
         string system32 = Path.Combine(mountedImagePath, "Windows", "System32");
         Directory.CreateDirectory(system32);
 
@@ -115,6 +121,7 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
 
         await File.WriteAllLinesAsync(startnet, merged, cancellationToken).ConfigureAwait(false);
         _logger.LogInformation("Updated startnet.cmd in mounted WinPE image. StartnetPath={StartnetPath}", startnet);
+        _logger.LogInformation("Mounted image asset provisioning completed successfully. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
         return WinPeResult.Success();
     }
 
@@ -179,6 +186,10 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
                         "Failed to download curl package for WinPE image provisioning.",
                         $"Architecture: '{architecture}', URI: '{packageUrl}'. Error: {ex.Message}");
                 }
+            }
+            else
+            {
+                _logger.LogInformation("Using cached curl package for Architecture={Architecture}. PackagePath={PackagePath}", architecture, packagePath);
             }
 
             WinPeFileSystemHelper.EnsureDirectoryClean(extractPath);
@@ -410,6 +421,7 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
     {
         if (autopilotProfiles.Count == 0)
         {
+            _logger.LogInformation("No Autopilot profiles requested for mounted image provisioning.");
             return WinPeResult.Success();
         }
 
@@ -431,6 +443,10 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
                     cancellationToken).ConfigureAwait(false);
             }
 
+            _logger.LogInformation(
+                "Provisioned Autopilot profiles into mounted WinPE image. AutopilotRoot={AutopilotRoot}, ProfileCount={ProfileCount}",
+                autopilotRoot,
+                autopilotProfiles.Count);
             return WinPeResult.Success();
         }
         catch (Exception ex)

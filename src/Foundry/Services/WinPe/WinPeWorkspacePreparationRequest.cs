@@ -15,8 +15,10 @@ internal sealed record WinPeWorkspacePreparationRequest
     public string? CustomDriverDirectoryPath { get; init; }
 
     public required WinPeSignatureMode SignatureMode { get; init; }
+    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;
 
     public required string WinPeLanguage { get; init; }
+    public IProgress<WinPeMountedImageCustomizationProgress>? CustomizationProgress { get; init; }
 
     public string? ExpertDeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
