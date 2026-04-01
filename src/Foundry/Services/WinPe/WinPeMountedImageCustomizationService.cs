@@ -36,6 +36,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
     {
         ArgumentNullException.ThrowIfNull(request);
         ReportProgress(request.Progress, 0, "Preparing boot image customization.");
+        WinReBootImagePreparationResult? winRePreparationResult = null;
 
         if (request.BootImageSource == WinPeBootImageSource.WinReWifi)
         {
@@ -43,7 +44,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
                 "Replacing WinPE boot.wim with WinRE source before customization. WorkingDirectoryPath={WorkingDirectoryPath}, WinPeLanguage={WinPeLanguage}",
                 request.Artifact.WorkingDirectoryPath,
                 request.WinPeLanguage);
-            WinPeResult replaceBootImage = await _winReBootImagePreparationService.ReplaceBootWimAsync(
+            WinPeResult<WinReBootImagePreparationResult> replaceBootImage = await _winReBootImagePreparationService.ReplaceBootWimAsync(
                 request.Artifact,
                 request.Tools,
                 request.WinPeLanguage,
@@ -51,8 +52,10 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
                 cancellationToken).ConfigureAwait(false);
             if (!replaceBootImage.IsSuccess)
             {
-                return replaceBootImage;
+                return WinPeResult.Failure(replaceBootImage.Error!);
             }
+
+            winRePreparationResult = replaceBootImage.Value!;
         }
         else
         {
@@ -79,6 +82,28 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
 
         await using WinPeMountSession session = mount.Value!;
         _logger.LogInformation("Mounted WinPE image for customization. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+
+        if (request.BootImageSource == WinPeBootImageSource.WinReWifi)
+        {
+            if (winRePreparationResult is null)
+            {
+                return await FailWithDiscardAsync(
+                    new WinPeDiagnostic(
+                        WinPeErrorCodes.InternalError,
+                        "The WinRE Wi-Fi boot image was prepared without dependency metadata."),
+                    session,
+                    cancellationToken).ConfigureAwait(false);
+            }
+
+            ReportProgress(request.Progress, 35, "Applying WinRE Wi-Fi startup fixes.");
+            WinPeResult winReAdjustmentResult = ApplyWinReWifiAdjustments(
+                session.MountDirectoryPath,
+                winRePreparationResult);
+            if (!winReAdjustmentResult.IsSuccess)
+            {
+                return await FailWithDiscardAsync(winReAdjustmentResult.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
+        }
 
         ReportProgress(request.Progress, 40, "Injecting drivers into mounted image.");
         WinPeResult inject = await InjectDriversAsync(
@@ -147,6 +172,62 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         }
 
         return commit;
+    }
+
+    private WinPeResult ApplyWinReWifiAdjustments(
+        string mountedImagePath,
+        WinReBootImagePreparationResult preparationResult)
+    {
+        string system32Path = Path.Combine(mountedImagePath, "Windows", "System32");
+        string winPeShellPath = Path.Combine(system32Path, "winpeshl.ini");
+
+        try
+        {
+            Directory.CreateDirectory(system32Path);
+
+            if (File.Exists(winPeShellPath))
+            {
+                File.Delete(winPeShellPath);
+                _logger.LogInformation("Removed winpeshl.ini from mounted WinRE-based boot image. FilePath={FilePath}", winPeShellPath);
+            }
+            else
+            {
+                _logger.LogDebug("winpeshl.ini was not present in mounted WinRE-based boot image. FilePath={FilePath}", winPeShellPath);
+            }
+
+            foreach (WinReDependencyFile dependencyFile in preparationResult.DependencyFiles)
+            {
+                if (!File.Exists(dependencyFile.StagedPath))
+                {
+                    return WinPeResult.Failure(
+                        WinPeErrorCodes.WinReExtractionFailed,
+                        $"The staged wireless dependency '{dependencyFile.FileName}' is missing.",
+                        $"Expected path: '{dependencyFile.StagedPath}'.");
+                }
+
+                string destinationPath = Path.Combine(system32Path, dependencyFile.FileName);
+                File.Copy(dependencyFile.StagedPath, destinationPath, overwrite: true);
+                _logger.LogDebug(
+                    "Copied WinRE wireless dependency into mounted boot image. FileName={FileName}, SourcePath={SourcePath}, DestinationPath={DestinationPath}",
+                    dependencyFile.FileName,
+                    dependencyFile.StagedPath,
+                    destinationPath);
+            }
+
+            _logger.LogInformation(
+                "Applied WinRE Wi-Fi adjustments to mounted boot image. MountDirectoryPath={MountDirectoryPath}, DependencyFileCount={DependencyFileCount}",
+                mountedImagePath,
+                preparationResult.DependencyFiles.Count);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to apply WinRE Wi-Fi adjustments to mounted boot image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to apply WinRE Wi-Fi startup fixes to the mounted boot image.",
+                ex.ToString());
+        }
     }
 
     private async Task<WinPeResult> InjectDriversAsync(

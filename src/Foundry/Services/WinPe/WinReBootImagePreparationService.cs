@@ -25,7 +25,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         _logger = logger;
     }
 
-    public async Task<WinPeResult> ReplaceBootWimAsync(
+    public async Task<WinPeResult<WinReBootImagePreparationResult>> ReplaceBootWimAsync(
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
         string winPeLanguage,
@@ -43,7 +43,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             cancellationToken).ConfigureAwait(false);
         if (!selection.IsSuccess)
         {
-            return WinPeResult.Failure(selection.Error!);
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(selection.Error!);
         }
 
         List<string> diagnostics = [];
@@ -61,7 +61,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                 candidate.Source.FileName);
             ReportProgress(progress, 6, $"Preparing WinRE source from {candidate.RequestedEdition} media.");
 
-            WinPeResult attempt = await TryReplaceBootWimFromSourceAsync(
+            WinPeResult<WinReBootImagePreparationResult> attempt = await TryReplaceBootWimFromSourceAsync(
                 artifact,
                 tools,
                 candidate,
@@ -84,7 +84,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                 attempt.Error?.Message);
         }
 
-        return WinPeResult.Failure(
+        return WinPeResult<WinReBootImagePreparationResult>.Failure(
             WinPeErrorCodes.WinReExtractionFailed,
             "Failed to prepare a WinRE boot image from the supported operating system sources.",
             string.Join($"{Environment.NewLine}{Environment.NewLine}", diagnostics));
@@ -266,7 +266,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         }
     }
 
-    private async Task<WinPeResult> TryReplaceBootWimFromSourceAsync(
+    private async Task<WinPeResult<WinReBootImagePreparationResult>> TryReplaceBootWimFromSourceAsync(
         WinPeBuildArtifact artifact,
         WinPeToolPaths tools,
         WinReSourceCandidate candidate,
@@ -290,7 +290,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             cancellationToken).ConfigureAwait(false);
         if (!download.IsSuccess)
         {
-            return download;
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(download.Error!);
         }
 
         _logger.LogInformation(
@@ -306,7 +306,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             cancellationToken).ConfigureAwait(false);
         if (!imageIndex.IsSuccess)
         {
-            return WinPeResult.Failure(imageIndex.Error!);
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(imageIndex.Error!);
         }
         _logger.LogInformation(
             "Resolved WinRE source image index. RequestedEdition={RequestedEdition}, ImagePath={ImagePath}, ImageIndex={ImageIndex}",
@@ -318,10 +318,13 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         string winReWorkspace = Path.Combine(artifact.WorkingDirectoryPath, $"winre-source-{sourceWorkspaceName}");
         string exportDirectory = Path.Combine(winReWorkspace, "export");
         string installMountPath = Path.Combine(winReWorkspace, "install-mount");
+        string dependencyDirectory = Path.Combine(winReWorkspace, "wireless-support");
         string installWimPath = Path.Combine(exportDirectory, "install.wim");
         WinPeFileSystemHelper.EnsureDirectoryClean(exportDirectory);
         WinPeFileSystemHelper.EnsureDirectoryClean(installMountPath);
+        WinPeFileSystemHelper.EnsureDirectoryClean(dependencyDirectory);
 
+        bool keepDependencyDirectory = false;
         try
         {
             _logger.LogInformation(
@@ -338,7 +341,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                 cancellationToken).ConfigureAwait(false);
             if (!exportExecution.IsSuccess || !File.Exists(installWimPath))
             {
-                return WinPeResult.Failure(
+                return WinPeResult<WinReBootImagePreparationResult>.Failure(
                     WinPeErrorCodes.WinReExtractionFailed,
                     "Failed to export the selected operating system image for WinRE extraction.",
                     exportExecution.ToDiagnosticText());
@@ -356,7 +359,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                 cancellationToken).ConfigureAwait(false);
             if (!mount.IsSuccess)
             {
-                return WinPeResult.Failure(
+                return WinPeResult<WinReBootImagePreparationResult>.Failure(
                     WinPeErrorCodes.WinReExtractionFailed,
                     "Failed to mount the exported operating system image for WinRE extraction.",
                     mount.Error?.Details);
@@ -376,6 +379,17 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                     cancellationToken).ConfigureAwait(false);
             }
 
+            WinPeResult<WinReBootImagePreparationResult> dependencyPreparation = PrepareWirelessDependencyFiles(
+                session.MountDirectoryPath,
+                dependencyDirectory);
+            if (!dependencyPreparation.IsSuccess)
+            {
+                return await FailWithDiscardAsync(
+                    dependencyPreparation.Error!,
+                    session,
+                    cancellationToken).ConfigureAwait(false);
+            }
+
             _logger.LogInformation(
                 "Copying extracted winre.wim into WinPE workspace boot image. SourceWinRePath={SourceWinRePath}, BootWimPath={BootWimPath}",
                 sourceWinRePath,
@@ -385,7 +399,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             WinPeResult discard = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
             if (!discard.IsSuccess)
             {
-                return discard;
+                return WinPeResult<WinReBootImagePreparationResult>.Failure(discard.Error!);
             }
 
             _logger.LogInformation(
@@ -393,12 +407,17 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
                 candidate.RequestedEdition,
                 artifact.BootWimPath,
                 sourceWinRePath);
-            return WinPeResult.Success();
+            keepDependencyDirectory = true;
+            return WinPeResult<WinReBootImagePreparationResult>.Success(dependencyPreparation.Value!);
         }
         finally
         {
             TryDeleteDirectory(installMountPath);
             TryDeleteDirectory(exportDirectory);
+            if (!keepDependencyDirectory)
+            {
+                TryDeleteDirectory(dependencyDirectory);
+            }
             _logger.LogDebug(
                 "Cleaned temporary WinRE extraction workspace. ExportDirectoryPath={ExportDirectoryPath}, MountDirectoryPath={MountDirectoryPath}",
                 exportDirectory,
@@ -558,7 +577,57 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         return builder.Uri.AbsoluteUri;
     }
 
-    private static async Task<WinPeResult> FailWithDiscardAsync(
+    private static WinPeResult<WinReBootImagePreparationResult> PrepareWirelessDependencyFiles(
+        string mountedImagePath,
+        string dependencyDirectoryPath)
+    {
+        string sourceSystem32Path = Path.Combine(mountedImagePath, "Windows", "System32");
+        string[] requiredFiles =
+        [
+            "dmcmnutils.dll",
+            "mdmregistration.dll"
+        ];
+
+        try
+        {
+            Directory.CreateDirectory(dependencyDirectoryPath);
+
+            var dependencyFiles = new List<WinReDependencyFile>(requiredFiles.Length);
+            foreach (string fileName in requiredFiles)
+            {
+                string sourcePath = Path.Combine(sourceSystem32Path, fileName);
+                if (!File.Exists(sourcePath))
+                {
+                    return WinPeResult<WinReBootImagePreparationResult>.Failure(
+                        WinPeErrorCodes.WinReExtractionFailed,
+                        $"The selected operating system image is missing the required wireless dependency '{fileName}'.",
+                        $"Expected path: '{sourcePath}'.");
+                }
+
+                string stagedPath = Path.Combine(dependencyDirectoryPath, fileName);
+                File.Copy(sourcePath, stagedPath, overwrite: true);
+                dependencyFiles.Add(new WinReDependencyFile
+                {
+                    FileName = fileName,
+                    StagedPath = stagedPath
+                });
+            }
+
+            return WinPeResult<WinReBootImagePreparationResult>.Success(new WinReBootImagePreparationResult
+            {
+                DependencyFiles = dependencyFiles
+            });
+        }
+        catch (Exception ex)
+        {
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(
+                WinPeErrorCodes.WinReExtractionFailed,
+                "Failed to stage required wireless dependency files from the mounted operating system image.",
+                ex.ToString());
+        }
+    }
+
+    private static async Task<WinPeResult<WinReBootImagePreparationResult>> FailWithDiscardAsync(
         WinPeDiagnostic primaryDiagnostic,
         WinPeMountSession session,
         CancellationToken cancellationToken)
@@ -566,7 +635,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
         WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
         if (discardResult.IsSuccess)
         {
-            return WinPeResult.Failure(primaryDiagnostic);
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(primaryDiagnostic);
         }
 
         string details = string.Join(
@@ -575,7 +644,7 @@ internal sealed class WinReBootImagePreparationService : IWinReBootImagePreparat
             "Discard diagnostics:",
             discardResult.Error?.Details ?? string.Empty).Trim();
 
-        return WinPeResult.Failure(new WinPeDiagnostic(
+        return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
             primaryDiagnostic.Code,
             primaryDiagnostic.Message,
             details));
