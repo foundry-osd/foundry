@@ -12,10 +12,7 @@ internal sealed record WinPePreparedDriverSet
 
 internal sealed class WinPeDriverPackageService
 {
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromMinutes(30)
-    };
+    private static readonly HttpClient HttpClient = CreateHttpClient();
 
     private readonly WinPeProcessRunner _processRunner;
     private readonly ILogger<WinPeDriverPackageService> _logger;
@@ -24,6 +21,16 @@ internal sealed class WinPeDriverPackageService
     {
         _processRunner = processRunner;
         _logger = logger;
+    }
+
+    private static HttpClient CreateHttpClient()
+    {
+        HttpClient client = new()
+        {
+            Timeout = TimeSpan.FromMinutes(30)
+        };
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("Foundry/1.0");
+        return client;
     }
 
     public async Task<WinPeResult<WinPePreparedDriverSet>> PrepareAsync(
