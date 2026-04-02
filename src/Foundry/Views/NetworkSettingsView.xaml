@@ -98,6 +98,14 @@
                         Content="{Binding Strings[BrowseFileButton]}"
                         IsEnabled="{Binding IsDot1xCertificatePathEnabled}" />
                 </Grid>
+
+                <TextBlock
+                    Margin="0,16,0,0"
+                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding Dot1xValidationMessage}"
+                    TextWrapping="Wrap"
+                    Visibility="{Binding HasDot1xValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
         </Border>
 
@@ -282,9 +290,9 @@
                     Margin="0,16,0,0"
                     Foreground="{DynamicResource SystemFillColorCautionBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding ValidationMessage}"
+                    Text="{Binding WifiValidationMessage}"
                     TextWrapping="Wrap"
-                    Visibility="{Binding HasValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding HasWifiValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
         </Border>
     </StackPanel>

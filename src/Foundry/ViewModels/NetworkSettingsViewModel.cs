@@ -80,8 +80,12 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     public bool IsWifiOpenSelected => string.Equals(WifiSecurityType, WifiSecurityOpen, StringComparison.OrdinalIgnoreCase);
     public bool IsWifiPersonalSelected => string.Equals(WifiSecurityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase);
     public bool IsWifiEnterpriseSelected => string.Equals(WifiSecurityType, WifiSecurityEnterprise, StringComparison.OrdinalIgnoreCase);
-    public bool HasValidationError => !string.IsNullOrWhiteSpace(ValidationMessage);
-    public string ValidationMessage => BuildValidationMessage();
+    public bool HasDot1xValidationError => !string.IsNullOrWhiteSpace(Dot1xValidationMessage);
+    public string Dot1xValidationMessage => BuildDot1xValidationMessage();
+    public bool HasWifiValidationError => !string.IsNullOrWhiteSpace(WifiValidationMessage);
+    public string WifiValidationMessage => BuildWifiValidationMessage();
+    public bool HasValidationError => HasDot1xValidationError || HasWifiValidationError;
+    public string ValidationMessage => HasDot1xValidationError ? Dot1xValidationMessage : WifiValidationMessage;
 
     partial void OnIsDot1xEnabledChanged(bool value)
     {
@@ -303,6 +307,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     {
         OnPropertyChanged(nameof(IsDot1xSectionEnabled));
         OnPropertyChanged(nameof(IsDot1xCertificatePathEnabled));
+        OnPropertyChanged(nameof(Dot1xValidationMessage));
+        OnPropertyChanged(nameof(HasDot1xValidationError));
         OnPropertyChanged(nameof(ValidationMessage));
         OnPropertyChanged(nameof(HasValidationError));
     }
@@ -317,6 +323,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsWifiOpenSelected));
         OnPropertyChanged(nameof(IsWifiPersonalSelected));
         OnPropertyChanged(nameof(IsWifiEnterpriseSelected));
+        OnPropertyChanged(nameof(WifiValidationMessage));
+        OnPropertyChanged(nameof(HasWifiValidationError));
         OnPropertyChanged(nameof(ValidationMessage));
         OnPropertyChanged(nameof(HasValidationError));
     }
@@ -370,7 +378,7 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         return WifiSecurityOpen;
     }
 
-    private string BuildValidationMessage()
+    private string BuildDot1xValidationMessage()
     {
         if (IsDot1xEnabled)
         {
@@ -385,6 +393,11 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
             }
         }
 
+        return string.Empty;
+    }
+
+    private string BuildWifiValidationMessage()
+    {
         if (!IsWifiProvisioned || !IsWifiConfigured)
         {
             return string.Empty;
