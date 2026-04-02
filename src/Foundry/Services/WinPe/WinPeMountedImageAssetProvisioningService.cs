@@ -472,11 +472,6 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
   "capabilities": {
     "wifiProvisioned": false
   },
-  "ui": {
-    "windowTitle": "Foundry.Connect",
-    "autoCloseDelaySeconds": 5,
-    "refreshIntervalSeconds": 5
-  },
   "internetProbe": {
     "probeUris": [
       "http://www.msftconnecttest.com/connecttest.txt",

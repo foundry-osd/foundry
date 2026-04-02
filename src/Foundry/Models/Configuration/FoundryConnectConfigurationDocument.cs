@@ -13,6 +13,4 @@ public sealed record FoundryConnectConfigurationDocument
     public WifiSettings Wifi { get; init; } = new();
 
     public ConnectInternetProbeSettings InternetProbe { get; init; } = new();
-
-    public ConnectBootstrapUiSettings Ui { get; init; } = new();
 }

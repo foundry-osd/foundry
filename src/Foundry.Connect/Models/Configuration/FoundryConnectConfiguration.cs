@@ -13,6 +13,4 @@ public sealed class FoundryConnectConfiguration
     public WifiSettings Wifi { get; init; } = new();
 
     public InternetProbeOptions InternetProbe { get; init; } = new();
-
-    public BootstrapUiOptions Ui { get; init; } = new();
 }

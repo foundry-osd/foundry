@@ -147,7 +147,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         ConfigurationSourceText = _configurationService.IsLoadedFromDisk && !string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath)
             ? $"Configuration: {_configurationService.ConfigurationPath}"
             : "Configuration: built-in defaults";
-        RefreshIntervalText = $"Refresh: every {_configuration.Ui.RefreshIntervalSeconds} seconds";
+        RefreshIntervalText = $"Refresh: every {FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds} seconds";
     }
 
     public ObservableCollection<WifiNetworkItemViewModel> WifiNetworks { get; } = [];
@@ -160,7 +160,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public string RefreshIntervalText { get; }
 
-    public string WindowTitle => _configuration.Ui.WindowTitle;
+    public string WindowTitle => FoundryConnectApplicationInfo.WindowTitle;
 
     public string CountdownText => $"Continuing bootstrap in {CountdownSecondsRemaining}s";
 
@@ -260,7 +260,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private async Task MonitorAsync(CancellationToken cancellationToken)
     {
-        using PeriodicTimer timer = new(TimeSpan.FromSeconds(_configuration.Ui.RefreshIntervalSeconds));
+        using PeriodicTimer timer = new(TimeSpan.FromSeconds(FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds));
 
         try
         {
@@ -387,7 +387,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         CancelCountdown();
 
-        CountdownSecondsRemaining = _configuration.Ui.AutoCloseDelaySeconds;
+        CountdownSecondsRemaining = FoundryConnectApplicationInfo.DefaultAutoCloseDelaySeconds;
         IsCountdownActive = true;
         OnPropertyChanged(nameof(CountdownText));
 
@@ -558,7 +558,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return true;
         }
 
-        int retryDelaySeconds = Math.Max(_configuration.Ui.RefreshIntervalSeconds * 2, 10);
+        int retryDelaySeconds = Math.Max(FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds * 2, 10);
         return DateTimeOffset.UtcNow - _lastConfiguredWifiConnectAttemptAt.Value >= TimeSpan.FromSeconds(retryDelaySeconds);
     }
 

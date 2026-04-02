@@ -101,7 +101,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     {
         NetworkCapabilitiesOptions capabilities = configuration.Capabilities ?? new NetworkCapabilitiesOptions();
         InternetProbeOptions probe = configuration.InternetProbe ?? new InternetProbeOptions();
-        BootstrapUiOptions ui = configuration.Ui ?? new BootstrapUiOptions();
 
         string[] probeUris = probe.ProbeUris
             .Where(static value => !string.IsNullOrWhiteSpace(value))
@@ -134,12 +133,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 ProbeUris = probeUris,
                 TimeoutSeconds = Math.Clamp(probe.TimeoutSeconds, 1, 30)
-            },
-            Ui = new BootstrapUiOptions
-            {
-                WindowTitle = string.IsNullOrWhiteSpace(ui.WindowTitle) ? "Foundry.Connect" : ui.WindowTitle.Trim(),
-                AutoCloseDelaySeconds = Math.Clamp(ui.AutoCloseDelaySeconds, 1, 30),
-                RefreshIntervalSeconds = Math.Clamp(ui.RefreshIntervalSeconds, 2, 30)
             }
         };
     }

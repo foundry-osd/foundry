@@ -8,9 +8,12 @@ public static class FoundryConnectApplicationInfo
 
     public const string AppName = "Foundry Connect";
     public const string AboutTitle = "About Foundry Connect";
+    public const string WindowTitle = "Foundry Connect";
     public const string DescriptionLine1 = "Foundry Connect validates network readiness in WinPE before the Foundry bootstrap continues.";
     public const string DescriptionLine2 = "This software is provided as-is. Confirm network access before continuing deployment.";
     public const string Footer = "Copyright (c) 2026 Foundry Contributors. Licensed under the MIT License.";
+    public const int DefaultAutoCloseDelaySeconds = 5;
+    public const int DefaultRefreshIntervalSeconds = 5;
 
     public static string Version => AppVersion;
 
