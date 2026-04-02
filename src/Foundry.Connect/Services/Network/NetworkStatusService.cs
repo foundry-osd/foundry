@@ -1,8 +1,6 @@
-using System.Diagnostics;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Text.RegularExpressions;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
@@ -10,15 +8,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
 
-public sealed partial class NetworkStatusService : INetworkStatusService
+public sealed class NetworkStatusService : INetworkStatusService
 {
     private static readonly HttpClient HttpClient = new(new HttpClientHandler
     {
         AllowAutoRedirect = true
     });
+    private static readonly TimeSpan WifiDiscoveryGracePeriod = TimeSpan.FromSeconds(15);
 
     private readonly FoundryConnectConfiguration _configuration;
     private readonly ILogger<NetworkStatusService> _logger;
+    private IReadOnlyList<WifiNetworkSummary> _lastStableWifiNetworks = Array.Empty<WifiNetworkSummary>();
+    private DateTimeOffset? _lastStableWifiNetworksAt;
 
     public NetworkStatusService(
         FoundryConnectConfiguration configuration,
@@ -132,175 +133,52 @@ public sealed partial class NetworkStatusService : INetworkStatusService
         return false;
     }
 
-    private async Task<bool> IsWifiRuntimeAvailableAsync(CancellationToken cancellationToken)
+    private Task<bool> IsWifiRuntimeAvailableAsync(CancellationToken cancellationToken)
     {
-        ProcessExecutionResult result = await ExecuteProcessAsync("netsh", "wlan show interfaces", cancellationToken).ConfigureAwait(false);
-        if (result.ExitCode != 0)
-        {
-            return false;
-        }
+        cancellationToken.ThrowIfCancellationRequested();
 
-        string output = $"{result.StandardOutput}\n{result.StandardError}";
-        return !output.Contains("wlansvc", StringComparison.OrdinalIgnoreCase) &&
-               !output.Contains("wireless autoconfig service", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private async Task<IReadOnlyList<WifiNetworkSummary>> DiscoverWifiNetworksAsync(CancellationToken cancellationToken)
-    {
-        ProcessExecutionResult result = await ExecuteProcessAsync("netsh", "wlan show networks mode=bssid", cancellationToken).ConfigureAwait(false);
-        if (result.ExitCode != 0)
-        {
-            return Array.Empty<WifiNetworkSummary>();
-        }
-
-        return ParseWifiNetworks(result.StandardOutput);
-    }
-
-    private static IReadOnlyList<WifiNetworkSummary> ParseWifiNetworks(string output)
-    {
-        if (string.IsNullOrWhiteSpace(output))
-        {
-            return Array.Empty<WifiNetworkSummary>();
-        }
-
-        Dictionary<string, WifiNetworkSummary> networks = new(StringComparer.OrdinalIgnoreCase);
-        string? currentSsid = null;
-        string authentication = "Unknown";
-        string encryption = "Unknown";
-        int signal = 0;
-
-        foreach (string rawLine in output.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
-        {
-            string line = rawLine.Trim();
-            Match ssidMatch = SsidRegex().Match(line);
-            if (ssidMatch.Success)
-            {
-                CommitNetwork(networks, currentSsid, signal, authentication, encryption);
-                currentSsid = NormalizeSsid(ssidMatch.Groups["ssid"].Value);
-                authentication = "Unknown";
-                encryption = "Unknown";
-                signal = 0;
-                continue;
-            }
-
-            if (currentSsid is null)
-            {
-                continue;
-            }
-
-            if (TryReadValue(line, "authentication", out string authValue))
-            {
-                authentication = authValue;
-                continue;
-            }
-
-            if (TryReadValue(line, "encryption", out string encryptionValue))
-            {
-                encryption = encryptionValue;
-                continue;
-            }
-
-            Match signalMatch = SignalRegex().Match(line);
-            if (signalMatch.Success &&
-                int.TryParse(signalMatch.Groups["value"].Value, out int parsedSignal))
-            {
-                signal = Math.Max(signal, parsedSignal);
-            }
-        }
-
-        CommitNetwork(networks, currentSsid, signal, authentication, encryption);
-
-        return networks.Values
-            .OrderByDescending(static network => network.SignalStrengthPercent)
-            .ThenBy(static network => network.Ssid, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-    }
-
-    private static void CommitNetwork(
-        IDictionary<string, WifiNetworkSummary> networks,
-        string? ssid,
-        int signal,
-        string authentication,
-        string encryption)
-    {
-        if (string.IsNullOrWhiteSpace(ssid))
-        {
-            return;
-        }
-
-        if (networks.TryGetValue(ssid, out WifiNetworkSummary? existing) &&
-            existing.SignalStrengthPercent >= signal)
-        {
-            return;
-        }
-
-        networks[ssid] = new WifiNetworkSummary
-        {
-            Ssid = ssid,
-            SignalStrengthPercent = Math.Clamp(signal, 0, 100),
-            Authentication = authentication,
-            Encryption = encryption
-        };
-    }
-
-    private static string NormalizeSsid(string value)
-    {
-        string normalized = value.Trim();
-        return string.IsNullOrWhiteSpace(normalized) ? "Hidden network" : normalized;
-    }
-
-    private static bool TryReadValue(string line, string key, out string value)
-    {
-        int separatorIndex = line.IndexOf(':');
-        if (separatorIndex <= 0)
-        {
-            value = string.Empty;
-            return false;
-        }
-
-        string left = line[..separatorIndex].Trim();
-        if (!left.Contains(key, StringComparison.OrdinalIgnoreCase))
-        {
-            value = string.Empty;
-            return false;
-        }
-
-        value = line[(separatorIndex + 1)..].Trim();
-        return !string.IsNullOrWhiteSpace(value);
-    }
-
-    private async Task<ProcessExecutionResult> ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken)
-    {
         try
         {
-            using Process process = new()
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = fileName,
-                    Arguments = arguments,
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                }
-            };
-
-            process.Start();
-            Task<string> outputTask = process.StandardOutput.ReadToEndAsync(cancellationToken);
-            Task<string> errorTask = process.StandardError.ReadToEndAsync(cancellationToken);
-
-            await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
-
-            return new ProcessExecutionResult(
-                process.ExitCode,
-                await outputTask.ConfigureAwait(false),
-                await errorTask.ConfigureAwait(false));
+            return Task.FromResult(NativeWifiApi.IsRuntimeAvailable());
         }
         catch (Exception ex)
         {
-            _logger.LogDebug(ex, "Process execution failed for {FileName} {Arguments}.", fileName, arguments);
-            return new ProcessExecutionResult(-1, string.Empty, ex.Message);
+            _logger.LogDebug(ex, "Native Wi-Fi runtime is unavailable.");
+            return Task.FromResult(false);
+        }
+    }
+
+    private Task<IReadOnlyList<WifiNetworkSummary>> DiscoverWifiNetworksAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        try
+        {
+            IReadOnlyList<WifiNetworkSummary> networks = NativeWifiApi.GetAvailableNetworks();
+            if (networks.Count > 0)
+            {
+                _lastStableWifiNetworks = networks;
+                _lastStableWifiNetworksAt = DateTimeOffset.UtcNow;
+                return Task.FromResult(networks);
+            }
+
+            if (_lastStableWifiNetworks.Count > 0 &&
+                _lastStableWifiNetworksAt is DateTimeOffset lastStableWifiNetworksAt &&
+                DateTimeOffset.UtcNow - lastStableWifiNetworksAt <= WifiDiscoveryGracePeriod)
+            {
+                _logger.LogDebug(
+                    "Native Wi-Fi discovery returned no networks. Reusing {WifiNetworkCount} cached network(s) from {DiscoveredAt}.",
+                    _lastStableWifiNetworks.Count,
+                    lastStableWifiNetworksAt);
+                return Task.FromResult(_lastStableWifiNetworks);
+            }
+
+            return Task.FromResult<IReadOnlyList<WifiNetworkSummary>>(Array.Empty<WifiNetworkSummary>());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogDebug(ex, "Native Wi-Fi network discovery failed.");
+            return Task.FromResult<IReadOnlyList<WifiNetworkSummary>>(Array.Empty<WifiNetworkSummary>());
         }
     }
 
@@ -381,12 +259,4 @@ public sealed partial class NetworkStatusService : INetworkStatusService
 
         return "Waiting for an active network path.";
     }
-
-    [GeneratedRegex(@"^SSID\s+\d+\s*:\s*(?<ssid>.*)$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex SsidRegex();
-
-    [GeneratedRegex(@"(?<value>\d{1,3})\s*%", RegexOptions.CultureInvariant)]
-    private static partial Regex SignalRegex();
-
-    private readonly record struct ProcessExecutionResult(int ExitCode, string StandardOutput, string StandardError);
 }
