@@ -16,6 +16,7 @@ body:
       options:
         - "project: foundry"
         - "project: foundry-deploy"
+        - "project: foundry-connect"
         - ui
         - ci
         - config

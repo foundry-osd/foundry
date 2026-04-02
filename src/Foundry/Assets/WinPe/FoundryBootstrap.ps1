@@ -541,6 +541,49 @@ function Save-WebFile {
     }
 }
 
+function Start-WinPeWirelessServiceIfSupported {
+    [CmdletBinding()]
+    param ()
+
+    if (-not [string]::Equals($env:SystemDrive, 'X:', [System.StringComparison]::OrdinalIgnoreCase)) {
+        Write-Log 'Skipping WlanSvc startup because the bootstrap is not running from the WinPE system drive.' -Level Debug
+        return
+    }
+
+    $system32Path = Join-Path $env:SystemRoot 'System32'
+    $requiredDependencyPaths = @(
+        (Join-Path $system32Path 'dmcmnutils.dll'),
+        (Join-Path $system32Path 'mdmregistration.dll')
+    )
+    $missingDependencyPaths = @($requiredDependencyPaths | Where-Object { -not (Test-Path -Path $_ -PathType Leaf) })
+    if ($missingDependencyPaths.Count -gt 0) {
+        Write-Log 'Skipping WlanSvc startup because WinRE wireless dependencies are not present in the boot image.' -Level Debug
+        return
+    }
+
+    try {
+        $service = Get-Service -Name 'WlanSvc' -ErrorAction Stop
+    }
+    catch {
+        Write-Log "WlanSvc is unavailable even though WinRE wireless dependencies are present: $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Wi-Fi service unavailable. Continuing.'
+        return
+    }
+
+    if ([string]::Equals([string]$service.Status, 'Running', [System.StringComparison]::OrdinalIgnoreCase)) {
+        Write-Log 'WlanSvc is already running.' -ConsoleMessage 'Wi-Fi service: already running.'
+        return
+    }
+
+    try {
+        Start-Service -Name 'WlanSvc' -ErrorAction Stop
+        $service.Refresh()
+        Write-Log "WlanSvc started successfully. CurrentStatus='$($service.Status)'." -ConsoleMessage 'Wi-Fi service: started.'
+    }
+    catch {
+        Write-Log "Failed to start WlanSvc: $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Wi-Fi service start failed. Continuing.'
+    }
+}
+
 function Sync-WinPeInternetDateTime {
     [CmdletBinding()]
     param(

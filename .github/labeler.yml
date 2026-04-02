@@ -13,6 +13,12 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Deploy/**'
 
+# Foundry WinPE network bootstrap application
+'project: foundry-connect':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Foundry.Connect/**'
+
 # UI assets and views
 ui:
   - changed-files:
@@ -23,6 +29,9 @@ ui:
           - 'src/Foundry/Assets/**'
           - 'src/Foundry.Deploy/ViewModels/**'
           - 'src/Foundry.Deploy/Converters/**'
+          - 'src/Foundry.Connect/ViewModels/**'
+          - 'src/Foundry.Connect/Converters/**'
+          - 'src/Foundry.Connect/Assets/**'
 
 # Tests
 tests:
