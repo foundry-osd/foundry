@@ -22,17 +22,29 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
         string workingDirectoryPath,
         CancellationToken cancellationToken)
     {
-        if (!IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployEnableEnvironmentVariable)))
+        bool useLocalOverride = IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployEnableEnvironmentVariable));
+        _logger.LogInformation(
+            "Provisioning Foundry.Deploy archive into mounted WinPE image. Architecture={Architecture}, UseLocalOverride={UseLocalOverride}",
+            architecture,
+            useLocalOverride);
+
+        if (!useLocalOverride)
         {
-            _logger.LogDebug("Skipping local Foundry.Deploy embedding because the feature flag is disabled.");
+            string skippedDestinationPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedDeployArchivePathInImage);
+            TryDeleteFile(skippedDestinationPath);
+            _logger.LogInformation(
+                "Skipping embedded Foundry.Deploy archive provisioning because local override is disabled. DestinationPath={DestinationPath}",
+                skippedDestinationPath);
             return WinPeResult.Success();
         }
 
-        _logger.LogInformation("Provisioning local Foundry.Deploy archive into mounted WinPE image. Architecture={Architecture}", architecture);
-        WinPeResult<string> archiveResult = await ResolveLocalDeployArchivePathAsync(architecture, workingDirectoryPath, cancellationToken).ConfigureAwait(false);
+        WinPeResult<string> archiveResult = await ResolveLocalDeployArchivePathAsync(
+            architecture,
+            workingDirectoryPath,
+            cancellationToken).ConfigureAwait(false);
         if (!archiveResult.IsSuccess)
         {
-            _logger.LogWarning("Failed to resolve local Foundry.Deploy archive path. Code={ErrorCode}, Message={ErrorMessage}",
+            _logger.LogWarning("Failed to resolve Foundry.Deploy archive path. Code={ErrorCode}, Message={ErrorMessage}",
                 archiveResult.Error?.Code,
                 archiveResult.Error?.Message);
             return WinPeResult.Failure(archiveResult.Error!);
@@ -275,6 +287,21 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
             if (Directory.Exists(path))
             {
                 Directory.Delete(path, true);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup.
+        }
+    }
+
+    private static void TryDeleteFile(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
             }
         }
         catch

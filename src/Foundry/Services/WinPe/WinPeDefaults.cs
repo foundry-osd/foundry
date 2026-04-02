@@ -15,13 +15,21 @@ internal static class WinPeDefaults
     public const string DefaultBootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
     public const string DefaultBootstrapScriptResourceName = "Foundry.WinPe.BootstrapScript";
     public const string DefaultTimeZoneMapResourceName = "Foundry.Configuration.IanaWindowsTimeZones";
+    public const string EmbeddedConnectArchivePathInImage = @"Foundry\Seed\Foundry.Connect.zip";
     public const string EmbeddedDeployArchivePathInImage = @"Foundry\Seed\Foundry.Deploy.zip";
+    public const string EmbeddedConnectConfigPathInImage = @"Foundry\Config\foundry.connect.config.json";
     public const string EmbeddedDeployConfigPathInImage = @"Foundry\Config\foundry.deploy.config.json";
+    public const string EmbeddedConnectProvisioningSourcePathInImage = @"Foundry\Config\foundry.connect.provisioning-source.txt";
+    public const string EmbeddedDeployProvisioningSourcePathInImage = @"Foundry\Config\foundry.deploy.provisioning-source.txt";
+    public const string EmbeddedNetworkAssetsPathInImage = @"Foundry\Config\Network";
     public const string EmbeddedTimeZoneMapPathInImage = @"Foundry\Config\iana-windows-timezones.json";
     public const string EmbeddedAutopilotProfilesPathInImage = @"Foundry\Config\Autopilot";
     public const string EmbeddedSevenZipToolsPathInImage = @"Foundry\Tools\7zip";
     public const string BundledSevenZipRelativePath = @"Assets\7z";
+    public const string LocalConnectEnableEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_CONNECT";
     public const string LocalDeployEnableEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_DEPLOY";
+    public const string LocalConnectArchiveEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_CONNECT_ARCHIVE";
+    public const string LocalConnectProjectEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_CONNECT_PROJECT";
     public const string LocalDeployArchiveEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_DEPLOY_ARCHIVE";
     public const string LocalDeployProjectEnvironmentVariable = "FOUNDRY_WINPE_LOCAL_DEPLOY_PROJECT";
 

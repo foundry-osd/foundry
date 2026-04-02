@@ -520,10 +520,10 @@
     <value>Customization</value>
   </data>
   <data name="Dot1xEnableLabel" xml:space="preserve">
-    <value>Enable 802.1X in WinPE</value>
+      <value>Configure wired 802.1X</value>
   </data>
   <data name="Dot1xCertificateLabel" xml:space="preserve">
-    <value>Certificate file</value>
+      <value>Trusted root CA certificate file</value>
   </data>
   <data name="Dot1xCertificatePickerTitle" xml:space="preserve">
     <value>Select 802.1X certificate</value>
@@ -535,13 +535,70 @@
     <value>Browse file...</value>
   </data>
   <data name="WifiEnableLabel" xml:space="preserve">
-    <value>Enable Wi-Fi support (WinRE)</value>
+      <value>Provision Wi-Fi support in the boot image</value>
+  </data>
+  <data name="WifiConfigureLabel" xml:space="preserve">
+    <value>Pre-provision a Wi-Fi profile</value>
   </data>
   <data name="WifiSsidLabel" xml:space="preserve">
-    <value>SSID</value>
+      <value>SSID</value>
   </data>
   <data name="WifiSecurityTypeLabel" xml:space="preserve">
-    <value>Security type</value>
+      <value>Security type</value>
+  </data>
+  <data name="WifiPassphraseLabel" xml:space="preserve">
+    <value>Passphrase</value>
+  </data>
+  <data name="WifiSecurityTypeOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="WifiSecurityTypePersonal" xml:space="preserve">
+    <value>WPA2 Personal</value>
+  </data>
+  <data name="WifiSecurityTypeEnterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="NetworkEthernetSectionTitle" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="NetworkEthernetHelperText" xml:space="preserve">
+    <value>Standard Ethernet connectivity is available by default. Configure this section only if your wired network requires 802.1X enterprise authentication.</value>
+  </data>
+  <data name="NetworkWifiSectionTitle" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="NetworkWifiHelperText" xml:space="preserve">
+    <value>Enable this only if the boot image should include Wi-Fi support and Wi-Fi profiles for WinPE startup.</value>
+  </data>
+  <data name="NetworkWifiPersonalHelperText" xml:space="preserve">
+    <value>When Wi-Fi support is provisioned, Foundry.Connect can list nearby networks and guide connection to open or personal Wi-Fi networks at runtime.</value>
+  </data>
+  <data name="NetworkEnterpriseTemplateDrivenHelperText" xml:space="preserve">
+    <value>Enterprise behavior is driven by the profile template in this build. Runtime-entered 802.1X credentials are not provisioned here.</value>
+  </data>
+  <data name="NetworkWifiEnterpriseAdvancedHeader" xml:space="preserve">
+    <value>Advanced enterprise Wi-Fi</value>
+  </data>
+  <data name="NetworkWifiEnterpriseTemplateLabel" xml:space="preserve">
+    <value>Provision an enterprise Wi-Fi profile template</value>
+  </data>
+  <data name="NetworkProfileTemplateLabel" xml:space="preserve">
+    <value>Profile template file</value>
+  </data>
+  <data name="NetworkProfileTemplatePickerTitle" xml:space="preserve">
+    <value>Select a network profile template</value>
+  </data>
+  <data name="NetworkProfileTemplatePickerFilter" xml:space="preserve">
+    <value>XML files (*.xml)|*.xml|All files (*.*)|*.*</value>
+  </data>
+  <data name="NetworkRequiresCertificateLabel" xml:space="preserve">
+    <value>Import a trusted root CA certificate</value>
+  </data>
+  <data name="WifiCertificateLabel" xml:space="preserve">
+    <value>Trusted root CA certificate file</value>
+  </data>
+  <data name="WifiCertificatePickerTitle" xml:space="preserve">
+    <value>Select the Wi-Fi certificate</value>
   </data>
   <data name="LocalizationVisibleLanguagesLabel" xml:space="preserve">
     <value>Visible languages in Foundry.Deploy</value>

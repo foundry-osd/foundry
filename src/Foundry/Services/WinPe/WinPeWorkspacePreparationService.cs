@@ -68,6 +68,8 @@ internal sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparat
                 BootImageSource = request.BootImageSource,
                 WinPeLanguage = request.WinPeLanguage,
                 Progress = request.CustomizationProgress,
+                FoundryConnectConfigurationJson = request.FoundryConnectConfigurationJson,
+                FoundryConnectAssetFiles = request.FoundryConnectAssetFiles,
                 ExpertDeployConfigurationJson = request.ExpertDeployConfigurationJson,
                 AutopilotProfiles = request.AutopilotProfiles
             },

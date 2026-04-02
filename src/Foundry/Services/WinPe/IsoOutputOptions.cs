@@ -20,6 +20,8 @@ public sealed record IsoOutputOptions
 
     public bool ForceOverwriteOutput { get; init; } = true;
     public bool PreserveBuildWorkspace { get; init; }
+    public string? FoundryConnectConfigurationJson { get; init; }
+    public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = Array.Empty<FoundryConnectProvisionedAssetFile>();
     public string? ExpertDeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
 }

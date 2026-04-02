@@ -2,7 +2,7 @@ namespace Foundry.Models.Configuration;
 
 public sealed record FoundryExpertConfigurationDocument
 {
-    public const int CurrentSchemaVersion = 2;
+    public const int CurrentSchemaVersion = 4;
 
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
     public GeneralSettings General { get; init; } = new();

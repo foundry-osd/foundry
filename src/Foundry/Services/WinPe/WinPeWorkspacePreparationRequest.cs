@@ -20,6 +20,8 @@ internal sealed record WinPeWorkspacePreparationRequest
     public required string WinPeLanguage { get; init; }
     public IProgress<WinPeMountedImageCustomizationProgress>? CustomizationProgress { get; init; }
 
+    public string? FoundryConnectConfigurationJson { get; init; }
+    public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = Array.Empty<FoundryConnectProvisionedAssetFile>();
     public string? ExpertDeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
 }

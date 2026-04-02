@@ -22,6 +22,7 @@ public static class Program
 
         try
         {
+            ConfigureLocalWinPeConnectForDebugSession();
             ConfigureLocalWinPeDeployForDebugSession();
 
             using IHost host = BuildHost(args);
@@ -83,6 +84,33 @@ public static class Program
 #endif
     }
 
+    private static void ConfigureLocalWinPeConnectForDebugSession()
+    {
+#if DEBUG
+        if (!Debugger.IsAttached)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(WinPeDefaults.LocalConnectEnableEnvironmentVariable)))
+        {
+            Environment.SetEnvironmentVariable(WinPeDefaults.LocalConnectEnableEnvironmentVariable, "1");
+        }
+
+        if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(WinPeDefaults.LocalConnectProjectEnvironmentVariable)))
+        {
+            return;
+        }
+
+        if (!TryFindProjectPath("Foundry.Connect", out string projectPath))
+        {
+            return;
+        }
+
+        Environment.SetEnvironmentVariable(WinPeDefaults.LocalConnectProjectEnvironmentVariable, projectPath);
+#endif
+    }
+
     private static void RegisterGlobalExceptionHandlers()
     {
         AppDomain.CurrentDomain.UnhandledException += (_, args) =>
@@ -112,10 +140,15 @@ public static class Program
 
     private static bool TryFindFoundryDeployProjectPath(out string projectPath)
     {
+        return TryFindProjectPath("Foundry.Deploy", out projectPath);
+    }
+
+    private static bool TryFindProjectPath(string projectDirectoryName, out string projectPath)
+    {
         var current = new DirectoryInfo(AppContext.BaseDirectory);
         while (current is not null)
         {
-            string candidate = Path.Combine(current.FullName, "src", "Foundry.Deploy", "Foundry.Deploy.csproj");
+            string candidate = Path.Combine(current.FullName, "src", projectDirectoryName, $"{projectDirectoryName}.csproj");
             if (File.Exists(candidate))
             {
                 projectPath = candidate;

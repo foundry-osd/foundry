@@ -33,6 +33,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IAdkService _adkService;
     private readonly IMediaOutputService _mediaOutputService;
     private readonly IExpertConfigurationService _expertConfigurationService;
+    private readonly IFoundryConnectProvisioningService _foundryConnectProvisioningService;
     private readonly IDeployConfigurationGenerator _deployConfigurationGenerator;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
@@ -140,6 +141,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IAdkService adkService,
         IMediaOutputService mediaOutputService,
         IExpertConfigurationService expertConfigurationService,
+        IFoundryConnectProvisioningService foundryConnectProvisioningService,
         IDeployConfigurationGenerator deployConfigurationGenerator,
         ILanguageRegistryService languageRegistryService,
         AutopilotSettingsViewModel autopilotSettingsViewModel,
@@ -152,6 +154,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _adkService = adkService;
         _mediaOutputService = mediaOutputService;
         _expertConfigurationService = expertConfigurationService;
+        _foundryConnectProvisioningService = foundryConnectProvisioningService;
         _deployConfigurationGenerator = deployConfigurationGenerator;
         _logger = logger;
         _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
@@ -166,6 +169,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _adkService.AdkStatusChanged += OnAdkStatusChanged;
         _adkService.OperationProgressChanged += OnAdkOperationProgressChanged;
         UsbDiskCandidates.CollectionChanged += OnUsbDiskCandidatesCollectionChanged;
+        Network.PropertyChanged += OnNetworkPropertyChanged;
 
         RefreshExpertSections();
         SelectedExpertSection = ExpertSections.FirstOrDefault();
@@ -182,6 +186,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _adkService.AdkStatusChanged -= OnAdkStatusChanged;
         _adkService.OperationProgressChanged -= OnAdkOperationProgressChanged;
         UsbDiskCandidates.CollectionChanged -= OnUsbDiskCandidatesCollectionChanged;
+        Network.PropertyChanged -= OnNetworkPropertyChanged;
         Network.Dispose();
         Localization.Dispose();
         Autopilot.Dispose();
@@ -392,7 +397,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             Strings["CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
-            Network.CertificatePath = selectedPath;
+            Network.Dot1xCertificatePath = selectedPath;
         }
     }
 
@@ -476,9 +481,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             MediaActionMessage = Strings["OperationInProgress"];
             Directory.CreateDirectory(StagingDirectoryPath);
-            FoundryExpertConfigurationDocument? expertConfiguration = IsExpertMode
-                ? BuildExpertConfigurationDocument()
-                : null;
+            FoundryExpertConfigurationDocument expertConfiguration = BuildExpertConfigurationDocument();
+            FoundryConnectProvisioningBundle foundryConnectBundle = _foundryConnectProvisioningService.Prepare(
+                expertConfiguration,
+                StagingDirectoryPath);
 
             WinPeResult result = await _mediaOutputService.CreateIsoAsync(new IsoOutputOptions
             {
@@ -491,10 +497,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
-                ExpertDeployConfigurationJson = expertConfiguration is null
+                FoundryConnectConfigurationJson = foundryConnectBundle.ConfigurationJson,
+                FoundryConnectAssetFiles = foundryConnectBundle.AssetFiles,
+                ExpertDeployConfigurationJson = !IsExpertMode
                     ? null
                     : _deployConfigurationGenerator.Serialize(_deployConfigurationGenerator.Generate(expertConfiguration)),
-                AutopilotProfiles = expertConfiguration?.Autopilot.Profiles ?? []
+                AutopilotProfiles = IsExpertMode ? expertConfiguration.Autopilot.Profiles : []
             });
 
             MediaActionMessage = result.IsSuccess
@@ -544,9 +552,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             MediaActionMessage = Strings["OperationInProgress"];
             Directory.CreateDirectory(StagingDirectoryPath);
-            FoundryExpertConfigurationDocument? expertConfiguration = IsExpertMode
-                ? BuildExpertConfigurationDocument()
-                : null;
+            FoundryExpertConfigurationDocument expertConfiguration = BuildExpertConfigurationDocument();
+            FoundryConnectProvisioningBundle foundryConnectBundle = _foundryConnectProvisioningService.Prepare(
+                expertConfiguration,
+                StagingDirectoryPath);
 
             WinPeResult result = await _mediaOutputService.CreateUsbAsync(new UsbOutputOptions
             {
@@ -563,10 +572,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 WinPeLanguage = SelectedWinPeLanguage?.Code ?? string.Empty,
                 DriverVendors = GetSelectedDriverVendors(),
                 CustomDriverDirectoryPath = NormalizeCustomDriverDirectoryPath(),
-                ExpertDeployConfigurationJson = expertConfiguration is null
+                FoundryConnectConfigurationJson = foundryConnectBundle.ConfigurationJson,
+                FoundryConnectAssetFiles = foundryConnectBundle.AssetFiles,
+                ExpertDeployConfigurationJson = !IsExpertMode
                     ? null
                     : _deployConfigurationGenerator.Serialize(_deployConfigurationGenerator.Generate(expertConfiguration)),
-                AutopilotProfiles = expertConfiguration?.Autopilot.Profiles ?? []
+                AutopilotProfiles = IsExpertMode ? expertConfiguration.Autopilot.Profiles : []
             });
 
             MediaActionMessage = result.IsSuccess
@@ -688,7 +699,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private WinPeBootImageSource ResolveBootImageSource()
     {
-        return IsExpertMode && Network.IsWifiEnabled
+        return Network.IsWifiProvisioned
             ? WinPeBootImageSource.WinReWifi
             : WinPeBootImageSource.WinPe;
     }
@@ -972,6 +983,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         });
     }
 
+    private void OnNetworkPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (string.Equals(e.PropertyName, nameof(NetworkSettingsViewModel.ValidationMessage), StringComparison.Ordinal) ||
+            string.Equals(e.PropertyName, nameof(NetworkSettingsViewModel.HasValidationError), StringComparison.Ordinal))
+        {
+            RunOnUiThread(UpdateOperationState);
+        }
+    }
+
     private void UpdateAdkStatus()
     {
         IsAdkMissing = !_adkService.IsAdkInstalled;
@@ -985,11 +1005,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IsOperationInProgress = _operationProgressService.IsOperationInProgress;
 
         bool canCreate = _adkService.IsAdkCompatible && !IsOperationInProgress;
+        bool networkSettingsValid = !Network.HasValidationError;
         CanCreateIso = canCreate &&
+            networkSettingsValid &&
             SelectedWinPeLanguage is not null &&
             !string.IsNullOrWhiteSpace(IsoOutputPath) &&
             IsoOutputPath.EndsWith(".iso", StringComparison.OrdinalIgnoreCase);
         CanCreateUsb = canCreate &&
+            networkSettingsValid &&
             SelectedWinPeLanguage is not null &&
             SelectedUsbDiskCandidate is not null;
 
