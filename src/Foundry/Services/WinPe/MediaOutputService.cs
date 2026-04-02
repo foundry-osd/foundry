@@ -1,4 +1,5 @@
 using Foundry.Services.Operations;
+using Foundry.Models.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
@@ -134,6 +135,8 @@ internal sealed class MediaOutputService : IMediaOutputService
                 options.DriverVendors,
                 options.CustomDriverDirectoryPath,
                 options.WinPeLanguage,
+                options.FoundryConnectConfigurationJson,
+                options.FoundryConnectAssetFiles,
                 options.ExpertDeployConfigurationJson,
                 options.AutopilotProfiles,
                 stage => stage switch
@@ -234,6 +237,8 @@ internal sealed class MediaOutputService : IMediaOutputService
                 options.DriverVendors,
                 options.CustomDriverDirectoryPath,
                 options.WinPeLanguage,
+                options.FoundryConnectConfigurationJson,
+                options.FoundryConnectAssetFiles,
                 options.ExpertDeployConfigurationJson,
                 options.AutopilotProfiles,
                 stage => stage switch
@@ -299,6 +304,8 @@ internal sealed class MediaOutputService : IMediaOutputService
         IReadOnlyList<WinPeVendorSelection> driverVendors,
         string? customDriverDirectoryPath,
         string winPeLanguage,
+        string? foundryConnectConfigurationJson,
+        IReadOnlyList<FoundryConnectProvisionedAssetFile> foundryConnectAssetFiles,
         string? expertDeployConfigurationJson,
         IReadOnlyList<Foundry.Models.Configuration.AutopilotProfileSettings> autopilotProfiles,
         Func<WinPeWorkspacePreparationStage, (int Progress, string Message)> progressMap,
@@ -366,6 +373,8 @@ internal sealed class MediaOutputService : IMediaOutputService
                 BootImageSource = bootImageSource,
                 WinPeLanguage = winPeLanguage,
                 CustomizationProgress = customizationProgress,
+                FoundryConnectConfigurationJson = foundryConnectConfigurationJson,
+                FoundryConnectAssetFiles = foundryConnectAssetFiles,
                 ExpertDeployConfigurationJson = expertDeployConfigurationJson,
                 AutopilotProfiles = autopilotProfiles
             },

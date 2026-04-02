@@ -1,0 +1,135 @@
+<Window
+    x:Class="Foundry.Connect.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:models="clr-namespace:Foundry.Connect.Models"
+    xmlns:views="clr-namespace:Foundry.Connect.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{Binding WindowTitle}"
+    Icon="/Assets/Icons/app.ico"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate x:Key="EthernetOnlyTemplate">
+            <views:EthernetOnlyView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="EthernetWifiTemplate">
+            <views:EthernetWifiView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="32,32,32,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}" Text="Foundry.Connect" />
+                <TextBlock
+                    Margin="0,8,0,0"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="Network bootstrap validation for WinPE before continuing the Foundry bootstrap." />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                <Menu HorizontalAlignment="Right">
+                    <MenuItem Header="_Theme">
+                        <MenuItem Command="{Binding SetSystemThemeCommand}" Header="System" />
+                        <MenuItem Command="{Binding SetLightThemeCommand}" Header="Light" />
+                        <MenuItem Command="{Binding SetDarkThemeCommand}" Header="Dark" />
+                    </MenuItem>
+                    <MenuItem Command="{Binding ShowAboutCommand}" Header="_About" />
+                    <MenuItem Command="{Binding RefreshStatusCommand}" Header="_Refresh" />
+                    <MenuItem Command="{Binding AbortCommand}" Header="_Abort" />
+                </Menu>
+                <TextBlock
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Right"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding VersionDisplay}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource SectionCardBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,0,16,0"
+                        VerticalAlignment="Center"
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="28"
+                        Text="{Binding PrimaryStatusGlyph}" />
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding PrimaryStatusTitle}" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding PrimaryStatusDescription}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <Border
+                        Grid.Column="2"
+                        Padding="12,8"
+                        Background="{DynamicResource AccentFillColorSecondaryBrush}"
+                        CornerRadius="6"
+                        Visibility="{Binding IsCountdownActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock
+                            Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding CountdownText}" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <ContentControl Grid.Row="1" Content="{Binding}">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="ContentTemplate" Value="{StaticResource EthernetOnlyTemplate}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding LayoutMode}" Value="{x:Static models:NetworkLayoutMode.EthernetWifi}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource EthernetWifiTemplate}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </Grid>
+
+        <StatusBar Grid.Row="2">
+            <StatusBarItem Content="{Binding ConfigurationSourceText}" />
+            <StatusBarItem Content="{Binding RefreshIntervalText}" />
+            <StatusBarItem HorizontalContentAlignment="Right">
+                <TextBlock Text="{Binding LastUpdatedText}" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

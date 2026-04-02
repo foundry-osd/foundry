@@ -1,10 +1,14 @@
 using System.IO.Compression;
+using System.Net.Http;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Services.WinPe;
 
 internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbeddingService
 {
+    private static readonly HttpClient HttpClient = CreateHttpClient();
+
     private readonly WinPeProcessRunner _processRunner;
     private readonly ILogger<WinPeLocalDeployEmbeddingService> _logger;
 
@@ -22,17 +26,18 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
         string workingDirectoryPath,
         CancellationToken cancellationToken)
     {
-        if (!IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployEnableEnvironmentVariable)))
-        {
-            _logger.LogDebug("Skipping local Foundry.Deploy embedding because the feature flag is disabled.");
-            return WinPeResult.Success();
-        }
+        bool useLocalOverride = IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployEnableEnvironmentVariable));
+        _logger.LogInformation(
+            "Provisioning Foundry.Deploy archive into mounted WinPE image. Architecture={Architecture}, UseLocalOverride={UseLocalOverride}",
+            architecture,
+            useLocalOverride);
 
-        _logger.LogInformation("Provisioning local Foundry.Deploy archive into mounted WinPE image. Architecture={Architecture}", architecture);
-        WinPeResult<string> archiveResult = await ResolveLocalDeployArchivePathAsync(architecture, workingDirectoryPath, cancellationToken).ConfigureAwait(false);
+        WinPeResult<string> archiveResult = useLocalOverride
+            ? await ResolveLocalDeployArchivePathAsync(architecture, workingDirectoryPath, cancellationToken).ConfigureAwait(false)
+            : await DownloadReleaseArchiveAsync(architecture, workingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!archiveResult.IsSuccess)
         {
-            _logger.LogWarning("Failed to resolve local Foundry.Deploy archive path. Code={ErrorCode}, Message={ErrorMessage}",
+            _logger.LogWarning("Failed to resolve Foundry.Deploy archive path. Code={ErrorCode}, Message={ErrorMessage}",
                 archiveResult.Error?.Code,
                 archiveResult.Error?.Message);
             return WinPeResult.Failure(archiveResult.Error!);
@@ -67,6 +72,77 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
                 "Failed to copy local Foundry.Deploy archive into mounted WinPE image.",
                 ex.ToString());
         }
+    }
+
+    private async Task<WinPeResult<string>> DownloadReleaseArchiveAsync(
+        WinPeArchitecture architecture,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken)
+    {
+        string runtimeIdentifier = architecture.ToDotnetRuntimeIdentifier();
+        string assetName = architecture switch
+        {
+            WinPeArchitecture.X64 => "Foundry.Deploy-win-x64.zip",
+            WinPeArchitecture.Arm64 => "Foundry.Deploy-win-arm64.zip",
+            _ => throw new ArgumentOutOfRangeException(nameof(architecture), architecture, "Unsupported WinPE architecture.")
+        };
+
+        string downloadRoot = Path.Combine(workingDirectoryPath, "FoundryDeployRelease");
+        Directory.CreateDirectory(downloadRoot);
+        string archivePath = Path.Combine(downloadRoot, assetName);
+
+        try
+        {
+            ReleaseAssetInfo asset = await ResolveReleaseAssetAsync(assetName, cancellationToken).ConfigureAwait(false);
+            _logger.LogInformation(
+                "Downloading Foundry.Deploy release archive. RuntimeIdentifier={RuntimeIdentifier}, AssetName={AssetName}, DownloadUrl={DownloadUrl}",
+                runtimeIdentifier,
+                asset.Name,
+                asset.DownloadUrl);
+
+            await using Stream sourceStream = await HttpClient.GetStreamAsync(asset.DownloadUrl, cancellationToken).ConfigureAwait(false);
+            await using FileStream destinationStream = new(archivePath, FileMode.Create, FileAccess.Write, FileShare.None, 81920, useAsync: true);
+            await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+
+            return WinPeResult<string>.Success(archivePath);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to download Foundry.Deploy release archive. AssetName={AssetName}", assetName);
+            return WinPeResult<string>.Failure(
+                WinPeErrorCodes.DownloadFailed,
+                "Failed to download Foundry.Deploy release archive for boot image provisioning.",
+                ex.ToString());
+        }
+    }
+
+    private async Task<ReleaseAssetInfo> ResolveReleaseAssetAsync(string assetName, CancellationToken cancellationToken)
+    {
+        using HttpRequestMessage request = new(HttpMethod.Get, "https://api.github.com/repos/mchave3/Foundry/releases/latest");
+        using HttpResponseMessage response = await HttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+
+        await using Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+        using JsonDocument document = await JsonDocument.ParseAsync(contentStream, cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        foreach (JsonElement asset in document.RootElement.GetProperty("assets").EnumerateArray())
+        {
+            string? currentName = asset.GetProperty("name").GetString();
+            if (!string.Equals(currentName, assetName, StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            string? downloadUrl = asset.GetProperty("browser_download_url").GetString();
+            if (string.IsNullOrWhiteSpace(downloadUrl))
+            {
+                break;
+            }
+
+            return new ReleaseAssetInfo(currentName!, downloadUrl);
+        }
+
+        throw new InvalidOperationException($"Release asset '{assetName}' was not found in the latest GitHub release.");
     }
 
     private async Task<WinPeResult<string>> ResolveLocalDeployArchivePathAsync(
@@ -282,4 +358,17 @@ internal sealed class WinPeLocalDeployEmbeddingService : IWinPeLocalDeployEmbedd
             // Best-effort cleanup.
         }
     }
+
+    private static HttpClient CreateHttpClient()
+    {
+        HttpClient client = new()
+        {
+            Timeout = TimeSpan.FromMinutes(10)
+        };
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("Foundry/1.0");
+        client.DefaultRequestHeaders.Accept.ParseAdd("application/vnd.github+json");
+        return client;
+    }
+
+    private sealed record ReleaseAssetInfo(string Name, string DownloadUrl);
 }

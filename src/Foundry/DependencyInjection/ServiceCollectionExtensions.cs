@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IAutopilotProfileService, AutopilotProfileService>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
+        services.AddSingleton<IFoundryConnectProvisioningService, FoundryConnectProvisioningService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<IThemeService, ThemeService>();
@@ -38,6 +39,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWinPeDriverResolutionService, WinPeDriverResolutionService>();
         services.AddSingleton<IWinPeImageInternationalizationService, WinPeImageInternationalizationService>();
         services.AddSingleton<IWinReBootImagePreparationService, WinReBootImagePreparationService>();
+        services.AddSingleton<IWinPeLocalConnectEmbeddingService, WinPeLocalConnectEmbeddingService>();
         services.AddSingleton<IWinPeLocalDeployEmbeddingService, WinPeLocalDeployEmbeddingService>();
         services.AddSingleton<IWinPeMountedImageAssetProvisioningService, WinPeMountedImageAssetProvisioningService>();
         services.AddSingleton<IWinPeMountedImageCustomizationService, WinPeMountedImageCustomizationService>();

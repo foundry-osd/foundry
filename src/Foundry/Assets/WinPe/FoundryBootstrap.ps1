@@ -6,13 +6,15 @@ $ProgressPreference = 'SilentlyContinue'
 $PSNativeCommandUseErrorActionPreference = $true
 
 $WinPeRoot = 'X:\Foundry'
-$LogPath = Join-Path $WinPeRoot 'Logs\FoundryDeploy.log'
+$LogPath = Join-Path $WinPeRoot 'Logs\FoundryBootstrap.log'
 $ConsoleLogLevel = 'Info'
 $FileLogLevel = 'Debug'
 $Owner = 'mchave3'
 $Repository = 'Foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
-$EmbeddedArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
+$EmbeddedConnectArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Connect.zip'
+$EmbeddedConnectConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.connect.config.json'
+$EmbeddedDeployArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
 $EmbeddedDeployConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.deploy.config.json'
 $SevenZipToolsPath = Join-Path $WinPeRoot 'Tools\7zip'
 $TimeZoneMapPath = Join-Path $WinPeRoot 'Config\iana-windows-timezones.json'
@@ -139,16 +141,30 @@ function Get-TargetRuntimeIdentifier {
     }
 }
 
-function Resolve-DeployAssetName {
+function Resolve-ReleaseAssetName {
     param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
         [Parameter(Mandatory = $true)]
         [string]$RuntimeIdentifier
     )
 
-    switch ($RuntimeIdentifier) {
-        'win-x64' { return 'Foundry.Deploy-win-x64.zip' }
-        'win-arm64' { return 'Foundry.Deploy-win-arm64.zip' }
-        Default { throw "Unsupported runtime '$RuntimeIdentifier'." }
+    switch ($ApplicationName) {
+        'Foundry.Connect' {
+            switch ($RuntimeIdentifier) {
+                'win-x64' { return 'Foundry.Connect-win-x64.zip' }
+                'win-arm64' { return 'Foundry.Connect-win-arm64.zip' }
+                Default { throw "Unsupported runtime '$RuntimeIdentifier'." }
+            }
+        }
+        'Foundry.Deploy' {
+            switch ($RuntimeIdentifier) {
+                'win-x64' { return 'Foundry.Deploy-win-x64.zip' }
+                'win-arm64' { return 'Foundry.Deploy-win-arm64.zip' }
+                Default { throw "Unsupported runtime '$RuntimeIdentifier'." }
+            }
+        }
     }
 }
 
@@ -191,6 +207,43 @@ function Test-HttpUrl {
         return $uri.IsAbsoluteUri -and ($uri.Scheme -eq 'http' -or $uri.Scheme -eq 'https')
     }
     catch {
+        return $false
+    }
+}
+
+function Ensure-ServiceRunning {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ServiceName,
+        [string]$FriendlyName = $ServiceName
+    )
+
+    try {
+        $service = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
+    }
+    catch {
+        $service = $null
+    }
+
+    if ($null -eq $service) {
+        Write-Log "$FriendlyName service '$ServiceName' is not available in this image." -Level Debug
+        return $false
+    }
+
+    if ($service.Status -eq [System.ServiceProcess.ServiceControllerStatus]::Running) {
+        Write-Log "$FriendlyName service '$ServiceName' is already running." -Level Debug
+        return $true
+    }
+
+    try {
+        Write-Log "Starting $FriendlyName service '$ServiceName'." -ConsoleMessage "Starting $FriendlyName service..."
+        Start-Service -Name $ServiceName -ErrorAction Stop
+        $service.WaitForStatus([System.ServiceProcess.ServiceControllerStatus]::Running, [TimeSpan]::FromSeconds(10))
+        Write-Log "$FriendlyName service '$ServiceName' is running." -ConsoleMessage "$FriendlyName service started."
+        return $true
+    }
+    catch {
+        Write-Log "Failed to start $FriendlyName service '$ServiceName': $($_.Exception.Message)." -Level Warning -ConsoleMessage "Could not start $FriendlyName service."
         return $false
     }
 }
@@ -253,26 +306,42 @@ function Remove-FileIfPresent {
     }
 }
 
+function Get-ApplicationBootstrapRoot {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BootstrapRoot,
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
+    )
+
+    switch ($ApplicationName) {
+        'Foundry.Connect' { return Join-Path $BootstrapRoot 'Foundry.Connect' }
+        'Foundry.Deploy' { return $BootstrapRoot }
+    }
+}
+
 function Get-RuntimeCacheRoot {
     param(
         [Parameter(Mandatory = $true)]
         [string]$BootstrapRoot,
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
+        [Parameter(Mandatory = $true)]
         [string]$RuntimeIdentifier
     )
 
-    return Join-Path $BootstrapRoot $RuntimeIdentifier
+    return Join-Path (Get-ApplicationBootstrapRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName) $RuntimeIdentifier
 }
 
 function Get-StagingRoot {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$BootstrapRoot,
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeIdentifier
+        [string]$RuntimeCacheRoot
     )
 
-    return Join-Path $BootstrapRoot "$RuntimeIdentifier.staging"
+    return "$RuntimeCacheRoot.staging"
 }
 
 function Get-TemporaryArchivePath {
@@ -280,10 +349,13 @@ function Get-TemporaryArchivePath {
         [Parameter(Mandatory = $true)]
         [string]$BootstrapRoot,
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
+        [Parameter(Mandatory = $true)]
         [string]$AssetName
     )
 
-    return Join-Path $BootstrapRoot "$AssetName.download"
+    return Join-Path (Get-ApplicationBootstrapRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName) "$AssetName.download"
 }
 
 function Get-ManifestPath {
@@ -295,13 +367,19 @@ function Get-ManifestPath {
     return Join-Path $RootPath 'manifest'
 }
 
-function Get-DeployExecutablePath {
+function Get-ExecutablePath {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$RootPath
+        [string]$RootPath,
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
     )
 
-    return Join-Path $RootPath 'Foundry.Deploy.exe'
+    switch ($ApplicationName) {
+        'Foundry.Connect' { return Join-Path $RootPath 'Foundry.Connect.exe' }
+        'Foundry.Deploy' { return Join-Path $RootPath 'Foundry.Deploy.exe' }
+    }
 }
 #endregion
 
@@ -413,7 +491,7 @@ function Save-WebFile {
         }
 
         Write-Log "Downloading '$SourceUrl' to '$DestinationFullName' with curl.exe." -Level Debug
-        & curl.exe --fail --insecure --location --progress-bar --show-error --output $DestinationFullName --url $SourceUrl
+        & curl.exe --fail --location --progress-bar --show-error --output $DestinationFullName --url $SourceUrl
         if ($LASTEXITCODE -ne 0) {
             throw "curl.exe failed with exit code $LASTEXITCODE."
         }
@@ -438,7 +516,7 @@ function Save-WebFile {
             Start-Sleep -Seconds $RetryDelaySeconds
             $RetryDelaySeconds *= 2
             $RetryCount += 1
-            & curl.exe --fail --insecure --location --progress-bar --show-error --continue-at - --output $DestinationFullName --url $SourceUrl
+            & curl.exe --fail --location --progress-bar --show-error --continue-at - --output $DestinationFullName --url $SourceUrl
             if ($LASTEXITCODE -ne 0) {
                 throw "curl.exe resume failed with exit code $LASTEXITCODE."
             }
@@ -843,6 +921,18 @@ function Copy-LocalArchive {
     Copy-Item -Path $SourcePath -Destination $DestinationPath -Force
 }
 
+function Copy-LocalArchiveToTemporaryPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$SourcePath,
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationPath
+    )
+
+    Copy-LocalArchive -SourcePath $SourcePath -DestinationPath $DestinationPath
+    return $DestinationPath
+}
+
 function Get-FileSha256 {
     param(
         [Parameter(Mandatory = $true)]
@@ -1045,12 +1135,15 @@ function Get-ReleaseAsset {
         [Parameter(Mandatory = $true)]
         $Release,
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
+        [Parameter(Mandatory = $true)]
         [string]$AssetName
     )
 
     $asset = $Release.assets | Where-Object { $_.name -eq $AssetName } | Select-Object -First 1
     if ($null -eq $asset) {
-        throw "No deploy asset named '$AssetName' was found in release '$($Release.tag_name)'."
+        throw "No $ApplicationName asset named '$AssetName' was found in release '$($Release.tag_name)'."
     }
 
     return $asset
@@ -1059,12 +1152,15 @@ function Get-ReleaseAsset {
 function Resolve-CachedExecutable {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$RuntimeCacheRoot
+        [string]$RuntimeCacheRoot,
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
     )
 
-    $executablePath = Get-DeployExecutablePath -RootPath $RuntimeCacheRoot
+    $executablePath = Get-ExecutablePath -RootPath $RuntimeCacheRoot -ApplicationName $ApplicationName
     if (-not (Test-Path -Path $executablePath -PathType Leaf)) {
-        throw "No cached Foundry.Deploy executable is available in '$RuntimeCacheRoot'."
+        throw "No cached $ApplicationName executable is available in '$RuntimeCacheRoot'."
     }
 
     return Get-Item -Path $executablePath
@@ -1075,6 +1171,9 @@ function Test-CacheCurrent {
         [Parameter(Mandatory = $true)]
         [string]$RuntimeCacheRoot,
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
+        [Parameter(Mandatory = $true)]
         [string]$AssetName,
         [Parameter(Mandatory = $true)]
         [string]$ReleaseTag,
@@ -1084,7 +1183,7 @@ function Test-CacheCurrent {
         $Asset
     )
 
-    $executablePath = Get-DeployExecutablePath -RootPath $RuntimeCacheRoot
+    $executablePath = Get-ExecutablePath -RootPath $RuntimeCacheRoot -ApplicationName $ApplicationName
     if (-not (Test-Path -Path $executablePath -PathType Leaf)) {
         return $false
     }
@@ -1162,6 +1261,9 @@ function Update-CacheFromArchiveFile {
         [Parameter(Mandatory = $true)]
         [string]$RuntimeCacheRoot,
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
+        [Parameter(Mandatory = $true)]
         [string]$RuntimeIdentifier,
         [Parameter(Mandatory = $true)]
         [string]$AssetName,
@@ -1170,7 +1272,7 @@ function Update-CacheFromArchiveFile {
         [string]$ArchiveSha256
     )
 
-    $stagingRoot = Get-StagingRoot -BootstrapRoot $BootstrapRoot -RuntimeIdentifier $RuntimeIdentifier
+    $stagingRoot = Get-StagingRoot -RuntimeCacheRoot $RuntimeCacheRoot
     Remove-DirectoryIfPresent -Path $stagingRoot
 
     try {
@@ -1178,9 +1280,9 @@ function Update-CacheFromArchiveFile {
         Ensure-Directory -Path $stagingRoot
         Expand-ZipVia7Zip -ArchivePath $ArchivePath -DestinationPath $stagingRoot -RuntimeIdentifier $RuntimeIdentifier
 
-        $stagedExecutablePath = Get-DeployExecutablePath -RootPath $stagingRoot
+        $stagedExecutablePath = Get-ExecutablePath -RootPath $stagingRoot -ApplicationName $ApplicationName
         if (-not (Test-Path -Path $stagedExecutablePath -PathType Leaf)) {
-            throw "The extracted deploy cache does not contain 'Foundry.Deploy.exe'."
+            throw "The extracted $ApplicationName cache does not contain '$([System.IO.Path]::GetFileName($stagedExecutablePath))'."
         }
 
         $resolvedVersion = $Version
@@ -1200,7 +1302,7 @@ function Update-CacheFromArchiveFile {
             -ArchiveSha256 $ArchiveSha256
 
         Promote-StagedCache -StagingRoot $stagingRoot -RuntimeCacheRoot $RuntimeCacheRoot
-        return Resolve-CachedExecutable -RuntimeCacheRoot $RuntimeCacheRoot
+        return Resolve-CachedExecutable -RuntimeCacheRoot $RuntimeCacheRoot -ApplicationName $ApplicationName
     }
     finally {
         Remove-FileIfPresent -Path $ArchivePath
@@ -1211,6 +1313,250 @@ function Update-CacheFromArchiveFile {
 
 #region Release Resolution Helpers
 
+function Get-EmbeddedArchivePath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
+    )
+
+    switch ($ApplicationName) {
+        'Foundry.Connect' { return $EmbeddedConnectArchivePath }
+        'Foundry.Deploy' { return $EmbeddedDeployArchivePath }
+    }
+}
+
+function Get-ReleaseTagOverride {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
+    )
+
+    $specificTag = switch ($ApplicationName) {
+        'Foundry.Connect' { [string]$env:FOUNDRY_CONNECT_RELEASE_TAG }
+        'Foundry.Deploy' { [string]$env:FOUNDRY_DEPLOY_RELEASE_TAG }
+    }
+
+    $specificTag = $specificTag.Trim()
+    if (-not [string]::IsNullOrWhiteSpace($specificTag)) {
+        return $specificTag
+    }
+
+    $globalTag = [string]$env:FOUNDRY_RELEASE_TAG
+    return $globalTag.Trim()
+}
+
+function Get-ArchiveOverridePath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
+    )
+
+    $value = switch ($ApplicationName) {
+        'Foundry.Connect' { [string]$env:FOUNDRY_CONNECT_ARCHIVE }
+        'Foundry.Deploy' { [string]$env:FOUNDRY_DEPLOY_ARCHIVE }
+    }
+
+    return $value.Trim()
+}
+
+function Get-ArchiveOverrideSha256 {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
+    )
+
+    $value = switch ($ApplicationName) {
+        'Foundry.Connect' { [string]$env:FOUNDRY_CONNECT_ARCHIVE_SHA256 }
+        'Foundry.Deploy' { [string]$env:FOUNDRY_DEPLOY_ARCHIVE_SHA256 }
+    }
+
+    return $value.Trim()
+}
+
+function Resolve-ApplicationExecutable {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
+        [Parameter(Mandatory = $true)]
+        [string]$BootstrapRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$RuntimeIdentifier,
+        [Parameter(Mandatory = $true)]
+        [hashtable]$Headers,
+        [switch]$SkipReleaseLookup
+    )
+
+    $applicationBootstrapRoot = Get-ApplicationBootstrapRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName
+    Ensure-Directory -Path $applicationBootstrapRoot
+
+    $assetName = Resolve-ReleaseAssetName -ApplicationName $ApplicationName -RuntimeIdentifier $RuntimeIdentifier
+    $runtimeCacheRoot = Get-RuntimeCacheRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName -RuntimeIdentifier $RuntimeIdentifier
+    $downloadPath = Get-TemporaryArchivePath -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName -AssetName $assetName
+    $releaseTagOverride = Get-ReleaseTagOverride -ApplicationName $ApplicationName
+    $archiveOverride = Get-ArchiveOverridePath -ApplicationName $ApplicationName
+    $archiveOverrideSha256 = Get-ArchiveOverrideSha256 -ApplicationName $ApplicationName
+    $embeddedArchivePath = Get-EmbeddedArchivePath -ApplicationName $ApplicationName
+    $executable = $null
+
+    if ($SkipReleaseLookup -and [string]::IsNullOrWhiteSpace($archiveOverride) -and (Test-Path -Path $embeddedArchivePath -PathType Leaf)) {
+        $archiveOverride = $embeddedArchivePath
+        Write-Log "Using embedded $ApplicationName archive from '$embeddedArchivePath'." -ConsoleMessage "Using embedded $ApplicationName archive."
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($archiveOverride)) {
+        if (-not [string]::IsNullOrWhiteSpace($releaseTagOverride)) {
+            Write-Log "$ApplicationName archive override is set; ignoring release tag override '$releaseTagOverride'." -Level Warning -ConsoleMessage "$ApplicationName archive override is set; release tag override ignored."
+        }
+
+        if (Test-HttpUrl -Value $archiveOverride) {
+            Write-Log "Starting $ApplicationName override archive download from '$archiveOverride'." -ConsoleMessage "Downloading $ApplicationName override archive..." -ConsoleSpacingBefore
+            Save-WebFile `
+                -SourceUrl $archiveOverride `
+                -DestinationPath $downloadPath | Out-Null
+        }
+        else {
+            Write-Log "Copying $ApplicationName override archive from '$archiveOverride'." -ConsoleMessage "Using local $ApplicationName override archive." -ConsoleSpacingBefore
+            Copy-LocalArchive -SourcePath $archiveOverride -DestinationPath $downloadPath
+        }
+
+        $archiveSha256 = Get-FileSha256 -Path $downloadPath
+        Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $archiveOverrideSha256 -Context "$ApplicationName override archive"
+
+        Write-Log "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier' from override archive." -ConsoleMessage "Refreshing $ApplicationName cache..." -ConsoleSpacingBefore
+        $executable = Update-CacheFromArchiveFile `
+            -ArchivePath $downloadPath `
+            -BootstrapRoot $BootstrapRoot `
+            -RuntimeCacheRoot $runtimeCacheRoot `
+            -ApplicationName $ApplicationName `
+            -RuntimeIdentifier $RuntimeIdentifier `
+            -AssetName $assetName `
+            -Tag '' `
+            -Version '' `
+            -ArchiveSha256 $archiveSha256
+    }
+    elseif ($SkipReleaseLookup) {
+        $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
+    }
+    else {
+        $releaseApiUrl = Resolve-ReleaseApiUrl -ReleaseTagOverride $releaseTagOverride
+        $release = $null
+
+        try {
+            Write-Log "Resolving $ApplicationName release metadata from $releaseApiUrl." -Level Debug
+            $release = Invoke-WithRetry -Action { Invoke-RestMethod -Uri $releaseApiUrl -Headers $Headers -Method Get }
+        }
+        catch {
+            Write-Log "Failed to resolve $ApplicationName release metadata: $($_.Exception.Message). Falling back to the existing cache or embedded archive." -Level Warning -ConsoleMessage "$ApplicationName release lookup failed. Falling back."
+            try {
+                $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
+            }
+            catch {
+                if (Test-Path -Path $embeddedArchivePath -PathType Leaf) {
+                    Write-Log "Falling back to the embedded $ApplicationName archive because no cached executable was available." -Level Warning -ConsoleMessage "Using embedded $ApplicationName archive as fallback."
+                    $archiveSha256 = Get-FileSha256 -Path $embeddedArchivePath
+                    $executable = Update-CacheFromArchiveFile `
+                        -ArchivePath (Copy-LocalArchiveToTemporaryPath -SourcePath $embeddedArchivePath -DestinationPath $downloadPath) `
+                        -BootstrapRoot $BootstrapRoot `
+                        -RuntimeCacheRoot $runtimeCacheRoot `
+                        -ApplicationName $ApplicationName `
+                        -RuntimeIdentifier $RuntimeIdentifier `
+                        -AssetName $assetName `
+                        -Tag '' `
+                        -Version '' `
+                        -ArchiveSha256 $archiveSha256
+                }
+                else {
+                    throw
+                }
+            }
+        }
+
+        if ($null -eq $executable) {
+            $asset = Get-ReleaseAsset -Release $release -ApplicationName $ApplicationName -AssetName $assetName
+            $releaseTag = [string]$release.tag_name
+            $releaseVersion = Get-ReleaseVersion -Tag $releaseTag
+
+            Write-Log "Using $ApplicationName release tag '$releaseTag' and asset '$($asset.name)'." -ConsoleMessage "$ApplicationName release: $releaseTag" -ConsoleSpacingBefore
+            Write-Log "Selected $ApplicationName asset '$($asset.name)' for runtime '$RuntimeIdentifier'." -ConsoleMessage "$ApplicationName asset: $($asset.name)"
+
+            if (Test-CacheCurrent `
+                    -RuntimeCacheRoot $runtimeCacheRoot `
+                    -ApplicationName $ApplicationName `
+                    -AssetName $assetName `
+                    -ReleaseTag $releaseTag `
+                    -ReleaseVersion $releaseVersion `
+                    -Asset $asset) {
+                Write-Log "The cached $ApplicationName content for '$RuntimeIdentifier' is already current." -ConsoleMessage "$ApplicationName cache is current."
+                $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
+            }
+            else {
+                try {
+                    Write-Log "Starting $ApplicationName release asset download from '$($asset.browser_download_url)'." -ConsoleMessage "Downloading $($asset.name)..." -ConsoleSpacingBefore
+                    Save-WebFile `
+                        -SourceUrl $asset.browser_download_url `
+                        -DestinationPath $downloadPath | Out-Null
+
+                    $archiveSha256 = Get-FileSha256 -Path $downloadPath
+                    $expectedSha256 = Get-ReleaseAssetSha256 -Asset $asset
+                    if (-not [string]::IsNullOrWhiteSpace($expectedSha256)) {
+                        Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $expectedSha256 -Context "$ApplicationName release asset '$($asset.name)'"
+                    }
+                    elseif (-not [string]::IsNullOrWhiteSpace([string]$asset.digest)) {
+                        Write-Log "$ApplicationName release asset digest '$($asset.digest)' is not a supported SHA256 value. Continuing without digest validation." -Level Warning -ConsoleMessage "$ApplicationName digest format is unsupported. Continuing without digest validation."
+                    }
+                    else {
+                        Write-Log "No $ApplicationName release asset digest was provided. Continuing without digest validation." -Level Warning -ConsoleMessage "No $ApplicationName release digest was provided. Continuing without digest validation."
+                    }
+
+                    Write-Log "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier'." -ConsoleMessage "Refreshing $ApplicationName cache..." -ConsoleSpacingBefore
+                    $executable = Update-CacheFromArchiveFile `
+                        -ArchivePath $downloadPath `
+                        -BootstrapRoot $BootstrapRoot `
+                        -RuntimeCacheRoot $runtimeCacheRoot `
+                        -ApplicationName $ApplicationName `
+                        -RuntimeIdentifier $RuntimeIdentifier `
+                        -AssetName $assetName `
+                        -Tag $releaseTag `
+                        -Version $releaseVersion `
+                        -ArchiveSha256 $archiveSha256
+                }
+                catch {
+                    Write-Log "Failed to refresh the $ApplicationName cache: $($_.Exception.Message). Falling back to the existing cache or embedded archive." -Level Warning -ConsoleMessage "$ApplicationName cache refresh failed. Falling back."
+                    try {
+                        $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
+                    }
+                    catch {
+                        if (Test-Path -Path $embeddedArchivePath -PathType Leaf) {
+                            Write-Log "Falling back to the embedded $ApplicationName archive because the cache could not be refreshed." -Level Warning -ConsoleMessage "Using embedded $ApplicationName archive as fallback."
+                            $archiveSha256 = Get-FileSha256 -Path $embeddedArchivePath
+                            $executable = Update-CacheFromArchiveFile `
+                                -ArchivePath (Copy-LocalArchiveToTemporaryPath -SourcePath $embeddedArchivePath -DestinationPath $downloadPath) `
+                                -BootstrapRoot $BootstrapRoot `
+                                -RuntimeCacheRoot $runtimeCacheRoot `
+                                -ApplicationName $ApplicationName `
+                                -RuntimeIdentifier $RuntimeIdentifier `
+                                -AssetName $assetName `
+                                -Tag '' `
+                                -Version '' `
+                                -ArchiveSha256 $archiveSha256
+                        }
+                        else {
+                            throw
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return Resolve-SingleExecutable -Candidate $executable
+}
+
 function Start-DeployExecutable {
     param(
         [Parameter(Mandatory = $true)]
@@ -1219,6 +1565,32 @@ function Start-DeployExecutable {
 
     Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Launching Foundry.Deploy.exe...' -ConsoleSpacingBefore
     Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
+}
+
+function Invoke-ConnectExecutable {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.IO.FileInfo]$Executable,
+        [string]$ConfigurationPath
+    )
+
+    $argumentList = @()
+    if (-not [string]::IsNullOrWhiteSpace($ConfigurationPath) -and (Test-Path -Path $ConfigurationPath -PathType Leaf)) {
+        $argumentList = @('--config', $ConfigurationPath)
+        Write-Log "Launching '$($Executable.FullName)' with configuration '$ConfigurationPath'." -ConsoleMessage 'Launching Foundry.Connect...' -ConsoleSpacingBefore
+    }
+    else {
+        Write-Log "Launching '$($Executable.FullName)' without an external configuration file." -ConsoleMessage 'Launching Foundry.Connect...' -ConsoleSpacingBefore
+    }
+
+    $process = Start-Process `
+        -FilePath $Executable.FullName `
+        -WorkingDirectory $Executable.DirectoryName `
+        -ArgumentList $argumentList `
+        -Wait `
+        -PassThru
+
+    return $process.ExitCode
 }
 
 function Resolve-SingleExecutable {
@@ -1239,7 +1611,7 @@ function Resolve-SingleExecutable {
     }
 
     $typeName = if ($null -eq $Candidate) { '<null>' } else { $Candidate.GetType().FullName }
-    throw "Could not resolve a single deploy executable from value of type '$typeName'."
+    throw "Could not resolve an executable from value of type '$typeName'."
 }
 #endregion
 
@@ -1266,136 +1638,63 @@ try {
     Write-Log "Deployment mode resolved to '$deploymentMode'." -ConsoleMessage "Mode: $deploymentMode"
 
     $env:FOUNDRY_DEPLOYMENT_MODE = $deploymentMode
-    Sync-WinPeInternetDateTime -ThresholdMinutes 5
-    Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
-
     $runtimeIdentifier = Get-TargetRuntimeIdentifier
-    $assetName = Resolve-DeployAssetName -RuntimeIdentifier $runtimeIdentifier
-    $runtimeCacheRoot = Get-RuntimeCacheRoot -BootstrapRoot $bootstrapRoot -RuntimeIdentifier $runtimeIdentifier
-    $downloadPath = Get-TemporaryArchivePath -BootstrapRoot $bootstrapRoot -AssetName $assetName
-    $releaseTagOverride = [string]$env:FOUNDRY_RELEASE_TAG
-    $releaseTagOverride = $releaseTagOverride.Trim()
-    $archiveOverride = [string]$env:FOUNDRY_DEPLOY_ARCHIVE
-    $archiveOverride = $archiveOverride.Trim()
-    $archiveOverrideSha256 = [string]$env:FOUNDRY_DEPLOY_ARCHIVE_SHA256
-    $archiveOverrideSha256 = $archiveOverrideSha256.Trim()
-    $executable = $null
-
-    if ([string]::IsNullOrWhiteSpace($archiveOverride) -and (Test-Path -Path $EmbeddedArchivePath -PathType Leaf)) {
-        $archiveOverride = $EmbeddedArchivePath
-        Write-Log "Using embedded deploy archive from '$EmbeddedArchivePath'." -ConsoleMessage 'Using embedded deploy archive.'
-    }
-
     $headers = @{
         'User-Agent' = 'FoundryBootstrap/1.0'
         'Accept'     = 'application/vnd.github+json'
     }
 
-    # An explicit archive override short-circuits GitHub release discovery.
-    if (-not [string]::IsNullOrWhiteSpace($archiveOverride)) {
-        if (-not [string]::IsNullOrWhiteSpace($releaseTagOverride)) {
-            Write-Log "FOUNDRY_DEPLOY_ARCHIVE is set; ignoring FOUNDRY_RELEASE_TAG '$releaseTagOverride'." -Level Warning -ConsoleMessage 'Archive override is set; release tag override ignored.'
-        }
+    [void](Ensure-ServiceRunning -ServiceName 'dot3svc' -FriendlyName 'Wired AutoConfig')
 
-        if (Test-HttpUrl -Value $archiveOverride) {
-            Write-Log "Starting override archive download from '$archiveOverride'." -ConsoleMessage 'Downloading override archive...' -ConsoleSpacingBefore
-            Save-WebFile `
-                -SourceUrl $archiveOverride `
-                -DestinationPath $downloadPath | Out-Null
-        }
-        else {
-            Write-Log "Copying override archive from '$archiveOverride'." -ConsoleMessage 'Using local override archive.' -ConsoleSpacingBefore
-            Copy-LocalArchive -SourcePath $archiveOverride -DestinationPath $downloadPath
-        }
+    $connectExecutable = Resolve-ApplicationExecutable `
+        -ApplicationName 'Foundry.Connect' `
+        -BootstrapRoot $bootstrapRoot `
+        -RuntimeIdentifier $runtimeIdentifier `
+        -Headers $headers `
+        -SkipReleaseLookup
 
-        $archiveSha256 = Get-FileSha256 -Path $downloadPath
-        Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $archiveOverrideSha256 -Context 'override archive'
+    $connectExitCode = Invoke-ConnectExecutable `
+        -Executable $connectExecutable `
+        -ConfigurationPath $EmbeddedConnectConfigurationPath
 
-        Write-Log "Refreshing deploy cache for runtime '$runtimeIdentifier' from override archive." -ConsoleMessage 'Refreshing deploy cache...' -ConsoleSpacingBefore
-        $executable = Update-CacheFromArchiveFile `
-            -ArchivePath $downloadPath `
+    if ($connectExitCode -ne 0) {
+        switch ($connectExitCode) {
+            20 {
+                throw "Foundry.Connect was closed by the operator. Bootstrap will not continue."
+            }
+            default {
+                throw "Foundry.Connect exited with code $connectExitCode."
+            }
+        }
+    }
+
+    Write-Log 'Foundry.Connect completed successfully.' -ConsoleMessage 'Foundry.Connect completed successfully.' -ConsoleSpacingBefore
+    Sync-WinPeInternetDateTime -ThresholdMinutes 5
+    Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
+
+    try {
+        [void](Resolve-ApplicationExecutable `
+            -ApplicationName 'Foundry.Connect' `
             -BootstrapRoot $bootstrapRoot `
-            -RuntimeCacheRoot $runtimeCacheRoot `
             -RuntimeIdentifier $runtimeIdentifier `
-            -AssetName $assetName `
-            -Tag '' `
-            -Version '' `
-            -ArchiveSha256 $archiveSha256
+            -Headers $headers)
+        Write-Log 'Foundry.Connect cache verification completed.' -ConsoleMessage 'Foundry.Connect cache verification completed.'
     }
-    else {
-        # Default flow: resolve the latest release, reuse cache when current, otherwise refresh it.
-        $releaseApiUrl = Resolve-ReleaseApiUrl -ReleaseTagOverride $releaseTagOverride
-        $release = $null
-
-        try {
-            Write-Log "Resolving release metadata from $releaseApiUrl." -Level Debug
-            $release = Invoke-WithRetry -Action { Invoke-RestMethod -Uri $releaseApiUrl -Headers $headers -Method Get }
-        }
-        catch {
-            Write-Log "Failed to resolve release metadata: $($_.Exception.Message). Falling back to the existing cache." -Level Warning -ConsoleMessage 'Release lookup failed. Falling back to cached deploy content.'
-            $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot
-        }
-
-        if ($null -eq $executable) {
-            $asset = Get-ReleaseAsset -Release $release -AssetName $assetName
-            $releaseTag = [string]$release.tag_name
-            $releaseVersion = Get-ReleaseVersion -Tag $releaseTag
-
-            Write-Log "Using release tag '$releaseTag' and asset '$($asset.name)'." -ConsoleMessage "Release: $releaseTag" -ConsoleSpacingBefore
-            Write-Log "Selected asset '$($asset.name)' for runtime '$runtimeIdentifier'." -ConsoleMessage "Asset: $($asset.name)"
-
-            if (Test-CacheCurrent `
-                    -RuntimeCacheRoot $runtimeCacheRoot `
-                    -AssetName $assetName `
-                    -ReleaseTag $releaseTag `
-                    -ReleaseVersion $releaseVersion `
-                    -Asset $asset) {
-                Write-Log "The cached deploy content for '$runtimeIdentifier' is already current." -ConsoleMessage 'Cached deploy content is current.'
-                $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot
-            }
-            else {
-                try {
-                    Write-Log "Starting release asset download from '$($asset.browser_download_url)'." -ConsoleMessage "Downloading $($asset.name)..." -ConsoleSpacingBefore
-                    Save-WebFile `
-                        -SourceUrl $asset.browser_download_url `
-                        -DestinationPath $downloadPath | Out-Null
-
-                    $archiveSha256 = Get-FileSha256 -Path $downloadPath
-                    $expectedSha256 = Get-ReleaseAssetSha256 -Asset $asset
-                    if (-not [string]::IsNullOrWhiteSpace($expectedSha256)) {
-                        Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $expectedSha256 -Context "release asset '$($asset.name)'"
-                    }
-                    elseif (-not [string]::IsNullOrWhiteSpace([string]$asset.digest)) {
-                        Write-Log "Release asset digest '$($asset.digest)' is not a supported SHA256 value. Continuing without digest validation." -Level Warning -ConsoleMessage 'Release digest format is unsupported. Continuing without digest validation.'
-                    }
-                    else {
-                        Write-Log 'No release asset digest was provided. Continuing without digest validation.' -Level Warning -ConsoleMessage 'No release digest was provided. Continuing without digest validation.'
-                    }
-
-                    Write-Log "Refreshing deploy cache for runtime '$runtimeIdentifier'." -ConsoleMessage 'Refreshing deploy cache...' -ConsoleSpacingBefore
-                    $executable = Update-CacheFromArchiveFile `
-                        -ArchivePath $downloadPath `
-                        -BootstrapRoot $bootstrapRoot `
-                        -RuntimeCacheRoot $runtimeCacheRoot `
-                        -RuntimeIdentifier $runtimeIdentifier `
-                        -AssetName $assetName `
-                        -Tag $releaseTag `
-                        -Version $releaseVersion `
-                        -ArchiveSha256 $archiveSha256
-                }
-                catch {
-                    Write-Log "Failed to refresh the deploy cache: $($_.Exception.Message). Falling back to the existing cache." -Level Warning -ConsoleMessage 'Cache refresh failed. Falling back to cached deploy content.'
-                    $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot
-                }
-            }
-        }
+    catch {
+        Write-Log "Foundry.Connect cache verification failed: $($_.Exception.Message). Continuing with the cached bootstrap content." -Level Warning -ConsoleMessage 'Foundry.Connect cache verification failed. Continuing.'
     }
 
-    $executable = Resolve-SingleExecutable -Candidate $executable
-    Start-DeployExecutable -Executable $executable
+    $deployExecutable = Resolve-ApplicationExecutable `
+        -ApplicationName 'Foundry.Deploy' `
+        -BootstrapRoot $bootstrapRoot `
+        -RuntimeIdentifier $runtimeIdentifier `
+        -Headers $headers
+
+    Start-DeployExecutable -Executable $deployExecutable
     Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.' -ConsoleSpacingBefore
 }
 catch {
     Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Error -ConsoleMessage 'Foundry bootstrap failed.'
+    exit 1
 }
 #endregion

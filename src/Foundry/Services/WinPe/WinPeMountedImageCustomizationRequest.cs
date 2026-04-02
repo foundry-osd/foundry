@@ -14,6 +14,8 @@ internal sealed record WinPeMountedImageCustomizationRequest
     public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;
     public IProgress<WinPeMountedImageCustomizationProgress>? Progress { get; init; }
 
+    public string? FoundryConnectConfigurationJson { get; init; }
+    public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = Array.Empty<FoundryConnectProvisionedAssetFile>();
     public string? ExpertDeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
 }

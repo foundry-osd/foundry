@@ -26,16 +26,21 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
     public async Task<WinPeResult> ProvisionAsync(
         string mountedImagePath,
         WinPeArchitecture architecture,
+        string? foundryConnectConfigurationJson,
+        IReadOnlyList<FoundryConnectProvisionedAssetFile> foundryConnectAssetFiles,
         string? expertDeployConfigurationJson,
         IReadOnlyList<AutopilotProfileSettings> autopilotProfiles,
         CancellationToken cancellationToken)
     {
         _logger.LogInformation(
-            "Starting mounted image asset provisioning. MountDirectoryPath={MountDirectoryPath}, Architecture={Architecture}, AutopilotProfileCount={AutopilotProfileCount}, HasExpertConfiguration={HasExpertConfiguration}",
+            "Starting mounted image asset provisioning. MountDirectoryPath={MountDirectoryPath}, Architecture={Architecture}, AutopilotProfileCount={AutopilotProfileCount}, HasConnectConfiguration={HasConnectConfiguration}, ConnectAssetCount={ConnectAssetCount}, HasExpertConfiguration={HasExpertConfiguration}",
             mountedImagePath,
             architecture,
             autopilotProfiles.Count,
+            !string.IsNullOrWhiteSpace(foundryConnectConfigurationJson),
+            foundryConnectAssetFiles.Count,
             !string.IsNullOrWhiteSpace(expertDeployConfigurationJson));
+
         string system32 = Path.Combine(mountedImagePath, "Windows", "System32");
         Directory.CreateDirectory(system32);
 
@@ -58,27 +63,29 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             bootstrapScriptContent,
             new UTF8Encoding(false),
             cancellationToken).ConfigureAwait(false);
-        _logger.LogInformation("Wrote bootstrap script into mounted WinPE image. System32Path={System32Path}", system32);
 
-        WinPeResult curlProvisioning = await ProvisionCurlInImageAsync(
-            system32,
-            architecture,
-            cancellationToken).ConfigureAwait(false);
+        WinPeResult curlProvisioning = await ProvisionCurlInImageAsync(system32, architecture, cancellationToken).ConfigureAwait(false);
         if (!curlProvisioning.IsSuccess)
         {
             return curlProvisioning;
         }
 
-        _logger.LogInformation("Provisioned curl.exe into mounted WinPE image. System32Path={System32Path}", system32);
-        WinPeResult sevenZipProvisioning = ProvisionBundledSevenZipInImage(
-            mountedImagePath,
-            architecture);
+        WinPeResult sevenZipProvisioning = ProvisionBundledSevenZipInImage(mountedImagePath, architecture);
         if (!sevenZipProvisioning.IsSuccess)
         {
             return sevenZipProvisioning;
         }
 
-        _logger.LogInformation("Provisioned bundled 7-Zip tools into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
+        WinPeResult connectProvisioning = await ProvisionConnectAssetsInImageAsync(
+            mountedImagePath,
+            foundryConnectConfigurationJson,
+            foundryConnectAssetFiles,
+            cancellationToken).ConfigureAwait(false);
+        if (!connectProvisioning.IsSuccess)
+        {
+            return connectProvisioning;
+        }
+
         WinPeResult deployConfigurationProvisioning = await ProvisionDeployConfigurationInImageAsync(
             mountedImagePath,
             expertDeployConfigurationJson,
@@ -86,11 +93,6 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         if (!deployConfigurationProvisioning.IsSuccess)
         {
             return deployConfigurationProvisioning;
-        }
-
-        if (!string.IsNullOrWhiteSpace(expertDeployConfigurationJson))
-        {
-            _logger.LogInformation("Provisioned Foundry.Deploy expert configuration into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
         }
 
         WinPeResult timeZoneMapProvisioning = await ProvisionTimeZoneMapInImageAsync(
@@ -101,7 +103,6 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             return timeZoneMapProvisioning;
         }
 
-        _logger.LogInformation("Provisioned IANA to Windows timezone map into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
         WinPeResult autopilotProvisioning = await ProvisionAutopilotProfilesInImageAsync(
             mountedImagePath,
             autopilotProfiles,
@@ -112,15 +113,16 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         }
 
         string startnet = Path.Combine(mountedImagePath, WinPeDefaults.DefaultStartnetPathInImage);
-        string[] lines = File.Exists(startnet) ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false) : ["wpeinit"];
-        var merged = lines.ToList();
+        string[] lines = File.Exists(startnet)
+            ? await File.ReadAllLinesAsync(startnet, cancellationToken).ConfigureAwait(false)
+            : ["wpeinit"];
+        List<string> merged = lines.ToList();
         if (!merged.Any(line => line.Contains(WinPeDefaults.DefaultBootstrapScriptFileName, StringComparison.OrdinalIgnoreCase)))
         {
             merged.Add(WinPeDefaults.DefaultBootstrapInvocation);
         }
 
         await File.WriteAllLinesAsync(startnet, merged, cancellationToken).ConfigureAwait(false);
-        _logger.LogInformation("Updated startnet.cmd in mounted WinPE image. StartnetPath={StartnetPath}", startnet);
         _logger.LogInformation("Mounted image asset provisioning completed successfully. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
         return WinPeResult.Success();
     }
@@ -164,7 +166,6 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             {
                 try
                 {
-                    _logger.LogInformation("Downloading curl package for Architecture={Architecture} from {PackageUrl}.", architecture, packageUrl);
                     using HttpResponseMessage response = await HttpClient.GetAsync(packageUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     if (!response.IsSuccessStatusCode)
                     {
@@ -180,16 +181,12 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to download curl package for Architecture={Architecture} from {PackageUrl}.", architecture, packageUrl);
+                    _logger.LogError(ex, "Failed to download curl package. Architecture={Architecture}, PackageUrl={PackageUrl}", architecture, packageUrl);
                     return WinPeResult.Failure(
                         WinPeErrorCodes.DownloadFailed,
                         "Failed to download curl package for WinPE image provisioning.",
                         $"Architecture: '{architecture}', URI: '{packageUrl}'. Error: {ex.Message}");
                 }
-            }
-            else
-            {
-                _logger.LogInformation("Using cached curl package for Architecture={Architecture}. PackagePath={PackagePath}", architecture, packagePath);
             }
 
             WinPeFileSystemHelper.EnsureDirectoryClean(extractPath);
@@ -206,57 +203,95 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
                     $"Package: '{packagePath}', ExtractPath: '{extractPath}'. Error: {ex.Message}");
             }
 
-            string? sourceCurlPath = Directory
-                .EnumerateFiles(extractPath, "curl.exe", SearchOption.AllDirectories)
-                .FirstOrDefault();
+            string? sourceCurlPath = Directory.EnumerateFiles(extractPath, "curl.exe", SearchOption.AllDirectories).FirstOrDefault();
             if (string.IsNullOrWhiteSpace(sourceCurlPath))
             {
-                _logger.LogWarning("Extracted curl package did not contain curl.exe. ExtractPath={ExtractPath}", extractPath);
                 return WinPeResult.Failure(
                     WinPeErrorCodes.ToolNotFound,
                     "The downloaded curl package did not contain curl.exe.",
                     $"ExtractPath: '{extractPath}'.");
             }
 
-            try
-            {
-                File.Copy(sourceCurlPath, destinationPath, overwrite: true);
-                return WinPeResult.Success();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to copy curl.exe into mounted WinPE image. SourcePath={SourcePath}, DestinationPath={DestinationPath}", sourceCurlPath, destinationPath);
-                return WinPeResult.Failure(
-                    WinPeErrorCodes.BuildFailed,
-                    "Failed to provision curl.exe into mounted WinPE image.",
-                    $"Source: '{sourceCurlPath}', Destination: '{destinationPath}'. Error: {ex.Message}");
-            }
+            File.Copy(sourceCurlPath, destinationPath, overwrite: true);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to provision curl.exe into mounted WinPE image. DestinationPath={DestinationPath}", destinationPath);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision curl.exe into mounted WinPE image.",
+                ex.ToString());
         }
         finally
         {
-            try
+            TryDeleteFile(packagePath);
+            TryDeleteDirectory(extractPath);
+        }
+    }
+
+    private async Task<WinPeResult> ProvisionConnectAssetsInImageAsync(
+        string mountedImagePath,
+        string? configurationJson,
+        IReadOnlyList<FoundryConnectProvisionedAssetFile> assetFiles,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(configurationJson))
+        {
+            configurationJson = CreateFallbackConnectConfigurationJson();
+        }
+
+        string configurationPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedConnectConfigPathInImage);
+        string? configurationDirectoryPath = Path.GetDirectoryName(configurationPath);
+        if (string.IsNullOrWhiteSpace(configurationDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                "Failed to resolve destination path for Foundry.Connect configuration.",
+                $"Destination file: '{configurationPath}'.");
+        }
+
+        try
+        {
+            Directory.CreateDirectory(configurationDirectoryPath);
+            await File.WriteAllTextAsync(configurationPath, configurationJson, new UTF8Encoding(false), cancellationToken).ConfigureAwait(false);
+
+            CreateNetworkAssetLayout(mountedImagePath);
+            foreach (FoundryConnectProvisionedAssetFile assetFile in assetFiles)
             {
-                if (File.Exists(packagePath))
+                if (string.IsNullOrWhiteSpace(assetFile.SourcePath) || !File.Exists(assetFile.SourcePath))
                 {
-                    File.Delete(packagePath);
+                    return WinPeResult.Failure(
+                        WinPeErrorCodes.ValidationFailed,
+                        "A Foundry.Connect provisioning asset is missing.",
+                        $"Source file: '{assetFile.SourcePath}'.");
                 }
-            }
-            catch
-            {
-                // Best-effort cleanup.
+
+                string destinationPath = Path.Combine(mountedImagePath, assetFile.RelativeDestinationPath);
+                string? destinationDirectoryPath = Path.GetDirectoryName(destinationPath);
+                if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+                {
+                    return WinPeResult.Failure(
+                        WinPeErrorCodes.InternalError,
+                        "Failed to resolve destination path for a Foundry.Connect network asset.",
+                        $"Destination file: '{destinationPath}'.");
+                }
+
+                Directory.CreateDirectory(destinationDirectoryPath);
+                await using FileStream sourceStream = new(assetFile.SourcePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
             }
 
-            try
-            {
-                if (Directory.Exists(extractPath))
-                {
-                    Directory.Delete(extractPath, recursive: true);
-                }
-            }
-            catch
-            {
-                // Best-effort cleanup.
-            }
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to provision Foundry.Connect configuration or assets into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", mountedImagePath);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision Foundry.Connect configuration or network assets into mounted WinPE image.",
+                ex.ToString());
         }
     }
 
@@ -267,7 +302,6 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         string sourceRootPath = Path.Combine(AppContext.BaseDirectory, WinPeDefaults.BundledSevenZipRelativePath);
         if (!Directory.Exists(sourceRootPath))
         {
-            _logger.LogWarning("Bundled 7-Zip assets folder not found. SourceRootPath={SourceRootPath}", sourceRootPath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "Bundled 7-Zip assets were not found.",
@@ -276,42 +310,19 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
 
         string runtimeFolder = architecture.ToSevenZipRuntimeFolder();
         string sourceExecutablePath = Path.Combine(sourceRootPath, runtimeFolder, "7za.exe");
-        if (!File.Exists(sourceExecutablePath))
-        {
-            _logger.LogWarning("Bundled 7-Zip executable not found for runtime folder {RuntimeFolder}. Path={ExecutablePath}", runtimeFolder, sourceExecutablePath);
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "Bundled 7-Zip executable was not found for target architecture.",
-                $"Expected file: '{sourceExecutablePath}'.");
-        }
-
         string sourceLicensePath = Path.Combine(sourceRootPath, "License.txt");
-        if (!File.Exists(sourceLicensePath))
-        {
-            _logger.LogWarning("Bundled 7-Zip license file not found. Path={LicensePath}", sourceLicensePath);
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "Bundled 7-Zip license file was not found.",
-                $"Expected file: '{sourceLicensePath}'.");
-        }
-
         string sourceReadmePath = Path.Combine(sourceRootPath, "readme.txt");
-        if (!File.Exists(sourceReadmePath))
+
+        if (!File.Exists(sourceExecutablePath) || !File.Exists(sourceLicensePath) || !File.Exists(sourceReadmePath))
         {
-            _logger.LogWarning("Bundled 7-Zip readme file not found. Path={ReadmePath}", sourceReadmePath);
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
-                "Bundled 7-Zip readme file was not found.",
-                $"Expected file: '{sourceReadmePath}'.");
+                "Bundled 7-Zip assets are incomplete.",
+                $"Expected files under '{sourceRootPath}' for runtime '{runtimeFolder}'.");
         }
 
-        string destinationExecutablePath = Path.Combine(
-            mountedImagePath,
-            WinPeDefaults.EmbeddedSevenZipToolsPathInImage,
-            runtimeFolder,
-            "7za.exe");
+        string destinationExecutablePath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedSevenZipToolsPathInImage, runtimeFolder, "7za.exe");
         string destinationToolsRootPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedSevenZipToolsPathInImage);
-
         string? destinationDirectoryPath = Path.GetDirectoryName(destinationExecutablePath);
         if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
         {
@@ -363,11 +374,7 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         try
         {
             Directory.CreateDirectory(destinationDirectoryPath);
-            await File.WriteAllTextAsync(
-                destinationPath,
-                expertDeployConfigurationJson,
-                new UTF8Encoding(false),
-                cancellationToken).ConfigureAwait(false);
+            await File.WriteAllTextAsync(destinationPath, expertDeployConfigurationJson, new UTF8Encoding(false), cancellationToken).ConfigureAwait(false);
             return WinPeResult.Success();
         }
         catch (Exception ex)
@@ -397,11 +404,7 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         try
         {
             Directory.CreateDirectory(destinationDirectoryPath);
-            await File.WriteAllTextAsync(
-                destinationPath,
-                WinPeDefaults.GetIanaWindowsTimeZoneMapContent(),
-                new UTF8Encoding(false),
-                cancellationToken).ConfigureAwait(false);
+            await File.WriteAllTextAsync(destinationPath, WinPeDefaults.GetIanaWindowsTimeZoneMapContent(), new UTF8Encoding(false), cancellationToken).ConfigureAwait(false);
             return WinPeResult.Success();
         }
         catch (Exception ex)
@@ -421,7 +424,6 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
     {
         if (autopilotProfiles.Count == 0)
         {
-            _logger.LogInformation("No Autopilot profiles requested for mounted image provisioning.");
             return WinPeResult.Success();
         }
 
@@ -436,17 +438,9 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
                 Directory.CreateDirectory(profileDirectory);
 
                 string profilePath = Path.Combine(profileDirectory, "AutopilotConfigurationFile.json");
-                await File.WriteAllTextAsync(
-                    profilePath,
-                    profile.JsonContent,
-                    Encoding.ASCII,
-                    cancellationToken).ConfigureAwait(false);
+                await File.WriteAllTextAsync(profilePath, profile.JsonContent, Encoding.ASCII, cancellationToken).ConfigureAwait(false);
             }
 
-            _logger.LogInformation(
-                "Provisioned Autopilot profiles into mounted WinPE image. AutopilotRoot={AutopilotRoot}, ProfileCount={ProfileCount}",
-                autopilotRoot,
-                autopilotProfiles.Count);
             return WinPeResult.Success();
         }
         catch (Exception ex)
@@ -456,6 +450,71 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision Autopilot profiles into mounted WinPE image.",
                 ex.ToString());
+        }
+    }
+
+    private static void CreateNetworkAssetLayout(string mountedImagePath)
+    {
+        string networkRoot = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedNetworkAssetsPathInImage);
+        Directory.CreateDirectory(networkRoot);
+        Directory.CreateDirectory(Path.Combine(networkRoot, "Wired", "Profiles"));
+        Directory.CreateDirectory(Path.Combine(networkRoot, "Wifi", "Profiles"));
+        Directory.CreateDirectory(Path.Combine(networkRoot, "Certificates"));
+        Directory.CreateDirectory(Path.Combine(networkRoot, "Certificates", "Wired"));
+        Directory.CreateDirectory(Path.Combine(networkRoot, "Certificates", "Wifi"));
+    }
+
+    private static string CreateFallbackConnectConfigurationJson()
+    {
+        return """
+{
+  "schemaVersion": 1,
+  "capabilities": {
+    "wifiProvisioned": false
+  },
+  "ui": {
+    "windowTitle": "Foundry.Connect",
+    "autoCloseDelaySeconds": 5,
+    "refreshIntervalSeconds": 5
+  },
+  "internetProbe": {
+    "probeUris": [
+      "http://www.msftconnecttest.com/connecttest.txt",
+      "http://www.google.com"
+    ],
+    "timeoutSeconds": 5
+  }
+}
+""";
+    }
+
+    private static void TryDeleteDirectory(string path)
+    {
+        try
+        {
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, recursive: true);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup.
+        }
+    }
+
+    private static void TryDeleteFile(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup.
         }
     }
 }

@@ -22,6 +22,8 @@ public sealed record UsbOutputOptions
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = Array.Empty<WinPeVendorSelection>();
     public string DriverCatalogUri { get; init; } = WinPeDefaults.DefaultUnifiedCatalogUri;
     public string? CustomDriverDirectoryPath { get; init; }
+    public string? FoundryConnectConfigurationJson { get; init; }
+    public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = Array.Empty<FoundryConnectProvisionedAssetFile>();
     public string? ExpertDeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = Array.Empty<AutopilotProfileSettings>();
 

@@ -65,6 +65,7 @@ jobs:
           $releaseRoot = Join-Path $workspace 'artifacts\release'
           $publishRoot = Join-Path $releaseRoot 'publish'
           $foundryProject = Join-Path $workspace 'src\Foundry\Foundry.csproj'
+          $connectProject = Join-Path $workspace 'src\Foundry.Connect\Foundry.Connect.csproj'
           $deployProject = Join-Path $workspace 'src\Foundry.Deploy\Foundry.Deploy.csproj'
           $publishProperties = @(
               'PublishSingleFile=true',
@@ -142,6 +143,17 @@ jobs:
 
               $deployAssetPath = Join-Path $releaseRoot "Foundry.Deploy-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
+
+              $connectPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Connect' $runtimeIdentifier)
+              Invoke-Publish -ProjectPath $connectProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $connectPublishPath
+
+              $connectExecutable = Join-Path $connectPublishPath 'Foundry.Connect.exe'
+              if (-not (Test-Path -Path $connectExecutable -PathType Leaf)) {
+                  throw "Expected Foundry.Connect executable not found: '$connectExecutable'."
+              }
+
+              $connectAssetPath = Join-Path $releaseRoot "Foundry.Connect-$runtimeIdentifier.zip"
+              Compress-Archive -Path (Join-Path $connectPublishPath '*') -DestinationPath $connectAssetPath -CompressionLevel Optimal -Force
           }
 
       - name: Upload release assets
@@ -154,6 +166,8 @@ jobs:
           $assets = @(
               (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_x64.exe"),
               (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_arm64.exe"),
+              (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip')
           )

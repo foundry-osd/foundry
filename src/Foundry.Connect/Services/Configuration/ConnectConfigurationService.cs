@@ -1,0 +1,137 @@
+using System.IO;
+using System.Text.Json;
+using Foundry.Connect.Models.Configuration;
+
+namespace Foundry.Connect.Services.Configuration;
+
+public sealed class ConnectConfigurationService : IConnectConfigurationService
+{
+    private const string DefaultConfigFileName = "foundry.connect.config.json";
+
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        ReadCommentHandling = JsonCommentHandling.Skip
+    };
+
+    private readonly string[] _args;
+
+    public ConnectConfigurationService(string[] args)
+    {
+        _args = args ?? Array.Empty<string>();
+    }
+
+    public string? ConfigurationPath { get; private set; }
+
+    public bool IsLoadedFromDisk { get; private set; }
+
+    public FoundryConnectConfiguration Load()
+    {
+        ConfigurationPath = ResolveConfigurationPath(_args);
+        if (string.IsNullOrWhiteSpace(ConfigurationPath))
+        {
+            IsLoadedFromDisk = false;
+            return Normalize(new FoundryConnectConfiguration());
+        }
+
+        string fullPath = Path.GetFullPath(ConfigurationPath);
+        if (!File.Exists(fullPath))
+        {
+            throw new FoundryConnectConfigurationException($"Configuration file was not found: {fullPath}");
+        }
+
+        try
+        {
+            string json = File.ReadAllText(fullPath);
+            FoundryConnectConfiguration? configuration = JsonSerializer.Deserialize<FoundryConnectConfiguration>(json, JsonOptions);
+            if (configuration is null)
+            {
+                throw new FoundryConnectConfigurationException($"Configuration file is empty or invalid: {fullPath}");
+            }
+
+            ConfigurationPath = fullPath;
+            IsLoadedFromDisk = true;
+            return Normalize(configuration);
+        }
+        catch (FoundryConnectConfigurationException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new FoundryConnectConfigurationException($"Configuration file could not be parsed: {fullPath}", ex);
+        }
+    }
+
+    private static string? ResolveConfigurationPath(IEnumerable<string> args)
+    {
+        string? envPath = Environment.GetEnvironmentVariable("FOUNDRY_CONNECT_CONFIG");
+        if (!string.IsNullOrWhiteSpace(envPath))
+        {
+            return envPath;
+        }
+
+        string[] values = args.ToArray();
+        for (int index = 0; index < values.Length; index++)
+        {
+            string value = values[index];
+            if (value.Equals("--config", StringComparison.OrdinalIgnoreCase) && index + 1 < values.Length)
+            {
+                return values[index + 1];
+            }
+        }
+
+        string basePath = Environment.GetEnvironmentVariable("SystemDrive")?.Equals("X:", StringComparison.OrdinalIgnoreCase) == true
+            ? @"X:\Foundry\Config"
+            : AppContext.BaseDirectory;
+
+        return Path.Combine(basePath, DefaultConfigFileName);
+    }
+
+    private static FoundryConnectConfiguration Normalize(FoundryConnectConfiguration configuration)
+    {
+        NetworkCapabilitiesOptions capabilities = configuration.Capabilities ?? new NetworkCapabilitiesOptions();
+        InternetProbeOptions probe = configuration.InternetProbe ?? new InternetProbeOptions();
+        BootstrapUiOptions ui = configuration.Ui ?? new BootstrapUiOptions();
+
+        string[] probeUris = probe.ProbeUris
+            .Where(static value => !string.IsNullOrWhiteSpace(value))
+            .Select(static value => value.Trim())
+            .Where(static value => Uri.TryCreate(value, UriKind.Absolute, out _))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (probeUris.Length == 0)
+        {
+            probeUris =
+            [
+                "http://www.msftconnecttest.com/connecttest.txt",
+                "http://www.google.com"
+            ];
+        }
+
+        return new FoundryConnectConfiguration
+        {
+            SchemaVersion = configuration.SchemaVersion <= 0
+                ? FoundryConnectConfiguration.CurrentSchemaVersion
+                : configuration.SchemaVersion,
+            Capabilities = new NetworkCapabilitiesOptions
+            {
+                WifiProvisioned = capabilities.WifiProvisioned
+            },
+            Dot1x = configuration.Dot1x ?? new Dot1xSettings(),
+            Wifi = configuration.Wifi ?? new WifiSettings(),
+            InternetProbe = new InternetProbeOptions
+            {
+                ProbeUris = probeUris,
+                TimeoutSeconds = Math.Clamp(probe.TimeoutSeconds, 1, 30)
+            },
+            Ui = new BootstrapUiOptions
+            {
+                WindowTitle = string.IsNullOrWhiteSpace(ui.WindowTitle) ? "Foundry.Connect" : ui.WindowTitle.Trim(),
+                AutoCloseDelaySeconds = Math.Clamp(ui.AutoCloseDelaySeconds, 1, 30),
+                RefreshIntervalSeconds = Math.Clamp(ui.RefreshIntervalSeconds, 2, 30)
+            }
+        };
+    }
+}
