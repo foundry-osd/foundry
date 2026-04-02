@@ -21,7 +21,7 @@
                 <TextBlock
                     Margin="0,0,16,0"
                     VerticalAlignment="Top"
-                    FontFamily="Segoe Fluent Icons"
+                    FontFamily="{StaticResource SymbolThemeFontFamily}"
                     FontSize="28"
                     Text="{Binding EthernetGlyph}" />
 

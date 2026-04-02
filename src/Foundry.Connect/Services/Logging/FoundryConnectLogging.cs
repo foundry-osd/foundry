@@ -8,7 +8,7 @@ internal static class FoundryConnectLogging
     public const string LogFileName = "FoundryConnect.log";
 
     private const string OutputTemplate =
-        "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
+        "{UtcTimestamp:yyyy-MM-dd HH:mm:ss} UTC | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
 
     public static string ResolveStartupLogFilePath()
     {
@@ -44,6 +44,7 @@ internal static class FoundryConnectLogging
     {
         return new LoggerConfiguration()
             .MinimumLevel.Verbose()
+            .Enrich.With(new UtcTimestampEnricher())
             .Enrich.FromLogContext()
             .WriteTo.File(logFilePath, outputTemplate: OutputTemplate, shared: true)
             .WriteTo.Debug(outputTemplate: OutputTemplate)

@@ -182,13 +182,23 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (_isInitialized)
         {
+            _logger.LogDebug("InitializeAsync was called after initialization had already completed.");
             return;
         }
 
         _isInitialized = true;
+        _logger.LogInformation("Starting Foundry.Connect initialization.");
+
+        _logger.LogInformation("Applying provisioned network settings.");
         await ApplyProvisionedSettingsAsync(_disposeCts.Token).ConfigureAwait(false);
+        _logger.LogInformation("Provisioned network settings step completed.");
+
+        _logger.LogInformation("Refreshing initial network snapshot.");
         await RefreshCoreAsync(_disposeCts.Token).ConfigureAwait(false);
+        _logger.LogInformation("Initial network snapshot refresh completed.");
+
         _monitoringTask = MonitorAsync(_disposeCts.Token);
+        _logger.LogInformation("Background network monitoring started.");
     }
 
     [RelayCommand]
@@ -282,6 +292,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         try
         {
             NetworkStatusSnapshot snapshot = await _networkStatusService.GetSnapshotAsync(cancellationToken).ConfigureAwait(false);
+            _logger.LogDebug(
+                "Network snapshot refreshed. LayoutMode={LayoutMode}, HasInternetAccess={HasInternetAccess}, IsEthernetConnected={IsEthernetConnected}, IsWifiRuntimeAvailable={IsWifiRuntimeAvailable}, HasWirelessAdapter={HasWirelessAdapter}, WifiNetworkCount={WifiNetworkCount}.",
+                snapshot.LayoutMode,
+                snapshot.HasInternetAccess,
+                snapshot.IsEthernetConnected,
+                snapshot.IsWifiRuntimeAvailable,
+                snapshot.HasWirelessAdapter,
+                snapshot.WifiNetworks.Count);
             await RunOnUiAsync(() => ApplySnapshot(snapshot)).ConfigureAwait(false);
         }
         catch (OperationCanceledException)

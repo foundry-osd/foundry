@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Threading;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Models;
@@ -25,14 +26,20 @@ public static class Program
         {
             Log.Information("Starting Foundry.Connect bootstrap.");
             ConfigureRuntimeCompatibility();
+            Log.Information("Runtime compatibility configuration completed.");
 
             using IHost host = BuildHost(args);
+            Log.Information("Host built successfully.");
 
             App app = host.Services.GetRequiredService<App>();
+            Log.Information("Resolved App instance.");
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
             app.InitializeComponent();
+            Log.Information("App.InitializeComponent completed.");
 
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
+            Log.Information("Resolved MainWindow instance.");
+            Log.Information("Entering WPF run loop.");
             int exitCode = app.Run(mainWindow);
 
             Log.Information("Foundry.Connect exited with code {ExitCode}.", exitCode);
@@ -140,5 +147,14 @@ public static class Program
     private static void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs args)
     {
         Log.Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
+        args.Handled = true;
+
+        Application? app = Application.Current;
+        if (app is null)
+        {
+            return;
+        }
+
+        app.Shutdown((int)FoundryConnectExitCode.StartupFailure);
     }
 }

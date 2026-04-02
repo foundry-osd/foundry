@@ -29,7 +29,7 @@
                     <TextBlock
                         Margin="0,0,16,0"
                         VerticalAlignment="Top"
-                        FontFamily="Segoe Fluent Icons"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
                         FontSize="28"
                         Text="{Binding EthernetGlyph}" />
 
@@ -204,7 +204,7 @@
                                             <TextBlock
                                                 Margin="0,0,12,0"
                                                 VerticalAlignment="Center"
-                                                FontFamily="Segoe Fluent Icons"
+                                                FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                 FontSize="20"
                                                 Text="{Binding SignalGlyph}" />
 

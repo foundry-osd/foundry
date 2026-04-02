@@ -67,6 +67,11 @@ public partial class EthernetWifiView : UserControl
             return;
         }
 
+        if (SelectedWifiPassphraseBox is null)
+        {
+            return;
+        }
+
         if (!string.Equals(SelectedWifiPassphraseBox.Password, _viewModel.SelectedWifiPassphrase, StringComparison.Ordinal))
         {
             SelectedWifiPassphraseBox.Password = _viewModel.SelectedWifiPassphrase;
