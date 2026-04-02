@@ -249,13 +249,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             refreshAfterAction: true).ConfigureAwait(false);
     }
 
-    [RelayCommand]
-    private void Abort()
-    {
-        _logger.LogInformation("Abort requested by the operator.");
-        _applicationLifetimeService.Exit(FoundryConnectExitCode.UserAborted);
-    }
-
     public void HandleWindowClosing()
     {
         if (!_applicationLifetimeService.IsExitRequested)

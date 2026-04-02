@@ -53,7 +53,6 @@
                     </MenuItem>
                     <MenuItem Command="{Binding ShowAboutCommand}" Header="_About" />
                     <MenuItem Command="{Binding RefreshStatusCommand}" Header="_Refresh" />
-                    <MenuItem Command="{Binding AbortCommand}" Header="_Abort" />
                 </Menu>
                 <TextBlock
                     Margin="0,8,0,0"
