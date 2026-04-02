@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -38,6 +39,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly Dispatcher _dispatcher;
     private readonly SemaphoreSlim _refreshGate = new(1, 1);
     private readonly CancellationTokenSource _disposeCts = new();
+    private readonly bool _isAutoCloseEnabled;
 
     private CancellationTokenSource? _countdownCts;
     private Task? _monitoringTask;
@@ -139,6 +141,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _networkStatusService = networkStatusService;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        _isAutoCloseEnabled = !Debugger.IsAttached;
         LayoutMode = NetworkLayoutMode.EthernetOnly;
         VersionDisplay = $"Version: {FoundryConnectApplicationInfo.Version}";
         ConfigurationSourceText = _configurationService.IsLoadedFromDisk && !string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath)
@@ -367,6 +370,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void UpdateCountdown(NetworkStatusSnapshot snapshot)
     {
+        if (!_isAutoCloseEnabled)
+        {
+            CancelCountdown();
+            return;
+        }
+
         if (snapshot.HasInternetAccess)
         {
             if (IsCountdownActive || _applicationLifetimeService.IsExitRequested)

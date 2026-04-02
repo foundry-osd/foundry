@@ -27,7 +27,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
     public FoundryConnectConfiguration Load()
     {
-        ConfigurationPath = ResolveConfigurationPath(_args);
+        ConfigurationResolution resolution = ResolveConfigurationPath(_args);
+        ConfigurationPath = resolution.Path;
         if (string.IsNullOrWhiteSpace(ConfigurationPath))
         {
             IsLoadedFromDisk = false;
@@ -37,6 +38,13 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         string fullPath = Path.GetFullPath(ConfigurationPath);
         if (!File.Exists(fullPath))
         {
+            if (!resolution.IsRequired)
+            {
+                ConfigurationPath = null;
+                IsLoadedFromDisk = false;
+                return Normalize(new FoundryConnectConfiguration());
+            }
+
             throw new FoundryConnectConfigurationException($"Configuration file was not found: {fullPath}");
         }
 
@@ -63,12 +71,12 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
     }
 
-    private static string? ResolveConfigurationPath(IEnumerable<string> args)
+    private static ConfigurationResolution ResolveConfigurationPath(IEnumerable<string> args)
     {
         string? envPath = Environment.GetEnvironmentVariable("FOUNDRY_CONNECT_CONFIG");
         if (!string.IsNullOrWhiteSpace(envPath))
         {
-            return envPath;
+            return new ConfigurationResolution(envPath, IsRequired: true);
         }
 
         string[] values = args.ToArray();
@@ -77,15 +85,16 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             string value = values[index];
             if (value.Equals("--config", StringComparison.OrdinalIgnoreCase) && index + 1 < values.Length)
             {
-                return values[index + 1];
+                return new ConfigurationResolution(values[index + 1], IsRequired: true);
             }
         }
 
-        string basePath = Environment.GetEnvironmentVariable("SystemDrive")?.Equals("X:", StringComparison.OrdinalIgnoreCase) == true
-            ? @"X:\Foundry\Config"
-            : AppContext.BaseDirectory;
+        if (Environment.GetEnvironmentVariable("SystemDrive")?.Equals("X:", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            return new ConfigurationResolution(Path.Combine(@"X:\Foundry\Config", DefaultConfigFileName), IsRequired: true);
+        }
 
-        return Path.Combine(basePath, DefaultConfigFileName);
+        return new ConfigurationResolution(Path.Combine(AppContext.BaseDirectory, DefaultConfigFileName), IsRequired: false);
     }
 
     private static FoundryConnectConfiguration Normalize(FoundryConnectConfiguration configuration)
@@ -134,4 +143,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             }
         };
     }
+
+    private readonly record struct ConfigurationResolution(string? Path, bool IsRequired);
 }
