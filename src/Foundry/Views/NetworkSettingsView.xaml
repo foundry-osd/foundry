@@ -174,10 +174,10 @@
                         Grid.ColumnSpan="2"
                         Margin="0,0,0,8"
                         DisplayMemberPath="DisplayName"
+                        IsEnabled="{Binding IsWifiSecuritySelectionEnabled}"
                         ItemsSource="{Binding WifiSecurityTypes}"
                         SelectedValue="{Binding WifiSecurityType}"
-                        SelectedValuePath="Value"
-                        IsEnabled="{Binding IsWifiSecuritySelectionEnabled}" />
+                        SelectedValuePath="Value" />
 
                     <TextBlock
                         Grid.Row="2"
@@ -226,62 +226,62 @@
                             TextWrapping="Wrap" />
 
                         <Grid IsEnabled="{Binding IsWifiEnterpriseSectionEnabled}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Margin="0,0,8,8"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[NetworkProfileTemplateLabel]}" />
-                        <TextBox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="0,0,8,8"
-                            Text="{Binding WifiEnterpriseProfileTemplatePath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Command="{Binding BrowseWifiEnterpriseProfileTemplateCommand}"
-                            Content="{Binding Strings[BrowseFileButton]}" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0,0,8,8"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[NetworkProfileTemplateLabel]}" />
+                            <TextBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,0,8,8"
+                                Text="{Binding WifiEnterpriseProfileTemplatePath, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Command="{Binding BrowseWifiEnterpriseProfileTemplateCommand}"
+                                Content="{Binding Strings[BrowseFileButton]}" />
 
-                        <CheckBox
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="3"
-                            Margin="0,0,0,12"
-                            Content="{Binding Strings[NetworkRequiresCertificateLabel]}"
-                            IsChecked="{Binding IsWifiCertificateRequired}" />
+                            <CheckBox
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Margin="0,0,0,12"
+                                Content="{Binding Strings[NetworkRequiresCertificateLabel]}"
+                                IsChecked="{Binding IsWifiCertificateRequired}" />
 
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Margin="0,0,8,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[WifiCertificateLabel]}" />
-                        <TextBox
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="0,0,8,0"
-                            IsEnabled="{Binding IsWifiCertificatePathEnabled}"
-                            Text="{Binding WifiCertificatePath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            Command="{Binding BrowseWifiCertificateCommand}"
-                            Content="{Binding Strings[BrowseFileButton]}"
-                            IsEnabled="{Binding IsWifiCertificatePathEnabled}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[WifiCertificateLabel]}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="0,0,8,0"
+                                IsEnabled="{Binding IsWifiCertificatePathEnabled}"
+                                Text="{Binding WifiCertificatePath, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Command="{Binding BrowseWifiCertificateCommand}"
+                                Content="{Binding Strings[BrowseFileButton]}"
+                                IsEnabled="{Binding IsWifiCertificatePathEnabled}" />
                         </Grid>
                     </StackPanel>
                 </Expander>

@@ -68,22 +68,61 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Adapter" />
-                        <TextBlock Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding AdapterName}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding AdapterName}" />
 
-                        <TextBlock Grid.Row="1" Style="{StaticResource BodyStrongTextBlockStyle}" Text="DHCP" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DhcpText}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="DHCP" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DhcpText}" />
 
-                        <TextBlock Grid.Row="2" Style="{StaticResource BodyStrongTextBlockStyle}" Text="IPv4 address" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding IpAddress}" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="IPv4 address" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding IpAddress}" />
 
-                        <TextBlock Grid.Row="3" Style="{StaticResource BodyStrongTextBlockStyle}" Text="Subnet mask" />
-                        <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SubnetMask}" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Subnet mask" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding SubnetMask}" />
 
-                        <TextBlock Grid.Row="4" Style="{StaticResource BodyStrongTextBlockStyle}" Text="Gateway" />
-                        <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding GatewayAddress}" />
+                        <TextBlock
+                            Grid.Row="4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Gateway" />
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding GatewayAddress}" />
 
-                        <TextBlock Grid.Row="5" Style="{StaticResource BodyStrongTextBlockStyle}" Text="DNS servers" />
-                        <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DnsServers}" TextWrapping="Wrap" />
+                        <TextBlock
+                            Grid.Row="5"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="DNS servers" />
+                        <TextBlock
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DnsServers}"
+                            TextWrapping="Wrap" />
                     </Grid>
                 </StackPanel>
             </Border>
@@ -134,7 +173,7 @@
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Text="No Wi-Fi networks discovered.">
                             <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+                                <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
                                     <Setter Property="Visibility" Value="Collapsed" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding HasWifiNetworks}" Value="False">
@@ -151,7 +190,10 @@
                             Visibility="{Binding HasWifiNetworks, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Padding="8" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="0,0,0,1">
+                                    <Border
+                                        Padding="8"
+                                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="0,0,0,1">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
