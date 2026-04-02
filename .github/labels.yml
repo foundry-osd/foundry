@@ -50,6 +50,10 @@
   color: '0e8a16'
   description: Changes in the Foundry.Deploy deployment application
 
+- name: 'project: foundry-connect'
+  color: '5319e7'
+  description: Changes in the Foundry.Connect WinPE network bootstrap application
+
 - name: ui
   color: '7057ff'
   description: User interface or XAML changes
