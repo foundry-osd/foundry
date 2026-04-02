@@ -16,6 +16,8 @@ $EmbeddedConnectArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Connect.zip'
 $EmbeddedConnectConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.connect.config.json'
 $EmbeddedDeployArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
 $EmbeddedDeployConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.deploy.config.json'
+$EmbeddedConnectProvisioningSourcePath = Join-Path $WinPeRoot 'Config\foundry.connect.provisioning-source.txt'
+$EmbeddedDeployProvisioningSourcePath = Join-Path $WinPeRoot 'Config\foundry.deploy.provisioning-source.txt'
 $SevenZipToolsPath = Join-Path $WinPeRoot 'Tools\7zip'
 $TimeZoneMapPath = Join-Path $WinPeRoot 'Config\iana-windows-timezones.json'
 $DefaultWinPeTimeZoneId = 'UTC'
@@ -1326,6 +1328,40 @@ function Get-EmbeddedArchivePath {
     }
 }
 
+function Get-EmbeddedProvisioningSourcePath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
+    )
+
+    switch ($ApplicationName) {
+        'Foundry.Connect' { return $EmbeddedConnectProvisioningSourcePath }
+        'Foundry.Deploy' { return $EmbeddedDeployProvisioningSourcePath }
+    }
+}
+
+function Get-EmbeddedProvisioningSource {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName
+    )
+
+    $sourcePath = Get-EmbeddedProvisioningSourcePath -ApplicationName $ApplicationName
+    if (-not (Test-Path -Path $sourcePath -PathType Leaf)) {
+        return ''
+    }
+
+    try {
+        return (Get-Content -Path $sourcePath -Raw -ErrorAction Stop).Trim().ToLowerInvariant()
+    }
+    catch {
+        Write-Log "Failed to read embedded provisioning source for $ApplicationName from '$sourcePath': $($_.Exception.Message)." -Level Warning
+        return ''
+    }
+}
+
 function Get-ReleaseTagOverride {
     param(
         [Parameter(Mandatory = $true)]
@@ -1646,6 +1682,11 @@ try {
 
     [void](Ensure-ServiceRunning -ServiceName 'dot3svc' -FriendlyName 'Wired AutoConfig')
 
+    $connectProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Connect'
+    $deployProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Deploy'
+    $skipConnectUpdateCheck = $connectProvisioningSource -eq 'local'
+    $skipDeployReleaseLookup = $deployProvisioningSource -eq 'local'
+
     $connectExecutable = Resolve-ApplicationExecutable `
         -ApplicationName 'Foundry.Connect' `
         -BootstrapRoot $bootstrapRoot `
@@ -1672,23 +1713,29 @@ try {
     Sync-WinPeInternetDateTime -ThresholdMinutes 5
     Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
 
-    try {
-        [void](Resolve-ApplicationExecutable `
-            -ApplicationName 'Foundry.Connect' `
-            -BootstrapRoot $bootstrapRoot `
-            -RuntimeIdentifier $runtimeIdentifier `
-            -Headers $headers)
-        Write-Log 'Foundry.Connect cache verification completed.' -ConsoleMessage 'Foundry.Connect cache verification completed.'
+    if ($skipConnectUpdateCheck) {
+        Write-Log "Skipping Foundry.Connect cache verification because the embedded provisioning source is local." -ConsoleMessage 'Foundry.Connect local provisioning detected. Skipping update check.'
     }
-    catch {
-        Write-Log "Foundry.Connect cache verification failed: $($_.Exception.Message). Continuing with the cached bootstrap content." -Level Warning -ConsoleMessage 'Foundry.Connect cache verification failed. Continuing.'
+    else {
+        try {
+            [void](Resolve-ApplicationExecutable `
+                -ApplicationName 'Foundry.Connect' `
+                -BootstrapRoot $bootstrapRoot `
+                -RuntimeIdentifier $runtimeIdentifier `
+                -Headers $headers)
+            Write-Log 'Foundry.Connect cache verification completed.' -ConsoleMessage 'Foundry.Connect cache verification completed.'
+        }
+        catch {
+            Write-Log "Foundry.Connect cache verification failed: $($_.Exception.Message). Continuing with the cached bootstrap content." -Level Warning -ConsoleMessage 'Foundry.Connect cache verification failed. Continuing.'
+        }
     }
 
     $deployExecutable = Resolve-ApplicationExecutable `
         -ApplicationName 'Foundry.Deploy' `
         -BootstrapRoot $bootstrapRoot `
         -RuntimeIdentifier $runtimeIdentifier `
-        -Headers $headers
+        -Headers $headers `
+        -SkipReleaseLookup:$skipDeployReleaseLookup
 
     Start-DeployExecutable -Executable $deployExecutable
     Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.' -ConsoleSpacingBefore

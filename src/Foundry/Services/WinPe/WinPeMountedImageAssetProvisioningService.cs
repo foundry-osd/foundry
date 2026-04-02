@@ -95,6 +95,14 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
             return deployConfigurationProvisioning;
         }
 
+        WinPeResult provisioningSourceProvisioning = await ProvisionProvisioningSourceMarkersAsync(
+            mountedImagePath,
+            cancellationToken).ConfigureAwait(false);
+        if (!provisioningSourceProvisioning.IsSuccess)
+        {
+            return provisioningSourceProvisioning;
+        }
+
         WinPeResult timeZoneMapProvisioning = await ProvisionTimeZoneMapInImageAsync(
             mountedImagePath,
             cancellationToken).ConfigureAwait(false);
@@ -417,6 +425,69 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
         }
     }
 
+    private async Task<WinPeResult> ProvisionProvisioningSourceMarkersAsync(
+        string mountedImagePath,
+        CancellationToken cancellationToken)
+    {
+        string connectSource = IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalConnectEnableEnvironmentVariable))
+            ? "local"
+            : "release";
+        string deploySource = IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalDeployEnableEnvironmentVariable))
+            ? "local"
+            : "release";
+
+        WinPeResult connectResult = await ProvisionTextFileAsync(
+            mountedImagePath,
+            WinPeDefaults.EmbeddedConnectProvisioningSourcePathInImage,
+            connectSource,
+            "Foundry.Connect provisioning source",
+            cancellationToken).ConfigureAwait(false);
+        if (!connectResult.IsSuccess)
+        {
+            return connectResult;
+        }
+
+        return await ProvisionTextFileAsync(
+            mountedImagePath,
+            WinPeDefaults.EmbeddedDeployProvisioningSourcePathInImage,
+            deploySource,
+            "Foundry.Deploy provisioning source",
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<WinPeResult> ProvisionTextFileAsync(
+        string mountedImagePath,
+        string relativeDestinationPath,
+        string content,
+        string description,
+        CancellationToken cancellationToken)
+    {
+        string destinationPath = Path.Combine(mountedImagePath, relativeDestinationPath);
+        string? destinationDirectoryPath = Path.GetDirectoryName(destinationPath);
+        if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.InternalError,
+                $"Failed to resolve destination path for {description}.",
+                $"Destination file: '{destinationPath}'.");
+        }
+
+        try
+        {
+            Directory.CreateDirectory(destinationDirectoryPath);
+            await File.WriteAllTextAsync(destinationPath, content, new UTF8Encoding(false), cancellationToken).ConfigureAwait(false);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to provision {Description} into mounted WinPE image. DestinationPath={DestinationPath}", description, destinationPath);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                $"Failed to provision {description} into mounted WinPE image.",
+                ex.ToString());
+        }
+    }
+
     private async Task<WinPeResult> ProvisionAutopilotProfilesInImageAsync(
         string mountedImagePath,
         IReadOnlyList<AutopilotProfileSettings> autopilotProfiles,
@@ -481,6 +552,26 @@ internal sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedI
   }
 }
 """;
+    }
+
+    private static bool IsEnabledEnvironmentFlag(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+
+        return value.Trim() switch
+        {
+            "1" => true,
+            "true" => true,
+            "TRUE" => true,
+            "yes" => true,
+            "YES" => true,
+            "on" => true,
+            "ON" => true,
+            _ => false
+        };
     }
 
     private static void TryDeleteDirectory(string path)

@@ -19,6 +19,8 @@ internal static class WinPeDefaults
     public const string EmbeddedDeployArchivePathInImage = @"Foundry\Seed\Foundry.Deploy.zip";
     public const string EmbeddedConnectConfigPathInImage = @"Foundry\Config\foundry.connect.config.json";
     public const string EmbeddedDeployConfigPathInImage = @"Foundry\Config\foundry.deploy.config.json";
+    public const string EmbeddedConnectProvisioningSourcePathInImage = @"Foundry\Config\foundry.connect.provisioning-source.txt";
+    public const string EmbeddedDeployProvisioningSourcePathInImage = @"Foundry\Config\foundry.deploy.provisioning-source.txt";
     public const string EmbeddedNetworkAssetsPathInImage = @"Foundry\Config\Network";
     public const string EmbeddedTimeZoneMapPathInImage = @"Foundry\Config\iana-windows-timezones.json";
     public const string EmbeddedAutopilotProfilesPathInImage = @"Foundry\Config\Autopilot";

@@ -135,7 +135,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
 
         _logger.LogInformation("Applied WinPE international settings successfully. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
 
-        ReportProgress(request.Progress, 66, "Provisioning local Foundry.Connect payload.");
+        ReportProgress(request.Progress, 66, "Provisioning Foundry.Connect payload.");
         WinPeResult localConnectProvisioning = await _localConnectEmbeddingService.ProvisionAsync(
             session.MountDirectoryPath,
             request.Artifact.Architecture,
@@ -146,9 +146,9 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
             return await FailWithDiscardAsync(localConnectProvisioning.Error!, session, cancellationToken).ConfigureAwait(false);
         }
 
-        _logger.LogInformation("Provisioned local Foundry.Connect archive into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        _logger.LogInformation("Provisioned Foundry.Connect payload into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
 
-        ReportProgress(request.Progress, 72, "Provisioning local Foundry.Deploy payload.");
+        ReportProgress(request.Progress, 72, "Provisioning Foundry.Deploy payload.");
         WinPeResult localDeployProvisioning = await _localDeployEmbeddingService.ProvisionAsync(
             session.MountDirectoryPath,
             request.Artifact.Architecture,
@@ -159,7 +159,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
             return await FailWithDiscardAsync(localDeployProvisioning.Error!, session, cancellationToken).ConfigureAwait(false);
         }
 
-        _logger.LogInformation("Provisioned local Foundry.Deploy archive into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
+        _logger.LogInformation("Provisioned Foundry.Deploy payload into mounted WinPE image. MountDirectoryPath={MountDirectoryPath}", session.MountDirectoryPath);
         _logger.LogInformation(
             "Starting mounted image asset provisioning. MountDirectoryPath={MountDirectoryPath}, AutopilotProfileCount={AutopilotProfileCount}, HasExpertConfiguration={HasExpertConfiguration}",
             session.MountDirectoryPath,
