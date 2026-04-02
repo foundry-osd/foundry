@@ -561,27 +561,7 @@ function Start-WinPeWirelessServiceIfSupported {
         return
     }
 
-    try {
-        $service = Get-Service -Name 'WlanSvc' -ErrorAction Stop
-    }
-    catch {
-        Write-Log "WlanSvc is unavailable even though WinRE wireless dependencies are present: $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Wi-Fi service unavailable. Continuing.'
-        return
-    }
-
-    if ([string]::Equals([string]$service.Status, 'Running', [System.StringComparison]::OrdinalIgnoreCase)) {
-        Write-Log 'WlanSvc is already running.' -ConsoleMessage 'Wi-Fi service: already running.'
-        return
-    }
-
-    try {
-        Start-Service -Name 'WlanSvc' -ErrorAction Stop
-        $service.Refresh()
-        Write-Log "WlanSvc started successfully. CurrentStatus='$($service.Status)'." -ConsoleMessage 'Wi-Fi service: started.'
-    }
-    catch {
-        Write-Log "Failed to start WlanSvc: $($_.Exception.Message)." -Level Warning -ConsoleMessage 'Wi-Fi service start failed. Continuing.'
-    }
+    [void](Ensure-ServiceRunning -ServiceName 'WlanSvc' -FriendlyName 'Wi-Fi AutoConfig')
 }
 
 function Sync-WinPeInternetDateTime {
@@ -1724,6 +1704,7 @@ try {
     }
 
     [void](Ensure-ServiceRunning -ServiceName 'dot3svc' -FriendlyName 'Wired AutoConfig')
+    Start-WinPeWirelessServiceIfSupported
 
     $connectProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Connect'
     $deployProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Deploy'
