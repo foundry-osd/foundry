@@ -7,42 +7,155 @@
     DataContextChanged="OnDataContextChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <Style x:Key="WifiStatusTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+            <Setter Property="Visibility" Value="Visible" />
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <DataTemplate x:Key="WifiNetworkItemTemplate">
             <Border
-                Padding="8"
-                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-                BorderThickness="0,0,0,1">
+                HorizontalAlignment="Stretch"
+                Margin="0,0,0,8"
+                MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"
+                Padding="10">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                    <TextBlock
-                        Margin="0,0,12,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource SymbolThemeFontFamily}"
-                        FontSize="20"
-                        Text="{Binding SignalGlyph}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Ssid}" />
                         <TextBlock
-                            Margin="0,2,0,0"
+                            Margin="0,0,12,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            FontSize="20"
+                            Text="{Binding SignalGlyph}" />
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Ssid}" />
+                            <TextBlock
+                                Margin="0,2,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding Authentication}" />
+                        </StackPanel>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{Binding Authentication}" />
-                    </StackPanel>
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding SignalStrengthPercent, StringFormat={}{0}%}" />
+                    </Grid>
+
+                        <Grid
+                            x:Name="ConnectActionsPanel"
+                            Grid.Row="1"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,12,0,0"
+                            MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"
+                            Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid x:Name="PassphraseRow" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" MinWidth="0" Margin="0,0,8,0">
+                                    <PasswordBox
+                                        x:Name="SelectedWifiPassphraseBox"
+                                        MinWidth="0"
+                                        HorizontalAlignment="Stretch"
+                                        Loaded="SelectedWifiPassphraseBox_OnLoaded"
+                                        PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
+                                        PasswordChar="*"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                        ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                    <TextBox
+                                    x:Name="SelectedWifiPassphraseRevealTextBox"
+                                    MinWidth="0"
+                                    HorizontalAlignment="Stretch"
+                                    Loaded="SelectedWifiPassphraseRevealTextBox_OnLoaded"
+                                    TextChanged="SelectedWifiPassphraseRevealTextBox_OnTextChanged"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                    Visibility="Collapsed" />
+                                </Grid>
+
+                                <Button
+                                    Grid.Column="1"
+                                    Click="SelectedWifiRevealButton_OnClick"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    MinWidth="40"
+                                    Padding="10,0">
+                                    <TextBlock
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        FontSize="14"
+                                        Text="&#xF78D;" />
+                                </Button>
+                            </Grid>
+
+                            <Button
+                                Grid.Row="1"
+                                Margin="0,12,0,0"
+                                HorizontalAlignment="Right"
+                                Command="{Binding DataContext.ConnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Content="Connect"
+                                IsEnabled="{Binding DataContext.CanConnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Width="140"
+                                Style="{DynamicResource AccentButtonStyle}" />
+                        </Grid>
 
                     <TextBlock
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
+                        x:Name="ProvisionedProfileHintTextBlock"
+                        Grid.Row="1"
+                        Margin="0,12,0,0"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding SignalStrengthPercent, StringFormat={}{0}%}" />
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="Provisioned profile required in this build."
+                        TextWrapping="Wrap"
+                        Visibility="Collapsed" />
                 </Grid>
             </Border>
+
+            <DataTemplate.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}" Value="True" />
+                        <Condition Binding="{Binding CanDirectConnect}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter TargetName="ConnectActionsPanel" Property="Visibility" Value="Visible" />
+                </MultiDataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}" Value="True" />
+                        <Condition Binding="{Binding CanDirectConnect}" Value="False" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter TargetName="ProvisionedProfileHintTextBlock" Property="Visibility" Value="Visible" />
+                </MultiDataTrigger>
+
+                <DataTrigger Binding="{Binding RequiresPassphrase}" Value="False">
+                    <Setter TargetName="PassphraseRow" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>
 
@@ -125,7 +238,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Wi-Fi" />
@@ -133,7 +245,7 @@
                     <TextBlock
                         Grid.Row="1"
                         Margin="0,12,0,0"
-                        Style="{StaticResource BodyTextBlockStyle}"
+                        Style="{StaticResource WifiStatusTextBlockStyle}"
                         Text="{Binding WifiStatusText}"
                         TextWrapping="Wrap" />
 
@@ -178,43 +290,18 @@
                             </TextBlock>
 
                             <ListView
+                                x:Name="CompactWifiNetworksListView"
+                                HorizontalContentAlignment="Stretch"
                                 MinHeight="{Binding WifiNetworkListMinHeight}"
                                 MaxHeight="{Binding WifiNetworkListMaxHeight}"
                                 ItemTemplate="{StaticResource WifiNetworkItemTemplate}"
                                 ItemsSource="{Binding WifiNetworks}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                                 SelectedItem="{Binding SelectedWifiNetwork, Mode=TwoWay}"
                                 Visibility="{Binding HasWifiNetworks, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </Grid>
-
-                    <StackPanel
-                        Grid.Row="4"
-                        Margin="0,16,0,0"
-                        Visibility="{Binding HasWifiNetworks, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected network" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding SelectedWifiNetworkHintText}"
-                            TextWrapping="Wrap" />
-                        <TextBlock
-                            Margin="0,12,0,4"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Passphrase"
-                            Visibility="{Binding IsSelectedWifiPassphraseVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <PasswordBox
-                            x:Name="CompactSelectedWifiPassphraseBox"
-                            Loaded="SelectedWifiPassphraseBox_OnLoaded"
-                            PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
-                            Visibility="{Binding IsSelectedWifiPassphraseVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <Button
-                            Margin="0,12,0,0"
-                            Command="{Binding ConnectSelectedWifiCommand}"
-                            Content="Connect selected network"
-                            IsEnabled="{Binding CanConnectSelectedWifi}" />
-                    </StackPanel>
                 </Grid>
             </Border>
 
@@ -374,7 +461,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Wi-Fi" />
@@ -382,7 +468,7 @@
                     <TextBlock
                         Grid.Row="1"
                         Margin="0,12,0,0"
-                        Style="{StaticResource BodyTextBlockStyle}"
+                        Style="{StaticResource WifiStatusTextBlockStyle}"
                         Text="{Binding WifiStatusText}"
                         TextWrapping="Wrap" />
 
@@ -427,43 +513,18 @@
                             </TextBlock>
 
                             <ListView
+                                x:Name="WideWifiNetworksListView"
+                                HorizontalContentAlignment="Stretch"
                                 MinHeight="{Binding WifiNetworkListMinHeight}"
                                 MaxHeight="{Binding WifiNetworkListMaxHeight}"
                                 ItemTemplate="{StaticResource WifiNetworkItemTemplate}"
                                 ItemsSource="{Binding WifiNetworks}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                                 SelectedItem="{Binding SelectedWifiNetwork, Mode=TwoWay}"
                                 Visibility="{Binding HasWifiNetworks, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </Grid>
-
-                    <StackPanel
-                        Grid.Row="4"
-                        Margin="0,16,0,0"
-                        Visibility="{Binding HasWifiNetworks, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected network" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding SelectedWifiNetworkHintText}"
-                            TextWrapping="Wrap" />
-                        <TextBlock
-                            Margin="0,12,0,4"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Passphrase"
-                            Visibility="{Binding IsSelectedWifiPassphraseVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <PasswordBox
-                            x:Name="WideSelectedWifiPassphraseBox"
-                            Loaded="SelectedWifiPassphraseBox_OnLoaded"
-                            PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
-                            Visibility="{Binding IsSelectedWifiPassphraseVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <Button
-                            Margin="0,12,0,0"
-                            Command="{Binding ConnectSelectedWifiCommand}"
-                            Content="Connect selected network"
-                            IsEnabled="{Binding CanConnectSelectedWifi}" />
-                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>

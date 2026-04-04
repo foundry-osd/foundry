@@ -55,6 +55,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool _isInitialized;
     private bool _isDisposed;
     private bool _isSyncingWifiNetworks;
+    private string? _lastSelectedWifiNetworkSsid;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
 
     [ObservableProperty]
@@ -210,9 +211,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public NetworkLayoutMode EffectiveLayoutMode => DebugLayoutOverride ?? LayoutMode;
 
     public bool CanConnectConfiguredWifi => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled && !IsNetworkActionInProgress;
-    public bool HasSelectedWifiNetwork => SelectedWifiNetwork is not null;
-    public bool IsSelectedWifiPassphraseVisible => SelectedWifiNetwork?.RequiresPassphrase == true;
-    public string SelectedWifiNetworkHintText => BuildSelectedWifiNetworkHintText();
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
                                           (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
@@ -540,26 +538,35 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string preservedPassphrase = SelectedWifiNetwork?.RequiresPassphrase == true
             ? SelectedWifiPassphrase
             : string.Empty;
+        Dictionary<string, WifiNetworkItemViewModel> existingNetworks = WifiNetworks.ToDictionary(
+            network => network.Ssid,
+            StringComparer.OrdinalIgnoreCase);
+        List<WifiNetworkItemViewModel> orderedNetworks = new(networks.Count);
 
         _isSyncingWifiNetworks = true;
 
         try
         {
-            WifiNetworks.Clear();
-
             foreach (WifiNetworkSummary network in networks)
             {
-                WifiNetworks.Add(new WifiNetworkItemViewModel(
-                    network.Ssid,
+                if (!existingNetworks.TryGetValue(network.Ssid, out WifiNetworkItemViewModel? wifiNetwork))
+                {
+                    wifiNetwork = new WifiNetworkItemViewModel(network.Ssid);
+                }
+
+                wifiNetwork.Update(
                     network.Authentication,
                     network.Encryption,
                     network.SignalStrengthPercent,
                     ResolveWifiGlyph(network.SignalStrengthPercent),
                     CanDirectConnect(network.Authentication),
-                    RequiresPassphrase(network.Authentication)));
+                    RequiresPassphrase(network.Authentication));
+                orderedNetworks.Add(wifiNetwork);
             }
 
-            SelectedWifiNetwork = WifiNetworks.FirstOrDefault(network =>
+            SyncWifiNetworkCollection(orderedNetworks);
+
+            SelectedWifiNetwork = orderedNetworks.FirstOrDefault(network =>
                 string.Equals(network.Ssid, selectedSsid, StringComparison.OrdinalIgnoreCase));
         }
         finally
@@ -577,11 +584,40 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         OnPropertyChanged(nameof(HasWifiNetworks));
-        OnPropertyChanged(nameof(HasSelectedWifiNetwork));
-        OnPropertyChanged(nameof(IsSelectedWifiPassphraseVisible));
-        OnPropertyChanged(nameof(SelectedWifiNetworkHintText));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
+    }
+
+    private void SyncWifiNetworkCollection(IReadOnlyList<WifiNetworkItemViewModel> orderedNetworks)
+    {
+        HashSet<WifiNetworkItemViewModel> orderedNetworkSet = [.. orderedNetworks];
+
+        for (int index = WifiNetworks.Count - 1; index >= 0; index--)
+        {
+            if (!orderedNetworkSet.Contains(WifiNetworks[index]))
+            {
+                WifiNetworks.RemoveAt(index);
+            }
+        }
+
+        for (int index = 0; index < orderedNetworks.Count; index++)
+        {
+            WifiNetworkItemViewModel network = orderedNetworks[index];
+
+            if (index < WifiNetworks.Count && ReferenceEquals(WifiNetworks[index], network))
+            {
+                continue;
+            }
+
+            int existingIndex = WifiNetworks.IndexOf(network);
+            if (existingIndex >= 0)
+            {
+                WifiNetworks.Move(existingIndex, index);
+                continue;
+            }
+
+            WifiNetworks.Insert(index, network);
+        }
     }
 
     private static string ResolveEthernetGlyph(NetworkStatusSnapshot snapshot)
@@ -646,15 +682,20 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     partial void OnSelectedWifiNetworkChanged(WifiNetworkItemViewModel? value)
     {
-        if (!_isSyncingWifiNetworks && (value is null || !value.RequiresPassphrase))
+        bool hasChangedSelection = !string.Equals(
+            _lastSelectedWifiNetworkSsid,
+            value?.Ssid,
+            StringComparison.OrdinalIgnoreCase);
+
+        if (!_isSyncingWifiNetworks &&
+            (value is null || !value.RequiresPassphrase || hasChangedSelection))
         {
             SelectedWifiPassphrase = string.Empty;
         }
 
+        _lastSelectedWifiNetworkSsid = value?.Ssid;
+
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
-        OnPropertyChanged(nameof(HasSelectedWifiNetwork));
-        OnPropertyChanged(nameof(IsSelectedWifiPassphraseVisible));
-        OnPropertyChanged(nameof(SelectedWifiNetworkHintText));
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
     }
 
@@ -732,33 +773,73 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
-    public sealed record WifiNetworkItemViewModel(
-        string Ssid,
-        string Authentication,
-        string Encryption,
-        int SignalStrengthPercent,
-        string SignalGlyph,
-        bool CanDirectConnect,
-        bool RequiresPassphrase);
-
-    private string BuildSelectedWifiNetworkHintText()
+    public sealed class WifiNetworkItemViewModel : ObservableObject
     {
-        if (SelectedWifiNetwork is null)
+        private string _authentication = string.Empty;
+        private string _encryption = string.Empty;
+        private int _signalStrengthPercent;
+        private string _signalGlyph = string.Empty;
+        private bool _canDirectConnect;
+        private bool _requiresPassphrase;
+
+        public WifiNetworkItemViewModel(string ssid)
         {
-            return "Select a discovered Wi-Fi network to connect.";
+            Ssid = ssid;
         }
 
-        if (!SelectedWifiNetwork.CanDirectConnect)
+        public string Ssid { get; }
+
+        public string Authentication
         {
-            return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
+            get => _authentication;
+            private set => SetProperty(ref _authentication, value);
         }
 
-        if (SelectedWifiNetwork.RequiresPassphrase)
+        public string Encryption
         {
-            return $"Enter the WPA2 passphrase for '{SelectedWifiNetwork.Ssid}'.";
+            get => _encryption;
+            private set => SetProperty(ref _encryption, value);
         }
 
-        return $"'{SelectedWifiNetwork.Ssid}' can be connected directly.";
+        public int SignalStrengthPercent
+        {
+            get => _signalStrengthPercent;
+            private set => SetProperty(ref _signalStrengthPercent, value);
+        }
+
+        public string SignalGlyph
+        {
+            get => _signalGlyph;
+            private set => SetProperty(ref _signalGlyph, value);
+        }
+
+        public bool CanDirectConnect
+        {
+            get => _canDirectConnect;
+            private set => SetProperty(ref _canDirectConnect, value);
+        }
+
+        public bool RequiresPassphrase
+        {
+            get => _requiresPassphrase;
+            private set => SetProperty(ref _requiresPassphrase, value);
+        }
+
+        public void Update(
+            string authentication,
+            string encryption,
+            int signalStrengthPercent,
+            string signalGlyph,
+            bool canDirectConnect,
+            bool requiresPassphrase)
+        {
+            Authentication = authentication;
+            Encryption = encryption;
+            SignalStrengthPercent = signalStrengthPercent;
+            SignalGlyph = signalGlyph;
+            CanDirectConnect = canDirectConnect;
+            RequiresPassphrase = requiresPassphrase;
+        }
     }
 
     private string BuildWifiDiscoveryEmptyStateText()

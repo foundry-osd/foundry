@@ -246,7 +246,7 @@ public sealed class NetworkStatusService : INetworkStatusService
                 : "Wireless adapter detected, but no Wi-Fi networks were discovered.";
         }
 
-        return $"{networkCount} Wi-Fi network(s) discovered.";
+        return string.Empty;
     }
 
     private static string BuildConnectionSummary(bool isEthernetConnected, bool hasInternetAccess, bool isWifiRuntimeAvailable, int wifiNetworkCount)
