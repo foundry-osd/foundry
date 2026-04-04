@@ -44,9 +44,7 @@
                 <MenuItem Header="_Tools">
                     <MenuItem Command="{Binding RefreshStatusCommand}" Header="Refresh Status" />
                 </MenuItem>
-                <MenuItem
-                    Header="_Debug"
-                    Visibility="{Binding IsDebugMenuVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <MenuItem Header="_Debug" Visibility="{Binding IsDebugMenuVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <MenuItem Command="{Binding UseRuntimeDebugLayoutCommand}" Header="Use Runtime Layout" />
                     <MenuItem Command="{Binding ShowEthernetOnlyDebugLayoutCommand}" Header="Show Ethernet Only" />
                     <MenuItem Command="{Binding ShowEthernetWifiDebugLayoutCommand}" Header="Show Ethernet + Wi-Fi" />
@@ -116,7 +114,10 @@
                     </Grid>
                 </Border>
 
-                <ContentControl Grid.Row="1" Margin="0,8,0,0" Content="{Binding}">
+                <ContentControl
+                    Grid.Row="1"
+                    Margin="0,8,0,0"
+                    Content="{Binding}">
                     <ContentControl.Style>
                         <Style TargetType="ContentControl">
                             <Setter Property="ContentTemplate" Value="{StaticResource EthernetOnlyTemplate}" />

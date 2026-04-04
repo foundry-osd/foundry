@@ -7,7 +7,10 @@
     DataContextChanged="OnDataContextChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style x:Key="WifiStatusTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+        <Style
+            x:Key="WifiStatusTextBlockStyle"
+            BasedOn="{StaticResource BodyTextBlockStyle}"
+            TargetType="TextBlock">
             <Setter Property="Visibility" Value="Visible" />
             <Style.Triggers>
                 <Trigger Property="Text" Value="">
@@ -18,10 +21,10 @@
 
         <DataTemplate x:Key="WifiNetworkItemTemplate">
             <Border
-                HorizontalAlignment="Stretch"
-                Margin="0,0,0,8"
                 MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"
-                Padding="10">
+                Margin="0,0,0,8"
+                Padding="10"
+                HorizontalAlignment="Stretch">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -59,69 +62,72 @@
                             Text="{Binding SignalStrengthPercent, StringFormat={}{0}%}" />
                     </Grid>
 
-                        <Grid
-                            x:Name="ConnectActionsPanel"
-                            Grid.Row="1"
-                            HorizontalAlignment="Stretch"
-                            Margin="0,12,0,0"
-                            MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"
-                            Visibility="Collapsed">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                    <Grid
+                        x:Name="ConnectActionsPanel"
+                        Grid.Row="1"
+                        MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Stretch"
+                        Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                            <Grid x:Name="PassphraseRow" HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                        <Grid x:Name="PassphraseRow" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                                <Grid Grid.Column="0" MinWidth="0" Margin="0,0,8,0">
-                                    <PasswordBox
-                                        x:Name="SelectedWifiPassphraseBox"
-                                        MinWidth="0"
-                                        HorizontalAlignment="Stretch"
-                                        Loaded="SelectedWifiPassphraseBox_OnLoaded"
-                                        PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
-                                        PasswordChar="*"
-                                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                        ScrollViewer.VerticalScrollBarVisibility="Disabled" />
-                                    <TextBox
+                            <Grid
+                                Grid.Column="0"
+                                MinWidth="0"
+                                Margin="0,0,8,0">
+                                <PasswordBox
+                                    x:Name="SelectedWifiPassphraseBox"
+                                    MinWidth="0"
+                                    HorizontalAlignment="Stretch"
+                                    Loaded="SelectedWifiPassphraseBox_OnLoaded"
+                                    PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
+                                    PasswordChar="*"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                <TextBox
                                     x:Name="SelectedWifiPassphraseRevealTextBox"
                                     MinWidth="0"
                                     HorizontalAlignment="Stretch"
                                     Loaded="SelectedWifiPassphraseRevealTextBox_OnLoaded"
-                                    TextChanged="SelectedWifiPassphraseRevealTextBox_OnTextChanged"
                                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                    TextChanged="SelectedWifiPassphraseRevealTextBox_OnTextChanged"
                                     Visibility="Collapsed" />
-                                </Grid>
-
-                                <Button
-                                    Grid.Column="1"
-                                    Click="SelectedWifiRevealButton_OnClick"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    MinWidth="40"
-                                    Padding="10,0">
-                                    <TextBlock
-                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                        FontSize="14"
-                                        Text="&#xF78D;" />
-                                </Button>
                             </Grid>
 
                             <Button
-                                Grid.Row="1"
-                                Margin="0,12,0,0"
-                                HorizontalAlignment="Right"
-                                Command="{Binding DataContext.ConnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                Content="Connect"
-                                IsEnabled="{Binding DataContext.CanConnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                Width="140"
-                                Style="{DynamicResource AccentButtonStyle}" />
+                                Grid.Column="1"
+                                MinWidth="40"
+                                Padding="10,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Click="SelectedWifiRevealButton_OnClick">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="14"
+                                    Text="&#xF78D;" />
+                            </Button>
                         </Grid>
+
+                        <Button
+                            Grid.Row="1"
+                            Width="140"
+                            Margin="0,12,0,0"
+                            HorizontalAlignment="Right"
+                            Command="{Binding DataContext.ConnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Content="Connect"
+                            IsEnabled="{Binding DataContext.CanConnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Style="{DynamicResource AccentButtonStyle}" />
+                    </Grid>
 
                     <TextBlock
                         x:Name="ProvisionedProfileHintTextBlock"
@@ -219,7 +225,10 @@
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{Binding AdapterName}"
                                 TextTrimming="CharacterEllipsis" />
-                            <TextBlock Grid.Column="2" Style="{StaticResource BodyStrongTextBlockStyle}" Text="IPv4" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="IPv4" />
                             <TextBlock
                                 Grid.Column="3"
                                 Margin="8,0,0,0"
@@ -278,7 +287,7 @@
                                 Text="{Binding WifiDiscoveryEmptyStateText}"
                                 TextWrapping="Wrap">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+                                    <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding HasWifiNetworks}" Value="False">
@@ -291,9 +300,9 @@
 
                             <ListView
                                 x:Name="CompactWifiNetworksListView"
-                                HorizontalContentAlignment="Stretch"
                                 MinHeight="{Binding WifiNetworkListMinHeight}"
                                 MaxHeight="{Binding WifiNetworkListMaxHeight}"
+                                HorizontalContentAlignment="Stretch"
                                 ItemTemplate="{StaticResource WifiNetworkItemTemplate}"
                                 ItemsSource="{Binding WifiNetworks}"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -325,17 +334,57 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Adapter" />
-                        <TextBlock Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding AdapterName}" TextWrapping="Wrap" />
-                        <TextBlock Grid.Row="1" Style="{StaticResource BodyStrongTextBlockStyle}" Text="DHCP" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DhcpText}" />
-                        <TextBlock Grid.Row="2" Style="{StaticResource BodyStrongTextBlockStyle}" Text="IPv4 address" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding IpAddress}" />
-                        <TextBlock Grid.Row="3" Style="{StaticResource BodyStrongTextBlockStyle}" Text="Subnet mask" />
-                        <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SubnetMask}" />
-                        <TextBlock Grid.Row="4" Style="{StaticResource BodyStrongTextBlockStyle}" Text="Gateway" />
-                        <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding GatewayAddress}" />
-                        <TextBlock Grid.Row="5" Style="{StaticResource BodyStrongTextBlockStyle}" Text="DNS servers" />
-                        <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DnsServers}" TextWrapping="Wrap" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding AdapterName}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="DHCP" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DhcpText}" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="IPv4 address" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding IpAddress}" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Subnet mask" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding SubnetMask}" />
+                        <TextBlock
+                            Grid.Row="4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Gateway" />
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding GatewayAddress}" />
+                        <TextBlock
+                            Grid.Row="5"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="DNS servers" />
+                        <TextBlock
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DnsServers}"
+                            TextWrapping="Wrap" />
                     </Grid>
                 </Expander>
             </Border>
@@ -406,7 +455,10 @@
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{Binding AdapterName}"
                                     TextTrimming="CharacterEllipsis" />
-                                <TextBlock Grid.Column="2" Style="{StaticResource BodyStrongTextBlockStyle}" Text="IPv4" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="IPv4" />
                                 <TextBlock
                                     Grid.Column="3"
                                     Margin="8,0,0,0"
@@ -438,17 +490,57 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Adapter" />
-                            <TextBlock Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding AdapterName}" TextWrapping="Wrap" />
-                            <TextBlock Grid.Row="1" Style="{StaticResource BodyStrongTextBlockStyle}" Text="DHCP" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DhcpText}" />
-                            <TextBlock Grid.Row="2" Style="{StaticResource BodyStrongTextBlockStyle}" Text="IPv4 address" />
-                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding IpAddress}" />
-                            <TextBlock Grid.Row="3" Style="{StaticResource BodyStrongTextBlockStyle}" Text="Subnet mask" />
-                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding SubnetMask}" />
-                            <TextBlock Grid.Row="4" Style="{StaticResource BodyStrongTextBlockStyle}" Text="Gateway" />
-                            <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding GatewayAddress}" />
-                            <TextBlock Grid.Row="5" Style="{StaticResource BodyStrongTextBlockStyle}" Text="DNS servers" />
-                            <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DnsServers}" TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding AdapterName}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="DHCP" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding DhcpText}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="IPv4 address" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding IpAddress}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="Subnet mask" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding SubnetMask}" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="Gateway" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding GatewayAddress}" />
+                            <TextBlock
+                                Grid.Row="5"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="DNS servers" />
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding DnsServers}"
+                                TextWrapping="Wrap" />
                         </Grid>
                     </Expander>
                 </Border>
@@ -501,7 +593,7 @@
                                 Text="{Binding WifiDiscoveryEmptyStateText}"
                                 TextWrapping="Wrap">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+                                    <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding HasWifiNetworks}" Value="False">
@@ -514,9 +606,9 @@
 
                             <ListView
                                 x:Name="WideWifiNetworksListView"
-                                HorizontalContentAlignment="Stretch"
                                 MinHeight="{Binding WifiNetworkListMinHeight}"
                                 MaxHeight="{Binding WifiNetworkListMaxHeight}"
+                                HorizontalContentAlignment="Stretch"
                                 ItemTemplate="{StaticResource WifiNetworkItemTemplate}"
                                 ItemsSource="{Binding WifiNetworks}"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
