@@ -19,6 +19,15 @@ namespace Foundry.Connect.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
+    private const double CompactViewportWidthThreshold = 1360;
+    private const double CompactViewportHeightThreshold = 900;
+    private const double CompactContentMargin = 16;
+    private const double WideContentMargin = 32;
+    private const double WideContentMaxWidth = 1320;
+    private const double CompactWifiListMinHeightValue = 120;
+    private const double CompactWifiListMaxHeightValue = 180;
+    private const double WideWifiListMinHeightValue = 160;
+    private const double WideWifiListMaxHeightValue = 320;
     private const string EthernetOkGlyph = "\uE839";
     private const string EthernetWarningGlyph = "\uEB56";
     private const string EthernetErrorGlyph = "\uEB55";
@@ -45,10 +54,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private Task? _monitoringTask;
     private bool _isInitialized;
     private bool _isDisposed;
+    private bool _isSyncingWifiNetworks;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
 
     [ObservableProperty]
     private NetworkLayoutMode layoutMode;
+
+    [ObservableProperty]
+    private ConnectViewportMode viewportMode = ConnectViewportMode.Compact;
+
+    [ObservableProperty]
+    private NetworkLayoutMode? debugLayoutOverride;
 
     [ObservableProperty]
     private string primaryStatusGlyph = NetworkOfflineGlyph;
@@ -122,6 +138,21 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     private string selectedWifiPassphrase = string.Empty;
 
+    [ObservableProperty]
+    private Thickness mainContentMargin = new(CompactContentMargin);
+
+    [ObservableProperty]
+    private double centerContentWidth = 960;
+
+    [ObservableProperty]
+    private double wifiNetworkListMinHeight = CompactWifiListMinHeightValue;
+
+    [ObservableProperty]
+    private double wifiNetworkListMaxHeight = CompactWifiListMaxHeightValue;
+
+    [ObservableProperty]
+    private bool isDiagnosticsExpanded;
+
     public MainWindowViewModel(
         IThemeService themeService,
         IApplicationShellService applicationShellService,
@@ -170,10 +201,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public bool HasWifiNetworks => WifiNetworks.Count > 0;
 
+    public bool IsCompactViewport => ViewportMode == ConnectViewportMode.Compact;
+
+    public bool IsWideViewport => ViewportMode == ConnectViewportMode.Wide;
+
+    public bool IsDebugMenuVisible => Debugger.IsAttached;
+
+    public NetworkLayoutMode EffectiveLayoutMode => DebugLayoutOverride ?? LayoutMode;
+
     public bool CanConnectConfiguredWifi => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled && !IsNetworkActionInProgress;
     public bool HasSelectedWifiNetwork => SelectedWifiNetwork is not null;
     public bool IsSelectedWifiPassphraseVisible => SelectedWifiNetwork?.RequiresPassphrase == true;
     public string SelectedWifiNetworkHintText => BuildSelectedWifiNetworkHintText();
+    public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
                                           (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
                                           !IsNetworkActionInProgress;
@@ -234,6 +274,24 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return RefreshCoreAsync(_disposeCts.Token);
     }
 
+    [RelayCommand(CanExecute = nameof(IsDebugMenuVisible))]
+    private void ShowEthernetOnlyDebugLayout()
+    {
+        DebugLayoutOverride = NetworkLayoutMode.EthernetOnly;
+    }
+
+    [RelayCommand(CanExecute = nameof(IsDebugMenuVisible))]
+    private void ShowEthernetWifiDebugLayout()
+    {
+        DebugLayoutOverride = NetworkLayoutMode.EthernetWifi;
+    }
+
+    [RelayCommand(CanExecute = nameof(IsDebugMenuVisible))]
+    private void UseRuntimeDebugLayout()
+    {
+        DebugLayoutOverride = null;
+    }
+
     [RelayCommand(CanExecute = nameof(CanConnectConfiguredWifi))]
     private async Task ConnectConfiguredWifiAsync()
     {
@@ -266,6 +324,26 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _logger.LogInformation("Window close detected before a controlled exit. Returning user-aborted exit code.");
             _applicationLifetimeService.Exit(FoundryConnectExitCode.UserAborted);
         }
+    }
+
+    public void UpdateViewport(double windowWidth, double windowHeight)
+    {
+        if (windowWidth <= 0 || windowHeight <= 0)
+        {
+            return;
+        }
+
+        bool useCompactViewport = windowWidth < CompactViewportWidthThreshold || windowHeight < CompactViewportHeightThreshold;
+        double horizontalMargin = useCompactViewport ? CompactContentMargin : WideContentMargin;
+        double availableWidth = Math.Max(320, windowWidth - (horizontalMargin * 2));
+
+        ViewportMode = useCompactViewport ? ConnectViewportMode.Compact : ConnectViewportMode.Wide;
+        MainContentMargin = new Thickness(horizontalMargin, horizontalMargin, horizontalMargin, horizontalMargin);
+        CenterContentWidth = useCompactViewport
+            ? availableWidth
+            : Math.Min(availableWidth, WideContentMaxWidth);
+        WifiNetworkListMinHeight = useCompactViewport ? CompactWifiListMinHeightValue : WideWifiListMinHeightValue;
+        WifiNetworkListMaxHeight = useCompactViewport ? CompactWifiListMaxHeightValue : WideWifiListMaxHeightValue;
     }
 
     private async Task MonitorAsync(CancellationToken cancellationToken)
@@ -342,6 +420,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         DhcpText = snapshot.DhcpText;
         LastUpdatedAt = DateTimeOffset.Now;
         OnPropertyChanged(nameof(LastUpdatedText));
+        OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
 
         SyncWifiNetworks(snapshot.WifiNetworks);
         ApplyPrimaryStatus(snapshot);
@@ -458,27 +537,50 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks)
     {
         string? selectedSsid = SelectedWifiNetwork?.Ssid;
-        WifiNetworks.Clear();
+        string preservedPassphrase = SelectedWifiNetwork?.RequiresPassphrase == true
+            ? SelectedWifiPassphrase
+            : string.Empty;
 
-        foreach (WifiNetworkSummary network in networks)
+        _isSyncingWifiNetworks = true;
+
+        try
         {
-            WifiNetworks.Add(new WifiNetworkItemViewModel(
-                network.Ssid,
-                network.Authentication,
-                network.Encryption,
-                network.SignalStrengthPercent,
-                ResolveWifiGlyph(network.SignalStrengthPercent),
-                CanDirectConnect(network.Authentication),
-                RequiresPassphrase(network.Authentication)));
+            WifiNetworks.Clear();
+
+            foreach (WifiNetworkSummary network in networks)
+            {
+                WifiNetworks.Add(new WifiNetworkItemViewModel(
+                    network.Ssid,
+                    network.Authentication,
+                    network.Encryption,
+                    network.SignalStrengthPercent,
+                    ResolveWifiGlyph(network.SignalStrengthPercent),
+                    CanDirectConnect(network.Authentication),
+                    RequiresPassphrase(network.Authentication)));
+            }
+
+            SelectedWifiNetwork = WifiNetworks.FirstOrDefault(network =>
+                string.Equals(network.Ssid, selectedSsid, StringComparison.OrdinalIgnoreCase));
+        }
+        finally
+        {
+            _isSyncingWifiNetworks = false;
         }
 
-        SelectedWifiNetwork = WifiNetworks.FirstOrDefault(network =>
-            string.Equals(network.Ssid, selectedSsid, StringComparison.OrdinalIgnoreCase));
+        if (SelectedWifiNetwork?.RequiresPassphrase == true)
+        {
+            SelectedWifiPassphrase = preservedPassphrase;
+        }
+        else
+        {
+            SelectedWifiPassphrase = string.Empty;
+        }
 
         OnPropertyChanged(nameof(HasWifiNetworks));
         OnPropertyChanged(nameof(HasSelectedWifiNetwork));
         OnPropertyChanged(nameof(IsSelectedWifiPassphraseVisible));
         OnPropertyChanged(nameof(SelectedWifiNetworkHintText));
+        OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
     }
 
@@ -544,7 +646,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     partial void OnSelectedWifiNetworkChanged(WifiNetworkItemViewModel? value)
     {
-        if (value is null || !value.RequiresPassphrase)
+        if (!_isSyncingWifiNetworks && (value is null || !value.RequiresPassphrase))
         {
             SelectedWifiPassphrase = string.Empty;
         }
@@ -560,6 +662,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
+    }
+
+    partial void OnLayoutModeChanged(NetworkLayoutMode value)
+    {
+        OnPropertyChanged(nameof(EffectiveLayoutMode));
+    }
+
+    partial void OnViewportModeChanged(ConnectViewportMode value)
+    {
+        OnPropertyChanged(nameof(IsCompactViewport));
+        OnPropertyChanged(nameof(IsWideViewport));
+    }
+
+    partial void OnDebugLayoutOverrideChanged(NetworkLayoutMode? value)
+    {
+        OnPropertyChanged(nameof(EffectiveLayoutMode));
     }
 
     private Task ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
@@ -641,6 +759,21 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         return $"'{SelectedWifiNetwork.Ssid}' can be connected directly.";
+    }
+
+    private string BuildWifiDiscoveryEmptyStateText()
+    {
+        if (!IsWifiRuntimeAvailable)
+        {
+            return "Wi-Fi support is not available at runtime.";
+        }
+
+        if (!HasWirelessAdapter)
+        {
+            return "No wireless adapter is currently detected.";
+        }
+
+        return "No Wi-Fi networks are currently visible.";
     }
 
     private static bool CanDirectConnect(string authentication)

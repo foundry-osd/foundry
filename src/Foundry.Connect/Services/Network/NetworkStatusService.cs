@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Diagnostics;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
@@ -31,6 +32,7 @@ public sealed class NetworkStatusService : INetworkStatusService
 
     public async Task<NetworkStatusSnapshot> GetSnapshotAsync(CancellationToken cancellationToken)
     {
+        bool isDebugWifiEnabled = Debugger.IsAttached;
         NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces()
             .Where(static adapter => adapter.NetworkInterfaceType is not NetworkInterfaceType.Loopback and not NetworkInterfaceType.Tunnel)
             .ToArray();
@@ -46,7 +48,8 @@ public sealed class NetworkStatusService : INetworkStatusService
         bool hasEthernetAdapter = ethernetAdapters.Length > 0;
         bool isEthernetConnected = ethernetAdapters.Any(static adapter => adapter.OperationalStatus == OperationalStatus.Up);
         bool hasWirelessAdapter = wirelessAdapters.Length > 0;
-        bool isWifiRuntimeAvailable = _configuration.Capabilities.WifiProvisioned && await IsWifiRuntimeAvailableAsync(cancellationToken).ConfigureAwait(false);
+        bool isWifiUiEnabled = _configuration.Capabilities.WifiProvisioned || isDebugWifiEnabled;
+        bool isWifiRuntimeAvailable = isWifiUiEnabled && await IsWifiRuntimeAvailableAsync(cancellationToken).ConfigureAwait(false);
         IReadOnlyList<WifiNetworkSummary> wifiNetworks = isWifiRuntimeAvailable
             ? await DiscoverWifiNetworksAsync(cancellationToken).ConfigureAwait(false)
             : Array.Empty<WifiNetworkSummary>();
@@ -89,7 +92,7 @@ public sealed class NetworkStatusService : INetworkStatusService
             InternetStatusText = hasInternetAccess
                 ? "Internet reachability validated."
                 : "Internet validation is still pending or failed.",
-            WifiStatusText = BuildWifiStatusText(isWifiRuntimeAvailable, hasWirelessAdapter, wifiNetworks.Count),
+            WifiStatusText = BuildWifiStatusText(isWifiRuntimeAvailable, hasWirelessAdapter, wifiNetworks.Count, isDebugWifiEnabled),
             AdapterName = adapterName,
             IpAddress = ipAddress,
             SubnetMask = subnetMask,
@@ -220,21 +223,27 @@ public sealed class NetworkStatusService : INetworkStatusService
             : "Ethernet link is active, but no DHCP lease was detected.";
     }
 
-    private static string BuildWifiStatusText(bool isWifiRuntimeAvailable, bool hasWirelessAdapter, int networkCount)
+    private static string BuildWifiStatusText(bool isWifiRuntimeAvailable, bool hasWirelessAdapter, int networkCount, bool isDebugWifiEnabled)
     {
         if (!isWifiRuntimeAvailable)
         {
-            return "Wi-Fi UI is disabled because Wi-Fi support is not available at runtime.";
+            return isDebugWifiEnabled
+                ? "Debug Wi-Fi discovery is enabled, but Wi-Fi support is not available at runtime."
+                : "Wi-Fi UI is disabled because Wi-Fi support is not available at runtime.";
         }
 
         if (!hasWirelessAdapter)
         {
-            return "Wi-Fi support is provisioned, but no wireless adapter is currently detected.";
+            return isDebugWifiEnabled
+                ? "Debug Wi-Fi discovery is enabled, but no wireless adapter is currently detected."
+                : "Wi-Fi support is provisioned, but no wireless adapter is currently detected.";
         }
 
         if (networkCount == 0)
         {
-            return "Wireless adapter detected, but no Wi-Fi networks were discovered.";
+            return isDebugWifiEnabled
+                ? "Wireless adapter detected. Debug Wi-Fi discovery did not find any visible networks."
+                : "Wireless adapter detected, but no Wi-Fi networks were discovered.";
         }
 
         return $"{networkCount} Wi-Fi network(s) discovered.";

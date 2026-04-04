@@ -81,7 +81,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     public async Task<string> ConnectWifiNetworkAsync(string ssid, string authentication, string? passphrase, CancellationToken cancellationToken)
     {
-        if (!_configuration.Capabilities.WifiProvisioned)
+        if (!_configuration.Capabilities.WifiProvisioned && !Debugger.IsAttached)
         {
             return "Wi-Fi support is not provisioned for this image.";
         }

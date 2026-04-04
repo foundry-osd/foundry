@@ -67,14 +67,20 @@ public partial class EthernetWifiView : UserControl
             return;
         }
 
-        if (SelectedWifiPassphraseBox is null)
+        SyncPasswordBox(CompactSelectedWifiPassphraseBox);
+        SyncPasswordBox(WideSelectedWifiPassphraseBox);
+    }
+
+    private void SyncPasswordBox(PasswordBox? passwordBox)
+    {
+        if (_viewModel is null || passwordBox is null)
         {
             return;
         }
 
-        if (!string.Equals(SelectedWifiPassphraseBox.Password, _viewModel.SelectedWifiPassphrase, StringComparison.Ordinal))
+        if (!string.Equals(passwordBox.Password, _viewModel.SelectedWifiPassphrase, StringComparison.Ordinal))
         {
-            SelectedWifiPassphraseBox.Password = _viewModel.SelectedWifiPassphrase;
+            passwordBox.Password = _viewModel.SelectedWifiPassphrase;
         }
     }
 }
