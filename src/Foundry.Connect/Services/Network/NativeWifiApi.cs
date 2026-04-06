@@ -122,6 +122,32 @@ internal static class NativeWifiApi
         }
     }
 
+    public static IReadOnlyList<Guid> GetInterfaceIds()
+    {
+        IntPtr clientHandle = IntPtr.Zero;
+        IntPtr interfaceListPointer = IntPtr.Zero;
+
+        try
+        {
+            clientHandle = OpenClientHandle();
+            ThrowIfError(
+                WlanEnumInterfaces(clientHandle, IntPtr.Zero, out interfaceListPointer),
+                nameof(WlanEnumInterfaces));
+
+            if (interfaceListPointer == IntPtr.Zero)
+            {
+                return [];
+            }
+
+            return ReadInterfaceIds(interfaceListPointer);
+        }
+        finally
+        {
+            FreeMemory(interfaceListPointer);
+            CloseClientHandle(clientHandle);
+        }
+    }
+
     private static List<Guid> ReadInterfaceIds(IntPtr interfaceListPointer)
     {
         if (interfaceListPointer == IntPtr.Zero)
