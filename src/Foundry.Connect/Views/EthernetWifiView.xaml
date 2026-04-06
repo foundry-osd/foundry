@@ -48,6 +48,7 @@
                         <StackPanel Grid.Column="1">
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Ssid}" />
                             <TextBlock
+                                x:Name="WifiAuthenticationTextBlock"
                                 Margin="0,2,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
@@ -70,7 +71,6 @@
                         HorizontalAlignment="Stretch"
                         Visibility="Collapsed">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
@@ -151,20 +151,8 @@
                         </Grid>
 
                         <Grid
-                            x:Name="ConnectedStatusRow"
-                            Grid.Row="1"
-                            Margin="0,12,0,0"
-                            HorizontalAlignment="Stretch"
-                            Visibility="Collapsed">
-                            <TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="Connected" />
-                        </Grid>
-
-                        <Grid
                             x:Name="DisconnectButtonRow"
-                            Grid.Row="2"
+                            Grid.Row="1"
                             Margin="0,12,0,0"
                             HorizontalAlignment="Stretch"
                             Visibility="Collapsed">
@@ -236,8 +224,8 @@
                 <DataTrigger Binding="{Binding IsConnected}" Value="True">
                     <Setter TargetName="PassphraseRow" Property="Visibility" Value="Collapsed" />
                     <Setter TargetName="ConnectButtonRow" Property="Visibility" Value="Collapsed" />
-                    <Setter TargetName="ConnectedStatusRow" Property="Visibility" Value="Visible" />
                     <Setter TargetName="DisconnectButtonRow" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="WifiAuthenticationTextBlock" Property="Text" Value="Connected" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
