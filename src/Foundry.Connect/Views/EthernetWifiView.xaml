@@ -90,7 +90,6 @@
                                     HorizontalAlignment="Stretch"
                                     Loaded="SelectedWifiPassphraseBox_OnLoaded"
                                     PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
-                                    PasswordChar="*"
                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled" />
                                 <TextBox
@@ -109,6 +108,7 @@
                                 MinWidth="40"
                                 Padding="10,0"
                                 HorizontalAlignment="Stretch"
+                                Style="{DynamicResource AccentButtonStyle}"
                                 VerticalAlignment="Stretch"
                                 Click="SelectedWifiRevealButton_OnClick">
                                 <TextBlock
