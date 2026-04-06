@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Foundry.Connect.ViewModels;
 
@@ -54,6 +55,19 @@ public partial class EthernetWifiView : UserControl
         }
 
         SyncSelectedWifiEditors();
+    }
+
+    private void SelectedWifiPassphraseEditor_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key is not Key.Return and not Key.Enter ||
+            _viewModel is null ||
+            !_viewModel.ConnectSelectedWifiCommand.CanExecute(null))
+        {
+            return;
+        }
+
+        _viewModel.ConnectSelectedWifiCommand.Execute(null);
+        e.Handled = true;
     }
 
     private void SelectedWifiRevealButton_OnLoaded(object sender, RoutedEventArgs e)

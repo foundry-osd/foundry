@@ -131,6 +131,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool isNetworkActionInProgress;
 
     [ObservableProperty]
+    private bool isSelectedWifiConnectionInProgress;
+
+    [ObservableProperty]
     private string networkActionStatusText = "Provisioned network settings have not been applied yet.";
 
     [ObservableProperty]
@@ -306,13 +309,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        await ExecuteNetworkActionAsync(
-            () => _networkBootstrapService.ConnectWifiNetworkAsync(
-                SelectedWifiNetwork.Ssid,
-                SelectedWifiNetwork.Authentication,
-                SelectedWifiNetwork.RequiresPassphrase ? SelectedWifiPassphrase : null,
-                _disposeCts.Token),
-            refreshAfterAction: true).ConfigureAwait(false);
+        await RunOnUiAsync(() => IsSelectedWifiConnectionInProgress = true).ConfigureAwait(false);
+
+        try
+        {
+            await ExecuteNetworkActionAsync(
+                () => _networkBootstrapService.ConnectWifiNetworkAsync(
+                    SelectedWifiNetwork.Ssid,
+                    SelectedWifiNetwork.Authentication,
+                    SelectedWifiNetwork.RequiresPassphrase ? SelectedWifiPassphrase : null,
+                    _disposeCts.Token),
+                refreshAfterAction: true).ConfigureAwait(false);
+        }
+        finally
+        {
+            await RunOnUiAsync(() => IsSelectedWifiConnectionInProgress = false).ConfigureAwait(false);
+        }
     }
 
     public void HandleWindowClosing()

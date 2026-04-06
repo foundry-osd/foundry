@@ -88,6 +88,7 @@
                                     x:Name="SelectedWifiPassphraseBox"
                                     MinWidth="0"
                                     HorizontalAlignment="Stretch"
+                                    KeyDown="SelectedWifiPassphraseEditor_OnKeyDown"
                                     Loaded="SelectedWifiPassphraseBox_OnLoaded"
                                     PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -96,6 +97,7 @@
                                     x:Name="SelectedWifiPassphraseRevealTextBox"
                                     MinWidth="0"
                                     HorizontalAlignment="Stretch"
+                                    KeyDown="SelectedWifiPassphraseEditor_OnKeyDown"
                                     Loaded="SelectedWifiPassphraseRevealTextBox_OnLoaded"
                                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -119,15 +121,32 @@
                             </Button>
                         </Grid>
 
-                        <Button
+                        <Grid
                             Grid.Row="1"
-                            Width="140"
                             Margin="0,12,0,0"
-                            HorizontalAlignment="Right"
-                            Command="{Binding DataContext.ConnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                            Content="Connect"
-                            IsEnabled="{Binding DataContext.CanConnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                            Style="{DynamicResource AccentButtonStyle}" />
+                            HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ProgressBar
+                                Grid.Column="0"
+                                Height="4"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center"
+                                IsIndeterminate="True"
+                                Visibility="{Binding DataContext.IsSelectedWifiConnectionInProgress, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <Button
+                                Grid.Column="1"
+                                Width="140"
+                                HorizontalAlignment="Right"
+                                Command="{Binding DataContext.ConnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Content="Connect"
+                                IsEnabled="{Binding DataContext.CanConnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Style="{DynamicResource AccentButtonStyle}" />
+                        </Grid>
                     </Grid>
 
                     <TextBlock
