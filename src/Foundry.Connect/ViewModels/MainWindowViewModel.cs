@@ -134,6 +134,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool isSelectedWifiActionInProgress;
 
     [ObservableProperty]
+    private string selectedWifiActionFeedbackText = string.Empty;
+
+    [ObservableProperty]
     private string networkActionStatusText = "Provisioned network settings have not been applied yet.";
 
     [ObservableProperty]
@@ -215,6 +218,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public bool CanConnectConfiguredWifi => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled && !IsNetworkActionInProgress;
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
+    public bool HasSelectedWifiActionFeedback => !string.IsNullOrWhiteSpace(SelectedWifiActionFeedbackText);
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
                                           !network.IsConnected &&
                                           (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
@@ -311,22 +315,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        await RunOnUiAsync(() => IsSelectedWifiActionInProgress = true).ConfigureAwait(false);
-
-        try
-        {
-            await ExecuteNetworkActionAsync(
-                () => _networkBootstrapService.ConnectWifiNetworkAsync(
-                    SelectedWifiNetwork.Ssid,
-                    SelectedWifiNetwork.Authentication,
-                    SelectedWifiNetwork.RequiresPassphrase ? SelectedWifiPassphrase : null,
-                    _disposeCts.Token),
-                refreshAfterAction: true).ConfigureAwait(false);
-        }
-        finally
-        {
-            await RunOnUiAsync(() => IsSelectedWifiActionInProgress = false).ConfigureAwait(false);
-        }
+        await ExecuteSelectedWifiActionAsync(
+            () => _networkBootstrapService.ConnectWifiNetworkAsync(
+                SelectedWifiNetwork.Ssid,
+                SelectedWifiNetwork.Authentication,
+                SelectedWifiNetwork.RequiresPassphrase ? SelectedWifiPassphrase : null,
+                _disposeCts.Token),
+            BuildSelectedWifiConnectFeedback,
+            refreshAfterAction: true).ConfigureAwait(false);
     }
 
     [RelayCommand(CanExecute = nameof(CanDisconnectSelectedWifi))]
@@ -337,18 +333,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        await RunOnUiAsync(() => IsSelectedWifiActionInProgress = true).ConfigureAwait(false);
-
-        try
-        {
-            await ExecuteNetworkActionAsync(
-                () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
-                refreshAfterAction: true).ConfigureAwait(false);
-        }
-        finally
-        {
-            await RunOnUiAsync(() => IsSelectedWifiActionInProgress = false).ConfigureAwait(false);
-        }
+        await ExecuteSelectedWifiActionAsync(
+            () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
+            BuildSelectedWifiDisconnectFeedback,
+            refreshAfterAction: true).ConfigureAwait(false);
     }
 
     public void HandleWindowClosing()
@@ -735,6 +723,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             SelectedWifiPassphrase = string.Empty;
         }
 
+        SelectedWifiActionFeedbackText = string.Empty;
+
         _lastSelectedWifiNetworkSsid = value?.Ssid;
 
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
@@ -745,8 +735,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     partial void OnSelectedWifiPassphraseChanged(string value)
     {
+        SelectedWifiActionFeedbackText = string.Empty;
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
+    }
+
+    partial void OnSelectedWifiActionFeedbackTextChanged(string value)
+    {
+        OnPropertyChanged(nameof(HasSelectedWifiActionFeedback));
     }
 
     partial void OnLayoutModeChanged(NetworkLayoutMode value)
@@ -815,6 +811,100 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             await RunOnUiAsync(() => IsNetworkActionInProgress = false).ConfigureAwait(false);
         }
+    }
+
+    private async Task ExecuteSelectedWifiActionAsync(
+        Func<Task<string>> action,
+        Func<string, string?> resolveFeedback,
+        bool refreshAfterAction)
+    {
+        if (_disposeCts.IsCancellationRequested)
+        {
+            return;
+        }
+
+        await RunOnUiAsync(() =>
+        {
+            IsNetworkActionInProgress = true;
+            IsSelectedWifiActionInProgress = true;
+            SelectedWifiActionFeedbackText = string.Empty;
+        }).ConfigureAwait(false);
+
+        try
+        {
+            string status = await action().ConfigureAwait(false);
+            string? feedback = resolveFeedback(status);
+
+            await RunOnUiAsync(() =>
+            {
+                if (string.IsNullOrWhiteSpace(feedback))
+                {
+                    SelectedWifiActionFeedbackText = string.Empty;
+                }
+                else
+                {
+                    SelectedWifiActionFeedbackText = feedback;
+                }
+            }).ConfigureAwait(false);
+
+            if (refreshAfterAction)
+            {
+                await RefreshCoreAsync(_disposeCts.Token).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Ignore shutdown-driven cancellations.
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Selected Wi-Fi action failed.");
+            await RunOnUiAsync(() => SelectedWifiActionFeedbackText = "Unable to complete the Wi-Fi action. Try again.").ConfigureAwait(false);
+        }
+        finally
+        {
+            await RunOnUiAsync(() =>
+            {
+                IsSelectedWifiActionInProgress = false;
+                IsNetworkActionInProgress = false;
+            }).ConfigureAwait(false);
+        }
+    }
+
+    private static string? BuildSelectedWifiConnectFeedback(string status)
+    {
+        if (status.StartsWith("Wi-Fi connected to ", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        if (status.Contains("not supported in this build", StringComparison.OrdinalIgnoreCase))
+        {
+            return "This Wi-Fi network is not supported in this build.";
+        }
+
+        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
+        {
+            return "No wireless adapter is available.";
+        }
+
+        return "Unable to connect. Check the password and try again.";
+    }
+
+    private static string? BuildSelectedWifiDisconnectFeedback(string status)
+    {
+        if (status.StartsWith("Wi-Fi disconnected from ", StringComparison.Ordinal) ||
+            status.StartsWith("Wi-Fi is already disconnected.", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
+        {
+            return "No wireless adapter is available.";
+        }
+
+        return "Unable to disconnect. Try again.";
     }
 
     public sealed class WifiNetworkItemViewModel : ObservableObject
