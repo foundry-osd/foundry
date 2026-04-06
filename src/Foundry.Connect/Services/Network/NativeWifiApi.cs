@@ -217,6 +217,7 @@ internal static class NativeWifiApi
                 networks.Add(new WifiNetworkSummary
                 {
                     Ssid = ReadSsid(item.Ssid),
+                    SsidHex = ReadSsidHex(item.Ssid),
                     SignalStrengthPercent = (int)Math.Clamp(item.SignalQuality, 0u, 100u),
                     Authentication = FormatAuthentication(item.DefaultAuthAlgorithm, item.SecurityEnabled),
                     Encryption = FormatEncryption(item.DefaultCipherAlgorithm, item.SecurityEnabled)
@@ -241,6 +242,17 @@ internal static class NativeWifiApi
         int length = (int)Math.Min(ssid.Length, (uint)ssid.Value.Length);
         string decoded = Encoding.UTF8.GetString(ssid.Value, 0, length).Trim();
         return string.IsNullOrWhiteSpace(decoded) ? "Hidden network" : decoded;
+    }
+
+    private static string? ReadSsidHex(Dot11Ssid ssid)
+    {
+        if (ssid.Length == 0 || ssid.Value.Length == 0)
+        {
+            return null;
+        }
+
+        int length = (int)Math.Min(ssid.Length, (uint)ssid.Value.Length);
+        return Convert.ToHexString(ssid.Value, 0, length);
     }
 
     private static string FormatAuthentication(Dot11AuthAlgorithm algorithm, bool securityEnabled)

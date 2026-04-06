@@ -14,8 +14,11 @@ namespace Foundry.Connect.Services.Network;
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
     private const string EnterpriseSecurityType = "Enterprise";
+    private const string TemporaryWifiProfileFileName = "wifi-profile.xml";
     private static readonly TimeSpan WifiConnectionTimeout = TimeSpan.FromSeconds(15);
     private static readonly TimeSpan WifiConnectionPollInterval = TimeSpan.FromMilliseconds(500);
+    private static readonly TimeSpan WifiProfileImportRetryDelay = TimeSpan.FromSeconds(2);
+    private const int WinPeWifiProfileImportRetryCount = 3;
 
     private readonly FoundryConnectConfiguration _configuration;
     private readonly IConnectConfigurationService _configurationService;
@@ -98,7 +101,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : $"{ensureMessage} Wi-Fi connection failed: {attemptResult.FailureMessage}";
     }
 
-    public async Task<string> ConnectWifiNetworkAsync(string ssid, string authentication, string? passphrase, CancellationToken cancellationToken)
+    public async Task<string> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken)
     {
         if (!_configuration.Capabilities.WifiProvisioned && !Debugger.IsAttached)
         {
@@ -117,14 +120,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
         }
 
-        string tempRoot = ResolveTemporaryProfileRoot();
-
-        string safeFileName = string.Concat(trimmedSsid.Select(static ch => Path.GetInvalidFileNameChars().Contains(ch) ? '_' : ch));
-        string profilePath = Path.Combine(tempRoot, $"discovered-{safeFileName}.xml");
-        await File.WriteAllTextAsync(
-            profilePath,
-            BuildWifiProfileXml(trimmedSsid, securityType, passphrase),
-            new UTF8Encoding(false),
+        string profilePath = await WriteTemporaryWifiProfileAsync(
+            BuildWifiProfileXml(trimmedSsid, securityType, passphrase, ssidHex),
             cancellationToken).ConfigureAwait(false);
 
         IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
@@ -133,12 +130,16 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "No wireless adapter is available to connect the selected Wi-Fi network.";
         }
 
-        ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
-            "netsh",
-            $"wlan add profile filename=\"{profilePath}\" user=all",
-            cancellationToken).ConfigureAwait(false);
+        ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(profilePath, cancellationToken).ConfigureAwait(false);
         if (addProfileResult.ExitCode != 0)
         {
+            _logger.LogWarning(
+                "Failed to import discovered Wi-Fi profile. Ssid={Ssid}, ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                trimmedSsid,
+                profilePath,
+                addProfileResult.ExitCode,
+                addProfileResult.StandardOutput,
+                addProfileResult.StandardError);
             return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
         }
 
@@ -263,15 +264,13 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return string.Join(" ", messages);
         }
 
-        ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
-            "netsh",
-            $"wlan add profile filename=\"{wifiProfilePath}\" user=all",
-            cancellationToken).ConfigureAwait(false);
+        ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
 
         if (addProfileResult.ExitCode != 0)
         {
             _logger.LogWarning(
-                "Failed to add Wi-Fi profile. ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                "Failed to add Wi-Fi profile. ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                wifiProfilePath,
                 addProfileResult.ExitCode,
                 addProfileResult.StandardOutput,
                 addProfileResult.StandardError);
@@ -305,15 +304,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return null;
         }
 
-        string tempRoot = ResolveTemporaryProfileRoot();
-
-        string profilePath = Path.Combine(tempRoot, "configured-wifi-profile.xml");
-        await File.WriteAllTextAsync(
-            profilePath,
+        return await WriteTemporaryWifiProfileAsync(
             BuildWifiProfileXml(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
-            new UTF8Encoding(false),
             cancellationToken).ConfigureAwait(false);
-        return profilePath;
     }
 
     private string? ResolveWifiProfileName()
@@ -346,6 +339,62 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return null;
+    }
+
+    private async Task<ProcessExecutionResult> ImportWifiProfileAsync(
+        string profilePath,
+        CancellationToken cancellationToken)
+    {
+        int maxAttempts = ConnectWorkspacePaths.IsWinPeRuntime()
+            ? WinPeWifiProfileImportRetryCount
+            : 1;
+
+        ProcessExecutionResult lastResult = default;
+        for (int attempt = 1; attempt <= maxAttempts; attempt++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            lastResult = await ExecuteProcessAsync(
+                "netsh",
+                $"wlan add profile filename=\"{profilePath}\"",
+                cancellationToken).ConfigureAwait(false);
+
+            if (lastResult.ExitCode == 0)
+            {
+                return lastResult;
+            }
+
+            if (attempt >= maxAttempts)
+            {
+                break;
+            }
+
+            _logger.LogInformation(
+                "Wi-Fi profile import attempt {Attempt} failed in WinPE. Retrying in {DelaySeconds}s. ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                attempt,
+                WifiProfileImportRetryDelay.TotalSeconds,
+                profilePath,
+                lastResult.ExitCode,
+                lastResult.StandardOutput,
+                lastResult.StandardError);
+
+            await Task.Delay(WifiProfileImportRetryDelay, cancellationToken).ConfigureAwait(false);
+        }
+
+        return lastResult;
+    }
+
+    private async Task<string> WriteTemporaryWifiProfileAsync(
+        string profileXml,
+        CancellationToken cancellationToken)
+    {
+        string profilePath = Path.Combine(ResolveTemporaryProfileRoot(), TemporaryWifiProfileFileName);
+        await File.WriteAllTextAsync(
+            profilePath,
+            profileXml,
+            new UTF8Encoding(false),
+            cancellationToken).ConfigureAwait(false);
+        return profilePath;
     }
 
     private string ResolveTemporaryProfileRoot()
@@ -533,10 +582,12 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : WifiDisconnectAttemptResult.Failure($"Windows accepted the request, but '{disconnectedSsid}' did not transition away from the connected state.");
     }
 
-    private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue)
+    private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue, string? ssidHexOverride = null)
     {
         string ssid = SecurityElement.Escape(ssidValue.Trim()) ?? string.Empty;
-        string ssidHex = ConvertSsidToHex(ssidValue.Trim());
+        string ssidHex = string.IsNullOrWhiteSpace(ssidHexOverride)
+            ? ConvertSsidToHex(ssidValue.Trim())
+            : ssidHexOverride.Trim();
         bool isOpen = string.Equals(securityType, "Open", StringComparison.OrdinalIgnoreCase);
         bool isPersonal = string.Equals(securityType, "WPA2-Personal", StringComparison.OrdinalIgnoreCase) ||
                           string.Equals(securityType, "WPA2/WPA3-Personal", StringComparison.OrdinalIgnoreCase) ||

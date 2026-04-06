@@ -318,6 +318,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         await ExecuteSelectedWifiActionAsync(
             () => _networkBootstrapService.ConnectWifiNetworkAsync(
                 SelectedWifiNetwork.Ssid,
+                SelectedWifiNetwork.SsidHex,
                 SelectedWifiNetwork.Authentication,
                 SelectedWifiNetwork.RequiresPassphrase ? SelectedWifiPassphrase : null,
                 _disposeCts.Token),
@@ -579,6 +580,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 }
 
                 wifiNetwork.Update(
+                    network.SsidHex,
                     network.Authentication,
                     network.Encryption,
                     network.SignalStrengthPercent,
@@ -910,6 +912,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public sealed class WifiNetworkItemViewModel : ObservableObject
     {
         private string _authentication = string.Empty;
+        private string? _ssidHex;
         private string _encryption = string.Empty;
         private int _signalStrengthPercent;
         private string _signalGlyph = string.Empty;
@@ -923,6 +926,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         public string Ssid { get; }
+
+        public string? SsidHex
+        {
+            get => _ssidHex;
+            private set => SetProperty(ref _ssidHex, value);
+        }
 
         public string Authentication
         {
@@ -967,6 +976,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         public void Update(
+            string? ssidHex,
             string authentication,
             string encryption,
             int signalStrengthPercent,
@@ -975,6 +985,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             bool requiresPassphrase,
             bool isConnected)
         {
+            SsidHex = ssidHex;
             Authentication = authentication;
             Encryption = encryption;
             SignalStrengthPercent = signalStrengthPercent;
