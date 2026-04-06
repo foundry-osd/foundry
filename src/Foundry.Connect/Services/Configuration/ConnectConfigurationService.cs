@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
+using Foundry.Connect.Services.Runtime;
 
 namespace Foundry.Connect.Services.Configuration;
 
@@ -89,12 +90,9 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             }
         }
 
-        if (Environment.GetEnvironmentVariable("SystemDrive")?.Equals("X:", StringComparison.OrdinalIgnoreCase) == true)
-        {
-            return new ConfigurationResolution(Path.Combine(@"X:\Foundry\Config", DefaultConfigFileName), IsRequired: true);
-        }
-
-        return new ConfigurationResolution(Path.Combine(AppContext.BaseDirectory, DefaultConfigFileName), IsRequired: false);
+        return new ConfigurationResolution(
+            ConnectWorkspacePaths.GetConfigFilePath(DefaultConfigFileName),
+            IsRequired: ConnectWorkspacePaths.IsWinPeRuntime());
     }
 
     private static FoundryConnectConfiguration Normalize(FoundryConnectConfiguration configuration)

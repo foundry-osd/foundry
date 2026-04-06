@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
@@ -116,8 +117,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
         }
 
-        string tempRoot = Path.Combine(Path.GetTempPath(), "Foundry.Connect");
-        Directory.CreateDirectory(tempRoot);
+        string tempRoot = ResolveTemporaryProfileRoot();
 
         string safeFileName = string.Concat(trimmedSsid.Select(static ch => Path.GetInvalidFileNameChars().Contains(ch) ? '_' : ch));
         string profilePath = Path.Combine(tempRoot, $"discovered-{safeFileName}.xml");
@@ -305,8 +305,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return null;
         }
 
-        string tempRoot = Path.Combine(Path.GetTempPath(), "Foundry.Connect");
-        Directory.CreateDirectory(tempRoot);
+        string tempRoot = ResolveTemporaryProfileRoot();
 
         string profilePath = Path.Combine(tempRoot, "configured-wifi-profile.xml");
         await File.WriteAllTextAsync(
@@ -347,6 +346,29 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return null;
+    }
+
+    private string ResolveTemporaryProfileRoot()
+    {
+        foreach (string candidateDirectory in ConnectWorkspacePaths.EnumerateTemporaryDirectories("Foundry.Connect"))
+        {
+            if (string.IsNullOrWhiteSpace(candidateDirectory))
+            {
+                continue;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(candidateDirectory);
+                return candidateDirectory;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogDebug(ex, "Failed to create temporary Wi-Fi profile directory at {CandidateDirectory}.", candidateDirectory);
+            }
+        }
+
+        throw new InvalidOperationException("No writable temporary directory is available for Wi-Fi profile generation.");
     }
 
     private string? GetEthernetInterfaceName()
