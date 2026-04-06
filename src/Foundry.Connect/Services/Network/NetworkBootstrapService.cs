@@ -13,6 +13,8 @@ namespace Foundry.Connect.Services.Network;
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
     private const string EnterpriseSecurityType = "Enterprise";
+    private static readonly TimeSpan WifiConnectionTimeout = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan WifiConnectionPollInterval = TimeSpan.FromMilliseconds(500);
 
     private readonly FoundryConnectConfiguration _configuration;
     private readonly IConnectConfigurationService _configurationService;
@@ -109,25 +111,52 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             new UTF8Encoding(false),
             cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
-            "netsh",
-            $"wlan add profile filename=\"{profilePath}\" user=all",
-            cancellationToken).ConfigureAwait(false);
-        if (addProfileResult.ExitCode != 0)
+        IReadOnlyList<WirelessInterfaceTarget> wirelessInterfaces = GetWirelessInterfaceTargets();
+        if (wirelessInterfaces.Count == 0)
         {
-            return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
+            return "No wireless adapter is available to connect the selected Wi-Fi network.";
         }
 
-        ProcessExecutionResult connectResult = await ExecuteProcessAsync(
-            "netsh",
-            $"wlan connect name=\"{trimmedSsid}\" ssid=\"{trimmedSsid}\"",
-            cancellationToken).ConfigureAwait(false);
-        if (connectResult.ExitCode == 0)
+        List<string> failures = [];
+
+        foreach (WirelessInterfaceTarget wirelessInterface in wirelessInterfaces)
         {
-            return $"Wi-Fi connection attempt started for '{trimmedSsid}'.";
+            ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
+                "netsh",
+                $"wlan add profile filename=\"{profilePath}\" interface=\"{EscapeNetshArgument(wirelessInterface.Name)}\" user=all",
+                cancellationToken).ConfigureAwait(false);
+            if (addProfileResult.ExitCode != 0)
+            {
+                failures.Add($"Profile import failed on '{wirelessInterface.Name}': {CollapseError(addProfileResult)}");
+                continue;
+            }
+
+            ProcessExecutionResult connectResult = await ExecuteProcessAsync(
+                "netsh",
+                $"wlan connect name=\"{EscapeNetshArgument(trimmedSsid)}\" interface=\"{EscapeNetshArgument(wirelessInterface.Name)}\"",
+                cancellationToken).ConfigureAwait(false);
+            if (connectResult.ExitCode != 0)
+            {
+                failures.Add($"Connection request failed on '{wirelessInterface.Name}': {CollapseError(connectResult)}");
+                continue;
+            }
+
+            WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
+                wirelessInterface.InterfaceId,
+                trimmedSsid,
+                cancellationToken).ConfigureAwait(false);
+
+            if (attemptResult.IsConnected)
+            {
+                return $"Wi-Fi connected to '{trimmedSsid}' on '{wirelessInterface.Name}'.";
+            }
+
+            failures.Add(attemptResult.FailureMessage is null
+                ? $"Connection did not complete on '{wirelessInterface.Name}'."
+                : $"Connection failed on '{wirelessInterface.Name}': {attemptResult.FailureMessage}");
         }
 
-        return $"Wi-Fi connection attempt failed for '{trimmedSsid}': {CollapseError(connectResult)}";
+        return $"Wi-Fi connection failed for '{trimmedSsid}': {string.Join(" ", failures)}";
     }
 
     private async Task<string> ApplyWiredDot1xProfileAsync(CancellationToken cancellationToken)
@@ -347,6 +376,69 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         return Path.GetFullPath(Path.Combine(configurationDirectoryPath, trimmed));
     }
 
+    private static IReadOnlyList<WirelessInterfaceTarget> GetWirelessInterfaceTargets()
+    {
+        return NetworkInterface.GetAllNetworkInterfaces()
+            .Where(static adapter => adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 &&
+                                     !string.IsNullOrWhiteSpace(adapter.Name))
+            .Select(static adapter => Guid.TryParse(adapter.Id, out Guid interfaceId)
+                ? new WirelessInterfaceTarget(interfaceId, adapter.Name, adapter.OperationalStatus == OperationalStatus.Up)
+                : null)
+            .Where(static adapter => adapter is not null)
+            .Cast<WirelessInterfaceTarget>()
+            .OrderByDescending(static adapter => adapter.IsUp)
+            .ThenBy(static adapter => adapter.Name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    private static string EscapeNetshArgument(string value)
+    {
+        return value.Replace("\"", "\"\"", StringComparison.Ordinal);
+    }
+
+    private static bool IsConnectionInProgress(NativeWifiApi.WlanInterfaceState state)
+    {
+        return state is NativeWifiApi.WlanInterfaceState.Associating
+            or NativeWifiApi.WlanInterfaceState.Authenticating
+            or NativeWifiApi.WlanInterfaceState.Discovering
+            or NativeWifiApi.WlanInterfaceState.Disconnecting;
+    }
+
+    private static async Task<WifiConnectionAttemptResult> WaitForWifiConnectionAsync(
+        Guid interfaceId,
+        string expectedSsid,
+        CancellationToken cancellationToken)
+    {
+        DateTimeOffset deadline = DateTimeOffset.UtcNow + WifiConnectionTimeout;
+        bool sawConnectionTransition = false;
+
+        while (DateTimeOffset.UtcNow < deadline)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = NativeWifiApi.GetInterfaceConnectionInfo(interfaceId);
+            if (connectionInfo is not null)
+            {
+                if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Connected &&
+                    string.Equals(connectionInfo.CurrentSsid, expectedSsid, StringComparison.Ordinal))
+                {
+                    return WifiConnectionAttemptResult.Success();
+                }
+
+                if (IsConnectionInProgress(connectionInfo.State))
+                {
+                    sawConnectionTransition = true;
+                }
+            }
+
+            await Task.Delay(WifiConnectionPollInterval, cancellationToken).ConfigureAwait(false);
+        }
+
+        return sawConnectionTransition
+            ? WifiConnectionAttemptResult.Failure($"Windows started the Wi-Fi connection workflow, but '{expectedSsid}' did not reach the connected state within {WifiConnectionTimeout.TotalSeconds:0} seconds.")
+            : WifiConnectionAttemptResult.Failure($"Windows accepted the request, but the wireless interface never transitioned into an active connection attempt.");
+    }
+
     private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue)
     {
         string ssid = SecurityElement.Escape(ssidValue.Trim()) ?? string.Empty;
@@ -476,6 +568,21 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         {
             _logger.LogDebug(ex, "Process execution failed for {FileName} {Arguments}.", fileName, arguments);
             return new ProcessExecutionResult(-1, string.Empty, ex.Message);
+        }
+    }
+
+    private sealed record WirelessInterfaceTarget(Guid InterfaceId, string Name, bool IsUp);
+
+    private sealed record WifiConnectionAttemptResult(bool IsConnected, string? FailureMessage)
+    {
+        public static WifiConnectionAttemptResult Success()
+        {
+            return new WifiConnectionAttemptResult(true, null);
+        }
+
+        public static WifiConnectionAttemptResult Failure(string message)
+        {
+            return new WifiConnectionAttemptResult(false, message);
         }
     }
 
