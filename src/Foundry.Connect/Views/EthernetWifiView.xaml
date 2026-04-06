@@ -269,7 +269,27 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Wi-Fi" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Wi-Fi" />
+
+                        <Button
+                            Grid.Column="1"
+                            MinWidth="40"
+                            Padding="10,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            Command="{Binding RefreshStatusCommand}">
+                            <TextBlock
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                FontSize="14"
+                                Text="&#xE72C;" />
+                        </Button>
+                    </Grid>
 
                     <TextBlock
                         Grid.Row="1"
@@ -575,7 +595,27 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Wi-Fi" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Wi-Fi" />
+
+                        <Button
+                            Grid.Column="1"
+                            MinWidth="40"
+                            Padding="10,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            Command="{Binding RefreshStatusCommand}">
+                            <TextBlock
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                FontSize="14"
+                                Text="&#xE72C;" />
+                        </Button>
+                    </Grid>
 
                     <TextBlock
                         Grid.Row="1"
