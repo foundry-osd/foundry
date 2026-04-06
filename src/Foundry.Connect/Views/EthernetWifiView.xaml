@@ -104,11 +104,12 @@
                             </Grid>
 
                             <Button
+                                x:Name="SelectedWifiRevealButton"
                                 Grid.Column="1"
                                 MinWidth="40"
                                 Padding="10,0"
                                 HorizontalAlignment="Stretch"
-                                Style="{DynamicResource AccentButtonStyle}"
+                                Loaded="SelectedWifiRevealButton_OnLoaded"
                                 VerticalAlignment="Stretch"
                                 Click="SelectedWifiRevealButton_OnClick">
                                 <TextBlock

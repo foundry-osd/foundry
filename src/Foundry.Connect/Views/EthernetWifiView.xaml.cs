@@ -56,6 +56,16 @@ public partial class EthernetWifiView : UserControl
         SyncSelectedWifiEditors();
     }
 
+    private void SelectedWifiRevealButton_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button)
+        {
+            return;
+        }
+
+        SyncSelectedWifiEditors();
+    }
+
     private void SelectedWifiPassphraseBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
         if (_isSyncingSelectedWifiEditors ||
@@ -185,8 +195,9 @@ public partial class EthernetWifiView : UserControl
 
         PasswordBox? passwordBox = FindDescendant<PasswordBox>(item, "SelectedWifiPassphraseBox");
         TextBox? textBox = FindDescendant<TextBox>(item, "SelectedWifiPassphraseRevealTextBox");
+        Button? revealButton = FindDescendant<Button>(item, "SelectedWifiRevealButton");
 
-        if (passwordBox is null && textBox is null)
+        if (passwordBox is null && textBox is null && revealButton is null)
         {
             return;
         }
@@ -221,6 +232,18 @@ public partial class EthernetWifiView : UserControl
                 textBox.Visibility = _isSelectedWifiPassphraseRevealed
                     ? Visibility.Visible
                     : Visibility.Collapsed;
+            }
+
+            if (revealButton is not null)
+            {
+                if (_isSelectedWifiPassphraseRevealed)
+                {
+                    revealButton.SetResourceReference(StyleProperty, "AccentButtonStyle");
+                }
+                else
+                {
+                    revealButton.ClearValue(StyleProperty);
+                }
             }
         }
         finally
