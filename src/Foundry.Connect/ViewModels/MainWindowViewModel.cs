@@ -131,7 +131,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool isNetworkActionInProgress;
 
     [ObservableProperty]
-    private bool isSelectedWifiConnectionInProgress;
+    private bool isSelectedWifiActionInProgress;
 
     [ObservableProperty]
     private string networkActionStatusText = "Provisioned network settings have not been applied yet.";
@@ -216,8 +216,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool CanConnectConfiguredWifi => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled && !IsNetworkActionInProgress;
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
+                                          !network.IsConnected &&
                                           (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
                                           !IsNetworkActionInProgress;
+    public bool CanDisconnectSelectedWifi => SelectedWifiNetwork is { IsConnected: true } && !IsNetworkActionInProgress;
 
     public async Task InitializeAsync()
     {
@@ -309,7 +311,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return;
         }
 
-        await RunOnUiAsync(() => IsSelectedWifiConnectionInProgress = true).ConfigureAwait(false);
+        await RunOnUiAsync(() => IsSelectedWifiActionInProgress = true).ConfigureAwait(false);
 
         try
         {
@@ -323,7 +325,29 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            await RunOnUiAsync(() => IsSelectedWifiConnectionInProgress = false).ConfigureAwait(false);
+            await RunOnUiAsync(() => IsSelectedWifiActionInProgress = false).ConfigureAwait(false);
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanDisconnectSelectedWifi))]
+    private async Task DisconnectSelectedWifiAsync()
+    {
+        if (SelectedWifiNetwork is not { IsConnected: true })
+        {
+            return;
+        }
+
+        await RunOnUiAsync(() => IsSelectedWifiActionInProgress = true).ConfigureAwait(false);
+
+        try
+        {
+            await ExecuteNetworkActionAsync(
+                () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
+                refreshAfterAction: true).ConfigureAwait(false);
+        }
+        finally
+        {
+            await RunOnUiAsync(() => IsSelectedWifiActionInProgress = false).ConfigureAwait(false);
         }
     }
 
@@ -432,7 +456,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(LastUpdatedText));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
 
-        SyncWifiNetworks(snapshot.WifiNetworks);
+        SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
         ApplyPrimaryStatus(snapshot);
         UpdateCountdown(snapshot);
 
@@ -544,7 +568,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(CountdownText));
     }
 
-    private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks)
+    private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks, string? connectedWifiSsid)
     {
         string? selectedSsid = SelectedWifiNetwork?.Ssid;
         string preservedPassphrase = SelectedWifiNetwork?.RequiresPassphrase == true
@@ -572,21 +596,24 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                     network.SignalStrengthPercent,
                     ResolveWifiGlyph(network.SignalStrengthPercent),
                     CanDirectConnect(network.Authentication),
-                    RequiresPassphrase(network.Authentication));
+                    RequiresPassphrase(network.Authentication),
+                    string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase));
                 orderedNetworks.Add(wifiNetwork);
             }
 
             SyncWifiNetworkCollection(orderedNetworks);
 
             SelectedWifiNetwork = orderedNetworks.FirstOrDefault(network =>
-                string.Equals(network.Ssid, selectedSsid, StringComparison.OrdinalIgnoreCase));
+                string.Equals(network.Ssid, selectedSsid, StringComparison.OrdinalIgnoreCase))
+                ?? orderedNetworks.FirstOrDefault(network =>
+                    string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase));
         }
         finally
         {
             _isSyncingWifiNetworks = false;
         }
 
-        if (SelectedWifiNetwork?.RequiresPassphrase == true)
+        if (SelectedWifiNetwork is { RequiresPassphrase: true, IsConnected: false })
         {
             SelectedWifiPassphrase = preservedPassphrase;
         }
@@ -598,6 +625,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(HasWifiNetworks));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
+        OnPropertyChanged(nameof(CanDisconnectSelectedWifi));
     }
 
     private void SyncWifiNetworkCollection(IReadOnlyList<WifiNetworkItemViewModel> orderedNetworks)
@@ -688,8 +716,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         ConnectConfiguredWifiCommand.NotifyCanExecuteChanged();
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
+        DisconnectSelectedWifiCommand.NotifyCanExecuteChanged();
         OnPropertyChanged(nameof(CanConnectConfiguredWifi));
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
+        OnPropertyChanged(nameof(CanDisconnectSelectedWifi));
     }
 
     partial void OnSelectedWifiNetworkChanged(WifiNetworkItemViewModel? value)
@@ -700,7 +730,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             StringComparison.OrdinalIgnoreCase);
 
         if (!_isSyncingWifiNetworks &&
-            (value is null || !value.RequiresPassphrase || hasChangedSelection))
+            (value is null || !value.RequiresPassphrase || value.IsConnected || hasChangedSelection))
         {
             SelectedWifiPassphrase = string.Empty;
         }
@@ -708,7 +738,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _lastSelectedWifiNetworkSsid = value?.Ssid;
 
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
+        DisconnectSelectedWifiCommand.NotifyCanExecuteChanged();
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
+        OnPropertyChanged(nameof(CanDisconnectSelectedWifi));
     }
 
     partial void OnSelectedWifiPassphraseChanged(string value)
@@ -793,6 +825,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         private string _signalGlyph = string.Empty;
         private bool _canDirectConnect;
         private bool _requiresPassphrase;
+        private bool _isConnected;
 
         public WifiNetworkItemViewModel(string ssid)
         {
@@ -837,13 +870,20 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             private set => SetProperty(ref _requiresPassphrase, value);
         }
 
+        public bool IsConnected
+        {
+            get => _isConnected;
+            private set => SetProperty(ref _isConnected, value);
+        }
+
         public void Update(
             string authentication,
             string encryption,
             int signalStrengthPercent,
             string signalGlyph,
             bool canDirectConnect,
-            bool requiresPassphrase)
+            bool requiresPassphrase,
+            bool isConnected)
         {
             Authentication = authentication;
             Encryption = encryption;
@@ -851,6 +891,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             SignalGlyph = signalGlyph;
             CanDirectConnect = canDirectConnect;
             RequiresPassphrase = requiresPassphrase;
+            IsConnected = isConnected;
         }
     }
 

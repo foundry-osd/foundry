@@ -7,4 +7,6 @@ public interface INetworkBootstrapService
     Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken);
 
     Task<string> ConnectWifiNetworkAsync(string ssid, string authentication, string? passphrase, CancellationToken cancellationToken);
+
+    Task<string> DisconnectWifiAsync(CancellationToken cancellationToken);
 }

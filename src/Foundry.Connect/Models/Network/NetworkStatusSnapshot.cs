@@ -38,5 +38,7 @@ public sealed class NetworkStatusSnapshot
 
     public string ConnectionSummary { get; init; } = "Waiting for a validated network path.";
 
+    public string? ConnectedWifiSsid { get; init; }
+
     public IReadOnlyList<WifiNetworkSummary> WifiNetworks { get; init; } = Array.Empty<WifiNetworkSummary>();
 }

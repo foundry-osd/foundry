@@ -148,6 +148,21 @@ internal static class NativeWifiApi
         }
     }
 
+    public static string? GetConnectedSsid()
+    {
+        foreach (Guid interfaceId in GetInterfaceIds())
+        {
+            WifiInterfaceConnectionInfo? connectionInfo = GetInterfaceConnectionInfo(interfaceId);
+            if (connectionInfo?.State == WlanInterfaceState.Connected &&
+                !string.IsNullOrWhiteSpace(connectionInfo.CurrentSsid))
+            {
+                return connectionInfo.CurrentSsid;
+            }
+        }
+
+        return null;
+    }
+
     private static List<Guid> ReadInterfaceIds(IntPtr interfaceListPointer)
     {
         if (interfaceListPointer == IntPtr.Zero)

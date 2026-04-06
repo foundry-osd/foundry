@@ -72,6 +72,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <Grid x:Name="PassphraseRow" HorizontalAlignment="Stretch">
@@ -122,6 +123,7 @@
                         </Grid>
 
                         <Grid
+                            x:Name="ConnectButtonRow"
                             Grid.Row="1"
                             Margin="0,12,0,0"
                             HorizontalAlignment="Stretch">
@@ -136,7 +138,7 @@
                                 Margin="0,0,12,0"
                                 VerticalAlignment="Center"
                                 IsIndeterminate="True"
-                                Visibility="{Binding DataContext.IsSelectedWifiConnectionInProgress, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding DataContext.IsSelectedWifiActionInProgress, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <Button
                                 Grid.Column="1"
@@ -146,6 +148,46 @@
                                 Content="Connect"
                                 IsEnabled="{Binding DataContext.CanConnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 Style="{DynamicResource AccentButtonStyle}" />
+                        </Grid>
+
+                        <Grid
+                            x:Name="ConnectedStatusRow"
+                            Grid.Row="1"
+                            Margin="0,12,0,0"
+                            HorizontalAlignment="Stretch"
+                            Visibility="Collapsed">
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="Connected" />
+                        </Grid>
+
+                        <Grid
+                            x:Name="DisconnectButtonRow"
+                            Grid.Row="2"
+                            Margin="0,12,0,0"
+                            HorizontalAlignment="Stretch"
+                            Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ProgressBar
+                                Grid.Column="0"
+                                Height="4"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center"
+                                IsIndeterminate="True"
+                                Visibility="{Binding DataContext.IsSelectedWifiActionInProgress, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <Button
+                                Grid.Column="1"
+                                Width="140"
+                                HorizontalAlignment="Right"
+                                Command="{Binding DataContext.DisconnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Content="Disconnect"
+                                IsEnabled="{Binding DataContext.CanDisconnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}" />
                         </Grid>
                     </Grid>
 
@@ -165,6 +207,14 @@
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
                         <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}" Value="True" />
+                        <Condition Binding="{Binding IsConnected}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter TargetName="ConnectActionsPanel" Property="Visibility" Value="Visible" />
+                </MultiDataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}" Value="True" />
                         <Condition Binding="{Binding CanDirectConnect}" Value="True" />
                     </MultiDataTrigger.Conditions>
                     <Setter TargetName="ConnectActionsPanel" Property="Visibility" Value="Visible" />
@@ -174,12 +224,20 @@
                     <MultiDataTrigger.Conditions>
                         <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=IsSelected}" Value="True" />
                         <Condition Binding="{Binding CanDirectConnect}" Value="False" />
+                        <Condition Binding="{Binding IsConnected}" Value="False" />
                     </MultiDataTrigger.Conditions>
                     <Setter TargetName="ProvisionedProfileHintTextBlock" Property="Visibility" Value="Visible" />
                 </MultiDataTrigger>
 
                 <DataTrigger Binding="{Binding RequiresPassphrase}" Value="False">
                     <Setter TargetName="PassphraseRow" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                    <Setter TargetName="PassphraseRow" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="ConnectButtonRow" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="ConnectedStatusRow" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="DisconnectButtonRow" Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>

@@ -50,6 +50,7 @@ public sealed class NetworkStatusService : INetworkStatusService
         bool hasWirelessAdapter = wirelessAdapters.Length > 0;
         bool isWifiUiEnabled = _configuration.Capabilities.WifiProvisioned || isDebugWifiEnabled;
         bool isWifiRuntimeAvailable = isWifiUiEnabled && await IsWifiRuntimeAvailableAsync(cancellationToken).ConfigureAwait(false);
+        string? connectedWifiSsid = isWifiRuntimeAvailable ? NativeWifiApi.GetConnectedSsid() : null;
         IReadOnlyList<WifiNetworkSummary> wifiNetworks = isWifiRuntimeAvailable
             ? await DiscoverWifiNetworksAsync(cancellationToken).ConfigureAwait(false)
             : Array.Empty<WifiNetworkSummary>();
@@ -92,7 +93,7 @@ public sealed class NetworkStatusService : INetworkStatusService
             InternetStatusText = hasInternetAccess
                 ? "Internet reachability validated."
                 : "Internet validation is still pending or failed.",
-            WifiStatusText = BuildWifiStatusText(isWifiRuntimeAvailable, hasWirelessAdapter, wifiNetworks.Count, isDebugWifiEnabled),
+            WifiStatusText = BuildWifiStatusText(isWifiRuntimeAvailable, hasWirelessAdapter, wifiNetworks.Count, isDebugWifiEnabled, connectedWifiSsid),
             AdapterName = adapterName,
             IpAddress = ipAddress,
             SubnetMask = subnetMask,
@@ -100,6 +101,7 @@ public sealed class NetworkStatusService : INetworkStatusService
             DnsServers = dnsServers,
             DhcpText = hasDhcpLease ? "DHCP lease detected." : "No DHCP lease detected.",
             ConnectionSummary = BuildConnectionSummary(isEthernetConnected, hasInternetAccess, isWifiRuntimeAvailable, wifiNetworks.Count),
+            ConnectedWifiSsid = connectedWifiSsid,
             WifiNetworks = wifiNetworks
         };
     }
@@ -223,7 +225,7 @@ public sealed class NetworkStatusService : INetworkStatusService
             : "Ethernet link is active, but no DHCP lease was detected.";
     }
 
-    private static string BuildWifiStatusText(bool isWifiRuntimeAvailable, bool hasWirelessAdapter, int networkCount, bool isDebugWifiEnabled)
+    private static string BuildWifiStatusText(bool isWifiRuntimeAvailable, bool hasWirelessAdapter, int networkCount, bool isDebugWifiEnabled, string? connectedWifiSsid)
     {
         if (!isWifiRuntimeAvailable)
         {
@@ -237,6 +239,11 @@ public sealed class NetworkStatusService : INetworkStatusService
             return isDebugWifiEnabled
                 ? "Debug Wi-Fi discovery is enabled, but no wireless adapter is currently detected."
                 : "Wi-Fi support is provisioned, but no wireless adapter is currently detected.";
+        }
+
+        if (!string.IsNullOrWhiteSpace(connectedWifiSsid))
+        {
+            return $"Connected to '{connectedWifiSsid}'.";
         }
 
         if (networkCount == 0)

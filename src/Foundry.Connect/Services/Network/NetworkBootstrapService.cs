@@ -161,6 +161,39 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
     }
 
+    public async Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
+    {
+        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        if (wirelessInterfaceIds.Count == 0)
+        {
+            return "No wireless adapter is available to disconnect.";
+        }
+
+        string? connectedSsid = NativeWifiApi.GetConnectedSsid();
+        if (string.IsNullOrWhiteSpace(connectedSsid))
+        {
+            return "Wi-Fi is already disconnected.";
+        }
+
+        ProcessExecutionResult disconnectResult = await ExecuteProcessAsync(
+            "netsh",
+            "wlan disconnect",
+            cancellationToken).ConfigureAwait(false);
+        if (disconnectResult.ExitCode != 0)
+        {
+            return $"Wi-Fi disconnect request failed: {CollapseError(disconnectResult)}";
+        }
+
+        WifiDisconnectAttemptResult attemptResult = await WaitForWifiDisconnectionAsync(
+            wirelessInterfaceIds,
+            connectedSsid,
+            cancellationToken).ConfigureAwait(false);
+
+        return attemptResult.IsDisconnected
+            ? $"Wi-Fi disconnected from '{connectedSsid}'."
+            : $"Wi-Fi disconnect failed: {attemptResult.FailureMessage}";
+    }
+
     private async Task<string> ApplyWiredDot1xProfileAsync(CancellationToken cancellationToken)
     {
         string? profilePath = ResolveAssetPath(_configuration.Dot1x.ProfileTemplatePath);
@@ -431,6 +464,53 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : WifiConnectionAttemptResult.Failure($"Windows accepted the request, but the wireless interface never transitioned into an active connection attempt.");
     }
 
+    private static async Task<WifiDisconnectAttemptResult> WaitForWifiDisconnectionAsync(
+        IReadOnlyList<Guid> interfaceIds,
+        string disconnectedSsid,
+        CancellationToken cancellationToken)
+    {
+        DateTimeOffset deadline = DateTimeOffset.UtcNow + WifiConnectionTimeout;
+        bool sawDisconnectTransition = false;
+
+        while (DateTimeOffset.UtcNow < deadline)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            bool isStillConnectedToTarget = false;
+
+            foreach (Guid interfaceId in interfaceIds)
+            {
+                NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = NativeWifiApi.GetInterfaceConnectionInfo(interfaceId);
+                if (connectionInfo is null)
+                {
+                    continue;
+                }
+
+                if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Disconnecting)
+                {
+                    sawDisconnectTransition = true;
+                }
+
+                if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Connected &&
+                    string.Equals(connectionInfo.CurrentSsid, disconnectedSsid, StringComparison.Ordinal))
+                {
+                    isStillConnectedToTarget = true;
+                }
+            }
+
+            if (!isStillConnectedToTarget)
+            {
+                return WifiDisconnectAttemptResult.Success();
+            }
+
+            await Task.Delay(WifiConnectionPollInterval, cancellationToken).ConfigureAwait(false);
+        }
+
+        return sawDisconnectTransition
+            ? WifiDisconnectAttemptResult.Failure($"Windows started the Wi-Fi disconnect workflow, but '{disconnectedSsid}' remained connected after {WifiConnectionTimeout.TotalSeconds:0} seconds.")
+            : WifiDisconnectAttemptResult.Failure($"Windows accepted the request, but '{disconnectedSsid}' did not transition away from the connected state.");
+    }
+
     private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue)
     {
         string ssid = SecurityElement.Escape(ssidValue.Trim()) ?? string.Empty;
@@ -595,6 +675,19 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         public static WifiConnectionAttemptResult Failure(string message)
         {
             return new WifiConnectionAttemptResult(false, message);
+        }
+    }
+
+    private sealed record WifiDisconnectAttemptResult(bool IsDisconnected, string? FailureMessage)
+    {
+        public static WifiDisconnectAttemptResult Success()
+        {
+            return new WifiDisconnectAttemptResult(true, null);
+        }
+
+        public static WifiDisconnectAttemptResult Failure(string message)
+        {
+            return new WifiDisconnectAttemptResult(false, message);
         }
     }
 
