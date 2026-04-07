@@ -186,6 +186,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool HasProvisionedWifiProfile => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled;
     public bool HasCurrentConnectionChip => !string.IsNullOrWhiteSpace(CurrentConnectionChipText);
     public bool HasEthernetSecondaryStatus => !string.IsNullOrWhiteSpace(EthernetSecondaryStatusText);
+    public string ProvisionedWifiEmptyStateText => "No provisioned profile is available in this boot image.";
     public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
     public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid);
     public bool CanConnectConfiguredWifi => HasProvisionedWifiProfile &&
