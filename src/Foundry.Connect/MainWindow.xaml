@@ -61,14 +61,12 @@
                 Text="{Binding VersionDisplay}" />
         </Grid>
 
-        <Grid Grid.Row="1" Margin="{Binding MainContentMargin}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="1" Width="{Binding CenterContentWidth}">
+        <Grid Grid.Row="1" Margin="32">
+            <Grid
+                MaxWidth="1320"
+                MaxHeight="900"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />

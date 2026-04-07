@@ -19,15 +19,6 @@ namespace Foundry.Connect.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
-    private const double CompactViewportWidthThreshold = 1360;
-    private const double CompactViewportHeightThreshold = 900;
-    private const double CompactContentMargin = 16;
-    private const double WideContentMargin = 32;
-    private const double WideContentMaxWidth = 1320;
-    private const double CompactWifiListMinHeightValue = 120;
-    private const double CompactWifiListMaxHeightValue = 180;
-    private const double WideWifiListMinHeightValue = 160;
-    private const double WideWifiListMaxHeightValue = 320;
     private const string EthernetOkGlyph = "\uE839";
     private const string EthernetWarningGlyph = "\uEB56";
     private const string EthernetErrorGlyph = "\uEB55";
@@ -51,7 +42,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly bool _isAutoCloseEnabled;
 
     private CancellationTokenSource? _countdownCts;
-    private Task? _monitoringTask;
     private bool _isInitialized;
     private bool _isDisposed;
     private bool _isSyncingWifiNetworks;
@@ -60,9 +50,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     private NetworkLayoutMode layoutMode;
-
-    [ObservableProperty]
-    private ConnectViewportMode viewportMode = ConnectViewportMode.Compact;
 
     [ObservableProperty]
     private NetworkLayoutMode? debugLayoutOverride;
@@ -146,18 +133,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string selectedWifiPassphrase = string.Empty;
 
     [ObservableProperty]
-    private Thickness mainContentMargin = new(CompactContentMargin);
-
-    [ObservableProperty]
-    private double centerContentWidth = 960;
-
-    [ObservableProperty]
-    private double wifiNetworkListMinHeight = CompactWifiListMinHeightValue;
-
-    [ObservableProperty]
-    private double wifiNetworkListMaxHeight = CompactWifiListMaxHeightValue;
-
-    [ObservableProperty]
     private bool isDiagnosticsExpanded;
 
     public MainWindowViewModel(
@@ -208,10 +183,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public bool HasWifiNetworks => WifiNetworks.Count > 0;
 
-    public bool IsCompactViewport => ViewportMode == ConnectViewportMode.Compact;
-
-    public bool IsWideViewport => ViewportMode == ConnectViewportMode.Wide;
-
     public bool IsDebugMenuVisible => Debugger.IsAttached;
 
     public NetworkLayoutMode EffectiveLayoutMode => DebugLayoutOverride ?? LayoutMode;
@@ -244,7 +215,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         await RefreshCoreAsync(_disposeCts.Token).ConfigureAwait(false);
         _logger.LogInformation("Initial network snapshot refresh completed.");
 
-        _monitoringTask = MonitorAsync(_disposeCts.Token);
+        _ = MonitorAsync(_disposeCts.Token);
         _logger.LogInformation("Background network monitoring started.");
     }
 
@@ -347,26 +318,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _logger.LogInformation("Window close detected before a controlled exit. Returning user-aborted exit code.");
             _applicationLifetimeService.Exit(FoundryConnectExitCode.UserAborted);
         }
-    }
-
-    public void UpdateViewport(double windowWidth, double windowHeight)
-    {
-        if (windowWidth <= 0 || windowHeight <= 0)
-        {
-            return;
-        }
-
-        bool useCompactViewport = windowWidth < CompactViewportWidthThreshold || windowHeight < CompactViewportHeightThreshold;
-        double horizontalMargin = useCompactViewport ? CompactContentMargin : WideContentMargin;
-        double availableWidth = Math.Max(320, windowWidth - (horizontalMargin * 2));
-
-        ViewportMode = useCompactViewport ? ConnectViewportMode.Compact : ConnectViewportMode.Wide;
-        MainContentMargin = new Thickness(horizontalMargin, horizontalMargin, horizontalMargin, horizontalMargin);
-        CenterContentWidth = useCompactViewport
-            ? availableWidth
-            : Math.Min(availableWidth, WideContentMaxWidth);
-        WifiNetworkListMinHeight = useCompactViewport ? CompactWifiListMinHeightValue : WideWifiListMinHeightValue;
-        WifiNetworkListMaxHeight = useCompactViewport ? CompactWifiListMaxHeightValue : WideWifiListMaxHeightValue;
     }
 
     private async Task MonitorAsync(CancellationToken cancellationToken)
@@ -750,12 +701,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     partial void OnLayoutModeChanged(NetworkLayoutMode value)
     {
         OnPropertyChanged(nameof(EffectiveLayoutMode));
-    }
-
-    partial void OnViewportModeChanged(ConnectViewportMode value)
-    {
-        OnPropertyChanged(nameof(IsCompactViewport));
-        OnPropertyChanged(nameof(IsWideViewport));
     }
 
     partial void OnDebugLayoutOverrideChanged(NetworkLayoutMode? value)

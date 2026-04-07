@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Windows;
-using Foundry.Connect.Models;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -24,13 +23,11 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = viewModel;
         Loaded += OnLoadedAsync;
-        SizeChanged += OnWindowSizeChanged;
     }
 
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)
     {
         _logger.LogInformation("MainWindow loaded. Starting asynchronous initialization.");
-        _viewModel.UpdateViewport(ActualWidth, ActualHeight);
 
         try
         {
@@ -42,11 +39,6 @@ public partial class MainWindow : Window
             _logger.LogError(ex, "MainWindow asynchronous initialization failed.");
             _applicationLifetimeService.Exit(FoundryConnectExitCode.StartupFailure);
         }
-    }
-
-    private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        _viewModel.UpdateViewport(e.NewSize.Width, e.NewSize.Height);
     }
 
     protected override void OnClosing(CancelEventArgs e)

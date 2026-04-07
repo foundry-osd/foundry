@@ -172,37 +172,19 @@ public partial class EthernetWifiView : UserControl
             }
 
             SyncSelectedWifiEditors();
-            return;
-        }
-
-        if (string.Equals(e.PropertyName, nameof(MainWindowViewModel.IsCompactViewport), StringComparison.Ordinal) ||
-            string.Equals(e.PropertyName, nameof(MainWindowViewModel.IsWideViewport), StringComparison.Ordinal))
-        {
-            SyncSelectedWifiEditors();
         }
     }
 
     private void SyncSelectedWifiEditors()
     {
-        if (_viewModel is null)
-        {
-            return;
-        }
-
-        SyncSelectedWifiEditors(CompactWifiNetworksListView);
-        SyncSelectedWifiEditors(WideWifiNetworksListView);
-    }
-
-    private void SyncSelectedWifiEditors(ListView? listView)
-    {
         if (_viewModel is null ||
-            listView is null ||
+            WifiNetworksListView is null ||
             _viewModel.SelectedWifiNetwork is null)
         {
             return;
         }
 
-        if (listView.ItemContainerGenerator.ContainerFromItem(_viewModel.SelectedWifiNetwork) is not ListViewItem item)
+        if (WifiNetworksListView.ItemContainerGenerator.ContainerFromItem(_viewModel.SelectedWifiNetwork) is not ListViewItem item)
         {
             return;
         }
