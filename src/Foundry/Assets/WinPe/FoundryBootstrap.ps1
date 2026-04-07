@@ -1708,7 +1708,7 @@ try {
 
     $connectProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Connect'
     $deployProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Deploy'
-    $skipConnectUpdateCheck = $connectProvisioningSource -eq 'local'
+    $skipConnectReleaseLookup = $connectProvisioningSource -eq 'local'
     $skipDeployReleaseLookup = $deployProvisioningSource -eq 'local'
 
     $connectExecutable = Resolve-ApplicationExecutable `
@@ -1716,7 +1716,7 @@ try {
         -BootstrapRoot $bootstrapRoot `
         -RuntimeIdentifier $runtimeIdentifier `
         -Headers $headers `
-        -SkipReleaseLookup
+        -SkipReleaseLookup:$skipConnectReleaseLookup
 
     $connectExitCode = Invoke-ConnectExecutable `
         -Executable $connectExecutable `
@@ -1737,7 +1737,7 @@ try {
     Sync-WinPeInternetDateTime -ThresholdMinutes 5
     Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
 
-    if ($skipConnectUpdateCheck) {
+    if ($skipConnectReleaseLookup) {
         Write-Log "Skipping Foundry.Connect cache verification because the embedded provisioning source is local." -ConsoleMessage 'Foundry.Connect local provisioning detected. Skipping update check.'
     }
     else {

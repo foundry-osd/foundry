@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 
@@ -234,6 +235,16 @@ else {
         Directory.CreateDirectory(Path.Combine(cacheRoot, "DriverPack"));
         _logger.LogInformation("Initialized USB cache partition directories. CacheRoot={CacheRoot}", cacheRoot);
 
+        WinPeResult connectRuntimeProvisioningResult = ProvisionFoundryConnectRuntime(cacheRoot, artifact);
+        if (!connectRuntimeProvisioningResult.IsSuccess)
+        {
+            _logger.LogWarning(
+                "USB Foundry.Connect runtime provisioning failed. Code={ErrorCode}, Message={ErrorMessage}",
+                connectRuntimeProvisioningResult.Error?.Code,
+                connectRuntimeProvisioningResult.Error?.Message);
+            return WinPeResult<WinPeUsbProvisionResult>.Failure(connectRuntimeProvisioningResult.Error!);
+        }
+
         WinPeResult<WinPeUsbProvisionResult> success = WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
         {
             BootDriveLetter = $"{bootDriveLetter}:",
@@ -245,6 +256,80 @@ else {
             success.Value?.BootDriveLetter,
             success.Value?.CacheDriveLetter);
         return success;
+    }
+
+    private WinPeResult ProvisionFoundryConnectRuntime(string cacheRoot, WinPeBuildArtifact artifact)
+    {
+        string sourceArchivePath = Path.Combine(
+            artifact.MediaDirectoryPath,
+            WinPeDefaults.EmbeddedConnectArchivePathInImage);
+        if (!File.Exists(sourceArchivePath))
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.ToolNotFound,
+                "Foundry.Connect archive was not found in the prepared USB media workspace.",
+                $"Expected path: '{sourceArchivePath}'.");
+        }
+
+        string runtimeIdentifier = artifact.Architecture.ToDotnetRuntimeIdentifier();
+        string applicationRoot = Path.Combine(cacheRoot, "Runtime", "Foundry.Connect");
+        string destinationRoot = Path.Combine(applicationRoot, runtimeIdentifier);
+        string stagingRoot = $"{destinationRoot}.staging";
+
+        try
+        {
+            _logger.LogInformation(
+                "Provisioning Foundry.Connect runtime into USB cache partition. SourceArchivePath={SourceArchivePath}, DestinationRoot={DestinationRoot}",
+                sourceArchivePath,
+                destinationRoot);
+
+            if (Directory.Exists(stagingRoot))
+            {
+                Directory.Delete(stagingRoot, recursive: true);
+            }
+
+            Directory.CreateDirectory(applicationRoot);
+            ZipFile.ExtractToDirectory(sourceArchivePath, stagingRoot);
+
+            string executablePath = Path.Combine(stagingRoot, "Foundry.Connect.exe");
+            if (!File.Exists(executablePath))
+            {
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.BuildFailed,
+                    "The Foundry.Connect archive could not be extracted into the USB cache runtime.",
+                    $"Expected executable: '{executablePath}'.");
+            }
+
+            if (Directory.Exists(destinationRoot))
+            {
+                Directory.Delete(destinationRoot, recursive: true);
+            }
+
+            Directory.Move(stagingRoot, destinationRoot);
+            _logger.LogInformation(
+                "Provisioned Foundry.Connect runtime into USB cache partition successfully. DestinationRoot={DestinationRoot}",
+                destinationRoot);
+            return WinPeResult.Success();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "Failed to provision Foundry.Connect runtime into USB cache partition. SourceArchivePath={SourceArchivePath}, DestinationRoot={DestinationRoot}",
+                sourceArchivePath,
+                destinationRoot);
+            return WinPeResult.Failure(
+                WinPeErrorCodes.BuildFailed,
+                "Failed to provision Foundry.Connect runtime into the USB cache partition.",
+                ex.ToString());
+        }
+        finally
+        {
+            if (Directory.Exists(stagingRoot))
+            {
+                Directory.Delete(stagingRoot, recursive: true);
+            }
+        }
     }
 
     private WinPeResult ConfigureBootFiles(
