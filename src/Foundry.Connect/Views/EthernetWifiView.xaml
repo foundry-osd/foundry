@@ -467,6 +467,7 @@
                             x:Name="WifiNetworksListView"
                             MinHeight="160"
                             MaxHeight="320"
+                            VerticalAlignment="Top"
                             HorizontalContentAlignment="Stretch"
                             ItemTemplate="{StaticResource WifiNetworkItemTemplate}"
                             ItemsSource="{Binding WifiNetworks}"
