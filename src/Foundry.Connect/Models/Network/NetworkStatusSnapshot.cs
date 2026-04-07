@@ -20,11 +20,9 @@ public sealed class NetworkStatusSnapshot
 
     public string EthernetStatusText { get; init; } = "No ethernet adapter detected.";
 
-    public string InternetStatusText { get; init; } = "Internet validation has not succeeded yet.";
+    public string EthernetAdapterName { get; init; } = "Unavailable";
 
-    public string AdapterName { get; init; } = "Unavailable";
-
-    public string IpAddress { get; init; } = "Unavailable";
+    public string EthernetIpAddress { get; init; } = "Unavailable";
 
     public string? ConnectedWifiSsid { get; init; }
 

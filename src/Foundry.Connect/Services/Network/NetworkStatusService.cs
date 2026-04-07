@@ -40,10 +40,8 @@ public sealed class NetworkStatusService : INetworkStatusService
         NetworkInterface[] ethernetAdapters = adapters.Where(IsEthernetAdapter).ToArray();
         NetworkInterface[] wirelessAdapters = adapters.Where(static adapter => adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211).ToArray();
 
-        NetworkInterface? activeAdapter = ethernetAdapters.FirstOrDefault(static adapter => adapter.OperationalStatus == OperationalStatus.Up)
-            ?? wirelessAdapters.FirstOrDefault(static adapter => adapter.OperationalStatus == OperationalStatus.Up)
-            ?? ethernetAdapters.FirstOrDefault()
-            ?? wirelessAdapters.FirstOrDefault();
+        NetworkInterface? connectedEthernetAdapter = ethernetAdapters.FirstOrDefault(static adapter => adapter.OperationalStatus == OperationalStatus.Up);
+        NetworkInterface? ethernetDisplayAdapter = connectedEthernetAdapter ?? ethernetAdapters.FirstOrDefault();
 
         bool hasEthernetAdapter = ethernetAdapters.Length > 0;
         bool isEthernetConnected = ethernetAdapters.Any(static adapter => adapter.OperationalStatus == OperationalStatus.Up);
@@ -54,16 +52,13 @@ public sealed class NetworkStatusService : INetworkStatusService
         IReadOnlyList<WifiNetworkSummary> wifiNetworks = isWifiRuntimeAvailable
             ? await DiscoverWifiNetworksAsync(cancellationToken).ConfigureAwait(false)
             : Array.Empty<WifiNetworkSummary>();
-        bool hasDhcpLease = HasDhcpLease(activeAdapter);
+        bool hasDhcpLease = HasDhcpLease(connectedEthernetAdapter);
         bool hasInternetAccess = await ProbeInternetAsync(cancellationToken).ConfigureAwait(false);
 
-        UnicastIPAddressInformation? ipv4Information = activeAdapter?
+        UnicastIPAddressInformation? ethernetIpv4Information = ethernetDisplayAdapter?
             .GetIPProperties()
             .UnicastAddresses
             .FirstOrDefault(static address => address.Address.AddressFamily == AddressFamily.InterNetwork);
-
-        string adapterName = activeAdapter?.Name ?? "Unavailable";
-        string ipAddress = ipv4Information?.Address.ToString() ?? "Unavailable";
 
         return new NetworkStatusSnapshot
         {
@@ -75,11 +70,8 @@ public sealed class NetworkStatusService : INetworkStatusService
             IsWifiRuntimeAvailable = isWifiRuntimeAvailable,
             HasWirelessAdapter = hasWirelessAdapter,
             EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasDhcpLease),
-            InternetStatusText = hasInternetAccess
-                ? "Internet reachability validated."
-                : "Internet validation is still pending or failed.",
-            AdapterName = adapterName,
-            IpAddress = ipAddress,
+            EthernetAdapterName = ethernetDisplayAdapter?.Name ?? "Unavailable",
+            EthernetIpAddress = ethernetIpv4Information?.Address.ToString() ?? "Unavailable",
             ConnectedWifiSsid = connectedWifiSsid,
             WifiNetworks = wifiNetworks
         };

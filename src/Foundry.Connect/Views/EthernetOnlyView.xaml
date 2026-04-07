@@ -27,12 +27,6 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{Binding EthernetStatusText}"
                         TextWrapping="Wrap" />
-                    <TextBlock
-                        Margin="0,8,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding InternetStatusText}"
-                        TextWrapping="Wrap" />
                     <Grid Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -46,7 +40,7 @@
                             Grid.Column="1"
                             Margin="8,0,16,0"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding AdapterName}"
+                            Text="{Binding EthernetAdapterName}"
                             TextTrimming="CharacterEllipsis" />
                         <TextBlock
                             Grid.Column="2"
@@ -56,7 +50,7 @@
                             Grid.Column="3"
                             Margin="8,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding IpAddress}"
+                            Text="{Binding EthernetIpAddress}"
                             TextTrimming="CharacterEllipsis" />
                     </Grid>
                 </StackPanel>

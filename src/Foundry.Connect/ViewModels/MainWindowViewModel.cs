@@ -78,13 +78,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string ethernetStatusText = "No ethernet adapter detected.";
 
     [ObservableProperty]
-    private string internetStatusText = "Internet validation has not succeeded yet.";
+    private string ethernetAdapterName = "Unavailable";
 
     [ObservableProperty]
-    private string adapterName = "Unavailable";
-
-    [ObservableProperty]
-    private string ipAddress = "Unavailable";
+    private string ethernetIpAddress = "Unavailable";
 
     [ObservableProperty]
     private bool hasInternetAccess;
@@ -416,9 +413,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         EthernetGlyph = ResolveEthernetGlyph(snapshot);
         EthernetStatusText = snapshot.EthernetStatusText;
-        InternetStatusText = snapshot.InternetStatusText;
-        AdapterName = snapshot.AdapterName;
-        IpAddress = snapshot.IpAddress;
+        EthernetAdapterName = snapshot.EthernetAdapterName;
+        EthernetIpAddress = snapshot.EthernetIpAddress;
         LastUpdatedAt = DateTimeOffset.Now;
         OnPropertyChanged(nameof(LastUpdatedText));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
@@ -537,7 +533,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void RefreshDerivedConnectionState(NetworkStatusSnapshot snapshot)
     {
         CurrentConnectionChipText = ResolveCurrentConnectionChipText(snapshot);
-        OnPropertyChanged(nameof(HasCurrentConnectionChip));
         OnPropertyChanged(nameof(IsProvisionedWifiConnected));
         OnPropertyChanged(nameof(CanConnectConfiguredWifi));
         OnPropertyChanged(nameof(CanDisconnectConfiguredWifi));
@@ -1196,7 +1191,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (!string.IsNullOrWhiteSpace(_connectedWifiSsid))
         {
-            return $"Currently connected to '{_connectedWifiSsid}'.";
+            return $"Provisioned profile not connected. Another Wi-Fi network is currently active: '{_connectedWifiSsid}'.";
         }
 
         return "Ready to connect the provisioned profile.";
