@@ -198,7 +198,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                                               !IsNetworkActionInProgress;
     public string ProvisionedWifiProfileName => ResolveProvisionedWifiProfileName();
     public string ProvisionedWifiAuthenticationText => BuildProvisionedWifiAuthenticationText();
-    public string ProvisionedWifiSourceText => BuildProvisionedWifiSourceText();
+    public string ProvisionedWifiSourceHintText => BuildProvisionedWifiSourceHintText();
     public string ProvisionedWifiStatusText => BuildProvisionedWifiStatusText();
     public bool HasProvisionedWifiActionFeedback => !string.IsNullOrWhiteSpace(ProvisionedWifiActionFeedbackText);
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
@@ -1156,9 +1156,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             return _configuration.Wifi.EnterpriseAuthenticationMode switch
             {
-                NetworkAuthenticationMode.MachineOnly => "Enterprise (machine)",
-                NetworkAuthenticationMode.MachineOrUser => "Enterprise (machine or user)",
-                _ => "Enterprise (user)"
+                NetworkAuthenticationMode.MachineOnly => "WPA2-Enterprise (machine)",
+                NetworkAuthenticationMode.MachineOrUser => "WPA2-Enterprise (machine or user)",
+                _ => "WPA2-Enterprise"
             };
         }
 
@@ -1167,15 +1167,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             : _configuration.Wifi.SecurityType.Trim();
     }
 
-    private string BuildProvisionedWifiSourceText()
+    private string BuildProvisionedWifiSourceHintText()
     {
         string sourceText = _configuration.Wifi.HasEnterpriseProfile
-            ? "Provisioned from an enterprise profile template in the boot image."
-            : "Provisioned from the boot image Wi-Fi settings.";
+            ? "Enterprise profile"
+            : "Boot image settings";
 
         if (_configuration.Wifi.RequiresCertificate || !string.IsNullOrWhiteSpace(_configuration.Wifi.CertificatePath))
         {
-            return $"{sourceText} Certificate included.";
+            return $"{sourceText} · Certificate included";
         }
 
         return sourceText;
@@ -1190,25 +1190,25 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (IsProvisionedWifiConnected)
         {
-            return $"Connected to '{_connectedWifiSsid}'.";
+            return "Connected";
         }
 
         if (!IsWifiRuntimeAvailable)
         {
-            return "Wi-Fi support is not available at runtime.";
+            return "Wi-Fi unavailable";
         }
 
         if (!HasWirelessAdapter)
         {
-            return "No wireless adapter is available.";
+            return "No wireless adapter available";
         }
 
         if (!string.IsNullOrWhiteSpace(_connectedWifiSsid))
         {
-            return $"Provisioned profile not connected. Another Wi-Fi network is currently active: '{_connectedWifiSsid}'.";
+            return "Another Wi-Fi network is active";
         }
 
-        return "Ready to connect the provisioned profile.";
+        return "Ready to connect";
     }
 
     private string ResolveCurrentConnectionChipText(NetworkStatusSnapshot snapshot)
