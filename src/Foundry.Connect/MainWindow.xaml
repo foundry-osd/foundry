@@ -61,8 +61,13 @@
                 Text="{Binding VersionDisplay}" />
         </Grid>
 
-        <Grid Grid.Row="1" Margin="32">
+        <Grid
+            x:Name="MainContentHost"
+            Grid.Row="1"
+            Margin="32">
             <Grid
+                Width="{Binding ElementName=MainContentHost, Path=ActualWidth}"
+                Height="{Binding ElementName=MainContentHost, Path=ActualHeight}"
                 MaxWidth="1440"
                 MaxHeight="900"
                 HorizontalAlignment="Center"
