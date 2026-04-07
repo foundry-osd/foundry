@@ -59,6 +59,11 @@ public sealed class NetworkStatusService : INetworkStatusService
             .GetIPProperties()
             .UnicastAddresses
             .FirstOrDefault(static address => address.Address.AddressFamily == AddressFamily.InterNetwork);
+        GatewayIPAddressInformation? ethernetGatewayInformation = connectedEthernetAdapter?
+            .GetIPProperties()
+            .GatewayAddresses
+            .FirstOrDefault(static gateway => gateway.Address.AddressFamily == AddressFamily.InterNetwork);
+        bool hasEthernetIpv4 = ethernetIpv4Information is not null;
 
         return new NetworkStatusSnapshot
         {
@@ -67,11 +72,14 @@ public sealed class NetworkStatusService : INetworkStatusService
             HasEthernetAdapter = hasEthernetAdapter,
             IsEthernetConnected = isEthernetConnected,
             HasDhcpLease = hasDhcpLease,
+            HasEthernetIpv4 = hasEthernetIpv4,
             IsWifiRuntimeAvailable = isWifiRuntimeAvailable,
             HasWirelessAdapter = hasWirelessAdapter,
-            EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasDhcpLease),
+            EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4),
+            EthernetSecondaryStatusText = BuildEthernetSecondaryStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4, hasDhcpLease),
             EthernetAdapterName = ethernetDisplayAdapter?.Name ?? "Unavailable",
             EthernetIpAddress = ethernetIpv4Information?.Address.ToString() ?? "Unavailable",
+            EthernetGateway = ethernetGatewayInformation?.Address.ToString() ?? "Unavailable",
             ConnectedWifiSsid = connectedWifiSsid,
             WifiNetworks = wifiNetworks
         };
@@ -179,7 +187,7 @@ public sealed class NetworkStatusService : INetworkStatusService
         }
     }
 
-    private static string BuildEthernetStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasDhcpLease)
+    private static string BuildEthernetStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4)
     {
         if (!hasEthernetAdapter)
         {
@@ -188,12 +196,33 @@ public sealed class NetworkStatusService : INetworkStatusService
 
         if (!isEthernetConnected)
         {
-            return "Ethernet adapter detected, but no active link is available.";
+            return "No active link";
+        }
+
+        return hasEthernetIpv4
+            ? "Connected"
+            : "Waiting for network configuration";
+    }
+
+    private static string BuildEthernetSecondaryStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4, bool hasDhcpLease)
+    {
+        if (!hasEthernetAdapter)
+        {
+            return string.Empty;
+        }
+
+        if (!isEthernetConnected)
+        {
+            return "Check the cable connection";
+        }
+
+        if (!hasEthernetIpv4)
+        {
+            return "Waiting for DHCP or static network configuration";
         }
 
         return hasDhcpLease
-            ? "Ethernet link is active and DHCP information is available."
-            : "Ethernet link is active, but no DHCP lease was detected.";
+            ? "DHCP lease detected"
+            : "Static network configuration detected";
     }
-
 }

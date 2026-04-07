@@ -78,10 +78,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string ethernetStatusText = "No ethernet adapter detected.";
 
     [ObservableProperty]
+    private string ethernetSecondaryStatusText = string.Empty;
+
+    [ObservableProperty]
     private string ethernetAdapterName = "Unavailable";
 
     [ObservableProperty]
     private string ethernetIpAddress = "Unavailable";
+
+    [ObservableProperty]
+    private string ethernetGateway = "Unavailable";
 
     [ObservableProperty]
     private bool hasInternetAccess;
@@ -179,6 +185,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public bool HasProvisionedWifiProfile => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled;
     public bool HasCurrentConnectionChip => !string.IsNullOrWhiteSpace(CurrentConnectionChipText);
+    public bool HasEthernetSecondaryStatus => !string.IsNullOrWhiteSpace(EthernetSecondaryStatusText);
     public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
     public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid);
     public bool CanConnectConfiguredWifi => HasProvisionedWifiProfile &&
@@ -413,8 +420,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         EthernetGlyph = ResolveEthernetGlyph(snapshot);
         EthernetStatusText = snapshot.EthernetStatusText;
+        EthernetSecondaryStatusText = snapshot.EthernetSecondaryStatusText;
         EthernetAdapterName = snapshot.EthernetAdapterName;
         EthernetIpAddress = snapshot.EthernetIpAddress;
+        EthernetGateway = snapshot.EthernetGateway;
         LastUpdatedAt = DateTimeOffset.Now;
         OnPropertyChanged(nameof(LastUpdatedText));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
@@ -637,7 +646,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private static string ResolveEthernetGlyph(NetworkStatusSnapshot snapshot)
     {
-        if (snapshot.IsEthernetConnected && snapshot.HasDhcpLease)
+        if (snapshot.IsEthernetConnected && snapshot.HasEthernetIpv4)
         {
             return EthernetOkGlyph;
         }
@@ -742,6 +751,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     partial void OnCurrentConnectionChipTextChanged(string value)
     {
         OnPropertyChanged(nameof(HasCurrentConnectionChip));
+    }
+
+    partial void OnEthernetSecondaryStatusTextChanged(string value)
+    {
+        OnPropertyChanged(nameof(HasEthernetSecondaryStatus));
     }
 
     partial void OnHasInternetAccessChanged(bool value)

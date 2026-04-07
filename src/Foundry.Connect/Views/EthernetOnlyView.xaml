@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Grid>
-        <Border Style="{StaticResource SectionCardBorderStyle}">
+        <Border VerticalAlignment="Top" Style="{StaticResource SectionCardBorderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -27,30 +27,52 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{Binding EthernetStatusText}"
                         TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="0,4,0,0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding EthernetSecondaryStatusText}"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding HasEthernetSecondaryStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <Grid Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Adapter" />
                         <TextBlock
                             Grid.Column="1"
-                            Margin="8,0,16,0"
+                            Margin="8,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{Binding EthernetAdapterName}"
                             TextTrimming="CharacterEllipsis" />
                         <TextBlock
-                            Grid.Column="2"
+                            Grid.Row="1"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="IPv4" />
                         <TextBlock
-                            Grid.Column="3"
+                            Grid.Row="1"
+                            Grid.Column="1"
                             Margin="8,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{Binding EthernetIpAddress}"
+                            TextTrimming="CharacterEllipsis" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Gateway" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="8,0,0,0"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding EthernetGateway}"
                             TextTrimming="CharacterEllipsis" />
                     </Grid>
                 </StackPanel>
