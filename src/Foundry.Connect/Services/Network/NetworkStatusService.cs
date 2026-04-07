@@ -93,7 +93,6 @@ public sealed class NetworkStatusService : INetworkStatusService
             InternetStatusText = hasInternetAccess
                 ? "Internet reachability validated."
                 : "Internet validation is still pending or failed.",
-            WifiStatusText = BuildWifiStatusText(isWifiRuntimeAvailable, hasWirelessAdapter, wifiNetworks.Count, isDebugWifiEnabled, connectedWifiSsid),
             AdapterName = adapterName,
             IpAddress = ipAddress,
             SubnetMask = subnetMask,
@@ -223,37 +222,6 @@ public sealed class NetworkStatusService : INetworkStatusService
         return hasDhcpLease
             ? "Ethernet link is active and DHCP information is available."
             : "Ethernet link is active, but no DHCP lease was detected.";
-    }
-
-    private static string BuildWifiStatusText(bool isWifiRuntimeAvailable, bool hasWirelessAdapter, int networkCount, bool isDebugWifiEnabled, string? connectedWifiSsid)
-    {
-        if (!isWifiRuntimeAvailable)
-        {
-            return isDebugWifiEnabled
-                ? "Debug Wi-Fi discovery is enabled, but Wi-Fi support is not available at runtime."
-                : "Wi-Fi UI is disabled because Wi-Fi support is not available at runtime.";
-        }
-
-        if (!hasWirelessAdapter)
-        {
-            return isDebugWifiEnabled
-                ? "Debug Wi-Fi discovery is enabled, but no wireless adapter is currently detected."
-                : "Wi-Fi support is provisioned, but no wireless adapter is currently detected.";
-        }
-
-        if (!string.IsNullOrWhiteSpace(connectedWifiSsid))
-        {
-            return $"Connected to '{connectedWifiSsid}'.";
-        }
-
-        if (networkCount == 0)
-        {
-            return isDebugWifiEnabled
-                ? "Wireless adapter detected. Debug Wi-Fi discovery did not find any visible networks."
-                : "Wireless adapter detected, but no Wi-Fi networks were discovered.";
-        }
-
-        return string.Empty;
     }
 
     private static string BuildConnectionSummary(bool isEthernetConnected, bool hasInternetAccess, bool isWifiRuntimeAvailable, int wifiNetworkCount)

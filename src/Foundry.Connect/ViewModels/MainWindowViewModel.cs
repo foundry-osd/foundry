@@ -73,9 +73,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string internetStatusText = "Internet validation has not succeeded yet.";
 
     [ObservableProperty]
-    private string wifiStatusText = "Wi-Fi is not provisioned for this environment.";
-
-    [ObservableProperty]
     private string adapterName = "Unavailable";
 
     [ObservableProperty]
@@ -187,7 +184,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public NetworkLayoutMode EffectiveLayoutMode => DebugLayoutOverride ?? LayoutMode;
 
-    public bool CanConnectConfiguredWifi => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled && !IsNetworkActionInProgress;
+    public bool HasProvisionedWifiProfile => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled;
+    public bool CanConnectConfiguredWifi => HasProvisionedWifiProfile && !IsNetworkActionInProgress;
+    public string ProvisionedWifiProfileName => ResolveProvisionedWifiProfileName();
+    public string ProvisionedWifiAuthenticationText => BuildProvisionedWifiAuthenticationText();
+    public string ProvisionedWifiSourceText => BuildProvisionedWifiSourceText();
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
     public bool HasSelectedWifiActionFeedback => !string.IsNullOrWhiteSpace(SelectedWifiActionFeedbackText);
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
@@ -385,7 +386,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         EthernetGlyph = ResolveEthernetGlyph(snapshot);
         EthernetStatusText = snapshot.EthernetStatusText;
         InternetStatusText = snapshot.InternetStatusText;
-        WifiStatusText = snapshot.WifiStatusText;
         AdapterName = snapshot.AdapterName;
         IpAddress = snapshot.IpAddress;
         SubnetMask = snapshot.SubnetMask;
@@ -956,6 +956,68 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return "No Wi-Fi networks are currently visible.";
     }
 
+    private string ResolveProvisionedWifiProfileName()
+    {
+        if (!HasProvisionedWifiProfile)
+        {
+            return "Unavailable";
+        }
+
+        if (_configuration.Wifi.HasEnterpriseProfile)
+        {
+            try
+            {
+                string? profileName = ProvisionedWifiProfileResolver.ResolveProfileName(
+                    _configuration.Wifi,
+                    _configurationService.ConfigurationPath);
+                if (!string.IsNullOrWhiteSpace(profileName))
+                {
+                    return profileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogDebug(ex, "Failed to resolve the provisioned Wi-Fi profile name.");
+            }
+
+            return "Enterprise profile";
+        }
+
+        return string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
+            ? "Unnamed provisioned profile"
+            : _configuration.Wifi.Ssid.Trim();
+    }
+
+    private string BuildProvisionedWifiAuthenticationText()
+    {
+        if (_configuration.Wifi.HasEnterpriseProfile)
+        {
+            return _configuration.Wifi.EnterpriseAuthenticationMode switch
+            {
+                NetworkAuthenticationMode.MachineOnly => "Enterprise (machine)",
+                NetworkAuthenticationMode.MachineOrUser => "Enterprise (machine or user)",
+                _ => "Enterprise (user)"
+            };
+        }
+
+        return string.IsNullOrWhiteSpace(_configuration.Wifi.SecurityType)
+            ? "Configured profile"
+            : _configuration.Wifi.SecurityType.Trim();
+    }
+
+    private string BuildProvisionedWifiSourceText()
+    {
+        string sourceText = _configuration.Wifi.HasEnterpriseProfile
+            ? "Provisioned from an enterprise profile template in the boot image."
+            : "Provisioned from the boot image Wi-Fi settings.";
+
+        if (_configuration.Wifi.RequiresCertificate || !string.IsNullOrWhiteSpace(_configuration.Wifi.CertificatePath))
+        {
+            return $"{sourceText} Certificate included.";
+        }
+
+        return sourceText;
+    }
     private static bool CanDirectConnect(string authentication)
     {
         return ClassifyDiscoveredWifi(authentication) is DiscoveredWifiType.Open or DiscoveredWifiType.Personal;

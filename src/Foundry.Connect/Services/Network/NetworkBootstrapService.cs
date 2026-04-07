@@ -73,9 +73,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return $"{ensureMessage} No wireless adapter is available to connect the provisioned Wi-Fi profile.";
         }
 
-        string arguments = string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
-            ? $"wlan connect name=\"{EscapeNetshArgument(profileName)}\""
-            : $"wlan connect name=\"{EscapeNetshArgument(profileName)}\" ssid=\"{EscapeNetshArgument(_configuration.Wifi.Ssid.Trim())}\"";
+        string arguments = $"wlan connect name=\"{EscapeNetshArgument(profileName)}\"";
 
         ProcessExecutionResult result = await ExecuteProcessAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
         if (result.ExitCode != 0)
@@ -197,14 +195,18 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private async Task<string> ApplyWiredDot1xProfileAsync(CancellationToken cancellationToken)
     {
-        string? profilePath = ResolveAssetPath(_configuration.Dot1x.ProfileTemplatePath);
+        string? profilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+            _configuration.Dot1x.ProfileTemplatePath,
+            _configurationService.ConfigurationPath);
         if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
         {
             return "Wired 802.1X is enabled, but no wired profile template was found.";
         }
 
         List<string> messages = [];
-        string? certificatePath = ResolveAssetPath(_configuration.Dot1x.CertificatePath);
+        string? certificatePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+            _configuration.Dot1x.CertificatePath,
+            _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
             messages.Add(ImportCertificate(certificatePath));
@@ -251,7 +253,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     {
         List<string> messages = [];
 
-        string? certificatePath = ResolveAssetPath(_configuration.Wifi.CertificatePath);
+        string? certificatePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+            _configuration.Wifi.CertificatePath,
+            _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
             messages.Add(ImportCertificate(certificatePath));
@@ -293,7 +297,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     {
         if (_configuration.Wifi.HasEnterpriseProfile)
         {
-            string? enterpriseProfilePath = ResolveAssetPath(_configuration.Wifi.EnterpriseProfileTemplatePath);
+            string? enterpriseProfilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+                _configuration.Wifi.EnterpriseProfileTemplatePath,
+                _configurationService.ConfigurationPath);
             return !string.IsNullOrWhiteSpace(enterpriseProfilePath) && File.Exists(enterpriseProfilePath)
                 ? enterpriseProfilePath
                 : null;
@@ -311,34 +317,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private string? ResolveWifiProfileName()
     {
-        if (_configuration.Wifi.HasEnterpriseProfile)
-        {
-            string? profilePath = ResolveAssetPath(_configuration.Wifi.EnterpriseProfileTemplatePath);
-            if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
-            {
-                return null;
-            }
-
-            string fileContents = File.ReadAllText(profilePath);
-            const string openTag = "<name>";
-            const string closeTag = "</name>";
-            int startIndex = fileContents.IndexOf(openTag, StringComparison.OrdinalIgnoreCase);
-            int endIndex = fileContents.IndexOf(closeTag, StringComparison.OrdinalIgnoreCase);
-            if (startIndex < 0 || endIndex <= startIndex)
-            {
-                return null;
-            }
-
-            int contentStart = startIndex + openTag.Length;
-            return fileContents[contentStart..endIndex].Trim();
-        }
-
-        if (!string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid))
-        {
-            return _configuration.Wifi.Ssid.Trim();
-        }
-
-        return null;
+        return ProvisionedWifiProfileResolver.ResolveProfileName(
+            _configuration.Wifi,
+            _configurationService.ConfigurationPath);
     }
 
     private async Task<ProcessExecutionResult> ImportWifiProfileAsync(
@@ -457,29 +438,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             _logger.LogWarning(ex, "Failed to import certificate from {CertificatePath}.", certificatePath);
             return $"Certificate import failed for '{Path.GetFileName(certificatePath)}': {ex.Message}";
         }
-    }
-
-    private string? ResolveAssetPath(string? value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return null;
-        }
-
-        string trimmed = value.Trim();
-        if (Path.IsPathRooted(trimmed))
-        {
-            return Path.GetFullPath(trimmed);
-        }
-
-        string? configurationDirectoryPath = null;
-        if (!string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath))
-        {
-            configurationDirectoryPath = Path.GetDirectoryName(_configurationService.ConfigurationPath);
-        }
-
-        configurationDirectoryPath ??= AppContext.BaseDirectory;
-        return Path.GetFullPath(Path.Combine(configurationDirectoryPath, trimmed));
     }
 
     private static string EscapeNetshArgument(string value)

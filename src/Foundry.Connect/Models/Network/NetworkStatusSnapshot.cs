@@ -22,8 +22,6 @@ public sealed class NetworkStatusSnapshot
 
     public string InternetStatusText { get; init; } = "Internet validation has not succeeded yet.";
 
-    public string WifiStatusText { get; init; } = "Wi-Fi is not provisioned for this environment.";
-
     public string AdapterName { get; init; } = "Unavailable";
 
     public string IpAddress { get; init; } = "Unavailable";
