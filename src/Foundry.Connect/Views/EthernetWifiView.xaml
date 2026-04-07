@@ -319,9 +319,7 @@
                 </Grid>
             </Border>
 
-            <Border
-                Grid.Row="1"
-                Style="{StaticResource SectionCardBorderStyle}">
+            <Border Grid.Row="1" Style="{StaticResource SectionCardBorderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -340,11 +338,59 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Provisioned Wi-Fi" />
 
+                        <Grid Grid.Column="1" Visibility="{Binding HasProvisionedWifiProfile, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid x:Name="ProvisionedHeaderConnectButtonRow" HorizontalAlignment="Right">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsProvisionedWifiConnected}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+
+                                <Button
+                                    Width="140"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding ConnectConfiguredWifiCommand}"
+                                    Content="Connect"
+                                    IsEnabled="{Binding CanConnectConfiguredWifi}"
+                                    Style="{DynamicResource AccentButtonStyle}" />
+                            </Grid>
+
+                            <Grid x:Name="ProvisionedHeaderDisconnectButtonRow" HorizontalAlignment="Right">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsProvisionedWifiConnected}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+
+                                <Button
+                                    Width="140"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding DisconnectConfiguredWifiCommand}"
+                                    Content="Disconnect"
+                                    IsEnabled="{Binding CanDisconnectConfiguredWifi}" />
+                            </Grid>
+                        </Grid>
+
                         <StackPanel
                             Grid.Row="1"
+                            Grid.ColumnSpan="2"
                             Margin="0,8,0,0"
                             Visibility="{Binding HasProvisionedWifiProfile, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <TextBlock
@@ -392,103 +438,28 @@
                                 TextWrapping="Wrap" />
 
                             <Grid Margin="0,16,0,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <Grid x:Name="ProvisionedConnectButtonRow" HorizontalAlignment="Stretch">
-                                    <Grid.Style>
-                                        <Style TargetType="Grid">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsProvisionedWifiConnected}" Value="True">
-                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Grid.Style>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid Grid.Column="0" Margin="0,0,12,0">
-                                        <ProgressBar
-                                            Height="4"
-                                            VerticalAlignment="Center"
-                                            IsIndeterminate="True"
-                                            Visibility="{Binding IsProvisionedWifiActionInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                                            Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="{Binding ProvisionedWifiActionFeedbackText}"
-                                            TextWrapping="Wrap"
-                                            Visibility="{Binding HasProvisionedWifiActionFeedback, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    </Grid>
-
-                                    <Button
-                                        Grid.Column="1"
-                                        Width="140"
-                                        HorizontalAlignment="Right"
-                                        Command="{Binding ConnectConfiguredWifiCommand}"
-                                        Content="Connect"
-                                        IsEnabled="{Binding CanConnectConfiguredWifi}"
-                                        Style="{DynamicResource AccentButtonStyle}" />
-                                </Grid>
-
-                                <Grid
-                                    x:Name="ProvisionedDisconnectButtonRow"
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Stretch">
-                                    <Grid.Style>
-                                        <Style TargetType="Grid">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsProvisionedWifiConnected}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Grid.Style>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid Grid.Column="0" Margin="0,0,12,0">
-                                        <ProgressBar
-                                            Height="4"
-                                            VerticalAlignment="Center"
-                                            IsIndeterminate="True"
-                                            Visibility="{Binding IsProvisionedWifiActionInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                                            Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="{Binding ProvisionedWifiActionFeedbackText}"
-                                            TextWrapping="Wrap"
-                                            Visibility="{Binding HasProvisionedWifiActionFeedback, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    </Grid>
-
-                                    <Button
-                                        Grid.Column="1"
-                                        Width="140"
-                                        HorizontalAlignment="Right"
-                                        Command="{Binding DisconnectConfiguredWifiCommand}"
-                                        Content="Disconnect"
-                                        IsEnabled="{Binding CanDisconnectConfiguredWifi}" />
-                                </Grid>
+                                <ProgressBar
+                                    Height="4"
+                                    VerticalAlignment="Center"
+                                    IsIndeterminate="True"
+                                    Visibility="{Binding IsProvisionedWifiActionInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding ProvisionedWifiActionFeedbackText}"
+                                    TextWrapping="Wrap"
+                                    Visibility="{Binding HasProvisionedWifiActionFeedback, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
                         </StackPanel>
 
                         <TextBlock
                             Grid.Row="1"
+                            Grid.ColumnSpan="2"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{Binding ProvisionedWifiEmptyStateText}"
+                            Text="No provisioned profile is available in this boot image."
                             TextAlignment="Center"
                             TextWrapping="Wrap">
                             <TextBlock.Style>
