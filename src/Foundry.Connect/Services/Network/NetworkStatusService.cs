@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Diagnostics;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
@@ -31,6 +32,7 @@ public sealed class NetworkStatusService : INetworkStatusService
 
     public async Task<NetworkStatusSnapshot> GetSnapshotAsync(CancellationToken cancellationToken)
     {
+        bool isDebugWifiEnabled = Debugger.IsAttached;
         NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces()
             .Where(static adapter => adapter.NetworkInterfaceType is not NetworkInterfaceType.Loopback and not NetworkInterfaceType.Tunnel)
             .ToArray();
@@ -38,43 +40,30 @@ public sealed class NetworkStatusService : INetworkStatusService
         NetworkInterface[] ethernetAdapters = adapters.Where(IsEthernetAdapter).ToArray();
         NetworkInterface[] wirelessAdapters = adapters.Where(static adapter => adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211).ToArray();
 
-        NetworkInterface? activeAdapter = ethernetAdapters.FirstOrDefault(static adapter => adapter.OperationalStatus == OperationalStatus.Up)
-            ?? wirelessAdapters.FirstOrDefault(static adapter => adapter.OperationalStatus == OperationalStatus.Up)
-            ?? ethernetAdapters.FirstOrDefault()
-            ?? wirelessAdapters.FirstOrDefault();
+        NetworkInterface? connectedEthernetAdapter = ethernetAdapters.FirstOrDefault(static adapter => adapter.OperationalStatus == OperationalStatus.Up);
+        NetworkInterface? ethernetDisplayAdapter = connectedEthernetAdapter ?? ethernetAdapters.FirstOrDefault();
 
         bool hasEthernetAdapter = ethernetAdapters.Length > 0;
         bool isEthernetConnected = ethernetAdapters.Any(static adapter => adapter.OperationalStatus == OperationalStatus.Up);
         bool hasWirelessAdapter = wirelessAdapters.Length > 0;
-        bool isWifiRuntimeAvailable = _configuration.Capabilities.WifiProvisioned && await IsWifiRuntimeAvailableAsync(cancellationToken).ConfigureAwait(false);
+        bool isWifiUiEnabled = _configuration.Capabilities.WifiProvisioned || isDebugWifiEnabled;
+        bool isWifiRuntimeAvailable = isWifiUiEnabled && await IsWifiRuntimeAvailableAsync(cancellationToken).ConfigureAwait(false);
+        string? connectedWifiSsid = isWifiRuntimeAvailable ? NativeWifiApi.GetConnectedSsid() : null;
         IReadOnlyList<WifiNetworkSummary> wifiNetworks = isWifiRuntimeAvailable
             ? await DiscoverWifiNetworksAsync(cancellationToken).ConfigureAwait(false)
             : Array.Empty<WifiNetworkSummary>();
-        bool hasDhcpLease = HasDhcpLease(activeAdapter);
+        bool hasDhcpLease = HasDhcpLease(connectedEthernetAdapter);
         bool hasInternetAccess = await ProbeInternetAsync(cancellationToken).ConfigureAwait(false);
 
-        IPInterfaceProperties? properties = activeAdapter?.GetIPProperties();
-        UnicastIPAddressInformation? ipv4Information = properties?.UnicastAddresses
+        UnicastIPAddressInformation? ethernetIpv4Information = ethernetDisplayAdapter?
+            .GetIPProperties()
+            .UnicastAddresses
             .FirstOrDefault(static address => address.Address.AddressFamily == AddressFamily.InterNetwork);
-
-        string adapterName = activeAdapter?.Name ?? "Unavailable";
-        string ipAddress = ipv4Information?.Address.ToString() ?? "Unavailable";
-        string subnetMask = ipv4Information?.IPv4Mask?.ToString() ?? "Unavailable";
-        string gateway = properties?.GatewayAddresses
-            .Select(static address => address.Address)
-            .FirstOrDefault(static address => address.AddressFamily == AddressFamily.InterNetwork)?
-            .ToString() ?? "Unavailable";
-        string dnsServers = properties is null
-            ? "Unavailable"
-            : string.Join(", ",
-                properties.DnsAddresses
-                    .Where(static address => address.AddressFamily == AddressFamily.InterNetwork)
-                    .Select(static address => address.ToString()));
-
-        if (string.IsNullOrWhiteSpace(dnsServers))
-        {
-            dnsServers = "Unavailable";
-        }
+        GatewayIPAddressInformation? ethernetGatewayInformation = connectedEthernetAdapter?
+            .GetIPProperties()
+            .GatewayAddresses
+            .FirstOrDefault(static gateway => gateway.Address.AddressFamily == AddressFamily.InterNetwork);
+        bool hasEthernetIpv4 = ethernetIpv4Information is not null;
 
         return new NetworkStatusSnapshot
         {
@@ -83,20 +72,15 @@ public sealed class NetworkStatusService : INetworkStatusService
             HasEthernetAdapter = hasEthernetAdapter,
             IsEthernetConnected = isEthernetConnected,
             HasDhcpLease = hasDhcpLease,
+            HasEthernetIpv4 = hasEthernetIpv4,
             IsWifiRuntimeAvailable = isWifiRuntimeAvailable,
             HasWirelessAdapter = hasWirelessAdapter,
-            EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasDhcpLease),
-            InternetStatusText = hasInternetAccess
-                ? "Internet reachability validated."
-                : "Internet validation is still pending or failed.",
-            WifiStatusText = BuildWifiStatusText(isWifiRuntimeAvailable, hasWirelessAdapter, wifiNetworks.Count),
-            AdapterName = adapterName,
-            IpAddress = ipAddress,
-            SubnetMask = subnetMask,
-            GatewayAddress = gateway,
-            DnsServers = dnsServers,
-            DhcpText = hasDhcpLease ? "DHCP lease detected." : "No DHCP lease detected.",
-            ConnectionSummary = BuildConnectionSummary(isEthernetConnected, hasInternetAccess, isWifiRuntimeAvailable, wifiNetworks.Count),
+            EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4),
+            EthernetSecondaryStatusText = BuildEthernetSecondaryStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4, hasDhcpLease),
+            EthernetAdapterName = ethernetDisplayAdapter?.Name ?? "Unavailable",
+            EthernetIpAddress = ethernetIpv4Information?.Address.ToString() ?? "Unavailable",
+            EthernetGateway = ethernetGatewayInformation?.Address.ToString() ?? "Unavailable",
+            ConnectedWifiSsid = connectedWifiSsid,
             WifiNetworks = wifiNetworks
         };
     }
@@ -203,7 +187,7 @@ public sealed class NetworkStatusService : INetworkStatusService
         }
     }
 
-    private static string BuildEthernetStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasDhcpLease)
+    private static string BuildEthernetStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4)
     {
         if (!hasEthernetAdapter)
         {
@@ -212,51 +196,33 @@ public sealed class NetworkStatusService : INetworkStatusService
 
         if (!isEthernetConnected)
         {
-            return "Ethernet adapter detected, but no active link is available.";
+            return "No active link";
+        }
+
+        return hasEthernetIpv4
+            ? "Connected"
+            : "Waiting for network configuration";
+    }
+
+    private static string BuildEthernetSecondaryStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4, bool hasDhcpLease)
+    {
+        if (!hasEthernetAdapter)
+        {
+            return string.Empty;
+        }
+
+        if (!isEthernetConnected)
+        {
+            return "Check the cable connection";
+        }
+
+        if (!hasEthernetIpv4)
+        {
+            return "Waiting for DHCP or static network configuration";
         }
 
         return hasDhcpLease
-            ? "Ethernet link is active and DHCP information is available."
-            : "Ethernet link is active, but no DHCP lease was detected.";
-    }
-
-    private static string BuildWifiStatusText(bool isWifiRuntimeAvailable, bool hasWirelessAdapter, int networkCount)
-    {
-        if (!isWifiRuntimeAvailable)
-        {
-            return "Wi-Fi UI is disabled because Wi-Fi support is not available at runtime.";
-        }
-
-        if (!hasWirelessAdapter)
-        {
-            return "Wi-Fi support is provisioned, but no wireless adapter is currently detected.";
-        }
-
-        if (networkCount == 0)
-        {
-            return "Wireless adapter detected, but no Wi-Fi networks were discovered.";
-        }
-
-        return $"{networkCount} Wi-Fi network(s) discovered.";
-    }
-
-    private static string BuildConnectionSummary(bool isEthernetConnected, bool hasInternetAccess, bool isWifiRuntimeAvailable, int wifiNetworkCount)
-    {
-        if (hasInternetAccess)
-        {
-            return "Bootstrap can continue when the countdown completes.";
-        }
-
-        if (isEthernetConnected)
-        {
-            return "Ethernet is connected. Waiting for internet validation to succeed.";
-        }
-
-        if (isWifiRuntimeAvailable && wifiNetworkCount > 0)
-        {
-            return "Wi-Fi networks are available. Internet validation is still pending.";
-        }
-
-        return "Waiting for an active network path.";
+            ? "DHCP lease detected"
+            : "Static network configuration detected";
     }
 }

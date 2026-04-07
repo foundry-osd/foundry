@@ -14,29 +14,23 @@ public sealed class NetworkStatusSnapshot
 
     public bool HasDhcpLease { get; init; }
 
+    public bool HasEthernetIpv4 { get; init; }
+
     public bool IsWifiRuntimeAvailable { get; init; }
 
     public bool HasWirelessAdapter { get; init; }
 
     public string EthernetStatusText { get; init; } = "No ethernet adapter detected.";
 
-    public string InternetStatusText { get; init; } = "Internet validation has not succeeded yet.";
+    public string EthernetSecondaryStatusText { get; init; } = string.Empty;
 
-    public string WifiStatusText { get; init; } = "Wi-Fi is not provisioned for this environment.";
+    public string EthernetAdapterName { get; init; } = "Unavailable";
 
-    public string AdapterName { get; init; } = "Unavailable";
+    public string EthernetIpAddress { get; init; } = "Unavailable";
 
-    public string IpAddress { get; init; } = "Unavailable";
+    public string EthernetGateway { get; init; } = "Unavailable";
 
-    public string SubnetMask { get; init; } = "Unavailable";
-
-    public string GatewayAddress { get; init; } = "Unavailable";
-
-    public string DnsServers { get; init; } = "Unavailable";
-
-    public string DhcpText { get; init; } = "Unavailable";
-
-    public string ConnectionSummary { get; init; } = "Waiting for a validated network path.";
+    public string? ConnectedWifiSsid { get; init; }
 
     public IReadOnlyList<WifiNetworkSummary> WifiNetworks { get; init; } = Array.Empty<WifiNetworkSummary>();
 }

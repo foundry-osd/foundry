@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
@@ -13,6 +14,11 @@ namespace Foundry.Connect.Services.Network;
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
     private const string EnterpriseSecurityType = "Enterprise";
+    private const string TemporaryWifiProfileFileName = "wifi-profile.xml";
+    private static readonly TimeSpan WifiConnectionTimeout = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan WifiConnectionPollInterval = TimeSpan.FromMilliseconds(500);
+    private static readonly TimeSpan WifiProfileImportRetryDelay = TimeSpan.FromSeconds(2);
+    private const int WinPeWifiProfileImportRetryCount = 3;
 
     private readonly FoundryConnectConfiguration _configuration;
     private readonly IConnectConfigurationService _configurationService;
@@ -61,27 +67,41 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return $"{ensureMessage} No Wi-Fi profile is available to connect.";
         }
 
-        string arguments = string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
-            ? $"wlan connect name=\"{profileName}\""
-            : $"wlan connect name=\"{profileName}\" ssid=\"{_configuration.Wifi.Ssid.Trim()}\"";
-
-        ProcessExecutionResult result = await ExecuteProcessAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
-        if (result.ExitCode == 0)
+        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        if (wirelessInterfaceIds.Count == 0)
         {
-            return $"{ensureMessage} Wi-Fi connection attempt started for '{profileName}'.";
+            return $"{ensureMessage} No wireless adapter is available to connect the provisioned Wi-Fi profile.";
         }
 
-        _logger.LogWarning(
-            "Wi-Fi connection attempt failed. ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
-            result.ExitCode,
-            result.StandardOutput,
-            result.StandardError);
-        return $"{ensureMessage} Wi-Fi connection attempt failed: {CollapseError(result)}";
+        string arguments = $"wlan connect name=\"{EscapeNetshArgument(profileName)}\"";
+
+        ProcessExecutionResult result = await ExecuteProcessAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
+        if (result.ExitCode != 0)
+        {
+            _logger.LogWarning(
+                "Wi-Fi connection request failed. ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                result.ExitCode,
+                result.StandardOutput,
+                result.StandardError);
+            return $"{ensureMessage} Wi-Fi connection request failed: {CollapseError(result)}";
+        }
+
+        string expectedSsid = string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
+            ? profileName
+            : _configuration.Wifi.Ssid.Trim();
+        WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
+            wirelessInterfaceIds,
+            expectedSsid,
+            cancellationToken).ConfigureAwait(false);
+
+        return attemptResult.IsConnected
+            ? $"{ensureMessage} Wi-Fi connected to '{expectedSsid}'."
+            : $"{ensureMessage} Wi-Fi connection failed: {attemptResult.FailureMessage}";
     }
 
-    public async Task<string> ConnectWifiNetworkAsync(string ssid, string authentication, string? passphrase, CancellationToken cancellationToken)
+    public async Task<string> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken)
     {
-        if (!_configuration.Capabilities.WifiProvisioned)
+        if (!_configuration.Capabilities.WifiProvisioned && !Debugger.IsAttached)
         {
             return "Wi-Fi support is not provisioned for this image.";
         }
@@ -98,48 +118,95 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
         }
 
-        string tempRoot = Path.Combine(Path.GetTempPath(), "Foundry.Connect");
-        Directory.CreateDirectory(tempRoot);
-
-        string safeFileName = string.Concat(trimmedSsid.Select(static ch => Path.GetInvalidFileNameChars().Contains(ch) ? '_' : ch));
-        string profilePath = Path.Combine(tempRoot, $"discovered-{safeFileName}.xml");
-        await File.WriteAllTextAsync(
-            profilePath,
-            BuildWifiProfileXml(trimmedSsid, securityType, passphrase),
-            new UTF8Encoding(false),
+        string profilePath = await WriteTemporaryWifiProfileAsync(
+            BuildWifiProfileXml(trimmedSsid, securityType, passphrase, ssidHex),
             cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
-            "netsh",
-            $"wlan add profile filename=\"{profilePath}\" user=all",
-            cancellationToken).ConfigureAwait(false);
+        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        if (wirelessInterfaceIds.Count == 0)
+        {
+            return "No wireless adapter is available to connect the selected Wi-Fi network.";
+        }
+
+        ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(profilePath, cancellationToken).ConfigureAwait(false);
         if (addProfileResult.ExitCode != 0)
         {
+            _logger.LogWarning(
+                "Failed to import discovered Wi-Fi profile. Ssid={Ssid}, ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                trimmedSsid,
+                profilePath,
+                addProfileResult.ExitCode,
+                addProfileResult.StandardOutput,
+                addProfileResult.StandardError);
             return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
         }
 
         ProcessExecutionResult connectResult = await ExecuteProcessAsync(
             "netsh",
-            $"wlan connect name=\"{trimmedSsid}\" ssid=\"{trimmedSsid}\"",
+            $"wlan connect name=\"{EscapeNetshArgument(trimmedSsid)}\"",
             cancellationToken).ConfigureAwait(false);
-        if (connectResult.ExitCode == 0)
+        if (connectResult.ExitCode != 0)
         {
-            return $"Wi-Fi connection attempt started for '{trimmedSsid}'.";
+            return $"Wi-Fi connection request failed for '{trimmedSsid}': {CollapseError(connectResult)}";
         }
 
-        return $"Wi-Fi connection attempt failed for '{trimmedSsid}': {CollapseError(connectResult)}";
+        WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
+            wirelessInterfaceIds,
+            trimmedSsid,
+            cancellationToken).ConfigureAwait(false);
+
+        return attemptResult.IsConnected
+            ? $"Wi-Fi connected to '{trimmedSsid}'."
+            : $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
+    }
+
+    public async Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
+    {
+        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        if (wirelessInterfaceIds.Count == 0)
+        {
+            return "No wireless adapter is available to disconnect.";
+        }
+
+        string? connectedSsid = NativeWifiApi.GetConnectedSsid();
+        if (string.IsNullOrWhiteSpace(connectedSsid))
+        {
+            return "Wi-Fi is already disconnected.";
+        }
+
+        ProcessExecutionResult disconnectResult = await ExecuteProcessAsync(
+            "netsh",
+            "wlan disconnect",
+            cancellationToken).ConfigureAwait(false);
+        if (disconnectResult.ExitCode != 0)
+        {
+            return $"Wi-Fi disconnect request failed: {CollapseError(disconnectResult)}";
+        }
+
+        WifiDisconnectAttemptResult attemptResult = await WaitForWifiDisconnectionAsync(
+            wirelessInterfaceIds,
+            connectedSsid,
+            cancellationToken).ConfigureAwait(false);
+
+        return attemptResult.IsDisconnected
+            ? $"Wi-Fi disconnected from '{connectedSsid}'."
+            : $"Wi-Fi disconnect failed: {attemptResult.FailureMessage}";
     }
 
     private async Task<string> ApplyWiredDot1xProfileAsync(CancellationToken cancellationToken)
     {
-        string? profilePath = ResolveAssetPath(_configuration.Dot1x.ProfileTemplatePath);
+        string? profilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+            _configuration.Dot1x.ProfileTemplatePath,
+            _configurationService.ConfigurationPath);
         if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
         {
             return "Wired 802.1X is enabled, but no wired profile template was found.";
         }
 
         List<string> messages = [];
-        string? certificatePath = ResolveAssetPath(_configuration.Dot1x.CertificatePath);
+        string? certificatePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+            _configuration.Dot1x.CertificatePath,
+            _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
             messages.Add(ImportCertificate(certificatePath));
@@ -186,7 +253,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     {
         List<string> messages = [];
 
-        string? certificatePath = ResolveAssetPath(_configuration.Wifi.CertificatePath);
+        string? certificatePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+            _configuration.Wifi.CertificatePath,
+            _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
             messages.Add(ImportCertificate(certificatePath));
@@ -199,15 +268,13 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return string.Join(" ", messages);
         }
 
-        ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
-            "netsh",
-            $"wlan add profile filename=\"{wifiProfilePath}\" user=all",
-            cancellationToken).ConfigureAwait(false);
+        ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
 
         if (addProfileResult.ExitCode != 0)
         {
             _logger.LogWarning(
-                "Failed to add Wi-Fi profile. ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                "Failed to add Wi-Fi profile. ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                wifiProfilePath,
                 addProfileResult.ExitCode,
                 addProfileResult.StandardOutput,
                 addProfileResult.StandardError);
@@ -230,7 +297,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     {
         if (_configuration.Wifi.HasEnterpriseProfile)
         {
-            string? enterpriseProfilePath = ResolveAssetPath(_configuration.Wifi.EnterpriseProfileTemplatePath);
+            string? enterpriseProfilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+                _configuration.Wifi.EnterpriseProfileTemplatePath,
+                _configurationService.ConfigurationPath);
             return !string.IsNullOrWhiteSpace(enterpriseProfilePath) && File.Exists(enterpriseProfilePath)
                 ? enterpriseProfilePath
                 : null;
@@ -241,48 +310,95 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return null;
         }
 
-        string tempRoot = Path.Combine(Path.GetTempPath(), "Foundry.Connect");
-        Directory.CreateDirectory(tempRoot);
+        return await WriteTemporaryWifiProfileAsync(
+            BuildWifiProfileXml(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
+            cancellationToken).ConfigureAwait(false);
+    }
 
-        string profilePath = Path.Combine(tempRoot, "configured-wifi-profile.xml");
+    private string? ResolveWifiProfileName()
+    {
+        return ProvisionedWifiProfileResolver.ResolveProfileName(
+            _configuration.Wifi,
+            _configurationService.ConfigurationPath);
+    }
+
+    private async Task<ProcessExecutionResult> ImportWifiProfileAsync(
+        string profilePath,
+        CancellationToken cancellationToken)
+    {
+        int maxAttempts = ConnectWorkspacePaths.IsWinPeRuntime()
+            ? WinPeWifiProfileImportRetryCount
+            : 1;
+
+        ProcessExecutionResult lastResult = default;
+        for (int attempt = 1; attempt <= maxAttempts; attempt++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            lastResult = await ExecuteProcessAsync(
+                "netsh",
+                $"wlan add profile filename=\"{profilePath}\"",
+                cancellationToken).ConfigureAwait(false);
+
+            if (lastResult.ExitCode == 0)
+            {
+                return lastResult;
+            }
+
+            if (attempt >= maxAttempts)
+            {
+                break;
+            }
+
+            _logger.LogInformation(
+                "Wi-Fi profile import attempt {Attempt} failed in WinPE. Retrying in {DelaySeconds}s. ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                attempt,
+                WifiProfileImportRetryDelay.TotalSeconds,
+                profilePath,
+                lastResult.ExitCode,
+                lastResult.StandardOutput,
+                lastResult.StandardError);
+
+            await Task.Delay(WifiProfileImportRetryDelay, cancellationToken).ConfigureAwait(false);
+        }
+
+        return lastResult;
+    }
+
+    private async Task<string> WriteTemporaryWifiProfileAsync(
+        string profileXml,
+        CancellationToken cancellationToken)
+    {
+        string profilePath = Path.Combine(ResolveTemporaryProfileRoot(), TemporaryWifiProfileFileName);
         await File.WriteAllTextAsync(
             profilePath,
-            BuildWifiProfileXml(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
+            profileXml,
             new UTF8Encoding(false),
             cancellationToken).ConfigureAwait(false);
         return profilePath;
     }
 
-    private string? ResolveWifiProfileName()
+    private string ResolveTemporaryProfileRoot()
     {
-        if (_configuration.Wifi.HasEnterpriseProfile)
+        foreach (string candidateDirectory in ConnectWorkspacePaths.EnumerateTemporaryDirectories("Foundry.Connect"))
         {
-            string? profilePath = ResolveAssetPath(_configuration.Wifi.EnterpriseProfileTemplatePath);
-            if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
+            if (string.IsNullOrWhiteSpace(candidateDirectory))
             {
-                return null;
+                continue;
             }
 
-            string fileContents = File.ReadAllText(profilePath);
-            const string openTag = "<name>";
-            const string closeTag = "</name>";
-            int startIndex = fileContents.IndexOf(openTag, StringComparison.OrdinalIgnoreCase);
-            int endIndex = fileContents.IndexOf(closeTag, StringComparison.OrdinalIgnoreCase);
-            if (startIndex < 0 || endIndex <= startIndex)
+            try
             {
-                return null;
+                Directory.CreateDirectory(candidateDirectory);
+                return candidateDirectory;
             }
-
-            int contentStart = startIndex + openTag.Length;
-            return fileContents[contentStart..endIndex].Trim();
+            catch (Exception ex)
+            {
+                _logger.LogDebug(ex, "Failed to create temporary Wi-Fi profile directory at {CandidateDirectory}.", candidateDirectory);
+            }
         }
 
-        if (!string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid))
-        {
-            return _configuration.Wifi.Ssid.Trim();
-        }
-
-        return null;
+        throw new InvalidOperationException("No writable temporary directory is available for Wi-Fi profile generation.");
     }
 
     private string? GetEthernetInterfaceName()
@@ -324,32 +440,112 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
     }
 
-    private string? ResolveAssetPath(string? value)
+    private static string EscapeNetshArgument(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return null;
-        }
-
-        string trimmed = value.Trim();
-        if (Path.IsPathRooted(trimmed))
-        {
-            return Path.GetFullPath(trimmed);
-        }
-
-        string? configurationDirectoryPath = null;
-        if (!string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath))
-        {
-            configurationDirectoryPath = Path.GetDirectoryName(_configurationService.ConfigurationPath);
-        }
-
-        configurationDirectoryPath ??= AppContext.BaseDirectory;
-        return Path.GetFullPath(Path.Combine(configurationDirectoryPath, trimmed));
+        return value.Replace("\"", "\"\"", StringComparison.Ordinal);
     }
 
-    private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue)
+    private static bool IsConnectionInProgress(NativeWifiApi.WlanInterfaceState state)
+    {
+        return state is NativeWifiApi.WlanInterfaceState.Associating
+            or NativeWifiApi.WlanInterfaceState.Authenticating
+            or NativeWifiApi.WlanInterfaceState.Discovering
+            or NativeWifiApi.WlanInterfaceState.Disconnecting;
+    }
+
+    private static async Task<WifiConnectionAttemptResult> WaitForWifiConnectionAsync(
+        IReadOnlyList<Guid> interfaceIds,
+        string expectedSsid,
+        CancellationToken cancellationToken)
+    {
+        DateTimeOffset deadline = DateTimeOffset.UtcNow + WifiConnectionTimeout;
+        bool sawConnectionTransition = false;
+
+        while (DateTimeOffset.UtcNow < deadline)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            foreach (Guid interfaceId in interfaceIds)
+            {
+                NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = NativeWifiApi.GetInterfaceConnectionInfo(interfaceId);
+                if (connectionInfo is null)
+                {
+                    continue;
+                }
+
+                if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Connected &&
+                    string.Equals(connectionInfo.CurrentSsid, expectedSsid, StringComparison.Ordinal))
+                {
+                    return WifiConnectionAttemptResult.Success();
+                }
+
+                if (IsConnectionInProgress(connectionInfo.State))
+                {
+                    sawConnectionTransition = true;
+                }
+            }
+
+            await Task.Delay(WifiConnectionPollInterval, cancellationToken).ConfigureAwait(false);
+        }
+
+        return sawConnectionTransition
+            ? WifiConnectionAttemptResult.Failure($"Windows started the Wi-Fi connection workflow, but '{expectedSsid}' did not reach the connected state within {WifiConnectionTimeout.TotalSeconds:0} seconds.")
+            : WifiConnectionAttemptResult.Failure($"Windows accepted the request, but the wireless interface never transitioned into an active connection attempt.");
+    }
+
+    private static async Task<WifiDisconnectAttemptResult> WaitForWifiDisconnectionAsync(
+        IReadOnlyList<Guid> interfaceIds,
+        string disconnectedSsid,
+        CancellationToken cancellationToken)
+    {
+        DateTimeOffset deadline = DateTimeOffset.UtcNow + WifiConnectionTimeout;
+        bool sawDisconnectTransition = false;
+
+        while (DateTimeOffset.UtcNow < deadline)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            bool isStillConnectedToTarget = false;
+
+            foreach (Guid interfaceId in interfaceIds)
+            {
+                NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = NativeWifiApi.GetInterfaceConnectionInfo(interfaceId);
+                if (connectionInfo is null)
+                {
+                    continue;
+                }
+
+                if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Disconnecting)
+                {
+                    sawDisconnectTransition = true;
+                }
+
+                if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Connected &&
+                    string.Equals(connectionInfo.CurrentSsid, disconnectedSsid, StringComparison.Ordinal))
+                {
+                    isStillConnectedToTarget = true;
+                }
+            }
+
+            if (!isStillConnectedToTarget)
+            {
+                return WifiDisconnectAttemptResult.Success();
+            }
+
+            await Task.Delay(WifiConnectionPollInterval, cancellationToken).ConfigureAwait(false);
+        }
+
+        return sawDisconnectTransition
+            ? WifiDisconnectAttemptResult.Failure($"Windows started the Wi-Fi disconnect workflow, but '{disconnectedSsid}' remained connected after {WifiConnectionTimeout.TotalSeconds:0} seconds.")
+            : WifiDisconnectAttemptResult.Failure($"Windows accepted the request, but '{disconnectedSsid}' did not transition away from the connected state.");
+    }
+
+    private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue, string? ssidHexOverride = null)
     {
         string ssid = SecurityElement.Escape(ssidValue.Trim()) ?? string.Empty;
+        string ssidHex = string.IsNullOrWhiteSpace(ssidHexOverride)
+            ? ConvertSsidToHex(ssidValue.Trim())
+            : ssidHexOverride.Trim();
         bool isOpen = string.Equals(securityType, "Open", StringComparison.OrdinalIgnoreCase);
         bool isPersonal = string.Equals(securityType, "WPA2-Personal", StringComparison.OrdinalIgnoreCase) ||
                           string.Equals(securityType, "WPA2/WPA3-Personal", StringComparison.OrdinalIgnoreCase) ||
@@ -363,6 +559,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
   <name>{{ssid}}</name>
   <SSIDConfig>
     <SSID>
+      <hex>{{ssidHex}}</hex>
       <name>{{ssid}}</name>
     </SSID>
   </SSIDConfig>
@@ -377,6 +574,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
       </authEncryption>
     </security>
   </MSM>
+  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
+    <enableRandomization>false</enableRandomization>
+  </MacRandomization>
 </WLANProfile>
 """;
         }
@@ -390,6 +590,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
   <name>{{ssid}}</name>
   <SSIDConfig>
     <SSID>
+      <hex>{{ssidHex}}</hex>
       <name>{{ssid}}</name>
     </SSID>
   </SSIDConfig>
@@ -409,6 +610,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
       </sharedKey>
     </security>
   </MSM>
+  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
+    <enableRandomization>false</enableRandomization>
+  </MacRandomization>
 </WLANProfile>
 """;
         }
@@ -430,6 +634,19 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return EnterpriseSecurityType;
+    }
+
+    private static string ConvertSsidToHex(string value)
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes(value);
+        StringBuilder builder = new(bytes.Length * 2);
+
+        foreach (byte currentByte in bytes)
+        {
+            builder.Append(currentByte.ToString("X2"));
+        }
+
+        return builder.ToString();
     }
 
     private static string CollapseError(ProcessExecutionResult result)
@@ -476,6 +693,32 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         {
             _logger.LogDebug(ex, "Process execution failed for {FileName} {Arguments}.", fileName, arguments);
             return new ProcessExecutionResult(-1, string.Empty, ex.Message);
+        }
+    }
+
+    private sealed record WifiConnectionAttemptResult(bool IsConnected, string? FailureMessage)
+    {
+        public static WifiConnectionAttemptResult Success()
+        {
+            return new WifiConnectionAttemptResult(true, null);
+        }
+
+        public static WifiConnectionAttemptResult Failure(string message)
+        {
+            return new WifiConnectionAttemptResult(false, message);
+        }
+    }
+
+    private sealed record WifiDisconnectAttemptResult(bool IsDisconnected, string? FailureMessage)
+    {
+        public static WifiDisconnectAttemptResult Success()
+        {
+            return new WifiDisconnectAttemptResult(true, null);
+        }
+
+        public static WifiDisconnectAttemptResult Failure(string message)
+        {
+            return new WifiDisconnectAttemptResult(false, message);
         }
     }
 

@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Windows;
-using Foundry.Connect.Models;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.ViewModels;
 using Microsoft.Extensions.Logging;

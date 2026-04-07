@@ -6,12 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Border Style="{StaticResource SectionCardBorderStyle}">
+        <Border VerticalAlignment="Top" Style="{StaticResource SectionCardBorderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -26,41 +21,25 @@
                     Text="{Binding EthernetGlyph}" />
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Ethernet status" />
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Ethernet" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{Binding EthernetStatusText}"
                         TextWrapping="Wrap" />
                     <TextBlock
-                        Margin="0,8,0,0"
+                        Margin="0,4,0,0"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding InternetStatusText}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="24" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-
-            <Border Grid.Column="0" Style="{StaticResource SectionCardBorderStyle}">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Network details" />
+                        Text="{Binding EthernetSecondaryStatusText}"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding HasEthernetSecondaryStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <Grid Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -69,85 +48,35 @@
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Adapter" />
                         <TextBlock
                             Grid.Column="1"
+                            Margin="8,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding AdapterName}" />
-
+                            Text="{Binding EthernetAdapterName}"
+                            TextTrimming="CharacterEllipsis" />
                         <TextBlock
                             Grid.Row="1"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="DHCP" />
+                            Text="IPv4" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="1"
+                            Margin="8,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding DhcpText}" />
-
+                            Text="{Binding EthernetIpAddress}"
+                            TextTrimming="CharacterEllipsis" />
                         <TextBlock
                             Grid.Row="2"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="IPv4 address" />
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding IpAddress}" />
-
-                        <TextBlock
-                            Grid.Row="3"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Subnet mask" />
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding SubnetMask}" />
-
-                        <TextBlock
-                            Grid.Row="4"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="Gateway" />
                         <TextBlock
-                            Grid.Row="4"
+                            Grid.Row="2"
                             Grid.Column="1"
+                            Margin="8,0,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding GatewayAddress}" />
-
-                        <TextBlock
-                            Grid.Row="5"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="DNS servers" />
-                        <TextBlock
-                            Grid.Row="5"
-                            Grid.Column="1"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding DnsServers}"
-                            TextWrapping="Wrap" />
+                            Text="{Binding EthernetGateway}"
+                            TextTrimming="CharacterEllipsis" />
                     </Grid>
                 </StackPanel>
-            </Border>
-
-            <Border Grid.Column="2" Style="{StaticResource SectionCardBorderStyle}">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Bootstrap guidance" />
-                    <TextBlock
-                        Margin="0,12,0,0"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="Wi-Fi is not provisioned for this image. Foundry.Connect will keep validating ethernet reachability until the bootstrap can continue."
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Margin="0,12,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="Closing this window returns a non-zero exit code so the bootstrap can stop safely."
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Margin="0,12,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding NetworkActionStatusText}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Border>
-        </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

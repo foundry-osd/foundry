@@ -1,4 +1,5 @@
 using System.IO;
+using Foundry.Connect.Services.Runtime;
 using Serilog;
 
 namespace Foundry.Connect.Services.Logging;
@@ -12,14 +13,7 @@ internal static class FoundryConnectLogging
 
     public static string ResolveStartupLogFilePath()
     {
-        string[] candidateDirectories =
-        [
-            @"X:\Foundry\Logs",
-            Path.Combine(Path.GetTempPath(), "Foundry", "Logs"),
-            AppContext.BaseDirectory
-        ];
-
-        foreach (string candidateDirectory in candidateDirectories)
+        foreach (string candidateDirectory in ConnectWorkspacePaths.EnumerateStartupLogDirectories())
         {
             if (string.IsNullOrWhiteSpace(candidateDirectory))
             {

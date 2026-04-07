@@ -12,8 +12,8 @@ public static class FoundryConnectApplicationInfo
     public const string DescriptionLine1 = "Foundry Connect validates network readiness in WinPE before the Foundry bootstrap continues.";
     public const string DescriptionLine2 = "This software is provided as-is. Confirm network access before continuing deployment.";
     public const string Footer = "Copyright (c) 2026 Foundry Contributors. Licensed under the MIT License.";
-    public const int DefaultAutoCloseDelaySeconds = 30;
-    public const int DefaultRefreshIntervalSeconds = 5;
+    public const int DefaultAutoContinueDelaySeconds = 10;
+    public const int DefaultRefreshIntervalSeconds = 10;
 
     public static string Version => AppVersion;
 

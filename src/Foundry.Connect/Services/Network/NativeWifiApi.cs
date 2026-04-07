@@ -11,6 +11,12 @@ internal static class NativeWifiApi
     private const uint AvailableNetworkIncludeAllAdhocProfiles = 0x00000001;
     private const int WlanMaxPhyTypeNumber = 8;
 
+    internal sealed record WifiInterfaceConnectionInfo(
+        Guid InterfaceId,
+        string InterfaceDescription,
+        WlanInterfaceState State,
+        string? CurrentSsid);
+
     public static bool IsRuntimeAvailable()
     {
         IntPtr clientHandle = IntPtr.Zero;
@@ -70,6 +76,93 @@ internal static class NativeWifiApi
         }
     }
 
+    public static WifiInterfaceConnectionInfo? GetInterfaceConnectionInfo(Guid interfaceId)
+    {
+        IntPtr clientHandle = IntPtr.Zero;
+        IntPtr interfaceListPointer = IntPtr.Zero;
+
+        try
+        {
+            clientHandle = OpenClientHandle();
+            ThrowIfError(
+                WlanEnumInterfaces(clientHandle, IntPtr.Zero, out interfaceListPointer),
+                nameof(WlanEnumInterfaces));
+
+            if (interfaceListPointer == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            WlanInterfaceInfoListHeader header = Marshal.PtrToStructure<WlanInterfaceInfoListHeader>(interfaceListPointer);
+            int itemOffset = Marshal.SizeOf<WlanInterfaceInfoListHeader>();
+            int itemSize = Marshal.SizeOf<WlanInterfaceInfo>();
+
+            for (int index = 0; index < header.NumberOfItems; index++)
+            {
+                IntPtr itemPointer = IntPtr.Add(interfaceListPointer, itemOffset + (index * itemSize));
+                WlanInterfaceInfo item = Marshal.PtrToStructure<WlanInterfaceInfo>(itemPointer);
+                if (item.InterfaceGuid != interfaceId)
+                {
+                    continue;
+                }
+
+                return new WifiInterfaceConnectionInfo(
+                    item.InterfaceGuid,
+                    item.InterfaceDescription,
+                    item.State,
+                    TryReadCurrentConnectionSsid(clientHandle, item.InterfaceGuid));
+            }
+
+            return null;
+        }
+        finally
+        {
+            FreeMemory(interfaceListPointer);
+            CloseClientHandle(clientHandle);
+        }
+    }
+
+    public static IReadOnlyList<Guid> GetInterfaceIds()
+    {
+        IntPtr clientHandle = IntPtr.Zero;
+        IntPtr interfaceListPointer = IntPtr.Zero;
+
+        try
+        {
+            clientHandle = OpenClientHandle();
+            ThrowIfError(
+                WlanEnumInterfaces(clientHandle, IntPtr.Zero, out interfaceListPointer),
+                nameof(WlanEnumInterfaces));
+
+            if (interfaceListPointer == IntPtr.Zero)
+            {
+                return [];
+            }
+
+            return ReadInterfaceIds(interfaceListPointer);
+        }
+        finally
+        {
+            FreeMemory(interfaceListPointer);
+            CloseClientHandle(clientHandle);
+        }
+    }
+
+    public static string? GetConnectedSsid()
+    {
+        foreach (Guid interfaceId in GetInterfaceIds())
+        {
+            WifiInterfaceConnectionInfo? connectionInfo = GetInterfaceConnectionInfo(interfaceId);
+            if (connectionInfo?.State == WlanInterfaceState.Connected &&
+                !string.IsNullOrWhiteSpace(connectionInfo.CurrentSsid))
+            {
+                return connectionInfo.CurrentSsid;
+            }
+        }
+
+        return null;
+    }
+
     private static List<Guid> ReadInterfaceIds(IntPtr interfaceListPointer)
     {
         if (interfaceListPointer == IntPtr.Zero)
@@ -124,6 +217,7 @@ internal static class NativeWifiApi
                 networks.Add(new WifiNetworkSummary
                 {
                     Ssid = ReadSsid(item.Ssid),
+                    SsidHex = ReadSsidHex(item.Ssid),
                     SignalStrengthPercent = (int)Math.Clamp(item.SignalQuality, 0u, 100u),
                     Authentication = FormatAuthentication(item.DefaultAuthAlgorithm, item.SecurityEnabled),
                     Encryption = FormatEncryption(item.DefaultCipherAlgorithm, item.SecurityEnabled)
@@ -148,6 +242,17 @@ internal static class NativeWifiApi
         int length = (int)Math.Min(ssid.Length, (uint)ssid.Value.Length);
         string decoded = Encoding.UTF8.GetString(ssid.Value, 0, length).Trim();
         return string.IsNullOrWhiteSpace(decoded) ? "Hidden network" : decoded;
+    }
+
+    private static string? ReadSsidHex(Dot11Ssid ssid)
+    {
+        if (ssid.Length == 0 || ssid.Value.Length == 0)
+        {
+            return null;
+        }
+
+        int length = (int)Math.Min(ssid.Length, (uint)ssid.Value.Length);
+        return Convert.ToHexString(ssid.Value, 0, length);
     }
 
     private static string FormatAuthentication(Dot11AuthAlgorithm algorithm, bool securityEnabled)
@@ -240,6 +345,34 @@ internal static class NativeWifiApi
         }
     }
 
+    private static string? TryReadCurrentConnectionSsid(IntPtr clientHandle, Guid interfaceId)
+    {
+        IntPtr dataPointer = IntPtr.Zero;
+
+        try
+        {
+            uint result = WlanQueryInterface(
+                clientHandle,
+                interfaceId,
+                WlanIntfOpcode.CurrentConnection,
+                IntPtr.Zero,
+                out _,
+                out dataPointer,
+                out _);
+            if (result != 0 || dataPointer == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            WlanConnectionAttributes attributes = Marshal.PtrToStructure<WlanConnectionAttributes>(dataPointer);
+            return ReadSsid(attributes.AssociationAttributes.Ssid);
+        }
+        finally
+        {
+            FreeMemory(dataPointer);
+        }
+    }
+
     [DllImport("wlanapi.dll")]
     private static extern uint WlanOpenHandle(
         uint clientVersion,
@@ -273,6 +406,16 @@ internal static class NativeWifiApi
         IntPtr dot11Ssid,
         IntPtr ieData,
         IntPtr reserved);
+
+    [DllImport("wlanapi.dll")]
+    private static extern uint WlanQueryInterface(
+        IntPtr clientHandle,
+        Guid interfaceGuid,
+        WlanIntfOpcode opCode,
+        IntPtr reserved,
+        out uint dataSize,
+        out IntPtr data,
+        out WlanOpcodeValueType wlanOpcodeValueType);
 
     [DllImport("wlanapi.dll")]
     private static extern void WlanFreeMemory(IntPtr memory);
@@ -344,7 +487,49 @@ internal static class NativeWifiApi
         public uint Reserved;
     }
 
-    private enum WlanInterfaceState
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    private struct WlanConnectionAttributes
+    {
+        public WlanInterfaceState State;
+        public WlanConnectionMode ConnectionMode;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+        public string ProfileName;
+
+        public WlanAssociationAttributes AssociationAttributes;
+        public WlanSecurityAttributes SecurityAttributes;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WlanAssociationAttributes
+    {
+        public Dot11Ssid Ssid;
+        public Dot11BssType BssType;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)]
+        public byte[] Bssid;
+
+        public Dot11PhyType PhyType;
+        public uint PhyIndex;
+        public uint SignalQuality;
+        public uint RxRate;
+        public uint TxRate;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WlanSecurityAttributes
+    {
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool SecurityEnabled;
+
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool OneXEnabled;
+
+        public Dot11AuthAlgorithm AuthAlgorithm;
+        public Dot11CipherAlgorithm CipherAlgorithm;
+    }
+
+    internal enum WlanInterfaceState
     {
         NotReady = 0,
         Connected = 1,
@@ -354,6 +539,36 @@ internal static class NativeWifiApi
         Associating = 5,
         Discovering = 6,
         Authenticating = 7
+    }
+
+    private enum WlanConnectionMode
+    {
+        Profile = 0,
+        TemporaryProfile = 1,
+        DiscoverySecure = 2,
+        DiscoveryUnsecure = 3,
+        Auto = 4,
+        Invalid = 5
+    }
+
+    private enum WlanIntfOpcode
+    {
+        AutoconfStart = 0,
+        AutoconfEnabled = 1,
+        BackgroundScanEnabled = 2,
+        MediaStreamingMode = 3,
+        RadioState = 4,
+        BssType = 5,
+        InterfaceState = 6,
+        CurrentConnection = 7
+    }
+
+    private enum WlanOpcodeValueType
+    {
+        QueryOnly = 0,
+        SetByGroupPolicy = 1,
+        SetByUser = 2,
+        Invalid = 3
     }
 
     private enum Dot11BssType

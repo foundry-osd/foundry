@@ -4,6 +4,7 @@ using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Models;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Logging;
+using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -80,20 +81,7 @@ public static class Program
             return IsTruthy(overrideValue);
         }
 
-        string? systemDrive = Environment.GetEnvironmentVariable("SystemDrive");
-        if (systemDrive is not null && systemDrive.Equals("X:", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-        if (!string.IsNullOrWhiteSpace(windowsDirectory) &&
-            windowsDirectory.StartsWith(@"X:\", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        return false;
+        return ConnectWorkspacePaths.IsWinPeRuntime();
     }
 
     private static bool IsTruthy(string value)
