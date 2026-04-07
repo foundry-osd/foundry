@@ -26,16 +26,6 @@ public sealed class NetworkStatusSnapshot
 
     public string IpAddress { get; init; } = "Unavailable";
 
-    public string SubnetMask { get; init; } = "Unavailable";
-
-    public string GatewayAddress { get; init; } = "Unavailable";
-
-    public string DnsServers { get; init; } = "Unavailable";
-
-    public string DhcpText { get; init; } = "Unavailable";
-
-    public string ConnectionSummary { get; init; } = "Waiting for a validated network path.";
-
     public string? ConnectedWifiSsid { get; init; }
 
     public IReadOnlyList<WifiNetworkSummary> WifiNetworks { get; init; } = Array.Empty<WifiNetworkSummary>();

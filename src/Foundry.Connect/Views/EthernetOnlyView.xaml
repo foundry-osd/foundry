@@ -6,13 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="24" />
-            <ColumnDefinition Width="2*" />
-        </Grid.ColumnDefinitions>
-
-        <Border Grid.Column="0" Style="{StaticResource SectionCardBorderStyle}">
+        <Border Style="{StaticResource SectionCardBorderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -65,89 +59,8 @@
                             Text="{Binding IpAddress}"
                             TextTrimming="CharacterEllipsis" />
                     </Grid>
-                    <TextBlock
-                        Margin="0,12,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding NetworkActionStatusText}"
-                        TextWrapping="Wrap" />
                 </StackPanel>
             </Grid>
-        </Border>
-
-        <Border Grid.Column="2" Style="{StaticResource SectionCardBorderStyle}">
-            <Expander IsExpanded="{Binding IsDiagnosticsExpanded}">
-                <Expander.Header>
-                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Diagnostics" />
-                </Expander.Header>
-                <Grid Margin="0,12,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Adapter" />
-                    <TextBlock
-                        Grid.Column="1"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding AdapterName}"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="DHCP" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding DhcpText}" />
-                    <TextBlock
-                        Grid.Row="2"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="IPv4 address" />
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding IpAddress}" />
-                    <TextBlock
-                        Grid.Row="3"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Subnet mask" />
-                    <TextBlock
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding SubnetMask}" />
-                    <TextBlock
-                        Grid.Row="4"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Gateway" />
-                    <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="1"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding GatewayAddress}" />
-                    <TextBlock
-                        Grid.Row="5"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="DNS servers" />
-                    <TextBlock
-                        Grid.Row="5"
-                        Grid.Column="1"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding DnsServers}"
-                        TextWrapping="Wrap" />
-                </Grid>
-            </Expander>
         </Border>
     </Grid>
 </UserControl>

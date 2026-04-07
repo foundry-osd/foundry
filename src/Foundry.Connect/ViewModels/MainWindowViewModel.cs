@@ -19,10 +19,11 @@ namespace Foundry.Connect.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
+    private const string PendingStatusGlyph = "\uE709";
+    private const string ReadyStatusGlyph = "\uE73E";
     private const string EthernetOkGlyph = "\uE839";
     private const string EthernetWarningGlyph = "\uEB56";
     private const string EthernetErrorGlyph = "\uEB55";
-    private const string NetworkOfflineGlyph = "\uF384";
     private const string WifiLowGlyph = "\uE872";
     private const string WifiMediumGlyph = "\uE873";
     private const string WifiHighGlyph = "\uE874";
@@ -47,6 +48,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private bool _isSyncingWifiNetworks;
     private string? _lastSelectedWifiNetworkSsid;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
+    private string? _connectedWifiSsid;
 
     [ObservableProperty]
     private NetworkLayoutMode layoutMode;
@@ -55,13 +57,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private NetworkLayoutMode? debugLayoutOverride;
 
     [ObservableProperty]
-    private string primaryStatusGlyph = NetworkOfflineGlyph;
+    private string primaryStatusGlyph = PendingStatusGlyph;
 
     [ObservableProperty]
-    private string primaryStatusTitle = "Waiting for network validation";
+    private string primaryStatusTitle = "Waiting for network";
 
     [ObservableProperty]
-    private string primaryStatusDescription = "Foundry.Connect is validating network reachability before the bootstrap can continue.";
+    private string primaryStatusDescription = "Internet access has not been validated yet.";
+
+    [ObservableProperty]
+    private bool isPrimaryStatusSuccessful;
+
+    [ObservableProperty]
+    private string currentConnectionChipText = string.Empty;
 
     [ObservableProperty]
     private string ethernetGlyph = EthernetErrorGlyph;
@@ -77,18 +85,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     private string ipAddress = "Unavailable";
-
-    [ObservableProperty]
-    private string subnetMask = "Unavailable";
-
-    [ObservableProperty]
-    private string gatewayAddress = "Unavailable";
-
-    [ObservableProperty]
-    private string dnsServers = "Unavailable";
-
-    [ObservableProperty]
-    private string dhcpText = "Unavailable";
 
     [ObservableProperty]
     private bool hasInternetAccess;
@@ -121,16 +117,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string selectedWifiActionFeedbackText = string.Empty;
 
     [ObservableProperty]
-    private string networkActionStatusText = "Provisioned network settings have not been applied yet.";
+    private bool isProvisionedWifiActionInProgress;
+
+    [ObservableProperty]
+    private string provisionedWifiActionFeedbackText = string.Empty;
 
     [ObservableProperty]
     private WifiNetworkItemViewModel? selectedWifiNetwork;
 
     [ObservableProperty]
     private string selectedWifiPassphrase = string.Empty;
-
-    [ObservableProperty]
-    private bool isDiagnosticsExpanded;
 
     public MainWindowViewModel(
         IThemeService themeService,
@@ -172,7 +168,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public string WindowTitle => FoundryConnectApplicationInfo.WindowTitle;
 
-    public string CountdownText => $"Continuing bootstrap in {CountdownSecondsRemaining}s";
+    public string AutoContinueText => $"Auto-continue in {CountdownSecondsRemaining}s";
 
     public string LastUpdatedText => LastUpdatedAt is null
         ? "Last update: pending"
@@ -185,10 +181,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public NetworkLayoutMode EffectiveLayoutMode => DebugLayoutOverride ?? LayoutMode;
 
     public bool HasProvisionedWifiProfile => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled;
-    public bool CanConnectConfiguredWifi => HasProvisionedWifiProfile && !IsNetworkActionInProgress;
+    public bool HasCurrentConnectionChip => !string.IsNullOrWhiteSpace(CurrentConnectionChipText);
+    public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
+    public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid);
+    public bool CanConnectConfiguredWifi => HasProvisionedWifiProfile &&
+                                           IsWifiRuntimeAvailable &&
+                                           HasWirelessAdapter &&
+                                           !IsProvisionedWifiConnected &&
+                                           !IsNetworkActionInProgress;
+    public bool CanDisconnectConfiguredWifi => HasProvisionedWifiProfile &&
+                                              IsProvisionedWifiConnected &&
+                                              !IsNetworkActionInProgress;
     public string ProvisionedWifiProfileName => ResolveProvisionedWifiProfileName();
     public string ProvisionedWifiAuthenticationText => BuildProvisionedWifiAuthenticationText();
     public string ProvisionedWifiSourceText => BuildProvisionedWifiSourceText();
+    public string ProvisionedWifiStatusText => BuildProvisionedWifiStatusText();
+    public bool HasProvisionedWifiActionFeedback => !string.IsNullOrWhiteSpace(ProvisionedWifiActionFeedbackText);
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
     public bool HasSelectedWifiActionFeedback => !string.IsNullOrWhiteSpace(SelectedWifiActionFeedbackText);
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
@@ -253,6 +261,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return RefreshCoreAsync(_disposeCts.Token);
     }
 
+    [RelayCommand(CanExecute = nameof(CanContinueBootstrap))]
+    private void ContinueBootstrap()
+    {
+        if (_applicationLifetimeService.IsExitRequested)
+        {
+            return;
+        }
+
+        _applicationLifetimeService.Exit(FoundryConnectExitCode.Success);
+    }
+
     [RelayCommand(CanExecute = nameof(IsDebugMenuVisible))]
     private void ShowEthernetOnlyDebugLayout()
     {
@@ -274,8 +293,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(CanConnectConfiguredWifi))]
     private async Task ConnectConfiguredWifiAsync()
     {
-        await ExecuteNetworkActionAsync(
+        await ExecuteProvisionedWifiActionAsync(
             () => _networkBootstrapService.ConnectConfiguredWifiAsync(_disposeCts.Token),
+            BuildProvisionedWifiConnectFeedback,
+            refreshAfterAction: true).ConfigureAwait(false);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanDisconnectConfiguredWifi))]
+    private async Task DisconnectConfiguredWifiAsync()
+    {
+        await ExecuteProvisionedWifiActionAsync(
+            () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
+            BuildProvisionedWifiDisconnectFeedback,
             refreshAfterAction: true).ConfigureAwait(false);
     }
 
@@ -364,7 +393,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             _logger.LogError(ex, "Failed to refresh network status.");
             await RunOnUiAsync(() =>
             {
-                PrimaryStatusGlyph = NetworkOfflineGlyph;
+                IsPrimaryStatusSuccessful = false;
+                PrimaryStatusGlyph = PendingStatusGlyph;
                 PrimaryStatusTitle = "Network refresh failed";
                 PrimaryStatusDescription = ex.Message;
             }).ConfigureAwait(false);
@@ -382,19 +412,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IsEthernetConnected = snapshot.IsEthernetConnected;
         IsWifiRuntimeAvailable = snapshot.IsWifiRuntimeAvailable;
         HasWirelessAdapter = snapshot.HasWirelessAdapter;
+        _connectedWifiSsid = snapshot.ConnectedWifiSsid;
 
         EthernetGlyph = ResolveEthernetGlyph(snapshot);
         EthernetStatusText = snapshot.EthernetStatusText;
         InternetStatusText = snapshot.InternetStatusText;
         AdapterName = snapshot.AdapterName;
         IpAddress = snapshot.IpAddress;
-        SubnetMask = snapshot.SubnetMask;
-        GatewayAddress = snapshot.GatewayAddress;
-        DnsServers = snapshot.DnsServers;
-        DhcpText = snapshot.DhcpText;
         LastUpdatedAt = DateTimeOffset.Now;
         OnPropertyChanged(nameof(LastUpdatedText));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
+        RefreshDerivedConnectionState(snapshot);
 
         SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
         ApplyPrimaryStatus(snapshot);
@@ -405,13 +433,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             snapshot.IsWifiRuntimeAvailable &&
             _configuration.Wifi.IsEnabled &&
             !IsNetworkActionInProgress &&
+            !IsProvisionedWifiConnected &&
             ShouldRetryConfiguredWifiConnect())
         {
             _lastConfiguredWifiConnectAttemptAt = DateTimeOffset.UtcNow;
             _ = Task.Run(async () =>
             {
-                await ExecuteNetworkActionAsync(
+                await ExecuteProvisionedWifiActionAsync(
                     () => _networkBootstrapService.ConnectConfiguredWifiAsync(_disposeCts.Token),
+                    BuildProvisionedWifiConnectFeedback,
                     refreshAfterAction: true).ConfigureAwait(false);
             });
         }
@@ -421,26 +451,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (snapshot.HasInternetAccess)
         {
-            PrimaryStatusGlyph = EthernetOkGlyph;
-            PrimaryStatusTitle = "Internet validation succeeded";
-            PrimaryStatusDescription = snapshot.ConnectionSummary;
+            IsPrimaryStatusSuccessful = true;
+            PrimaryStatusGlyph = ReadyStatusGlyph;
+            PrimaryStatusTitle = "Network ready";
+            PrimaryStatusDescription = "Internet access is validated. You can continue now.";
             return;
         }
 
-        PrimaryStatusGlyph = NetworkOfflineGlyph;
-        PrimaryStatusTitle = "Waiting for internet reachability";
-        PrimaryStatusDescription = snapshot.ConnectionSummary;
+        IsPrimaryStatusSuccessful = false;
+        PrimaryStatusGlyph = PendingStatusGlyph;
+        PrimaryStatusTitle = "Waiting for network";
+        PrimaryStatusDescription = "Internet access has not been validated yet.";
     }
 
     private void UpdateCountdown(NetworkStatusSnapshot snapshot)
     {
-        if (!_isAutoCloseEnabled)
-        {
-            CancelCountdown();
-            return;
-        }
-
-        if (snapshot.HasInternetAccess)
+        if (snapshot.HasInternetAccess && _isAutoCloseEnabled)
         {
             if (IsCountdownActive || _applicationLifetimeService.IsExitRequested)
             {
@@ -458,9 +484,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         CancelCountdown();
 
-        CountdownSecondsRemaining = FoundryConnectApplicationInfo.DefaultAutoCloseDelaySeconds;
+        CountdownSecondsRemaining = FoundryConnectApplicationInfo.DefaultAutoContinueDelaySeconds;
         IsCountdownActive = true;
-        OnPropertyChanged(nameof(CountdownText));
+        OnPropertyChanged(nameof(AutoContinueText));
 
         _countdownCts = CancellationTokenSource.CreateLinkedTokenSource(_disposeCts.Token);
         _ = Task.Run(() => RunCountdownAsync(_countdownCts.Token), _countdownCts.Token);
@@ -476,7 +502,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 await RunOnUiAsync(() =>
                 {
                     CountdownSecondsRemaining = Math.Max(0, CountdownSecondsRemaining - 1);
-                    OnPropertyChanged(nameof(CountdownText));
+                    OnPropertyChanged(nameof(AutoContinueText));
                 }).ConfigureAwait(false);
             }
 
@@ -505,7 +531,20 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         IsCountdownActive = false;
         CountdownSecondsRemaining = 0;
-        OnPropertyChanged(nameof(CountdownText));
+        OnPropertyChanged(nameof(AutoContinueText));
+    }
+
+    private void RefreshDerivedConnectionState(NetworkStatusSnapshot snapshot)
+    {
+        CurrentConnectionChipText = ResolveCurrentConnectionChipText(snapshot);
+        OnPropertyChanged(nameof(HasCurrentConnectionChip));
+        OnPropertyChanged(nameof(IsProvisionedWifiConnected));
+        OnPropertyChanged(nameof(CanConnectConfiguredWifi));
+        OnPropertyChanged(nameof(CanDisconnectConfiguredWifi));
+        OnPropertyChanged(nameof(ProvisionedWifiStatusText));
+        ConnectConfiguredWifiCommand.NotifyCanExecuteChanged();
+        DisconnectConfiguredWifiCommand.NotifyCanExecuteChanged();
+        ContinueBootstrapCommand.NotifyCanExecuteChanged();
     }
 
     private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks, string? connectedWifiSsid)
@@ -656,9 +695,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     partial void OnIsNetworkActionInProgressChanged(bool value)
     {
         ConnectConfiguredWifiCommand.NotifyCanExecuteChanged();
+        DisconnectConfiguredWifiCommand.NotifyCanExecuteChanged();
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
         DisconnectSelectedWifiCommand.NotifyCanExecuteChanged();
         OnPropertyChanged(nameof(CanConnectConfiguredWifi));
+        OnPropertyChanged(nameof(CanDisconnectConfiguredWifi));
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
         OnPropertyChanged(nameof(CanDisconnectSelectedWifi));
     }
@@ -698,6 +739,22 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(HasSelectedWifiActionFeedback));
     }
 
+    partial void OnProvisionedWifiActionFeedbackTextChanged(string value)
+    {
+        OnPropertyChanged(nameof(HasProvisionedWifiActionFeedback));
+    }
+
+    partial void OnCurrentConnectionChipTextChanged(string value)
+    {
+        OnPropertyChanged(nameof(HasCurrentConnectionChip));
+    }
+
+    partial void OnHasInternetAccessChanged(bool value)
+    {
+        ContinueBootstrapCommand.NotifyCanExecuteChanged();
+        OnPropertyChanged(nameof(CanContinueBootstrap));
+    }
+
     partial void OnLayoutModeChanged(NetworkLayoutMode value)
     {
         OnPropertyChanged(nameof(EffectiveLayoutMode));
@@ -708,11 +765,31 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(EffectiveLayoutMode));
     }
 
-    private Task ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
+    private async Task ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
     {
-        return ExecuteNetworkActionAsync(
-            () => _networkBootstrapService.ApplyProvisionedSettingsAsync(cancellationToken),
-            refreshAfterAction: false);
+        if (_disposeCts.IsCancellationRequested)
+        {
+            return;
+        }
+
+        try
+        {
+            string status = await _networkBootstrapService.ApplyProvisionedSettingsAsync(cancellationToken).ConfigureAwait(false);
+            string? feedback = BuildProvisionedWifiInitializationFeedback(status);
+            if (!string.IsNullOrWhiteSpace(feedback))
+            {
+                await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = feedback).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Ignore shutdown-driven cancellations.
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Provisioned settings initialization failed.");
+            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = "Unable to apply the provisioned network settings.").ConfigureAwait(false);
+        }
     }
 
     private bool ShouldRetryConfiguredWifiConnect()
@@ -726,19 +803,34 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return DateTimeOffset.UtcNow - _lastConfiguredWifiConnectAttemptAt.Value >= TimeSpan.FromSeconds(retryDelaySeconds);
     }
 
-    private async Task ExecuteNetworkActionAsync(Func<Task<string>> action, bool refreshAfterAction)
+    private async Task ExecuteProvisionedWifiActionAsync(
+        Func<Task<string>> action,
+        Func<string, string?> resolveFeedback,
+        bool refreshAfterAction)
     {
         if (_disposeCts.IsCancellationRequested)
         {
             return;
         }
 
-        await RunOnUiAsync(() => IsNetworkActionInProgress = true).ConfigureAwait(false);
+        await RunOnUiAsync(() =>
+        {
+            IsNetworkActionInProgress = true;
+            IsProvisionedWifiActionInProgress = true;
+            ProvisionedWifiActionFeedbackText = string.Empty;
+        }).ConfigureAwait(false);
 
         try
         {
             string status = await action().ConfigureAwait(false);
-            await RunOnUiAsync(() => NetworkActionStatusText = status).ConfigureAwait(false);
+            string? feedback = resolveFeedback(status);
+
+            await RunOnUiAsync(() =>
+            {
+                ProvisionedWifiActionFeedbackText = string.IsNullOrWhiteSpace(feedback)
+                    ? string.Empty
+                    : feedback;
+            }).ConfigureAwait(false);
 
             if (refreshAfterAction)
             {
@@ -752,11 +844,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Provisioned network action failed.");
-            await RunOnUiAsync(() => NetworkActionStatusText = $"Network action failed: {ex.Message}").ConfigureAwait(false);
+            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = "Unable to complete the provisioned Wi-Fi action. Try again.").ConfigureAwait(false);
         }
         finally
         {
-            await RunOnUiAsync(() => IsNetworkActionInProgress = false).ConfigureAwait(false);
+            await RunOnUiAsync(() =>
+            {
+                IsProvisionedWifiActionInProgress = false;
+                IsNetworkActionInProgress = false;
+            }).ConfigureAwait(false);
         }
     }
 
@@ -836,6 +932,63 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         return "Unable to connect. Check the password and try again.";
+    }
+
+    private static string? BuildProvisionedWifiConnectFeedback(string status)
+    {
+        if (status.Contains("Wi-Fi connected to ", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
+        {
+            return "No wireless adapter is available.";
+        }
+
+        if (status.Contains("not provisioned for this image", StringComparison.OrdinalIgnoreCase) ||
+            status.Contains("No Wi-Fi profile is available", StringComparison.OrdinalIgnoreCase))
+        {
+            return "The provisioned Wi-Fi profile is not available.";
+        }
+
+        return "Unable to connect the provisioned Wi-Fi profile. Try again.";
+    }
+
+    private static string? BuildProvisionedWifiDisconnectFeedback(string status)
+    {
+        if (status.StartsWith("Wi-Fi disconnected from ", StringComparison.Ordinal) ||
+            status.StartsWith("Wi-Fi is already disconnected.", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
+        {
+            return "No wireless adapter is available.";
+        }
+
+        return "Unable to disconnect the provisioned Wi-Fi profile. Try again.";
+    }
+
+    private string? BuildProvisionedWifiInitializationFeedback(string status)
+    {
+        if (!HasProvisionedWifiProfile ||
+            string.IsNullOrWhiteSpace(status) ||
+            status.Contains("imported.", StringComparison.OrdinalIgnoreCase) &&
+            !status.Contains("failed", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        if (status.Contains("failed", StringComparison.OrdinalIgnoreCase) ||
+            status.Contains("not supported", StringComparison.OrdinalIgnoreCase) ||
+            status.Contains("No Wi-Fi profile", StringComparison.OrdinalIgnoreCase))
+        {
+            return status;
+        }
+
+        return null;
     }
 
     private static string? BuildSelectedWifiDisconnectFeedback(string status)
@@ -1018,6 +1171,75 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         return sourceText;
     }
+
+    private string BuildProvisionedWifiStatusText()
+    {
+        if (!HasProvisionedWifiProfile)
+        {
+            return string.Empty;
+        }
+
+        if (IsProvisionedWifiConnected)
+        {
+            return $"Connected to '{_connectedWifiSsid}'.";
+        }
+
+        if (!IsWifiRuntimeAvailable)
+        {
+            return "Wi-Fi support is not available at runtime.";
+        }
+
+        if (!HasWirelessAdapter)
+        {
+            return "No wireless adapter is available.";
+        }
+
+        if (!string.IsNullOrWhiteSpace(_connectedWifiSsid))
+        {
+            return $"Currently connected to '{_connectedWifiSsid}'.";
+        }
+
+        return "Ready to connect the provisioned profile.";
+    }
+
+    private string ResolveCurrentConnectionChipText(NetworkStatusSnapshot snapshot)
+    {
+        if (snapshot.IsEthernetConnected)
+        {
+            return "Ethernet";
+        }
+
+        if (string.IsNullOrWhiteSpace(_connectedWifiSsid))
+        {
+            return string.Empty;
+        }
+
+        return IsProvisionedWifiConnected
+            ? $"Provisioned Wi-Fi · {_connectedWifiSsid}"
+            : $"Wi-Fi · {_connectedWifiSsid}";
+    }
+
+    private bool IsProvisionedWifiConnection(string? ssid)
+    {
+        if (!HasProvisionedWifiProfile || string.IsNullOrWhiteSpace(ssid))
+        {
+            return false;
+        }
+
+        string trimmedSsid = ssid.Trim();
+
+        if (!string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid) &&
+            string.Equals(trimmedSsid, _configuration.Wifi.Ssid.Trim(), StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        string profileName = ResolveProvisionedWifiProfileName();
+        return !string.IsNullOrWhiteSpace(profileName) &&
+               !string.Equals(profileName, "Enterprise profile", StringComparison.OrdinalIgnoreCase) &&
+               string.Equals(trimmedSsid, profileName, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static bool CanDirectConnect(string authentication)
     {
         return ClassifyDiscoveredWifi(authentication) is DiscoveredWifiType.Open or DiscoveredWifiType.Personal;

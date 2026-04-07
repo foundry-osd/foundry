@@ -57,28 +57,13 @@ public sealed class NetworkStatusService : INetworkStatusService
         bool hasDhcpLease = HasDhcpLease(activeAdapter);
         bool hasInternetAccess = await ProbeInternetAsync(cancellationToken).ConfigureAwait(false);
 
-        IPInterfaceProperties? properties = activeAdapter?.GetIPProperties();
-        UnicastIPAddressInformation? ipv4Information = properties?.UnicastAddresses
+        UnicastIPAddressInformation? ipv4Information = activeAdapter?
+            .GetIPProperties()
+            .UnicastAddresses
             .FirstOrDefault(static address => address.Address.AddressFamily == AddressFamily.InterNetwork);
 
         string adapterName = activeAdapter?.Name ?? "Unavailable";
         string ipAddress = ipv4Information?.Address.ToString() ?? "Unavailable";
-        string subnetMask = ipv4Information?.IPv4Mask?.ToString() ?? "Unavailable";
-        string gateway = properties?.GatewayAddresses
-            .Select(static address => address.Address)
-            .FirstOrDefault(static address => address.AddressFamily == AddressFamily.InterNetwork)?
-            .ToString() ?? "Unavailable";
-        string dnsServers = properties is null
-            ? "Unavailable"
-            : string.Join(", ",
-                properties.DnsAddresses
-                    .Where(static address => address.AddressFamily == AddressFamily.InterNetwork)
-                    .Select(static address => address.ToString()));
-
-        if (string.IsNullOrWhiteSpace(dnsServers))
-        {
-            dnsServers = "Unavailable";
-        }
 
         return new NetworkStatusSnapshot
         {
@@ -95,11 +80,6 @@ public sealed class NetworkStatusService : INetworkStatusService
                 : "Internet validation is still pending or failed.",
             AdapterName = adapterName,
             IpAddress = ipAddress,
-            SubnetMask = subnetMask,
-            GatewayAddress = gateway,
-            DnsServers = dnsServers,
-            DhcpText = hasDhcpLease ? "DHCP lease detected." : "No DHCP lease detected.",
-            ConnectionSummary = BuildConnectionSummary(isEthernetConnected, hasInternetAccess, isWifiRuntimeAvailable, wifiNetworks.Count),
             ConnectedWifiSsid = connectedWifiSsid,
             WifiNetworks = wifiNetworks
         };
@@ -224,23 +204,4 @@ public sealed class NetworkStatusService : INetworkStatusService
             : "Ethernet link is active, but no DHCP lease was detected.";
     }
 
-    private static string BuildConnectionSummary(bool isEthernetConnected, bool hasInternetAccess, bool isWifiRuntimeAvailable, int wifiNetworkCount)
-    {
-        if (hasInternetAccess)
-        {
-            return "Bootstrap can continue when the countdown completes.";
-        }
-
-        if (isEthernetConnected)
-        {
-            return "Ethernet is connected. Waiting for internet validation to succeed.";
-        }
-
-        if (isWifiRuntimeAvailable && wifiNetworkCount > 0)
-        {
-            return "Wi-Fi networks are available. Internet validation is still pending.";
-        }
-
-        return "Waiting for an active network path.";
-    }
 }
