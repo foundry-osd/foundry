@@ -318,7 +318,7 @@
                         VerticalAlignment="Top"
                         FontFamily="{StaticResource SymbolThemeFontFamily}"
                         FontSize="28"
-                        Text="&#xE701;" />
+                        Text="&#xF081;" />
 
                     <StackPanel Grid.Column="1">
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Provisioned Wi-Fi" />
