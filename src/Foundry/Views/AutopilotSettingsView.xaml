@@ -46,7 +46,8 @@
                     MinWidth="170"
                     Margin="0,0,8,0"
                     Command="{Binding DownloadProfilesCommand}"
-                    Content="{Binding Strings[AutopilotDownloadButton]}" />
+                    Content="{Binding Strings[AutopilotDownloadButton]}"
+                    Style="{DynamicResource AccentButtonStyle}" />
                 <Button
                     MinWidth="110"
                     Command="{Binding RemoveSelectedProfileCommand}"
@@ -101,9 +102,7 @@
                             ItemsSource="{Binding Profiles}"
                             SelectedItem="{Binding SelectedProfile}">
                             <ListView.InputBindings>
-                                <KeyBinding
-                                    Key="Delete"
-                                    Command="{Binding RemoveSelectedProfileCommand}" />
+                                <KeyBinding Key="Delete" Command="{Binding RemoveSelectedProfileCommand}" />
                             </ListView.InputBindings>
                             <ListView.View>
                                 <GridView>
