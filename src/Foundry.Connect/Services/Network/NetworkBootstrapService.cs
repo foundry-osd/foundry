@@ -14,6 +14,7 @@ namespace Foundry.Connect.Services.Network;
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
     private const string OpenSecurityType = "Open";
+    private const string OweSecurityType = "OWE";
     private const string EnterpriseSecurityType = "Enterprise";
     private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
     private const string WifiSecurityLegacyWpa2Personal = "WPA2-Personal";
@@ -557,6 +558,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             ? ConvertSsidToHex(ssidValue.Trim())
             : ssidHexOverride.Trim();
         bool isOpen = string.Equals(securityType, OpenSecurityType, StringComparison.OrdinalIgnoreCase);
+        bool isOwe = string.Equals(securityType, OweSecurityType, StringComparison.OrdinalIgnoreCase);
         bool isPersonal = IsPersonalSecurityType(securityType);
 
         if (isOpen)
@@ -631,14 +633,54 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 """;
         }
 
+        if (isOwe)
+        {
+            return $$"""
+<?xml version="1.0"?>
+<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+  <name>{{ssid}}</name>
+  <SSIDConfig>
+    <SSID>
+      <hex>{{ssidHex}}</hex>
+      <name>{{ssid}}</name>
+    </SSID>
+  </SSIDConfig>
+  <connectionType>ESS</connectionType>
+  <connectionMode>manual</connectionMode>
+  <MSM>
+    <security>
+      <authEncryption>
+        <authentication>OWE</authentication>
+        <encryption>AES</encryption>
+        <useOneX>false</useOneX>
+      </authEncryption>
+    </security>
+  </MSM>
+  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
+    <enableRandomization>false</enableRandomization>
+  </MacRandomization>
+</WLANProfile>
+""";
+        }
+
         throw new InvalidOperationException($"Unsupported Wi-Fi security type '{securityType}'.");
     }
 
     private static string ResolveDiscoveredWifiSecurityType(string authentication)
     {
+        if (authentication.Contains("enterprise", StringComparison.OrdinalIgnoreCase))
+        {
+            return EnterpriseSecurityType;
+        }
+
         if (authentication.Contains("open", StringComparison.OrdinalIgnoreCase))
         {
             return OpenSecurityType;
+        }
+
+        if (authentication.Contains("owe", StringComparison.OrdinalIgnoreCase))
+        {
+            return OweSecurityType;
         }
 
         if (authentication.Contains("sae", StringComparison.OrdinalIgnoreCase) ||

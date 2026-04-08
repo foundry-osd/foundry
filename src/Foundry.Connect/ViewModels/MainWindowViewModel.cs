@@ -1174,12 +1174,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (_configuration.Wifi.HasEnterpriseProfile)
         {
-            return _configuration.Wifi.EnterpriseAuthenticationMode switch
-            {
-                NetworkAuthenticationMode.MachineOnly => "WPA2-Enterprise (machine)",
-                NetworkAuthenticationMode.MachineOrUser => "WPA2-Enterprise (machine or user)",
-                _ => "WPA2-Enterprise"
-            };
+            string? profilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+                _configuration.Wifi.EnterpriseProfileTemplatePath,
+                _configurationService.ConfigurationPath);
+            string? profileAuthentication = ProvisionedWifiProfileResolver.TryReadProfileAuthentication(profilePath);
+            return ResolveProvisionedEnterpriseSecurityDisplayText(
+                profileAuthentication ?? _configuration.Wifi.SecurityType,
+                _configuration.Wifi.EnterpriseAuthenticationMode);
         }
 
         return ResolveProvisionedPersonalSecurityDisplayText(_configuration.Wifi.SecurityType);
@@ -1208,11 +1209,35 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         return securityType.Trim() switch
         {
+            "OWE" => "OWE",
             "WPA2/WPA3-Personal" => "WPA2/WPA3 Personal",
             "WPA2-Personal" => "WPA2 Personal",
             "WPA3-Personal" => "WPA3 Personal",
             "Personal" => "Personal",
             _ => securityType.Trim()
+        };
+    }
+
+    private static string ResolveProvisionedEnterpriseSecurityDisplayText(
+        string? securityType,
+        NetworkAuthenticationMode authenticationMode)
+    {
+        string baseSecurityText = securityType?.Trim() switch
+        {
+            "WPA3ENT" => "WPA3 Enterprise",
+            "WPA3ENT192" or "WPA3" => "WPA3 Enterprise 192-bit",
+            "WPA2/WPA3-Enterprise" => "WPA2/WPA3 Enterprise",
+            "WPA2-Enterprise" => "WPA2 Enterprise",
+            "WPA3-Enterprise" => "WPA3 Enterprise",
+            "Enterprise" => "Enterprise",
+            _ => "WPA2/WPA3 Enterprise"
+        };
+
+        return authenticationMode switch
+        {
+            NetworkAuthenticationMode.MachineOnly => $"{baseSecurityText} (machine)",
+            NetworkAuthenticationMode.MachineOrUser => $"{baseSecurityText} (machine or user)",
+            _ => baseSecurityText
         };
     }
 
@@ -1286,7 +1311,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private static bool CanDirectConnect(string authentication)
     {
-        return ClassifyDiscoveredWifi(authentication) is DiscoveredWifiType.Open or DiscoveredWifiType.Personal;
+        return ClassifyDiscoveredWifi(authentication) is DiscoveredWifiType.Open or DiscoveredWifiType.Owe or DiscoveredWifiType.Personal;
     }
 
     private static bool RequiresPassphrase(string authentication)
@@ -1301,6 +1326,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return DiscoveredWifiType.Open;
         }
 
+        if (authentication.Contains("owe", StringComparison.OrdinalIgnoreCase))
+        {
+            return DiscoveredWifiType.Owe;
+        }
+
         if (authentication.Contains("personal", StringComparison.OrdinalIgnoreCase) ||
             authentication.Contains("psk", StringComparison.OrdinalIgnoreCase))
         {
@@ -1313,6 +1343,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private enum DiscoveredWifiType
     {
         Open,
+        Owe,
         Personal,
         Enterprise
     }

@@ -1,10 +1,13 @@
 using System.IO;
+using System.Xml.Linq;
 using Foundry.Connect.Models.Configuration;
 
 namespace Foundry.Connect.Services.Configuration;
 
 internal static class ProvisionedWifiProfileResolver
 {
+    private static readonly XNamespace WlanProfileNamespace = "http://www.microsoft.com/networking/WLAN/profile/v1";
+
     public static string? ResolveAssetPath(string? value, string? configurationPath)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -63,5 +66,26 @@ internal static class ProvisionedWifiProfileResolver
         return string.IsNullOrWhiteSpace(profileName)
             ? null
             : profileName;
+    }
+
+    public static string? TryReadProfileAuthentication(string? profilePath)
+    {
+        if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
+        {
+            return null;
+        }
+
+        try
+        {
+            XDocument document = XDocument.Load(profilePath);
+            return document
+                .Descendants(WlanProfileNamespace + "authentication")
+                .Select(static element => element.Value?.Trim())
+                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

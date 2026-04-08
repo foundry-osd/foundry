@@ -5,16 +5,20 @@ using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
 
 namespace Foundry.ViewModels;
 
 public partial class NetworkSettingsViewModel : LocalizedViewModelBase
 {
     private const string WifiSecurityOpen = "Open";
+    private const string WifiSecurityOwe = "OWE";
     private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
     private const string WifiSecurityEnterprise = "WPA2/WPA3-Enterprise";
+    private const string WifiSecurityEnterpriseWpa3 = "WPA3ENT";
+    private const string WifiSecurityEnterpriseWpa3192 = "WPA3ENT192";
     private static readonly string[] LegacyWifiSecurityPersonalValues = ["WPA2-Personal", "WPA3-Personal", "Personal"];
-    private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "Enterprise"];
+    private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "WPA3", "Enterprise"];
 
     private readonly IApplicationShellService _applicationShellService;
     private readonly IOperationProgressService _operationProgressService;
@@ -147,7 +151,7 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     public bool IsWifiCertificatePathEnabled => IsWifiEnterpriseSectionEnabled && IsWifiCertificateRequired;
     public bool IsWifiOpenSelected => string.Equals(WifiSecurityType, WifiSecurityOpen, StringComparison.OrdinalIgnoreCase);
     public bool IsWifiPersonalSelected => string.Equals(WifiSecurityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase);
-    public bool IsWifiEnterpriseSelected => string.Equals(WifiSecurityType, WifiSecurityEnterprise, StringComparison.OrdinalIgnoreCase);
+    public bool IsWifiEnterpriseSelected => IsEnterpriseSecurityType(WifiSecurityType);
     public bool HasDot1xValidationError => !string.IsNullOrWhiteSpace(Dot1xValidationMessage);
     public string Dot1xValidationMessage => BuildDot1xValidationMessage();
     public bool HasWifiValidationError => !string.IsNullOrWhiteSpace(WifiValidationMessage);
@@ -362,8 +366,11 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         ReplaceCollection(WifiSecurityTypes,
         [
             new SecurityTypeOption(WifiSecurityOpen, Strings["WifiSecurityTypeOpen"]),
+            new SecurityTypeOption(WifiSecurityOwe, Strings["WifiSecurityTypeOwe"]),
             new SecurityTypeOption(WifiSecurityPersonal, Strings["WifiSecurityTypePersonal"]),
-            new SecurityTypeOption(WifiSecurityEnterprise, Strings["WifiSecurityTypeEnterprise"])
+            new SecurityTypeOption(WifiSecurityEnterprise, Strings["WifiSecurityTypeEnterprise"]),
+            new SecurityTypeOption(WifiSecurityEnterpriseWpa3, Strings["WifiSecurityTypeEnterpriseWpa3"]),
+            new SecurityTypeOption(WifiSecurityEnterpriseWpa3192, Strings["WifiSecurityTypeEnterpriseWpa3192"])
         ]);
 
         OnPropertyChanged(nameof(WifiSecurityTypes));
@@ -385,17 +392,21 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
             return WifiSecurityOpen;
         }
 
+        if (string.Equals(settings.SecurityType, WifiSecurityOwe, StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityOwe;
+        }
+
         if (string.Equals(settings.SecurityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
             LegacyWifiSecurityPersonalValues.Any(value => string.Equals(settings.SecurityType, value, StringComparison.OrdinalIgnoreCase)))
         {
             return WifiSecurityPersonal;
         }
 
-        if (string.Equals(settings.SecurityType, WifiSecurityEnterprise, StringComparison.OrdinalIgnoreCase) ||
-            LegacyWifiSecurityEnterpriseValues.Any(value => string.Equals(settings.SecurityType, value, StringComparison.OrdinalIgnoreCase)) ||
-            settings.HasEnterpriseProfile)
+        string? enterpriseSecurityType = NormalizeEnterpriseSecurityType(settings.SecurityType);
+        if (enterpriseSecurityType is not null || settings.HasEnterpriseProfile)
         {
-            return WifiSecurityEnterprise;
+            return enterpriseSecurityType ?? WifiSecurityEnterprise;
         }
 
         if (!string.IsNullOrWhiteSpace(settings.Passphrase))
@@ -404,6 +415,42 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         }
 
         return WifiSecurityOpen;
+    }
+
+    private static bool IsEnterpriseSecurityType(string? securityType)
+    {
+        return NormalizeEnterpriseSecurityType(securityType) is not null;
+    }
+
+    private static string? NormalizeEnterpriseSecurityType(string? securityType)
+    {
+        if (string.IsNullOrWhiteSpace(securityType))
+        {
+            return null;
+        }
+
+        if (string.Equals(securityType, WifiSecurityEnterprise, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "WPA2-Enterprise", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "Enterprise", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityEnterprise;
+        }
+
+        if (string.Equals(securityType, WifiSecurityEnterpriseWpa3, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "WPA3-Enterprise", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityEnterpriseWpa3;
+        }
+
+        if (string.Equals(securityType, WifiSecurityEnterpriseWpa3192, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "WPA3", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityEnterpriseWpa3192;
+        }
+
+        return LegacyWifiSecurityEnterpriseValues.Any(value => string.Equals(securityType, value, StringComparison.OrdinalIgnoreCase))
+            ? WifiSecurityEnterprise
+            : null;
     }
 
     private string BuildDot1xValidationMessage()
@@ -452,6 +499,26 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
                 return "Enterprise Wi-Fi requires a profile template.";
             }
 
+            string trimmedTemplatePath = WifiEnterpriseProfileTemplatePath.Trim();
+            if (!File.Exists(Path.GetFullPath(trimmedTemplatePath)))
+            {
+                return "Enterprise Wi-Fi profile template file was not found.";
+            }
+
+            if (RequiresExplicitEnterpriseTemplateAuthentication(WifiSecurityType))
+            {
+                string? templateSecurityType = TryReadEnterpriseTemplateSecurityType(trimmedTemplatePath);
+                if (templateSecurityType is null)
+                {
+                    return "Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.";
+                }
+
+                if (!string.Equals(templateSecurityType, WifiSecurityType, StringComparison.OrdinalIgnoreCase))
+                {
+                    return $"Selected enterprise Wi-Fi security type does not match the profile template authentication ({FormatEnterpriseSecurityTypeLabel(templateSecurityType)}).";
+                }
+            }
+
             if (IsWifiCertificateRequired && string.IsNullOrWhiteSpace(WifiCertificatePath))
             {
                 return "Enterprise Wi-Fi requires a trusted root CA certificate file when certificate trust is enabled.";
@@ -459,6 +526,41 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         }
 
         return string.Empty;
+    }
+
+    private static bool RequiresExplicitEnterpriseTemplateAuthentication(string? securityType)
+    {
+        return string.Equals(securityType, WifiSecurityEnterpriseWpa3, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(securityType, WifiSecurityEnterpriseWpa3192, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string? TryReadEnterpriseTemplateSecurityType(string profileTemplatePath)
+    {
+        try
+        {
+            XDocument document = XDocument.Load(Path.GetFullPath(profileTemplatePath));
+            XNamespace wlanProfile = "http://www.microsoft.com/networking/WLAN/profile/v1";
+            string? authentication = document
+                .Descendants(wlanProfile + "authentication")
+                .Select(static element => element.Value?.Trim())
+                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
+
+            return NormalizeEnterpriseSecurityType(authentication);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static string FormatEnterpriseSecurityTypeLabel(string securityType)
+    {
+        return securityType switch
+        {
+            WifiSecurityEnterpriseWpa3 => "WPA3 Enterprise",
+            WifiSecurityEnterpriseWpa3192 => "WPA3 Enterprise 192-bit",
+            _ => "WPA2/WPA3 Enterprise"
+        };
     }
     public sealed record SecurityTypeOption(string Value, string DisplayName);
 }
