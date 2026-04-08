@@ -11,7 +11,7 @@ namespace Foundry.ViewModels;
 public partial class NetworkSettingsViewModel : LocalizedViewModelBase
 {
     private const string WifiSecurityOpen = "Open";
-    private const string WifiSecurityPersonal = "WPA2-Personal";
+    private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
     private const string WifiSecurityEnterprise = "WPA2/WPA3-Enterprise";
     private static readonly string[] LegacyWifiSecurityPersonalValues = ["WPA2-Personal", "WPA3-Personal", "Personal"];
     private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "Enterprise"];
@@ -441,7 +441,7 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
             string passphrase = WifiPassphrase.Trim();
             if (passphrase.Length < 8 || passphrase.Length > 63)
             {
-                return "WPA2 Personal Wi-Fi requires an 8 to 63 character passphrase.";
+                return "Personal Wi-Fi requires an 8 to 63 character passphrase.";
             }
         }
 

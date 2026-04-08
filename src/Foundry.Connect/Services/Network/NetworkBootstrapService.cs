@@ -13,7 +13,12 @@ namespace Foundry.Connect.Services.Network;
 
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
+    private const string OpenSecurityType = "Open";
     private const string EnterpriseSecurityType = "Enterprise";
+    private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
+    private const string WifiSecurityLegacyWpa2Personal = "WPA2-Personal";
+    private const string WifiSecurityWpa3Personal = "WPA3-Personal";
+    private const string WifiSecurityLegacyPersonal = "Personal";
     private const string TemporaryWifiProfileFileName = "wifi-profile.xml";
     private static readonly TimeSpan WifiConnectionTimeout = TimeSpan.FromSeconds(15);
     private static readonly TimeSpan WifiConnectionPollInterval = TimeSpan.FromMilliseconds(500);
@@ -551,10 +556,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         string ssidHex = string.IsNullOrWhiteSpace(ssidHexOverride)
             ? ConvertSsidToHex(ssidValue.Trim())
             : ssidHexOverride.Trim();
-        bool isOpen = string.Equals(securityType, "Open", StringComparison.OrdinalIgnoreCase);
-        bool isPersonal = string.Equals(securityType, "WPA2-Personal", StringComparison.OrdinalIgnoreCase) ||
-                          string.Equals(securityType, "WPA2/WPA3-Personal", StringComparison.OrdinalIgnoreCase) ||
-                          string.Equals(securityType, "WPA3-Personal", StringComparison.OrdinalIgnoreCase);
+        bool isOpen = string.Equals(securityType, OpenSecurityType, StringComparison.OrdinalIgnoreCase);
+        bool isPersonal = IsPersonalSecurityType(securityType);
 
         if (isOpen)
         {
@@ -589,6 +592,12 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         if (isPersonal)
         {
             string passphrase = SecurityElement.Escape(passphraseValue?.Trim() ?? string.Empty) ?? string.Empty;
+            string authentication = ResolvePersonalAuthentication(securityType);
+            string transitionMode = string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase)
+                ? """
+        <transitionMode xmlns="http://www.microsoft.com/networking/WLAN/profile/v4">true</transitionMode>
+"""
+                : string.Empty;
             return $$"""
 <?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
@@ -604,10 +613,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
   <MSM>
     <security>
       <authEncryption>
-        <authentication>WPA2PSK</authentication>
+        <authentication>{{authentication}}</authentication>
         <encryption>AES</encryption>
         <useOneX>false</useOneX>
-      </authEncryption>
+{{transitionMode}}      </authEncryption>
       <sharedKey>
         <keyType>passPhrase</keyType>
         <protected>false</protected>
@@ -629,16 +638,41 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     {
         if (authentication.Contains("open", StringComparison.OrdinalIgnoreCase))
         {
-            return "Open";
+            return OpenSecurityType;
+        }
+
+        if (authentication.Contains("sae", StringComparison.OrdinalIgnoreCase) ||
+            authentication.Contains("wpa3", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityWpa3Personal;
         }
 
         if (authentication.Contains("personal", StringComparison.OrdinalIgnoreCase) ||
             authentication.Contains("psk", StringComparison.OrdinalIgnoreCase))
         {
-            return "WPA2-Personal";
+            return WifiSecurityLegacyWpa2Personal;
         }
 
         return EnterpriseSecurityType;
+    }
+
+    private static bool IsPersonalSecurityType(string securityType)
+    {
+        return string.Equals(securityType, WifiSecurityLegacyWpa2Personal, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(securityType, WifiSecurityWpa3Personal, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(securityType, WifiSecurityLegacyPersonal, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string ResolvePersonalAuthentication(string securityType)
+    {
+        if (string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, WifiSecurityWpa3Personal, StringComparison.OrdinalIgnoreCase))
+        {
+            return "WPA3SAE";
+        }
+
+        return "WPA2PSK";
     }
 
     private static string ConvertSsidToHex(string value)

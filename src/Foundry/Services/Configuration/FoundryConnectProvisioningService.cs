@@ -5,6 +5,11 @@ namespace Foundry.Services.Configuration;
 
 public sealed class FoundryConnectProvisioningService : IFoundryConnectProvisioningService
 {
+    private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
+    private const string WifiSecurityEnterprise = "WPA2/WPA3-Enterprise";
+    private static readonly string[] LegacyWifiSecurityPersonalValues = ["WPA2-Personal", "WPA3-Personal", "Personal"];
+    private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "Enterprise"];
+
     public FoundryConnectProvisioningBundle Prepare(FoundryExpertConfigurationDocument document, string stagingDirectoryPath)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -109,22 +114,15 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
             throw new InvalidOperationException("Wi-Fi configuration requires an SSID.");
         }
 
-        bool isPersonal = string.Equals(settings.Wifi.SecurityType, "WPA2-Personal", StringComparison.OrdinalIgnoreCase) ||
-                          string.Equals(settings.Wifi.SecurityType, "WPA2/WPA3-Personal", StringComparison.OrdinalIgnoreCase) ||
-                          string.Equals(settings.Wifi.SecurityType, "WPA3-Personal", StringComparison.OrdinalIgnoreCase) ||
-                          string.Equals(settings.Wifi.SecurityType, "Personal", StringComparison.OrdinalIgnoreCase);
-        bool isEnterprise = settings.Wifi.HasEnterpriseProfile ||
-                            string.Equals(settings.Wifi.SecurityType, "WPA2/WPA3-Enterprise", StringComparison.OrdinalIgnoreCase) ||
-                            string.Equals(settings.Wifi.SecurityType, "WPA2-Enterprise", StringComparison.OrdinalIgnoreCase) ||
-                            string.Equals(settings.Wifi.SecurityType, "WPA3-Enterprise", StringComparison.OrdinalIgnoreCase) ||
-                            string.Equals(settings.Wifi.SecurityType, "Enterprise", StringComparison.OrdinalIgnoreCase);
+        bool isPersonal = IsPersonalSecurityType(settings.Wifi.SecurityType);
+        bool isEnterprise = settings.Wifi.HasEnterpriseProfile || IsEnterpriseSecurityType(settings.Wifi.SecurityType);
 
         if (isPersonal)
         {
             int passphraseLength = settings.Wifi.Passphrase?.Trim().Length ?? 0;
             if (passphraseLength is < 8 or > 63)
             {
-                throw new InvalidOperationException("WPA2 Personal Wi-Fi requires an 8 to 63 character passphrase.");
+                throw new InvalidOperationException("Personal Wi-Fi requires an 8 to 63 character passphrase.");
             }
         }
 
@@ -177,6 +175,18 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
     private static string NormalizeEmbeddedRelativePath(string relativePath)
     {
         return relativePath.Replace('/', '\\').TrimStart('\\');
+    }
+
+    private static bool IsPersonalSecurityType(string? securityType)
+    {
+        return string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
+               LegacyWifiSecurityPersonalValues.Any(value => string.Equals(securityType, value, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static bool IsEnterpriseSecurityType(string? securityType)
+    {
+        return string.Equals(securityType, WifiSecurityEnterprise, StringComparison.OrdinalIgnoreCase) ||
+               LegacyWifiSecurityEnterpriseValues.Any(value => string.Equals(securityType, value, StringComparison.OrdinalIgnoreCase));
     }
 
     private static void EnsureDirectoryClean(string path)
