@@ -33,39 +33,107 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     }
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsDot1xSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsDot1xCertificatePathEnabled))]
+    [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private bool isDot1xEnabled;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private string dot1xProfileTemplatePath = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsDot1xCertificatePathEnabled))]
+    [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private bool isDot1xCertificateRequired;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private string dot1xCertificatePath = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsWifiConfigurationSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiSecuritySelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiPersonalSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiEnterpriseSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiCertificatePathEnabled))]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private bool isWifiProvisioned;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsWifiConfigurationSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiSecuritySelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiPersonalSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiEnterpriseSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiCertificatePathEnabled))]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private bool isWifiConfigured;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private string wifiSsid = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsWifiPersonalSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiEnterpriseSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiCertificatePathEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsWifiOpenSelected))]
+    [NotifyPropertyChangedFor(nameof(IsWifiPersonalSelected))]
+    [NotifyPropertyChangedFor(nameof(IsWifiEnterpriseSelected))]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private string wifiSecurityType = WifiSecurityPersonal;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private string wifiPassphrase = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private string wifiEnterpriseProfileTemplatePath = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsWifiCertificatePathEnabled))]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private bool isWifiCertificateRequired;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
+    [NotifyPropertyChangedFor(nameof(ValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasValidationError))]
     private string wifiCertificatePath = string.Empty;
 
     public ObservableCollection<SecurityTypeOption> WifiSecurityTypes { get; } = [];
@@ -95,8 +163,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
             IsDot1xCertificateRequired = false;
             Dot1xCertificatePath = string.Empty;
         }
-
-        RaiseDot1xStateProperties();
     }
 
     partial void OnIsDot1xCertificateRequiredChanged(bool value)
@@ -105,8 +171,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         {
             Dot1xCertificatePath = string.Empty;
         }
-
-        OnPropertyChanged(nameof(IsDot1xCertificatePathEnabled));
     }
 
     partial void OnIsWifiProvisionedChanged(bool value)
@@ -115,8 +179,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         {
             IsWifiConfigured = false;
         }
-
-        RaiseWifiStateProperties();
     }
 
     partial void OnIsWifiConfiguredChanged(bool value)
@@ -130,8 +192,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
             IsWifiCertificateRequired = false;
             WifiCertificatePath = string.Empty;
         }
-
-        RaiseWifiStateProperties();
     }
 
     partial void OnWifiSecurityTypeChanged(string value)
@@ -147,8 +207,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
             IsWifiCertificateRequired = false;
             WifiCertificatePath = string.Empty;
         }
-
-        RaiseWifiStateProperties();
     }
 
     partial void OnIsWifiCertificateRequiredChanged(bool value)
@@ -157,8 +215,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         {
             WifiCertificatePath = string.Empty;
         }
-
-        OnPropertyChanged(nameof(IsWifiCertificatePathEnabled));
     }
 
     [RelayCommand(CanExecute = nameof(CanBrowseFiles))]
@@ -271,8 +327,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         IsWifiCertificateRequired = settings.Wifi.RequiresCertificate;
         WifiCertificatePath = settings.Wifi.CertificatePath ?? string.Empty;
 
-        RaiseDot1xStateProperties();
-        RaiseWifiStateProperties();
     }
 
     public override void Dispose()
@@ -301,32 +355,6 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void OnLocalizationLanguageChanged(object? sender, EventArgs e)
     {
         RunOnUiThread(RefreshOptionLists);
-    }
-
-    private void RaiseDot1xStateProperties()
-    {
-        OnPropertyChanged(nameof(IsDot1xSectionEnabled));
-        OnPropertyChanged(nameof(IsDot1xCertificatePathEnabled));
-        OnPropertyChanged(nameof(Dot1xValidationMessage));
-        OnPropertyChanged(nameof(HasDot1xValidationError));
-        OnPropertyChanged(nameof(ValidationMessage));
-        OnPropertyChanged(nameof(HasValidationError));
-    }
-
-    private void RaiseWifiStateProperties()
-    {
-        OnPropertyChanged(nameof(IsWifiConfigurationSectionEnabled));
-        OnPropertyChanged(nameof(IsWifiSecuritySelectionEnabled));
-        OnPropertyChanged(nameof(IsWifiPersonalSectionEnabled));
-        OnPropertyChanged(nameof(IsWifiEnterpriseSectionEnabled));
-        OnPropertyChanged(nameof(IsWifiCertificatePathEnabled));
-        OnPropertyChanged(nameof(IsWifiOpenSelected));
-        OnPropertyChanged(nameof(IsWifiPersonalSelected));
-        OnPropertyChanged(nameof(IsWifiEnterpriseSelected));
-        OnPropertyChanged(nameof(WifiValidationMessage));
-        OnPropertyChanged(nameof(HasWifiValidationError));
-        OnPropertyChanged(nameof(ValidationMessage));
-        OnPropertyChanged(nameof(HasValidationError));
     }
 
     private void RefreshOptionLists()
