@@ -1182,9 +1182,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             };
         }
 
-        return string.IsNullOrWhiteSpace(_configuration.Wifi.SecurityType)
-            ? "Configured profile"
-            : _configuration.Wifi.SecurityType.Trim();
+        return ResolveProvisionedPersonalSecurityDisplayText(_configuration.Wifi.SecurityType);
     }
 
     private string BuildProvisionedWifiSourceHintText()
@@ -1199,6 +1197,23 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         return sourceText;
+    }
+
+    private static string ResolveProvisionedPersonalSecurityDisplayText(string? securityType)
+    {
+        if (string.IsNullOrWhiteSpace(securityType))
+        {
+            return "Configured profile";
+        }
+
+        return securityType.Trim() switch
+        {
+            "WPA2/WPA3-Personal" => "WPA2/WPA3 Personal",
+            "WPA2-Personal" => "WPA2 Personal",
+            "WPA3-Personal" => "WPA3 Personal",
+            "Personal" => "Personal",
+            _ => securityType.Trim()
+        };
     }
 
     private string BuildProvisionedWifiStatusText()

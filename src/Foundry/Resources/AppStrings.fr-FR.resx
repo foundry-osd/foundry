@@ -553,7 +553,7 @@
     <value>Ouvert</value>
   </data>
   <data name="WifiSecurityTypePersonal" xml:space="preserve">
-    <value>WPA2 Personal</value>
+    <value>WPA2/WPA3 Personal</value>
   </data>
   <data name="WifiSecurityTypeEnterprise" xml:space="preserve">
     <value>WPA2/WPA3 entreprise</value>
