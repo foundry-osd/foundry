@@ -80,9 +80,7 @@
                         <GridViewColumn Width="72">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox
-                                        HorizontalAlignment="Center"
-                                        IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -116,7 +114,8 @@
                 Width="120"
                 Command="{Binding ImportSelectedProfilesCommand}"
                 Content="{Binding Strings[AutopilotTenantPickerImport]}"
-                IsDefault="True" />
+                IsDefault="True"
+                Style="{DynamicResource AccentButtonStyle}" />
         </StackPanel>
     </Grid>
 </Window>

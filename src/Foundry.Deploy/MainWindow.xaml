@@ -418,7 +418,8 @@
                         <Button
                             Width="160"
                             Command="{Binding StartDeploymentCommand}"
-                            Content="Start Deployment" />
+                            Content="Start Deployment"
+                            Style="{DynamicResource AccentButtonStyle}" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -792,6 +793,7 @@
                     VerticalAlignment="Bottom"
                     Command="{Binding BeginWizardCommand}"
                     Content="Begin"
+                    Style="{DynamicResource AccentButtonStyle}"
                     Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
             </Grid>
         </Grid>
