@@ -1,14 +1,18 @@
 using System.Text.Json;
+using System.Xml.Linq;
 using Foundry.Models.Configuration;
 
 namespace Foundry.Services.Configuration;
 
 public sealed class FoundryConnectProvisioningService : IFoundryConnectProvisioningService
 {
+    private const string WifiSecurityOwe = "OWE";
     private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
     private const string WifiSecurityEnterprise = "WPA2/WPA3-Enterprise";
+    private const string WifiSecurityEnterpriseWpa3 = "WPA3ENT";
+    private const string WifiSecurityEnterpriseWpa3192 = "WPA3ENT192";
     private static readonly string[] LegacyWifiSecurityPersonalValues = ["WPA2-Personal", "WPA3-Personal", "Personal"];
-    private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "Enterprise"];
+    private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "WPA3", "Enterprise"];
 
     public FoundryConnectProvisioningBundle Prepare(FoundryExpertConfigurationDocument document, string stagingDirectoryPath)
     {
@@ -114,8 +118,16 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
             throw new InvalidOperationException("Wi-Fi configuration requires an SSID.");
         }
 
+        bool isOpen = string.Equals(settings.Wifi.SecurityType, "Open", StringComparison.OrdinalIgnoreCase);
+        bool isOwe = string.Equals(settings.Wifi.SecurityType, WifiSecurityOwe, StringComparison.OrdinalIgnoreCase);
         bool isPersonal = IsPersonalSecurityType(settings.Wifi.SecurityType);
-        bool isEnterprise = settings.Wifi.HasEnterpriseProfile || IsEnterpriseSecurityType(settings.Wifi.SecurityType);
+        string? enterpriseSecurityType = NormalizeEnterpriseSecurityType(settings.Wifi.SecurityType);
+        bool isEnterprise = settings.Wifi.HasEnterpriseProfile || enterpriseSecurityType is not null;
+
+        if (!isOpen && !isOwe && !isPersonal && !isEnterprise)
+        {
+            throw new InvalidOperationException($"Unsupported Wi-Fi security type '{settings.Wifi.SecurityType}'.");
+        }
 
         if (isPersonal)
         {
@@ -131,6 +143,26 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
             if (string.IsNullOrWhiteSpace(settings.Wifi.EnterpriseProfileTemplatePath))
             {
                 throw new InvalidOperationException("Enterprise Wi-Fi requires a profile template.");
+            }
+
+            string fullTemplatePath = Path.GetFullPath(settings.Wifi.EnterpriseProfileTemplatePath);
+            if (!File.Exists(fullTemplatePath))
+            {
+                throw new InvalidOperationException("Enterprise Wi-Fi profile template file was not found.");
+            }
+
+            if (RequiresExplicitEnterpriseTemplateAuthentication(enterpriseSecurityType))
+            {
+                string? templateSecurityType = TryReadEnterpriseTemplateSecurityType(fullTemplatePath);
+                if (templateSecurityType is null)
+                {
+                    throw new InvalidOperationException("Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.");
+                }
+
+                if (!string.Equals(templateSecurityType, enterpriseSecurityType, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new InvalidOperationException($"Selected enterprise Wi-Fi security type does not match the profile template authentication '{templateSecurityType}'.");
+                }
             }
 
             if (settings.Wifi.RequiresCertificate && string.IsNullOrWhiteSpace(settings.Wifi.CertificatePath))
@@ -185,8 +217,63 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
 
     private static bool IsEnterpriseSecurityType(string? securityType)
     {
-        return string.Equals(securityType, WifiSecurityEnterprise, StringComparison.OrdinalIgnoreCase) ||
-               LegacyWifiSecurityEnterpriseValues.Any(value => string.Equals(securityType, value, StringComparison.OrdinalIgnoreCase));
+        return NormalizeEnterpriseSecurityType(securityType) is not null;
+    }
+
+    private static string? NormalizeEnterpriseSecurityType(string? securityType)
+    {
+        if (string.IsNullOrWhiteSpace(securityType))
+        {
+            return null;
+        }
+
+        if (string.Equals(securityType, WifiSecurityEnterprise, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "WPA2-Enterprise", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "Enterprise", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityEnterprise;
+        }
+
+        if (string.Equals(securityType, WifiSecurityEnterpriseWpa3, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "WPA3-Enterprise", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityEnterpriseWpa3;
+        }
+
+        if (string.Equals(securityType, WifiSecurityEnterpriseWpa3192, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(securityType, "WPA3", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityEnterpriseWpa3192;
+        }
+
+        return LegacyWifiSecurityEnterpriseValues.Any(value => string.Equals(securityType, value, StringComparison.OrdinalIgnoreCase))
+            ? WifiSecurityEnterprise
+            : null;
+    }
+
+    private static bool RequiresExplicitEnterpriseTemplateAuthentication(string? securityType)
+    {
+        return string.Equals(securityType, WifiSecurityEnterpriseWpa3, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(securityType, WifiSecurityEnterpriseWpa3192, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string? TryReadEnterpriseTemplateSecurityType(string profileTemplatePath)
+    {
+        try
+        {
+            XDocument document = XDocument.Load(profileTemplatePath);
+            XNamespace wlanProfile = "http://www.microsoft.com/networking/WLAN/profile/v1";
+            string? authentication = document
+                .Descendants(wlanProfile + "authentication")
+                .Select(static element => element.Value?.Trim())
+                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
+
+            return NormalizeEnterpriseSecurityType(authentication);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static void EnsureDirectoryClean(string path)
