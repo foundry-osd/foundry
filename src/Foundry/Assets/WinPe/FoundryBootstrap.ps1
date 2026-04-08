@@ -12,7 +12,6 @@ $FileLogLevel = 'Debug'
 $Owner = 'mchave3'
 $Repository = 'Foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
-$EmbeddedConnectArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Connect.zip'
 $EmbeddedConnectConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.connect.config.json'
 $EmbeddedDeployArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
 $EmbeddedDeployConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.deploy.config.json'
@@ -1346,7 +1345,7 @@ function Get-EmbeddedArchivePath {
     )
 
     switch ($ApplicationName) {
-        'Foundry.Connect' { return $EmbeddedConnectArchivePath }
+        'Foundry.Connect' { return '' }
         'Foundry.Deploy' { return $EmbeddedDeployArchivePath }
     }
 }
@@ -1460,9 +1459,11 @@ function Resolve-ApplicationExecutable {
     $archiveOverride = Get-ArchiveOverridePath -ApplicationName $ApplicationName
     $archiveOverrideSha256 = Get-ArchiveOverrideSha256 -ApplicationName $ApplicationName
     $embeddedArchivePath = Get-EmbeddedArchivePath -ApplicationName $ApplicationName
+    $hasEmbeddedArchiveFallback = -not [string]::IsNullOrWhiteSpace($embeddedArchivePath) -and (Test-Path -Path $embeddedArchivePath -PathType Leaf)
+    $releaseLookupFallbackDescription = if ($hasEmbeddedArchiveFallback) { 'the existing cache or embedded archive' } else { 'the existing cache' }
     $executable = $null
 
-    if ($SkipReleaseLookup -and [string]::IsNullOrWhiteSpace($archiveOverride) -and (Test-Path -Path $embeddedArchivePath -PathType Leaf)) {
+    if ($SkipReleaseLookup -and [string]::IsNullOrWhiteSpace($archiveOverride) -and $hasEmbeddedArchiveFallback) {
         $archiveOverride = $embeddedArchivePath
         Write-Log "Using embedded $ApplicationName archive from '$embeddedArchivePath'." -ConsoleMessage "Using embedded $ApplicationName archive."
     }
@@ -1510,12 +1511,12 @@ function Resolve-ApplicationExecutable {
             $release = Invoke-WithRetry -Action { Invoke-RestMethod -Uri $releaseApiUrl -Headers $Headers -Method Get }
         }
         catch {
-            Write-Log "Failed to resolve $ApplicationName release metadata: $($_.Exception.Message). Falling back to the existing cache or embedded archive." -Level Warning -ConsoleMessage "$ApplicationName release lookup failed. Falling back."
+            Write-Log "Failed to resolve $ApplicationName release metadata: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." -Level Warning -ConsoleMessage "$ApplicationName release lookup failed. Falling back."
             try {
                 $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
             }
             catch {
-                if (Test-Path -Path $embeddedArchivePath -PathType Leaf) {
+                if ($hasEmbeddedArchiveFallback) {
                     Write-Log "Falling back to the embedded $ApplicationName archive because no cached executable was available." -Level Warning -ConsoleMessage "Using embedded $ApplicationName archive as fallback."
                     $archiveSha256 = Get-FileSha256 -Path $embeddedArchivePath
                     $executable = Update-CacheFromArchiveFile `
@@ -1585,12 +1586,12 @@ function Resolve-ApplicationExecutable {
                         -ArchiveSha256 $archiveSha256
                 }
                 catch {
-                    Write-Log "Failed to refresh the $ApplicationName cache: $($_.Exception.Message). Falling back to the existing cache or embedded archive." -Level Warning -ConsoleMessage "$ApplicationName cache refresh failed. Falling back."
+                    Write-Log "Failed to refresh the $ApplicationName cache: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." -Level Warning -ConsoleMessage "$ApplicationName cache refresh failed. Falling back."
                     try {
                         $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
                     }
                     catch {
-                        if (Test-Path -Path $embeddedArchivePath -PathType Leaf) {
+                        if ($hasEmbeddedArchiveFallback) {
                             Write-Log "Falling back to the embedded $ApplicationName archive because the cache could not be refreshed." -Level Warning -ConsoleMessage "Using embedded $ApplicationName archive as fallback."
                             $archiveSha256 = Get-FileSha256 -Path $embeddedArchivePath
                             $executable = Update-CacheFromArchiveFile `
@@ -1738,7 +1739,7 @@ try {
     Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
 
     if ($skipConnectReleaseLookup) {
-        Write-Log "Skipping Foundry.Connect cache verification because the embedded provisioning source is local." -ConsoleMessage 'Foundry.Connect local provisioning detected. Skipping update check.'
+        Write-Log 'Skipping Foundry.Connect cache verification because the provisioned runtime is local.' -ConsoleMessage 'Foundry.Connect local runtime detected. Skipping update check.'
     }
     else {
         try {

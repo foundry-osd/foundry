@@ -138,6 +138,7 @@ internal sealed class WinPeMountedImageCustomizationService : IWinPeMountedImage
         ReportProgress(request.Progress, 66, "Provisioning Foundry.Connect payload.");
         WinPeResult localConnectProvisioning = await _localConnectEmbeddingService.ProvisionAsync(
             session.MountDirectoryPath,
+            request.Artifact.MediaDirectoryPath,
             request.Artifact.Architecture,
             request.Artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
