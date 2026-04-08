@@ -200,6 +200,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public string ProvisionedWifiAuthenticationText => BuildProvisionedWifiAuthenticationText();
     public string ProvisionedWifiSourceHintText => BuildProvisionedWifiSourceHintText();
     public string ProvisionedWifiStatusText => BuildProvisionedWifiStatusText();
+    public bool ShowProvisionedWifiContent => HasProvisionedWifiProfile &&
+                                              string.IsNullOrWhiteSpace(BuildWifiUnavailableText());
+    public string ProvisionedWifiPlaceholderText => BuildProvisionedWifiPlaceholderText();
     public bool HasProvisionedWifiActionFeedback => !string.IsNullOrWhiteSpace(ProvisionedWifiActionFeedbackText);
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
     public bool HasSelectedWifiActionFeedback => !string.IsNullOrWhiteSpace(SelectedWifiActionFeedbackText);
@@ -427,6 +430,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         LastUpdatedAt = DateTimeOffset.Now;
         OnPropertyChanged(nameof(LastUpdatedText));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
+        OnPropertyChanged(nameof(ShowProvisionedWifiContent));
+        OnPropertyChanged(nameof(ProvisionedWifiPlaceholderText));
         RefreshDerivedConnectionState(snapshot);
 
         SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
@@ -1105,6 +1110,21 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private string BuildWifiDiscoveryEmptyStateText()
     {
+        return BuildWifiUnavailableText() ?? "No Wi-Fi networks are currently visible.";
+    }
+
+    private string BuildProvisionedWifiPlaceholderText()
+    {
+        if (!HasProvisionedWifiProfile)
+        {
+            return "No provisioned profile is available in this boot image.";
+        }
+
+        return BuildWifiUnavailableText() ?? string.Empty;
+    }
+
+    private string? BuildWifiUnavailableText()
+    {
         if (!IsWifiRuntimeAvailable)
         {
             return "Wi-Fi support is not available at runtime.";
@@ -1115,7 +1135,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return "No wireless adapter is currently detected.";
         }
 
-        return "No Wi-Fi networks are currently visible.";
+        return null;
     }
 
     private string ResolveProvisionedWifiProfileName()

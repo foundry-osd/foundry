@@ -268,6 +268,11 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return string.Join(" ", messages);
         }
 
+        if (NativeWifiApi.GetInterfaceIds().Count == 0)
+        {
+            return string.Join(" ", messages);
+        }
+
         ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
 
         if (addProfileResult.ExitCode != 0)
