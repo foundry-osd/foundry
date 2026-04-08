@@ -985,11 +985,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void OnNetworkPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (string.Equals(e.PropertyName, nameof(NetworkSettingsViewModel.ValidationMessage), StringComparison.Ordinal) ||
-            string.Equals(e.PropertyName, nameof(NetworkSettingsViewModel.HasValidationError), StringComparison.Ordinal))
-        {
-            RunOnUiThread(UpdateOperationState);
-        }
+        RunOnUiThread(UpdateOperationState);
     }
 
     private void UpdateAdkStatus()
