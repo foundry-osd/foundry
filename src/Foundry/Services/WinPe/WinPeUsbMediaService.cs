@@ -260,18 +260,21 @@ else {
 
     private WinPeResult ProvisionFoundryConnectRuntime(string cacheRoot, WinPeBuildArtifact artifact)
     {
-        string sourceArchivePath = Path.Combine(
+        string runtimeIdentifier = artifact.Architecture.ToDotnetRuntimeIdentifier();
+        string sourceRuntimeRoot = Path.Combine(
             artifact.MediaDirectoryPath,
-            WinPeDefaults.EmbeddedConnectArchivePathInImage);
-        if (!File.Exists(sourceArchivePath))
+            "Foundry",
+            "Runtime",
+            "Foundry.Connect",
+            runtimeIdentifier);
+        if (!Directory.Exists(sourceRuntimeRoot))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
-                "Foundry.Connect archive was not found in the prepared USB media workspace.",
-                $"Expected path: '{sourceArchivePath}'.");
+                "Foundry.Connect runtime was not found in the prepared USB media workspace.",
+                $"Expected path: '{sourceRuntimeRoot}'.");
         }
 
-        string runtimeIdentifier = artifact.Architecture.ToDotnetRuntimeIdentifier();
         string applicationRoot = Path.Combine(cacheRoot, "Runtime", "Foundry.Connect");
         string destinationRoot = Path.Combine(applicationRoot, runtimeIdentifier);
         string stagingRoot = $"{destinationRoot}.staging";
@@ -279,8 +282,8 @@ else {
         try
         {
             _logger.LogInformation(
-                "Provisioning Foundry.Connect runtime into USB cache partition. SourceArchivePath={SourceArchivePath}, DestinationRoot={DestinationRoot}",
-                sourceArchivePath,
+                "Provisioning Foundry.Connect runtime into USB cache partition. SourceRuntimeRoot={SourceRuntimeRoot}, DestinationRoot={DestinationRoot}",
+                sourceRuntimeRoot,
                 destinationRoot);
 
             if (Directory.Exists(stagingRoot))
@@ -289,14 +292,14 @@ else {
             }
 
             Directory.CreateDirectory(applicationRoot);
-            ZipFile.ExtractToDirectory(sourceArchivePath, stagingRoot);
+            CopyDirectory(sourceRuntimeRoot, stagingRoot);
 
             string executablePath = Path.Combine(stagingRoot, "Foundry.Connect.exe");
             if (!File.Exists(executablePath))
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.BuildFailed,
-                    "The Foundry.Connect archive could not be extracted into the USB cache runtime.",
+                    "The Foundry.Connect runtime could not be provisioned into the USB cache partition.",
                     $"Expected executable: '{executablePath}'.");
             }
 
@@ -315,8 +318,8 @@ else {
         {
             _logger.LogError(
                 ex,
-                "Failed to provision Foundry.Connect runtime into USB cache partition. SourceArchivePath={SourceArchivePath}, DestinationRoot={DestinationRoot}",
-                sourceArchivePath,
+                "Failed to provision Foundry.Connect runtime into USB cache partition. SourceRuntimeRoot={SourceRuntimeRoot}, DestinationRoot={DestinationRoot}",
+                sourceRuntimeRoot,
                 destinationRoot);
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
@@ -329,6 +332,35 @@ else {
             {
                 Directory.Delete(stagingRoot, recursive: true);
             }
+        }
+    }
+
+    private static void CopyDirectory(string sourceDirectoryPath, string destinationDirectoryPath)
+    {
+        if (!Directory.Exists(sourceDirectoryPath))
+        {
+            throw new DirectoryNotFoundException($"Source directory not found: '{sourceDirectoryPath}'.");
+        }
+
+        WinPeFileSystemHelper.EnsureDirectoryClean(destinationDirectoryPath);
+
+        foreach (string directoryPath in Directory.EnumerateDirectories(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativeDirectoryPath = Path.GetRelativePath(sourceDirectoryPath, directoryPath);
+            Directory.CreateDirectory(Path.Combine(destinationDirectoryPath, relativeDirectoryPath));
+        }
+
+        foreach (string filePath in Directory.EnumerateFiles(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativeFilePath = Path.GetRelativePath(sourceDirectoryPath, filePath);
+            string destinationFilePath = Path.Combine(destinationDirectoryPath, relativeFilePath);
+            string? destinationDirectory = Path.GetDirectoryName(destinationFilePath);
+            if (!string.IsNullOrWhiteSpace(destinationDirectory))
+            {
+                Directory.CreateDirectory(destinationDirectory);
+            }
+
+            File.Copy(filePath, destinationFilePath, overwrite: true);
         }
     }
 

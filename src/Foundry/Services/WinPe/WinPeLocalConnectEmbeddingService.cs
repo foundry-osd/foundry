@@ -22,14 +22,17 @@ internal sealed class WinPeLocalConnectEmbeddingService : IWinPeLocalConnectEmbe
 
     public async Task<WinPeResult> ProvisionAsync(
         string mountedImagePath,
+        string mediaDirectoryPath,
         WinPeArchitecture architecture,
         string workingDirectoryPath,
         CancellationToken cancellationToken)
     {
+        string runtimeIdentifier = architecture.ToDotnetRuntimeIdentifier();
         bool useLocalOverride = IsEnabledEnvironmentFlag(Environment.GetEnvironmentVariable(WinPeDefaults.LocalConnectEnableEnvironmentVariable));
         _logger.LogInformation(
-            "Provisioning Foundry.Connect archive into mounted WinPE image. Architecture={Architecture}, UseLocalOverride={UseLocalOverride}",
+            "Provisioning Foundry.Connect runtime into WinPE outputs. Architecture={Architecture}, RuntimeIdentifier={RuntimeIdentifier}, UseLocalOverride={UseLocalOverride}",
             architecture,
+            runtimeIdentifier,
             useLocalOverride);
 
         WinPeResult<string> archiveResult = useLocalOverride
@@ -44,34 +47,66 @@ internal sealed class WinPeLocalConnectEmbeddingService : IWinPeLocalConnectEmbe
             return WinPeResult.Failure(archiveResult.Error!);
         }
 
-        string destinationPath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedConnectArchivePathInImage);
-        string? destinationDirectory = Path.GetDirectoryName(destinationPath);
-        if (string.IsNullOrWhiteSpace(destinationDirectory))
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.InternalError,
-                "Failed to resolve destination path for local Foundry.Connect archive.",
-                $"Destination: '{destinationPath}'.");
-        }
+        string extractionRoot = Path.Combine(workingDirectoryPath, "FoundryConnectExtracted", runtimeIdentifier);
+        string mountedImageRuntimeRoot = GetRuntimeRoot(mountedImagePath, runtimeIdentifier);
+        string stagedMediaRuntimeRoot = GetRuntimeRoot(mediaDirectoryPath, runtimeIdentifier);
+        string mountedImageLegacyArchivePath = Path.Combine(mountedImagePath, WinPeDefaults.EmbeddedConnectArchivePathInImage);
+        string stagedMediaLegacyArchivePath = Path.Combine(mediaDirectoryPath, WinPeDefaults.EmbeddedConnectArchivePathInImage);
 
         try
         {
-            Directory.CreateDirectory(destinationDirectory);
+            WinPeFileSystemHelper.EnsureDirectoryClean(extractionRoot);
             _logger.LogInformation(
-                "Copying local Foundry.Connect archive into mounted WinPE image. ArchivePath={ArchivePath}, DestinationPath={DestinationPath}",
+                "Extracting Foundry.Connect runtime for WinPE provisioning. ArchivePath={ArchivePath}, ExtractionRoot={ExtractionRoot}",
                 archiveResult.Value!,
-                destinationPath);
-            File.Copy(archiveResult.Value!, destinationPath, overwrite: true);
-            _logger.LogInformation("Copied local Foundry.Connect archive into mounted WinPE image successfully. DestinationPath={DestinationPath}", destinationPath);
+                extractionRoot);
+            ZipFile.ExtractToDirectory(archiveResult.Value!, extractionRoot);
+
+            string extractedExecutablePath = Path.Combine(extractionRoot, "Foundry.Connect.exe");
+            if (!File.Exists(extractedExecutablePath))
+            {
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.BuildFailed,
+                    "The Foundry.Connect runtime archive did not contain the expected executable.",
+                    $"Expected executable: '{extractedExecutablePath}'.");
+            }
+
+            _logger.LogInformation(
+                "Copying extracted Foundry.Connect runtime into mounted WinPE image. SourceRoot={SourceRoot}, DestinationRoot={DestinationRoot}",
+                extractionRoot,
+                mountedImageRuntimeRoot);
+            CopyDirectory(extractionRoot, mountedImageRuntimeRoot);
+            TryDeleteFile(mountedImageLegacyArchivePath);
+            _logger.LogInformation(
+                "Copied extracted Foundry.Connect runtime into mounted WinPE image successfully. DestinationRoot={DestinationRoot}",
+                mountedImageRuntimeRoot);
+
+            _logger.LogInformation(
+                "Copying extracted Foundry.Connect runtime into staged WinPE media workspace. SourceRoot={SourceRoot}, DestinationRoot={DestinationRoot}",
+                extractionRoot,
+                stagedMediaRuntimeRoot);
+            CopyDirectory(extractionRoot, stagedMediaRuntimeRoot);
+            TryDeleteFile(stagedMediaLegacyArchivePath);
+            _logger.LogInformation(
+                "Copied extracted Foundry.Connect runtime into staged WinPE media workspace successfully. DestinationRoot={DestinationRoot}",
+                stagedMediaRuntimeRoot);
             return WinPeResult.Success();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to copy local Foundry.Connect archive into mounted WinPE image. DestinationPath={DestinationPath}", destinationPath);
+            _logger.LogError(
+                ex,
+                "Failed to provision extracted Foundry.Connect runtime for WinPE. MountedImageRuntimeRoot={MountedImageRuntimeRoot}, StagedMediaRuntimeRoot={StagedMediaRuntimeRoot}",
+                mountedImageRuntimeRoot,
+                stagedMediaRuntimeRoot);
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
-                "Failed to copy local Foundry.Connect archive into mounted WinPE image.",
+                "Failed to provision the extracted Foundry.Connect runtime for WinPE.",
                 ex.ToString());
+        }
+        finally
+        {
+            TryDeleteDirectory(extractionRoot);
         }
     }
 
@@ -342,6 +377,55 @@ internal sealed class WinPeLocalConnectEmbeddingService : IWinPeLocalConnectEmbe
             "ON" => true,
             _ => false
         };
+    }
+
+    private static string GetRuntimeRoot(string rootPath, string runtimeIdentifier)
+    {
+        return Path.Combine(rootPath, "Foundry", "Runtime", "Foundry.Connect", runtimeIdentifier);
+    }
+
+    private static void CopyDirectory(string sourceDirectoryPath, string destinationDirectoryPath)
+    {
+        if (!Directory.Exists(sourceDirectoryPath))
+        {
+            throw new DirectoryNotFoundException($"Source directory not found: '{sourceDirectoryPath}'.");
+        }
+
+        WinPeFileSystemHelper.EnsureDirectoryClean(destinationDirectoryPath);
+
+        foreach (string directoryPath in Directory.EnumerateDirectories(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativeDirectoryPath = Path.GetRelativePath(sourceDirectoryPath, directoryPath);
+            Directory.CreateDirectory(Path.Combine(destinationDirectoryPath, relativeDirectoryPath));
+        }
+
+        foreach (string filePath in Directory.EnumerateFiles(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativeFilePath = Path.GetRelativePath(sourceDirectoryPath, filePath);
+            string destinationFilePath = Path.Combine(destinationDirectoryPath, relativeFilePath);
+            string? destinationDirectory = Path.GetDirectoryName(destinationFilePath);
+            if (!string.IsNullOrWhiteSpace(destinationDirectory))
+            {
+                Directory.CreateDirectory(destinationDirectory);
+            }
+
+            File.Copy(filePath, destinationFilePath, overwrite: true);
+        }
+    }
+
+    private static void TryDeleteFile(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup.
+        }
     }
 
     private static void TryDeleteDirectory(string path)
