@@ -2,6 +2,7 @@ using System.Windows;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
 using Microsoft.Extensions.Logging;
@@ -43,11 +44,10 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
             return;
         }
 
-        if (IsPlaceholderVersion(FoundryApplicationInfo.Version))
+        if (IsVisualStudioDebugSession())
         {
             _logger.LogInformation(
-                "Skipping automatic startup update check because the current version is the placeholder development version. CurrentVersion={CurrentVersion}",
-                FoundryApplicationInfo.Version);
+                "Skipping automatic startup update check because Foundry is running in a Visual Studio debug session.");
             return;
         }
 
@@ -235,12 +235,6 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
             : null;
     }
 
-    private static bool IsPlaceholderVersion(string? rawVersion)
-    {
-        Version? version = TryParseVersion(rawVersion);
-        return version is not null && version == new Version(1, 0, 0, 0);
-    }
-
     private static string NormalizeVersionDisplay(string? rawVersion)
     {
         Version? version = TryParseVersion(rawVersion);
@@ -260,6 +254,15 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
     private static string FirstNonEmpty(params string[] values)
     {
         return values.FirstOrDefault(value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;
+    }
+
+    private static bool IsVisualStudioDebugSession()
+    {
+#if DEBUG
+        return Debugger.IsAttached;
+#else
+        return false;
+#endif
     }
 
     private static HttpClient CreateHttpClient()
