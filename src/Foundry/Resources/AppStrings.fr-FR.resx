@@ -141,6 +141,12 @@
   <data name="MenuTools" xml:space="preserve">
     <value>_Outils</value>
   </data>
+  <data name="MenuDebug" xml:space="preserve">
+    <value>_Debug</value>
+  </data>
+  <data name="MenuDebugCheckForUpdates" xml:space="preserve">
+    <value>Afficher la vérification des _mises à jour</value>
+  </data>
   <data name="MenuLogs" xml:space="preserve">
     <value>Ouvrir le _dossier des logs</value>
   </data>
@@ -167,6 +173,54 @@
   </data>
   <data name="MenuCheckForUpdates" xml:space="preserve">
     <value>Rechercher les _mises à jour...</value>
+  </data>
+  <data name="UpdateCheckUpToDateTitle" xml:space="preserve">
+    <value>Aucune mise à jour disponible</value>
+  </data>
+  <data name="UpdateCheckUpToDateMessage" xml:space="preserve">
+    <value>Vous utilisez déjà la dernière version disponible de Foundry.</value>
+  </data>
+  <data name="UpdateCheckFailedTitle" xml:space="preserve">
+    <value>Échec de la vérification des mises à jour</value>
+  </data>
+  <data name="UpdateCheckFailedMessage" xml:space="preserve">
+    <value>Foundry n'a pas pu vérifier les GitHub Releases pour le moment. Réessayez plus tard.</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>Mise à jour disponible</value>
+  </data>
+  <data name="UpdateAvailableHeading" xml:space="preserve">
+    <value>Une nouvelle version de Foundry est disponible !</value>
+  </data>
+  <data name="UpdateAvailableSummaryFormat" xml:space="preserve">
+    <value>{0} est disponible. Vous utilisez actuellement la version {1}.</value>
+  </data>
+  <data name="UpdateAvailableCurrentVersionLabel" xml:space="preserve">
+    <value>Version actuelle</value>
+  </data>
+  <data name="UpdateAvailableLatestVersionLabel" xml:space="preserve">
+    <value>Nouvelle version</value>
+  </data>
+  <data name="UpdateAvailableReleaseLabel" xml:space="preserve">
+    <value>Release</value>
+  </data>
+  <data name="UpdateAvailablePublishedLabel" xml:space="preserve">
+    <value>Publication</value>
+  </data>
+  <data name="UpdateAvailablePublishedUnknown" xml:space="preserve">
+    <value>Inconnue</value>
+  </data>
+  <data name="UpdateAvailableReleaseNotes" xml:space="preserve">
+    <value>Notes de version</value>
+  </data>
+  <data name="UpdateAvailableNotesEmpty" xml:space="preserve">
+    <value>Aucune note de version n'a été fournie pour cette release.</value>
+  </data>
+  <data name="UpdateAvailableOpenRelease" xml:space="preserve">
+    <value>Ouvrir la release</value>
+  </data>
+  <data name="UpdateAvailableLater" xml:space="preserve">
+    <value>Plus tard</value>
   </data>
   <data name="AdkBannerMissing" xml:space="preserve">
     <value>Windows ADK n’est pas installé. Merci d’installer ADK 11 24H2 pour activer la création d’ISO et USB.</value>

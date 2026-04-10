@@ -1,5 +1,6 @@
 using Foundry.Services.Autopilot;
 using Foundry.Services.Adk;
+using Foundry.Services.ApplicationUpdate;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -21,6 +22,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<AutopilotSettingsViewModel>();
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
         services.AddSingleton<IAutopilotProfileService, AutopilotProfileService>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
         services.AddSingleton<IFoundryConnectProvisioningService, FoundryConnectProvisioningService>();

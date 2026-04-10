@@ -5,10 +5,20 @@ namespace Foundry;
 
 public partial class MainWindow : Window
 {
+    private readonly MainWindowViewModel _viewModel;
+
     public MainWindow(MainWindowViewModel viewModel)
     {
         InitializeComponent();
+        _viewModel = viewModel;
         DataContext = viewModel;
-        Loaded += (_, _) => _ = viewModel.RefreshUsbCandidatesCommand.ExecuteAsync(null);
+        Loaded += OnLoadedAsync;
+    }
+
+    private async void OnLoadedAsync(object sender, RoutedEventArgs e)
+    {
+        Loaded -= OnLoadedAsync;
+        _ = _viewModel.RefreshUsbCandidatesCommand.ExecuteAsync(null);
+        await _viewModel.RunStartupUpdateCheckAsync();
     }
 }

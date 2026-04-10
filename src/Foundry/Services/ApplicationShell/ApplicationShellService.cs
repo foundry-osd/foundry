@@ -1,4 +1,5 @@
 using Foundry.Models.Configuration;
+using Foundry.Services.ApplicationUpdate;
 using Foundry.Services.Localization;
 using Foundry.ViewModels;
 using Foundry.Views;
@@ -40,6 +41,31 @@ public sealed class ApplicationShellService : IApplicationShellService
         {
             viewModel.Dispose();
         }
+    }
+
+    public void ShowUpdateAvailable(ApplicationUpdateInfo updateInfo)
+    {
+        ArgumentNullException.ThrowIfNull(updateInfo);
+
+        InvokeOnUiThread(() =>
+        {
+            var viewModel = new UpdateAvailableDialogViewModel(_localizationService, this, updateInfo);
+            var dialog = new UpdateAvailableDialog
+            {
+                DataContext = viewModel,
+                Owner = ResolveOwnerWindow()
+            };
+
+            try
+            {
+                viewModel.CloseRequested += (_, _) => dialog.Close();
+                _ = dialog.ShowDialog();
+            }
+            finally
+            {
+                viewModel.Dispose();
+            }
+        });
     }
 
     public void OpenUrl(string url)
@@ -155,6 +181,18 @@ public sealed class ApplicationShellService : IApplicationShellService
         });
     }
 
+    public void ShowMessage(string title, string message, MessageBoxImage image)
+    {
+        InvokeOnUiThread(() =>
+        {
+            MessageBox.Show(
+                message,
+                title,
+                MessageBoxButton.OK,
+                image);
+        });
+    }
+
     public bool ConfirmWarning(string title, string message)
     {
         MessageBoxResult result = MessageBox.Show(
@@ -183,5 +221,18 @@ public sealed class ApplicationShellService : IApplicationShellService
         }
 
         return Application.Current.MainWindow;
+    }
+
+    private static void InvokeOnUiThread(Action action)
+    {
+        ArgumentNullException.ThrowIfNull(action);
+
+        if (Application.Current?.Dispatcher is not { } dispatcher || dispatcher.CheckAccess())
+        {
+            action();
+            return;
+        }
+
+        dispatcher.Invoke(action);
     }
 }
