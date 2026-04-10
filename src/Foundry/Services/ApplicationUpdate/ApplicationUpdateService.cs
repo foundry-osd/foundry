@@ -34,13 +34,15 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
 
     public Task CheckForUpdatesAsync(CancellationToken cancellationToken = default)
     {
-        return CheckForUpdatesCoreAsync(notifyWhenCurrent: true, notifyWhenFailure: true, cancellationToken);
+        _logger.LogInformation("Manual update check requested.");
+        return CheckForUpdatesCoreAsync(UpdateCheckTrigger.Manual, notifyWhenCurrent: true, notifyWhenFailure: true, cancellationToken);
     }
 
     public async Task CheckForUpdatesOnStartupAsync(CancellationToken cancellationToken = default)
     {
         if (Interlocked.Exchange(ref _startupCheckCompleted, 1) != 0)
         {
+            _logger.LogDebug("Skipping automatic startup update check because it has already been completed for this application session.");
             return;
         }
 
@@ -51,16 +53,20 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
             return;
         }
 
+        _logger.LogDebug("Automatic startup update check requested.");
+
         try
         {
-            await CheckForUpdatesCoreAsync(notifyWhenCurrent: false, notifyWhenFailure: false, cancellationToken).ConfigureAwait(false);
+            await CheckForUpdatesCoreAsync(UpdateCheckTrigger.Startup, notifyWhenCurrent: false, notifyWhenFailure: false, cancellationToken).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
+            _logger.LogDebug("Automatic startup update check was canceled.");
         }
     }
 
     private async Task CheckForUpdatesCoreAsync(
+        UpdateCheckTrigger trigger,
         bool notifyWhenCurrent,
         bool notifyWhenFailure,
         CancellationToken cancellationToken)
@@ -69,15 +75,26 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
 
         try
         {
-            UpdateCheckResult result = await GetUpdateCheckResultAsync(cancellationToken).ConfigureAwait(false);
+            UpdateCheckResult result = await GetUpdateCheckResultAsync(trigger, cancellationToken).ConfigureAwait(false);
 
             switch (result.Status)
             {
                 case UpdateCheckStatus.UpdateAvailable:
+                    _logger.LogInformation(
+                        "Update check completed with an available release. Trigger={Trigger}, CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}, ReleaseUrl={ReleaseUrl}",
+                        trigger,
+                        result.UpdateInfo!.CurrentVersion,
+                        result.UpdateInfo.LatestVersion,
+                        result.UpdateInfo.ReleaseUrl);
                     _applicationShellService.ShowUpdateAvailable(result.UpdateInfo!);
                     break;
 
                 case UpdateCheckStatus.UpToDate:
+                    _logger.LogInformation(
+                        "Update check completed with no available update. Trigger={Trigger}, CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}",
+                        trigger,
+                        NormalizeVersionDisplay(FoundryApplicationInfo.Version),
+                        result.LatestVersionDisplay ?? "unknown");
                     if (notifyWhenCurrent)
                     {
                         _applicationShellService.ShowMessage(
@@ -88,6 +105,7 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                     break;
 
                 case UpdateCheckStatus.Failed:
+                    _logger.LogWarning("Update check failed. Trigger={Trigger}", trigger);
                     if (notifyWhenFailure)
                     {
                         _applicationShellService.ShowMessage(
@@ -104,13 +122,18 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
         }
     }
 
-    private async Task<UpdateCheckResult> GetUpdateCheckResultAsync(CancellationToken cancellationToken)
+    private async Task<UpdateCheckResult> GetUpdateCheckResultAsync(
+        UpdateCheckTrigger trigger,
+        CancellationToken cancellationToken)
     {
         string currentVersionDisplay = FoundryApplicationInfo.Version;
         Version? currentVersion = TryParseVersion(currentVersionDisplay);
         if (currentVersion is null)
         {
-            _logger.LogWarning("Unable to parse the current Foundry version for update checks. CurrentVersion={CurrentVersion}", currentVersionDisplay);
+            _logger.LogWarning(
+                "Unable to parse the current Foundry version for update checks. Trigger={Trigger}, CurrentVersion={CurrentVersion}",
+                trigger,
+                currentVersionDisplay);
             return UpdateCheckResult.Failed();
         }
 
@@ -120,24 +143,17 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
             Version? latestVersion = TryParseVersion(latestRelease.TagName);
             if (latestVersion is null)
             {
-                _logger.LogWarning("Unable to parse the latest GitHub release tag for update checks. TagName={TagName}", latestRelease.TagName);
+                _logger.LogWarning(
+                    "Unable to parse the latest GitHub release tag for update checks. Trigger={Trigger}, TagName={TagName}",
+                    trigger,
+                    latestRelease.TagName);
                 return UpdateCheckResult.Failed();
             }
 
             if (latestVersion <= currentVersion)
             {
-                _logger.LogInformation(
-                    "Foundry is up to date. CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}",
-                    currentVersion,
-                    latestVersion);
-                return UpdateCheckResult.UpToDate();
+                return UpdateCheckResult.UpToDate(NormalizeVersionDisplay(latestRelease.TagName));
             }
-
-            _logger.LogInformation(
-                "Foundry update available. CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}, ReleaseUrl={ReleaseUrl}",
-                currentVersion,
-                latestVersion,
-                latestRelease.ReleaseUrl);
 
             return UpdateCheckResult.UpdateAvailable(new ApplicationUpdateInfo(
                 CurrentVersion: NormalizeVersionDisplay(currentVersionDisplay),
@@ -149,7 +165,7 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _logger.LogWarning(ex, "Foundry failed to query the latest GitHub release.");
+            _logger.LogWarning(ex, "Foundry failed to query the latest GitHub release. Trigger={Trigger}", trigger);
             return UpdateCheckResult.Failed();
         }
     }
@@ -282,16 +298,25 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
         Failed
     }
 
-    private sealed record UpdateCheckResult(UpdateCheckStatus Status, ApplicationUpdateInfo? UpdateInfo = null)
+    private enum UpdateCheckTrigger
+    {
+        Startup,
+        Manual
+    }
+
+    private sealed record UpdateCheckResult(
+        UpdateCheckStatus Status,
+        ApplicationUpdateInfo? UpdateInfo = null,
+        string? LatestVersionDisplay = null)
     {
         public static UpdateCheckResult UpdateAvailable(ApplicationUpdateInfo updateInfo)
         {
             return new(UpdateCheckStatus.UpdateAvailable, updateInfo);
         }
 
-        public static UpdateCheckResult UpToDate()
+        public static UpdateCheckResult UpToDate(string latestVersionDisplay)
         {
-            return new(UpdateCheckStatus.UpToDate);
+            return new(UpdateCheckStatus.UpToDate, LatestVersionDisplay: latestVersionDisplay);
         }
 
         public static UpdateCheckResult Failed()
