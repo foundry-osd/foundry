@@ -140,9 +140,9 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                 latestRelease.ReleaseUrl);
 
             return UpdateCheckResult.UpdateAvailable(new ApplicationUpdateInfo(
-                CurrentVersion: currentVersionDisplay,
-                LatestVersion: latestRelease.TagName,
-                ReleaseTitle: latestRelease.ReleaseTitle,
+                CurrentVersion: NormalizeVersionDisplay(currentVersionDisplay),
+                LatestVersion: NormalizeVersionDisplay(latestRelease.TagName),
+                ReleaseTitle: NormalizeReleaseTitle(latestRelease.ReleaseTitle),
                 ReleaseUrl: latestRelease.ReleaseUrl,
                 PublishedAt: latestRelease.PublishedAt,
                 ReleaseNotes: latestRelease.ReleaseNotes));
@@ -239,6 +239,22 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
     {
         Version? version = TryParseVersion(rawVersion);
         return version is not null && version == new Version(1, 0, 0, 0);
+    }
+
+    private static string NormalizeVersionDisplay(string? rawVersion)
+    {
+        Version? version = TryParseVersion(rawVersion);
+        return version?.ToString() ?? rawVersion?.Trim() ?? string.Empty;
+    }
+
+    private static string NormalizeReleaseTitle(string? releaseTitle)
+    {
+        if (string.IsNullOrWhiteSpace(releaseTitle))
+        {
+            return string.Empty;
+        }
+
+        return VersionPattern.Replace(releaseTitle.Trim(), match => NormalizeVersionDisplay(match.Value));
     }
 
     private static string FirstNonEmpty(params string[] values)

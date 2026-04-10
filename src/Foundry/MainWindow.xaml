@@ -106,6 +106,9 @@
                 <MenuItem Header="{Binding Strings[MenuTools]}">
                     <MenuItem Command="{Binding OpenLogFolderCommand}" Header="{Binding Strings[MenuLogs]}" />
                 </MenuItem>
+                <MenuItem Header="{Binding Strings[MenuDebug]}" Visibility="{Binding IsDebugMenuVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{Binding Strings[MenuDebugCheckForUpdates]}" />
+                </MenuItem>
                 <MenuItem Header="{Binding Strings[MenuHelp]}">
                     <MenuItem Command="{Binding OpenDocumentationCommand}" Header="{Binding Strings[MenuDocumentation]}" />
                     <MenuItem Command="{Binding OpenGitHubRepositoryCommand}" Header="{Binding Strings[MenuGitHubRepository]}" />

@@ -26,14 +26,29 @@ public sealed partial class UpdateAvailableDialogViewModel : LocalizedViewModelB
 
     public string ReleaseTitle => _updateInfo.ReleaseTitle;
 
+    public bool HasDistinctReleaseTitle =>
+        !string.IsNullOrWhiteSpace(ReleaseTitle) &&
+        !ReleaseTitle.Contains(LatestVersion, StringComparison.OrdinalIgnoreCase);
+
     public string PublishedAtDisplay => _updateInfo.PublishedAt?.ToLocalTime().ToString("f", LocalizationService.CurrentCulture)
         ?? Strings["UpdateAvailablePublishedUnknown"];
 
-    public string ReleaseNotes => string.IsNullOrWhiteSpace(_updateInfo.ReleaseNotes)
+    public string ReleaseNotesMarkdown => string.IsNullOrWhiteSpace(_updateInfo.ReleaseNotes)
         ? Strings["UpdateAvailableNotesEmpty"]
         : _updateInfo.ReleaseNotes;
 
+    public string AvailabilitySummary => string.Format(
+        LocalizationService.CurrentCulture,
+        Strings["UpdateAvailableSummaryFormat"],
+        _updateInfo.SummaryReleaseTitle,
+        CurrentVersion);
+
     public event EventHandler? CloseRequested;
+
+    public void OpenExternalUrl(string url)
+    {
+        _applicationShellService.OpenUrl(url);
+    }
 
     [RelayCommand]
     private void OpenRelease()

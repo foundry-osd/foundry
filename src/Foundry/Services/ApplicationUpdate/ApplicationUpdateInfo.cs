@@ -6,4 +6,10 @@ public sealed record ApplicationUpdateInfo(
     string ReleaseTitle,
     string ReleaseUrl,
     DateTimeOffset? PublishedAt,
-    string ReleaseNotes);
+    string ReleaseNotes)
+{
+    public string SummaryReleaseTitle =>
+        string.IsNullOrWhiteSpace(ReleaseTitle)
+            ? LatestVersion
+            : ReleaseTitle;
+}

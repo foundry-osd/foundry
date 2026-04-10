@@ -141,6 +141,12 @@
   <data name="MenuTools" xml:space="preserve">
     <value>_Tools</value>
   </data>
+  <data name="MenuDebug" xml:space="preserve">
+    <value>_Debug</value>
+  </data>
+  <data name="MenuDebugCheckForUpdates" xml:space="preserve">
+    <value>Show _Update Check</value>
+  </data>
   <data name="MenuLogs" xml:space="preserve">
     <value>Open _Log Folder</value>
   </data>
@@ -184,16 +190,16 @@
     <value>Update available</value>
   </data>
   <data name="UpdateAvailableHeading" xml:space="preserve">
-    <value>A newer version of Foundry is available.</value>
+    <value>A new version of Foundry is available!</value>
   </data>
-  <data name="UpdateAvailableDescription" xml:space="preserve">
-    <value>Foundry found a newer stable release on GitHub. This application does not download or install updates automatically.</value>
+  <data name="UpdateAvailableSummaryFormat" xml:space="preserve">
+    <value>{0} is available. You are running {1}.</value>
   </data>
   <data name="UpdateAvailableCurrentVersionLabel" xml:space="preserve">
     <value>Current version</value>
   </data>
   <data name="UpdateAvailableLatestVersionLabel" xml:space="preserve">
-    <value>Latest version</value>
+    <value>New version</value>
   </data>
   <data name="UpdateAvailableReleaseLabel" xml:space="preserve">
     <value>Release</value>

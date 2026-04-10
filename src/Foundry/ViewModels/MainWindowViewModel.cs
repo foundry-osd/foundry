@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -132,6 +133,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool ShowUsbPartitionStyleArm64Hint => SelectedArchitecture == WinPeArchitecture.Arm64;
     public string UsbPartitionStyleArm64Hint => Strings["UsbPartitionStyleArm64Hint"];
     public bool IsStandardMode => !IsExpertMode;
+    public bool IsDebugMenuVisible => IsVisualStudioDebugSession();
 
     private static string StagingDirectoryPath => WinPeDefaults.GetWinPeWorkspaceRootPath();
 
@@ -1039,5 +1041,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         _dispatcher.Invoke(action);
+    }
+
+    private static bool IsVisualStudioDebugSession()
+    {
+#if DEBUG
+        return Debugger.IsAttached;
+#else
+        return false;
+#endif
     }
 }
