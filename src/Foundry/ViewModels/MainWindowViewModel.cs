@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Logging;
 using Foundry.Models.Configuration;
 using Foundry.Services.Adk;
+using Foundry.Services.ApplicationUpdate;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -27,6 +28,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private const string IsoVolumeLabel = "FOUNDRY_WINPE";
 
     private readonly IApplicationShellService _applicationShellService;
+    private readonly IApplicationUpdateService _applicationUpdateService;
     private readonly IThemeService _themeService;
     private readonly ILocalizationService _localizationService;
     private readonly IOperationProgressService _operationProgressService;
@@ -135,6 +137,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public MainWindowViewModel(
         IApplicationShellService applicationShellService,
+        IApplicationUpdateService applicationUpdateService,
         IThemeService themeService,
         ILocalizationService localizationService,
         IOperationProgressService operationProgressService,
@@ -148,6 +151,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         ILogger<MainWindowViewModel> logger)
     {
         _applicationShellService = applicationShellService;
+        _applicationUpdateService = applicationUpdateService;
         _themeService = themeService;
         _localizationService = localizationService;
         _operationProgressService = operationProgressService;
@@ -224,9 +228,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private void CheckForUpdates()
+    private Task CheckForUpdatesAsync()
     {
-        _applicationShellService.OpenUrl(FoundryApplicationInfo.LatestReleaseUrl);
+        return _applicationUpdateService.CheckForUpdatesAsync();
+    }
+
+    public Task RunStartupUpdateCheckAsync()
+    {
+        return _applicationUpdateService.CheckForUpdatesOnStartupAsync();
     }
 
     [RelayCommand]

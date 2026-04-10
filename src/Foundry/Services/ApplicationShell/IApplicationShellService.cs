@@ -1,4 +1,6 @@
+using System.Windows;
 using Foundry.Models.Configuration;
+using Foundry.Services.ApplicationUpdate;
 
 namespace Foundry.Services.ApplicationShell;
 
@@ -7,6 +9,8 @@ public interface IApplicationShellService
     void Shutdown();
 
     void ShowAbout();
+
+    void ShowUpdateAvailable(ApplicationUpdateInfo updateInfo);
 
     void OpenUrl(string url);
 
@@ -21,6 +25,8 @@ public interface IApplicationShellService
     string? PickFolderPath(string title, string? initialPath = null);
 
     void OpenFolder(string path);
+
+    void ShowMessage(string title, string message, MessageBoxImage image);
 
     bool ConfirmWarning(string title, string message);
 }

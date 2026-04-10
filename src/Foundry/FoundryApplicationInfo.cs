@@ -12,6 +12,7 @@ public static class FoundryApplicationInfo
     public const string RepositoryUrl = RepositoryBaseUrl;
     public const string IssuesUrl = RepositoryBaseUrl + "/issues";
     public const string LatestReleaseUrl = RepositoryBaseUrl + "/releases/latest";
+    public const string LatestReleaseApiUrl = "https://api.github.com/repos/mchave3/Foundry/releases/latest";
     public const string LicenseUrl = RepositoryBaseUrl + "/blob/main/LICENSE";
     public const string AuthorsUrl = RepositoryBaseUrl + "/graphs/contributors";
     public const string SupportUrl = IssuesUrl;
