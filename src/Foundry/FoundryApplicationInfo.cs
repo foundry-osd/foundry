@@ -4,7 +4,7 @@ namespace Foundry;
 
 public static class FoundryApplicationInfo
 {
-    private const string RepositoryBaseUrl = "https://github.com/mchave3/Foundry";
+    private const string RepositoryBaseUrl = "https://github.com/foundry-osd/foundry";
     private static readonly string AppVersion = ResolveVersion();
 
     public const string AppName = "Foundry";
@@ -12,7 +12,7 @@ public static class FoundryApplicationInfo
     public const string RepositoryUrl = RepositoryBaseUrl;
     public const string IssuesUrl = RepositoryBaseUrl + "/issues";
     public const string LatestReleaseUrl = RepositoryBaseUrl + "/releases/latest";
-    public const string LatestReleaseApiUrl = "https://api.github.com/repos/mchave3/Foundry/releases/latest";
+    public const string LatestReleaseApiUrl = "https://api.github.com/repos/foundry-osd/foundry/releases/latest";
     public const string LicenseUrl = RepositoryBaseUrl + "/blob/main/LICENSE";
     public const string AuthorsUrl = RepositoryBaseUrl + "/graphs/contributors";
     public const string SupportUrl = IssuesUrl;

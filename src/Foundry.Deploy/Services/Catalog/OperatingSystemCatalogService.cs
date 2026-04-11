@@ -9,7 +9,7 @@ namespace Foundry.Deploy.Services.Catalog;
 
 public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogService
 {
-    private const string CatalogUri = "https://raw.githubusercontent.com/mchave3/Foundry.Automation/refs/heads/main/Cache/OS/OperatingSystem.xml";
+    private const string CatalogUri = "https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/OS/OperatingSystem.xml";
     private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<OperatingSystemCatalogService> _logger;
 

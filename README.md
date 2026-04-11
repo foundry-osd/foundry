@@ -5,11 +5,11 @@
 <h1 align="center">Foundry</h1>
 
 <p align="center">
-  <a href="https://github.com/mchave3/Foundry/releases/latest"><img src="https://img.shields.io/github/v/release/mchave3/Foundry?display_name=tag&sort=semver&style=flat-square&label=Version" alt="Latest release"></a>
-  <a href="https://github.com/mchave3/Foundry/releases"><img src="https://img.shields.io/github/downloads/mchave3/Foundry/total?style=flat-square&label=Downloads" alt="Total release asset downloads"></a>
-  <a href="https://github.com/mchave3/Foundry/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/mchave3/Foundry/ci.yml?branch=main&style=flat-square&label=CI" alt="Foundry CI"></a>
-  <a href="https://github.com/mchave3/Foundry.Automation/actions/workflows/run-scripts-daily.yml"><img src="https://img.shields.io/github/actions/workflow/status/mchave3/Foundry.Automation/run-scripts-daily.yml?branch=main&style=flat-square&label=Catalog" alt="Foundry.Automation"></a>
-  <a href="https://github.com/mchave3/Foundry/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mchave3/Foundry?style=flat-square&label=License" alt="License"></a>
+  <a href="https://github.com/foundry-osd/foundry/releases/latest"><img src="https://img.shields.io/github/v/release/foundry-osd/foundry?display_name=tag&sort=semver&style=flat-square&label=Version" alt="Latest release"></a>
+  <a href="https://github.com/foundry-osd/foundry/releases"><img src="https://img.shields.io/github/downloads/foundry-osd/foundry/total?style=flat-square&label=Downloads" alt="Total release asset downloads"></a>
+  <a href="https://github.com/foundry-osd/foundry/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/foundry-osd/foundry/ci.yml?branch=main&style=flat-square&label=CI" alt="Foundry CI"></a>
+  <a href="https://github.com/foundry-osd/catalog/actions/workflows/run-scripts-daily.yml"><img src="https://img.shields.io/github/actions/workflow/status/foundry-osd/catalog/run-scripts-daily.yml?branch=main&style=flat-square&label=Catalog" alt="catalog"></a>
+  <a href="https://github.com/foundry-osd/foundry/blob/main/LICENSE"><img src="https://img.shields.io/github/license/foundry-osd/foundry?style=flat-square&label=License" alt="License"></a>
   <img src="https://img.shields.io/badge/Windows-11-2563EB?style=flat-square" alt="Windows 11">
   <img src="https://img.shields.io/badge/Architecture-x64%20%2F%20ARM64-2563EB?style=flat-square" alt="Architecture x64 / ARM64">
   <img src="https://img.shields.io/badge/.NET-10-2563EB?style=flat-square" alt=".NET 10">
@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mchave3/Foundry/releases">Releases</a>
+  <a href="https://github.com/foundry-osd/foundry/releases">Releases</a>
   ·
-  <a href="https://github.com/mchave3/Foundry/issues">Issues</a>
+  <a href="https://github.com/foundry-osd/foundry/issues">Issues</a>
   ·
-  <a href="https://github.com/mchave3/Foundry/blob/main/LICENSE">License</a>
+  <a href="https://github.com/foundry-osd/foundry/blob/main/LICENSE">License</a>
 </p>
 
 ![Foundry preview](Assets/GitHub/social-preview.png)
@@ -60,7 +60,7 @@ Instead of relying on a fully manual process, Foundry helps you boot a device, s
 
 ### Use a release
 
-Download the latest packaged build from the [Releases](https://github.com/mchave3/Foundry/releases) page.
+Download the latest packaged build from the [Releases](https://github.com/foundry-osd/foundry/releases) page.
 
 Use Foundry to create deployment media, then boot that media on the target device to start the deployment experience.
 
@@ -93,7 +93,7 @@ Today, Foundry focuses on Windows 11 deployment for versions `23H2`, `24H2`, and
 
 ## Contributing
 
-Foundry is intended to stay approachable for open source contributors. If you want to improve the deployment experience, report a bug, refine the workflow, or propose a new capability, start with an [issue](https://github.com/mchave3/Foundry/issues) or open a pull request directly.
+Foundry is intended to stay approachable for open source contributors. If you want to improve the deployment experience, report a bug, refine the workflow, or propose a new capability, start with an [issue](https://github.com/foundry-osd/foundry/issues) or open a pull request directly.
 
 Small, focused contributions are preferred.
 
