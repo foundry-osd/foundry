@@ -154,7 +154,7 @@ internal sealed class WinPeLocalConnectEmbeddingService : IWinPeLocalConnectEmbe
 
     private async Task<ReleaseAssetInfo> ResolveReleaseAssetAsync(string assetName, CancellationToken cancellationToken)
     {
-        using HttpRequestMessage request = new(HttpMethod.Get, "https://api.github.com/repos/mchave3/Foundry/releases/latest");
+        using HttpRequestMessage request = new(HttpMethod.Get, "https://api.github.com/repos/foundry-osd/foundry/releases/latest");
         using HttpResponseMessage response = await HttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
