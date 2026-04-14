@@ -130,7 +130,7 @@ jobs:
                   throw "Expected Foundry executable not found: '$foundryExecutable'."
               }
 
-              $foundryAssetPath = Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_${architecture}.exe"
+              $foundryAssetPath = Join-Path $releaseRoot "Foundry-${architecture}.exe"
               Copy-Item -Path $foundryExecutable -Destination $foundryAssetPath -Force
 
               $deployPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Deploy' $runtimeIdentifier)
@@ -164,8 +164,8 @@ jobs:
           $releaseTag = '${{ github.event.release.tag_name }}'
           $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts\release'
           $assets = @(
-              (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_x64.exe"),
-              (Join-Path $releaseRoot "Foundry-$($env:RELEASE_VERSION)_arm64.exe"),
+              (Join-Path $releaseRoot 'Foundry-x64.exe'),
+              (Join-Path $releaseRoot 'Foundry-arm64.exe'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
