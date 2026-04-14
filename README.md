@@ -28,6 +28,17 @@
   <a href="https://github.com/foundry-osd/foundry/blob/main/LICENSE">License</a>
 </p>
 
+## Download
+
+Use the direct links below to always download the latest Foundry installer for your architecture.
+
+| Architecture | Installer | Download |
+| --- | --- | --- |
+| x64 | `Foundry-x64.exe` | [Download latest x64](https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-x64.exe) |
+| ARM64 | `Foundry-arm64.exe` | [Download latest ARM64](https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-arm64.exe) |
+
+Need release notes or checksums? Open the [latest release](https://github.com/foundry-osd/foundry/releases/latest) or browse [all releases](https://github.com/foundry-osd/foundry/releases).
+
 ![Foundry preview](Assets/GitHub/social-preview.png)
 
 ## What Foundry Does
@@ -60,7 +71,7 @@ Instead of relying on a fully manual process, Foundry helps you boot a device, s
 
 ### Use a release
 
-Download the latest packaged build from the [Releases](https://github.com/foundry-osd/foundry/releases) page.
+Download the latest packaged build from the [Download](#download) section above or from the [Releases](https://github.com/foundry-osd/foundry/releases) page.
 
 Use Foundry to create deployment media, then boot that media on the target device to start the deployment experience.
 
