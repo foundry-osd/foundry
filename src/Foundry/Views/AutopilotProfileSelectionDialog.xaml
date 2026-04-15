@@ -1,8 +1,8 @@
-<Window
+﻿<Window
     x:Class="Foundry.Views.AutopilotProfileSelectionDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="{Binding Strings[AutopilotTenantPickerTitle]}"
+    Title="{Binding Strings[Autopilot.TenantPickerTitle]}"
     Width="880"
     Height="620"
     MinWidth="720"
@@ -29,7 +29,7 @@
             FontSize="24"
             FontWeight="SemiBold"
             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-            Text="{Binding Strings[AutopilotTenantPickerTitle]}" />
+            Text="{Binding Strings[Autopilot.TenantPickerTitle]}" />
 
         <Grid Grid.Row="1" Margin="0,16,0,12">
             <Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
             <StackPanel Grid.Column="0">
                 <TextBlock
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                    Text="{Binding Strings[AutopilotTenantPickerDescription]}"
+                    Text="{Binding Strings[Autopilot.TenantPickerDescription]}"
                     TextWrapping="Wrap" />
                 <TextBlock
                     Margin="0,6,0,0"
@@ -55,13 +55,13 @@
                 MinWidth="110"
                 Margin="12,0,8,0"
                 Command="{Binding SelectAllCommand}"
-                Content="{Binding Strings[AutopilotTenantPickerSelectAll]}" />
+                Content="{Binding Strings[Autopilot.TenantPickerSelectAll]}" />
 
             <Button
                 Grid.Column="2"
                 MinWidth="110"
                 Command="{Binding ClearSelectionCommand}"
-                Content="{Binding Strings[AutopilotTenantPickerClear]}" />
+                Content="{Binding Strings[Autopilot.TenantPickerClear]}" />
         </Grid>
 
         <Border
@@ -86,12 +86,12 @@
                         </GridViewColumn>
                         <GridViewColumn Width="240" DisplayMemberBinding="{Binding DisplayName}">
                             <GridViewColumn.Header>
-                                <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnName], ElementName=ProfilesListView}" />
+                                <TextBlock Text="{Binding DataContext.Strings[Autopilot.ColumnName], ElementName=ProfilesListView}" />
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn Width="460" DisplayMemberBinding="{Binding FolderName}">
                             <GridViewColumn.Header>
-                                <TextBlock Text="{Binding DataContext.Strings[AutopilotColumnFolder], ElementName=ProfilesListView}" />
+                                <TextBlock Text="{Binding DataContext.Strings[Autopilot.ColumnFolder], ElementName=ProfilesListView}" />
                             </GridViewColumn.Header>
                         </GridViewColumn>
                     </GridView>
@@ -108,12 +108,12 @@
                 Width="120"
                 Margin="0,0,8,0"
                 Command="{Binding CancelCommand}"
-                Content="{Binding Strings[AutopilotTenantPickerCancel]}"
+                Content="{Binding Strings[Autopilot.TenantPickerCancel]}"
                 IsCancel="True" />
             <Button
                 Width="120"
                 Command="{Binding ImportSelectedProfilesCommand}"
-                Content="{Binding Strings[AutopilotTenantPickerImport]}"
+                Content="{Binding Strings[Autopilot.TenantPickerImport]}"
                 IsDefault="True"
                 Style="{DynamicResource AccentButtonStyle}" />
         </StackPanel>

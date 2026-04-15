@@ -1,4 +1,4 @@
-using Foundry.Models.Configuration;
+﻿using Foundry.Models.Configuration;
 using Foundry.Services.ApplicationUpdate;
 using Foundry.Services.Localization;
 using Foundry.ViewModels;
@@ -84,8 +84,8 @@ public sealed class ApplicationShellService : IApplicationShellService
         StringsWrapper strings = _localizationService.Strings;
         var dialog = new SaveFileDialog
         {
-            Title = strings["IsoPickerTitle"],
-            Filter = strings["IsoPickerFilter"],
+            Title = strings["General.IsoPickerTitle"],
+            Filter = strings["General.IsoPickerFilter"],
             DefaultExt = ".iso",
             AddExtension = true,
             FileName = string.IsNullOrWhiteSpace(defaultFileName) ? "foundry-winpe.iso" : defaultFileName,

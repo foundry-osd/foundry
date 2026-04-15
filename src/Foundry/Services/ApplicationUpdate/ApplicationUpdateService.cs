@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -98,8 +98,8 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                     if (notifyWhenCurrent)
                     {
                         _applicationShellService.ShowMessage(
-                            _localizationService.Strings["UpdateCheckUpToDateTitle"],
-                            _localizationService.Strings["UpdateCheckUpToDateMessage"],
+                            _localizationService.Strings["UpdateCheck.UpToDateTitle"],
+                            _localizationService.Strings["UpdateCheck.UpToDateMessage"],
                             MessageBoxImage.Information);
                     }
                     break;
@@ -109,8 +109,8 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                     if (notifyWhenFailure)
                     {
                         _applicationShellService.ShowMessage(
-                            _localizationService.Strings["UpdateCheckFailedTitle"],
-                            _localizationService.Strings["UpdateCheckFailedMessage"],
+                            _localizationService.Strings["UpdateCheck.FailedTitle"],
+                            _localizationService.Strings["UpdateCheck.FailedMessage"],
                             MessageBoxImage.Error);
                     }
                     break;

@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Models.Configuration;
 using Foundry.Services.ApplicationShell;
@@ -225,8 +225,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseDot1xProfileTemplate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["NetworkProfileTemplatePickerTitle"],
-            Strings["NetworkProfileTemplatePickerFilter"]);
+            Strings["Network.ProfileTemplatePickerTitle"],
+            Strings["Network.ProfileTemplatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             Dot1xProfileTemplatePath = selectedPath;
@@ -237,8 +237,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseDot1xCertificate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["Dot1xCertificatePickerTitle"],
-            Strings["CertificatePickerFilter"]);
+            Strings["Dot1x.CertificatePickerTitle"],
+            Strings["Common.CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             Dot1xCertificatePath = selectedPath;
@@ -249,8 +249,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseWifiEnterpriseProfileTemplate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["NetworkProfileTemplatePickerTitle"],
-            Strings["NetworkProfileTemplatePickerFilter"]);
+            Strings["Network.ProfileTemplatePickerTitle"],
+            Strings["Network.ProfileTemplatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             WifiEnterpriseProfileTemplatePath = selectedPath;
@@ -261,8 +261,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseWifiCertificate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["WifiCertificatePickerTitle"],
-            Strings["CertificatePickerFilter"]);
+            Strings["Wifi.CertificatePickerTitle"],
+            Strings["Common.CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             WifiCertificatePath = selectedPath;
@@ -365,12 +365,12 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     {
         ReplaceCollection(WifiSecurityTypes,
         [
-            new SecurityTypeOption(WifiSecurityOpen, Strings["WifiSecurityTypeOpen"]),
-            new SecurityTypeOption(WifiSecurityOwe, Strings["WifiSecurityTypeOwe"]),
-            new SecurityTypeOption(WifiSecurityPersonal, Strings["WifiSecurityTypePersonal"]),
-            new SecurityTypeOption(WifiSecurityEnterprise, Strings["WifiSecurityTypeEnterprise"]),
-            new SecurityTypeOption(WifiSecurityEnterpriseWpa3, Strings["WifiSecurityTypeEnterpriseWpa3"]),
-            new SecurityTypeOption(WifiSecurityEnterpriseWpa3192, Strings["WifiSecurityTypeEnterpriseWpa3192"])
+            new SecurityTypeOption(WifiSecurityOpen, Strings["Wifi.SecurityTypeOpen"]),
+            new SecurityTypeOption(WifiSecurityOwe, Strings["Wifi.SecurityTypeOwe"]),
+            new SecurityTypeOption(WifiSecurityPersonal, Strings["Wifi.SecurityTypePersonal"]),
+            new SecurityTypeOption(WifiSecurityEnterprise, Strings["Wifi.SecurityTypeEnterprise"]),
+            new SecurityTypeOption(WifiSecurityEnterpriseWpa3, Strings["Wifi.SecurityTypeEnterpriseWpa3"]),
+            new SecurityTypeOption(WifiSecurityEnterpriseWpa3192, Strings["Wifi.SecurityTypeEnterpriseWpa3192"])
         ]);
 
         OnPropertyChanged(nameof(WifiSecurityTypes));
