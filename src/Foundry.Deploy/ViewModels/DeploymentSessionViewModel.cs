@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.System;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
 
-public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisposable
+public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 {
     private readonly Dispatcher _dispatcher;
     private readonly ILogger _logger;
@@ -21,6 +22,11 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IProcessRunner _processRunner;
     private readonly bool _isDebugSafeMode;
+    private string _rawDeploymentStatus = "Ready";
+    private string _rawCurrentStepName = "Waiting for deployment...";
+    private string _rawCurrentStepProgressText = "Waiting for progress...";
+    private string _rawFailedStepName = string.Empty;
+    private string _rawFailedStepErrorMessage = string.Empty;
     private DispatcherTimer? _elapsedTimeTimer;
     private DispatcherTimer? _rebootCountdownTimer;
     private DateTimeOffset? _deploymentStartTimeUtc;
@@ -37,7 +43,9 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         IOperationProgressService operationProgressService,
         IDeploymentOrchestrator deploymentOrchestrator,
         IProcessRunner processRunner,
+        ILocalizationService localizationService,
         bool isDebugSafeMode)
+        : base(localizationService)
     {
         _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -48,6 +56,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
+        LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
     }
 
     [ObservableProperty]
@@ -63,7 +72,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     private DeploymentPage currentPage = DeploymentPage.Splash;
 
     [ObservableProperty]
-    private string deploymentStatus = "Ready";
+    private string deploymentStatus = LocalizationText.GetString("Status.Ready");
 
     [ObservableProperty]
     private int deploymentProgress;
@@ -75,10 +84,10 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     private string globalProgressPercentText = "0%";
 
     [ObservableProperty]
-    private string currentStepName = "Waiting for deployment...";
+    private string currentStepName = LocalizationText.GetString("Status.WaitingForDeployment");
 
     [ObservableProperty]
-    private string stepCounterText = "Step: ? of ?";
+    private string stepCounterText = LocalizationText.GetString("Status.StepCounterUnknown");
 
     [ObservableProperty]
     private double currentStepProgress;
@@ -87,31 +96,32 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     private bool isCurrentStepProgressIndeterminate = true;
 
     [ObservableProperty]
-    private string currentStepProgressText = "Waiting for progress...";
+    private string currentStepProgressText = LocalizationText.GetString("Status.WaitingForProgress");
 
     [ObservableProperty]
     private string computerNameText = string.Empty;
 
     [ObservableProperty]
-    private string ipAddress = "N/A";
+    private string ipAddress = LocalizationText.GetString("Common.NotAvailable");
 
     [ObservableProperty]
-    private string subnetMask = "N/A";
+    private string subnetMask = LocalizationText.GetString("Common.NotAvailable");
 
     [ObservableProperty]
-    private string gatewayAddress = "N/A";
+    private string gatewayAddress = LocalizationText.GetString("Common.NotAvailable");
 
     [ObservableProperty]
-    private string macAddress = "N/A";
+    private string macAddress = LocalizationText.GetString("Common.NotAvailable");
 
     [ObservableProperty]
-    private string startTimeText = "N/A";
+    private string startTimeText = LocalizationText.GetString("Common.NotAvailable");
 
     [ObservableProperty]
     private string elapsedTimeText = "00:00:00";
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
+    [NotifyPropertyChangedFor(nameof(RebootCountdownText))]
     private int rebootCountdownSeconds = 10;
 
     [ObservableProperty]
@@ -133,10 +143,12 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     public bool IsStartupReady => !IsStartupInitializing;
 
     public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
+    public string RebootCountdownText => Format("Success.RebootCountdownFormat", RebootCountdownSeconds);
 
     public void SetStatus(string status)
     {
-        DeploymentStatus = status;
+        _rawDeploymentStatus = status;
+        DeploymentStatus = DeploymentUiTextLocalizer.LocalizeMessage(status);
     }
 
     public void SetComputerName(string computerName)
@@ -170,10 +182,10 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
 
         DeploymentProgress = 0;
         UpdateGlobalProgressVisuals(0);
-        CurrentStepName = "Preparing deployment...";
+        SetCurrentStepName("Preparing deployment...");
         CurrentStepProgress = 0;
         IsCurrentStepProgressIndeterminate = true;
-        CurrentStepProgressText = "Waiting for progress...";
+        SetCurrentStepProgressText("Waiting for progress...");
         StepCounterText = BuildStepCounterText(0);
         ComputerNameText = computerName;
         CaptureNetworkSnapshot();
@@ -183,7 +195,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         ElapsedTimeText = "00:00:00";
         StartElapsedTimeTracking();
 
-        DeploymentStatus = "Deployment started.";
+        SetStatus("Deployment started.");
         CurrentPage = DeploymentPage.Progress;
     }
 
@@ -191,7 +203,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     {
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? string.Empty;
-        DeploymentStatus = status;
+        SetStatus(status);
         CurrentPage = DeploymentPage.Success;
     }
 
@@ -200,7 +212,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? _lastLogsDirectoryPath;
         SetFailureDetails(stepName, errorMessage);
-        DeploymentStatus = status;
+        SetStatus(status);
         CurrentPage = DeploymentPage.Error;
     }
 
@@ -237,17 +249,17 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         DeploymentProgress = progressPercent;
         UpdateGlobalProgressVisuals(progressPercent);
         ComputerNameText = computerName;
-        CurrentStepName = currentStepName;
+        SetCurrentStepName(currentStepName);
         StepCounterText = BuildStepCounterText(currentStepIndex);
         CurrentStepProgress = 65;
         IsCurrentStepProgressIndeterminate = false;
-        CurrentStepProgressText = "Applying image: 65%";
+        SetCurrentStepProgressText("Applying image: 65%");
         CaptureNetworkSnapshot();
         _deploymentStartTimeUtc = DateTimeOffset.Now;
         StartTimeText = _deploymentStartTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         ElapsedTimeText = "00:00:00";
         StartElapsedTimeTracking();
-        DeploymentStatus = "Debug preview: progress page.";
+        SetStatus("Debug preview: progress page.");
         CurrentPage = DeploymentPage.Progress;
     }
 
@@ -260,12 +272,12 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         DeploymentProgress = 100;
         UpdateGlobalProgressVisuals(100);
         ComputerNameText = computerName;
-        CurrentStepName = finalStepName;
+        SetCurrentStepName(finalStepName);
         StepCounterText = BuildStepCounterText(plannedStepCount);
         CurrentStepProgress = 100;
         IsCurrentStepProgressIndeterminate = false;
-        CurrentStepProgressText = "Step completed.";
-        DeploymentStatus = "Debug preview: success page.";
+        SetCurrentStepProgressText("Step completed.");
+        SetStatus("Debug preview: success page.");
         CurrentPage = DeploymentPage.Success;
     }
 
@@ -276,7 +288,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         ComputerNameText = computerName;
         StepCounterText = BuildStepCounterText(currentStepIndex);
         SetFailureDetails(failedStepName, failedStepErrorMessage);
-        DeploymentStatus = "Debug preview: error page.";
+        SetStatus("Debug preview: error page.");
         CurrentPage = DeploymentPage.Error;
     }
 
@@ -297,7 +309,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to open log file.");
-            DeploymentStatus = $"Unable to open log file: {ex.Message}";
+            SetStatus($"Unable to open log file: {ex.Message}");
         }
     }
 
@@ -324,7 +336,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
 
             if (!string.IsNullOrWhiteSpace(_operationProgressService.Status))
             {
-                DeploymentStatus = _operationProgressService.Status!;
+                SetStatus(_operationProgressService.Status!);
             }
         });
     }
@@ -338,11 +350,11 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
                 _activeStepIndex = stepProgress.StepIndex;
                 CurrentStepProgress = 0;
                 IsCurrentStepProgressIndeterminate = true;
-                CurrentStepProgressText = "Starting step...";
+                SetCurrentStepProgressText("Starting step...");
             }
 
-            CurrentStepName = stepProgress.StepName;
-            StepCounterText = $"Step: {stepProgress.StepIndex} of {stepProgress.StepCount}";
+            SetCurrentStepName(stepProgress.StepName);
+            StepCounterText = BuildStepCounterText(stepProgress.StepIndex);
 
             DeploymentProgress = Math.Max(DeploymentProgress, stepProgress.ProgressPercent);
             UpdateGlobalProgressVisuals(DeploymentProgress);
@@ -350,7 +362,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
 
             if (!string.IsNullOrWhiteSpace(stepProgress.Message))
             {
-                DeploymentStatus = stepProgress.Message;
+                SetStatus(stepProgress.Message);
             }
 
             if (stepProgress.State == DeploymentStepState.Failed)
@@ -360,7 +372,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         });
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         if (_isDisposed)
         {
@@ -369,9 +381,11 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
 
         _operationProgressService.ProgressChanged -= OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged -= OnStepProgressChanged;
+        LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
         StopElapsedTimeTracking();
         StopRebootCountdown(resetSeconds: false);
         _isDisposed = true;
+        base.Dispose();
     }
 
     partial void OnCurrentPageChanged(DeploymentPage value)
@@ -406,21 +420,21 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         {
             CurrentStepProgress = 100;
             IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = stepProgress.StepSubProgressLabel ?? "Step completed.";
+            SetCurrentStepProgressText(stepProgress.StepSubProgressLabel ?? "Step completed.");
             return;
         }
 
         if (stepProgress.State == DeploymentStepState.Failed)
         {
             IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = stepProgress.Message ?? "Step failed.";
+            SetCurrentStepProgressText(stepProgress.Message ?? "Step failed.");
             return;
         }
 
         if (stepProgress.State == DeploymentStepState.Skipped)
         {
             IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = stepProgress.Message ?? "Step skipped.";
+            SetCurrentStepProgressText(stepProgress.Message ?? "Step skipped.");
             return;
         }
 
@@ -429,16 +443,16 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
             double normalized = Math.Clamp(stepProgress.StepSubProgressPercent.Value, 0d, 100d);
             CurrentStepProgress = normalized;
             IsCurrentStepProgressIndeterminate = false;
-            CurrentStepProgressText = string.IsNullOrWhiteSpace(stepProgress.StepSubProgressLabel)
+            SetCurrentStepProgressText(string.IsNullOrWhiteSpace(stepProgress.StepSubProgressLabel)
                 ? $"{normalized:0.#}%"
-                : stepProgress.StepSubProgressLabel!;
+                : stepProgress.StepSubProgressLabel!);
             return;
         }
 
         if (stepProgress.StepSubProgressIndeterminate)
         {
             IsCurrentStepProgressIndeterminate = true;
-            CurrentStepProgressText = stepProgress.StepSubProgressLabel ?? "In progress...";
+            SetCurrentStepProgressText(stepProgress.StepSubProgressLabel ?? "In progress...");
         }
     }
 
@@ -546,7 +560,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
                 throw new FileNotFoundException("Required reboot executable 'wpeutil.exe' was not found.", rebootExecutablePath);
             }
 
-            DeploymentStatus = "Rebooting now...";
+            SetStatus("Rebooting now...");
 
             ProcessExecutionResult result = await _processRunner
                 .RunAsync(rebootExecutablePath, "Reboot", Path.GetTempPath())
@@ -563,7 +577,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
                     ? result.StandardOutput
                     : result.StandardError;
                 SetFailureDetails("System reboot", $"wpeutil.exe failed with exit code {result.ExitCode}. {diagnostic}".Trim());
-                DeploymentStatus = "Reboot command failed.";
+                SetStatus("Reboot command failed.");
                 CurrentPage = DeploymentPage.Error;
             });
         }
@@ -572,7 +586,7 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
             RunOnUi(() =>
             {
                 SetFailureDetails("System reboot", ex.Message);
-                DeploymentStatus = $"Reboot command failed: {ex.Message}";
+                SetStatus($"Reboot command failed: {ex.Message}");
                 CurrentPage = DeploymentPage.Error;
             });
         }
@@ -588,22 +602,27 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
 
     private void SetFailureDetails(string? stepName, string? errorMessage)
     {
-        FailedStepName = string.IsNullOrWhiteSpace(stepName) ? "Unknown step" : stepName;
-        FailedStepErrorMessage = string.IsNullOrWhiteSpace(errorMessage) ? "No error details were provided." : errorMessage;
+        _rawFailedStepName = string.IsNullOrWhiteSpace(stepName) ? "Unknown step" : stepName;
+        _rawFailedStepErrorMessage = string.IsNullOrWhiteSpace(errorMessage) ? "No error details were provided." : errorMessage;
+        FailedStepName = DeploymentUiTextLocalizer.LocalizeStepName(_rawFailedStepName);
+        FailedStepErrorMessage = DeploymentUiTextLocalizer.LocalizeMessage(_rawFailedStepErrorMessage);
     }
 
     private void ClearFailureDetails()
     {
+        _rawFailedStepName = string.Empty;
+        _rawFailedStepErrorMessage = string.Empty;
         FailedStepName = string.Empty;
         FailedStepErrorMessage = string.Empty;
     }
 
     private void CaptureNetworkSnapshot()
     {
-        IpAddress = "N/A";
-        SubnetMask = "N/A";
-        GatewayAddress = "N/A";
-        MacAddress = "N/A";
+        string notAvailable = GetString("Common.NotAvailable");
+        IpAddress = notAvailable;
+        SubnetMask = notAvailable;
+        GatewayAddress = notAvailable;
+        MacAddress = notAvailable;
 
         try
         {
@@ -632,10 +651,10 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
                 byte[] macBytes = networkInterface.GetPhysicalAddress().GetAddressBytes();
 
                 IpAddress = ipv4AddressInfo.Address.ToString();
-                SubnetMask = ipv4AddressInfo.IPv4Mask?.ToString() ?? "N/A";
-                GatewayAddress = gatewayInfo?.Address.ToString() ?? "N/A";
+                SubnetMask = ipv4AddressInfo.IPv4Mask?.ToString() ?? notAvailable;
+                GatewayAddress = gatewayInfo?.Address.ToString() ?? notAvailable;
                 MacAddress = macBytes.Length == 0
-                    ? "N/A"
+                    ? notAvailable
                     : string.Join("-", macBytes.Select(value => value.ToString("X2", CultureInfo.InvariantCulture)));
                 return;
             }
@@ -650,11 +669,11 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
     {
         if (_plannedStepCount <= 0)
         {
-            return "Step: ? of ?";
+            return GetString("Status.StepCounterUnknown");
         }
 
         int normalizedStep = Math.Clamp(currentStep, 0, _plannedStepCount);
-        return $"Step: {normalizedStep} of {_plannedStepCount}";
+        return Format("Status.StepCounterFormat", normalizedStep, _plannedStepCount);
     }
 
     private string ResolveEffectiveLogFilePath()
@@ -676,5 +695,46 @@ public sealed partial class DeploymentSessionViewModel : ObservableObject, IDisp
         }
 
         _dispatcher.Invoke(action);
+    }
+
+    private void SetCurrentStepName(string value)
+    {
+        _rawCurrentStepName = value;
+        CurrentStepName = DeploymentUiTextLocalizer.LocalizeStepName(value);
+    }
+
+    private void SetCurrentStepProgressText(string value)
+    {
+        _rawCurrentStepProgressText = value;
+        CurrentStepProgressText = DeploymentUiTextLocalizer.LocalizeMessage(value);
+    }
+
+    private void OnLocalizationLanguageChanged(object? sender, EventArgs e)
+    {
+        RunOnUiThread(() =>
+        {
+            DeploymentStatus = DeploymentUiTextLocalizer.LocalizeMessage(_rawDeploymentStatus);
+            CurrentStepName = DeploymentUiTextLocalizer.LocalizeStepName(_rawCurrentStepName);
+            CurrentStepProgressText = DeploymentUiTextLocalizer.LocalizeMessage(_rawCurrentStepProgressText);
+            FailedStepName = string.IsNullOrWhiteSpace(_rawFailedStepName)
+                ? string.Empty
+                : DeploymentUiTextLocalizer.LocalizeStepName(_rawFailedStepName);
+            FailedStepErrorMessage = string.IsNullOrWhiteSpace(_rawFailedStepErrorMessage)
+                ? string.Empty
+                : DeploymentUiTextLocalizer.LocalizeMessage(_rawFailedStepErrorMessage);
+            StepCounterText = BuildStepCounterText(_activeStepIndex);
+            OnPropertyChanged(nameof(RebootCountdownText));
+            CaptureNetworkSnapshot();
+        });
+    }
+
+    private string GetString(string key)
+    {
+        return Strings[key];
+    }
+
+    private string Format(string key, params object[] args)
+    {
+        return string.Format(LocalizationService.CurrentCulture, GetString(key), args);
     }
 }

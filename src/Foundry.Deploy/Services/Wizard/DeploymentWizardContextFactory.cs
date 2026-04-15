@@ -1,5 +1,6 @@
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging;
 
@@ -11,6 +12,7 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
+    private readonly ILocalizationService _localizationService;
     private readonly ILoggerFactory _loggerFactory;
 
     public DeploymentWizardContextFactory(
@@ -18,12 +20,14 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         IDriverPackSelectionService driverPackSelectionService,
+        ILocalizationService localizationService,
         ILoggerFactory loggerFactory)
     {
         _targetDiskService = targetDiskService;
         _hardwareProfileService = hardwareProfileService;
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _driverPackSelectionService = driverPackSelectionService;
+        _localizationService = localizationService;
         _loggerFactory = loggerFactory;
     }
 
@@ -33,6 +37,7 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
             _targetDiskService,
             _hardwareProfileService,
             _offlineWindowsComputerNameService,
+            _localizationService,
             _loggerFactory.CreateLogger<DeploymentPreparationViewModel>(),
             isDebugSafeMode);
         OperatingSystemCatalogViewModel operatingSystemCatalog = new(
@@ -40,6 +45,7 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
             Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
         DriverPackSelectionViewModel driverPackSelection = new(
             _driverPackSelectionService,
+            _localizationService,
             operatingSystemCatalog.EffectiveOsArchitecture);
 
         return new DeploymentWizardContext(
