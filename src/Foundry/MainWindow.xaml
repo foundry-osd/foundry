@@ -1,4 +1,4 @@
-<Window
+﻿<Window
     x:Class="Foundry.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -65,29 +65,29 @@
                         Command="{Binding SetStandardModeCommand}"
                         Header="{Binding Strings[Mode.Standard]}"
                         IsCheckable="True"
-                        IsChecked="{Binding IsExpertMode, Converter={StaticResource InverseBooleanConverter}}" />
+                        IsChecked="{Binding IsExpertMode, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}" />
                     <MenuItem
                         Command="{Binding SetExpertModeCommand}"
                         Header="{Binding Strings[Mode.Expert]}"
                         IsCheckable="True"
-                        IsChecked="{Binding IsExpertMode}" />
+                        IsChecked="{Binding IsExpertMode, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[Menu.Theme]}">
                     <MenuItem
                         Command="{Binding SetSystemThemeCommand}"
                         Header="{Binding Strings[Theme.System]}"
                         IsCheckable="True"
-                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=System}" />
+                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=System, Mode=OneWay}" />
                     <MenuItem
                         Command="{Binding SetLightThemeCommand}"
                         Header="{Binding Strings[Theme.Light]}"
                         IsCheckable="True"
-                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Light}" />
+                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
                     <MenuItem
                         Command="{Binding SetDarkThemeCommand}"
                         Header="{Binding Strings[Theme.Dark]}"
                         IsCheckable="True"
-                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Dark}" />
+                        IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[Menu.Language]}">
                     <MenuItem
@@ -95,13 +95,13 @@
                         CommandParameter="en-US"
                         Header="{Binding Strings[Language.English]}"
                         IsCheckable="True"
-                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=en-US}" />
+                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=en-US, Mode=OneWay}" />
                     <MenuItem
                         Command="{Binding SetCultureCommand}"
                         CommandParameter="fr-FR"
                         Header="{Binding Strings[Language.French]}"
                         IsCheckable="True"
-                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=fr-FR}" />
+                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=fr-FR, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[Menu.Tools]}">
                     <MenuItem Command="{Binding OpenLogFolderCommand}" Header="{Binding Strings[Menu.Logs]}" />
@@ -266,7 +266,7 @@
                         Height="14"
                         Maximum="100"
                         Minimum="0"
-                        Value="{Binding GlobalOperationProgress}" />
+                        Value="{Binding GlobalOperationProgress, Mode=OneWay}" />
 
                     <TextBlock
                         Grid.Row="2"
