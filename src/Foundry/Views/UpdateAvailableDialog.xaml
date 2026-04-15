@@ -1,8 +1,8 @@
-﻿<Window
+<Window
     x:Class="Foundry.Views.UpdateAvailableDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="{Binding Strings[UpdateAvailable.Title], Mode=OneWay}"
+    Title="{Binding Strings[UpdateAvailable.Title]}"
     Width="960"
     Height="760"
     MinWidth="960"
@@ -29,7 +29,7 @@
             <TextBlock
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{DynamicResource TitleLargeTextBlockStyle}"
-                Text="{Binding Strings[UpdateAvailable.Heading], Mode=OneWay}"
+                Text="{Binding Strings[UpdateAvailable.Heading]}"
                 TextWrapping="Wrap" />
             <TextBlock
                 Margin="0,12,0,0"
@@ -60,7 +60,7 @@
                     <TextBlock
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Strings[UpdateAvailable.LatestVersionLabel], Mode=OneWay}" />
+                        Text="{Binding Strings[UpdateAvailable.LatestVersionLabel]}" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource SystemFillColorSuccessBrush}"
@@ -71,7 +71,7 @@
                         <TextBlock
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{Binding Strings[UpdateAvailable.ReleaseLabel], Mode=OneWay}" />
+                            Text="{Binding Strings[UpdateAvailable.ReleaseLabel]}" />
                         <TextBlock
                             Margin="0,4,0,0"
                             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -85,7 +85,7 @@
                     <TextBlock
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Strings[UpdateAvailable.CurrentVersionLabel], Mode=OneWay}" />
+                        Text="{Binding Strings[UpdateAvailable.CurrentVersionLabel]}" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -97,7 +97,7 @@
                     <TextBlock
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Strings[UpdateAvailable.PublishedLabel], Mode=OneWay}" />
+                        Text="{Binding Strings[UpdateAvailable.PublishedLabel]}" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -117,7 +117,7 @@
             <TextBlock
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{DynamicResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[UpdateAvailable.ReleaseNotes], Mode=OneWay}" />
+                Text="{Binding Strings[UpdateAvailable.ReleaseNotes]}" />
 
             <Border
                 Grid.Row="1"
@@ -146,12 +146,12 @@
                 Width="140"
                 Margin="0,0,10,0"
                 Command="{Binding CloseCommand}"
-                Content="{Binding Strings[UpdateAvailable.Later], Mode=OneWay}"
+                Content="{Binding Strings[UpdateAvailable.Later]}"
                 IsCancel="True" />
             <Button
                 Width="170"
                 Command="{Binding OpenReleaseCommand}"
-                Content="{Binding Strings[UpdateAvailable.OpenRelease], Mode=OneWay}"
+                Content="{Binding Strings[UpdateAvailable.OpenRelease]}"
                 IsDefault="True"
                 Style="{DynamicResource AccentButtonStyle}" />
         </StackPanel>
