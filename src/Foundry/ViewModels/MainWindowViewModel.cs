@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
@@ -125,13 +125,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public bool IsGlobalOperationInProgress => _operationProgressService.IsOperationInProgress;
     public string GlobalOperationStatusDisplay =>
         _operationProgressService.Status ??
-        (IsGlobalOperationInProgress ? Strings["OperationInProgress"] : Strings["OperationReady"]);
+        (IsGlobalOperationInProgress ? Strings["Operation.InProgress"] : Strings["Operation.Ready"]);
     public string UsbDevicesCountDisplay =>
-        string.Format(CurrentCulture, Strings["UsbDevicesCountFormat"], UsbDiskCandidates.Count);
+        string.Format(CurrentCulture, Strings["Usb.DevicesCountFormat"], UsbDiskCandidates.Count);
     public string VersionDisplay =>
-        string.Format(CurrentCulture, Strings["VersionFormat"], FoundryApplicationInfo.Version);
+        string.Format(CurrentCulture, Strings["Common.VersionFormat"], FoundryApplicationInfo.Version);
     public bool ShowUsbPartitionStyleArm64Hint => SelectedArchitecture == WinPeArchitecture.Arm64;
-    public string UsbPartitionStyleArm64Hint => Strings["UsbPartitionStyleArm64Hint"];
+    public string UsbPartitionStyleArm64Hint => Strings["Usb.PartitionStyleArm64Hint"];
     public bool IsStandardMode => !IsExpertMode;
     public bool IsDebugMenuVisible => IsVisualStudioDebugSession();
 
@@ -273,8 +273,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private async Task ImportExpertConfigurationAsync()
     {
         string? path = _applicationShellService.PickOpenFilePath(
-            Strings["ExpertConfigImportTitle"],
-            Strings["JsonPickerFilter"]);
+            Strings["Expert.ConfigImportTitle"],
+            Strings["Common.JsonPickerFilter"]);
         if (string.IsNullOrWhiteSpace(path))
         {
             return;
@@ -288,13 +288,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 ApplyExpertConfigurationDocument(document);
                 IsExpertMode = true;
                 SelectedExpertSection = ExpertSections.FirstOrDefault(section => string.Equals(section.Key, "general", StringComparison.OrdinalIgnoreCase));
-                MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportedFormat"], Path.GetFileName(path));
+                MediaActionMessage = string.Format(CurrentCulture, Strings["Expert.ConfigImportedFormat"], Path.GetFileName(path));
             });
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to import expert configuration. Path={Path}", path);
-            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigImportFailedFormat"], ex.Message));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["Expert.ConfigImportFailedFormat"], ex.Message));
         }
     }
 
@@ -302,8 +302,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private async Task ExportExpertConfigurationAsync()
     {
         string? path = _applicationShellService.PickSaveFilePath(
-            Strings["ExpertConfigExportTitle"],
-            Strings["JsonPickerFilter"],
+            Strings["Expert.ConfigExportTitle"],
+            Strings["Common.JsonPickerFilter"],
             DefaultExpertConfigFileName);
         if (string.IsNullOrWhiteSpace(path))
         {
@@ -313,12 +313,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         try
         {
             await _expertConfigurationService.SaveAsync(path, BuildExpertConfigurationDocument()).ConfigureAwait(false);
-            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportedFormat"], Path.GetFileName(path)));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["Expert.ConfigExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export expert configuration. Path={Path}", path);
-            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["ExpertConfigExportFailedFormat"], ex.Message));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["Expert.ConfigExportFailedFormat"], ex.Message));
         }
     }
 
@@ -326,8 +326,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private async Task ExportDeployConfigurationAsync()
     {
         string? path = _applicationShellService.PickSaveFilePath(
-            Strings["DeployConfigExportTitle"],
-            Strings["JsonPickerFilter"],
+            Strings["DeployConfig.ExportTitle"],
+            Strings["Common.JsonPickerFilter"],
             DefaultDeployConfigFileName);
         if (string.IsNullOrWhiteSpace(path))
         {
@@ -338,12 +338,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             string json = BuildDeployConfigurationJsonForCurrentMode() ?? string.Empty;
             await File.WriteAllTextAsync(path, json).ConfigureAwait(false);
-            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportedFormat"], Path.GetFileName(path)));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfig.ExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export deploy configuration. Path={Path}", path);
-            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfigExportFailedFormat"], ex.Message));
+            RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfig.ExportFailedFormat"], ex.Message));
         }
     }
 
@@ -392,7 +392,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void BrowseCustomDriverDirectory()
     {
         string? selectedPath = _applicationShellService.PickFolderPath(
-            Strings["CustomDriverPathPickerTitle"],
+            Strings["General.CustomDriverPathPickerTitle"],
             string.IsNullOrWhiteSpace(CustomDriverDirectoryPath) ? null : CustomDriverDirectoryPath);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
@@ -404,8 +404,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void BrowseDot1xCertificate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["Dot1xCertificatePickerTitle"],
-            Strings["CertificatePickerFilter"]);
+            Strings["Dot1x.CertificatePickerTitle"],
+            Strings["Common.CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             Network.Dot1xCertificatePath = selectedPath;
@@ -476,7 +476,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            MediaActionMessage = string.Format(CurrentCulture, Strings["UsbDiskRefreshFailedFormat"], ex.Message);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["Usb.DiskRefreshFailedFormat"], ex.Message);
             _logger.LogError(ex, "{MediaActionMessage}", MediaActionMessage);
         }
         finally
@@ -490,7 +490,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         try
         {
-            MediaActionMessage = Strings["OperationInProgress"];
+            MediaActionMessage = Strings["Operation.InProgress"];
             Directory.CreateDirectory(StagingDirectoryPath);
             FoundryExpertConfigurationDocument expertConfiguration = BuildExpertConfigurationDocument();
             FoundryConnectProvisioningBundle foundryConnectBundle = _foundryConnectProvisioningService.Prepare(
@@ -517,8 +517,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             });
 
             MediaActionMessage = result.IsSuccess
-                ? Strings["IsoCreatedSuccessMessage"]
-                : string.Format(CurrentCulture, Strings["IsoFailedMessageFormat"], result.Error?.Code, result.Error?.Message);
+                ? Strings["General.IsoCreatedSuccessMessage"]
+                : string.Format(CurrentCulture, Strings["General.IsoFailedMessageFormat"], result.Error?.Code, result.Error?.Message);
 
             if (!result.IsSuccess && result.Error is not null)
             {
@@ -531,7 +531,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            MediaActionMessage = string.Format(CurrentCulture, Strings["IsoCreateErrorFormat"], ex.Message);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["General.IsoCreateErrorFormat"], ex.Message);
             _logger.LogError(ex, "{MediaActionMessage}", MediaActionMessage);
         }
     }
@@ -547,21 +547,21 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         double diskSizeGb = SelectedUsbDiskCandidate.SizeBytes / 1024d / 1024d / 1024d;
         string warningMessage = string.Format(
             CultureInfo.CurrentCulture,
-            Strings["UsbWarningMessage"],
+            Strings["Usb.WarningMessage"],
             SelectedUsbDiskCandidate.DiskNumber,
             SelectedUsbDiskCandidate.FriendlyName,
             diskSizeGb.ToString("F1", CultureInfo.CurrentCulture));
 
-        bool confirmed = _applicationShellService.ConfirmWarning(Strings["UsbWarningTitle"], warningMessage);
+        bool confirmed = _applicationShellService.ConfirmWarning(Strings["Usb.WarningTitle"], warningMessage);
         if (!confirmed)
         {
-            MediaActionMessage = Strings["UsbWarningCancelled"];
+            MediaActionMessage = Strings["Usb.WarningCancelled"];
             return;
         }
 
         try
         {
-            MediaActionMessage = Strings["OperationInProgress"];
+            MediaActionMessage = Strings["Operation.InProgress"];
             Directory.CreateDirectory(StagingDirectoryPath);
             FoundryExpertConfigurationDocument expertConfiguration = BuildExpertConfigurationDocument();
             FoundryConnectProvisioningBundle foundryConnectBundle = _foundryConnectProvisioningService.Prepare(
@@ -592,8 +592,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             });
 
             MediaActionMessage = result.IsSuccess
-                ? Strings["UsbCreatedSuccessMessage"]
-                : string.Format(CurrentCulture, Strings["UsbFailedMessageFormat"], result.Error?.Code, result.Error?.Message);
+                ? Strings["Usb.CreatedSuccessMessage"]
+                : string.Format(CurrentCulture, Strings["Usb.FailedMessageFormat"], result.Error?.Code, result.Error?.Message);
 
             if (!result.IsSuccess && result.Error is not null)
             {
@@ -606,7 +606,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            MediaActionMessage = string.Format(CurrentCulture, Strings["UsbCreateErrorFormat"], ex.Message);
+            MediaActionMessage = string.Format(CurrentCulture, Strings["Usb.CreateErrorFormat"], ex.Message);
             _logger.LogError(ex, "{MediaActionMessage}", MediaActionMessage);
         }
     }
@@ -725,7 +725,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         SelectedPartitionStyle = UsbPartitionStyle.Gpt;
         if (showInfoMessage)
         {
-            MediaActionMessage = Strings["UsbPartitionStyleArm64AutoSetMessage"];
+            MediaActionMessage = Strings["Usb.PartitionStyleArm64AutoSetMessage"];
         }
     }
 
@@ -793,25 +793,61 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         return mode switch
         {
-            UsbFormatMode.Quick => Strings["UsbFormatModeQuick"],
-            UsbFormatMode.Complete => Strings["UsbFormatModeComplete"],
+            UsbFormatMode.Quick => Strings["Usb.FormatModeQuick"],
+            UsbFormatMode.Complete => Strings["Usb.FormatModeComplete"],
             _ => mode.ToString()
         };
     }
 
-    private static WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
+    private void RefreshWinPeLanguageDisplayNames()
+    {
+        if (AvailableWinPeLanguages.Count == 0)
+        {
+            return;
+        }
+
+        string? selectedCode = SelectedWinPeLanguage?.Code;
+        List<WinPeLanguageOption> refreshedOptions = AvailableWinPeLanguages
+            .Select(option => CreateWinPeLanguageOption(option.Code))
+            .ToList();
+
+        AvailableWinPeLanguages.Clear();
+        foreach (WinPeLanguageOption option in refreshedOptions)
+        {
+            AvailableWinPeLanguages.Add(option);
+        }
+
+        SelectedWinPeLanguage = AvailableWinPeLanguages.FirstOrDefault(option =>
+            option.Code.Equals(selectedCode, StringComparison.OrdinalIgnoreCase))
+            ?? AvailableWinPeLanguages.FirstOrDefault();
+    }
+
+    private WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
     {
         string normalizedCode = NormalizeLanguageCode(languageCode);
 
         try
         {
             CultureInfo culture = CultureInfo.GetCultureInfo(normalizedCode);
-            return new WinPeLanguageOption(normalizedCode, $"{culture.EnglishName} ({culture.Name})");
+            return new WinPeLanguageOption(normalizedCode, $"{GetWinPeLanguageDisplayName(culture)} ({culture.Name})");
         }
         catch (CultureNotFoundException)
         {
             return new WinPeLanguageOption(normalizedCode, normalizedCode);
         }
+    }
+
+    private string GetWinPeLanguageDisplayName(CultureInfo culture)
+    {
+        string displayName = culture.DisplayName;
+        if (CurrentCulture.TwoLetterISOLanguageName.Equals("fr", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(displayName, culture.EnglishName, StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(culture.NativeName, culture.EnglishName, StringComparison.OrdinalIgnoreCase))
+        {
+            displayName = culture.NativeName;
+        }
+
+        return string.IsNullOrWhiteSpace(displayName) ? culture.NativeName : displayName;
     }
 
     private static string ResolvePreferredWinPeLanguageCode(
@@ -865,11 +901,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         string? selectedKey = SelectedExpertSection?.Key;
         ExpertSectionItem[] sections =
         [
-            new("general", Strings["ExpertSectionGeneral"], this),
-            new("network", Strings["ExpertSectionNetwork"], Network),
-            new("localization", Strings["ExpertSectionLocalization"], Localization),
-            new("autopilot", Strings["ExpertSectionAutopilot"], Autopilot),
-            new("customization", Strings["ExpertSectionCustomization"], Customization)
+            new("general", Strings["Expert.SectionGeneral"], this),
+            new("network", Strings["Expert.SectionNetwork"], Network),
+            new("localization", Strings["Expert.SectionLocalization"], Localization),
+            new("autopilot", Strings["Expert.SectionAutopilot"], Autopilot),
+            new("customization", Strings["Expert.SectionCustomization"], Customization)
         ];
 
         ExpertSections.Clear();
@@ -950,6 +986,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RunOnUiThread(() =>
         {
             RefreshUsbFormatModes();
+            RefreshWinPeLanguageDisplayNames();
             RefreshExpertSections();
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(Strings));

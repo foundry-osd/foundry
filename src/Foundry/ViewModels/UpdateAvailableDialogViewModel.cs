@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.ApplicationUpdate;
 using Foundry.Services.Localization;
@@ -31,15 +31,15 @@ public sealed partial class UpdateAvailableDialogViewModel : LocalizedViewModelB
         !ReleaseTitle.Contains(LatestVersion, StringComparison.OrdinalIgnoreCase);
 
     public string PublishedAtDisplay => _updateInfo.PublishedAt?.ToLocalTime().ToString("f", LocalizationService.CurrentCulture)
-        ?? Strings["UpdateAvailablePublishedUnknown"];
+        ?? Strings["UpdateAvailable.PublishedUnknown"];
 
     public string ReleaseNotesMarkdown => string.IsNullOrWhiteSpace(_updateInfo.ReleaseNotes)
-        ? Strings["UpdateAvailableNotesEmpty"]
+        ? Strings["UpdateAvailable.NotesEmpty"]
         : _updateInfo.ReleaseNotes;
 
     public string AvailabilitySummary => string.Format(
         LocalizationService.CurrentCulture,
-        Strings["UpdateAvailableSummaryFormat"],
+        Strings["UpdateAvailable.SummaryFormat"],
         _updateInfo.SummaryReleaseTitle,
         CurrentVersion);
 

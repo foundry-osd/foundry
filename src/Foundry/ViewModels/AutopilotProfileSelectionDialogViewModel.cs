@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -29,7 +29,7 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Localized
     public ObservableCollection<SelectableAutopilotProfileEntry> Profiles { get; } = [];
 
     public string SelectedCountDisplay => string.Format(
-        Strings["AutopilotTenantPickerSelectedCountFormat"],
+        Strings["Autopilot.TenantPickerSelectedCountFormat"],
         Profiles.Count(profile => profile.IsSelected),
         Profiles.Count);
 

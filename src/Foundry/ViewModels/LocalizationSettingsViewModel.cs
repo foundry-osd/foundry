@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Foundry.Models.Configuration;
@@ -140,7 +140,7 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
         string preservedSelection = SelectedTimeZoneId;
         List<TimeZoneOption> timeZones =
         [
-            new(AutomaticTimeZoneId, Strings["LocalizationTimeZoneAutomatic"])
+            new(AutomaticTimeZoneId, Strings["Localization.TimeZoneAutomatic"])
         ];
         timeZones.AddRange(
             TimeZoneInfo.GetSystemTimeZones()

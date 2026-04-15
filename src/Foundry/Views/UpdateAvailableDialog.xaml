@@ -1,8 +1,8 @@
-<Window
+﻿<Window
     x:Class="Foundry.Views.UpdateAvailableDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="{Binding Strings[UpdateAvailableTitle], Mode=OneWay}"
+    Title="{Binding Strings[UpdateAvailable.Title], Mode=OneWay}"
     Width="960"
     Height="760"
     MinWidth="960"
@@ -29,7 +29,7 @@
             <TextBlock
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{DynamicResource TitleLargeTextBlockStyle}"
-                Text="{Binding Strings[UpdateAvailableHeading], Mode=OneWay}"
+                Text="{Binding Strings[UpdateAvailable.Heading], Mode=OneWay}"
                 TextWrapping="Wrap" />
             <TextBlock
                 Margin="0,12,0,0"
@@ -60,7 +60,7 @@
                     <TextBlock
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Strings[UpdateAvailableLatestVersionLabel], Mode=OneWay}" />
+                        Text="{Binding Strings[UpdateAvailable.LatestVersionLabel], Mode=OneWay}" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource SystemFillColorSuccessBrush}"
@@ -71,7 +71,7 @@
                         <TextBlock
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{Binding Strings[UpdateAvailableReleaseLabel], Mode=OneWay}" />
+                            Text="{Binding Strings[UpdateAvailable.ReleaseLabel], Mode=OneWay}" />
                         <TextBlock
                             Margin="0,4,0,0"
                             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -85,7 +85,7 @@
                     <TextBlock
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Strings[UpdateAvailableCurrentVersionLabel], Mode=OneWay}" />
+                        Text="{Binding Strings[UpdateAvailable.CurrentVersionLabel], Mode=OneWay}" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -97,7 +97,7 @@
                     <TextBlock
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding Strings[UpdateAvailablePublishedLabel], Mode=OneWay}" />
+                        Text="{Binding Strings[UpdateAvailable.PublishedLabel], Mode=OneWay}" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -117,7 +117,7 @@
             <TextBlock
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{DynamicResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[UpdateAvailableReleaseNotes], Mode=OneWay}" />
+                Text="{Binding Strings[UpdateAvailable.ReleaseNotes], Mode=OneWay}" />
 
             <Border
                 Grid.Row="1"
@@ -146,12 +146,12 @@
                 Width="140"
                 Margin="0,0,10,0"
                 Command="{Binding CloseCommand}"
-                Content="{Binding Strings[UpdateAvailableLater], Mode=OneWay}"
+                Content="{Binding Strings[UpdateAvailable.Later], Mode=OneWay}"
                 IsCancel="True" />
             <Button
                 Width="170"
                 Command="{Binding OpenReleaseCommand}"
-                Content="{Binding Strings[UpdateAvailableOpenRelease], Mode=OneWay}"
+                Content="{Binding Strings[UpdateAvailable.OpenRelease], Mode=OneWay}"
                 IsDefault="True"
                 Style="{DynamicResource AccentButtonStyle}" />
         </StackPanel>

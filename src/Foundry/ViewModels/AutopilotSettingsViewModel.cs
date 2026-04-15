@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Models.Configuration;
@@ -53,14 +53,14 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
     private async Task ImportProfileAsync()
     {
         string? filePath = _applicationShellService.PickOpenFilePath(
-            Strings["AutopilotImportTitle"],
-            Strings["JsonPickerFilter"]);
+            Strings["Autopilot.ImportTitle"],
+            Strings["Common.JsonPickerFilter"]);
         if (string.IsNullOrWhiteSpace(filePath))
         {
             return;
         }
 
-        if (!_operationProgressService.TryStart(OperationKind.AutopilotProfileImport, Strings["AutopilotImportInProgress"], 0))
+        if (!_operationProgressService.TryStart(OperationKind.AutopilotProfileImport, Strings["Autopilot.ImportInProgress"], 0))
         {
             _logger.LogDebug("Skipped Autopilot profile import because another operation is already in progress.");
             return;
@@ -69,14 +69,14 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         try
         {
             _logger.LogInformation("Starting manual Autopilot profile import. FilePath={FilePath}", filePath);
-            _operationProgressService.Report(40, Strings["AutopilotImportValidating"]);
+            _operationProgressService.Report(40, Strings["Autopilot.ImportValidating"]);
             AutopilotProfileSettings profile = await _autopilotProfileService
                 .ImportFromJsonFileAsync(filePath);
 
             RunOnUiThread(() =>
             {
                 MergeProfiles([profile]);
-                _operationProgressService.Complete(string.Format(Strings["AutopilotImportCompletedFormat"], profile.DisplayName));
+                _operationProgressService.Complete(string.Format(Strings["Autopilot.ImportCompletedFormat"], profile.DisplayName));
             });
             _logger.LogInformation(
                 "Imported Autopilot profile successfully. ProfileId={ProfileId}, DisplayName={DisplayName}, FolderName={FolderName}",
@@ -87,14 +87,14 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Manual Autopilot profile import failed. FilePath={FilePath}", filePath);
-            RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["AutopilotImportFailedFormat"], ex.Message)));
+            RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["Autopilot.ImportFailedFormat"], ex.Message)));
         }
     }
 
     [RelayCommand(CanExecute = nameof(CanManageProfiles))]
     private async Task DownloadProfilesAsync()
     {
-        if (!_operationProgressService.TryStart(OperationKind.AutopilotProfileDownload, Strings["AutopilotDownloadInProgress"], 0))
+        if (!_operationProgressService.TryStart(OperationKind.AutopilotProfileDownload, Strings["Autopilot.DownloadInProgress"], 0))
         {
             _logger.LogDebug("Skipped Autopilot tenant download because another operation is already in progress.");
             return;
@@ -103,18 +103,18 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         try
         {
             _logger.LogInformation("Starting Autopilot profile download from tenant.");
-            _operationProgressService.Report(20, Strings["AutopilotDownloadConnecting"]);
+            _operationProgressService.Report(20, Strings["Autopilot.DownloadConnecting"]);
             IReadOnlyList<AutopilotProfileSettings> availableProfiles = await _autopilotProfileService
                 .DownloadFromTenantAsync();
 
             if (availableProfiles.Count == 0)
             {
-                RunOnUiThread(() => _operationProgressService.Complete(Strings["AutopilotDownloadCompletedNoProfiles"]));
+                RunOnUiThread(() => _operationProgressService.Complete(Strings["Autopilot.DownloadCompletedNoProfiles"]));
                 _logger.LogInformation("Autopilot tenant download completed. ProfileCount=0");
                 return;
             }
 
-            _operationProgressService.Report(70, Strings["AutopilotDownloadSelectProfiles"]);
+            _operationProgressService.Report(70, Strings["Autopilot.DownloadSelectProfiles"]);
             IReadOnlyList<AutopilotProfileSettings>? selectedProfiles = null;
             RunOnUiThread(() =>
             {
@@ -124,14 +124,14 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
             if (selectedProfiles is null)
             {
                 _logger.LogInformation("Autopilot tenant download was canceled from the profile picker dialog.");
-                RunOnUiThread(() => _operationProgressService.Complete(Strings["AutopilotDownloadCanceled"]));
+                RunOnUiThread(() => _operationProgressService.Complete(Strings["Autopilot.DownloadCanceled"]));
                 return;
             }
 
             RunOnUiThread(() =>
             {
                 MergeProfiles(selectedProfiles);
-                _operationProgressService.Complete(string.Format(Strings["AutopilotDownloadCompletedFormat"], selectedProfiles.Count));
+                _operationProgressService.Complete(string.Format(Strings["Autopilot.DownloadCompletedFormat"], selectedProfiles.Count));
             });
             _logger.LogInformation(
                 "Autopilot tenant download completed. RetrievedProfileCount={RetrievedProfileCount}, ImportedProfileCount={ImportedProfileCount}",
@@ -141,7 +141,7 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Autopilot tenant download failed.");
-            RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["AutopilotDownloadFailedFormat"], ex.Message)));
+            RunOnUiThread(() => _operationProgressService.Fail(string.Format(Strings["Autopilot.DownloadFailedFormat"], ex.Message)));
         }
     }
 

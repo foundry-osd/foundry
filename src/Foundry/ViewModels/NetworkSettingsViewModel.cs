@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Models.Configuration;
 using Foundry.Services.ApplicationShell;
@@ -225,8 +225,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseDot1xProfileTemplate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["NetworkProfileTemplatePickerTitle"],
-            Strings["NetworkProfileTemplatePickerFilter"]);
+            Strings["Network.ProfileTemplatePickerTitle"],
+            Strings["Network.ProfileTemplatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             Dot1xProfileTemplatePath = selectedPath;
@@ -237,8 +237,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseDot1xCertificate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["Dot1xCertificatePickerTitle"],
-            Strings["CertificatePickerFilter"]);
+            Strings["Dot1x.CertificatePickerTitle"],
+            Strings["Common.CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             Dot1xCertificatePath = selectedPath;
@@ -249,8 +249,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseWifiEnterpriseProfileTemplate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["NetworkProfileTemplatePickerTitle"],
-            Strings["NetworkProfileTemplatePickerFilter"]);
+            Strings["Network.ProfileTemplatePickerTitle"],
+            Strings["Network.ProfileTemplatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             WifiEnterpriseProfileTemplatePath = selectedPath;
@@ -261,8 +261,8 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     private void BrowseWifiCertificate()
     {
         string? selectedPath = _applicationShellService.PickOpenFilePath(
-            Strings["WifiCertificatePickerTitle"],
-            Strings["CertificatePickerFilter"]);
+            Strings["Wifi.CertificatePickerTitle"],
+            Strings["Common.CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
             WifiCertificatePath = selectedPath;
@@ -365,12 +365,12 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     {
         ReplaceCollection(WifiSecurityTypes,
         [
-            new SecurityTypeOption(WifiSecurityOpen, Strings["WifiSecurityTypeOpen"]),
-            new SecurityTypeOption(WifiSecurityOwe, Strings["WifiSecurityTypeOwe"]),
-            new SecurityTypeOption(WifiSecurityPersonal, Strings["WifiSecurityTypePersonal"]),
-            new SecurityTypeOption(WifiSecurityEnterprise, Strings["WifiSecurityTypeEnterprise"]),
-            new SecurityTypeOption(WifiSecurityEnterpriseWpa3, Strings["WifiSecurityTypeEnterpriseWpa3"]),
-            new SecurityTypeOption(WifiSecurityEnterpriseWpa3192, Strings["WifiSecurityTypeEnterpriseWpa3192"])
+            new SecurityTypeOption(WifiSecurityOpen, Strings["Wifi.SecurityTypeOpen"]),
+            new SecurityTypeOption(WifiSecurityOwe, Strings["Wifi.SecurityTypeOwe"]),
+            new SecurityTypeOption(WifiSecurityPersonal, Strings["Wifi.SecurityTypePersonal"]),
+            new SecurityTypeOption(WifiSecurityEnterprise, Strings["Wifi.SecurityTypeEnterprise"]),
+            new SecurityTypeOption(WifiSecurityEnterpriseWpa3, Strings["Wifi.SecurityTypeEnterpriseWpa3"]),
+            new SecurityTypeOption(WifiSecurityEnterpriseWpa3192, Strings["Wifi.SecurityTypeEnterpriseWpa3192"])
         ]);
 
         OnPropertyChanged(nameof(WifiSecurityTypes));
@@ -459,12 +459,12 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         {
             if (string.IsNullOrWhiteSpace(Dot1xProfileTemplatePath))
             {
-                return "Wired 802.1X requires a wired profile template.";
+                return Strings["Network.ErrorWiredProfileTemplateRequired"];
             }
 
             if (IsDot1xCertificateRequired && string.IsNullOrWhiteSpace(Dot1xCertificatePath))
             {
-                return "Wired 802.1X requires a trusted root CA certificate file when certificate trust is enabled.";
+                return Strings["Network.ErrorWiredCertificateRequired"];
             }
         }
 
@@ -480,7 +480,7 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
 
         if (string.IsNullOrWhiteSpace(WifiSsid))
         {
-            return "Wi-Fi configuration requires an SSID.";
+            return Strings["Network.ErrorWifiSsidRequired"];
         }
 
         if (IsWifiPersonalSelected)
@@ -488,7 +488,7 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
             string passphrase = WifiPassphrase.Trim();
             if (passphrase.Length < 8 || passphrase.Length > 63)
             {
-                return "Personal Wi-Fi requires an 8 to 63 character passphrase.";
+                return Strings["Network.ErrorWifiPersonalPassphraseInvalid"];
             }
         }
 
@@ -496,13 +496,13 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         {
             if (string.IsNullOrWhiteSpace(WifiEnterpriseProfileTemplatePath))
             {
-                return "Enterprise Wi-Fi requires a profile template.";
+                return Strings["Network.ErrorWifiEnterpriseProfileTemplateRequired"];
             }
 
             string trimmedTemplatePath = WifiEnterpriseProfileTemplatePath.Trim();
             if (!File.Exists(Path.GetFullPath(trimmedTemplatePath)))
             {
-                return "Enterprise Wi-Fi profile template file was not found.";
+                return Strings["Network.ErrorWifiEnterpriseProfileTemplateMissing"];
             }
 
             if (RequiresExplicitEnterpriseTemplateAuthentication(WifiSecurityType))
@@ -510,18 +510,21 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
                 string? templateSecurityType = TryReadEnterpriseTemplateSecurityType(trimmedTemplatePath);
                 if (templateSecurityType is null)
                 {
-                    return "Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.";
+                    return Strings["Network.ErrorWifiEnterpriseAuthenticationUnsupported"];
                 }
 
                 if (!string.Equals(templateSecurityType, WifiSecurityType, StringComparison.OrdinalIgnoreCase))
                 {
-                    return $"Selected enterprise Wi-Fi security type does not match the profile template authentication ({FormatEnterpriseSecurityTypeLabel(templateSecurityType)}).";
+                    return string.Format(
+                        LocalizationService.CurrentCulture,
+                        Strings["Network.ErrorWifiEnterpriseAuthenticationMismatchFormat"],
+                        FormatEnterpriseSecurityTypeLabel(templateSecurityType));
                 }
             }
 
             if (IsWifiCertificateRequired && string.IsNullOrWhiteSpace(WifiCertificatePath))
             {
-                return "Enterprise Wi-Fi requires a trusted root CA certificate file when certificate trust is enabled.";
+                return Strings["Network.ErrorWifiEnterpriseCertificateRequired"];
             }
         }
 
@@ -553,13 +556,13 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
         }
     }
 
-    private static string FormatEnterpriseSecurityTypeLabel(string securityType)
+    private string FormatEnterpriseSecurityTypeLabel(string securityType)
     {
         return securityType switch
         {
-            WifiSecurityEnterpriseWpa3 => "WPA3 Enterprise",
-            WifiSecurityEnterpriseWpa3192 => "WPA3 Enterprise 192-bit",
-            _ => "WPA2/WPA3 Enterprise"
+            WifiSecurityEnterpriseWpa3 => Strings["Wifi.SecurityTypeEnterpriseWpa3"],
+            WifiSecurityEnterpriseWpa3192 => Strings["Wifi.SecurityTypeEnterpriseWpa3192"],
+            _ => Strings["Wifi.SecurityTypeEnterprise"]
         };
     }
     public sealed record SecurityTypeOption(string Value, string DisplayName);

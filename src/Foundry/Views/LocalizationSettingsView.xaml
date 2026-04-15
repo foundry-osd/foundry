@@ -1,4 +1,4 @@
-<UserControl
+﻿<UserControl
     x:Class="Foundry.Views.LocalizationSettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -7,13 +7,13 @@
             Margin="0,0,0,8"
             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
             Style="{StaticResource TitleTextBlockStyle}"
-            Text="{Binding Strings[ExpertSectionLocalization]}" />
+            Text="{Binding Strings[Expert.SectionLocalization]}" />
         <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
         <TextBlock
             Margin="0,0,0,8"
             Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="{Binding Strings[LocalizationVisibleLanguagesLabel]}" />
+            Text="{Binding Strings[Localization.VisibleLanguagesLabel]}" />
 
         <Border
             Padding="12"
@@ -40,7 +40,7 @@
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[LocalizationDefaultOverrideLabel]}" />
+                Text="{Binding Strings[Localization.DefaultOverrideLabel]}" />
             <ComboBox
                 Grid.Column="1"
                 DisplayMemberPath="DisplayName"
@@ -60,7 +60,7 @@
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[LocalizationTimeZoneLabel]}" />
+                Text="{Binding Strings[Localization.TimeZoneLabel]}" />
             <ComboBox
                 Grid.Column="1"
                 DisplayMemberPath="DisplayName"
@@ -70,7 +70,7 @@
         </Grid>
 
         <CheckBox
-            Content="{Binding Strings[LocalizationForceSingleLabel]}"
+            Content="{Binding Strings[Localization.ForceSingleLabel]}"
             IsChecked="{Binding ForceSingleVisibleLanguage}" />
     </StackPanel>
 </UserControl>

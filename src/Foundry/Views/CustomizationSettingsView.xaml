@@ -1,4 +1,4 @@
-<UserControl
+﻿<UserControl
     x:Class="Foundry.Views.CustomizationSettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -7,7 +7,7 @@
             Margin="0,0,0,8"
             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
             Style="{StaticResource TitleTextBlockStyle}"
-            Text="{Binding Strings[ExpertSectionCustomization]}" />
+            Text="{Binding Strings[Expert.SectionCustomization]}" />
         <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
         <Border
@@ -19,7 +19,7 @@
             <StackPanel>
                 <CheckBox
                     Margin="0,0,0,12"
-                    Content="{Binding Strings[MachineNamingEnableLabel]}"
+                    Content="{Binding Strings[Customization.MachineNamingEnableLabel]}"
                     IsChecked="{Binding IsMachineNamingEnabled}" />
 
                 <Grid IsEnabled="{Binding IsMachineNamingEnabled}">
@@ -39,7 +39,7 @@
                         Margin="0,0,8,8"
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding Strings[MachineNamingPrefixLabel]}" />
+                        Text="{Binding Strings[Customization.MachineNamingPrefixLabel]}" />
                     <TextBox
                         Grid.Row="0"
                         Grid.Column="1"
@@ -50,13 +50,13 @@
                         Grid.Row="1"
                         Grid.ColumnSpan="2"
                         Margin="0,0,0,8"
-                        Content="{Binding Strings[MachineNamingAutoGenerateLabel]}"
+                        Content="{Binding Strings[Customization.MachineNamingAutoGenerateLabel]}"
                         IsChecked="{Binding MachineNameAutoGenerate}" />
 
                     <CheckBox
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
-                        Content="{Binding Strings[MachineNamingAllowManualSuffixLabel]}"
+                        Content="{Binding Strings[Customization.MachineNamingAllowManualSuffixLabel]}"
                         IsChecked="{Binding AllowManualSuffixEdit}" />
                 </Grid>
             </StackPanel>
@@ -66,24 +66,24 @@
             <Expander.Header>
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[CustomizationAppxPlaceholder]}" />
+                    Text="{Binding Strings[Customization.AppxPlaceholder]}" />
             </Expander.Header>
             <TextBlock
                 Margin="0,12,0,0"
                 Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{Binding Strings[ComingLaterLabel]}" />
+                Text="{Binding Strings[Common.ComingLaterLabel]}" />
         </Expander>
 
         <Expander Margin="0,12,0,0" IsEnabled="False">
             <Expander.Header>
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[CustomizationDeployConfigPlaceholder]}" />
+                    Text="{Binding Strings[Customization.DeployConfigPlaceholder]}" />
             </Expander.Header>
             <TextBlock
                 Margin="0,12,0,0"
                 Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{Binding Strings[ComingLaterLabel]}" />
+                Text="{Binding Strings[Common.ComingLaterLabel]}" />
         </Expander>
     </StackPanel>
 </UserControl>

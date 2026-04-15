@@ -1,4 +1,4 @@
-<UserControl
+﻿<UserControl
     x:Class="Foundry.Views.GeneralSettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,7 +10,7 @@
             Margin="0,0,0,8"
             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
             Style="{StaticResource TitleTextBlockStyle}"
-            Text="{Binding Strings[StandardConfigurationSectionTitle]}" />
+            Text="{Binding Strings[General.StandardConfigurationSectionTitle]}" />
         <Separator Margin="0,0,0,12" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
         <Grid Margin="0,0,0,12">
@@ -26,7 +26,7 @@
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[IsoOutputPathLabel]}" />
+                Text="{Binding Strings[General.IsoOutputPathLabel]}" />
 
             <TextBox
                 Grid.Column="1"
@@ -38,7 +38,7 @@
                 Grid.Column="2"
                 Width="130"
                 Command="{Binding BrowseIsoOutputPathCommand}"
-                Content="{Binding Strings[IsoBrowseButton]}" />
+                Content="{Binding Strings[General.IsoBrowseButton]}" />
         </Grid>
 
         <Grid Margin="0,0,0,12">
@@ -54,7 +54,7 @@
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[UsbSectionTitle]}" />
+                Text="{Binding Strings[Usb.SectionTitle]}" />
 
             <ComboBox
                 Grid.Column="1"
@@ -67,7 +67,7 @@
                 Grid.Column="2"
                 Width="130"
                 Command="{Binding RefreshUsbCandidatesCommand}"
-                Content="{Binding Strings[UsbRefreshDisks]}"
+                Content="{Binding Strings[Usb.RefreshDisks]}"
                 IsEnabled="{Binding IsRefreshingUsbCandidates, Converter={StaticResource InverseBooleanConverter}}" />
         </Grid>
 
@@ -83,7 +83,7 @@
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[ArchitectureLabel]}" />
+                Text="{Binding Strings[General.ArchitectureLabel]}" />
 
             <ComboBox
                 Grid.Column="1"
@@ -103,7 +103,7 @@
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[WinPeLanguageLabel]}" />
+                Text="{Binding Strings[WinPe.LanguageLabel]}" />
 
             <ComboBox
                 Grid.Column="1"
@@ -125,14 +125,14 @@
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding Strings[WinPeDriversLabel]}" />
+                Text="{Binding Strings[WinPe.DriversLabel]}" />
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <CheckBox
                     Margin="0,0,16,0"
-                    Content="{Binding Strings[DriverDellLabel]}"
+                    Content="{Binding Strings[General.DriverDellLabel]}"
                     IsChecked="{Binding IncludeDellDrivers}" />
-                <CheckBox Content="{Binding Strings[DriverHpLabel]}" IsChecked="{Binding IncludeHpDrivers}" />
+                <CheckBox Content="{Binding Strings[General.DriverHpLabel]}" IsChecked="{Binding IncludeHpDrivers}" />
             </StackPanel>
         </Grid>
 
@@ -143,13 +143,13 @@
                 <TextBlock
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[AdvancedOptionsHeader]}" />
+                    Text="{Binding Strings[General.AdvancedOptionsHeader]}" />
             </Expander.Header>
 
             <StackPanel Margin="0,12,0,0">
                 <CheckBox
                     Margin="0,0,0,12"
-                    Content="{Binding Strings[SignatureCa2023Label]}"
+                    Content="{Binding Strings[General.SignatureCa2023Label]}"
                     IsChecked="{Binding UseCa2023}" />
 
                 <Grid Margin="0,0,0,8">
@@ -164,7 +164,7 @@
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding Strings[UsbPartitionStyleLabel]}" />
+                        Text="{Binding Strings[Usb.PartitionStyleLabel]}" />
 
                     <ComboBox
                         Grid.Column="1"
@@ -206,7 +206,7 @@
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding Strings[UsbFormatModeLabel]}" />
+                        Text="{Binding Strings[Usb.FormatModeLabel]}" />
 
                     <ComboBox
                         Grid.Column="1"
@@ -229,7 +229,7 @@
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding Strings[CustomDriverPathLabel]}" />
+                        Text="{Binding Strings[General.CustomDriverPathLabel]}" />
 
                     <TextBox
                         Grid.Column="1"
@@ -239,7 +239,7 @@
                     <Button
                         Grid.Column="2"
                         Command="{Binding BrowseCustomDriverDirectoryCommand}"
-                        Content="{Binding Strings[BrowseFolderButton]}" />
+                        Content="{Binding Strings[Common.BrowseFolderButton]}" />
                 </Grid>
             </StackPanel>
         </Expander>
