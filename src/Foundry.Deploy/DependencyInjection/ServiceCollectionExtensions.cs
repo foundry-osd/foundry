@@ -9,6 +9,7 @@ using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Startup;
@@ -28,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
 
+        services.AddSingleton<ILocalizationService, LocalizationService>();
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();

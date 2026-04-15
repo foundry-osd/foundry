@@ -1,4 +1,5 @@
 <Window
+    x:Name="RootWindow"
     x:Class="Foundry.Deploy.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:rules="clr-namespace:Foundry.Deploy.Validation"
-    Title="Foundry.Deploy"
+    Title="{Binding WindowTitle}"
     Icon="/Assets/Icons/app.ico"
     ResizeMode="NoResize"
     WindowState="Maximized"
@@ -29,22 +30,26 @@
 
             <Menu Grid.Column="0">
                 <!--  Theme  -->
-                <MenuItem Header="_Theme">
-                    <MenuItem Command="{Binding SetSystemThemeCommand}" Header="System" />
-                    <MenuItem Command="{Binding SetLightThemeCommand}" Header="Light" />
-                    <MenuItem Command="{Binding SetDarkThemeCommand}" Header="Dark" />
+                <MenuItem Header="{Binding Strings[Menu.Theme]}">
+                    <MenuItem Command="{Binding SetSystemThemeCommand}" Header="{Binding Strings[Theme.System]}" />
+                    <MenuItem Command="{Binding SetLightThemeCommand}" Header="{Binding Strings[Theme.Light]}" />
+                    <MenuItem Command="{Binding SetDarkThemeCommand}" Header="{Binding Strings[Theme.Dark]}" />
+                </MenuItem>
+                <MenuItem Header="{Binding Strings[Menu.Language]}">
+                    <MenuItem Command="{Binding SetCultureCommand}" CommandParameter="en-US" Header="{Binding Strings[Language.English]}" />
+                    <MenuItem Command="{Binding SetCultureCommand}" CommandParameter="fr-FR" Header="{Binding Strings[Language.French]}" />
                 </MenuItem>
                 <!--  Tools  -->
-                <MenuItem Header="_Tools">
-                    <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="Refresh Catalogs" />
+                <MenuItem Header="{Binding Strings[Menu.Tools]}">
+                    <MenuItem Command="{Binding RefreshCatalogsCommand}" Header="{Binding Strings[Tools.RefreshCatalogs]}" />
                     <MenuItem
                         Command="{Binding Preparation.RefreshTargetDisksCommand}"
-                        Header="Refresh Target Disks"
+                        Header="{Binding Strings[Tools.RefreshTargetDisks]}"
                         IsEnabled="{Binding Session.IsStartupReady}" />
-                    <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="Open Log File" />
+                    <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="{Binding Strings[Common.OpenLogFile]}" />
                 </MenuItem>
                 <!--  About  -->
-                <MenuItem Command="{Binding ShowAboutCommand}" Header="_About" />
+                <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[Menu.About]}" />
             </Menu>
 
             <TextBlock
@@ -68,7 +73,7 @@
 
                 <!--  Wizard header and context  -->
                 <StackPanel Grid.Row="0" Margin="0,0,0,16">
-                    <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}" Text="Foundry.Deploy Wizard" />
+                    <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}" Text="{Binding Strings[Wizard.Title]}" />
                     <Border
                         Margin="0,8,0,0"
                         Padding="8"
@@ -77,13 +82,13 @@
                         BorderThickness="1"
                         CornerRadius="4"
                         Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="DEBUG SAFE MODE ACTIVE: all deployment actions are simulated, no disk/image write is executed." />
+                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Wizard.DebugSafeModeBanner]}" />
                     </Border>
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="Task-sequence orchestrator for OS deployment in WinPE." />
+                        Text="{Binding Strings[Wizard.Description]}" />
                     <TextBlock
                         Margin="0,8,0,0"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
@@ -97,7 +102,7 @@
                     PreviewMouseDown="WizardTabControl_PreviewMouseDown"
                     SelectedIndex="{Binding WizardStepIndex}">
                     <!--  Step 1: Target disk and runtime options  -->
-                    <TabItem Header="1. Target">
+                    <TabItem Header="{Binding Strings[Wizard.StepTarget]}">
                         <Grid Margin="16">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -106,7 +111,7 @@
                             <!--  Step 1 details and toggles  -->
                             <StackPanel Grid.Row="0">
                                 <StackPanel DataContext="{Binding Preparation}">
-                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Computer Name" />
+                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=RootWindow}" />
                                     <TextBox
                                         x:Name="TargetComputerNameTextBox"
                                         Margin="0,8,0,0"
@@ -118,7 +123,7 @@
                                         Margin="0,8,0,0"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="1-15 characters. A-Z, a-z, 0-9, and hyphen only." />
+                                        Text="{Binding DataContext.Strings[Preparation.ComputerNameHint], ElementName=RootWindow}" />
                                     <TextBlock
                                         Margin="0,4,0,0"
                                         Foreground="#FFC42B1C"
@@ -128,7 +133,7 @@
                                     <TextBlock
                                         Margin="0,12,0,0"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="Target Disk" />
+                                        Text="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=RootWindow}" />
                                     <DockPanel Margin="0,8,0,0">
                                         <ComboBox
                                             Width="640"
@@ -139,26 +144,26 @@
                                             Width="140"
                                             Margin="8,0,0,0"
                                             Command="{Binding RefreshTargetDisksCommand}"
-                                            Content="Refresh Disks" />
+                                            Content="{Binding DataContext.Strings[Preparation.RefreshDisks], ElementName=RootWindow}" />
                                     </DockPanel>
                                     <TextBlock
                                         Margin="0,8,0,0"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{Binding SelectedTargetDisk.SelectionWarning, TargetNullValue=Select a target disk. Non-eligible disks are blocked.}" />
+                                        Text="{Binding TargetDiskSelectionHint}" />
                                     <CheckBox
                                         Margin="0,8,0,0"
                                         IsChecked="{Binding ApplyFirmwareUpdates}"
                                         IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Firmware: Microsoft Update Catalog update enabled." />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=RootWindow}" />
                                     </CheckBox>
                                     <CheckBox Margin="0,8,0,0" IsChecked="{Binding IsAutopilotEnabled}">
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Autopilot: Enable offline profile staging." />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.AutopilotEnable], ElementName=RootWindow}" />
                                     </CheckBox>
                                     <TextBlock
                                         Margin="0,12,0,0"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="Autopilot Profile" />
+                                        Text="{Binding DataContext.Strings[Preparation.AutopilotProfile], ElementName=RootWindow}" />
                                     <ComboBox
                                         Margin="0,8,0,0"
                                         DisplayMemberPath="DisplayName"
@@ -176,7 +181,7 @@
                     </TabItem>
 
                     <!--  Step 2: Operating system catalog filters  -->
-                    <TabItem Header="2. Operating System Catalog">
+                    <TabItem Header="{Binding Strings[Wizard.StepOperatingSystemCatalog]}">
                         <Grid Margin="16">
                             <StackPanel Margin="0,0,0,12">
                                 <DockPanel Margin="0,0,0,12">
@@ -184,12 +189,12 @@
                                     <Button
                                         Width="140"
                                         Command="{Binding RefreshCatalogsCommand}"
-                                        Content="Refresh Catalogs" />
+                                        Content="{Binding Strings[Tools.RefreshCatalogs]}" />
                                     <TextBlock
                                         Margin="12,0,0,0"
                                         VerticalAlignment="Center"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{Binding OperatingSystemCatalog.EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                        Text="{Binding OperatingSystemArchitectureDisplay}" />
                                 </DockPanel>
 
                                 <Grid>
@@ -205,16 +210,16 @@
 
                                     <!--  OS family  -->
                                     <StackPanel Margin="0,0,8,8">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Operating System" />
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.OperatingSystem]}" />
                                         <TextBox
                                             Margin="0,8,0,0"
                                             IsReadOnly="True"
-                                            Text="Windows 11" />
+                                            Text="{Binding Strings[OperatingSystem.Windows11]}" />
                                     </StackPanel>
 
                                     <!--  Release identifier  -->
                                     <StackPanel Grid.Column="1" Margin="8,0,0,8">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.Version]}" />
                                         <ComboBox
                                             Margin="0,8,0,0"
                                             ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
@@ -223,7 +228,7 @@
 
                                     <!--  Language and licensing  -->
                                     <StackPanel Grid.Row="1" Margin="0,0,8,0">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Language" />
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.Language]}" />
                                         <ComboBox
                                             Margin="0,8,0,0"
                                             IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
@@ -235,7 +240,7 @@
                                         Grid.Row="1"
                                         Grid.Column="1"
                                         Margin="8,0,0,0">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="License Channel" />
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.LicenseChannel]}" />
                                         <ComboBox
                                             Margin="0,8,0,0"
                                             ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
@@ -253,7 +258,7 @@
                                         Grid.Row="2"
                                         Grid.ColumnSpan="2"
                                         Margin="0,8,0,0">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Edition (Target)" />
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.EditionTarget]}" />
                                         <ComboBox
                                             Margin="0,8,0,0"
                                             ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
@@ -271,7 +276,7 @@
                     </TabItem>
 
                     <!--  Step 3: Driver pack selection  -->
-                    <TabItem Header="3. Driver Pack">
+                    <TabItem Header="{Binding Strings[Wizard.StepDriverPack]}">
                         <Grid Margin="16">
                             <StackPanel Margin="0,0,0,12">
                                 <DockPanel Margin="0,0,0,12">
@@ -279,16 +284,16 @@
                                     <Button
                                         Width="140"
                                         Command="{Binding RefreshCatalogsCommand}"
-                                        Content="Refresh Catalogs" />
+                                        Content="{Binding Strings[Tools.RefreshCatalogs]}" />
                                     <TextBlock
                                         Margin="12,0,0,0"
                                         VerticalAlignment="Center"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{Binding EffectiveOsArchitecture, StringFormat=Architecture: {0}}" />
+                                        Text="{Binding DriverPackArchitectureDisplay}" />
                                 </DockPanel>
 
                                 <StackPanel DataContext="{Binding DriverPackSelection}">
-                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Source" />
+                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[DriverPack.Source]}" />
                                     <ComboBox
                                         Margin="0,8,0,0"
                                         DisplayMemberPath="DisplayName"
@@ -303,7 +308,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0">
-                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Model" />
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=RootWindow}" />
                                             <ComboBox
                                                 Margin="0,8,0,0"
                                                 IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
@@ -312,7 +317,7 @@
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2">
-                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Version" />
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=RootWindow}" />
                                             <ComboBox
                                                 Margin="0,8,0,0"
                                                 IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
@@ -324,50 +329,50 @@
                                         Margin="0,8,0,0"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{Binding DriverPackModeDisplay, StringFormat=Selected mode: {0}}" />
+                                        Text="{Binding DriverPackModeDisplayText}" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
                     </TabItem>
 
                     <!--  Step 4: Deployment summary before execution  -->
-                    <TabItem Header="4. Summary">
+                    <TabItem Header="{Binding Strings[Wizard.StepSummary]}">
                         <StackPanel Margin="16">
                             <TextBlock
                                 Margin="0,0,0,12"
                                 Style="{StaticResource TitleTextBlockStyle}"
-                                Text="Deployment Summary" />
+                                Text="{Binding Strings[Summary.Title]}" />
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Target Disk" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.SelectedTargetDisk.DisplayLabel, TargetNullValue=No disk selected}" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.TargetDisk]}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryTargetDiskText}" />
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Operating System" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding SelectedOperatingSystem, Converter={StaticResource OperatingSystemSummaryConverter}, TargetNullValue=No selection}" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedOperatingSystem]}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryOperatingSystemText}" />
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Selected Driver Pack" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay, TargetNullValue=None}" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedDriverPack]}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay}" />
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Driver Pack Mode" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.DriverPackMode]}" />
                             <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.DriverPackModeDisplay}" />
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Firmware" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.ApplyFirmwareUpdates, StringFormat=Firmware updates enabled: {0}}" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Firmware]}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryFirmwareText}" />
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Autopilot" />
-                            <TextBlock Margin="0,0,0,4" Text="{Binding Preparation.IsAutopilotEnabled, StringFormat=Enabled: {0}}" />
-                            <TextBlock Margin="0,0,0,8" Text="{Binding Preparation.SelectedAutopilotProfile.DisplayName, StringFormat=Selected profile: {0}, TargetNullValue=Selected profile: none}" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Autopilot]}" />
+                            <TextBlock Margin="0,0,0,4" Text="{Binding SummaryAutopilotEnabledText}" />
+                            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryAutopilotProfileText}" />
 
                             <!--  Execution notes and mode hints  -->
                             <TextBlock
                                 Margin="0,8,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Start launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, offline Autopilot profile staging)." />
+                                Text="{Binding Strings[Summary.StartExplanation]}" />
                             <TextBlock
                                 Margin="0,4,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Debug Safe Mode: task sequence runs in dry-run simulation."
+                                Text="{Binding Strings[Summary.DebugSafeModeExplanation]}"
                                 Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
                     </TabItem>
@@ -389,16 +394,16 @@
                             Width="140"
                             Margin="0,0,8,0"
                             Command="{Binding ShowDebugProgressPageCommand}"
-                            Content="Debug: Progress" />
+                            Content="{Binding Strings[Debug.ProgressButton]}" />
                         <Button
                             Width="140"
                             Margin="0,0,8,0"
                             Command="{Binding ShowDebugSuccessPageCommand}"
-                            Content="Debug: Success" />
+                            Content="{Binding Strings[Debug.SuccessButton]}" />
                         <Button
                             Width="140"
                             Command="{Binding ShowDebugErrorPageCommand}"
-                            Content="Debug: Error" />
+                            Content="{Binding Strings[Debug.ErrorButton]}" />
                     </StackPanel>
 
                     <StackPanel
@@ -409,16 +414,16 @@
                             Width="120"
                             Margin="0,0,8,0"
                             Command="{Binding PreviousWizardStepCommand}"
-                            Content="Previous" />
+                            Content="{Binding Strings[Common.Previous]}" />
                         <Button
                             Width="120"
                             Margin="0,0,8,0"
                             Command="{Binding NextWizardStepCommand}"
-                            Content="Next" />
+                            Content="{Binding Strings[Common.Next]}" />
                         <Button
                             Width="160"
                             Command="{Binding StartDeploymentCommand}"
-                            Content="Start Deployment"
+                            Content="{Binding Strings[Common.StartDeployment]}"
                             Style="{DynamicResource AccentButtonStyle}" />
                     </StackPanel>
                 </Grid>
@@ -451,7 +456,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Networking" />
+                            Text="{Binding DataContext.Strings[Progress.Networking], ElementName=RootWindow}" />
                         <TextBlock
                             Margin="0,0,0,2"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -474,7 +479,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Start time" />
+                            Text="{Binding DataContext.Strings[Progress.StartTime], ElementName=RootWindow}" />
                         <TextBlock
                             Margin="0,0,0,20"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -485,7 +490,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Elapsed time" />
+                            Text="{Binding DataContext.Strings[Progress.ElapsedTime], ElementName=RootWindow}" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
@@ -556,7 +561,7 @@
                         Width="140"
                         HorizontalAlignment="Right"
                         Command="{Binding OpenLogFileCommand}"
-                        Content="Open Log File" />
+                        Content="{Binding DataContext.Strings[Common.OpenLogFile], ElementName=RootWindow}" />
                 </Grid>
             </Grid>
 
@@ -583,7 +588,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Networking" />
+                            Text="{Binding DataContext.Strings[Progress.Networking], ElementName=RootWindow}" />
                         <TextBlock
                             Margin="0,0,0,2"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -606,7 +611,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Start time" />
+                            Text="{Binding DataContext.Strings[Progress.StartTime], ElementName=RootWindow}" />
                         <TextBlock
                             Margin="0,0,0,20"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -617,7 +622,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Elapsed time" />
+                            Text="{Binding DataContext.Strings[Progress.ElapsedTime], ElementName=RootWindow}" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
@@ -625,21 +630,21 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             Style="{StaticResource TitleTextBlockStyle}"
-                            Text="Deployment completed successfully."
+                            Text="{Binding DataContext.Strings[Success.Completed], ElementName=RootWindow}"
                             TextAlignment="Center" />
                         <TextBlock
                             Margin="0,16,0,24"
                             HorizontalAlignment="Center"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding RebootCountdownSeconds, StringFormat=This computer will reboot in {0} seconds...}"
+                            Text="{Binding RebootCountdownText}"
                             TextAlignment="Center" />
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <Button
                                 Width="140"
                                 Margin="0,0,8,0"
                                 Command="{Binding RebootNowCommand}"
-                                Content="Reboot now" />
+                                Content="{Binding DataContext.Strings[Success.RebootNow], ElementName=RootWindow}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -668,7 +673,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Networking" />
+                            Text="{Binding DataContext.Strings[Progress.Networking], ElementName=RootWindow}" />
                         <TextBlock
                             Margin="0,0,0,2"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -691,7 +696,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Start time" />
+                            Text="{Binding DataContext.Strings[Progress.StartTime], ElementName=RootWindow}" />
                         <TextBlock
                             Margin="0,0,0,20"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -702,7 +707,7 @@
                             Margin="0,0,0,4"
                             Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Elapsed time" />
+                            Text="{Binding DataContext.Strings[Progress.ElapsedTime], ElementName=RootWindow}" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ElapsedTimeText}" />
                     </StackPanel>
 
@@ -714,12 +719,12 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             Style="{StaticResource TitleTextBlockStyle}"
-                            Text="Deployment failed"
+                            Text="{Binding DataContext.Strings[Error.Title], ElementName=RootWindow}"
                             TextAlignment="Center" />
                         <TextBlock
                             Margin="0,16,0,4"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Failed step" />
+                            Text="{Binding DataContext.Strings[Error.FailedStep], ElementName=RootWindow}" />
                         <TextBlock
                             Margin="0,0,0,16"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -727,7 +732,7 @@
                         <TextBlock
                             Margin="0,0,0,4"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Error message" />
+                            Text="{Binding DataContext.Strings[Error.Message], ElementName=RootWindow}" />
                         <Border
                             Height="220"
                             Padding="10"
@@ -746,7 +751,7 @@
                             Margin="0,16,0,0"
                             HorizontalAlignment="Right"
                             Command="{Binding OpenLogFileCommand}"
-                            Content="Open Log File" />
+                            Content="{Binding DataContext.Strings[Common.OpenLogFile], ElementName=RootWindow}" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -767,7 +772,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Style="{StaticResource DisplayTextBlockStyle}"
-                    Text="Welcome"
+                    Text="{Binding Strings[Splash.Welcome]}"
                     TextAlignment="Center" />
 
                 <StackPanel
@@ -782,7 +787,7 @@
                         HorizontalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource BodyTextBlockStyle}"
-                        Text="Initializing components..."
+                        Text="{Binding Strings[Splash.InitializingComponents]}"
                         TextAlignment="Center" />
                 </StackPanel>
 
@@ -792,7 +797,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Command="{Binding BeginWizardCommand}"
-                    Content="Begin"
+                    Content="{Binding Strings[Splash.Begin]}"
                     Style="{DynamicResource AccentButtonStyle}"
                     Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
             </Grid>

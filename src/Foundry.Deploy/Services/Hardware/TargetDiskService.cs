@@ -2,6 +2,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
@@ -178,10 +179,10 @@ if ($null -eq $partition) {{
     private static TargetDiskInfo ParseDisk(JsonElement element)
     {
         int diskNumber = ReadInt(element, "Number");
-        string friendlyName = NormalizeValue(ReadString(element, "FriendlyName"), fallback: "Unknown");
-        string serial = NormalizeValue(ReadString(element, "SerialNumber"), fallback: "Unknown");
-        string busType = NormalizeValue(ReadString(element, "BusType"), fallback: "Unknown");
-        string partitionStyle = NormalizeValue(ReadString(element, "PartitionStyle"), fallback: "Unknown");
+        string friendlyName = NormalizeValue(ReadString(element, "FriendlyName"), fallback: LocalizationText.GetString("Common.Unknown"));
+        string serial = NormalizeValue(ReadString(element, "SerialNumber"), fallback: LocalizationText.GetString("Common.Unknown"));
+        string busType = NormalizeValue(ReadString(element, "BusType"), fallback: LocalizationText.GetString("Common.Unknown"));
+        string partitionStyle = NormalizeValue(ReadString(element, "PartitionStyle"), fallback: LocalizationText.GetString("Common.Unknown"));
         ulong sizeBytes = ReadUInt64(element, "Size");
         bool isSystem = ReadBool(element, "IsSystem");
         bool isBoot = ReadBool(element, "IsBoot");
@@ -213,22 +214,22 @@ if ($null -eq $partition) {{
     {
         if (isSystem)
         {
-            return "Blocked: system disk";
+            return LocalizationText.GetString("Disk.BlockedSystemDisk");
         }
 
         if (isBoot)
         {
-            return "Blocked: boot disk";
+            return LocalizationText.GetString("Disk.BlockedBootDisk");
         }
 
         if (isReadOnly)
         {
-            return "Blocked: read-only";
+            return LocalizationText.GetString("Disk.BlockedReadOnly");
         }
 
         if (isOffline)
         {
-            return "Blocked: offline";
+            return LocalizationText.GetString("Disk.BlockedOffline");
         }
 
         return string.Empty;

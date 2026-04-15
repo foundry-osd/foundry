@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,6 +11,7 @@ using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
 using Microsoft.Extensions.Logging;
@@ -17,7 +19,7 @@ using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
 
 namespace Foundry.Connect.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject, IDisposable
+public partial class MainWindowViewModel : LocalizedViewModelBase
 {
     private const string PendingStatusGlyph = "\uE709";
     private const string ReadyStatusGlyph = "\uE73E";
@@ -60,10 +62,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string primaryStatusGlyph = PendingStatusGlyph;
 
     [ObservableProperty]
-    private string primaryStatusTitle = "Waiting for network";
+    private string primaryStatusTitle = string.Empty;
 
     [ObservableProperty]
-    private string primaryStatusDescription = "Internet access has not been validated yet.";
+    private string primaryStatusDescription = string.Empty;
 
     [ObservableProperty]
     private bool isPrimaryStatusSuccessful;
@@ -75,19 +77,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string ethernetGlyph = EthernetErrorGlyph;
 
     [ObservableProperty]
-    private string ethernetStatusText = "No ethernet adapter detected.";
+    private string ethernetStatusText = string.Empty;
 
     [ObservableProperty]
     private string ethernetSecondaryStatusText = string.Empty;
 
     [ObservableProperty]
-    private string ethernetAdapterName = "Unavailable";
+    private string ethernetAdapterName = string.Empty;
 
     [ObservableProperty]
-    private string ethernetIpAddress = "Unavailable";
+    private string ethernetIpAddress = string.Empty;
 
     [ObservableProperty]
-    private string ethernetGateway = "Unavailable";
+    private string ethernetGateway = string.Empty;
 
     [ObservableProperty]
     private bool hasInternetAccess;
@@ -133,6 +135,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public MainWindowViewModel(
         IThemeService themeService,
+        ILocalizationService localizationService,
         IApplicationShellService applicationShellService,
         IApplicationLifetimeService applicationLifetimeService,
         IConnectConfigurationService configurationService,
@@ -140,6 +143,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         INetworkBootstrapService networkBootstrapService,
         INetworkStatusService networkStatusService,
         ILogger<MainWindowViewModel> logger)
+        : base(localizationService)
     {
         _themeService = themeService;
         _applicationShellService = applicationShellService;
@@ -152,30 +156,30 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _isAutoCloseEnabled = !Debugger.IsAttached;
         LayoutMode = NetworkLayoutMode.EthernetOnly;
-        VersionDisplay = $"Version: {FoundryConnectApplicationInfo.Version}";
-        ConfigurationSourceText = _configurationService.IsLoadedFromDisk && !string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath)
-            ? $"Configuration: {_configurationService.ConfigurationPath}"
-            : "Configuration: built-in defaults";
-        RefreshIntervalText = $"Refresh: every {FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds} seconds";
+        LocalizationService.LanguageChanged += OnLanguageChanged;
+        ApplyLocalizedDefaults();
     }
 
     public ObservableCollection<WifiNetworkItemViewModel> WifiNetworks { get; } = [];
 
+    public CultureInfo CurrentCulture => LocalizationService.CurrentCulture;
     public ConnectThemeMode CurrentTheme => _themeService.CurrentTheme;
 
-    public string VersionDisplay { get; }
+    public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
 
-    public string ConfigurationSourceText { get; }
+    public string ConfigurationSourceText => _configurationService.IsLoadedFromDisk && !string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath)
+        ? Format("Common.ConfigurationFromPathFormat", _configurationService.ConfigurationPath!)
+        : GetString("Common.ConfigurationBuiltInDefaults");
 
-    public string RefreshIntervalText { get; }
+    public string RefreshIntervalText => Format("Common.RefreshIntervalFormat", FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds);
 
-    public string WindowTitle => FoundryConnectApplicationInfo.WindowTitle;
+    public string WindowTitle => GetString("App.WindowTitle");
 
-    public string AutoContinueText => $"Auto-continue in {CountdownSecondsRemaining}s";
+    public string AutoContinueText => Format("Status.AutoContinueFormat", CountdownSecondsRemaining);
 
     public string LastUpdatedText => LastUpdatedAt is null
-        ? "Last update: pending"
-        : $"Last update: {LastUpdatedAt.Value.LocalDateTime:HH:mm:ss}";
+        ? GetString("Common.LastUpdatePending")
+        : Format("Common.LastUpdateFormat", LastUpdatedAt.Value.LocalDateTime);
 
     public bool HasWifiNetworks => WifiNetworks.Count > 0;
 
@@ -254,6 +258,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         _themeService.SetTheme(ConnectThemeMode.Dark);
         OnPropertyChanged(nameof(CurrentTheme));
+    }
+
+    [RelayCommand]
+    private void SetCulture(string cultureName)
+    {
+        LocalizationService.SetCulture(new CultureInfo(cultureName));
     }
 
     [RelayCommand]
@@ -402,7 +412,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             {
                 IsPrimaryStatusSuccessful = false;
                 PrimaryStatusGlyph = PendingStatusGlyph;
-                PrimaryStatusTitle = "Network refresh failed";
+                PrimaryStatusTitle = GetString("Status.NetworkRefreshFailedTitle");
                 PrimaryStatusDescription = ex.Message;
             }).ConfigureAwait(false);
         }
@@ -435,7 +445,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RefreshDerivedConnectionState(snapshot);
 
         SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
-        ApplyPrimaryStatus(snapshot);
+        ApplyPrimaryStatus(snapshot.HasInternetAccess);
         UpdateCountdown(snapshot);
 
         if (!snapshot.HasInternetAccess &&
@@ -457,21 +467,21 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
-    private void ApplyPrimaryStatus(NetworkStatusSnapshot snapshot)
+    private void ApplyPrimaryStatus(bool hasInternetAccess)
     {
-        if (snapshot.HasInternetAccess)
+        if (hasInternetAccess)
         {
             IsPrimaryStatusSuccessful = true;
             PrimaryStatusGlyph = ReadyStatusGlyph;
-            PrimaryStatusTitle = "Network ready";
-            PrimaryStatusDescription = "Internet access is validated. You can continue now.";
+            PrimaryStatusTitle = GetString("Status.NetworkReadyTitle");
+            PrimaryStatusDescription = GetString("Status.NetworkReadyDescription");
             return;
         }
 
         IsPrimaryStatusSuccessful = false;
         PrimaryStatusGlyph = PendingStatusGlyph;
-        PrimaryStatusTitle = "Waiting for network";
-        PrimaryStatusDescription = "Internet access has not been validated yet.";
+        PrimaryStatusTitle = GetString("Status.WaitingForNetworkTitle");
+        PrimaryStatusDescription = GetString("Status.WaitingForNetworkDescription");
     }
 
     private void UpdateCountdown(NetworkStatusSnapshot snapshot)
@@ -579,6 +589,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 }
 
                 wifiNetwork.Update(
+                    network.Ssid == "Hidden network" ? GetString("Wifi.HiddenNetwork") : network.Ssid,
+                    TranslateDiscoveredWifiSecurity(network.Authentication),
                     network.SsidHex,
                     network.Authentication,
                     network.Encryption,
@@ -686,18 +698,20 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         return _dispatcher.InvokeAsync(action).Task;
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         if (_isDisposed)
         {
             return;
         }
 
+        LocalizationService.LanguageChanged -= OnLanguageChanged;
         _disposeCts.Cancel();
         CancelCountdown();
         _countdownCts?.Dispose();
         _disposeCts.Dispose();
         _refreshGate.Dispose();
+        base.Dispose();
         _isDisposed = true;
     }
 
@@ -779,6 +793,40 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(EffectiveLayoutMode));
     }
 
+    private void OnLanguageChanged(object? sender, EventArgs e)
+    {
+        RunOnUiThread(() =>
+        {
+            ApplyPrimaryStatus(HasInternetAccess);
+            CurrentConnectionChipText = BuildCurrentConnectionChipText(IsEthernetConnected);
+            OnPropertyChanged(nameof(CurrentCulture));
+            OnPropertyChanged(nameof(VersionDisplay));
+            OnPropertyChanged(nameof(ConfigurationSourceText));
+            OnPropertyChanged(nameof(RefreshIntervalText));
+            OnPropertyChanged(nameof(WindowTitle));
+            OnPropertyChanged(nameof(AutoContinueText));
+            OnPropertyChanged(nameof(LastUpdatedText));
+            OnPropertyChanged(nameof(ProvisionedWifiProfileName));
+            OnPropertyChanged(nameof(ProvisionedWifiAuthenticationText));
+            OnPropertyChanged(nameof(ProvisionedWifiSourceHintText));
+            OnPropertyChanged(nameof(ProvisionedWifiStatusText));
+            OnPropertyChanged(nameof(ProvisionedWifiPlaceholderText));
+            OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
+        });
+
+        _ = RefreshCoreAsync(_disposeCts.Token);
+    }
+
+    private void ApplyLocalizedDefaults()
+    {
+        PrimaryStatusTitle = GetString("Status.WaitingForNetworkTitle");
+        PrimaryStatusDescription = GetString("Status.WaitingForNetworkDescription");
+        EthernetStatusText = GetString("Ethernet.NoAdapterDetected");
+        EthernetAdapterName = GetString("Common.Unavailable");
+        EthernetIpAddress = GetString("Common.Unavailable");
+        EthernetGateway = GetString("Common.Unavailable");
+    }
+
     private async Task ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
     {
         if (_disposeCts.IsCancellationRequested)
@@ -802,7 +850,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Provisioned settings initialization failed.");
-            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = "Unable to apply the provisioned network settings.").ConfigureAwait(false);
+            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionApplyProvisionedFailed")).ConfigureAwait(false);
         }
     }
 
@@ -858,7 +906,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Provisioned network action failed.");
-            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = "Unable to complete the provisioned Wi-Fi action. Try again.").ConfigureAwait(false);
+            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
         }
         finally
         {
@@ -916,7 +964,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Selected Wi-Fi action failed.");
-            await RunOnUiAsync(() => SelectedWifiActionFeedbackText = "Unable to complete the Wi-Fi action. Try again.").ConfigureAwait(false);
+            await RunOnUiAsync(() => SelectedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
         }
         finally
         {
@@ -928,7 +976,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
     }
 
-    private static string? BuildSelectedWifiConnectFeedback(string status)
+    private string? BuildSelectedWifiConnectFeedback(string status)
     {
         if (status.StartsWith("Wi-Fi connected to ", StringComparison.Ordinal))
         {
@@ -937,18 +985,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (status.Contains("not supported in this build", StringComparison.OrdinalIgnoreCase))
         {
-            return "This Wi-Fi network is not supported in this build.";
+            return GetString("Wifi.ActionSelectedNotSupported");
         }
 
         if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
         {
-            return "No wireless adapter is available.";
+            return GetString("Wifi.NoAdapterAvailable");
         }
 
-        return "Unable to connect. Check the password and try again.";
+        return GetString("Wifi.ActionConnectFailed");
     }
 
-    private static string? BuildProvisionedWifiConnectFeedback(string status)
+    private string? BuildProvisionedWifiConnectFeedback(string status)
     {
         if (status.Contains("Wi-Fi connected to ", StringComparison.Ordinal))
         {
@@ -957,19 +1005,19 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
         {
-            return "No wireless adapter is available.";
+            return GetString("Wifi.NoAdapterAvailable");
         }
 
         if (status.Contains("not provisioned for this image", StringComparison.OrdinalIgnoreCase) ||
             status.Contains("No Wi-Fi profile is available", StringComparison.OrdinalIgnoreCase))
         {
-            return "The provisioned Wi-Fi profile is not available.";
+            return GetString("Wifi.ActionProvisionedProfileUnavailable");
         }
 
-        return "Unable to connect the provisioned Wi-Fi profile. Try again.";
+        return GetString("Wifi.ActionProvisionedConnectFailed");
     }
 
-    private static string? BuildProvisionedWifiDisconnectFeedback(string status)
+    private string? BuildProvisionedWifiDisconnectFeedback(string status)
     {
         if (status.StartsWith("Wi-Fi disconnected from ", StringComparison.Ordinal) ||
             status.StartsWith("Wi-Fi is already disconnected.", StringComparison.Ordinal))
@@ -979,10 +1027,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
         {
-            return "No wireless adapter is available.";
+            return GetString("Wifi.NoAdapterAvailable");
         }
 
-        return "Unable to disconnect the provisioned Wi-Fi profile. Try again.";
+        return GetString("Wifi.ActionProvisionedDisconnectFailed");
     }
 
     private string? BuildProvisionedWifiInitializationFeedback(string status)
@@ -999,13 +1047,18 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             status.Contains("not supported", StringComparison.OrdinalIgnoreCase) ||
             status.Contains("No Wi-Fi profile", StringComparison.OrdinalIgnoreCase))
         {
-            return status;
+            if (status.Contains("No Wi-Fi profile", StringComparison.OrdinalIgnoreCase))
+            {
+                return GetString("Wifi.ActionProvisionedProfileUnavailable");
+            }
+
+            return GetString("Wifi.ActionApplyProvisionedFailed");
         }
 
         return null;
     }
 
-    private static string? BuildSelectedWifiDisconnectFeedback(string status)
+    private string? BuildSelectedWifiDisconnectFeedback(string status)
     {
         if (status.StartsWith("Wi-Fi disconnected from ", StringComparison.Ordinal) ||
             status.StartsWith("Wi-Fi is already disconnected.", StringComparison.Ordinal))
@@ -1015,15 +1068,17 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
         {
-            return "No wireless adapter is available.";
+            return GetString("Wifi.NoAdapterAvailable");
         }
 
-        return "Unable to disconnect. Try again.";
+        return GetString("Wifi.ActionDisconnectFailed");
     }
 
     public sealed class WifiNetworkItemViewModel : ObservableObject
     {
+        private string _displaySsid = string.Empty;
         private string _authentication = string.Empty;
+        private string _displayAuthentication = string.Empty;
         private string? _ssidHex;
         private string _encryption = string.Empty;
         private int _signalStrengthPercent;
@@ -1039,6 +1094,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         public string Ssid { get; }
 
+        public string DisplaySsid
+        {
+            get => _displaySsid;
+            private set => SetProperty(ref _displaySsid, value);
+        }
+
         public string? SsidHex
         {
             get => _ssidHex;
@@ -1049,6 +1110,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             get => _authentication;
             private set => SetProperty(ref _authentication, value);
+        }
+
+        public string DisplayAuthentication
+        {
+            get => _displayAuthentication;
+            private set => SetProperty(ref _displayAuthentication, value);
         }
 
         public string Encryption
@@ -1088,6 +1155,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         public void Update(
+            string displaySsid,
+            string displayAuthentication,
             string? ssidHex,
             string authentication,
             string encryption,
@@ -1097,6 +1166,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             bool requiresPassphrase,
             bool isConnected)
         {
+            DisplaySsid = displaySsid;
+            DisplayAuthentication = displayAuthentication;
             SsidHex = ssidHex;
             Authentication = authentication;
             Encryption = encryption;
@@ -1110,14 +1181,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private string BuildWifiDiscoveryEmptyStateText()
     {
-        return BuildWifiUnavailableText() ?? "No Wi-Fi networks are currently visible.";
+        return BuildWifiUnavailableText() ?? GetString("Wifi.NoNetworksVisible");
     }
 
     private string BuildProvisionedWifiPlaceholderText()
     {
         if (!HasProvisionedWifiProfile)
         {
-            return "No provisioned profile is available in this boot image.";
+            return GetString("Wifi.NoProvisionedProfile");
         }
 
         return BuildWifiUnavailableText() ?? string.Empty;
@@ -1127,12 +1198,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (!IsWifiRuntimeAvailable)
         {
-            return "Wi-Fi support is not available at runtime.";
+            return GetString("Wifi.UnavailableAtRuntime");
         }
 
         if (!HasWirelessAdapter)
         {
-            return "No wireless adapter is currently detected.";
+            return GetString("Wifi.NoAdapterDetected");
         }
 
         return null;
@@ -1142,7 +1213,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (!HasProvisionedWifiProfile)
         {
-            return "Unavailable";
+            return GetString("Common.Unavailable");
         }
 
         if (_configuration.Wifi.HasEnterpriseProfile)
@@ -1162,11 +1233,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 _logger.LogDebug(ex, "Failed to resolve the provisioned Wi-Fi profile name.");
             }
 
-            return "Enterprise profile";
+            return GetString("Wifi.EnterpriseProfile");
         }
 
         return string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
-            ? "Unnamed provisioned profile"
+            ? GetString("Wifi.UnnamedProvisionedProfile")
             : _configuration.Wifi.Ssid.Trim();
     }
 
@@ -1189,54 +1260,73 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private string BuildProvisionedWifiSourceHintText()
     {
         string sourceText = _configuration.Wifi.HasEnterpriseProfile
-            ? "Enterprise profile"
-            : "Boot image settings";
+            ? GetString("Wifi.EnterpriseProfile")
+            : GetString("Wifi.BootImageSettings");
 
         if (_configuration.Wifi.RequiresCertificate || !string.IsNullOrWhiteSpace(_configuration.Wifi.CertificatePath))
         {
-            return $"{sourceText} · Certificate included";
+            return Format("Wifi.SourceWithCertificateFormat", sourceText);
         }
 
         return sourceText;
     }
 
-    private static string ResolveProvisionedPersonalSecurityDisplayText(string? securityType)
+    private string TranslateDiscoveredWifiSecurity(string authentication)
+    {
+        return authentication switch
+        {
+            "Open" => GetString("Wifi.SecurityOpen"),
+            "WEP" => GetString("Wifi.SecurityWep"),
+            "WPA-Personal" => GetString("Wifi.SecurityWpaPersonal"),
+            "WPA-None" => GetString("Wifi.SecurityWpaNone"),
+            "WPA2-Personal" => GetString("Wifi.SecurityWpa2Personal"),
+            "WPA3-Personal" => GetString("Wifi.SecurityWpa3Personal"),
+            "WPA-Enterprise" => GetString("Wifi.SecurityWpaEnterprise"),
+            "WPA2-Enterprise" => GetString("Wifi.SecurityWpa2Enterprise"),
+            "WPA3-Enterprise" => GetString("Wifi.SecurityWpa3Enterprise"),
+            "Vendor-specific" => GetString("Wifi.SecurityVendorSpecific"),
+            "OWE" => "OWE",
+            _ => authentication
+        };
+    }
+
+    private string ResolveProvisionedPersonalSecurityDisplayText(string? securityType)
     {
         if (string.IsNullOrWhiteSpace(securityType))
         {
-            return "Configured profile";
+            return GetString("Wifi.ConfiguredProfile");
         }
 
         return securityType.Trim() switch
         {
             "OWE" => "OWE",
-            "WPA2/WPA3-Personal" => "WPA2/WPA3 Personal",
-            "WPA2-Personal" => "WPA2 Personal",
-            "WPA3-Personal" => "WPA3 Personal",
-            "Personal" => "Personal",
+            "WPA2/WPA3-Personal" => GetString("Wifi.SecurityWpa2Wpa3Personal"),
+            "WPA2-Personal" => GetString("Wifi.SecurityWpa2Personal"),
+            "WPA3-Personal" => GetString("Wifi.SecurityWpa3Personal"),
+            "Personal" => GetString("Wifi.SecurityPersonal"),
             _ => securityType.Trim()
         };
     }
 
-    private static string ResolveProvisionedEnterpriseSecurityDisplayText(
+    private string ResolveProvisionedEnterpriseSecurityDisplayText(
         string? securityType,
         NetworkAuthenticationMode authenticationMode)
     {
         string baseSecurityText = securityType?.Trim() switch
         {
-            "WPA3ENT" => "WPA3 Enterprise",
-            "WPA3ENT192" or "WPA3" => "WPA3 Enterprise 192-bit",
-            "WPA2/WPA3-Enterprise" => "WPA2/WPA3 Enterprise",
-            "WPA2-Enterprise" => "WPA2 Enterprise",
-            "WPA3-Enterprise" => "WPA3 Enterprise",
-            "Enterprise" => "Enterprise",
-            _ => "WPA2/WPA3 Enterprise"
+            "WPA3ENT" => GetString("Wifi.SecurityWpa3Enterprise"),
+            "WPA3ENT192" or "WPA3" => GetString("Wifi.SecurityWpa3Enterprise192"),
+            "WPA2/WPA3-Enterprise" => GetString("Wifi.SecurityWpa2Wpa3Enterprise"),
+            "WPA2-Enterprise" => GetString("Wifi.SecurityWpa2Enterprise"),
+            "WPA3-Enterprise" => GetString("Wifi.SecurityWpa3Enterprise"),
+            "Enterprise" => GetString("Wifi.SecurityEnterprise"),
+            _ => GetString("Wifi.SecurityWpa2Wpa3Enterprise")
         };
 
         return authenticationMode switch
         {
-            NetworkAuthenticationMode.MachineOnly => $"{baseSecurityText} (machine)",
-            NetworkAuthenticationMode.MachineOrUser => $"{baseSecurityText} (machine or user)",
+            NetworkAuthenticationMode.MachineOnly => Format("Wifi.SecurityMachineFormat", baseSecurityText),
+            NetworkAuthenticationMode.MachineOrUser => Format("Wifi.SecurityMachineOrUserFormat", baseSecurityText),
             _ => baseSecurityText
         };
     }
@@ -1250,32 +1340,37 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         if (IsProvisionedWifiConnected)
         {
-            return "Connected";
+            return GetString("Common.Connected");
         }
 
         if (!IsWifiRuntimeAvailable)
         {
-            return "Wi-Fi unavailable";
+            return GetString("Wifi.StatusUnavailable");
         }
 
         if (!HasWirelessAdapter)
         {
-            return "No wireless adapter available";
+            return GetString("Wifi.StatusNoAdapter");
         }
 
         if (!string.IsNullOrWhiteSpace(_connectedWifiSsid))
         {
-            return "Another Wi-Fi network is active";
+            return GetString("Wifi.StatusAnotherNetworkActive");
         }
 
-        return "Ready to connect";
+        return GetString("Wifi.StatusReadyToConnect");
     }
 
     private string ResolveCurrentConnectionChipText(NetworkStatusSnapshot snapshot)
     {
-        if (snapshot.IsEthernetConnected)
+        return BuildCurrentConnectionChipText(snapshot.IsEthernetConnected);
+    }
+
+    private string BuildCurrentConnectionChipText(bool isEthernetConnected)
+    {
+        if (isEthernetConnected)
         {
-            return "Ethernet";
+            return GetString("Wifi.ConnectionChipEthernet");
         }
 
         if (string.IsNullOrWhiteSpace(_connectedWifiSsid))
@@ -1284,8 +1379,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         }
 
         return IsProvisionedWifiConnected
-            ? $"Provisioned Wi-Fi · {_connectedWifiSsid}"
-            : $"Wi-Fi · {_connectedWifiSsid}";
+            ? Format("Wifi.ConnectionChipProvisionedFormat", _connectedWifiSsid)
+            : Format("Wifi.ConnectionChipFormat", _connectedWifiSsid);
     }
 
     private bool IsProvisionedWifiConnection(string? ssid)
@@ -1305,7 +1400,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         string profileName = ResolveProvisionedWifiProfileName();
         return !string.IsNullOrWhiteSpace(profileName) &&
-               !string.Equals(profileName, "Enterprise profile", StringComparison.OrdinalIgnoreCase) &&
+               !string.Equals(profileName, GetString("Wifi.EnterpriseProfile"), StringComparison.OrdinalIgnoreCase) &&
                string.Equals(trimmedSsid, profileName, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -1346,5 +1441,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         Owe,
         Personal,
         Enterprise
+    }
+
+    private string GetString(string key)
+    {
+        return Strings[key];
+    }
+
+    private string Format(string key, params object[] args)
+    {
+        return string.Format(LocalizationService.CurrentCulture, GetString(key), args);
     }
 }
