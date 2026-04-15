@@ -4,10 +4,11 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.DriverPacks;
+using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.ViewModels;
 
-public sealed partial class DriverPackSelectionViewModel : ObservableObject
+public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBase
 {
     private const string NoneDriverPackOptionKey = "none";
     private const string MicrosoftUpdateCatalogDriverPackOptionKey = "microsoft-update-catalog";
@@ -23,15 +24,22 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
 
-    public DriverPackSelectionViewModel(IDriverPackSelectionService driverPackSelectionService)
-        : this(driverPackSelectionService, string.Empty)
+    public DriverPackSelectionViewModel(
+        IDriverPackSelectionService driverPackSelectionService,
+        ILocalizationService localizationService)
+        : this(driverPackSelectionService, localizationService, string.Empty)
     {
     }
 
-    public DriverPackSelectionViewModel(IDriverPackSelectionService driverPackSelectionService, string initialArchitecture)
+    public DriverPackSelectionViewModel(
+        IDriverPackSelectionService driverPackSelectionService,
+        ILocalizationService localizationService,
+        string initialArchitecture)
+        : base(localizationService)
     {
         _driverPackSelectionService = driverPackSelectionService ?? throw new ArgumentNullException(nameof(driverPackSelectionService));
         _effectiveArchitecture = NormalizeArchitecture(initialArchitecture);
+        LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
     }
 
     public event EventHandler? StateChanged;
@@ -66,9 +74,9 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
 
     public string DriverPackModeDisplay => SelectedDriverPackOption?.Kind switch
     {
-        DriverPackSelectionKind.MicrosoftUpdateCatalog => "Microsoft Update Catalog",
-        DriverPackSelectionKind.OemCatalog => "OEM Driver Pack",
-        _ => "None"
+        DriverPackSelectionKind.MicrosoftUpdateCatalog => GetString("DriverPack.MicrosoftUpdateCatalog"),
+        DriverPackSelectionKind.OemCatalog => GetString("DriverPack.OemDriverPack"),
+        _ => GetString("Common.None")
     };
 
     public bool IsOemDriverSourceSelected => SelectedDriverPackOption?.Kind == DriverPackSelectionKind.OemCatalog;
@@ -476,23 +484,23 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
                ?? options[0];
     }
 
-    private static DriverPackOptionItem CreateNoneDriverPackOption()
+    private DriverPackOptionItem CreateNoneDriverPackOption()
     {
         return new DriverPackOptionItem
         {
             Key = NoneDriverPackOptionKey,
-            DisplayName = "None",
+            DisplayName = GetString("Common.None"),
             Kind = DriverPackSelectionKind.None,
             DriverPack = null
         };
     }
 
-    private static DriverPackOptionItem CreateMicrosoftUpdateCatalogOption()
+    private DriverPackOptionItem CreateMicrosoftUpdateCatalogOption()
     {
         return new DriverPackOptionItem
         {
             Key = MicrosoftUpdateCatalogDriverPackOptionKey,
-            DisplayName = "Microsoft Update Catalog",
+            DisplayName = GetString("DriverPack.MicrosoftUpdateCatalog"),
             Kind = DriverPackSelectionKind.MicrosoftUpdateCatalog,
             DriverPack = null
         };
@@ -514,19 +522,19 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
         DriverPackSelectionKind selectionKind = GetEffectiveSelectionKind();
         if (selectionKind == DriverPackSelectionKind.None)
         {
-            return "None";
+            return GetString("Common.None");
         }
 
         if (selectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
         {
-            return "Microsoft Update Catalog";
+            return GetString("DriverPack.MicrosoftUpdateCatalog");
         }
 
         DriverPackCatalogItem? selectedPack = ResolveEffectiveDriverPackSelection();
         if (selectedPack is null)
         {
-            string sourceName = SelectedDriverPackOption?.DisplayName ?? "OEM";
-            return $"{sourceName} | No matching model/version";
+            string sourceName = SelectedDriverPackOption?.DisplayName ?? GetString("DriverPack.Oem");
+            return Format("DriverPack.NoMatchingModelVersionFormat", sourceName);
         }
 
         string modelName = string.IsNullOrWhiteSpace(SelectedDriverPackModel)
@@ -617,7 +625,7 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
             return Path.GetFileNameWithoutExtension(driverPack.FileName.Trim());
         }
 
-        return "Unknown";
+        return LocalizationText.GetString("Common.Unknown");
     }
 
     private static string ResolveDriverPackFriendlyName(DriverPackCatalogItem driverPack)
@@ -631,7 +639,7 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
         {
             return models.Length == 1
                 ? models[0]
-                : $"{models[0]} (+{models.Length - 1} models)";
+                : LocalizationText.Format("DriverPack.MultiModelFormat", models[0], models.Length - 1);
         }
 
         if (!LooksLikeArchiveOrInstallerName(driverPack.Name))
@@ -739,5 +747,31 @@ public sealed partial class DriverPackSelectionViewModel : ObservableObject
         }
 
         return normalized;
+    }
+
+    public override void Dispose()
+    {
+        LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
+        base.Dispose();
+    }
+
+    private void OnLocalizationLanguageChanged(object? sender, EventArgs e)
+    {
+        RunOnUiThread(() =>
+        {
+            RefreshDriverPackOptions();
+            OnPropertyChanged(nameof(DriverPackModeDisplay));
+            OnPropertyChanged(nameof(SelectedDriverPackSelectionDisplay));
+        });
+    }
+
+    private string GetString(string key)
+    {
+        return Strings[key];
+    }
+
+    private string Format(string key, params object[] args)
+    {
+        return string.Format(LocalizationService.CurrentCulture, GetString(key), args);
     }
 }

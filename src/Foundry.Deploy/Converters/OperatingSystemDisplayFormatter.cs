@@ -11,7 +11,7 @@ internal static class OperatingSystemDisplayFormatter
         }
 
         return int.TryParse(normalized, out _)
-            ? $"Windows {normalized}"
+            ? $"{Foundry.Deploy.Services.Localization.LocalizationText.GetString("OperatingSystem.Windows")} {normalized}"
             : normalized;
     }
 
@@ -19,8 +19,8 @@ internal static class OperatingSystemDisplayFormatter
     {
         return channel.Trim().ToUpperInvariant() switch
         {
-            "RET" => "Retail",
-            "VOL" => "Volume",
+            "RET" => Foundry.Deploy.Services.Localization.LocalizationText.GetString("OperatingSystem.Retail"),
+            "VOL" => Foundry.Deploy.Services.Localization.LocalizationText.GetString("OperatingSystem.Volume"),
             _ => channel
         };
     }
@@ -29,8 +29,8 @@ internal static class OperatingSystemDisplayFormatter
     {
         return edition.Trim().ToUpperInvariant() switch
         {
-            "PRO" => "Professional",
-            "PRO N" => "Professional N",
+            "PRO" => Foundry.Deploy.Services.Localization.LocalizationText.GetString("OperatingSystem.Professional"),
+            "PRO N" => Foundry.Deploy.Services.Localization.LocalizationText.GetString("OperatingSystem.ProfessionalN"),
             _ => edition
         };
     }

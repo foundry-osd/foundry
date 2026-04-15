@@ -7,7 +7,7 @@ public static class TargetDiskInfoFactory
         return new TargetDiskInfo
         {
             DiskNumber = 999,
-            FriendlyName = "DEBUG VIRTUAL TARGET",
+            FriendlyName = Foundry.Deploy.Services.Localization.LocalizationText.GetString("Disk.DebugVirtualTarget"),
             SerialNumber = "DEBUG-ONLY",
             BusType = "Virtual",
             PartitionStyle = "GPT",

@@ -95,6 +95,8 @@ public sealed class DeploymentWizardContext : IDisposable
         Preparation.StatusMessageGenerated -= OnPreparationStatusMessageGenerated;
         OperatingSystemCatalog.StateChanged -= OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged -= OnDriverPackSelectionStateChanged;
+        Preparation.Dispose();
+        DriverPackSelection.Dispose();
         _isDisposed = true;
     }
 

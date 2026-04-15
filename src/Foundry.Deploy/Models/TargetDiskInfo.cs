@@ -22,13 +22,19 @@ public sealed record TargetDiskInfo
         {
             string sizeGiB = SizeBytes > 0
                 ? $"{(SizeBytes / 1024d / 1024d / 1024d):0.0} GiB"
-                : "Unknown size";
+                : Foundry.Deploy.Services.Localization.LocalizationText.GetString("Disk.UnknownSize");
 
             string warningSuffix = string.IsNullOrWhiteSpace(SelectionWarning)
                 ? string.Empty
-                : $" | {SelectionWarning}";
+                : Foundry.Deploy.Services.Localization.LocalizationText.Format("Disk.WarningSuffixFormat", SelectionWarning);
 
-            return $"Disk {DiskNumber} | {FriendlyName} | {sizeGiB} | {BusType}{warningSuffix}";
+            return Foundry.Deploy.Services.Localization.LocalizationText.Format(
+                "Disk.DisplayLabelFormat",
+                DiskNumber,
+                FriendlyName,
+                sizeGiB,
+                BusType,
+                warningSuffix);
         }
     }
 }

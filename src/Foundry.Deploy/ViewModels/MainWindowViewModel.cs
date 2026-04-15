@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -13,6 +14,7 @@ using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.ApplicationShell;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
@@ -22,7 +24,7 @@ using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 
 namespace Foundry.Deploy.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject, IDisposable
+public partial class MainWindowViewModel : LocalizedViewModelBase
 {
     private readonly IThemeService _themeService;
     private readonly IDeploymentStartupCoordinator _deploymentStartupCoordinator;
@@ -65,13 +67,32 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
 
+    public CultureInfo CurrentCulture => LocalizationService.CurrentCulture;
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
     public string EffectiveOsArchitecture => OperatingSystemCatalog.EffectiveOsArchitecture;
     public OperatingSystemCatalogItem? SelectedOperatingSystem => OperatingSystemCatalog.SelectedOperatingSystem;
-    public string VersionDisplay => $"Version: {FoundryDeployApplicationInfo.Version}";
+    public string WindowTitle => GetString("App.WindowTitle");
+    public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
+    public string OperatingSystemArchitectureDisplay => Format("Catalog.ArchitectureFormat", OperatingSystemCatalog.EffectiveOsArchitecture);
+    public string DriverPackArchitectureDisplay => Format("Catalog.ArchitectureFormat", EffectiveOsArchitecture);
+    public string DriverPackModeDisplayText => Format("DriverPack.SelectedModeFormat", DriverPackSelection.DriverPackModeDisplay);
+    public string SummaryTargetDiskText => Preparation.SelectedTargetDisk?.DisplayLabel ?? GetString("Summary.NoDiskSelected");
+    public string SummaryOperatingSystemText => SelectedOperatingSystem is null
+        ? GetString("Summary.NoSelection")
+        : new Converters.OperatingSystemSummaryConverter().Convert(SelectedOperatingSystem, typeof(string), string.Empty, LocalizationService.CurrentCulture)?.ToString() ?? GetString("Summary.NoSelection");
+    public string SummaryFirmwareText => Format(
+        "Summary.FirmwareEnabledFormat",
+        Preparation.ApplyFirmwareUpdates ? GetString("Common.Enabled") : GetString("Common.Disabled"));
+    public string SummaryAutopilotEnabledText => Format(
+        "Summary.EnabledFormat",
+        Preparation.IsAutopilotEnabled ? GetString("Common.Yes") : GetString("Common.No"));
+    public string SummaryAutopilotProfileText => Format(
+        "Summary.SelectedProfileFormat",
+        Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None"));
 
     public MainWindowViewModel(
+        ILocalizationService localizationService,
         IThemeService themeService,
         IOperationProgressService operationProgressService,
         IDeploymentStartupCoordinator deploymentStartupCoordinator,
@@ -85,6 +106,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         IDeploymentWizardContextFactory deploymentWizardContextFactory,
         IProcessRunner processRunner,
         ILogger<MainWindowViewModel> logger)
+        : base(localizationService)
     {
         _themeService = themeService;
         _deploymentStartupCoordinator = deploymentStartupCoordinator;
@@ -109,8 +131,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             operationProgressService,
             _deploymentOrchestrator,
             processRunner,
+            localizationService,
             IsDebugSafeMode);
         Session.PropertyChanged += OnSessionPropertyChanged;
+        LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
     }
 
     public Task InitializeAsync()
@@ -137,6 +161,12 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RunOnUi(() => ApplyStartupSnapshot(startupSnapshot));
 
         _isInitialized = true;
+    }
+
+    [RelayCommand]
+    private void SetCulture(string cultureName)
+    {
+        LocalizationService.SetCulture(new CultureInfo(cultureName));
     }
 
     [RelayCommand]
@@ -317,6 +347,14 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         OnPropertyChanged(nameof(EffectiveOsArchitecture));
         OnPropertyChanged(nameof(SelectedOperatingSystem));
+        OnPropertyChanged(nameof(OperatingSystemArchitectureDisplay));
+        OnPropertyChanged(nameof(DriverPackArchitectureDisplay));
+        OnPropertyChanged(nameof(DriverPackModeDisplayText));
+        OnPropertyChanged(nameof(SummaryTargetDiskText));
+        OnPropertyChanged(nameof(SummaryOperatingSystemText));
+        OnPropertyChanged(nameof(SummaryFirmwareText));
+        OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
+        OnPropertyChanged(nameof(SummaryAutopilotProfileText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -426,7 +464,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _dispatcher.Invoke(action);
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         if (_isDisposed)
         {
@@ -436,9 +474,38 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _wizardContext.StatusMessageGenerated -= OnWizardContextStatusMessageGenerated;
         _wizardContext.StateChanged -= OnWizardContextStateChanged;
         Session.PropertyChanged -= OnSessionPropertyChanged;
+        LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
         _wizardContext.Dispose();
         Session.Dispose();
         _isDisposed = true;
+        base.Dispose();
     }
 
+    private void OnLocalizationLanguageChanged(object? sender, EventArgs e)
+    {
+        RunOnUiThread(() =>
+        {
+            OnPropertyChanged(nameof(CurrentCulture));
+            OnPropertyChanged(nameof(WindowTitle));
+            OnPropertyChanged(nameof(VersionDisplay));
+            OnPropertyChanged(nameof(OperatingSystemArchitectureDisplay));
+            OnPropertyChanged(nameof(DriverPackArchitectureDisplay));
+            OnPropertyChanged(nameof(DriverPackModeDisplayText));
+            OnPropertyChanged(nameof(SummaryTargetDiskText));
+            OnPropertyChanged(nameof(SummaryOperatingSystemText));
+            OnPropertyChanged(nameof(SummaryFirmwareText));
+            OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
+            OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+        });
+    }
+
+    private string GetString(string key)
+    {
+        return Strings[key];
+    }
+
+    private string Format(string key, params object[] args)
+    {
+        return string.Format(LocalizationService.CurrentCulture, GetString(key), args);
+    }
 }

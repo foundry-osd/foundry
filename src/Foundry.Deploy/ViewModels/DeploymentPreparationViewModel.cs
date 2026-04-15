@@ -4,13 +4,14 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Validation;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
 
-public sealed partial class DeploymentPreparationViewModel : ObservableObject
+public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelBase
 {
     private readonly ITargetDiskService _targetDiskService;
     private readonly IHardwareProfileService _hardwareProfileService;
@@ -20,6 +21,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     private HardwareProfile? _detectedHardware;
     private DeployMachineNamingSettings _machineNamingConfiguration = new();
     private string _lockedComputerNamePrefix = string.Empty;
+    private string _detectedHardwareSummaryRaw = LocalizationText.GetString("Preparation.DetectingHardware");
     private bool _isApplyingManagedComputerName;
     private bool _isUpdatingFirmwareOptionSelection;
     private bool _hasUserSelectedFirmwareOption;
@@ -29,14 +31,17 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         ITargetDiskService targetDiskService,
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
+        ILocalizationService localizationService,
         ILogger logger,
         bool isDebugSafeMode)
+        : base(localizationService)
     {
         _targetDiskService = targetDiskService;
         _hardwareProfileService = hardwareProfileService;
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _logger = logger;
         _isDebugSafeMode = isDebugSafeMode;
+        LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
     }
 
     public event EventHandler? StateChanged;
@@ -67,7 +72,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     private AutopilotProfileCatalogItem? selectedAutopilotProfile;
 
     [ObservableProperty]
-    private string detectedHardwareSummary = "Detecting hardware...";
+    private string detectedHardwareSummary = LocalizationText.GetString("Preparation.DetectingHardware");
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RefreshTargetDisksCommand))]
@@ -79,10 +84,13 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
     public bool HasAutopilotProfiles => AutopilotProfiles.Count > 0;
     public bool IsAutopilotProfileSelectionEnabled => IsAutopilotEnabled && HasAutopilotProfiles;
+    public string TargetDiskSelectionHint => !string.IsNullOrWhiteSpace(SelectedTargetDisk?.SelectionWarning)
+        ? SelectedTargetDisk.SelectionWarning
+        : GetString("Preparation.TargetDiskHint");
     public string AutopilotProfileHint =>
         HasAutopilotProfiles
-            ? $"Profiles available: {AutopilotProfiles.Count}"
-            : "No imported Autopilot profiles were found in X:\\Foundry\\Config\\Autopilot.";
+            ? Format("Preparation.AutopilotProfilesAvailableFormat", AutopilotProfiles.Count)
+            : GetString("Preparation.AutopilotProfilesMissing");
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
@@ -98,7 +106,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         }
 
         IsTargetDiskLoading = true;
-        PublishStatus("Loading target disks...");
+        PublishStatus(GetString("Preparation.LoadingTargetDisks"));
 
         try
         {
@@ -109,7 +117,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         catch (Exception ex)
         {
             _logger.LogError(ex, "Target disk discovery failed.");
-            PublishStatus($"Target disk discovery failed: {ex.Message}");
+            PublishStatus(Format("Preparation.TargetDiskDiscoveryFailedFormat", ex.Message));
         }
         finally
         {
@@ -129,7 +137,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         catch (Exception ex)
         {
             _logger.LogError(ex, "Hardware profile loading failed in preparation view model.");
-            SetHardwareDetectionFailure($"Hardware detection failed: {ex.Message}");
+            SetHardwareDetectionFailure(Format("Preparation.HardwareDetectionFailedFormat", ex.Message));
         }
     }
 
@@ -197,22 +205,29 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
 
         if (profile is null)
         {
-            DetectedHardwareSummary = "Hardware detection failed.";
+            _detectedHardwareSummaryRaw = GetString("Preparation.HardwareDetectionFailed");
+            DetectedHardwareSummary = _detectedHardwareSummaryRaw;
             OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
             RaiseStateChanged();
             return;
         }
 
         SyncFirmwareOptionFromHardware(profile);
-        DetectedHardwareSummary =
-            $"{profile.DisplayLabel} | TPM: {(profile.IsTpmPresent ? "Yes" : "No")} | Power: {(profile.IsOnBattery ? "Battery" : "AC")} | Firmware: {(profile.SystemFirmwareHardwareId.Length > 0 ? "Detected" : "Unavailable")}";
+        _detectedHardwareSummaryRaw = Format(
+            "Preparation.HardwareSummaryFormat",
+            profile.DisplayLabel,
+            profile.IsTpmPresent ? GetString("Common.Yes") : GetString("Common.No"),
+            profile.IsOnBattery ? GetString("Preparation.PowerBattery") : GetString("Preparation.PowerAc"),
+            profile.SystemFirmwareHardwareId.Length > 0 ? GetString("Common.Detected") : GetString("Common.Unavailable"));
+        DetectedHardwareSummary = _detectedHardwareSummaryRaw;
         OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
         RaiseStateChanged();
     }
 
     public void SetHardwareDetectionFailure(string message)
     {
-        DetectedHardwareSummary = message;
+        _detectedHardwareSummaryRaw = DeploymentUiTextLocalizer.LocalizeMessage(message);
+        DetectedHardwareSummary = _detectedHardwareSummaryRaw;
         RaiseStateChanged();
     }
 
@@ -247,7 +262,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         {
             SelectedTargetDisk = null;
             RaiseStateChanged();
-            return "No disks detected.";
+            return GetString("Preparation.NoDisksDetected");
         }
 
         TargetDiskInfo? currentSelection = SelectedTargetDisk is null
@@ -260,7 +275,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
             ?? TargetDisks.FirstOrDefault();
 
         RaiseStateChanged();
-        return $"Target disks loaded: {TargetDisks.Count} detected.";
+        return Format("Preparation.TargetDisksLoadedFormat", TargetDisks.Count);
     }
 
     partial void OnTargetComputerNameChanged(string value)
@@ -271,7 +286,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
             return;
         }
 
-        TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(value);
+        TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(value);
         if (string.IsNullOrWhiteSpace(value))
         {
             RaiseStateChanged();
@@ -285,7 +300,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
             return;
         }
 
-        TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(normalized);
+        TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(normalized);
         RaiseStateChanged();
     }
 
@@ -316,6 +331,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
 
     partial void OnSelectedTargetDiskChanged(TargetDiskInfo? value)
     {
+        OnPropertyChanged(nameof(TargetDiskSelectionHint));
         RaiseStateChanged();
     }
 
@@ -376,7 +392,7 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
         try
         {
             TargetComputerName = value;
-            TargetComputerNameValidationMessage = ComputerNameRules.GetValidationMessage(value);
+            TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(value);
         }
         finally
         {
@@ -472,6 +488,50 @@ public sealed partial class DeploymentPreparationViewModel : ObservableObject
     private void PublishStatus(string message)
     {
         StatusMessageGenerated?.Invoke(message);
+    }
+
+    public override void Dispose()
+    {
+        LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
+        base.Dispose();
+    }
+
+    private void OnLocalizationLanguageChanged(object? sender, EventArgs e)
+    {
+        RunOnUiThread(() =>
+        {
+            if (_detectedHardware is not null)
+            {
+                SetDetectedHardware(_detectedHardware);
+            }
+            else
+            {
+                DetectedHardwareSummary = _detectedHardwareSummaryRaw;
+            }
+
+            TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(TargetComputerName);
+            OnPropertyChanged(nameof(AutopilotProfileHint));
+            OnPropertyChanged(nameof(TargetDiskSelectionHint));
+            OnPropertyChanged(nameof(TargetDisks));
+            OnPropertyChanged(nameof(SelectedTargetDisk));
+        });
+    }
+
+    private string ResolveComputerNameValidationMessage(string? value)
+    {
+        return ComputerNameRules.IsValid(value)
+            ? string.Empty
+            : GetString("Preparation.ComputerNameValidationMessage");
+    }
+
+    private string GetString(string key)
+    {
+        return Strings[key];
+    }
+
+    private string Format(string key, params object[] args)
+    {
+        return string.Format(LocalizationService.CurrentCulture, GetString(key), args);
     }
 
     private bool CanRefreshTargetDisks()
