@@ -119,7 +119,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public ILocalizationService LocalizationService => _localizationService;
     public CultureInfo CurrentCulture => _localizationService.CurrentCulture;
-    public ThemeMode CurrentTheme => _themeService.CurrentTheme;
+    public ThemeMode CurrentTheme
+    {
+        get => _themeService.CurrentTheme;
+        set { /* No-op to support TwoWay bindings in XAML */ }
+    }
     public StringsWrapper Strings => _localizationService.Strings;
     public int GlobalOperationProgress => _operationProgressService.Progress;
     public bool IsGlobalOperationInProgress => _operationProgressService.IsOperationInProgress;
