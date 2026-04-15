@@ -142,7 +142,7 @@
     <value>_Outils</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Débogage</value>
   </data>
   <data name="Menu.DebugCheckForUpdates" xml:space="preserve">
     <value>Afficher la vérification des _mises à jour</value>
@@ -202,7 +202,7 @@
     <value>Nouvelle version</value>
   </data>
   <data name="UpdateAvailable.ReleaseLabel" xml:space="preserve">
-    <value>Release</value>
+    <value>Version</value>
   </data>
   <data name="UpdateAvailable.PublishedLabel" xml:space="preserve">
     <value>Publication</value>
@@ -214,10 +214,10 @@
     <value>Notes de version</value>
   </data>
   <data name="UpdateAvailable.NotesEmpty" xml:space="preserve">
-    <value>Aucune note de version n'a été fournie pour cette release.</value>
+    <value>Aucune note de version n'a été fournie pour cette version.</value>
   </data>
   <data name="UpdateAvailable.OpenRelease" xml:space="preserve">
-    <value>Ouvrir la release</value>
+    <value>Ouvrir la version</value>
   </data>
   <data name="UpdateAvailable.Later" xml:space="preserve">
     <value>Plus tard</value>
@@ -430,7 +430,7 @@
     <value>Peripheriques USB : {0}</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>Version : {0}</value>
   </data>
   <data name="Usb.DiskRefreshFailedFormat" xml:space="preserve">
     <value>Echec de l'actualisation des disques USB : {0}</value>
@@ -472,7 +472,7 @@
     <value>Auteurs</value>
   </data>
   <data name="About.SupportLink" xml:space="preserve">
-    <value>Support</value>
+    <value>Assistance</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
     <value>Copyright (c) 2026 Contributeurs Foundry. Sous licence MIT.</value>
@@ -553,7 +553,7 @@
       <value>Configurer le 802.1X filaire</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
-      <value>Trusted root CA certificate file</value>
+      <value>Fichier de certificat d'autorité racine de confiance</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Sélectionner le certificat 802.1X</value>
@@ -568,7 +568,7 @@
       <value>Provisionner la prise en charge Wi-Fi dans l'image de boot</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
-    <value>Pre-provision a Wi-Fi profile</value>
+    <value>Préprovisionner un profil Wi-Fi</value>
   </data>
   <data name="Wifi.SsidLabel" xml:space="preserve">
       <value>SSID</value>
@@ -583,10 +583,10 @@
     <value>Ouvert</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
-    <value>OWE (Opportunistic Wireless Encryption)</value>
+    <value>OWE (chiffrement sans fil opportuniste)</value>
   </data>
   <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
-    <value>WPA2/WPA3 Personal</value>
+    <value>WPA2/WPA3 personnel</value>
   </data>
   <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
     <value>WPA2/WPA3 entreprise</value>
@@ -613,7 +613,7 @@
     <value>Lorsque la prise en charge Wi-Fi est provisionnée, Foundry.Connect peut lister les réseaux disponibles et guider la connexion aux réseaux ouverts, OWE ou personnels au runtime.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>Enterprise behavior is driven by the profile template in this build. Runtime-entered 802.1X credentials are not provisioned here.</value>
+    <value>Le comportement entreprise est piloté par le modèle de profil inclus dans cette version. Les informations d'identification 802.1X saisies à l'exécution ne sont pas provisionnées ici.</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Wi-Fi entreprise avancé</value>
@@ -631,10 +631,10 @@
     <value>Fichiers XML (*.xml)|*.xml|Tous les fichiers (*.*)|*.*</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Import a trusted root CA certificate</value>
+    <value>Importer un certificat d'autorité racine de confiance</value>
   </data>
   <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Trusted root CA certificate file</value>
+    <value>Fichier de certificat d'autorité racine de confiance</value>
   </data>
   <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
     <value>Sélectionner le certificat Wi-Fi</value>
