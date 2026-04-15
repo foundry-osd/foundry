@@ -768,6 +768,156 @@
   <data name="Localization.TimeZoneLabel" xml:space="preserve">
     <value>WinPE time zone</value>
   </data>
+  <data name="App.Title" xml:space="preserve">
+    <value>Foundry</value>
+  </data>
+  <data name="Operation.ErrorBusy" xml:space="preserve">
+    <value>Another operation is already in progress.</value>
+  </data>
+  <data name="Common.ExpectedPathFormat" xml:space="preserve">
+    <value>Expected path: '{0}'.</value>
+  </data>
+  <data name="Media.StatusPreparingIso" xml:space="preserve">
+    <value>Preparing ISO creation.</value>
+  </data>
+  <data name="Media.StatusPreparingUsb" xml:space="preserve">
+    <value>Preparing USB creation.</value>
+  </data>
+  <data name="Media.StatusResolvingAdk" xml:space="preserve">
+    <value>Resolving ADK tooling.</value>
+  </data>
+  <data name="Media.StatusCreatingWorkspace" xml:space="preserve">
+    <value>Creating WinPE workspace.</value>
+  </data>
+  <data name="Media.StatusResolvingDrivers" xml:space="preserve">
+    <value>Resolving and preparing drivers.</value>
+  </data>
+  <data name="Media.StatusCustomizingImage" xml:space="preserve">
+    <value>Applying image customizations.</value>
+  </data>
+  <data name="Media.StatusApplyingSignaturePolicy" xml:space="preserve">
+    <value>Applying signature policy.</value>
+  </data>
+  <data name="Media.StatusCreatingIso" xml:space="preserve">
+    <value>Creating ISO media.</value>
+  </data>
+  <data name="Media.StatusProvisioningUsb" xml:space="preserve">
+    <value>Provisioning and populating USB.</value>
+  </data>
+  <data name="Media.StatusIsoCompleted" xml:space="preserve">
+    <value>ISO creation completed.</value>
+  </data>
+  <data name="Media.StatusUsbCompleted" xml:space="preserve">
+    <value>USB creation completed.</value>
+  </data>
+  <data name="Media.ErrorIsoCreateFailed" xml:space="preserve">
+    <value>Failed to create ISO media.</value>
+  </data>
+  <data name="Media.ErrorUnexpectedIsoCreateFailure" xml:space="preserve">
+    <value>Unexpected ISO creation failure.</value>
+  </data>
+  <data name="Media.ErrorUnexpectedUsbCreateFailure" xml:space="preserve">
+    <value>Unexpected USB creation failure.</value>
+  </data>
+  <data name="Media.ErrorIsoOptionsRequired" xml:space="preserve">
+    <value>ISO options are required.</value>
+  </data>
+  <data name="Media.ErrorUsbOptionsRequired" xml:space="preserve">
+    <value>USB options are required.</value>
+  </data>
+  <data name="Media.ErrorStagingDirectoryMissing" xml:space="preserve">
+    <value>Staging directory does not exist.</value>
+  </data>
+  <data name="Media.ErrorIsoOutputPathInvalid" xml:space="preserve">
+    <value>Output ISO path must end with .iso.</value>
+  </data>
+  <data name="Media.ErrorInvalidArchitectureOrSignature" xml:space="preserve">
+    <value>Architecture or signature mode is invalid.</value>
+  </data>
+  <data name="Media.ErrorWinPeLanguageRequired" xml:space="preserve">
+    <value>WinPE language is required.</value>
+  </data>
+  <data name="Media.ErrorCustomDriverDirectoryMissing" xml:space="preserve">
+    <value>Custom driver directory does not exist.</value>
+  </data>
+  <data name="Media.ErrorCustomDriverDirectoryEmpty" xml:space="preserve">
+    <value>Custom driver directory does not contain any .inf files.</value>
+  </data>
+  <data name="Media.ErrorTargetDiskRequired" xml:space="preserve">
+    <value>Target disk number is required.</value>
+  </data>
+  <data name="Media.ErrorUsbInvalidEnums" xml:space="preserve">
+    <value>USB options contain invalid enum values.</value>
+  </data>
+  <data name="Media.ErrorArm64RequiresGpt" xml:space="preserve">
+    <value>ARM64 only supports GPT partition style.</value>
+  </data>
+  <data name="WinPe.ErrorInvalidArchitecture" xml:space="preserve">
+    <value>Architecture is invalid.</value>
+  </data>
+  <data name="WinPe.ErrorOptionalComponentsFolderMissing" xml:space="preserve">
+    <value>WinPE optional components folder was not found.</value>
+  </data>
+  <data name="WinPe.ErrorKeyboardLayoutResolutionFailed" xml:space="preserve">
+    <value>Unable to resolve keyboard layout from the selected WinPE language.</value>
+  </data>
+  <data name="WinPe.ErrorApplyInternationalSettingsFailed" xml:space="preserve">
+    <value>Failed to apply WinPE international settings.</value>
+  </data>
+  <data name="WinPe.ErrorLanguagePackAddFailed" xml:space="preserve">
+    <value>Failed to add the WinPE language pack.</value>
+  </data>
+  <data name="WinPe.ErrorSelectedLanguagePackMissing" xml:space="preserve">
+    <value>The selected WinPE language pack was not found.</value>
+  </data>
+  <data name="WinPe.ErrorOptionalComponentAddFailedFormat" xml:space="preserve">
+    <value>Failed to add optional component '{0}'.</value>
+  </data>
+  <data name="WinPe.ErrorLocalizedOptionalComponentAddFailedFormat" xml:space="preserve">
+    <value>Failed to add localized optional component '{0}'.</value>
+  </data>
+  <data name="WinPe.ErrorRequiredOptionalComponentsMissing" xml:space="preserve">
+    <value>Required WinPE optional components were not found in ADK.</value>
+  </data>
+  <data name="WinPe.ErrorSelectedLanguageFormat" xml:space="preserve">
+    <value>Selected language: '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>Wi-Fi configuration requires Wi-Fi support to be provisioned in the boot image.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>Wired 802.1X requires a wired profile template.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>Wired 802.1X requires a trusted root CA certificate file when certificate trust is enabled.</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>Wi-Fi configuration requires an SSID.</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>Unsupported Wi-Fi security type '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>Personal Wi-Fi requires an 8 to 63 character passphrase.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi requires a profile template.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>Enterprise Wi-Fi profile template file was not found.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>Selected enterprise Wi-Fi security type does not match the profile template authentication ({0}).</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi requires a trusted root CA certificate file when certificate trust is enabled.</value>
+  </data>
+  <data name="Network.ErrorProvisioningSourceFileMissingFormat" xml:space="preserve">
+    <value>Provisioning source file was not found: '{0}'.</value>
+  </data>
   <data name="Common.ComingLaterLabel" xml:space="preserve">
     <value>Coming later</value>
   </data>

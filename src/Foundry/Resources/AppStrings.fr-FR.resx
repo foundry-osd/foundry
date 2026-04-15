@@ -768,6 +768,156 @@
   <data name="Localization.TimeZoneLabel" xml:space="preserve">
     <value>Fuseau horaire WinPE</value>
   </data>
+  <data name="App.Title" xml:space="preserve">
+    <value>Foundry</value>
+  </data>
+  <data name="Operation.ErrorBusy" xml:space="preserve">
+    <value>Une autre opération est déjà en cours.</value>
+  </data>
+  <data name="Common.ExpectedPathFormat" xml:space="preserve">
+    <value>Chemin attendu : '{0}'.</value>
+  </data>
+  <data name="Media.StatusPreparingIso" xml:space="preserve">
+    <value>Préparation de la création de l'ISO.</value>
+  </data>
+  <data name="Media.StatusPreparingUsb" xml:space="preserve">
+    <value>Préparation de la création de la clé USB.</value>
+  </data>
+  <data name="Media.StatusResolvingAdk" xml:space="preserve">
+    <value>Résolution des outils ADK.</value>
+  </data>
+  <data name="Media.StatusCreatingWorkspace" xml:space="preserve">
+    <value>Création de l'espace de travail WinPE.</value>
+  </data>
+  <data name="Media.StatusResolvingDrivers" xml:space="preserve">
+    <value>Résolution et préparation des pilotes.</value>
+  </data>
+  <data name="Media.StatusCustomizingImage" xml:space="preserve">
+    <value>Application des personnalisations de l'image.</value>
+  </data>
+  <data name="Media.StatusApplyingSignaturePolicy" xml:space="preserve">
+    <value>Application de la stratégie de signature.</value>
+  </data>
+  <data name="Media.StatusCreatingIso" xml:space="preserve">
+    <value>Création du média ISO.</value>
+  </data>
+  <data name="Media.StatusProvisioningUsb" xml:space="preserve">
+    <value>Provisionnement et copie des fichiers sur la clé USB.</value>
+  </data>
+  <data name="Media.StatusIsoCompleted" xml:space="preserve">
+    <value>Création de l'ISO terminée.</value>
+  </data>
+  <data name="Media.StatusUsbCompleted" xml:space="preserve">
+    <value>Création de la clé USB terminée.</value>
+  </data>
+  <data name="Media.ErrorIsoCreateFailed" xml:space="preserve">
+    <value>Échec de la création du média ISO.</value>
+  </data>
+  <data name="Media.ErrorUnexpectedIsoCreateFailure" xml:space="preserve">
+    <value>Échec inattendu lors de la création de l'ISO.</value>
+  </data>
+  <data name="Media.ErrorUnexpectedUsbCreateFailure" xml:space="preserve">
+    <value>Échec inattendu lors de la création de la clé USB.</value>
+  </data>
+  <data name="Media.ErrorIsoOptionsRequired" xml:space="preserve">
+    <value>Les options ISO sont requises.</value>
+  </data>
+  <data name="Media.ErrorUsbOptionsRequired" xml:space="preserve">
+    <value>Les options USB sont requises.</value>
+  </data>
+  <data name="Media.ErrorStagingDirectoryMissing" xml:space="preserve">
+    <value>Le répertoire de staging est introuvable.</value>
+  </data>
+  <data name="Media.ErrorIsoOutputPathInvalid" xml:space="preserve">
+    <value>Le chemin de sortie ISO doit se terminer par .iso.</value>
+  </data>
+  <data name="Media.ErrorInvalidArchitectureOrSignature" xml:space="preserve">
+    <value>L'architecture ou le mode de signature est invalide.</value>
+  </data>
+  <data name="Media.ErrorWinPeLanguageRequired" xml:space="preserve">
+    <value>La langue WinPE est requise.</value>
+  </data>
+  <data name="Media.ErrorCustomDriverDirectoryMissing" xml:space="preserve">
+    <value>Le répertoire des pilotes personnalisés est introuvable.</value>
+  </data>
+  <data name="Media.ErrorCustomDriverDirectoryEmpty" xml:space="preserve">
+    <value>Le répertoire des pilotes personnalisés ne contient aucun fichier .inf.</value>
+  </data>
+  <data name="Media.ErrorTargetDiskRequired" xml:space="preserve">
+    <value>Le numéro du disque cible est requis.</value>
+  </data>
+  <data name="Media.ErrorUsbInvalidEnums" xml:space="preserve">
+    <value>Les options USB contiennent des valeurs d'énumération invalides.</value>
+  </data>
+  <data name="Media.ErrorArm64RequiresGpt" xml:space="preserve">
+    <value>ARM64 prend uniquement en charge le style de partition GPT.</value>
+  </data>
+  <data name="WinPe.ErrorInvalidArchitecture" xml:space="preserve">
+    <value>L'architecture est invalide.</value>
+  </data>
+  <data name="WinPe.ErrorOptionalComponentsFolderMissing" xml:space="preserve">
+    <value>Le dossier des composants optionnels WinPE est introuvable.</value>
+  </data>
+  <data name="WinPe.ErrorKeyboardLayoutResolutionFailed" xml:space="preserve">
+    <value>Impossible de résoudre la disposition du clavier à partir de la langue WinPE sélectionnée.</value>
+  </data>
+  <data name="WinPe.ErrorApplyInternationalSettingsFailed" xml:space="preserve">
+    <value>Échec de l'application des paramètres régionaux WinPE.</value>
+  </data>
+  <data name="WinPe.ErrorLanguagePackAddFailed" xml:space="preserve">
+    <value>Échec de l'ajout du pack de langue WinPE.</value>
+  </data>
+  <data name="WinPe.ErrorSelectedLanguagePackMissing" xml:space="preserve">
+    <value>Le pack de langue WinPE sélectionné est introuvable.</value>
+  </data>
+  <data name="WinPe.ErrorOptionalComponentAddFailedFormat" xml:space="preserve">
+    <value>Échec de l'ajout du composant optionnel '{0}'.</value>
+  </data>
+  <data name="WinPe.ErrorLocalizedOptionalComponentAddFailedFormat" xml:space="preserve">
+    <value>Échec de l'ajout du composant optionnel localisé '{0}'.</value>
+  </data>
+  <data name="WinPe.ErrorRequiredOptionalComponentsMissing" xml:space="preserve">
+    <value>Les composants optionnels WinPE requis sont introuvables dans l'ADK.</value>
+  </data>
+  <data name="WinPe.ErrorSelectedLanguageFormat" xml:space="preserve">
+    <value>Langue sélectionnée : '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>La configuration Wi-Fi nécessite que la prise en charge Wi-Fi soit provisionnée dans l'image de démarrage.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>Le 802.1X filaire nécessite un modèle de profil filaire.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>Le 802.1X filaire nécessite un certificat d'autorité racine de confiance lorsque la confiance par certificat est activée.</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>La configuration Wi-Fi nécessite un SSID.</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>Type de sécurité Wi-Fi non pris en charge : '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>Le Wi-Fi personnel nécessite une phrase secrète de 8 à 63 caractères.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>Le Wi-Fi d'entreprise nécessite un modèle de profil.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>Le fichier du modèle de profil Wi-Fi d'entreprise est introuvable.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>Le modèle de profil Wi-Fi d'entreprise doit contenir une valeur d'authentification d'entreprise prise en charge.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>Le type de sécurité Wi-Fi d'entreprise sélectionné ne correspond pas à l'authentification du modèle de profil ({0}).</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>Le Wi-Fi d'entreprise nécessite un certificat d'autorité racine de confiance lorsque la confiance par certificat est activée.</value>
+  </data>
+  <data name="Network.ErrorProvisioningSourceFileMissingFormat" xml:space="preserve">
+    <value>Le fichier source de provisionnement est introuvable : '{0}'.</value>
+  </data>
   <data name="Common.ComingLaterLabel" xml:space="preserve">
     <value>Bientôt disponible</value>
   </data>

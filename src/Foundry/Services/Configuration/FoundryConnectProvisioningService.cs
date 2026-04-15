@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Xml.Linq;
 using Foundry.Models.Configuration;
+using Foundry.Services.Localization;
 
 namespace Foundry.Services.Configuration;
 
@@ -13,6 +14,12 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
     private const string WifiSecurityEnterpriseWpa3192 = "WPA3ENT192";
     private static readonly string[] LegacyWifiSecurityPersonalValues = ["WPA2-Personal", "WPA3-Personal", "Personal"];
     private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "WPA3", "Enterprise"];
+    private readonly ILocalizationService _localizationService;
+
+    public FoundryConnectProvisioningService(ILocalizationService localizationService)
+    {
+        _localizationService = localizationService;
+    }
 
     public FoundryConnectProvisioningBundle Prepare(FoundryExpertConfigurationDocument document, string stagingDirectoryPath)
     {
@@ -71,7 +78,7 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
         };
     }
 
-    private static string? PrepareWifiProfile(
+    private string? PrepareWifiProfile(
         WifiSettings wifi,
         string assetRootPath,
         ICollection<FoundryConnectProvisionedAssetFile> assetFiles)
@@ -88,23 +95,23 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
         return null;
     }
 
-    private static void ValidateNetworkSettings(NetworkSettings settings)
+    private void ValidateNetworkSettings(NetworkSettings settings)
     {
         if (settings.Wifi.IsEnabled && !settings.WifiProvisioned)
         {
-            throw new InvalidOperationException("Wi-Fi configuration requires Wi-Fi support to be provisioned in the boot image.");
+            throw new InvalidOperationException(GetString("Network.ErrorWifiProvisioningRequired"));
         }
 
         if (settings.Dot1x.IsEnabled)
         {
             if (string.IsNullOrWhiteSpace(settings.Dot1x.ProfileTemplatePath))
             {
-                throw new InvalidOperationException("Wired 802.1X requires a wired profile template.");
+                throw new InvalidOperationException(GetString("Network.ErrorWiredProfileTemplateRequired"));
             }
 
             if (settings.Dot1x.RequiresCertificate && string.IsNullOrWhiteSpace(settings.Dot1x.CertificatePath))
             {
-                throw new InvalidOperationException("Wired 802.1X certificate trust requires a trusted root CA certificate file.");
+                throw new InvalidOperationException(GetString("Network.ErrorWiredCertificateRequired"));
             }
         }
 
@@ -115,7 +122,7 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
 
         if (string.IsNullOrWhiteSpace(settings.Wifi.Ssid))
         {
-            throw new InvalidOperationException("Wi-Fi configuration requires an SSID.");
+            throw new InvalidOperationException(GetString("Network.ErrorWifiSsidRequired"));
         }
 
         bool isOpen = string.Equals(settings.Wifi.SecurityType, "Open", StringComparison.OrdinalIgnoreCase);
@@ -126,7 +133,7 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
 
         if (!isOpen && !isOwe && !isPersonal && !isEnterprise)
         {
-            throw new InvalidOperationException($"Unsupported Wi-Fi security type '{settings.Wifi.SecurityType}'.");
+            throw new InvalidOperationException(Format("Network.ErrorUnsupportedWifiSecurityTypeFormat", settings.Wifi.SecurityType ?? string.Empty));
         }
 
         if (isPersonal)
@@ -134,7 +141,7 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
             int passphraseLength = settings.Wifi.Passphrase?.Trim().Length ?? 0;
             if (passphraseLength is < 8 or > 63)
             {
-                throw new InvalidOperationException("Personal Wi-Fi requires an 8 to 63 character passphrase.");
+                throw new InvalidOperationException(GetString("Network.ErrorWifiPersonalPassphraseInvalid"));
             }
         }
 
@@ -142,13 +149,13 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
         {
             if (string.IsNullOrWhiteSpace(settings.Wifi.EnterpriseProfileTemplatePath))
             {
-                throw new InvalidOperationException("Enterprise Wi-Fi requires a profile template.");
+                throw new InvalidOperationException(GetString("Network.ErrorWifiEnterpriseProfileTemplateRequired"));
             }
 
             string fullTemplatePath = Path.GetFullPath(settings.Wifi.EnterpriseProfileTemplatePath);
             if (!File.Exists(fullTemplatePath))
             {
-                throw new InvalidOperationException("Enterprise Wi-Fi profile template file was not found.");
+                throw new InvalidOperationException(GetString("Network.ErrorWifiEnterpriseProfileTemplateMissing"));
             }
 
             if (RequiresExplicitEnterpriseTemplateAuthentication(enterpriseSecurityType))
@@ -156,23 +163,25 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
                 string? templateSecurityType = TryReadEnterpriseTemplateSecurityType(fullTemplatePath);
                 if (templateSecurityType is null)
                 {
-                    throw new InvalidOperationException("Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.");
+                    throw new InvalidOperationException(GetString("Network.ErrorWifiEnterpriseAuthenticationUnsupported"));
                 }
 
                 if (!string.Equals(templateSecurityType, enterpriseSecurityType, StringComparison.OrdinalIgnoreCase))
                 {
-                    throw new InvalidOperationException($"Selected enterprise Wi-Fi security type does not match the profile template authentication '{templateSecurityType}'.");
+                    throw new InvalidOperationException(Format(
+                        "Network.ErrorWifiEnterpriseAuthenticationMismatchFormat",
+                        GetEnterpriseSecurityDisplayName(templateSecurityType)));
                 }
             }
 
             if (settings.Wifi.RequiresCertificate && string.IsNullOrWhiteSpace(settings.Wifi.CertificatePath))
             {
-                throw new InvalidOperationException("Enterprise Wi-Fi certificate trust requires a trusted root CA certificate file.");
+                throw new InvalidOperationException(GetString("Network.ErrorWifiEnterpriseCertificateRequired"));
             }
         }
     }
 
-    private static string? CopyOptionalAsset(
+    private string? CopyOptionalAsset(
         string? sourcePath,
         string assetRootPath,
         string relativeConfigPath,
@@ -186,7 +195,7 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
         string fullSourcePath = Path.GetFullPath(sourcePath);
         if (!File.Exists(fullSourcePath))
         {
-            throw new FileNotFoundException($"Provisioning source file was not found: '{fullSourcePath}'.", fullSourcePath);
+            throw new FileNotFoundException(Format("Network.ErrorProvisioningSourceFileMissingFormat", fullSourcePath), fullSourcePath);
         }
 
         string safeFileName = Path.GetFileName(fullSourcePath);
@@ -284,5 +293,25 @@ public sealed class FoundryConnectProvisioningService : IFoundryConnectProvision
         }
 
         Directory.CreateDirectory(path);
+    }
+
+    private string GetString(string key)
+    {
+        return _localizationService.Strings[key];
+    }
+
+    private string Format(string key, params object[] args)
+    {
+        return string.Format(_localizationService.CurrentCulture, GetString(key), args);
+    }
+
+    private string GetEnterpriseSecurityDisplayName(string securityType)
+    {
+        return securityType switch
+        {
+            WifiSecurityEnterpriseWpa3 => GetString("Wifi.SecurityTypeEnterpriseWpa3"),
+            WifiSecurityEnterpriseWpa3192 => GetString("Wifi.SecurityTypeEnterpriseWpa3192"),
+            _ => GetString("Wifi.SecurityTypeEnterprise")
+        };
     }
 }

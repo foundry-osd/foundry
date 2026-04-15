@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Foundry.ViewModels"
     xmlns:views="clr-namespace:Foundry.Views"
-    Title="Foundry"
+    Title="{Binding Strings[App.Title]}"
     Width="1200"
     Height="850"
     MinWidth="1200"

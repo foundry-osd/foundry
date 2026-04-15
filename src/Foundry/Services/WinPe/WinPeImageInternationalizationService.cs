@@ -1,17 +1,21 @@
 using Microsoft.Extensions.Logging;
+using Foundry.Services.Localization;
 
 namespace Foundry.Services.WinPe;
 
 internal sealed class WinPeImageInternationalizationService : IWinPeImageInternationalizationService
 {
     private readonly WinPeProcessRunner _processRunner;
+    private readonly ILocalizationService _localizationService;
     private readonly ILogger<WinPeImageInternationalizationService> _logger;
 
     public WinPeImageInternationalizationService(
         WinPeProcessRunner processRunner,
+        ILocalizationService localizationService,
         ILogger<WinPeImageInternationalizationService> logger)
     {
         _processRunner = processRunner;
+        _localizationService = localizationService;
         _logger = logger;
     }
 
@@ -28,8 +32,8 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.ValidationFailed,
-                "Unable to resolve keyboard layout from selected WinPE language.",
-                $"Selected language: '{normalizedLocale}'.");
+                GetString("WinPe.ErrorKeyboardLayoutResolutionFailed"),
+                Format("WinPe.ErrorSelectedLanguageFormat", normalizedLocale));
         }
 
         _logger.LogInformation(
@@ -85,7 +89,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.BuildFailed,
-                    "Failed to apply WinPE international settings.",
+                    GetString("WinPe.ErrorApplyInternationalSettingsFailed"),
                     execution.ToDiagnosticText());
             }
         }
@@ -107,8 +111,8 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
-                "WinPE optional components folder was not found.",
-                $"Expected path: '{ocRoot}'.");
+                GetString("WinPe.ErrorOptionalComponentsFolderMissing"),
+                Format("Common.ExpectedPathFormat", ocRoot));
         }
 
         string[] components =
@@ -137,7 +141,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.BuildFailed,
-                    "Failed to add WinPE language pack.",
+                    GetString("WinPe.ErrorLanguagePackAddFailed"),
                     addLanguagePack.ToDiagnosticText());
             }
         }
@@ -145,8 +149,8 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
-                "The selected WinPE language pack was not found.",
-                $"Expected package: '{languagePackCab}'.");
+                GetString("WinPe.ErrorSelectedLanguagePackMissing"),
+                Format("Common.ExpectedPathFormat", languagePackCab));
         }
 
         int installed = 0;
@@ -165,7 +169,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
                 {
                     return WinPeResult.Failure(
                         WinPeErrorCodes.BuildFailed,
-                        $"Failed to add optional component '{component}'.",
+                        Format("WinPe.ErrorOptionalComponentAddFailedFormat", component),
                         addNeutral.ToDiagnosticText());
                 }
 
@@ -186,7 +190,7 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
                 {
                     return WinPeResult.Failure(
                         WinPeErrorCodes.BuildFailed,
-                        $"Failed to add localized optional component '{component}'.",
+                        Format("WinPe.ErrorLocalizedOptionalComponentAddFailedFormat", component),
                         addLocale.ToDiagnosticText());
                 }
             }
@@ -196,8 +200,8 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
             ? WinPeResult.Success()
             : WinPeResult.Failure(
                 WinPeErrorCodes.ToolNotFound,
-                "Required WinPE optional components were not found in ADK.",
-                $"No required component CAB was found under '{ocRoot}'.");
+                GetString("WinPe.ErrorRequiredOptionalComponentsMissing"),
+                Format("Common.ExpectedPathFormat", ocRoot));
     }
 
     private static string GetOptionalComponentsRootPath(string kitsRootPath, WinPeArchitecture architecture)
@@ -217,5 +221,15 @@ internal sealed class WinPeImageInternationalizationService : IWinPeImageInterna
                diagnostic.Contains("not applicable", StringComparison.OrdinalIgnoreCase) ||
                diagnostic.Contains("already installed", StringComparison.OrdinalIgnoreCase) ||
                diagnostic.Contains("already exists", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private string GetString(string key)
+    {
+        return _localizationService.Strings[key];
+    }
+
+    private string Format(string key, params object[] args)
+    {
+        return string.Format(_localizationService.CurrentCulture, GetString(key), args);
     }
 }

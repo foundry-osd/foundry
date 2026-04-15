@@ -799,19 +799,55 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         };
     }
 
-    private static WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
+    private void RefreshWinPeLanguageDisplayNames()
+    {
+        if (AvailableWinPeLanguages.Count == 0)
+        {
+            return;
+        }
+
+        string? selectedCode = SelectedWinPeLanguage?.Code;
+        List<WinPeLanguageOption> refreshedOptions = AvailableWinPeLanguages
+            .Select(option => CreateWinPeLanguageOption(option.Code))
+            .ToList();
+
+        AvailableWinPeLanguages.Clear();
+        foreach (WinPeLanguageOption option in refreshedOptions)
+        {
+            AvailableWinPeLanguages.Add(option);
+        }
+
+        SelectedWinPeLanguage = AvailableWinPeLanguages.FirstOrDefault(option =>
+            option.Code.Equals(selectedCode, StringComparison.OrdinalIgnoreCase))
+            ?? AvailableWinPeLanguages.FirstOrDefault();
+    }
+
+    private WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
     {
         string normalizedCode = NormalizeLanguageCode(languageCode);
 
         try
         {
             CultureInfo culture = CultureInfo.GetCultureInfo(normalizedCode);
-            return new WinPeLanguageOption(normalizedCode, $"{culture.EnglishName} ({culture.Name})");
+            return new WinPeLanguageOption(normalizedCode, $"{GetWinPeLanguageDisplayName(culture)} ({culture.Name})");
         }
         catch (CultureNotFoundException)
         {
             return new WinPeLanguageOption(normalizedCode, normalizedCode);
         }
+    }
+
+    private string GetWinPeLanguageDisplayName(CultureInfo culture)
+    {
+        string displayName = culture.DisplayName;
+        if (CurrentCulture.TwoLetterISOLanguageName.Equals("fr", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(displayName, culture.EnglishName, StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(culture.NativeName, culture.EnglishName, StringComparison.OrdinalIgnoreCase))
+        {
+            displayName = culture.NativeName;
+        }
+
+        return string.IsNullOrWhiteSpace(displayName) ? culture.NativeName : displayName;
     }
 
     private static string ResolvePreferredWinPeLanguageCode(
@@ -950,6 +986,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         RunOnUiThread(() =>
         {
             RefreshUsbFormatModes();
+            RefreshWinPeLanguageDisplayNames();
             RefreshExpertSections();
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(Strings));
