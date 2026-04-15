@@ -17,7 +17,11 @@ public sealed class StringsWrapper : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public string this[string key] => _resourceManager.GetString(key, _currentCulture) ?? key;
+    public string this[string key]
+    {
+        get => _resourceManager.GetString(key, _currentCulture) ?? key;
+        set { /* No-op to support WPF controls that default to TwoWay/OneWayToSource binding */ }
+    }
 
     public void SetCulture(CultureInfo culture)
     {
