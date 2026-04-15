@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Diagnostics;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
+using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Models.Network;
 using Microsoft.Extensions.Logging;
 
@@ -18,15 +19,18 @@ public sealed class NetworkStatusService : INetworkStatusService
     private static readonly TimeSpan WifiDiscoveryGracePeriod = TimeSpan.FromSeconds(15);
 
     private readonly FoundryConnectConfiguration _configuration;
+    private readonly ILocalizationService _localizationService;
     private readonly ILogger<NetworkStatusService> _logger;
     private IReadOnlyList<WifiNetworkSummary> _lastStableWifiNetworks = Array.Empty<WifiNetworkSummary>();
     private DateTimeOffset? _lastStableWifiNetworksAt;
 
     public NetworkStatusService(
         FoundryConnectConfiguration configuration,
+        ILocalizationService localizationService,
         ILogger<NetworkStatusService> logger)
     {
         _configuration = configuration;
+        _localizationService = localizationService;
         _logger = logger;
     }
 
@@ -77,9 +81,9 @@ public sealed class NetworkStatusService : INetworkStatusService
             HasWirelessAdapter = hasWirelessAdapter,
             EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4),
             EthernetSecondaryStatusText = BuildEthernetSecondaryStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4, hasDhcpLease),
-            EthernetAdapterName = ethernetDisplayAdapter?.Name ?? "Unavailable",
-            EthernetIpAddress = ethernetIpv4Information?.Address.ToString() ?? "Unavailable",
-            EthernetGateway = ethernetGatewayInformation?.Address.ToString() ?? "Unavailable",
+            EthernetAdapterName = ethernetDisplayAdapter?.Name ?? GetString("Common.Unavailable"),
+            EthernetIpAddress = ethernetIpv4Information?.Address.ToString() ?? GetString("Common.Unavailable"),
+            EthernetGateway = ethernetGatewayInformation?.Address.ToString() ?? GetString("Common.Unavailable"),
             ConnectedWifiSsid = connectedWifiSsid,
             WifiNetworks = wifiNetworks
         };
@@ -187,24 +191,24 @@ public sealed class NetworkStatusService : INetworkStatusService
         }
     }
 
-    private static string BuildEthernetStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4)
+    private string BuildEthernetStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4)
     {
         if (!hasEthernetAdapter)
         {
-            return "No ethernet adapter detected.";
+            return GetString("Ethernet.NoAdapterDetected");
         }
 
         if (!isEthernetConnected)
         {
-            return "No active link";
+            return GetString("Ethernet.NoActiveLink");
         }
 
         return hasEthernetIpv4
-            ? "Connected"
-            : "Waiting for network configuration";
+            ? GetString("Common.Connected")
+            : GetString("Ethernet.WaitingConfiguration");
     }
 
-    private static string BuildEthernetSecondaryStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4, bool hasDhcpLease)
+    private string BuildEthernetSecondaryStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4, bool hasDhcpLease)
     {
         if (!hasEthernetAdapter)
         {
@@ -213,16 +217,21 @@ public sealed class NetworkStatusService : INetworkStatusService
 
         if (!isEthernetConnected)
         {
-            return "Check the cable connection";
+            return GetString("Ethernet.CheckCable");
         }
 
         if (!hasEthernetIpv4)
         {
-            return "Waiting for DHCP or static network configuration";
+            return GetString("Ethernet.WaitingDhcp");
         }
 
         return hasDhcpLease
-            ? "DHCP lease detected"
-            : "Static network configuration detected";
+            ? GetString("Ethernet.DhcpLeaseDetected")
+            : GetString("Ethernet.StaticConfigurationDetected");
+    }
+
+    private string GetString(string key)
+    {
+        return _localizationService.Strings[key];
     }
 }
