@@ -589,6 +589,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 }
 
                 wifiNetwork.Update(
+                    network.Ssid == "Hidden network" ? GetString("Wifi.HiddenNetwork") : network.Ssid,
+                    TranslateDiscoveredWifiSecurity(network.Authentication),
                     network.SsidHex,
                     network.Authentication,
                     network.Encryption,
@@ -1074,7 +1076,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     public sealed class WifiNetworkItemViewModel : ObservableObject
     {
+        private string _displaySsid = string.Empty;
         private string _authentication = string.Empty;
+        private string _displayAuthentication = string.Empty;
         private string? _ssidHex;
         private string _encryption = string.Empty;
         private int _signalStrengthPercent;
@@ -1090,6 +1094,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         public string Ssid { get; }
 
+        public string DisplaySsid
+        {
+            get => _displaySsid;
+            private set => SetProperty(ref _displaySsid, value);
+        }
+
         public string? SsidHex
         {
             get => _ssidHex;
@@ -1100,6 +1110,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             get => _authentication;
             private set => SetProperty(ref _authentication, value);
+        }
+
+        public string DisplayAuthentication
+        {
+            get => _displayAuthentication;
+            private set => SetProperty(ref _displayAuthentication, value);
         }
 
         public string Encryption
@@ -1139,6 +1155,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         public void Update(
+            string displaySsid,
+            string displayAuthentication,
             string? ssidHex,
             string authentication,
             string encryption,
@@ -1148,6 +1166,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             bool requiresPassphrase,
             bool isConnected)
         {
+            DisplaySsid = displaySsid;
+            DisplayAuthentication = displayAuthentication;
             SsidHex = ssidHex;
             Authentication = authentication;
             Encryption = encryption;
@@ -1249,6 +1269,25 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         return sourceText;
+    }
+
+    private string TranslateDiscoveredWifiSecurity(string authentication)
+    {
+        return authentication switch
+        {
+            "Open" => GetString("Wifi.SecurityOpen"),
+            "WEP" => GetString("Wifi.SecurityWep"),
+            "WPA-Personal" => GetString("Wifi.SecurityWpaPersonal"),
+            "WPA-None" => GetString("Wifi.SecurityWpaNone"),
+            "WPA2-Personal" => GetString("Wifi.SecurityWpa2Personal"),
+            "WPA3-Personal" => GetString("Wifi.SecurityWpa3Personal"),
+            "WPA-Enterprise" => GetString("Wifi.SecurityWpaEnterprise"),
+            "WPA2-Enterprise" => GetString("Wifi.SecurityWpa2Enterprise"),
+            "WPA3-Enterprise" => GetString("Wifi.SecurityWpa3Enterprise"),
+            "Vendor-specific" => GetString("Wifi.SecurityVendorSpecific"),
+            "OWE" => "OWE",
+            _ => authentication
+        };
     }
 
     private string ResolveProvisionedPersonalSecurityDisplayText(string? securityType)

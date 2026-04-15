@@ -34,13 +34,13 @@
                             Text="{Binding SignalGlyph}" />
 
                         <StackPanel Grid.Column="1">
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Ssid}" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DisplaySsid}" />
                             <TextBlock
                                 x:Name="WifiAuthenticationTextBlock"
                                 Margin="0,2,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{Binding Authentication}" />
+                                Text="{Binding DisplayAuthentication}" />
                             <TextBlock
                                 x:Name="WifiConnectedTextBlock"
                                 Margin="0,2,0,0"

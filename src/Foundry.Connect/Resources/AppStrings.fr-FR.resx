@@ -246,6 +246,27 @@
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Impossible d'exécuter l'action Wi-Fi. Réessayez.</value>
   </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Réseau masqué</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Ouvert</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Personnel</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Aucun</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Entreprise</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Spécifique au fournisseur</value>
+  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personnel</value>
   </data>
