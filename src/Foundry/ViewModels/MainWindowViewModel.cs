@@ -118,7 +118,11 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public IReadOnlyList<UsbPartitionStyle> AvailablePartitionStyles { get; } = Enum.GetValues<UsbPartitionStyle>();
 
     public ILocalizationService LocalizationService => _localizationService;
-    public CultureInfo CurrentCulture => _localizationService.CurrentCulture;
+    public CultureInfo CurrentCulture
+    {
+        get => _localizationService.CurrentCulture;
+        set { /* No-op to support TwoWay bindings in XAML */ }
+    }
     public ThemeMode CurrentTheme
     {
         get => _themeService.CurrentTheme;
