@@ -1,6 +1,7 @@
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
@@ -21,6 +22,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
         services.AddSingleton<IConnectConfigurationService, ConnectConfigurationService>();
         services.AddSingleton(sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
+        services.AddSingleton<ILocalizationService, LocalizationService>();
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
         services.AddSingleton<IThemeService, ThemeService>();

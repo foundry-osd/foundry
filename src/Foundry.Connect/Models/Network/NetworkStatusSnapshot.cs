@@ -20,15 +20,15 @@ public sealed class NetworkStatusSnapshot
 
     public bool HasWirelessAdapter { get; init; }
 
-    public string EthernetStatusText { get; init; } = "No ethernet adapter detected.";
+    public string EthernetStatusText { get; init; } = string.Empty;
 
     public string EthernetSecondaryStatusText { get; init; } = string.Empty;
 
-    public string EthernetAdapterName { get; init; } = "Unavailable";
+    public string EthernetAdapterName { get; init; } = string.Empty;
 
-    public string EthernetIpAddress { get; init; } = "Unavailable";
+    public string EthernetIpAddress { get; init; } = string.Empty;
 
-    public string EthernetGateway { get; init; } = "Unavailable";
+    public string EthernetGateway { get; init; } = string.Empty;
 
     public string? ConnectedWifiSsid { get; init; }
 

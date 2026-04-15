@@ -41,6 +41,13 @@
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{Binding Authentication}" />
+                            <TextBlock
+                                x:Name="WifiConnectedTextBlock"
+                                Margin="0,2,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding DataContext.Strings[Common.Connected], RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Visibility="Collapsed" />
                         </StackPanel>
 
                         <TextBlock
@@ -140,7 +147,7 @@
                                 Width="140"
                                 HorizontalAlignment="Right"
                                 Command="{Binding DataContext.ConnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                Content="Connect"
+                                Content="{Binding DataContext.Strings[Action.Connect], RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 IsEnabled="{Binding DataContext.CanConnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 Style="{DynamicResource AccentButtonStyle}" />
                         </Grid>
@@ -176,7 +183,7 @@
                                 Width="140"
                                 HorizontalAlignment="Right"
                                 Command="{Binding DataContext.DisconnectSelectedWifiCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                Content="Disconnect"
+                                Content="{Binding DataContext.Strings[Action.Disconnect], RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 IsEnabled="{Binding DataContext.CanDisconnectSelectedWifi, RelativeSource={RelativeSource AncestorType=UserControl}}" />
                         </Grid>
                     </Grid>
@@ -187,7 +194,7 @@
                         Margin="0,12,0,0"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="Provisioned profile required in this build."
+                        Text="{Binding DataContext.Strings[Wifi.ProvisionedProfileRequired], RelativeSource={RelativeSource AncestorType=UserControl}}"
                         TextWrapping="Wrap"
                         Visibility="Collapsed" />
                 </Grid>
@@ -227,7 +234,8 @@
                     <Setter TargetName="PassphraseRow" Property="Visibility" Value="Collapsed" />
                     <Setter TargetName="ConnectButtonRow" Property="Visibility" Value="Collapsed" />
                     <Setter TargetName="DisconnectButtonRow" Property="Visibility" Value="Visible" />
-                    <Setter TargetName="WifiAuthenticationTextBlock" Property="Text" Value="Connected" />
+                    <Setter TargetName="WifiAuthenticationTextBlock" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="WifiConnectedTextBlock" Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
@@ -261,7 +269,7 @@
                         Text="{Binding EthernetGlyph}" />
 
                     <StackPanel Grid.Column="1">
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Ethernet" />
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding Strings[Ethernet.Title]}" />
                         <TextBlock
                             Margin="0,8,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
@@ -285,7 +293,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Adapter" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Ethernet.AdapterLabel]}" />
                             <TextBlock
                                 Grid.Column="1"
                                 Margin="8,0,0,0"
@@ -295,7 +303,7 @@
                             <TextBlock
                                 Grid.Row="1"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="IPv4" />
+                                Text="{Binding Strings[Ethernet.Ipv4Label]}" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="1"
@@ -306,7 +314,7 @@
                             <TextBlock
                                 Grid.Row="2"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="Gateway" />
+                                Text="{Binding Strings[Ethernet.GatewayLabel]}" />
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="1"
@@ -344,7 +352,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Provisioned Wi-Fi" />
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding Strings[Wifi.ProvisionedTitle]}" />
 
                         <Grid Grid.Column="1" Visibility="{Binding ShowProvisionedWifiContent, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid x:Name="ProvisionedHeaderConnectButtonRow" HorizontalAlignment="Right">
@@ -363,7 +371,7 @@
                                     Width="140"
                                     HorizontalAlignment="Right"
                                     Command="{Binding ConnectConfiguredWifiCommand}"
-                                    Content="Connect"
+                                    Content="{Binding Strings[Action.Connect]}"
                                     IsEnabled="{Binding CanConnectConfiguredWifi}"
                                     Style="{DynamicResource AccentButtonStyle}" />
                             </Grid>
@@ -384,7 +392,7 @@
                                     Width="140"
                                     HorizontalAlignment="Right"
                                     Command="{Binding DisconnectConfiguredWifiCommand}"
-                                    Content="Disconnect"
+                                    Content="{Binding Strings[Action.Disconnect]}"
                                     IsEnabled="{Binding CanDisconnectConfiguredWifi}" />
                             </Grid>
                         </Grid>
@@ -411,7 +419,7 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Profile" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Wifi.ProfileLabel]}" />
                                 <TextBlock
                                     Grid.Column="1"
                                     Margin="8,0,0,0"
@@ -422,7 +430,7 @@
                                 <TextBlock
                                     Grid.Row="1"
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="Authentication" />
+                                    Text="{Binding Strings[Wifi.AuthenticationLabel]}" />
                                 <TextBlock
                                     Grid.Row="1"
                                     Grid.Column="1"
@@ -502,7 +510,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="Wi-Fi" />
+                        Text="{Binding Strings[Wifi.Title]}" />
 
                     <Button
                         Grid.Column="2"

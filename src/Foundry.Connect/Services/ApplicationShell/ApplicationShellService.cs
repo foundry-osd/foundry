@@ -1,4 +1,5 @@
 using System.Windows;
+using Foundry.Connect.Services.Localization;
 using Foundry.Connect.ViewModels;
 using Foundry.Connect.Views;
 
@@ -6,15 +7,22 @@ namespace Foundry.Connect.Services.ApplicationShell;
 
 public sealed class ApplicationShellService : IApplicationShellService
 {
+    private readonly ILocalizationService _localizationService;
+
+    public ApplicationShellService(ILocalizationService localizationService)
+    {
+        _localizationService = localizationService;
+    }
+
     public void ShowAbout()
     {
         var viewModel = new AboutDialogViewModel(
-            FoundryConnectApplicationInfo.AboutTitle,
-            FoundryConnectApplicationInfo.AppName,
+            _localizationService.Strings["About.Title"],
+            _localizationService.Strings["App.Name"],
             FoundryConnectApplicationInfo.Version,
-            FoundryConnectApplicationInfo.DescriptionLine1,
-            FoundryConnectApplicationInfo.DescriptionLine2,
-            FoundryConnectApplicationInfo.Footer);
+            _localizationService.Strings["About.DescriptionLine1"],
+            _localizationService.Strings["About.DescriptionLine2"],
+            _localizationService.Strings["About.Footer"]);
         var dialog = new AboutDialog
         {
             DataContext = viewModel,
