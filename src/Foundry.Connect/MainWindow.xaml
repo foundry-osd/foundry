@@ -36,20 +36,24 @@
             </Grid.ColumnDefinitions>
 
             <Menu Grid.Column="0">
-                <MenuItem Header="_Theme">
-                    <MenuItem Command="{Binding SetSystemThemeCommand}" Header="System" />
-                    <MenuItem Command="{Binding SetLightThemeCommand}" Header="Light" />
-                    <MenuItem Command="{Binding SetDarkThemeCommand}" Header="Dark" />
+                <MenuItem Header="{Binding Strings[Menu.Theme]}">
+                    <MenuItem Command="{Binding SetSystemThemeCommand}" Header="{Binding Strings[Theme.System]}" />
+                    <MenuItem Command="{Binding SetLightThemeCommand}" Header="{Binding Strings[Theme.Light]}" />
+                    <MenuItem Command="{Binding SetDarkThemeCommand}" Header="{Binding Strings[Theme.Dark]}" />
                 </MenuItem>
-                <MenuItem Header="_Tools">
-                    <MenuItem Command="{Binding RefreshStatusCommand}" Header="Refresh Status" />
+                <MenuItem Header="{Binding Strings[Menu.Language]}">
+                    <MenuItem Command="{Binding SetCultureCommand}" CommandParameter="en-US" Header="{Binding Strings[Language.English]}" />
+                    <MenuItem Command="{Binding SetCultureCommand}" CommandParameter="fr-FR" Header="{Binding Strings[Language.French]}" />
                 </MenuItem>
-                <MenuItem Header="_Debug" Visibility="{Binding IsDebugMenuVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <MenuItem Command="{Binding UseRuntimeDebugLayoutCommand}" Header="Use Runtime Layout" />
-                    <MenuItem Command="{Binding ShowEthernetOnlyDebugLayoutCommand}" Header="Show Ethernet Only" />
-                    <MenuItem Command="{Binding ShowEthernetWifiDebugLayoutCommand}" Header="Show Ethernet + Wi-Fi" />
+                <MenuItem Header="{Binding Strings[Menu.Tools]}">
+                    <MenuItem Command="{Binding RefreshStatusCommand}" Header="{Binding Strings[Tools.RefreshStatus]}" />
                 </MenuItem>
-                <MenuItem Command="{Binding ShowAboutCommand}" Header="_About" />
+                <MenuItem Header="{Binding Strings[Menu.Debug]}" Visibility="{Binding IsDebugMenuVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <MenuItem Command="{Binding UseRuntimeDebugLayoutCommand}" Header="{Binding Strings[Debug.UseRuntimeLayout]}" />
+                    <MenuItem Command="{Binding ShowEthernetOnlyDebugLayoutCommand}" Header="{Binding Strings[Debug.ShowEthernetOnly]}" />
+                    <MenuItem Command="{Binding ShowEthernetWifiDebugLayoutCommand}" Header="{Binding Strings[Debug.ShowEthernetWifi]}" />
+                </MenuItem>
+                <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[Menu.About]}" />
             </Menu>
 
             <TextBlock
@@ -139,7 +143,7 @@
                                 Width="140"
                                 HorizontalAlignment="Right"
                                 Command="{Binding ContinueBootstrapCommand}"
-                                Content="Continue"
+                                Content="{Binding Strings[Action.Continue]}"
                                 Style="{DynamicResource AccentButtonStyle}"
                                 Visibility="{Binding CanContinueBootstrap, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <TextBlock
