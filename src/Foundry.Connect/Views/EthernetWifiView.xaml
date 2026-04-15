@@ -9,7 +9,6 @@
     <UserControl.Resources>
         <DataTemplate x:Key="WifiNetworkItemTemplate">
             <Border
-                MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"
                 Margin="0,0,0,8"
                 Padding="10"
                 HorizontalAlignment="Stretch">
@@ -61,7 +60,6 @@
                     <Grid
                         x:Name="ConnectActionsPanel"
                         Grid.Row="1"
-                        MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"
                         Margin="0,12,0,0"
                         HorizontalAlignment="Stretch"
                         Visibility="Collapsed">
@@ -527,38 +525,37 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Margin="0,16,0,0">
-                    <Grid Margin="0,8,0,0">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{Binding WifiDiscoveryEmptyStateText}"
-                            TextWrapping="Wrap">
-                            <TextBlock.Style>
-                                <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding HasWifiNetworks}" Value="False">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding WifiDiscoveryEmptyStateText}"
+                        TextWrapping="Wrap">
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasWifiNetworks}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
+                    <Border Padding="0,8,24,0">
                         <ListView
                             x:Name="WifiNetworksListView"
                             MinHeight="160"
-                            MaxHeight="320"
-                            VerticalAlignment="Top"
                             HorizontalContentAlignment="Stretch"
                             ItemTemplate="{StaticResource WifiNetworkItemTemplate}"
                             ItemsSource="{Binding WifiNetworks}"
+                            Padding="0,0,8,0"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             ScrollViewer.VerticalScrollBarVisibility="Auto"
                             SelectedItem="{Binding SelectedWifiNetwork, Mode=TwoWay}"
                             Visibility="{Binding HasWifiNetworks, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    </Grid>
+                    </Border>
                 </Grid>
             </Grid>
         </Border>
