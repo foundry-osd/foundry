@@ -214,10 +214,10 @@
     <value>Notes de version</value>
   </data>
   <data name="UpdateAvailable.NotesEmpty" xml:space="preserve">
-    <value>Aucune note de version n'a été fournie pour cette release.</value>
+    <value>Aucune note de version n'a été fournie pour cette version.</value>
   </data>
   <data name="UpdateAvailable.OpenRelease" xml:space="preserve">
-    <value>Ouvrir la release</value>
+    <value>Ouvrir la version</value>
   </data>
   <data name="UpdateAvailable.Later" xml:space="preserve">
     <value>Plus tard</value>
