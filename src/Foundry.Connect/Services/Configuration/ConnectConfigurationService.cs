@@ -2,6 +2,7 @@ using System.IO;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Runtime;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Configuration;
 
@@ -16,10 +17,12 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     };
 
     private readonly string[] _args;
+    private readonly ILogger<ConnectConfigurationService> _logger;
 
-    public ConnectConfigurationService(string[] args)
+    public ConnectConfigurationService(string[] args, ILogger<ConnectConfigurationService> logger)
     {
         _args = args ?? Array.Empty<string>();
+        _logger = logger;
     }
 
     public string? ConfigurationPath { get; private set; }
@@ -33,6 +36,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         if (string.IsNullOrWhiteSpace(ConfigurationPath))
         {
             IsLoadedFromDisk = false;
+            _logger.LogInformation("No Foundry.Connect configuration file was resolved. Using built-in defaults.");
             return Normalize(new FoundryConnectConfiguration());
         }
 
@@ -43,6 +47,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 ConfigurationPath = null;
                 IsLoadedFromDisk = false;
+                _logger.LogInformation("Foundry.Connect configuration file was not found. Using built-in defaults. ConfigurationPath={ConfigurationPath}", fullPath);
                 return Normalize(new FoundryConnectConfiguration());
             }
 
@@ -51,6 +56,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
         try
         {
+            _logger.LogInformation("Loading Foundry.Connect configuration from disk. ConfigurationPath={ConfigurationPath}", fullPath);
             string json = File.ReadAllText(fullPath);
             FoundryConnectConfiguration? configuration = JsonSerializer.Deserialize<FoundryConnectConfiguration>(json, JsonOptions);
             if (configuration is null)
@@ -60,6 +66,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
             ConfigurationPath = fullPath;
             IsLoadedFromDisk = true;
+            _logger.LogInformation("Loaded Foundry.Connect configuration from disk. ConfigurationPath={ConfigurationPath}", fullPath);
             return Normalize(configuration);
         }
         catch (FoundryConnectConfigurationException)
