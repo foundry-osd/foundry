@@ -9,7 +9,12 @@ internal static class OperatingSystemDisplayFormatter
 
     public static string FormatLicenseChannel(string channel)
     {
-        return channel.Trim();
+        return channel.Trim().ToUpperInvariant() switch
+        {
+            "RET" => "Retail",
+            "VOL" => "Volume",
+            _ => channel.Trim()
+        };
     }
 
     public static string FormatEdition(string edition)
