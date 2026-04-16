@@ -66,6 +66,7 @@ public static partial class DeploymentUiTextLocalizer
             "Deployment cancelled by user." => LocalizationText.GetString("Launch.CancelledByUser"),
             "Deployment preparation completed." => LocalizationText.GetString("Launch.PreparationCompleted"),
             "Another operation is already running." => LocalizationText.GetString("Status.AnotherOperationRunning"),
+            "Debug Safe Mode enabled: deployment actions are simulated." => LocalizationText.GetString("Status.DebugSafeModeEnabled"),
             "Starting Foundry.Deploy orchestration." => LocalizationText.GetString("Status.StartingOrchestration"),
             "Gathering deployment variables..." => LocalizationText.GetString("StepMessage.GatheringDeploymentVariables"),
             "Collecting deployment context..." => LocalizationText.GetString("StepMessage.CollectingDeploymentContext"),

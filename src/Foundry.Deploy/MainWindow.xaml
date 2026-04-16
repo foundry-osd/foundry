@@ -46,7 +46,7 @@
                         Command="{Binding Preparation.RefreshTargetDisksCommand}"
                         Header="{Binding Strings[Tools.RefreshTargetDisks]}"
                         IsEnabled="{Binding Session.IsStartupReady}" />
-                    <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="{Binding Strings[Common.OpenLogFile]}" />
+                    <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="{Binding Strings[Tools.OpenLogFile]}" />
                 </MenuItem>
                 <!--  About  -->
                 <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[Menu.About]}" />
@@ -144,7 +144,7 @@
                                             Width="140"
                                             Margin="8,0,0,0"
                                             Command="{Binding RefreshTargetDisksCommand}"
-                                            Content="{Binding DataContext.Strings[Preparation.RefreshDisks], ElementName=RootWindow}" />
+                                            Content="{Binding DataContext.Strings[Common.Refresh], ElementName=RootWindow}" />
                                     </DockPanel>
                                     <TextBlock
                                         Margin="0,8,0,0"
@@ -189,7 +189,7 @@
                                     <Button
                                         Width="140"
                                         Command="{Binding RefreshCatalogsCommand}"
-                                        Content="{Binding Strings[Tools.RefreshCatalogs]}" />
+                                        Content="{Binding Strings[Common.Refresh]}" />
                                     <TextBlock
                                         Margin="12,0,0,0"
                                         VerticalAlignment="Center"
@@ -284,7 +284,7 @@
                                     <Button
                                         Width="140"
                                         Command="{Binding RefreshCatalogsCommand}"
-                                        Content="{Binding Strings[Tools.RefreshCatalogs]}" />
+                                        Content="{Binding Strings[Common.Refresh]}" />
                                     <TextBlock
                                         Margin="12,0,0,0"
                                         VerticalAlignment="Center"
@@ -367,7 +367,7 @@
                                 Margin="0,8,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{Binding Strings[Summary.StartExplanation]}" />
+                                Text="{Binding Strings[Summary.DeployExplanation]}" />
                             <TextBlock
                                 Margin="0,4,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
@@ -423,7 +423,7 @@
                         <Button
                             Width="160"
                             Command="{Binding StartDeploymentCommand}"
-                            Content="{Binding Strings[Common.StartDeployment]}"
+                            Content="{Binding Strings[Common.Deploy]}"
                             Style="{DynamicResource AccentButtonStyle}" />
                     </StackPanel>
                 </Grid>
@@ -561,7 +561,7 @@
                         Width="140"
                         HorizontalAlignment="Right"
                         Command="{Binding OpenLogFileCommand}"
-                        Content="{Binding DataContext.Strings[Common.OpenLogFile], ElementName=RootWindow}" />
+                        Content="{Binding DataContext.Strings[Common.OpenLog], ElementName=RootWindow}" />
                 </Grid>
             </Grid>
 
@@ -751,7 +751,7 @@
                             Margin="0,16,0,0"
                             HorizontalAlignment="Right"
                             Command="{Binding OpenLogFileCommand}"
-                            Content="{Binding DataContext.Strings[Common.OpenLogFile], ElementName=RootWindow}" />
+                            Content="{Binding DataContext.Strings[Common.OpenLog], ElementName=RootWindow}" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -797,7 +797,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Command="{Binding BeginWizardCommand}"
-                    Content="{Binding Strings[Splash.Begin]}"
+                    Content="{Binding Strings[Splash.Start]}"
                     Style="{DynamicResource AccentButtonStyle}"
                     Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
             </Grid>
