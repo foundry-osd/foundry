@@ -12,10 +12,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.Name" xml:space="preserve"><value>Foundry.Deploy</value></data>
   <data name="App.WindowTitle" xml:space="preserve"><value>Foundry.Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>About Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy is the WinPE deployment experience for Foundry.</value></data>
+  <data name="About.Title" xml:space="preserve"><value>About Foundry.Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry.Deploy is the WinPE deployment experience for Foundry.</value></data>
   <data name="About.DescriptionLine2" xml:space="preserve"><value>This software is provided as-is. Review your deployment settings before use.</value></data>
   <data name="About.Footer" xml:space="preserve"><value>Copyright (c) 2026 Foundry Contributors. Licensed under the MIT License.</value></data>
   <data name="Menu.Theme" xml:space="preserve"><value>_Theme</value></data>
@@ -29,8 +29,9 @@
   <data name="Language.French" xml:space="preserve"><value>French</value></data>
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Refresh Catalogs</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Refresh Target Disks</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open Log File</value></data>
   <data name="Wizard.Title" xml:space="preserve"><value>Foundry.Deploy Wizard</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>DEBUG SAFE MODE ACTIVE: all deployment actions are simulated, no disk/image write is executed.</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>DEBUG SAFE MODE ACTIVE: all deployment actions are simulated; no disk/image write is performed.</value></data>
   <data name="Wizard.Description" xml:space="preserve"><value>Task-sequence orchestrator for OS deployment in WinPE.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating System Catalog</value></data>
@@ -40,7 +41,6 @@
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 characters. A-Z, a-z, 0-9, and hyphen only.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Computer name must contain 1 to 15 valid characters (letters, numbers, or hyphen).</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Target Disk</value></data>
-  <data name="Preparation.RefreshDisks" xml:space="preserve"><value>Refresh Disks</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Select a target disk. Non-eligible disks are blocked.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware: Microsoft Update Catalog update enabled.</value></data>
   <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot: Enable offline profile staging.</value></data>
@@ -66,12 +66,7 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Loading catalogs...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogs loaded: {0} OS entries, {1} driver packs.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalog load failed: {0}</value></data>
-  <data name="OperatingSystem.Windows" xml:space="preserve"><value>Windows</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
-  <data name="OperatingSystem.Retail" xml:space="preserve"><value>Retail</value></data>
-  <data name="OperatingSystem.Volume" xml:space="preserve"><value>Volume</value></data>
-  <data name="OperatingSystem.Professional" xml:space="preserve"><value>Professional</value></data>
-  <data name="OperatingSystem.ProfessionalN" xml:space="preserve"><value>Professional N</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Driver Source</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
@@ -93,25 +88,26 @@
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.EnabledFormat" xml:space="preserve"><value>Enabled: {0}</value></data>
   <data name="Summary.SelectedProfileFormat" xml:space="preserve"><value>Selected profile: {0}</value></data>
-  <data name="Summary.StartExplanation" xml:space="preserve"><value>Start launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, offline Autopilot profile staging).</value></data>
-  <data name="Summary.DebugSafeModeExplanation" xml:space="preserve"><value>Debug Safe Mode: task sequence runs in dry-run simulation.</value></data>
-  <data name="Debug.ProgressButton" xml:space="preserve"><value>Debug: Progress</value></data>
-  <data name="Debug.SuccessButton" xml:space="preserve"><value>Debug: Success</value></data>
-  <data name="Debug.ErrorButton" xml:space="preserve"><value>Debug: Error</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Debug preview: progress page.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Debug preview: success page.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Debug preview: error page.</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Debug preview: DISM apply failed because the target partition is read-only.
+  <data name="Summary.DeployExplanation" xml:space="preserve"><value>Deploy launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, offline Autopilot profile staging).</value></data>
+  <data name="Summary.DebugSafeModeExplanation" xml:space="preserve"><value>Debug safe mode: the task sequence runs in simulation.</value></data>
+  <data name="Debug.ProgressButton" xml:space="preserve"><value>DBG: Progress</value></data>
+  <data name="Debug.SuccessButton" xml:space="preserve"><value>DBG: Success</value></data>
+  <data name="Debug.ErrorButton" xml:space="preserve"><value>DBG: Error</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>DBG preview: progress page.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>DBG preview: success page.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>DBG preview: error page.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>DBG preview: DISM apply failed because the target partition is read-only.
 
 ErrorCode=0x80070005
 Details: Access denied while mounting image to target path.
 Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Debug.ApplyingImageProgressFormat" xml:space="preserve"><value>Applying image: {0}%</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Refresh</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Previous</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Next</value></data>
-  <data name="Common.StartDeployment" xml:space="preserve"><value>Start Deployment</value></data>
-  <data name="Common.OpenLogFile" xml:space="preserve"><value>Open Log File</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Deploy</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Open Log</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Unavailable</value></data>
   <data name="Common.None" xml:space="preserve"><value>None</value></data>
@@ -126,13 +122,13 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Elapsed time</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Deployment completed successfully.</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>This computer will reboot in {0} seconds...</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>Reboot now</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Reboot</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Deployment failed</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Failed step</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Error message</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Welcome</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initializing components...</value></data>
-  <data name="Splash.Begin" xml:space="preserve"><value>Begin</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Start</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value> | {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Unknown size</value></data>
@@ -145,8 +141,8 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Select an operating system.</value></data>
   <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Enter a valid computer name.</value></data>
   <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Select a target disk.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Select a valid OEM model/version before starting deployment.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Select an Autopilot profile or disable Autopilot before starting deployment.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Select a valid OEM model/version before deploying.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Select an Autopilot profile or disable Autopilot before deploying.</value></data>
   <data name="Launch.CancelledByUser" xml:space="preserve"><value>Deployment cancelled by user.</value></data>
   <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Deployment preparation completed.</value></data>
   <data name="Status.Ready" xml:space="preserve"><value>Ready</value></data>
@@ -160,6 +156,7 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Status.DeploymentFailed" xml:space="preserve"><value>Deployment failed.</value></data>
   <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Deployment failed: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Another operation is already running.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Debug safe mode enabled: deployment actions are simulated.</value></data>
   <data name="Status.StartingOrchestration" xml:space="preserve"><value>Starting Foundry.Deploy orchestration.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Starting step...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Starting {0}.</value></data>

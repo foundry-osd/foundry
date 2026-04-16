@@ -12,10 +12,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.Name" xml:space="preserve"><value>Foundry.Deploy</value></data>
   <data name="App.WindowTitle" xml:space="preserve"><value>Foundry.Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>À propos de Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy est l’expérience de déploiement WinPE de Foundry.</value></data>
+  <data name="About.Title" xml:space="preserve"><value>À propos de Foundry.Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry.Deploy est l’expérience de déploiement WinPE de Foundry.</value></data>
   <data name="About.DescriptionLine2" xml:space="preserve"><value>Ce logiciel est fourni tel quel. Vérifiez vos paramètres de déploiement avant utilisation.</value></data>
   <data name="About.Footer" xml:space="preserve"><value>Copyright (c) 2026 Contributeurs Foundry. Distribué sous licence MIT.</value></data>
   <data name="Menu.Theme" xml:space="preserve"><value>_Thème</value></data>
@@ -29,21 +29,21 @@
   <data name="Language.French" xml:space="preserve"><value>Français</value></data>
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Actualiser les catalogues</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Actualiser les disques cibles</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ouvrir le fichier journal</value></data>
   <data name="Wizard.Title" xml:space="preserve"><value>Assistant Foundry.Deploy</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>MODE DEBUG SAFE ACTIF : toutes les actions de déploiement sont simulées, aucune écriture disque/image n’est effectuée.</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>MODE DEBUG SÉCURISÉ ACTIF : toutes les actions de déploiement sont simulées, aucune écriture disque/image n’est effectuée.</value></data>
   <data name="Wizard.Description" xml:space="preserve"><value>Orchestrateur de séquence de tâches pour le déploiement d’OS dans WinPE.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cible</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Catalogue système</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver Pack</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pack de pilotes</value></data>
   <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Résumé</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nom de l’ordinateur</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 à 15 caractères. A-Z, a-z, 0-9 et tiret uniquement.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Le nom de l’ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou tiret).</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
-  <data name="Preparation.RefreshDisks" xml:space="preserve"><value>Actualiser les disques</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware : activer les mises à jour via Microsoft Update Catalog.</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer le staging hors ligne du profil.</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer la préparation hors ligne du profil.</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profils disponibles : {0}</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot importé n’a été trouvé dans X:\Foundry\Config\Autopilot.</value></data>
@@ -64,20 +64,15 @@
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Édition (cible)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architecture : {0}</value></data>
   <data name="Catalog.Loading" xml:space="preserve"><value>Chargement des catalogues...</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogues chargés : {0} entrée(s) OS, {1} driver pack(s).</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogues chargés : {0} entrée(s) OS, {1} pack(s) de pilotes.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Échec du chargement du catalogue : {0}</value></data>
-  <data name="OperatingSystem.Windows" xml:space="preserve"><value>Windows</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
-  <data name="OperatingSystem.Retail" xml:space="preserve"><value>Retail</value></data>
-  <data name="OperatingSystem.Volume" xml:space="preserve"><value>Volume</value></data>
-  <data name="OperatingSystem.Professional" xml:space="preserve"><value>Professionnel</value></data>
-  <data name="OperatingSystem.ProfessionalN" xml:space="preserve"><value>Professionnel N</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Source des pilotes</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modèle</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
   <data name="DriverPack.SelectedModeFormat" xml:space="preserve"><value>Mode sélectionné : {0}</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>Driver Pack OEM</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>Pack de pilotes OEM</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0} | Aucun modèle/version correspondant</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modèles)</value></data>
@@ -86,32 +81,33 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Aucun disque sélectionné</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Système sélectionné</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Aucune sélection</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Driver Pack sélectionné</value></data>
-  <data name="Summary.DriverPackMode" xml:space="preserve"><value>Mode du Driver Pack</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pack de pilotes sélectionné</value></data>
+  <data name="Summary.DriverPackMode" xml:space="preserve"><value>Mode du pack de pilotes</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.FirmwareEnabledFormat" xml:space="preserve"><value>Mises à jour du firmware activées : {0}</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.EnabledFormat" xml:space="preserve"><value>Activé : {0}</value></data>
   <data name="Summary.SelectedProfileFormat" xml:space="preserve"><value>Profil sélectionné : {0}</value></data>
-  <data name="Summary.StartExplanation" xml:space="preserve"><value>Démarrer lance l’orchestrateur de séquence de tâches avec les actions WinPE réelles (diskpart, DISM, BCDBoot, injection de pilotes, staging hors ligne du profil Autopilot).</value></data>
-  <data name="Summary.DebugSafeModeExplanation" xml:space="preserve"><value>Debug Safe Mode : la séquence de tâches s’exécute en simulation dry-run.</value></data>
-  <data name="Debug.ProgressButton" xml:space="preserve"><value>Debug : progression</value></data>
-  <data name="Debug.SuccessButton" xml:space="preserve"><value>Debug : succès</value></data>
-  <data name="Debug.ErrorButton" xml:space="preserve"><value>Debug : erreur</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Aperçu debug : page de progression.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Aperçu debug : page de succès.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Aperçu debug : page d’erreur.</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Aperçu debug : l’application DISM a échoué car la partition cible est en lecture seule.
+  <data name="Summary.DeployExplanation" xml:space="preserve"><value>Déployer lance l’orchestrateur de séquence de tâches avec les actions WinPE réelles (diskpart, DISM, BCDBoot, injection de pilotes, préparation hors ligne du profil Autopilot).</value></data>
+  <data name="Summary.DebugSafeModeExplanation" xml:space="preserve"><value>Mode debug sécurisé : la séquence de tâches s’exécute en simulation.</value></data>
+  <data name="Debug.ProgressButton" xml:space="preserve"><value>DBG: Progrès</value></data>
+  <data name="Debug.SuccessButton" xml:space="preserve"><value>DBG: Succès</value></data>
+  <data name="Debug.ErrorButton" xml:space="preserve"><value>DBG: Erreur</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Aperçu DBG : page de progression.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Aperçu DBG : page de succès.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Aperçu DBG : page d’erreur.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Aperçu DBG : l’application DISM a échoué car la partition cible est en lecture seule.
 
 ErrorCode=0x80070005
 Détails : accès refusé lors du montage de l’image sur le chemin cible.
 Action : vérifiez les attributs du disque puis relancez le déploiement.</value></data>
   <data name="Debug.ApplyingImageProgressFormat" xml:space="preserve"><value>Application de l’image : {0}%</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Actualiser</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version : {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Précédent</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Suivant</value></data>
-  <data name="Common.StartDeployment" xml:space="preserve"><value>Démarrer le déploiement</value></data>
-  <data name="Common.OpenLogFile" xml:space="preserve"><value>Ouvrir le fichier journal</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Déployer</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Ouvrir journal</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/D</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Indisponible</value></data>
   <data name="Common.None" xml:space="preserve"><value>Aucun</value></data>
@@ -126,13 +122,13 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Temps écoulé</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Déploiement terminé avec succès.</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Cet ordinateur redémarrera dans {0} secondes...</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>Redémarrer maintenant</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Redémarrer</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Le déploiement a échoué</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Étape en échec</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Message d’erreur</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Bienvenue</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initialisation des composants...</value></data>
-  <data name="Splash.Begin" xml:space="preserve"><value>Commencer</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Démarrer</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disque {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value> | {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Taille inconnue</value></data>
@@ -140,13 +136,13 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Bloqué : disque de démarrage</value></data>
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Bloqué : lecture seule</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Bloqué : hors ligne</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>CIBLE VIRTUELLE DEBUG</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>CIBLE VIRTUELLE DBG</value></data>
   <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Disque sélectionné bloqué : {0}</value></data>
   <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Sélectionnez un système d’exploitation.</value></data>
   <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Saisissez un nom d’ordinateur valide.</value></data>
   <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Sélectionnez un disque cible.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Sélectionnez un modèle/version OEM valide avant de démarrer le déploiement.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Sélectionnez un profil Autopilot ou désactivez Autopilot avant de démarrer le déploiement.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Sélectionnez un modèle/version OEM valide avant de déployer.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Sélectionnez un profil Autopilot ou désactivez Autopilot avant de déployer.</value></data>
   <data name="Launch.CancelledByUser" xml:space="preserve"><value>Déploiement annulé par l’utilisateur.</value></data>
   <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Préparation du déploiement terminée.</value></data>
   <data name="Status.Ready" xml:space="preserve"><value>Prêt</value></data>
@@ -160,6 +156,7 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Status.DeploymentFailed" xml:space="preserve"><value>Le déploiement a échoué.</value></data>
   <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Le déploiement a échoué : {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Une autre opération est déjà en cours.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Mode debug sécurisé activé : les actions de déploiement sont simulées.</value></data>
   <data name="Status.StartingOrchestration" xml:space="preserve"><value>Démarrage de l’orchestration Foundry.Deploy.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Démarrage de l’étape...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Démarrage de {0}.</value></data>
@@ -186,13 +183,13 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Application de l’image système</value></data>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configuration du nom cible</value></data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configuration de l’environnement de récupération</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Téléchargement du Driver Pack</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extraction du Driver Pack</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Application du Driver Pack</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Téléchargement du pack de pilotes</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extraction du pack de pilotes</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Application du pack de pilotes</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Téléchargement de la mise à jour firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Application de la mise à jour firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Masquage de la partition de récupération</value></data>
-  <data name="Step.StageAutopilotConfiguration" xml:space="preserve"><value>Staging de la configuration Autopilot</value></data>
+  <data name="Step.StageAutopilotConfiguration" xml:space="preserve"><value>Préparation de la configuration Autopilot</value></data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalisation du déploiement et écriture des journaux</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Collecte des variables de déploiement...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Collecte du contexte de déploiement...</value></data>
@@ -243,30 +240,30 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>La partition de récupération est indisponible.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Environnement de récupération configuré.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Environnement de récupération configuré (simulation).</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Driver Pack désactivé (Aucun sélectionné).</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Aucun téléchargement de Driver Pack requis.</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Téléchargement du Driver Pack...</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Pack de pilotes désactivé (aucun sélectionné).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Aucun téléchargement de pack de pilotes requis.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Téléchargement du pack de pilotes...</value></data>
   <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Préparation du téléchargement...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Le mode Driver Pack OEM est sélectionné mais aucun Driver Pack n’a été fourni.</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Driver Pack téléchargé.</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Driver Pack téléchargé (simulation).</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Extraction du Driver Pack...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Le Driver Pack n’a pas été téléchargé.</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Driver Pack extrait.</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Driver Pack extrait (simulation).</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Aucune opération Driver Pack requise.</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Mode d’installation du Driver Pack non pris en charge.</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Le mode pack de pilotes OEM est sélectionné mais aucun pack de pilotes n’a été fourni.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Pack de pilotes téléchargé.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Pack de pilotes téléchargé (simulation).</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Extraction du pack de pilotes...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Le pack de pilotes n’a pas été téléchargé.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Pack de pilotes extrait.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Pack de pilotes extrait (simulation).</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Aucune opération sur le pack de pilotes n’est requise.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Mode d’installation du pack de pilotes non pris en charge.</value></data>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Aucune charge utile INF extraite n’est disponible.</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Application du Driver Pack...</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Application du pack de pilotes...</value></data>
   <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Application des pilotes Windows...</value></data>
   <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Montage de WinRE...</value></data>
   <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Application des pilotes WinRE...</value></data>
   <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Démontage de WinRE...</value></data>
   <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Staging du package...</value></data>
   <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Mise à jour du hook SetupComplete...</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Driver Pack appliqué.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Driver Pack préparé pour le premier démarrage.</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Driver Pack appliqué (simulation).</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Pack de pilotes appliqué.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Pack de pilotes préparé pour le premier démarrage.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Pack de pilotes appliqué (simulation).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Téléchargement de la mise à jour firmware...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Préparation de la recherche Microsoft Update Catalog...</value></data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Les mises à jour firmware sont désactivées.</value></data>
@@ -287,11 +284,11 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Partition de récupération masquée (simulation).</value></data>
   <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot est désactivé.</value></data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot est activé mais aucun profil n’a été sélectionné.</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>La partition Windows cible est indisponible pour le staging Autopilot.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>La partition Windows cible est indisponible pour la préparation Autopilot.</value></data>
   <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Impossible de résoudre le répertoire Autopilot cible.</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Staging du profil Autopilot...</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Préparation du profil Autopilot...</value></data>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Copie de AutopilotConfigurationFile.json...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Écriture du manifeste Autopilot dry-run...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Écriture du manifeste Autopilot de simulation...</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot préparé.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Profil Autopilot préparé (simulation).</value></data>
 </root>
