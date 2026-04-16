@@ -211,6 +211,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         try
         {
             DeploymentCatalogSnapshot snapshot = await _deploymentCatalogLoadService.LoadAsync().ConfigureAwait(false);
+            _logger.LogInformation(
+                "Deployment catalogs refreshed successfully. OperatingSystemCount={OperatingSystemCount}, DriverPackCount={DriverPackCount}",
+                snapshot.OperatingSystems.Count,
+                snapshot.DriverPacks.Count);
 
             RunOnUi(() =>
             {
