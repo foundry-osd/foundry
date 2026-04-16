@@ -283,6 +283,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         try
         {
             FoundryExpertConfigurationDocument document = await _expertConfigurationService.LoadAsync(path).ConfigureAwait(false);
+            _logger.LogInformation("Expert configuration imported successfully. Path={Path}", path);
             RunOnUiThread(() =>
             {
                 ApplyExpertConfigurationDocument(document);
@@ -313,6 +314,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         try
         {
             await _expertConfigurationService.SaveAsync(path, BuildExpertConfigurationDocument()).ConfigureAwait(false);
+            _logger.LogInformation("Expert configuration exported successfully. Path={Path}", path);
             RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["Expert.ConfigExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
@@ -338,6 +340,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             string json = BuildDeployConfigurationJsonForCurrentMode() ?? string.Empty;
             await File.WriteAllTextAsync(path, json).ConfigureAwait(false);
+            _logger.LogInformation("Deploy configuration exported successfully. Path={Path}", path);
             RunOnUiThread(() => MediaActionMessage = string.Format(CurrentCulture, Strings["DeployConfig.ExportedFormat"], Path.GetFileName(path)));
         }
         catch (Exception ex)
