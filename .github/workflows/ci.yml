@@ -38,6 +38,14 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-${{ runner.arch }}-nuget-${{ hashFiles('src/**/*.csproj', 'src/Directory.Build.props', 'global.json', 'NuGet.config', 'nuget.config') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-nuget-
+
       - name: Restore solution
         run: dotnet restore .\src\Foundry.slnx --nologo
 
