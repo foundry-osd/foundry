@@ -6,18 +6,21 @@
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry/**'
+          - 'src/Foundry.Tests/**'
 
 # Foundry deployment application
 'project: foundry-deploy':
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry.Deploy/**'
+          - 'src/Foundry.Deploy.Tests/**'
 
 # Foundry WinPE network bootstrap application
 'project: foundry-connect':
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry.Connect/**'
+          - 'src/Foundry.Connect.Tests/**'
 
 # UI assets and views
 ui:
