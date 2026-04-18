@@ -19,13 +19,15 @@ concurrency:
 jobs:
   build:
     name: Build (${{ matrix.platform }})
-    runs-on: windows-latest
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
-        platform:
-          - x64
-          - ARM64
+        include:
+          - platform: x64
+            runner: windows-latest
+          - platform: ARM64
+            runner: windows-11-arm
 
     steps:
       - name: Checkout repository
