@@ -1,20 +1,122 @@
 name: Release
 
 on:
-  release:
-    types: [published]
+  schedule:
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Create a release even if no commits exist since the latest published release
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
-  publish-release-assets:
-    name: Publish Release Assets
-    runs-on: windows-latest
+  prepare-release:
+    name: Prepare Release
+    runs-on: ubuntu-slim
+    outputs:
+      should_release: ${{ steps.compute.outputs.should_release }}
+      release_tag: ${{ steps.compute.outputs.release_tag }}
+      release_name: ${{ steps.compute.outputs.release_name }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Determine release metadata
+        id: compute
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORCE_RELEASE: ${{ inputs.force && 'true' || 'false' }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          git fetch --force --tags
+
+          $latestReleaseTag = $null
+          try {
+              $latestReleaseTag = gh api "repos/$env:GITHUB_REPOSITORY/releases/latest" --jq '.tag_name'
+          }
+          catch {
+              Write-Host 'No published release found yet.'
+          }
+
+          $changeCount = if ([string]::IsNullOrWhiteSpace($latestReleaseTag)) {
+              [int](git rev-list --count HEAD)
+          }
+          else {
+              [int](git rev-list --count "$latestReleaseTag..HEAD")
+          }
+
+          $parisNow = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTimeOffset]::UtcNow, 'Europe/Paris')
+          $datePrefix = 'v{0}.{1}.{2}' -f ($parisNow.Year % 100), $parisNow.Month, $parisNow.Day
+
+          $existingTags = @(git tag -l "$datePrefix.*")
+          $nextBuild = 1
+
+          if ($existingTags.Count -gt 0) {
+              $existingBuilds = $existingTags |
+                  ForEach-Object {
+                      if ($_ -match '^v\d{2}\.\d{1,2}\.\d{1,2}\.(\d+)$') {
+                          [int]$Matches[1]
+                      }
+                  } |
+                  Sort-Object -Descending
+
+              if ($existingBuilds.Count -gt 0) {
+                  $nextBuild = $existingBuilds[0] + 1
+              }
+          }
+
+          $releaseTag = "$datePrefix.$nextBuild"
+          $releaseName = "Foundry $releaseTag"
+          $shouldRelease = $changeCount -gt 0 -or $env:FORCE_RELEASE -eq 'true'
+
+          "should_release=$($shouldRelease.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+          "release_tag=$releaseTag" >> $env:GITHUB_OUTPUT
+          "release_name=$releaseName" >> $env:GITHUB_OUTPUT
+
+          if ($shouldRelease) {
+              Write-Host "Release will be created with tag '$releaseTag'."
+          }
+          else {
+              Write-Host "No commits found since '$latestReleaseTag'. Skipping release creation."
+          }
+
+      - name: Create GitHub release
+        if: steps.compute.outputs.should_release == 'true'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.compute.outputs.release_tag }}" `
+            --title "${{ steps.compute.outputs.release_name }}" `
+            --target "${{ github.sha }}" `
+            --generate-notes
+
+  publish-release-assets:
+    name: Publish Release Assets
+    runs-on: windows-latest
+    needs: prepare-release
+    if: needs.prepare-release.outputs.should_release == 'true'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Set up .NET SDK
         uses: actions/setup-dotnet@v5
@@ -32,10 +134,10 @@ jobs:
       - name: Validate release tag and apply version
         shell: pwsh
         run: |
-          $tag = '${{ github.event.release.tag_name }}'
+          $tag = '${{ needs.prepare-release.outputs.release_tag }}'
           $match = [regex]::Match($tag, '^v(?<year>\d{2})\.(?<month>\d{1,2})\.(?<day>\d{1,2})\.(?<build>[1-9]\d*)$')
           if (-not $match.Success) {
-              throw "Release tag '$tag' must use the format vYY.M.D.B."
+              throw "Release tag '$tag' must use the format vYY.M.D.Build."
           }
 
           $year = 2000 + [int]$match.Groups['year'].Value
@@ -169,7 +271,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $releaseTag = '${{ github.event.release.tag_name }}'
+          $releaseTag = '${{ needs.prepare-release.outputs.release_tag }}'
           $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts\release'
           $assets = @(
               (Join-Path $releaseRoot 'Foundry-x64.exe'),
