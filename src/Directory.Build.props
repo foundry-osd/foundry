@@ -30,6 +30,7 @@
 
   <!-- Common Build Settings -->
   <PropertyGroup>
+    <Platform Condition="'$(Platform)' == ''">x64</Platform>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64;ARM64</Platforms>

@@ -41,3 +41,6 @@ jobs:
 
       - name: Build solution
         run: dotnet build .\src\Foundry.slnx -c Release -p:Platform=${{ matrix.platform }} -p:ContinuousIntegrationBuild=true --no-restore --nologo
+
+      - name: Run unit tests
+        run: dotnet test .\src\Foundry.slnx -c Release -p:Platform=${{ matrix.platform }} --no-build --nologo
