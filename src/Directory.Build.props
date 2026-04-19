@@ -30,6 +30,7 @@
 
   <!-- Common Build Settings -->
   <PropertyGroup>
+    <Platform Condition="'$(Platform)' == '' and '$(RuntimeIdentifier)' == 'win-arm64'">ARM64</Platform>
     <Platform Condition="'$(Platform)' == ''">x64</Platform>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
