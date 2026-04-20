@@ -13,8 +13,8 @@ public sealed class DeployConfigurationGeneratorTests
         {
             Localization = new LocalizationSettings
             {
-                VisibleLanguageCodes = ["fr-FR", "en-US"],
-                DefaultLanguageCodeOverride = "fr-FR",
+                VisibleLanguageCodes = [" fr_fr ", "EN-us", "fr-FR", ""],
+                DefaultLanguageCodeOverride = "FR-fr",
                 DefaultTimeZoneId = "Romance Standard Time",
                 ForceSingleVisibleLanguage = true
             },

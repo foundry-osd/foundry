@@ -157,10 +157,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _isAutoCloseEnabled = !Debugger.IsAttached;
         LayoutMode = NetworkLayoutMode.EthernetOnly;
         LocalizationService.LanguageChanged += OnLanguageChanged;
+        RefreshSupportedCultures();
         ApplyLocalizedDefaults();
     }
 
     public ObservableCollection<WifiNetworkItemViewModel> WifiNetworks { get; } = [];
+    public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
 
     public CultureInfo CurrentCulture => LocalizationService.CurrentCulture;
     public ConnectThemeMode CurrentTheme => _themeService.CurrentTheme;
@@ -264,6 +266,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void SetCulture(string cultureName)
     {
         LocalizationService.SetCulture(new CultureInfo(cultureName));
+    }
+
+    private void RefreshSupportedCultures()
+    {
+        SupportedCultures.Clear();
+        foreach (SupportedCultureOption option in SupportedCultureCatalog.CreateOptions(CurrentCulture, key => Strings[key]))
+        {
+            SupportedCultures.Add(option);
+        }
     }
 
     [RelayCommand]
@@ -797,6 +808,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         RunOnUiThread(() =>
         {
+            RefreshSupportedCultures();
             ApplyPrimaryStatus(HasInternetAccess);
             CurrentConnectionChipText = BuildCurrentConnectionChipText(IsEthernetConnected);
             OnPropertyChanged(nameof(CurrentCulture));

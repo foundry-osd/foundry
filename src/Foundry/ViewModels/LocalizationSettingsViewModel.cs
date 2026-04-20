@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Foundry.Models.Configuration;
+using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
@@ -49,12 +50,17 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
     public LocalizationSettings BuildSettings()
     {
         string[] visibleCodes = VisibleLanguages
-            .Select(language => language.Code)
+            .Select(language => LanguageCodeUtility.Canonicalize(language.Code))
+            .Where(code => !string.IsNullOrWhiteSpace(code))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
+        string selectedDefaultLanguageCode = LanguageCodeUtility.Canonicalize(SelectedDefaultLanguageCode);
         string? defaultCode = visibleCodes.Any(code =>
-                code.Equals(SelectedDefaultLanguageCode, StringComparison.OrdinalIgnoreCase))
-            ? SelectedDefaultLanguageCode
+                LanguageCodeUtility.NormalizeForComparison(code).Equals(
+                    LanguageCodeUtility.NormalizeForComparison(selectedDefaultLanguageCode),
+                    StringComparison.OrdinalIgnoreCase))
+            ? selectedDefaultLanguageCode
             : null;
 
         return new LocalizationSettings
@@ -72,20 +78,22 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
 
         HashSet<string> selectedCodes = settings.VisibleLanguageCodes
             .Where(code => !string.IsNullOrWhiteSpace(code))
-            .Select(code => code.Trim())
+            .Select(LanguageCodeUtility.NormalizeForComparison)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         foreach (SelectableLanguageOptionViewModel option in AvailableLanguages)
         {
-            option.IsSelected = selectedCodes.Contains(option.Code);
+            option.IsSelected = selectedCodes.Contains(LanguageCodeUtility.NormalizeForComparison(option.Code));
         }
 
         RefreshVisibleLanguages();
         ForceSingleVisibleLanguage = settings.ForceSingleVisibleLanguage;
 
         SelectedDefaultLanguageCode = VisibleLanguages.Any(language =>
-                language.Code.Equals(settings.DefaultLanguageCodeOverride, StringComparison.OrdinalIgnoreCase))
-            ? settings.DefaultLanguageCodeOverride ?? string.Empty
+                LanguageCodeUtility.NormalizeForComparison(language.Code).Equals(
+                    LanguageCodeUtility.NormalizeForComparison(settings.DefaultLanguageCodeOverride),
+                    StringComparison.OrdinalIgnoreCase))
+            ? LanguageCodeUtility.Canonicalize(settings.DefaultLanguageCodeOverride)
             : string.Empty;
         SelectedTimeZoneId = AvailableTimeZones.Any(option =>
                 option.Id.Equals(settings.DefaultTimeZoneId, StringComparison.OrdinalIgnoreCase))
