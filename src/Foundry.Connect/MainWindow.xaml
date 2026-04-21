@@ -41,9 +41,16 @@
                     <MenuItem Command="{Binding SetLightThemeCommand}" Header="{Binding Strings[Theme.Light]}" />
                     <MenuItem Command="{Binding SetDarkThemeCommand}" Header="{Binding Strings[Theme.Dark]}" />
                 </MenuItem>
-                <MenuItem Header="{Binding Strings[Menu.Language]}">
-                    <MenuItem Command="{Binding SetCultureCommand}" CommandParameter="en-US" Header="{Binding Strings[Language.English]}" />
-                    <MenuItem Command="{Binding SetCultureCommand}" CommandParameter="fr-FR" Header="{Binding Strings[Language.French]}" />
+                <MenuItem Header="{Binding Strings[Menu.Language]}" ItemsSource="{Binding SupportedCultures}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="{x:Type MenuItem}">
+                            <Setter Property="Header" Value="{Binding DisplayName}" />
+                            <Setter Property="Command" Value="{Binding DataContext.SetCultureCommand, RelativeSource={RelativeSource AncestorType={x:Type Menu}}}" />
+                            <Setter Property="CommandParameter" Value="{Binding Code}" />
+                            <Setter Property="IsCheckable" Value="True" />
+                            <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=OneWay}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[Menu.Tools]}">
                     <MenuItem Command="{Binding RefreshStatusCommand}" Header="{Binding Strings[Tools.RefreshStatus]}" />

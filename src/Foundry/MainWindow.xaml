@@ -17,7 +17,6 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
-        <converters:CultureToBooleanConverter x:Key="CultureToBooleanConverter" />
         <converters:ThemeModeToBooleanConverter x:Key="ThemeModeToBooleanConverter" />
         <converters:PartitionStyleAvailabilityConverter x:Key="PartitionStyleAvailabilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
@@ -89,19 +88,16 @@
                         IsCheckable="True"
                         IsChecked="{Binding CurrentTheme, Converter={StaticResource ThemeModeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
                 </MenuItem>
-                <MenuItem Header="{Binding Strings[Menu.Language]}">
-                    <MenuItem
-                        Command="{Binding SetCultureCommand}"
-                        CommandParameter="en-US"
-                        Header="{Binding Strings[Language.English]}"
-                        IsCheckable="True"
-                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=en-US, Mode=OneWay}" />
-                    <MenuItem
-                        Command="{Binding SetCultureCommand}"
-                        CommandParameter="fr-FR"
-                        Header="{Binding Strings[Language.French]}"
-                        IsCheckable="True"
-                        IsChecked="{Binding CurrentCulture, Converter={StaticResource CultureToBooleanConverter}, ConverterParameter=fr-FR, Mode=OneWay}" />
+                <MenuItem Header="{Binding Strings[Menu.Language]}" ItemsSource="{Binding SupportedCultures}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="{x:Type MenuItem}">
+                            <Setter Property="Header" Value="{Binding DisplayName}" />
+                            <Setter Property="Command" Value="{Binding DataContext.SetCultureCommand, RelativeSource={RelativeSource AncestorType={x:Type Menu}}}" />
+                            <Setter Property="CommandParameter" Value="{Binding Code}" />
+                            <Setter Property="IsCheckable" Value="True" />
+                            <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=OneWay}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[Menu.Tools]}">
                     <MenuItem Command="{Binding OpenLogFolderCommand}" Header="{Binding Strings[Menu.Logs]}" />

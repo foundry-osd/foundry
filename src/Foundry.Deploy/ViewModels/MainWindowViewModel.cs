@@ -66,6 +66,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public DeploymentSessionViewModel Session { get; }
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
+    public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
 
     public CultureInfo CurrentCulture => LocalizationService.CurrentCulture;
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
@@ -135,6 +136,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             IsDebugSafeMode);
         Session.PropertyChanged += OnSessionPropertyChanged;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
+        RefreshSupportedCultures();
     }
 
     public Task InitializeAsync()
@@ -167,6 +169,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void SetCulture(string cultureName)
     {
         LocalizationService.SetCulture(new CultureInfo(cultureName));
+    }
+
+    private void RefreshSupportedCultures()
+    {
+        SupportedCultures.Clear();
+        foreach (SupportedCultureOption option in SupportedCultureCatalog.CreateOptions(CurrentCulture, key => Strings[key]))
+        {
+            SupportedCultures.Add(option);
+        }
     }
 
     [RelayCommand]
@@ -489,6 +500,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         RunOnUiThread(() =>
         {
+            RefreshSupportedCultures();
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));

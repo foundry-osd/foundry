@@ -15,6 +15,17 @@ public sealed class WinPeHelperTests
         Assert.Equal(expected, normalized);
     }
 
+    [Theory]
+    [InlineData(" fr_FR ", "fr-FR")]
+    [InlineData("EN-us", "en-US")]
+    [InlineData("invalid-culture-code", "invalid-culture-code")]
+    public void Canonicalize_ReturnsCultureInfoNameWhenCultureExists(string input, string expected)
+    {
+        string canonical = WinPeLanguageUtility.Canonicalize(input);
+
+        Assert.Equal(expected, canonical);
+    }
+
     [Fact]
     public void TryResolveInputLocale_WhenCultureExists_ReturnsCanonicalCodeAndLocale()
     {

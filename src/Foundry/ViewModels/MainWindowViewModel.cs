@@ -105,6 +105,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private ExpertSectionItem? selectedExpertSection;
 
     public ObservableCollection<WinPeUsbDiskCandidate> UsbDiskCandidates { get; } = [];
+    public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
     public ObservableCollection<WinPeLanguageOption> AvailableWinPeLanguages { get; } = [];
     public ObservableCollection<UsbFormatModeOption> AvailableUsbFormatModes { get; } = [];
     public ObservableCollection<ExpertSectionItem> ExpertSections { get; } = [];
@@ -177,6 +178,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         UsbDiskCandidates.CollectionChanged += OnUsbDiskCandidatesCollectionChanged;
         Network.PropertyChanged += OnNetworkPropertyChanged;
 
+        RefreshSupportedCultures();
         RefreshExpertSections();
         SelectedExpertSection = ExpertSections.FirstOrDefault();
         UpdateAdkStatus();
@@ -375,6 +377,15 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private void SetCulture(string cultureName)
     {
         _localizationService.SetCulture(new CultureInfo(cultureName));
+    }
+
+    private void RefreshSupportedCultures()
+    {
+        SupportedCultures.Clear();
+        foreach (SupportedCultureOption option in SupportedCultureCatalog.CreateOptions(CurrentCulture, key => Strings[key]))
+        {
+            SupportedCultures.Add(option);
+        }
     }
 
     [RelayCommand(CanExecute = nameof(CanBrowseIsoOutputPath))]
@@ -827,7 +838,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private WinPeLanguageOption CreateWinPeLanguageOption(string languageCode)
     {
-        string normalizedCode = NormalizeLanguageCode(languageCode);
+        string normalizedCode = WinPeLanguageUtility.Canonicalize(languageCode);
 
         try
         {
@@ -988,6 +999,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         RunOnUiThread(() =>
         {
+            RefreshSupportedCultures();
             RefreshUsbFormatModes();
             RefreshWinPeLanguageDisplayNames();
             RefreshExpertSections();

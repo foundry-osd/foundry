@@ -10,12 +10,21 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         ArgumentNullException.ThrowIfNull(document);
 
+        string[] visibleLanguageCodes = CanonicalizeLanguageCodes(document.Localization.VisibleLanguageCodes);
+        string? defaultLanguageCodeOverride = CanonicalizeOptionalLanguageCode(document.Localization.DefaultLanguageCodeOverride);
+        if (!visibleLanguageCodes.Any(code => LanguageCodeUtility.NormalizeForComparison(code).Equals(
+                LanguageCodeUtility.NormalizeForComparison(defaultLanguageCodeOverride),
+                StringComparison.OrdinalIgnoreCase)))
+        {
+            defaultLanguageCodeOverride = null;
+        }
+
         return new FoundryDeployConfigurationDocument
         {
             Localization = new DeployLocalizationSettings
             {
-                VisibleLanguageCodes = document.Localization.VisibleLanguageCodes,
-                DefaultLanguageCodeOverride = document.Localization.DefaultLanguageCodeOverride,
+                VisibleLanguageCodes = visibleLanguageCodes,
+                DefaultLanguageCodeOverride = defaultLanguageCodeOverride,
                 DefaultTimeZoneId = document.Localization.DefaultTimeZoneId,
                 ForceSingleVisibleLanguage = document.Localization.ForceSingleVisibleLanguage
             },
@@ -47,5 +56,32 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         ArgumentNullException.ThrowIfNull(document);
         return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
+    }
+
+    private static string[] CanonicalizeLanguageCodes(IEnumerable<string> languageCodes)
+    {
+        ArgumentNullException.ThrowIfNull(languageCodes);
+
+        HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
+        List<string> result = [];
+        foreach (string languageCode in languageCodes)
+        {
+            string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
+            if (string.IsNullOrWhiteSpace(canonicalCode) ||
+                !seen.Add(LanguageCodeUtility.NormalizeForComparison(canonicalCode)))
+            {
+                continue;
+            }
+
+            result.Add(canonicalCode);
+        }
+
+        return result.ToArray();
+    }
+
+    private static string? CanonicalizeOptionalLanguageCode(string? languageCode)
+    {
+        string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
+        return string.IsNullOrWhiteSpace(canonicalCode) ? null : canonicalCode;
     }
 }

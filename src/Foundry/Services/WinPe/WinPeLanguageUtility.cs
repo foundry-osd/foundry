@@ -11,6 +11,24 @@ internal static class WinPeLanguageUtility
             : languageCode.Trim().Replace('_', '-').ToLowerInvariant();
     }
 
+    public static string Canonicalize(string languageCode)
+    {
+        string normalized = Normalize(languageCode);
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            return CultureInfo.GetCultureInfo(normalized).Name;
+        }
+        catch (CultureNotFoundException)
+        {
+            return normalized;
+        }
+    }
+
     public static bool TryResolveInputLocale(string languageCode, out string canonicalLanguageCode, out string inputLocale)
     {
         try
