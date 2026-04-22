@@ -20,6 +20,17 @@
                 <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
             </Style>
+
+            <Style x:Key="ScrollViewerContentGutterBorderStyle" TargetType="Border">
+                <Setter Property="Padding" Value="0" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType={x:Type ScrollViewer}}}"
+                        Value="Visible">
+                        <Setter Property="Padding" Value="0,0,24,0" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

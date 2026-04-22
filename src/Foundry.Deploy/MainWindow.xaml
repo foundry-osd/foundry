@@ -140,8 +140,18 @@
         <Grid
             Grid.Row="2"
             Height="52"
-            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            Visibility="{Binding Session.IsSplashPage, Converter={StaticResource InverseBooleanConverter}}">
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Session.CurrentPage}" Value="{x:Static local:DeploymentPage.Wizard}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
             <Grid Margin="12,8,12,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

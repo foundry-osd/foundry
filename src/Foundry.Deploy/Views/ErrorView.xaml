@@ -51,10 +51,12 @@
                     BorderThickness="1"
                     CornerRadius="4">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <TextBlock
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding FailedStepErrorMessage}"
-                            TextWrapping="Wrap" />
+                        <Border Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding FailedStepErrorMessage}"
+                                TextWrapping="Wrap" />
+                        </Border>
                     </ScrollViewer>
                 </Border>
             </StackPanel>
