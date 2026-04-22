@@ -28,10 +28,30 @@ public sealed class EmbeddedLanguageRegistryService : ILanguageRegistryService
             stream,
             ConfigurationJsonDefaults.SerializerOptions);
 
-        return (languages ?? Array.Empty<LanguageRegistryEntry>())
+        LanguageRegistryEntry[] entries = (languages ?? Array.Empty<LanguageRegistryEntry>())
+            .Where(entry => !string.IsNullOrWhiteSpace(entry.Code))
+            .Select(entry => entry with
+            {
+                Code = LanguageCodeUtility.Canonicalize(entry.Code),
+                DisplayName = entry.DisplayName.Trim(),
+                EnglishName = entry.EnglishName.Trim()
+            })
             .Where(entry => !string.IsNullOrWhiteSpace(entry.Code))
             .OrderBy(entry => entry.SortOrder)
             .ThenBy(entry => entry.Code, StringComparer.OrdinalIgnoreCase)
             .ToArray();
+
+        string[] duplicateCodes = entries
+            .GroupBy(entry => LanguageCodeUtility.NormalizeForComparison(entry.Code), StringComparer.OrdinalIgnoreCase)
+            .Where(group => group.Count() > 1)
+            .Select(group => group.First().Code)
+            .ToArray();
+
+        if (duplicateCodes.Length > 0)
+        {
+            throw new InvalidOperationException($"Embedded language registry contains duplicate language codes: {string.Join(", ", duplicateCodes)}.");
+        }
+
+        return entries;
     }
 }

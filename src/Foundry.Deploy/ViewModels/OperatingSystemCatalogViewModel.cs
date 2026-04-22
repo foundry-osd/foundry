@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Catalog;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
@@ -11,7 +12,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private const string DefaultReleaseId = OperatingSystemSupportMatrix.DefaultReleaseId;
     private const string DefaultLicenseChannel = "RET";
     private const string DefaultEdition = "Pro";
-    private const string FallbackLanguageCode = "en-us";
+    private const string FallbackLanguageCode = "en-US";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
     [
@@ -114,7 +115,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         _configuredVisibleLanguageCodes.Clear();
         foreach (string languageCode in visibleLanguageCodes)
         {
-            string normalized = NormalizeLanguageCode(languageCode);
+            string normalized = LanguageCodeUtility.NormalizeForComparison(languageCode);
             if (!string.IsNullOrWhiteSpace(normalized))
             {
                 _configuredVisibleLanguageCodes.Add(normalized);
@@ -328,7 +329,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         }
 
         string[] filteredLanguageValues = availableLanguageValues
-            .Where(value => _configuredVisibleLanguageCodes.Contains(NormalizeLanguageCode(value)))
+            .Where(value => _configuredVisibleLanguageCodes.Contains(LanguageCodeUtility.NormalizeForComparison(value)))
             .ToArray();
 
         if (filteredLanguageValues.Length > 0)
@@ -572,7 +573,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private static string GetLanguageFilterValue(OperatingSystemCatalogItem item)
     {
         return !string.IsNullOrWhiteSpace(item.LanguageCode)
-            ? item.LanguageCode
+            ? LanguageCodeUtility.Canonicalize(item.LanguageCode)
             : item.Language;
     }
 
@@ -587,10 +588,10 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
 
         foreach (string candidate in candidates)
         {
-            string normalized = NormalizeLanguageCode(candidate);
-            if (!string.IsNullOrWhiteSpace(normalized))
+            string canonical = LanguageCodeUtility.Canonicalize(candidate);
+            if (!string.IsNullOrWhiteSpace(canonical))
             {
-                return normalized;
+                return canonical;
             }
         }
 
@@ -604,15 +605,15 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             return null;
         }
 
-        string normalized = NormalizeLanguageCode(languageCode);
+        string normalized = LanguageCodeUtility.NormalizeForComparison(languageCode);
         return string.IsNullOrWhiteSpace(normalized)
             ? null
-            : normalized;
+            : LanguageCodeUtility.Canonicalize(languageCode);
     }
 
     private static string NormalizeLanguageCode(string languageCode)
     {
-        return languageCode.Trim().Replace('_', '-').ToLowerInvariant();
+        return LanguageCodeUtility.NormalizeForComparison(languageCode);
     }
 
     private static bool IsArchitectureMatch(string osArchitecture, string driverArchitecture)

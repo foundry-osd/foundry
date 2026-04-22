@@ -1,3 +1,4 @@
+using System.Globalization;
 using Foundry.Models.Configuration;
 using Foundry.Services.Configuration;
 
@@ -21,5 +22,11 @@ public sealed class EmbeddedLanguageRegistryServiceTests
             .ToArray();
 
         Assert.Equal(expectedOrder, languages);
+        Assert.Equal(
+            languages.Count,
+            languages.Select(language => language.Code).Distinct(StringComparer.OrdinalIgnoreCase).Count());
+        Assert.All(languages, language => Assert.Equal(CultureInfo.GetCultureInfo(language.Code).Name, language.Code));
+        Assert.All(languages, language => Assert.False(string.IsNullOrWhiteSpace(language.DisplayName)));
+        Assert.All(languages, language => Assert.False(string.IsNullOrWhiteSpace(language.EnglishName)));
     }
 }
