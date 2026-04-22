@@ -56,6 +56,8 @@ public static partial class DeploymentUiTextLocalizer
             "Step skipped." => LocalizationText.GetString("Status.StepSkipped"),
             "In progress..." => LocalizationText.GetString("Status.InProgress"),
             "Loading catalogs..." => LocalizationText.GetString("Catalog.Loading"),
+            "Detecting hardware..." => LocalizationText.GetString("Preparation.DetectingHardware"),
+            "Hardware detection failed." => LocalizationText.GetString("Preparation.HardwareDetectionFailed"),
             "Loading target disks..." => LocalizationText.GetString("Preparation.LoadingTargetDisks"),
             "No disks detected." => LocalizationText.GetString("Preparation.NoDisksDetected"),
             "Select an operating system." => LocalizationText.GetString("Launch.SelectOperatingSystem"),

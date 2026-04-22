@@ -65,10 +65,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsSplashPage))]
-    [NotifyPropertyChangedFor(nameof(IsWizardPage))]
-    [NotifyPropertyChangedFor(nameof(IsProgressPage))]
     [NotifyPropertyChangedFor(nameof(IsSuccessPage))]
-    [NotifyPropertyChangedFor(nameof(IsErrorPage))]
     private DeploymentPage currentPage = DeploymentPage.Splash;
 
     [ObservableProperty]
@@ -132,13 +129,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     public bool IsSplashPage => CurrentPage == DeploymentPage.Splash;
 
-    public bool IsWizardPage => CurrentPage == DeploymentPage.Wizard;
-
-    public bool IsProgressPage => CurrentPage == DeploymentPage.Progress;
-
     public bool IsSuccessPage => CurrentPage == DeploymentPage.Success;
-
-    public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
 
     public bool IsStartupReady => !IsStartupInitializing;
 

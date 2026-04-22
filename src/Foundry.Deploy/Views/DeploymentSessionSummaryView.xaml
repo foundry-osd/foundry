@@ -1,0 +1,48 @@
+<UserControl
+    x:Class="Foundry.Deploy.Views.DeploymentSessionSummaryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+        <TextBlock
+            Margin="0,0,0,4"
+            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+            Style="{StaticResource BodyStrongTextBlockStyle}"
+            Text="{Binding Strings[Progress.Networking]}" />
+        <TextBlock
+            Margin="0,0,0,2"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="{Binding IpAddress}" />
+        <TextBlock
+            Margin="0,0,0,2"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="{Binding MacAddress}" />
+        <TextBlock
+            Margin="0,0,0,2"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="{Binding SubnetMask}" />
+        <TextBlock
+            Margin="0,0,0,20"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="{Binding GatewayAddress}" />
+
+        <TextBlock
+            Margin="0,0,0,4"
+            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+            Style="{StaticResource BodyStrongTextBlockStyle}"
+            Text="{Binding Strings[Progress.StartTime]}" />
+        <TextBlock
+            Margin="0,0,0,20"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="{Binding StartTimeText}" />
+
+        <TextBlock
+            Margin="0,0,0,4"
+            Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+            Style="{StaticResource BodyStrongTextBlockStyle}"
+            Text="{Binding Strings[Progress.ElapsedTime]}" />
+        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding ElapsedTimeText}" />
+    </StackPanel>
+</UserControl>

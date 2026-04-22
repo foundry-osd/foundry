@@ -21,7 +21,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private HardwareProfile? _detectedHardware;
     private DeployMachineNamingSettings _machineNamingConfiguration = new();
     private string _lockedComputerNamePrefix = string.Empty;
-    private string _detectedHardwareSummaryRaw = LocalizationText.GetString("Preparation.DetectingHardware");
+    private string _detectedHardwareSummaryRaw = "Detecting hardware...";
     private bool _isApplyingManagedComputerName;
     private bool _isUpdatingFirmwareOptionSelection;
     private bool _hasUserSelectedFirmwareOption;
@@ -106,7 +106,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         }
 
         IsTargetDiskLoading = true;
-        PublishStatus(GetString("Preparation.LoadingTargetDisks"));
+        PublishStatus("Loading target disks...");
 
         try
         {
@@ -117,7 +117,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         catch (Exception ex)
         {
             _logger.LogError(ex, "Target disk discovery failed.");
-            PublishStatus(Format("Preparation.TargetDiskDiscoveryFailedFormat", ex.Message));
+            PublishStatus($"Target disk discovery failed: {ex.Message}");
         }
         finally
         {
@@ -137,7 +137,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         catch (Exception ex)
         {
             _logger.LogError(ex, "Hardware profile loading failed in preparation view model.");
-            SetHardwareDetectionFailure(Format("Preparation.HardwareDetectionFailedFormat", ex.Message));
+            SetHardwareDetectionFailure($"Hardware detection failed: {ex.Message}");
         }
     }
 
@@ -205,8 +205,8 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
         if (profile is null)
         {
-            _detectedHardwareSummaryRaw = GetString("Preparation.HardwareDetectionFailed");
-            DetectedHardwareSummary = _detectedHardwareSummaryRaw;
+            _detectedHardwareSummaryRaw = "Hardware detection failed.";
+            DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(_detectedHardwareSummaryRaw);
             OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
             RaiseStateChanged();
             return;
@@ -226,8 +226,8 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     public void SetHardwareDetectionFailure(string message)
     {
-        _detectedHardwareSummaryRaw = DeploymentUiTextLocalizer.LocalizeMessage(message);
-        DetectedHardwareSummary = _detectedHardwareSummaryRaw;
+        _detectedHardwareSummaryRaw = message;
+        DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(message);
         RaiseStateChanged();
     }
 
@@ -262,7 +262,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         {
             SelectedTargetDisk = null;
             RaiseStateChanged();
-            return GetString("Preparation.NoDisksDetected");
+            return "No disks detected.";
         }
 
         TargetDiskInfo? currentSelection = SelectedTargetDisk is null
@@ -275,7 +275,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             ?? TargetDisks.FirstOrDefault();
 
         RaiseStateChanged();
-        return Format("Preparation.TargetDisksLoadedFormat", TargetDisks.Count);
+        return $"Target disks loaded: {TargetDisks.Count} detected.";
     }
 
     partial void OnTargetComputerNameChanged(string value)
@@ -506,7 +506,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             }
             else
             {
-                DetectedHardwareSummary = _detectedHardwareSummaryRaw;
+                DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(_detectedHardwareSummaryRaw);
             }
 
             TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(TargetComputerName);
