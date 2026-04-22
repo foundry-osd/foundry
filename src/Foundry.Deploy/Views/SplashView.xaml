@@ -1,0 +1,42 @@
+<UserControl
+    x:Class="Foundry.Deploy.Views.SplashView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Style="{StaticResource DisplayTextBlockStyle}"
+            Text="{Binding Strings[Splash.Welcome]}"
+            TextAlignment="Center" />
+
+        <StackPanel
+            Width="360"
+            Margin="0,160,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ProgressBar Height="6" IsIndeterminate="True" />
+            <TextBlock
+                Margin="0,12,0,0"
+                HorizontalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{Binding Strings[Splash.InitializingComponents]}"
+                TextAlignment="Center" />
+        </StackPanel>
+
+        <Button
+            Width="160"
+            Margin="0,0,0,24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Command="{Binding BeginWizardCommand}"
+            Content="{Binding Strings[Splash.Start]}"
+            Style="{DynamicResource AccentButtonStyle}"
+            Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
+    </Grid>
+</UserControl>

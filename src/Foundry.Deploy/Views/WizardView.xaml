@@ -1,0 +1,235 @@
+<UserControl
+    x:Class="Foundry.Deploy.Views.WizardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:wizardViews="clr-namespace:Foundry.Deploy.Views.Wizard"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Key="TargetStepTemplate">
+            <wizardViews:TargetStepView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="OperatingSystemCatalogStepTemplate">
+            <wizardViews:OperatingSystemCatalogStepView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="DriverPackStepTemplate">
+            <wizardViews:DriverPackStepView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="SummaryStepTemplate">
+            <wizardViews:SummaryStepView />
+        </DataTemplate>
+
+        <Style x:Key="WizardStepBorderBaseStyle" TargetType="Border">
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+        </Style>
+
+        <Style
+            x:Key="WizardStepTextStyle"
+            BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+            TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}" Text="{Binding Strings[Wizard.Title]}" />
+            <Border
+                Margin="0,8,0,0"
+                Padding="8"
+                Background="#33FFAA00"
+                BorderBrush="#FFFFAA00"
+                BorderThickness="1"
+                CornerRadius="4"
+                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Wizard.DebugSafeModeBanner]}" />
+            </Border>
+            <TextBlock
+                Margin="0,8,0,0"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding Strings[Wizard.Description]}" />
+            <TextBlock
+                Margin="0,8,0,0"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding Preparation.DetectedHardwareSummary}" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0">
+                <Border.Style>
+                    <Style BasedOn="{StaticResource WizardStepBorderBaseStyle}" TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WizardStepIndex}">
+                                <DataTrigger.Value>
+                                    <sys:Int32>0</sys:Int32>
+                                </DataTrigger.Value>
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter Property="BorderThickness" Value="2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock Style="{StaticResource WizardStepTextStyle}" Text="{Binding Strings[Wizard.StepTarget]}" />
+            </Border>
+
+            <Border Grid.Column="2">
+                <Border.Style>
+                    <Style BasedOn="{StaticResource WizardStepBorderBaseStyle}" TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WizardStepIndex}">
+                                <DataTrigger.Value>
+                                    <sys:Int32>1</sys:Int32>
+                                </DataTrigger.Value>
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter Property="BorderThickness" Value="2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock Style="{StaticResource WizardStepTextStyle}" Text="{Binding Strings[Wizard.StepOperatingSystemCatalog]}" />
+            </Border>
+
+            <Border Grid.Column="4">
+                <Border.Style>
+                    <Style BasedOn="{StaticResource WizardStepBorderBaseStyle}" TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WizardStepIndex}">
+                                <DataTrigger.Value>
+                                    <sys:Int32>2</sys:Int32>
+                                </DataTrigger.Value>
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter Property="BorderThickness" Value="2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock Style="{StaticResource WizardStepTextStyle}" Text="{Binding Strings[Wizard.StepDriverPack]}" />
+            </Border>
+
+            <Border Grid.Column="6">
+                <Border.Style>
+                    <Style BasedOn="{StaticResource WizardStepBorderBaseStyle}" TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WizardStepIndex}">
+                                <DataTrigger.Value>
+                                    <sys:Int32>3</sys:Int32>
+                                </DataTrigger.Value>
+                                <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter Property="BorderThickness" Value="2" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock Style="{StaticResource WizardStepTextStyle}" Text="{Binding Strings[Wizard.StepSummary]}" />
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Style="{StaticResource SectionCardBorderStyle}">
+            <ContentControl Content="{Binding}">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="ContentTemplate" Value="{StaticResource TargetStepTemplate}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WizardStepIndex}">
+                                <DataTrigger.Value>
+                                    <sys:Int32>1</sys:Int32>
+                                </DataTrigger.Value>
+                                <Setter Property="ContentTemplate" Value="{StaticResource OperatingSystemCatalogStepTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WizardStepIndex}">
+                                <DataTrigger.Value>
+                                    <sys:Int32>2</sys:Int32>
+                                </DataTrigger.Value>
+                                <Setter Property="ContentTemplate" Value="{StaticResource DriverPackStepTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WizardStepIndex}">
+                                <DataTrigger.Value>
+                                    <sys:Int32>3</sys:Int32>
+                                </DataTrigger.Value>
+                                <Setter Property="ContentTemplate" Value="{StaticResource SummaryStepTemplate}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </Border>
+
+        <Grid Grid.Row="3" Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button
+                    Width="140"
+                    Margin="0,0,8,0"
+                    Command="{Binding ShowDebugProgressPageCommand}"
+                    Content="{Binding Strings[Debug.ProgressButton]}" />
+                <Button
+                    Width="140"
+                    Margin="0,0,8,0"
+                    Command="{Binding ShowDebugSuccessPageCommand}"
+                    Content="{Binding Strings[Debug.SuccessButton]}" />
+                <Button
+                    Width="140"
+                    Command="{Binding ShowDebugErrorPageCommand}"
+                    Content="{Binding Strings[Debug.ErrorButton]}" />
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Width="120"
+                    Margin="0,0,8,0"
+                    Command="{Binding PreviousWizardStepCommand}"
+                    Content="{Binding Strings[Common.Previous]}" />
+                <Button
+                    Width="120"
+                    Margin="0,0,8,0"
+                    Command="{Binding NextWizardStepCommand}"
+                    Content="{Binding Strings[Common.Next]}" />
+                <Button
+                    Width="160"
+                    Command="{Binding StartDeploymentCommand}"
+                    Content="{Binding Strings[Common.Deploy]}"
+                    Style="{DynamicResource AccentButtonStyle}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

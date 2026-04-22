@@ -1,0 +1,81 @@
+<UserControl
+    x:Class="Foundry.Deploy.Views.Wizard.TargetStepView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rules="clr-namespace:Foundry.Deploy.Validation"
+    x:Name="ViewRoot"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel DataContext="{Binding Preparation}">
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}" />
+            <TextBox
+                x:Name="TargetComputerNameTextBox"
+                Margin="0,8,0,0"
+                IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
+                MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
+                PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
+                Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock
+                Margin="0,8,0,0"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding DataContext.Strings[Preparation.ComputerNameHint], ElementName=ViewRoot}" />
+            <TextBlock
+                Margin="0,4,0,0"
+                Foreground="#FFC42B1C"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding TargetComputerNameValidationMessage}"
+                Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=ViewRoot}" />
+            <DockPanel Margin="0,8,0,0">
+                <ComboBox
+                    Width="640"
+                    DisplayMemberPath="DisplayLabel"
+                    ItemsSource="{Binding TargetDisks}"
+                    SelectedItem="{Binding SelectedTargetDisk}" />
+                <Button
+                    Width="140"
+                    Margin="8,0,0,0"
+                    Command="{Binding RefreshTargetDisksCommand}"
+                    Content="{Binding DataContext.Strings[Common.Refresh], ElementName=ViewRoot}" />
+            </DockPanel>
+            <TextBlock
+                Margin="0,8,0,0"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding TargetDiskSelectionHint}" />
+
+            <CheckBox
+                Margin="0,8,0,0"
+                IsChecked="{Binding ApplyFirmwareUpdates}"
+                IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=ViewRoot}" />
+            </CheckBox>
+            <CheckBox Margin="0,8,0,0" IsChecked="{Binding IsAutopilotEnabled}">
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.AutopilotEnable], ElementName=ViewRoot}" />
+            </CheckBox>
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{Binding DataContext.Strings[Preparation.AutopilotProfile], ElementName=ViewRoot}" />
+            <ComboBox
+                Margin="0,8,0,0"
+                DisplayMemberPath="DisplayName"
+                IsEnabled="{Binding IsAutopilotProfileSelectionEnabled}"
+                ItemsSource="{Binding AutopilotProfiles}"
+                SelectedItem="{Binding SelectedAutopilotProfile}" />
+            <TextBlock
+                Margin="0,8,0,0"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding AutopilotProfileHint}" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

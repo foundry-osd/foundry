@@ -1,0 +1,47 @@
+<UserControl
+    x:Class="Foundry.Deploy.Views.Wizard.SummaryStepView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock
+                Margin="0,0,0,12"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Text="{Binding Strings[Summary.Title]}" />
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.TargetDisk]}" />
+            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryTargetDiskText}" />
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedOperatingSystem]}" />
+            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryOperatingSystemText}" />
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedDriverPack]}" />
+            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay}" />
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.DriverPackMode]}" />
+            <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.DriverPackModeDisplay}" />
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Firmware]}" />
+            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryFirmwareText}" />
+
+            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Autopilot]}" />
+            <TextBlock Margin="0,0,0,4" Text="{Binding SummaryAutopilotEnabledText}" />
+            <TextBlock Margin="0,0,0,8" Text="{Binding SummaryAutopilotProfileText}" />
+
+            <TextBlock
+                Margin="0,8,0,0"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding Strings[Summary.DeployExplanation]}" />
+            <TextBlock
+                Margin="0,4,0,0"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding Strings[Summary.DebugSafeModeExplanation]}"
+                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
