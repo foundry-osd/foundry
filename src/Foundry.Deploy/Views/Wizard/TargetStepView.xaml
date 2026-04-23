@@ -9,75 +9,103 @@
     mc:Ignorable="d">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Border Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
-            <StackPanel DataContext="{Binding Preparation}">
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}" />
-                <TextBox
-                    x:Name="TargetComputerNameTextBox"
-                    Margin="0,8,0,0"
-                    IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
-                    MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
-                    PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
-                    Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock
-                    Margin="0,8,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[Preparation.ComputerNameHint], ElementName=ViewRoot}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="#FFC42B1C"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding TargetComputerNameValidationMessage}"
-                    Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Grid DataContext="{Binding Preparation}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="12" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
                 <TextBlock
-                    Margin="0,12,0,0"
+                    Grid.ColumnSpan="2"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding DetectedHardwareSummary}" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}" />
+                <StackPanel Grid.Row="2" Grid.Column="1">
+                    <TextBox
+                        x:Name="TargetComputerNameTextBox"
+                        IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
+                        MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
+                        PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
+                        Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding DataContext.Strings[Preparation.ComputerNameHint], ElementName=ViewRoot}" />
+                    <TextBlock
+                        Margin="0,4,0,0"
+                        Foreground="#FFC42B1C"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding TargetComputerNameValidationMessage}"
+                        Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Row="4"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=ViewRoot}" />
-                <DockPanel Margin="0,8,0,0">
+                <StackPanel Grid.Row="4" Grid.Column="1">
                     <ComboBox
-                        Width="640"
                         DisplayMemberPath="DisplayLabel"
                         ItemsSource="{Binding TargetDisks}"
                         SelectedItem="{Binding SelectedTargetDisk}" />
-                    <Button
-                        Width="140"
-                        Margin="8,0,0,0"
-                        Command="{Binding RefreshTargetDisksCommand}"
-                        Content="{Binding DataContext.Strings[Common.Refresh], ElementName=ViewRoot}" />
-                </DockPanel>
-                <TextBlock
-                    Margin="0,8,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding TargetDiskSelectionHint}" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding TargetDiskSelectionHint}" />
+                </StackPanel>
 
-                <CheckBox
-                    Margin="0,8,0,0"
-                    IsChecked="{Binding ApplyFirmwareUpdates}"
-                    IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=ViewRoot}" />
-                </CheckBox>
-                <CheckBox Margin="0,8,0,0" IsChecked="{Binding IsAutopilotEnabled}">
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.AutopilotEnable], ElementName=ViewRoot}" />
-                </CheckBox>
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="2">
+                    <CheckBox
+                        IsChecked="{Binding ApplyFirmwareUpdates}"
+                        IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=ViewRoot}" />
+                    </CheckBox>
+                    <CheckBox Margin="0,8,0,0" IsChecked="{Binding IsAutopilotEnabled}">
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.AutopilotEnable], ElementName=ViewRoot}" />
+                    </CheckBox>
+                </StackPanel>
 
                 <TextBlock
-                    Margin="0,12,0,0"
+                    Grid.Row="8"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding DataContext.Strings[Preparation.AutopilotProfile], ElementName=ViewRoot}" />
-                <ComboBox
-                    Margin="0,8,0,0"
-                    DisplayMemberPath="DisplayName"
-                    IsEnabled="{Binding IsAutopilotProfileSelectionEnabled}"
-                    ItemsSource="{Binding AutopilotProfiles}"
-                    SelectedItem="{Binding SelectedAutopilotProfile}" />
-                <TextBlock
-                    Margin="0,8,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding AutopilotProfileHint}" />
-            </StackPanel>
+                <StackPanel Grid.Row="8" Grid.Column="1">
+                    <ComboBox
+                        DisplayMemberPath="DisplayName"
+                        IsEnabled="{Binding IsAutopilotProfileSelectionEnabled}"
+                        ItemsSource="{Binding AutopilotProfiles}"
+                        SelectedItem="{Binding SelectedAutopilotProfile}" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding AutopilotProfileHint}" />
+                </StackPanel>
+            </Grid>
         </Border>
     </ScrollViewer>
 </UserControl>
