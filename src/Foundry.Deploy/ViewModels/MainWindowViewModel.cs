@@ -76,8 +76,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
     public string OperatingSystemArchitectureDisplay => Format("Catalog.ArchitectureFormat", OperatingSystemCatalog.EffectiveOsArchitecture);
-    public string DriverPackArchitectureDisplay => Format("Catalog.ArchitectureFormat", EffectiveOsArchitecture);
-    public string DriverPackModeDisplayText => Format("DriverPack.SelectedModeFormat", DriverPackSelection.DriverPackModeDisplay);
     public string SummaryTargetDiskText => Preparation.SelectedTargetDisk?.DisplayLabel ?? GetString("Summary.NoDiskSelected");
     public string SummaryOperatingSystemText => SelectedOperatingSystem is null
         ? GetString("Summary.NoSelection")
@@ -357,8 +355,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(EffectiveOsArchitecture));
         OnPropertyChanged(nameof(SelectedOperatingSystem));
         OnPropertyChanged(nameof(OperatingSystemArchitectureDisplay));
-        OnPropertyChanged(nameof(DriverPackArchitectureDisplay));
-        OnPropertyChanged(nameof(DriverPackModeDisplayText));
         OnPropertyChanged(nameof(SummaryTargetDiskText));
         OnPropertyChanged(nameof(SummaryOperatingSystemText));
         OnPropertyChanged(nameof(SummaryFirmwareText));
@@ -499,8 +495,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));
             OnPropertyChanged(nameof(OperatingSystemArchitectureDisplay));
-            OnPropertyChanged(nameof(DriverPackArchitectureDisplay));
-            OnPropertyChanged(nameof(DriverPackModeDisplayText));
             OnPropertyChanged(nameof(SummaryTargetDiskText));
             OnPropertyChanged(nameof(SummaryOperatingSystemText));
             OnPropertyChanged(nameof(SummaryFirmwareText));

@@ -30,9 +30,7 @@
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Refresh Catalogs</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Refresh Target Disks</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open Log File</value></data>
-  <data name="Wizard.Title" xml:space="preserve"><value>Foundry.Deploy Wizard</value></data>
   <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>DEBUG SAFE MODE ACTIVE: all deployment actions are simulated; no disk/image write is performed.</value></data>
-  <data name="Wizard.Description" xml:space="preserve"><value>Task-sequence orchestrator for OS deployment in WinPE.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating System Catalog</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver Pack</value></data>
@@ -40,13 +38,16 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computer Name</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 characters. A-Z, a-z, 0-9, and hyphen only.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Computer name must contain 1 to 15 valid characters (letters, numbers, or hyphen).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Target Machine</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destination Disk</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Deployment Options</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Target Disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Select a target disk. Non-eligible disks are blocked.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware: Microsoft Update Catalog update enabled.</value></data>
   <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot: Enable offline profile staging.</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profiles available: {0}</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>No imported Autopilot profiles were found in X:\Foundry\Config\Autopilot.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detecting hardware...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Hardware detection failed.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardware detection failed: {0}</value></data>
@@ -70,7 +71,6 @@
   <data name="DriverPack.Source" xml:space="preserve"><value>Driver Source</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
-  <data name="DriverPack.SelectedModeFormat" xml:space="preserve"><value>Selected mode: {0}</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
   <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM Driver Pack</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
