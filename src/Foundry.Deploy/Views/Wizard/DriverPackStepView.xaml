@@ -6,55 +6,62 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="ViewRoot"
     mc:Ignorable="d">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Border Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
-            <StackPanel Margin="0,0,0,12">
-                <TextBlock
-                    Margin="0,0,0,16"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding DriverPackArchitectureDisplay}" />
+    <ScrollViewer x:Name="DriverPackScrollViewer" VerticalScrollBarVisibility="Auto">
+        <Border
+            MinHeight="{Binding ViewportHeight, ElementName=DriverPackScrollViewer}"
+            Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
+            <Grid>
+                <Border
+                    Width="600"
+                    Margin="0"
+                    Padding="24"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Style="{StaticResource SectionCardBorderStyle}">
+                    <Grid DataContext="{Binding DriverPackSelection}">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock
+                                Margin="0,0,0,20"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding DataContext.DriverPackArchitectureDisplay, ElementName=ViewRoot}" />
 
-                <StackPanel DataContext="{Binding DriverPackSelection}">
-                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[DriverPack.Source]}" />
-                    <ComboBox
-                        Margin="0,8,0,0"
-                        DisplayMemberPath="DisplayName"
-                        ItemsSource="{Binding DriverPackOptions}"
-                        SelectedItem="{Binding SelectedDriverPackOption}" />
-                    <TextBlock
-                        Margin="0,8,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding DataContext.DriverPackModeDisplayText, ElementName=ViewRoot}" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}" />
+                            <ComboBox
+                                Margin="0,8,0,0"
+                                DisplayMemberPath="DisplayName"
+                                ItemsSource="{Binding DriverPackOptions}"
+                                SelectedItem="{Binding SelectedDriverPackOption}" />
 
-                    <Grid Margin="0,16,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="12" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}" />
                             <ComboBox
                                 Margin="0,8,0,0"
                                 IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
                                 ItemsSource="{Binding DriverPackModelOptions}"
                                 SelectedItem="{Binding SelectedDriverPackModel}" />
-                        </StackPanel>
 
-                        <StackPanel Grid.Column="2">
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
                             <ComboBox
                                 Margin="0,8,0,0"
                                 IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
                                 ItemsSource="{Binding DriverPackVersionOptions}"
                                 SelectedItem="{Binding SelectedDriverPackVersion}" />
+
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding DataContext.DriverPackModeDisplayText, ElementName=ViewRoot}" />
                         </StackPanel>
                     </Grid>
-                </StackPanel>
-            </StackPanel>
+                </Border>
+            </Grid>
         </Border>
     </ScrollViewer>
 </UserControl>
