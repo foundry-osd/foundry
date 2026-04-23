@@ -18,12 +18,12 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="32" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" MaxWidth="900">
+                    <StackPanel Grid.Column="0" MaxWidth="760">
                         <TextBlock
                             Margin="0,0,0,12"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -33,7 +33,7 @@
                         <TextBox
                             x:Name="TargetComputerNameTextBox"
                             Margin="0,8,0,0"
-                            MaxWidth="760"
+                            MaxWidth="680"
                             HorizontalAlignment="Stretch"
                             IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
                             MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
@@ -57,7 +57,7 @@
                             Text="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=ViewRoot}" />
                         <ComboBox
                             Margin="0,8,0,0"
-                            MaxWidth="760"
+                            MaxWidth="680"
                             HorizontalAlignment="Stretch"
                             DisplayMemberPath="DisplayLabel"
                             ItemsSource="{Binding TargetDisks}"
