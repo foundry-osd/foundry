@@ -26,6 +26,12 @@ public static class Program
         try
         {
             Log.Information("Starting Foundry.Connect bootstrap.");
+            if (!RuntimeStartupGuard.CanRun())
+            {
+                Log.Error("Foundry.Connect can only run in WinPE outside a DEBUG debugger session.");
+                return (int)FoundryConnectExitCode.StartupFailure;
+            }
+
             ConfigureRuntimeCompatibility();
             Log.Information("Runtime compatibility configuration completed.");
 
