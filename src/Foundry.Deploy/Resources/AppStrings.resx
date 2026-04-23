@@ -79,17 +79,15 @@
   <data name="Summary.Title" xml:space="preserve"><value>Deployment Summary</value></data>
   <data name="Summary.TargetDisk" xml:space="preserve"><value>Target Disk</value></data>
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>No disk selected</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Selected Operating System</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operating System</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>No selection</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Selected Driver Pack</value></data>
-  <data name="Summary.DriverPackMode" xml:space="preserve"><value>Driver Pack Mode</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.FirmwareEnabledFormat" xml:space="preserve"><value>Firmware updates enabled: {0}</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.EnabledFormat" xml:space="preserve"><value>Enabled: {0}</value></data>
-  <data name="Summary.SelectedProfileFormat" xml:space="preserve"><value>Selected profile: {0}</value></data>
-  <data name="Summary.DeployExplanation" xml:space="preserve"><value>Deploy launches the deployment task sequence orchestrator with real WinPE actions (diskpart, DISM, BCDBoot, driver injection, offline Autopilot profile staging).</value></data>
-  <data name="Summary.DebugSafeModeExplanation" xml:space="preserve"><value>Debug safe mode: the task sequence runs in simulation.</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Target</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Deployment Options</value></data>
   <data name="Debug.ProgressButton" xml:space="preserve"><value>DBG: Progress</value></data>
   <data name="Debug.SuccessButton" xml:space="preserve"><value>DBG: Success</value></data>
   <data name="Debug.ErrorButton" xml:space="preserve"><value>DBG: Error</value></data>

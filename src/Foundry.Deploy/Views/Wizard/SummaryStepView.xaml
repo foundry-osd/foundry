@@ -5,45 +5,162 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Border Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
-            <StackPanel>
+    <ScrollViewer x:Name="SummaryScrollViewer" VerticalScrollBarVisibility="Auto">
+        <Border
+            MinHeight="{Binding ViewportHeight, ElementName=SummaryScrollViewer}"
+            Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
                 <TextBlock
-                    Margin="0,0,0,12"
                     Style="{StaticResource TitleTextBlockStyle}"
                     Text="{Binding Strings[Summary.Title]}" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.TargetDisk]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryTargetDiskText}" />
+                <Border
+                    Grid.Row="2"
+                    Width="760"
+                    Margin="0"
+                    Padding="20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Style="{StaticResource SectionCardBorderStyle}">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{Binding Strings[Summary.SectionTarget]}" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedOperatingSystem]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryOperatingSystemText}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220" />
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedDriverPack]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay}" />
+                            <TextBlock
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Preparation.ComputerName]}" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{Binding Preparation.TargetComputerName}"
+                                TextWrapping="Wrap" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.DriverPackMode]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.DriverPackModeDisplay}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.TargetDisk]}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Text="{Binding SummaryTargetDiskText}"
+                                TextWrapping="Wrap" />
+                        </Grid>
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Firmware]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryFirmwareText}" />
+                        <Separator Margin="0,16,0,16" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Autopilot]}" />
-                <TextBlock Margin="0,0,0,4" Text="{Binding SummaryAutopilotEnabledText}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryAutopilotProfileText}" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{Binding Strings[Summary.SectionSystem]}" />
 
-                <TextBlock
-                    Margin="0,8,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding Strings[Summary.DeployExplanation]}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding Strings[Summary.DebugSafeModeExplanation]}"
-                    Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220" />
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.SelectedOperatingSystem]}" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{Binding SummaryOperatingSystemText}"
+                                TextWrapping="Wrap" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.SelectedDriverPack]}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay}"
+                                TextWrapping="Wrap" />
+                        </Grid>
+
+                        <Separator Margin="0,16,0,16" />
+
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{Binding Strings[Summary.SectionDeployment]}" />
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220" />
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.Firmware]}" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{Binding SummaryFirmwareText}"
+                                TextWrapping="Wrap" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.Autopilot]}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Text="{Binding SummaryAutopilotEnabledText}"
+                                TextWrapping="Wrap" />
+
+                            <TextBlock
+                                Grid.Row="4"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.AutopilotProfile]}"
+                                Visibility="{Binding Preparation.IsAutopilotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Text="{Binding SummaryAutopilotProfileText}"
+                                TextWrapping="Wrap"
+                                Visibility="{Binding Preparation.IsAutopilotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Border>
     </ScrollViewer>
 </UserControl>
