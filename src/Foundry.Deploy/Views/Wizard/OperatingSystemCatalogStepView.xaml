@@ -19,12 +19,6 @@
                     Style="{StaticResource SectionCardBorderStyle}">
                     <Grid>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock
-                                Margin="0,0,0,20"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{Binding OperatingSystemArchitectureDisplay}" />
-
                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Strings[Catalog.OperatingSystem]}" />
                             <TextBox
                                 Margin="0,8,0,0"
