@@ -90,7 +90,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public string AutopilotProfileHint =>
         HasAutopilotProfiles
             ? Format("Preparation.AutopilotProfilesAvailableFormat", AutopilotProfiles.Count)
-            : GetString("Preparation.AutopilotProfilesMissing");
+            : string.Empty;
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
@@ -194,7 +194,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(AutopilotProfileHint));
 
         SelectedAutopilotProfile = ResolveDefaultAutopilotProfile(settings.DefaultProfileFolderName);
-        IsAutopilotEnabled = settings.IsEnabled && SelectedAutopilotProfile is not null;
+        IsAutopilotEnabled = SelectedAutopilotProfile is not null;
 
         RaiseStateChanged();
     }

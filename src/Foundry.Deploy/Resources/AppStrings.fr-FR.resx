@@ -38,13 +38,16 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nom de l’ordinateur</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 à 15 caractères. A-Z, a-z, 0-9 et tiret uniquement.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Le nom de l’ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou tiret).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Machine cible</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disque de destination</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Options de déploiement</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware : activer les mises à jour via Microsoft Update Catalog.</value></data>
   <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer la préparation hors ligne du profil.</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profils disponibles : {0}</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot importé n’a été trouvé dans X:\Foundry\Config\Autopilot.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>
