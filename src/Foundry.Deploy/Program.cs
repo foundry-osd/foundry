@@ -11,13 +11,13 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Win32;
 using Serilog;
 
 namespace Foundry.Deploy;
@@ -36,6 +36,12 @@ public static class Program
         try
         {
             Log.Information("Starting Foundry.Deploy bootstrap.");
+            if (!RuntimeStartupGuard.CanRun())
+            {
+                Log.Error("Foundry.Deploy can only run in WinPE outside a DEBUG debugger session.");
+                return 1;
+            }
+
             ConfigureRuntimeCompatibility();
 
             using IHost host = BuildHost(args);
@@ -80,38 +86,7 @@ public static class Program
             return IsTruthy(overrideValue);
         }
 
-        return IsRunningInWinPe();
-    }
-
-    private static bool IsRunningInWinPe()
-    {
-        string? systemDrive = Environment.GetEnvironmentVariable("SystemDrive");
-        if (systemDrive is not null && systemDrive.Equals("X:", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-        if (!string.IsNullOrWhiteSpace(windowsDirectory) &&
-            windowsDirectory.StartsWith(@"X:\", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        try
-        {
-            using RegistryKey? miniNt = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\MiniNT");
-            if (miniNt is not null)
-            {
-                return true;
-            }
-        }
-        catch
-        {
-            // Ignore registry access errors and continue with fallback checks.
-        }
-
-        return false;
+        return WinPeRuntimeDetector.IsWinPeRuntime();
     }
 
     private static bool IsTruthy(string value)

@@ -8,16 +8,7 @@ internal static class ConnectWorkspacePaths
 
     public static bool IsWinPeRuntime()
     {
-        string? systemDrive = Environment.GetEnvironmentVariable("SystemDrive");
-        if (!string.IsNullOrWhiteSpace(systemDrive) &&
-            systemDrive.Equals("X:", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-        return !string.IsNullOrWhiteSpace(windowsDirectory) &&
-               windowsDirectory.StartsWith(@"X:\", StringComparison.OrdinalIgnoreCase);
+        return WinPeRuntimeDetector.IsWinPeRuntime();
     }
 
     public static string GetConfigFilePath(string fileName)
