@@ -9,31 +9,98 @@
         <Border Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
             <StackPanel>
                 <TextBlock
-                    Margin="0,0,0,12"
+                    Margin="0,0,0,16"
                     Style="{StaticResource TitleTextBlockStyle}"
                     Text="{Binding Strings[Summary.Title]}" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.TargetDisk]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryTargetDiskText}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="12" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="12" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="12" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="12" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="12" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedOperatingSystem]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryOperatingSystemText}" />
+                    <TextBlock
+                        Margin="0,0,12,0"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Summary.TargetDisk]}" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Text="{Binding SummaryTargetDiskText}"
+                        TextWrapping="Wrap" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.SelectedDriverPack]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="0,0,12,0"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Summary.SelectedOperatingSystem]}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Text="{Binding SummaryOperatingSystemText}"
+                        TextWrapping="Wrap" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.DriverPackMode]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding DriverPackSelection.DriverPackModeDisplay}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Margin="0,0,12,0"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Summary.SelectedDriverPack]}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Text="{Binding DriverPackSelection.SelectedDriverPackSelectionDisplay}"
+                        TextWrapping="Wrap" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Firmware]}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryFirmwareText}" />
+                    <TextBlock
+                        Grid.Row="6"
+                        Margin="0,0,12,0"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Summary.DriverPackMode]}" />
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Text="{Binding DriverPackSelection.DriverPackModeDisplay}"
+                        TextWrapping="Wrap" />
 
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Summary.Autopilot]}" />
-                <TextBlock Margin="0,0,0,4" Text="{Binding SummaryAutopilotEnabledText}" />
-                <TextBlock Margin="0,0,0,8" Text="{Binding SummaryAutopilotProfileText}" />
+                    <TextBlock
+                        Grid.Row="8"
+                        Margin="0,0,12,0"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Summary.Firmware]}" />
+                    <TextBlock
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Text="{Binding SummaryFirmwareText}"
+                        TextWrapping="Wrap" />
+
+                    <TextBlock
+                        Grid.Row="10"
+                        Margin="0,0,12,0"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Summary.Autopilot]}" />
+                    <StackPanel Grid.Row="10" Grid.Column="1">
+                        <TextBlock Text="{Binding SummaryAutopilotEnabledText}" TextWrapping="Wrap" />
+                        <TextBlock
+                            Margin="0,4,0,0"
+                            Text="{Binding SummaryAutopilotProfileText}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
 
                 <TextBlock
-                    Margin="0,8,0,0"
+                    Margin="0,16,0,0"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{Binding Strings[Summary.DeployExplanation]}" />
