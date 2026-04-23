@@ -5,87 +5,84 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Border Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
-            <StackPanel Margin="0,0,0,12">
-                <TextBlock
-                    Margin="0,0,0,16"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding OperatingSystemArchitectureDisplay}" />
+    <ScrollViewer x:Name="OperatingSystemCatalogScrollViewer" VerticalScrollBarVisibility="Auto">
+        <Border
+            MinHeight="{Binding ViewportHeight, ElementName=OperatingSystemCatalogScrollViewer}"
+            Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
+            <Grid>
+                <Border
+                    Width="600"
+                    Margin="0"
+                    Padding="24"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Style="{StaticResource SectionCardBorderStyle}">
+                    <Grid>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock
+                                Margin="0,0,0,20"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding OperatingSystemArchitectureDisplay}" />
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="16" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="16" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="12" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Strings[Catalog.OperatingSystem]}" />
+                            <TextBox
+                                Margin="0,8,0,0"
+                                IsReadOnly="True"
+                                Text="{Binding Strings[OperatingSystem.Windows11]}" />
 
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.OperatingSystem]}" />
-                        <TextBox
-                            Margin="0,8,0,0"
-                            IsReadOnly="True"
-                            Text="{Binding Strings[OperatingSystem.Windows11]}" />
-                    </StackPanel>
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.Version]}" />
+                            <ComboBox
+                                Margin="0,8,0,0"
+                                ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
 
-                    <StackPanel Grid.Column="2">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.Version]}" />
-                        <ComboBox
-                            Margin="0,8,0,0"
-                            ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
-                    </StackPanel>
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.Language]}" />
+                            <ComboBox
+                                Margin="0,8,0,0"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
+                                ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
 
-                    <StackPanel Grid.Row="2" Grid.Column="0">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.Language]}" />
-                        <ComboBox
-                            Margin="0,8,0,0"
-                            IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
-                            ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
-                    </StackPanel>
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.LicenseChannel]}" />
+                            <ComboBox
+                                Margin="0,8,0,0"
+                                ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
-                    <StackPanel
-                        Grid.Row="2"
-                        Grid.Column="2">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.LicenseChannel]}" />
-                        <ComboBox
-                            Margin="0,8,0,0"
-                            ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel
-                        Grid.Row="4"
-                        Grid.ColumnSpan="3">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.EditionTarget]}" />
-                        <ComboBox
-                            Margin="0,8,0,0"
-                            ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=Edition}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
+                            <TextBlock
+                                Margin="0,20,0,0"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.EditionTarget]}" />
+                            <ComboBox
+                                Margin="0,8,0,0"
+                                ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=Edition}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
         </Border>
     </ScrollViewer>
 </UserControl>
