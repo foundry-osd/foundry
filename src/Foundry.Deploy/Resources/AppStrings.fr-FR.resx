@@ -70,7 +70,6 @@
   <data name="DriverPack.Source" xml:space="preserve"><value>Source des pilotes</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modèle</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
-  <data name="DriverPack.SelectedModeFormat" xml:space="preserve"><value>Mode sélectionné : {0}</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
   <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>Pack de pilotes OEM</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
