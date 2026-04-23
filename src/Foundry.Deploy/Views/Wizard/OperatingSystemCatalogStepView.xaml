@@ -8,30 +8,27 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Border Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
             <StackPanel Margin="0,0,0,12">
-                <DockPanel Margin="0,0,0,12">
-                    <Button
-                        Width="140"
-                        Command="{Binding RefreshCatalogsCommand}"
-                        Content="{Binding Strings[Common.Refresh]}" />
-                    <TextBlock
-                        Margin="12,0,0,0"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding OperatingSystemArchitectureDisplay}" />
-                </DockPanel>
+                <TextBlock
+                    Margin="0,0,0,16"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding OperatingSystemArchitectureDisplay}" />
 
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Margin="0,0,8,8">
+                    <StackPanel Grid.Column="0">
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.OperatingSystem]}" />
                         <TextBox
                             Margin="0,8,0,0"
@@ -39,7 +36,7 @@
                             Text="{Binding Strings[OperatingSystem.Windows11]}" />
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                    <StackPanel Grid.Column="2">
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.Version]}" />
                         <ComboBox
                             Margin="0,8,0,0"
@@ -47,7 +44,7 @@
                             SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1" Margin="0,0,8,0">
+                    <StackPanel Grid.Row="2" Grid.Column="0">
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.Language]}" />
                         <ComboBox
                             Margin="0,8,0,0"
@@ -57,9 +54,8 @@
                     </StackPanel>
 
                     <StackPanel
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="8,0,0,0">
+                        Grid.Row="2"
+                        Grid.Column="2">
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.LicenseChannel]}" />
                         <ComboBox
                             Margin="0,8,0,0"
@@ -74,9 +70,8 @@
                     </StackPanel>
 
                     <StackPanel
-                        Grid.Row="2"
-                        Grid.ColumnSpan="2"
-                        Margin="0,8,0,0">
+                        Grid.Row="4"
+                        Grid.ColumnSpan="3">
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Catalog.EditionTarget]}" />
                         <ComboBox
                             Margin="0,8,0,0"
