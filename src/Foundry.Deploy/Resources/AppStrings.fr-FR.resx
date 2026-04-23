@@ -79,17 +79,15 @@
   <data name="Summary.Title" xml:space="preserve"><value>Résumé du déploiement</value></data>
   <data name="Summary.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Aucun disque sélectionné</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Système sélectionné</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Système d’exploitation</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Aucune sélection</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pack de pilotes sélectionné</value></data>
-  <data name="Summary.DriverPackMode" xml:space="preserve"><value>Mode du pack de pilotes</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.FirmwareEnabledFormat" xml:space="preserve"><value>Mises à jour du firmware activées : {0}</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.EnabledFormat" xml:space="preserve"><value>Activé : {0}</value></data>
-  <data name="Summary.SelectedProfileFormat" xml:space="preserve"><value>Profil sélectionné : {0}</value></data>
-  <data name="Summary.DeployExplanation" xml:space="preserve"><value>Déployer lance l’orchestrateur de séquence de tâches avec les actions WinPE réelles (diskpart, DISM, BCDBoot, injection de pilotes, préparation hors ligne du profil Autopilot).</value></data>
-  <data name="Summary.DebugSafeModeExplanation" xml:space="preserve"><value>Mode debug sécurisé : la séquence de tâches s’exécute en simulation.</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cible</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Système</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Options de déploiement</value></data>
   <data name="Debug.ProgressButton" xml:space="preserve"><value>DBG: Progrès</value></data>
   <data name="Debug.SuccessButton" xml:space="preserve"><value>DBG: Succès</value></data>
   <data name="Debug.ErrorButton" xml:space="preserve"><value>DBG: Erreur</value></data>

@@ -17,8 +17,9 @@ public sealed class OperatingSystemSummaryConverter : IValueConverter
         string edition = OperatingSystemDisplayFormatter.FormatEdition(item.Edition);
         string channel = OperatingSystemDisplayFormatter.FormatLicenseChannel(item.LicenseChannel);
         string windowsRelease = OperatingSystemDisplayFormatter.FormatWindowsRelease(item.WindowsRelease);
+        string operatingSystemLabel = string.IsNullOrWhiteSpace(windowsRelease) ? "Windows" : $"Windows {windowsRelease}";
 
-        return $"{windowsRelease} {item.ReleaseId} | {item.Architecture} | {language} | {edition} | {channel} | {item.Build}";
+        return $"{operatingSystemLabel} {item.ReleaseId} | {item.Architecture} | {language} | {edition} | {channel} | {item.Build}";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

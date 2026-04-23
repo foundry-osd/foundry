@@ -82,15 +82,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryOperatingSystemText => SelectedOperatingSystem is null
         ? GetString("Summary.NoSelection")
         : new Converters.OperatingSystemSummaryConverter().Convert(SelectedOperatingSystem, typeof(string), string.Empty, LocalizationService.CurrentCulture)?.ToString() ?? GetString("Summary.NoSelection");
-    public string SummaryFirmwareText => Format(
-        "Summary.FirmwareEnabledFormat",
-        Preparation.ApplyFirmwareUpdates ? GetString("Common.Enabled") : GetString("Common.Disabled"));
-    public string SummaryAutopilotEnabledText => Format(
-        "Summary.EnabledFormat",
-        Preparation.IsAutopilotEnabled ? GetString("Common.Yes") : GetString("Common.No"));
-    public string SummaryAutopilotProfileText => Format(
-        "Summary.SelectedProfileFormat",
-        Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None"));
+    public string SummaryFirmwareText => Preparation.ApplyFirmwareUpdates ? GetString("Common.Enabled") : GetString("Common.Disabled");
+    public string SummaryAutopilotEnabledText => Preparation.IsAutopilotEnabled ? GetString("Common.Yes") : GetString("Common.No");
+    public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
 
     public MainWindowViewModel(
         ILocalizationService localizationService,
