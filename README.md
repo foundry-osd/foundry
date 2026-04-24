@@ -1,119 +1,82 @@
 <p align="center">
-  <img src="Assets/GitHub/readme-logo.png" alt="Foundry logo" width="220">
-</p>
-
-<h1 align="center">Foundry</h1>
-
-<p align="center">
-  <a href="https://github.com/foundry-osd/foundry/releases/latest"><img src="https://img.shields.io/github/v/release/foundry-osd/foundry?display_name=tag&sort=semver&style=flat-square&label=Version" alt="Latest release"></a>
-  <a href="https://github.com/foundry-osd/foundry/releases"><img src="https://img.shields.io/github/downloads/foundry-osd/foundry/total?style=flat-square&label=Downloads" alt="Total release asset downloads"></a>
-  <a href="https://github.com/foundry-osd/foundry/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/foundry-osd/foundry/ci.yml?branch=main&style=flat-square&label=CI" alt="Foundry CI"></a>
-  <a href="https://github.com/foundry-osd/catalog/actions/workflows/run-scripts-daily.yml"><img src="https://img.shields.io/github/actions/workflow/status/foundry-osd/catalog/run-scripts-daily.yml?branch=main&style=flat-square&label=Catalog" alt="catalog"></a>
-  <a href="https://github.com/foundry-osd/foundry/blob/main/LICENSE"><img src="https://img.shields.io/github/license/foundry-osd/foundry?style=flat-square&label=License" alt="License"></a>
-  <img src="https://img.shields.io/badge/Windows-11-2563EB?style=flat-square" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Architecture-x64%20%2F%20ARM64-2563EB?style=flat-square" alt="Architecture x64 / ARM64">
-  <img src="https://img.shields.io/badge/.NET-10-2563EB?style=flat-square" alt=".NET 10">
+  <img src="Assets/GitHub/readme-logo.png" alt="Foundry logo and project name">
 </p>
 
 <p align="center">
-  Foundry is a modern Windows deployment solution built around a desktop app and a WinPE deployment experience.
-  It helps you create deployment media, boot a device, and run a guided deployment with the right OS, drivers, firmware, and configuration.
+  <b>Modern Windows deployment for imaging, provisioning, and repeatable device setup.</b><br>
 </p>
 
 <p align="center">
-  <a href="https://github.com/foundry-osd/foundry/releases">Releases</a>
-  ·
-  <a href="https://github.com/foundry-osd/foundry/issues">Issues</a>
-  ·
-  <a href="https://github.com/foundry-osd/foundry/blob/main/LICENSE">License</a>
+  <a href="https://github.com/foundry-osd/foundry/releases/latest"><img src="https://img.shields.io/github/v/release/foundry-osd/foundry?display_name=tag&sort=semver&style=flat-square&label=Latest%20Release&color=007ec6" alt="Latest release"></a>
+  <a href="https://github.com/foundry-osd/foundry/releases"><img src="https://img.shields.io/github/downloads/foundry-osd/foundry/total?style=flat-square&label=Downloads&color=success" alt="Total downloads"></a>
+  <img src="https://img.shields.io/badge/Windows-11-2563EB?style=flat-square&logo=windows" alt="Windows 11">
+  <img src="https://img.shields.io/badge/OS%20Versions-23H2%20%7C%2024H2%20%7C%2025H2-2563EB?style=flat-square" alt="Supported OS Versions">
+  <img src="https://img.shields.io/badge/Architecture-x64%20%7C%20ARM64-2563EB?style=flat-square" alt="Architecture x64 and ARM64">
+  <a href="https://github.com/foundry-osd/foundry/blob/main/LICENSE"><img src="https://img.shields.io/github/license/foundry-osd/foundry?style=flat-square&label=License&color=blue" alt="License"></a>
 </p>
 
-## Download
+<p align="center">
+  <a href="#-download--installation"><strong>📥 Download</strong></a> ·
+  <a href="https://foundry-osd.github.io/"><strong>📖 Documentation</strong></a> ·
+  <a href="#-the-foundry-ecosystem"><strong>🌍 Ecosystem</strong></a> ·
+  <a href="https://github.com/foundry-osd/foundry/issues"><strong>🐛 Report an Issue</strong></a>
+</p>
 
-Use the direct links below to always download the latest Foundry installer for your architecture.
+---
 
-| Architecture | Installer | Download |
-| --- | --- | --- |
-| x64 | `Foundry-x64.exe` | [Download latest x64](https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-x64.exe) |
-| ARM64 | `Foundry-arm64.exe` | [Download latest ARM64](https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-arm64.exe) |
 
-Need release notes or checksums? Open the [latest release](https://github.com/foundry-osd/foundry/releases/latest) or browse [all releases](https://github.com/foundry-osd/foundry/releases).
+Foundry replaces legacy imaging scripts with a clean, fully-guided modern UI. Whether you are deploying dozens of machines in an enterprise or just standardizing your personal setups, Foundry ensures you always have the right drivers, the right OS version, and a repeatable configuration.
 
-![Foundry preview](Assets/GitHub/social-preview.png)
+<p align="center">
+  <img src="Assets/GitHub/social-preview.png" alt="Foundry preview">
+</p>
 
-## What Foundry Does
+## 📥 Download & Installation
 
-Foundry is built to make modern Windows deployment easier to prepare, easier to run, and easier to repeat.
+Get started by downloading the latest Foundry standalone executable for your workstation architecture. No complex installation required.
 
-It combines a desktop app for building deployment media with a WinPE deployment experience that runs on the target device.
+<p align="center">
+  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_x64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download x64"></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-arm64.exe"><img src="https://img.shields.io/badge/Download-Windows_ARM64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download ARM64"></a>
+</p>
 
-Instead of relying on a fully manual process, Foundry helps you boot a device, select deployment options, retrieve the right content, and complete deployment with a cleaner and more repeatable workflow.
+> 💡 **Next steps:** For prerequisites (like the Windows ADK) and how to configure your first deployment, check out our [Getting Started guide](https://foundry-osd.github.io/docs/getting-started).
 
-## Highlights
+## ✨ Highlights
 
-- Builds WinPE-based ISO and bootable USB deployment media from a desktop UI.
-- Simplifies the Windows deployment experience with a guided workflow.
-- Lets you choose Windows version, language, edition, and deployment options more easily.
-- Supports Windows 11 `23H2` to `25H2` in `x64` and `ARM64`, with 38 languages in the current catalog.
-- Retrieves Windows files and drivers from online sources during deployment when needed.
-- Supports Dell, HP, Lenovo, and Microsoft Surface driver workflows, with automatic OEM driver pack selection based on detected hardware or driver retrieval through Microsoft Update Catalog.
-- Detects and manages Windows ADK and WinPE Add-on requirements.
-- Includes logging, cache-aware workflows, CA2023 boot support, and optional driver, firmware, and Autopilot support.
+*   **Desktop UI First:** Build WinPE-based ISO and bootable USB deployment media straight from a clean Windows application.
+*   **Native Windows 11 Support:** Fully supports Windows 11 `23H2`, `24H2`, and `25H2` across both `x64` and `ARM64`.
+*   **Automated Driver Matching:** Say goodbye to driver hunting. Enjoy best-in-class automated driver handling for OEMs like Dell, HP, Lenovo, and Microsoft Surface.
+*   **Guided Zero-Touch & Lite-Touch:** Interactive prompts for target disk selection, OS version, machine naming, localization, and Autopilot staging natively inside WinPE.
 
-## Deployment Flow
+## 🔄 The Deployment Workflow
 
-1. Use `Foundry` to generate a deployment ISO or USB drive.
-2. Boot the target device from that media.
-3. Select the target disk, Windows version, and deployment options.
-4. Let Foundry download the Windows files it needs, apply Windows, configure, and finalize the deployment.
+Foundry breaks down the deployment journey into 4 straightforward steps:
 
-## Getting Started
+1.  **🏗️ Create Media:** Run the `Foundry` desktop app on your admin PC to craft your deployment media.
+2.  **🌐 Connect:** Boot the target device into WinPE. `Foundry Connect` immediately kicks in to validate and secure wired or Wi-Fi network access.
+3.  **🎯 Deploy:** `Foundry Deploy` launches a guided UI to select the target disk, desired OS, and auto-fetches the matched hardware drivers.
+4.  **✅ Finish:** The OS image is downloaded, applied, and configured. The device reboots into a ready-to-use Windows state.
 
-### Use a release
+## 🌍 The Foundry Ecosystem
 
-Download the latest packaged build from the [Download](#download) section above or from the [Releases](https://github.com/foundry-osd/foundry/releases) page.
+Foundry is more than just a single executable. It is supported by a modular ecosystem across dedicated repositories ensuring stability and easy contribution:
 
-Use Foundry to create deployment media, then boot that media on the target device to start the deployment experience.
+*   [`foundry`](https://github.com/foundry-osd/foundry) *(This repository)*: The core repository containing the Windows desktop authoring app and the WinPE runtime agents (`Connect` and `Deploy`).
+*   [`catalog`](https://github.com/foundry-osd/catalog): The automated backend engine that dynamically curates driver packs and OS catalogs, ensuring you always inject the exact vendor drivers needed during deployment.
+*   [`foundry-osd.github.io`](https://foundry-osd.github.io/): Our comprehensive documentation and developer hub.
 
-### Build from source
+## 🛠️ Contributing & Support
 
-Requirements:
+We welcome community involvement! 
+- **Bugs & Features:** Please report any issues or suggest features on our [Issue Tracker](https://github.com/foundry-osd/foundry/issues).
+- **Compile Local:** If you want to contribute code, see the [Developer Setup Guide](https://foundry-osd.github.io/docs/developer) for details on compiling with the `.NET 10 SDK` and `Windows ADK`.
 
-- Windows 10 or Windows 11
-- [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- Windows ADK 11 24H2 with the WinPE Add-on for deployment media creation
-
-Build the solution:
-
-```powershell
-dotnet build .\src\Foundry.slnx
-```
-
-Run the app:
-
-```powershell
-dotnet run --project .\src\Foundry\Foundry.csproj
-```
-
-### Deployment scope
-
-Foundry targets WinPE-based Windows deployment from prepared media.
-It is designed for guided, hardware-aware deployment with modern UI, online content retrieval, and repeatable configuration.
-
-Today, Foundry focuses on Windows 11 deployment for versions `23H2`, `24H2`, and `25H2`, with support for both `x64` and `ARM64`, broad language coverage, automatic OEM driver pack selection for supported hardware, Microsoft Update Catalog driver retrieval, optional firmware updates, and CA2023-capable boot media.
-
-## Contributing
-
-Foundry is intended to stay approachable for open source contributors. If you want to improve the deployment experience, report a bug, refine the workflow, or propose a new capability, start with an [issue](https://github.com/foundry-osd/foundry/issues) or open a pull request directly.
-
-Small, focused contributions are preferred.
-
-## Third-Party Components
+## ⚖️ Third-Party Notices
 
 ### 7-Zip Extra
-
 This project uses parts of the 7-Zip program (`7za.exe`) from the 7-Zip Extra package.
-
-- Upstream: https://www.7-zip.org/
-- License: GNU LGPL (with additional BSD 2-clause / BSD 3-clause notices for portions of `7za.exe`)
+- Upstream: [https://www.7-zip.org/](https://www.7-zip.org/)
+- License: GNU LGPL with additional BSD 2-clause and BSD 3-clause notices for portions of `7za.exe`
 - Included license files: `src/Foundry/Assets/7z/License.txt`, `src/Foundry/Assets/7z/readme.txt`
