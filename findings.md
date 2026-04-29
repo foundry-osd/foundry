@@ -111,7 +111,6 @@
   1. Foundry WinUI publish folder for Velopack input.
   2. Velopack pack/upload path for Foundry MSI and update assets.
   3. Existing Connect/Deploy publish and zip path.
-- Foundry should likely publish as self-contained, non-single-file, runtime-specific output for `win-x64` and `win-arm64`.
 - Velopack `packId` is locked as `FoundryOSD.Foundry`.
 - Velopack user-facing title remains `Foundry`; author/publisher can use `Foundry OSD`.
 - MSI install scope is locked as `PerMachine` because Foundry requires administrator privileges and writes shared workspaces under ProgramData.
@@ -131,7 +130,8 @@
   - show all pages in navigation,
   - organize pages into a General section and an Expert section,
   - use a Start page for summary and ISO/USB creation,
-  - use NavigationView footer entries for Settings, Logs, and About,
+  - use NavigationView footer entries for Settings and About,
+  - expose Logs from Settings as an open-folder action,
   - do not keep a top `MenuBar`.
 - General section pages:
   - `Home`: operational dashboard with readiness, ADK state, selected basics, USB detection, and links to required pages.
@@ -296,7 +296,7 @@
 - First approved Toolkit controls:
   - `SettingsCard`
   - `SettingsExpander`
-- Primary planned use: full Settings page, including theme, language, update status/check, logs, cache/temp locations, and diagnostics.
+- Primary planned use: full Settings page, including theme, app UI language, update status/check, logs, cache/temp locations, and diagnostics.
 - Secondary possible use: ADK diagnostics or environment-readiness sections if Settings-style grouping fits better than native cards.
 - Context7 confirmed Windows Community Toolkit has WinUI 3 / Windows App SDK package families such as `CommunityToolkit.WinUI.Controls.SettingsControls`, `CommunityToolkit.WinUI.Controls.Segmented`, and `CommunityToolkit.WinUI.Controls.HeaderedControls`.
 
@@ -458,6 +458,43 @@
   - missing Velopack assets fails the workflow;
   - missing Connect/Deploy zips fails the workflow;
   - release is not published until all Foundry and WinPE artifacts pass validation.
+
+## Final Coherence Pass and Proof Gates - 2026-04-29
+
+### Final coherence corrections
+- Normalized the canonical Logs placement:
+  - `Logs` is not a `NavigationView` footer item;
+  - `Logs` is exposed from `Settings` as a read-only open-folder action.
+- Normalized the Settings language wording:
+  - `Settings` owns app UI language only;
+  - `Configuration` owns WinPE language;
+  - `Localization` owns deployment languages and time zone.
+- Removed the stale "likely publish" wording. Foundry publish is locked as self-contained, unpackaged, non-single-file, runtime-specific output for `win-x64` and `win-arm64`.
+
+### Additional implementation proof gates
+- Velopack elevated per-machine proof:
+  - the plan keeps `requireAdministrator` and `PerMachine`;
+  - implementation must prove install, app launch, update, rollback/failure behavior, and uninstall on clean x64 and ARM64 hosts;
+  - if elevated per-machine self-update is unreliable, implementation must stop and choose a fallback before release.
+- Windows App SDK / Visual C++ runtime proof:
+  - self-contained .NET output does not automatically remove every native runtime concern;
+  - implementation must decide whether Velopack bootstraps Visual C++ Redistributable or the project declares it as an environment prerequisite;
+  - this must be validated during publish/install testing.
+- Velopack startup hook:
+  - Foundry already uses a custom entrypoint;
+  - the future WinUI entrypoint must run Velopack app hooks as early as possible before normal host/UI startup so install, update, uninstall, and obsolete hooks can execute correctly.
+- Velopack channel selection:
+  - package channels remain `win-x64-stable` and `win-arm64-stable`;
+  - runtime update code should prefer the installed package's channel/feed behavior instead of hard-coding a channel, unless implementation proves explicit channel selection is required.
+- Windows Community Toolkit Settings controls:
+  - `CommunityToolkit.WinUI.Controls.SettingsControls` remains the approved first Toolkit UI package;
+  - implementation must verify package version compatibility with the selected Windows App SDK and whether Toolkit resource dictionaries must be merged for correct rendering.
+- Debug local WinPE override versus release-fed paths:
+  - Foundry's current debug startup can auto-enable local Connect/Deploy project paths when a debugger is attached;
+  - implementation must test debugger-attached local override behavior separately from non-debug/no-override behavior that exercises release-fed GitHub artifact contracts.
+- Connect/Deploy publish regression after MSBuild split:
+  - Connect and Deploy depend on WPF build properties currently inherited globally;
+  - after making Foundry WinUI-specific and scoping WPF to WPF projects, implementation must publish Connect and Deploy through the release workflow, manual scripts, and local embedding services before moving on.
 
 ## Synthesis
 

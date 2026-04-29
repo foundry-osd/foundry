@@ -63,7 +63,8 @@
     - show all pages in General and Expert navigation sections;
     - use `Home`, `ADK`, `Configuration`, and `Start` under General;
     - keep `Network`, `Localization`, `Autopilot`, and `Customization` under Expert;
-    - use footer entries for `Settings`, `Logs`, and `About`;
+    - use footer entries for `Settings` and `About`;
+    - expose `Logs` from Settings as an open-folder action;
     - do not keep a top `MenuBar`;
     - move import/export actions to Start;
     - make Settings a full page.
@@ -180,6 +181,29 @@
   - `findings.md`
   - `progress.md`
 
+### Phase 14: Final Coherence Pass and Proof Gates
+- **Status:** complete
+- **Started:** 2026-04-29
+- Actions taken:
+  - Re-read planning files and confirmed the worktree was clean before edits.
+  - Used Context7 to re-check Windows App SDK, Velopack, and Windows Community Toolkit assumptions.
+  - Reused existing read-only subagents because the subagent thread limit prevented creating new audit agents.
+  - Re-audited stale planning text around Logs placement, Settings language scope, and Foundry publish wording.
+  - Updated the plan so Logs is consistently a Settings open-folder action, not a NavigationView footer item.
+  - Updated the plan so Settings owns app UI language, not WinPE language or deployment localization.
+  - Recorded final proof gates:
+    - Velopack `PerMachine` plus elevated Foundry update/install/uninstall behavior;
+    - Visual C++ Redistributable prerequisite or Velopack bootstrap strategy;
+    - early Velopack startup hook integration in the custom entrypoint;
+    - channel inference versus hard-coded channel behavior;
+    - Toolkit SettingsControls package/resource verification;
+    - debugger-attached local WinPE override versus no-override release-fed behavior;
+    - Connect/Deploy publish regression after the mixed WPF/WinUI MSBuild split.
+- Files modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -191,12 +215,14 @@
 | 2026-04-29 | Plan synthesis still contained stale packaging unknowns after Velopack MSI was selected | 1 | Updated `findings.md` to make Velopack MSI, PerMachine scope, architecture channels, and release topology the source of truth. |
 | 2026-04-29 | Progress reboot marker still pointed to Phase 1 after later phases were complete | 1 | Updated `progress.md` to mark Phase 1 complete and record Phase 12 audit closure. |
 | 2026-04-29 | Deep publish behavior validation was discussed but not yet persisted in plan files | 1 | Added Phase 13 with publish output, Velopack, install, update, uninstall, and failure-case validation. |
+| 2026-04-29 | New subagent creation failed because the thread limit was reached | 1 | Reused existing read-only subagent threads for the final coherence audit. |
+| 2026-04-29 | Final audit found stale Logs/footer and ambiguous Settings language wording | 1 | Added Phase 14 corrections and proof gates to the planning files. |
 
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Phase 13: Implementation Readiness and Publish Validation Closure |
+| Where am I? | Phase 14: Final Coherence Pass and Proof Gates |
 | Where am I going? | Ready for implementation after explicit user approval to leave planning and start migration work |
 | What's the goal? | Produce a code-informed plan for migrating only `src/Foundry` to WinUI 3 on .NET 10 while keeping Connect and Deploy as WPF |
-| What have I learned? | The plan is now decision-complete for Velopack MSI topology, architecture channels, UI page ownership, language scopes, validation, dialogs, update behavior, and deep publish validation |
-| What have I done? | Updated `task_plan.md`, `findings.md`, and `progress.md` with implementation-readiness and publish-validation closure |
+| What have I learned? | The plan is now decision-complete for Velopack MSI topology, architecture channels, UI page ownership, language scopes, validation, dialogs, update behavior, deep publish validation, and final implementation proof gates |
+| What have I done? | Updated `task_plan.md`, `findings.md`, and `progress.md` with final coherence corrections and implementation proof gates |

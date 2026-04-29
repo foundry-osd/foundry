@@ -4,7 +4,7 @@
 Prepare a code-informed migration study for moving only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 13: Implementation Readiness and Publish Validation Closure
+Phase 14: Final Coherence Pass and Proof Gates
 
 ## Constraints
 - Plan phase only.
@@ -108,6 +108,13 @@ Phase 13: Implementation Readiness and Publish Validation Closure
 - [x] Record Velopack input/output, install, update, uninstall, and failure-case validation.
 - **Status:** complete
 
+### Phase 14: Final Coherence Pass and Proof Gates
+- [x] Re-check planning artifacts for stale Logs/footer, language scope, publish, and phase-status contradictions.
+- [x] Re-check repository assumptions for debug local WinPE overrides and Connect/Deploy publish behavior after the mixed WPF/WinUI build split.
+- [x] Re-check Context7-backed WinUI, Velopack, and Windows Community Toolkit assumptions.
+- [x] Record final proof gates for Velopack elevated per-machine update behavior, Visual C++ redistributable strategy, Velopack startup hook, channel selection, and Toolkit resource/version verification.
+- **Status:** complete
+
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?
 2. How much of `Foundry` is framework-agnostic MVVM/business logic versus WPF-specific UI infrastructure?
@@ -129,7 +136,7 @@ Phase 13: Implementation Readiness and Publish Validation Closure
 | Start page owns final review and creation actions | User wants a Summary/Start page with key configured values, readiness state, and Create ISO/Create USB buttons. |
 | Operation progress should run in a locked ContentDialog | Navigation/settings changes must be blocked during provisioning. USB confirmation happens before opening the progress dialog. |
 | ISO and USB cancellation should be best-effort safe stop | User wants Cancel for both operations, with cleanup where possible and clear terminal state reporting. |
-| Settings should be a full NavigationView page | Settings first scope includes theme, language, update check, logs folder, cache/temp locations, and basic diagnostics. |
+| Settings should be a full NavigationView page | Settings first scope includes theme, app UI language, update check, logs folder, cache/temp locations, and basic diagnostics. |
 | Velopack updates should prompt on startup and restart only after explicit user confirmation | Startup check shows an update dialog when available. Manual check lives in Settings. Use `win-x64-stable` and `win-arm64-stable` channels. |
 | Windows Community Toolkit should be used where it adds clear value | Native WinUI controls remain the default, but Toolkit controls are approved when they improve fit and reduce custom UI work. |
 | Toolkit Settings controls are the first approved UI Toolkit target | Use `CommunityToolkit.WinUI.Controls.SettingsControls` for the Settings page, especially `SettingsCard` and `SettingsExpander`. |
@@ -160,6 +167,13 @@ Phase 13: Implementation Readiness and Publish Validation Closure
 | Export deploy config from full defaults | After Standard/Expert mode removal, export deploy config from the full current configuration even when values are at safe defaults. |
 | Treat Settings paths as read-only first | Logs/cache/temp locations are shown as read-only cards with open-folder actions; do not add editable path preferences. |
 | Deep-test Foundry publish behavior before packaging | Foundry publish output must be validated directly and repeatedly before it is used as Velopack input. |
+| Prove Velopack `PerMachine` with elevated Foundry before relying on self-update | Foundry keeps `requireAdministrator`; installer, update, rollback, and uninstall behavior must be proven on clean hosts, with a fallback if elevated per-machine self-update is unreliable. |
+| Decide the Visual C++ redistributable strategy during publish validation | Windows App SDK unpackaged/self-contained output may still require VC++ runtime availability; validate whether Velopack should bootstrap `vcredist` or whether supported targets already satisfy it. |
+| Run Velopack startup hooks at the earliest custom entrypoint point | The future custom WinUI `Main` must run Velopack app hooks before normal app startup so install/update/uninstall events are handled. |
+| Prefer installed-package channel inference unless proven otherwise | Build artifacts use `win-x64-stable` and `win-arm64-stable`; runtime update code should not hard-code channels unless implementation proves that is required. |
+| Verify Toolkit package version and resources when adding Settings controls | `CommunityToolkit.WinUI.Controls.SettingsControls` is approved, but implementation must confirm compatible package versions and any required Toolkit resource dictionaries. |
+| Validate both debug local WinPE overrides and no-override release-fed paths | Foundry auto-enables local Connect/Deploy project paths when a debugger is attached; implementation must test debugger-attached and non-debug/release-fed behavior separately. |
+| Treat Connect/Deploy publish regression as a blocker after MSBuild topology changes | Once WPF is no longer global, Connect/Deploy release scripts, workflow publish, and local embedding publish must be revalidated before proceeding. |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |
