@@ -4,7 +4,7 @@
 Prepare a code-informed migration study for moving only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 8: Final Plan Delivery
+Phase 9: Decision Refinement - Velopack, Localization, and WinUI Shell
 
 ## Constraints
 - Plan phase only.
@@ -66,6 +66,15 @@ Phase 8: Final Plan Delivery
 - [x] Confirm only planning files were modified.
 - **Status:** complete
 
+### Phase 9: Decision Refinement - Velopack, Localization, and WinUI Shell
+- [x] Record user validation for Foundry distribution model.
+- [x] Verify Velopack MSI packaging guidance.
+- [x] Reassess release workflow impact for Velopack.
+- [x] Reassess WinUI shell direction with NavigationView.
+- [x] Reassess `.resx` localization strategy for WinUI.
+- [x] Clarify project-name and migration-scope expectations.
+- **Status:** complete
+
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?
 2. How much of `Foundry` is framework-agnostic MVVM/business logic versus WPF-specific UI infrastructure?
@@ -78,6 +87,11 @@ Phase 8: Final Plan Delivery
 |----------|-----------|
 | Use the existing dedicated worktree `foundry-winui3-migration-study` on `codex/winui3-migration-study` | Satisfies the requirement to avoid the primary checkout and keep the study isolated from implementation branches. |
 | Limit writes to `task_plan.md`, `findings.md`, and `progress.md` during plan phase | Matches the user's explicit permission for plan files while preserving hard-stop implementation constraints. |
+| Foundry may stop shipping as `Foundry-x64.exe` / `Foundry-arm64.exe` single-file downloads | User validated moving away from single-file distribution. Velopack MSI is the target. |
+| Foundry distribution target is unpackaged WinUI 3 packaged through Velopack-generated MSI | User rejected MSIX and selected MSI through Velopack. This changes Foundry release artifacts but not Connect/Deploy runtime archive contracts. |
+| The WinUI shell should be redesigned around NavigationView while preserving the current page-based mental model | User wants a WinUI redesign, not a mechanical WPF port, but still wants continuity with the current WPF interface. |
+| Foundry should keep the project name `Foundry` | The migration is a conversion of the existing app project identity, not creation of a differently named replacement project. |
+| Keep `.resx` as the pragmatic initial localization source unless a specific WinUI feature requires `.resw` | Current Foundry localization is service/viewmodel-driven, runtime-switchable, and used from non-UI services. `.resw` remains worth evaluating for XAML/manifest-specific WinUI localization. |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

@@ -28,6 +28,29 @@
   - `findings.md`
   - `progress.md`
 
+### Phase 9: Decision Refinement - Velopack, Localization, and WinUI Shell
+- **Status:** complete
+- **Started:** 2026-04-29
+- Actions taken:
+  - Re-read planning files and confirmed the worktree remained clean.
+  - Used Context7 to verify Velopack packaging guidance.
+  - Used current Velopack documentation for MSI, release outputs, GitHub Actions, bootstrapping, and delta update behavior.
+  - Used Context7 and Microsoft documentation for WinUI localization behavior.
+  - Spawned read-only subagents for release workflow impact, WinUI shell redesign mapping, and localization planning.
+  - Recorded user decisions:
+    - Foundry may stop shipping as single-file `Foundry-x64.exe` / `Foundry-arm64.exe`.
+    - Foundry should use Velopack MSI distribution.
+    - Foundry remains unpackaged.
+    - MSIX is not acceptable.
+    - Foundry should be redesigned with WinUI `NavigationView` while preserving the current conceptual page structure.
+    - Foundry keeps `.resx` for now with WinUI-appropriate adaptation.
+    - The project name remains `Foundry`.
+  - Updated `task_plan.md` and `findings.md` with the refined decisions and implications.
+- Files modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|

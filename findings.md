@@ -40,6 +40,12 @@
 | Decision | Rationale |
 |----------|-----------|
 | Treat plan files as the only allowed write scope | Keeps planning durable without violating implementation hard stops. |
+| Replace Foundry single-file `.exe` release artifacts with Velopack MSI distribution | User validated that Foundry can stop shipping as `Foundry-x64.exe` / `Foundry-arm64.exe`. Velopack documentation confirms `vpk pack` packages a published app folder and `--msi` generates an MSI alongside normal Velopack release assets. |
+| Keep Foundry unpackaged; do not use MSIX | User explicitly rejected MSIX. This aligns with keeping a traditional desktop distribution path while avoiding WinUI single-file publish limitations. |
+| Keep `Foundry.Connect` and `Foundry.Deploy` release artifacts unchanged | Their archive and executable names are runtime contracts for WinPE bootstrap and embedding. Velopack applies to the desktop `Foundry` app only. |
+| Redesign the Foundry shell using WinUI `NavigationView` while preserving the current conceptual pages | User wants a WinUI redesign with a NavigationView and continuity with the current WPF page model. Current expert sections already map cleanly to pages: General, Network, Localization, Autopilot, Customization. |
+| Keep the project name `Foundry` | User clarified that the whole `Foundry` project should migrate and retain its name. This is not a side-by-side replacement with a new project name. |
+| Keep `.resx` for now, with WinUI-specific adaptation | User prefers keeping `.resx`. Current implementation uses `ResourceManager`, `StringsWrapper`, runtime culture switching, and service/viewmodel access, which makes `.resx` a pragmatic initial choice. `.resw` should be considered only for WinUI XAML `x:Uid`, manifest localization, or PRI/MRT-specific needs. |
 
 ## Issues Encountered
 | Issue | Resolution |
@@ -77,6 +83,67 @@
   - Single-project MSIX supports only a single executable in the generated MSIX package.
   - WPF-to-WinUI guidance maps WPF `Dispatcher` to WinUI `DispatcherQueue`, `DynamicResource` to `ThemeResource`, `FlowDocumentScrollViewer` to `RichTextBlock`, `Application.Current.MainWindow` to an owned window reference, and `Window` customization to `AppWindow`.
   - For WinUI desktop pickers/message dialogs, APIs that depend on CoreWindow need HWND association; `ContentDialog` needs `XamlRoot`.
+- Velopack documentation verified:
+  - `vpk pack` packages a previously compiled/published application directory using `--packId`, `--packVersion`, `--packDir`, and `--mainExe`.
+  - Windows releases produce update/package assets such as full `.nupkg`, optional delta `.nupkg`, portable zip, setup executable, release indexes, and build asset indexes.
+  - MSI generation is enabled with `--msi`; the MSI is built alongside `Setup.exe`.
+  - Velopack MSI installs the same app layout as Setup: an install folder with `current`, `Update.exe`, and an execution stub.
+  - CI release flows commonly download the previous release before packing so delta packages and release indexes can be generated.
+  - For self-contained .NET apps, Velopack advises not to bootstrap the .NET runtime with `--framework`; for framework-dependent apps, `--framework net<version>-<arch>-desktop` is available.
+
+## Decision Refinement - 2026-04-29
+
+### Foundry distribution through Velopack MSI
+- User validated that Foundry can stop shipping as `Foundry-x64.exe` / `Foundry-arm64.exe`.
+- Target direction is unpackaged WinUI 3 distributed by Velopack-generated `.msi`.
+- MSIX is rejected.
+- This resolves the previous highest-risk decision: a single-file executable artifact is no longer required for Foundry.
+- New release model should treat Foundry as an installable/updatable desktop app instead of a standalone executable download.
+- Velopack is not just an MSI generator. It also introduces update packages, release indexes, and optional delta packages. The release workflow must account for those artifacts rather than uploading only one MSI.
+- Current release workflow hardcodes Foundry `.exe` artifacts in `.github/workflows/release.yml` and README badges. Those will need to change in implementation.
+- Connect/Deploy should remain on the existing WPF self-contained single-file zip release model because their artifacts are consumed by WinPE bootstrap code and local embedding services.
+
+### Foundry release workflow implications
+- Current Foundry publish path shares one `PublishSingleFile=true` property set with Connect/Deploy.
+- Future workflow should split publishing into:
+  1. Foundry WinUI publish folder for Velopack input.
+  2. Velopack pack/upload path for Foundry MSI and update assets.
+  3. Existing Connect/Deploy publish and zip path.
+- Foundry should likely publish as self-contained, non-single-file, runtime-specific output for `win-x64` and `win-arm64`.
+- Velopack `packId` should be stable and unique. Candidate: `Foundry` or `Foundry.OSD.Foundry`; this requires validation before implementation because it becomes part of install/update identity.
+- MSI install scope needs validation: `PerUser`, `PerMachine`, or `Either`. `Either` is Velopack's default, but Foundry may benefit from a clear policy depending on expected administrator usage.
+- Code signing should be planned before public MSI rollout. Velopack documentation notes installer signing when signing is configured, and unsigned installers are a user-trust risk.
+- Current `ApplicationUpdateService` checks GitHub Releases manually. With Velopack, this should be redesigned around Velopack update APIs instead of only opening a GitHub release page, unless the first implementation intentionally defers in-app update installation.
+
+### WinUI shell direction
+- User wants a real WinUI redesign, not a one-to-one WPF XAML port.
+- Current WPF information architecture maps naturally to WinUI:
+  - General / Build page
+  - Network page
+  - Localization page
+  - Autopilot page
+  - Customization page
+- Recommended shell:
+  - top `MenuBar` or command area for global commands,
+  - ADK status as an `InfoBar`-style banner,
+  - left `NavigationView`,
+  - central page frame/content area,
+  - persistent bottom command/status area for progress, `Create ISO`, and `Create USB`.
+- Standard vs Expert should remain a shell-level mode concept initially. In Standard mode, expose only the general/build workflow; in Expert mode, show the full page set.
+- The UX design phase needs explicit collaboration before implementation. The next planning task should map every existing WPF command to its future home: menu, navigation item, page command, footer action, or dialog.
+
+### Localization direction
+- Current Foundry localization is implemented with `.resx`, `ResourceManager`, `StringsWrapper`, `ILocalizationService`, and runtime `LanguageChanged`.
+- This model is deeply used by XAML bindings, viewmodels, and services. It supports service-level error messages and formatting in business logic.
+- Keeping `.resx` is viable and lower risk for the first migration because it avoids translating every UI key into `.resw` while also preserving service localization behavior.
+- WinUI best practice usually favors `.resw` + `ResourceLoader` + `x:Uid` for static XAML and manifest strings. However, Foundry is unpackaged and heavily MVVM/service-driven, so `.resw` should not be introduced blindly.
+- Recommended initial approach: keep `.resx` as the source of truth and adapt the binding notification and dispatcher plumbing to WinUI. Revisit `.resw` only for static XAML localization, manifest metadata, or if a proof of concept shows a clear maintenance benefit.
+- Runtime language switching remains important. A `.resw` migration may make instant runtime switching harder unless the app introduces explicit page reload or restart behavior.
+
+### Project scope clarification
+- The migration target remains the existing `src/Foundry` project name and identity.
+- "Shared non-UI library" means extracting framework-agnostic models/services into a separate class library to reduce UI-project coupling. This is not required by the user's stated goal and should not be introduced up front unless the migration proves it is necessary.
+- The first implementation should migrate the entire `Foundry` app project in place while keeping scope tightly limited to Foundry and required build/release changes.
 
 ## Synthesis
 
