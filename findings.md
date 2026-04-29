@@ -117,20 +117,28 @@
 
 ### WinUI shell direction
 - User wants a real WinUI redesign, not a one-to-one WPF XAML port.
-- Current WPF information architecture maps naturally to WinUI:
-  - General / Build page
-  - Network page
-  - Localization page
-  - Autopilot page
-  - Customization page
-- Recommended shell:
-  - top `MenuBar` or command area for global commands,
-  - ADK status as an `InfoBar`-style banner,
-  - left `NavigationView`,
-  - central page frame/content area,
-  - persistent bottom command/status area for progress, `Create ISO`, and `Create USB`.
-- Standard vs Expert should remain a shell-level mode concept initially. In Standard mode, expose only the general/build workflow; in Expert mode, show the full page set.
-- The UX design phase needs explicit collaboration before implementation. The next planning task should map every existing WPF command to its future home: menu, navigation item, page command, footer action, or dialog.
+- User refined the shell direction after review:
+  - use `NavigationView` as the primary shell,
+  - remove Standard/Expert mode switching,
+  - show all pages in navigation,
+  - organize pages into a General section and an Expert section,
+  - use a Start page for summary and ISO/USB creation,
+  - use NavigationView footer entries for Settings, Logs, and About,
+  - do not keep a top `MenuBar`.
+- General section pages:
+  - `Home`: operational dashboard with readiness, ADK state, selected basics, USB detection, and links to required pages.
+  - `ADK`: ADK install/status/upgrade page with operation status.
+  - `Configuration`: media target and general build inputs: ISO path, USB disk, architecture, WinPE language, drivers, and advanced media options.
+  - `Start`: readiness summary, key configuration review, import/export actions, and Create ISO/Create USB.
+- Expert section pages:
+  - `Network`
+  - `Localization`
+  - `Autopilot`
+  - `Customization`
+- Start page summary should show readiness and key config, including blocking issues, warnings, output target, architecture, WinPE language, network, localization, Autopilot, and customization state.
+- Validation should be shown inline on owning pages and aggregated on Start with links back to the relevant pages.
+- Import/export configuration actions should live on Start, close to review/build actions.
+- The new UI should follow WinUI best practices for a desktop operational app: native controls, practical density, clear command hierarchy, and minimal decorative surface.
 
 ### Localization direction
 - Current Foundry localization is implemented with `.resx`, `ResourceManager`, `StringsWrapper`, `ILocalizationService`, and runtime `LanguageChanged`.
@@ -144,6 +152,99 @@
 - The migration target remains the existing `src/Foundry` project name and identity.
 - "Shared non-UI library" means extracting framework-agnostic models/services into a separate class library to reduce UI-project coupling. This is not required by the user's stated goal and should not be introduced up front unless the migration proves it is necessary.
 - The first implementation should migrate the entire `Foundry` app project in place while keeping scope tightly limited to Foundry and required build/release changes.
+
+## WinUI Shell and UX Specification - 2026-04-29
+
+### NavigationView structure
+- Use a single WinUI `NavigationView` shell.
+- Do not include a top `MenuBar`.
+- Navigation groups:
+  - General: `Home`, `ADK`, `Configuration`, `Start`.
+  - Expert: `Network`, `Localization`, `Autopilot`, `Customization`.
+  - Footer: `Settings`, `Logs`, `About`.
+- `Settings` should be a full page, not a compact dialog or flyout.
+- `Logs` can remain a direct action that opens the log folder.
+- `About` remains a product/about surface with version, links, and update-related links only where appropriate.
+
+### Mode removal and generation contract
+- Remove the current Standard/Expert mode switch from the UI model.
+- Remove mode as a generation gate. Today `IsExpertMode` decides whether deploy configuration and Autopilot profiles are embedded. In the WinUI plan, ISO/USB generation always uses the full configuration model.
+- Default/empty expert pages must produce safe default behavior.
+- Validate `Foundry.Connect` and `Foundry.Deploy` against the always-full-config output. They remain WPF, but their config parsing/behavior may need targeted adaptation if the generated configuration contract changes.
+- The future viewmodel should expose page state and navigation state directly rather than using `IsExpertMode`, `IsStandardMode`, and `ExpertSections` as the primary shell model.
+
+### Page ownership
+- `Home`:
+  - Operational dashboard.
+  - Shows global readiness: ADK compatibility, selected architecture/language, USB detection count/status, and whether Start is blocked.
+  - Provides navigation links to ADK, Configuration, and Start.
+- `ADK`:
+  - Owns installed/missing/incompatible state.
+  - Owns install and upgrade actions.
+  - Shows ADK operation status/progress when ADK work is running.
+- `Configuration`:
+  - Owns ISO output path.
+  - Owns selected USB disk and refresh action.
+  - Owns architecture, WinPE language, driver vendor toggles, CA 2023 signature option, USB partition style, USB format mode, and custom driver directory.
+- `Network`, `Localization`, `Autopilot`, `Customization`:
+  - Keep the current domain boundaries, but use WinUI controls and page layouts.
+  - Keep page-local commands on the owning page, such as Autopilot import/download/remove and network certificate pickers.
+- `Start`:
+  - Owns final readiness review.
+  - Owns import/export expert/deploy configuration actions.
+  - Owns Create ISO and Create USB actions.
+  - Shows blocking issues and warnings with navigation links to owning pages.
+
+### Operation dialog
+- Clicking Create USB first shows the destructive USB confirmation.
+- After confirmation, or immediately for Create ISO, open a locked WinUI `ContentDialog`.
+- The dialog should use the active window/page `XamlRoot`.
+- The dialog blocks navigation and settings edits while the operation is running.
+- Dialog content for first migration:
+  - operation title,
+  - current status,
+  - progress bar,
+  - Cancel button,
+  - terminal result text after success/failure/cancel,
+  - Close button only after a terminal state.
+- Do not include live logs in the first migration.
+- On completion, keep the dialog open with the result instead of auto-closing.
+
+### Cancellation semantics
+- Support Cancel for both ISO and USB.
+- Cancellation guarantee is best-effort safe stop:
+  - request cancellation through `CancellationToken`,
+  - stop before starting new steps,
+  - allow cooperative subprocess cancellation where already supported,
+  - clean temporary workspace where possible,
+  - clearly report if manual cleanup may be required.
+- Do not promise strict rollback of USB media to the previous state.
+- The implementation should audit all media paths that currently accept `CancellationToken`, then add viewmodel-owned operation cancellation tokens and terminal canceled state.
+
+### Settings and updates
+- Settings first migration scope:
+  - theme,
+  - language,
+  - manual update check,
+  - update status,
+  - logs folder link,
+  - cache/temp locations,
+  - basic diagnostics.
+- Velopack update UX:
+  - Stable channel only for first migration.
+  - Check for updates on startup in the background when the app is installed through Velopack.
+  - If an update is available, show a ContentDialog with version and release notes.
+  - User explicitly chooses to download/install.
+  - After download, show an explicit `Restart and update` action.
+  - Use Velopack apply-and-restart behavior only after user confirmation.
+  - Manual update check lives in Settings.
+- The existing GitHub-release-based update service should be replaced or adapted to Velopack update APIs during implementation, not carried forward as the primary update mechanism.
+
+### WinUI documentation notes
+- Context7 confirmed `NavigationView` supports binding item sources and left-pane navigation.
+- Context7 confirmed WinUI dialog work must be rooted in an active `XamlRoot`.
+- Context7 confirmed WinUI/Microsoft.UI.Xaml binding uses standard `INotifyPropertyChanged`; null property names should not be used as WPF-style global refresh notifications.
+- Dispatcher usage should move from WPF `Dispatcher` to a WinUI-compatible dispatcher abstraction backed by `DispatcherQueue`.
 
 ## Synthesis
 

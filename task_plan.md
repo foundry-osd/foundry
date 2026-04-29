@@ -4,7 +4,7 @@
 Prepare a code-informed migration study for moving only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 9: Decision Refinement - Velopack, Localization, and WinUI Shell
+Phase 10: WinUI Shell and UX Specification
 
 ## Constraints
 - Plan phase only.
@@ -75,6 +75,16 @@ Phase 9: Decision Refinement - Velopack, Localization, and WinUI Shell
 - [x] Clarify project-name and migration-scope expectations.
 - **Status:** complete
 
+### Phase 10: WinUI Shell and UX Specification
+- [x] Lock NavigationView information architecture.
+- [x] Lock removal of Standard/Expert modes.
+- [x] Lock page ownership for Home, ADK, Configuration, Start, and expert pages.
+- [x] Lock Start page summary and generation flow.
+- [x] Lock blocking progress dialog behavior and cancellation semantics.
+- [x] Lock Settings scope and update UX.
+- [x] Record UI implementation implications and validation expectations.
+- **Status:** complete
+
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?
 2. How much of `Foundry` is framework-agnostic MVVM/business logic versus WPF-specific UI infrastructure?
@@ -89,9 +99,15 @@ Phase 9: Decision Refinement - Velopack, Localization, and WinUI Shell
 | Limit writes to `task_plan.md`, `findings.md`, and `progress.md` during plan phase | Matches the user's explicit permission for plan files while preserving hard-stop implementation constraints. |
 | Foundry may stop shipping as `Foundry-x64.exe` / `Foundry-arm64.exe` single-file downloads | User validated moving away from single-file distribution. Velopack MSI is the target. |
 | Foundry distribution target is unpackaged WinUI 3 packaged through Velopack-generated MSI | User rejected MSIX and selected MSI through Velopack. This changes Foundry release artifacts but not Connect/Deploy runtime archive contracts. |
-| The WinUI shell should be redesigned around NavigationView while preserving the current page-based mental model | User wants a WinUI redesign, not a mechanical WPF port, but still wants continuity with the current WPF interface. |
+| The WinUI shell should be redesigned around NavigationView and remove Standard/Expert mode switching | User wants a WinUI redesign, all pages visible, no mode toggle, and a page hierarchy with General and Expert sections. |
 | Foundry should keep the project name `Foundry` | The migration is a conversion of the existing app project identity, not creation of a differently named replacement project. |
 | Keep `.resx` as the pragmatic initial localization source unless a specific WinUI feature requires `.resw` | Current Foundry localization is service/viewmodel-driven, runtime-switchable, and used from non-UI services. `.resw` remains worth evaluating for XAML/manifest-specific WinUI localization. |
+| ISO/USB generation should always use the full configuration model | Removing Standard/Expert mode means generation must no longer exclude expert configuration based on mode state. Default or empty page settings should produce default behavior. |
+| Start page owns final review and creation actions | User wants a Summary/Start page with key configured values, readiness state, and Create ISO/Create USB buttons. |
+| Operation progress should run in a locked ContentDialog | Navigation/settings changes must be blocked during provisioning. USB confirmation happens before opening the progress dialog. |
+| ISO and USB cancellation should be best-effort safe stop | User wants Cancel for both operations, with cleanup where possible and clear terminal state reporting. |
+| Settings should be a full NavigationView page | Settings first scope includes theme, language, update check, logs folder, cache/temp locations, and basic diagnostics. |
+| Velopack updates should prompt on startup and restart only after explicit user confirmation | Startup check shows an update dialog when available. Manual check lives in Settings. Stable channel only for first migration. |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

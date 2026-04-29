@@ -51,6 +51,42 @@
   - `findings.md`
   - `progress.md`
 
+### Phase 10: WinUI Shell and UX Specification
+- **Status:** complete
+- **Started:** 2026-04-29
+- Actions taken:
+  - Re-read planning files and confirmed the worktree was clean.
+  - Used Context7 for WinUI `NavigationView`, `ContentDialog`/`XamlRoot`, dispatcher, and binding guidance.
+  - Recorded refined UI decisions:
+    - use `NavigationView` as the primary shell;
+    - remove Standard/Expert mode switching;
+    - show all pages in General and Expert navigation sections;
+    - use `Home`, `ADK`, `Configuration`, and `Start` under General;
+    - keep `Network`, `Localization`, `Autopilot`, and `Customization` under Expert;
+    - use footer entries for `Settings`, `Logs`, and `About`;
+    - do not keep a top `MenuBar`;
+    - move import/export actions to Start;
+    - make Settings a full page.
+  - Recorded generation decisions:
+    - always generate ISO/USB from the full configuration;
+    - validate and adapt `Foundry.Connect` and `Foundry.Deploy` if the full-config contract requires it;
+    - show validation inline and aggregate blocking issues on Start.
+  - Recorded operation decisions:
+    - USB destructive confirmation happens before progress dialog;
+    - progress runs in a locked `ContentDialog`;
+    - cancellation is supported for ISO and USB as best-effort safe stop;
+    - terminal result remains visible in the dialog.
+  - Recorded update UX:
+    - Velopack stable channel only initially;
+    - startup check prompts if available;
+    - manual check in Settings;
+    - download/install requires user action;
+    - restart/update requires explicit confirmation.
+- Files modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
