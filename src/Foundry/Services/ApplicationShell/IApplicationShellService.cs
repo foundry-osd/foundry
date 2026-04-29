@@ -20,15 +20,15 @@ public interface IApplicationShellService
 
     void OpenUrl(string url);
 
-    string? PickIsoOutputPath(string defaultFileName);
+    Task<string?> PickIsoOutputPathAsync(string defaultFileName);
 
-    string? PickOpenFilePath(string title, string filter);
+    Task<string?> PickOpenFilePathAsync(string title, string filter);
 
-    string? PickSaveFilePath(string title, string filter, string defaultFileName);
+    Task<string?> PickSaveFilePathAsync(string title, string filter, string defaultFileName);
 
-    IReadOnlyList<AutopilotProfileSettings>? PickAutopilotProfilesForImport(IReadOnlyList<AutopilotProfileSettings> availableProfiles);
+    Task<IReadOnlyList<AutopilotProfileSettings>?> PickAutopilotProfilesForImportAsync(IReadOnlyList<AutopilotProfileSettings> availableProfiles);
 
-    string? PickFolderPath(string title, string? initialPath = null);
+    Task<string?> PickFolderPathAsync(string title, string? initialPath = null);
 
     void OpenFolder(string path);
 

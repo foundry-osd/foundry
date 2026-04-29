@@ -61,7 +61,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         });
     }
 
-    public string? PickIsoOutputPath(string defaultFileName)
+    public Task<string?> PickIsoOutputPathAsync(string defaultFileName)
     {
         StringsWrapper strings = _localizationService.Strings;
         return PickSaveFilePathCore(
@@ -70,7 +70,7 @@ public sealed class ApplicationShellService : IApplicationShellService
             string.IsNullOrWhiteSpace(defaultFileName) ? "foundry-winpe.iso" : defaultFileName);
     }
 
-    public string? PickOpenFilePath(string title, string filter)
+    public async Task<string?> PickOpenFilePathAsync(string title, string filter)
     {
         var picker = new FileOpenPicker
         {
@@ -83,22 +83,22 @@ public sealed class ApplicationShellService : IApplicationShellService
         }
 
         InitializePicker(picker);
-        return picker.PickSingleFileAsync().AsTask().GetAwaiter().GetResult()?.Path;
+        return (await picker.PickSingleFileAsync())?.Path;
     }
 
-    public string? PickSaveFilePath(string title, string filter, string defaultFileName)
+    public Task<string?> PickSaveFilePathAsync(string title, string filter, string defaultFileName)
     {
         string extension = ParseFilterExtensions(filter, ".json").FirstOrDefault() ?? ".json";
         return PickSaveFilePathCore(title, extension, defaultFileName);
     }
 
-    public IReadOnlyList<AutopilotProfileSettings>? PickAutopilotProfilesForImport(IReadOnlyList<AutopilotProfileSettings> availableProfiles)
+    public Task<IReadOnlyList<AutopilotProfileSettings>?> PickAutopilotProfilesForImportAsync(IReadOnlyList<AutopilotProfileSettings> availableProfiles)
     {
         ArgumentNullException.ThrowIfNull(availableProfiles);
-        return ShowAutopilotProfileSelectionAsync(availableProfiles).GetAwaiter().GetResult();
+        return ShowAutopilotProfileSelectionAsync(availableProfiles);
     }
 
-    public string? PickFolderPath(string title, string? initialPath = null)
+    public async Task<string?> PickFolderPathAsync(string title, string? initialPath = null)
     {
         var picker = new FolderPicker
         {
@@ -107,7 +107,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         picker.FileTypeFilter.Add("*");
 
         InitializePicker(picker);
-        return picker.PickSingleFolderAsync().AsTask().GetAwaiter().GetResult()?.Path;
+        return (await picker.PickSingleFolderAsync())?.Path;
     }
 
     public void OpenFolder(string path)
@@ -228,7 +228,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         return selected;
     }
 
-    private string? PickSaveFilePathCore(string title, string extension, string defaultFileName)
+    private async Task<string?> PickSaveFilePathCore(string title, string extension, string defaultFileName)
     {
         var picker = new FileSavePicker
         {
@@ -238,7 +238,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         picker.FileTypeChoices.Add(title, [extension]);
 
         InitializePicker(picker);
-        return picker.PickSaveFileAsync().AsTask().GetAwaiter().GetResult()?.Path;
+        return (await picker.PickSaveFileAsync())?.Path;
     }
 
     private ContentDialog CreateContentDialog()

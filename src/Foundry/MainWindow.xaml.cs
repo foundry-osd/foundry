@@ -28,7 +28,7 @@ public sealed partial class MainWindow : Window
         Closed += OnClosed;
         _themeService.ThemeChanged += OnThemeChanged;
         ApplyTheme(_themeService.CurrentTheme);
-        NavigateTo("Home");
+        NavigateTo(GetInitialPageTag());
     }
 
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)
@@ -85,6 +85,16 @@ public sealed partial class MainWindow : Window
         {
             page.DataContext = dataContext;
         }
+    }
+
+    private static string GetInitialPageTag()
+    {
+#if DEBUG
+        string? tag = Environment.GetEnvironmentVariable("FOUNDRY_INITIAL_PAGE");
+        return string.IsNullOrWhiteSpace(tag) ? "Home" : tag;
+#else
+        return "Home";
+#endif
     }
 
     private void OnThemeChanged(object? sender, ThemeMode theme)

@@ -214,6 +214,7 @@
 | WinUI shell smoke launch | Start `src\Foundry\bin\x64\Debug\net10.0-windows10.0.19041.0\Foundry.exe` and wait 10 seconds | Process remains running | Process remained running and was stopped by the harness | Passed |
 | Mixed solution build | `dotnet build src\Foundry.slnx -c Debug` | Foundry WinUI and Connect/Deploy WPF projects build together | Build succeeded with 0 warnings and 0 errors | Passed |
 | Mixed solution tests | `dotnet test src\Foundry.slnx -c Debug --no-build` | Existing business tests pass | Foundry.Tests 19 passed, Connect.Tests 15 passed, Deploy.Tests 41 passed | Passed |
+| WinUI page smoke loop | `FOUNDRY_INITIAL_PAGE` over Home, ADK, Configuration, Start, Network, Localization, Autopilot, Customization, Settings | Each migrated page loads without startup failure | All nine pages stayed running for their smoke window | Passed |
 
 ### Phase 15: Implementation Baseline and Build Topology
 - **Status:** in_progress
@@ -294,3 +295,19 @@
     - `Foundry.Deploy.Tests`: 41 passed.
 - Current validation state:
   - The first WinUI shell/startup checkpoint is ready to commit.
+
+### Phase 16: Page Runtime Cleanup and Toolkit Settings
+- **Status:** in_progress
+- **Started:** 2026-04-29
+- Actions taken:
+  - Converted WinUI file/folder pickers and Autopilot profile selection from synchronous blocking calls to async shell-service APIs.
+  - Removed remaining Standard/Expert generation gates so ISO, USB, and deploy configuration export use the full current configuration model.
+  - Removed the unused `ExpertSectionItem` model after removing the Standard/Expert navigation state.
+  - Reworked Settings to use Windows Community Toolkit `SettingsExpander` and `SettingsCard`.
+  - Added app-language selection on Settings using the existing `.resx` localization service.
+  - Added DEBUG-only `FOUNDRY_INITIAL_PAGE` startup override to support page-by-page smoke launches without changing Release behavior.
+  - Smoke-launched every migrated page.
+  - Rebuilt the full mixed solution with 0 warnings and 0 errors.
+  - Re-ran all existing tests successfully.
+- Current validation state:
+  - Page runtime smoke, mixed build, and existing tests are passing after the async picker and full-configuration cleanup.

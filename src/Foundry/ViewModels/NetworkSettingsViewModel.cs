@@ -222,9 +222,9 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CanBrowseFiles))]
-    private void BrowseDot1xProfileTemplate()
+    private async Task BrowseDot1xProfileTemplateAsync()
     {
-        string? selectedPath = _applicationShellService.PickOpenFilePath(
+        string? selectedPath = await _applicationShellService.PickOpenFilePathAsync(
             Strings["Network.ProfileTemplatePickerTitle"],
             Strings["Network.ProfileTemplatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
@@ -234,9 +234,9 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CanBrowseFiles))]
-    private void BrowseDot1xCertificate()
+    private async Task BrowseDot1xCertificateAsync()
     {
-        string? selectedPath = _applicationShellService.PickOpenFilePath(
+        string? selectedPath = await _applicationShellService.PickOpenFilePathAsync(
             Strings["Dot1x.CertificatePickerTitle"],
             Strings["Common.CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
@@ -246,9 +246,9 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CanBrowseFiles))]
-    private void BrowseWifiEnterpriseProfileTemplate()
+    private async Task BrowseWifiEnterpriseProfileTemplateAsync()
     {
-        string? selectedPath = _applicationShellService.PickOpenFilePath(
+        string? selectedPath = await _applicationShellService.PickOpenFilePathAsync(
             Strings["Network.ProfileTemplatePickerTitle"],
             Strings["Network.ProfileTemplatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))
@@ -258,9 +258,9 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CanBrowseFiles))]
-    private void BrowseWifiCertificate()
+    private async Task BrowseWifiCertificateAsync()
     {
-        string? selectedPath = _applicationShellService.PickOpenFilePath(
+        string? selectedPath = await _applicationShellService.PickOpenFilePathAsync(
             Strings["Wifi.CertificatePickerTitle"],
             Strings["Common.CertificatePickerFilter"]);
         if (!string.IsNullOrWhiteSpace(selectedPath))

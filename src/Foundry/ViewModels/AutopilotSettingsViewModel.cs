@@ -52,7 +52,7 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
     [RelayCommand(CanExecute = nameof(CanManageProfiles))]
     private async Task ImportProfileAsync()
     {
-        string? filePath = _applicationShellService.PickOpenFilePath(
+        string? filePath = await _applicationShellService.PickOpenFilePathAsync(
             Strings["Autopilot.ImportTitle"],
             Strings["Common.JsonPickerFilter"]);
         if (string.IsNullOrWhiteSpace(filePath))
@@ -115,11 +115,8 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
             }
 
             _operationProgressService.Report(70, Strings["Autopilot.DownloadSelectProfiles"]);
-            IReadOnlyList<AutopilotProfileSettings>? selectedProfiles = null;
-            RunOnUiThread(() =>
-            {
-                selectedProfiles = _applicationShellService.PickAutopilotProfilesForImport(availableProfiles);
-            });
+            IReadOnlyList<AutopilotProfileSettings>? selectedProfiles =
+                await _applicationShellService.PickAutopilotProfilesForImportAsync(availableProfiles);
 
             if (selectedProfiles is null)
             {

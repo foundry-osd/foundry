@@ -1,21 +1,44 @@
 <Page
     x:Class="Foundry.Views.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls">
     <ScrollViewer>
         <StackPanel x:Name="Root" Padding="32" Spacing="12" MaxWidth="900">
             <TextBlock Text="Settings" Style="{ThemeResource TitleTextBlockStyle}" />
-            <TextBlock Text="Appearance" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Orientation="Horizontal" Spacing="8">
-                <Button Content="System" Command="{Binding SetSystemThemeCommand}" />
-                <Button Content="Light" Command="{Binding SetLightThemeCommand}" />
-                <Button Content="Dark" Command="{Binding SetDarkThemeCommand}" />
-            </StackPanel>
-            <TextBlock Text="Maintenance" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Orientation="Horizontal" Spacing="8">
+            <controls:SettingsExpander Header="Appearance" Description="Application theme and language">
+                <controls:SettingsExpander.HeaderIcon>
+                    <SymbolIcon Symbol="Highlight" />
+                </controls:SettingsExpander.HeaderIcon>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="System" Command="{Binding SetSystemThemeCommand}" />
+                    <Button Content="Light" Command="{Binding SetLightThemeCommand}" />
+                    <Button Content="Dark" Command="{Binding SetDarkThemeCommand}" />
+                </StackPanel>
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Header="Application language" Description="Choose the interface language">
+                        <ComboBox
+                            MinWidth="220"
+                            ItemsSource="{Binding SupportedCultures}"
+                            DisplayMemberPath="DisplayName"
+                            SelectedValuePath="Code"
+                            SelectedValue="{Binding CurrentCultureCode, Mode=OneWay}"
+                            SelectionChanged="OnLanguageSelectionChanged" />
+                    </controls:SettingsCard>
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
+            <controls:SettingsCard Header="Updates" Description="Check the configured update source">
+                <controls:SettingsCard.HeaderIcon>
+                    <SymbolIcon Symbol="Sync" />
+                </controls:SettingsCard.HeaderIcon>
                 <Button Content="Check for updates" Command="{Binding CheckForUpdatesCommand}" />
+            </controls:SettingsCard>
+            <controls:SettingsCard Header="Logs" Description="Open the local Foundry log folder">
+                <controls:SettingsCard.HeaderIcon>
+                    <SymbolIcon Symbol="Folder" />
+                </controls:SettingsCard.HeaderIcon>
                 <Button Content="Open logs folder" Command="{Binding OpenLogFolderCommand}" />
-            </StackPanel>
+            </controls:SettingsCard>
         </StackPanel>
     </ScrollViewer>
 </Page>
