@@ -153,6 +153,7 @@ Phase 15: Implementation Baseline and Build Topology
 | Keep one public GitHub release per Foundry version | Each release must include Foundry Velopack desktop assets plus unchanged Connect/Deploy WinPE zip artifacts so existing latest-release bootstrap behavior remains valid. |
 | Publish GitHub releases only after all assets are built and validated | The current release-before-assets workflow can create a broken latest release; implementation must build/package/validate first, then publish last. |
 | Use `FoundryOSD.Foundry` as the Velopack `packId` | This is more unique and stable than `Foundry`, while keeping `Foundry` as the executable and user-facing product title. |
+| Use the latest Velopack beta/pre-release package line | User explicitly requested the latest beta. Current NuGet check found `Velopack`/`vpk` `0.0.1589-ga2c5a97` and `Velopack.Build` `0.0.1369-g1d5c984`; re-check before adding packages because prerelease versions can move. |
 | Use Velopack MSI `PerMachine` install scope | Foundry requires administrator privileges and uses shared ProgramData workspaces, so per-machine installation is the safest default. |
 | Publish Foundry as self-contained, unpackaged, non-single-file output | User selected self-contained distribution; Windows App SDK/WinUI unpackaged output must not be treated as a single-file executable. |
 | Use architecture-specific Velopack stable channels | Use `win-x64-stable` and `win-arm64-stable` so x64 and ARM64 update feeds do not collide. |

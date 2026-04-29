@@ -209,6 +209,7 @@
 |------|-------|----------|--------|--------|
 | Baseline solution build | `dotnet build src\Foundry.slnx -c Debug` | Solution builds before implementation starts | Build succeeded with 0 warnings and 0 errors | Passed |
 | MSBuild WPF scoping build | `dotnet build src\Foundry.slnx -c Debug` | Solution still builds after moving WPF out of shared props | Build succeeded with 0 warnings and 0 errors | Passed |
+| Velopack prerelease version check | NuGet flat-container query for `Velopack`, `Velopack.Build`, and `vpk` | Identify latest beta/pre-release package line before Velopack implementation | `Velopack`/`vpk` latest prerelease `0.0.1589-ga2c5a97`; `Velopack.Build` latest prerelease `0.0.1369-g1d5c984` | Passed |
 
 ### Phase 15: Implementation Baseline and Build Topology
 - **Status:** in_progress
@@ -217,6 +218,8 @@
   - User explicitly approved complete implementation.
   - Re-read planning files and confirmed a clean worktree on `codex/winui3-migration-study`.
   - Refreshed WinUI 3, Windows Community Toolkit, and Velopack assumptions with Context7.
+  - Recorded the user requirement to use the latest Velopack beta/pre-release package line.
+  - Checked current NuGet prerelease versions for `Velopack`, `Velopack.Build`, and `vpk`.
   - Sent read-only implementation mapping tasks to existing subagents.
   - Ran baseline solution build before changing implementation files.
   - Updated planning files to reflect the approved implementation phase.
