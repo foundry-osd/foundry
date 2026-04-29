@@ -1,14 +1,15 @@
 using System.Diagnostics;
-using System.Windows.Threading;
+using System.Runtime.InteropServices;
 using Foundry.DependencyInjection;
 using Foundry.Logging;
-using Foundry.Services.Configuration;
 using Foundry.Services.Adk;
+using Foundry.Services.Configuration;
 using Foundry.Services.WinPe;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Velopack;
 
 namespace Foundry;
 
@@ -17,6 +18,8 @@ public static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        VelopackApp.Build().Run();
+
         Log.Logger = FoundryLogging.CreateApplicationLogger();
         RegisterGlobalExceptionHandlers();
 
@@ -27,12 +30,21 @@ public static class Program
 
             using IHost host = BuildHost(args);
 
-            App app = host.Services.GetRequiredService<App>();
-            app.DispatcherUnhandledException += OnDispatcherUnhandledException;
-            app.InitializeComponent();
+            Log.Information("Starting Foundry WinUI application.");
+            EnsureWindowsAppRuntimeLoaded();
+            Log.Information("Windows App Runtime loaded.");
+            WinRT.ComWrappersSupport.InitializeComWrappers();
+            Microsoft.UI.Xaml.Application.Start(initialization =>
+            {
+                Log.Information("Initializing Foundry WinUI application instance.");
+                var context = new Microsoft.UI.Dispatching.DispatcherQueueSynchronizationContext(
+                    Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread());
+                SynchronizationContext.SetSynchronizationContext(context);
 
-            MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
-            app.Run(mainWindow);
+                _ = ActivatorUtilities.CreateInstance<App>(host.Services, host.Services);
+                Log.Information("Foundry WinUI application instance initialized.");
+            });
+            Log.Information("Foundry WinUI application exited.");
         }
         catch (Exception ex)
         {
@@ -56,6 +68,19 @@ public static class Program
 
         return builder.Build();
     }
+
+    private static void EnsureWindowsAppRuntimeLoaded()
+    {
+        Environment.SetEnvironmentVariable("MICROSOFT_WINDOWSAPPRUNTIME_BASE_DIRECTORY", AppContext.BaseDirectory);
+        int result = WindowsAppRuntime_EnsureIsLoaded();
+        if (result < 0)
+        {
+            Marshal.ThrowExceptionForHR(result);
+        }
+    }
+
+    [DllImport("Microsoft.WindowsAppRuntime.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
+    private static extern int WindowsAppRuntime_EnsureIsLoaded();
 
     private static void ConfigureLocalWinPeDeployForDebugSession()
     {
@@ -131,11 +156,6 @@ public static class Program
             Log.Error(args.Exception, "Unobserved task exception.");
             args.SetObserved();
         };
-    }
-
-    private static void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs args)
-    {
-        Log.Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
     }
 
     private static bool TryFindFoundryDeployProjectPath(out string projectPath)

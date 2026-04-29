@@ -1,0 +1,22 @@
+<Page
+    x:Class="Foundry.Views.StartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="16" MaxWidth="980">
+            <TextBlock Text="Start" Style="{ThemeResource TitleTextBlockStyle}" />
+            <InfoBar Title="Readiness" Message="{Binding GlobalOperationStatusDisplay}" IsOpen="True" />
+            <TextBlock Text="{Binding MediaActionMessage}" TextWrapping="Wrap" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Import expert config" Command="{Binding ImportExpertConfigurationCommand}" />
+                <Button Content="Export expert config" Command="{Binding ExportExpertConfigurationCommand}" />
+                <Button Content="Export deploy config" Command="{Binding ExportDeployConfigurationCommand}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Create ISO" Command="{Binding CreateIsoCommand}" />
+                <Button Content="Create USB" Command="{Binding CreateUsbCommand}" />
+            </StackPanel>
+            <ProgressBar Minimum="0" Maximum="100" Value="{Binding GlobalOperationProgress}" IsIndeterminate="{Binding IsGlobalOperationInProgress}" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

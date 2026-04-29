@@ -1,8 +1,14 @@
-using System.Windows;
 using Foundry.Models.Configuration;
 using Foundry.Services.ApplicationUpdate;
 
 namespace Foundry.Services.ApplicationShell;
+
+public enum ApplicationMessageKind
+{
+    Information,
+    Warning,
+    Error
+}
 
 public interface IApplicationShellService
 {
@@ -26,7 +32,7 @@ public interface IApplicationShellService
 
     void OpenFolder(string path);
 
-    void ShowMessage(string title, string message, MessageBoxImage image);
+    void ShowMessage(string title, string message, ApplicationMessageKind kind);
 
     bool ConfirmWarning(string title, string message);
 }

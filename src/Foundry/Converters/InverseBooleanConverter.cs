@@ -1,11 +1,10 @@
-using System.Globalization;
-using System.Windows.Data;
+using Microsoft.UI.Xaml.Data;
 
 namespace Foundry.Converters;
 
 public class InverseBooleanConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object value, Type targetType, object parameter, string language)
     {
         if (value is bool boolValue)
         {
@@ -14,7 +13,7 @@ public class InverseBooleanConverter : IValueConverter
         return false;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
         if (value is bool boolValue)
         {

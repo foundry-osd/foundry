@@ -28,13 +28,13 @@ public partial class LocalizationSettingsViewModel : LocalizedViewModelBase
     }
 
     [ObservableProperty]
-    private string selectedDefaultLanguageCode = string.Empty;
+    public partial string SelectedDefaultLanguageCode { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private string selectedTimeZoneId = AutomaticTimeZoneId;
+    public partial string SelectedTimeZoneId { get; set; } = AutomaticTimeZoneId;
 
     [ObservableProperty]
-    private bool forceSingleVisibleLanguage;
+    public partial bool ForceSingleVisibleLanguage { get; set; }
 
     public ObservableCollection<SelectableLanguageOptionViewModel> AvailableLanguages { get; } = [];
     public ObservableCollection<TimeZoneOption> AvailableTimeZones { get; } = [];

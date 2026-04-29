@@ -35,13 +35,13 @@ public partial class AutopilotSettingsViewModel : LocalizedViewModelBase
     public ObservableCollection<AutopilotProfileEntry> Profiles { get; } = [];
 
     [ObservableProperty]
-    private bool isAutopilotEnabled;
+    public partial bool IsAutopilotEnabled { get; set; }
 
     [ObservableProperty]
-    private AutopilotProfileEntry? selectedProfile;
+    public partial AutopilotProfileEntry? SelectedProfile { get; set; }
 
     [ObservableProperty]
-    private AutopilotProfileEntry? selectedDefaultProfile;
+    public partial AutopilotProfileEntry? SelectedDefaultProfile { get; set; }
 
     public bool HasProfiles => Profiles.Count > 0;
 

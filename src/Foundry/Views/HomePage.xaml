@@ -1,0 +1,29 @@
+<Page
+    x:Class="Foundry.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="16" MaxWidth="980">
+            <TextBlock Text="Home" Style="{ThemeResource TitleTextBlockStyle}" />
+            <InfoBar Title="ADK attention required" Message="{Binding GlobalOperationStatusDisplay}" IsOpen="{Binding ShowAdkBanner}" Severity="Warning" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                <Border Padding="16" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Readiness" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        <TextBlock Text="{Binding GlobalOperationStatusDisplay}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding UsbDevicesCountDisplay}" />
+                        <TextBlock Text="{Binding VersionDisplay}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Padding="16" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Current media target" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        <TextBlock Text="{Binding IsoOutputPath}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding SelectedArchitecture}" />
+                        <TextBlock Text="{Binding SelectedWinPeLanguage.DisplayName}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

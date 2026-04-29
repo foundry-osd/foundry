@@ -21,7 +21,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<AutopilotSettingsViewModel>();
 
-        services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton<ApplicationShellService>();
+        services.AddSingleton<IApplicationShellService>(provider => provider.GetRequiredService<ApplicationShellService>());
         services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
         services.AddSingleton<IAutopilotProfileService, AutopilotProfileService>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();

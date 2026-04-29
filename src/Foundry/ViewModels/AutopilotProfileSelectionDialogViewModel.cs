@@ -105,7 +105,7 @@ public sealed partial class SelectableAutopilotProfileEntry : ObservableObject
     public SelectableAutopilotProfileEntry(AutopilotProfileSettings profile)
     {
         Profile = profile ?? throw new ArgumentNullException(nameof(profile));
-        isSelected = true;
+        IsSelected = true;
     }
 
     public AutopilotProfileSettings Profile { get; }
@@ -115,5 +115,5 @@ public sealed partial class SelectableAutopilotProfileEntry : ObservableObject
     public string FolderName => Profile.FolderName;
 
     [ObservableProperty]
-    private bool isSelected;
+    public partial bool IsSelected { get; set; }
 }

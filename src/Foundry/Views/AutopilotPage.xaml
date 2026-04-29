@@ -1,0 +1,27 @@
+<Page
+    x:Class="Foundry.Views.AutopilotPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="16" MaxWidth="980">
+            <TextBlock Text="Autopilot" Style="{ThemeResource TitleTextBlockStyle}" />
+            <CheckBox Content="Enable Autopilot provisioning" IsChecked="{Binding IsAutopilotEnabled, Mode=TwoWay}" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Import profile" Command="{Binding ImportProfileCommand}" />
+                <Button Content="Download from tenant" Command="{Binding DownloadProfilesCommand}" />
+                <Button Content="Remove selected" Command="{Binding RemoveSelectedProfileCommand}" />
+            </StackPanel>
+            <ComboBox Header="Default profile" ItemsSource="{Binding Profiles}" SelectedItem="{Binding SelectedDefaultProfile, Mode=TwoWay}" DisplayMemberPath="DisplayName" />
+            <ListView ItemsSource="{Binding Profiles}" SelectedItem="{Binding SelectedProfile, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding FolderName}" Opacity="0.7" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

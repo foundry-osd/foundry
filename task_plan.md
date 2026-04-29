@@ -155,7 +155,7 @@ Phase 15: Implementation Baseline and Build Topology
 | Use `FoundryOSD.Foundry` as the Velopack `packId` | This is more unique and stable than `Foundry`, while keeping `Foundry` as the executable and user-facing product title. |
 | Use the latest Velopack beta/pre-release package line | User explicitly requested the latest beta. Current NuGet check found `Velopack`/`vpk` `0.0.1589-ga2c5a97` and `Velopack.Build` `0.0.1369-g1d5c984`; re-check before adding packages because prerelease versions can move. |
 | Use Velopack MSI `PerMachine` install scope | Foundry requires administrator privileges and uses shared ProgramData workspaces, so per-machine installation is the safest default. |
-| Publish Foundry as self-contained, unpackaged, non-single-file output | User selected self-contained distribution; Windows App SDK/WinUI unpackaged output must not be treated as a single-file executable. |
+| Publish Foundry as unpackaged, non-single-file output | User selected Velopack MSI and rejected the old single-file executable assets. Implementation testing currently shows `WindowsAppSDKSelfContained=true` crashes before WinUI startup on this machine, so the Windows App SDK runtime strategy must be framework-dependent/bootstrapper unless later publish proof overturns that. |
 | Use architecture-specific Velopack stable channels | Use `win-x64-stable` and `win-arm64-stable` so x64 and ARM64 update feeds do not collide. |
 | Allow Velopack deltas only after proof | Delta packages may be used only if implementation proves GitHub Releases plus multi-architecture channels behave correctly; otherwise disable deltas for the first rollout. |
 | Treat code signing as out of scope for now | Do not block migration or MSI planning on signing; retain it only as a later release-hardening consideration. |
@@ -177,6 +177,7 @@ Phase 15: Implementation Baseline and Build Topology
 | Export deploy config from full defaults | After Standard/Expert mode removal, export deploy config from the full current configuration even when values are at safe defaults. |
 | Treat Settings paths as read-only first | Logs/cache/temp locations are shown as read-only cards with open-folder actions; do not add editable path preferences. |
 | Deep-test Foundry publish behavior before packaging | Foundry publish output must be validated directly and repeatedly before it is used as Velopack input. |
+| Treat Windows App SDK self-contained output as unproven | `WindowsAppSDKSelfContained=true` currently fails before `Application.Start`; Velopack packaging should not rely on that mode until a clean publish proof succeeds. |
 | Prove Velopack `PerMachine` with elevated Foundry before relying on self-update | Foundry keeps `requireAdministrator`; installer, update, rollback, and uninstall behavior must be proven on clean hosts, with a fallback if elevated per-machine self-update is unreliable. |
 | Decide the Visual C++ redistributable strategy during publish validation | Windows App SDK unpackaged/self-contained output may still require VC++ runtime availability; validate whether Velopack should bootstrap `vcredist` or whether supported targets already satisfy it. |
 | Run Velopack startup hooks at the earliest custom entrypoint point | The future custom WinUI `Main` must run Velopack app hooks before normal app startup so install/update/uninstall events are handled. |

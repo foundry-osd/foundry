@@ -12,16 +12,16 @@ public partial class CustomizationSettingsViewModel : LocalizedViewModelBase
     }
 
     [ObservableProperty]
-    private bool isMachineNamingEnabled;
+    public partial bool IsMachineNamingEnabled { get; set; }
 
     [ObservableProperty]
-    private string machineNamePrefix = string.Empty;
+    public partial string MachineNamePrefix { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private bool machineNameAutoGenerate;
+    public partial bool MachineNameAutoGenerate { get; set; }
 
     [ObservableProperty]
-    private bool allowManualSuffixEdit = true;
+    public partial bool AllowManualSuffixEdit { get; set; } = true;
 
     public CustomizationSettings BuildSettings()
     {

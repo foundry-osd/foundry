@@ -1,5 +1,4 @@
-using System.Windows;
-using System.Windows.Threading;
+using Microsoft.UI.Dispatching;
 
 namespace Foundry.Services.Operations;
 
@@ -7,7 +6,7 @@ public sealed class OperationProgressService : IOperationProgressService
 {
     private static readonly TimeSpan TerminalStatusRetention = TimeSpan.FromSeconds(5);
     private readonly object _sync = new();
-    private readonly Dispatcher? _dispatcher = Application.Current?.Dispatcher;
+    private readonly DispatcherQueue? _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     private bool _isOperationInProgress;
     private int _progress;
     private string? _status;
@@ -229,12 +228,12 @@ public sealed class OperationProgressService : IOperationProgressService
             return;
         }
 
-        if (_dispatcher is null || _dispatcher.CheckAccess())
+        if (_dispatcherQueue is null || _dispatcherQueue.HasThreadAccess)
         {
             handler(this, EventArgs.Empty);
             return;
         }
 
-        _ = _dispatcher.InvokeAsync(() => handler(this, EventArgs.Empty), DispatcherPriority.DataBind);
+        _dispatcherQueue.TryEnqueue(() => handler(this, EventArgs.Empty));
     }
 }

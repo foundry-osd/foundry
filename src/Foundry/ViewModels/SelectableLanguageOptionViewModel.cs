@@ -15,5 +15,5 @@ public partial class SelectableLanguageOptionViewModel : ObservableObject
     public string DisplayName => Language.DisplayName;
 
     [ObservableProperty]
-    private bool isSelected;
+    public partial bool IsSelected { get; set; }
 }

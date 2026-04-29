@@ -1,0 +1,16 @@
+<Page
+    x:Class="Foundry.Views.AdkPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="16" MaxWidth="860">
+            <TextBlock Text="ADK" Style="{ThemeResource TitleTextBlockStyle}" />
+            <InfoBar Title="ADK status" Message="{Binding GlobalOperationStatusDisplay}" IsOpen="True" />
+            <ProgressBar Minimum="0" Maximum="100" Value="{Binding GlobalOperationProgress}" IsIndeterminate="{Binding IsGlobalOperationInProgress}" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Install ADK" Command="{Binding InstallAdkCommand}" />
+                <Button Content="Upgrade ADK" Command="{Binding UpgradeAdkCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

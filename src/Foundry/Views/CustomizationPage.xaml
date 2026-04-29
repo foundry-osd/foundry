@@ -1,0 +1,14 @@
+<Page
+    x:Class="Foundry.Views.CustomizationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="16" MaxWidth="860">
+            <TextBlock Text="Customization" Style="{ThemeResource TitleTextBlockStyle}" />
+            <CheckBox Content="Enable machine naming" IsChecked="{Binding IsMachineNamingEnabled, Mode=TwoWay}" />
+            <TextBox Header="Machine name prefix" Text="{Binding MachineNamePrefix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <CheckBox Content="Auto-generate machine name" IsChecked="{Binding MachineNameAutoGenerate, Mode=TwoWay}" />
+            <CheckBox Content="Allow manual suffix edit" IsChecked="{Binding AllowManualSuffixEdit, Mode=TwoWay}" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

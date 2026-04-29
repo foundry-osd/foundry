@@ -1,12 +1,10 @@
 using System.ComponentModel;
-using System.Windows;
 
 namespace Foundry.Services.Theme;
 
 public sealed class ThemeService : IThemeService, INotifyPropertyChanged
 {
     private ThemeMode _currentTheme;
-    private ResourceDictionary? _currentThemeDictionary;
 
     public ThemeMode CurrentTheme
     {
@@ -16,13 +14,14 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
             if (_currentTheme != value)
             {
                 _currentTheme = value;
-                ApplyTheme(value);
+                ThemeChanged?.Invoke(this, value);
                 OnPropertyChanged(nameof(CurrentTheme));
             }
         }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+    public event EventHandler<ThemeMode>? ThemeChanged;
 
     private void OnPropertyChanged(string propertyName)
     {
@@ -37,27 +36,5 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
     public void SetTheme(ThemeMode theme)
     {
         CurrentTheme = theme;
-    }
-
-    private void ApplyTheme(ThemeMode theme)
-    {
-        var app = Application.Current;
-        if (app == null)
-        {
-            return;
-        }
-
-        var resources = app.Resources.MergedDictionaries;
-        resources.Clear();
-
-        _currentThemeDictionary = theme switch
-        {
-            ThemeMode.Light => new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.Light.xaml", UriKind.Absolute) },
-            ThemeMode.Dark => new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.Dark.xaml", UriKind.Absolute) },
-            ThemeMode.System => new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute) },
-            _ => new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute) }
-        };
-
-        resources.Add(_currentThemeDictionary);
     }
 }

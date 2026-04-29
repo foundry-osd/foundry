@@ -11,5 +11,7 @@ public interface IThemeService
 {
     ThemeMode CurrentTheme { get; }
 
+    event EventHandler<ThemeMode>? ThemeChanged;
+
     void SetTheme(ThemeMode theme);
 }

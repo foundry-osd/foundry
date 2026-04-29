@@ -1,20 +1,19 @@
-using System.Windows;
-using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Services.Localization;
+using Microsoft.UI.Dispatching;
 
 namespace Foundry.ViewModels;
 
 public abstract class LocalizedViewModelBase : ObservableObject, IDisposable
 {
     private readonly ILocalizationService _localizationService;
-    private readonly Dispatcher _dispatcher;
+    private readonly DispatcherQueue? _dispatcherQueue;
     private bool _isDisposed;
 
     protected LocalizedViewModelBase(ILocalizationService localizationService)
     {
         _localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
-        _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         _localizationService.LanguageChanged += OnLanguageChanged;
     }
 
@@ -37,13 +36,13 @@ public abstract class LocalizedViewModelBase : ObservableObject, IDisposable
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        if (_dispatcher.CheckAccess())
+        if (_dispatcherQueue is null || _dispatcherQueue.HasThreadAccess)
         {
             action();
             return;
         }
 
-        _dispatcher.Invoke(action);
+        _dispatcherQueue.TryEnqueue(() => action());
     }
 
     private void OnLanguageChanged(object? sender, EventArgs e)

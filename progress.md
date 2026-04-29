@@ -210,6 +210,10 @@
 | Baseline solution build | `dotnet build src\Foundry.slnx -c Debug` | Solution builds before implementation starts | Build succeeded with 0 warnings and 0 errors | Passed |
 | MSBuild WPF scoping build | `dotnet build src\Foundry.slnx -c Debug` | Solution still builds after moving WPF out of shared props | Build succeeded with 0 warnings and 0 errors | Passed |
 | Velopack prerelease version check | NuGet flat-container query for `Velopack`, `Velopack.Build`, and `vpk` | Identify latest beta/pre-release package line before Velopack implementation | `Velopack`/`vpk` latest prerelease `0.0.1589-ga2c5a97`; `Velopack.Build` latest prerelease `0.0.1369-g1d5c984` | Passed |
+| WinUI shell build | `dotnet build src\Foundry\Foundry.csproj -c Debug` | Foundry builds after WinUI startup/shell conversion | Build succeeded with 0 warnings and 0 errors | Passed |
+| WinUI shell smoke launch | Start `src\Foundry\bin\x64\Debug\net10.0-windows10.0.19041.0\Foundry.exe` and wait 10 seconds | Process remains running | Process remained running and was stopped by the harness | Passed |
+| Mixed solution build | `dotnet build src\Foundry.slnx -c Debug` | Foundry WinUI and Connect/Deploy WPF projects build together | Build succeeded with 0 warnings and 0 errors | Passed |
+| Mixed solution tests | `dotnet test src\Foundry.slnx -c Debug --no-build` | Existing business tests pass | Foundry.Tests 19 passed, Connect.Tests 15 passed, Deploy.Tests 41 passed | Passed |
 
 ### Phase 15: Implementation Baseline and Build Topology
 - **Status:** in_progress
@@ -243,6 +247,8 @@
 | 2026-04-29 | Deep publish behavior validation was discussed but not yet persisted in plan files | 1 | Added Phase 13 with publish output, Velopack, install, update, uninstall, and failure-case validation. |
 | 2026-04-29 | New subagent creation failed because the thread limit was reached | 1 | Reused existing read-only subagent threads for the final coherence audit. |
 | 2026-04-29 | Final audit found stale Logs/footer and ambiguous Settings language wording | 1 | Added Phase 14 corrections and proof gates to the planning files. |
+| 2026-04-29 | WinUI self-contained Windows App SDK activation crashed before `Application.Start` callback with `0xc000027b` / `80040154` | 1 | Confirmed `WindowsAppSDKSelfContained=false` reaches managed startup on this machine; keep this as a publish proof gate and do not assume Windows App SDK self-contained output is safe. |
+| 2026-04-29 | WinUI shell crashed while loading `MainWindow.xaml` because `XamlControlsResources` was missing | 1 | Added the standard WinUI `XamlControlsResources` merged dictionary in `App.xaml`; shell smoke launch now stays running. |
 
 ## 5-Question Reboot Check
 | Question | Answer |
@@ -252,3 +258,39 @@
 | What's the goal? | Complete, test, publish-validate, push, and open a PR for the Foundry WinUI 3 migration |
 | What have I learned? | The plan is now decision-complete for Velopack MSI topology, architecture channels, UI page ownership, language scopes, validation, dialogs, update behavior, deep publish validation, and final implementation proof gates |
 | What have I done? | Started implementation, refreshed docs, launched read-only subagent mapping, and captured a clean baseline build |
+
+### Phase 15 Update - WinUI startup and first shell smoke
+- **Status:** in_progress
+- Actions taken:
+  - Converted Foundry startup closer to WinUI generated-main shape by initializing `App.xaml` resources in the `App` constructor.
+  - Added explicit early Windows App Runtime load logging after the Velopack startup hook.
+  - Diagnosed `Application.Start` crashes with Event Viewer and Foundry logs.
+  - Rechecked the latest Velopack prerelease requirement; `Velopack` and `vpk` remain on prerelease `0.0.1589-ga2c5a97`.
+  - Used Context7 for Velopack MSI packaging guidance and Windows App SDK bootstrap guidance.
+  - Reused an existing subagent for read-only startup triage because the thread limit prevented spawning a new one.
+  - Verified `Microsoft.WindowsAppSDK` `1.7.260224002` is not viable with the current .NET 10 CLI build path because the PRI MSBuild task is missing from the SDK path.
+  - Restored `Microsoft.WindowsAppSDK` `1.8.260416003`.
+  - Confirmed `WindowsAppSDKSelfContained=true` crashes before the WinUI callback on this machine, while `WindowsAppSDKSelfContained=false` reaches managed startup.
+  - Added `XamlControlsResources` to `App.xaml` after `MainWindow.xaml` failed to resolve WinUI control resources.
+  - Ran Foundry after the resource fix; the process stayed running for the 10-second smoke window and was stopped by the harness.
+- Current validation state:
+  - `dotnet build src\Foundry\Foundry.csproj -c Debug` succeeds with 45 `MVVMTK0045` warnings.
+  - First WinUI shell smoke launch succeeds only with `WindowsAppSDKSelfContained=false`.
+- Follow-up required:
+  - Decide and document the Windows App SDK runtime strategy for Velopack MSI: framework-dependent Windows App SDK runtime with prerequisite/bootstrap behavior is currently the practical path.
+  - Remove `MVVMTK0045` warnings by converting `[ObservableProperty]` fields to partial properties.
+  - Continue page-by-page UI validation now that the shell can launch.
+
+### Phase 15 Update - Warning cleanup and mixed build
+- **Status:** in_progress
+- Actions taken:
+  - Converted all Foundry field-based `[ObservableProperty]` members to MVVM Toolkit partial properties for WinUI/WinRT compatibility.
+  - Rebuilt `src\Foundry\Foundry.csproj` successfully with 0 warnings and 0 errors.
+  - Smoke-launched Foundry successfully for 10 seconds.
+  - Rebuilt the full mixed solution successfully with 0 warnings and 0 errors.
+  - Ran all existing tests successfully:
+    - `Foundry.Tests`: 19 passed;
+    - `Foundry.Connect.Tests`: 15 passed;
+    - `Foundry.Deploy.Tests`: 41 passed.
+- Current validation state:
+  - The first WinUI shell/startup checkpoint is ready to commit.

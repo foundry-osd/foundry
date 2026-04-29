@@ -571,3 +571,29 @@
 - Before implementation begins, validate the updated plan artifacts as the source of truth.
 - During implementation, prove or disable Velopack deltas for the multi-architecture GitHub release layout.
 - During implementation, decide whether any non-UI extraction is required only if the migration reveals unavoidable coupling; do not introduce a shared library preemptively.
+
+## Implementation Findings - WinUI Startup and Packaging
+
+### Velopack beta package line
+- NuGet flat-container check on 2026-04-29 confirms the latest prerelease for `Velopack` and `vpk` is `0.0.1589-ga2c5a97`.
+- `Velopack.Build` latest prerelease is `0.0.1369-g1d5c984`.
+- Context7 Velopack docs continue to show the relevant packaging shape: publish to a folder, then run `vpk pack --packId ... --packVersion ... --packDir ... --mainExe ...`, with Windows MSI generation enabled by `--msi`.
+
+### Windows App SDK runtime strategy
+- `Microsoft.WindowsAppSDK` `1.8.260416003` builds on the current .NET 10 SDK.
+- `Microsoft.WindowsAppSDK` `1.7.260224002` is not currently viable with the `dotnet build` path because its PRI generation targets try to load `Microsoft.Build.Packaging.Pri.Tasks.dll` from `C:\Program Files\dotnet\sdk\10.0.203\Microsoft\VisualStudio\v18.0\AppxPackage`, where the task is not present.
+- `WindowsAppSDKSelfContained=true` currently crashes before the WinUI `Application.Start` callback on this machine with native `0xc000027b` / WER `80040154`.
+- `WindowsAppSDKSelfContained=false` reaches managed startup and can launch the WinUI shell after adding the standard WinUI resources.
+- This means the implementation should not keep assuming "self-contained" means Windows App SDK self-contained. The practical current path is:
+  - publish Foundry as a non-single-file folder for Velopack;
+  - keep the .NET/runtime publish strategy explicit during publish validation;
+  - use Windows App SDK framework runtime/bootstrap behavior unless later proof shows self-contained Windows App SDK output is stable.
+
+### WinUI shell startup requirements
+- A custom WinUI `Main` still needs to follow the generated startup shape:
+  - Velopack hook first;
+  - Windows App Runtime available before WinUI APIs;
+  - `WinRT.ComWrappersSupport.InitializeComWrappers()`;
+  - `DispatcherQueueSynchronizationContext` inside `Application.Start`;
+  - `App.InitializeComponent()` from the `App` constructor.
+- `App.xaml` must merge `XamlControlsResources`; otherwise standard WinUI controls such as `NavigationViewItem` fail to resolve theme resources like `TabViewButtonBackground`.

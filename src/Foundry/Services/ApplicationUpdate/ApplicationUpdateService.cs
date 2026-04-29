@@ -1,4 +1,3 @@
-﻿using System.Windows;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -100,7 +99,7 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                         _applicationShellService.ShowMessage(
                             _localizationService.Strings["UpdateCheck.UpToDateTitle"],
                             _localizationService.Strings["UpdateCheck.UpToDateMessage"],
-                            MessageBoxImage.Information);
+                            ApplicationMessageKind.Information);
                     }
                     break;
 
@@ -111,7 +110,7 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                         _applicationShellService.ShowMessage(
                             _localizationService.Strings["UpdateCheck.FailedTitle"],
                             _localizationService.Strings["UpdateCheck.FailedMessage"],
-                            MessageBoxImage.Error);
+                            ApplicationMessageKind.Error);
                     }
                     break;
             }

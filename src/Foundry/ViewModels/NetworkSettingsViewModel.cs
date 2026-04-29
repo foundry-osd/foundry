@@ -43,14 +43,14 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private bool isDot1xEnabled;
+    public partial bool IsDot1xEnabled { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private string dot1xProfileTemplatePath = string.Empty;
+    public partial string Dot1xProfileTemplatePath { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsDot1xCertificatePathEnabled))]
@@ -58,14 +58,14 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private bool isDot1xCertificateRequired;
+    public partial bool IsDot1xCertificateRequired { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private string dot1xCertificatePath = string.Empty;
+    public partial string Dot1xCertificatePath { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsWifiConfigurationSectionEnabled))]
@@ -77,7 +77,7 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private bool isWifiProvisioned;
+    public partial bool IsWifiProvisioned { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsWifiConfigurationSectionEnabled))]
@@ -89,14 +89,14 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private bool isWifiConfigured;
+    public partial bool IsWifiConfigured { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private string wifiSsid = string.Empty;
+    public partial string WifiSsid { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsWifiPersonalSectionEnabled))]
@@ -109,21 +109,21 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private string wifiSecurityType = WifiSecurityPersonal;
+    public partial string WifiSecurityType { get; set; } = WifiSecurityPersonal;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private string wifiPassphrase = string.Empty;
+    public partial string WifiPassphrase { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private string wifiEnterpriseProfileTemplatePath = string.Empty;
+    public partial string WifiEnterpriseProfileTemplatePath { get; set; } = string.Empty;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsWifiCertificatePathEnabled))]
@@ -131,14 +131,14 @@ public partial class NetworkSettingsViewModel : LocalizedViewModelBase
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private bool isWifiCertificateRequired;
+    public partial bool IsWifiCertificateRequired { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(ValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasValidationError))]
-    private string wifiCertificatePath = string.Empty;
+    public partial string WifiCertificatePath { get; set; } = string.Empty;
 
     public ObservableCollection<SecurityTypeOption> WifiSecurityTypes { get; } = [];
 

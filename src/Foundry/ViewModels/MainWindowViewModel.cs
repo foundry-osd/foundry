@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Logging;
@@ -18,6 +17,7 @@ using Foundry.Services.Operations;
 using Foundry.Services.Theme;
 using Foundry.Services.WinPe;
 using Microsoft.Extensions.Logging;
+using Microsoft.UI.Dispatching;
 
 namespace Foundry.ViewModels;
 
@@ -39,70 +39,70 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly IFoundryConnectProvisioningService _foundryConnectProvisioningService;
     private readonly IDeployConfigurationGenerator _deployConfigurationGenerator;
     private readonly ILogger<MainWindowViewModel> _logger;
-    private readonly Dispatcher _dispatcher;
+    private readonly DispatcherQueue? _dispatcherQueue;
 
     [ObservableProperty]
-    private bool showAdkBanner;
+    public partial bool ShowAdkBanner { get; set; }
 
     [ObservableProperty]
-    private bool isAdkMissing;
+    public partial bool IsAdkMissing { get; set; }
 
     [ObservableProperty]
-    private bool isAdkIncompatible;
+    public partial bool IsAdkIncompatible { get; set; }
 
     [ObservableProperty]
-    private bool canCreateIso;
+    public partial bool CanCreateIso { get; set; }
 
     [ObservableProperty]
-    private bool canCreateUsb;
+    public partial bool CanCreateUsb { get; set; }
 
     [ObservableProperty]
-    private bool isOperationInProgress;
+    public partial bool IsOperationInProgress { get; set; }
 
     [ObservableProperty]
-    private string isoOutputPath = string.Empty;
+    public partial string IsoOutputPath { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private WinPeArchitecture selectedArchitecture = WinPeArchitecture.X64;
+    public partial WinPeArchitecture SelectedArchitecture { get; set; } = WinPeArchitecture.X64;
 
     [ObservableProperty]
-    private bool isAdvancedOptionsExpanded;
+    public partial bool IsAdvancedOptionsExpanded { get; set; }
 
     [ObservableProperty]
-    private bool useCa2023;
+    public partial bool UseCa2023 { get; set; }
 
     [ObservableProperty]
-    private UsbPartitionStyle selectedPartitionStyle = UsbPartitionStyle.Gpt;
+    public partial UsbPartitionStyle SelectedPartitionStyle { get; set; } = UsbPartitionStyle.Gpt;
 
     [ObservableProperty]
-    private UsbFormatMode selectedUsbFormatMode = UsbFormatMode.Quick;
+    public partial UsbFormatMode SelectedUsbFormatMode { get; set; } = UsbFormatMode.Quick;
 
     [ObservableProperty]
-    private bool includeDellDrivers;
+    public partial bool IncludeDellDrivers { get; set; }
 
     [ObservableProperty]
-    private bool includeHpDrivers;
+    public partial bool IncludeHpDrivers { get; set; }
 
     [ObservableProperty]
-    private string customDriverDirectoryPath = string.Empty;
+    public partial string CustomDriverDirectoryPath { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private WinPeUsbDiskCandidate? selectedUsbDiskCandidate;
+    public partial WinPeUsbDiskCandidate? SelectedUsbDiskCandidate { get; set; }
 
     [ObservableProperty]
-    private string mediaActionMessage = string.Empty;
+    public partial string MediaActionMessage { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private bool isRefreshingUsbCandidates;
+    public partial bool IsRefreshingUsbCandidates { get; set; }
 
     [ObservableProperty]
-    private WinPeLanguageOption? selectedWinPeLanguage;
+    public partial WinPeLanguageOption? SelectedWinPeLanguage { get; set; }
 
     [ObservableProperty]
-    private bool isExpertMode;
+    public partial bool IsExpertMode { get; set; }
 
     [ObservableProperty]
-    private ExpertSectionItem? selectedExpertSection;
+    public partial ExpertSectionItem? SelectedExpertSection { get; set; }
 
     public ObservableCollection<WinPeUsbDiskCandidate> UsbDiskCandidates { get; } = [];
     public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
@@ -164,7 +164,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _foundryConnectProvisioningService = foundryConnectProvisioningService;
         _deployConfigurationGenerator = deployConfigurationGenerator;
         _logger = logger;
-        _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         Network = new NetworkSettingsViewModel(localizationService, applicationShellService, operationProgressService);
         Localization = new LocalizationSettingsViewModel(localizationService, languageRegistryService.GetLanguages());
@@ -1086,13 +1086,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     private void RunOnUiThread(Action action)
     {
-        if (_dispatcher.CheckAccess())
+        if (_dispatcherQueue is null || _dispatcherQueue.HasThreadAccess)
         {
             action();
             return;
         }
 
-        _dispatcher.Invoke(action);
+        _dispatcherQueue.TryEnqueue(() => action());
     }
 
     private static bool IsVisualStudioDebugSession()
