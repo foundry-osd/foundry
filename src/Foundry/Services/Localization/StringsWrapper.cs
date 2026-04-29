@@ -23,7 +23,7 @@ public sealed class StringsWrapper : INotifyPropertyChanged
         {
             return _resourceManager.GetString(key, _currentCulture) ?? key;
         }
-        set { /* No-op to support WPF controls that default to TwoWay/OneWayToSource binding */ }
+        set { /* No-op for bindings that attempt source updates on localized indexer values. */ }
     }
 
     public void SetCulture(CultureInfo culture)

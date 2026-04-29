@@ -4,7 +4,7 @@
 Migrate only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 17: Release Packaging and Velopack Validation
+Phase 18: Post-implementation Coherence Cleanup
 
 ## Constraints
 - Implementation phase approved by the user.
@@ -147,6 +147,18 @@ Phase 17: Release Packaging and Velopack Validation
 - [x] Validate Connect/Deploy ZIP artifacts are present beside Foundry Velopack release assets.
 - [x] Confirm local shell is not elevated; defer per-machine MSI install/uninstall proof to an elevated/manual validation environment.
 - [x] Commit release packaging and update integration.
+- **Status:** complete
+
+### Phase 18: Post-implementation Coherence Cleanup
+- [x] Re-audit implementation with read-only subagents.
+- [x] Re-check current WinUI, Windows Community Toolkit, and Velopack guidance with Context7.
+- [x] Remove obsolete Foundry dialog viewmodels left behind by the WinUI ContentDialog migration.
+- [x] Remove obsolete WPF menu / Standard-Expert mode resource keys.
+- [x] Restore About dialog link actions in the WinUI shell service.
+- [x] Remove misleading Velopack `--skip-updates` packaging flag.
+- [x] Require an explicit Velopack package version when packaging is enabled.
+- [x] Await startup USB refresh instead of fire-and-forget execution.
+- [x] Commit coherence cleanup.
 - **Status:** complete
 
 ## Key Questions

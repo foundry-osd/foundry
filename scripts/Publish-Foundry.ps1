@@ -2,7 +2,7 @@ param(
     [ValidateSet('Debug', 'Release')]
     [string]$Configuration = 'Release',
 
-    [string]$Version = '1.0.0',
+    [string]$Version,
 
     [string[]]$RuntimeIdentifiers = @('win-x64', 'win-arm64'),
 
@@ -130,8 +130,7 @@ function Invoke-Velopack {
         --instLocation PerMachine `
         --delta None `
         --icon $iconPath `
-        --yes `
-        --skip-updates
+        --yes
 
     if ($LASTEXITCODE -ne 0) {
         throw "Velopack packaging failed for Foundry ($RuntimeIdentifier)."
@@ -147,6 +146,10 @@ foreach ($runtimeIdentifier in $RuntimeIdentifiers) {
 }
 
 if (-not $SkipVelopack) {
+    if ([string]::IsNullOrWhiteSpace($Version)) {
+        throw "Version is required when Velopack packaging is enabled."
+    }
+
     if ([string]::IsNullOrWhiteSpace($VelopackVersion)) {
         $VelopackVersion = Get-VelopackPackageVersion
     }

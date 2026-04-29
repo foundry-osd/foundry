@@ -128,8 +128,9 @@ public sealed class ApplicationShellService : IApplicationShellService
 
     private async Task ShowAboutAsync()
     {
+        StringsWrapper strings = _localizationService.Strings;
         ContentDialog dialog = CreateContentDialog();
-        dialog.Title = _localizationService.Strings["About.Title"];
+        dialog.Title = strings["About.Title"];
         dialog.CloseButtonText = "Close";
         dialog.Content = new StackPanel
         {
@@ -137,9 +138,21 @@ public sealed class ApplicationShellService : IApplicationShellService
             Children =
             {
                 new TextBlock { Text = "Foundry", Style = TryGetTextStyle("TitleTextBlockStyle") },
-                new TextBlock { Text = string.Format(_localizationService.CurrentCulture, _localizationService.Strings["Common.VersionFormat"], FoundryApplicationInfo.Version) },
-                new TextBlock { Text = _localizationService.Strings["About.DescriptionLine1"], TextWrapping = TextWrapping.Wrap },
-                new TextBlock { Text = _localizationService.Strings["About.DescriptionLine2"], TextWrapping = TextWrapping.Wrap }
+                new TextBlock { Text = string.Format(_localizationService.CurrentCulture, strings["Common.VersionFormat"], FoundryApplicationInfo.Version) },
+                new TextBlock { Text = strings["About.DescriptionLine1"], TextWrapping = TextWrapping.Wrap },
+                new TextBlock { Text = strings["About.DescriptionLine2"], TextWrapping = TextWrapping.Wrap },
+                new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Spacing = 8,
+                    Children =
+                    {
+                        CreateLinkButton(strings["About.LicenseLink"], FoundryApplicationInfo.LicenseUrl),
+                        CreateLinkButton(strings["About.AuthorsLink"], FoundryApplicationInfo.AuthorsUrl),
+                        CreateLinkButton(strings["About.SupportLink"], FoundryApplicationInfo.SupportUrl)
+                    }
+                },
+                new TextBlock { Text = strings["About.Footer"], TextWrapping = TextWrapping.Wrap }
             }
         };
 
@@ -310,6 +323,17 @@ public sealed class ApplicationShellService : IApplicationShellService
     private static Style? TryGetTextStyle(string key)
     {
         return Application.Current.Resources.TryGetValue(key, out object value) ? value as Style : null;
+    }
+
+    private HyperlinkButton CreateLinkButton(string text, string url)
+    {
+        var button = new HyperlinkButton
+        {
+            Content = text,
+            Padding = new Thickness(0)
+        };
+        button.Click += (_, _) => OpenUrl(url);
+        return button;
     }
 
     private static DataTemplate CreateAutopilotProfileTemplate()

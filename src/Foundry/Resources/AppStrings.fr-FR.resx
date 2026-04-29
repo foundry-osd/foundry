@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Menu.File" xml:space="preserve">
-    <value>_Fichier</value>
-  </data>
-  <data name="Menu.Exit" xml:space="preserve">
-    <value>_Quitter</value>
-  </data>
-  <data name="Menu.Theme" xml:space="preserve">
-    <value>_Thème</value>
-  </data>
   <data name="Theme.System" xml:space="preserve">
     <value>_Système</value>
   </data>
@@ -135,44 +126,11 @@
   <data name="Theme.Dark" xml:space="preserve">
     <value>_Sombre</value>
   </data>
-  <data name="Menu.Language" xml:space="preserve">
-    <value>_Langue</value>
-  </data>
-  <data name="Menu.Tools" xml:space="preserve">
-    <value>_Outils</value>
-  </data>
-  <data name="Menu.Debug" xml:space="preserve">
-    <value>_Débogage</value>
-  </data>
-  <data name="Menu.DebugCheckForUpdates" xml:space="preserve">
-    <value>Afficher la vérification des _mises à jour</value>
-  </data>
-  <data name="Menu.Logs" xml:space="preserve">
-    <value>Ouvrir le _dossier des logs</value>
-  </data>
   <data name="Language.English" xml:space="preserve">
     <value>_Anglais</value>
   </data>
   <data name="Language.French" xml:space="preserve">
     <value>_Français</value>
-  </data>
-  <data name="Menu.Help" xml:space="preserve">
-    <value>_Aide</value>
-  </data>
-  <data name="Menu.About" xml:space="preserve">
-    <value>_À propos</value>
-  </data>
-  <data name="Menu.Documentation" xml:space="preserve">
-    <value>Documentation en _ligne</value>
-  </data>
-  <data name="Menu.GitHubRepository" xml:space="preserve">
-    <value>Dépôt _GitHub</value>
-  </data>
-  <data name="Menu.GitHubIssues" xml:space="preserve">
-    <value>Issues _GitHub</value>
-  </data>
-  <data name="Menu.CheckForUpdates" xml:space="preserve">
-    <value>Rechercher les _mises à jour...</value>
   </data>
   <data name="UpdateCheck.UpToDateTitle" xml:space="preserve">
     <value>Aucune mise à jour disponible</value>
@@ -189,29 +147,8 @@
   <data name="UpdateAvailable.Title" xml:space="preserve">
     <value>Mise à jour disponible</value>
   </data>
-  <data name="UpdateAvailable.Heading" xml:space="preserve">
-    <value>Une nouvelle version de Foundry est disponible !</value>
-  </data>
   <data name="UpdateAvailable.SummaryFormat" xml:space="preserve">
     <value>{0} est disponible. Vous utilisez actuellement la version {1}.</value>
-  </data>
-  <data name="UpdateAvailable.CurrentVersionLabel" xml:space="preserve">
-    <value>Version actuelle</value>
-  </data>
-  <data name="UpdateAvailable.LatestVersionLabel" xml:space="preserve">
-    <value>Nouvelle version</value>
-  </data>
-  <data name="UpdateAvailable.ReleaseLabel" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="UpdateAvailable.PublishedLabel" xml:space="preserve">
-    <value>Publication</value>
-  </data>
-  <data name="UpdateAvailable.PublishedUnknown" xml:space="preserve">
-    <value>Inconnue</value>
-  </data>
-  <data name="UpdateAvailable.ReleaseNotes" xml:space="preserve">
-    <value>Notes de version</value>
   </data>
   <data name="UpdateAvailable.NotesEmpty" xml:space="preserve">
     <value>Aucune note de version n'a été fournie pour cette version.</value>
@@ -402,9 +339,6 @@
   <data name="Usb.FormatModeComplete" xml:space="preserve">
     <value>Complet</value>
   </data>
-  <data name="General.StandardConfigurationSectionTitle" xml:space="preserve">
-    <value>Configuration standard</value>
-  </data>
   <data name="General.AdvancedOptionsHeader" xml:space="preserve">
     <value>Options avancees</value>
   </data>
@@ -465,9 +399,6 @@
   <data name="About.Title" xml:space="preserve">
     <value>A propos de Foundry</value>
   </data>
-  <data name="About.CheckForUpdatesLabel" xml:space="preserve">
-    <value>Rechercher des mises à jour :</value>
-  </data>
   <data name="About.DescriptionLine1" xml:space="preserve">
     <value>Foundry est une solution moderne de déploiement Windows basée sur une application desktop et WinPE.</value>
   </data>
@@ -491,24 +422,6 @@
   </data>
   <data name="General.IsoPickerFilter" xml:space="preserve">
     <value>Image ISO (*.iso)|*.iso</value>
-  </data>
-  <data name="Menu.Mode" xml:space="preserve">
-    <value>_Mode</value>
-  </data>
-  <data name="Mode.Standard" xml:space="preserve">
-    <value>_Standard</value>
-  </data>
-  <data name="Mode.Expert" xml:space="preserve">
-    <value>E_xpert</value>
-  </data>
-  <data name="Menu.ImportExpertConfig" xml:space="preserve">
-    <value>_Importer la configuration Expert</value>
-  </data>
-  <data name="Menu.ExportExpertConfig" xml:space="preserve">
-    <value>Exporter la configuration _Expert</value>
-  </data>
-  <data name="Menu.ExportDeployConfig" xml:space="preserve">
-    <value>Exporter la configuration _Deploy</value>
   </data>
   <data name="Common.JsonPickerFilter" xml:space="preserve">
     <value>Fichier JSON (*.json)|*.json</value>

@@ -34,7 +34,7 @@ public sealed partial class MainWindow : Window
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)
     {
         Root.Loaded -= OnLoadedAsync;
-        _ = _viewModel.RefreshUsbCandidatesCommand.ExecuteAsync(null);
+        await _viewModel.RefreshUsbCandidatesCommand.ExecuteAsync(null);
         await _viewModel.RunStartupUpdateCheckAsync();
     }
 

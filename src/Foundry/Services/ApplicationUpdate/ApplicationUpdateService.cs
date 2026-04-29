@@ -87,7 +87,7 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                         result.UpdateInfo!.CurrentVersion,
                         result.UpdateInfo.LatestVersion,
                         result.UpdateInfo.ReleaseUrl);
-                    await HandleAvailableUpdateAsync(result.UpdateInfo!, cancellationToken).ConfigureAwait(false);
+                    await HandleAvailableUpdateAsync(result.UpdateInfo!, cancellationToken);
                     break;
 
                 case UpdateCheckStatus.UpToDate:

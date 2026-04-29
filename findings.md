@@ -630,3 +630,18 @@
 ### Remaining release proof gaps
 - MSI install, elevated launch from the installed stub, update, and uninstall behavior still need a clean-host proof before release readiness.
 - Visual C++ Redistributable / Windows App SDK runtime prerequisite behavior remains a deployment proof item. The current implementation does not add a Velopack `--framework` bootstrap dependency because the exact target-host prerequisite strategy still needs installer validation.
+
+## Implementation Findings - Post-migration Coherence Cleanup
+
+### Obsolete code removed
+- `AboutDialogViewModel` and `UpdateAvailableDialogViewModel` were leftover WPF-dialog-era viewmodels after the WinUI migration moved About/update UI into `ApplicationShellService` `ContentDialog` flows.
+- English and French resource files still carried WPF menu keys and Standard/Expert mode keys after the shell moved to `NavigationView` and mode switching was removed.
+- The localization indexer setter kept a WPF-specific compatibility comment; the no-op setter remains, but the wording is now framework-neutral.
+
+### Release packaging cleanup
+- The previous Velopack command accepted `--skip-updates` while the workflow intentionally validates and publishes Velopack update-feed assets. Local proof showed feed assets were still emitted, but the flag made the release contract ambiguous.
+- `scripts\Publish-Foundry.ps1` now requires an explicit `-Version` when Velopack packaging is enabled so local/manual packages do not silently use `1.0.0`.
+
+### Remaining coverage gap
+- Read-only test audit found no stale WPF-shell or Standard/Expert assertions in the existing tests.
+- Future high-value coverage should target the new WinUI-era non-UI behavior in viewmodels: Start/readiness state, import/export applying full configuration, Network validation branches, Localization normalization, Autopilot default selection, and Customization machine-naming rules.

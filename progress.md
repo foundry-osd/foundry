@@ -346,3 +346,28 @@
   - WPF/single-file stale-reference sweeps returned no matches in Foundry, README, workflow, and scripts.
   - Local shell is not elevated, so per-machine MSI install/uninstall proof was not run in this session.
   - Created checkpoint commit `build(release): package foundry with velopack msi`.
+
+### Phase 18: Post-implementation Coherence Cleanup
+- **Status:** in_progress
+- **Started:** 2026-04-29
+- Actions taken:
+  - Reused existing read-only subagents because the subagent thread limit prevented spawning new ones.
+  - Used Context7 to re-check Windows App SDK WinUI desktop guidance, Velopack packaging/update guidance, and Windows Community Toolkit Settings controls.
+  - Removed obsolete `AboutDialogViewModel` and `UpdateAvailableDialogViewModel`; About and update prompts are now built by the WinUI shell service.
+  - Restored About dialog license/authors/support links in the WinUI `ContentDialog`.
+  - Removed obsolete WPF menu, Standard/Expert mode, and old update dialog resource keys from English and French resources.
+  - Removed stale WPF wording from the localization indexer no-op setter comment.
+  - Removed the remaining UI-facing `ConfigureAwait(false)` from the update prompt path.
+  - Awaited startup USB refresh instead of fire-and-forget command execution.
+  - Removed the misleading Velopack `--skip-updates` flag while keeping feed asset generation.
+  - Made `scripts\Publish-Foundry.ps1` require an explicit version when Velopack packaging is enabled, avoiding accidental `1.0.0` packages.
+  - Recorded subagent test-audit finding: no stale WPF/Standard-Expert test assumptions found, but new ViewModel behaviors need future focused unit coverage.
+- Validation:
+  - `dotnet build src\Foundry.slnx -c Debug -p:Platform=x64 --nologo` succeeded with 0 warnings and 0 errors.
+  - `dotnet test src\Foundry.slnx -c Debug -p:Platform=x64 --no-build --nologo` passed: Foundry.Tests 19, Connect.Tests 15, Deploy.Tests 41.
+  - Debug smoke launch passed for Home and Settings.
+  - `scripts\Publish-Foundry.ps1 -Configuration Release -Version 26.4.29.3` succeeded for x64 and ARM64 after removing `--skip-updates`.
+  - Fresh Velopack x64/ARM64 feed, package, setup, portable, and MSI assets were validated.
+  - Published x64 Foundry smoke launch stayed running.
+  - `dotnet build src\Foundry.slnx -c Release -p:Platform=x64 --nologo` succeeded with 0 warnings and 0 errors.
+  - `dotnet test src\Foundry.slnx -c Release -p:Platform=x64 --no-build --nologo` passed: Foundry.Tests 19, Connect.Tests 15, Deploy.Tests 41.
