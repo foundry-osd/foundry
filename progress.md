@@ -12,6 +12,17 @@
   - Confirmed dedicated branch is `codex/winui3-migration-study`.
   - Created planning artifacts.
   - Corrected initial plan artifact placement from the primary checkout into the dedicated worktree.
+  - Created initial plan-only checkpoint commit `docs(plan): initialize winui migration study`.
+  - Spawned three read-only subagents for build topology, Foundry migration surface, and cross-project/publish impact.
+  - Resolved Windows App SDK documentation through Context7.
+  - Inspected solution, shared props, app projects, test projects, and initial publish-related search hits.
+  - Recorded first build topology findings.
+  - Inspected Foundry startup, app resources, main window, service registration, shell service, theme service, dispatcher usage, views, dialogs, converters, and representative viewmodels.
+  - Inspected release workflow, CI workflow, local publish scripts, local WinPE script, WinPE embedding services, USB provisioning, and WinPE default path constants.
+  - Verified current Microsoft documentation for Windows App SDK project properties, unpackaged deployment, self-contained deployment, single-project MSIX, WPF-to-WinUI migration patterns, threading, dialogs, pickers, and publish limitations.
+  - Recorded Foundry migration surface and packaging impact findings.
+  - Inspected `Foundry.Connect` and `Foundry.Deploy` startup, app resources, main windows, shell services, theme services, and DI to confirm they remain WPF and share the same global build assumptions.
+  - Synthesized final migration study, decision matrix, risks, and validation decisions in `findings.md`.
 - Files created/modified:
   - `task_plan.md`
   - `findings.md`
