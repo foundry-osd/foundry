@@ -146,8 +146,8 @@ Phase 17: Release Packaging and Velopack Validation
 - [x] Validate published x64 Foundry startup from the publish folder.
 - [x] Validate Connect/Deploy ZIP artifacts are present beside Foundry Velopack release assets.
 - [x] Confirm local shell is not elevated; defer per-machine MSI install/uninstall proof to an elevated/manual validation environment.
-- [ ] Commit release packaging and update integration.
-- **Status:** in_progress
+- [x] Commit release packaging and update integration.
+- **Status:** complete
 
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?

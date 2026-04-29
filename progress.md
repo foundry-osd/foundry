@@ -345,3 +345,4 @@
   - Fresh Connect/Deploy release ZIPs are present for x64 and ARM64.
   - WPF/single-file stale-reference sweeps returned no matches in Foundry, README, workflow, and scripts.
   - Local shell is not elevated, so per-machine MSI install/uninstall proof was not run in this session.
+  - Created checkpoint commit `build(release): package foundry with velopack msi`.
