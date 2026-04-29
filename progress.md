@@ -311,3 +311,37 @@
   - Re-ran all existing tests successfully.
 - Current validation state:
   - Page runtime smoke, mixed build, and existing tests are passing after the async picker and full-configuration cleanup.
+
+### Phase 17: Release Packaging, Publish Proof, and Velopack Updates
+- **Status:** in_progress
+- **Started:** 2026-04-29
+- Actions taken:
+  - Re-checked the current NuGet prerelease line for `Velopack` and `vpk`; latest prerelease remains `0.0.1589-ga2c5a97`.
+  - Used Context7 Velopack documentation to verify the required startup hook, `vpk pack`, MSI generation, `UpdateManager`, and update-apply flow.
+  - Confirmed `vpk pack --help` in the beta CLI exposes `--msi` and `--instLocation`.
+  - Added a dedicated `scripts\Publish-Foundry.ps1` script that publishes Foundry per runtime, validates WinUI `.xbf`/`.pri` resources, installs the beta `vpk` CLI, and packages Velopack assets.
+  - Updated Foundry publish behavior so `.xbf` and `.pri` files are copied into the publish folder before Velopack packaging.
+  - Proved x64 and ARM64 Foundry publish outputs contain WinUI resources.
+  - Proved x64 publish output starts successfully from the publish folder.
+  - Proved Velopack packaging creates MSI, Setup, portable zip, `.nupkg`, `RELEASES`, release index JSON, and asset index JSON for `win-x64-stable` and `win-arm64-stable`.
+  - Updated the release workflow so GitHub releases are created only after Foundry Velopack assets and Connect/Deploy ZIP assets are built and validated.
+  - Preserved Connect/Deploy publish scripts and validated their runtime ZIP artifacts locally.
+  - Integrated Velopack `UpdateManager` for installed Foundry builds and kept the GitHub release-page fallback for non-installed local/debug runs.
+  - Added `Install and restart` update prompting for Velopack-installed builds; non-installed builds still offer the release page.
+  - Updated Velopack packing to use `--instLocation PerMachine`.
+  - Made the publish script resolve the `vpk` tool version from the `Velopack` package reference by default to avoid package/tool prerelease drift.
+  - Updated README download links from old single-file Foundry executables to the new architecture-specific MSI assets.
+  - Removed `ConfigureAwait(false)` from UI-facing update flow awaits so WinUI update dialogs are shown from the UI dispatcher.
+  - Rebuilt Foundry Debug successfully after update integration.
+  - Smoke-launched Foundry Debug on the Settings page after update integration.
+- Current validation state:
+  - `dotnet build src\Foundry.slnx -c Release -p:Platform=x64 --nologo` succeeded with 0 warnings and 0 errors.
+  - `dotnet test src\Foundry.slnx -c Release -p:Platform=x64 --no-build --nologo` passed: Foundry.Tests 19, Connect.Tests 15, Deploy.Tests 41.
+  - The same Release build and test commands were rerun after the update dispatcher fix and passed again.
+  - `scripts\Publish-Foundry.ps1 -Configuration Release -Version 26.4.29.2` succeeded for x64 and ARM64.
+  - Published Foundry x64 launched and was stopped after the smoke window.
+  - Foundry publish outputs contain WinUI resources: x64 has 11 XBF / 1 PRI, ARM64 has 11 XBF / 1 PRI.
+  - Fresh Foundry Velopack assets are present for x64 and ARM64.
+  - Fresh Connect/Deploy release ZIPs are present for x64 and ARM64.
+  - WPF/single-file stale-reference sweeps returned no matches in Foundry, README, workflow, and scripts.
+  - Local shell is not elevated, so per-machine MSI install/uninstall proof was not run in this session.

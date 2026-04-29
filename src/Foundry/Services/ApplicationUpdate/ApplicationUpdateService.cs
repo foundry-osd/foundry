@@ -5,6 +5,8 @@ using System.Diagnostics;
 using Foundry.Services.ApplicationShell;
 using Foundry.Services.Localization;
 using Microsoft.Extensions.Logging;
+using Velopack;
+using Velopack.Sources;
 
 namespace Foundry.Services.ApplicationUpdate;
 
@@ -56,7 +58,7 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
 
         try
         {
-            await CheckForUpdatesCoreAsync(UpdateCheckTrigger.Startup, notifyWhenCurrent: false, notifyWhenFailure: false, cancellationToken).ConfigureAwait(false);
+            await CheckForUpdatesCoreAsync(UpdateCheckTrigger.Startup, notifyWhenCurrent: false, notifyWhenFailure: false, cancellationToken);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
@@ -70,11 +72,11 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
         bool notifyWhenFailure,
         CancellationToken cancellationToken)
     {
-        await _checkGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        await _checkGate.WaitAsync(cancellationToken);
 
         try
         {
-            UpdateCheckResult result = await GetUpdateCheckResultAsync(trigger, cancellationToken).ConfigureAwait(false);
+            UpdateCheckResult result = await GetUpdateCheckResultAsync(trigger, cancellationToken);
 
             switch (result.Status)
             {
@@ -85,7 +87,7 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
                         result.UpdateInfo!.CurrentVersion,
                         result.UpdateInfo.LatestVersion,
                         result.UpdateInfo.ReleaseUrl);
-                    _applicationShellService.ShowUpdateAvailable(result.UpdateInfo!);
+                    await HandleAvailableUpdateAsync(result.UpdateInfo!, cancellationToken).ConfigureAwait(false);
                     break;
 
                 case UpdateCheckStatus.UpToDate:
@@ -121,6 +123,75 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
         }
     }
 
+    private async Task HandleAvailableUpdateAsync(
+        ApplicationUpdateInfo updateInfo,
+        CancellationToken cancellationToken)
+    {
+        ApplicationUpdatePromptResult promptResult = await _applicationShellService
+            .ShowUpdateAvailableAsync(updateInfo);
+
+        switch (promptResult)
+        {
+            case ApplicationUpdatePromptResult.InstallAndRestart:
+                await InstallUpdateAndRestartAsync(updateInfo, cancellationToken);
+                break;
+
+            case ApplicationUpdatePromptResult.OpenRelease:
+                _applicationShellService.OpenUrl(updateInfo.ReleaseUrl);
+                break;
+        }
+    }
+
+    private async Task InstallUpdateAndRestartAsync(
+        ApplicationUpdateInfo updateInfo,
+        CancellationToken cancellationToken)
+    {
+        if (updateInfo.VelopackUpdate is null)
+        {
+            _logger.LogWarning("Automatic update installation was requested without Velopack update metadata.");
+            _applicationShellService.OpenUrl(updateInfo.ReleaseUrl);
+            return;
+        }
+
+        try
+        {
+            UpdateManager updateManager = CreateVelopackUpdateManager();
+            if (!updateManager.IsInstalled)
+            {
+                _logger.LogWarning("Automatic update installation was requested while Foundry is not installed by Velopack.");
+                _applicationShellService.OpenUrl(updateInfo.ReleaseUrl);
+                return;
+            }
+
+            _logger.LogInformation(
+                "Downloading Velopack update. CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}",
+                updateInfo.CurrentVersion,
+                updateInfo.LatestVersion);
+
+            await updateManager.DownloadUpdatesAsync(
+                    updateInfo.VelopackUpdate,
+                    progress => _logger.LogInformation("Velopack update download progress: {Progress}%", progress),
+                    cancellationToken);
+
+            _logger.LogInformation(
+                "Applying Velopack update and restarting Foundry. LatestVersion={LatestVersion}",
+                updateInfo.LatestVersion);
+            updateManager.ApplyUpdatesAndRestart(updateInfo.VelopackUpdate.TargetFullRelease);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            _logger.LogInformation("Velopack update installation was canceled.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Velopack update installation failed.");
+            _applicationShellService.ShowMessage(
+                _localizationService.Strings["UpdateInstall.FailedTitle"],
+                _localizationService.Strings["UpdateInstall.FailedMessage"],
+                ApplicationMessageKind.Error);
+        }
+    }
+
     private async Task<UpdateCheckResult> GetUpdateCheckResultAsync(
         UpdateCheckTrigger trigger,
         CancellationToken cancellationToken)
@@ -138,6 +209,13 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
 
         try
         {
+            UpdateManager updateManager = CreateVelopackUpdateManager();
+            if (updateManager.IsInstalled)
+            {
+                return await GetVelopackUpdateCheckResultAsync(updateManager, trigger).ConfigureAwait(false);
+            }
+
+            _logger.LogDebug("Foundry is not installed by Velopack. Falling back to GitHub release metadata for update checks.");
             GitHubReleaseInfo latestRelease = await GetLatestReleaseAsync(cancellationToken).ConfigureAwait(false);
             Version? latestVersion = TryParseVersion(latestRelease.TagName);
             if (latestVersion is null)
@@ -167,6 +245,44 @@ public sealed class ApplicationUpdateService : IApplicationUpdateService
             _logger.LogWarning(ex, "Foundry failed to query the latest GitHub release. Trigger={Trigger}", trigger);
             return UpdateCheckResult.Failed();
         }
+    }
+
+    private async Task<UpdateCheckResult> GetVelopackUpdateCheckResultAsync(
+        UpdateManager updateManager,
+        UpdateCheckTrigger trigger)
+    {
+        Velopack.UpdateInfo? updateInfo = await updateManager.CheckForUpdatesAsync().ConfigureAwait(false);
+        string currentVersionDisplay = NormalizeVersionDisplay(updateManager.CurrentVersion?.ToString() ?? FoundryApplicationInfo.Version);
+        if (updateInfo is null)
+        {
+            return UpdateCheckResult.UpToDate(currentVersionDisplay);
+        }
+
+        VelopackAsset targetRelease = updateInfo.TargetFullRelease;
+        string latestVersionDisplay = NormalizeVersionDisplay(targetRelease.Version?.ToString() ?? string.Empty);
+        if (string.IsNullOrWhiteSpace(latestVersionDisplay))
+        {
+            _logger.LogWarning("Velopack returned an update without a target release version. Trigger={Trigger}", trigger);
+            return UpdateCheckResult.Failed();
+        }
+
+        return UpdateCheckResult.UpdateAvailable(new ApplicationUpdateInfo(
+            CurrentVersion: currentVersionDisplay,
+            LatestVersion: latestVersionDisplay,
+            ReleaseTitle: latestVersionDisplay,
+            ReleaseUrl: FoundryApplicationInfo.LatestReleaseUrl,
+            PublishedAt: null,
+            ReleaseNotes: NormalizeReleaseNotes(targetRelease.NotesMarkdown),
+            VelopackUpdate: updateInfo));
+    }
+
+    private static UpdateManager CreateVelopackUpdateManager()
+    {
+        GithubSource updateSource = new(
+            FoundryApplicationInfo.RepositoryUrl,
+            accessToken: string.Empty,
+            prerelease: false);
+        return new UpdateManager(updateSource);
     }
 
     private static async Task<GitHubReleaseInfo> GetLatestReleaseAsync(CancellationToken cancellationToken)

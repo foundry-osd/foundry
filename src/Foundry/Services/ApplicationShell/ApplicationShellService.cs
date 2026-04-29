@@ -44,12 +44,6 @@ public sealed class ApplicationShellService : IApplicationShellService
         _ = ShowAboutAsync();
     }
 
-    public void ShowUpdateAvailable(ApplicationUpdateInfo updateInfo)
-    {
-        ArgumentNullException.ThrowIfNull(updateInfo);
-        _ = ShowUpdateAvailableAsync(updateInfo);
-    }
-
     public void OpenUrl(string url)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(url);
@@ -152,13 +146,22 @@ public sealed class ApplicationShellService : IApplicationShellService
         await dialog.ShowAsync();
     }
 
-    private async Task ShowUpdateAvailableAsync(ApplicationUpdateInfo updateInfo)
+    public async Task<ApplicationUpdatePromptResult> ShowUpdateAvailableAsync(ApplicationUpdateInfo updateInfo)
     {
+        ArgumentNullException.ThrowIfNull(updateInfo);
+
         ContentDialog dialog = CreateContentDialog();
         dialog.Title = _localizationService.Strings["UpdateAvailable.Title"];
-        dialog.PrimaryButtonText = _localizationService.Strings["UpdateAvailable.OpenRelease"];
+        dialog.PrimaryButtonText = updateInfo.CanInstallAutomatically
+            ? _localizationService.Strings["UpdateAvailable.InstallAndRestart"]
+            : _localizationService.Strings["UpdateAvailable.OpenRelease"];
+        if (updateInfo.CanInstallAutomatically)
+        {
+            dialog.SecondaryButtonText = _localizationService.Strings["UpdateAvailable.OpenRelease"];
+        }
+
         dialog.CloseButtonText = _localizationService.Strings["UpdateAvailable.Later"];
-        dialog.DefaultButton = ContentDialogButton.Primary;
+        dialog.DefaultButton = ContentDialogButton.Close;
         dialog.Content = new ScrollViewer
         {
             MaxHeight = 460,
@@ -188,10 +191,13 @@ public sealed class ApplicationShellService : IApplicationShellService
         };
 
         ContentDialogResult result = await dialog.ShowAsync();
-        if (result == ContentDialogResult.Primary)
+        return result switch
         {
-            OpenUrl(updateInfo.ReleaseUrl);
-        }
+            ContentDialogResult.Primary when updateInfo.CanInstallAutomatically => ApplicationUpdatePromptResult.InstallAndRestart,
+            ContentDialogResult.Primary => ApplicationUpdatePromptResult.OpenRelease,
+            ContentDialogResult.Secondary => ApplicationUpdatePromptResult.OpenRelease,
+            _ => ApplicationUpdatePromptResult.Later
+        };
     }
 
     private async Task<IReadOnlyList<AutopilotProfileSettings>?> ShowAutopilotProfileSelectionAsync(IReadOnlyList<AutopilotProfileSettings> availableProfiles)

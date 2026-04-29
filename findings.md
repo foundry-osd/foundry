@@ -597,3 +597,36 @@
   - `DispatcherQueueSynchronizationContext` inside `Application.Start`;
   - `App.InitializeComponent()` from the `App` constructor.
 - `App.xaml` must merge `XamlControlsResources`; otherwise standard WinUI controls such as `NavigationViewItem` fail to resolve theme resources like `TabViewButtonBackground`.
+
+## Implementation Findings - Publish and Velopack
+
+### Foundry publish proof
+- Foundry publish must copy WinUI compiled resources into the publish folder. Without `.xbf` and `.pri`, the published app crashes even though build output launches.
+- The current implementation adds a publish target that copies `.xbf` and `.pri` from the build output to `$(PublishDir)`.
+- Local x64 publish output now contains WinUI resources and launches from the publish folder.
+- ARM64 publish output contains the same WinUI resource classes and is packageable, but cannot be runtime-launched on this x64 machine.
+
+### Velopack packaging proof
+- Current `vpk` beta `0.0.1589-ga2c5a97` supports `--msi` and `--instLocation`.
+- The publish script resolves the `vpk` tool version from the Foundry `Velopack` package reference by default, so the beta package and beta CLI do not silently drift.
+- Foundry packaging uses:
+  - `--packId FoundryOSD.Foundry`;
+  - `--mainExe Foundry.exe`;
+  - `--runtime win-x64` / `win-arm64`;
+  - `--channel win-x64-stable` / `win-arm64-stable`;
+  - `--msi true`;
+  - `--instLocation PerMachine`;
+  - `--delta None` for the first rollout.
+- Local packaging produced MSI, Setup, portable zip, full `.nupkg`, `RELEASES-*`, `releases.*.json`, and `assets.*.json` outputs for both supported architectures.
+- The release workflow now builds and validates all Foundry Velopack assets and Connect/Deploy ZIP assets before creating the public GitHub release.
+
+### Velopack update integration
+- `VelopackApp.Build().Run()` is already executed as the first startup action in the custom WinUI entrypoint.
+- The update service now prefers Velopack `UpdateManager` when Foundry is installed by Velopack.
+- Installed builds can prompt for `Install and restart`, download updates through Velopack, and apply the target release through `ApplyUpdatesAndRestart`.
+- Non-installed local/debug builds fall back to GitHub release metadata and open the release page instead of pretending that update installation is available.
+- Runtime channel behavior is left to the installed Velopack package/feed metadata instead of hard-coding a channel in application code.
+
+### Remaining release proof gaps
+- MSI install, elevated launch from the installed stub, update, and uninstall behavior still need a clean-host proof before release readiness.
+- Visual C++ Redistributable / Windows App SDK runtime prerequisite behavior remains a deployment proof item. The current implementation does not add a Velopack `--framework` bootstrap dependency because the exact target-host prerequisite strategy still needs installer validation.

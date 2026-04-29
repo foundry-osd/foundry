@@ -95,17 +95,6 @@ jobs:
               Write-Host "No commits found since '$latestReleaseTag'. Skipping release creation."
           }
 
-      - name: Create GitHub release
-        if: steps.compute.outputs.should_release == 'true'
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create "${{ steps.compute.outputs.release_tag }}" `
-            --title "${{ steps.compute.outputs.release_name }}" `
-            --target "${{ github.sha }}" `
-            --generate-notes
-
   publish-release-assets:
     name: Publish Release Assets
     runs-on: windows-latest
@@ -173,78 +162,30 @@ jobs:
         run: |
           $workspace = $env:GITHUB_WORKSPACE
           $releaseRoot = Join-Path $workspace 'artifacts\release'
-          $publishRoot = Join-Path $releaseRoot 'publish'
-          $foundryProject = Join-Path $workspace 'src\Foundry\Foundry.csproj'
-          $connectProject = Join-Path $workspace 'src\Foundry.Connect\Foundry.Connect.csproj'
-          $deployProject = Join-Path $workspace 'src\Foundry.Deploy\Foundry.Deploy.csproj'
-          $publishProperties = @(
-              'PublishSingleFile=true',
-              'EnableCompressionInSingleFile=true',
-              'IncludeNativeLibrariesForSelfExtract=true',
-              'IncludeAllContentForSelfExtract=true',
-              'DebugType=None',
-              'GenerateDocumentationFile=false'
-          )
-
-          function Invoke-Publish {
-              param(
-                  [Parameter(Mandatory = $true)]
-                  [string]$ProjectPath,
-                  [Parameter(Mandatory = $true)]
-                  [string]$RuntimeIdentifier,
-                  [Parameter(Mandatory = $true)]
-                  [string]$OutputPath
-              )
-
-              if (Test-Path -Path $OutputPath) {
-                  Remove-Item -Path $OutputPath -Recurse -Force
-              }
-
-              New-Item -Path $OutputPath -ItemType Directory -Force | Out-Null
-
-              $publishArgs = @(
-                  'publish',
-                  $ProjectPath,
-                  '-c', 'Release',
-                  '-r', $RuntimeIdentifier,
-                  '--self-contained', 'true',
-                  '-o', $OutputPath,
-                  '--nologo'
-              )
-
-              foreach ($property in $publishProperties) {
-                  $publishArgs += "-p:$property"
-              }
-
-              dotnet @publishArgs
-              if ($LASTEXITCODE -ne 0) {
-                  throw "dotnet publish failed for '$ProjectPath' ($RuntimeIdentifier)."
-              }
-          }
 
           if (Test-Path -Path $releaseRoot) {
               Remove-Item -Path $releaseRoot -Recurse -Force
           }
 
           New-Item -Path $releaseRoot -ItemType Directory -Force | Out-Null
-          New-Item -Path $publishRoot -ItemType Directory -Force | Out-Null
+
+          & (Join-Path $workspace 'scripts\Publish-Foundry.ps1') -Configuration Release -Version $env:RELEASE_VERSION
+          if ($LASTEXITCODE -ne 0) {
+              throw 'Foundry publish and Velopack packaging failed.'
+          }
+
+          & (Join-Path $workspace 'scripts\Publish-FoundryConnect.ps1') -Configuration Release -AllRuntimes
+          if ($LASTEXITCODE -ne 0) {
+              throw 'Foundry.Connect publish failed.'
+          }
+
+          & (Join-Path $workspace 'scripts\Publish-FoundryDeploy.ps1') -Configuration Release -AllRuntimes
+          if ($LASTEXITCODE -ne 0) {
+              throw 'Foundry.Deploy publish failed.'
+          }
 
           foreach ($runtimeIdentifier in @('win-x64', 'win-arm64')) {
-              $architecture = if ($runtimeIdentifier -eq 'win-x64') { 'x64' } else { 'arm64' }
-
-              $foundryPublishPath = Join-Path $publishRoot (Join-Path 'Foundry' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $foundryProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $foundryPublishPath
-
-              $foundryExecutable = Join-Path $foundryPublishPath 'Foundry.exe'
-              if (-not (Test-Path -Path $foundryExecutable -PathType Leaf)) {
-                  throw "Expected Foundry executable not found: '$foundryExecutable'."
-              }
-
-              $foundryAssetPath = Join-Path $releaseRoot "Foundry-${architecture}.exe"
-              Copy-Item -Path $foundryExecutable -Destination $foundryAssetPath -Force
-
-              $deployPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Deploy' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $deployProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $deployPublishPath
+              $deployPublishPath = Join-Path $workspace "artifacts\publish\Foundry.Deploy\$runtimeIdentifier"
 
               $deployExecutable = Join-Path $deployPublishPath 'Foundry.Deploy.exe'
               if (-not (Test-Path -Path $deployExecutable -PathType Leaf)) {
@@ -254,8 +195,7 @@ jobs:
               $deployAssetPath = Join-Path $releaseRoot "Foundry.Deploy-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
 
-              $connectPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Connect' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $connectProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $connectPublishPath
+              $connectPublishPath = Join-Path $workspace "artifacts\publish\Foundry.Connect\$runtimeIdentifier"
 
               $connectExecutable = Join-Path $connectPublishPath 'Foundry.Connect.exe'
               if (-not (Test-Path -Path $connectExecutable -PathType Leaf)) {
@@ -266,26 +206,39 @@ jobs:
               Compress-Archive -Path (Join-Path $connectPublishPath '*') -DestinationPath $connectAssetPath -CompressionLevel Optimal -Force
           }
 
-      - name: Upload release assets
+      - name: Create release with assets
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           $releaseTag = '${{ needs.prepare-release.outputs.release_tag }}'
           $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts\release'
-          $assets = @(
-              (Join-Path $releaseRoot 'Foundry-x64.exe'),
-              (Join-Path $releaseRoot 'Foundry-arm64.exe'),
-              (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip')
+          $requiredAssets = @(
+              'FoundryOSD.Foundry-win-x64-stable.msi',
+              'FoundryOSD.Foundry-win-arm64-stable.msi',
+              'FoundryOSD.Foundry-*-win-x64-stable-full.nupkg',
+              'FoundryOSD.Foundry-*-win-arm64-stable-full.nupkg',
+              'RELEASES-win-x64-stable',
+              'RELEASES-win-arm64-stable',
+              'releases.win-x64-stable.json',
+              'releases.win-arm64-stable.json',
+              'assets.win-x64-stable.json',
+              'assets.win-arm64-stable.json',
+              'Foundry.Connect-win-x64.zip',
+              'Foundry.Connect-win-arm64.zip',
+              'Foundry.Deploy-win-x64.zip',
+              'Foundry.Deploy-win-arm64.zip'
           )
 
-          foreach ($asset in $assets) {
-              if (-not (Test-Path -Path $asset -PathType Leaf)) {
-                  throw "Release asset was not created: '$asset'."
+          foreach ($assetPattern in $requiredAssets) {
+              $matches = @(Get-ChildItem -Path $releaseRoot -Filter $assetPattern -File)
+              if ($matches.Count -eq 0) {
+                  throw "Release asset was not created: '$assetPattern'."
               }
           }
 
-          gh release upload $releaseTag @assets --clobber
+          $assets = @(Get-ChildItem -Path $releaseRoot -File | Sort-Object Name | ForEach-Object { $_.FullName })
+          gh release create $releaseTag @assets `
+            --title "${{ needs.prepare-release.outputs.release_name }}" `
+            --target "${{ github.sha }}" `
+            --generate-notes

@@ -6,8 +6,11 @@ public sealed record ApplicationUpdateInfo(
     string ReleaseTitle,
     string ReleaseUrl,
     DateTimeOffset? PublishedAt,
-    string ReleaseNotes)
+    string ReleaseNotes,
+    Velopack.UpdateInfo? VelopackUpdate = null)
 {
+    public bool CanInstallAutomatically => VelopackUpdate is not null;
+
     public string SummaryReleaseTitle =>
         string.IsNullOrWhiteSpace(ReleaseTitle)
             ? LatestVersion

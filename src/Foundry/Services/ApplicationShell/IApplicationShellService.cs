@@ -10,13 +10,20 @@ public enum ApplicationMessageKind
     Error
 }
 
+public enum ApplicationUpdatePromptResult
+{
+    InstallAndRestart,
+    OpenRelease,
+    Later
+}
+
 public interface IApplicationShellService
 {
     void Shutdown();
 
     void ShowAbout();
 
-    void ShowUpdateAvailable(ApplicationUpdateInfo updateInfo);
+    Task<ApplicationUpdatePromptResult> ShowUpdateAvailableAsync(ApplicationUpdateInfo updateInfo);
 
     void OpenUrl(string url);
 

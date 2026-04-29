@@ -219,8 +219,17 @@
   <data name="UpdateAvailable.OpenRelease" xml:space="preserve">
     <value>Ouvrir la version</value>
   </data>
+  <data name="UpdateAvailable.InstallAndRestart" xml:space="preserve">
+    <value>Installer et redémarrer</value>
+  </data>
   <data name="UpdateAvailable.Later" xml:space="preserve">
     <value>Plus tard</value>
+  </data>
+  <data name="UpdateInstall.FailedTitle" xml:space="preserve">
+    <value>Échec de l'installation de la mise à jour</value>
+  </data>
+  <data name="UpdateInstall.FailedMessage" xml:space="preserve">
+    <value>Foundry n'a pas pu télécharger ou installer la mise à jour. Ouvrez la page de version et essayez l'installateur manuellement.</value>
   </data>
   <data name="Adk.BannerMissing" xml:space="preserve">
     <value>Windows ADK n’est pas installé. Merci d’installer ADK 11 24H2 pour activer la création d’ISO et USB.</value>

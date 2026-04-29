@@ -4,7 +4,7 @@
 Migrate only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 15: Implementation Baseline and Build Topology
+Phase 17: Release Packaging and Velopack Validation
 
 ## Constraints
 - Implementation phase approved by the user.
@@ -121,7 +121,32 @@ Phase 15: Implementation Baseline and Build Topology
 - [x] Run baseline solution build.
 - [x] Split shared MSBuild UI framework settings so Foundry can become WinUI while Connect/Deploy remain WPF.
 - [x] Validate Connect/Deploy still build after WPF is scoped.
-- [ ] Create first implementation checkpoint commit.
+- [x] Create first implementation checkpoint commit.
+- **Status:** complete
+
+### Phase 16: Foundry WinUI Shell and Page Migration
+- [x] Convert Foundry startup, app lifetime, shell, and resources to WinUI 3.
+- [x] Redesign the shell around NavigationView.
+- [x] Migrate the main pages and Settings page.
+- [x] Use Windows Community Toolkit Settings controls where appropriate.
+- [x] Remove the Standard/Expert generation gate so generation uses the full configuration model.
+- [x] Smoke-launch each migrated page.
+- [x] Rebuild and test the mixed solution.
+- **Status:** complete
+
+### Phase 17: Release Packaging and Velopack Validation
+- [x] Verify latest Velopack beta/pre-release package and CLI line.
+- [x] Publish Foundry as unpackaged, runtime-specific, non-single-file output.
+- [x] Validate WinUI publish output contains `.xbf` and `.pri` resources.
+- [x] Package Foundry with Velopack MSI outputs for `win-x64-stable` and `win-arm64-stable`.
+- [x] Keep Connect/Deploy release ZIP assets unchanged.
+- [x] Create the GitHub release only after all assets are built and validated.
+- [x] Add Velopack `UpdateManager` integration for installed builds with a non-installed fallback.
+- [x] Run final Release build, tests, publish, package, and release-asset validation after the update integration changes.
+- [x] Validate published x64 Foundry startup from the publish folder.
+- [x] Validate Connect/Deploy ZIP artifacts are present beside Foundry Velopack release assets.
+- [x] Confirm local shell is not elevated; defer per-machine MSI install/uninstall proof to an elevated/manual validation environment.
+- [ ] Commit release packaging and update integration.
 - **Status:** in_progress
 
 ## Key Questions

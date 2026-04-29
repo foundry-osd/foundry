@@ -63,4 +63,14 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <Target Name="CopyWinUIResourcesToPublishDirectory" AfterTargets="Publish" Condition="'$(PublishDir)' != ''">
+    <ItemGroup>
+      <_FoundryWinUIResource Include="$(OutDir)**\*.xbf;$(OutDir)**\*.pri" Exclude="$(PublishDir)**\*" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(_FoundryWinUIResource)"
+      DestinationFiles="@(_FoundryWinUIResource->'$(PublishDir)%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>
