@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <StartupObject>Foundry.Connect.Program</StartupObject>
+    <UseWPF>true</UseWPF>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 

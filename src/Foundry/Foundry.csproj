@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <StartupObject>Foundry.Program</StartupObject>
+    <UseWPF>true</UseWPF>
     <Win32Manifest>app.manifest</Win32Manifest>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>

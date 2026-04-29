@@ -207,6 +207,29 @@
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
+| Baseline solution build | `dotnet build src\Foundry.slnx -c Debug` | Solution builds before implementation starts | Build succeeded with 0 warnings and 0 errors | Passed |
+| MSBuild WPF scoping build | `dotnet build src\Foundry.slnx -c Debug` | Solution still builds after moving WPF out of shared props | Build succeeded with 0 warnings and 0 errors | Passed |
+
+### Phase 15: Implementation Baseline and Build Topology
+- **Status:** in_progress
+- **Started:** 2026-04-29
+- Actions taken:
+  - User explicitly approved complete implementation.
+  - Re-read planning files and confirmed a clean worktree on `codex/winui3-migration-study`.
+  - Refreshed WinUI 3, Windows Community Toolkit, and Velopack assumptions with Context7.
+  - Sent read-only implementation mapping tasks to existing subagents.
+  - Ran baseline solution build before changing implementation files.
+  - Updated planning files to reflect the approved implementation phase.
+  - Moved `UseWPF` out of shared `Directory.Build.props`.
+  - Made WPF explicit in `Foundry`, `Foundry.Connect`, and `Foundry.Deploy` before converting Foundry.
+  - Rebuilt the solution successfully after the MSBuild topology split.
+- Files modified:
+  - `task_plan.md`
+  - `progress.md`
+  - `src\Directory.Build.props`
+  - `src\Foundry\Foundry.csproj`
+  - `src\Foundry.Connect\Foundry.Connect.csproj`
+  - `src\Foundry.Deploy\Foundry.Deploy.csproj`
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |
@@ -221,8 +244,8 @@
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Phase 14: Final Coherence Pass and Proof Gates |
-| Where am I going? | Ready for implementation after explicit user approval to leave planning and start migration work |
-| What's the goal? | Produce a code-informed plan for migrating only `src/Foundry` to WinUI 3 on .NET 10 while keeping Connect and Deploy as WPF |
+| Where am I? | Phase 15: Implementation Baseline and Build Topology |
+| Where am I going? | Complete the approved migration of only `src/Foundry` to WinUI 3 while keeping Connect and Deploy WPF |
+| What's the goal? | Complete, test, publish-validate, push, and open a PR for the Foundry WinUI 3 migration |
 | What have I learned? | The plan is now decision-complete for Velopack MSI topology, architecture channels, UI page ownership, language scopes, validation, dialogs, update behavior, deep publish validation, and final implementation proof gates |
-| What have I done? | Updated `task_plan.md`, `findings.md`, and `progress.md` with final coherence corrections and implementation proof gates |
+| What have I done? | Started implementation, refreshed docs, launched read-only subagent mapping, and captured a clean baseline build |

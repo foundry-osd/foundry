@@ -1,17 +1,18 @@
-# Task Plan: Foundry WinUI 3 Migration Study
+# Task Plan: Foundry WinUI 3 Migration
 
 ## Goal
-Prepare a code-informed migration study for moving only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
+Migrate only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 14: Final Coherence Pass and Proof Gates
+Phase 15: Implementation Baseline and Build Topology
 
 ## Constraints
-- Plan phase only.
-- No implementation.
-- No code, project, solution, workflow, script, packaging, asset, or test changes.
-- Planning artifacts may be written.
-- Read-only subagents are allowed for inventory and impact analysis.
+- Implementation phase approved by the user.
+- Subagents are read-only only.
+- Main-thread code/project changes are allowed for the migration.
+- Do not touch release workflow until publish and Velopack proof gates are satisfied.
+- Build regularly.
+- Run Foundry after every migrated page or major UI change when the app can launch.
 - Use current documentation for WinUI 3 and .NET guidance.
 
 ## Phases
@@ -115,6 +116,14 @@ Phase 14: Final Coherence Pass and Proof Gates
 - [x] Record final proof gates for Velopack elevated per-machine update behavior, Visual C++ redistributable strategy, Velopack startup hook, channel selection, and Toolkit resource/version verification.
 - **Status:** complete
 
+### Phase 15: Implementation Baseline and Build Topology
+- [x] Confirm clean implementation worktree.
+- [x] Run baseline solution build.
+- [x] Split shared MSBuild UI framework settings so Foundry can become WinUI while Connect/Deploy remain WPF.
+- [x] Validate Connect/Deploy still build after WPF is scoped.
+- [ ] Create first implementation checkpoint commit.
+- **Status:** in_progress
+
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?
 2. How much of `Foundry` is framework-agnostic MVVM/business logic versus WPF-specific UI infrastructure?
@@ -182,5 +191,4 @@ Phase 14: Final Coherence Pass and Proof Gates
 
 ## Notes
 - Subagents must remain read-only.
-- Any checkpoint commits in this phase must contain only planning artifacts.
-- Implementation must wait for explicit user validation.
+- Release workflow changes must wait until publish and Velopack proof gates are satisfied.
