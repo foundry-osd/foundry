@@ -3,7 +3,7 @@
 ## Session: 2026-04-29
 
 ### Phase 1: Repository Topology and Build Discovery
-- **Status:** in_progress
+- **Status:** complete
 - **Started:** 2026-04-29
 - Actions taken:
   - Read planning-with-files skill instructions.
@@ -77,7 +77,7 @@
     - cancellation is supported for ISO and USB as best-effort safe stop;
     - terminal result remains visible in the dialog.
   - Recorded update UX:
-    - Velopack stable channel only initially;
+    - Velopack uses `win-x64-stable` and `win-arm64-stable` channels;
     - startup check prompts if available;
     - manual check in Settings;
     - download/install requires user action;
@@ -103,6 +103,46 @@
   - `findings.md`
   - `progress.md`
 
+### Phase 12: Deep Plan Audit Closure
+- **Status:** complete
+- **Started:** 2026-04-29
+- Actions taken:
+  - Re-read planning files and confirmed the worktree was clean before edits.
+  - Used read-only subagents to re-audit Foundry migration surface, UI/UX completeness, release topology, Velopack packaging, and Connect/Deploy impact.
+  - Used Context7 and current documentation to verify Velopack MSI, Windows App SDK unpackaged/self-contained behavior, Windows Community Toolkit Settings controls, and Velopack architecture channel guidance.
+  - Recorded release topology correction:
+    - keep one public GitHub release per Foundry version;
+    - include Foundry Velopack assets and unchanged Connect/Deploy WinPE zips in each release;
+    - build/package/validate all assets before publishing the release.
+  - Recorded Velopack decisions:
+    - `packId` is `FoundryOSD.Foundry`;
+    - user-facing title remains `Foundry`;
+    - MSI scope is `PerMachine`;
+    - Foundry publish is self-contained, unpackaged, non-single-file;
+    - channels are `win-x64-stable` and `win-arm64-stable`;
+    - deltas require implementation proof and must be disabled for first rollout if proof fails;
+    - signing is out of scope for now.
+  - Recorded UI decisions:
+    - Home is read-only;
+    - Configuration owns editable media/general inputs;
+    - Start owns review, import/export, and ISO/USB actions;
+    - importing configuration navigates to Start;
+    - app language, WinPE language, and deployment localization are distinct scopes;
+    - app language live-refreshes pages and navigation;
+    - updates live only in Settings;
+    - About is informational;
+    - no persistent shell footer/status surface.
+  - Recorded implementation model decisions:
+    - use a central readiness issue model;
+    - app-owned dialogs become ContentDialog;
+    - file/folder pickers remain OS pickers initialized with the active window handle;
+    - non-Velopack builds disable update install actions gracefully.
+  - Removed stale packaging unknowns and stale phase markers from the plan artifacts.
+- Files modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -111,12 +151,14 @@
 | Timestamp | Error | Attempt | Resolution |
 |-----------|-------|---------|------------|
 | 2026-04-29 | Plan artifacts initially landed in primary checkout | 1 | Removed only those artifacts and recreated them in the dedicated worktree. |
+| 2026-04-29 | Plan synthesis still contained stale packaging unknowns after Velopack MSI was selected | 1 | Updated `findings.md` to make Velopack MSI, PerMachine scope, architecture channels, and release topology the source of truth. |
+| 2026-04-29 | Progress reboot marker still pointed to Phase 1 after later phases were complete | 1 | Updated `progress.md` to mark Phase 1 complete and record Phase 12 audit closure. |
 
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Phase 1: Repository Topology and Build Discovery |
-| Where am I going? | Foundry migration surface, architecture review, cross-project impact, packaging/workflow review, docs check, strategy and risks |
+| Where am I? | Phase 12: Deep Plan Audit Closure |
+| Where am I going? | Awaiting user validation of the completed migration plan before any implementation starts |
 | What's the goal? | Produce a code-informed plan for migrating only `src/Foundry` to WinUI 3 on .NET 10 while keeping Connect and Deploy as WPF |
-| What have I learned? | A dedicated worktree and branch already exist and are clean before plan artifact creation |
-| What have I done? | Created planning files and started the repository inventory |
+| What have I learned? | The plan is now decision-complete for Velopack MSI topology, architecture channels, UI page ownership, language scopes, validation, dialogs, and update behavior |
+| What have I done? | Updated `task_plan.md`, `findings.md`, and `progress.md` with the deep audit corrections |

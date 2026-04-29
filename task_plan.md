@@ -4,7 +4,7 @@
 Prepare a code-informed migration study for moving only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 11: Toolkit and UI Verification Policy
+Phase 12: Deep Plan Audit Closure
 
 ## Constraints
 - Plan phase only.
@@ -92,6 +92,14 @@ Phase 11: Toolkit and UI Verification Policy
 - [x] Record manual layout, theme, language, navigation, validation, and dialog checks.
 - **Status:** complete
 
+### Phase 12: Deep Plan Audit Closure
+- [x] Re-audit planning artifacts against the actual repository.
+- [x] Re-audit WinUI, Velopack, and Windows Community Toolkit documentation.
+- [x] Record release topology, Velopack identity, MSI scope, architecture channel, and delta-update policy.
+- [x] Record strict UI page ownership, language scopes, validation model, dialog/picker mapping, and update-surface decisions.
+- [x] Remove stale "unknown packaging" and phase-status contradictions from the plan.
+- **Status:** complete
+
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?
 2. How much of `Foundry` is framework-agnostic MVVM/business logic versus WPF-specific UI infrastructure?
@@ -114,10 +122,26 @@ Phase 11: Toolkit and UI Verification Policy
 | Operation progress should run in a locked ContentDialog | Navigation/settings changes must be blocked during provisioning. USB confirmation happens before opening the progress dialog. |
 | ISO and USB cancellation should be best-effort safe stop | User wants Cancel for both operations, with cleanup where possible and clear terminal state reporting. |
 | Settings should be a full NavigationView page | Settings first scope includes theme, language, update check, logs folder, cache/temp locations, and basic diagnostics. |
-| Velopack updates should prompt on startup and restart only after explicit user confirmation | Startup check shows an update dialog when available. Manual check lives in Settings. Stable channel only for first migration. |
+| Velopack updates should prompt on startup and restart only after explicit user confirmation | Startup check shows an update dialog when available. Manual check lives in Settings. Use `win-x64-stable` and `win-arm64-stable` channels. |
 | Windows Community Toolkit should be used where it adds clear value | Native WinUI controls remain the default, but Toolkit controls are approved when they improve fit and reduce custom UI work. |
 | Toolkit Settings controls are the first approved UI Toolkit target | Use `CommunityToolkit.WinUI.Controls.SettingsControls` for the Settings page, especially `SettingsCard` and `SettingsExpander`. |
 | The implementation should run Foundry after every migrated page | UI layout and behavior must be verified continuously, not only at final smoke test. |
+| Keep one public GitHub release per Foundry version | Each release must include Foundry Velopack desktop assets plus unchanged Connect/Deploy WinPE zip artifacts so existing latest-release bootstrap behavior remains valid. |
+| Publish GitHub releases only after all assets are built and validated | The current release-before-assets workflow can create a broken latest release; implementation must build/package/validate first, then publish last. |
+| Use `FoundryOSD.Foundry` as the Velopack `packId` | This is more unique and stable than `Foundry`, while keeping `Foundry` as the executable and user-facing product title. |
+| Use Velopack MSI `PerMachine` install scope | Foundry requires administrator privileges and uses shared ProgramData workspaces, so per-machine installation is the safest default. |
+| Publish Foundry as self-contained, unpackaged, non-single-file output | User selected self-contained distribution; Windows App SDK/WinUI unpackaged output must not be treated as a single-file executable. |
+| Use architecture-specific Velopack stable channels | Use `win-x64-stable` and `win-arm64-stable` so x64 and ARM64 update feeds do not collide. |
+| Allow Velopack deltas only after proof | Delta packages may be used only if implementation proves GitHub Releases plus multi-architecture channels behave correctly; otherwise disable deltas for the first rollout. |
+| Treat code signing as out of scope for now | Do not block migration or MSI planning on signing; retain it only as a later release-hardening consideration. |
+| Lock strict WinUI page ownership | `Home` is read-only status, `Configuration` owns editable media/general inputs, and `Start` owns final review plus ISO/USB actions. |
+| Define language scopes explicitly | `App language` belongs in Settings, `WinPE language` belongs in Configuration, and deployment language/time-zone settings belong in Localization. |
+| App language changes should live-refresh pages and navigation | Open modal dialogs may refresh on reopen, but normal shell/page text should update without restart. |
+| Use a central readiness issue model | Pages contribute blockers and warnings with owning-page targets; Start aggregates them with navigation links. |
+| Map app dialogs to ContentDialog and OS pickers | App-owned dialogs become WinUI `ContentDialog`; file/folder pickers remain OS pickers initialized with the active window handle. |
+| Manual update actions live only in Settings | About shows product/version information only; non-Velopack local builds disable update install actions gracefully. |
+| Importing configuration navigates to Start | After import, the user should see readiness, warnings, and next actions immediately. |
+| Remove the persistent global footer/status surface | Show readiness, USB count, version, and operation state on Home/Start or modal operation dialogs instead of a shell footer. |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

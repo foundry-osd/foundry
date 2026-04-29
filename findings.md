@@ -11,7 +11,7 @@
 - Primary checkout: `E:\Github\Foundry Project\foundry`.
 - Dedicated worktree: `E:\Github\Foundry Project\foundry-winui3-migration-study`.
 - Current worktree branch: `codex/winui3-migration-study`.
-- Worktree HEAD matches `main` at `46682845972ad677642cef7d986ad8e82b12a65e`.
+- Worktree was created from `main` at `46682845972ad677642cef7d986ad8e82b12a65e`; current HEAD contains plan-only commits.
 
 ## Research Findings
 - Solution contains 3 app projects and 3 test projects in `src/Foundry.slnx`: `Foundry`, `Foundry.Connect`, `Foundry.Deploy`, and their matching test projects.
@@ -90,6 +90,8 @@
   - Velopack MSI installs the same app layout as Setup: an install folder with `current`, `Update.exe`, and an execution stub.
   - CI release flows commonly download the previous release before packing so delta packages and release indexes can be generated.
   - For self-contained .NET apps, Velopack advises not to bootstrap the .NET runtime with `--framework`; for framework-dependent apps, `--framework net<version>-<arch>-desktop` is available.
+  - Every unique OS/RID should have its own Velopack channel, so Foundry x64 and ARM64 should use separate channels.
+  - Velopack GitHub delta support expects any one GitHub release to contain only one full package and one delta package. This makes multi-architecture deltas a proof-required feature for the first rollout.
 
 ## Decision Refinement - 2026-04-29
 
@@ -110,10 +112,16 @@
   2. Velopack pack/upload path for Foundry MSI and update assets.
   3. Existing Connect/Deploy publish and zip path.
 - Foundry should likely publish as self-contained, non-single-file, runtime-specific output for `win-x64` and `win-arm64`.
-- Velopack `packId` should be stable and unique. Candidate: `Foundry` or `Foundry.OSD.Foundry`; this requires validation before implementation because it becomes part of install/update identity.
-- MSI install scope needs validation: `PerUser`, `PerMachine`, or `Either`. `Either` is Velopack's default, but Foundry may benefit from a clear policy depending on expected administrator usage.
-- Code signing should be planned before public MSI rollout. Velopack documentation notes installer signing when signing is configured, and unsigned installers are a user-trust risk.
+- Velopack `packId` is locked as `FoundryOSD.Foundry`.
+- Velopack user-facing title remains `Foundry`; author/publisher can use `Foundry OSD`.
+- MSI install scope is locked as `PerMachine` because Foundry requires administrator privileges and writes shared workspaces under ProgramData.
+- Foundry should publish as self-contained, unpackaged, non-single-file, runtime-specific output for `win-x64` and `win-arm64`.
+- Code signing is explicitly out of scope for the migration plan for now. Do not block implementation on signing; keep it as later release hardening.
 - Current `ApplicationUpdateService` checks GitHub Releases manually. With Velopack, this should be redesigned around Velopack update APIs instead of only opening a GitHub release page, unless the first implementation intentionally defers in-app update installation.
+- Public GitHub releases must be created or published only after Foundry Velopack assets and Connect/Deploy WinPE zips are built and validated. This avoids broken `latest` releases that would break desktop updates and WinPE bootstrap.
+- Keep one public GitHub release per Foundry version. The release must include both Foundry Velopack desktop assets and the unchanged Connect/Deploy zips.
+- Use Velopack channels `win-x64-stable` and `win-arm64-stable`.
+- Delta packages are allowed only after implementation proves the GitHub Releases + multi-architecture channel behavior is safe. If proof fails, disable deltas for the first rollout.
 
 ### WinUI shell direction
 - User wants a real WinUI redesign, not a one-to-one WPF XAML port.
@@ -164,18 +172,22 @@
   - Footer: `Settings`, `Logs`, `About`.
 - `Settings` should be a full page, not a compact dialog or flyout.
 - `Logs` can remain a direct action that opens the log folder.
-- `About` remains a product/about surface with version, links, and update-related links only where appropriate.
+- `About` remains a product/about surface with version and product links only.
+- Manual update checks and update status live only in Settings.
 
 ### Mode removal and generation contract
 - Remove the current Standard/Expert mode switch from the UI model.
 - Remove mode as a generation gate. Today `IsExpertMode` decides whether deploy configuration and Autopilot profiles are embedded. In the WinUI plan, ISO/USB generation always uses the full configuration model.
 - Default/empty expert pages must produce safe default behavior.
+- Always write the deploy configuration and Autopilot payload using the full configuration model and safe defaults.
 - Validate `Foundry.Connect` and `Foundry.Deploy` against the always-full-config output. They remain WPF, but their config parsing/behavior may need targeted adaptation if the generated configuration contract changes.
+- Validation must explicitly cover no config file, default/empty config file, populated config file, Autopilot folder absent, and Autopilot folder present.
 - The future viewmodel should expose page state and navigation state directly rather than using `IsExpertMode`, `IsStandardMode`, and `ExpertSections` as the primary shell model.
 
 ### Page ownership
 - `Home`:
   - Operational dashboard.
+  - Read-only status page; no editable configuration fields.
   - Shows global readiness: ADK compatibility, selected architecture/language, USB detection count/status, and whether Start is blocked.
   - Provides navigation links to ADK, Configuration, and Start.
 - `ADK`:
@@ -194,6 +206,9 @@
   - Owns import/export expert/deploy configuration actions.
   - Owns Create ISO and Create USB actions.
   - Shows blocking issues and warnings with navigation links to owning pages.
+  - Does not own editable configuration fields.
+  - After importing configuration, navigate to Start so the user sees readiness, warnings, and next actions.
+- Do not keep the current persistent shell footer/status surface. Show readiness, USB count, version, and operation state on Home/Start or in the locked operation dialog.
 
 ### Operation dialog
 - Clicking Create USB first shows the destructive USB confirmation.
@@ -209,6 +224,14 @@
   - Close button only after a terminal state.
 - Do not include live logs in the first migration.
 - On completion, keep the dialog open with the result instead of auto-closing.
+- App-owned dialogs should become WinUI `ContentDialog` surfaces:
+  - USB destructive confirmation,
+  - ISO/USB operation progress,
+  - update prompt,
+  - generic notifications/errors,
+  - Autopilot profile selection when it remains a modal task,
+  - About if it remains modal rather than a full page.
+- File and folder selection should use OS pickers initialized with the active window handle.
 
 ### Cancellation semantics
 - Support Cancel for both ISO and USB.
@@ -224,21 +247,37 @@
 ### Settings and updates
 - Settings first migration scope:
   - theme,
-  - language,
+  - app UI language,
   - manual update check,
   - update status,
   - logs folder link,
   - cache/temp locations,
   - basic diagnostics.
 - Velopack update UX:
-  - Stable channel only for first migration.
+  - Use architecture-specific stable channels: `win-x64-stable` and `win-arm64-stable`.
   - Check for updates on startup in the background when the app is installed through Velopack.
   - If an update is available, show a ContentDialog with version and release notes.
   - User explicitly chooses to download/install.
   - After download, show an explicit `Restart and update` action.
   - Use Velopack apply-and-restart behavior only after user confirmation.
   - Manual update check lives in Settings.
+  - Non-Velopack local/dev builds should disable update install actions gracefully, show a clear not-installed status in Settings, and never fail startup.
 - The existing GitHub-release-based update service should be replaced or adapted to Velopack update APIs during implementation, not carried forward as the primary update mechanism.
+
+### Language scope
+- `App language`: application shell/page UI language. It belongs in Settings and should live-refresh normal pages and NavigationView labels. Already-open modal dialogs may refresh on reopen.
+- `WinPE language`: boot media language. It belongs on Configuration.
+- `Deployment languages/time zone`: target OS deployment localization. It belongs on the Localization expert page.
+
+### Readiness and validation model
+- Add a central readiness issue model during implementation.
+- Each page should contribute blockers and warnings with:
+  - severity,
+  - localized title/message,
+  - owning page target,
+  - optional target field/action.
+- Start aggregates readiness issues and provides navigation links back to owning pages.
+- Command enablement should still prevent unsafe actions, but the Start page should explain why an action is blocked.
 
 ### WinUI documentation notes
 - Context7 confirmed `NavigationView` supports binding item sources and left-pane navigation.
@@ -291,6 +330,43 @@
 - The implementation should use screenshots or a concise manual verification note for each page checkpoint. UI fixes should be made immediately when layout, text clipping, theme, or navigation problems are found.
 - This run policy does not change the planning-phase hard stop; it applies to the later approved implementation phase.
 
+## Deep Plan Audit Closure - 2026-04-29
+
+### Confirmed dark spots from the re-audit
+- The planning artifacts contained stale contradictions:
+  - `findings.md` still listed Foundry packaging as unknown after Velopack MSI was selected.
+  - `progress.md` still reported the current location as Phase 1 even though later phases were complete.
+- Release topology was under-specified. A desktop-only Velopack release would break current WinPE bootstrap and embedding paths because they resolve GitHub `latest` and fixed Connect/Deploy zip names.
+- The existing release workflow creates the GitHub release before all assets are built and uploaded. This can publish a broken `latest` release.
+- Velopack multi-architecture update behavior needs explicit channels and proof for deltas.
+- The current plan said "Settings language" without distinguishing app UI language, WinPE language, and deployment localization.
+- The Home/Configuration/Start split needed an explicit no-duplication rule.
+- Dialog coverage needed to include more than the ISO/USB progress dialog.
+- Start validation needed a concrete readiness issue model, not just command booleans.
+
+### Locked corrections
+- Keep one GitHub release per Foundry version. It must carry:
+  - Foundry Velopack desktop assets,
+  - `Foundry.Connect-win-x64.zip`,
+  - `Foundry.Connect-win-arm64.zip`,
+  - `Foundry.Deploy-win-x64.zip`,
+  - `Foundry.Deploy-win-arm64.zip`.
+- Build, package, and validate all release assets before publishing the GitHub release.
+- Use Velopack `packId` `FoundryOSD.Foundry`.
+- Use MSI `--instLocation PerMachine`.
+- Publish Foundry self-contained, unpackaged, and non-single-file.
+- Use Velopack channels `win-x64-stable` and `win-arm64-stable`.
+- Allow deltas only after implementation proves the GitHub Releases + multi-architecture channel setup works safely; otherwise disable deltas for first rollout.
+- Keep signing out of scope for this migration plan.
+- Make Home read-only, Configuration editable, and Start review/action-only.
+- Use Settings for app language only.
+- Use Settings only for update checks. About is informational.
+- Disable update install actions gracefully when Foundry is not Velopack-installed.
+- Navigate to Start after importing configuration.
+- Remove the persistent shell footer/status area in favor of Home/Start/dialog status.
+- Use a central readiness issue model for Start aggregation.
+- Use ContentDialog for app-owned dialogs and HWND-initialized OS pickers for file/folder selection.
+
 ## Synthesis
 
 ### Current architecture
@@ -317,10 +393,12 @@
 ### Build / publish / workflow impact
 - CI builds the whole solution across `x64` and `ARM64`.
 - Release publishing currently assumes Foundry can be published as a single self-contained file and copied as `Foundry-x64.exe` / `Foundry-arm64.exe`.
-- Current Microsoft guidance says unpackaged WinUI 3 apps cannot produce a single-file EXE. This is the largest operational mismatch.
-- If Foundry becomes unpackaged WinUI 3, release assets probably need to become zipped folders or self-contained Windows App SDK folders, not single `.exe` files.
-- If Foundry becomes MSIX packaged, current top-level `.exe` download links, release assets, and "no installer" positioning must be reconsidered.
-- Connect/Deploy release assets should remain as current WPF zip artifacts unless explicitly changed later.
+- Current Microsoft guidance says unpackaged WinUI 3 apps cannot produce a single-file EXE. This is why Foundry moves to Velopack MSI and update assets.
+- Foundry release assets become Velopack outputs generated from self-contained, non-single-file publish folders for `win-x64` and `win-arm64`.
+- MSIX is rejected and should not be reintroduced as a target.
+- Connect/Deploy release assets remain the current WPF zip artifacts and must be present in every public release because WinPE bootstrap depends on GitHub `latest` and fixed zip names.
+- The release workflow should publish the GitHub release only after all Velopack and WinPE assets are built and validated.
+- The implementation should add a non-release validation path for Foundry publish + Velopack pack before relying on the release workflow.
 
 ### Keep / adapt / redesign / replace / remove
 - Keep: models, configuration services, WinPE services, ADK services, Autopilot service logic, localization strings content, logging, update HTTP parsing, tests around business logic.
@@ -332,7 +410,7 @@
 ### WinUI 3 recommendations
 - Make UI framework selection project-local or conditional; avoid unconditional `UseWPF=true`.
 - Use `UseWinUI=true` and a Windows App SDK package in Foundry only.
-- Prefer unpackaged/self-contained WinUI 3 only if a folder or zip release is acceptable; do not expect a single-file executable.
+- Use unpackaged self-contained WinUI 3 for Foundry and package it with Velopack MSI; do not expect a single-file executable.
 - Introduce a small UI dispatcher abstraction so viewmodels do not directly reference WPF or WinUI dispatchers.
 - Keep shell operations behind interfaces, but remove WPF types from contracts.
 - Use WinUI `ContentDialog` with `XamlRoot`, HWND-initialized pickers where needed, and `DispatcherQueue` for UI marshaling.
@@ -350,18 +428,16 @@
 8. Final validation: CI matrix, local publish, release artifact checks, and manual smoke tests on x64/ARM64.
 
 ### Risks and open questions
-- Highest risk: current release contract for Foundry is a single `.exe`; WinUI 3 unpackaged publish does not support that.
+- Highest risk: release topology. A broken or desktop-only latest release can break both Foundry desktop updates and WinPE bootstrap/runtime downloads.
 - High risk: global `UseWPF=true` will conflict with a mixed UI solution unless scoped.
 - High risk: destructive USB flow depends on confirmation behavior and must be preserved.
+- High risk: Velopack GitHub delta behavior with both x64 and ARM64 in one public release must be proven before deltas are enabled.
 - Medium risk: theme resources are heavily tied to `PresentationFramework.Fluent`.
 - Medium risk: release notes rich text has no direct WPF-to-WinUI equivalent.
-- Unknown: exact packaging decision for Foundry: unpackaged zip, self-contained folder zip, MSIX, or installer.
-- Unknown: whether README/download expectations may change from executable downloads to archive/installer downloads.
+- Medium risk: always writing the full deploy configuration changes the former Standard/Expert runtime contract and must be validated against Deploy behavior.
+- Remaining open question: whether Velopack deltas are safe with the chosen single-release, multi-architecture GitHub layout. If not, disable deltas for the first rollout.
 
 ### Decisions requiring validation
-- Choose Foundry distribution model after migration.
-- Decide whether release artifact names may change.
-- Decide whether Foundry may stop being a single-file executable.
-- Decide whether to keep `.resx` localization for Foundry or migrate to `.resw`/ResourceLoader.
-- Decide whether to introduce a small shared non-UI library later, or keep reuse inside the Foundry project for now.
-- Decide how much UI redesign is acceptable versus a close visual port.
+- Before implementation begins, validate the updated plan artifacts as the source of truth.
+- During implementation, prove or disable Velopack deltas for the multi-architecture GitHub release layout.
+- During implementation, decide whether any non-UI extraction is required only if the migration reveals unavoidable coupling; do not introduce a shared library preemptively.
