@@ -169,9 +169,9 @@
 - Navigation groups:
   - General: `Home`, `ADK`, `Configuration`, `Start`.
   - Expert: `Network`, `Localization`, `Autopilot`, `Customization`.
-  - Footer: `Settings`, `Logs`, `About`.
+  - Footer: `Settings`, `About`.
 - `Settings` should be a full page, not a compact dialog or flyout.
-- `Logs` can remain a direct action that opens the log folder.
+- `Logs` moves into `Settings` as a read-only card/action that opens the log folder.
 - `About` remains a product/about surface with version and product links only.
 - Manual update checks and update status live only in Settings.
 
@@ -367,6 +367,98 @@
 - Use a central readiness issue model for Start aggregation.
 - Use ContentDialog for app-owned dialogs and HWND-initialized OS pickers for file/folder selection.
 
+## Implementation Readiness and Publish Validation Closure - 2026-04-29
+
+### Second-audit closure decisions
+- Preserve Foundry's administrator execution requirement during the WinUI conversion. The current `src\Foundry\app.manifest` requests `requireAdministrator`; the WinUI project conversion must not drop that manifest or equivalent elevation behavior.
+- ADK navigation gate:
+  - until compatible ADK/WinPE Add-on state is confirmed, only `Home`, `ADK`, `Settings`, and `About` are accessible;
+  - `Configuration`, `Start`, `Network`, `Localization`, `Autopilot`, and `Customization` remain visible but disabled in NavigationView;
+  - disabled items should expose a short ADK-required explanation through tooltip/status text.
+- Status surface matrix:
+  - no footer/status bar;
+  - ISO/USB progress and terminal result live in the locked operation dialog;
+  - ADK install/upgrade/status progress lives inline on the ADK page;
+  - Autopilot import/download progress lives inline on the Autopilot page;
+  - configuration import/export success/failure appears as page-level InfoBars on Start;
+  - USB count, version, and readiness summaries belong on Home/Start or Settings/About, not in a shell footer.
+- Logs behavior:
+  - remove `Logs` from NavigationView footer;
+  - expose logs as a read-only Settings card/action that opens the logs folder.
+- About behavior:
+  - keep About as a NavigationView footer action that opens an informational ContentDialog;
+  - keep version, license, authors, support, and project links;
+  - remove update checks from About.
+- Autopilot tenant profile picker:
+  - keep the task modal for first migration;
+  - implement as a large scrolling ContentDialog;
+  - preserve table-style selection, multi-select, Ctrl+A, and import footer actions.
+- Start configuration actions:
+  - expose only the three existing actions: import expert config, export expert config, and export deploy config;
+  - do not add deploy-config import;
+  - importing expert config updates Configuration and expert pages, does not change app language, and navigates to Start.
+- Deploy config export:
+  - always export from the full current configuration after Standard/Expert mode removal;
+  - export is available even when the expert pages are at safe defaults.
+- Settings paths:
+  - logs, cache, and temp locations are read-only cards with open-folder actions for the first migration;
+  - do not add editable path preferences.
+- Readiness rules:
+  - keep current hard blockers close to today's behavior: incompatible/missing ADK, network validation failure, missing WinPE language, missing ISO path for ISO creation, and missing USB disk for USB creation;
+  - add warnings, not blockers, for Autopilot enabled with zero profiles, incomplete machine-naming inputs, zero visible deployment languages, missing/unreadable custom driver path, and ISO output path parent missing or likely not writable;
+  - Start summary must not imply unsupported customization features that are currently placeholders.
+
+### Connect/Deploy runtime-layout clarification
+- Connect and Deploy release asset names remain unchanged, but their runtime contracts are not identical.
+- Connect is provisioned/extracted into the WinPE runtime tree and should be validated as runtime content after media creation.
+- Deploy remains available through the embedded archive fallback path and should be validated both as a release-fed archive and embedded fallback.
+- Local override behavior must be validated separately:
+  - explicit archive environment variables from the local WinPE script path;
+  - transient project publish and zip generation inside Foundry's WinPE local embedding services;
+  - manual publish scripts that output folders rather than zips.
+
+### Deep Foundry publish validation
+- Test Foundry publish behavior independently before Velopack packaging:
+  - `win-x64` and `win-arm64`;
+  - Release configuration;
+  - self-contained;
+  - unpackaged;
+  - non-single-file;
+  - clean output directory per run;
+  - repeat publish twice to catch stale artifact issues.
+- Validate publish output contents:
+  - `Foundry.exe` exists and starts;
+  - Windows App SDK / WinUI runtime dependencies are present as expected;
+  - app manifest still requests administrator elevation;
+  - assets, icons, resources, `.resx` satellite assemblies, 7z assets, WinPE assets, and configuration assets are present;
+  - no WPF-only Foundry assemblies/resources remain unintentionally.
+- Validate runtime behavior directly from the publish folder:
+  - app starts elevated;
+  - logs are created;
+  - Settings paths resolve correctly;
+  - non-Velopack update state is handled gracefully;
+  - ADK detection works;
+  - Home/ADK-only navigation gate works before compatible ADK state;
+  - no missing resource/theme/localization failures.
+- Validate Velopack input/output:
+  - Velopack packs from the publish folder, not from build output;
+  - `--mainExe Foundry.exe`;
+  - `--packId FoundryOSD.Foundry`;
+  - `--instLocation PerMachine`;
+  - correct `win-x64-stable` and `win-arm64-stable` channels;
+  - MSI, setup/update assets, release indexes, and package files are produced as expected.
+- Validate installed behavior:
+  - MSI installs to the expected per-machine location;
+  - execution stub/current folder layout is correct;
+  - app starts elevated after install;
+  - update checks work only when installed through Velopack;
+  - uninstall removes the app cleanly without deleting shared Foundry workspaces unless explicitly intended.
+- Validate publish/release failure cases:
+  - missing publish output fails the workflow;
+  - missing Velopack assets fails the workflow;
+  - missing Connect/Deploy zips fails the workflow;
+  - release is not published until all Foundry and WinPE artifacts pass validation.
+
 ## Synthesis
 
 ### Current architecture
@@ -399,6 +491,7 @@
 - Connect/Deploy release assets remain the current WPF zip artifacts and must be present in every public release because WinPE bootstrap depends on GitHub `latest` and fixed zip names.
 - The release workflow should publish the GitHub release only after all Velopack and WinPE assets are built and validated.
 - The implementation should add a non-release validation path for Foundry publish + Velopack pack before relying on the release workflow.
+- README/download badges must be updated from the old direct `.exe` assets to the selected Velopack MSI/download assets.
 
 ### Keep / adapt / redesign / replace / remove
 - Keep: models, configuration services, WinPE services, ADK services, Autopilot service logic, localization strings content, logging, update HTTP parsing, tests around business logic.
@@ -425,7 +518,7 @@
 5. Port views and dialogs by feature slice, not by mechanical XAML conversion.
 6. Restore WinPE media workflows and validate ISO/USB behavior.
 7. Rework release pipeline for chosen Foundry packaging model while preserving Connect/Deploy assets.
-8. Final validation: CI matrix, local publish, release artifact checks, and manual smoke tests on x64/ARM64.
+8. Final validation: CI matrix, deep publish validation, Velopack pack/install/update checks, release artifact checks, and manual smoke tests on x64/ARM64.
 
 ### Risks and open questions
 - Highest risk: release topology. A broken or desktop-only latest release can break both Foundry desktop updates and WinPE bootstrap/runtime downloads.

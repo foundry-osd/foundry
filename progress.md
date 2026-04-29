@@ -143,6 +143,43 @@
   - `findings.md`
   - `progress.md`
 
+### Phase 13: Implementation Readiness and Publish Validation Closure
+- **Status:** complete
+- **Started:** 2026-04-29
+- Actions taken:
+  - Re-read planning files and confirmed the worktree was clean before edits.
+  - Recorded preservation of Foundry administrator manifest behavior during WinUI conversion.
+  - Recorded ADK navigation gating:
+    - only Home, ADK, Settings, and About are accessible until ADK/WinPE Add-on is compatible;
+    - locked pages stay visible but disabled.
+  - Recorded status placement after removing the footer:
+    - ISO/USB progress in locked operation dialog;
+    - ADK progress on ADK;
+    - Autopilot progress on Autopilot;
+    - import/export results as Start InfoBars.
+  - Recorded UI behavior decisions:
+    - Logs moves to a Settings card/action;
+    - About remains a footer ContentDialog with informational links and no update check;
+    - Autopilot tenant profile picker remains a large scrolling ContentDialog;
+    - Start exposes only the existing three configuration actions;
+    - deploy config export always uses the full current configuration;
+    - Settings path entries are read-only for first migration.
+  - Recorded readiness behavior:
+    - keep current blockers close to today's behavior;
+    - add warnings for Autopilot zero profiles, incomplete machine naming, zero deployment languages, missing/unreadable custom driver path, and risky ISO path.
+  - Recorded Connect/Deploy runtime-layout asymmetry and local override validation requirements.
+  - Recorded deep Foundry publish validation before Velopack packaging:
+    - repeated clean publish for x64/ARM64;
+    - output content verification;
+    - direct publish-folder runtime checks;
+    - Velopack input/output validation;
+    - installed MSI behavior;
+    - failure-case validation before publishing releases.
+- Files modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
@@ -153,12 +190,13 @@
 | 2026-04-29 | Plan artifacts initially landed in primary checkout | 1 | Removed only those artifacts and recreated them in the dedicated worktree. |
 | 2026-04-29 | Plan synthesis still contained stale packaging unknowns after Velopack MSI was selected | 1 | Updated `findings.md` to make Velopack MSI, PerMachine scope, architecture channels, and release topology the source of truth. |
 | 2026-04-29 | Progress reboot marker still pointed to Phase 1 after later phases were complete | 1 | Updated `progress.md` to mark Phase 1 complete and record Phase 12 audit closure. |
+| 2026-04-29 | Deep publish behavior validation was discussed but not yet persisted in plan files | 1 | Added Phase 13 with publish output, Velopack, install, update, uninstall, and failure-case validation. |
 
 ## 5-Question Reboot Check
 | Question | Answer |
 |----------|--------|
-| Where am I? | Phase 12: Deep Plan Audit Closure |
-| Where am I going? | Awaiting user validation of the completed migration plan before any implementation starts |
+| Where am I? | Phase 13: Implementation Readiness and Publish Validation Closure |
+| Where am I going? | Ready for implementation after explicit user approval to leave planning and start migration work |
 | What's the goal? | Produce a code-informed plan for migrating only `src/Foundry` to WinUI 3 on .NET 10 while keeping Connect and Deploy as WPF |
-| What have I learned? | The plan is now decision-complete for Velopack MSI topology, architecture channels, UI page ownership, language scopes, validation, dialogs, and update behavior |
-| What have I done? | Updated `task_plan.md`, `findings.md`, and `progress.md` with the deep audit corrections |
+| What have I learned? | The plan is now decision-complete for Velopack MSI topology, architecture channels, UI page ownership, language scopes, validation, dialogs, update behavior, and deep publish validation |
+| What have I done? | Updated `task_plan.md`, `findings.md`, and `progress.md` with implementation-readiness and publish-validation closure |

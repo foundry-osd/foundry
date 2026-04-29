@@ -4,7 +4,7 @@
 Prepare a code-informed migration study for moving only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 12: Deep Plan Audit Closure
+Phase 13: Implementation Readiness and Publish Validation Closure
 
 ## Constraints
 - Plan phase only.
@@ -100,6 +100,14 @@ Phase 12: Deep Plan Audit Closure
 - [x] Remove stale "unknown packaging" and phase-status contradictions from the plan.
 - **Status:** complete
 
+### Phase 13: Implementation Readiness and Publish Validation Closure
+- [x] Record second-audit closure decisions for ADK navigation gating, status surfaces, Logs, About, Autopilot picker, and configuration actions.
+- [x] Record preservation of Foundry administrator manifest behavior.
+- [x] Record Connect/Deploy runtime-layout asymmetry and local override validation requirements.
+- [x] Record deep Foundry publish behavior validation before Velopack packaging.
+- [x] Record Velopack input/output, install, update, uninstall, and failure-case validation.
+- **Status:** complete
+
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?
 2. How much of `Foundry` is framework-agnostic MVVM/business logic versus WPF-specific UI infrastructure?
@@ -142,6 +150,16 @@ Phase 12: Deep Plan Audit Closure
 | Manual update actions live only in Settings | About shows product/version information only; non-Velopack local builds disable update install actions gracefully. |
 | Importing configuration navigates to Start | After import, the user should see readiness, warnings, and next actions immediately. |
 | Remove the persistent global footer/status surface | Show readiness, USB count, version, and operation state on Home/Start or modal operation dialogs instead of a shell footer. |
+| Preserve Foundry administrator execution | The WinUI project conversion must keep `app.manifest` and `requireAdministrator` because ADK, WinPE, and USB operations require elevation. |
+| Gate non-ADK pages until ADK is compatible | Until compatible ADK/WinPE Add-on is detected, only Home, ADK, Settings, and About are accessible; locked pages stay visible but disabled. |
+| Put each operation status on its owning page | ADK progress lives on ADK, Autopilot progress on Autopilot, import/export results on Start InfoBars, and ISO/USB progress in the locked operation dialog. |
+| Move Logs to Settings | Logs is not a NavigationView footer item; it is a Settings read-only card/action that opens the logs folder. |
+| Keep About as a footer ContentDialog | About remains a footer action with version, license, authors, support, and project links, but no update check. |
+| Keep Autopilot tenant profile picker modal | Use a large scrolling ContentDialog preserving table selection, multi-select, Ctrl+A, and import footer actions. |
+| Start exposes only the existing configuration actions | Move import expert config, export expert config, and export deploy config to Start; do not add deploy-config import. |
+| Export deploy config from full defaults | After Standard/Expert mode removal, export deploy config from the full current configuration even when values are at safe defaults. |
+| Treat Settings paths as read-only first | Logs/cache/temp locations are shown as read-only cards with open-folder actions; do not add editable path preferences. |
+| Deep-test Foundry publish behavior before packaging | Foundry publish output must be validated directly and repeatedly before it is used as Velopack input. |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |
