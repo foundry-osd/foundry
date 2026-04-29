@@ -246,6 +246,51 @@
 - Context7 confirmed WinUI/Microsoft.UI.Xaml binding uses standard `INotifyPropertyChanged`; null property names should not be used as WPF-style global refresh notifications.
 - Dispatcher usage should move from WPF `Dispatcher` to a WinUI-compatible dispatcher abstraction backed by `DispatcherQueue`.
 
+## Windows Community Toolkit and UI Verification Policy - 2026-04-29
+
+### Windows Community Toolkit usage
+- User wants to use Windows Community Toolkit in the WinUI migration.
+- Current repository already uses `CommunityToolkit.Mvvm` in all three application projects. Keep this MVVM baseline.
+- For Foundry WinUI UI controls, native WinUI controls remain the default. Use Windows Community Toolkit controls where they provide a clear fit, reduce custom UI code, or improve consistency.
+- Do not add broad Toolkit dependencies preemptively. Add componentized Toolkit packages only when the implementation uses them.
+- First approved Toolkit UI package target: `CommunityToolkit.WinUI.Controls.SettingsControls`.
+- First approved Toolkit controls:
+  - `SettingsCard`
+  - `SettingsExpander`
+- Primary planned use: full Settings page, including theme, language, update status/check, logs, cache/temp locations, and diagnostics.
+- Secondary possible use: ADK diagnostics or environment-readiness sections if Settings-style grouping fits better than native cards.
+- Context7 confirmed Windows Community Toolkit has WinUI 3 / Windows App SDK package families such as `CommunityToolkit.WinUI.Controls.SettingsControls`, `CommunityToolkit.WinUI.Controls.Segmented`, and `CommunityToolkit.WinUI.Controls.HeaderedControls`.
+
+### Implementation-time app execution policy
+- The implementation plan should explicitly allow and require the implementing agent to run Foundry locally during the migration to verify UI layout and behavior.
+- Run the app after every migrated page or major dialog, not only after the final build.
+- Required run checkpoints:
+  - WinUI shell + `NavigationView`
+  - `Home`
+  - `ADK`
+  - `Configuration`
+  - `Network`
+  - `Localization`
+  - `Autopilot`
+  - `Customization`
+  - `Start`
+  - `Settings`
+  - `About`
+  - update dialogs
+  - ISO/USB progress dialog
+- Each app run should verify:
+  - layout at the default desktop size,
+  - resizing down to the minimum intended window size,
+  - NavigationView selection and footer behavior,
+  - theme switching,
+  - language switching,
+  - disabled/enabled states during operations,
+  - inline validation and Start page validation summary,
+  - dialog ownership and blocking behavior,
+  - ContentDialog placement through the active `XamlRoot`.
+- The implementation should use screenshots or a concise manual verification note for each page checkpoint. UI fixes should be made immediately when layout, text clipping, theme, or navigation problems are found.
+- This run policy does not change the planning-phase hard stop; it applies to the later approved implementation phase.
+
 ## Synthesis
 
 ### Current architecture

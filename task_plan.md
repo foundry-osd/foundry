@@ -4,7 +4,7 @@
 Prepare a code-informed migration study for moving only `src/Foundry` from WPF to WinUI 3 on .NET 10 while keeping `Foundry.Connect` and `Foundry.Deploy` as WPF projects.
 
 ## Current Phase
-Phase 10: WinUI Shell and UX Specification
+Phase 11: Toolkit and UI Verification Policy
 
 ## Constraints
 - Plan phase only.
@@ -85,6 +85,13 @@ Phase 10: WinUI Shell and UX Specification
 - [x] Record UI implementation implications and validation expectations.
 - **Status:** complete
 
+### Phase 11: Toolkit and UI Verification Policy
+- [x] Record Windows Community Toolkit usage policy.
+- [x] Record first Toolkit UI package target.
+- [x] Record run-every-page UI verification requirement.
+- [x] Record manual layout, theme, language, navigation, validation, and dialog checks.
+- **Status:** complete
+
 ## Key Questions
 1. Which WPF assumptions are global today, and what must change for a mixed WinUI 3 + WPF solution?
 2. How much of `Foundry` is framework-agnostic MVVM/business logic versus WPF-specific UI infrastructure?
@@ -108,6 +115,9 @@ Phase 10: WinUI Shell and UX Specification
 | ISO and USB cancellation should be best-effort safe stop | User wants Cancel for both operations, with cleanup where possible and clear terminal state reporting. |
 | Settings should be a full NavigationView page | Settings first scope includes theme, language, update check, logs folder, cache/temp locations, and basic diagnostics. |
 | Velopack updates should prompt on startup and restart only after explicit user confirmation | Startup check shows an update dialog when available. Manual check lives in Settings. Stable channel only for first migration. |
+| Windows Community Toolkit should be used where it adds clear value | Native WinUI controls remain the default, but Toolkit controls are approved when they improve fit and reduce custom UI work. |
+| Toolkit Settings controls are the first approved UI Toolkit target | Use `CommunityToolkit.WinUI.Controls.SettingsControls` for the Settings page, especially `SettingsCard` and `SettingsExpander`. |
+| The implementation should run Foundry after every migrated page | UI layout and behavior must be verified continuously, not only at final smoke test. |
 
 ## Errors Encountered
 | Error | Attempt | Resolution |

@@ -87,6 +87,22 @@
   - `findings.md`
   - `progress.md`
 
+### Phase 11: Toolkit and UI Verification Policy
+- **Status:** complete
+- **Started:** 2026-04-29
+- Actions taken:
+  - Re-read planning files and confirmed the worktree was clean.
+  - Recorded user decision to use Windows Community Toolkit where valuable.
+  - Recorded native WinUI controls as the default, with Toolkit controls used when they reduce custom UI work or improve fit.
+  - Recorded `CommunityToolkit.WinUI.Controls.SettingsControls` as the first planned Toolkit UI package target.
+  - Recorded `SettingsCard` and `SettingsExpander` as planned controls for the Settings page.
+  - Recorded that implementation should run Foundry after every migrated page or major dialog.
+  - Recorded required UI verification checkpoints for shell, pages, settings, about/update dialogs, and ISO/USB progress dialog.
+- Files modified:
+  - `task_plan.md`
+  - `findings.md`
+  - `progress.md`
+
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
