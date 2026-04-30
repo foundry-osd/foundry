@@ -7,17 +7,20 @@
 **Goal:** prevent automatic releases and establish a stable migration lane before moving projects.
 
 - [x] **1.1** Create branch `feat/winui-migration` from `main`.
-- [ ] **1.2** Disable the Sunday automatic release in `.github\workflows\release.yml`.
-- [ ] **1.3** Keep `workflow_dispatch` release capability available for manual emergency releases.
-- [ ] **1.4** Add a clear workflow comment explaining the schedule is disabled during the WinUI migration.
-- [ ] **1.5** Keep CI on `main` and PRs to `main`.
-- [ ] **1.6** Run the full CI matrix for PRs targeting `feat/winui-migration`.
-- [ ] **1.7** Record the last known good release tag before migration starts.
-- [ ] **1.8** Record current release asset names and consumers.
-- [ ] **1.9** Confirm branch protection on `main`.
-- [ ] **1.10** Confirm `feat/winui-migration` is not used for production releases.
-- [ ] **1.11** Create a GitHub milestone or issue set for the migration phases.
-- [ ] **1.12** Commit:
+- [x] **1.2** Disable the Sunday automatic release in `.github\workflows\release.yml`.
+- [x] **1.3** Keep `workflow_dispatch` release capability available for manual emergency releases.
+- [x] **1.4** Add a clear workflow comment explaining the schedule is disabled during the WinUI migration.
+- [x] **1.5** Keep CI on `main` and PRs to `main`.
+- [x] **1.6** Run the full CI matrix for PRs targeting `feat/winui-migration`.
+- [x] **1.7** Record the last known good release tag before migration starts: `v26.4.26.1`.
+- [x] **1.8** Record current release asset names and consumers:
+  - [x] Main app release assets: `Foundry-x64.exe`, `Foundry-arm64.exe`.
+  - [x] Runtime release assets: `Foundry.Connect-win-x64.zip`, `Foundry.Connect-win-arm64.zip`, `Foundry.Deploy-win-x64.zip`, `Foundry.Deploy-win-arm64.zip`.
+  - [x] Current consumers: README download badges consume the main app assets; WinPE bootstrap/local embedding consumes Connect and Deploy zip assets.
+- [x] **1.9** Confirm branch protection state on `main`: branch protection is currently not configured.
+- [x] **1.10** Confirm `feat/winui-migration` is not used for production releases: release jobs are restricted to `refs/heads/main`.
+- [x] **1.11** Create a GitHub milestone or issue set for the migration phases: issue `#107`.
+- [x] **1.12** Commit:
 
 ```powershell
 git commit -m "chore: pause scheduled releases during winui migration"
@@ -25,9 +28,9 @@ git commit -m "chore: pause scheduled releases during winui migration"
 
 **Validation**
 
-- [ ] **1.13** `git diff -- .github\workflows\release.yml`.
-- [ ] **1.14** Confirm no scheduled release can run automatically.
-- [ ] **1.15** Confirm manual release dispatch still exists.
+- [x] **1.13** `git diff -- .github\workflows\release.yml`.
+- [x] **1.14** Confirm no scheduled release can run automatically.
+- [x] **1.15** Confirm manual release dispatch still exists.
 
 ## Phase 2: Repository Shape And Project Boundary Decision
 
