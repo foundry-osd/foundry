@@ -127,10 +127,10 @@ git commit -m "feat: add velopack distribution flow"
 
 - [x] **7.13** Publish WinUI app for `win-x64`.
 - [x] **7.14** Run `vpk pack --msi --instLocation PerMachine` for `win-x64`.
-- [ ] **7.15** Install locally.
-- [ ] **7.16** Launch installed app.
-- [ ] **7.17** Confirm first-run path works.
-- [ ] **7.18** Confirm manual update check handles no-update state.
+- [x] **7.15** Install locally.
+- [x] **7.16** Launch installed app.
+- [x] **7.17** Confirm first-run path works.
+- [x] **7.18** Confirm manual update check handles no-update state.
 - [ ] **7.19** Repeat for `win-arm64` on ARM64 runner or machine.
   - Note: `win-arm64` package generation is validated locally; install/run validation remains for an ARM64 machine or runner.
 
