@@ -19,7 +19,7 @@ namespace Foundry.Common
 
         public const string RepositoryUrl = "https://github.com/foundry-osd/foundry";
         public const string LatestReleaseUrl = RepositoryUrl + "/releases/latest";
-        public const string DefaultUpdateFeedUrl = RepositoryUrl + "/releases";
+        public const string DefaultUpdateFeedUrl = RepositoryUrl;
 
         public static void EnsureDataDirectories()
         {

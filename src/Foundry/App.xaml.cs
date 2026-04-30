@@ -2,7 +2,6 @@ using Foundry.DependencyInjection;
 using Foundry.Services.Startup;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Velopack;
 
 namespace Foundry
 {
@@ -30,7 +29,6 @@ namespace Foundry
 
         public App()
         {
-            VelopackApp.Build().Run();
             Constants.EnsureDataDirectories();
             ConfigureLogger();
 

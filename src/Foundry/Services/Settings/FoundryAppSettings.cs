@@ -24,6 +24,7 @@ public sealed class UpdateSettings
     public bool CheckOnStartup { get; set; } = true;
     public string Channel { get; set; } = Constants.DefaultUpdateChannel;
     public string FeedUrl { get; set; } = Constants.DefaultUpdateFeedUrl;
+    public DateTimeOffset? LastCheckedAt { get; set; }
 }
 
 public sealed class DiagnosticsSettings
