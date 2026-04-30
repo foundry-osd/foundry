@@ -51,11 +51,12 @@ src/
   Foundry.Connect.Tests/    # Existing tests
   Foundry.Deploy.Tests/     # Existing tests
 archive/
-  Foundry.WpfReference/     # Temporary old WPF app reference, not built by solution
+  Foundry.WpfReference/     # Temporary old WPF app reference, not built or restored by tooling
 ```
 
 - [x] **2.2** Put the archive under `archive\Foundry.WpfReference`.
 - [x] **2.3** Keep `archive\Foundry.WpfReference` outside the build graph and remove it after final WinUI cutover plus first stable WinUI release validation.
+  - Note: the archived project file uses the `.csproj.reference` extension so repository-wide dependency submission does not restore obsolete reference code.
 - [x] **2.4** Delete the old `src\Foundry.Tests` project during the WinUI shell import; rewrite only valuable business coverage in clean test projects later.
 - [x] **2.5** Record that a clean `src\Foundry.Core.Tests` project will be created for business logic in Phase 4.
 - [x] **2.6** Record that `src\Foundry.App.Tests` will be created only if non-UI app orchestration tests are needed.
