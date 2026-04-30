@@ -23,9 +23,10 @@ internal sealed class StartupReadinessService(
             appSettingsService.Current.Updates.Channel);
 
         await localizationService.InitializeAsync(cancellationToken);
-        await updateService.InitializeAsync(cancellationToken);
 
         shellNavigationGuardService.SetState(ShellNavigationState.Ready);
+
+        await updateService.InitializeAsync(cancellationToken);
 
         logger.Information("Startup readiness initialized. ShellNavigationState={ShellNavigationState}", shellNavigationGuardService.State);
     }

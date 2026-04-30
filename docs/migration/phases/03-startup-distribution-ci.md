@@ -39,8 +39,8 @@
   - [ ] Detect ADK and WinPE Add-on readiness.
   - [x] Apply `AdkBlocked` or `Ready` shell navigation state.
   - [ ] Refresh USB targets only after ADK is compatible.
-  - [ ] Run update checks after readiness initialization.
-  - [ ] Ensure startup update checks do not block app usage.
+  - [x] Run update checks after readiness initialization.
+  - [x] Ensure startup update checks do not block app usage.
   - Note: ADK detection, USB refresh, and real update checks are intentionally left to the ADK/media and Velopack phases.
 - [x] **6.9** Commit:
 
@@ -63,58 +63,61 @@ Note: manual launch validation is kept unchecked until a local Visual Studio run
 
 **Goal:** replace the old GitHub-release-only update check with real install/update behavior.
 
-- [ ] **7.1** Use the decided distribution mode:
-  - [ ] Primary installer: Velopack `.msi`.
-  - [ ] Install location: `PerMachine`.
-  - [ ] App packaging model: unpackaged WinUI with `WindowsPackageType=None`.
-  - [ ] Update feed: GitHub Releases.
-  - [ ] Architectures: `win-x64` and `win-arm64`.
-  - [ ] No x86 installer or update channel.
-- [ ] **7.2** Define Velopack package identity:
-  - [ ] Pack ID.
-  - [ ] Display name.
-  - [ ] Main executable.
-  - [ ] Shortcut behavior.
-  - [ ] Install scope.
-- [ ] **7.3** Add app startup integration:
-  - [ ] `VelopackApp.Build().Run()`.
-  - [ ] First-run callback if needed.
-  - [ ] Restart-after-update handling.
-- [ ] **7.4** Replace or rewrite `ApplicationUpdateService`:
-  - [ ] Check for updates using `UpdateManager`.
-  - [ ] Present Velopack release notes.
-  - [ ] Download update.
-  - [ ] Apply update.
-  - [ ] Restart app when required.
-  - [ ] Skip update checks in Visual Studio debug sessions.
-- [ ] **7.5** Do not port the WPF `FlowDocument` release-notes renderer 1:1.
-  - [ ] Use a simple WinUI release-notes view or simplified text.
-  - [ ] Keep GitHub release note display only if it adds value beyond Velopack release notes.
-- [ ] **7.6** Update app settings page:
-  - [ ] Current version.
-  - [ ] Update channel/feed.
-  - [ ] Manual check button.
-  - [ ] Download/install state.
-  - [ ] Failure message.
-  - [ ] Persist update preference, feed, or channel through `IAppSettingsService` when needed.
-- [ ] **7.7** Use both startup and manual update checks:
-  - [ ] Startup check runs after app readiness initialization.
-  - [ ] Startup check must not block normal app usage.
-  - [ ] Manual check is available from Settings/About update UI.
-- [ ] **7.8** Add release artifact naming contract:
-  - [ ] `FoundrySetup-x64.msi`.
-  - [ ] `FoundrySetup-arm64.msi`.
-  - [ ] Velopack release metadata files.
-- [ ] **7.9** Use Velopack CLI directly for MSI packaging:
+- [x] **7.1** Use the decided distribution mode:
+  - [x] Primary installer: Velopack `.msi`.
+  - [x] Install location: `PerMachine`.
+  - [x] App packaging model: unpackaged WinUI with `WindowsPackageType=None`.
+  - [x] Update feed: GitHub Releases.
+  - [x] Architectures: `win-x64` and `win-arm64`.
+  - [x] No x86 installer or update channel.
+  - Note: Velopack package channels are runtime-specific (`win-x64` and `win-arm64`) to prevent release asset conflicts. The user-facing update preference remains `stable`.
+- [x] **7.2** Define Velopack package identity:
+  - [x] Pack ID.
+  - [x] Display name.
+  - [x] Main executable.
+  - [x] Shortcut behavior.
+  - [x] Install scope.
+- [x] **7.3** Add app startup integration:
+  - [x] `VelopackApp.Build().Run()`.
+  - [x] First-run callback if needed.
+  - [x] Restart-after-update handling.
+  - Note: no custom first-run callback is required at this stage; the startup hook is in the real WinUI entry point.
+- [x] **7.4** Replace or rewrite `ApplicationUpdateService`:
+  - [x] Check for updates using `UpdateManager`.
+  - [x] Present Velopack release notes.
+  - [x] Download update.
+  - [x] Apply update.
+  - [x] Restart app when required.
+  - [x] Skip update checks in Visual Studio debug sessions.
+- [x] **7.5** Do not port the WPF `FlowDocument` release-notes renderer 1:1.
+  - [x] Use a simple WinUI release-notes view or simplified text.
+  - [x] Keep GitHub release note display only if it adds value beyond Velopack release notes.
+- [x] **7.6** Update app settings page:
+  - [x] Current version.
+  - [x] Update channel/feed.
+  - [x] Manual check button.
+  - [x] Download/install state.
+  - [x] Failure message.
+  - [x] Persist update preference, feed, or channel through `IAppSettingsService` when needed.
+- [x] **7.7** Use both startup and manual update checks:
+  - [x] Startup check runs after app readiness initialization.
+  - [x] Startup check must not block normal app usage.
+  - [x] Manual check is available from Settings/About update UI.
+- [x] **7.8** Add release artifact naming contract:
+  - [x] `FoundrySetup-x64.msi`.
+  - [x] `FoundrySetup-arm64.msi`.
+  - [x] Velopack release metadata files.
+- [x] **7.9** Use Velopack CLI directly for MSI packaging:
 
 ```powershell
-vpk pack --msi --instLocation PerMachine --packId Foundry --packVersion <YY.M.D-build.Build> --packDir <publish-dir> --mainExe Foundry.exe
+vpk pack --msi --instLocation PerMachine --packId Foundry --packVersion <YY.M.D-build.Build> --packDir <publish-dir> --mainExe Foundry.exe --channel <win-x64|win-arm64>
 ```
 
-- [ ] **7.10** Do not add or maintain a dedicated WiX project for Foundry.
-- [ ] **7.11** Preserve `Foundry.Connect` and `Foundry.Deploy` ZIP release assets.
+- [x] **7.10** Do not add or maintain a dedicated WiX project for Foundry.
+- [x] **7.11** Preserve `Foundry.Connect` and `Foundry.Deploy` ZIP release assets.
 - [ ] **7.11.1** Replace old main `Foundry-x64.exe` and `Foundry-arm64.exe` release assets with Velopack package/MSI artifacts.
-- [ ] **7.12** Commit:
+  - Note: the local packaging artifact contract is ready; the GitHub release workflow replacement remains in Phase 8.
+- [x] **7.12** Commit:
 
 ```powershell
 git commit -m "feat: add velopack distribution flow"
@@ -122,13 +125,14 @@ git commit -m "feat: add velopack distribution flow"
 
 **Validation**
 
-- [ ] **7.13** Publish WinUI app for `win-x64`.
-- [ ] **7.14** Run `vpk pack --msi --instLocation PerMachine` for `win-x64`.
+- [x] **7.13** Publish WinUI app for `win-x64`.
+- [x] **7.14** Run `vpk pack --msi --instLocation PerMachine` for `win-x64`.
 - [ ] **7.15** Install locally.
 - [ ] **7.16** Launch installed app.
 - [ ] **7.17** Confirm first-run path works.
 - [ ] **7.18** Confirm manual update check handles no-update state.
 - [ ] **7.19** Repeat for `win-arm64` on ARM64 runner or machine.
+  - Note: `win-arm64` package generation is validated locally; install/run validation remains for an ARM64 machine or runner.
 
 ## Phase 8: GitHub Actions And Release Workflow Migration
 
