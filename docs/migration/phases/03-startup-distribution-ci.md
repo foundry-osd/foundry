@@ -51,8 +51,8 @@ git commit -m "refactor: add winui application startup composition"
 **Validation**
 
 - [ ] **6.10** Start app in Debug.
-- [ ] **6.11** Start app in Release.
-- [ ] **6.12** Confirm logs are created on startup.
+- [x] **6.11** Start app in Release.
+- [x] **6.12** Confirm logs are created on startup.
 - [ ] **6.13** Confirm an unhandled exception is logged during a controlled debug test.
 
 Note: manual launch validation is kept unchecked until a local Visual Studio run because the WinUI executable now requests administrator elevation.
