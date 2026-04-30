@@ -25,6 +25,8 @@ $releaseNotesPath = Join-Path $artifactsRoot 'release-notes.md'
 $platform = if ($RuntimeIdentifier -eq 'win-x64') { 'x64' } else { 'ARM64' }
 $artifactArchitecture = if ($RuntimeIdentifier -eq 'win-x64') { 'x64' } else { 'arm64' }
 $velopackChannel = $RuntimeIdentifier
+$targetFramework = 'net10.0-windows10.0.26100.0'
+$runtimeBuildDir = Join-Path $repoRoot "src\Foundry\bin\$platform\$Configuration\$targetFramework\$RuntimeIdentifier"
 
 if (-not ($PackVersion -match '^(?<year>\d{2})\.(?<month>\d{1,2})\.(?<day>\d{1,2})-build\.(?<build>\d+)$')) {
     throw "PackVersion '$PackVersion' must use YY.M.D-build.Build."
@@ -91,6 +93,26 @@ if ($LASTEXITCODE -ne 0) {
 $foundryExe = Join-Path $publishDir 'Foundry.exe'
 if (-not (Test-Path -Path $foundryExe -PathType Leaf)) {
     throw "Expected Foundry executable was not published: '$foundryExe'."
+}
+
+$winUiResourceFiles = @('App.xbf', 'Foundry.pri')
+foreach ($file in $winUiResourceFiles) {
+    $source = Join-Path $runtimeBuildDir $file
+    if (-not (Test-Path -Path $source -PathType Leaf)) {
+        throw "Expected WinUI resource file was not built: '$source'."
+    }
+
+    Copy-Item -Path $source -Destination (Join-Path $publishDir $file) -Force
+}
+
+$winUiResourceDirectories = @('Themes', 'Views')
+foreach ($directory in $winUiResourceDirectories) {
+    $source = Join-Path $runtimeBuildDir $directory
+    if (-not (Test-Path -Path $source -PathType Container)) {
+        throw "Expected WinUI resource directory was not built: '$source'."
+    }
+
+    Copy-Item -Path $source -Destination $publishDir -Recurse -Force
 }
 
 & $vpkExe pack `
