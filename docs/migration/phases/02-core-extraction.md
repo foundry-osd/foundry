@@ -81,33 +81,33 @@ git commit -m "refactor: extract foundry core project"
 
 **Goal:** reduce `MainWindowViewModel` risk before translating it into WinUI pages.
 
-- [ ] **5.1** Read archived `MainWindowViewModel.cs` as reference only.
-- [ ] **5.2** Identify all responsibilities:
-  - [ ] App menu commands.
-  - [ ] Theme selection.
-  - [ ] Language selection.
-  - [ ] ADK status and install/upgrade.
-  - [ ] ISO output selection.
-  - [ ] USB candidate refresh.
-  - [ ] ISO creation.
-  - [ ] USB creation.
-  - [ ] Expert configuration import/export.
-  - [ ] Deploy configuration export.
-  - [ ] Progress/status display.
-  - [ ] Update check.
-  - [ ] About/help links.
-- [ ] **5.3** Create thin service contracts for UI-facing operations:
-  - [ ] `IFilePickerService`.
-  - [ ] `IDialogService`.
-  - [ ] `IApplicationLifetimeService`.
-  - [ ] `IExternalProcessLauncher`.
-  - [ ] `IAppDispatcher`.
-- [ ] **5.4** Keep service interfaces platform-neutral where possible.
-- [ ] **5.5** Implement WinUI versions in the `Foundry` app project, not in `Foundry.Core`.
-- [ ] **5.6** Identify duplicated or awkward logic that can be simplified during extraction without changing runtime behavior.
-- [ ] **5.7** Record any targeted `Foundry.Connect` or `Foundry.Deploy` changes needed to simplify shared contracts.
-- [ ] **5.8** Keep WPF reference unchanged.
-- [ ] **5.9** Commit:
+- [x] **5.1** Read archived `MainWindowViewModel.cs` as reference only.
+- [x] **5.2** Identify all responsibilities:
+  - [x] App menu commands.
+  - [x] Theme selection.
+  - [x] Language selection.
+  - [x] ADK status and install/upgrade.
+  - [x] ISO output selection.
+  - [x] USB candidate refresh.
+  - [x] ISO creation.
+  - [x] USB creation.
+  - [x] Expert configuration import/export.
+  - [x] Deploy configuration export.
+  - [x] Progress/status display.
+  - [x] Update check.
+  - [x] About/help links.
+- [x] **5.3** Create thin service contracts for UI-facing operations:
+  - [x] `IFilePickerService`.
+  - [x] `IDialogService`.
+  - [x] `IApplicationLifetimeService`.
+  - [x] `IExternalProcessLauncher`.
+  - [x] `IAppDispatcher`.
+- [x] **5.4** Keep service interfaces platform-neutral where possible.
+- [x] **5.5** Implement WinUI versions in the `Foundry` app project, not in `Foundry.Core`.
+- [x] **5.6** Identify duplicated or awkward logic that can be simplified during extraction without changing runtime behavior.
+- [x] **5.7** Record any targeted `Foundry.Connect` or `Foundry.Deploy` changes needed to simplify shared contracts.
+- [x] **5.8** Keep WPF reference unchanged.
+- [x] **5.9** Commit:
 
 ```powershell
 git commit -m "refactor: define winui application service boundaries"
@@ -115,6 +115,24 @@ git commit -m "refactor: define winui application service boundaries"
 
 **Validation**
 
-- [ ] **5.10** Confirm `Foundry.Core` has no dependency on `Microsoft.UI.Xaml`.
-- [ ] **5.11** Confirm `Foundry.Core` has no dependency on `System.Windows`.
-- [ ] **5.12** Confirm app project owns all WinUI-specific service implementations.
+- [x] **5.10** Confirm `Foundry.Core` has no dependency on `Microsoft.UI.Xaml`.
+- [x] **5.11** Confirm `Foundry.Core` has no dependency on `System.Windows`.
+- [x] **5.12** Confirm app project owns all WinUI-specific service implementations.
+
+**Phase 5 notes**
+
+- [x] `Foundry.Core` owns neutral contracts only:
+  - [x] Picker request/choice DTOs.
+  - [x] Dialog request DTOs.
+  - [x] `IFilePickerService`, `IDialogService`, `IApplicationLifetimeService`, `IExternalProcessLauncher`, `IAppDispatcher`.
+- [x] `Foundry` owns WinUI implementations:
+  - [x] `WinUiFilePickerService` using Windows App SDK pickers tied to the main `AppWindow.Id`.
+  - [x] `WinUiDialogService` using WinUI `ContentDialog`.
+  - [x] `WinUiAppDispatcher` using WinUI `DispatcherQueue`.
+  - [x] `WinUiApplicationLifetimeService` using WinUI application lifetime.
+  - [x] `WinUiExternalProcessLauncher` using shell execution for URLs, files, and folders.
+- [x] Future simplification candidates:
+  - [x] Replace broad WPF `ApplicationShellService` usage with focused picker, dialog, launcher, lifetime, and dispatcher contracts.
+  - [x] Keep file/folder picking asynchronous in WinUI instead of preserving synchronous WPF dialog calls.
+  - [x] Keep `MainWindowViewModel` port split by navigation page rather than recreating one large shell view model.
+- [x] No targeted `Foundry.Connect` or `Foundry.Deploy` changes are needed for these service-boundary contracts.

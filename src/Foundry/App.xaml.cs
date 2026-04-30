@@ -30,6 +30,11 @@
             var services = new ServiceCollection();
             services.AddSingleton<IThemeService, ThemeService>();
             services.AddSingleton<IJsonNavigationService, JsonNavigationService>();
+            services.AddSingleton<Foundry.Core.Services.Application.IApplicationLifetimeService, Services.Application.WinUiApplicationLifetimeService>();
+            services.AddSingleton<Foundry.Core.Services.Application.IAppDispatcher, Services.Application.WinUiAppDispatcher>();
+            services.AddSingleton<Foundry.Core.Services.Application.IDialogService, Services.Application.WinUiDialogService>();
+            services.AddSingleton<Foundry.Core.Services.Application.IExternalProcessLauncher, Services.Application.WinUiExternalProcessLauncher>();
+            services.AddSingleton<Foundry.Core.Services.Application.IFilePickerService, Services.Application.WinUiFilePickerService>();
 
             services.AddTransient<MainViewModel>();
             services.AddSingleton<ContextMenuService>();

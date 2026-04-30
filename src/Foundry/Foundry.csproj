@@ -65,4 +65,7 @@
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Velopack" Version="0.0.1589-ga2c5a97" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
+  </ItemGroup>
 </Project>
