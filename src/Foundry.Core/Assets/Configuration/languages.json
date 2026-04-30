@@ -1,0 +1,22 @@
+[
+  { "code": "en-US", "displayName": "English (United States)", "englishName": "English (United States)", "sortOrder": 10 },
+  { "code": "fr-FR", "displayName": "French (France)", "englishName": "French (France)", "sortOrder": 20 },
+  { "code": "de-DE", "displayName": "German (Germany)", "englishName": "German (Germany)", "sortOrder": 30 },
+  { "code": "es-ES", "displayName": "Spanish (Spain)", "englishName": "Spanish (Spain)", "sortOrder": 40 },
+  { "code": "it-IT", "displayName": "Italian (Italy)", "englishName": "Italian (Italy)", "sortOrder": 50 },
+  { "code": "nl-NL", "displayName": "Dutch (Netherlands)", "englishName": "Dutch (Netherlands)", "sortOrder": 60 },
+  { "code": "pt-BR", "displayName": "Portuguese (Brazil)", "englishName": "Portuguese (Brazil)", "sortOrder": 70 },
+  { "code": "pt-PT", "displayName": "Portuguese (Portugal)", "englishName": "Portuguese (Portugal)", "sortOrder": 80 },
+  { "code": "ja-JP", "displayName": "Japanese (Japan)", "englishName": "Japanese (Japan)", "sortOrder": 90 },
+  { "code": "ko-KR", "displayName": "Korean (Korea)", "englishName": "Korean (Korea)", "sortOrder": 100 },
+  { "code": "zh-CN", "displayName": "Chinese (Simplified, China)", "englishName": "Chinese (Simplified, China)", "sortOrder": 110 },
+  { "code": "zh-TW", "displayName": "Chinese (Traditional, Taiwan)", "englishName": "Chinese (Traditional, Taiwan)", "sortOrder": 120 },
+  { "code": "pl-PL", "displayName": "Polish (Poland)", "englishName": "Polish (Poland)", "sortOrder": 130 },
+  { "code": "sv-SE", "displayName": "Swedish (Sweden)", "englishName": "Swedish (Sweden)", "sortOrder": 140 },
+  { "code": "da-DK", "displayName": "Danish (Denmark)", "englishName": "Danish (Denmark)", "sortOrder": 150 },
+  { "code": "nb-NO", "displayName": "Norwegian Bokmal (Norway)", "englishName": "Norwegian Bokmal (Norway)", "sortOrder": 160 },
+  { "code": "fi-FI", "displayName": "Finnish (Finland)", "englishName": "Finnish (Finland)", "sortOrder": 170 },
+  { "code": "cs-CZ", "displayName": "Czech (Czech Republic)", "englishName": "Czech (Czech Republic)", "sortOrder": 180 },
+  { "code": "hu-HU", "displayName": "Hungarian (Hungary)", "englishName": "Hungarian (Hungary)", "sortOrder": 190 },
+  { "code": "ro-RO", "displayName": "Romanian (Romania)", "englishName": "Romanian (Romania)", "sortOrder": 200 }
+]

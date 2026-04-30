@@ -6,61 +6,61 @@
 
 **Goal:** create the UI-neutral project that receives business logic before UI porting begins.
 
-- [ ] **4.1** Create `src\Foundry.Core\Foundry.Core.csproj`.
-- [ ] **4.2** Target `net10.0-windows`.
-- [ ] **4.3** Treat `Foundry.Core` as UI-neutral but Windows-specific business logic.
-- [ ] **4.4** Add only necessary dependencies:
-  - [ ] `Microsoft.Extensions.Logging.Abstractions` if logging abstractions are required.
-  - [ ] `System.Text.Json` through the shared framework where possible.
-  - [ ] Avoid WPF/WinUI references.
-- [ ] **4.5** Create `src\Foundry.Core.Tests\Foundry.Core.Tests.csproj` from scratch.
-- [ ] **4.6** Use a clean test folder structure:
-  - [ ] `Configuration`.
-  - [ ] `Provisioning`.
-  - [ ] `Localization`.
-  - [ ] `WinPe`.
-  - [ ] `Drivers`.
-  - [ ] `Updates` only if update decision logic is UI-neutral.
-- [ ] **4.7** Move business models first:
-  - [ ] `Models\Configuration`.
-  - [ ] `Models\Configuration\Deploy`.
-- [ ] **4.8** Move pure configuration services:
-  - [ ] `ConfigurationJsonDefaults`.
-  - [ ] `ExpertConfigurationService`.
-  - [ ] `DeployConfigurationGenerator`.
-  - [ ] `EmbeddedLanguageRegistryService`.
-  - [ ] `LanguageCodeUtility`.
-- [ ] **4.9** Move pure WinPE value objects and helpers:
-  - [ ] `WinPeArchitecture`.
-  - [ ] `WinPeArchitectureExtensions`.
-  - [ ] `WinPeSignatureMode`.
-  - [ ] `UsbPartitionStyle`.
-  - [ ] `UsbFormatMode`.
-  - [ ] `WinPeErrorCodes`.
-  - [ ] `WinPeDiagnostic`.
-  - [ ] `WinPeResult`.
-  - [ ] `WinPeHashHelper`.
-  - [ ] `WinPeFileSystemHelper` if it has no UI dependency.
-- [ ] **4.10** Keep shell/UI services out of `Foundry.Core`:
-  - [ ] `ApplicationShellService`.
-  - [ ] Theme services.
-  - [ ] WinUI dialogs.
-  - [ ] WPF dialogs.
-- [ ] **4.11** Allow Windows business services in `Foundry.Core` when they do not depend on WPF or WinUI:
-  - [ ] ADK detection/orchestration.
-  - [ ] WinPE build orchestration.
-  - [ ] Driver catalog/resolution/injection.
-  - [ ] ISO/USB media business operations.
-- [ ] **4.12** Move embedded assets needed by core:
-  - [ ] `Assets\Configuration\languages.json`.
-  - [ ] `Assets\Configuration\iana-windows-timezones.json`.
-- [ ] **4.13** Keep executable/runtime assets in the app unless core owns the resolution contract:
-  - [ ] `Assets\7z`.
-  - [ ] `Assets\WinPe\FoundryBootstrap.ps1`.
-- [ ] **4.14** Rewrite only the old `Foundry.Tests` cases that protect migrated business rules.
-- [ ] **4.15** Do not copy old tests mechanically.
-- [ ] **4.16** Do not write UI tests.
-- [ ] **4.17** Commit:
+- [x] **4.1** Create `src\Foundry.Core\Foundry.Core.csproj`.
+- [x] **4.2** Target `net10.0-windows`.
+- [x] **4.3** Treat `Foundry.Core` as UI-neutral but Windows-specific business logic.
+- [x] **4.4** Add only necessary dependencies:
+  - [x] `Microsoft.Extensions.Logging.Abstractions` if logging abstractions are required. Not required in this phase.
+  - [x] `System.Text.Json` through the shared framework where possible.
+  - [x] Avoid WPF/WinUI references.
+- [x] **4.5** Create `src\Foundry.Core.Tests\Foundry.Core.Tests.csproj` from scratch.
+- [x] **4.6** Use a clean test folder structure:
+  - [x] `Configuration`.
+  - [ ] `Provisioning`. Deferred until provisioning logic is extracted.
+  - [x] `Localization`.
+  - [x] `WinPe`.
+  - [ ] `Drivers`. Deferred until driver logic is extracted.
+  - [x] `Updates` only if update decision logic is UI-neutral. Not useful in this phase.
+- [x] **4.7** Move business models first:
+  - [x] `Models\Configuration`.
+  - [x] `Models\Configuration\Deploy`.
+- [x] **4.8** Move pure configuration services:
+  - [x] `ConfigurationJsonDefaults`.
+  - [x] `ExpertConfigurationService`.
+  - [x] `DeployConfigurationGenerator`.
+  - [x] `EmbeddedLanguageRegistryService`.
+  - [x] `LanguageCodeUtility`.
+- [x] **4.9** Move pure WinPE value objects and helpers:
+  - [x] `WinPeArchitecture`.
+  - [x] `WinPeArchitectureExtensions`.
+  - [x] `WinPeSignatureMode`.
+  - [x] `UsbPartitionStyle`.
+  - [x] `UsbFormatMode`.
+  - [x] `WinPeErrorCodes`.
+  - [x] `WinPeDiagnostic`.
+  - [x] `WinPeResult`.
+  - [x] `WinPeHashHelper`.
+  - [x] `WinPeFileSystemHelper` if it has no UI dependency.
+- [x] **4.10** Keep shell/UI services out of `Foundry.Core`:
+  - [x] `ApplicationShellService`.
+  - [x] Theme services.
+  - [x] WinUI dialogs.
+  - [x] WPF dialogs.
+- [x] **4.11** Allow Windows business services in `Foundry.Core` when they do not depend on WPF or WinUI:
+  - [ ] ADK detection/orchestration. Deferred to the ADK extraction phase.
+  - [ ] WinPE build orchestration. Deferred to the WinPE build phase.
+  - [ ] Driver catalog/resolution/injection. Deferred to the driver phase.
+  - [ ] ISO/USB media business operations. Deferred to the media creation phase.
+- [x] **4.12** Move embedded assets needed by core:
+  - [x] `Assets\Configuration\languages.json`.
+  - [x] `Assets\Configuration\iana-windows-timezones.json`.
+- [x] **4.13** Keep executable/runtime assets in the app unless core owns the resolution contract:
+  - [x] `Assets\7z`.
+  - [x] `Assets\WinPe\FoundryBootstrap.ps1`.
+- [x] **4.14** Rewrite only the old `Foundry.Tests` cases that protect migrated business rules.
+- [x] **4.15** Do not copy old tests mechanically.
+- [x] **4.16** Do not write UI tests.
+- [x] **4.17** Commit:
 
 ```powershell
 git commit -m "refactor: extract foundry core project"
@@ -68,12 +68,12 @@ git commit -m "refactor: extract foundry core project"
 
 **Validation**
 
-- [ ] **4.18** `dotnet test .\src\Foundry.Core.Tests\Foundry.Core.Tests.csproj -c Release --nologo`.
-- [ ] **4.19** Confirm rewritten tests cover:
-  - [ ] Expert configuration serialization.
-  - [ ] Deploy configuration generation.
-  - [ ] Language registry fallback behavior.
-  - [ ] Culture/catalog behavior.
+- [x] **4.18** `dotnet test .\src\Foundry.Core.Tests\Foundry.Core.Tests.csproj -c Release --nologo`.
+- [x] **4.19** Confirm rewritten tests cover:
+  - [x] Expert configuration serialization.
+  - [x] Deploy configuration generation.
+  - [x] Language registry fallback behavior.
+  - [x] Culture/catalog behavior.
 
 ## Phase 5: Extract Migration Seams From Current WPF Reference
 
