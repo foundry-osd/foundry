@@ -2,9 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
     <StartupObject>Foundry.Program</StartupObject>
     <Win32Manifest>app.manifest</Win32Manifest>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
+    <PackageIcon>app.ico</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
