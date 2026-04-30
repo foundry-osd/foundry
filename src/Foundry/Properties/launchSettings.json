@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Foundry (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Foundry (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
