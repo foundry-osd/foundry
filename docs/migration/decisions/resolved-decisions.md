@@ -1,0 +1,94 @@
+# Resolved Decisions
+
+These decisions are locked for the current migration plan. Reopen one only if implementation proves the decision materially wrong.
+
+- [x] **RD-001: General page ownership**
+  - `General` is part of the General navigation section.
+  - `General` is not an Expert navigation page.
+  - The expert JSON document may still contain a `general` section when required by the existing schema.
+
+- [x] **RD-002: Elevation model**
+  - The WinUI Foundry app keeps an application-level administrator requirement during this migration.
+  - Use a WinUI app manifest equivalent to the current WPF `requireAdministrator` behavior.
+  - Do not introduce per-operation elevation in this migration.
+
+- [x] **RD-003: Blocking operation overlay**
+  - Use the same shell-level blocking overlay pattern for global operations.
+  - Covered operations are ADK install, ADK upgrade, ISO creation, USB creation, Autopilot profile import, and Autopilot tenant download.
+  - Navigation remains blocked until the operation fully completes.
+
+- [x] **RD-004: Startup readiness sequence**
+  - Initialize logging, dependency injection, and Velopack startup hooks first.
+  - Detect ADK and WinPE Add-on readiness before enabling configuration pages.
+  - Apply the shell navigation state after ADK detection.
+  - Refresh USB targets only after ADK is compatible.
+  - Run update checks after readiness initialization and never block app usage for a startup update check.
+
+- [x] **RD-005: Autopilot Graph ownership**
+  - Microsoft Graph authentication remains in the WinUI `Foundry` app/infrastructure layer.
+  - `Foundry.Core` may contain pure conversion, validation, and file transformation logic.
+  - `Foundry.Core` must not own `InteractiveBrowserCredential`, Graph HTTP calls, token cache behavior, or environment-variable-driven Graph configuration.
+
+- [x] **RD-006: Network secret handling**
+  - WinUI uses explicit `PasswordBox` handling for Wi-Fi and network secrets.
+  - Secrets may live in memory as today while needed for workflow execution.
+  - Secrets must not be logged.
+  - Secrets must not be displayed in summary pages.
+  - Secrets are serialized only when required by the runtime or configuration contract.
+
+- [x] **RD-007: Release notes rendering**
+  - Do not port the WPF `FlowDocument` release-notes renderer 1:1.
+  - Use Velopack release notes as the source for update details.
+  - Render release notes with a simple WinUI-friendly view or simplified text.
+
+- [x] **RD-008: App settings persistence**
+  - Replace `nucs.JsonSettings` with an internal `IAppSettingsService`.
+  - Keep the service UI-agnostic and testable.
+  - Persist app-level settings such as theme, app language, update preference/feed/channel, and diagnostics/log preferences when needed.
+
+- [x] **RD-009: Supported Foundry architectures**
+  - The WinUI `Foundry` app supports `win-x64` and `win-arm64`.
+  - Remove `x86` and `win-x86` from the imported WinUI prototype.
+  - Do not build, test, package, or release x86 Foundry artifacts.
+
+- [x] **RD-010: DevWinUI shell baseline**
+  - DevWinUI remains the long-term Foundry shell baseline after the migration.
+  - Keep DevWinUI navigation, title bar, breadcrumb, settings, and content-frame conventions unless a specific package becomes unused or blocks implementation.
+  - Remove prototype metadata and placeholder strings, not the DevWinUI shell approach.
+
+- [x] **RD-011: Date-based release versioning**
+  - Keep date-based release versioning.
+  - Do not switch Foundry to conventional product SemVer such as `1.2.3`.
+  - Keep Git tags and GitHub releases in the existing visible format `vYY.M.D.Build`, for example `v26.4.30.1`.
+  - Keep the app display version and assembly/file versions as `YY.M.D.Build`, for example `26.4.30.1`.
+  - Convert the date-based version to a Velopack-compatible SemVer2 package version with `YY.M.D-build.Build`, for example `26.4.30-build.1`.
+  - The mapping is deterministic:
+    - `v26.4.30.1` maps to `26.4.30-build.1`.
+    - `v26.4.30.2` maps to `26.4.30-build.2`.
+    - `v26.5.1.1` maps to `26.5.1-build.1`.
+
+- [x] **RD-012: WinUI Foundry localization format**
+  - The migrated WinUI `Foundry` app uses `.resw` resources for all app UI and view-model-facing localized text.
+  - Do not keep `.resx` localization in the migrated WinUI `Foundry` app.
+  - `Foundry.Core` exposes stable codes, values, or invariant diagnostics where possible; WinUI `Foundry` owns user-facing localization through `.resw`.
+  - `Foundry.Connect` and `Foundry.Deploy` may keep their existing WPF `.resx` localization because they are not migrated to WinUI.
+
+- [x] **RD-013: WPF reference archive lifetime**
+  - Keep `archive\Foundry.WpfReference` during the migration as a read-only implementation reference.
+  - Remove the archive after final WinUI cutover and the first stable WinUI release validation.
+  - Do not keep the WPF reference archive permanently in the repository.
+
+- [x] **RD-014: ProgramData-only app data**
+  - The WinUI `Foundry` app writes app data, settings, logs, cache, temp files, and authoring workspaces under `C:\ProgramData\Foundry`.
+  - Do not use DevWinUI's prototype AppData root as Foundry's runtime data root.
+  - Store app settings at `C:\ProgramData\Foundry\Settings\appsettings.json`.
+  - Store logs at `C:\ProgramData\Foundry\Logs`.
+  - Do not store secrets in app settings.
+  - Initial app settings schema:
+    - `schemaVersion`.
+    - `appearance.theme`.
+    - `localization.language`.
+    - `updates.checkOnStartup`.
+    - `updates.channel`.
+    - `updates.feedUrl`.
+    - `diagnostics.developerMode`.

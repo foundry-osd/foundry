@@ -1,0 +1,127 @@
+# Foundation Phases
+
+## Phase 1: Migration Freeze And Safety Setup
+
+**Priority:** critical.
+
+**Goal:** prevent automatic releases and establish a stable migration lane before moving projects.
+
+- [x] **1.1** Create branch `feat/winui-migration` from `main`.
+- [ ] **1.2** Disable the Sunday automatic release in `.github\workflows\release.yml`.
+- [ ] **1.3** Keep `workflow_dispatch` release capability available for manual emergency releases.
+- [ ] **1.4** Add a clear workflow comment explaining the schedule is disabled during the WinUI migration.
+- [ ] **1.5** Keep CI on `main` and PRs to `main`.
+- [ ] **1.6** Run the full CI matrix for PRs targeting `feat/winui-migration`.
+- [ ] **1.7** Record the last known good release tag before migration starts.
+- [ ] **1.8** Record current release asset names and consumers.
+- [ ] **1.9** Confirm branch protection on `main`.
+- [ ] **1.10** Confirm `feat/winui-migration` is not used for production releases.
+- [ ] **1.11** Create a GitHub milestone or issue set for the migration phases.
+- [ ] **1.12** Commit:
+
+```powershell
+git commit -m "chore: pause scheduled releases during winui migration"
+```
+
+**Validation**
+
+- [ ] **1.13** `git diff -- .github\workflows\release.yml`.
+- [ ] **1.14** Confirm no scheduled release can run automatically.
+- [ ] **1.15** Confirm manual release dispatch still exists.
+
+## Phase 2: Repository Shape And Project Boundary Decision
+
+**Priority:** critical.
+
+**Goal:** define where each project lives before code migration starts.
+
+- [ ] **2.1** Choose final solution layout:
+
+```text
+src/
+  Foundry/                  # WinUI 3 app, final main app name
+  Foundry.Core/             # UI-neutral Windows business logic
+  Foundry.Connect/          # Existing WPF app, targeted non-UI changes allowed
+  Foundry.Deploy/           # Existing WPF app, targeted non-UI changes allowed
+  Foundry.Core.Tests/       # Clean Windows business logic test project
+  Foundry.App.Tests/        # Optional non-UI app orchestration tests only if needed
+  Foundry.Connect.Tests/    # Existing tests
+  Foundry.Deploy.Tests/     # Existing tests
+archive/
+  Foundry.WpfReference/     # Temporary old WPF app reference, not built by solution
+```
+
+- [ ] **2.2** Put the archive under `archive\Foundry.WpfReference`.
+- [ ] **2.3** Keep `archive\Foundry.WpfReference` outside the build graph and remove it after final WinUI cutover plus first stable WinUI release validation.
+- [ ] **2.4** Delete the old `src\Foundry.Tests` project during the migration.
+- [ ] **2.5** Create a clean `src\Foundry.Core.Tests` project for business logic.
+- [ ] **2.6** Create `src\Foundry.App.Tests` only if non-UI app orchestration tests are needed.
+- [ ] **2.7** Do not create tests for WinUI pages, XAML, bindings, or visual behavior.
+- [ ] **2.8** Keep `Foundry.Connect.Tests` and `Foundry.Deploy.Tests` unchanged unless a `Foundry` or `Foundry.Core` shared change flows into those projects.
+- [ ] **2.9** Update `.gitignore` before importing WinUI prototype:
+  - [ ] Ignore `.vs\`.
+  - [ ] Ignore `bin\`.
+  - [ ] Ignore `obj\`.
+  - [ ] Ignore `*.csproj.user`.
+- [ ] **2.10** Confirm `Directory.Build.props` can support both WPF and WinUI:
+  - [ ] Move `UseWPF` out of the global property group if it affects WinUI.
+  - [ ] Keep WPF enabled only for `Foundry.Connect` and `Foundry.Deploy`.
+  - [ ] Keep nullable and version metadata centralized.
+  - [ ] Add project-specific WinUI settings only to `src\Foundry\Foundry.csproj`.
+- [ ] **2.11** Commit:
+
+```powershell
+git commit -m "chore: define winui migration project layout"
+```
+
+**Validation**
+
+- [ ] **2.12** `dotnet restore .\src\Foundry.slnx --nologo`.
+- [ ] **2.13** `dotnet build .\src\Foundry.slnx -c Release -p:Platform=x64 --no-restore --nologo`.
+
+## Phase 3: Archive WPF Foundry And Import WinUI Prototype
+
+**Priority:** critical.
+
+**Goal:** move the old WPF app out of the build graph and bring the WinUI app into the repository cleanly.
+
+- [ ] **3.1** Move current `src\Foundry` to `archive\Foundry.WpfReference`.
+- [ ] **3.2** Preserve its folder structure for reference.
+- [ ] **3.3** Remove the archived WPF project from `src\Foundry.slnx`.
+- [ ] **3.4** Copy the WinUI prototype from `F:\Foundry` into `src\Foundry`.
+- [ ] **3.5** Exclude these prototype files/folders:
+  - [ ] `F:\Foundry\.vs`.
+  - [ ] `F:\Foundry\bin`.
+  - [ ] `F:\Foundry\obj`.
+  - [ ] `F:\Foundry\Foundry.csproj.user`.
+- [ ] **3.6** Review `src\Foundry\Foundry.csproj` after import:
+  - [ ] Keep `UseWinUI`.
+  - [ ] Set `WindowsPackageType` to `None`.
+  - [ ] Keep `WindowsAppSDKSelfContained` decision explicit.
+  - [ ] Remove `x86` and `win-x86`; supported Foundry architectures are `x64` and `ARM64`.
+  - [ ] Remove placeholder or unused dependencies.
+  - [ ] Keep Velopack only if Phase 7 will use it.
+- [ ] **3.7** Fix namespace mismatches introduced by the prototype:
+  - [ ] `MainWindow.xaml` currently declares `x:Class="Foundry.Views.MainWindow"`.
+  - [ ] Confirm final namespace convention for app shell.
+- [ ] **3.8** Update `src\Foundry.slnx`:
+  - [ ] Add the imported WinUI `src\Foundry\Foundry.csproj`.
+  - [ ] Keep `Foundry.Connect`.
+  - [ ] Keep `Foundry.Deploy`.
+  - [ ] Keep `Foundry.Connect.Tests`.
+  - [ ] Keep `Foundry.Deploy.Tests`.
+  - [ ] Remove the old `Foundry.Tests` project from the solution.
+  - [ ] Add `Foundry.Core` and `Foundry.Core.Tests` only after Phase 4 creates them.
+- [ ] **3.9** Commit:
+
+```powershell
+git commit -m "chore: import winui foundry shell"
+```
+
+**Validation**
+
+- [ ] **3.10** `dotnet restore .\src\Foundry.slnx --nologo`.
+- [ ] **3.11** `dotnet build .\src\Foundry.slnx -c Debug -p:Platform=x64 --no-restore --nologo`.
+- [ ] **3.12** Run the WinUI app locally.
+- [ ] **3.13** Confirm `Foundry.Connect` still builds.
+- [ ] **3.14** Confirm `Foundry.Deploy` still builds.

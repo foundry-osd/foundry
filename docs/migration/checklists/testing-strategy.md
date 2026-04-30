@@ -1,0 +1,31 @@
+# Testing Strategy
+
+- [ ] Delete the old `Foundry.Tests` project and rebuild Foundry tests cleanly.
+- [ ] Keep automated tests focused on business logic and non-UI orchestration only.
+- [ ] Do not rebuild `Foundry.Connect.Tests` or `Foundry.Deploy.Tests`; update them only when a shared change from `Foundry` or `Foundry.Core` impacts those projects.
+- [ ] Add or rewrite tests when moving:
+  - [ ] Configuration validation.
+  - [ ] Configuration serialization.
+  - [ ] Deploy configuration generation.
+  - [ ] Language fallback rules.
+  - [ ] Driver/catalog selection.
+  - [ ] WinPE path and runtime artifact resolution.
+  - [ ] Host `ProgramData` workspace and cache layout rules.
+  - [ ] ProgramData-only app settings, log, cache, workspace, and temp path rules.
+  - [ ] ISO/USB media layout contract rules.
+  - [ ] Update feed/version selection.
+  - [ ] App settings persistence through `IAppSettingsService`.
+  - [ ] Startup readiness gating and navigation-state decisions.
+  - [ ] Network secret redaction rules.
+- [ ] Do not add WPF UI tests.
+- [ ] Do not add WinUI UI tests.
+- [ ] Do not test XAML, bindings, visual layout, code-behind event wiring, or framework behavior.
+- [ ] Use manual smoke tests for:
+  - [ ] WinUI startup.
+  - [ ] Navigation.
+  - [ ] Theme switching.
+  - [ ] Runtime language switching.
+  - [ ] Velopack install/update.
+  - [ ] ISO creation.
+  - [ ] USB creation.
+  - [ ] WinPE VM boot.
