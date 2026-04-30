@@ -1,8 +1,10 @@
 name: Release
 
 on:
-  schedule:
-    - cron: '0 3 * * 0'
+  # Scheduled Sunday releases are disabled during the WinUI migration.
+  # Restore the schedule during the final cutover once the WinUI app is release-ready.
+  # schedule:
+  #   - cron: '0 3 * * 0'
   workflow_dispatch:
     inputs:
       force:
@@ -22,6 +24,7 @@ jobs:
   prepare-release:
     name: Prepare Release
     runs-on: ubuntu-slim
+    if: github.ref == 'refs/heads/main'
     outputs:
       should_release: ${{ steps.compute.outputs.should_release }}
       release_tag: ${{ steps.compute.outputs.release_tag }}
