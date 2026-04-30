@@ -8,6 +8,8 @@
 - [ ] Use short-lived feature branches or worktrees for each independent migration phase.
 - [ ] Merge short-lived branches into `feat/winui-migration` through PRs.
 - [ ] Run the full CI matrix for PRs targeting `feat/winui-migration`.
+- [ ] Treat `Build (x64)` and `Build (ARM64)` as the gating CI checks for migration PR readiness.
+- [ ] Ignore `submit-nuget` failures for all migration PR readiness decisions unless the maintainer explicitly asks to investigate that workflow.
 - [ ] Merge `feat/winui-migration` into `main` only when the WinUI app can replace the WPF app without breaking CI/release.
 - [ ] Prefer `git worktree` for parallel implementation when two tasks touch different paths.
 - [ ] Use one worktree per independent slice:
