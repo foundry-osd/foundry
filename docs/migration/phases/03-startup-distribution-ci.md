@@ -6,41 +6,43 @@
 
 **Goal:** replace prototype startup with a production startup model close to the current WPF app.
 
-- [ ] **6.1** Use a Host-based startup pattern:
-  - [ ] Use `Host.CreateApplicationBuilder` for application startup.
-  - [ ] Keep startup composition out of `App.xaml.cs`.
-  - [ ] Use direct `ServiceCollection` only for isolated tests or minimal design-time helpers.
-- [ ] **6.2** Register global exception handlers:
-  - [ ] `AppDomain.CurrentDomain.UnhandledException`.
-  - [ ] `TaskScheduler.UnobservedTaskException`.
-  - [ ] WinUI `Application.UnhandledException`.
-- [ ] **6.3** Initialize logging before the WinUI window is created.
-- [ ] **6.4** Ensure Velopack startup hook runs before update checks.
-- [ ] **6.5** Ensure Windows App SDK runtime initialization is understood for the selected packaging mode.
-  - [ ] **6.5.1** Preserve the application-level administrator requirement with a WinUI app manifest equivalent to WPF `requireAdministrator`.
-  - [ ] **6.5.2** Do not introduce per-operation elevation during this migration.
-- [ ] **6.6** Move service registration out of `App.xaml.cs` into:
-  - [ ] `DependencyInjection\ServiceCollectionExtensions.cs`.
-- [ ] **6.7** Register:
-  - [ ] `MainWindow`.
-  - [ ] Main shell view model.
-  - [ ] Page view models.
-  - [ ] Core services.
-  - [ ] WinUI shell services.
-  - [ ] Logging.
-  - [ ] Localization.
-  - [ ] Update service.
-  - [ ] Internal `IAppSettingsService`.
-  - [ ] Shell navigation guard service.
-- [ ] **6.8** Remove DevWinUI placeholder update metadata.
+- [x] **6.1** Use a Host-based startup pattern:
+  - [x] Use `Host.CreateApplicationBuilder` for application startup.
+  - [x] Keep startup composition out of `App.xaml.cs`.
+  - [x] Use direct `ServiceCollection` only for isolated tests or minimal design-time helpers.
+- [x] **6.2** Register global exception handlers:
+  - [x] `AppDomain.CurrentDomain.UnhandledException`.
+  - [x] `TaskScheduler.UnobservedTaskException`.
+  - [x] WinUI `Application.UnhandledException`.
+- [x] **6.3** Initialize logging before the WinUI window is created.
+- [x] **6.4** Ensure Velopack startup hook runs before update checks.
+- [x] **6.5** Ensure Windows App SDK runtime initialization is understood for the selected packaging mode.
+  - [x] **6.5.1** Preserve the application-level administrator requirement with a WinUI app manifest equivalent to WPF `requireAdministrator`.
+  - [x] **6.5.2** Do not introduce per-operation elevation during this migration.
+- [x] **6.6** Move service registration out of `App.xaml.cs` into:
+  - [x] `DependencyInjection\ServiceCollectionExtensions.cs`.
+- [x] **6.7** Register:
+  - [x] `MainWindow`.
+  - [x] Main shell view model.
+  - [x] Page view models.
+  - [x] Core services.
+  - [x] WinUI shell services.
+  - [x] Logging.
+  - [x] Localization.
+  - [x] Update service.
+  - [x] Internal `IAppSettingsService`.
+  - [x] Shell navigation guard service.
+  - Note: localization and update service boundaries are registered; concrete `.resw` migration and Velopack update checks remain in later dedicated phases.
+- [x] **6.8** Remove DevWinUI placeholder update metadata.
 - [ ] **6.8.1** Implement the startup readiness sequence:
-  - [ ] Initialize logging, dependency injection, and Velopack startup hooks.
+  - [x] Initialize logging, dependency injection, and Velopack startup hooks.
   - [ ] Detect ADK and WinPE Add-on readiness.
-  - [ ] Apply `AdkBlocked` or `Ready` shell navigation state.
+  - [x] Apply `AdkBlocked` or `Ready` shell navigation state.
   - [ ] Refresh USB targets only after ADK is compatible.
   - [ ] Run update checks after readiness initialization.
   - [ ] Ensure startup update checks do not block app usage.
-- [ ] **6.9** Commit:
+  - Note: ADK detection, USB refresh, and real update checks are intentionally left to the ADK/media and Velopack phases.
+- [x] **6.9** Commit:
 
 ```powershell
 git commit -m "refactor: add winui application startup composition"
@@ -52,6 +54,8 @@ git commit -m "refactor: add winui application startup composition"
 - [ ] **6.11** Start app in Release.
 - [ ] **6.12** Confirm logs are created on startup.
 - [ ] **6.13** Confirm an unhandled exception is logged during a controlled debug test.
+
+Note: manual launch validation is kept unchecked until a local Visual Studio run because the WinUI executable now requests administrator elevation.
 
 ## Phase 7: Velopack Distribution And Update Flow
 

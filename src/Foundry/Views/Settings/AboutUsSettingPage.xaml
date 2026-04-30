@@ -22,7 +22,7 @@
 
                 <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                            IsTextSelectionEnabled="True"
-                           Text="{x:Bind dev:ProcessInfoHelper.VersionWithPrefix}" />
+                           Text="{x:Bind ViewModel.Version}" />
                 <dev:SettingsExpander.Items>
                     <dev:SettingsCard HorizontalContentAlignment="Left"
                                       ContentAlignment="Left">
@@ -30,9 +30,9 @@
                                     Spacing="5">
                             <TextBlock Text="Related Links" />
                             <HyperlinkButton Content="Source Code"
-                                             NavigateUri="https://github.com/Ghost1372/DevWinUI" />
+                                             NavigateUri="{x:Bind ViewModel.RepositoryUri}" />
                             <HyperlinkButton Content="Release Notes"
-                                             NavigateUri="https://github.com/Ghost1372/DevWinUI/releases" />
+                                             NavigateUri="{x:Bind ViewModel.LatestReleaseUri}" />
                         </StackPanel>
                     </dev:SettingsCard>
                 </dev:SettingsExpander.Items>
