@@ -33,12 +33,12 @@ Foundry replaces legacy imaging scripts with a clean, fully-guided modern UI. Wh
 
 ## 📥 Download & Installation
 
-Get started by downloading the latest Foundry standalone executable for your workstation architecture. No complex installation required.
+Get started by downloading the latest Foundry MSI installer for your workstation architecture.
 
 <p align="center">
-  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_x64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download x64"></a>
+  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-win-x64.msi"><img src="https://img.shields.io/badge/Download-Windows_x64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download x64"></a>
   &nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-arm64.exe"><img src="https://img.shields.io/badge/Download-Windows_ARM64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download ARM64"></a>
+  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-win-arm64.msi"><img src="https://img.shields.io/badge/Download-Windows_ARM64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download ARM64"></a>
 </p>
 
 > 💡 **Next steps:** For prerequisites (like the Windows ADK) and how to configure your first deployment, check out our [Getting Started guide](https://foundry-osd.github.io/docs/getting-started).

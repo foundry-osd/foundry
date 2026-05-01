@@ -79,6 +79,7 @@ git commit -m "chore: clean up winui migration leftovers"
 - [ ] **19.4** Update installation/update docs.
 - [ ] **19.5** Update screenshots only after UI stabilizes.
 - [ ] **19.6** Update docs site if needed:
+  - [ ] Download links point to `Foundry-win-x64.msi` and `Foundry-win-arm64.msi`.
   - [ ] Foundry standard workflow.
   - [ ] Media creation.
   - [ ] Expert mode.
