@@ -55,7 +55,8 @@
 - [ ] The target installer mode is Velopack MSI with `--instLocation PerMachine`, not a repository-owned WiX installer project.
 - [ ] The target app packaging model is unpackaged WinUI with `WindowsPackageType=None`.
 - [ ] Velopack update integration requires app startup code such as `VelopackApp.Build().Run()` and an `UpdateManager` flow for checking/downloading/applying updates.
-- [ ] WinUI localization should be planned around Windows App SDK resource APIs such as `.resw`, `ResourceLoader`, and `ms-resource` lookup, not direct WPF resource binding.
+- [ ] WinUI localization should be planned around Windows App SDK resource APIs such as `.resw`, `ResourceLoader`, `ApplicationLanguages.PrimaryLanguageOverride`, and `ms-resource` lookup, not direct WPF resource binding.
+- [ ] DevWinUI navigation localization uses `AppData.json` metadata; the schema exposes `LocalizeId` and `UsexUid`, so Foundry navigation localization must respect that mechanism before adding any custom fallback.
 - [ ] Velopack `--packVersion` must be SemVer2-compatible; Foundry keeps date-based `vYY.M.D.Build` release tags and maps them to `YY.M.D-build.Build` for Velopack packages.
 
 ## Non-Negotiable Migration Constraints
@@ -65,6 +66,7 @@
 - [ ] Do not treat `Foundry.Connect` and `Foundry.Deploy` as untouchable if a targeted non-UI change improves shared logic or reduces duplication.
 - [ ] Do not recreate the WPF UI layout 1:1.
 - [ ] Keep DevWinUI as the long-term shell baseline for navigation, settings, title bar, and shell behavior.
+- [ ] Do not require an application restart when changing the Foundry UI language.
 - [ ] Keep WinUI `Foundry` app data under `C:\ProgramData\Foundry`; do not use AppData working directories inherited from the DevWinUI prototype.
 - [ ] Do not add UI tests for WPF views, WinUI pages, XAML, bindings, visual layout, or framework behavior.
 - [ ] Rebuild the Foundry test architecture cleanly instead of preserving the old `Foundry.Tests` project as-is.

@@ -72,6 +72,8 @@ These decisions are locked for the current migration plan. Reopen one only if im
   - Do not keep `.resx` localization in the migrated WinUI `Foundry` app.
   - `Foundry.Core` exposes stable codes, values, or invariant diagnostics where possible; WinUI `Foundry` owns user-facing localization through `.resw`.
   - `Foundry.Connect` and `Foundry.Deploy` may keep their existing WPF `.resx` localization because they are not migrated to WinUI.
+  - DevWinUI navigation metadata must follow the DevWinUI `AppData.json` localization contract: use `LocalizeId` with `UsexUid=true` for NavigationView groups/items when supported.
+  - Runtime language switching must not require restarting Foundry. Already-loaded WinUI and DevWinUI surfaces must be refreshed, rebound, or rebuilt after changing `ApplicationLanguages.PrimaryLanguageOverride`.
 
 - [x] **RD-013: WPF reference archive lifetime**
   - Keep `archive\Foundry.WpfReference` during the migration as a read-only implementation reference.

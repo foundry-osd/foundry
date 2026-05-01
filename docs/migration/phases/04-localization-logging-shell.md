@@ -9,26 +9,49 @@
 - [ ] **9.1** Inventory current localization keys:
   - [ ] `archive\Foundry.WpfReference\Resources\AppStrings.resx`.
   - [ ] `archive\Foundry.WpfReference\Resources\AppStrings.fr-FR.resx`.
+  - [ ] DevWinUI prototype shell text:
+    - [ ] `src\Foundry\Assets\NavViewMenu\AppData.json`.
+    - [ ] `dev:BreadcrumbNavigator.PageTitle` and `BreadCrumbHeader` values.
+    - [ ] DevWinUI settings cards, title bar search text, tooltips, badges, and landing page strings.
 - [ ] **9.2** Use the decided target resource format:
   - [ ] Use `.resw` for all migrated WinUI `Foundry` UI text.
   - [ ] Use `.resw` for view-model-facing user-visible text in the WinUI `Foundry` app.
   - [ ] Do not keep `.resx` localization in the migrated WinUI `Foundry` app.
   - [ ] Keep `.resx` only in WPF `Foundry.Connect` and `Foundry.Deploy`.
+  - [ ] Add `.resw` files as MSBuild `AdditionalFiles` if required by `DevWinUI.SourceGenerator`.
 - [ ] **9.3** Define localization layers:
   - [ ] UI resources for XAML text.
   - [ ] ViewModel text service for computed labels/status.
   - [ ] Core codes, values, or invariant diagnostics that can be mapped to `.resw` text by the WinUI app.
+  - [ ] DevWinUI navigation metadata:
+    - [ ] Use `LocalizeId` and `UsexUid=true` in `AppData.json` for NavigationView groups/items when supported by DevWinUI.
+    - [ ] Keep literal `Title` values only as fallback/default design-time text.
+    - [ ] Do not invent per-language JSON files or per-language `Title` maps unless DevWinUI localization support proves insufficient.
+  - [ ] DevWinUI breadcrumb and settings navigation text:
+    - [ ] Replace hardcoded `BreadCrumbHeader` and settings-card strings with resource-backed values.
+    - [ ] Ensure generated breadcrumb mappings and runtime navigation parameters receive localized text.
 - [ ] **9.4** Implement missing-key behavior:
   - [ ] Development mode logs missing keys.
   - [ ] Production mode falls back safely.
 - [ ] **9.5** Implement culture switching:
   - [ ] Menu/settings command updates the selected language.
+  - [ ] Persist the selected BCP-47 language tag to `C:\ProgramData\Foundry\Settings\appsettings.json`.
+  - [ ] Set `Microsoft.Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride` during startup before localized resources are loaded.
+  - [ ] Set `ApplicationLanguages.PrimaryLanguageOverride` again when the user changes language at runtime.
   - [ ] ViewModels refresh computed strings.
   - [ ] Pages reload or rebind localized text.
+  - [ ] DevWinUI NavigationView groups/items, breadcrumbs, settings cards, title bar search text, and landing page strings refresh without restarting the app.
+  - [ ] Do not require an application restart for language changes.
+  - [ ] If a WinUI resource was already loaded before the language change, explicitly reload or rebind that UI surface after changing `PrimaryLanguageOverride`.
 - [ ] **9.6** Migrate languages:
   - [ ] `en-US`.
   - [ ] `fr-FR`.
 - [ ] **9.7** Migrate supported culture catalog tests.
+- [ ] **9.7.1** Verify DevWinUI localization behavior against current DevWinUI docs/source before implementation:
+  - [ ] Confirm `LocalizeId` resource-key naming requirements.
+  - [ ] Confirm `UsexUid=true` behavior for NavigationView groups and items.
+  - [ ] Confirm whether navigation items must be rebuilt after `PrimaryLanguageOverride` changes.
+  - [ ] Document any DevWinUI limitation that requires an app-owned refresh workaround.
 - [ ] **9.8** Commit:
 
 ```powershell
@@ -42,6 +65,8 @@ git commit -m "feat: migrate foundry localization to winui"
 - [ ] **9.11** Switch language at runtime.
 - [ ] **9.12** Confirm computed labels update.
 - [ ] **9.13** Confirm missing keys are visible during development.
+- [ ] **9.14** Confirm DevWinUI NavigationView group/item labels update after runtime language switch without restarting.
+- [ ] **9.15** Confirm breadcrumbs, settings cards, title bar search text, and landing page strings update after runtime language switch without restarting.
 
 ## Phase 10: Logging Migration
 
