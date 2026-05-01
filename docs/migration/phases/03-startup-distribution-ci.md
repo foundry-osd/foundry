@@ -140,47 +140,47 @@ git commit -m "feat: add velopack distribution flow"
 
 **Goal:** make CI and release automation match the new project structure and packaging model.
 
-- [ ] **8.1** Update `.github\workflows\ci.yml`.
-- [ ] **8.2** Restore `src\Foundry.slnx`.
-- [ ] **8.3** Build matrix:
-  - [ ] `x64` on `windows-latest`.
-  - [ ] `ARM64` on `windows-11-arm`.
+- [x] **8.1** Update `.github\workflows\ci.yml`.
+- [x] **8.2** Restore `src\Foundry.slnx`.
+- [x] **8.3** Build matrix:
+  - [x] `x64` on `windows-latest`.
+  - [x] `ARM64` on `windows-11-arm`.
 - [ ] **8.4** Confirm WinUI build works on both runners.
-- [ ] **8.5** Confirm WPF `Foundry.Connect` and `Foundry.Deploy` still build.
-- [ ] **8.6** Confirm tests run:
-  - [ ] `Foundry.Core.Tests`.
-  - [ ] `Foundry.App.Tests` only if it exists.
-  - [ ] `Foundry.Connect.Tests` when unchanged or when impacted by shared changes.
-  - [ ] `Foundry.Deploy.Tests` when unchanged or when impacted by shared changes.
-- [ ] **8.7** Update `.github\workflows\release.yml`.
-- [ ] **8.8** Keep manual dispatch during migration.
-- [ ] **8.9** Keep scheduled release disabled until final cutover.
-- [ ] **8.10** Replace old single-file `Foundry-x64.exe` and `Foundry-arm64.exe` release output with Velopack package output.
-- [ ] **8.11** Continue publishing `Foundry.Connect` ZIPs.
-- [ ] **8.12** Continue publishing `Foundry.Deploy` ZIPs.
-- [ ] **8.13** Ensure workflow installs required tools:
-  - [ ] `.NET 10 SDK`.
-  - [ ] Velopack CLI.
-- [ ] **8.14** Do not add direct WiX build steps unless Velopack documentation later requires them explicitly.
-- [ ] **8.15** Keep date-based release versioning.
-- [ ] **8.16** Keep GitHub release tags in the existing visible format:
-  - [ ] Tag format: `vYY.M.D.Build`.
-  - [ ] Example: `v26.4.30.1`.
-- [ ] **8.17** Map GitHub release tag to Velopack package version:
-  - [ ] `vYY.M.D.Build` maps to `YY.M.D-build.Build`.
-  - [ ] Example: `v26.4.30.1` maps to `26.4.30-build.1`.
-  - [ ] Example: `v26.4.30.2` maps to `26.4.30-build.2`.
-- [ ] **8.17.1** Apply version values consistently:
-  - [ ] `Version`: `YY.M.D.Build`.
-  - [ ] `AssemblyVersion`: `YY.M.D.Build`.
-  - [ ] `FileVersion`: `YY.M.D.Build`.
-  - [ ] `InformationalVersion`: `YY.M.D.Build`.
-  - [ ] Velopack `--packVersion`: `YY.M.D-build.Build`.
+- [x] **8.5** Confirm WPF `Foundry.Connect` and `Foundry.Deploy` still build.
+- [x] **8.6** Confirm tests run:
+  - [x] `Foundry.Core.Tests`.
+  - [x] `Foundry.App.Tests` only if it exists.
+  - [x] `Foundry.Connect.Tests` when unchanged or when impacted by shared changes.
+  - [x] `Foundry.Deploy.Tests` when unchanged or when impacted by shared changes.
+- [x] **8.7** Update `.github\workflows\release.yml`.
+- [x] **8.8** Keep manual dispatch during migration.
+- [x] **8.9** Keep scheduled release disabled until final cutover.
+- [x] **8.10** Replace old single-file `Foundry-x64.exe` and `Foundry-arm64.exe` release output with Velopack package output.
+- [x] **8.11** Continue publishing `Foundry.Connect` ZIPs.
+- [x] **8.12** Continue publishing `Foundry.Deploy` ZIPs.
+- [x] **8.13** Ensure workflow installs required tools:
+  - [x] `.NET 10 SDK`.
+  - [x] Velopack CLI.
+- [x] **8.14** Do not add direct WiX build steps unless Velopack documentation later requires them explicitly.
+- [x] **8.15** Keep date-based release versioning.
+- [x] **8.16** Keep GitHub release tags in the existing visible format:
+  - [x] Tag format: `vYY.M.D.Build`.
+  - [x] Example: `v26.4.30.1`.
+- [x] **8.17** Map GitHub release tag to Velopack package version:
+  - [x] `vYY.M.D.Build` maps to `YY.M.D-build.Build`.
+  - [x] Example: `v26.4.30.1` maps to `26.4.30-build.1`.
+  - [x] Example: `v26.4.30.2` maps to `26.4.30-build.2`.
+- [x] **8.17.1** Apply version values consistently:
+  - [x] `Version`: `YY.M.D.Build`.
+  - [x] `AssemblyVersion`: `YY.M.D.Build`.
+  - [x] `FileVersion`: `YY.M.D.Build`.
+  - [x] `InformationalVersion`: `YY.M.D.Build`.
+  - [x] Velopack `--packVersion`: `YY.M.D-build.Build`.
 - [ ] **8.17.2** Validate Velopack ordering for same-day builds before finalizing the release workflow:
   - [ ] Confirm `26.4.30-build.2` is treated as newer than `26.4.30-build.1`.
   - [ ] Confirm update detection works for the target stable channel with the `-build.` prerelease-style suffix.
   - [ ] If Velopack rejects this ordering, stop and choose a different date-based SemVer2 mapping before cutover.
-- [ ] **8.18** Commit:
+- [x] **8.18** Commit:
 
 ```powershell
 git commit -m "ci: update workflows for winui packaging"
@@ -193,3 +193,9 @@ git commit -m "ci: update workflows for winui packaging"
 - [ ] **8.21** Confirm artifacts are uploaded.
 - [ ] **8.22** Confirm release notes are usable by Velopack.
 - [ ] **8.23** Confirm Velopack update detection handles `YY.M.D-build.Build` ordering correctly.
+
+**Phase 8 notes**
+
+- `.github\workflows\ci.yml` already matched the expected WinUI migration matrix; Phase 8 reviewed it and kept it unchanged.
+- Local validation confirmed `x64` and `ARM64` Release builds, x64 test execution, and Velopack package generation for both runtimes.
+- ARM64 test execution must be confirmed by GitHub Actions on the `windows-11-arm` runner because the local x64 machine cannot execute ARM64 test hosts.
