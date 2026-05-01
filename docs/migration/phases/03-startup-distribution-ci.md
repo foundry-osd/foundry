@@ -176,10 +176,10 @@ git commit -m "feat: add velopack distribution flow"
   - [x] `FileVersion`: `YY.M.D.Build`.
   - [x] `InformationalVersion`: `YY.M.D.Build`.
   - [x] Velopack `--packVersion`: `YY.M.D-build.Build`.
-- [ ] **8.17.2** Validate Velopack ordering for same-day builds before finalizing the release workflow:
+- [x] **8.17.2** Validate Velopack ordering for same-day builds before finalizing the release workflow:
   - [x] Confirm `26.4.30-build.2` is treated as newer than `26.4.30-build.1`.
-  - [ ] Confirm update detection works for the target stable channel with the `-build.` prerelease-style suffix.
-  - [ ] If Velopack rejects this ordering, stop and choose a different date-based SemVer2 mapping before cutover.
+  - [x] Confirm update detection works for the target stable channel with the `-build.` prerelease-style suffix.
+  - [x] If Velopack rejects this ordering, stop and choose a different date-based SemVer2 mapping before cutover.
 - [x] **8.18** Commit:
 
 ```powershell
@@ -192,7 +192,7 @@ git commit -m "ci: update workflows for winui packaging"
 - [x] **8.20** Run manual release on a test branch or draft release tag.
 - [x] **8.21** Confirm artifacts are uploaded.
 - [x] **8.22** Confirm release notes are usable by Velopack.
-- [ ] **8.23** Confirm Velopack update detection handles `YY.M.D-build.Build` ordering correctly.
+- [x] **8.23** Confirm Velopack update detection handles `YY.M.D-build.Build` ordering correctly.
 
 **Phase 8 notes**
 
@@ -202,4 +202,5 @@ git commit -m "ci: update workflows for winui packaging"
 - Draft release `v26.5.1.1` completed successfully from `feat/winui-migration` and uploaded Foundry Velopack assets plus `Foundry.Connect` and `Foundry.Deploy` ZIPs.
 - The downloaded `Foundry-26.5.1-build.1-win-x64-full.nupkg` contains generated GitHub release notes, including the Phase 8 PR.
 - SemVer comparison with NuGet.Versioning `VersionRelease` confirms `26.5.1-build.2` sorts newer than `26.5.1-build.1`.
-- Final update detection against GitHub should be confirmed with a published release, not only a draft release, because draft releases are not the normal public update feed.
+- Published releases `v26.5.1.1` and `v26.5.1.2` completed successfully from `feat/winui-migration`.
+- Velopack update detection was validated with `TestVelopackLocator`: a simulated installed `Foundry` `26.5.1-build.1` on channel `win-x64` detects `26.5.1-build.2` from GitHub Releases.
