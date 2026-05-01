@@ -28,7 +28,6 @@ namespace Foundry.Views
 
         private void ApplyLocalizedText()
         {
-            BreadcrumbNavigator.SetPageTitle(this, localizationService.GetString("SettingsPage.PageTitle"));
             ApplyLocalizedNavigationParameters();
         }
 

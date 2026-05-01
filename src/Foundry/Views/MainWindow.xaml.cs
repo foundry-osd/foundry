@@ -43,6 +43,11 @@ namespace Foundry.Views
         {
             SearchBox.PlaceholderText = localizationService.GetString("MainWindow.SearchBox.PlaceholderText");
             ToolTipService.SetToolTip(ThemeButton, localizationService.GetString("MainWindow.ThemeButton.ToolTip"));
+
+            if (NavView.SettingsItem is NavigationViewItem settingsItem)
+            {
+                settingsItem.Content = localizationService.GetString("SettingsPage.PageTitle");
+            }
         }
 
         private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
@@ -58,14 +63,57 @@ namespace Foundry.Views
 
         private void RefreshLocalizedShell()
         {
-            ApplyLocalizedShellText();
             jsonNavigationService?.ReInitialize();
+            ApplyLocalizedShellText();
+            RefreshLocalizedBreadcrumbs();
 
             Type? currentPageType = NavFrame.CurrentSourcePageType;
             if (currentPageType is not null)
             {
                 NavFrame.Navigate(currentPageType);
+                RefreshLocalizedBreadcrumbs();
             }
+        }
+
+        private void RefreshLocalizedBreadcrumbs()
+        {
+            if (BreadCrumbNav.BreadCrumbs is null || BreadCrumbNav.BreadCrumbs.Count == 0)
+            {
+                return;
+            }
+
+            BreadCrumbNav.BreadCrumbs = new(BreadCrumbNav.BreadCrumbs.Select(step =>
+                new BreadcrumbStep(GetLocalizedBreadcrumbLabel(step), step.Page, step.Parameter)));
+        }
+
+        private string GetLocalizedBreadcrumbLabel(BreadcrumbStep step)
+        {
+            if (step.Page == typeof(SettingsPage))
+            {
+                return localizationService.GetString("SettingsPage.PageTitle");
+            }
+
+            if (step.Page == typeof(GeneralSettingPage))
+            {
+                return localizationService.GetString("SettingsPage_GeneralCard.Header");
+            }
+
+            if (step.Page == typeof(ThemeSettingPage))
+            {
+                return localizationService.GetString("SettingsPage_ThemeCard.Header");
+            }
+
+            if (step.Page == typeof(AppUpdateSettingPage))
+            {
+                return localizationService.GetString("SettingsPage_UpdateCard.Header");
+            }
+
+            if (step.Page == typeof(AboutUsSettingPage))
+            {
+                return localizationService.GetString("SettingsPage_AboutCard.Header");
+            }
+
+            return step.Label;
         }
 
         private void OnClosed(object sender, WindowEventArgs args)
