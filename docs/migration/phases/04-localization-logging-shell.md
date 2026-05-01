@@ -9,6 +9,13 @@
 - [ ] **9.1** Inventory current localization keys:
   - [ ] `archive\Foundry.WpfReference\Resources\AppStrings.resx`.
   - [ ] `archive\Foundry.WpfReference\Resources\AppStrings.fr-FR.resx`.
+  - [ ] Reuse the proven reference pattern from `E:\Github\Bucket_v2_old`:
+    - [ ] `src\Bucket.Core\Services\LocalizationService.cs`.
+    - [ ] `src\Bucket.App\Assets\NavViewMenu\AppData.json`.
+    - [ ] `src\Bucket.App\Strings\en-US\Resources.resw`.
+    - [ ] `src\Bucket.App\Strings\fr-FR\Resources.resw`.
+    - [ ] `src\Bucket.App\Views\Settings\GeneralSettingPage.xaml.cs`.
+    - [ ] `src\Bucket.App\Views\MainWindow.xaml.cs`.
   - [ ] DevWinUI prototype shell text:
     - [ ] `src\Foundry\Assets\NavViewMenu\AppData.json`.
     - [ ] `dev:BreadcrumbNavigator.PageTitle` and `BreadCrumbHeader` values.
@@ -23,8 +30,12 @@
   - [ ] UI resources for XAML text.
   - [ ] ViewModel text service for computed labels/status.
   - [ ] Core codes, values, or invariant diagnostics that can be mapped to `.resw` text by the WinUI app.
+  - [ ] Use `Microsoft.Windows.ApplicationModel.Resources.ResourceManager` with a language-specific `ResourceContext` for view-model-facing string lookup.
+  - [ ] Do not rely only on `ResourceLoader` for runtime language changes, because the old DevWinUI project used `ResourceManager` + `ResourceContext.QualifierValues["Language"]` successfully for hot switching.
+  - [ ] Keep `Foundry.Core` free of Windows App SDK resource APIs; the WinUI app owns `.resw` lookup and localized display strings.
   - [ ] DevWinUI navigation metadata:
     - [ ] Use `LocalizeId` and `UsexUid=true` in `AppData.json` for NavigationView groups/items when supported by DevWinUI.
+    - [ ] Use resource keys shaped like the proven reference pattern, for example `Nav_HomeKey.Title`.
     - [ ] Keep literal `Title` values only as fallback/default design-time text.
     - [ ] Do not invent per-language JSON files or per-language `Title` maps unless DevWinUI localization support proves insufficient.
   - [ ] DevWinUI breadcrumb and settings navigation text:
@@ -33,14 +44,20 @@
 - [ ] **9.4** Implement missing-key behavior:
   - [ ] Development mode logs missing keys.
   - [ ] Production mode falls back safely.
+  - [ ] Invalid persisted language values fall back to `en-US` and are rewritten to `appsettings.json`.
 - [ ] **9.5** Implement culture switching:
+  - [ ] Initialize localization before `MainWindow.InitializeComponent()` and before `JsonNavigationService.ConfigureJsonFile(...)`.
   - [ ] Menu/settings command updates the selected language.
   - [ ] Persist the selected BCP-47 language tag to `C:\ProgramData\Foundry\Settings\appsettings.json`.
   - [ ] Set `Microsoft.Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride` during startup before localized resources are loaded.
   - [ ] Set `ApplicationLanguages.PrimaryLanguageOverride` again when the user changes language at runtime.
+  - [ ] Update the active `ResourceContext.QualifierValues["Language"]` when the user changes language at runtime.
+  - [ ] Expose a language change event from `IApplicationLocalizationService`.
   - [ ] ViewModels refresh computed strings.
   - [ ] Pages reload or rebind localized text.
   - [ ] DevWinUI NavigationView groups/items, breadcrumbs, settings cards, title bar search text, and landing page strings refresh without restarting the app.
+  - [ ] Reinitialize DevWinUI `JsonNavigationService` after runtime language changes, following the old `Bucket_v2_old` pattern that calls `JsonNavigationService.ReInitialize()`.
+  - [ ] Add a controlled Foundry wrapper around DevWinUI navigation refresh if direct `ReInitialize()` is not sufficient or becomes version-sensitive.
   - [ ] Do not require an application restart for language changes.
   - [ ] If a WinUI resource was already loaded before the language change, explicitly reload or rebind that UI surface after changing `PrimaryLanguageOverride`.
 - [ ] **9.6** Migrate languages:
@@ -50,7 +67,7 @@
 - [ ] **9.7.1** Verify DevWinUI localization behavior against current DevWinUI docs/source before implementation:
   - [ ] Confirm `LocalizeId` resource-key naming requirements.
   - [ ] Confirm `UsexUid=true` behavior for NavigationView groups and items.
-  - [ ] Confirm whether navigation items must be rebuilt after `PrimaryLanguageOverride` changes.
+  - [ ] Confirm whether `JsonNavigationService.ReInitialize()` still refreshes localized navigation items in the current DevWinUI package version.
   - [ ] Document any DevWinUI limitation that requires an app-owned refresh workaround.
 - [ ] **9.8** Commit:
 
