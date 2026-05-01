@@ -95,7 +95,7 @@ Documentation rules:
 - Keep documentation maintainable and split large plans into focused files when needed
 
 Subagent rules:
-- Use subagents only when the user explicitly allows or requests them
+- Use subagents when the user explicitly asks for them or when parallel read-only analysis materially helps the task
 - Use subagents only for read-only code exploration and analysis
 - Do not use subagents to modify files
 - Do not use subagents to write, add, or refactor logs
