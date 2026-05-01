@@ -67,6 +67,7 @@ git commit -m "feat: migrate foundry localization to winui"
   - [ ] App startup.
   - [ ] Windows App SDK runtime initialization.
   - [ ] Velopack first run/update flow.
+  - [ ] Startup and manual update check elapsed time.
   - [ ] ADK detection.
   - [ ] ISO/USB build start and completion.
   - [ ] Bootstrap payload resolution.
@@ -133,6 +134,11 @@ git commit -m "refactor: migrate foundry logging for winui"
   - [ ] GitHub issues.
   - [ ] Check for updates.
   - [ ] About.
+- [ ] **11.7.1** Add shell update notification behavior:
+  - [ ] Show a non-blocking update available banner when startup update check returns `UpdateAvailable`.
+  - [ ] Do not interrupt startup with a modal `ContentDialog`.
+  - [ ] Banner action opens the update settings page or dedicated update view.
+  - [ ] Download/restart remains an explicit user action with confirmation.
 - [ ] **11.8** Keep code-behind limited to WinUI events and navigation glue.
 - [ ] **11.8.1** Replace DevWinUI prototype AppData paths with Foundry ProgramData paths:
   - [ ] `C:\ProgramData\Foundry\Settings\appsettings.json`.

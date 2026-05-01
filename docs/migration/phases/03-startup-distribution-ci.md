@@ -103,6 +103,16 @@ Note: manual launch validation is kept unchecked until a local Visual Studio run
   - [x] Startup check runs after app readiness initialization.
   - [x] Startup check must not block normal app usage.
   - [x] Manual check is available from Settings/About update UI.
+- [ ] **7.7.1** Tune startup update-check performance:
+  - [ ] Log elapsed time for update source creation and `CheckForUpdatesAsync`.
+  - [ ] Throttle startup checks with `updates.lastCheckedAt` so every app launch does not call GitHub Releases.
+  - [ ] Keep manual checks unthrottled.
+  - [ ] Keep startup failures non-blocking and visible in logs.
+- [ ] **7.7.2** Add startup update notification UX:
+  - [ ] When a startup check finds an update, show a non-blocking shell notification/banner.
+  - [ ] Do not show a modal dialog automatically on startup.
+  - [ ] Provide an action that opens the update settings surface or dedicated update view.
+  - [ ] Use a confirmation dialog only before download/restart.
 - [x] **7.8** Add release artifact naming contract:
   - [x] `FoundrySetup-x64.msi`.
   - [x] `FoundrySetup-arm64.msi`.
