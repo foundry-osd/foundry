@@ -15,8 +15,7 @@
         <StackPanel Margin="10"
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="5">
-            <dev:SettingsExpander Description="Description"
-                                  Header="Foundry"
+            <dev:SettingsExpander x:Uid="About_FoundryExpander"
                                   HeaderIcon="{dev:BitmapIcon Source=Assets/AppIcon.png}"
                                   IsExpanded="True">
 
@@ -28,10 +27,10 @@
                                       ContentAlignment="Left">
                         <StackPanel Orientation="Vertical"
                                     Spacing="5">
-                            <TextBlock Text="Related Links" />
-                            <HyperlinkButton Content="Source Code"
+                            <TextBlock x:Uid="About_RelatedLinksText" />
+                            <HyperlinkButton x:Uid="About_SourceCodeLink"
                                              NavigateUri="{x:Bind ViewModel.RepositoryUri}" />
-                            <HyperlinkButton Content="Release Notes"
+                            <HyperlinkButton x:Uid="About_ReleaseNotesLink"
                                              NavigateUri="{x:Bind ViewModel.LatestReleaseUri}" />
                         </StackPanel>
                     </dev:SettingsCard>

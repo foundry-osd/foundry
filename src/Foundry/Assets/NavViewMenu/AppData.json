@@ -3,7 +3,8 @@
   "Groups": [
     {
       "UniqueId": "Foundry",
-      "Title": "Foundry",
+      "LocalizeId": "Nav_HomeKey",
+      "UsexUid": true,
       "ImagePath": "ms-appx:///Assets/AppIcon.png",
       "IsSpecialSection": false,
       "ShowItemsWithoutGroup": true,
@@ -11,8 +12,8 @@
       "Items": [
         {
           "UniqueId": "Foundry.Views.HomeLandingPage",
-          "Title": "Foundry",
-          "Subtitle": "Foundry",
+          "LocalizeId": "Nav_HomeKey",
+          "UsexUid": true,
           "ImagePath": "ms-appx:///Assets/AppIcon.png",
           "HideItem": true
         }

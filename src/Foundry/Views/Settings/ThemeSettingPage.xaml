@@ -15,35 +15,32 @@
         <StackPanel Margin="10"
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="5">
-            <dev:SettingsCard Description="Select the theme that suits your mood and preference. You can choose from dark, light, or system themes."
-                              Header="App theme"
+            <dev:SettingsCard x:Uid="ThemeSetting_AppThemeCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Theme.png}">
                 <ComboBox dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
-                    <ComboBoxItem Content="Light"
+                    <ComboBoxItem x:Uid="ThemeSetting_LightItem"
                                   Tag="Light" />
-                    <ComboBoxItem Content="Dark"
+                    <ComboBoxItem x:Uid="ThemeSetting_DarkItem"
                                   Tag="Dark" />
-                    <ComboBoxItem Content="Default"
+                    <ComboBoxItem x:Uid="ThemeSetting_DefaultItem"
                                   Tag="Default" />
                 </ComboBox>
             </dev:SettingsCard>
-            <dev:SettingsCard Description="Change the appearance of the backdrop material behind your app. You can choose from mica, acrylic, or transparent options."
-                              Header="Material"
+            <dev:SettingsCard x:Uid="ThemeSetting_MaterialCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Backdrop.png}">
                 <ComboBox dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
-                    <ComboBoxItem Content="Mica"
+                    <ComboBoxItem x:Uid="ThemeSetting_MicaItem"
                                   Tag="Mica" />
-                    <ComboBoxItem Content="Mica Alt"
+                    <ComboBoxItem x:Uid="ThemeSetting_MicaAltItem"
                                   Tag="MicaAlt" />
-                    <ComboBoxItem Content="Acrylic"
+                    <ComboBoxItem x:Uid="ThemeSetting_AcrylicItem"
                                   Tag="Acrylic" />
-                    <ComboBoxItem Content="Acrylic Thin"
+                    <ComboBoxItem x:Uid="ThemeSetting_AcrylicThinItem"
                                   Tag="AcrylicThin" />
                 </ComboBox>
             </dev:SettingsCard>
             <dev:SettingsCard ActionIcon="{dev:BitmapIcon Source=Assets/Fluent/External.png}"
-                              Description="Sync your app’s color with your Windows accent color. You can open the Windows accent color setting by clicking this card."
-                              Header="Accent color"
+                              x:Uid="ThemeSetting_AccentCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Color.png}"
                               IsClickEnabled="True"
                               LaunchUri="ms-settings:colors" />

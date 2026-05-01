@@ -1,4 +1,5 @@
 using Foundry.Core.Services.Application;
+using Foundry.Services.Localization;
 using Foundry.Services.Settings;
 using Foundry.Services.Updates;
 
@@ -9,7 +10,8 @@ namespace Foundry.ViewModels
         private readonly IAppSettingsService appSettingsService;
         private readonly IDialogService dialogService;
         private readonly IApplicationUpdateService applicationUpdateService;
-        private string releaseNotes = "Release notes will be available from the configured Velopack update feed.";
+        private readonly IApplicationLocalizationService localizationService;
+        private string releaseNotes;
 
         [ObservableProperty]
         public partial string CurrentVersion { get; set; }
@@ -44,16 +46,19 @@ namespace Foundry.ViewModels
         public AppUpdateSettingViewModel(
             IAppSettingsService appSettingsService,
             IDialogService dialogService,
-            IApplicationUpdateService applicationUpdateService)
+            IApplicationUpdateService applicationUpdateService,
+            IApplicationLocalizationService localizationService)
         {
             this.appSettingsService = appSettingsService;
             this.dialogService = dialogService;
             this.applicationUpdateService = applicationUpdateService;
+            this.localizationService = localizationService;
+            releaseNotes = localizationService.GetString("Update.ReleaseNotesFallback");
 
-            CurrentVersion = $"Current Version {FoundryApplicationInfo.Version}";
-            LastUpdateCheck = appSettingsService.Current.Updates.LastCheckedAt?.ToString("yyyy-MM-dd HH:mm") ?? "Not checked";
+            CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
+            LastUpdateCheck = appSettingsService.Current.Updates.LastCheckedAt?.ToString("yyyy-MM-dd HH:mm") ?? localizationService.GetString("Update.NotChecked");
             IsCheckButtonEnabled = true;
-            LoadingStatus = "Ready";
+            LoadingStatus = localizationService.GetString("Update.Status.Ready");
         }
 
         [RelayCommand]
@@ -65,7 +70,7 @@ namespace Foundry.ViewModels
             IsReleaseNotesVisible = false;
             IsCheckButtonEnabled = false;
             DownloadProgress = 0;
-            LoadingStatus = "Checking for updates";
+            LoadingStatus = localizationService.GetString("Update.Status.Checking");
 
             try
             {
@@ -75,16 +80,11 @@ namespace Foundry.ViewModels
                 appSettingsService.Save();
 
                 LastUpdateCheck = checkedAt.ToString("yyyy-MM-dd HH:mm");
-                LoadingStatus = result.Message;
+                LoadingStatus = GetCheckStatusMessage(result);
                 IsUpdateAvailable = result.IsUpdateAvailable;
                 IsInstallButtonVisible = result.IsUpdateAvailable;
                 IsReleaseNotesVisible = result.IsUpdateAvailable && !string.IsNullOrWhiteSpace(result.ReleaseNotes);
-                releaseNotes = result.ReleaseNotes ?? "No release notes were provided for this update.";
-
-                if (result.Version is not null)
-                {
-                    LoadingStatus = $"{result.Message} Version {result.Version}.";
-                }
+                releaseNotes = result.ReleaseNotes ?? localizationService.GetString("Update.NoReleaseNotes");
             }
             finally
             {
@@ -99,7 +99,7 @@ namespace Foundry.ViewModels
             IsLoading = true;
             IsCheckButtonEnabled = false;
             IsInstallButtonVisible = false;
-            LoadingStatus = "Downloading update";
+            LoadingStatus = localizationService.GetString("Update.Status.Downloading");
             DownloadProgress = 0;
 
             try
@@ -107,7 +107,7 @@ namespace Foundry.ViewModels
                 Progress<int> progress = new(value =>
                 {
                     DownloadProgress = value;
-                    LoadingStatus = $"Downloading update ({value}%)";
+                    LoadingStatus = localizationService.FormatString("Update.Status.DownloadingProgressFormat", value);
                 });
 
                 ApplicationUpdateDownloadResult result = await applicationUpdateService.DownloadUpdateAsync(progress);
@@ -132,7 +132,25 @@ namespace Foundry.ViewModels
         [RelayCommand]
         private Task GetReleaseNotesAsync()
         {
-            return dialogService.ShowMessageAsync(new DialogRequest("Release Note", releaseNotes, "Close"));
+            return dialogService.ShowMessageAsync(new DialogRequest(
+                localizationService.GetString("Update.ReleaseNotesDialogTitle"),
+                releaseNotes,
+                localizationService.GetString("Common.Close")));
+        }
+
+        private string GetCheckStatusMessage(ApplicationUpdateCheckResult result)
+        {
+            return result.Status switch
+            {
+                ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.Status.NoUpdate"),
+                ApplicationUpdateStatus.UpdateAvailable => result.Version is not null
+                    ? localizationService.FormatString("Update.Status.UpdateAvailableWithVersion", result.Version)
+                    : localizationService.GetString("Update.Status.UpdateAvailable"),
+                ApplicationUpdateStatus.Failed => localizationService.FormatString("Update.Status.FailedFormat", result.Message),
+                ApplicationUpdateStatus.SkippedInDebug => localizationService.GetString("Update.Status.SkippedInDebug"),
+                ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.Status.NotInstalled"),
+                _ => result.Message
+            };
         }
     }
 }

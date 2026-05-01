@@ -16,30 +16,26 @@
         <StackPanel Margin="10"
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="5">
-            <dev:SettingsCard Description="Change your app Settings"
-                              Header="General"
+            <dev:SettingsCard x:Name="GeneralSettingsCard"
+                              x:Uid="SettingsPage_GeneralCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/General.png}"
                               IsClickEnabled="True"
-                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}"
-                              CommandParameter="{dev:NavigationParameter PageType=views:GeneralSettingPage, BreadCrumbHeader='General'}" />
-            <dev:SettingsCard Description="Explore the different ways to customize the appearance and behavior of your app. You can change the material, theme, accent, and more options to suit your style and preference."
-                              Header="Appearance &amp; behavior"
+                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}" />
+            <dev:SettingsCard x:Name="ThemeSettingsCard"
+                              x:Uid="SettingsPage_ThemeCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Theme.png}"
                               IsClickEnabled="True"
-                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}"
-                              CommandParameter="{dev:NavigationParameter PageType=views:ThemeSettingPage, BreadCrumbHeader='Appearance &amp; behavior'}" />
-            <dev:SettingsCard Description="Check for Updates"
-                              Header="Update App"
+                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}" />
+            <dev:SettingsCard x:Name="UpdateSettingsCard"
+                              x:Uid="SettingsPage_UpdateCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Update.png}"
                               IsClickEnabled="True"
-                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}"
-                              CommandParameter="{dev:NavigationParameter PageType=views:AppUpdateSettingPage, BreadCrumbHeader='Update App'}" />
-            <dev:SettingsCard Description="About Foundry and Developer"
-                              Header="About us"
+                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}" />
+            <dev:SettingsCard x:Name="AboutSettingsCard"
+                              x:Uid="SettingsPage_AboutCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Info.png}"
                               IsClickEnabled="True"
-                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}"
-                              CommandParameter="{dev:NavigationParameter PageType=views:AboutUsSettingPage, BreadCrumbHeader='About us'}" />
+                              Command="{x:Bind local:App.Current.NavService.NavigateToCommand}" />
 
         </StackPanel>
     </ScrollView>
