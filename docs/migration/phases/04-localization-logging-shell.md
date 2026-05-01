@@ -67,7 +67,7 @@ git commit -m "feat: migrate foundry localization to winui"
   - [ ] App startup.
   - [ ] Windows App SDK runtime initialization.
   - [ ] Velopack first run/update flow.
-  - [ ] Startup and manual update check elapsed time.
+  - [x] Startup and manual update check elapsed time.
   - [ ] ADK detection.
   - [ ] ISO/USB build start and completion.
   - [ ] Bootstrap payload resolution.

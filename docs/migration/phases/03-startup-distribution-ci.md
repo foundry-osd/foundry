@@ -103,11 +103,12 @@ Note: manual launch validation is kept unchecked until a local Visual Studio run
   - [x] Startup check runs after app readiness initialization.
   - [x] Startup check must not block normal app usage.
   - [x] Manual check is available from Settings/About update UI.
-- [ ] **7.7.1** Tune startup update-check performance:
-  - [ ] Log elapsed time for update source creation and `CheckForUpdatesAsync`.
-  - [ ] Throttle startup checks with `updates.lastCheckedAt` so every app launch does not call GitHub Releases.
-  - [ ] Keep manual checks unthrottled.
-  - [ ] Keep startup failures non-blocking and visible in logs.
+- [x] **7.7.1** Tune startup update-check performance:
+  - [x] Log elapsed time for update source creation and `CheckForUpdatesAsync`.
+  - [x] Throttle startup checks with `updates.lastCheckedAt` so every app launch does not call GitHub Releases.
+  - [x] Keep manual checks unthrottled.
+  - [x] Keep startup failures non-blocking and visible in logs.
+  - Note: startup checks are throttled for 12 hours after a real check attempt; manual checks remain immediate.
 - [ ] **7.7.2** Add startup update notification UX:
   - [ ] When a startup check finds an update, show a non-blocking shell notification/banner.
   - [ ] Do not show a modal dialog automatically on startup.

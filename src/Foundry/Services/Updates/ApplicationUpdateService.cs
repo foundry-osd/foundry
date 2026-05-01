@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Updates;
 using Foundry.Services.Settings;
 using Serilog;
 using Velopack;
@@ -12,6 +13,8 @@ internal sealed class ApplicationUpdateService(
     IApplicationLifetimeService applicationLifetimeService,
     ILogger logger) : IApplicationUpdateService
 {
+    private static readonly TimeSpan StartupUpdateCheckInterval = TimeSpan.FromHours(12);
+
     private Velopack.UpdateInfo? pendingUpdate;
     private UpdateManager? pendingUpdateManager;
 
@@ -46,23 +49,50 @@ internal sealed class ApplicationUpdateService(
             return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.SkippedInDebug, message);
         }
 
+        Stopwatch totalStopwatch = Stopwatch.StartNew();
+
         try
         {
+            Stopwatch sourceStopwatch = Stopwatch.StartNew();
             UpdateManager updateManager = CreateUpdateManager();
+            sourceStopwatch.Stop();
+
+            logger.Information(
+                "Foundry update source created. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
+                isStartupCheck,
+                sourceStopwatch.ElapsedMilliseconds);
+
             if (!updateManager.IsInstalled)
             {
+                totalStopwatch.Stop();
                 const string message = "Update check skipped because Foundry is not running from a Velopack installation.";
-                logger.Information(message);
+                logger.Information(
+                    "{Message} IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
+                    message,
+                    isStartupCheck,
+                    totalStopwatch.ElapsedMilliseconds);
                 return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NotInstalled, message);
             }
 
             logger.Information("Checking for Foundry updates. IsStartupCheck={IsStartupCheck}", isStartupCheck);
+            Stopwatch checkStopwatch = Stopwatch.StartNew();
             Velopack.UpdateInfo? updateInfo = await updateManager.CheckForUpdatesAsync();
+            checkStopwatch.Stop();
+            totalStopwatch.Stop();
+
+            logger.Information(
+                "Foundry update check request completed. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
+                isStartupCheck,
+                checkStopwatch.ElapsedMilliseconds);
 
             if (updateInfo is null)
             {
                 const string message = "Foundry is up to date.";
-                logger.Information(message);
+                logger.Information(
+                    "{Message} IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
+                    message,
+                    isStartupCheck,
+                    totalStopwatch.ElapsedMilliseconds);
                 ClearPendingUpdate();
                 return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NoUpdate, message);
             }
@@ -76,10 +106,12 @@ internal sealed class ApplicationUpdateService(
             string updateMessage = $"Foundry {version} is available.";
 
             logger.Information(
-                "Foundry update available. Version={Version}, FileName={FileName}, Size={Size}",
+                "Foundry update available. Version={Version}, FileName={FileName}, Size={Size}, IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
                 version,
                 targetRelease.FileName,
-                targetRelease.Size);
+                targetRelease.Size,
+                isStartupCheck,
+                totalStopwatch.ElapsedMilliseconds);
 
             return new ApplicationUpdateCheckResult(
                 ApplicationUpdateStatus.UpdateAvailable,
@@ -89,7 +121,12 @@ internal sealed class ApplicationUpdateService(
         }
         catch (Exception ex)
         {
-            logger.Error(ex, "Foundry update check failed.");
+            totalStopwatch.Stop();
+            logger.Error(
+                ex,
+                "Foundry update check failed. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
+                isStartupCheck,
+                totalStopwatch.ElapsedMilliseconds);
             return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Failed, ex.Message);
         }
     }
@@ -146,14 +183,41 @@ internal sealed class ApplicationUpdateService(
 
     private async Task RunStartupCheckAsync(CancellationToken cancellationToken)
     {
+        bool shouldPersistLastCheckedAt = false;
+        DateTimeOffset checkedAt = DateTimeOffset.Now;
+
         try
         {
+            DateTimeOffset? lastCheckedAt = appSettingsService.Current.Updates.LastCheckedAt;
+            if (lastCheckedAt is not null
+                && !StartupUpdateCheckThrottle.ShouldRun(lastCheckedAt, checkedAt, StartupUpdateCheckInterval))
+            {
+                DateTimeOffset nextCheckAt = StartupUpdateCheckThrottle.GetNextCheckAt(lastCheckedAt.Value, StartupUpdateCheckInterval);
+                logger.Information(
+                    "Startup update check skipped because the last check is recent. LastCheckedAt={LastCheckedAt}, NextCheckAt={NextCheckAt}, IntervalHours={IntervalHours}",
+                    lastCheckedAt,
+                    nextCheckAt,
+                    StartupUpdateCheckInterval.TotalHours);
+                return;
+            }
+
             ApplicationUpdateCheckResult result = await CheckForUpdatesAsync(isStartupCheck: true, cancellationToken);
+            shouldPersistLastCheckedAt = result.Status is not ApplicationUpdateStatus.SkippedInDebug
+                and not ApplicationUpdateStatus.NotInstalled;
+
             logger.Information("Startup update check completed. Status={Status}, Message={Message}", result.Status, result.Message);
         }
         catch (Exception ex)
         {
             logger.Error(ex, "Startup update check failed.");
+        }
+        finally
+        {
+            if (shouldPersistLastCheckedAt)
+            {
+                appSettingsService.Current.Updates.LastCheckedAt = checkedAt;
+                appSettingsService.Save();
+            }
         }
     }
 
