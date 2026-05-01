@@ -40,6 +40,11 @@ git worktree add ..\foundry-velopack -b feat/foundry-velopack feat/winui-migrati
   - [ ] Commit automatically using a focused Conventional Commit message.
   - [ ] Push the branch automatically.
   - [ ] Open the PR automatically against the target branch defined by this workflow.
+- [ ] Prefer scoped Conventional Commit messages and PR titles when the scope is clear, for example:
+  - [ ] `feat(winpe): add Intel wireless supplement catalog`.
+  - [ ] `fix(packaging): include WinUI XAML assets`.
+  - [ ] `refactor(logging): simplify startup log output`.
+  - [ ] `docs(migration): clarify phase validation`.
 - [ ] Do not ask for extra approval before commit, push, or PR creation once the user has requested execution of a migration step.
 - [ ] Stop before commit, push, or PR creation only when validation fails, the branch contains unrelated changes, or the requested scope is ambiguous.
 

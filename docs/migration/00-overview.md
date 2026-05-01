@@ -82,3 +82,4 @@
 - [ ] Do not move UI-specific WPF types into `Foundry.Core`.
 - [ ] Do not introduce new dependencies unless they remove a real migration risk.
 - [ ] Keep commits small and Conventional Commit compliant.
+- [ ] Prefer scoped Conventional Commits when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, `refactor(logging): ...`, or `docs(migration): ...`.

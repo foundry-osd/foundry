@@ -31,6 +31,7 @@ Unit testing rules:
 
 Git rules:
 - Follow Conventional Commits for all commit messages
+- Prefer Conventional Commit scopes when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(migration): ...`
 - Write commit messages in English
 - Keep commits atomic and focused
 
@@ -51,6 +52,7 @@ Worktree / branch / PR rules:
 
 Pull request rules:
 - Write pull request titles in English using Conventional Commits
+- Prefer scoped pull request titles when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(migration): ...`
 - Write concise pull request descriptions in English
 - Include: summary, reason, main changes, and testing notes
 
