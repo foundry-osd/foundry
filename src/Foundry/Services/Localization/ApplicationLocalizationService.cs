@@ -12,6 +12,7 @@ internal sealed class ApplicationLocalizationService(
     IAppSettingsService appSettingsService,
     ILogger logger) : IApplicationLocalizationService
 {
+    private readonly ILogger logger = logger.ForContext<ApplicationLocalizationService>();
     private ResourceManager? resourceManager;
     private ResourceContext? resourceContext;
     private string currentLanguage = SupportedCultureCatalog.DefaultCultureCode;
@@ -32,10 +33,23 @@ internal sealed class ApplicationLocalizationService(
         if (!string.Equals(configuredLanguage, validatedLanguage, StringComparison.OrdinalIgnoreCase))
         {
             appSettingsService.Current.Localization.Language = validatedLanguage;
-            appSettingsService.Save();
+            try
+            {
+                appSettingsService.Save();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(
+                    ex,
+                    "Failed to persist normalized application language. ConfiguredLanguage={ConfiguredLanguage}, NormalizedLanguage={NormalizedLanguage}",
+                    configuredLanguage,
+                    validatedLanguage);
+                throw;
+            }
         }
 
         ApplyLanguage(validatedLanguage);
+        logger.Information("Localization initialized. Language={Language}", CurrentLanguage);
         return Task.CompletedTask;
     }
 
@@ -44,18 +58,38 @@ internal sealed class ApplicationLocalizationService(
         cancellationToken.ThrowIfCancellationRequested();
 
         string validatedLanguage = SupportedCultureCatalog.ValidateOrDefault(languageCode);
+        if (!string.Equals(languageCode, validatedLanguage, StringComparison.OrdinalIgnoreCase))
+        {
+            logger.Warning(
+                "Unsupported language requested; using fallback. RequestedLanguage={RequestedLanguage}, FallbackLanguage={FallbackLanguage}",
+                languageCode,
+                validatedLanguage);
+        }
+
         if (string.Equals(currentLanguage, validatedLanguage, StringComparison.OrdinalIgnoreCase))
         {
             return Task.CompletedTask;
         }
 
         string oldLanguage = currentLanguage;
-        ApplyLanguage(validatedLanguage);
-
         appSettingsService.Current.Localization.Language = validatedLanguage;
-        appSettingsService.Save();
+        try
+        {
+            appSettingsService.Save();
+        }
+        catch (Exception ex)
+        {
+            logger.Error(
+                ex,
+                "Failed to persist selected language. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                oldLanguage,
+                validatedLanguage);
+            throw;
+        }
 
+        ApplyLanguage(validatedLanguage);
         LanguageChanged?.Invoke(this, new ApplicationLanguageChangedEventArgs(oldLanguage, validatedLanguage));
+        logger.Information("Application language changed. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}", oldLanguage, validatedLanguage);
         return Task.CompletedTask;
     }
 
@@ -125,7 +159,7 @@ internal sealed class ApplicationLocalizationService(
         resourceContext.QualifierValues["Language"] = languageCode;
 
         currentLanguage = languageCode;
-        logger.Information("Localization initialized. Language={Language}", CurrentLanguage);
+        logger.Debug("Localization language applied. Language={Language}", CurrentLanguage);
     }
 
     private static IReadOnlyList<string?> GetPreferredLanguageCodes()
