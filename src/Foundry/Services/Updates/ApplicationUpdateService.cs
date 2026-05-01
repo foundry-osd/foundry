@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using Foundry.Core.Services.Application;
-using Foundry.Core.Services.Updates;
 using Foundry.Services.Settings;
 using Serilog;
 using Velopack;
@@ -13,8 +12,6 @@ internal sealed class ApplicationUpdateService(
     IApplicationLifetimeService applicationLifetimeService,
     ILogger logger) : IApplicationUpdateService
 {
-    private static readonly TimeSpan StartupUpdateCheckInterval = TimeSpan.FromHours(12);
-
     private Velopack.UpdateInfo? pendingUpdate;
     private UpdateManager? pendingUpdateManager;
 
@@ -53,13 +50,19 @@ internal sealed class ApplicationUpdateService(
 
         try
         {
+            string feedUrl = appSettingsService.Current.Updates.FeedUrl;
+            string sourceKind = ResolveUpdateSourceKind(feedUrl);
+
             Stopwatch sourceStopwatch = Stopwatch.StartNew();
             UpdateManager updateManager = CreateUpdateManager();
             sourceStopwatch.Stop();
 
             logger.Information(
-                "Foundry update source created. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
+                "Foundry update source created. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedUrl={FeedUrl}, ConfiguredChannel={ConfiguredChannel}, ElapsedMilliseconds={ElapsedMilliseconds}",
                 isStartupCheck,
+                sourceKind,
+                feedUrl,
+                appSettingsService.Current.Updates.Channel,
                 sourceStopwatch.ElapsedMilliseconds);
 
             if (!updateManager.IsInstalled)
@@ -74,7 +77,12 @@ internal sealed class ApplicationUpdateService(
                 return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NotInstalled, message);
             }
 
-            logger.Information("Checking for Foundry updates. IsStartupCheck={IsStartupCheck}", isStartupCheck);
+            logger.Information(
+                "Checking for Foundry updates. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedUrl={FeedUrl}",
+                isStartupCheck,
+                sourceKind,
+                feedUrl);
+
             Stopwatch checkStopwatch = Stopwatch.StartNew();
             Velopack.UpdateInfo? updateInfo = await updateManager.CheckForUpdatesAsync();
             checkStopwatch.Stop();
@@ -183,41 +191,14 @@ internal sealed class ApplicationUpdateService(
 
     private async Task RunStartupCheckAsync(CancellationToken cancellationToken)
     {
-        bool shouldPersistLastCheckedAt = false;
-        DateTimeOffset checkedAt = DateTimeOffset.Now;
-
         try
         {
-            DateTimeOffset? lastCheckedAt = appSettingsService.Current.Updates.LastCheckedAt;
-            if (lastCheckedAt is not null
-                && !StartupUpdateCheckThrottle.ShouldRun(lastCheckedAt, checkedAt, StartupUpdateCheckInterval))
-            {
-                DateTimeOffset nextCheckAt = StartupUpdateCheckThrottle.GetNextCheckAt(lastCheckedAt.Value, StartupUpdateCheckInterval);
-                logger.Information(
-                    "Startup update check skipped because the last check is recent. LastCheckedAt={LastCheckedAt}, NextCheckAt={NextCheckAt}, IntervalHours={IntervalHours}",
-                    lastCheckedAt,
-                    nextCheckAt,
-                    StartupUpdateCheckInterval.TotalHours);
-                return;
-            }
-
             ApplicationUpdateCheckResult result = await CheckForUpdatesAsync(isStartupCheck: true, cancellationToken);
-            shouldPersistLastCheckedAt = result.Status is not ApplicationUpdateStatus.SkippedInDebug
-                and not ApplicationUpdateStatus.NotInstalled;
-
             logger.Information("Startup update check completed. Status={Status}, Message={Message}", result.Status, result.Message);
         }
         catch (Exception ex)
         {
             logger.Error(ex, "Startup update check failed.");
-        }
-        finally
-        {
-            if (shouldPersistLastCheckedAt)
-            {
-                appSettingsService.Current.Updates.LastCheckedAt = checkedAt;
-                appSettingsService.Save();
-            }
         }
     }
 
@@ -252,6 +233,11 @@ internal sealed class ApplicationUpdateService(
         return string.Equals(channel, "beta", StringComparison.OrdinalIgnoreCase)
             || string.Equals(channel, "preview", StringComparison.OrdinalIgnoreCase)
             || string.Equals(channel, "prerelease", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string ResolveUpdateSourceKind(string feedUrl)
+    {
+        return IsGitHubRepositoryUrl(feedUrl) ? "GitHubReleases" : "SimpleWeb";
     }
 
     private static string ResolveReleaseNotes(VelopackAsset targetRelease)
