@@ -10,6 +10,25 @@ namespace Foundry.Views
         {
             localizationService = App.GetService<IApplicationLocalizationService>();
             this.InitializeComponent();
+            ApplyLocalizedText();
+            localizationService.LanguageChanged += OnLanguageChanged;
+            Unloaded += OnUnloaded;
+        }
+
+        private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
+        {
+            if (!DispatcherQueue.HasThreadAccess)
+            {
+                _ = DispatcherQueue.TryEnqueue(ApplyLocalizedText);
+                return;
+            }
+
+            ApplyLocalizedText();
+        }
+
+        private void ApplyLocalizedText()
+        {
+            BreadcrumbNavigator.SetPageTitle(this, localizationService.GetString("SettingsPage.PageTitle"));
             ApplyLocalizedNavigationParameters();
         }
 
@@ -36,6 +55,12 @@ namespace Foundry.Views
                 PageType = pageType,
                 BreadCrumbHeader = localizationService.GetString(titleResourceKey)
             };
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            localizationService.LanguageChanged -= OnLanguageChanged;
+            Unloaded -= OnUnloaded;
         }
     }
 

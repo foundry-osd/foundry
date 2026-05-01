@@ -84,6 +84,9 @@
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="SettingsPage.PageTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="SettingsPage_AboutCard.Description" xml:space="preserve">
     <value>Product, version, repository, and release information.</value>
   </data>

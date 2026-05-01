@@ -8,6 +8,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:Foundry.Views"
       dev:BreadcrumbNavigator.IsHeaderVisible="True"
+      dev:BreadcrumbNavigator.PageTitle="Settings"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
