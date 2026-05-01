@@ -115,8 +115,8 @@ vpk pack --msi --instLocation PerMachine --packId Foundry --packVersion <YY.M.D-
 
 - [x] **7.10** Do not add or maintain a dedicated WiX project for Foundry.
 - [x] **7.11** Preserve `Foundry.Connect` and `Foundry.Deploy` ZIP release assets.
-- [ ] **7.11.1** Replace old main `Foundry-x64.exe` and `Foundry-arm64.exe` release assets with Velopack package/MSI artifacts.
-  - Note: the local packaging artifact contract is ready; the GitHub release workflow replacement remains in Phase 8.
+- [x] **7.11.1** Replace old main `Foundry-x64.exe` and `Foundry-arm64.exe` release assets with Velopack package/MSI artifacts.
+  - Confirmed by Phase 8 draft release `v26.5.1.1`: Foundry is published as Velopack `.nupkg`, setup `.exe`, and `.msi` assets; the old single-file Foundry assets are absent.
 - [x] **7.12** Commit:
 
 ```powershell
@@ -177,7 +177,7 @@ git commit -m "feat: add velopack distribution flow"
   - [x] `InformationalVersion`: `YY.M.D.Build`.
   - [x] Velopack `--packVersion`: `YY.M.D-build.Build`.
 - [ ] **8.17.2** Validate Velopack ordering for same-day builds before finalizing the release workflow:
-  - [ ] Confirm `26.4.30-build.2` is treated as newer than `26.4.30-build.1`.
+  - [x] Confirm `26.4.30-build.2` is treated as newer than `26.4.30-build.1`.
   - [ ] Confirm update detection works for the target stable channel with the `-build.` prerelease-style suffix.
   - [ ] If Velopack rejects this ordering, stop and choose a different date-based SemVer2 mapping before cutover.
 - [x] **8.18** Commit:
@@ -189,9 +189,9 @@ git commit -m "ci: update workflows for winui packaging"
 **Validation**
 
 - [x] **8.19** Run CI on PR to `feat/winui-migration`.
-- [ ] **8.20** Run manual release on a test branch or draft release tag.
-- [ ] **8.21** Confirm artifacts are uploaded.
-- [ ] **8.22** Confirm release notes are usable by Velopack.
+- [x] **8.20** Run manual release on a test branch or draft release tag.
+- [x] **8.21** Confirm artifacts are uploaded.
+- [x] **8.22** Confirm release notes are usable by Velopack.
 - [ ] **8.23** Confirm Velopack update detection handles `YY.M.D-build.Build` ordering correctly.
 
 **Phase 8 notes**
@@ -199,3 +199,7 @@ git commit -m "ci: update workflows for winui packaging"
 - `.github\workflows\ci.yml` already matched the expected WinUI migration matrix; Phase 8 reviewed it and kept it unchanged.
 - Local validation confirmed `x64` and `ARM64` Release builds, x64 test execution, and Velopack package generation for both runtimes.
 - GitHub Actions confirmed CI on `windows-latest` and `windows-11-arm` in PR #117.
+- Draft release `v26.5.1.1` completed successfully from `feat/winui-migration` and uploaded Foundry Velopack assets plus `Foundry.Connect` and `Foundry.Deploy` ZIPs.
+- The downloaded `Foundry-26.5.1-build.1-win-x64-full.nupkg` contains generated GitHub release notes, including the Phase 8 PR.
+- SemVer comparison with NuGet.Versioning `VersionRelease` confirms `26.5.1-build.2` sorts newer than `26.5.1-build.1`.
+- Final update detection against GitHub should be confirmed with a published release, not only a draft release, because draft releases are not the normal public update feed.
