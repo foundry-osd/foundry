@@ -7,11 +7,13 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
 {
     public JsonAppSettingsService()
     {
+        IsFirstRun = !File.Exists(Constants.AppSettingsPath);
         Current = Load();
         Save();
     }
 
     public FoundryAppSettings Current { get; }
+    public bool IsFirstRun { get; }
 
     public void Save()
     {

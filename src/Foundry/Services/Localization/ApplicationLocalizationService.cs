@@ -4,6 +4,7 @@ using Foundry.Services.Settings;
 using Microsoft.Windows.ApplicationModel.Resources;
 using Microsoft.Windows.Globalization;
 using Serilog;
+using Windows.System.UserProfile;
 
 namespace Foundry.Services.Localization;
 
@@ -24,7 +25,10 @@ internal sealed class ApplicationLocalizationService(
         cancellationToken.ThrowIfCancellationRequested();
 
         string configuredLanguage = appSettingsService.Current.Localization.Language;
-        string validatedLanguage = SupportedCultureCatalog.ValidateOrDefault(configuredLanguage);
+        string validatedLanguage = appSettingsService.IsFirstRun
+            ? SupportedCultureCatalog.MatchPreferredCulture(GetPreferredLanguageCodes())
+            : SupportedCultureCatalog.ValidateOrDefault(configuredLanguage);
+
         if (!string.Equals(configuredLanguage, validatedLanguage, StringComparison.OrdinalIgnoreCase))
         {
             appSettingsService.Current.Localization.Language = validatedLanguage;
@@ -122,5 +126,22 @@ internal sealed class ApplicationLocalizationService(
 
         currentLanguage = languageCode;
         logger.Information("Localization initialized. Language={Language}", CurrentLanguage);
+    }
+
+    private static IReadOnlyList<string?> GetPreferredLanguageCodes()
+    {
+        List<string?> languageCodes = [];
+
+        try
+        {
+            languageCodes.AddRange(GlobalizationPreferences.Languages);
+        }
+        catch
+        {
+            // Fall back to CultureInfo below when WinRT user profile language APIs are unavailable.
+        }
+
+        languageCodes.Add(CultureInfo.CurrentUICulture.Name);
+        return languageCodes;
     }
 }

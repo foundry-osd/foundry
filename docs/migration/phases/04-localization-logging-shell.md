@@ -77,8 +77,8 @@ git commit -m "feat: migrate foundry localization to winui"
 
 **Validation**
 
-- [ ] **9.9** Launch app in English.
-- [ ] **9.10** Launch app in French.
+- [x] **9.9** Launch app in English.
+- [x] **9.10** Launch app in French.
 - [ ] **9.11** Switch language at runtime.
 - [ ] **9.12** Confirm computed labels update.
 - [ ] **9.13** Confirm missing keys are visible during development.

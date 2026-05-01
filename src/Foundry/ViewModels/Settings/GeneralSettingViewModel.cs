@@ -42,7 +42,6 @@ namespace Foundry.ViewModels
             }
 
             await localizationService.SetLanguageAsync(selectedLanguage.Code);
-            RefreshSupportedLanguages();
         }
 
         partial void OnIsDeveloperModeChanged(bool value)
