@@ -1,5 +1,6 @@
 using Foundry.DependencyInjection;
 using Foundry.Services.Localization;
+using Foundry.Services.Settings;
 using Foundry.Services.Startup;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -8,6 +9,7 @@ namespace Foundry
 {
     public partial class App : Application
     {
+        private static readonly ILogger AppLogger = Log.ForContext<App>();
         private bool isShuttingDown;
 
         public new static App Current => (App)Application.Current;
@@ -30,14 +32,12 @@ namespace Foundry
 
         public App()
         {
-            Constants.EnsureDataDirectories();
-            ConfigureLogger();
-
             Host = FoundryHost.Create();
+            SetDeveloperModeEnabled(Host.Services.GetRequiredService<IAppSettingsService>().Current.Diagnostics.DeveloperMode);
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
-            RegisterExceptionHandlers();
+            RegisterWinUiExceptionHandler();
 
-            Logger.Information("Foundry WinUI startup initialized.");
+            AppLogger.Information("Foundry WinUI host initialized.");
             this.InitializeComponent();
         }
 
@@ -59,7 +59,7 @@ namespace Foundry
             }
             catch (Exception ex)
             {
-                Logger.Fatal(ex, "Foundry failed during WinUI launch.");
+                AppLogger.Error(ex, "Foundry WinUI launch failed.");
                 throw;
             }
         }
@@ -69,52 +69,41 @@ namespace Foundry
             ContextMenuService menuService = GetService<ContextMenuService>();
             if (RuntimeHelper.IsPackaged())
             {
-                ContextMenuItem menu = new()
+                try
                 {
-                    Title = "Open Foundry Here",
-                    Param = @"""{path}""",
-                    AcceptFileFlag = (int)FileMatchFlagEnum.All,
-                    AcceptDirectoryFlag = (int)(DirectoryMatchFlagEnum.Directory | DirectoryMatchFlagEnum.Background | DirectoryMatchFlagEnum.Desktop),
-                    AcceptMultipleFilesFlag = (int)FilesMatchFlagEnum.Each,
-                    Index = 0,
-                    Enabled = true,
-                    Icon = ProcessInfoHelper.GetFileVersionInfo().FileName,
-                    Exe = "Foundry.exe"
-                };
+                    ContextMenuItem menu = new()
+                    {
+                        Title = "Open Foundry Here",
+                        Param = @"""{path}""",
+                        AcceptFileFlag = (int)FileMatchFlagEnum.All,
+                        AcceptDirectoryFlag = (int)(DirectoryMatchFlagEnum.Directory | DirectoryMatchFlagEnum.Background | DirectoryMatchFlagEnum.Desktop),
+                        AcceptMultipleFilesFlag = (int)FilesMatchFlagEnum.Each,
+                        Index = 0,
+                        Enabled = true,
+                        Icon = ProcessInfoHelper.GetFileVersionInfo().FileName,
+                        Exe = "Foundry.exe"
+                    };
 
-                await menuService.SaveAsync(menu);
+                    await menuService.SaveAsync(menu);
+                }
+                catch (Exception ex)
+                {
+                    AppLogger.Warning(ex, "Failed to register packaged shell context menu.");
+                }
             }
 
             await GetService<IStartupReadinessService>().InitializeAsync();
+            AppLogger.Information("Foundry WinUI startup completed.");
         }
 
-        private void RegisterExceptionHandlers()
+        private void RegisterWinUiExceptionHandler()
         {
-            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
             UnhandledException += OnWinUiUnhandledException;
-        }
-
-        private static void OnUnhandledException(object sender, System.UnhandledExceptionEventArgs e)
-        {
-            if (e.ExceptionObject is Exception ex)
-            {
-                Logger.Fatal(ex, "Unhandled AppDomain exception. IsTerminating={IsTerminating}", e.IsTerminating);
-                return;
-            }
-
-            Logger.Fatal("Unhandled AppDomain exception. IsTerminating={IsTerminating}, ExceptionObject={ExceptionObject}", e.IsTerminating, e.ExceptionObject);
-        }
-
-        private static void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
-        {
-            Logger.Error(e.Exception, "Unobserved task exception.");
-            e.SetObserved();
         }
 
         private static void OnWinUiUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
         {
-            Logger.Fatal(e.Exception, "Unhandled WinUI exception.");
+            AppLogger.Fatal(e.Exception, "Unhandled WinUI exception.");
         }
 
         private void OnMainWindowClosed(object sender, WindowEventArgs args)
@@ -125,7 +114,7 @@ namespace Foundry
             }
 
             isShuttingDown = true;
-            Logger.Information("Foundry WinUI shutdown started.");
+            AppLogger.Information("Foundry WinUI shutdown started.");
             Host.Dispose();
             Log.CloseAndFlush();
         }

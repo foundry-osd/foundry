@@ -12,6 +12,7 @@ internal sealed class ApplicationUpdateService(
     IApplicationLifetimeService applicationLifetimeService,
     ILogger logger) : IApplicationUpdateService
 {
+    private readonly ILogger logger = logger.ForContext<ApplicationUpdateService>();
     private Velopack.UpdateInfo? pendingUpdate;
     private UpdateManager? pendingUpdateManager;
 
@@ -20,10 +21,10 @@ internal sealed class ApplicationUpdateService(
         cancellationToken.ThrowIfCancellationRequested();
 
         logger.Information(
-            "Update service initialized. CheckOnStartup={CheckOnStartup}, Channel={Channel}, FeedUrl={FeedUrl}",
+            "Update service initialized. CheckOnStartup={CheckOnStartup}, Channel={Channel}, FeedSource={FeedSource}",
             appSettingsService.Current.Updates.CheckOnStartup,
             appSettingsService.Current.Updates.Channel,
-            appSettingsService.Current.Updates.FeedUrl);
+            GetFeedUrlLogValue(appSettingsService.Current.Updates.FeedUrl));
 
         if (appSettingsService.Current.Updates.CheckOnStartup)
         {
@@ -52,16 +53,22 @@ internal sealed class ApplicationUpdateService(
         {
             string feedUrl = appSettingsService.Current.Updates.FeedUrl;
             string sourceKind = ResolveUpdateSourceKind(feedUrl);
+            logger.Debug(
+                "Resolved update source. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}, Channel={Channel}",
+                isStartupCheck,
+                sourceKind,
+                GetFeedUrlLogValue(feedUrl),
+                appSettingsService.Current.Updates.Channel);
 
             Stopwatch sourceStopwatch = Stopwatch.StartNew();
             UpdateManager updateManager = CreateUpdateManager();
             sourceStopwatch.Stop();
 
-            logger.Information(
-                "Foundry update source created. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedUrl={FeedUrl}, ConfiguredChannel={ConfiguredChannel}, ElapsedMilliseconds={ElapsedMilliseconds}",
+            logger.Debug(
+                "Foundry update source created. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}, ConfiguredChannel={ConfiguredChannel}, ElapsedMilliseconds={ElapsedMilliseconds}",
                 isStartupCheck,
                 sourceKind,
-                feedUrl,
+                GetFeedUrlLogValue(feedUrl),
                 appSettingsService.Current.Updates.Channel,
                 sourceStopwatch.ElapsedMilliseconds);
 
@@ -78,17 +85,17 @@ internal sealed class ApplicationUpdateService(
             }
 
             logger.Information(
-                "Checking for Foundry updates. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedUrl={FeedUrl}",
+                "Checking for Foundry updates. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}",
                 isStartupCheck,
                 sourceKind,
-                feedUrl);
+                GetFeedUrlLogValue(feedUrl));
 
             Stopwatch checkStopwatch = Stopwatch.StartNew();
             Velopack.UpdateInfo? updateInfo = await updateManager.CheckForUpdatesAsync();
             checkStopwatch.Stop();
             totalStopwatch.Stop();
 
-            logger.Information(
+            logger.Debug(
                 "Foundry update check request completed. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
                 isStartupCheck,
                 checkStopwatch.ElapsedMilliseconds);
@@ -184,9 +191,18 @@ internal sealed class ApplicationUpdateService(
             return;
         }
 
-        logger.Information("Applying Foundry update and restarting. Version={Version}", pendingUpdate.TargetFullRelease.Version);
-        pendingUpdateManager.WaitExitThenApplyUpdates(pendingUpdate.TargetFullRelease, silent: false, restart: true);
-        applicationLifetimeService.Shutdown();
+        string version = pendingUpdate.TargetFullRelease.Version?.ToString() ?? "unknown";
+        try
+        {
+            logger.Information("Applying Foundry update and restarting. Version={Version}", version);
+            pendingUpdateManager.WaitExitThenApplyUpdates(pendingUpdate.TargetFullRelease, silent: false, restart: true);
+            applicationLifetimeService.Shutdown();
+        }
+        catch (Exception ex)
+        {
+            logger.Error(ex, "Failed to apply Foundry update and restart. Version={Version}", version);
+            throw;
+        }
     }
 
     private async Task RunStartupCheckAsync(CancellationToken cancellationToken)
@@ -209,8 +225,14 @@ internal sealed class ApplicationUpdateService(
         string feedUrl = appSettingsService.Current.Updates.FeedUrl;
         if (!IsGitHubRepositoryUrl(feedUrl))
         {
+            logger.Debug("Creating simple web Velopack update manager. FeedSource={FeedSource}", GetFeedUrlLogValue(feedUrl));
             return new UpdateManager(feedUrl, options, locator: null);
         }
+
+        logger.Debug(
+            "Creating GitHub Velopack update manager. FeedSource={FeedSource}, Channel={Channel}",
+            GetFeedUrlLogValue(feedUrl),
+            appSettingsService.Current.Updates.Channel);
 
         GithubSource source = new(
             feedUrl,
@@ -238,6 +260,29 @@ internal sealed class ApplicationUpdateService(
     private static string ResolveUpdateSourceKind(string feedUrl)
     {
         return IsGitHubRepositoryUrl(feedUrl) ? "GitHubReleases" : "SimpleWeb";
+    }
+
+    private static string GetFeedUrlLogValue(string feedUrl)
+    {
+        if (!Uri.TryCreate(feedUrl, UriKind.Absolute, out Uri? uri))
+        {
+            return feedUrl;
+        }
+
+        if (uri.IsFile)
+        {
+            return uri.LocalPath;
+        }
+
+        UriBuilder builder = new(uri)
+        {
+            UserName = string.Empty,
+            Password = string.Empty,
+            Query = string.Empty,
+            Fragment = string.Empty
+        };
+
+        return builder.Uri.ToString().TrimEnd('/');
     }
 
     private static string ResolveReleaseNotes(VelopackAsset targetRelease)

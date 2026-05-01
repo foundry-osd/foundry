@@ -57,6 +57,10 @@ git commit -m "feat: port media creation workflow to winui"
 - [ ] **12.13** ADK missing state disables `Start` navigation through the shell guard.
 - [ ] **12.14** ISO creation overlay blocks navigation until completion.
 - [ ] **12.15** USB creation overlay blocks navigation until completion.
+- [ ] **12.16** Confirm media creation logs remain readable and complete deferred Phase 10 validation **10.12**:
+  - [ ] ISO creation logs include start, progress, completion, cancellation, and failure details.
+  - [ ] USB creation logs include start, progress, completion, cancellation, and failure details.
+  - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
 
 ## Phase 13: ADK And WinPE Service Integration
 

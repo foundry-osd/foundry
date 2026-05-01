@@ -48,6 +48,7 @@ namespace Foundry.ViewModels
         {
             appSettingsService.Current.Diagnostics.DeveloperMode = value;
             appSettingsService.Save();
+            SetDeveloperModeEnabled(value);
         }
 
         [RelayCommand]
