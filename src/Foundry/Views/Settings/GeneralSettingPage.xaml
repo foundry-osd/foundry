@@ -16,16 +16,19 @@
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="5">
 
-            <dev:SettingsCard x:Uid="GeneralSetting_StartupCard"
+            <dev:SettingsCard x:Name="StartupCard"
+                              x:Uid="GeneralSetting_StartupCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Startup.png}">
                 <ToggleSwitch IsOn="{x:Bind dev:StartupHelper.IsAppStartupWithWindowsForXamlBindingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </dev:SettingsCard>
 
-            <dev:SettingsCard x:Uid="GeneralSetting_LanguageCard">
+            <dev:SettingsCard x:Name="LanguageCard"
+                              x:Uid="GeneralSetting_LanguageCard">
                 <dev:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xF2B7;" />
                 </dev:SettingsCard.HeaderIcon>
-                <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                <ComboBox x:Name="LanguageComboBox"
+                          MinWidth="{StaticResource SettingActionControlMinWidth}"
                           ItemsSource="{x:Bind ViewModel.SupportedLanguages, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
                           SelectionChanged="LanguageComboBox_SelectionChanged">
@@ -37,7 +40,8 @@
                 </ComboBox>
             </dev:SettingsCard>
 
-            <dev:SettingsExpander x:Uid="GeneralSetting_DiagnosticsCard"
+            <dev:SettingsExpander x:Name="DiagnosticsCard"
+                                  x:Uid="GeneralSetting_DiagnosticsCard"
                                   HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/DevMode.png}">
                 <ToggleSwitch IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <dev:SettingsExpander.ItemsHeader>

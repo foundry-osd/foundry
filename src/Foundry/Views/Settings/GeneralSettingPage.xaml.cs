@@ -1,17 +1,23 @@
 using Foundry.Core.Localization;
+using Foundry.Services.Localization;
 
 namespace Foundry.Views;
 
 public sealed partial class GeneralSettingPage : Page
 {
     private bool isInitializingLanguageSelection = true;
+    private readonly IApplicationLocalizationService localizationService;
 
     public GeneralSettingViewModel ViewModel { get; }
 
     public GeneralSettingPage()
     {
+        localizationService = App.GetService<IApplicationLocalizationService>();
         ViewModel = App.GetService<GeneralSettingViewModel>();
         InitializeComponent();
+        ApplyLocalizedText();
+        localizationService.LanguageChanged += OnLanguageChanged;
+        Unloaded += OnUnloaded;
         isInitializingLanguageSelection = false;
     }
 
@@ -26,5 +32,40 @@ public sealed partial class GeneralSettingPage : Page
         {
             await ViewModel.SetLanguageAsync(selectedLanguage);
         }
+    }
+
+    private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
+    {
+        if (!DispatcherQueue.HasThreadAccess)
+        {
+            _ = DispatcherQueue.TryEnqueue(ApplyLocalizedText);
+            return;
+        }
+
+        ApplyLocalizedText();
+    }
+
+    private void ApplyLocalizedText()
+    {
+        StartupCard.Header = localizationService.GetString("GeneralSetting_StartupCard.Header");
+        StartupCard.Description = localizationService.GetString("GeneralSetting_StartupCard.Description");
+        LanguageCard.Header = localizationService.GetString("GeneralSetting_LanguageCard.Header");
+        LanguageCard.Description = localizationService.GetString("GeneralSetting_LanguageCard.Description");
+        DiagnosticsCard.Header = localizationService.GetString("GeneralSetting_DiagnosticsCard.Header");
+        DiagnosticsCard.Description = localizationService.GetString("GeneralSetting_DiagnosticsCard.Description");
+
+        BreadcrumbNavigator.SetPageTitle(this, localizationService.GetString("SettingsPage_GeneralCard.Header"));
+
+        bool wasInitializingLanguageSelection = isInitializingLanguageSelection;
+        isInitializingLanguageSelection = true;
+        ViewModel.RefreshSupportedLanguages();
+        LanguageComboBox.SelectedItem = ViewModel.SelectedLanguage;
+        isInitializingLanguageSelection = wasInitializingLanguageSelection;
+    }
+
+    private void OnUnloaded(object sender, RoutedEventArgs e)
+    {
+        localizationService.LanguageChanged -= OnLanguageChanged;
+        Unloaded -= OnUnloaded;
     }
 }

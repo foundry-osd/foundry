@@ -56,7 +56,7 @@ namespace Foundry.ViewModels
             return externalProcessLauncher.OpenFolderAsync(Constants.LogDirectoryPath);
         }
 
-        private void RefreshSupportedLanguages()
+        public void RefreshSupportedLanguages()
         {
             SupportedLanguages.Clear();
 
