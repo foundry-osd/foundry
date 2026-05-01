@@ -145,7 +145,7 @@ git commit -m "feat: add velopack distribution flow"
 - [x] **8.3** Build matrix:
   - [x] `x64` on `windows-latest`.
   - [x] `ARM64` on `windows-11-arm`.
-- [ ] **8.4** Confirm WinUI build works on both runners.
+- [x] **8.4** Confirm WinUI build works on both runners.
 - [x] **8.5** Confirm WPF `Foundry.Connect` and `Foundry.Deploy` still build.
 - [x] **8.6** Confirm tests run:
   - [x] `Foundry.Core.Tests`.
@@ -188,7 +188,7 @@ git commit -m "ci: update workflows for winui packaging"
 
 **Validation**
 
-- [ ] **8.19** Run CI on PR to `feat/winui-migration`.
+- [x] **8.19** Run CI on PR to `feat/winui-migration`.
 - [ ] **8.20** Run manual release on a test branch or draft release tag.
 - [ ] **8.21** Confirm artifacts are uploaded.
 - [ ] **8.22** Confirm release notes are usable by Velopack.
@@ -198,4 +198,4 @@ git commit -m "ci: update workflows for winui packaging"
 
 - `.github\workflows\ci.yml` already matched the expected WinUI migration matrix; Phase 8 reviewed it and kept it unchanged.
 - Local validation confirmed `x64` and `ARM64` Release builds, x64 test execution, and Velopack package generation for both runtimes.
-- ARM64 test execution must be confirmed by GitHub Actions on the `windows-11-arm` runner because the local x64 machine cannot execute ARM64 test hosts.
+- GitHub Actions confirmed CI on `windows-latest` and `windows-11-arm` in PR #117.
