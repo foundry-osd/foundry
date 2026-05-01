@@ -1,4 +1,3 @@
-using Foundry.Services.Localization;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Updates;
@@ -8,7 +7,6 @@ namespace Foundry.Services.Startup;
 
 internal sealed class StartupReadinessService(
     IAppSettingsService appSettingsService,
-    IApplicationLocalizationService localizationService,
     IApplicationUpdateService updateService,
     IShellNavigationGuardService shellNavigationGuardService,
     ILogger logger) : IStartupReadinessService
@@ -21,8 +19,6 @@ internal sealed class StartupReadinessService(
             "Startup readiness initialization started. CheckOnStartup={CheckOnStartup}, UpdateChannel={UpdateChannel}",
             appSettingsService.Current.Updates.CheckOnStartup,
             appSettingsService.Current.Updates.Channel);
-
-        await localizationService.InitializeAsync(cancellationToken);
 
         shellNavigationGuardService.SetState(ShellNavigationState.Ready);
 

@@ -4,6 +4,8 @@ namespace Foundry.Core.Localization;
 
 public static class SupportedCultureCatalog
 {
+    public const string DefaultCultureCode = "en-US";
+
     private static readonly SupportedCultureDefinition[] Definitions =
     [
         new("en-US", "Language.English", 10),
@@ -26,6 +28,29 @@ public static class SupportedCultureCatalog
                 getString(definition.ResourceKey),
                 NormalizeForComparison(definition.Code).Equals(selectedCode, StringComparison.OrdinalIgnoreCase)))
             .ToArray();
+    }
+
+    public static string ValidateOrDefault(string? cultureCode)
+    {
+        if (string.IsNullOrWhiteSpace(cultureCode))
+        {
+            return DefaultCultureCode;
+        }
+
+        try
+        {
+            string canonicalCode = Canonicalize(cultureCode);
+            return Definitions.Any(definition => string.Equals(
+                Canonicalize(definition.Code),
+                canonicalCode,
+                StringComparison.OrdinalIgnoreCase))
+                ? canonicalCode
+                : DefaultCultureCode;
+        }
+        catch (CultureNotFoundException)
+        {
+            return DefaultCultureCode;
+        }
     }
 
     private static string Canonicalize(string cultureCode)

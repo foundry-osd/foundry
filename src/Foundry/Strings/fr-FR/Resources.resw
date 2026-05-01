@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_FoundryExpander.Description" xml:space="preserve">
+    <value>Shell de migration Foundry et outil de création de médias de déploiement.</value>
+  </data>
+  <data name="About_FoundryExpander.Header" xml:space="preserve">
+    <value>Foundry</value>
+  </data>
+  <data name="About_RelatedLinksText.Text" xml:space="preserve">
+    <value>Liens associés</value>
+  </data>
+  <data name="About_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>Notes de version</value>
+  </data>
+  <data name="About_SourceCodeLink.Content" xml:space="preserve">
+    <value>Code source</value>
+  </data>
+  <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
+    <value>Rechercher une nouvelle version</value>
+  </data>
+  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
+    <value>Télécharger et redémarrer</value>
+  </data>
+  <data name="AppUpdate_LastCheckLabel.Text" xml:space="preserve">
+    <value>Dernière vérification</value>
+  </data>
+  <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>Notes de version</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
+    <value>Activer les diagnostics développeur et ouvrir le dossier des journaux Foundry.</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
+    <value>Diagnostics et commentaires</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
+    <value>Changer la langue de l'application sans redémarrer Foundry.</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
+    <value>Lancer automatiquement Foundry lorsque vous ouvrez une session Windows.</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
+    <value>Lancer au démarrage</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>Anglais</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="MainWindow.SearchBox.PlaceholderText" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="MainWindow.ThemeButton.ToolTip" xml:space="preserve">
+    <value>Changer le thème</value>
+  </data>
+  <data name="Nav_HomeKey.Description" xml:space="preserve">
+    <value>Accueil Foundry</value>
+  </data>
+  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
+    <value>Foundry</value>
+  </data>
+  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
+    <value>Foundry</value>
+  </data>
+  <data name="Nav_HomeKey.Title" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="SettingsPage_AboutCard.Description" xml:space="preserve">
+    <value>Produit, version, dépôt et informations de publication.</value>
+  </data>
+  <data name="SettingsPage_AboutCard.Header" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
+    <value>Gérer le démarrage, la langue, les diagnostics et le comportement de l'application.</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
+    <value>Modifier le thème, l'arrière-plan et la couleur d'accentuation.</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
+    <value>Apparence et comportement</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
+    <value>Rechercher les mises à jour Foundry et consulter les notes de version.</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
+    <value>Mettre à jour l'application</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
+    <value>Ouvrir les paramètres de couleur Windows pour changer la couleur d'accentuation.</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
+    <value>Couleur d'accentuation</value>
+  </data>
+  <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
+    <value>Acrylique</value>
+  </data>
+  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
+    <value>Acrylique fin</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
+    <value>Sélectionner le thème de l'application.</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
+    <value>Thème de l'application</value>
+  </data>
+  <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
+    <value>Sombre</value>
+  </data>
+  <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
+    <value>Système</value>
+  </data>
+  <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
+    <value>Clair</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
+    <value>Choisir le matériau utilisé derrière l'application.</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
+    <value>Matériau</value>
+  </data>
+  <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
+    <value>Mica Alt</value>
+  </data>
+  <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="Update.CurrentVersionFormat" xml:space="preserve">
+    <value>Version actuelle {0}</value>
+  </data>
+  <data name="Update.NoReleaseNotes" xml:space="preserve">
+    <value>Aucune note de version n'a été fournie pour cette mise à jour.</value>
+  </data>
+  <data name="Update.NotChecked" xml:space="preserve">
+    <value>Jamais vérifié</value>
+  </data>
+  <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
+    <value>Notes de version</value>
+  </data>
+  <data name="Update.ReleaseNotesFallback" xml:space="preserve">
+    <value>Les notes de version seront disponibles depuis le flux de mise à jour Velopack configuré.</value>
+  </data>
+  <data name="Update.Status.Checking" xml:space="preserve">
+    <value>Recherche de mises à jour</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Téléchargement de la mise à jour</value>
+  </data>
+  <data name="Update.Status.DownloadingProgressFormat" xml:space="preserve">
+    <value>Téléchargement de la mise à jour ({0} %)</value>
+  </data>
+  <data name="Update.Status.FailedFormat" xml:space="preserve">
+    <value>Échec de la recherche de mise à jour : {0}</value>
+  </data>
+  <data name="Update.Status.NoUpdate" xml:space="preserve">
+    <value>Foundry est à jour.</value>
+  </data>
+  <data name="Update.Status.NotInstalled" xml:space="preserve">
+    <value>Recherche de mise à jour ignorée car Foundry ne s'exécute pas depuis une installation Velopack.</value>
+  </data>
+  <data name="Update.Status.Ready" xml:space="preserve">
+    <value>Prêt</value>
+  </data>
+  <data name="Update.Status.SkippedInDebug" xml:space="preserve">
+    <value>Recherche de mise à jour ignorée car un débogueur est attaché.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailable" xml:space="preserve">
+    <value>Une mise à jour Foundry est disponible.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
+    <value>Foundry {0} est disponible.</value>
+  </data>
+</root>

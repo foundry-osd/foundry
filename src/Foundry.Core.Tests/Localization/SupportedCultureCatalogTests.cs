@@ -20,4 +20,18 @@ public sealed class SupportedCultureCatalogTests
         Assert.Single(options, option => option.IsSelected);
         Assert.True(options.Single(option => option.Code == "fr-FR").IsSelected);
     }
+
+    [Theory]
+    [InlineData(null, "en-US")]
+    [InlineData("", "en-US")]
+    [InlineData("invalid", "en-US")]
+    [InlineData("de-DE", "en-US")]
+    [InlineData("fr_fr", "fr-FR")]
+    [InlineData("EN-us", "en-US")]
+    public void ValidateOrDefault_ReturnsSupportedCanonicalCulture(string? cultureCode, string expectedCode)
+    {
+        string result = SupportedCultureCatalog.ValidateOrDefault(cultureCode);
+
+        Assert.Equal(expectedCode, result);
+    }
 }

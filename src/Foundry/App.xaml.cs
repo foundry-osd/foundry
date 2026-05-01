@@ -1,4 +1,5 @@
 using Foundry.DependencyInjection;
+using Foundry.Services.Localization;
 using Foundry.Services.Startup;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -33,6 +34,7 @@ namespace Foundry
             ConfigureLogger();
 
             Host = FoundryHost.Create();
+            Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
             RegisterExceptionHandlers();
 
             Logger.Information("Foundry WinUI startup initialized.");
