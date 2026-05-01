@@ -16,6 +16,13 @@ Code rules:
 - Do not rewrite unrelated code
 - Minimize the scope of changes
 
+Cleanup rules:
+- After an implementation, check whether replaced code, unused files, obsolete helpers, dead configuration, or outdated documentation became unnecessary
+- Remove obsolete code only when it is clearly made redundant by the current change and is within the task scope
+- Do not remove legacy or compatibility code unless the task explicitly replaces it or the migration plan says it can be removed
+- During migration work, prefer removing obsolete WPF-era code only after the WinUI or Core replacement is implemented and validated
+- Do not modify the archived WPF reference during the migration; it is the source of truth for existing business behavior
+
 Unit testing rules:
 - Add unit tests only when they provide clear business value
 - Prioritize business logic, validation, selection, transformation, and fallback rules
