@@ -42,6 +42,12 @@
   <data name="Common.Close" xml:space="preserve">
     <value>Fermer</value>
   </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Activé</value>
+  </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
     <value>Activer les diagnostics développeur et ouvrir le dossier des journaux Foundry.</value>
   </data>

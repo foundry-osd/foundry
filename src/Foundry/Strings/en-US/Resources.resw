@@ -42,6 +42,12 @@
   <data name="Common.Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
     <value>Enable developer diagnostics and open the Foundry log folder.</value>
   </data>

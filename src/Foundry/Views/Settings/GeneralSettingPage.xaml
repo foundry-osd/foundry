@@ -19,7 +19,8 @@
             <dev:SettingsCard x:Name="StartupCard"
                               x:Uid="GeneralSetting_StartupCard"
                               HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Startup.png}">
-                <ToggleSwitch IsOn="{x:Bind dev:StartupHelper.IsAppStartupWithWindowsForXamlBindingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch x:Name="StartupToggle"
+                              IsOn="{x:Bind dev:StartupHelper.IsAppStartupWithWindowsForXamlBindingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </dev:SettingsCard>
 
             <dev:SettingsCard x:Name="LanguageCard"
@@ -43,7 +44,8 @@
             <dev:SettingsExpander x:Name="DiagnosticsCard"
                                   x:Uid="GeneralSetting_DiagnosticsCard"
                                   HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/DevMode.png}">
-                <ToggleSwitch IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch x:Name="DiagnosticsToggle"
+                              IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <dev:SettingsExpander.ItemsHeader>
                     <HyperlinkButton HorizontalAlignment="Stretch"
                                      HorizontalContentAlignment="Left"

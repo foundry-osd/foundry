@@ -32,8 +32,8 @@
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="**\*.xaml" Link="%(RecursiveDir)%(Filename)%(Extension)" />
-    <AdditionalFiles Include="Assets\NavViewMenu\AppData.json" Link="%(RecursiveDir)%(Filename)%(Extension)" />
-    <AdditionalFiles Include="Strings\**\*.resw" Link="%(RecursiveDir)%(Filename)%(Extension)" />
+    <AdditionalFiles Include="Assets\NavViewMenu\AppData.json" Link="Assets\NavViewMenu\%(Filename)%(Extension)" />
+    <AdditionalFiles Include="Strings\**\*.resw" Link="Strings\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\**\*">
