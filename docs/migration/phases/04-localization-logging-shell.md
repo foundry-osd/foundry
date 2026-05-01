@@ -94,6 +94,7 @@ git commit -m "feat: migrate foundry localization to winui"
 - [ ] **10.1** Use the approved ProgramData log directory:
   - [ ] `C:\ProgramData\Foundry\Logs`.
   - [ ] Do not use `%LocalAppData%\Foundry\Logs` for the WinUI `Foundry` app.
+  - [ ] Validate the existing `Constants.LogDirectoryPath` and `Constants.LogFilePath` implementation before changing it.
 - [ ] **10.2** Use a single active host log file for the initial WinUI migration:
   - [ ] `C:\ProgramData\Foundry\Logs\Foundry.log`.
   - [ ] Add rolling only if implementation or test evidence shows the active log can grow too large.
@@ -104,17 +105,38 @@ git commit -m "feat: migrate foundry localization to winui"
   - [ ] Process architecture.
   - [ ] Update/install context.
   - [ ] Source context.
-- [ ] **10.5** Configure Serilog before app startup work.
+- [ ] **10.5** Configure bootstrap Serilog before app startup work:
+  - [ ] Initialize logging in `Program.Main` before `VelopackApp.Build().Run()`.
+  - [ ] Log Velopack startup/update hook entry and completion.
+  - [ ] Log WinRT COM wrapper initialization start and completion.
+  - [ ] Keep final app logger configuration consistent after DI/settings are available.
+- [ ] **10.5.1** Register unhandled exception handlers as early as possible:
+  - [ ] Cover failures before `App` host creation where feasible.
+  - [ ] Preserve AppDomain, WinUI, and unobserved task exception logging.
+- [ ] **10.5.2** Implement source-context logging:
+  - [ ] Do not inject the same untyped global `Serilog.ILogger` when class-level source context is expected.
+  - [ ] Use contextual loggers such as `Log.ForContext<T>()`, a typed logger factory, or a Serilog-backed Microsoft logging integration.
+  - [ ] Confirm `SourceContext` is visible in log output.
+- [ ] **10.5.3** Implement runtime log-level policy:
+  - [ ] Use a Serilog `LoggingLevelSwitch` or equivalent logger reconfiguration.
+  - [ ] Default mode writes `Information`, `Warning`, `Error`, and `Fatal`.
+  - [ ] Developer mode adds `Debug`.
+  - [ ] Switching `diagnostics.developerMode` in Settings updates the active logging level without restarting when feasible.
+  - [ ] Do not use `Verbose` unless a future subsystem proves it needs trace-level diagnostics.
 - [ ] **10.6** Add logging for:
   - [ ] App startup.
   - [ ] Windows App SDK runtime initialization.
   - [ ] Velopack first run/update flow.
   - [x] Startup and manual update check elapsed time.
-  - [ ] ADK detection.
-  - [ ] ISO/USB build start and completion.
-  - [ ] Bootstrap payload resolution.
+  - [ ] Debug-level diagnostic details where useful, emitted only when `diagnostics.developerMode` is enabled in Settings.
+- [ ] **10.6.1** Define future workflow logging contracts without blocking Phase 10 on unimplemented workflows:
+  - [ ] ADK detection logs required when ADK service/page work is implemented.
+  - [ ] ISO/USB build start, progress, completion, cancellation, and failure logs required when media creation work is implemented.
+  - [ ] Bootstrap payload resolution logs required when payload resolution work is implemented.
 - [ ] **10.7** Keep log folder command in UI.
 - [ ] **10.7.1** Log folder command opens `C:\ProgramData\Foundry\Logs`.
+- [ ] **10.7.2** Remove unused logging dependencies unless they serve a configured sink:
+  - [ ] Remove `Serilog.Sinks.Console` from the WinUI project if no console sink is intentionally configured.
 - [ ] **10.8** Commit:
 
 ```powershell
@@ -127,6 +149,9 @@ git commit -m "refactor: migrate foundry logging for winui"
 - [ ] **10.10** Confirm startup failures are logged.
 - [ ] **10.11** Confirm update failures are logged.
 - [ ] **10.12** Confirm media creation logs remain readable.
+- [ ] **10.13** Confirm `Debug` events are absent when `diagnostics.developerMode=false`.
+- [ ] **10.14** Confirm `Debug` events are written when `diagnostics.developerMode=true`.
+- [ ] **10.15** Confirm source context appears for app services.
 
 ## Phase 11: Shell, Navigation, And App Settings
 
