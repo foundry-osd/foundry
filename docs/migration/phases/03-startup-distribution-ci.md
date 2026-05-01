@@ -216,3 +216,5 @@ git commit -m "ci: update workflows for winui packaging"
 - SemVer comparison with NuGet.Versioning `VersionRelease` confirms `26.5.1-build.2` sorts newer than `26.5.1-build.1`.
 - Published releases `v26.5.1.1` and `v26.5.1.2` completed successfully from `feat/winui-migration`.
 - Velopack update detection was validated with `TestVelopackLocator`: a simulated installed `Foundry` `26.5.1-build.1` on channel `win-x64` detects `26.5.1-build.2` from GitHub Releases.
+- End-to-end installed update validation was completed from local MSI `26.5.1-build.1` to GitHub release `26.5.1-build.2`: check, download, apply, restart, and post-update no-update state.
+- Test releases and tags `v26.5.1.1` and `v26.5.1.2` were cleaned up after validation.
