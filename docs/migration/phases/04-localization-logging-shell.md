@@ -79,11 +79,11 @@ git commit -m "feat: migrate foundry localization to winui"
 
 - [x] **9.9** Launch app in English.
 - [x] **9.10** Launch app in French.
-- [ ] **9.11** Switch language at runtime.
-- [ ] **9.12** Confirm computed labels update.
-- [ ] **9.13** Confirm missing keys are visible during development.
-- [ ] **9.14** Confirm DevWinUI NavigationView group/item labels update after runtime language switch without restarting.
-- [ ] **9.15** Confirm breadcrumbs, settings cards, title bar search text, and landing page strings update after runtime language switch without restarting.
+- [x] **9.11** Switch language at runtime.
+- [x] **9.12** Confirm computed labels update.
+- [x] **9.13** Confirm missing keys are visible during development.
+- [x] **9.14** Confirm DevWinUI NavigationView group/item labels update after runtime language switch without restarting.
+- [x] **9.15** Confirm breadcrumbs, settings cards, title bar search text, and landing page strings update after runtime language switch without restarting.
 
 ## Phase 10: Logging Migration
 
