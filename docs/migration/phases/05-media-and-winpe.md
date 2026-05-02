@@ -1,67 +1,5 @@
 # Media And WinPE Phases
 
-## Phase 12: General Media Creation Workflow
-
-**Priority:** medium-high after Phase 13 service prerequisites.
-
-**Goal:** port the standard ISO/USB creation workflow into the `Start` page and blocking operation overlay model.
-
-**Prerequisites:** Phase 11 shell/overlay contract and the Phase 13 ADK/WinPE service contract must be available before implementing the final media creation commands.
-
-- [ ] **12.1** Create WinUI view model for media creation on the `Start` page.
-- [ ] **12.2** Port state from WPF `MainWindowViewModel`:
-  - [ ] ISO output path.
-  - [ ] Architecture.
-  - [ ] CA 2023 signature mode.
-  - [ ] USB partition style.
-  - [ ] USB format mode.
-  - [ ] Dell driver inclusion.
-  - [ ] HP driver inclusion.
-  - [ ] Custom driver directory.
-  - [ ] Selected USB disk.
-  - [ ] Selected WinPE language.
-- [ ] **12.3** Port commands:
-  - [ ] Browse ISO path.
-  - [ ] Browse custom driver folder.
-  - [ ] Refresh USB disks.
-  - [ ] Create ISO.
-  - [ ] Create USB.
-- [ ] **12.4** Implement WinUI warning dialog for destructive USB formatting.
-- [ ] **12.5** Use app dispatcher abstraction for UI updates.
-- [ ] **12.6** Keep media build service logic in core/app services, not page code-behind.
-  - [ ] **12.6.1** Show a final execution summary before ISO or USB creation:
-    - [ ] ADK status.
-    - [ ] WinPE language.
-    - [ ] Architecture.
-    - [ ] ISO output path.
-    - [ ] USB target.
-    - [ ] Runtime payload readiness.
-    - [ ] Driver options.
-    - [ ] Network validation.
-  - [ ] **12.6.2** Run ISO creation inside the blocking operation overlay.
-  - [ ] **12.6.3** Run USB creation inside the blocking operation overlay.
-  - [ ] **12.6.4** Keep navigation blocked until ISO or USB creation fully completes.
-- [ ] **12.7** Commit:
-
-```powershell
-git commit -m "feat: port media creation workflow to winui"
-```
-
-**Validation**
-
-- [ ] **12.8** ADK missing state disables media creation.
-- [ ] **12.9** Invalid ISO path disables ISO creation.
-- [ ] **12.10** No USB candidate disables USB creation.
-- [ ] **12.11** ARM64 enforces GPT partition style.
-- [ ] **12.12** USB warning appears before formatting.
-- [ ] **12.13** ADK missing state disables `Start` navigation through the shell guard.
-- [ ] **12.14** ISO creation overlay blocks navigation until completion.
-- [ ] **12.15** USB creation overlay blocks navigation until completion.
-- [ ] **12.16** Confirm media creation logs remain readable and complete deferred Phase 10 validation **10.12**:
-  - [ ] ISO creation logs include start, progress, completion, cancellation, and failure details.
-  - [ ] USB creation logs include start, progress, completion, cancellation, and failure details.
-  - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
-
 ## Phase 13: ADK And WinPE Service Integration
 
 **Priority:** high.
@@ -190,3 +128,65 @@ git commit -m "feat: port winpe orchestration services"
 - [ ] **13.27** ADK install overlay blocks navigation until completion.
 - [ ] **13.28** ADK upgrade overlay blocks navigation until completion.
 - [ ] **13.29** ADK-compatible state unlocks `General`, `Start`, and `Expert` pages.
+
+## Phase 12: General Media Creation Workflow
+
+**Priority:** medium-high after Phase 13 service prerequisites.
+
+**Goal:** port the standard ISO/USB creation workflow into the `Start` page and blocking operation overlay model.
+
+**Prerequisites:** Phase 11 shell/overlay contract and the Phase 13 ADK/WinPE service contract must be available before implementing the final media creation commands.
+
+- [ ] **12.1** Create WinUI view model for media creation on the `Start` page.
+- [ ] **12.2** Port state from WPF `MainWindowViewModel`:
+  - [ ] ISO output path.
+  - [ ] Architecture.
+  - [ ] CA 2023 signature mode.
+  - [ ] USB partition style.
+  - [ ] USB format mode.
+  - [ ] Dell driver inclusion.
+  - [ ] HP driver inclusion.
+  - [ ] Custom driver directory.
+  - [ ] Selected USB disk.
+  - [ ] Selected WinPE language.
+- [ ] **12.3** Port commands:
+  - [ ] Browse ISO path.
+  - [ ] Browse custom driver folder.
+  - [ ] Refresh USB disks.
+  - [ ] Create ISO.
+  - [ ] Create USB.
+- [ ] **12.4** Implement WinUI warning dialog for destructive USB formatting.
+- [ ] **12.5** Use app dispatcher abstraction for UI updates.
+- [ ] **12.6** Keep media build service logic in core/app services, not page code-behind.
+  - [ ] **12.6.1** Show a final execution summary before ISO or USB creation:
+    - [ ] ADK status.
+    - [ ] WinPE language.
+    - [ ] Architecture.
+    - [ ] ISO output path.
+    - [ ] USB target.
+    - [ ] Runtime payload readiness.
+    - [ ] Driver options.
+    - [ ] Network validation.
+  - [ ] **12.6.2** Run ISO creation inside the blocking operation overlay.
+  - [ ] **12.6.3** Run USB creation inside the blocking operation overlay.
+  - [ ] **12.6.4** Keep navigation blocked until ISO or USB creation fully completes.
+- [ ] **12.7** Commit:
+
+```powershell
+git commit -m "feat: port media creation workflow to winui"
+```
+
+**Validation**
+
+- [ ] **12.8** ADK missing state disables media creation.
+- [ ] **12.9** Invalid ISO path disables ISO creation.
+- [ ] **12.10** No USB candidate disables USB creation.
+- [ ] **12.11** ARM64 enforces GPT partition style.
+- [ ] **12.12** USB warning appears before formatting.
+- [ ] **12.13** ADK missing state disables `Start` navigation through the shell guard.
+- [ ] **12.14** ISO creation overlay blocks navigation until completion.
+- [ ] **12.15** USB creation overlay blocks navigation until completion.
+- [ ] **12.16** Confirm media creation logs remain readable and complete deferred Phase 10 validation **10.12**:
+  - [ ] ISO creation logs include start, progress, completion, cancellation, and failure details.
+  - [ ] USB creation logs include start, progress, completion, cancellation, and failure details.
+  - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
