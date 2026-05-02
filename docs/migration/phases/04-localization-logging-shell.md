@@ -298,7 +298,7 @@ git commit -m "feat: add foundry winui shell navigation"
 
 **Validation**
 
-- [ ] **11.10** Navigate to every enabled page in `Ready` state.
+- [x] **11.10** Navigate to every enabled page in `Ready` state.
   - Codex automated checks before PR:
     - [x] Build the WinUI app.
     - [x] Run the solution test suite.
@@ -313,14 +313,14 @@ git commit -m "feat: add foundry winui shell navigation"
     - [ ] Confirm footer order is `Documentation`, `About`, then `Settings`.
     - [ ] Open each enabled page and confirm navigation succeeds.
     - [ ] Confirm no breadcrumb is visible on `Home`, `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Documentation`, or footer `About`.
-- [ ] **11.11** Confirm settings pages load with real view models.
+- [x] **11.11** Confirm settings pages load with real view models.
   - Manual user checks:
     - [ ] Open `Settings`.
     - [ ] Open `General`, `Appearance and behavior`, `Update application`, and `About`.
     - [ ] Confirm settings breadcrumbs are visible only inside the settings area.
     - [ ] Confirm settings controls show current values from the real view models.
-- [ ] **11.12** Confirm app window title/icon are correct.
-- [ ] **11.13** Confirm theme switching works.
+- [x] **11.12** Confirm app window title/icon are correct.
+- [x] **11.13** Confirm theme switching works.
 - [ ] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
 - [ ] **11.15** Confirm `OperationRunning` state blocks navigation until the operation completes.
 - [ ] **11.16** Confirm search suggestions cannot navigate while `OperationRunning`.
