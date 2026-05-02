@@ -81,11 +81,10 @@ namespace Foundry.Views
 
         private void ApplyNavigationGuardState()
         {
-            bool isOperationRunning = shellNavigationGuardService.State == ShellNavigationState.OperationRunning;
-            GeneralSettingsCard.IsEnabled = !isOperationRunning;
-            ThemeSettingsCard.IsEnabled = !isOperationRunning;
-            UpdateSettingsCard.IsEnabled = !isOperationRunning;
-            AboutSettingsCard.IsEnabled = !isOperationRunning;
+            GeneralSettingsCard.IsEnabled = true;
+            ThemeSettingsCard.IsEnabled = true;
+            UpdateSettingsCard.IsEnabled = true;
+            AboutSettingsCard.IsEnabled = true;
         }
     }
 

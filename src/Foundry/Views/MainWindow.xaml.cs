@@ -8,6 +8,8 @@ namespace Foundry.Views
     {
         private readonly IApplicationLocalizationService localizationService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
+        private ContentDialog? operationDialog;
+        private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
 
         public MainViewModel ViewModel { get; }
@@ -218,20 +220,105 @@ namespace Foundry.Views
         {
             ShellNavigationState state = shellNavigationGuardService.State;
             bool isOperationRunning = state == ShellNavigationState.OperationRunning;
-            SearchBox.IsEnabled = state == ShellNavigationState.Ready;
-            OperationOverlay.Visibility = isOperationRunning ? Visibility.Visible : Visibility.Collapsed;
-            OperationOverlayTitle.Text = localizationService.GetString("Shell.OperationRunning");
+            SearchBox.IsEnabled = state != ShellNavigationState.AdkBlocked;
+            UpdateOperationDialog(isOperationRunning);
 
-            ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, state);
-            ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, state);
-
-            if (NavView.SettingsItem is NavigationViewItem settingsItem)
-            {
-                settingsItem.IsEnabled = !isOperationRunning;
-            }
+            ShellNavigationState visualNavigationState = isOperationRunning ? ShellNavigationState.Ready : state;
+            ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, visualNavigationState);
+            ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, visualNavigationState);
 
             NavView.IsBackEnabled = !isOperationRunning && NavFrame.CanGoBack;
             AppTitleBar.IsBackButtonVisible = !isOperationRunning && NavFrame.CanGoBack;
+        }
+
+        private void UpdateOperationDialog(bool isOperationRunning)
+        {
+            if (isOperationRunning)
+            {
+                ShowOperationDialog();
+                return;
+            }
+
+            HideOperationDialog();
+        }
+
+        private async void ShowOperationDialog()
+        {
+            if (operationDialog is not null)
+            {
+                return;
+            }
+
+            ContentDialog dialog = new()
+            {
+                XamlRoot = RootGrid.XamlRoot,
+                RequestedTheme = RootGrid.ActualTheme,
+                Title = localizationService.GetString("Shell.OperationRunning"),
+                Content = CreateOperationDialogContent(),
+                DefaultButton = ContentDialogButton.None
+            };
+
+            dialog.Closing += OnOperationDialogClosing;
+            operationDialog = dialog;
+
+            try
+            {
+                await dialog.ShowAsync();
+            }
+            finally
+            {
+                dialog.Closing -= OnOperationDialogClosing;
+                if (ReferenceEquals(operationDialog, dialog))
+                {
+                    operationDialog = null;
+                }
+
+                isClosingOperationDialog = false;
+            }
+        }
+
+        private FrameworkElement CreateOperationDialogContent()
+        {
+            return new StackPanel
+            {
+                MinWidth = 360,
+                Spacing = 16,
+                Children =
+                {
+                    new Microsoft.UI.Xaml.Controls.ProgressRing
+                    {
+                        Width = 48,
+                        Height = 48,
+                        IsActive = true,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = localizationService.GetString("Shell.OperationRunning"),
+                        TextWrapping = TextWrapping.Wrap,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    }
+                }
+            };
+        }
+
+        private void HideOperationDialog()
+        {
+            if (operationDialog is null)
+            {
+                return;
+            }
+
+            isClosingOperationDialog = true;
+            operationDialog.Hide();
+        }
+
+        private void OnOperationDialogClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning && !isClosingOperationDialog)
+            {
+                args.Cancel = true;
+            }
         }
 
         private static void ApplyNavigationItemsState(IList<object> items, bool isFooter, ShellNavigationState state)

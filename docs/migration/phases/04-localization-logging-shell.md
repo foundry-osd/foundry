@@ -217,18 +217,18 @@ git commit -m "refactor: migrate foundry logging for winui"
     - [x] `General`.
     - [x] `Start`.
     - [x] All `Expert` pages.
-  - [x] **11.6.5** When a global operation is running, disable:
-    - [x] All `NavigationView` items.
-    - [x] Back navigation.
-    - [x] Settings navigation.
-    - [x] Title bar back navigation.
-    - [x] Search-driven navigation.
-  - [x] **11.6.6** Add blocking operation overlay support:
+  - [x] **11.6.5** When a global operation is running, block interaction through a modal `ContentDialog`:
+    - [x] Keep shell controls visually available behind the dialog, following the UniGetUI pattern.
+    - [x] Prevent click interaction with `NavigationView` items while the dialog is open.
+    - [x] Prevent Settings navigation while the dialog is open.
+    - [x] Prevent title bar back navigation while the dialog is open.
+    - [x] Prevent search-driven navigation while the dialog is open.
+  - [x] **11.6.6** Add blocking operation dialog support:
     - [x] ADK install.
     - [x] ADK upgrade.
     - [x] ISO creation.
     - [x] USB creation.
-  - [x] **11.6.7** Ensure the operation overlay remains visible and blocks navigation until the operation fully completes.
+  - [x] **11.6.7** Ensure the operation dialog remains visible and blocks navigation until the operation fully completes.
   - [x] **11.6.8** Apply navigation guards after every DevWinUI navigation refresh:
     - [x] Initial `JsonNavigationService.ConfigureJsonFile(...)`.
     - [x] Runtime localization refresh through `JsonNavigationService.ReInitialize()`.
@@ -237,7 +237,7 @@ git commit -m "refactor: migrate foundry logging for winui"
     - [x] Prevent programmatic navigation through a Foundry-owned navigation facade or guard check.
     - [x] Prevent search result navigation when `OperationRunning`.
     - [x] Prevent back navigation when `OperationRunning`.
-    - [x] Keep the active operation page/overlay visible until completion.
+    - [x] Keep the active operation dialog visible until completion.
   - [x] **11.6.10** Scope breadcrumbs to settings pages only:
     - [x] Keep breadcrumbs on `SettingsPage`.
     - [x] Keep breadcrumbs on settings child pages.
@@ -322,8 +322,8 @@ git commit -m "feat: add foundry winui shell navigation"
 - [x] **11.12** Confirm app window title/icon are correct.
 - [x] **11.13** Confirm theme switching works.
 - [x] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
-- [ ] **11.15** Confirm `OperationRunning` state blocks navigation until the operation completes.
-- [ ] **11.16** Confirm search suggestions cannot navigate while `OperationRunning`.
+- [x] **11.15** Confirm `OperationRunning` shows a modal operation dialog and blocks navigation until the operation completes.
+- [x] **11.16** Confirm search suggestions cannot navigate while the `OperationRunning` dialog is active.
 - [ ] **11.17** Confirm language switching reinitializes DevWinUI navigation and then reapplies the current Foundry navigation guard state.
   - Manual user checks:
     - [ ] Switch from English to French.
