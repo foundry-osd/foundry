@@ -149,16 +149,16 @@ Footer
 
 ## Update Banner Contract
 
-- [ ] Use a global top-shell `InfoBar` banner for app update availability.
-- [ ] The banner is hosted by the shell, not by `AppData.json`.
-- [ ] The banner appears above the current page content and remains visible across navigation.
-- [ ] The banner is non-modal and does not block startup.
-- [ ] The banner action opens the update settings page or a dedicated update view.
-- [ ] Download and restart remain explicit user actions.
-- [ ] Startup update checks, manual update checks, the shell banner, and the settings update page share the same latest update state.
-- [ ] If startup finds an update before the settings page is opened, the settings page shows that update state immediately on load.
-- [ ] If startup finds an update while the settings page is already open, the settings page updates without requiring the user to click `Check for updates`.
-- [ ] Do not add a Windows toast notification in Phase 11.
+- [x] Use a global top-shell `InfoBar` banner for app update availability.
+- [x] The banner is hosted by the shell, not by `AppData.json`.
+- [x] The banner appears above the current page content and remains visible across navigation.
+- [x] The banner is non-modal and does not block startup.
+- [x] The banner action opens the update settings page or a dedicated update view.
+- [x] Download and restart remain explicit user actions.
+- [x] Startup update checks, manual update checks, the shell banner, and the settings update page share the same latest update state.
+- [x] If startup finds an update before the settings page is opened, the settings page shows that update state immediately on load.
+- [x] If startup finds an update while the settings page is already open, the settings page updates without requiring the user to click `Check for updates`.
+- [x] Do not add a Windows toast notification in Phase 11.
 
 ## Navigation Guard States
 
