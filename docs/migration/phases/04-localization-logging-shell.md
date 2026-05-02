@@ -324,15 +324,15 @@ git commit -m "feat: add foundry winui shell navigation"
 - [x] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
 - [x] **11.15** Confirm `OperationRunning` shows a modal operation dialog and blocks navigation until the operation completes.
 - [x] **11.16** Confirm search suggestions cannot navigate while the `OperationRunning` dialog is active.
-- [ ] **11.17** Confirm language switching reinitializes DevWinUI navigation and then reapplies the current Foundry navigation guard state.
+- [x] **11.17** Confirm language switching reinitializes DevWinUI navigation and then reapplies the current Foundry navigation guard state.
   - Manual user checks:
-    - [ ] Switch from English to French.
-    - [ ] Confirm the navigation order remains `General` before `Expert`.
-    - [ ] Confirm labels update without restarting.
-    - [ ] Confirm breadcrumb visibility rules remain unchanged after switching language.
-    - [ ] Switch from French to English.
-    - [ ] Repeat the same navigation order, label, and breadcrumb checks.
-- [ ] **11.18** Confirm unsupported custom `AppData.json` fields are not required for Phase 11 behavior.
+    - [x] Switch from English to French.
+    - [x] Confirm the navigation order remains `General` before `Expert`.
+    - [x] Confirm labels update without restarting.
+    - [x] Confirm breadcrumb visibility rules remain unchanged after switching language.
+    - [x] Switch from French to English.
+    - [x] Repeat the same navigation order, label, and breadcrumb checks.
+- [x] **11.18** Confirm unsupported custom `AppData.json` fields are not required for Phase 11 behavior.
   - Codex automated checks before PR:
     - [x] Verify Phase 11 behavior is implemented through DevWinUI-supported JSON fields plus Foundry runtime services.
     - [x] Verify no custom runtime state fields such as `RequiresAdk`, `OperationLocked`, or per-state enabled rules were added to `AppData.json`.
