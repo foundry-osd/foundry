@@ -42,6 +42,9 @@
   <data name="Common.Close" xml:space="preserve">
     <value>Fermer</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
   <data name="Common.Disabled" xml:space="preserve">
     <value>Désactivé</value>
   </data>
@@ -78,6 +81,108 @@
   <data name="MainWindow.ThemeButton.ToolTip" xml:space="preserve">
     <value>Changer le thème</value>
   </data>
+  <data name="AdkPage_Title.Text" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>Personnalisation</value>
+  </data>
+  <data name="DocumentationPage_DocsLink.Content" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="DocumentationPage_IssuesLink.Content" xml:space="preserve">
+    <value>Issues GitHub</value>
+  </data>
+  <data name="DocumentationPage_RepositoryLink.Content" xml:space="preserve">
+    <value>Dépôt GitHub</value>
+  </data>
+  <data name="DocumentationPage_Title.Text" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>Localisation</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>Réseau</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>Opération en cours</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>Démarrer</value>
+  </data>
+  <data name="UpdateBanner.Action" xml:space="preserve">
+    <value>Voir la mise à jour</value>
+  </data>
+  <data name="UpdateBanner.Title" xml:space="preserve">
+    <value>Mise à jour disponible</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>Informations de produit et de version.</value>
+  </data>
+  <data name="Nav_AboutKey.Subtitle" xml:space="preserve">
+    <value>Informations Foundry</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>État et installation de l'ADK.</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Configuration des profils Autopilot.</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>Options de personnalisation du déploiement.</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>Personnalisation</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>Personnalisation</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Documentation Foundry et liens du projet.</value>
+  </data>
+  <data name="Nav_DocumentationKey.Subtitle" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>Expert</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>Workflow de configuration standard.</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>Configuration standard</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>Général</value>
+  </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Accueil Foundry</value>
   </data>
@@ -89,6 +194,33 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Accueil</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>Langue WinPE et paramètres de localisation.</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>Localisation</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>Localisation</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>Configuration réseau et connectivité.</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>Réseau</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>Réseau</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>Vérifier et lancer la création du média.</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>Démarrer</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>Démarrer</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Paramètres</value>
@@ -158,6 +290,15 @@
   </data>
   <data name="Update.CurrentVersionFormat" xml:space="preserve">
     <value>Version actuelle {0}</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>Foundry va télécharger la mise à jour et redémarrer pour l'appliquer.</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>Télécharger et redémarrer</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>Appliquer la mise à jour</value>
   </data>
   <data name="Update.NoReleaseNotes" xml:space="preserve">
     <value>Aucune note de version n'a été fournie pour cette mise à jour.</value>

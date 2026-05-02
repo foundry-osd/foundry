@@ -110,12 +110,12 @@ Note: manual launch validation is kept unchecked until a local Visual Studio run
   - [x] Keep manual checks unthrottled.
   - [x] Keep startup failures non-blocking and visible in logs.
   - Note: GitHub Releases is the correct Velopack source for the default feed URL; the elapsed-time logs identify whether startup/manual delay is in source creation or the remote `CheckForUpdatesAsync` request.
-- [ ] **7.7.2** Add startup update notification UX:
-  - [ ] When a startup check finds an update, show a non-blocking shell notification/banner.
-  - [ ] Do not show a modal dialog automatically on startup.
-  - [ ] Provide an action that opens the update settings surface or dedicated update view.
-  - [ ] Use a confirmation dialog only before download/restart.
-  - [ ] Reuse the same latest update state in the shell banner and update settings page, so a startup-detected update is visible in settings without another manual check.
+- [x] **7.7.2** Add startup update notification UX:
+  - [x] When a startup check finds an update, show a non-blocking shell notification/banner.
+  - [x] Do not show a modal dialog automatically on startup.
+  - [x] Provide an action that opens the update settings surface or dedicated update view.
+  - [x] Use a confirmation dialog only before download/restart.
+  - [x] Reuse the same latest update state in the shell banner and update settings page, so a startup-detected update is visible in settings without another manual check.
   - Note: this is intentionally implemented with Phase 11 shell work in **11.7.1**.
 - [x] **7.8** Add release artifact naming contract:
   - [x] `FoundrySetup-x64.msi`.

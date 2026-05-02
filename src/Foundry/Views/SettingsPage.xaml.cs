@@ -1,17 +1,21 @@
 using Foundry.Services.Localization;
+using Foundry.Services.Shell;
 
 namespace Foundry.Views
 {
     public sealed partial class SettingsPage : Page
     {
         private readonly IApplicationLocalizationService localizationService;
+        private readonly IShellNavigationGuardService shellNavigationGuardService;
 
         public SettingsPage()
         {
             localizationService = App.GetService<IApplicationLocalizationService>();
+            shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
             this.InitializeComponent();
             ApplyLocalizedText();
             localizationService.LanguageChanged += OnLanguageChanged;
+            shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
             Unloaded += OnUnloaded;
         }
 
@@ -29,6 +33,7 @@ namespace Foundry.Views
         private void ApplyLocalizedText()
         {
             ApplyLocalizedNavigationParameters();
+            ApplyNavigationGuardState();
         }
 
         private void ApplyLocalizedNavigationParameters()
@@ -59,7 +64,28 @@ namespace Foundry.Views
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             localizationService.LanguageChanged -= OnLanguageChanged;
+            shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
             Unloaded -= OnUnloaded;
+        }
+
+        private void OnShellNavigationStateChanged(object? sender, EventArgs e)
+        {
+            if (!DispatcherQueue.HasThreadAccess)
+            {
+                _ = DispatcherQueue.TryEnqueue(ApplyNavigationGuardState);
+                return;
+            }
+
+            ApplyNavigationGuardState();
+        }
+
+        private void ApplyNavigationGuardState()
+        {
+            bool isOperationRunning = shellNavigationGuardService.State == ShellNavigationState.OperationRunning;
+            GeneralSettingsCard.IsEnabled = !isOperationRunning;
+            ThemeSettingsCard.IsEnabled = !isOperationRunning;
+            UpdateSettingsCard.IsEnabled = !isOperationRunning;
+            AboutSettingsCard.IsEnabled = !isOperationRunning;
         }
     }
 

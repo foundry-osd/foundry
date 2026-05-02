@@ -8,8 +8,13 @@
         {
             ViewModel = App.GetService<AppUpdateSettingViewModel>();
             this.InitializeComponent();
+            Unloaded += OnUnloaded;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Dispose();
+            Unloaded -= OnUnloaded;
         }
     }
-
-
 }
