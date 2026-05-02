@@ -151,8 +151,8 @@ git commit -m "refactor: migrate foundry logging for winui"
 - [x] **10.10** Confirm startup failures are logged.
 - [x] **10.11** Confirm update failures are logged.
 - [ ] **10.12** Confirm media creation logs remain readable.
-  - Deferred until Phase 12 implements ISO/USB media creation in WinUI.
-  - Complete this through Phase 12 validation item **12.16**.
+  - Deferred until Phase 13 implements ISO/USB media creation in WinUI.
+  - Complete this through Phase 13 validation item **13.16**.
 - [x] **10.13** Confirm `Debug` events are absent when `diagnostics.developerMode=false`.
 - [x] **10.14** Confirm `Debug` events are written when `diagnostics.developerMode=true`.
 - [x] **10.15** Confirm concise source context appears for app services.

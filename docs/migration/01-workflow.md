@@ -81,8 +81,8 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [ ] **Shell and prerequisite lane**
   - [ ] Phase 9: WinUI `.resw` localization foundation.
   - [x] Phase 11: DevWinUI shell navigation, pages, settings, and operation overlay.
-  - [ ] Phase 13: ADK, WinPE services, filesystem layout, and runtime layout normalization.
-  - [ ] Phase 12: Start page ISO/USB creation UI and media command wiring.
+  - [ ] Phase 12: ADK, WinPE services, filesystem layout, and runtime layout normalization.
+  - [ ] Phase 13: Start page ISO/USB creation UI and media command wiring.
 - [ ] **Business workflow lane**
   - [ ] Phase 14: configuration import/export and expert document compatibility.
   - [ ] Phase 15: network provisioning and `Foundry.Connect` handoff.
@@ -107,7 +107,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 
 - [ ] Phase 4.
 - [ ] Phase 5.
-- [ ] Phase 13 pure services.
+- [ ] Phase 12 pure services.
 - [ ] Phase 14 serialization logic.
 - [ ] Phase 15 provisioning logic.
 
@@ -115,7 +115,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 
 - [ ] Phase 6.
 - [x] Phase 11.
-- [ ] Phase 12 UI.
+- [ ] Phase 13 UI.
 - [ ] Phase 14 UI.
 - [ ] Phase 16 UI.
 

@@ -38,11 +38,11 @@ When asking an AI agent to work on this migration, start from this file and name
 Examples:
 
 ```text
-Use docs/migration/README.md as context. Implement step 13.9 only.
+Use docs/migration/README.md as context. Implement step 12.9 only.
 ```
 
 ```text
-Use docs/migration/README.md as context. Review the filesystem layout contract before planning phase 13.
+Use docs/migration/README.md as context. Review the filesystem layout contract before planning phase 12.
 ```
 
 Keep implementation work scoped to one phase group or one step ID unless the plan explicitly says the work can run in parallel.
