@@ -321,7 +321,7 @@ git commit -m "feat: add foundry winui shell navigation"
     - [x] Confirm settings controls show current values from the real view models.
 - [x] **11.12** Confirm app window title/icon are correct.
 - [x] **11.13** Confirm theme switching works.
-- [ ] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
+- [x] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
 - [ ] **11.15** Confirm `OperationRunning` state blocks navigation until the operation completes.
 - [ ] **11.16** Confirm search suggestions cannot navigate while `OperationRunning`.
 - [ ] **11.17** Confirm language switching reinitializes DevWinUI navigation and then reapplies the current Foundry navigation guard state.
