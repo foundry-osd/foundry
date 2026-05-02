@@ -133,7 +133,7 @@
           "IsUpdated": false
         },
         {
-          "UniqueId": "Foundry.Views.AboutUsSettingPage",
+          "UniqueId": "Foundry.Views.AboutPage",
           "Title": "About",
           "LocalizeId": "Nav_AboutKey",
           "UsexUid": true,

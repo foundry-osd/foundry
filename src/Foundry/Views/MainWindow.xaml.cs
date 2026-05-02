@@ -41,7 +41,7 @@ namespace Foundry.Views
                 jsonNavigationService.Initialize(NavView, NavFrame, NavigationPageMappings.PageDictionary)
                     .ConfigureDefaultPage(typeof(HomeLandingPage))
                     .ConfigureSettingsPage(typeof(SettingsPage))
-                    .ConfigureJsonFile("Assets/NavViewMenu/AppData.json")
+                    .ConfigureJsonFile("Assets/NavViewMenu/AppData.json", OrderItemsType.None)
                     .ConfigureBreadcrumbBar(BreadCrumbNav, BreadcrumbPageMappings.PageDictionary);
             }
         }
@@ -120,25 +120,6 @@ namespace Foundry.Views
             if (step.Page == typeof(AboutUsSettingPage))
             {
                 return localizationService.GetString("SettingsPage_AboutCard.Header");
-            }
-
-            string? pageResourceKey = step.Page switch
-            {
-                Type page when page == typeof(HomeLandingPage) => "Nav_HomeKey.Title",
-                Type page when page == typeof(AdkPage) => "Nav_AdkKey.Title",
-                Type page when page == typeof(GeneralConfigurationPage) => "Nav_GeneralConfigurationKey.Title",
-                Type page when page == typeof(StartPage) => "Nav_StartKey.Title",
-                Type page when page == typeof(NetworkPage) => "Nav_NetworkKey.Title",
-                Type page when page == typeof(LocalizationPage) => "Nav_LocalizationKey.Title",
-                Type page when page == typeof(AutopilotPage) => "Nav_AutopilotKey.Title",
-                Type page when page == typeof(CustomizationPage) => "Nav_CustomizationKey.Title",
-                Type page when page == typeof(DocumentationPage) => "Nav_DocumentationKey.Title",
-                _ => null
-            };
-
-            if (pageResourceKey is not null)
-            {
-                return localizationService.GetString(pageResourceKey);
             }
 
             return step.Label;
