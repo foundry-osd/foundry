@@ -170,6 +170,8 @@ git commit -m "refactor: migrate foundry logging for winui"
 - [x] **11.2** Do not port the old WPF main window layout 1:1.
 - [x] **11.3** Replace prototype menu JSON with Foundry-specific entries.
   - [x] Use `Assets\NavViewMenu\AppData.json` as the source for DevWinUI top-level navigation.
+  - [x] Preserve the JSON declaration order by configuring DevWinUI JSON navigation with `OrderItemsType.None`.
+  - [x] Do not use DevWinUI's default `ConfigureJsonFile(string)` ordering because it applies `AscendingTopLevel` and sorts `Expert` before `General`.
   - [x] Use section headers plus direct page items for the main navigation:
     - [x] `General` and `Expert` are visual section headers.
     - [x] `General` and `Expert` are not clickable parent pages.
@@ -215,18 +217,18 @@ git commit -m "refactor: migrate foundry logging for winui"
     - [x] `General`.
     - [x] `Start`.
     - [x] All `Expert` pages.
-  - [x] **11.6.5** When a global operation is running, disable:
-    - [x] All `NavigationView` items.
-    - [x] Back navigation.
-    - [x] Settings navigation.
-    - [x] Title bar back navigation.
-    - [x] Search-driven navigation.
-  - [x] **11.6.6** Add blocking operation overlay support:
+  - [x] **11.6.5** When a global operation is running, block interaction through a modal `ContentDialog`:
+    - [x] Keep shell controls visually available behind the dialog, following the UniGetUI pattern.
+    - [x] Prevent click interaction with `NavigationView` items while the dialog is open.
+    - [x] Prevent Settings navigation while the dialog is open.
+    - [x] Prevent title bar back navigation while the dialog is open.
+    - [x] Prevent search-driven navigation while the dialog is open.
+  - [x] **11.6.6** Add blocking operation dialog support:
     - [x] ADK install.
     - [x] ADK upgrade.
     - [x] ISO creation.
     - [x] USB creation.
-  - [x] **11.6.7** Ensure the operation overlay remains visible and blocks navigation until the operation fully completes.
+  - [x] **11.6.7** Ensure the operation dialog remains visible and blocks navigation until the operation fully completes.
   - [x] **11.6.8** Apply navigation guards after every DevWinUI navigation refresh:
     - [x] Initial `JsonNavigationService.ConfigureJsonFile(...)`.
     - [x] Runtime localization refresh through `JsonNavigationService.ReInitialize()`.
@@ -235,7 +237,12 @@ git commit -m "refactor: migrate foundry logging for winui"
     - [x] Prevent programmatic navigation through a Foundry-owned navigation facade or guard check.
     - [x] Prevent search result navigation when `OperationRunning`.
     - [x] Prevent back navigation when `OperationRunning`.
-    - [x] Keep the active operation page/overlay visible until completion.
+    - [x] Keep the active operation dialog visible until completion.
+  - [x] **11.6.10** Scope breadcrumbs to settings pages only:
+    - [x] Keep breadcrumbs on `SettingsPage`.
+    - [x] Keep breadcrumbs on settings child pages.
+    - [x] Do not show breadcrumbs on `Home`, `ADK`, `General`, `Start`, `Expert` pages, `Documentation`, or footer `About`.
+    - [x] Keep footer `About` as a standalone shell page if the settings `About` page needs to retain breadcrumbs.
 - [x] **11.7** Do not migrate the old WPF menu bar.
   - [x] Remove any expectation of a 1:1 WPF menu command port.
   - [x] Add only WinUI shell entry points that still make product sense in the DevWinUI shell:
@@ -291,12 +298,41 @@ git commit -m "feat: add foundry winui shell navigation"
 
 **Validation**
 
-- [ ] **11.10** Navigate to every enabled page in `Ready` state.
-- [ ] **11.11** Confirm settings pages load with real view models.
-- [ ] **11.12** Confirm app window title/icon are correct.
-- [ ] **11.13** Confirm theme switching works.
-- [ ] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
-- [ ] **11.15** Confirm `OperationRunning` state blocks navigation until the operation completes.
-- [ ] **11.16** Confirm search suggestions cannot navigate while `OperationRunning`.
-- [ ] **11.17** Confirm language switching reinitializes DevWinUI navigation and then reapplies the current Foundry navigation guard state.
-- [ ] **11.18** Confirm unsupported custom `AppData.json` fields are not required for Phase 11 behavior.
+- [x] **11.10** Navigate to every enabled page in `Ready` state.
+  - Codex automated checks before PR:
+    - [x] Build the WinUI app.
+    - [x] Run the solution test suite.
+    - [x] Verify every `Foundry.Views.*` `UniqueId` in `AppData.json` has a matching XAML page class.
+    - [x] Verify `JsonNavigationService.ConfigureJsonFile(...)` uses `OrderItemsType.None`.
+    - [x] Verify non-settings shell pages do not declare `BreadcrumbNavigator.IsHeaderVisible`.
+  - Manual user checks:
+    - [x] Launch Foundry.
+    - [x] Confirm navigation order is `General` before `Expert`.
+    - [x] Confirm `General` contains `Home`, `ADK`, `General`, and `Start` in that order.
+    - [x] Confirm `Expert` contains `Network`, `Localization`, `Autopilot`, and `Customization` in that order.
+    - [x] Confirm footer order is `Documentation`, `About`, then `Settings`.
+    - [x] Open each enabled page and confirm navigation succeeds.
+    - [x] Confirm no breadcrumb is visible on `Home`, `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Documentation`, or footer `About`.
+- [x] **11.11** Confirm settings pages load with real view models.
+  - Manual user checks:
+    - [x] Open `Settings`.
+    - [x] Open `General`, `Appearance and behavior`, `Update application`, and `About`.
+    - [x] Confirm settings breadcrumbs are visible only inside the settings area.
+    - [x] Confirm settings controls show current values from the real view models.
+- [x] **11.12** Confirm app window title/icon are correct.
+- [x] **11.13** Confirm theme switching works.
+- [x] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
+- [x] **11.15** Confirm `OperationRunning` shows a modal operation dialog and blocks navigation until the operation completes.
+- [x] **11.16** Confirm search suggestions cannot navigate while the `OperationRunning` dialog is active.
+- [x] **11.17** Confirm language switching reinitializes DevWinUI navigation and then reapplies the current Foundry navigation guard state.
+  - Manual user checks:
+    - [x] Switch from English to French.
+    - [x] Confirm the navigation order remains `General` before `Expert`.
+    - [x] Confirm labels update without restarting.
+    - [x] Confirm breadcrumb visibility rules remain unchanged after switching language.
+    - [x] Switch from French to English.
+    - [x] Repeat the same navigation order, label, and breadcrumb checks.
+- [x] **11.18** Confirm unsupported custom `AppData.json` fields are not required for Phase 11 behavior.
+  - Codex automated checks before PR:
+    - [x] Verify Phase 11 behavior is implemented through DevWinUI-supported JSON fields plus Foundry runtime services.
+    - [x] Verify no custom runtime state fields such as `RequiresAdk`, `OperationLocked`, or per-state enabled rules were added to `AppData.json`.

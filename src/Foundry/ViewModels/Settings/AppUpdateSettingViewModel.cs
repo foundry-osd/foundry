@@ -2,6 +2,7 @@ using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
 using Foundry.Services.Updates;
+using Serilog;
 
 namespace Foundry.ViewModels
 {
@@ -13,6 +14,7 @@ namespace Foundry.ViewModels
         private readonly IApplicationUpdateStateService updateStateService;
         private readonly IApplicationLocalizationService localizationService;
         private readonly IAppDispatcher appDispatcher;
+        private readonly ILogger logger;
         private ApplicationUpdateCheckResult? currentCheckResult;
         private string releaseNotes;
 
@@ -52,7 +54,8 @@ namespace Foundry.ViewModels
             IApplicationUpdateService applicationUpdateService,
             IApplicationUpdateStateService updateStateService,
             IApplicationLocalizationService localizationService,
-            IAppDispatcher appDispatcher)
+            IAppDispatcher appDispatcher,
+            ILogger logger)
         {
             this.appSettingsService = appSettingsService;
             this.dialogService = dialogService;
@@ -60,6 +63,7 @@ namespace Foundry.ViewModels
             this.updateStateService = updateStateService;
             this.localizationService = localizationService;
             this.appDispatcher = appDispatcher;
+            this.logger = logger.ForContext<AppUpdateSettingViewModel>();
             releaseNotes = localizationService.GetString("Update.ReleaseNotesFallback");
 
             CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
@@ -168,18 +172,30 @@ namespace Foundry.ViewModels
 
         private void OnUpdateStateChanged(object? sender, ApplicationUpdateStateChangedEventArgs e)
         {
-            _ = appDispatcher.TryEnqueue(() => ApplyCurrentUpdateState(e.CurrentResult));
+            if (!appDispatcher.TryEnqueue(() => ApplyCurrentUpdateState(e.CurrentResult)))
+            {
+                logger.Warning(
+                    "Failed to enqueue update settings state refresh. Status={Status}, Version={Version}",
+                    e.CurrentResult?.Status,
+                    e.CurrentResult?.Version);
+            }
         }
 
         private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
         {
-            _ = appDispatcher.TryEnqueue(() =>
+            if (!appDispatcher.TryEnqueue(() =>
             {
                 CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
                 LastUpdateCheck = appSettingsService.Current.Updates.LastCheckedAt?.ToString("yyyy-MM-dd HH:mm")
                     ?? localizationService.GetString("Update.NotChecked");
                 ApplyCurrentUpdateState(currentCheckResult);
-            });
+            }))
+            {
+                logger.Warning(
+                    "Failed to enqueue update settings localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                    e.OldLanguage,
+                    e.NewLanguage);
+            }
         }
 
         private void ApplyCurrentUpdateState(ApplicationUpdateCheckResult? result)

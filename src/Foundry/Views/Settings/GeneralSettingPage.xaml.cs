@@ -1,5 +1,6 @@
 using Foundry.Core.Localization;
 using Foundry.Services.Localization;
+using Serilog;
 
 namespace Foundry.Views;
 
@@ -7,6 +8,7 @@ public sealed partial class GeneralSettingPage : Page
 {
     private bool isInitializingLanguageSelection = true;
     private readonly IApplicationLocalizationService localizationService;
+    private readonly ILogger logger = Log.ForContext<GeneralSettingPage>();
 
     public GeneralSettingViewModel ViewModel { get; }
 
@@ -38,7 +40,14 @@ public sealed partial class GeneralSettingPage : Page
     {
         if (!DispatcherQueue.HasThreadAccess)
         {
-            _ = DispatcherQueue.TryEnqueue(ApplyLocalizedText);
+            if (!DispatcherQueue.TryEnqueue(ApplyLocalizedText))
+            {
+                logger.Warning(
+                    "Failed to enqueue general settings localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                    e.OldLanguage,
+                    e.NewLanguage);
+            }
+
             return;
         }
 

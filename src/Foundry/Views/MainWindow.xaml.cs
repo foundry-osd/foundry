@@ -1,6 +1,7 @@
 using Foundry.Services.Localization;
 using Foundry.Services.Shell;
 using Microsoft.UI.Windowing;
+using Serilog;
 
 namespace Foundry.Views
 {
@@ -8,6 +9,9 @@ namespace Foundry.Views
     {
         private readonly IApplicationLocalizationService localizationService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
+        private readonly ILogger logger = Log.ForContext<MainWindow>();
+        private ContentDialog? operationDialog;
+        private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
 
         public MainViewModel ViewModel { get; }
@@ -41,7 +45,7 @@ namespace Foundry.Views
                 jsonNavigationService.Initialize(NavView, NavFrame, NavigationPageMappings.PageDictionary)
                     .ConfigureDefaultPage(typeof(HomeLandingPage))
                     .ConfigureSettingsPage(typeof(SettingsPage))
-                    .ConfigureJsonFile("Assets/NavViewMenu/AppData.json")
+                    .ConfigureJsonFile("Assets/NavViewMenu/AppData.json", OrderItemsType.None)
                     .ConfigureBreadcrumbBar(BreadCrumbNav, BreadcrumbPageMappings.PageDictionary);
             }
         }
@@ -61,7 +65,14 @@ namespace Foundry.Views
         {
             if (!DispatcherQueue.HasThreadAccess)
             {
-                _ = DispatcherQueue.TryEnqueue(RefreshLocalizedShell);
+                if (!DispatcherQueue.TryEnqueue(RefreshLocalizedShell))
+                {
+                    logger.Warning(
+                        "Failed to enqueue shell localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                        e.OldLanguage,
+                        e.NewLanguage);
+                }
+
                 return;
             }
 
@@ -122,25 +133,6 @@ namespace Foundry.Views
                 return localizationService.GetString("SettingsPage_AboutCard.Header");
             }
 
-            string? pageResourceKey = step.Page switch
-            {
-                Type page when page == typeof(HomeLandingPage) => "Nav_HomeKey.Title",
-                Type page when page == typeof(AdkPage) => "Nav_AdkKey.Title",
-                Type page when page == typeof(GeneralConfigurationPage) => "Nav_GeneralConfigurationKey.Title",
-                Type page when page == typeof(StartPage) => "Nav_StartKey.Title",
-                Type page when page == typeof(NetworkPage) => "Nav_NetworkKey.Title",
-                Type page when page == typeof(LocalizationPage) => "Nav_LocalizationKey.Title",
-                Type page when page == typeof(AutopilotPage) => "Nav_AutopilotKey.Title",
-                Type page when page == typeof(CustomizationPage) => "Nav_CustomizationKey.Title",
-                Type page when page == typeof(DocumentationPage) => "Nav_DocumentationKey.Title",
-                _ => null
-            };
-
-            if (pageResourceKey is not null)
-            {
-                return localizationService.GetString(pageResourceKey);
-            }
-
             return step.Label;
         }
 
@@ -185,7 +177,13 @@ namespace Foundry.Views
         {
             if (!DispatcherQueue.HasThreadAccess)
             {
-                _ = DispatcherQueue.TryEnqueue(ApplyShellNavigationState);
+                if (!DispatcherQueue.TryEnqueue(ApplyShellNavigationState))
+                {
+                    logger.Warning(
+                        "Failed to enqueue shell navigation state refresh. State={State}",
+                        shellNavigationGuardService.State);
+                }
+
                 return;
             }
 
@@ -237,20 +235,105 @@ namespace Foundry.Views
         {
             ShellNavigationState state = shellNavigationGuardService.State;
             bool isOperationRunning = state == ShellNavigationState.OperationRunning;
-            SearchBox.IsEnabled = state == ShellNavigationState.Ready;
-            OperationOverlay.Visibility = isOperationRunning ? Visibility.Visible : Visibility.Collapsed;
-            OperationOverlayTitle.Text = localizationService.GetString("Shell.OperationRunning");
+            SearchBox.IsEnabled = state != ShellNavigationState.AdkBlocked;
+            UpdateOperationDialog(isOperationRunning);
 
-            ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, state);
-            ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, state);
-
-            if (NavView.SettingsItem is NavigationViewItem settingsItem)
-            {
-                settingsItem.IsEnabled = !isOperationRunning;
-            }
+            ShellNavigationState visualNavigationState = isOperationRunning ? ShellNavigationState.Ready : state;
+            ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, visualNavigationState);
+            ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, visualNavigationState);
 
             NavView.IsBackEnabled = !isOperationRunning && NavFrame.CanGoBack;
             AppTitleBar.IsBackButtonVisible = !isOperationRunning && NavFrame.CanGoBack;
+        }
+
+        private void UpdateOperationDialog(bool isOperationRunning)
+        {
+            if (isOperationRunning)
+            {
+                ShowOperationDialog();
+                return;
+            }
+
+            HideOperationDialog();
+        }
+
+        private async void ShowOperationDialog()
+        {
+            if (operationDialog is not null)
+            {
+                return;
+            }
+
+            ContentDialog dialog = new()
+            {
+                XamlRoot = RootGrid.XamlRoot,
+                RequestedTheme = RootGrid.ActualTheme,
+                Title = localizationService.GetString("Shell.OperationRunning"),
+                Content = CreateOperationDialogContent(),
+                DefaultButton = ContentDialogButton.None
+            };
+
+            dialog.Closing += OnOperationDialogClosing;
+            operationDialog = dialog;
+
+            try
+            {
+                await dialog.ShowAsync();
+            }
+            finally
+            {
+                dialog.Closing -= OnOperationDialogClosing;
+                if (ReferenceEquals(operationDialog, dialog))
+                {
+                    operationDialog = null;
+                }
+
+                isClosingOperationDialog = false;
+            }
+        }
+
+        private FrameworkElement CreateOperationDialogContent()
+        {
+            return new StackPanel
+            {
+                MinWidth = 360,
+                Spacing = 16,
+                Children =
+                {
+                    new Microsoft.UI.Xaml.Controls.ProgressRing
+                    {
+                        Width = 48,
+                        Height = 48,
+                        IsActive = true,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = localizationService.GetString("Shell.OperationRunning"),
+                        TextWrapping = TextWrapping.Wrap,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    }
+                }
+            };
+        }
+
+        private void HideOperationDialog()
+        {
+            if (operationDialog is null)
+            {
+                return;
+            }
+
+            isClosingOperationDialog = true;
+            operationDialog.Hide();
+        }
+
+        private void OnOperationDialogClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning && !isClosingOperationDialog)
+            {
+                args.Cancel = true;
+            }
         }
 
         private static void ApplyNavigationItemsState(IList<object> items, bool isFooter, ShellNavigationState state)

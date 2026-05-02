@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.GeneralConfigurationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:dev="using:DevWinUI"
-      dev:BreadcrumbNavigator.IsHeaderVisible="True">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}">
         <StackPanel Margin="10"
