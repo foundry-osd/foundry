@@ -306,19 +306,19 @@ git commit -m "feat: add foundry winui shell navigation"
     - [x] Verify `JsonNavigationService.ConfigureJsonFile(...)` uses `OrderItemsType.None`.
     - [x] Verify non-settings shell pages do not declare `BreadcrumbNavigator.IsHeaderVisible`.
   - Manual user checks:
-    - [ ] Launch Foundry.
-    - [ ] Confirm navigation order is `General` before `Expert`.
-    - [ ] Confirm `General` contains `Home`, `ADK`, `General`, and `Start` in that order.
-    - [ ] Confirm `Expert` contains `Network`, `Localization`, `Autopilot`, and `Customization` in that order.
-    - [ ] Confirm footer order is `Documentation`, `About`, then `Settings`.
-    - [ ] Open each enabled page and confirm navigation succeeds.
-    - [ ] Confirm no breadcrumb is visible on `Home`, `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Documentation`, or footer `About`.
+    - [x] Launch Foundry.
+    - [x] Confirm navigation order is `General` before `Expert`.
+    - [x] Confirm `General` contains `Home`, `ADK`, `General`, and `Start` in that order.
+    - [x] Confirm `Expert` contains `Network`, `Localization`, `Autopilot`, and `Customization` in that order.
+    - [x] Confirm footer order is `Documentation`, `About`, then `Settings`.
+    - [x] Open each enabled page and confirm navigation succeeds.
+    - [x] Confirm no breadcrumb is visible on `Home`, `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Documentation`, or footer `About`.
 - [x] **11.11** Confirm settings pages load with real view models.
   - Manual user checks:
-    - [ ] Open `Settings`.
-    - [ ] Open `General`, `Appearance and behavior`, `Update application`, and `About`.
-    - [ ] Confirm settings breadcrumbs are visible only inside the settings area.
-    - [ ] Confirm settings controls show current values from the real view models.
+    - [x] Open `Settings`.
+    - [x] Open `General`, `Appearance and behavior`, `Update application`, and `About`.
+    - [x] Confirm settings breadcrumbs are visible only inside the settings area.
+    - [x] Confirm settings controls show current values from the real view models.
 - [x] **11.12** Confirm app window title/icon are correct.
 - [x] **11.13** Confirm theme switching works.
 - [ ] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
