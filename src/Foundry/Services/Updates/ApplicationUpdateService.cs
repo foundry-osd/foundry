@@ -212,7 +212,7 @@ internal sealed class ApplicationUpdateService(
         try
         {
             ApplicationUpdateCheckResult result = await CheckForUpdatesAsync(isStartupCheck: true, cancellationToken);
-            logger.Information("Startup update check completed. Status={Status}, Message={Message}", result.Status, result.Message);
+            logger.Debug("Startup update check completed. Status={Status}, Message={Message}", result.Status, result.Message);
         }
         catch (Exception ex)
         {

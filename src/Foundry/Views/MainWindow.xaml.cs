@@ -1,6 +1,7 @@
 using Foundry.Services.Localization;
 using Foundry.Services.Shell;
 using Microsoft.UI.Windowing;
+using Serilog;
 
 namespace Foundry.Views
 {
@@ -8,6 +9,7 @@ namespace Foundry.Views
     {
         private readonly IApplicationLocalizationService localizationService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
+        private readonly ILogger logger = Log.ForContext<MainWindow>();
         private ContentDialog? operationDialog;
         private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
@@ -63,7 +65,14 @@ namespace Foundry.Views
         {
             if (!DispatcherQueue.HasThreadAccess)
             {
-                _ = DispatcherQueue.TryEnqueue(RefreshLocalizedShell);
+                if (!DispatcherQueue.TryEnqueue(RefreshLocalizedShell))
+                {
+                    logger.Warning(
+                        "Failed to enqueue shell localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                        e.OldLanguage,
+                        e.NewLanguage);
+                }
+
                 return;
             }
 
@@ -168,7 +177,13 @@ namespace Foundry.Views
         {
             if (!DispatcherQueue.HasThreadAccess)
             {
-                _ = DispatcherQueue.TryEnqueue(ApplyShellNavigationState);
+                if (!DispatcherQueue.TryEnqueue(ApplyShellNavigationState))
+                {
+                    logger.Warning(
+                        "Failed to enqueue shell navigation state refresh. State={State}",
+                        shellNavigationGuardService.State);
+                }
+
                 return;
             }
 

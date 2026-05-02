@@ -1,5 +1,6 @@
 using Foundry.Services.Localization;
 using Foundry.Services.Shell;
+using Serilog;
 
 namespace Foundry.Views
 {
@@ -7,6 +8,7 @@ namespace Foundry.Views
     {
         private readonly IApplicationLocalizationService localizationService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
+        private readonly ILogger logger = Log.ForContext<SettingsPage>();
 
         public SettingsPage()
         {
@@ -23,7 +25,14 @@ namespace Foundry.Views
         {
             if (!DispatcherQueue.HasThreadAccess)
             {
-                _ = DispatcherQueue.TryEnqueue(ApplyLocalizedText);
+                if (!DispatcherQueue.TryEnqueue(ApplyLocalizedText))
+                {
+                    logger.Warning(
+                        "Failed to enqueue settings localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                        e.OldLanguage,
+                        e.NewLanguage);
+                }
+
                 return;
             }
 
@@ -72,7 +81,13 @@ namespace Foundry.Views
         {
             if (!DispatcherQueue.HasThreadAccess)
             {
-                _ = DispatcherQueue.TryEnqueue(ApplyNavigationGuardState);
+                if (!DispatcherQueue.TryEnqueue(ApplyNavigationGuardState))
+                {
+                    logger.Warning(
+                        "Failed to enqueue settings navigation state refresh. State={State}",
+                        shellNavigationGuardService.State);
+                }
+
                 return;
             }
 

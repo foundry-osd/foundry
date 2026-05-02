@@ -80,7 +80,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
   - [ ] Phase 8: CI and release workflow update.
 - [ ] **Shell and prerequisite lane**
   - [ ] Phase 9: WinUI `.resw` localization foundation.
-  - [ ] Phase 11: DevWinUI shell navigation, pages, settings, and operation overlay.
+  - [x] Phase 11: DevWinUI shell navigation, pages, settings, and operation overlay.
   - [ ] Phase 13: ADK, WinPE services, filesystem layout, and runtime layout normalization.
   - [ ] Phase 12: Start page ISO/USB creation UI and media command wiring.
 - [ ] **Business workflow lane**
@@ -114,7 +114,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 ### Workstream C: WinUI Shell
 
 - [ ] Phase 6.
-- [ ] Phase 11.
+- [x] Phase 11.
 - [ ] Phase 12 UI.
 - [ ] Phase 14 UI.
 - [ ] Phase 16 UI.
