@@ -115,6 +115,7 @@ Note: manual launch validation is kept unchecked until a local Visual Studio run
   - [ ] Do not show a modal dialog automatically on startup.
   - [ ] Provide an action that opens the update settings surface or dedicated update view.
   - [ ] Use a confirmation dialog only before download/restart.
+  - [ ] Reuse the same latest update state in the shell banner and update settings page, so a startup-detected update is visible in settings without another manual check.
   - Note: this is intentionally implemented with Phase 11 shell work in **11.7.1**.
 - [x] **7.8** Add release artifact naming contract:
   - [x] `FoundrySetup-x64.msi`.

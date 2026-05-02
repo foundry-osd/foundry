@@ -51,10 +51,10 @@ git commit -m "fix: preserve winpe runtime compatibility"
   - [ ] Remove or ignore `Package.appxmanifest` if it is not used by the Velopack `WindowsPackageType=None` build.
   - [ ] Remove stale packaged-only context menu declarations if Velopack/unpackaged install path does not use them.
   - [ ] Remove or replace `RuntimeHelper.IsPackaged()` branches that no longer apply.
-- [ ] **18.8** Remove `nucs.JsonSettings` from the WinUI app after `IAppSettingsService` is in place.
+- [ ] **18.8** Confirm Phase 11 removed `nucs.JsonSettings` from the WinUI app.
   - [ ] Confirm no runtime dependency still requires it.
   - [ ] Confirm persisted app settings use the internal settings service.
-- [ ] **18.8.1** Confirm the WinUI app has no remaining DevWinUI prototype AppData working directory usage.
+- [ ] **18.8.1** Confirm Phase 11 removed or replaced remaining DevWinUI prototype AppData working directory usage.
 - [ ] **18.9** Commit:
 
 ```powershell

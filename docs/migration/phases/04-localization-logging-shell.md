@@ -164,14 +164,44 @@ git commit -m "refactor: migrate foundry logging for winui"
 **Goal:** keep DevWinUI as the long-term shell baseline and progressively plug real Foundry workflows into it.
 
 - [ ] **11.1** Keep DevWinUI navigation, settings, title bar, breadcrumb, and shell conventions as the long-term Foundry shell baseline.
+  - [ ] DevWinUI remains responsible for JSON-driven `NavigationView` item creation through `JsonNavigationService`.
+  - [ ] DevWinUI remains responsible for `TitleBar`, `BreadcrumbNavigator`, `Settings` item integration, search suggestions, and page navigation glue where the existing service supports it.
+  - [ ] Foundry owns runtime business state decisions that DevWinUI JSON does not model, including ADK readiness, operation locks, update banners, and command eligibility.
 - [ ] **11.2** Do not port the old WPF main window layout 1:1.
 - [ ] **11.3** Replace prototype menu JSON with Foundry-specific entries.
+  - [ ] Use `Assets\NavViewMenu\AppData.json` as the source for DevWinUI top-level navigation.
+  - [ ] Use section headers plus direct page items for the main navigation:
+    - [ ] `General` and `Expert` are visual section headers.
+    - [ ] `General` and `Expert` are not clickable parent pages.
+    - [ ] `General` and `Expert` are not expandable/collapsible groups.
+    - [ ] Pages remain directly visible under their section header.
+  - [ ] Use DevWinUI-supported schema fields:
+    - [ ] `Groups`.
+    - [ ] `Items`.
+    - [ ] `UniqueId`.
+    - [ ] `Title` as fallback text.
+    - [ ] `LocalizeId`.
+    - [ ] `UsexUid=true`.
+    - [ ] `ImagePath` or `IconGlyph`.
+    - [ ] `IsFooterNavigationViewItem`.
+    - [ ] `ShowItemsWithoutGroup`.
+    - [ ] `IsExpanded`.
+    - [ ] `HideGroup`.
+    - [ ] `HideNavigationViewItem`.
+    - [ ] `IncludedInBuild` only for compile/build availability, not runtime business blocking.
+  - [ ] Do not depend on unsupported JSON-only runtime state such as `RequiresAdk`, `OperationLocked`, or per-state enabled rules.
+  - [ ] Keep runtime navigation state in Foundry services instead of inventing custom DevWinUI JSON schema fields.
 - [ ] **11.4** Confirm generated page mappings are deterministic.
+  - [ ] Confirm `NavigationPageMappings.PageDictionary` contains every `UniqueId` referenced by `AppData.json`.
+  - [ ] Confirm `BreadcrumbPageMappings.PageDictionary` contains every shell page and settings page that can appear in breadcrumbs.
+  - [ ] Confirm each page has one stable `UniqueId`; use DevWinUI `Parameter` only when the same page type intentionally represents multiple logical pages.
 - [ ] **11.5** Add Foundry pages incrementally without blocking unrelated business logic extraction.
 - [ ] **11.6** Define first-level pages:
-  - [ ] General section: `Home`, `ADK`, `General`, `Start`.
-  - [ ] Expert section: `Network`, `Localization`, `Autopilot`, `Customization`.
-  - [ ] Footer section: `Settings`, `Logs`, `Documentation`, `About`.
+  - [ ] General section header with direct items: `Home`, `ADK`, `General`, `Start`.
+  - [ ] Expert section header with direct items: `Network`, `Localization`, `Autopilot`, `Customization`.
+  - [ ] Footer section in this order: `Documentation`, `About`, `Settings`.
+  - [ ] Do not add a `Logs` footer navigation item.
+  - [ ] Keep log-folder access inside diagnostics/settings surfaces instead of exposing a dedicated navigation page.
   - [ ] **11.6.1** Use the target page map from [Page Map And Navigation Contract](../architecture/page-map.md).
   - [ ] **11.6.2** Implement shell-level navigation guard states:
     - [ ] `AdkBlocked`.
@@ -189,27 +219,52 @@ git commit -m "refactor: migrate foundry logging for winui"
     - [ ] All `NavigationView` items.
     - [ ] Back navigation.
     - [ ] Settings navigation.
+    - [ ] Title bar back navigation.
+    - [ ] Search-driven navigation.
   - [ ] **11.6.6** Add blocking operation overlay support:
     - [ ] ADK install.
     - [ ] ADK upgrade.
     - [ ] ISO creation.
     - [ ] USB creation.
   - [ ] **11.6.7** Ensure the operation overlay remains visible and blocks navigation until the operation fully completes.
-- [ ] **11.7** Move old WPF menu commands into WinUI shell commands:
-  - [ ] Import expert configuration.
-  - [ ] Export expert configuration.
-  - [ ] Export deploy configuration.
-  - [ ] Open logs.
-  - [ ] Documentation.
-  - [ ] GitHub repository.
-  - [ ] GitHub issues.
-  - [ ] Check for updates.
-  - [ ] About.
+  - [ ] **11.6.8** Apply navigation guards after every DevWinUI navigation refresh:
+    - [ ] Initial `JsonNavigationService.ConfigureJsonFile(...)`.
+    - [ ] Runtime localization refresh through `JsonNavigationService.ReInitialize()`.
+    - [ ] Any future AppData/menu rebuild.
+  - [ ] **11.6.9** Do not rely only on `NavigationViewItem.IsEnabled` for operation blocking:
+    - [ ] Prevent programmatic navigation through a Foundry-owned navigation facade or guard check.
+    - [ ] Prevent search result navigation when `OperationRunning`.
+    - [ ] Prevent back navigation when `OperationRunning`.
+    - [ ] Keep the active operation page/overlay visible until completion.
+- [ ] **11.7** Do not migrate the old WPF menu bar.
+  - [ ] Remove any expectation of a 1:1 WPF menu command port.
+  - [ ] Add only WinUI shell entry points that still make product sense in the DevWinUI shell:
+    - [ ] Documentation.
+    - [ ] GitHub repository.
+    - [ ] GitHub issues.
+    - [ ] Check for updates.
+    - [ ] About.
+  - [ ] Do not add a dedicated Logs navigation button; use the existing settings diagnostics/log-folder command.
+  - [ ] Keep import/export configuration actions for later workflow phases instead of adding them as menu-bar equivalents:
+    - [ ] Import expert configuration is handled by Phase 14.
+    - [ ] Export expert configuration is handled by Phase 14.
+    - [ ] Export deploy configuration is handled by Phase 14.
 - [ ] **11.7.1** Add shell update notification behavior:
+  - [ ] Use a global top-shell WinUI `InfoBar` banner pattern inspired by UniGetUI's `UpdatesBanner`.
+  - [ ] Host the banner in the shell, above the page content and shared across pages.
   - [ ] Show a non-blocking update available banner when startup update check returns `UpdateAvailable`.
   - [ ] Do not interrupt startup with a modal `ContentDialog`.
   - [ ] Banner action opens the update settings page or dedicated update view.
   - [ ] Download/restart remains an explicit user action with confirmation.
+  - [ ] Keep the banner outside DevWinUI `AppData.json`; it is runtime state, not static navigation metadata.
+  - [ ] Keep the banner persistent until the user dismisses it, opens update details, or the update state changes.
+  - [ ] Do not add Windows toast activation in Phase 11; revisit only if background update notifications become a product requirement.
+  - [ ] Share update state between startup checks, shell banner, and settings UI:
+    - [ ] Startup check publishes the latest `ApplicationUpdateCheckResult`.
+    - [ ] Manual check publishes the latest `ApplicationUpdateCheckResult`.
+    - [ ] Settings update page reads the latest published state when it loads.
+    - [ ] Settings update page updates automatically when startup check completes while the page is open.
+    - [ ] The shell banner and settings page use the same pending update state, so the user does not need to click `Check for updates` again after a startup check found an update.
 - [ ] **11.8** Keep code-behind limited to WinUI events and navigation glue.
 - [ ] **11.8.1** Replace DevWinUI prototype AppData paths with Foundry ProgramData paths:
   - [ ] `C:\ProgramData\Foundry\Settings\appsettings.json`.
@@ -242,3 +297,6 @@ git commit -m "feat: add foundry winui shell navigation"
 - [ ] **11.13** Confirm theme switching works.
 - [ ] **11.14** Confirm `AdkBlocked` state disables `General`, `Start`, and all `Expert` pages.
 - [ ] **11.15** Confirm `OperationRunning` state blocks navigation until the operation completes.
+- [ ] **11.16** Confirm search suggestions cannot navigate while `OperationRunning`.
+- [ ] **11.17** Confirm language switching reinitializes DevWinUI navigation and then reapplies the current Foundry navigation guard state.
+- [ ] **11.18** Confirm unsupported custom `AppData.json` fields are not required for Phase 11 behavior.

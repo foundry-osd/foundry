@@ -84,7 +84,7 @@ git commit -m "feat: port media creation workflow to winui"
     - [ ] Install ADK.
     - [ ] Upgrade ADK.
     - [ ] Refresh status.
-    - [ ] Open logs.
+    - [ ] Open logs from the ADK page diagnostics/action area, not from a dedicated footer navigation item.
   - [ ] **13.1.3** Do not expose a primary uninstall action on the `ADK` page.
   - [ ] **13.1.4** Keep ADK uninstall only as an internal upgrade implementation detail unless a future advanced diagnostics requirement is approved.
   - [ ] **13.1.5** Run Foundry-managed ADK installation with Foundry's own blocking progress overlay.

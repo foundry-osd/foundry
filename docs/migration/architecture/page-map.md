@@ -4,6 +4,20 @@ This document defines the target WinUI shell structure for the Foundry migration
 
 DevWinUI remains the long-term shell baseline. Foundry pages are integrated progressively into the existing `NavigationView`, title bar, breadcrumb, settings, and content-frame conventions.
 
+## DevWinUI Navigation Boundary
+
+- [ ] Use DevWinUI `JsonNavigationService` for static navigation metadata:
+  - [ ] Build `NavigationView` menu items from `Assets\NavViewMenu\AppData.json`.
+  - [ ] Route `UniqueId` values through generated page mappings.
+  - [ ] Populate standard and footer navigation items.
+  - [ ] Localize navigation labels through `LocalizeId` and `UsexUid=true`.
+  - [ ] Rebuild localized menu text through `JsonNavigationService.ReInitialize()`.
+- [ ] Use DevWinUI `BreadcrumbNavigator` for breadcrumb display and page-title integration.
+- [ ] Use DevWinUI `TitleBar` integration for shell back button and pane toggling.
+- [ ] Do not encode Foundry runtime guard logic in custom `AppData.json` fields.
+- [ ] Foundry owns runtime guard application after DevWinUI creates or recreates menu items.
+- [ ] Foundry owns programmatic navigation checks so disabled menu items cannot be bypassed by search, back navigation, commands, or direct service calls.
+
 ## Navigation Sections
 
 - [ ] **General**
@@ -17,10 +31,38 @@ DevWinUI remains the long-term shell baseline. Foundry pages are integrated prog
   - [ ] `Autopilot`
   - [ ] `Customization`
 - [ ] **Footer**
-  - [ ] `Settings`
-  - [ ] `Logs`
   - [ ] `Documentation`
   - [ ] `About`
+  - [ ] `Settings`
+
+## Navigation Grouping Decision
+
+- [ ] Use section headers plus direct page items for `General` and `Expert`.
+- [ ] Do not use expandable or collapsible parent groups for `General` and `Expert`.
+- [ ] `General` and `Expert` section labels are not navigable pages.
+- [ ] All pages under those sections remain directly visible and directly clickable.
+- [ ] Footer items remain in the `NavigationView.FooterMenuItems` area when supported by DevWinUI.
+
+Target visual shape:
+
+```text
+General
+  Home
+  ADK
+  General
+  Start
+
+Expert
+  Network
+  Localization
+  Autopilot
+  Customization
+
+Footer
+  Documentation
+  About
+  Settings
+```
 
 ## Page Responsibilities
 
@@ -47,7 +89,7 @@ DevWinUI remains the long-term shell baseline. Foundry pages are integrated prog
   - [ ] Install ADK.
   - [ ] Upgrade ADK.
   - [ ] Refresh status.
-  - [ ] Open logs.
+  - [ ] Open logs from the ADK page diagnostics/action area, not from a dedicated footer navigation item.
 - [ ] Do not expose a primary uninstall action.
 - [ ] Keep ADK uninstall available only as an internal upgrade implementation detail unless a future explicit advanced diagnostics requirement is approved.
 - [ ] Use Foundry's own blocking progress overlay for ADK install and upgrade operations.
@@ -100,13 +142,29 @@ DevWinUI remains the long-term shell baseline. Foundry pages are integrated prog
 - [ ] `Settings` persists app-level settings through an internal `IAppSettingsService`.
 - [ ] `Settings` writes to `C:\ProgramData\Foundry\Settings\appsettings.json`.
 - [ ] `Settings` does not persist secrets.
-- [ ] `Logs` opens or displays application logs.
+- [ ] Do not expose a dedicated `Logs` footer page.
+- [ ] Log-folder access remains available from diagnostics/settings surfaces.
 - [ ] `Documentation` links to user-facing documentation.
 - [ ] `About` shows product, version, repository, issue, and update information.
+
+## Update Banner Contract
+
+- [ ] Use a global top-shell `InfoBar` banner for app update availability.
+- [ ] The banner is hosted by the shell, not by `AppData.json`.
+- [ ] The banner appears above the current page content and remains visible across navigation.
+- [ ] The banner is non-modal and does not block startup.
+- [ ] The banner action opens the update settings page or a dedicated update view.
+- [ ] Download and restart remain explicit user actions.
+- [ ] Startup update checks, manual update checks, the shell banner, and the settings update page share the same latest update state.
+- [ ] If startup finds an update before the settings page is opened, the settings page shows that update state immediately on load.
+- [ ] If startup finds an update while the settings page is already open, the settings page updates without requiring the user to click `Check for updates`.
+- [ ] Do not add a Windows toast notification in Phase 11.
 
 ## Navigation Guard States
 
 Navigation availability must be controlled by the shell, not by each page independently.
+
+After any DevWinUI navigation rebuild, including runtime language switching through `JsonNavigationService.ReInitialize()`, the shell must reapply the current Foundry navigation guard state.
 
 ### `AdkBlocked`
 
@@ -144,6 +202,9 @@ Used while ADK installation, ADK upgrade, ISO creation, USB creation, Autopilot 
   - [ ] Back navigation.
   - [ ] Settings navigation.
   - [ ] Expert navigation.
+  - [ ] Title bar back navigation.
+  - [ ] Search-driven navigation.
+  - [ ] Programmatic navigation commands outside the active operation.
 
 ## Operation Overlay Contract
 
@@ -192,6 +253,8 @@ Used while ADK installation, ADK upgrade, ISO creation, USB creation, Autopilot 
 
 - [ ] Keep the WinUI app elevated at startup with a `requireAdministrator` app manifest during this migration.
 - [ ] Do not introduce per-operation elevation in this migration.
+- [ ] Do not migrate the old WPF menu bar.
+- [ ] Add only product-relevant DevWinUI shell entry points; do not recreate WPF menu commands 1:1.
 - [ ] Put navigation availability in a shell-level guard service.
 - [ ] Do not duplicate navigation lock logic inside individual pages.
 - [ ] Keep page code-behind limited to WinUI-specific event glue.

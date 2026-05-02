@@ -83,7 +83,7 @@ git commit -m "refactor: extract foundry core project"
 
 - [x] **5.1** Read archived `MainWindowViewModel.cs` as reference only.
 - [x] **5.2** Identify all responsibilities:
-  - [x] App menu commands.
+  - [x] Shell actions and workflow entry points from the WPF app, without migrating the old WPF menu bar 1:1.
   - [x] Theme selection.
   - [x] Language selection.
   - [x] ADK status and install/upgrade.
