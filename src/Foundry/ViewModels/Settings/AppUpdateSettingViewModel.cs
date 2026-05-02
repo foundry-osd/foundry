@@ -5,12 +5,15 @@ using Foundry.Services.Updates;
 
 namespace Foundry.ViewModels
 {
-    public sealed partial class AppUpdateSettingViewModel : ObservableObject
+    public sealed partial class AppUpdateSettingViewModel : ObservableObject, IDisposable
     {
         private readonly IAppSettingsService appSettingsService;
         private readonly IDialogService dialogService;
         private readonly IApplicationUpdateService applicationUpdateService;
+        private readonly IApplicationUpdateStateService updateStateService;
         private readonly IApplicationLocalizationService localizationService;
+        private readonly IAppDispatcher appDispatcher;
+        private ApplicationUpdateCheckResult? currentCheckResult;
         private string releaseNotes;
 
         [ObservableProperty]
@@ -47,18 +50,32 @@ namespace Foundry.ViewModels
             IAppSettingsService appSettingsService,
             IDialogService dialogService,
             IApplicationUpdateService applicationUpdateService,
-            IApplicationLocalizationService localizationService)
+            IApplicationUpdateStateService updateStateService,
+            IApplicationLocalizationService localizationService,
+            IAppDispatcher appDispatcher)
         {
             this.appSettingsService = appSettingsService;
             this.dialogService = dialogService;
             this.applicationUpdateService = applicationUpdateService;
+            this.updateStateService = updateStateService;
             this.localizationService = localizationService;
+            this.appDispatcher = appDispatcher;
             releaseNotes = localizationService.GetString("Update.ReleaseNotesFallback");
 
             CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
             LastUpdateCheck = appSettingsService.Current.Updates.LastCheckedAt?.ToString("yyyy-MM-dd HH:mm") ?? localizationService.GetString("Update.NotChecked");
             IsCheckButtonEnabled = true;
             LoadingStatus = localizationService.GetString("Update.Status.Ready");
+
+            updateStateService.StateChanged += OnUpdateStateChanged;
+            localizationService.LanguageChanged += OnLanguageChanged;
+            ApplyCurrentUpdateState(updateStateService.CurrentResult);
+        }
+
+        public void Dispose()
+        {
+            updateStateService.StateChanged -= OnUpdateStateChanged;
+            localizationService.LanguageChanged -= OnLanguageChanged;
         }
 
         [RelayCommand]
@@ -80,11 +97,7 @@ namespace Foundry.ViewModels
                 appSettingsService.Save();
 
                 LastUpdateCheck = checkedAt.ToString("yyyy-MM-dd HH:mm");
-                LoadingStatus = GetCheckStatusMessage(result);
-                IsUpdateAvailable = result.IsUpdateAvailable;
-                IsInstallButtonVisible = result.IsUpdateAvailable;
-                IsReleaseNotesVisible = result.IsUpdateAvailable && !string.IsNullOrWhiteSpace(result.ReleaseNotes);
-                releaseNotes = result.ReleaseNotes ?? localizationService.GetString("Update.NoReleaseNotes");
+                ApplyCurrentUpdateState(result);
             }
             finally
             {
@@ -104,6 +117,21 @@ namespace Foundry.ViewModels
 
             try
             {
+                bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
+                    localizationService.GetString("Update.ConfirmDownloadRestart.Title"),
+                    localizationService.GetString("Update.ConfirmDownloadRestart.Message"),
+                    localizationService.GetString("Update.ConfirmDownloadRestart.PrimaryButton"),
+                    localizationService.GetString("Common.Cancel")));
+
+                if (!confirmed)
+                {
+                    LoadingStatus = currentCheckResult is not null
+                        ? GetCheckStatusMessage(currentCheckResult)
+                        : localizationService.GetString("Update.Status.Ready");
+                    IsInstallButtonVisible = IsUpdateAvailable;
+                    return;
+                }
+
                 Progress<int> progress = new(value =>
                 {
                     DownloadProgress = value;
@@ -136,6 +164,43 @@ namespace Foundry.ViewModels
                 localizationService.GetString("Update.ReleaseNotesDialogTitle"),
                 releaseNotes,
                 localizationService.GetString("Common.Close")));
+        }
+
+        private void OnUpdateStateChanged(object? sender, ApplicationUpdateStateChangedEventArgs e)
+        {
+            _ = appDispatcher.TryEnqueue(() => ApplyCurrentUpdateState(e.CurrentResult));
+        }
+
+        private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
+        {
+            _ = appDispatcher.TryEnqueue(() =>
+            {
+                CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
+                LastUpdateCheck = appSettingsService.Current.Updates.LastCheckedAt?.ToString("yyyy-MM-dd HH:mm")
+                    ?? localizationService.GetString("Update.NotChecked");
+                ApplyCurrentUpdateState(currentCheckResult);
+            });
+        }
+
+        private void ApplyCurrentUpdateState(ApplicationUpdateCheckResult? result)
+        {
+            currentCheckResult = result;
+
+            if (result is null)
+            {
+                LoadingStatus = localizationService.GetString("Update.Status.Ready");
+                IsUpdateAvailable = false;
+                IsInstallButtonVisible = false;
+                IsReleaseNotesVisible = false;
+                releaseNotes = localizationService.GetString("Update.ReleaseNotesFallback");
+                return;
+            }
+
+            LoadingStatus = GetCheckStatusMessage(result);
+            IsUpdateAvailable = result.IsUpdateAvailable;
+            IsInstallButtonVisible = result.IsUpdateAvailable;
+            IsReleaseNotesVisible = result.IsUpdateAvailable && !string.IsNullOrWhiteSpace(result.ReleaseNotes);
+            releaseNotes = result.ReleaseNotes ?? localizationService.GetString("Update.NoReleaseNotes");
         }
 
         private string GetCheckStatusMessage(ApplicationUpdateCheckResult result)

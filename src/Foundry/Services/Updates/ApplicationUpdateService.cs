@@ -10,6 +10,7 @@ namespace Foundry.Services.Updates;
 internal sealed class ApplicationUpdateService(
     IAppSettingsService appSettingsService,
     IApplicationLifetimeService applicationLifetimeService,
+    IApplicationUpdateStateService updateStateService,
     ILogger logger) : IApplicationUpdateService
 {
     private readonly ILogger logger = logger.ForContext<ApplicationUpdateService>();
@@ -44,7 +45,7 @@ internal sealed class ApplicationUpdateService(
         {
             const string message = "Update check skipped because a debugger is attached.";
             logger.Information(message);
-            return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.SkippedInDebug, message);
+            return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.SkippedInDebug, message));
         }
 
         Stopwatch totalStopwatch = Stopwatch.StartNew();
@@ -81,7 +82,8 @@ internal sealed class ApplicationUpdateService(
                     message,
                     isStartupCheck,
                     totalStopwatch.ElapsedMilliseconds);
-                return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NotInstalled, message);
+                ClearPendingUpdate();
+                return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NotInstalled, message));
             }
 
             logger.Information(
@@ -109,7 +111,7 @@ internal sealed class ApplicationUpdateService(
                     isStartupCheck,
                     totalStopwatch.ElapsedMilliseconds);
                 ClearPendingUpdate();
-                return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NoUpdate, message);
+                return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NoUpdate, message));
             }
 
             pendingUpdate = updateInfo;
@@ -128,11 +130,11 @@ internal sealed class ApplicationUpdateService(
                 isStartupCheck,
                 totalStopwatch.ElapsedMilliseconds);
 
-            return new ApplicationUpdateCheckResult(
+            return PublishCheckResult(new ApplicationUpdateCheckResult(
                 ApplicationUpdateStatus.UpdateAvailable,
                 updateMessage,
                 version,
-                releaseNotes);
+                releaseNotes));
         }
         catch (Exception ex)
         {
@@ -142,7 +144,7 @@ internal sealed class ApplicationUpdateService(
                 "Foundry update check failed. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
                 isStartupCheck,
                 totalStopwatch.ElapsedMilliseconds);
-            return new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Failed, ex.Message);
+            return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Failed, ex.Message));
         }
     }
 
@@ -304,5 +306,11 @@ internal sealed class ApplicationUpdateService(
     {
         pendingUpdate = null;
         pendingUpdateManager = null;
+    }
+
+    private ApplicationUpdateCheckResult PublishCheckResult(ApplicationUpdateCheckResult result)
+    {
+        updateStateService.Publish(result);
+        return result;
     }
 }

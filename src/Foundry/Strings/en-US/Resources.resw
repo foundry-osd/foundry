@@ -42,6 +42,9 @@
   <data name="Common.Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Common.Disabled" xml:space="preserve">
     <value>Disabled</value>
   </data>
@@ -78,6 +81,108 @@
   <data name="MainWindow.ThemeButton.ToolTip" xml:space="preserve">
     <value>Toggle theme</value>
   </data>
+  <data name="AdkPage_Title.Text" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>Customization</value>
+  </data>
+  <data name="DocumentationPage_DocsLink.Content" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="DocumentationPage_IssuesLink.Content" xml:space="preserve">
+    <value>GitHub issues</value>
+  </data>
+  <data name="DocumentationPage_RepositoryLink.Content" xml:space="preserve">
+    <value>GitHub repository</value>
+  </data>
+  <data name="DocumentationPage_Title.Text" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>Localization</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>Operation in progress</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="UpdateBanner.Action" xml:space="preserve">
+    <value>View update</value>
+  </data>
+  <data name="UpdateBanner.Title" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>Product and version information.</value>
+  </data>
+  <data name="Nav_AboutKey.Subtitle" xml:space="preserve">
+    <value>Foundry information</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>ADK readiness and installation.</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Autopilot profile configuration.</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>Deployment customization options.</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>Customization</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>Customization</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Foundry documentation and project links.</value>
+  </data>
+  <data name="Nav_DocumentationKey.Subtitle" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>Expert</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>Standard configuration workflow.</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>Standard configuration</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>General</value>
+  </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry home</value>
   </data>
@@ -89,6 +194,33 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>WinPE language and localization settings.</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>Localization</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>Localization</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>Network and connectivity configuration.</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>Review and start media creation.</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>Start</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Settings</value>
@@ -158,6 +290,15 @@
   </data>
   <data name="Update.CurrentVersionFormat" xml:space="preserve">
     <value>Current version {0}</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>Foundry will download the update and restart to apply it.</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>Download and restart</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>Apply update</value>
   </data>
   <data name="Update.NoReleaseNotes" xml:space="preserve">
     <value>No release notes were provided for this update.</value>

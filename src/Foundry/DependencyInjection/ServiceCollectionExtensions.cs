@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
         services.AddSingleton<IShellNavigationGuardService, ShellNavigationGuardService>();
         services.AddSingleton<IApplicationLocalizationService, ApplicationLocalizationService>();
+        services.AddSingleton<IApplicationUpdateStateService, ApplicationUpdateStateService>();
         services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
         services.AddSingleton<IStartupReadinessService, StartupReadinessService>();
 

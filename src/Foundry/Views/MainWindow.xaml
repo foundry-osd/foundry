@@ -43,7 +43,43 @@
             <NavigationView.Header>
                 <dev:BreadcrumbNavigator x:Name="BreadCrumbNav" />
             </NavigationView.Header>
-            <Frame x:Name="NavFrame" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <InfoBar x:Name="UpdateInfoBar"
+                         Margin="16,8,16,0"
+                         IsClosable="True"
+                         IsOpen="{x:Bind ViewModel.IsUpdateBannerOpen, Mode=OneWay}"
+                         Message="{x:Bind ViewModel.UpdateBannerMessage, Mode=OneWay}"
+                         Severity="Informational"
+                         Title="{x:Bind ViewModel.UpdateBannerTitle, Mode=OneWay}"
+                         Closed="UpdateInfoBar_Closed">
+                    <InfoBar.ActionButton>
+                        <Button Content="{x:Bind ViewModel.UpdateBannerActionText, Mode=OneWay}"
+                                Click="UpdateInfoBarActionButton_Click"
+                                Style="{ThemeResource AccentButtonStyle}" />
+                    </InfoBar.ActionButton>
+                </InfoBar>
+                <Grid Grid.Row="1">
+                    <Frame x:Name="NavFrame" />
+                    <Grid x:Name="OperationOverlay"
+                          Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+                          Visibility="Collapsed">
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Spacing="12">
+                            <ProgressRing Width="48"
+                                          Height="48"
+                                          IsActive="True" />
+                            <TextBlock x:Name="OperationOverlayTitle"
+                                       HorizontalAlignment="Center"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
         </NavigationView>
     </Grid>
 </Window>
