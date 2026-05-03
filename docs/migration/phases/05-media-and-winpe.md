@@ -271,12 +271,19 @@ git commit -m "feat(winpe): apply programdata media layout"
 **Validation**
 
 - [x] **12.17** Existing WinPE unit tests pass after moving logic.
+- [x] **12.17.1** Split Phase 12 manual validation between service-level checks that are testable now and final `Start` page workflow checks that must wait for Phase 13.
+
+**Manual validation available during Phase 12**
+
 - [ ] **12.18** Local debug Connect publish override still works.
 - [ ] **12.19** Local debug Deploy publish override still works.
-- [ ] **12.20** ISO creation works on a test machine with ADK.
-- [ ] **12.21** USB creation works on a disposable test drive.
-- [ ] **12.22** Generated ISO/USB media matches the documented layout.
 - [ ] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
+
+**Manual validation deferred to Phase 13 Start page workflow**
+
+- [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
+- [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command.
+- [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
 - [x] **12.24** ADK page shows missing state when ADK is absent.
 - [x] **12.25** ADK page shows installed version when ADK is present.
 - [x] **12.26** ADK page shows incompatible state when the version is unsupported.
