@@ -254,10 +254,6 @@ Foundry Cache:\
       Custom\
     Firmware\
 
-  Logs\
-    FoundryBootstrap.log
-    FoundryConnect.log
-    FoundryDeploy.log
   State\
     media-state.json
   Temp\
@@ -268,7 +264,8 @@ Foundry Cache:\
 - [ ] ISO mode is autonomous; required runtime and configuration content lives under `X:\Foundry`.
 - [ ] USB mode keeps BOOT minimal and stores persistent runtime/cache data on the `Foundry Cache` partition.
 - [ ] USB boot resolves `Foundry.Connect` and `Foundry.Deploy` from `Foundry Cache:\Runtime` first.
-- [ ] USB boot may write early logs to `X:\Foundry\Logs`, but logs must be copied or redirected to `Foundry Cache:\Logs` before shutdown when the cache partition is available.
+- [ ] USB media must not create or use `Foundry Cache:\Logs`.
+- [ ] USB boot logs stay under `X:\Foundry\Logs` during WinPE execution and target deployment logs stay under `Windows\Temp\Foundry\Logs`.
 - [ ] Runtime applications always use `Runtime\<ApplicationName>\<rid>`.
 - [ ] `Seed\Foundry.Deploy.zip` is a local Deploy seed package, not a legacy host-folder fallback.
 - [ ] Large persistent artifacts use `Cache\...`.

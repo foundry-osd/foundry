@@ -212,7 +212,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] `C:\ProgramData\Foundry\IsoOutputTemp`.
 - [ ] **12.15** Add failure-path checks for log relocation:
   - [ ] Startup logs under `X:\Foundry\Logs`.
-  - [ ] USB persistent logs under `Foundry Cache:\Logs` when the cache partition is available.
+  - [ ] USB media must not create or use `Foundry Cache:\Logs`.
   - [ ] Deployment session logs under the active workspace.
   - [ ] Target logs under `Windows\Temp\Foundry\Logs`.
 - [ ] **12.16** Commit each Phase 12 slice independently when its validation is complete:
