@@ -194,6 +194,37 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
+    public void CreateUsbRuntimePayloadOptions_ScopesRuntimeToCachePartition()
+    {
+        using TempWorkspace workspace = TempWorkspace.Create();
+        var runtimeOptions = new WinPeRuntimePayloadProvisioningOptions
+        {
+            MountedImagePath = Path.Combine(workspace.RootPath, "mount"),
+            UsbCacheRootPath = Path.Combine(workspace.RootPath, "old-cache"),
+            WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
+            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
+            Deploy = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+        };
+        var artifact = new WinPeBuildArtifact
+        {
+            WorkingDirectoryPath = Path.Combine(workspace.RootPath, "work"),
+            Architecture = WinPeArchitecture.Arm64
+        };
+        string cacheRoot = Path.Combine(workspace.RootPath, "cache");
+
+        WinPeRuntimePayloadProvisioningOptions result = WinPeUsbMediaService.CreateUsbRuntimePayloadOptions(
+            runtimeOptions,
+            artifact,
+            cacheRoot);
+
+        Assert.Equal(cacheRoot, result.UsbCacheRootPath);
+        Assert.Equal(string.Empty, result.MountedImagePath);
+        Assert.Equal(WinPeArchitecture.Arm64, result.Architecture);
+        Assert.Same(runtimeOptions.Connect, result.Connect);
+        Assert.Same(runtimeOptions.Deploy, result.Deploy);
+    }
+
+    [Fact]
     public void ConfigureBootFiles_WhenBootExBinaryExists_ReplacesArchitectureAndMicrosoftBootManagers()
     {
         using TempWorkspace workspace = TempWorkspace.Create();
