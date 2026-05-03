@@ -268,6 +268,7 @@ Foundry Cache:\
 - [ ] ISO mode is autonomous; required runtime and configuration content lives under `X:\Foundry`.
 - [ ] USB mode keeps BOOT minimal and stores persistent runtime/cache data on the `Foundry Cache` partition.
 - [ ] USB boot resolves `Foundry.Connect` and `Foundry.Deploy` from `Foundry Cache:\Runtime` first.
+- [ ] USB boot may write early logs to `X:\Foundry\Logs`, but logs must be copied or redirected to `Foundry Cache:\Logs` before shutdown when the cache partition is available.
 - [ ] Runtime applications always use `Runtime\<ApplicationName>\<rid>`.
 - [ ] `Seed\Foundry.Deploy.zip` is a local Deploy seed package, not a legacy host-folder fallback.
 - [ ] Large persistent artifacts use `Cache\...`.

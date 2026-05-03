@@ -166,6 +166,14 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] Store Connect at `Runtime\Foundry.Connect\<rid>`.
   - [ ] Store Deploy at `Runtime\Foundry.Deploy\<rid>`.
   - [ ] Update `FoundryBootstrap.ps1` to resolve both applications through the normalized convention.
+  - [ ] Correct all Connect and Deploy source retrieval paths after normalization:
+    - [ ] Embedded ISO runtime lookup.
+    - [ ] USB `Foundry Cache` runtime lookup.
+    - [ ] Local debug project publish output lookup.
+    - [ ] Local archive override lookup.
+    - [ ] GitHub release ZIP lookup.
+    - [ ] Existing cache fallback lookup.
+    - [ ] Embedded archive fallback lookup when still intentionally supported.
   - [ ] Update ISO runtime provisioning to write the normalized layout.
   - [ ] Update USB cache provisioning to write the normalized layout.
   - [ ] Update runtime manifest/cache metadata paths if they depend on the old Deploy shape.
@@ -204,6 +212,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] `C:\ProgramData\Foundry\IsoOutputTemp`.
 - [ ] **12.15** Add failure-path checks for log relocation:
   - [ ] Startup logs under `X:\Foundry\Logs`.
+  - [ ] USB persistent logs under `Foundry Cache:\Logs` when the cache partition is available.
   - [ ] Deployment session logs under the active workspace.
   - [ ] Target logs under `Windows\Temp\Foundry\Logs`.
 - [ ] **12.16** Commit each Phase 12 slice independently when its validation is complete:
