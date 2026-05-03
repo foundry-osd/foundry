@@ -112,6 +112,40 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     }
 
     [Fact]
+    public async Task ProvisionAsync_WhenConnectProjectIsProvided_PublishesSingleFileBeforeProvisioning()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string projectPath = Path.Combine(workspace.RootPath, "src", "Foundry.Connect", "Foundry.Connect.csproj");
+        Directory.CreateDirectory(Path.GetDirectoryName(projectPath)!);
+        File.WriteAllText(projectPath, "<Project />");
+        var runner = new FakeRuntimeProcessRunner();
+
+        var service = new WinPeRuntimePayloadProvisioningService(runner);
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeRuntimePayloadProvisioningOptions
+            {
+                Architecture = WinPeArchitecture.X64,
+                WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+                MountedImagePath = workspace.MountedImagePath,
+                Connect = new WinPeRuntimePayloadApplicationOptions
+                {
+                    IsEnabled = true,
+                    ProjectPath = projectPath
+                }
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        WinPeProcessExecution execution = Assert.Single(runner.Executions);
+        Assert.Equal("dotnet", execution.FileName);
+        Assert.Contains("publish", execution.Arguments);
+        Assert.Contains("-r win-x64", execution.Arguments);
+        Assert.Contains("/p:PublishSingleFile=true", execution.Arguments);
+        Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect", "win-x64", "Foundry.Connect.exe")));
+    }
+
+    [Fact]
     public async Task ProvisionAsync_WhenApplicationIsDisabled_DoesNotCreateRuntimeRoot()
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();

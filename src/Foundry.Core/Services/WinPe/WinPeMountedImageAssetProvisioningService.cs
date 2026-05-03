@@ -28,10 +28,13 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         {
             string mountedImagePath = Path.GetFullPath(options.MountedImagePath);
             string system32Path = Path.Combine(mountedImagePath, "Windows", "System32");
-            string foundryConfigPath = Path.Combine(mountedImagePath, "Foundry", "Config");
+            string foundryRootPath = Path.Combine(mountedImagePath, "Foundry");
+            string foundryConfigPath = Path.Combine(foundryRootPath, "Config");
 
             Directory.CreateDirectory(system32Path);
             Directory.CreateDirectory(foundryConfigPath);
+            Directory.CreateDirectory(Path.Combine(foundryRootPath, "Logs"));
+            Directory.CreateDirectory(Path.Combine(foundryRootPath, "Temp"));
 
             await File.WriteAllTextAsync(
                 Path.Combine(system32Path, BootstrapFileName),

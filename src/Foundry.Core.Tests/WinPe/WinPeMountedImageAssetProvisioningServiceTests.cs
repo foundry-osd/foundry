@@ -123,6 +123,31 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
+    public async Task ProvisionAsync_CreatesRuntimeLogAndTempDirectories()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}"
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Logs")));
+        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Temp")));
+    }
+
+    [Fact]
     public async Task ProvisionAsync_WhenDeployConfigurationIsMissing_WritesCompleteDefaultDeployConfiguration()
     {
         using TempMountedImage image = TempMountedImage.Create();

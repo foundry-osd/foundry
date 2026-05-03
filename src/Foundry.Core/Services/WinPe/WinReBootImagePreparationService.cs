@@ -434,6 +434,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
     {
         string sourceCachePath = BuildCachedSourcePath(cacheDirectoryPath, source);
         Directory.CreateDirectory(Path.GetDirectoryName(sourceCachePath)!);
+        string temporaryDownloadPath = $"{sourceCachePath}.{Guid.NewGuid():N}.download";
 
         if (File.Exists(sourceCachePath))
         {
@@ -467,23 +468,31 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
             response.EnsureSuccessStatusCode();
             await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-            await using FileStream destinationStream = new(
-                sourceCachePath,
-                FileMode.Create,
-                FileAccess.Write,
-                FileShare.None,
-                81920,
-                useAsync: true);
+            await using (FileStream destinationStream = new(
+                             temporaryDownloadPath,
+                             FileMode.Create,
+                             FileAccess.Write,
+                             FileShare.None,
+                             81920,
+                             useAsync: true))
+            {
+                await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+            }
 
-            await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+            File.Move(temporaryDownloadPath, sourceCachePath, overwrite: true);
         }
         catch (Exception ex) when (ex is HttpRequestException or IOException or UnauthorizedAccessException)
         {
             TryDeleteFile(sourceCachePath);
+            TryDeleteFile(temporaryDownloadPath);
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.DownloadFailed,
                 "Failed to download the WinRE source package.",
                 ex.Message);
+        }
+        finally
+        {
+            TryDeleteFile(temporaryDownloadPath);
         }
 
         WinPeResult hashResult = await ValidateHashIfRequestedAsync(
@@ -572,7 +581,6 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
         return Path.Combine(
             cacheDirectoryPath,
-            "os",
             WinPeFileSystemHelper.SanitizePathSegment(fileName));
     }
 

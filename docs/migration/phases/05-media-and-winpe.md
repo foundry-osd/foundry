@@ -15,7 +15,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 - [x] `12.A` owns user-visible ADK readiness and navigation gating.
 - [x] `12.B` owns pure WinPE service foundations that can be tested without final UI commands.
 - [x] `12.C` owns Connect/Deploy runtime payload layout and bootstrap resolution.
-- [ ] `12.D` owns final host/media filesystem layout enforcement after services and runtime paths are stable.
+- [x] `12.D` owns final host/media filesystem layout enforcement after services and runtime paths are stable.
 
 - [x] **12.A** `feat(adk): add adk status and page integration`.
   - [x] Scope: ADK/WinPE Add-on detection, installed version, compatibility policy, ADK page state/actions, ADK operation progress, ADK install/upgrade overlay entry points, and shell guard readiness.
@@ -29,37 +29,37 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [x] Scope: normalize `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>`, update bootstrap resolution, update ISO runtime provisioning, update USB cache provisioning, remove unnecessary `Foundry.Connect` USB duplication, preserve local debug Connect/Deploy overrides, and preserve release/download fallback behavior.
   - [x] Boundary: touch runtime payload layout and bootstrap assumptions only; do not redesign Connect or Deploy application behavior unless the layout change necessarily flows into them.
   - [x] Reason: Connect/Deploy runtime layout affects ISO, USB, bootstrap, and downstream compatibility, so it needs a focused PR with explicit validation.
-- [ ] **12.D** `feat(winpe): apply programdata and media layout`.
-  - [ ] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, media secret-key placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
-  - [ ] Boundary: make the documented filesystem contract real after ADK readiness, WinPE service foundations, and runtime payload layout are known.
-  - [ ] Reason: final layout enforcement should happen after the service and runtime contracts are clear, so old path behavior can be removed directly without compatibility fallback.
+- [x] **12.D** `feat(winpe): apply programdata and media layout`.
+  - [x] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, media secret-key placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
+  - [x] Boundary: make the documented filesystem contract real after ADK readiness, WinPE service foundations, and runtime payload layout are known.
+  - [x] Reason: final layout enforcement should happen after the service and runtime contracts are clear, so old path behavior can be removed directly without compatibility fallback.
 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
 - [x] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
 - [ ] Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known; keep the final `Start` page refresh command wiring in Phase 13.
-- [ ] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
+- [x] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
 
 **WPF reference scenario audit:** before implementing each Phase 12 slice, compare the new WinUI/Core behavior against the archived WPF reference without modifying it:
 
-- [ ] Local Debug scenario:
-  - [ ] Preserve Visual Studio/debugger local Connect and Deploy publishing behavior.
-  - [ ] Preserve local archive overrides before local project publish.
-  - [ ] Preserve local project auto-discovery behavior where practical.
-- [ ] Release scenario:
-  - [ ] Preserve release asset resolution for Connect and Deploy.
-  - [ ] Preserve runtime download fallback from the WinPE bootstrap where applicable.
-  - [ ] Preserve SHA256 override checks for runtime archives when provided.
-- [ ] Media scenario:
-  - [ ] Preserve ISO behavior where required runtime/configuration lives inside `X:\Foundry`.
-  - [ ] Preserve USB behavior where persistent runtime/cache data lives on the `Foundry Cache` partition.
-  - [ ] Preserve source marker behavior for local versus release-provisioned payloads.
-  - [ ] Preserve MakeWinPEMedia non-ASCII path handling by using an ASCII-safe temporary workspace/output path when required and copying the result back to the requested destination.
-  - [ ] Preserve PCA2023 `/bootex` capability probing, unsupported-path failure behavior, ISO `/bootex` argument usage, and USB EFI boot file rewriting.
-  - [ ] Preserve USB disk safety checks: USB bus, removable media, non-system disk, non-boot disk, and selected disk identity revalidation before formatting.
-  - [ ] Preserve USB copy/provision verification for `sources\boot.wim`, `boot\BCD`, architecture-specific EFI boot files, and accepted `robocopy` exit codes.
-  - [ ] Preserve idempotent WinPE auto-start wiring by ensuring `startnet.cmd` runs `wpeinit` and invokes `FoundryBootstrap.ps1` exactly once.
-  - [ ] Preserve `curl.exe` provisioning into WinPE `System32` for bootstrap download preference/fallback behavior.
+- [x] Local Debug scenario:
+  - [x] Preserve Visual Studio/debugger local Connect and Deploy publishing behavior.
+  - [x] Preserve local archive overrides before local project publish.
+  - [x] Preserve local project auto-discovery behavior where practical.
+- [x] Release scenario:
+  - [x] Preserve release asset resolution for Connect and Deploy.
+  - [x] Preserve runtime download fallback from the WinPE bootstrap where applicable.
+  - [x] Preserve SHA256 override checks for runtime archives when provided.
+- [x] Media scenario:
+  - [x] Preserve ISO behavior where required runtime/configuration lives inside `X:\Foundry`.
+  - [x] Preserve USB behavior where persistent runtime/cache data lives on the `Foundry Cache` partition.
+  - [x] Preserve source marker behavior for local versus release-provisioned payloads.
+  - [x] Preserve MakeWinPEMedia non-ASCII path handling by using an ASCII-safe temporary workspace/output path when required and copying the result back to the requested destination.
+  - [x] Preserve PCA2023 `/bootex` capability probing, unsupported-path failure behavior, ISO `/bootex` argument usage, and USB EFI boot file rewriting.
+  - [x] Preserve USB disk safety checks: USB bus, removable media, non-system disk, non-boot disk, and selected disk identity revalidation before formatting.
+  - [x] Preserve USB copy/provision verification for `sources\boot.wim`, `boot\BCD`, architecture-specific EFI boot files, and accepted `robocopy` exit codes.
+  - [x] Preserve idempotent WinPE auto-start wiring by ensuring `startnet.cmd` runs `wpeinit` and invokes `FoundryBootstrap.ps1` exactly once.
+  - [x] Preserve `curl.exe` provisioning into WinPE `System32` for bootstrap download preference/fallback behavior.
 - [x] Boot image source scenario:
   - [x] Preserve standard `WinPe` boot image creation through ADK workspace tooling.
   - [x] Preserve `WinReWifi` behavior for Wi-Fi-capable WinRE boot image preparation.
@@ -155,33 +155,33 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [x] Start `WlanSvc` only when WinRE Wi-Fi dependencies are present.
   - [x] Sync internet date/time non-fatally when network probes succeed and clock drift exceeds the configured threshold.
   - [x] Apply timezone from generated configuration or fallback sources without blocking boot when lookup fails.
-- [ ] **12.5** Preserve local debug environment variables:
-  - [ ] Local Connect enable variable.
-  - [ ] Local Connect project path variable.
-  - [ ] Local Connect archive override variable.
-  - [ ] Local Deploy enable variable.
-  - [ ] Local Deploy project path variable.
-  - [ ] Local Deploy archive override variable.
-  - [ ] Auto-enable local Connect/Deploy only for debugger-attached developer runs, not for installed production runs.
-  - [ ] Prefer explicit local archive override over local project publish.
-  - [ ] Fall back to local project publish when no archive override is supplied.
-  - [ ] Preserve self-contained single-file local publish output for each selected RID.
-- [ ] **12.6** Audit and document the filesystem layout contracts before porting the services:
-  - [ ] Host authoring data: `C:\ProgramData\Foundry`.
-  - [ ] New build workspace root.
-  - [ ] New installer/cache root.
-  - [ ] New temporary workspace root.
-  - [ ] New host-side log root: `C:\ProgramData\Foundry\Logs`.
-  - [ ] Boot image runtime: `X:\Foundry`.
-  - [ ] USB boot partition.
-  - [ ] USB cache partition labeled `Foundry Cache`.
-  - [ ] Media secret key path: `X:\Foundry\Config\Secrets\media-secrets.key`.
-  - [ ] Target Windows temporary deployment root.
-- [ ] **12.7** Rename or wrap ambiguous path concepts in `Foundry.Core`:
-  - [ ] Distinguish `RuntimeRoot` from `CacheRoot`.
-  - [ ] Distinguish host build workspace from WinPE runtime workspace.
+- [x] **12.5** Preserve local debug environment variables:
+  - [x] Local Connect enable variable.
+  - [x] Local Connect project path variable.
+  - [x] Local Connect archive override variable.
+  - [x] Local Deploy enable variable.
+  - [x] Local Deploy project path variable.
+  - [x] Local Deploy archive override variable.
+  - [x] Auto-enable local Connect/Deploy only for debugger-attached developer runs, not for installed production runs.
+  - [x] Prefer explicit local archive override over local project publish.
+  - [x] Fall back to local project publish when no archive override is supplied.
+  - [x] Preserve self-contained single-file local publish output for each selected RID.
+- [x] **12.6** Audit and document the filesystem layout contracts before porting the services:
+  - [x] Host authoring data: `C:\ProgramData\Foundry`.
+  - [x] New build workspace root.
+  - [x] New installer/cache root.
+  - [x] New temporary workspace root.
+  - [x] New host-side log root: `C:\ProgramData\Foundry\Logs`.
+  - [x] Boot image runtime: `X:\Foundry`.
+  - [x] USB boot partition.
+  - [x] USB cache partition labeled `Foundry Cache`.
+  - [x] Media secret key path: `X:\Foundry\Config\Secrets\media-secrets.key`.
+  - [x] Target Windows temporary deployment root.
+- [x] **12.7** Rename or wrap ambiguous path concepts in `Foundry.Core`:
+  - [x] Distinguish `RuntimeRoot` from `CacheRoot`.
+  - [x] Distinguish host build workspace from WinPE runtime workspace.
   - [x] Distinguish ISO transient runtime from USB persistent cache for Connect/Deploy runtime payload provisioning.
-- [ ] **12.8** Reassess the current `CacheRootPath` behavior where a path ending in `Runtime` writes `OperatingSystem` and `DriverPack` to its parent.
+- [x] **12.8** Reassess the current `CacheRootPath` behavior where a path ending in `Runtime` writes `OperatingSystem` and `DriverPack` to its parent.
 - [x] **12.9** Normalize the Connect and Deploy runtime cache layout immediately:
   - [x] Use one application-root convention: `Runtime\<ApplicationName>\<rid>`.
   - [x] Store Connect at `Runtime\Foundry.Connect\<rid>`.
@@ -216,34 +216,34 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 - [x] **12.11** Remove or explicitly mark obsolete legacy archive contracts:
   - [x] `Foundry\Seed\Foundry.Connect.zip` appears unused after extracted Connect runtime provisioning.
   - [x] `Foundry\Seed\Foundry.Deploy.zip` remains a valid local Deploy seed package.
-- [ ] **12.12** Fix or remove unused ISO volume-label intent:
-  - [ ] `IsoOutputOptions.VolumeLabel` is currently configured by the app but not passed to `MakeWinPEMedia`.
+- [x] **12.12** Fix or remove unused ISO volume-label intent:
+  - [x] No active WinUI service contract exposes an ISO volume-label setting. The archived WPF value was not passed to `MakeWinPEMedia`, so Phase 12.D keeps the generated-media contract explicit without carrying unused volume-label behavior forward.
 - [x] **12.12.1** Preserve MakeWinPEMedia compatibility details:
   - [x] Probe `/bootex` support before allowing PCA2023 signature mode.
   - [x] Fail PCA2023 media creation clearly when `/bootex` is unavailable.
   - [x] Pass `/bootex` for PCA2023 ISO creation.
   - [x] Rebuild USB EFI boot files from BootEx binaries for PCA2023 USB creation.
   - [x] Use ASCII-safe temporary ISO workspace/output paths when MakeWinPEMedia cannot handle the requested non-ASCII path directly.
-- [ ] **12.13** Implement the new host-side layout directly, with no legacy fallback:
-  - [ ] `C:\ProgramData\Foundry\Workspaces\WinPe`.
-  - [ ] `C:\ProgramData\Foundry\Workspaces\Iso`.
-  - [ ] `C:\ProgramData\Foundry\Cache\OperatingSystems`.
-  - [ ] `C:\ProgramData\Foundry\Cache\Installers`.
-  - [ ] `C:\ProgramData\Foundry\Cache\Tools`.
-  - [ ] `C:\ProgramData\Foundry\Temp`.
-  - [ ] `C:\ProgramData\Foundry\Logs`.
-- [ ] **12.14** Do not read from or migrate old host folders in application code:
-  - [ ] `C:\ProgramData\Foundry\WinPeWorkspace`.
-  - [ ] `C:\ProgramData\Foundry\Installers\os`.
-  - [ ] `C:\ProgramData\Foundry\Installers\OperatingSystems`.
-  - [ ] `C:\ProgramData\Foundry\IsoWorkspace`.
-  - [ ] `C:\ProgramData\Foundry\IsoOutputTemp`.
-- [ ] **12.15** Add failure-path checks for log relocation:
-  - [ ] Startup logs under `X:\Foundry\Logs`.
-  - [ ] USB media must not create or use `Foundry Cache:\Logs`.
-  - [ ] Deployment session logs under the active workspace.
-  - [ ] Target logs under `Windows\Temp\Foundry\Logs`.
-- [ ] **12.16** Commit each Phase 12 slice independently when its validation is complete:
+- [x] **12.13** Implement the new host-side layout directly, with no legacy fallback:
+  - [x] `C:\ProgramData\Foundry\Workspaces\WinPe`.
+  - [x] `C:\ProgramData\Foundry\Workspaces\Iso`.
+  - [x] `C:\ProgramData\Foundry\Cache\OperatingSystems`.
+  - [x] `C:\ProgramData\Foundry\Cache\Installers`.
+  - [x] `C:\ProgramData\Foundry\Cache\Tools`.
+  - [x] `C:\ProgramData\Foundry\Temp`.
+  - [x] `C:\ProgramData\Foundry\Logs`.
+- [x] **12.14** Do not read from or migrate old host folders in application code:
+  - [x] `C:\ProgramData\Foundry\WinPeWorkspace`.
+  - [x] `C:\ProgramData\Foundry\Installers\os`.
+  - [x] `C:\ProgramData\Foundry\Installers\OperatingSystems`.
+  - [x] `C:\ProgramData\Foundry\IsoWorkspace`.
+  - [x] `C:\ProgramData\Foundry\IsoOutputTemp`.
+- [x] **12.15** Add failure-path checks for log relocation:
+  - [x] Startup logs under `X:\Foundry\Logs`.
+  - [x] USB media must not create or use `Foundry Cache:\Logs`.
+  - [x] Deployment session logs under the active workspace.
+  - [x] Target logs under `Windows\Temp\Foundry\Logs`.
+- [x] **12.16** Commit each Phase 12 slice independently when its validation is complete:
   - [x] **12.16.1** Commit Phase 12.A:
 
 ```powershell
@@ -262,7 +262,7 @@ git commit -m "feat(winpe): port service foundations"
 git commit -m "refactor(runtime): normalize connect deploy layout"
 ```
 
-  - [ ] **12.16.4** Commit Phase 12.D:
+  - [x] **12.16.4** Commit Phase 12.D:
 
 ```powershell
 git commit -m "feat(winpe): apply programdata media layout"
@@ -271,12 +271,19 @@ git commit -m "feat(winpe): apply programdata media layout"
 **Validation**
 
 - [x] **12.17** Existing WinPE unit tests pass after moving logic.
-- [ ] **12.18** Local debug Connect publish override still works.
-- [ ] **12.19** Local debug Deploy publish override still works.
-- [ ] **12.20** ISO creation works on a test machine with ADK.
-- [ ] **12.21** USB creation works on a disposable test drive.
-- [ ] **12.22** Generated ISO/USB media matches the documented layout.
-- [ ] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
+- [x] **12.17.1** Split Phase 12 manual validation between service-level checks that are testable now and final `Start` page workflow checks that must wait for Phase 13.
+
+**Manual validation available during Phase 12**
+
+- [x] **12.18** Local debug Connect publish override still works.
+- [x] **12.19** Local debug Deploy publish override still works.
+- [x] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
+
+**Manual validation deferred to Phase 13 Start page workflow**
+
+- [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
+- [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command.
+- [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
 - [x] **12.24** ADK page shows missing state when ADK is absent.
 - [x] **12.25** ADK page shows installed version when ADK is present.
 - [x] **12.26** ADK page shows incompatible state when the version is unsupported.
@@ -284,7 +291,7 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [x] **12.28** ADK upgrade overlay blocks navigation until completion.
 - [x] **12.29** ADK-compatible state unlocks `General`, `Start`, and `Expert` pages.
 - [x] **12.30** PCA2023 media validation covers both supported and unsupported `/bootex` paths.
-- [x] **12.31** Non-ASCII ISO output path validation confirms the temporary ASCII-safe workaround produces the requested final ISO.
+- [x] **12.31** Non-ASCII ISO workspace/output path validation confirms the temporary ASCII-safe workaround produces the requested final ISO.
 - [x] **12.32** USB disk safety validation rejects:
   - [x] Non-USB disks.
   - [x] Non-removable disks when required.

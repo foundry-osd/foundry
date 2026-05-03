@@ -73,10 +73,12 @@ public sealed class WinPeBuildService : IWinPeBuildService
             string mountDirectory = Path.Combine(workingDirectory, "mount");
             string driverWorkspace = Path.Combine(workingDirectory, "drivers");
             string logsDirectory = Path.Combine(workingDirectory, "logs");
+            string tempDirectory = Path.Combine(workingDirectory, "temp");
 
             Directory.CreateDirectory(mountDirectory);
             Directory.CreateDirectory(driverWorkspace);
             Directory.CreateDirectory(logsDirectory);
+            Directory.CreateDirectory(tempDirectory);
 
             return WinPeResult<WinPeBuildArtifact>.Success(new WinPeBuildArtifact
             {

@@ -52,6 +52,45 @@ public sealed class WinPeIsoMediaServiceTests
         Assert.DoesNotContain("foundry-é.iso", runner.Executions[0].Arguments);
     }
 
+    [Fact]
+    public async Task CreateAsync_WhenWorkspacePathContainsNonAscii_UsesAsciiSafeWorkspace()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false, rootName: $"foundry-réseau-{Guid.NewGuid():N}");
+        string outputIsoPath = Path.Combine(Path.GetTempPath(), $"foundry-output-{Guid.NewGuid():N}", "foundry.iso");
+        var runner = new FakeIsoRunner();
+        var service = new WinPeIsoMediaService(runner);
+
+        try
+        {
+            WinPeResult result = await service.CreateAsync(
+                new WinPeIsoMediaOptions
+                {
+                    PreparedWorkspace = temp.PreparedWorkspace,
+                    OutputIsoPath = outputIsoPath,
+                    IsoTempDirectoryPath = Path.Combine(Path.GetTempPath(), $"foundry-iso-temp-{Guid.NewGuid():N}")
+                },
+                CancellationToken.None);
+
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            WinPeProcessExecution execution = Assert.Single(runner.Executions);
+            Assert.DoesNotContain("réseau", execution.Arguments);
+            Assert.DoesNotContain("réseau", execution.WorkingDirectory);
+        }
+        finally
+        {
+            if (File.Exists(outputIsoPath))
+            {
+                File.Delete(outputIsoPath);
+            }
+
+            string? outputDirectory = Path.GetDirectoryName(outputIsoPath);
+            if (!string.IsNullOrWhiteSpace(outputDirectory) && Directory.Exists(outputDirectory))
+            {
+                Directory.Delete(outputDirectory, recursive: true);
+            }
+        }
+    }
+
     private sealed class TempPreparedWorkspace : IDisposable
     {
         private TempPreparedWorkspace(string rootPath, WinPeWorkspacePreparationResult preparedWorkspace)
@@ -63,9 +102,9 @@ public sealed class WinPeIsoMediaServiceTests
         public string RootPath { get; }
         public WinPeWorkspacePreparationResult PreparedWorkspace { get; }
 
-        public static TempPreparedWorkspace Create(bool useBootEx)
+        public static TempPreparedWorkspace Create(bool useBootEx, string? rootName = null)
         {
-            string root = Path.Combine(Path.GetTempPath(), $"foundry-iso-{Guid.NewGuid():N}");
+            string root = Path.Combine(Path.GetTempPath(), rootName ?? $"foundry-iso-{Guid.NewGuid():N}");
             string media = Path.Combine(root, "work", "media");
             string bootWim = Path.Combine(media, "sources", "boot.wim");
             Directory.CreateDirectory(Path.GetDirectoryName(bootWim)!);

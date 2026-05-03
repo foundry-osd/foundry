@@ -29,11 +29,16 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         WinPeWorkspacePreparationResult preparedWorkspace = options.PreparedWorkspace!;
         string requestedOutputPath = options.OutputIsoPath.Trim();
         string? preparedOutputPath = null;
+        string? safeWorkspacePath = null;
 
         try
         {
             EnsureOutputDirectoryExists(requestedOutputPath);
             preparedOutputPath = PrepareOutputPath(requestedOutputPath, options.IsoTempDirectoryPath);
+            string makeWinPeMediaWorkspacePath = PrepareWorkspacePath(
+                preparedWorkspace.Artifact.WorkingDirectoryPath,
+                options.IsoTempDirectoryPath,
+                out safeWorkspacePath);
 
             if (options.ForceOverwriteOutput && File.Exists(preparedOutputPath))
             {
@@ -41,13 +46,13 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
             }
 
             string arguments =
-                $"/ISO /F {WinPeProcessRunner.Quote(preparedWorkspace.Artifact.WorkingDirectoryPath)} {WinPeProcessRunner.Quote(preparedOutputPath)}" +
+                $"/ISO /F {WinPeProcessRunner.Quote(makeWinPeMediaWorkspacePath)} {WinPeProcessRunner.Quote(preparedOutputPath)}" +
                 (preparedWorkspace.UseBootEx ? " /bootex" : string.Empty);
 
             WinPeProcessExecution execution = await _processRunner.RunCmdScriptAsync(
                 preparedWorkspace.Tools.MakeWinPeMediaPath,
                 arguments,
-                preparedWorkspace.Artifact.WorkingDirectoryPath,
+                makeWinPeMediaWorkspacePath,
                 cancellationToken).ConfigureAwait(false);
 
             if (!execution.IsSuccess || !File.Exists(preparedOutputPath))
@@ -71,6 +76,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         finally
         {
             CleanupPreparedOutput(requestedOutputPath, preparedOutputPath);
+            CleanupPreparedWorkspace(safeWorkspacePath);
         }
     }
 
@@ -118,15 +124,34 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 $"Path: '{options.OutputIsoPath}'.");
         }
 
-        if (ContainsNonAscii(options.OutputIsoPath) && string.IsNullOrWhiteSpace(options.IsoTempDirectoryPath))
+        if ((ContainsNonAscii(options.OutputIsoPath) ||
+             ContainsNonAscii(options.PreparedWorkspace.Artifact.WorkingDirectoryPath)) &&
+            string.IsNullOrWhiteSpace(options.IsoTempDirectoryPath))
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
-                "ISO temporary directory path is required for non-ASCII output paths.",
+                "ISO temporary directory path is required for non-ASCII MakeWinPEMedia paths.",
                 "Set WinPeIsoMediaOptions.IsoTempDirectoryPath.");
         }
 
         return null;
+    }
+
+    private static string PrepareWorkspacePath(
+        string requestedWorkspacePath,
+        string isoTempDirectoryPath,
+        out string? safeWorkspacePath)
+    {
+        safeWorkspacePath = null;
+        if (!ContainsNonAscii(requestedWorkspacePath))
+        {
+            return requestedWorkspacePath;
+        }
+
+        Directory.CreateDirectory(isoTempDirectoryPath);
+        safeWorkspacePath = Path.Combine(isoTempDirectoryPath, $"workspace-{Guid.NewGuid():N}");
+        CopyDirectoryContents(requestedWorkspacePath, safeWorkspacePath);
+        return safeWorkspacePath;
     }
 
     private static string PrepareOutputPath(string requestedOutputPath, string isoTempDirectoryPath)
@@ -177,6 +202,42 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         catch
         {
             // Best-effort cleanup.
+        }
+    }
+
+    private static void CleanupPreparedWorkspace(string? safeWorkspacePath)
+    {
+        if (string.IsNullOrWhiteSpace(safeWorkspacePath) || !Directory.Exists(safeWorkspacePath))
+        {
+            return;
+        }
+
+        try
+        {
+            Directory.Delete(safeWorkspacePath, recursive: true);
+        }
+        catch
+        {
+            // Best-effort cleanup.
+        }
+    }
+
+    private static void CopyDirectoryContents(string sourceDirectoryPath, string targetDirectoryPath)
+    {
+        Directory.CreateDirectory(targetDirectoryPath);
+
+        foreach (string directoryPath in Directory.EnumerateDirectories(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativePath = Path.GetRelativePath(sourceDirectoryPath, directoryPath);
+            Directory.CreateDirectory(Path.Combine(targetDirectoryPath, relativePath));
+        }
+
+        foreach (string filePath in Directory.EnumerateFiles(sourceDirectoryPath, "*", SearchOption.AllDirectories))
+        {
+            string relativePath = Path.GetRelativePath(sourceDirectoryPath, filePath);
+            string targetFilePath = Path.Combine(targetDirectoryPath, relativePath);
+            Directory.CreateDirectory(Path.GetDirectoryName(targetFilePath)!);
+            File.Copy(filePath, targetFilePath, overwrite: true);
         }
     }
 

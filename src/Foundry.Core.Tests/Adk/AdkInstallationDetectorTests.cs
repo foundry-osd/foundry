@@ -54,6 +54,29 @@ public sealed class AdkInstallationDetectorTests
         Assert.False(status.CanCreateMedia);
     }
 
+    [Fact]
+    public void Detect_WhenWinPeAddonFolderExistsButRequiredToolsAreMissing_BlocksMediaCreation()
+    {
+        string kitsRootPath = @"C:\Program Files (x86)\Windows Kits\10\";
+        FakeAdkInstallationProbe probe = new()
+        {
+            KitsRootPath = kitsRootPath,
+            ExistingDirectories =
+            [
+                Path.Combine(kitsRootPath, AdkInstallationDetector.DeploymentToolsRelativePath),
+                Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath)
+            ],
+            Products = [new("Windows Assessment and Deployment Kit", "10.1.26100.2454")]
+        };
+
+        AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
+
+        Assert.True(status.IsInstalled);
+        Assert.True(status.IsCompatible);
+        Assert.False(status.IsWinPeAddonInstalled);
+        Assert.False(status.CanCreateMedia);
+    }
+
     [Theory]
     [InlineData("10.1.26100.1", false)]
     [InlineData("10.1.26100.2453", false)]
@@ -99,6 +122,11 @@ public sealed class AdkInstallationDetectorTests
             [
                 Path.Combine(kitsRootPath, AdkInstallationDetector.DeploymentToolsRelativePath),
                 Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath)
+            ],
+            ExistingFiles =
+            [
+                Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath, "copype.cmd"),
+                Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath, "MakeWinPEMedia.cmd")
             ]
         };
 
@@ -114,6 +142,7 @@ public sealed class AdkInstallationDetectorTests
     {
         public string? KitsRootPath { get; init; }
         public IReadOnlyCollection<string> ExistingDirectories { get; init; } = [];
+        public IReadOnlyCollection<string> ExistingFiles { get; init; } = [];
         public IReadOnlyList<AdkInstalledProduct> Products { get; set; } = [];
 
         public string? GetKitsRootPath() => KitsRootPath;
@@ -121,6 +150,18 @@ public sealed class AdkInstallationDetectorTests
         public bool DirectoryExists(string path)
         {
             return ExistingDirectories.Contains(path, StringComparer.OrdinalIgnoreCase);
+        }
+
+        public bool FileExists(string path)
+        {
+            return ExistingFiles.Contains(path, StringComparer.OrdinalIgnoreCase);
+        }
+
+        public bool DirectoryContainsFile(string directoryPath, string fileName)
+        {
+            return ExistingFiles.Any(path =>
+                path.StartsWith(directoryPath, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(Path.GetFileName(path), fileName, StringComparison.OrdinalIgnoreCase));
         }
 
         public IReadOnlyList<AdkInstalledProduct> GetInstalledProducts() => Products;
