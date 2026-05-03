@@ -23,7 +23,7 @@
 - [ ] **14.9** Commit:
 
 ```powershell
-git commit -m "feat: port expert configuration workflow"
+git commit -m "feat(configuration): port expert configuration workflow"
 ```
 
 **Validation**
@@ -53,7 +53,7 @@ git commit -m "feat: port expert configuration workflow"
 - [ ] **15.8** Commit:
 
 ```powershell
-git commit -m "feat: port connect provisioning workflow"
+git commit -m "feat(network): port connect provisioning workflow"
 ```
 
 **Validation**
@@ -81,7 +81,7 @@ git commit -m "feat: port connect provisioning workflow"
 - [ ] **16.6** Commit:
 
 ```powershell
-git commit -m "feat: port autopilot and customization workflows"
+git commit -m "feat(autopilot): port autopilot and customization workflows"
 ```
 
 **Validation**

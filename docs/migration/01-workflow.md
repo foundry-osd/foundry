@@ -141,11 +141,14 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [ ] PR 7: DevWinUI shell navigation, settings, and blocking operation overlay.
 - [ ] PR 8: Velopack packaging and manual update flow.
 - [ ] PR 9: CI/release workflow update.
-- [ ] PR 10: WinPE orchestration, ADK page, and new filesystem layout.
-- [ ] PR 11: Start page media creation workflow.
-- [ ] PR 12: expert configuration import/export workflow.
-- [ ] PR 13: network provisioning and `Foundry.Connect` handoff workflow.
-- [ ] PR 14: Autopilot and customization workflows.
-- [ ] PR 15: Connect/Deploy compatibility fixes.
-- [ ] PR 16: cleanup and docs.
-- [ ] PR 17: final cutover and scheduled release restoration.
+- [ ] PR 10: ADK status, ADK page, and navigation readiness integration.
+- [ ] PR 11: WinPE service foundations.
+- [ ] PR 12: Connect/Deploy runtime layout normalization.
+- [ ] PR 13: new `ProgramData`, ISO, USB, and WinPE media layout enforcement.
+- [ ] PR 14: Start page media creation workflow.
+- [ ] PR 15: expert configuration import/export workflow.
+- [ ] PR 16: network provisioning and `Foundry.Connect` handoff workflow.
+- [ ] PR 17: Autopilot and customization workflows.
+- [ ] PR 18: Connect/Deploy compatibility fixes.
+- [ ] PR 19: cleanup and docs.
+- [ ] PR 20: final cutover and scheduled release restoration.

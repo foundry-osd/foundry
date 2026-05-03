@@ -72,7 +72,7 @@
 - [x] **9.8** Commit:
 
 ```powershell
-git commit -m "feat: migrate foundry localization to winui"
+git commit -m "feat(localization): migrate foundry localization to winui"
 ```
 
 **Validation**
@@ -132,9 +132,10 @@ git commit -m "feat: migrate foundry localization to winui"
   - [x] Startup and manual update check elapsed time.
   - [x] Debug-level diagnostic details where useful, emitted only when `diagnostics.developerMode` is enabled in Settings.
 - [ ] **10.6.1** Define future workflow logging contracts without blocking Phase 10 on unimplemented workflows:
-  - [ ] ADK detection logs required when ADK service/page work is implemented.
+  - [ ] ADK detection logs required when ADK service/page work is implemented in Phase 12.
   - [ ] ISO/USB build start, progress, completion, cancellation, and failure logs required when media creation work is implemented.
-  - [ ] Bootstrap payload resolution logs required when payload resolution work is implemented.
+  - [ ] Bootstrap payload resolution logs required when payload resolution work is implemented in Phase 12.
+  - [ ] Complete the ADK/WinPE portion through Phase 12 implementation and validation.
 - [x] **10.7** Keep log folder command in UI.
 - [x] **10.7.1** Log folder command opens `C:\ProgramData\Foundry\Logs`.
 - [x] **10.7.2** Remove unused logging dependencies unless they serve a configured sink:
@@ -293,7 +294,7 @@ git commit -m "refactor: migrate foundry logging for winui"
 - [x] **11.9** Commit:
 
 ```powershell
-git commit -m "feat: add foundry winui shell navigation"
+git commit -m "feat(shell): add foundry winui shell navigation"
 ```
 
 **Validation**

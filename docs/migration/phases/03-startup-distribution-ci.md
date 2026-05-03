@@ -134,7 +134,7 @@ vpk pack --msi --instLocation PerMachine --packId Foundry --packVersion <YY.M.D-
 - [x] **7.12** Commit:
 
 ```powershell
-git commit -m "feat: add velopack distribution flow"
+git commit -m "feat(packaging): add velopack distribution flow"
 ```
 
 **Validation**

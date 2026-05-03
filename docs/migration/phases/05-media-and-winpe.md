@@ -8,6 +8,18 @@
 
 **Execution note:** implement Phase 12 before the final Phase 13 media UI wiring, because ADK detection, WinPE workspace preparation, `ProgramData` layout, and runtime normalization are prerequisites for reliable ISO/USB creation.
 
+**Recommended implementation split:** Phase 12 is intentionally broad and should be delivered through focused PRs instead of one large branch:
+
+- [ ] **12.A** `feat(adk): add adk status and page integration`.
+- [ ] **12.B** `feat(winpe): port winpe service foundations`.
+- [ ] **12.C** `refactor(runtime): normalize connect deploy runtime layout`.
+- [ ] **12.D** `feat(winpe): apply programdata and media layout`.
+
+**Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
+
+- [ ] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
+- [ ] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
+
 - [ ] **12.1** Port `AdkService`.
   - [ ] **12.1.1** Create the `ADK` page view model with:
     - [ ] ADK installed state.
@@ -110,7 +122,7 @@
 - [ ] **12.16** Commit:
 
 ```powershell
-git commit -m "feat: port winpe orchestration services"
+git commit -m "feat(winpe): port orchestration services"
 ```
 
 **Validation**
@@ -173,7 +185,7 @@ git commit -m "feat: port winpe orchestration services"
 - [ ] **13.7** Commit:
 
 ```powershell
-git commit -m "feat: port media creation workflow to winui"
+git commit -m "feat(media): port creation workflow to winui"
 ```
 
 **Validation**
