@@ -14,6 +14,15 @@
     <EmbeddedResource Include="Assets\Configuration\iana-windows-timezones.json">
       <LogicalName>Foundry.Core.Configuration.IanaWindowsTimeZones</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\WinPe\FoundryBootstrap.ps1">
+      <LogicalName>Foundry.Core.WinPe.FoundryBootstrap</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\7z\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
