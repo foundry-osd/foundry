@@ -149,7 +149,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [x] PR 8: WinUI `.resw` localization foundation.
 - [x] PR 9: production logging contract.
 - [x] PR 10: DevWinUI shell navigation, settings, update banner, and blocking operation overlay.
-- [ ] PR 11: ADK status, ADK page, and navigation readiness integration.
+- [x] PR 11: ADK status, ADK page, and navigation readiness integration.
 - [ ] PR 12: WinPE service foundations.
 - [ ] PR 13: Connect/Deploy runtime layout normalization.
 - [ ] PR 14: new `ProgramData`, ISO, USB, and WinPE media layout enforcement.
