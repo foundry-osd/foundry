@@ -13,6 +13,11 @@
   - [ ] Host `ProgramData` workspace and cache layout rules.
   - [ ] ProgramData-only app settings, log, cache, workspace, and temp path rules.
   - [ ] ISO/USB media layout contract rules.
+  - [ ] Complete effective `Foundry.Connect` and `Foundry.Deploy` configuration generation.
+  - [ ] `Foundry.Deploy` deployment timezone model and bootstrap fallback behavior.
+  - [ ] Network secret envelope serialization and decryption.
+  - [ ] Media secret key provisioning and cleanup.
+  - [ ] Redaction of plaintext secrets, encrypted secret payloads, and media keys in logs, validation errors, summaries, and diagnostics.
   - [ ] Update feed/version selection.
   - [ ] App settings persistence through `IAppSettingsService`.
   - [ ] Startup readiness gating and navigation-state decisions.

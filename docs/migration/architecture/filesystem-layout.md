@@ -90,7 +90,7 @@ ISO:\
     boot.wim
 ```
 
-### WinPE Runtime Layout Inside boot.wim
+### ISO boot.wim Runtime Layout
 
 ```text
 X:\
@@ -104,17 +104,24 @@ X:\
     Config\
       foundry.connect.config.json
       foundry.deploy.config.json
+      foundry.connect.provisioning-source.txt
+      foundry.deploy.provisioning-source.txt
       iana-windows-timezones.json
       Secrets\
         media-secrets.key
 
       Network\
+        Certificates\
+          Wired\
+            <certificate-file>
+          Wifi\
+            <certificate-file>
         Wired\
           Profiles\
-          Certificates\
+            <wired-profile-file>
         Wifi\
           Profiles\
-          Certificates\
+            <wifi-profile-file>
 
       Autopilot\
         <profile-name>\
@@ -155,6 +162,8 @@ X:\
 
 ### USB Media Layout
 
+USB media uses two partitions. The BOOT partition stays minimal. The `Foundry Cache` partition stores persistent runtime and deployment cache content.
+
 ```text
 BOOT:\
   bootmgr
@@ -165,23 +174,92 @@ BOOT:\
     boot.wim
 ```
 
+### USB boot.wim Runtime Layout
+
+USB `boot.wim` contains bootstrap, configuration, secrets, tools, and logs, but does not duplicate large persistent runtime/cache payloads that live on the `Foundry Cache` partition.
+
+```text
+X:\
+  Windows\
+    System32\
+      startnet.cmd
+      FoundryBootstrap.ps1
+      curl.exe
+
+  Foundry\
+    Config\
+      foundry.connect.config.json
+      foundry.deploy.config.json
+      foundry.connect.provisioning-source.txt
+      foundry.deploy.provisioning-source.txt
+      iana-windows-timezones.json
+      Secrets\
+        media-secrets.key
+
+      Network\
+        Certificates\
+          Wired\
+            <certificate-file>
+          Wifi\
+            <certificate-file>
+        Wired\
+          Profiles\
+            <wired-profile-file>
+        Wifi\
+          Profiles\
+            <wifi-profile-file>
+
+      Autopilot\
+        <profile-name>\
+          AutopilotConfigurationFile.json
+
+    Tools\
+      7zip\
+        x64\
+          7za.exe
+        arm64\
+          7za.exe
+        License.txt
+        readme.txt
+
+    Logs\
+      FoundryBootstrap.log
+      FoundryConnect.log
+      FoundryDeploy.log
+
+    Temp\
+```
+
 ```text
 Foundry Cache:\
   Runtime\
     Foundry.Connect\
       win-x64\
+        Foundry.Connect.exe
       win-arm64\
+        Foundry.Connect.exe
     Foundry.Deploy\
       win-x64\
+        Foundry.Deploy.exe
       win-arm64\
+        Foundry.Deploy.exe
 
   Cache\
     OperatingSystems\
+      <os-image>.esd
+      <os-image>.iso
     DriverPacks\
+      Dell\
+      HP\
+      Custom\
     Firmware\
 
   Logs\
+    FoundryBootstrap.log
+    FoundryConnect.log
+    FoundryDeploy.log
   State\
+    media-state.json
   Temp\
 ```
 
@@ -189,11 +267,13 @@ Foundry Cache:\
 
 - [ ] ISO mode is autonomous; required runtime and configuration content lives under `X:\Foundry`.
 - [ ] USB mode keeps BOOT minimal and stores persistent runtime/cache data on the `Foundry Cache` partition.
+- [ ] USB boot resolves `Foundry.Connect` and `Foundry.Deploy` from `Foundry Cache:\Runtime` first.
 - [ ] Runtime applications always use `Runtime\<ApplicationName>\<rid>`.
 - [ ] `Seed\Foundry.Deploy.zip` is a local Deploy seed package, not a legacy host-folder fallback.
 - [ ] Large persistent artifacts use `Cache\...`.
 - [ ] Disposable working data uses `Temp\...`.
 - [ ] Diagnostics use `Logs\...`.
+- [ ] Network certificates use the WPF-compatible layout `Network\Certificates\Wired` and `Network\Certificates\Wifi`; generated config paths must match that layout.
 - [ ] App settings use `Settings\appsettings.json`.
 - [ ] App settings must not contain secrets or workflow/export configuration.
 - [ ] The WinUI app must not use the DevWinUI prototype AppData root as a working directory.

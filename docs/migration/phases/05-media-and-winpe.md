@@ -10,6 +10,13 @@
 
 **Recommended implementation split:** Phase 12 is intentionally broad and should be delivered through focused PRs instead of one large branch:
 
+The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. They are determined by dependency boundaries:
+
+- [ ] `12.A` owns user-visible ADK readiness and navigation gating.
+- [ ] `12.B` owns pure WinPE service foundations that can be tested without final UI commands.
+- [ ] `12.C` owns Connect/Deploy runtime payload layout and bootstrap resolution.
+- [ ] `12.D` owns final host/media filesystem layout enforcement after services and runtime paths are stable.
+
 - [ ] **12.A** `feat(adk): add adk status and page integration`.
   - [ ] Scope: ADK/WinPE Add-on detection, installed version, compatibility policy, ADK page state/actions, ADK operation progress, ADK install/upgrade overlay entry points, and shell guard readiness.
   - [ ] Boundary: answer whether Foundry is ready to unlock `General`, `Start`, and `Expert`; do not wire final ISO/USB creation commands here.
@@ -23,13 +30,14 @@
   - [ ] Boundary: touch runtime payload layout and bootstrap assumptions only; do not redesign Connect or Deploy application behavior unless the layout change necessarily flows into them.
   - [ ] Reason: Connect/Deploy runtime layout affects ISO, USB, bootstrap, and downstream compatibility, so it needs a focused PR with explicit validation.
 - [ ] **12.D** `feat(winpe): apply programdata and media layout`.
-  - [ ] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
+  - [ ] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, media secret-key placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
   - [ ] Boundary: make the documented filesystem contract real after ADK readiness, WinPE service foundations, and runtime payload layout are known.
   - [ ] Reason: final layout enforcement should happen after the service and runtime contracts are clear, so old path behavior can be removed directly without compatibility fallback.
 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
 - [ ] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
+- [ ] Complete Phase 6 readiness item **6.8.1** for deferred USB target refresh after ADK compatibility is known.
 - [ ] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
 
 **WPF reference scenario audit:** before implementing each Phase 12 slice, compare the new WinUI/Core behavior against the archived WPF reference without modifying it:
@@ -115,6 +123,9 @@
     - [ ] Already-installed or not-applicable optional components remain non-fatal when safe.
   - [ ] WinRE boot image preparation.
   - [ ] Mounted image asset provisioning.
+    - [ ] Always emit complete effective `foundry.deploy.config.json` for generated WinUI media.
+    - [ ] Keep `Foundry.Deploy` tolerant when the file is missing for standalone or legacy execution.
+    - [ ] Provision `media-secrets.key` only when encrypted embedded runtime secrets are required.
   - [ ] Mounted image customization.
   - [ ] Local Connect embedding.
   - [ ] Local Deploy embedding.
@@ -143,6 +154,7 @@
   - [ ] Boot image runtime: `X:\Foundry`.
   - [ ] USB boot partition.
   - [ ] USB cache partition labeled `Foundry Cache`.
+  - [ ] Media secret key path: `X:\Foundry\Config\Secrets\media-secrets.key`.
   - [ ] Target Windows temporary deployment root.
 - [ ] **12.7** Rename or wrap ambiguous path concepts in `Foundry.Core`:
   - [ ] Distinguish `RuntimeRoot` from `CacheRoot`.
@@ -194,10 +206,29 @@
   - [ ] Startup logs under `X:\Foundry\Logs`.
   - [ ] Deployment session logs under the active workspace.
   - [ ] Target logs under `Windows\Temp\Foundry\Logs`.
-- [ ] **12.16** Commit:
+- [ ] **12.16** Commit each Phase 12 slice independently when its validation is complete:
+  - [ ] **12.16.1** Commit Phase 12.A:
 
 ```powershell
-git commit -m "feat(winpe): port orchestration services"
+git commit -m "feat(adk): add adk status and page integration"
+```
+
+  - [ ] **12.16.2** Commit Phase 12.B:
+
+```powershell
+git commit -m "feat(winpe): port service foundations"
+```
+
+  - [ ] **12.16.3** Commit Phase 12.C:
+
+```powershell
+git commit -m "refactor(runtime): normalize connect deploy layout"
+```
+
+  - [ ] **12.16.4** Commit Phase 12.D:
+
+```powershell
+git commit -m "feat(winpe): apply programdata media layout"
 ```
 
 **Validation**
@@ -223,6 +254,8 @@ git commit -m "feat(winpe): port orchestration services"
 **Goal:** port the standard ISO/USB creation workflow into the `Start` page and blocking operation overlay model.
 
 **Prerequisites:** Phase 11 shell/overlay contract and the Phase 12 ADK/WinPE service contract must be available before implementing the final media creation commands.
+
+**Provisioning boundary:** the final production ISO/USB creation path also depends on Phase 15 for complete `Foundry.Connect` configuration, network asset provisioning, and encrypted embedded Wi-Fi secrets. Phase 13 may build the `Start` page UI and dry-run summaries before Phase 15, but final Create ISO/Create USB commands must stay disabled or clearly marked incomplete until Phase 15 is implemented.
 
 - [ ] **13.1** Create WinUI view model for media creation on the `Start` page.
   - [ ] Keep WinPE boot language selection owned by the `General` page because the WPF source stores it in `GeneralSettings.WinPeLanguage`.
@@ -258,6 +291,9 @@ git commit -m "feat(winpe): port orchestration services"
     - [ ] Runtime payload readiness.
     - [ ] Driver options.
     - [ ] Network validation.
+    - [ ] `Foundry.Connect` provisioning readiness from Phase 15.
+    - [ ] Secret envelope/key provisioning readiness when embedded Wi-Fi secrets are required.
+    - [ ] Boot image source selection: standard WinPE or Wi-Fi-capable WinRE path.
   - [ ] **13.6.2** Run ISO creation inside the blocking operation overlay.
   - [ ] **13.6.3** Run USB creation inside the blocking operation overlay.
   - [ ] **13.6.4** Keep navigation blocked until ISO or USB creation fully completes.
@@ -286,3 +322,8 @@ git commit -m "feat(media): port creation workflow to winui"
   - [ ] The selected language controls the language pack and localized optional component packages applied during Phase 12 service execution.
   - [ ] The `Start` page summary shows the selected WinPE boot language before ISO or USB creation.
   - [ ] The expert `Localization` page is not part of this flow.
+- [ ] **13.18** Confirm final media command enablement waits for Phase 15 network provisioning readiness:
+  - [ ] ISO/USB creation is blocked when required Connect configuration is incomplete.
+  - [ ] ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
+  - [ ] ISO mode contains all required runtime/configuration content under `X:\Foundry`.
+  - [ ] USB mode keeps BOOT minimal and resolves persistent runtime/cache content from the `Foundry Cache` partition.

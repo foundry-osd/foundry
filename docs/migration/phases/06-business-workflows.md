@@ -21,6 +21,15 @@
   - [ ] Preserve `LocalizationSettings.ForceSingleVisibleLanguage`.
   - [ ] Preserve `DeployConfigurationGenerator` mapping to `DeployLocalizationSettings` for `Foundry.Deploy`.
   - [ ] Do not move `GeneralSettings.WinPeLanguage` into the expert `Localization` page.
+- [ ] **14.1.2** Preserve deployment timezone runtime support:
+  - [ ] Add or update the `Foundry.Deploy` runtime model for `localization.defaultTimeZoneId`.
+  - [ ] Keep `Foundry.Deploy` backward compatible when `defaultTimeZoneId` is missing.
+  - [ ] Preserve bootstrap timezone resolution order:
+    - [ ] `FOUNDRY_WINPE_TIMEZONE_ID`.
+    - [ ] `foundry.deploy.config.json` `localization.defaultTimeZoneId`.
+    - [ ] Public-IP auto-detection mapped through `iana-windows-timezones.json`.
+    - [ ] `UTC` fallback.
+  - [ ] Do not confuse deployment timezone with WinPE boot display language from `General`.
 - [ ] **14.2** Port configuration import.
 - [ ] **14.3** Port configuration export.
 - [ ] **14.4** Port deploy configuration export.
@@ -35,6 +44,8 @@
   - [ ] Serialize effective default values instead of relying on missing root sections.
   - [ ] Keep `Foundry.Deploy` tolerant for missing optional properties, but do not rely on sparse generated media configs.
   - [ ] Add or update `Foundry.Deploy` validation for contradictory effective states.
+  - [ ] Generated WinUI media always includes a complete effective `foundry.deploy.config.json`, even for standard workflow defaults.
+  - [ ] Treat this as an intentional WinUI migration improvement over WPF, where deploy config embedding was tied to expert mode.
 - [ ] **14.8** Add tests only where business logic changed.
 - [ ] **14.9** Commit:
 
@@ -48,6 +59,8 @@ git commit -m "feat(configuration): port expert configuration workflow"
 - [ ] **14.11** Export expert config from WinUI app.
 - [ ] **14.12** Compare normalized JSON output with WPF reference for the same input.
 - [ ] **14.13** Export deploy config and validate `Foundry.Deploy` can consume it.
+- [ ] **14.14** Validate `Foundry.Deploy` applies or tolerates `localization.defaultTimeZoneId`.
+- [ ] **14.15** Validate generated standard media deploy config contains complete default root sections.
 
 ## Phase 15: Network Provisioning Workflow
 
@@ -70,6 +83,25 @@ git commit -m "feat(configuration): port expert configuration workflow"
   - [ ] Serialize effective default values instead of relying on missing root sections.
   - [ ] Keep `Foundry.Connect` tolerant for missing optional properties, but do not rely on sparse generated media configs.
   - [ ] Add or update `Foundry.Connect` validation for contradictory effective states.
+- [ ] **15.6.2** Define the embedded secret schema explicitly:
+  - [ ] Use a new generated config property for encrypted values, for example `passphraseSecret`.
+  - [ ] Do not write personal Wi-Fi passphrases to generated media as plaintext `passphrase` values.
+  - [ ] Keep `Foundry.Connect` tolerant for legacy plaintext `passphrase` when running old or standalone configs.
+  - [ ] Use this envelope shape for encrypted generated media secrets:
+
+```json
+{
+  "kind": "encrypted",
+  "algorithm": "aes-gcm-v1",
+  "keyId": "media",
+  "nonce": "<base64url>",
+  "tag": "<base64url>",
+  "ciphertext": "<base64url>"
+}
+```
+
+  - [ ] Bump the generated Connect config schema version if the model requires it.
+  - [ ] Document normalization rules so WPF JSON comparisons ignore the intentional plaintext-to-envelope change.
 - [ ] **15.7** Preserve asset file preparation behavior.
   - [ ] **15.7.1** Use explicit WinUI `PasswordBox` handling for Wi-Fi and network secrets.
   - [ ] **15.7.2** Never log network secrets.
@@ -84,12 +116,21 @@ git commit -m "feat(configuration): port expert configuration workflow"
     - [ ] Generate a random nonce per encrypted value.
     - [ ] Store nonce, tag, and ciphertext in the configuration secret envelope.
     - [ ] Store the per-media key separately under `X:\Foundry\Config\Secrets\media-secrets.key`.
+    - [ ] Generate the per-media key during ISO/USB media creation, not at app startup or settings save time.
+    - [ ] Copy the per-media key into the generated ISO/USB boot image only when encrypted secrets are present.
+    - [ ] Remove any transient host-side secret-key staging file after media creation succeeds or fails.
     - [ ] Resolve the per-media key automatically in `Foundry.Connect`; never ask the operator for a decryption key.
     - [ ] Never store the per-media key inline in `foundry.connect.config.json`.
     - [ ] Never log the key, plaintext secret, ciphertext, tag, or nonce.
   - [ ] **15.7.8** Document the security boundary:
     - [ ] Embedded encrypted secrets prevent casual JSON inspection.
     - [ ] Embedded encrypted secrets are not a strong boundary against an attacker who has the boot media and key file.
+  - [ ] **15.7.9** Preserve the WPF-compatible network asset layout:
+    - [ ] Wired profiles: `Network\Wired\Profiles`.
+    - [ ] Wi-Fi profiles: `Network\Wifi\Profiles`.
+    - [ ] Wired certificates: `Network\Certificates\Wired`.
+    - [ ] Wi-Fi certificates: `Network\Certificates\Wifi`.
+    - [ ] Generated config-relative paths must match these folders.
 - [ ] **15.8** Commit:
 
 ```powershell
@@ -101,10 +142,24 @@ git commit -m "feat(network): port connect provisioning workflow"
 - [ ] **15.9** Existing `FoundryConnectProvisioningServiceTests` pass.
 - [ ] **15.10** Generated `Foundry.Connect` configuration matches WPF reference for equivalent settings.
 - [ ] **15.11** Certificate asset copy behavior is preserved.
+  - [ ] Wired certificates are copied to `Network\Certificates\Wired`.
+  - [ ] Wi-Fi certificates are copied to `Network\Certificates\Wifi`.
+  - [ ] Config-relative certificate paths point to those folders.
 - [ ] **15.12** Generated `foundry.connect.config.json` has every schema root section present.
 - [ ] **15.13** Embedded Wi-Fi/network secrets are represented as secret envelopes, not plaintext strings.
 - [ ] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets in WinPE/runtime tests.
 - [ ] **15.15** `Foundry.Connect` decrypts embedded secrets automatically without prompting the operator for a decryption key.
+- [ ] **15.16** Logs, validation errors, summaries, and UI diagnostics redact:
+  - [ ] Plaintext secrets.
+  - [ ] Per-media keys.
+  - [ ] Ciphertext.
+  - [ ] Nonces.
+  - [ ] Tags.
+- [ ] **15.17** Generated media contains `media-secrets.key` only when an encrypted secret envelope is present.
+- [ ] **15.18** WPF comparison tests account for intentional WinUI changes:
+  - [ ] Complete effective Connect config documents.
+  - [ ] Complete effective Deploy config documents.
+  - [ ] Encrypted secret envelopes instead of plaintext generated media secrets.
 
 ## Phase 16: Autopilot And Customization Workflows
 

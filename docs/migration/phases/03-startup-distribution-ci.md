@@ -39,9 +39,10 @@
   - [ ] Detect ADK and WinPE Add-on readiness.
   - [x] Apply `AdkBlocked` or `Ready` shell navigation state.
   - [ ] Refresh USB targets only after ADK is compatible.
+  - Note: update checks are implemented. USB target refresh remains deferred to Phase 13 after Phase 12 provides ADK-compatible readiness and WinPE service foundations.
   - [x] Run update checks after readiness initialization.
   - [x] Ensure startup update checks do not block app usage.
-  - Note: ADK detection, USB refresh, and real update checks are intentionally left to the ADK/media and Velopack phases.
+  - Note: ADK detection is deferred to Phase 12; USB refresh is deferred to Phase 13; Velopack update checks are implemented.
 - [x] **6.9** Commit:
 
 ```powershell

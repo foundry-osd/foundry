@@ -67,19 +67,19 @@ git worktree add ..\foundry-velopack -b feat/foundry-velopack feat/winui-migrati
 
 Use the numeric phase IDs for stable prompts, but execute the work in dependency order when a later phase unblocks an earlier UI phase.
 
-- [ ] **Foundation lane**
-  - [ ] Phase 1: freeze scheduled releases.
-  - [ ] Phase 2: define repository and project boundaries.
-  - [ ] Phase 3: archive WPF Foundry and import WinUI shell.
-  - [ ] Phase 4: create `Foundry.Core` and clean tests.
-  - [ ] Phase 5: define extraction boundaries from the WPF reference.
-- [ ] **Application infrastructure lane**
-  - [ ] Phase 6: production startup, DI, app settings, navigation guard registration.
-  - [ ] Phase 10: production logging, because later ADK/media/update work must be diagnosable.
-  - [ ] Phase 7: Velopack distribution and update flow.
-  - [ ] Phase 8: CI and release workflow update.
+- [x] **Foundation lane**
+  - [x] Phase 1: freeze scheduled releases.
+  - [x] Phase 2: define repository and project boundaries.
+  - [x] Phase 3: archive WPF Foundry and import WinUI shell.
+  - [x] Phase 4: create `Foundry.Core` and clean tests.
+  - [x] Phase 5: define extraction boundaries from the WPF reference.
+- [x] **Application infrastructure lane**
+  - [x] Phase 6: production startup, DI, app settings, navigation guard registration.
+  - [x] Phase 10: production logging, because later ADK/media/update work must be diagnosable.
+  - [x] Phase 7: Velopack distribution and update flow.
+  - [x] Phase 8: CI and release workflow update.
 - [ ] **Shell and prerequisite lane**
-  - [ ] Phase 9: WinUI `.resw` localization foundation.
+  - [x] Phase 9: WinUI `.resw` localization foundation.
   - [x] Phase 11: DevWinUI shell navigation, pages, settings, and operation overlay.
   - [ ] Phase 12: ADK, WinPE services, filesystem layout, and runtime layout normalization.
   - [ ] Phase 13: Start page ISO/USB creation UI and media command wiring.
@@ -97,23 +97,23 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 
 ### Workstream A: Project And Build Infrastructure
 
-- [ ] Phase 1.
-- [ ] Phase 2.
-- [ ] Phase 3.
-- [ ] Phase 8.
+- [x] Phase 1.
+- [x] Phase 2.
+- [x] Phase 3.
+- [x] Phase 8.
 - [ ] Phase 20.
 
 ### Workstream B: Core Extraction
 
-- [ ] Phase 4.
-- [ ] Phase 5.
+- [x] Phase 4.
+- [x] Phase 5.
 - [ ] Phase 12 pure services.
 - [ ] Phase 14 serialization logic.
 - [ ] Phase 15 provisioning logic.
 
 ### Workstream C: WinUI Shell
 
-- [ ] Phase 6.
+- [x] Phase 6.
 - [x] Phase 11.
 - [ ] Phase 13 UI.
 - [ ] Phase 14 UI.
@@ -121,34 +121,36 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 
 ### Workstream D: Distribution
 
-- [ ] Phase 7.
-- [ ] Phase 8 release packaging.
+- [x] Phase 7.
+- [x] Phase 8 release packaging.
 - [ ] Phase 19 installation/update docs.
 
 ### Workstream E: Localization And Logging
 
-- [ ] Phase 9.
-- [ ] Phase 10.
+- [x] Phase 9.
+- [x] Phase 10.
 
 ## Suggested PR Sequence
 
-- [ ] PR 1: pause scheduled release.
-- [ ] PR 2: define layout and ignore prototype artifacts.
-- [ ] PR 3: archive WPF app and import WinUI shell.
-- [ ] PR 4: add `Foundry.Core` and move pure models/config logic.
-- [ ] PR 5: production WinUI startup, DI, app settings, and logging baseline.
-- [ ] PR 6: WinUI `.resw` localization foundation.
-- [ ] PR 7: DevWinUI shell navigation, settings, and blocking operation overlay.
-- [ ] PR 8: Velopack packaging and manual update flow.
-- [ ] PR 9: CI/release workflow update.
-- [ ] PR 10: ADK status, ADK page, and navigation readiness integration.
-- [ ] PR 11: WinPE service foundations.
-- [ ] PR 12: Connect/Deploy runtime layout normalization.
-- [ ] PR 13: new `ProgramData`, ISO, USB, and WinPE media layout enforcement.
-- [ ] PR 14: Start page media creation workflow.
-- [ ] PR 15: expert configuration import/export workflow.
-- [ ] PR 16: network provisioning and `Foundry.Connect` handoff workflow.
-- [ ] PR 17: Autopilot and customization workflows.
-- [ ] PR 18: Connect/Deploy compatibility fixes.
-- [ ] PR 19: cleanup and docs.
-- [ ] PR 20: final cutover and scheduled release restoration.
+- [x] PR 1: pause scheduled release.
+- [x] PR 2: define layout and ignore prototype artifacts.
+- [x] PR 3: archive WPF app and import WinUI shell.
+- [x] PR 4: add `Foundry.Core` and move pure models/config logic.
+- [x] PR 5: production WinUI startup, DI, app settings, and startup readiness baseline.
+- [x] PR 6: Velopack packaging and manual update flow.
+- [x] PR 7: CI/release workflow update.
+- [x] PR 8: WinUI `.resw` localization foundation.
+- [x] PR 9: production logging contract.
+- [x] PR 10: DevWinUI shell navigation, settings, update banner, and blocking operation overlay.
+- [ ] PR 11: ADK status, ADK page, and navigation readiness integration.
+- [ ] PR 12: WinPE service foundations.
+- [ ] PR 13: Connect/Deploy runtime layout normalization.
+- [ ] PR 14: new `ProgramData`, ISO, USB, and WinPE media layout enforcement.
+- [ ] PR 15: Start page media creation UI and dry-run summary.
+- [ ] PR 16: expert configuration import/export workflow.
+- [ ] PR 17: network provisioning and `Foundry.Connect` handoff workflow.
+- [ ] PR 18: final Start page ISO/USB command enablement after Phase 15.
+- [ ] PR 19: Autopilot and customization workflows.
+- [ ] PR 20: Connect/Deploy compatibility fixes.
+- [ ] PR 21: cleanup and docs.
+- [ ] PR 22: final cutover and scheduled release restoration.
