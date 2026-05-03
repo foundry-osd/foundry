@@ -280,9 +280,9 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [x] **12.24** ADK page shows missing state when ADK is absent.
 - [x] **12.25** ADK page shows installed version when ADK is present.
 - [ ] **12.26** ADK page shows incompatible state when the version is unsupported.
-- [ ] **12.27** ADK install overlay blocks navigation until completion.
+- [x] **12.27** ADK install overlay blocks navigation until completion.
 - [ ] **12.28** ADK upgrade overlay blocks navigation until completion.
-- [ ] **12.29** ADK-compatible state unlocks `General`, `Start`, and `Expert` pages.
+- [x] **12.29** ADK-compatible state unlocks `General`, `Start`, and `Expert` pages.
 - [ ] **12.30** PCA2023 media validation covers both supported and unsupported `/bootex` paths.
 - [ ] **12.31** Non-ASCII ISO output path validation confirms the temporary ASCII-safe workaround produces the requested final ISO.
 - [ ] **12.32** USB disk safety validation rejects:
