@@ -275,9 +275,9 @@ git commit -m "feat(winpe): apply programdata media layout"
 
 **Manual validation available during Phase 12**
 
-- [ ] **12.18** Local debug Connect publish override still works.
-- [ ] **12.19** Local debug Deploy publish override still works.
-- [ ] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
+- [x] **12.18** Local debug Connect publish override still works.
+- [x] **12.19** Local debug Deploy publish override still works.
+- [x] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
 
 **Manual validation deferred to Phase 13 Start page workflow**
 
