@@ -131,6 +131,14 @@ git commit -m "feat(localization): migrate foundry localization to winui"
   - [x] Velopack first run/update flow.
   - [x] Startup and manual update check elapsed time.
   - [x] Debug-level diagnostic details where useful, emitted only when `diagnostics.developerMode` is enabled in Settings.
+- [x] **10.6.0** Apply the logging policy to every future implementation:
+  - [x] Each implementation must assess whether new or changed logic needs logs.
+  - [x] Do not add logs automatically for every code change.
+  - [x] Add logs only when they provide operational or diagnostic value.
+  - [x] Use `Debug` only for developer diagnostics gated by developer mode.
+  - [x] Use `Information`, `Warning`, `Error`, and `Fatal` according to the project logging contract.
+  - [x] Do not use `Verbose` unless a future approved subsystem proves it needs trace-level diagnostics.
+  - [x] Do not log noisy UI interactions, obvious control flow, secrets, tokens, passwords, encrypted secret payloads, media keys, or sensitive user data.
 - [ ] **10.6.1** Define future workflow logging contracts without blocking Phase 10 on unimplemented workflows:
   - [ ] ADK detection logs required when ADK service/page work is implemented in Phase 12.
   - [ ] ISO/USB build start, progress, completion, cancellation, and failure logs required when media creation work is implemented.

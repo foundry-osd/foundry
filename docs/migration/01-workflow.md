@@ -34,6 +34,13 @@ git worktree add ..\foundry-velopack -b feat/foundry-velopack feat/winui-migrati
   - [ ] Provide the exact command or UI action.
   - [ ] Explain the expected result.
   - [ ] Continue only after the action is confirmed or observable.
+- [ ] For every implementation step, assess whether logging is needed:
+  - [ ] Do not add logs automatically just because code changed.
+  - [ ] Add logs only when they provide operational or diagnostic value.
+  - [ ] Use the project logging levels consistently: `Debug`, `Information`, `Warning`, `Error`, and `Fatal`.
+  - [ ] Use `Debug` only for developer diagnostics gated by developer mode.
+  - [ ] Do not use `Verbose` unless a future approved subsystem proves it needs trace-level diagnostics.
+  - [ ] Do not log noisy UI interactions, obvious control flow, secrets, tokens, passwords, encrypted secret payloads, media keys, or sensitive user data.
 - [ ] When an implementation step is complete:
   - [ ] Run the relevant validation commands.
   - [ ] Review the changed files and exclude unrelated user changes.
