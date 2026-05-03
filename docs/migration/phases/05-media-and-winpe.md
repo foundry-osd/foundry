@@ -14,7 +14,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 
 - [x] `12.A` owns user-visible ADK readiness and navigation gating.
 - [x] `12.B` owns pure WinPE service foundations that can be tested without final UI commands.
-- [ ] `12.C` owns Connect/Deploy runtime payload layout and bootstrap resolution.
+- [x] `12.C` owns Connect/Deploy runtime payload layout and bootstrap resolution.
 - [ ] `12.D` owns final host/media filesystem layout enforcement after services and runtime paths are stable.
 
 - [x] **12.A** `feat(adk): add adk status and page integration`.
@@ -25,10 +25,10 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [x] Scope: tool resolution, process runner, build workspace, boot image source strategy, driver catalog/resolution/injection, image internationalization, WinRE boot image preparation, mounted image asset provisioning/customization, workspace preparation, and media output service foundations.
   - [x] Boundary: port service and Core orchestration building blocks; keep final `Start` page command wiring in Phase 13.
   - [x] Reason: these services can be validated independently from the final WinUI media workflow and should be stable before user-facing ISO/USB execution is added.
-- [ ] **12.C** `refactor(runtime): normalize connect deploy runtime layout`.
-  - [ ] Scope: normalize `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>`, update bootstrap resolution, update ISO runtime provisioning, update USB cache provisioning, remove unnecessary `Foundry.Connect` USB duplication, preserve local debug Connect/Deploy overrides, and preserve release/download fallback behavior.
-  - [ ] Boundary: touch runtime payload layout and bootstrap assumptions only; do not redesign Connect or Deploy application behavior unless the layout change necessarily flows into them.
-  - [ ] Reason: Connect/Deploy runtime layout affects ISO, USB, bootstrap, and downstream compatibility, so it needs a focused PR with explicit validation.
+- [x] **12.C** `refactor(runtime): normalize connect deploy runtime layout`.
+  - [x] Scope: normalize `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>`, update bootstrap resolution, update ISO runtime provisioning, update USB cache provisioning, remove unnecessary `Foundry.Connect` USB duplication, preserve local debug Connect/Deploy overrides, and preserve release/download fallback behavior.
+  - [x] Boundary: touch runtime payload layout and bootstrap assumptions only; do not redesign Connect or Deploy application behavior unless the layout change necessarily flows into them.
+  - [x] Reason: Connect/Deploy runtime layout affects ISO, USB, bootstrap, and downstream compatibility, so it needs a focused PR with explicit validation.
 - [ ] **12.D** `feat(winpe): apply programdata and media layout`.
   - [ ] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, media secret-key placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
   - [ ] Boundary: make the documented filesystem contract real after ADK readiness, WinPE service foundations, and runtime payload layout are known.
@@ -180,42 +180,42 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 - [ ] **12.7** Rename or wrap ambiguous path concepts in `Foundry.Core`:
   - [ ] Distinguish `RuntimeRoot` from `CacheRoot`.
   - [ ] Distinguish host build workspace from WinPE runtime workspace.
-  - [ ] Distinguish ISO transient runtime from USB persistent cache.
+  - [x] Distinguish ISO transient runtime from USB persistent cache for Connect/Deploy runtime payload provisioning.
 - [ ] **12.8** Reassess the current `CacheRootPath` behavior where a path ending in `Runtime` writes `OperatingSystem` and `DriverPack` to its parent.
-- [ ] **12.9** Normalize the Connect and Deploy runtime cache layout immediately:
-  - [ ] Use one application-root convention: `Runtime\<ApplicationName>\<rid>`.
-  - [ ] Store Connect at `Runtime\Foundry.Connect\<rid>`.
-  - [ ] Store Deploy at `Runtime\Foundry.Deploy\<rid>`.
-  - [ ] Update `FoundryBootstrap.ps1` to resolve both applications through the normalized convention.
-  - [ ] Correct all Connect and Deploy source retrieval paths after normalization:
-    - [ ] Embedded ISO runtime lookup.
-    - [ ] USB `Foundry Cache` runtime lookup.
-    - [ ] Local debug project publish output lookup.
-    - [ ] Local archive override lookup.
-    - [ ] GitHub release ZIP lookup.
-    - [ ] Existing cache fallback lookup.
-    - [ ] Embedded archive fallback lookup when still intentionally supported.
-  - [ ] Update ISO runtime provisioning to write the normalized layout.
-  - [ ] Update USB cache provisioning to write the normalized layout.
-  - [ ] Update runtime manifest/cache metadata paths if they depend on the old Deploy shape.
-  - [ ] Preserve bootstrap release tag override variables:
-    - [ ] `FOUNDRY_CONNECT_RELEASE_TAG`.
-    - [ ] `FOUNDRY_DEPLOY_RELEASE_TAG`.
-    - [ ] `FOUNDRY_RELEASE_TAG`.
-  - [ ] Preserve bootstrap archive override variables:
-    - [ ] `FOUNDRY_CONNECT_ARCHIVE`.
-    - [ ] `FOUNDRY_DEPLOY_ARCHIVE`.
-    - [ ] `FOUNDRY_CONNECT_ARCHIVE_SHA256`.
-    - [ ] `FOUNDRY_DEPLOY_ARCHIVE_SHA256`.
-  - [ ] Preserve `curl` download with PowerShell/.NET fallback where the bootstrap still needs runtime download support.
+- [x] **12.9** Normalize the Connect and Deploy runtime cache layout immediately:
+  - [x] Use one application-root convention: `Runtime\<ApplicationName>\<rid>`.
+  - [x] Store Connect at `Runtime\Foundry.Connect\<rid>`.
+  - [x] Store Deploy at `Runtime\Foundry.Deploy\<rid>`.
+  - [x] Update `FoundryBootstrap.ps1` to resolve both applications through the normalized convention.
+  - [x] Correct all Connect and Deploy source retrieval paths after normalization:
+    - [x] Embedded ISO runtime lookup.
+    - [x] USB `Foundry Cache` runtime lookup.
+    - [x] Local debug project publish output lookup.
+    - [x] Local archive override lookup.
+    - [x] GitHub release ZIP lookup.
+    - [x] Existing cache fallback lookup.
+    - [x] Embedded archive fallback lookup when still intentionally supported.
+  - [x] Update ISO runtime provisioning to write the normalized layout.
+  - [x] Update USB cache provisioning to write the normalized layout.
+  - [x] Update runtime manifest/cache metadata paths if they depend on the old Deploy shape; no runtime manifest path currently exists in Core.
+  - [x] Preserve bootstrap release tag override variables:
+    - [x] `FOUNDRY_CONNECT_RELEASE_TAG`.
+    - [x] `FOUNDRY_DEPLOY_RELEASE_TAG`.
+    - [x] `FOUNDRY_RELEASE_TAG`.
+  - [x] Preserve bootstrap archive override variables:
+    - [x] `FOUNDRY_CONNECT_ARCHIVE`.
+    - [x] `FOUNDRY_DEPLOY_ARCHIVE`.
+    - [x] `FOUNDRY_CONNECT_ARCHIVE_SHA256`.
+    - [x] `FOUNDRY_DEPLOY_ARCHIVE_SHA256`.
+  - [x] Preserve `curl` download with PowerShell/.NET fallback where the bootstrap still needs runtime download support.
 - [x] **12.9.1** Provision `curl.exe` into WinPE `System32` for architectures where the bootstrap can prefer it before falling back to PowerShell/.NET downloads.
-- [ ] **12.10** Remove the unnecessary `Foundry.Connect` runtime duplication on USB:
-  - [ ] Keep `Foundry.Connect` in the `Foundry Cache` partition.
-  - [ ] Keep only minimal boot/bootstrap files on the BOOT partition.
-  - [ ] Ensure ISO mode still has the required runtime under `X:\Foundry\Runtime`.
-- [ ] **12.11** Remove or explicitly mark obsolete legacy archive contracts:
-  - [ ] `Foundry\Seed\Foundry.Connect.zip` appears unused after extracted Connect runtime provisioning.
-  - [ ] `Foundry\Seed\Foundry.Deploy.zip` remains a valid local Deploy seed package.
+- [x] **12.10** Remove the unnecessary `Foundry.Connect` runtime duplication on USB:
+  - [x] Keep `Foundry.Connect` in the `Foundry Cache` partition.
+  - [x] Keep only minimal boot/bootstrap files on the BOOT partition.
+  - [x] Ensure ISO mode still has the required runtime under `X:\Foundry\Runtime`.
+- [x] **12.11** Remove or explicitly mark obsolete legacy archive contracts:
+  - [x] `Foundry\Seed\Foundry.Connect.zip` appears unused after extracted Connect runtime provisioning.
+  - [x] `Foundry\Seed\Foundry.Deploy.zip` remains a valid local Deploy seed package.
 - [ ] **12.12** Fix or remove unused ISO volume-label intent:
   - [ ] `IsoOutputOptions.VolumeLabel` is currently configured by the app but not passed to `MakeWinPEMedia`.
 - [x] **12.12.1** Preserve MakeWinPEMedia compatibility details:
@@ -256,7 +256,7 @@ git commit -m "feat(adk): add adk status and page integration"
 git commit -m "feat(winpe): port service foundations"
 ```
 
-  - [ ] **12.16.3** Commit Phase 12.C:
+  - [x] **12.16.3** Commit Phase 12.C:
 
 ```powershell
 git commit -m "refactor(runtime): normalize connect deploy layout"

@@ -89,4 +89,35 @@ public sealed class WinPeEmbeddedAssetServiceTests
         Assert.Contains("Timezone map unavailable. Auto-detect skipped.", content, StringComparison.Ordinal);
         Assert.Contains("Timezone update failed. Continuing.", content, StringComparison.Ordinal);
     }
+
+    [Fact]
+    public void GetBootstrapScriptContent_UsesNormalizedApplicationRuntimeLayout()
+    {
+        var service = new WinPeEmbeddedAssetService();
+
+        string content = service.GetBootstrapScriptContent();
+
+        Assert.Contains("return Join-Path $BootstrapRoot $ApplicationName", content, StringComparison.Ordinal);
+        Assert.Contains("Get-RuntimeCacheRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName -RuntimeIdentifier $RuntimeIdentifier", content, StringComparison.Ordinal);
+        Assert.DoesNotContain("'Foundry.Deploy' { return $BootstrapRoot }", content, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void GetBootstrapScriptContent_PreservesRuntimeDownloadOverrides()
+    {
+        var service = new WinPeEmbeddedAssetService();
+
+        string content = service.GetBootstrapScriptContent();
+
+        Assert.Contains("FOUNDRY_CONNECT_RELEASE_TAG", content, StringComparison.Ordinal);
+        Assert.Contains("FOUNDRY_DEPLOY_RELEASE_TAG", content, StringComparison.Ordinal);
+        Assert.Contains("FOUNDRY_RELEASE_TAG", content, StringComparison.Ordinal);
+        Assert.Contains("FOUNDRY_CONNECT_ARCHIVE", content, StringComparison.Ordinal);
+        Assert.Contains("FOUNDRY_DEPLOY_ARCHIVE", content, StringComparison.Ordinal);
+        Assert.Contains("FOUNDRY_CONNECT_ARCHIVE_SHA256", content, StringComparison.Ordinal);
+        Assert.Contains("FOUNDRY_DEPLOY_ARCHIVE_SHA256", content, StringComparison.Ordinal);
+        Assert.Contains("curl.exe", content, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("System.Net.WebClient", content, StringComparison.Ordinal);
+        Assert.Contains("Invoke-WebRequest", content, StringComparison.Ordinal);
+    }
 }

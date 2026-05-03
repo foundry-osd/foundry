@@ -6,15 +6,24 @@ namespace Foundry.Core.Services.WinPe;
 public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 {
     private readonly IWinPeProcessRunner _processRunner;
+    private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
 
     public WinPeUsbMediaService()
-        : this(new WinPeProcessRunner())
+        : this(new WinPeProcessRunner(), new WinPeRuntimePayloadProvisioningService())
     {
     }
 
     internal WinPeUsbMediaService(IWinPeProcessRunner processRunner)
+        : this(processRunner, new WinPeRuntimePayloadProvisioningService(processRunner))
+    {
+    }
+
+    internal WinPeUsbMediaService(
+        IWinPeProcessRunner processRunner,
+        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService)
     {
         _processRunner = processRunner;
+        _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
     }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(
@@ -211,6 +220,18 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         InitializeCachePartitionDirectories(cacheRootPath);
 
+        if (options.RuntimePayloadProvisioning is not null)
+        {
+            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
+                CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
+                cancellationToken).ConfigureAwait(false);
+
+            if (!runtimePayloadResult.IsSuccess)
+            {
+                return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimePayloadResult.Error!);
+            }
+        }
+
         return WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
         {
             BootDriveLetter = $"{bootDriveLetter}:",
@@ -335,6 +356,22 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "Firmware"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "State"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Temp"));
+    }
+
+    internal static WinPeRuntimePayloadProvisioningOptions CreateUsbRuntimePayloadOptions(
+        WinPeRuntimePayloadProvisioningOptions options,
+        WinPeBuildArtifact artifact,
+        string cacheRootPath)
+    {
+        return options with
+        {
+            MountedImagePath = string.Empty,
+            UsbCacheRootPath = cacheRootPath,
+            WorkingDirectoryPath = string.IsNullOrWhiteSpace(options.WorkingDirectoryPath)
+                ? artifact.WorkingDirectoryPath
+                : options.WorkingDirectoryPath,
+            Architecture = artifact.Architecture
+        };
     }
 
     internal static WinPeResult ConfigureBootFiles(

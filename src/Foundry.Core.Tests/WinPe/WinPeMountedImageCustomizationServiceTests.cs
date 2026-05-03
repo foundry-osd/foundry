@@ -15,13 +15,20 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         var driverInjection = new FakeDriverInjectionService();
         var internationalization = new FakeInternationalizationService();
         var assetProvisioning = new FakeAssetProvisioningService();
+        var runtimePayloadProvisioning = new FakeRuntimePayloadProvisioningService();
         var winRePreparation = new FakeWinRePreparationService();
         var service = new WinPeMountedImageCustomizationService(
             runner,
             driverInjection,
             internationalization,
             assetProvisioning,
+            runtimePayloadProvisioning,
             winRePreparation);
+        var runtimePayloadOptions = new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = Path.Combine(temp.RootPath, "runtime-work"),
+            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+        };
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -37,6 +44,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                     CurlExecutableSourcePath = Path.Combine(temp.RootPath, "curl.exe"),
                     IanaWindowsTimeZoneMapJson = "{}"
                 },
+                RuntimePayloadProvisioning = runtimePayloadOptions,
                 WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
             },
             CancellationToken.None);
@@ -45,6 +53,10 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.False(winRePreparation.WasCalled);
         Assert.Single(assetProvisioning.Options);
         Assert.Equal(temp.Artifact.MountDirectoryPath, assetProvisioning.Options[0].MountedImagePath);
+        Assert.Single(runtimePayloadProvisioning.Options);
+        Assert.Equal(temp.Artifact.MountDirectoryPath, runtimePayloadProvisioning.Options[0].MountedImagePath);
+        Assert.Equal(temp.Artifact.Architecture, runtimePayloadProvisioning.Options[0].Architecture);
+        Assert.Same(runtimePayloadOptions.Connect, runtimePayloadProvisioning.Options[0].Connect);
         Assert.Single(driverInjection.Options);
         Assert.Equal(driverDirectory, Assert.Single(driverInjection.Options[0].DriverPackagePaths));
         Assert.Single(internationalization.Options);
@@ -63,6 +75,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             new FakeDriverInjectionService(),
             new FakeInternationalizationService(WinPeResult.Failure(WinPeErrorCodes.BuildFailed, "intl failed")),
             new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
             new FakeWinRePreparationService());
 
         WinPeResult result = await service.CustomizeAsync(
@@ -108,6 +121,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             driverInjection,
             new FakeInternationalizationService(),
             new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
             new FakeWinRePreparationService(new WinReBootImagePreparationResult
             {
                 DependencyFiles =
@@ -264,6 +278,19 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
         public Task<WinPeResult> ProvisionAsync(
             WinPeMountedImageAssetProvisioningOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            Options.Add(options);
+            return Task.FromResult(result ?? WinPeResult.Success());
+        }
+    }
+
+    private sealed class FakeRuntimePayloadProvisioningService(WinPeResult? result = null) : IWinPeRuntimePayloadProvisioningService
+    {
+        public List<WinPeRuntimePayloadProvisioningOptions> Options { get; } = [];
+
+        public Task<WinPeResult> ProvisionAsync(
+            WinPeRuntimePayloadProvisioningOptions options,
             CancellationToken cancellationToken = default)
         {
             Options.Add(options);
