@@ -6,6 +6,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
     private readonly IWinPeDriverInjectionService _driverInjectionService;
     private readonly IWinPeImageInternationalizationService _imageInternationalizationService;
     private readonly IWinPeMountedImageAssetProvisioningService _assetProvisioningService;
+    private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
     private readonly IWinReBootImagePreparationService _winReBootImagePreparationService;
 
     public WinPeMountedImageCustomizationService()
@@ -14,6 +15,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             new WinPeDriverInjectionService(),
             new WinPeImageInternationalizationService(),
             new WinPeMountedImageAssetProvisioningService(),
+            new WinPeRuntimePayloadProvisioningService(),
             new WinReBootImagePreparationService())
     {
     }
@@ -23,12 +25,14 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         IWinPeDriverInjectionService driverInjectionService,
         IWinPeImageInternationalizationService imageInternationalizationService,
         IWinPeMountedImageAssetProvisioningService assetProvisioningService,
+        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinReBootImagePreparationService winReBootImagePreparationService)
     {
         _processRunner = processRunner;
         _driverInjectionService = driverInjectionService;
         _imageInternationalizationService = imageInternationalizationService;
         _assetProvisioningService = assetProvisioningService;
+        _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         _winReBootImagePreparationService = winReBootImagePreparationService;
     }
 
@@ -151,6 +155,23 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             if (!assetProvisioningResult.IsSuccess)
             {
                 return await FailWithDiscardAsync(assetProvisioningResult.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        if (options.RuntimePayloadProvisioning is not null)
+        {
+            ReportProgress(options.Progress, 85, "Provisioning Foundry runtime payloads.");
+            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
+                options.RuntimePayloadProvisioning with
+                {
+                    MountedImagePath = session.MountDirectoryPath,
+                    Architecture = artifact.Architecture
+                },
+                cancellationToken).ConfigureAwait(false);
+
+            if (!runtimePayloadResult.IsSuccess)
+            {
+                return await FailWithDiscardAsync(runtimePayloadResult.Error!, session, cancellationToken).ConfigureAwait(false);
             }
         }
 

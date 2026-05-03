@@ -316,10 +316,7 @@ function Get-ApplicationBootstrapRoot {
         [string]$ApplicationName
     )
 
-    switch ($ApplicationName) {
-        'Foundry.Connect' { return Join-Path $BootstrapRoot 'Foundry.Connect' }
-        'Foundry.Deploy' { return $BootstrapRoot }
-    }
+    return Join-Path $BootstrapRoot $ApplicationName
 }
 
 function Get-RuntimeCacheRoot {

@@ -71,6 +71,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 WinPeLanguage = options.WinPeLanguage,
                 DriverPackagePaths = drivers.Value!,
                 AssetProvisioning = options.AssetProvisioning,
+                RuntimePayloadProvisioning = options.RuntimePayloadProvisioning,
                 WinReCacheDirectoryPath = options.WinReCacheDirectoryPath,
                 WinReCatalogUri = options.WinReCatalogUri,
                 Progress = options.CustomizationProgress

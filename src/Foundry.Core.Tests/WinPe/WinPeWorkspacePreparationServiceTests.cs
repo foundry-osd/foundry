@@ -16,6 +16,11 @@ public sealed class WinPeWorkspacePreparationServiceTests
             CurlExecutableSourcePath = Path.Combine(temp.RootPath, "curl.exe"),
             IanaWindowsTimeZoneMapJson = "{}"
         };
+        var runtimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = Path.Combine(temp.RootPath, "runtime-work"),
+            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+        };
         var service = new WinPeWorkspacePreparationService(
             driverResolution,
             customization,
@@ -33,6 +38,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
                 DriverVendors = [WinPeVendorSelection.Dell],
                 WinPeLanguage = "en-US",
                 AssetProvisioning = assetProvisioning,
+                RuntimePayloadProvisioning = runtimePayloadProvisioning,
                 WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
             },
             CancellationToken.None);
@@ -42,6 +48,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
         Assert.Single(customization.Options);
         Assert.Equal("drivers", Assert.Single(customization.Options[0].DriverPackagePaths));
         Assert.Same(assetProvisioning, customization.Options[0].AssetProvisioning);
+        Assert.Same(runtimePayloadProvisioning, customization.Options[0].RuntimePayloadProvisioning);
         Assert.False(result.Value!.UseBootEx);
     }
 

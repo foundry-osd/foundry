@@ -11,6 +11,7 @@ public sealed record WinPeWorkspacePreparationOptions
     public string? CustomDriverDirectoryPath { get; init; }
     public string WinPeLanguage { get; init; } = string.Empty;
     public WinPeMountedImageAssetProvisioningOptions? AssetProvisioning { get; init; }
+    public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
     public string WinReCacheDirectoryPath { get; init; } = string.Empty;
     public Uri? WinReCatalogUri { get; init; }
     public IProgress<WinPeWorkspacePreparationStage>? Progress { get; init; }
