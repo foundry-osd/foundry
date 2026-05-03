@@ -105,6 +105,8 @@ X:\
       foundry.connect.config.json
       foundry.deploy.config.json
       iana-windows-timezones.json
+      Secrets\
+        media-secrets.key
 
       Network\
         Wired\

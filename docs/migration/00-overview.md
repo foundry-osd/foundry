@@ -78,6 +78,9 @@
 - [ ] Do not break `Foundry.Connect` and `Foundry.Deploy` release asset names consumed by bootstrap/update logic.
 - [ ] Replace old main `Foundry-x64.exe` and `Foundry-arm64.exe` release assets with Velopack package/MSI artifacts.
 - [ ] Do not silently change configuration JSON schemas.
+- [ ] Generate complete effective `Foundry.Connect` and `Foundry.Deploy` runtime configuration files, not sparse patch-style files.
+- [ ] Do not store WinPE runtime secrets in plaintext when they must be embedded for unattended execution.
+- [ ] Do not use DPAPI for generated WinPE runtime secrets because the authoring Windows context is not available inside WinPE.
 - [ ] Do not preserve poor internal structure only for 1:1 migration fidelity when a small, well-tested refactor reduces future risk.
 - [ ] Do not move UI-specific WPF types into `Foundry.Core`.
 - [ ] Do not introduce new dependencies unless they remove a real migration risk.

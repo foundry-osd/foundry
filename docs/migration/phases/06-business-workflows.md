@@ -27,6 +27,14 @@
 - [ ] **14.5** Preserve JSON defaults.
 - [ ] **14.6** Preserve validation behavior.
 - [ ] **14.7** Preserve schema compatibility.
+- [ ] **14.7.1** Generate complete effective `Foundry.Deploy` runtime configuration documents:
+  - [ ] Always include `schemaVersion`.
+  - [ ] Always include `localization`.
+  - [ ] Always include `customization`.
+  - [ ] Always include `autopilot`.
+  - [ ] Serialize effective default values instead of relying on missing root sections.
+  - [ ] Keep `Foundry.Deploy` tolerant for missing optional properties, but do not rely on sparse generated media configs.
+  - [ ] Add or update `Foundry.Deploy` validation for contradictory effective states.
 - [ ] **14.8** Add tests only where business logic changed.
 - [ ] **14.9** Commit:
 
@@ -53,11 +61,34 @@ git commit -m "feat(configuration): port expert configuration workflow"
 - [ ] **15.4** Port certificate picker through WinUI shell service.
 - [ ] **15.5** Port provisioning bundle creation.
 - [ ] **15.6** Preserve `Foundry.Connect` configuration schema.
+- [ ] **15.6.1** Generate complete effective `Foundry.Connect` runtime configuration documents:
+  - [ ] Always include `schemaVersion`.
+  - [ ] Always include `capabilities`.
+  - [ ] Always include `dot1x`.
+  - [ ] Always include `wifi`.
+  - [ ] Always include `internetProbe`.
+  - [ ] Serialize effective default values instead of relying on missing root sections.
+  - [ ] Keep `Foundry.Connect` tolerant for missing optional properties, but do not rely on sparse generated media configs.
+  - [ ] Add or update `Foundry.Connect` validation for contradictory effective states.
 - [ ] **15.7** Preserve asset file preparation behavior.
   - [ ] **15.7.1** Use explicit WinUI `PasswordBox` handling for Wi-Fi and network secrets.
   - [ ] **15.7.2** Never log network secrets.
   - [ ] **15.7.3** Never display network secrets in the Start summary.
   - [ ] **15.7.4** Serialize secrets only when required by the runtime or configuration contract.
+  - [ ] **15.7.5** Do not serialize Wi-Fi or network secrets as plaintext when embedded for unattended WinPE execution.
+  - [ ] **15.7.6** Do not use DPAPI for generated WinPE runtime secrets because WinPE cannot decrypt data tied to the authoring Windows user or machine context.
+  - [ ] **15.7.7** Add an explicit secret envelope for embedded runtime secrets:
+    - [ ] Use `aes-gcm-v1`.
+    - [ ] Use `System.Security.Cryptography.AesGcm`.
+    - [ ] Generate a random 256-bit per-media key with `RandomNumberGenerator`.
+    - [ ] Generate a random nonce per encrypted value.
+    - [ ] Store nonce, tag, and ciphertext in the configuration secret envelope.
+    - [ ] Store the per-media key separately under `X:\Foundry\Config\Secrets\media-secrets.key`.
+    - [ ] Never log the key, plaintext secret, ciphertext, tag, or nonce.
+  - [ ] **15.7.8** Document the security boundary:
+    - [ ] Embedded encrypted secrets prevent casual JSON inspection.
+    - [ ] Embedded encrypted secrets are not a strong boundary against an attacker who has the boot media and key file.
+    - [ ] For stronger confidentiality, support a runtime-prompt mode where the secret is not embedded and `Foundry.Connect` prompts in WinPE.
 - [ ] **15.8** Commit:
 
 ```powershell
@@ -69,6 +100,10 @@ git commit -m "feat(network): port connect provisioning workflow"
 - [ ] **15.9** Existing `FoundryConnectProvisioningServiceTests` pass.
 - [ ] **15.10** Generated `Foundry.Connect` configuration matches WPF reference for equivalent settings.
 - [ ] **15.11** Certificate asset copy behavior is preserved.
+- [ ] **15.12** Generated `foundry.connect.config.json` has every schema root section present.
+- [ ] **15.13** Embedded Wi-Fi/network secrets are represented as secret envelopes, not plaintext strings.
+- [ ] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets in WinPE/runtime tests.
+- [ ] **15.15** Runtime-prompt mode works when no secret is embedded.
 
 ## Phase 16: Autopilot And Customization Workflows
 
