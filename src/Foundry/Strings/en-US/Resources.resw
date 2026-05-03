@@ -370,7 +370,7 @@
     <value>Version not detected</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 10.1.26100.2454+ or 10.1.28000.1+ with the latest ADK servicing patch.</value>
+    <value>Requires Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch.</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on installed</value>

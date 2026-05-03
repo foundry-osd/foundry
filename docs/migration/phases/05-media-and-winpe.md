@@ -99,7 +99,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [x] **12.1.10** Treat the current WPF `10.1.26100.*` compatibility policy as the starting point.
   - [x] **12.1.11** Update compatibility if the target official ADK version changes before implementation.
     - [x] Require `10.1.26100.2454+` for the general Windows 11 24H2/25H2 ADK track.
-    - [x] Allow `10.1.28000.1+` for the Windows 11 26H1 Arm64 ADK track.
+    - [x] Do not allow the Windows 11 26H1 Arm64 `10.1.28000.x` ADK track in Foundry.
     - [x] Display that Microsoft recommends applying the latest ADK servicing patch for the detected target track.
   - [x] **12.1.12** Version ADK installer cache files and write downloads atomically so interrupted downloads are not reused.
 - [ ] **12.2** Port WinPE services in dependency order:

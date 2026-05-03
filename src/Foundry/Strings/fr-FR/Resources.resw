@@ -370,7 +370,7 @@
     <value>Version non détectée</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nécessite Windows ADK 10.1.26100.2454+ ou 10.1.28000.1+ avec le dernier correctif de maintenance ADK.</value>
+    <value>Nécessite Windows ADK 10.1.26100.2454+ avec le dernier correctif de maintenance ADK.</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Module complémentaire Windows PE installé</value>

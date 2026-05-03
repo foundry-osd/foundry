@@ -59,8 +59,8 @@ public sealed class AdkInstallationDetectorTests
     [InlineData("10.1.26100.2453", false)]
     [InlineData("10.1.26100.2454", true)]
     [InlineData("10.1.26100.3000", true)]
-    [InlineData("10.1.28000.1", true)]
-    [InlineData("10.1.28000.2", true)]
+    [InlineData("10.1.28000.1", false)]
+    [InlineData("10.1.28000.2", false)]
     [InlineData("10.1.22621.1", false)]
     [InlineData("11.0.26100.1", false)]
     public void Detect_EvaluatesCompatibilityFromSupportedAdkBuildLines(string installedVersion, bool expectedCompatible)

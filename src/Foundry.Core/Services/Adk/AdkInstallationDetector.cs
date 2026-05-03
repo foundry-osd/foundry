@@ -5,9 +5,8 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
     public const string DeploymentToolsRelativePath = @"Assessment and Deployment Kit\Deployment Tools";
     public const string WinPeRelativePath = @"Assessment and Deployment Kit\Windows Preinstallation Environment";
 
-    private const string RequiredVersionPolicyText = "Windows ADK 10.1.26100.2454+ or 10.1.28000.1+ with the latest ADK servicing patch";
+    private const string RequiredVersionPolicyText = "Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch";
     private static readonly Version MinimumWindows11AdkVersion = new(10, 1, 26100, 2454);
-    private static readonly Version MinimumWindows11Arm64AdkVersion = new(10, 1, 28000, 1);
 
     public AdkInstallationStatus Detect()
     {
@@ -39,8 +38,7 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
 
         if (Version.TryParse(versionText, out Version? version))
         {
-            return IsVersionAtLeast(version, MinimumWindows11AdkVersion)
-                || IsVersionAtLeast(version, MinimumWindows11Arm64AdkVersion);
+            return IsVersionAtLeast(version, MinimumWindows11AdkVersion);
         }
 
         return false;
