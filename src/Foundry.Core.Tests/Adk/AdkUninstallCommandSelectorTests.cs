@@ -56,9 +56,9 @@ public sealed class AdkUninstallCommandSelectorTests
     public void SelectBundleUninstallCommands_IgnoresComponentMsiEntries()
     {
         AdkInstalledProduct componentProduct = new(
-            "Windows Deployment Tools",
+            "Windows PE Boot Files (OnecoreUAP)",
             "10.1.22621.5337",
-            "MsiExec.exe /I{5FF0DAC0-CFB1-D753-B247-F41472C28246}");
+            "MsiExec.exe /I{0C141632-B69C-A38F-0639-743F6F0A8D03}");
 
         IReadOnlyList<AdkUninstallCommand> commands = AdkUninstallCommandSelector.SelectBundleUninstallCommands([componentProduct]);
 

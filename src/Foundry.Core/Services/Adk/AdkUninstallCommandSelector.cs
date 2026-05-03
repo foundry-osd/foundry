@@ -31,17 +31,12 @@ public static class AdkUninstallCommandSelector
 
     private static bool IsAdkBundle(AdkInstalledProduct product)
     {
-        return ContainsSetupExecutable(product, "adksetup.exe")
-            || product.DisplayName.Equals("Windows Assessment and Deployment Kit", StringComparison.OrdinalIgnoreCase)
-            || product.DisplayName.Contains("Deployment Kit", StringComparison.OrdinalIgnoreCase);
+        return ContainsSetupExecutable(product, "adksetup.exe");
     }
 
     private static bool IsWinPeBundle(AdkInstalledProduct product)
     {
-        return ContainsSetupExecutable(product, "adkwinpesetup.exe")
-            || product.DisplayName.Contains("Windows Preinstallation Environment", StringComparison.OrdinalIgnoreCase)
-            || product.DisplayName.Contains("Windows PE", StringComparison.OrdinalIgnoreCase)
-            || product.DisplayName.Contains("WinPE", StringComparison.OrdinalIgnoreCase);
+        return ContainsSetupExecutable(product, "adkwinpesetup.exe");
     }
 
     private static bool ContainsSetupExecutable(AdkInstalledProduct product, string setupFileName)
