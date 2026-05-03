@@ -256,7 +256,10 @@ Used while ADK installation, ADK upgrade, ISO creation, USB creation, Autopilot 
 - [ ] Keep `/norestart` behavior unless a future ADK version requires a different policy.
 - [ ] Keep the WinPE Add-on as a separate installer step.
 - [ ] Revalidate the official Microsoft download URLs and supported ADK version before implementing the WinUI migration.
-- [ ] Treat the current WPF `10.1.26100.*` compatibility policy as the starting point, not as a permanent assumption.
+- [ ] Treat the WPF `10.1.26100.*` compatibility policy as a starting point, not as a permanent assumption.
+- [ ] Require `10.1.26100.2454+` for the general Windows 11 24H2/25H2 ADK track.
+- [ ] Do not allow the Windows 11 26H1 Arm64 `10.1.28000.x` ADK track in Foundry.
+- [ ] Display that Microsoft recommends applying the latest ADK servicing patch for the detected target track.
 
 ## Shell Implementation Boundary
 

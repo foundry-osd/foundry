@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.AdkPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:dev="using:DevWinUI">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}">
         <StackPanel Margin="10"
-                    Spacing="5">
-            <TextBlock x:Uid="AdkPage_Title"
+                    dev:PanelAttach.ChildrenTransitions="Default"
+                    Spacing="8">
+            <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource TitleTextBlockStyle}" />
+
+            <dev:SettingsCard Description="{x:Bind ViewModel.StatusDescription, Mode=OneWay}"
+                              Header="{x:Bind ViewModel.StatusTitle, Mode=OneWay}"
+                              HeaderIcon="{dev:FontIcon GlyphCode=E946}">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10">
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            x:Uid="AdkPage_RefreshButton"
+                            Command="{x:Bind ViewModel.RefreshStatusCommand}"
+                            IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}" />
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            x:Uid="AdkPage_InstallButton"
+                            Command="{x:Bind ViewModel.InstallAdkCommand}"
+                            IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}"
+                            Style="{ThemeResource AccentButtonStyle}"
+                            Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            x:Uid="AdkPage_UpgradeButton"
+                            Command="{x:Bind ViewModel.UpgradeAdkCommand}"
+                            IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}"
+                            Style="{ThemeResource AccentButtonStyle}"
+                            Visibility="{x:Bind ViewModel.IsUpgradeButtonVisible, Mode=OneWay}" />
+                </StackPanel>
+            </dev:SettingsCard>
+
+            <dev:SettingsCard Description="{x:Bind ViewModel.RequiredVersionPolicy, Mode=OneWay}"
+                              Header="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
+                              HeaderIcon="{dev:FontIcon GlyphCode=E946}" />
+
+            <dev:SettingsCard Description="{x:Bind ViewModel.MediaCapabilityStatus, Mode=OneWay}"
+                              Header="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}"
+                              HeaderIcon="{dev:FontIcon GlyphCode=E7C1}" />
+
+            <dev:SettingsCard Description="{x:Bind ViewModel.OperationStatus, Mode=OneWay}"
+                              Header="{x:Bind ViewModel.OperationStatus, Mode=OneWay}"
+                              HeaderIcon="{dev:FontIcon GlyphCode=E9F5}">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10">
+                    <ProgressBar Width="180"
+                                 Maximum="100"
+                                 Value="{x:Bind ViewModel.OperationProgress, Mode=OneWay}"
+                                 Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            x:Uid="AdkPage_OpenLogsButton"
+                            Command="{x:Bind ViewModel.OpenLogsCommand}" />
+                </StackPanel>
+            </dev:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

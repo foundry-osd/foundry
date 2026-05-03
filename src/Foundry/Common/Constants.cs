@@ -12,6 +12,7 @@ namespace Foundry.Common
         public static readonly string SettingsDirectoryPath = Path.Combine(RootDirectoryPath, "Settings");
         public static readonly string LogDirectoryPath = Path.Combine(RootDirectoryPath, "Logs");
         public static readonly string CacheDirectoryPath = Path.Combine(RootDirectoryPath, "Cache");
+        public static readonly string InstallerCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "Installers");
         public static readonly string WorkspacesDirectoryPath = Path.Combine(RootDirectoryPath, "Workspaces");
         public static readonly string TempDirectoryPath = Path.Combine(RootDirectoryPath, "Temp");
         public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Foundry.log");
@@ -26,6 +27,7 @@ namespace Foundry.Common
             Directory.CreateDirectory(SettingsDirectoryPath);
             Directory.CreateDirectory(LogDirectoryPath);
             Directory.CreateDirectory(CacheDirectoryPath);
+            Directory.CreateDirectory(InstallerCacheDirectoryPath);
             Directory.CreateDirectory(WorkspacesDirectoryPath);
             Directory.CreateDirectory(TempDirectoryPath);
         }

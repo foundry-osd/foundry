@@ -1,3 +1,4 @@
+using Foundry.Services.Adk;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Updates;
@@ -8,6 +9,7 @@ namespace Foundry.Services.Startup;
 internal sealed class StartupReadinessService(
     IAppSettingsService appSettingsService,
     IApplicationUpdateService updateService,
+    IAdkService adkService,
     IShellNavigationGuardService shellNavigationGuardService,
     ILogger logger) : IStartupReadinessService
 {
@@ -29,7 +31,8 @@ internal sealed class StartupReadinessService(
                 Constants.AppSettingsPath,
                 appSettingsService.Current.Updates.Channel);
 
-            shellNavigationGuardService.SetState(ShellNavigationState.Ready);
+            var adkStatus = await adkService.RefreshStatusAsync(cancellationToken);
+            shellNavigationGuardService.SetState(adkStatus.CanCreateMedia ? ShellNavigationState.Ready : ShellNavigationState.AdkBlocked);
 
             await updateService.InitializeAsync(cancellationToken);
 

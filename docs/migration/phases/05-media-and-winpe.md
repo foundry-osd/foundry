@@ -12,15 +12,15 @@
 
 The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. They are determined by dependency boundaries:
 
-- [ ] `12.A` owns user-visible ADK readiness and navigation gating.
+- [x] `12.A` owns user-visible ADK readiness and navigation gating.
 - [ ] `12.B` owns pure WinPE service foundations that can be tested without final UI commands.
 - [ ] `12.C` owns Connect/Deploy runtime payload layout and bootstrap resolution.
 - [ ] `12.D` owns final host/media filesystem layout enforcement after services and runtime paths are stable.
 
-- [ ] **12.A** `feat(adk): add adk status and page integration`.
-  - [ ] Scope: ADK/WinPE Add-on detection, installed version, compatibility policy, ADK page state/actions, ADK operation progress, ADK install/upgrade overlay entry points, and shell guard readiness.
-  - [ ] Boundary: answer whether Foundry is ready to unlock `General`, `Start`, and `Expert`; do not wire final ISO/USB creation commands here.
-  - [ ] Reason: Phase 13 and expert workflows need a reliable ADK readiness state before they can safely expose media or configuration workflows.
+- [x] **12.A** `feat(adk): add adk status and page integration`.
+  - [x] Scope: ADK/WinPE Add-on detection, installed version, compatibility policy, ADK page state/actions, ADK operation progress, ADK install/upgrade overlay entry points, and shell guard readiness.
+  - [x] Boundary: answer whether Foundry is ready to unlock `General`, `Start`, and `Expert`; do not wire final ISO/USB creation commands here.
+  - [x] Reason: Phase 13 and expert workflows need a reliable ADK readiness state before they can safely expose media or configuration workflows.
 - [ ] **12.B** `feat(winpe): port winpe service foundations`.
   - [ ] Scope: tool resolution, process runner, build workspace, boot image source strategy, driver catalog/resolution/injection, image internationalization, WinRE boot image preparation, mounted image asset provisioning/customization, workspace preparation, and media output service foundations.
   - [ ] Boundary: port service and Core orchestration building blocks; keep final `Start` page command wiring in Phase 13.
@@ -36,7 +36,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
-- [ ] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
+- [x] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
 - [ ] Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known; keep the final `Start` page refresh command wiring in Phase 13.
 - [ ] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
 
@@ -72,32 +72,36 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] Preserve required optional component ordering and non-fatal handling for already-installed or not-applicable packages.
   - [ ] Preserve `dism /Set-AllIntl` and `dism /Set-InputLocale` behavior.
 
-- [ ] **12.1** Port `AdkService`.
-  - [ ] **12.1.1** Create the `ADK` page view model with:
-    - [ ] ADK installed state.
-    - [ ] ADK compatible state.
-    - [ ] Installed ADK version.
-    - [ ] Required ADK version policy.
-    - [ ] WinPE Add-on status.
-    - [ ] ISO/USB capability state.
-    - [ ] Current ADK operation progress.
-    - [ ] Current ADK operation status.
-  - [ ] **12.1.2** Keep the `ADK` page actions simple:
-    - [ ] Install ADK.
-    - [ ] Upgrade ADK.
-    - [ ] Refresh status.
-    - [ ] Open logs from the ADK page diagnostics/action area, not from a dedicated footer navigation item.
-  - [ ] **12.1.3** Do not expose a primary uninstall action on the `ADK` page.
-  - [ ] **12.1.4** Keep ADK uninstall only as an internal upgrade implementation detail unless a future advanced diagnostics requirement is approved.
-  - [ ] **12.1.5** Run Foundry-managed ADK installation with Foundry's own blocking progress overlay.
-  - [ ] **12.1.6** Run Foundry-managed ADK upgrade with Foundry's own blocking progress overlay.
-  - [ ] **12.1.7** Run ADK and WinPE Add-on setup in silent mode:
-    - [ ] `adksetup.exe`.
-    - [ ] `adkwinpesetup.exe`.
-  - [ ] **12.1.8** Do not show the native Microsoft ADK setup wizard during normal Foundry-managed installation.
-  - [ ] **12.1.9** Revalidate official Microsoft ADK download URLs and supported ADK version before implementation.
-  - [ ] **12.1.10** Treat the current WPF `10.1.26100.*` compatibility policy as the starting point.
-  - [ ] **12.1.11** Update compatibility if the target official ADK version changes before implementation.
+- [x] **12.1** Port `AdkService`.
+  - [x] **12.1.1** Create the `ADK` page view model with:
+    - [x] ADK installed state.
+    - [x] ADK compatible state.
+    - [x] Installed ADK version.
+    - [x] Required ADK version policy.
+    - [x] WinPE Add-on status.
+    - [x] ISO/USB capability state.
+    - [x] Current ADK operation progress.
+    - [x] Current ADK operation status.
+  - [x] **12.1.2** Keep the `ADK` page actions simple:
+    - [x] Install ADK.
+    - [x] Upgrade ADK.
+    - [x] Refresh status.
+    - [x] Open logs from the ADK page diagnostics/action area, not from a dedicated footer navigation item.
+  - [x] **12.1.3** Do not expose a primary uninstall action on the `ADK` page.
+  - [x] **12.1.4** Keep ADK uninstall only as an internal upgrade implementation detail unless a future advanced diagnostics requirement is approved.
+  - [x] **12.1.5** Run Foundry-managed ADK installation with Foundry's own blocking progress overlay.
+  - [x] **12.1.6** Run Foundry-managed ADK upgrade with Foundry's own blocking progress overlay.
+  - [x] **12.1.7** Run ADK and WinPE Add-on setup in silent mode:
+    - [x] `adksetup.exe`.
+    - [x] `adkwinpesetup.exe`.
+  - [x] **12.1.8** Do not show the native Microsoft ADK setup wizard during normal Foundry-managed installation.
+  - [x] **12.1.9** Revalidate official Microsoft ADK download URLs and supported ADK version before implementation.
+  - [x] **12.1.10** Treat the current WPF `10.1.26100.*` compatibility policy as the starting point.
+  - [x] **12.1.11** Update compatibility if the target official ADK version changes before implementation.
+    - [x] Require `10.1.26100.2454+` for the general Windows 11 24H2/25H2 ADK track.
+    - [x] Do not allow the Windows 11 26H1 Arm64 `10.1.28000.x` ADK track in Foundry.
+    - [x] Display that Microsoft recommends applying the latest ADK servicing patch for the detected target track.
+  - [x] **12.1.12** Version ADK installer cache files and write downloads atomically so interrupted downloads are not reused.
 - [ ] **12.2** Port WinPE services in dependency order:
   - [ ] Tool resolution.
   - [ ] Process runner.
@@ -240,7 +244,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] Deployment session logs under the active workspace.
   - [ ] Target logs under `Windows\Temp\Foundry\Logs`.
 - [ ] **12.16** Commit each Phase 12 slice independently when its validation is complete:
-  - [ ] **12.16.1** Commit Phase 12.A:
+  - [x] **12.16.1** Commit Phase 12.A:
 
 ```powershell
 git commit -m "feat(adk): add adk status and page integration"
@@ -273,12 +277,12 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [ ] **12.21** USB creation works on a disposable test drive.
 - [ ] **12.22** Generated ISO/USB media matches the documented layout.
 - [ ] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
-- [ ] **12.24** ADK page shows missing state when ADK is absent.
-- [ ] **12.25** ADK page shows installed version when ADK is present.
-- [ ] **12.26** ADK page shows incompatible state when the version is unsupported.
-- [ ] **12.27** ADK install overlay blocks navigation until completion.
-- [ ] **12.28** ADK upgrade overlay blocks navigation until completion.
-- [ ] **12.29** ADK-compatible state unlocks `General`, `Start`, and `Expert` pages.
+- [x] **12.24** ADK page shows missing state when ADK is absent.
+- [x] **12.25** ADK page shows installed version when ADK is present.
+- [x] **12.26** ADK page shows incompatible state when the version is unsupported.
+- [x] **12.27** ADK install overlay blocks navigation until completion.
+- [x] **12.28** ADK upgrade overlay blocks navigation until completion.
+- [x] **12.29** ADK-compatible state unlocks `General`, `Start`, and `Expert` pages.
 - [ ] **12.30** PCA2023 media validation covers both supported and unsupported `/bootex` paths.
 - [ ] **12.31** Non-ASCII ISO output path validation confirms the temporary ASCII-safe workaround produces the requested final ISO.
 - [ ] **12.32** USB disk safety validation rejects:

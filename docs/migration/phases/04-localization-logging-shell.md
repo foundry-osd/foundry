@@ -140,7 +140,7 @@ git commit -m "feat(localization): migrate foundry localization to winui"
   - [x] Do not use `Verbose` unless a future approved subsystem proves it needs trace-level diagnostics.
   - [x] Do not log noisy UI interactions, obvious control flow, secrets, tokens, passwords, encrypted secret payloads, media keys, or sensitive user data.
 - [ ] **10.6.1** Define future workflow logging contracts without blocking Phase 10 on unimplemented workflows:
-  - [ ] ADK detection logs required when ADK service/page work is implemented in Phase 12.
+  - [x] ADK detection logs required when ADK service/page work is implemented in Phase 12.
   - [ ] ISO/USB build start, progress, completion, cancellation, and failure logs required when media creation work is implemented.
   - [ ] Bootstrap payload resolution logs required when payload resolution work is implemented in Phase 12.
   - [ ] Complete the ADK/WinPE portion through Phase 12 implementation and validation.
