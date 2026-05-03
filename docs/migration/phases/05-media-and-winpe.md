@@ -15,11 +15,11 @@
   - [ ] Boundary: answer whether Foundry is ready to unlock `General`, `Start`, and `Expert`; do not wire final ISO/USB creation commands here.
   - [ ] Reason: Phase 13 and expert workflows need a reliable ADK readiness state before they can safely expose media or configuration workflows.
 - [ ] **12.B** `feat(winpe): port winpe service foundations`.
-  - [ ] Scope: tool resolution, process runner, build workspace, driver catalog/resolution/injection, image internationalization, WinRE boot image preparation, mounted image asset provisioning/customization, workspace preparation, and media output service foundations.
+  - [ ] Scope: tool resolution, process runner, build workspace, boot image source strategy, driver catalog/resolution/injection, image internationalization, WinRE boot image preparation, mounted image asset provisioning/customization, workspace preparation, and media output service foundations.
   - [ ] Boundary: port service and Core orchestration building blocks; keep final `Start` page command wiring in Phase 13.
   - [ ] Reason: these services can be validated independently from the final WinUI media workflow and should be stable before user-facing ISO/USB execution is added.
 - [ ] **12.C** `refactor(runtime): normalize connect deploy runtime layout`.
-  - [ ] Scope: normalize `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>`, update bootstrap resolution, update ISO runtime provisioning, update USB cache provisioning, remove unnecessary `Foundry.Connect` USB duplication, and preserve local debug Connect/Deploy overrides.
+  - [ ] Scope: normalize `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>`, update bootstrap resolution, update ISO runtime provisioning, update USB cache provisioning, remove unnecessary `Foundry.Connect` USB duplication, preserve local debug Connect/Deploy overrides, and preserve release/download fallback behavior.
   - [ ] Boundary: touch runtime payload layout and bootstrap assumptions only; do not redesign Connect or Deploy application behavior unless the layout change necessarily flows into them.
   - [ ] Reason: Connect/Deploy runtime layout affects ISO, USB, bootstrap, and downstream compatibility, so it needs a focused PR with explicit validation.
 - [ ] **12.D** `feat(winpe): apply programdata and media layout`.
@@ -31,6 +31,30 @@
 
 - [ ] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
 - [ ] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
+
+**WPF reference scenario audit:** before implementing each Phase 12 slice, compare the new WinUI/Core behavior against the archived WPF reference without modifying it:
+
+- [ ] Local Debug scenario:
+  - [ ] Preserve Visual Studio/debugger local Connect and Deploy publishing behavior.
+  - [ ] Preserve local archive overrides before local project publish.
+  - [ ] Preserve local project auto-discovery behavior where practical.
+- [ ] Release scenario:
+  - [ ] Preserve release asset resolution for Connect and Deploy.
+  - [ ] Preserve runtime download fallback from the WinPE bootstrap where applicable.
+  - [ ] Preserve SHA256 override checks for runtime archives when provided.
+- [ ] Media scenario:
+  - [ ] Preserve ISO behavior where required runtime/configuration lives inside `X:\Foundry`.
+  - [ ] Preserve USB behavior where persistent runtime/cache data lives on the `Foundry Cache` partition.
+  - [ ] Preserve source marker behavior for local versus release-provisioned payloads.
+- [ ] Boot image source scenario:
+  - [ ] Preserve standard `WinPe` boot image creation through ADK workspace tooling.
+  - [ ] Preserve `WinReWifi` behavior for Wi-Fi-capable WinRE boot image preparation.
+  - [ ] Preserve ESD cache/download/hash validation, image index resolution, `dism /Export-Image`, `winre.wim` extraction, and required Wi-Fi dependency staging.
+- [ ] Language and optional component scenario:
+  - [ ] Preserve WinPE language discovery from the installed ADK `WinPE_OCs` tree.
+  - [ ] Preserve base language pack installation before language-specific optional component packages.
+  - [ ] Preserve required optional component ordering and non-fatal handling for already-installed or not-applicable packages.
+  - [ ] Preserve `dism /Set-AllIntl` and `dism /Set-InputLocale` behavior.
 
 - [ ] **12.1** Port `AdkService`.
   - [ ] **12.1.1** Create the `ADK` page view model with:
@@ -62,10 +86,33 @@
   - [ ] Tool resolution.
   - [ ] Process runner.
   - [ ] Build workspace.
+  - [ ] Boot image source strategy:
+    - [ ] Standard `WinPe` path.
+    - [ ] `WinReWifi` path.
+    - [ ] ESD catalog candidate selection by language, architecture, and OS version.
+    - [ ] ESD cache reuse and SHA256 validation.
+    - [ ] DISM image index resolution.
+    - [ ] DISM image export.
+    - [ ] `winre.wim` extraction.
+    - [ ] Wi-Fi dependency staging for `dmcmnutils.dll` and `mdmregistration.dll`.
   - [ ] Driver catalog.
   - [ ] Driver resolution.
+  - [ ] Wi-Fi supplement driver resolution for the `WinReWifi` path.
   - [ ] Driver injection.
   - [ ] Image internationalization.
+  - [ ] WinPE optional component provisioning:
+    - [ ] `WinPE-WMI`.
+    - [ ] `WinPE-NetFX`.
+    - [ ] `WinPE-Scripting`.
+    - [ ] `WinPE-PowerShell`.
+    - [ ] `WinPE-WinReCfg`.
+    - [ ] `WinPE-DismCmdlets`.
+    - [ ] `WinPE-StorageWMI`.
+    - [ ] `WinPE-Dot3Svc`.
+    - [ ] `WinPE-EnhancedStorage`.
+    - [ ] Neutral package before localized package when a localized package exists.
+    - [ ] Missing base language pack remains fatal.
+    - [ ] Already-installed or not-applicable optional components remain non-fatal when safe.
   - [ ] WinRE boot image preparation.
   - [ ] Mounted image asset provisioning.
   - [ ] Mounted image customization.
@@ -79,8 +126,14 @@
 - [ ] **12.5** Preserve local debug environment variables:
   - [ ] Local Connect enable variable.
   - [ ] Local Connect project path variable.
+  - [ ] Local Connect archive override variable.
   - [ ] Local Deploy enable variable.
   - [ ] Local Deploy project path variable.
+  - [ ] Local Deploy archive override variable.
+  - [ ] Auto-enable local Connect/Deploy only for debugger-attached developer runs, not for installed production runs.
+  - [ ] Prefer explicit local archive override over local project publish.
+  - [ ] Fall back to local project publish when no archive override is supplied.
+  - [ ] Preserve self-contained single-file local publish output for each selected RID.
 - [ ] **12.6** Audit and document the filesystem layout contracts before porting the services:
   - [ ] Host authoring data: `C:\ProgramData\Foundry`.
   - [ ] New build workspace root.
@@ -104,6 +157,16 @@
   - [ ] Update ISO runtime provisioning to write the normalized layout.
   - [ ] Update USB cache provisioning to write the normalized layout.
   - [ ] Update runtime manifest/cache metadata paths if they depend on the old Deploy shape.
+  - [ ] Preserve bootstrap release tag override variables:
+    - [ ] `FOUNDRY_CONNECT_RELEASE_TAG`.
+    - [ ] `FOUNDRY_DEPLOY_RELEASE_TAG`.
+    - [ ] `FOUNDRY_RELEASE_TAG`.
+  - [ ] Preserve bootstrap archive override variables:
+    - [ ] `FOUNDRY_CONNECT_ARCHIVE`.
+    - [ ] `FOUNDRY_DEPLOY_ARCHIVE`.
+    - [ ] `FOUNDRY_CONNECT_ARCHIVE_SHA256`.
+    - [ ] `FOUNDRY_DEPLOY_ARCHIVE_SHA256`.
+  - [ ] Preserve `curl` download with PowerShell/.NET fallback where the bootstrap still needs runtime download support.
 - [ ] **12.10** Remove the unnecessary `Foundry.Connect` runtime duplication on USB:
   - [ ] Keep `Foundry.Connect` in the `Foundry Cache` partition.
   - [ ] Keep only minimal boot/bootstrap files on the BOOT partition.
