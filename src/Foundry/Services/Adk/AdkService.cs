@@ -19,7 +19,6 @@ internal sealed class AdkService(
     private const string WinPeSetupUrl = "https://go.microsoft.com/fwlink/?linkid=2289981";
     private const string AdkInstallArguments = "/quiet /norestart /features OptionId.DeploymentTools";
     private const string WinPeInstallArguments = "/quiet /norestart";
-    private const string UninstallArguments = "/uninstall /quiet /norestart";
     private static readonly HttpClient HttpClient = new();
 
     private readonly ILogger logger = logger.ForContext<AdkService>();
@@ -82,17 +81,14 @@ internal sealed class AdkService(
 
             if (uninstallFirst)
             {
-                operationProgressService.Report(45, localizationService.GetString("Adk.Operation.UninstallingWinPe"));
-                await RunSetupAsync(winPeSetupPath, UninstallArguments, cancellationToken);
-                operationProgressService.Report(55, localizationService.GetString("Adk.Operation.UninstallingAdk"));
-                await RunSetupAsync(adkSetupPath, UninstallArguments, cancellationToken);
+                await UninstallExistingBundlesAsync(cancellationToken);
             }
 
             operationProgressService.Report(uninstallFirst ? 70 : 55, localizationService.GetString("Adk.Operation.InstallingAdk"));
-            await RunSetupAsync(adkSetupPath, AdkInstallArguments, cancellationToken);
+            await RunElevatedProcessAsync(adkSetupPath, AdkInstallArguments, cancellationToken);
 
             operationProgressService.Report(uninstallFirst ? 88 : 80, localizationService.GetString("Adk.Operation.InstallingWinPe"));
-            await RunSetupAsync(winPeSetupPath, WinPeInstallArguments, cancellationToken);
+            await RunElevatedProcessAsync(winPeSetupPath, WinPeInstallArguments, cancellationToken);
 
             operationProgressService.Report(95, localizationService.GetString("Adk.Operation.Verifying"));
             AdkInstallationStatus status = await RefreshStatusAsync(cancellationToken);
@@ -164,7 +160,33 @@ internal sealed class AdkService(
         operationProgressService.Report(completedProgress, localizationService.GetString("Adk.Operation.Downloaded"));
     }
 
-    private static async Task RunSetupAsync(string setupPath, string arguments, CancellationToken cancellationToken)
+    private async Task UninstallExistingBundlesAsync(CancellationToken cancellationToken)
+    {
+        IReadOnlyList<AdkUninstallCommand> uninstallCommands = AdkUninstallCommandSelector.SelectBundleUninstallCommands(
+            installationProbe.GetInstalledProducts());
+
+        if (uninstallCommands.Count == 0)
+        {
+            throw new InvalidOperationException("Windows ADK uninstall commands were not found in the Windows uninstall registry.");
+        }
+
+        foreach (AdkUninstallCommand command in uninstallCommands)
+        {
+            operationProgressService.Report(
+                command.FileName.EndsWith("adkwinpesetup.exe", StringComparison.OrdinalIgnoreCase) ? 45 : 55,
+                command.FileName.EndsWith("adkwinpesetup.exe", StringComparison.OrdinalIgnoreCase)
+                    ? localizationService.GetString("Adk.Operation.UninstallingWinPe")
+                    : localizationService.GetString("Adk.Operation.UninstallingAdk"));
+
+            logger.Information(
+                "Uninstalling existing ADK bundle. DisplayName={DisplayName}, FileName={FileName}",
+                command.DisplayName,
+                Path.GetFileName(command.FileName));
+            await RunElevatedProcessAsync(command.FileName, command.Arguments, cancellationToken);
+        }
+    }
+
+    private static async Task RunElevatedProcessAsync(string setupPath, string arguments, CancellationToken cancellationToken)
     {
         if (!File.Exists(setupPath))
         {

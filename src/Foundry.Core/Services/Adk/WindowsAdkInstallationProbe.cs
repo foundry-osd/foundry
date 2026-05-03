@@ -44,7 +44,11 @@ public sealed class WindowsAdkInstallationProbe : IAdkInstallationProbe
                     continue;
                 }
 
-                products.Add(new(displayName, productKey?.GetValue("DisplayVersion") as string));
+                products.Add(new(
+                    displayName,
+                    productKey?.GetValue("DisplayVersion") as string,
+                    productKey?.GetValue("UninstallString") as string,
+                    productKey?.GetValue("QuietUninstallString") as string));
             }
         }
 
