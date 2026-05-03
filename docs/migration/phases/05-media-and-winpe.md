@@ -29,10 +29,10 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [x] Scope: normalize `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>`, update bootstrap resolution, update ISO runtime provisioning, update USB cache provisioning, remove unnecessary `Foundry.Connect` USB duplication, preserve local debug Connect/Deploy overrides, and preserve release/download fallback behavior.
   - [x] Boundary: touch runtime payload layout and bootstrap assumptions only; do not redesign Connect or Deploy application behavior unless the layout change necessarily flows into them.
   - [x] Reason: Connect/Deploy runtime layout affects ISO, USB, bootstrap, and downstream compatibility, so it needs a focused PR with explicit validation.
-- [ ] **12.D** `feat(winpe): apply programdata and media layout`.
-  - [ ] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, media secret-key placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
-  - [ ] Boundary: make the documented filesystem contract real after ADK readiness, WinPE service foundations, and runtime payload layout are known.
-  - [ ] Reason: final layout enforcement should happen after the service and runtime contracts are clear, so old path behavior can be removed directly without compatibility fallback.
+- [x] **12.D** `feat(winpe): apply programdata and media layout`.
+  - [x] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, media secret-key placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
+  - [x] Boundary: make the documented filesystem contract real after ADK readiness, WinPE service foundations, and runtime payload layout are known.
+  - [x] Reason: final layout enforcement should happen after the service and runtime contracts are clear, so old path behavior can be removed directly without compatibility fallback.
 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
@@ -216,34 +216,34 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 - [x] **12.11** Remove or explicitly mark obsolete legacy archive contracts:
   - [x] `Foundry\Seed\Foundry.Connect.zip` appears unused after extracted Connect runtime provisioning.
   - [x] `Foundry\Seed\Foundry.Deploy.zip` remains a valid local Deploy seed package.
-- [ ] **12.12** Fix or remove unused ISO volume-label intent:
-  - [ ] `IsoOutputOptions.VolumeLabel` is currently configured by the app but not passed to `MakeWinPEMedia`.
+- [x] **12.12** Fix or remove unused ISO volume-label intent:
+  - [x] No active WinUI service contract exposes an ISO volume-label setting. The archived WPF value was not passed to `MakeWinPEMedia`, so Phase 12.D keeps the generated-media contract explicit without carrying unused volume-label behavior forward.
 - [x] **12.12.1** Preserve MakeWinPEMedia compatibility details:
   - [x] Probe `/bootex` support before allowing PCA2023 signature mode.
   - [x] Fail PCA2023 media creation clearly when `/bootex` is unavailable.
   - [x] Pass `/bootex` for PCA2023 ISO creation.
   - [x] Rebuild USB EFI boot files from BootEx binaries for PCA2023 USB creation.
   - [x] Use ASCII-safe temporary ISO workspace/output paths when MakeWinPEMedia cannot handle the requested non-ASCII path directly.
-- [ ] **12.13** Implement the new host-side layout directly, with no legacy fallback:
-  - [ ] `C:\ProgramData\Foundry\Workspaces\WinPe`.
-  - [ ] `C:\ProgramData\Foundry\Workspaces\Iso`.
-  - [ ] `C:\ProgramData\Foundry\Cache\OperatingSystems`.
-  - [ ] `C:\ProgramData\Foundry\Cache\Installers`.
-  - [ ] `C:\ProgramData\Foundry\Cache\Tools`.
-  - [ ] `C:\ProgramData\Foundry\Temp`.
-  - [ ] `C:\ProgramData\Foundry\Logs`.
-- [ ] **12.14** Do not read from or migrate old host folders in application code:
-  - [ ] `C:\ProgramData\Foundry\WinPeWorkspace`.
-  - [ ] `C:\ProgramData\Foundry\Installers\os`.
-  - [ ] `C:\ProgramData\Foundry\Installers\OperatingSystems`.
-  - [ ] `C:\ProgramData\Foundry\IsoWorkspace`.
-  - [ ] `C:\ProgramData\Foundry\IsoOutputTemp`.
-- [ ] **12.15** Add failure-path checks for log relocation:
-  - [ ] Startup logs under `X:\Foundry\Logs`.
-  - [ ] USB media must not create or use `Foundry Cache:\Logs`.
-  - [ ] Deployment session logs under the active workspace.
-  - [ ] Target logs under `Windows\Temp\Foundry\Logs`.
-- [ ] **12.16** Commit each Phase 12 slice independently when its validation is complete:
+- [x] **12.13** Implement the new host-side layout directly, with no legacy fallback:
+  - [x] `C:\ProgramData\Foundry\Workspaces\WinPe`.
+  - [x] `C:\ProgramData\Foundry\Workspaces\Iso`.
+  - [x] `C:\ProgramData\Foundry\Cache\OperatingSystems`.
+  - [x] `C:\ProgramData\Foundry\Cache\Installers`.
+  - [x] `C:\ProgramData\Foundry\Cache\Tools`.
+  - [x] `C:\ProgramData\Foundry\Temp`.
+  - [x] `C:\ProgramData\Foundry\Logs`.
+- [x] **12.14** Do not read from or migrate old host folders in application code:
+  - [x] `C:\ProgramData\Foundry\WinPeWorkspace`.
+  - [x] `C:\ProgramData\Foundry\Installers\os`.
+  - [x] `C:\ProgramData\Foundry\Installers\OperatingSystems`.
+  - [x] `C:\ProgramData\Foundry\IsoWorkspace`.
+  - [x] `C:\ProgramData\Foundry\IsoOutputTemp`.
+- [x] **12.15** Add failure-path checks for log relocation:
+  - [x] Startup logs under `X:\Foundry\Logs`.
+  - [x] USB media must not create or use `Foundry Cache:\Logs`.
+  - [x] Deployment session logs under the active workspace.
+  - [x] Target logs under `Windows\Temp\Foundry\Logs`.
+- [x] **12.16** Commit each Phase 12 slice independently when its validation is complete:
   - [x] **12.16.1** Commit Phase 12.A:
 
 ```powershell
@@ -262,7 +262,7 @@ git commit -m "feat(winpe): port service foundations"
 git commit -m "refactor(runtime): normalize connect deploy layout"
 ```
 
-  - [ ] **12.16.4** Commit Phase 12.D:
+  - [x] **12.16.4** Commit Phase 12.D:
 
 ```powershell
 git commit -m "feat(winpe): apply programdata media layout"
