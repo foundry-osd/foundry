@@ -225,6 +225,9 @@ git commit -m "feat(winpe): port orchestration services"
 **Prerequisites:** Phase 11 shell/overlay contract and the Phase 12 ADK/WinPE service contract must be available before implementing the final media creation commands.
 
 - [ ] **13.1** Create WinUI view model for media creation on the `Start` page.
+  - [ ] Keep detailed WinPE language selection owned by the `Localization` page.
+  - [ ] The `Start` page consumes the selected WinPE language and shows it in the final execution summary.
+  - [ ] If the `Localization` page has not yet implemented language selection when media creation is wired, implement the minimal WinPE language selector there before enabling ISO/USB commands.
 - [ ] **13.2** Port state from WPF `MainWindowViewModel`:
   - [ ] ISO output path.
   - [ ] Architecture.
@@ -277,3 +280,7 @@ git commit -m "feat(media): port creation workflow to winui"
   - [ ] ISO creation logs include start, progress, completion, cancellation, and failure details.
   - [ ] USB creation logs include start, progress, completion, cancellation, and failure details.
   - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
+- [ ] **13.17** Confirm the selected WinPE language flows from the `Localization` page into media creation:
+  - [ ] Available WinPE languages come from the installed ADK `WinPE_OCs` tree.
+  - [ ] The selected language controls the language pack and localized optional component packages applied during Phase 12 service execution.
+  - [ ] The `Start` page summary shows the selected WinPE language before ISO or USB creation.
