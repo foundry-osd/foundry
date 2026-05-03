@@ -51,7 +51,7 @@
   - [ ] Preserve `WinReWifi` behavior for Wi-Fi-capable WinRE boot image preparation.
   - [ ] Preserve ESD cache/download/hash validation, image index resolution, `dism /Export-Image`, `winre.wim` extraction, and required Wi-Fi dependency staging.
 - [ ] Language and optional component scenario:
-  - [ ] Preserve WinPE language discovery from the installed ADK `WinPE_OCs` tree.
+  - [ ] Preserve WinPE boot language discovery from the installed ADK `WinPE_OCs` tree.
   - [ ] Preserve base language pack installation before language-specific optional component packages.
   - [ ] Preserve required optional component ordering and non-fatal handling for already-installed or not-applicable packages.
   - [ ] Preserve `dism /Set-AllIntl` and `dism /Set-InputLocale` behavior.
@@ -225,9 +225,10 @@ git commit -m "feat(winpe): port orchestration services"
 **Prerequisites:** Phase 11 shell/overlay contract and the Phase 12 ADK/WinPE service contract must be available before implementing the final media creation commands.
 
 - [ ] **13.1** Create WinUI view model for media creation on the `Start` page.
-  - [ ] Keep detailed WinPE language selection owned by the `Localization` page.
-  - [ ] The `Start` page consumes the selected WinPE language and shows it in the final execution summary.
-  - [ ] If the `Localization` page has not yet implemented language selection when media creation is wired, implement the minimal WinPE language selector there before enabling ISO/USB commands.
+  - [ ] Keep WinPE boot language selection owned by the `General` page because the WPF source stores it in `GeneralSettings.WinPeLanguage`.
+  - [ ] The `Start` page consumes the selected WinPE boot language from `General` and shows it in the final execution summary.
+  - [ ] If the `General` page has not yet implemented WinPE boot language selection when media creation is wired, implement the minimal selector there before enabling ISO/USB commands.
+  - [ ] Do not confuse WinPE boot language with the expert `Localization` page; that page owns OS deployment language visibility/default/time-zone settings for `Foundry.Deploy`.
 - [ ] **13.2** Port state from WPF `MainWindowViewModel`:
   - [ ] ISO output path.
   - [ ] Architecture.
@@ -238,7 +239,7 @@ git commit -m "feat(winpe): port orchestration services"
   - [ ] HP driver inclusion.
   - [ ] Custom driver directory.
   - [ ] Selected USB disk.
-  - [ ] Selected WinPE language.
+  - [ ] Selected WinPE boot language from `General`.
 - [ ] **13.3** Port commands:
   - [ ] Browse ISO path.
   - [ ] Browse custom driver folder.
@@ -250,7 +251,7 @@ git commit -m "feat(winpe): port orchestration services"
 - [ ] **13.6** Keep media build service logic in core/app services, not page code-behind.
   - [ ] **13.6.1** Show a final execution summary before ISO or USB creation:
     - [ ] ADK status.
-    - [ ] WinPE language.
+    - [ ] WinPE boot language from `General`.
     - [ ] Architecture.
     - [ ] ISO output path.
     - [ ] USB target.
@@ -280,7 +281,8 @@ git commit -m "feat(media): port creation workflow to winui"
   - [ ] ISO creation logs include start, progress, completion, cancellation, and failure details.
   - [ ] USB creation logs include start, progress, completion, cancellation, and failure details.
   - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
-- [ ] **13.17** Confirm the selected WinPE language flows from the `Localization` page into media creation:
-  - [ ] Available WinPE languages come from the installed ADK `WinPE_OCs` tree.
+- [ ] **13.17** Confirm the selected WinPE boot language flows from the `General` page into media creation:
+  - [ ] Available WinPE boot languages come from the installed ADK `WinPE_OCs` tree.
   - [ ] The selected language controls the language pack and localized optional component packages applied during Phase 12 service execution.
-  - [ ] The `Start` page summary shows the selected WinPE language before ISO or USB creation.
+  - [ ] The `Start` page summary shows the selected WinPE boot language before ISO or USB creation.
+  - [ ] The expert `Localization` page is not part of this flow.

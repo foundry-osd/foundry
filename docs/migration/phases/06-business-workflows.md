@@ -13,6 +13,14 @@
   - [ ] Customization.
   - [ ] Keep `General` in the General navigation section.
   - [ ] Preserve serialization of the existing expert document `general` section when required by schema compatibility.
+- [ ] **14.1.1** Keep expert `Localization` scoped to OS deployment localization, not WinPE boot language:
+  - [ ] Port WPF `LocalizationSettingsViewModel` behavior for deployment language selection.
+  - [ ] Preserve `LocalizationSettings.VisibleLanguageCodes`.
+  - [ ] Preserve `LocalizationSettings.DefaultLanguageCodeOverride`.
+  - [ ] Preserve `LocalizationSettings.DefaultTimeZoneId`.
+  - [ ] Preserve `LocalizationSettings.ForceSingleVisibleLanguage`.
+  - [ ] Preserve `DeployConfigurationGenerator` mapping to `DeployLocalizationSettings` for `Foundry.Deploy`.
+  - [ ] Do not move `GeneralSettings.WinPeLanguage` into the expert `Localization` page.
 - [ ] **14.2** Port configuration import.
 - [ ] **14.3** Port configuration export.
 - [ ] **14.4** Port deploy configuration export.

@@ -102,6 +102,8 @@ Footer
 - [ ] Keep only non-expert configuration options here.
 - [ ] Avoid mixing expert-only pages into the standard configuration path.
 - [ ] Own standard configuration fields even when they serialize into the existing expert document `general` section.
+- [ ] Own WinPE boot language selection used by ISO/USB media creation.
+- [ ] WinPE boot language is a media/boot image setting, not the expert `Localization` page.
 - [ ] Do not expose `General` as an Expert navigation item.
 
 ### Start
@@ -109,7 +111,7 @@ Footer
 - [ ] Show a final summary of the selected configuration.
 - [ ] Display readiness for:
   - [ ] ADK.
-  - [ ] WinPE language.
+  - [ ] WinPE boot language selected from the `General` page.
   - [ ] Architecture.
   - [ ] ISO output path.
   - [ ] USB target.
@@ -128,7 +130,13 @@ Footer
 - [ ] `Network` owns Connect provisioning, Wi-Fi profiles, 802.1X, certificates, and network validation.
 - [ ] `Network` uses explicit `PasswordBox` handling for Wi-Fi and network secrets.
 - [ ] `Network` never logs secrets and never exposes secrets in summary text.
-- [ ] `Localization` owns WinPE language and localization-related media settings.
+- [ ] `Localization` owns OS deployment localization settings consumed by `Foundry.Deploy`:
+  - [ ] Available deployment languages.
+  - [ ] Visible deployment languages.
+  - [ ] Default deployment language override.
+  - [ ] Default deployment time zone.
+  - [ ] Single visible deployment language behavior.
+- [ ] `Localization` does not own WinPE boot language selection.
 - [ ] `Autopilot` owns profile import, selection, validation, and embedding.
 - [ ] `Customization` owns deployment customization payloads and related expert options.
 
@@ -136,12 +144,13 @@ Footer
 
 - [ ] `Settings` owns app-level settings only:
   - [ ] Theme.
-  - [ ] Language.
+  - [ ] Application UI language.
   - [ ] Update channel or update behavior.
   - [ ] Diagnostics preferences.
 - [ ] `Settings` persists app-level settings through an internal `IAppSettingsService`.
 - [ ] `Settings` writes to `C:\ProgramData\Foundry\Settings\appsettings.json`.
 - [ ] `Settings` does not persist secrets.
+- [ ] `Settings` language changes affect Foundry UI localization only, not WinPE boot language and not OS deployment languages.
 - [ ] Do not expose a dedicated `Logs` footer page.
 - [ ] Log-folder access remains available from diagnostics/settings surfaces.
 - [ ] `Documentation` links to user-facing documentation.
