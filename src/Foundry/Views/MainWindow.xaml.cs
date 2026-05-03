@@ -253,12 +253,11 @@ namespace Foundry.Views
         {
             ShellNavigationState state = shellNavigationGuardService.State;
             bool isOperationRunning = state == ShellNavigationState.OperationRunning;
-            SearchBox.IsEnabled = state != ShellNavigationState.AdkBlocked;
+            SearchBox.IsEnabled = state == ShellNavigationState.Ready;
             UpdateOperationDialog(isOperationRunning);
 
-            ShellNavigationState visualNavigationState = isOperationRunning ? ShellNavigationState.Ready : state;
-            ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, visualNavigationState);
-            ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, visualNavigationState);
+            ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, state);
+            ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, state);
 
             NavView.IsBackEnabled = !isOperationRunning && NavFrame.CanGoBack;
             AppTitleBar.IsBackButtonVisible = !isOperationRunning && NavFrame.CanGoBack;

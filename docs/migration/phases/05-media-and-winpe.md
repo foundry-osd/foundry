@@ -277,8 +277,8 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [ ] **12.21** USB creation works on a disposable test drive.
 - [ ] **12.22** Generated ISO/USB media matches the documented layout.
 - [ ] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
-- [ ] **12.24** ADK page shows missing state when ADK is absent.
-- [ ] **12.25** ADK page shows installed version when ADK is present.
+- [x] **12.24** ADK page shows missing state when ADK is absent.
+- [x] **12.25** ADK page shows installed version when ADK is present.
 - [ ] **12.26** ADK page shows incompatible state when the version is unsupported.
 - [ ] **12.27** ADK install overlay blocks navigation until completion.
 - [ ] **12.28** ADK upgrade overlay blocks navigation until completion.
