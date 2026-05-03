@@ -84,11 +84,12 @@ git commit -m "feat(configuration): port expert configuration workflow"
     - [ ] Generate a random nonce per encrypted value.
     - [ ] Store nonce, tag, and ciphertext in the configuration secret envelope.
     - [ ] Store the per-media key separately under `X:\Foundry\Config\Secrets\media-secrets.key`.
+    - [ ] Resolve the per-media key automatically in `Foundry.Connect`; never ask the operator for a decryption key.
+    - [ ] Never store the per-media key inline in `foundry.connect.config.json`.
     - [ ] Never log the key, plaintext secret, ciphertext, tag, or nonce.
   - [ ] **15.7.8** Document the security boundary:
     - [ ] Embedded encrypted secrets prevent casual JSON inspection.
     - [ ] Embedded encrypted secrets are not a strong boundary against an attacker who has the boot media and key file.
-    - [ ] For stronger confidentiality, support a runtime-prompt mode where the secret is not embedded and `Foundry.Connect` prompts in WinPE.
 - [ ] **15.8** Commit:
 
 ```powershell
@@ -103,7 +104,7 @@ git commit -m "feat(network): port connect provisioning workflow"
 - [ ] **15.12** Generated `foundry.connect.config.json` has every schema root section present.
 - [ ] **15.13** Embedded Wi-Fi/network secrets are represented as secret envelopes, not plaintext strings.
 - [ ] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets in WinPE/runtime tests.
-- [ ] **15.15** Runtime-prompt mode works when no secret is embedded.
+- [ ] **15.15** `Foundry.Connect` decrypts embedded secrets automatically without prompting the operator for a decryption key.
 
 ## Phase 16: Autopilot And Customization Workflows
 

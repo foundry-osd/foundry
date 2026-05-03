@@ -110,6 +110,7 @@ These decisions are locked for the current migration plan. Reopen one only if im
   - Use an explicit secret envelope for embedded runtime secrets, backed by authenticated encryption with `System.Security.Cryptography.AesGcm`.
   - The default embedded secret format is `aes-gcm-v1` with a random per-media 256-bit key, random nonce, authentication tag, and ciphertext.
   - Store the per-media key separately from the main JSON config under the WinPE `X:\Foundry\Config\Secrets` layout and never log it.
+  - `Foundry.Connect` resolves the per-media key automatically from the expected WinPE key path; the operator is not asked for a decryption key.
+  - The decryption key must never be stored inline in `foundry.connect.config.json`.
   - Treat embedded encrypted secrets as protection against accidental disclosure and casual inspection, not as a strong boundary against an attacker who has full access to the boot media and the media key.
-  - When stronger confidentiality is required, support a runtime-prompt mode where the secret is not embedded in media and `Foundry.Connect` asks the operator for the credential in WinPE.
   - Logs, summaries, validation errors, and UI diagnostics must mask both plaintext secrets and encrypted secret envelope payloads.
