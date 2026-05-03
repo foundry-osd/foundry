@@ -37,7 +37,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
 - [ ] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
-- [ ] Complete Phase 6 readiness item **6.8.1** for deferred USB target refresh after ADK compatibility is known.
+- [ ] Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known; keep the final `Start` page refresh command wiring in Phase 13.
 - [ ] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
 
 **WPF reference scenario audit:** before implementing each Phase 12 slice, compare the new WinUI/Core behavior against the archived WPF reference without modifying it:
@@ -54,10 +54,18 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] Preserve ISO behavior where required runtime/configuration lives inside `X:\Foundry`.
   - [ ] Preserve USB behavior where persistent runtime/cache data lives on the `Foundry Cache` partition.
   - [ ] Preserve source marker behavior for local versus release-provisioned payloads.
+  - [ ] Preserve MakeWinPEMedia non-ASCII path handling by using an ASCII-safe temporary workspace/output path when required and copying the result back to the requested destination.
+  - [ ] Preserve PCA2023 `/bootex` capability probing, unsupported-path failure behavior, ISO `/bootex` argument usage, and USB EFI boot file rewriting.
+  - [ ] Preserve USB disk safety checks: USB bus, removable media, non-system disk, non-boot disk, and selected disk identity revalidation before formatting.
+  - [ ] Preserve USB copy/provision verification for `sources\boot.wim`, `boot\BCD`, architecture-specific EFI boot files, and accepted `robocopy` exit codes.
+  - [ ] Preserve idempotent WinPE auto-start wiring by ensuring `startnet.cmd` runs `wpeinit` and invokes `FoundryBootstrap.ps1` exactly once.
+  - [ ] Preserve `curl.exe` provisioning into WinPE `System32` for bootstrap download preference/fallback behavior.
 - [ ] Boot image source scenario:
   - [ ] Preserve standard `WinPe` boot image creation through ADK workspace tooling.
   - [ ] Preserve `WinReWifi` behavior for Wi-Fi-capable WinRE boot image preparation.
   - [ ] Preserve ESD cache/download/hash validation, image index resolution, `dism /Export-Image`, `winre.wim` extraction, and required Wi-Fi dependency staging.
+  - [ ] Preserve WinRE Wi-Fi customization details: remove conflicting `winpeshl.ini` and copy staged `dmcmnutils.dll` and `mdmregistration.dll` into mounted `System32`.
+  - [ ] Preserve WinPE bootstrap network/time setup: start `dot3svc`, conditionally start `WlanSvc` only when WinRE Wi-Fi dependencies are present, sync internet date/time when drift exceeds the threshold, and apply timezone from environment, generated Deploy config, geolocation fallback, or UTC.
 - [ ] Language and optional component scenario:
   - [ ] Preserve WinPE boot language discovery from the installed ADK `WinPE_OCs` tree.
   - [ ] Preserve base language pack installation before language-specific optional component packages.
@@ -134,6 +142,15 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] USB media output.
 - [ ] **12.3** Preserve bundled 7-Zip assets.
 - [ ] **12.4** Preserve embedded PowerShell bootstrap asset.
+- [ ] **12.4.1** Preserve bootstrap `startnet.cmd` wiring:
+  - [ ] Ensure `wpeinit` is present.
+  - [ ] Append the `FoundryBootstrap.ps1` invocation only when it is not already present.
+  - [ ] Keep the operation idempotent across repeated image customization attempts.
+- [ ] **12.4.2** Preserve bootstrap runtime network/time behavior:
+  - [ ] Start wired networking services needed by the existing bootstrap.
+  - [ ] Start `WlanSvc` only when WinRE Wi-Fi dependencies are present.
+  - [ ] Sync internet date/time non-fatally when network probes succeed and clock drift exceeds the configured threshold.
+  - [ ] Apply timezone from generated configuration or fallback sources without blocking boot when lookup fails.
 - [ ] **12.5** Preserve local debug environment variables:
   - [ ] Local Connect enable variable.
   - [ ] Local Connect project path variable.
@@ -187,6 +204,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
     - [ ] `FOUNDRY_CONNECT_ARCHIVE_SHA256`.
     - [ ] `FOUNDRY_DEPLOY_ARCHIVE_SHA256`.
   - [ ] Preserve `curl` download with PowerShell/.NET fallback where the bootstrap still needs runtime download support.
+- [ ] **12.9.1** Provision `curl.exe` into WinPE `System32` for architectures where the bootstrap can prefer it before falling back to PowerShell/.NET downloads.
 - [ ] **12.10** Remove the unnecessary `Foundry.Connect` runtime duplication on USB:
   - [ ] Keep `Foundry.Connect` in the `Foundry Cache` partition.
   - [ ] Keep only minimal boot/bootstrap files on the BOOT partition.
@@ -196,6 +214,12 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
   - [ ] `Foundry\Seed\Foundry.Deploy.zip` remains a valid local Deploy seed package.
 - [ ] **12.12** Fix or remove unused ISO volume-label intent:
   - [ ] `IsoOutputOptions.VolumeLabel` is currently configured by the app but not passed to `MakeWinPEMedia`.
+- [ ] **12.12.1** Preserve MakeWinPEMedia compatibility details:
+  - [ ] Probe `/bootex` support before allowing PCA2023 signature mode.
+  - [ ] Fail PCA2023 media creation clearly when `/bootex` is unavailable.
+  - [ ] Pass `/bootex` for PCA2023 ISO creation.
+  - [ ] Rebuild USB EFI boot files from BootEx binaries for PCA2023 USB creation.
+  - [ ] Use ASCII-safe temporary ISO workspace/output paths when MakeWinPEMedia cannot handle the requested non-ASCII path directly.
 - [ ] **12.13** Implement the new host-side layout directly, with no legacy fallback:
   - [ ] `C:\ProgramData\Foundry\Workspaces\WinPe`.
   - [ ] `C:\ProgramData\Foundry\Workspaces\Iso`.
@@ -255,6 +279,30 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [ ] **12.27** ADK install overlay blocks navigation until completion.
 - [ ] **12.28** ADK upgrade overlay blocks navigation until completion.
 - [ ] **12.29** ADK-compatible state unlocks `General`, `Start`, and `Expert` pages.
+- [ ] **12.30** PCA2023 media validation covers both supported and unsupported `/bootex` paths.
+- [ ] **12.31** Non-ASCII ISO output path validation confirms the temporary ASCII-safe workaround produces the requested final ISO.
+- [ ] **12.32** USB disk safety validation rejects:
+  - [ ] Non-USB disks.
+  - [ ] Non-removable disks when required.
+  - [ ] System disks.
+  - [ ] Boot disks.
+  - [ ] Selected disks whose identity changed between refresh and execution.
+- [ ] **12.33** WinPE customization validation confirms:
+  - [ ] `startnet.cmd` contains `wpeinit`.
+  - [ ] `startnet.cmd` invokes `FoundryBootstrap.ps1` once.
+  - [ ] `curl.exe` is present in mounted `System32` when expected.
+  - [ ] WinRE Wi-Fi mode removes conflicting `winpeshl.ini`.
+  - [ ] WinRE Wi-Fi dependencies are copied into mounted `System32`.
+- [ ] **12.34** Bootstrap script validation confirms:
+  - [ ] Wired networking startup is non-fatal.
+  - [ ] `WlanSvc` startup is gated by WinRE Wi-Fi dependencies.
+  - [ ] Internet date/time synchronization is non-fatal.
+  - [ ] Timezone fallback does not block boot.
+- [ ] **12.35** USB provisioning validation confirms:
+  - [ ] BOOT partition remains minimal.
+  - [ ] `Foundry Cache` does not contain or create `Logs`.
+  - [ ] `sources\boot.wim`, `boot\BCD`, and architecture-specific EFI boot files are present.
+  - [ ] Successful `robocopy` exit codes `0` through `7` are accepted.
 
 ## Phase 13: General Media Creation Workflow
 

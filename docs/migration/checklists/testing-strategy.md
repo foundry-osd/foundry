@@ -10,6 +10,12 @@
   - [ ] Language fallback rules.
   - [ ] Driver/catalog selection.
   - [ ] WinPE path and runtime artifact resolution.
+  - [ ] WinPE bootstrap `startnet.cmd` wiring and idempotence.
+  - [ ] WinPE bootstrap network service, Wi-Fi service, clock sync, and timezone fallback behavior.
+  - [ ] WinPE MakeWinPEMedia compatibility rules, including PCA2023 `/bootex` support and non-ASCII ISO path handling.
+  - [ ] USB disk candidate filtering and selected disk identity revalidation before formatting.
+  - [ ] USB provisioning verification for required boot files and accepted `robocopy` exit codes.
+  - [ ] WinRE Wi-Fi boot image customization, including `winpeshl.ini` removal and Wi-Fi dependency DLL placement.
   - [ ] Host `ProgramData` workspace and cache layout rules.
   - [ ] ProgramData-only app settings, log, cache, workspace, and temp path rules.
   - [ ] ISO/USB media layout contract rules.
