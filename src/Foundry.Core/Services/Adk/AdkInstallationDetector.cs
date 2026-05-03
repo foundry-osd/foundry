@@ -14,8 +14,7 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
         bool hasKitsRoot = !string.IsNullOrWhiteSpace(kitsRootPath);
         bool hasDeploymentTools = hasKitsRoot
             && probe.DirectoryExists(Path.Combine(kitsRootPath!, DeploymentToolsRelativePath));
-        bool hasWinPeAddon = hasKitsRoot
-            && probe.DirectoryExists(Path.Combine(kitsRootPath!, WinPeRelativePath));
+        bool hasWinPeAddon = hasKitsRoot && HasUsableWinPeAddon(kitsRootPath!);
         string? installedVersion = ResolveInstalledVersion(probe.GetInstalledProducts());
         bool isInstalled = hasDeploymentTools;
         bool isCompatible = isInstalled && IsCompatibleVersion(installedVersion);
@@ -42,6 +41,24 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
         }
 
         return false;
+    }
+
+    private bool HasUsableWinPeAddon(string kitsRootPath)
+    {
+        string winPeRootPath = Path.Combine(kitsRootPath, WinPeRelativePath);
+        if (!probe.DirectoryExists(winPeRootPath))
+        {
+            return false;
+        }
+
+        return ProbeFileInTree(winPeRootPath, "copype.cmd")
+            && ProbeFileInTree(winPeRootPath, "MakeWinPEMedia.cmd");
+    }
+
+    private bool ProbeFileInTree(string directoryPath, string fileName)
+    {
+        string directPath = Path.Combine(directoryPath, fileName);
+        return probe.FileExists(directPath) || probe.DirectoryContainsFile(directoryPath, fileName);
     }
 
     private static string? ResolveInstalledVersion(IReadOnlyList<AdkInstalledProduct> products)

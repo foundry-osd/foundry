@@ -8,7 +8,7 @@ internal sealed class ShellNavigationGuardService(ILogger logger) : IShellNaviga
 
     public event EventHandler? StateChanged;
 
-    public ShellNavigationState State { get; private set; } = ShellNavigationState.Ready;
+    public ShellNavigationState State { get; private set; } = ShellNavigationState.AdkBlocked;
 
     public void SetState(ShellNavigationState state)
     {

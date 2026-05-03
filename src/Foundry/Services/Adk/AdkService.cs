@@ -32,7 +32,7 @@ internal sealed class AdkService(
         false,
         null,
         null,
-        "Windows ADK 10.1.26100.*");
+        "Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch");
 
     public Task<AdkInstallationStatus> RefreshStatusAsync(CancellationToken cancellationToken = default)
     {

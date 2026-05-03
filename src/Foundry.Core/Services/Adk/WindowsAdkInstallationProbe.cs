@@ -23,6 +23,28 @@ public sealed class WindowsAdkInstallationProbe : IAdkInstallationProbe
         return Directory.Exists(path);
     }
 
+    public bool FileExists(string path)
+    {
+        return File.Exists(path);
+    }
+
+    public bool DirectoryContainsFile(string directoryPath, string fileName)
+    {
+        if (!Directory.Exists(directoryPath))
+        {
+            return false;
+        }
+
+        try
+        {
+            return Directory.EnumerateFiles(directoryPath, fileName, SearchOption.AllDirectories).Any();
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     public IReadOnlyList<AdkInstalledProduct> GetInstalledProducts()
     {
         List<AdkInstalledProduct> products = [];

@@ -77,6 +77,28 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal(WinPeErrorCodes.UsbIdentityMismatch, result.Error?.Code);
     }
 
+    [Fact]
+    public void ValidateDiskSafety_WhenTargetIsBootDisk_ReturnsUnsafeTarget()
+    {
+        WinPeResult result = WinPeUsbMediaService.ValidateDiskSafety(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 3,
+                ExpectedDiskFriendlyName = "Boot USB"
+            },
+            new WinPeUsbDiskIdentity
+            {
+                Number = 3,
+                FriendlyName = "Boot USB",
+                BusType = "USB",
+                IsRemovable = true,
+                IsBoot = true
+            });
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbUnsafeTarget, result.Error?.Code);
+    }
+
     [Theory]
     [InlineData(0, true)]
     [InlineData(7, true)]

@@ -166,12 +166,11 @@ public sealed class WinReBootImagePreparationServiceTests
         string mediaPath = Path.Combine(workingPath, "media");
         string sourcesPath = Path.Combine(mediaPath, "sources");
         string cachePath = Path.Combine(root, "cache");
-        string osCachePath = Path.Combine(cachePath, "os");
         Directory.CreateDirectory(sourcesPath);
-        Directory.CreateDirectory(osCachePath);
+        Directory.CreateDirectory(cachePath);
 
         string bootWimPath = Path.Combine(sourcesPath, "boot.wim");
-        string cachedSourcePath = Path.Combine(osCachePath, "source.esd");
+        string cachedSourcePath = Path.Combine(cachePath, "source.esd");
         await File.WriteAllTextAsync(bootWimPath, "original");
         await File.WriteAllTextAsync(cachedSourcePath, "cached source");
         string cachedSourceHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("cached source")));
