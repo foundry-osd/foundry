@@ -11,9 +11,21 @@
 **Recommended implementation split:** Phase 12 is intentionally broad and should be delivered through focused PRs instead of one large branch:
 
 - [ ] **12.A** `feat(adk): add adk status and page integration`.
+  - [ ] Scope: ADK/WinPE Add-on detection, installed version, compatibility policy, ADK page state/actions, ADK operation progress, ADK install/upgrade overlay entry points, and shell guard readiness.
+  - [ ] Boundary: answer whether Foundry is ready to unlock `General`, `Start`, and `Expert`; do not wire final ISO/USB creation commands here.
+  - [ ] Reason: Phase 13 and expert workflows need a reliable ADK readiness state before they can safely expose media or configuration workflows.
 - [ ] **12.B** `feat(winpe): port winpe service foundations`.
+  - [ ] Scope: tool resolution, process runner, build workspace, driver catalog/resolution/injection, image internationalization, WinRE boot image preparation, mounted image asset provisioning/customization, workspace preparation, and media output service foundations.
+  - [ ] Boundary: port service and Core orchestration building blocks; keep final `Start` page command wiring in Phase 13.
+  - [ ] Reason: these services can be validated independently from the final WinUI media workflow and should be stable before user-facing ISO/USB execution is added.
 - [ ] **12.C** `refactor(runtime): normalize connect deploy runtime layout`.
+  - [ ] Scope: normalize `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>`, update bootstrap resolution, update ISO runtime provisioning, update USB cache provisioning, remove unnecessary `Foundry.Connect` USB duplication, and preserve local debug Connect/Deploy overrides.
+  - [ ] Boundary: touch runtime payload layout and bootstrap assumptions only; do not redesign Connect or Deploy application behavior unless the layout change necessarily flows into them.
+  - [ ] Reason: Connect/Deploy runtime layout affects ISO, USB, bootstrap, and downstream compatibility, so it needs a focused PR with explicit validation.
 - [ ] **12.D** `feat(winpe): apply programdata and media layout`.
+  - [ ] Scope: enforce the new `C:\ProgramData\Foundry` host layout, `X:\Foundry` boot image layout, USB BOOT/cache layout, cache/temp/log placement, no old-folder fallback, failure-path log relocation, and ISO volume-label behavior.
+  - [ ] Boundary: make the documented filesystem contract real after ADK readiness, WinPE service foundations, and runtime payload layout are known.
+  - [ ] Reason: final layout enforcement should happen after the service and runtime contracts are clear, so old path behavior can be removed directly without compatibility fallback.
 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
