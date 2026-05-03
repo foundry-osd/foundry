@@ -81,9 +81,6 @@
   <data name="MainWindow.ThemeButton.ToolTip" xml:space="preserve">
     <value>Toggle theme</value>
   </data>
-  <data name="AdkPage_Title.Text" xml:space="preserve">
-    <value>ADK</value>
-  </data>
   <data name="AutopilotPage_Title.Text" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -341,5 +338,101 @@
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry {0} is available.</value>
+  </data>
+  <data name="Adk.PageTitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Adk.Status.ReadyTitle" xml:space="preserve">
+    <value>ADK is ready</value>
+  </data>
+  <data name="Adk.Status.ReadyDescription" xml:space="preserve">
+    <value>Foundry can create ISO and USB media.</value>
+  </data>
+  <data name="Adk.Status.MissingTitle" xml:space="preserve">
+    <value>ADK is not installed</value>
+  </data>
+  <data name="Adk.Status.MissingDescription" xml:space="preserve">
+    <value>Install the Windows ADK Deployment Tools and the Windows PE Add-on before configuring media creation.</value>
+  </data>
+  <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
+    <value>ADK version is unsupported</value>
+  </data>
+  <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
+    <value>Upgrade the Windows ADK to a supported 10.1.26100 build.</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
+    <value>Windows PE Add-on is missing</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
+    <value>Install the Windows PE Add-on for the installed Windows ADK.</value>
+  </data>
+  <data name="Adk.Version.NotDetected" xml:space="preserve">
+    <value>Version not detected</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
+    <value>Requires Windows ADK 10.1.26100.2454+ or 10.1.28000.1+ with the latest ADK servicing patch.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
+    <value>Windows PE Add-on installed</value>
+  </data>
+  <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
+    <value>Windows PE Add-on missing</value>
+  </data>
+  <data name="Adk.MediaCapability.Ready" xml:space="preserve">
+    <value>ISO and USB creation can be unlocked.</value>
+  </data>
+  <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
+    <value>ISO and USB creation remain blocked.</value>
+  </data>
+  <data name="Adk.Operation.Ready" xml:space="preserve">
+    <value>No ADK operation is running.</value>
+  </data>
+  <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Installing Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
+    <value>Upgrading Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloading" xml:space="preserve">
+    <value>Downloading ADK installer</value>
+  </data>
+  <data name="Adk.Operation.Downloaded" xml:space="preserve">
+    <value>ADK installer downloaded</value>
+  </data>
+  <data name="Adk.Operation.DownloadCached" xml:space="preserve">
+    <value>Using cached ADK installer</value>
+  </data>
+  <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
+    <value>Removing existing Windows PE Add-on</value>
+  </data>
+  <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
+    <value>Removing existing Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
+    <value>Installing Windows ADK Deployment Tools</value>
+  </data>
+  <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
+    <value>Installing Windows PE Add-on</value>
+  </data>
+  <data name="Adk.Operation.Verifying" xml:space="preserve">
+    <value>Verifying ADK installation</value>
+  </data>
+  <data name="Adk.Operation.Completed" xml:space="preserve">
+    <value>ADK operation completed</value>
+  </data>
+  <data name="Adk.Operation.Failed" xml:space="preserve">
+    <value>ADK operation failed</value>
+  </data>
+  <data name="AdkPage_RefreshButton.Content" xml:space="preserve">
+    <value>Refresh status</value>
+  </data>
+  <data name="AdkPage_InstallButton.Content" xml:space="preserve">
+    <value>Install ADK</value>
+  </data>
+  <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
+    <value>Upgrade ADK</value>
+  </data>
+  <data name="AdkPage_OpenLogsButton.Content" xml:space="preserve">
+    <value>Open logs</value>
   </data>
 </root>

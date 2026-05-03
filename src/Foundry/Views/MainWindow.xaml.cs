@@ -1,4 +1,5 @@
 using Foundry.Services.Localization;
+using Foundry.Services.Operations;
 using Foundry.Services.Shell;
 using Microsoft.UI.Windowing;
 using Serilog;
@@ -8,17 +9,21 @@ namespace Foundry.Views
     public sealed partial class MainWindow : Window
     {
         private readonly IApplicationLocalizationService localizationService;
+        private readonly IOperationProgressService operationProgressService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
         private readonly ILogger logger = Log.ForContext<MainWindow>();
         private ContentDialog? operationDialog;
         private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
+        private TextBlock? operationStatusText;
+        private ProgressBar? operationProgressBar;
 
         public MainViewModel ViewModel { get; }
 
         public MainWindow()
         {
             localizationService = App.GetService<IApplicationLocalizationService>();
+            operationProgressService = App.GetService<IOperationProgressService>();
             shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
             ViewModel = App.GetService<MainViewModel>();
             this.InitializeComponent();
@@ -30,6 +35,7 @@ namespace Foundry.Views
             ApplyShellNavigationState();
 
             localizationService.LanguageChanged += OnLanguageChanged;
+            operationProgressService.StateChanged += OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
             NavFrame.Navigated += OnNavFrameNavigated;
             AppTitleBar.BackRequested += OnTitleBarBackRequested;
@@ -139,6 +145,7 @@ namespace Foundry.Views
         private void OnClosed(object sender, WindowEventArgs args)
         {
             localizationService.LanguageChanged -= OnLanguageChanged;
+            operationProgressService.StateChanged -= OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
             NavFrame.Navigated -= OnNavFrameNavigated;
             AppTitleBar.BackRequested -= OnTitleBarBackRequested;
@@ -188,6 +195,17 @@ namespace Foundry.Views
             }
 
             ApplyShellNavigationState();
+        }
+
+        private void OnOperationProgressChanged(object? sender, OperationProgressChangedEventArgs e)
+        {
+            if (!DispatcherQueue.HasThreadAccess)
+            {
+                DispatcherQueue.TryEnqueue(() => ApplyOperationState(e.State));
+                return;
+            }
+
+            ApplyOperationState(e.State);
         }
 
         private void OnNavFrameNavigated(object sender, NavigationEventArgs e)
@@ -294,6 +312,21 @@ namespace Foundry.Views
 
         private FrameworkElement CreateOperationDialogContent()
         {
+            operationStatusText = new TextBlock
+            {
+                Text = GetOperationDialogStatusText(),
+                TextWrapping = TextWrapping.Wrap,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center
+            };
+
+            operationProgressBar = new ProgressBar
+            {
+                Minimum = 0,
+                Maximum = 100,
+                Value = operationProgressService.State.Progress
+            };
+
             return new StackPanel
             {
                 MinWidth = 360,
@@ -307,12 +340,8 @@ namespace Foundry.Views
                         IsActive = true,
                         HorizontalAlignment = HorizontalAlignment.Center
                     },
-                    new TextBlock
-                    {
-                        Text = localizationService.GetString("Shell.OperationRunning"),
-                        TextWrapping = TextWrapping.Wrap,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    }
+                    operationStatusText,
+                    operationProgressBar
                 }
             };
         }
@@ -324,6 +353,8 @@ namespace Foundry.Views
                 return;
             }
 
+            operationStatusText = null;
+            operationProgressBar = null;
             isClosingOperationDialog = true;
             operationDialog.Hide();
         }
@@ -370,6 +401,26 @@ namespace Foundry.Views
                     || string.Equals(uniqueId, typeof(AdkPage).FullName, StringComparison.Ordinal),
                 _ => false
             };
+        }
+
+        private void ApplyOperationState(OperationProgressState state)
+        {
+            if (operationStatusText is not null)
+            {
+                operationStatusText.Text = GetOperationDialogStatusText();
+            }
+
+            if (operationProgressBar is not null)
+            {
+                operationProgressBar.Value = state.Progress;
+            }
+        }
+
+        private string GetOperationDialogStatusText()
+        {
+            return !string.IsNullOrWhiteSpace(operationProgressService.State.Status)
+                ? operationProgressService.State.Status
+                : localizationService.GetString("Shell.OperationRunning");
         }
     }
 
