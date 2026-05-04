@@ -91,9 +91,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     [ObservableProperty]
     public partial bool HasWinPeLanguages { get; set; }
 
-    [ObservableProperty]
-    public partial string WinPeLanguageStatus { get; set; } = string.Empty;
-
     [RelayCommand]
     private async Task BrowseIsoOutputPathAsync()
     {
@@ -122,13 +119,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    public Task RefreshWinPeLanguagesAsync()
-    {
-        RefreshWinPeLanguages();
-        return Task.CompletedTask;
-    }
-
     public void RefreshLocalizedOptions()
     {
         UsbFormatMode selectedValue = SelectedFormatMode?.Value
@@ -147,7 +137,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
 
         if (!adkService.CurrentStatus.CanCreateMedia)
         {
-            WinPeLanguageStatus = localizationService.GetString("GeneralSetting_WinPeLanguage.NotReady");
             SelectedWinPeLanguage = null;
             return;
         }
@@ -155,7 +144,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
-            WinPeLanguageStatus = toolsResult.Error?.Message ?? localizationService.GetString("GeneralSetting_WinPeLanguage.NotReady");
             logger.Warning("WinPE language discovery skipped because ADK tools were not resolved. ErrorCode={ErrorCode}", toolsResult.Error?.Code);
             SelectedWinPeLanguage = null;
             return;
@@ -171,7 +159,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
 
         if (!result.IsSuccess || result.Value is null || result.Value.Count == 0)
         {
-            WinPeLanguageStatus = result.Error?.Message ?? localizationService.GetString("GeneralSetting_WinPeLanguage.Empty");
             logger.Warning(
                 "WinPE language discovery returned no languages. Architecture={Architecture}, ErrorCode={ErrorCode}",
                 architecture,
@@ -187,7 +174,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
 
         HasWinPeLanguages = true;
-        WinPeLanguageStatus = string.Format(localizationService.GetString("GeneralSetting_WinPeLanguage.Status"), result.Value.Count);
         SelectedWinPeLanguage = selected;
         appSettingsService.Current.Media.WinPeLanguage = selected;
         appSettingsService.Save();

@@ -52,9 +52,6 @@
                               ItemsSource="{x:Bind ViewModel.AvailableWinPeLanguages, Mode=OneWay}"
                               SelectedItem="{x:Bind ViewModel.SelectedWinPeLanguage, Mode=TwoWay}"
                               SelectionChanged="WinPeLanguageComboBox_SelectionChanged" />
-                    <Button x:Name="WinPeLanguageRefreshButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.RefreshWinPeLanguagesCommand}" />
                 </StackPanel>
             </dev:SettingsCard>
 

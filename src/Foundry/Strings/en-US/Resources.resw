@@ -75,15 +75,6 @@
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
     <value>Run at startup</value>
   </data>
-  <data name="GeneralSetting_WinPeLanguage.NotReady" xml:space="preserve">
-    <value>Install a compatible Windows ADK and WinPE Add-on to discover boot languages.</value>
-  </data>
-  <data name="GeneralSetting_WinPeLanguage.Empty" xml:space="preserve">
-    <value>No WinPE boot languages were found in the installed ADK.</value>
-  </data>
-  <data name="GeneralSetting_WinPeLanguage.Status" xml:space="preserve">
-    <value>{0} WinPE boot languages available.</value>
-  </data>
   <data name="Language.English" xml:space="preserve">
     <value>English</value>
   </data>
@@ -242,9 +233,6 @@
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE boot language</value>
-  </data>
-  <data name="StartMedia.Field.AvailableWinPeLanguages" xml:space="preserve">
-    <value>Available WinPE boot languages</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architecture</value>

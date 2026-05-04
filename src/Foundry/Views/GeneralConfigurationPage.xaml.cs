@@ -69,7 +69,7 @@ public sealed partial class GeneralConfigurationPage : Page
         Ca2023Toggle.OffContent = localizationService.GetString("StartMedia.Signature.Ca2011");
 
         WinPeLanguageCard.Header = localizationService.GetString("StartMedia.WinPeLanguage.Header");
-        WinPeLanguageRefreshButton.Content = localizationService.GetString("Common.Refresh");
+        WinPeLanguageCard.Description = localizationService.GetString("StartMedia.WinPeLanguage.Description");
 
         UsbLayoutCard.Header = localizationService.GetString("StartMedia.UsbLayout.Header");
         UsbLayoutCard.Description = localizationService.GetString("StartMedia.UsbLayout.Description");
@@ -93,9 +93,6 @@ public sealed partial class GeneralConfigurationPage : Page
         bool wasInitializingWinPeLanguageSelection = isInitializingWinPeLanguageSelection;
         isInitializingWinPeLanguageSelection = true;
         ViewModel.RefreshWinPeLanguages();
-        WinPeLanguageCard.Description = string.IsNullOrWhiteSpace(ViewModel.WinPeLanguageStatus)
-            ? localizationService.GetString("StartMedia.WinPeLanguage.Description")
-            : ViewModel.WinPeLanguageStatus;
         WinPeLanguageComboBox.SelectedItem = ViewModel.SelectedWinPeLanguage;
         isInitializingWinPeLanguageSelection = wasInitializingWinPeLanguageSelection;
     }

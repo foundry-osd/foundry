@@ -319,7 +319,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         var builder = new StringBuilder();
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMedia)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(options.WinPeLanguage)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.AvailableWinPeLanguages")}: {FormatAvailableLanguages(options.AvailableWinPeLanguages)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Architecture")}: {FormatArchitecture(options.Architecture)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.BootImageSource")}: {FormatBootImageSource(options.BootImageSource)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.IsoPath")}: {FormatValue(options.IsoOutputPath)}");
@@ -477,11 +476,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             candidate.DiskNumber,
             candidate.FriendlyName,
             FormatByteSize(candidate.SizeBytes));
-    }
-
-    private string FormatAvailableLanguages(IReadOnlyList<string> languages)
-    {
-        return languages.Count == 0 ? "-" : string.Join(", ", languages);
     }
 
     private string FormatArchitecture(WinPeArchitecture architecture)

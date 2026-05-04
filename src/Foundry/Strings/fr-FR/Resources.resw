@@ -75,15 +75,6 @@
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
     <value>Lancer au démarrage</value>
   </data>
-  <data name="GeneralSetting_WinPeLanguage.NotReady" xml:space="preserve">
-    <value>Installez un ADK Windows compatible et le module complémentaire WinPE pour détecter les langues de démarrage.</value>
-  </data>
-  <data name="GeneralSetting_WinPeLanguage.Empty" xml:space="preserve">
-    <value>Aucune langue de démarrage WinPE n'a été trouvée dans l'ADK installé.</value>
-  </data>
-  <data name="GeneralSetting_WinPeLanguage.Status" xml:space="preserve">
-    <value>{0} langues de démarrage WinPE disponibles.</value>
-  </data>
   <data name="Language.English" xml:space="preserve">
     <value>Anglais</value>
   </data>
@@ -242,9 +233,6 @@
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>Langue de démarrage WinPE</value>
-  </data>
-  <data name="StartMedia.Field.AvailableWinPeLanguages" xml:space="preserve">
-    <value>Langues de démarrage WinPE disponibles</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architecture</value>
