@@ -404,6 +404,7 @@ git commit -m "feat(media): add start page preflight workflow"
 - [x] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
   - [x] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
   - [x] Phase 13 global summary lists Deploy, Connect, and secret-key provisioning as deferred readiness gates.
+- [ ] **13.18.1** Confirm final media command enablement after Phases 14 and 15:
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Connect configuration is incomplete.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Deploy configuration is incomplete.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when encrypted secret-key provisioning is required but unavailable.

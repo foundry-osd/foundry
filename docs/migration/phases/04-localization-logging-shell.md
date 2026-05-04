@@ -160,8 +160,9 @@ git commit -m "refactor: migrate foundry logging for winui"
 - [x] **10.10** Confirm startup failures are logged.
 - [x] **10.11** Confirm update failures are logged.
 - [ ] **10.12** Confirm media creation logs remain readable.
-  - Phase 13 covers readable Start-page preflight and dry-run logging.
-  - Final ISO/USB start, progress, completion, cancellation, and failure log validation is completed when final media execution is enabled after Deploy/Connect provisioning.
+  - [x] Phase 13 confirms readable Start-page preflight and dry-run logging.
+  - [x] Missing USB target is logged as state, not as a global blocking reason.
+  - [ ] Final ISO/USB start, progress, completion, cancellation, and failure log validation is completed when final media execution is enabled after Deploy/Connect provisioning.
 - [x] **10.13** Confirm `Debug` events are absent when `diagnostics.developerMode=false`.
 - [x] **10.14** Confirm `Debug` events are written when `diagnostics.developerMode=true`.
 - [x] **10.15** Confirm concise source context appears for app services.

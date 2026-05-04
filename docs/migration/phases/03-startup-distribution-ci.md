@@ -34,15 +34,14 @@
   - [x] Shell navigation guard service.
   - Note: localization and update service boundaries are registered; concrete `.resw` migration and Velopack update checks remain in later dedicated phases.
 - [x] **6.8** Remove DevWinUI placeholder update metadata.
-- [ ] **6.8.1** Implement the startup readiness sequence:
+- [x] **6.8.1** Implement the startup readiness sequence:
   - [x] Initialize logging, dependency injection, and Velopack startup hooks.
   - [x] Detect ADK and WinPE Add-on readiness.
   - [x] Apply `AdkBlocked` or `Ready` shell navigation state.
-  - [ ] Refresh USB targets only after ADK is compatible.
-  - Note: ADK readiness and update checks are implemented. USB target refresh remains deferred to Phase 13 after Phase 12 provides WinPE service foundations.
+  - [x] Refresh USB targets only after ADK is compatible.
+  - Note: ADK readiness, update checks, and ADK-gated USB target refresh are implemented.
   - [x] Run update checks after readiness initialization.
   - [x] Ensure startup update checks do not block app usage.
-  - Note: USB refresh is deferred to Phase 13.
 - [x] **6.9** Commit:
 
 ```powershell
