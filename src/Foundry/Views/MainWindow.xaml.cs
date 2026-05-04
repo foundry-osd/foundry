@@ -210,6 +210,7 @@ namespace Foundry.Views
 
         private void OnNavFrameNavigated(object sender, NavigationEventArgs e)
         {
+            SynchronizeSelectedNavigationItem(e.SourcePageType);
             ApplyShellNavigationState();
         }
 
@@ -420,6 +421,51 @@ namespace Foundry.Views
             return !string.IsNullOrWhiteSpace(operationProgressService.State.Status)
                 ? operationProgressService.State.Status
                 : localizationService.GetString("Shell.OperationRunning");
+        }
+
+        private void SynchronizeSelectedNavigationItem(Type? pageType)
+        {
+            if (pageType is null)
+            {
+                return;
+            }
+
+            NavigationViewItem? item = FindNavigationItem(NavView.MenuItems, pageType.FullName)
+                ?? FindNavigationItem(NavView.FooterMenuItems, pageType.FullName);
+
+            if (item is not null && !ReferenceEquals(NavView.SelectedItem, item))
+            {
+                NavView.SelectedItem = item;
+            }
+        }
+
+        private static NavigationViewItem? FindNavigationItem(IList<object> items, string? uniqueId)
+        {
+            if (string.IsNullOrWhiteSpace(uniqueId))
+            {
+                return null;
+            }
+
+            foreach (object item in items)
+            {
+                if (item is not NavigationViewItem navigationItem)
+                {
+                    continue;
+                }
+
+                if (string.Equals(navigationItem.Tag as string, uniqueId, StringComparison.Ordinal))
+                {
+                    return navigationItem;
+                }
+
+                NavigationViewItem? child = FindNavigationItem(navigationItem.MenuItems, uniqueId);
+                if (child is not null)
+                {
+                    return child;
+                }
+            }
+
+            return null;
         }
     }
 

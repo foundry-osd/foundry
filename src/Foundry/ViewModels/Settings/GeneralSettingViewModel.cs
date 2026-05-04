@@ -73,5 +73,6 @@ namespace Foundry.ViewModels
 
             SelectedLanguage = selectedOption;
         }
+
     }
 }

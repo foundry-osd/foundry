@@ -37,7 +37,7 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
 - [x] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
-- [ ] Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known; keep the final `Start` page refresh command wiring in Phase 13.
+- [x] Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known; keep the final `Start` page refresh command wiring in Phase 13.
 - [x] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
 
 **WPF reference scenario audit:** before implementing each Phase 12 slice, compare the new WinUI/Core behavior against the archived WPF reference without modifying it:
@@ -279,11 +279,14 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [x] **12.19** Local debug Deploy publish override still works.
 - [x] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
 
-**Manual validation deferred to Phase 13 Start page workflow**
+**Manual validation deferred to final media command enablement after Phases 14 and 15**
 
-- [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
-- [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command.
-- [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
+- [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command after final media execution is enabled.
+- [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command after final media execution is enabled.
+- [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow after final media execution is enabled.
+
+**ADK and WinPE service validation completed in Phase 12**
+
 - [x] **12.24** ADK page shows missing state when ADK is absent.
 - [x] **12.25** ADK page shows installed version when ADK is present.
 - [x] **12.26** ADK page shows incompatible state when the version is unsupported.
@@ -316,83 +319,92 @@ git commit -m "feat(winpe): apply programdata media layout"
   - [x] `sources\boot.wim`, `boot\BCD`, and architecture-specific EFI boot files are present.
   - [x] Successful `robocopy` exit codes `0` through `7` are accepted.
 
-## Phase 13: General Media Creation Workflow
+## Phase 13: Start Page Media Preflight Workflow
 
 **Priority:** medium-high after Phase 12 service prerequisites.
 
-**Goal:** port the standard ISO/USB creation workflow into the `Start` page and blocking operation overlay model.
+**Goal:** port the standard media configuration defaults into the main `General` page, keep `Start` as a global media summary and execution page, wire readiness/preflight checks, and produce a clear global summary without enabling destructive final ISO/USB execution yet.
 
-**Prerequisites:** Phase 11 shell/overlay contract and the Phase 12 ADK/WinPE service contract must be available before implementing the final media creation commands.
+**Prerequisites:** Phase 11 shell/overlay contract and the Phase 12 ADK/WinPE service contract must be available before implementing the `Start` page media workflow.
 
-**Provisioning boundary:** the final production ISO/USB creation path also depends on Phase 15 for complete `Foundry.Connect` configuration, network asset provisioning, and encrypted embedded Wi-Fi secrets. Phase 13 may build the `Start` page UI and dry-run summaries before Phase 15, but final Create ISO/Create USB commands must stay disabled or clearly marked incomplete until Phase 15 is implemented.
+**Provisioning boundary:** the final production ISO/USB creation path also depends on Phase 14 for complete `Foundry.Deploy` configuration generation and Phase 15 for complete `Foundry.Connect` configuration, network asset provisioning, and encrypted embedded Wi-Fi secrets. Phase 13 builds the `General` media defaults UI, the `Start` global summary, readiness checks, and USB discovery. Final Create ISO/Create USB execution remains disabled or explicitly marked incomplete until the final enablement PR after Phases 14 and 15.
 
-- [ ] **13.1** Create WinUI view model for media creation on the `Start` page.
-  - [ ] Keep WinPE boot language selection owned by the `General` page because the WPF source stores it in `GeneralSettings.WinPeLanguage`.
-  - [ ] The `Start` page consumes the selected WinPE boot language from `General` and shows it in the final execution summary.
-  - [ ] If the `General` page has not yet implemented WinPE boot language selection when media creation is wired, implement the minimal selector there before enabling ISO/USB commands.
-  - [ ] Do not confuse WinPE boot language with the expert `Localization` page; that page owns OS deployment language visibility/default/time-zone settings for `Foundry.Deploy`.
-- [ ] **13.2** Port state from WPF `MainWindowViewModel`:
-  - [ ] ISO output path.
-  - [ ] Architecture.
-  - [ ] CA 2023 signature mode.
-  - [ ] USB partition style.
-  - [ ] USB format mode.
-  - [ ] Dell driver inclusion.
-  - [ ] HP driver inclusion.
-  - [ ] Custom driver directory.
-  - [ ] Selected USB disk.
-  - [ ] Selected WinPE boot language from `General`.
-- [ ] **13.3** Port commands:
-  - [ ] Browse ISO path.
-  - [ ] Browse custom driver folder.
-  - [ ] Refresh USB disks.
-  - [ ] Create ISO.
-  - [ ] Create USB.
-- [ ] **13.4** Implement WinUI warning dialog for destructive USB formatting.
-- [ ] **13.5** Use app dispatcher abstraction for UI updates.
-- [ ] **13.6** Keep media build service logic in core/app services, not page code-behind.
-  - [ ] **13.6.1** Show a final execution summary before ISO or USB creation:
-    - [ ] ADK status.
-    - [ ] WinPE boot language from `General`.
-    - [ ] Architecture.
-    - [ ] ISO output path.
-    - [ ] USB target.
-    - [ ] Runtime payload readiness.
-    - [ ] Driver options.
-    - [ ] Network validation.
-    - [ ] `Foundry.Connect` provisioning readiness from Phase 15.
-    - [ ] Secret envelope/key provisioning readiness when embedded Wi-Fi secrets are required.
-    - [ ] Boot image source selection: standard WinPE or Wi-Fi-capable WinRE path.
-  - [ ] **13.6.2** Run ISO creation inside the blocking operation overlay.
-  - [ ] **13.6.3** Run USB creation inside the blocking operation overlay.
-  - [ ] **13.6.4** Keep navigation blocked until ISO or USB creation fully completes.
-- [ ] **13.7** Commit:
+- [x] **13.1** Create WinUI view model for media defaults on the main `General` page and media preflight on the `Start` page.
+  - [x] Keep WinPE boot language selection owned by the main `General` page because the WPF source stores it in `GeneralSettings.WinPeLanguage`.
+  - [x] The `Start` page consumes the selected WinPE boot language from `General` and shows it in the global summary.
+  - [x] If the `General` page has not yet implemented WinPE boot language selection when media preflight is wired, implement the minimal selector there before enabling the global summary.
+  - [x] Do not confuse WinPE boot language with the expert `Localization` page; that page owns OS deployment language visibility/default/time-zone settings for `Foundry.Deploy`.
+- [x] **13.2** Port base media state from WPF `MainWindowViewModel` to the main `General` page:
+  - [x] ISO output path.
+  - [x] Architecture.
+  - [x] CA 2023 signature mode.
+  - [x] USB partition style.
+  - [x] USB format mode.
+  - [x] Dell driver inclusion.
+  - [x] HP driver inclusion.
+  - [x] Custom driver directory.
+  - [x] Keep selected USB disk out of base defaults; it remains owned by `Start` because it is execution-time state.
+  - [x] Selected WinPE boot language from `General`.
+- [x] **13.3** Port commands with clear page ownership:
+  - [x] Browse ISO path.
+  - [x] Browse custom driver folder.
+  - [x] Add a `Create media` action on the main `General` page that navigates to `Start` and remains gated by compatible ADK readiness.
+  - [x] Refresh USB disks manually from the `Start` page because USB target selection is execution-time state.
+  - [x] Refresh USB disks automatically when the `Start` page loads and ADK is compatible.
+  - [x] Generate one global media summary on the `Start` page.
+  - [x] Keep final Create ISO/Create USB execution disabled until the final media enablement PR.
+- [x] **13.4** Prepare the future WinUI destructive USB warning dialog contract in the dry-run flow.
+  - [x] Show disk number, friendly name, and size in the USB target summary.
+  - [x] Document that the future final USB command must default to cancel/no.
+  - [x] Do not perform destructive formatting in Phase 13.
+- [x] **13.5** Use app dispatcher abstraction for UI updates.
+- [x] **13.6** Keep media preflight and future media build orchestration in app/core services, not page code-behind.
+  - [x] **13.6.1** Show one global execution summary before ISO or USB creation can be enabled:
+    - [x] ADK status.
+    - [x] WinPE boot language from `General`.
+    - [x] Architecture.
+    - [x] ISO output path.
+    - [x] USB target.
+    - [x] Runtime payload readiness.
+    - [x] Driver options.
+    - [x] Network validation.
+    - [x] `Foundry.Connect` provisioning readiness from Phase 15.
+    - [x] Secret envelope/key provisioning readiness when embedded Wi-Fi secrets are required.
+    - [x] No boot image source selector is exposed in Phase 13; Wi-Fi/WinRE-specific provisioning remains owned by the future `Network` page workflow.
+  - [x] **13.6.2** Map final ISO creation requirements to a future operation overlay contract without enabling execution.
+  - [x] **13.6.3** Map final USB creation requirements to a future operation overlay contract without enabling execution.
+  - [x] **13.6.4** Keep final navigation-blocking ISO/USB execution validation deferred until final media command enablement.
+- [x] **13.6.5** Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known.
+- [x] **13.7** Commit:
 
 ```powershell
-git commit -m "feat(media): port creation workflow to winui"
+git commit -m "feat(media): add start page preflight workflow"
 ```
 
 **Validation**
 
-- [ ] **13.8** ADK missing state disables media creation.
-- [ ] **13.9** Invalid ISO path disables ISO creation.
-- [ ] **13.10** No USB candidate disables USB creation.
-- [ ] **13.11** ARM64 enforces GPT partition style.
-- [ ] **13.12** USB warning appears before formatting.
-- [ ] **13.13** ADK missing state disables `Start` navigation through the shell guard.
-- [ ] **13.14** ISO creation overlay blocks navigation until completion.
-- [ ] **13.15** USB creation overlay blocks navigation until completion.
-- [ ] **13.16** Confirm media creation logs remain readable and complete deferred Phase 10 validation **10.12**:
-  - [ ] ISO creation logs include start, progress, completion, cancellation, and failure details.
-  - [ ] USB creation logs include start, progress, completion, cancellation, and failure details.
-  - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
-- [ ] **13.17** Confirm the selected WinPE boot language flows from the `General` page into media creation:
-  - [ ] Available WinPE boot languages come from the installed ADK `WinPE_OCs` tree.
-  - [ ] The selected language controls the language pack and localized optional component packages applied during Phase 12 service execution.
-  - [ ] The `Start` page summary shows the selected WinPE boot language before ISO or USB creation.
-  - [ ] The expert `Localization` page is not part of this flow.
-- [ ] **13.18** Confirm final media command enablement waits for Phase 15 network provisioning readiness:
-  - [ ] ISO/USB creation is blocked when required Connect configuration is incomplete.
-  - [ ] ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
-  - [ ] ISO mode contains all required runtime/configuration content under `X:\Foundry`.
-  - [ ] USB mode keeps BOOT minimal and resolves persistent runtime/cache content from the `Foundry Cache` partition.
+- [x] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard and the `General` page `Create media` action.
+- [x] **13.9** Invalid ISO path appears as a global blocking reason and disables the final ISO command.
+- [x] **13.10** No USB candidate must not appear as a blocking reason in the global summary; the future `Create USB` command remains disabled until a USB target is connected or selected, while ISO readiness remains independent.
+- [x] **13.11** ARM64 exposes and enforces GPT as the only USB partition style.
+- [x] **13.12** Future USB warning contract is represented by dry-run disk identity details, and no destructive formatting runs in Phase 13.
+- [x] **13.13** ADK missing state disables `Start` navigation through the shell guard.
+- [x] **13.14** Global summary clearly shows that final ISO execution is deferred until Deploy/Connect provisioning is complete.
+- [x] **13.15** Global summary clearly shows that final USB execution is deferred until Deploy/Connect provisioning is complete.
+- [x] **13.16** Confirm media preflight logs remain readable and partially complete deferred Phase 10 validation **10.12**:
+  - [x] Global preflight logs include readiness, selected options, and global blocking reasons.
+  - [x] Missing USB target is logged as `UsbTargetSelected=false`, not as a global blocking reason.
+  - [x] USB preflight logs include selected disk identity when a USB target is selected.
+  - [x] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
+- [x] **13.17** Confirm the selected WinPE boot language flows from the `General` page into media creation:
+  - [x] Available WinPE boot languages come from the installed ADK `WinPE_OCs` tree.
+  - [x] The selected language appears in the `Start` page global summary using canonical culture casing such as `fr-FR` or `en-US`.
+  - [x] The selected language is mapped to the Phase 12 service option that will control language pack and localized optional component package application during final execution.
+  - [x] The expert `Localization` page is not part of this flow.
+- [x] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
+  - [x] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
+  - [x] Phase 13 global summary lists Deploy, Connect, and secret-key provisioning as deferred readiness gates.
+- [ ] **13.18.1** Confirm final media command enablement after Phases 14 and 15:
+  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Connect configuration is incomplete.
+  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Deploy configuration is incomplete.
+  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when encrypted secret-key provisioning is required but unavailable.

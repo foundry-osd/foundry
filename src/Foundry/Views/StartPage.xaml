@@ -1,13 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.StartPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
-                Padding="{ThemeResource ContentPagePadding}">
+                Padding="{ThemeResource ContentPagePadding}"
+                VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
-                    Spacing="5">
-            <TextBlock x:Uid="StartPage_Title"
+                    dev:PanelAttach.ChildrenTransitions="Default"
+                    Spacing="8">
+            <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource TitleTextBlockStyle}" />
+
+            <Border Padding="18"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4">
+                <Grid ColumnDefinitions="Auto,*"
+                      ColumnSpacing="16">
+                    <FontIcon Grid.Column="0"
+                              Glyph="&#xE946;"
+                              VerticalAlignment="Top" />
+                    <StackPanel Grid.Column="1"
+                                Spacing="6">
+                        <TextBlock FontWeight="SemiBold"
+                                   Text="{x:Bind ViewModel.StatusSummary, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Text="{x:Bind ViewModel.FinalExecutionStatus, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                        <TextBlock MaxWidth="1120"
+                                   Text="{x:Bind ViewModel.GlobalSummary, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <dev:SettingsCard x:Name="UsbTargetCard"
+                              Description="{x:Bind ViewModel.UsbCandidateStatus, Mode=OneWay}"
+                              HeaderIcon="{dev:FontIcon GlyphCode=E88E}">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10">
+                    <ComboBox MinWidth="360"
+                              DisplayMemberPath="DisplayName"
+                              ItemsSource="{x:Bind ViewModel.UsbCandidates, Mode=OneWay}"
+                              SelectedItem="{x:Bind ViewModel.SelectedUsbDisk, Mode=TwoWay}" />
+                    <Button x:Name="RefreshUsbButton"
+                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            Command="{x:Bind ViewModel.RefreshUsbCandidatesCommand}" />
+                </StackPanel>
+            </dev:SettingsCard>
+
+            <dev:SettingsCard x:Name="FinalCommandsCard"
+                              HeaderIcon="{dev:FontIcon GlyphCode=E7C1}">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10">
+                    <Button x:Name="CreateIsoButton"
+                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            IsEnabled="False" />
+                    <Button x:Name="CreateUsbButton"
+                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            IsEnabled="False" />
+                </StackPanel>
+            </dev:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

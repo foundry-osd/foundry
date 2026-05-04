@@ -40,3 +40,4 @@
   - [ ] ISO creation.
   - [ ] USB creation.
   - [ ] WinPE VM boot.
+  - [ ] Final generated ISO boots in a VM after final media execution is enabled and confirms bootstrap/config/runtime resolution.

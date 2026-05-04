@@ -74,6 +74,7 @@ public sealed partial class GeneralSettingPage : Page
         ViewModel.RefreshSupportedLanguages();
         LanguageComboBox.SelectedItem = ViewModel.SelectedLanguage;
         isInitializingLanguageSelection = wasInitializingLanguageSelection;
+
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)

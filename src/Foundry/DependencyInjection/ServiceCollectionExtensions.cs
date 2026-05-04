@@ -1,5 +1,6 @@
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Adk;
+using Foundry.Core.Services.WinPe;
 using Foundry.Services.Application;
 using Foundry.Services.Adk;
 using Foundry.Services.Localization;
@@ -22,6 +23,8 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
+        services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
+        services.AddSingleton<IWinPeUsbMediaService, WinPeUsbMediaService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IAdkService, AdkService>();
         services.AddSingleton<IShellNavigationGuardService, ShellNavigationGuardService>();
@@ -40,6 +43,8 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<MainViewModel>();
         services.AddSingleton<ContextMenuService>();
+        services.AddTransient<GeneralConfigurationViewModel>();
+        services.AddTransient<StartMediaViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();
