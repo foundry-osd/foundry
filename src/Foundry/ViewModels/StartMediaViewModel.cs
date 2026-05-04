@@ -299,14 +299,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)
     {
+        IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
+
         return string.Format(
             localizationService.GetString("StartMedia.Status"),
-            FormatReady(evaluation.CanGenerateIsoSummary),
-            FormatReady(evaluation.CanGenerateUsbSummary));
+            FormatReady(evaluation.CanGenerateIsoSummary || evaluation.CanGenerateUsbSummary),
+            reasons.Count);
     }
 
     private string BuildGlobalSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
+        IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
         var builder = new StringBuilder();
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMedia)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(NormalizeCultureName(options.WinPeLanguage))}");
@@ -325,13 +328,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine();
         builder.AppendLine(localizationService.GetString("StartMedia.FinalExecution.Deferred"));
 
-        AppendBlockingReasons(builder, "StartMedia.Summary.IsoBlockingReasons", evaluation.IsoBlockingReasons);
-        AppendBlockingReasons(builder, "StartMedia.Summary.UsbBlockingReasons", evaluation.UsbBlockingReasons);
+        AppendBlockingReasons(builder, reasons);
 
         return builder.ToString();
     }
 
-    private void AppendBlockingReasons(StringBuilder builder, string headerResourceKey, IReadOnlyList<MediaPreflightBlockingReason> reasons)
+    private void AppendBlockingReasons(StringBuilder builder, IReadOnlyList<MediaPreflightBlockingReason> reasons)
     {
         if (reasons.Count == 0)
         {
@@ -339,7 +341,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         builder.AppendLine();
-        builder.AppendLine(localizationService.GetString(headerResourceKey));
+        builder.AppendLine(localizationService.GetString("StartMedia.Summary.BlockingReasons"));
         foreach (MediaPreflightBlockingReason reason in reasons)
         {
             builder.AppendLine($"- {GetBlockingReasonText(reason)}");
@@ -353,12 +355,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void LogPreflightSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
+        IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
+
         logger.Information(
-            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, IsoReady={IsoReady}, UsbReady={UsbReady}, IsoBlockingReasons={IsoBlockingReasons}, UsbBlockingReasons={UsbBlockingReasons}",
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
             options.Architecture,
             NormalizeCultureName(options.WinPeLanguage),
             options.BootImageSource,
             options.IsoOutputPath,
+            options.SelectedUsbDisk is not null,
             options.SelectedUsbDisk?.DiskNumber,
             options.SelectedUsbDisk?.FriendlyName,
             options.IsRuntimePayloadReady,
@@ -366,10 +371,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsDeployConfigurationReady,
             options.IsConnectProvisioningReady,
             options.AreRequiredSecretsReady,
-            evaluation.CanGenerateIsoSummary,
-            evaluation.CanGenerateUsbSummary,
-            string.Join(",", evaluation.IsoBlockingReasons),
-            string.Join(",", evaluation.UsbBlockingReasons));
+            evaluation.CanGenerateIsoSummary || evaluation.CanGenerateUsbSummary,
+            string.Join(",", reasons));
+    }
+
+    private static IReadOnlyList<MediaPreflightBlockingReason> GetGlobalBlockingReasons(MediaPreflightEvaluation evaluation)
+    {
+        return evaluation.IsoBlockingReasons
+            .Concat(evaluation.UsbBlockingReasons)
+            .Where(reason => reason != MediaPreflightBlockingReason.NoUsbTarget)
+            .Distinct()
+            .ToList();
     }
 
     private IReadOnlyList<string> GetAvailableWinPeLanguages()

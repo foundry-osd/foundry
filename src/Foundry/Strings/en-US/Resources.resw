@@ -225,14 +225,8 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Blocking or deferred items:</value>
   </data>
-  <data name="StartMedia.Summary.IsoBlockingReasons" xml:space="preserve">
-    <value>ISO blocking or deferred items:</value>
-  </data>
-  <data name="StartMedia.Summary.UsbBlockingReasons" xml:space="preserve">
-    <value>USB blocking or deferred items:</value>
-  </data>
   <data name="StartMedia.Status" xml:space="preserve">
-    <value>Media summary: ISO {0}; USB {1}</value>
+    <value>Media summary: {0}; blocking or deferred items: {1}</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
