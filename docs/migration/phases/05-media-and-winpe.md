@@ -385,22 +385,22 @@ git commit -m "feat(media): add start page preflight workflow"
 
 - [x] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard and the `General` page `Create media` action.
 - [x] **13.9** Invalid ISO path appears as a global blocking reason and disables the final ISO command.
-- [ ] **13.10** No USB candidate must not appear as a blocking reason in the global summary; the future `Create USB` command remains disabled until a USB target is connected or selected, while ISO readiness remains independent.
-- [ ] **13.11** ARM64 exposes and enforces GPT as the only USB partition style.
+- [x] **13.10** No USB candidate must not appear as a blocking reason in the global summary; the future `Create USB` command remains disabled until a USB target is connected or selected, while ISO readiness remains independent.
+- [x] **13.11** ARM64 exposes and enforces GPT as the only USB partition style.
 - [x] **13.12** Future USB warning contract is represented by dry-run disk identity details, and no destructive formatting runs in Phase 13.
 - [x] **13.13** ADK missing state disables `Start` navigation through the shell guard.
 - [x] **13.14** Global summary clearly shows that final ISO execution is deferred until Deploy/Connect provisioning is complete.
 - [x] **13.15** Global summary clearly shows that final USB execution is deferred until Deploy/Connect provisioning is complete.
-- [ ] **13.16** Confirm media preflight logs remain readable and partially complete deferred Phase 10 validation **10.12**:
-  - [ ] Global preflight logs include readiness, selected options, and global blocking reasons.
-  - [ ] Missing USB target is logged as `UsbTargetSelected=false`, not as a global blocking reason.
-  - [ ] USB preflight logs include selected disk identity when a USB target is selected.
-  - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
-- [ ] **13.17** Confirm the selected WinPE boot language flows from the `General` page into media creation:
-  - [ ] Available WinPE boot languages come from the installed ADK `WinPE_OCs` tree.
-  - [ ] The selected language appears in the `Start` page global summary using canonical culture casing such as `fr-FR` or `en-US`.
-  - [ ] The selected language is mapped to the Phase 12 service option that will control language pack and localized optional component package application during final execution.
-  - [ ] The expert `Localization` page is not part of this flow.
+- [x] **13.16** Confirm media preflight logs remain readable and partially complete deferred Phase 10 validation **10.12**:
+  - [x] Global preflight logs include readiness, selected options, and global blocking reasons.
+  - [x] Missing USB target is logged as `UsbTargetSelected=false`, not as a global blocking reason.
+  - [x] USB preflight logs include selected disk identity when a USB target is selected.
+  - [x] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
+- [x] **13.17** Confirm the selected WinPE boot language flows from the `General` page into media creation:
+  - [x] Available WinPE boot languages come from the installed ADK `WinPE_OCs` tree.
+  - [x] The selected language appears in the `Start` page global summary using canonical culture casing such as `fr-FR` or `en-US`.
+  - [x] The selected language is mapped to the Phase 12 service option that will control language pack and localized optional component package application during final execution.
+  - [x] The expert `Localization` page is not part of this flow.
 - [x] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
   - [x] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
   - [x] Phase 13 global summary lists Deploy, Connect, and secret-key provisioning as deferred readiness gates.
