@@ -75,12 +75,6 @@
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
     <value>Run at startup</value>
   </data>
-  <data name="GeneralSetting_WinPeLanguageCard.Header" xml:space="preserve">
-    <value>WinPE boot language</value>
-  </data>
-  <data name="GeneralSetting_WinPeLanguageCard.Description" xml:space="preserve">
-    <value>Select the language applied to generated WinPE boot media.</value>
-  </data>
   <data name="GeneralSetting_WinPeLanguage.NotReady" xml:space="preserve">
     <value>Install a compatible Windows ADK and WinPE Add-on to discover boot languages.</value>
   </data>
@@ -123,6 +117,15 @@
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
     <value>General</value>
   </data>
+  <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
+    <value>Create media</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
+    <value>Review the configured media settings and start ISO or USB creation from the Start page.</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
+    <value>Create media</value>
+  </data>
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Localization</value>
   </data>
@@ -134,12 +137,6 @@
   </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Start</value>
-  </data>
-  <data name="StartMedia.IsoSummaryButton" xml:space="preserve">
-    <value>Review ISO</value>
-  </data>
-  <data name="StartMedia.UsbSummaryButton" xml:space="preserve">
-    <value>Review USB</value>
   </data>
   <data name="StartMedia.IsoPath.Header" xml:space="preserve">
     <value>ISO output</value>
@@ -234,17 +231,11 @@
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
     <value>Disk {0} - {1} ({2})</value>
   </data>
-  <data name="StartMedia.Summary.IsoTitle" xml:space="preserve">
-    <value>ISO dry-run summary</value>
-  </data>
-  <data name="StartMedia.Summary.UsbTitle" xml:space="preserve">
-    <value>USB dry-run summary</value>
-  </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Blocking or deferred items:</value>
   </data>
   <data name="StartMedia.Status" xml:space="preserve">
-    <value>ISO summary: {0}; USB summary: {1}; ISO items: {2}; USB items: {3}</value>
+    <value>Media summary: {0}; blocking or deferred items: {1}</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>

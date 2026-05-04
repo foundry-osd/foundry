@@ -41,24 +41,6 @@
                 </ComboBox>
             </dev:SettingsCard>
 
-            <dev:SettingsCard x:Name="WinPeLanguageCard">
-                <dev:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8AB;" />
-                </dev:SettingsCard.HeaderIcon>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <ComboBox x:Name="WinPeLanguageComboBox"
-                              MinWidth="{StaticResource SettingActionControlMinWidth}"
-                              IsEnabled="{x:Bind ViewModel.HasWinPeLanguages, Mode=OneWay}"
-                              ItemsSource="{x:Bind ViewModel.AvailableWinPeLanguages, Mode=OneWay}"
-                              SelectedItem="{x:Bind ViewModel.SelectedWinPeLanguage, Mode=TwoWay}"
-                              SelectionChanged="WinPeLanguageComboBox_SelectionChanged" />
-                    <Button x:Name="WinPeLanguageRefreshButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.RefreshWinPeLanguagesCommand}" />
-                </StackPanel>
-            </dev:SettingsCard>
-
             <dev:SettingsExpander x:Name="DiagnosticsCard"
                                   x:Uid="GeneralSetting_DiagnosticsCard"
                                   HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/DevMode.png}">

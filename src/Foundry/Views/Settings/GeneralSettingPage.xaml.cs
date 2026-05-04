@@ -4,12 +4,11 @@ using Serilog;
 
 namespace Foundry.Views;
 
-    public sealed partial class GeneralSettingPage : Page
-    {
-        private bool isInitializingLanguageSelection = true;
-        private bool isInitializingWinPeLanguageSelection = true;
-        private readonly IApplicationLocalizationService localizationService;
-        private readonly ILogger logger = Log.ForContext<GeneralSettingPage>();
+public sealed partial class GeneralSettingPage : Page
+{
+    private bool isInitializingLanguageSelection = true;
+    private readonly IApplicationLocalizationService localizationService;
+    private readonly ILogger logger = Log.ForContext<GeneralSettingPage>();
 
     public GeneralSettingViewModel ViewModel { get; }
 
@@ -22,7 +21,6 @@ namespace Foundry.Views;
         localizationService.LanguageChanged += OnLanguageChanged;
         Unloaded += OnUnloaded;
         isInitializingLanguageSelection = false;
-        isInitializingWinPeLanguageSelection = false;
     }
 
     private async void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -35,19 +33,6 @@ namespace Foundry.Views;
         if (e.AddedItems.FirstOrDefault() is SupportedCultureOption selectedLanguage)
         {
             await ViewModel.SetLanguageAsync(selectedLanguage);
-        }
-    }
-
-    private void WinPeLanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (isInitializingWinPeLanguageSelection)
-        {
-            return;
-        }
-
-        if (e.AddedItems.FirstOrDefault() is string selectedLanguage)
-        {
-            ViewModel.SetWinPeLanguage(selectedLanguage);
         }
     }
 
@@ -75,11 +60,6 @@ namespace Foundry.Views;
         StartupCard.Description = localizationService.GetString("GeneralSetting_StartupCard.Description");
         LanguageCard.Header = localizationService.GetString("GeneralSetting_LanguageCard.Header");
         LanguageCard.Description = localizationService.GetString("GeneralSetting_LanguageCard.Description");
-        WinPeLanguageCard.Header = localizationService.GetString("GeneralSetting_WinPeLanguageCard.Header");
-        WinPeLanguageCard.Description = string.IsNullOrWhiteSpace(ViewModel.WinPeLanguageStatus)
-            ? localizationService.GetString("GeneralSetting_WinPeLanguageCard.Description")
-            : ViewModel.WinPeLanguageStatus;
-        WinPeLanguageRefreshButton.Content = localizationService.GetString("Common.Refresh");
         DiagnosticsCard.Header = localizationService.GetString("GeneralSetting_DiagnosticsCard.Header");
         DiagnosticsCard.Description = localizationService.GetString("GeneralSetting_DiagnosticsCard.Description");
         StartupToggle.OnContent = localizationService.GetString("Common.Enabled");
@@ -95,14 +75,6 @@ namespace Foundry.Views;
         LanguageComboBox.SelectedItem = ViewModel.SelectedLanguage;
         isInitializingLanguageSelection = wasInitializingLanguageSelection;
 
-        bool wasInitializingWinPeLanguageSelection = isInitializingWinPeLanguageSelection;
-        isInitializingWinPeLanguageSelection = true;
-        ViewModel.RefreshWinPeLanguages();
-        WinPeLanguageCard.Description = string.IsNullOrWhiteSpace(ViewModel.WinPeLanguageStatus)
-            ? localizationService.GetString("GeneralSetting_WinPeLanguageCard.Description")
-            : ViewModel.WinPeLanguageStatus;
-        WinPeLanguageComboBox.SelectedItem = ViewModel.SelectedWinPeLanguage;
-        isInitializingWinPeLanguageSelection = wasInitializingWinPeLanguageSelection;
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)

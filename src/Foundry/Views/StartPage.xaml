@@ -18,46 +18,8 @@
             <dev:SettingsCard Description="{x:Bind ViewModel.FinalExecutionStatus, Mode=OneWay}"
                               Header="{x:Bind ViewModel.StatusSummary, Mode=OneWay}"
                               HeaderIcon="{dev:FontIcon GlyphCode=E946}">
-                <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <Button x:Name="IsoSummaryButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.ShowIsoSummaryCommand}" />
-                    <Button x:Name="UsbSummaryButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.ShowUsbSummaryCommand}" />
-                </StackPanel>
-            </dev:SettingsCard>
-
-            <dev:SettingsCard x:Name="IsoPathCard"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E8A5}">
-                <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <TextBox MinWidth="420"
-                             Text="{x:Bind ViewModel.IsoOutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button x:Name="BrowseIsoButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.BrowseIsoOutputPathCommand}" />
-                </StackPanel>
-            </dev:SettingsCard>
-
-            <dev:SettingsCard x:Name="ArchitectureCard"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E7F4}">
-                <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                              DisplayMemberPath="DisplayName"
-                              ItemsSource="{x:Bind ViewModel.Architectures, Mode=OneWay}"
-                              SelectedItem="{x:Bind ViewModel.SelectedArchitecture, Mode=TwoWay}" />
-                    <ToggleSwitch x:Name="Ca2023Toggle"
-                                  IsOn="{x:Bind ViewModel.UseCa2023Signature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-            </dev:SettingsCard>
-
-            <dev:SettingsCard x:Name="WinPeLanguageCard"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E8AB}">
-                <TextBlock MinWidth="{StaticResource SettingActionControlMinWidth}"
-                           Text="{x:Bind ViewModel.WinPeLanguage, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.GlobalSummary, Mode=OneWay}"
+                           TextWrapping="Wrap" />
             </dev:SettingsCard>
 
             <dev:SettingsCard x:Name="UsbTargetCard"
@@ -74,44 +36,6 @@
                             Command="{x:Bind ViewModel.RefreshUsbCandidatesCommand}" />
                 </StackPanel>
             </dev:SettingsCard>
-
-            <dev:SettingsCard x:Name="UsbLayoutCard"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E7C3}">
-                <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                              DisplayMemberPath="DisplayName"
-                              ItemsSource="{x:Bind ViewModel.PartitionStyles, Mode=OneWay}"
-                              SelectedItem="{x:Bind ViewModel.SelectedPartitionStyle, Mode=TwoWay}" />
-                    <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                              DisplayMemberPath="DisplayName"
-                              ItemsSource="{x:Bind ViewModel.FormatModes, Mode=OneWay}"
-                              SelectedItem="{x:Bind ViewModel.SelectedFormatMode, Mode=TwoWay}" />
-                </StackPanel>
-            </dev:SettingsCard>
-
-            <dev:SettingsExpander x:Name="DriverOptionsCard"
-                                  HeaderIcon="{dev:FontIcon GlyphCode=E90F}">
-                <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <ToggleSwitch x:Name="DellDriversToggle"
-                                  IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <ToggleSwitch x:Name="HpDriversToggle"
-                                  IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-                <dev:SettingsExpander.Items>
-                    <dev:SettingsCard x:Name="CustomDriverDirectoryCard">
-                        <StackPanel Orientation="Horizontal"
-                                    Spacing="10">
-                            <TextBox MinWidth="420"
-                                     Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <Button x:Name="BrowseCustomDriversButton"
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                    Command="{x:Bind ViewModel.BrowseCustomDriverDirectoryCommand}" />
-                        </StackPanel>
-                    </dev:SettingsCard>
-                </dev:SettingsExpander.Items>
-            </dev:SettingsExpander>
 
             <dev:SettingsCard x:Name="FinalCommandsCard"
                               HeaderIcon="{dev:FontIcon GlyphCode=E7C1}">

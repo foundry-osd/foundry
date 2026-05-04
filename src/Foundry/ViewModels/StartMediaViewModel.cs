@@ -16,8 +16,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAdkService adkService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private readonly IWinPeUsbMediaService usbMediaService;
-    private readonly IFilePickerService filePickerService;
-    private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
@@ -28,8 +26,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IAdkService adkService,
         IWinPeLanguageDiscoveryService languageDiscoveryService,
         IWinPeUsbMediaService usbMediaService,
-        IFilePickerService filePickerService,
-        IDialogService dialogService,
         IApplicationLocalizationService localizationService,
         IAppDispatcher appDispatcher,
         ILogger logger)
@@ -38,8 +34,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.adkService = adkService;
         this.languageDiscoveryService = languageDiscoveryService;
         this.usbMediaService = usbMediaService;
-        this.filePickerService = filePickerService;
-        this.dialogService = dialogService;
         this.localizationService = localizationService;
         this.appDispatcher = appDispatcher;
         this.logger = logger.ForContext<StartMediaViewModel>();
@@ -122,6 +116,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial string FinalExecutionStatus { get; set; } = string.Empty;
 
     [ObservableProperty]
+    public partial string GlobalSummary { get; set; } = string.Empty;
+
+    [ObservableProperty]
     public partial string WinPeLanguage { get; set; } = string.Empty;
 
     [ObservableProperty]
@@ -141,34 +138,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             await RefreshUsbCandidatesAsync();
         }
-    }
 
-    [RelayCommand]
-    private async Task BrowseIsoOutputPathAsync()
-    {
-        string? path = await filePickerService.PickSaveFileAsync(
-            new FileSavePickerRequest(
-                localizationService.GetString("StartMedia.IsoPicker.Title"),
-                "Foundry",
-                [new(localizationService.GetString("StartMedia.IsoPicker.Filter"), [".iso"])],
-                ".iso"));
-
-        if (!string.IsNullOrWhiteSpace(path))
-        {
-            IsoOutputPath = path;
-        }
-    }
-
-    [RelayCommand]
-    private async Task BrowseCustomDriverDirectoryAsync()
-    {
-        string? path = await filePickerService.PickFolderAsync(
-            new FolderPickerRequest(localizationService.GetString("StartMedia.CustomDriversPicker.Title")));
-
-        if (!string.IsNullOrWhiteSpace(path))
-        {
-            CustomDriverDirectoryPath = path;
-        }
+        MediaPreflightOptions options = CreatePreflightOptions();
+        LogPreflightSummary(options, MediaPreflightService.Evaluate(options));
     }
 
     [RelayCommand]
@@ -226,108 +198,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
     }
 
-    [RelayCommand(CanExecute = nameof(CanGenerateIsoSummary))]
-    private Task ShowIsoSummaryAsync()
-    {
-        MediaPreflightOptions options = CreatePreflightOptions();
-        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
-        string summary = BuildSummary(isUsbSummary: false, options, evaluation);
-        LogDryRunSummary("ISO", options, evaluation);
-        return dialogService.ShowMessageAsync(new DialogRequest(PageTitle, summary, localizationService.GetString("Common.Close")));
-    }
-
-    [RelayCommand(CanExecute = nameof(CanGenerateUsbSummary))]
-    private Task ShowUsbSummaryAsync()
-    {
-        MediaPreflightOptions options = CreatePreflightOptions();
-        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
-        string summary = BuildSummary(isUsbSummary: true, options, evaluation);
-        LogDryRunSummary("USB", options, evaluation);
-        return dialogService.ShowMessageAsync(new DialogRequest(PageTitle, summary, localizationService.GetString("Common.Close")));
-    }
-
-    partial void OnIsoOutputPathChanged(string value)
-    {
-        appSettingsService.Current.Media.IsoOutputPath = value;
-        SaveAndRefresh();
-    }
-
-    partial void OnSelectedArchitectureChanged(SelectionOption<WinPeArchitecture>? value)
-    {
-        if (value is null)
-        {
-            return;
-        }
-
-        appSettingsService.Current.Media.Architecture = value.Value.ToString();
-        if (value.Value == WinPeArchitecture.Arm64 && SelectedPartitionStyle?.Value == UsbPartitionStyle.Mbr)
-        {
-            SelectedPartitionStyle = SelectOption(PartitionStyles, UsbPartitionStyle.Gpt);
-        }
-
-        SaveAndRefresh();
-    }
-
-    partial void OnUseCa2023SignatureChanged(bool value)
-    {
-        appSettingsService.Current.Media.UseCa2023Signature = value;
-        SaveAndRefresh();
-    }
-
-    partial void OnSelectedPartitionStyleChanged(SelectionOption<UsbPartitionStyle>? value)
-    {
-        if (value is null)
-        {
-            return;
-        }
-
-        if (SelectedArchitecture?.Value == WinPeArchitecture.Arm64 && value.Value == UsbPartitionStyle.Mbr)
-        {
-            SelectedPartitionStyle = SelectOption(PartitionStyles, UsbPartitionStyle.Gpt);
-            return;
-        }
-
-        appSettingsService.Current.Media.UsbPartitionStyle = value.Value.ToString();
-        SaveAndRefresh();
-    }
-
-    partial void OnSelectedFormatModeChanged(SelectionOption<UsbFormatMode>? value)
-    {
-        if (value is null)
-        {
-            return;
-        }
-
-        appSettingsService.Current.Media.UsbFormatMode = value.Value.ToString();
-        SaveAndRefresh();
-    }
-
-    partial void OnIncludeDellDriversChanged(bool value)
-    {
-        appSettingsService.Current.Media.IncludeDellDrivers = value;
-        SaveAndRefresh();
-    }
-
-    partial void OnIncludeHpDriversChanged(bool value)
-    {
-        appSettingsService.Current.Media.IncludeHpDrivers = value;
-        SaveAndRefresh();
-    }
-
-    partial void OnCustomDriverDirectoryPathChanged(string value)
-    {
-        appSettingsService.Current.Media.CustomDriverDirectoryPath = string.IsNullOrWhiteSpace(value) ? null : value;
-        SaveAndRefresh();
-    }
-
     partial void OnSelectedUsbDiskChanged(SelectionOption<WinPeUsbDiskCandidate>? value)
     {
-        RefreshEvaluation();
-    }
-
-    private void SaveAndRefresh()
-    {
-        appSettingsService.Save();
         RefreshEvaluation();
     }
 
@@ -364,15 +236,28 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void RefreshEvaluation()
     {
+        LoadConfigurationFromSettings();
         WinPeLanguage = appSettingsService.Current.Media.WinPeLanguage;
         availableWinPeLanguages = GetAvailableWinPeLanguages();
-        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(CreatePreflightOptions());
+        MediaPreflightOptions options = CreatePreflightOptions();
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         CanGenerateIsoSummary = evaluation.CanGenerateIsoSummary;
         CanGenerateUsbSummary = evaluation.CanGenerateUsbSummary;
         StatusSummary = BuildStatusText(evaluation);
+        GlobalSummary = BuildGlobalSummary(options, evaluation);
 
-        ShowIsoSummaryCommand.NotifyCanExecuteChanged();
-        ShowUsbSummaryCommand.NotifyCanExecuteChanged();
+    }
+
+    private void LoadConfigurationFromSettings()
+    {
+        IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
+        SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
+        UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
+        SelectedPartitionStyle = SelectOption(PartitionStyles, ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt));
+        SelectedFormatMode = SelectOption(FormatModes, ParseEnum(appSettingsService.Current.Media.UsbFormatMode, UsbFormatMode.Quick));
+        IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
+        IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
+        CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
     }
 
     private MediaPreflightOptions CreatePreflightOptions()
@@ -411,21 +296,27 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         };
     }
 
-    private string BuildSummary(bool isUsbSummary)
+    private string BuildStatusText(MediaPreflightEvaluation evaluation)
     {
-        MediaPreflightOptions options = CreatePreflightOptions();
-        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
-        return BuildSummary(isUsbSummary, options, evaluation);
+        int blockingReasonCount = evaluation.IsoBlockingReasons
+            .Concat(evaluation.UsbBlockingReasons)
+            .Distinct()
+            .Count();
+
+        return string.Format(
+            localizationService.GetString("StartMedia.Status"),
+            FormatReady(evaluation.CanGenerateIsoSummary || evaluation.CanGenerateUsbSummary),
+            blockingReasonCount);
     }
 
-    private string BuildSummary(bool isUsbSummary, MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    private string BuildGlobalSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = isUsbSummary
-            ? evaluation.UsbBlockingReasons
-            : evaluation.IsoBlockingReasons;
+        IReadOnlyList<MediaPreflightBlockingReason> reasons = evaluation.IsoBlockingReasons
+            .Concat(evaluation.UsbBlockingReasons)
+            .Distinct()
+            .ToList();
 
         var builder = new StringBuilder();
-        builder.AppendLine(isUsbSummary ? localizationService.GetString("StartMedia.Summary.UsbTitle") : localizationService.GetString("StartMedia.Summary.IsoTitle"));
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMedia)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(options.WinPeLanguage)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.AvailableWinPeLanguages")}: {FormatAvailableLanguages(options.AvailableWinPeLanguages)}");
@@ -449,7 +340,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             builder.AppendLine();
             builder.AppendLine(localizationService.GetString("StartMedia.Summary.BlockingReasons"));
-            foreach (MediaPreflightBlockingReason reason in reasons.Distinct())
+            foreach (MediaPreflightBlockingReason reason in reasons)
             {
                 builder.AppendLine($"- {GetBlockingReasonText(reason)}");
             }
@@ -458,30 +349,20 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return builder.ToString();
     }
 
-    private string BuildStatusText(MediaPreflightEvaluation evaluation)
-    {
-        return string.Format(
-            localizationService.GetString("StartMedia.Status"),
-            FormatReady(CanGenerateIsoSummary),
-            FormatReady(CanGenerateUsbSummary),
-            evaluation.IsoBlockingReasons.Count,
-            evaluation.UsbBlockingReasons.Count);
-    }
-
     private string GetBlockingReasonText(MediaPreflightBlockingReason reason)
     {
         return localizationService.GetString($"StartMedia.BlockingReason.{reason}");
     }
 
-    private void LogDryRunSummary(string mediaKind, MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    private void LogPreflightSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = string.Equals(mediaKind, "USB", StringComparison.OrdinalIgnoreCase)
-            ? evaluation.UsbBlockingReasons
-            : evaluation.IsoBlockingReasons;
+        IReadOnlyList<MediaPreflightBlockingReason> reasons = evaluation.IsoBlockingReasons
+            .Concat(evaluation.UsbBlockingReasons)
+            .Distinct()
+            .ToList();
 
         logger.Information(
-            "{MediaKind} media dry-run summary generated. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, BlockingReasons={BlockingReasons}",
-            mediaKind,
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, BlockingReasons={BlockingReasons}",
             options.Architecture,
             options.WinPeLanguage,
             options.BootImageSource,
@@ -493,7 +374,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsDeployConfigurationReady,
             options.IsConnectProvisioningReady,
             options.AreRequiredSecretsReady,
-            string.Join(",", reasons.Distinct()));
+            string.Join(",", reasons));
     }
 
     private IReadOnlyList<string> GetAvailableWinPeLanguages()

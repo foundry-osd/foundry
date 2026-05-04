@@ -323,18 +323,18 @@ git commit -m "feat(winpe): apply programdata media layout"
 
 **Priority:** medium-high after Phase 12 service prerequisites.
 
-**Goal:** port the standard media configuration surface into the `Start` page, wire readiness/preflight checks, and produce clear dry-run summaries without enabling destructive final ISO/USB execution yet.
+**Goal:** port the standard media configuration defaults into the main `General` page, keep `Start` as a global media summary and execution page, wire readiness/preflight checks, and produce a clear global summary without enabling destructive final ISO/USB execution yet.
 
 **Prerequisites:** Phase 11 shell/overlay contract and the Phase 12 ADK/WinPE service contract must be available before implementing the `Start` page media workflow.
 
-**Provisioning boundary:** the final production ISO/USB creation path also depends on Phase 14 for complete `Foundry.Deploy` configuration generation and Phase 15 for complete `Foundry.Connect` configuration, network asset provisioning, and encrypted embedded Wi-Fi secrets. Phase 13 builds the `Start` page UI, readiness checks, USB discovery, and dry-run summaries. Final Create ISO/Create USB execution remains disabled or explicitly marked incomplete until the final enablement PR after Phases 14 and 15.
+**Provisioning boundary:** the final production ISO/USB creation path also depends on Phase 14 for complete `Foundry.Deploy` configuration generation and Phase 15 for complete `Foundry.Connect` configuration, network asset provisioning, and encrypted embedded Wi-Fi secrets. Phase 13 builds the `General` media defaults UI, the `Start` global summary, readiness checks, and USB discovery. Final Create ISO/Create USB execution remains disabled or explicitly marked incomplete until the final enablement PR after Phases 14 and 15.
 
-- [x] **13.1** Create WinUI view model for media preflight on the `Start` page.
-  - [x] Keep WinPE boot language selection owned by the `General` page because the WPF source stores it in `GeneralSettings.WinPeLanguage`.
-  - [x] The `Start` page consumes the selected WinPE boot language from `General` and shows it in the dry-run summary.
-  - [x] If the `General` page has not yet implemented WinPE boot language selection when media preflight is wired, implement the minimal selector there before enabling dry-run summaries.
+- [x] **13.1** Create WinUI view model for media defaults on the main `General` page and media preflight on the `Start` page.
+  - [x] Keep WinPE boot language selection owned by the main `General` page because the WPF source stores it in `GeneralSettings.WinPeLanguage`.
+  - [x] The `Start` page consumes the selected WinPE boot language from `General` and shows it in the global summary.
+  - [x] If the `General` page has not yet implemented WinPE boot language selection when media preflight is wired, implement the minimal selector there before enabling the global summary.
   - [x] Do not confuse WinPE boot language with the expert `Localization` page; that page owns OS deployment language visibility/default/time-zone settings for `Foundry.Deploy`.
-- [x] **13.2** Port state from WPF `MainWindowViewModel`:
+- [x] **13.2** Port base media state from WPF `MainWindowViewModel` to the main `General` page:
   - [x] ISO output path.
   - [x] Architecture.
   - [x] CA 2023 signature mode.
@@ -343,15 +343,15 @@ git commit -m "feat(winpe): apply programdata media layout"
   - [x] Dell driver inclusion.
   - [x] HP driver inclusion.
   - [x] Custom driver directory.
-  - [x] Selected USB disk.
+  - [x] Keep selected USB disk out of base defaults; it remains owned by `Start` because it is execution-time state.
   - [x] Selected WinPE boot language from `General`.
-- [x] **13.3** Port commands:
+- [x] **13.3** Port commands with clear page ownership:
   - [x] Browse ISO path.
   - [x] Browse custom driver folder.
-  - [x] Refresh USB disks manually from the `Start` page.
+  - [x] Add a `Create media` action on the main `General` page that navigates to `Start`.
+  - [x] Refresh USB disks manually from the `Start` page because USB target selection is execution-time state.
   - [x] Refresh USB disks automatically when the `Start` page loads and ADK is compatible.
-  - [x] Generate ISO dry-run summary.
-  - [x] Generate USB dry-run summary.
+  - [x] Generate one global media summary on the `Start` page.
   - [x] Keep final Create ISO/Create USB execution disabled until the final media enablement PR.
 - [x] **13.4** Prepare the future WinUI destructive USB warning dialog contract in the dry-run flow.
   - [x] Show disk number, friendly name, and size in the USB target summary.
@@ -359,7 +359,7 @@ git commit -m "feat(winpe): apply programdata media layout"
   - [x] Do not perform destructive formatting in Phase 13.
 - [x] **13.5** Use app dispatcher abstraction for UI updates.
 - [x] **13.6** Keep media preflight and future media build orchestration in app/core services, not page code-behind.
-  - [x] **13.6.1** Show a dry-run execution summary before ISO or USB creation can be enabled:
+  - [x] **13.6.1** Show one global execution summary before ISO or USB creation can be enabled:
     - [x] ADK status.
     - [x] WinPE boot language from `General`.
     - [x] Architecture.
@@ -384,25 +384,25 @@ git commit -m "feat(media): add start page preflight workflow"
 **Validation**
 
 - [ ] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard.
-- [ ] **13.9** Invalid ISO path disables ISO dry-run summary and final ISO command.
-- [ ] **13.10** No USB candidate disables USB dry-run summary and final USB command.
+- [ ] **13.9** Invalid ISO path appears as a blocking reason in the global summary and disables the final ISO command.
+- [ ] **13.10** No USB candidate appears as a blocking reason in the global summary and disables the final USB command.
 - [ ] **13.11** ARM64 enforces GPT partition style.
 - [ ] **13.12** Future USB warning contract is represented by dry-run disk identity details, and no destructive formatting runs in Phase 13.
 - [ ] **13.13** ADK missing state disables `Start` navigation through the shell guard.
-- [ ] **13.14** ISO dry-run summary clearly shows that final ISO execution is deferred until Deploy/Connect provisioning is complete.
-- [ ] **13.15** USB dry-run summary clearly shows that final USB execution is deferred until Deploy/Connect provisioning is complete.
+- [ ] **13.14** Global summary clearly shows that final ISO execution is deferred until Deploy/Connect provisioning is complete.
+- [ ] **13.15** Global summary clearly shows that final USB execution is deferred until Deploy/Connect provisioning is complete.
 - [ ] **13.16** Confirm media preflight logs remain readable and partially complete deferred Phase 10 validation **10.12**:
-  - [ ] ISO preflight logs include readiness, selected options, and blocking reasons.
-  - [ ] USB preflight logs include readiness, selected options, selected disk identity, and blocking reasons.
+  - [ ] Global preflight logs include readiness, selected options, and blocking reasons.
+  - [ ] USB preflight logs include selected disk identity when a USB target is selected.
   - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
 - [ ] **13.17** Confirm the selected WinPE boot language flows from the `General` page into media creation:
   - [ ] Available WinPE boot languages come from the installed ADK `WinPE_OCs` tree.
-  - [ ] The selected language appears in the `Start` page dry-run summary.
+  - [ ] The selected language appears in the `Start` page global summary.
   - [ ] The selected language is mapped to the Phase 12 service option that will control language pack and localized optional component package application during final execution.
   - [ ] The expert `Localization` page is not part of this flow.
 - [ ] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
   - [ ] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
-  - [ ] Phase 13 dry-run summaries list Deploy, Connect, and secret-key provisioning as deferred readiness gates.
+  - [ ] Phase 13 global summary lists Deploy, Connect, and secret-key provisioning as deferred readiness gates.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Connect configuration is incomplete.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Deploy configuration is incomplete.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when encrypted secret-key provisioning is required but unavailable.
