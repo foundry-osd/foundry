@@ -225,8 +225,14 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Points bloquants ou différés :</value>
   </data>
+  <data name="StartMedia.Summary.IsoBlockingReasons" xml:space="preserve">
+    <value>Points bloquants ou différés ISO :</value>
+  </data>
+  <data name="StartMedia.Summary.UsbBlockingReasons" xml:space="preserve">
+    <value>Points bloquants ou différés USB :</value>
+  </data>
   <data name="StartMedia.Status" xml:space="preserve">
-    <value>Résumé média : {0}; points bloquants ou différés : {1}</value>
+    <value>Résumé média : ISO {0}; USB {1}</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>

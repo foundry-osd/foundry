@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Text;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Media;
@@ -237,7 +238,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private void RefreshEvaluation()
     {
         LoadConfigurationFromSettings();
-        WinPeLanguage = appSettingsService.Current.Media.WinPeLanguage;
+        WinPeLanguage = NormalizeCultureName(appSettingsService.Current.Media.WinPeLanguage);
         availableWinPeLanguages = GetAvailableWinPeLanguages();
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
@@ -298,27 +299,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)
     {
-        int blockingReasonCount = evaluation.IsoBlockingReasons
-            .Concat(evaluation.UsbBlockingReasons)
-            .Distinct()
-            .Count();
-
         return string.Format(
             localizationService.GetString("StartMedia.Status"),
-            FormatReady(evaluation.CanGenerateIsoSummary || evaluation.CanGenerateUsbSummary),
-            blockingReasonCount);
+            FormatReady(evaluation.CanGenerateIsoSummary),
+            FormatReady(evaluation.CanGenerateUsbSummary));
     }
 
     private string BuildGlobalSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = evaluation.IsoBlockingReasons
-            .Concat(evaluation.UsbBlockingReasons)
-            .Distinct()
-            .ToList();
-
         var builder = new StringBuilder();
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMedia)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(options.WinPeLanguage)}");
+        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(NormalizeCultureName(options.WinPeLanguage))}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Architecture")}: {FormatArchitecture(options.Architecture)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.IsoPath")}: {FormatValue(options.IsoOutputPath)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.UsbTarget")}: {FormatUsbCandidate(options.SelectedUsbDisk)}");
@@ -334,17 +325,25 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine();
         builder.AppendLine(localizationService.GetString("StartMedia.FinalExecution.Deferred"));
 
-        if (reasons.Count > 0)
-        {
-            builder.AppendLine();
-            builder.AppendLine(localizationService.GetString("StartMedia.Summary.BlockingReasons"));
-            foreach (MediaPreflightBlockingReason reason in reasons)
-            {
-                builder.AppendLine($"- {GetBlockingReasonText(reason)}");
-            }
-        }
+        AppendBlockingReasons(builder, "StartMedia.Summary.IsoBlockingReasons", evaluation.IsoBlockingReasons);
+        AppendBlockingReasons(builder, "StartMedia.Summary.UsbBlockingReasons", evaluation.UsbBlockingReasons);
 
         return builder.ToString();
+    }
+
+    private void AppendBlockingReasons(StringBuilder builder, string headerResourceKey, IReadOnlyList<MediaPreflightBlockingReason> reasons)
+    {
+        if (reasons.Count == 0)
+        {
+            return;
+        }
+
+        builder.AppendLine();
+        builder.AppendLine(localizationService.GetString(headerResourceKey));
+        foreach (MediaPreflightBlockingReason reason in reasons)
+        {
+            builder.AppendLine($"- {GetBlockingReasonText(reason)}");
+        }
     }
 
     private string GetBlockingReasonText(MediaPreflightBlockingReason reason)
@@ -354,15 +353,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void LogPreflightSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = evaluation.IsoBlockingReasons
-            .Concat(evaluation.UsbBlockingReasons)
-            .Distinct()
-            .ToList();
-
         logger.Information(
-            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, BlockingReasons={BlockingReasons}",
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, IsoReady={IsoReady}, UsbReady={UsbReady}, IsoBlockingReasons={IsoBlockingReasons}, UsbBlockingReasons={UsbBlockingReasons}",
             options.Architecture,
-            options.WinPeLanguage,
+            NormalizeCultureName(options.WinPeLanguage),
             options.BootImageSource,
             options.IsoOutputPath,
             options.SelectedUsbDisk?.DiskNumber,
@@ -372,7 +366,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsDeployConfigurationReady,
             options.IsConnectProvisioningReady,
             options.AreRequiredSecretsReady,
-            string.Join(",", reasons));
+            evaluation.CanGenerateIsoSummary,
+            evaluation.CanGenerateUsbSummary,
+            string.Join(",", evaluation.IsoBlockingReasons),
+            string.Join(",", evaluation.UsbBlockingReasons));
     }
 
     private IReadOnlyList<string> GetAvailableWinPeLanguages()
@@ -402,7 +399,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return [];
         }
 
-        return languagesResult.Value;
+        return languagesResult.Value.Select(NormalizeCultureName).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     private void RebuildFormatModes()
@@ -450,6 +447,23 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private static string FormatValue(string? value)
     {
         return string.IsNullOrWhiteSpace(value) ? "-" : value;
+    }
+
+    private static string NormalizeCultureName(string? language)
+    {
+        if (string.IsNullOrWhiteSpace(language))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            return CultureInfo.GetCultureInfo(language).Name;
+        }
+        catch (CultureNotFoundException)
+        {
+            return language;
+        }
     }
 
     private string FormatDriverOptions(IReadOnlyList<WinPeVendorSelection> vendors, string? customDriverDirectoryPath)

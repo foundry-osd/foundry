@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
@@ -39,16 +40,12 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             new(WinPeArchitecture.X64, "x64"),
             new(WinPeArchitecture.Arm64, "arm64")
         ];
-        PartitionStyles =
-        [
-            new(UsbPartitionStyle.Gpt, "GPT"),
-            new(UsbPartitionStyle.Mbr, "MBR")
-        ];
+        PartitionStyles = [];
 
         IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
         SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
         UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
-        SelectedPartitionStyle = SelectOption(PartitionStyles, ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt));
+        RefreshPartitionStyles();
         IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
         IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
         CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
@@ -176,8 +173,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        string selected = SelectWinPeLanguage(result.Value, appSettingsService.Current.Media.WinPeLanguage, localizationService.CurrentLanguage);
-        foreach (string language in result.Value)
+        List<string> languages = result.Value.Select(NormalizeCultureName).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        string selected = SelectWinPeLanguage(languages, appSettingsService.Current.Media.WinPeLanguage, localizationService.CurrentLanguage);
+        foreach (string language in languages)
         {
             AvailableWinPeLanguages.Add(language);
         }
@@ -195,9 +193,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        appSettingsService.Current.Media.WinPeLanguage = selectedLanguage;
+        appSettingsService.Current.Media.WinPeLanguage = NormalizeCultureName(selectedLanguage);
         appSettingsService.Save();
-        SelectedWinPeLanguage = selectedLanguage;
+        SelectedWinPeLanguage = appSettingsService.Current.Media.WinPeLanguage;
     }
 
     partial void OnIsoOutputPathChanged(string value)
@@ -219,10 +217,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
 
         appSettingsService.Current.Media.Architecture = value.Value.ToString();
-        if (value.Value == WinPeArchitecture.Arm64 && SelectedPartitionStyle?.Value == UsbPartitionStyle.Mbr)
-        {
-            SelectedPartitionStyle = SelectOption(PartitionStyles, UsbPartitionStyle.Gpt);
-        }
+        RefreshPartitionStyles();
 
         Save();
         RefreshWinPeLanguages();
@@ -305,6 +300,24 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         appSettingsService.Save();
     }
 
+    private void RefreshPartitionStyles()
+    {
+        UsbPartitionStyle selectedValue = SelectedArchitecture?.Value == WinPeArchitecture.Arm64
+            ? UsbPartitionStyle.Gpt
+            : SelectedPartitionStyle?.Value ?? ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt);
+
+        PartitionStyles.Clear();
+        PartitionStyles.Add(new(UsbPartitionStyle.Gpt, "GPT"));
+
+        if (SelectedArchitecture?.Value != WinPeArchitecture.Arm64)
+        {
+            PartitionStyles.Add(new(UsbPartitionStyle.Mbr, "MBR"));
+        }
+
+        SelectedPartitionStyle = SelectOption(PartitionStyles, selectedValue) ?? PartitionStyles[0];
+        appSettingsService.Current.Media.UsbPartitionStyle = SelectedPartitionStyle.Value.ToString();
+    }
+
     private static string SelectWinPeLanguage(IReadOnlyList<string> languages, string? preferredLanguage, string currentLanguage)
     {
         string? exact = languages.FirstOrDefault(language => string.Equals(language, preferredLanguage, StringComparison.OrdinalIgnoreCase))
@@ -319,6 +332,23 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         string? family = languages.FirstOrDefault(language => language.StartsWith(currentPrefix + "-", StringComparison.OrdinalIgnoreCase));
 
         return family ?? languages[0];
+    }
+
+    private static string NormalizeCultureName(string language)
+    {
+        if (string.IsNullOrWhiteSpace(language))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            return CultureInfo.GetCultureInfo(language).Name;
+        }
+        catch (CultureNotFoundException)
+        {
+            return language;
+        }
     }
 
     private static T ParseEnum<T>(string? value, T fallback)

@@ -383,26 +383,27 @@ git commit -m "feat(media): add start page preflight workflow"
 
 **Validation**
 
-- [ ] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard and the `General` page `Create media` action.
-- [ ] **13.9** Invalid ISO path appears as a blocking reason in the global summary and disables the final ISO command.
-- [ ] **13.10** No USB candidate appears as a blocking reason in the global summary and disables the final USB command.
-- [ ] **13.11** ARM64 enforces GPT partition style.
-- [ ] **13.12** Future USB warning contract is represented by dry-run disk identity details, and no destructive formatting runs in Phase 13.
-- [ ] **13.13** ADK missing state disables `Start` navigation through the shell guard.
-- [ ] **13.14** Global summary clearly shows that final ISO execution is deferred until Deploy/Connect provisioning is complete.
-- [ ] **13.15** Global summary clearly shows that final USB execution is deferred until Deploy/Connect provisioning is complete.
+- [x] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard and the `General` page `Create media` action.
+- [x] **13.9** Invalid ISO path appears as an ISO-specific blocking reason and disables the final ISO command.
+- [ ] **13.10** No USB candidate appears only as a USB-specific blocking reason and disables the final USB command; it must not block the ISO path or ISO readiness.
+- [ ] **13.11** ARM64 exposes and enforces GPT as the only USB partition style.
+- [x] **13.12** Future USB warning contract is represented by dry-run disk identity details, and no destructive formatting runs in Phase 13.
+- [x] **13.13** ADK missing state disables `Start` navigation through the shell guard.
+- [x] **13.14** Global summary clearly shows that final ISO execution is deferred until Deploy/Connect provisioning is complete.
+- [x] **13.15** Global summary clearly shows that final USB execution is deferred until Deploy/Connect provisioning is complete.
 - [ ] **13.16** Confirm media preflight logs remain readable and partially complete deferred Phase 10 validation **10.12**:
-  - [ ] Global preflight logs include readiness, selected options, and blocking reasons.
+  - [ ] Global preflight logs include readiness and selected options.
+  - [ ] Preflight logs keep ISO-specific and USB-specific blocking reasons separate.
   - [ ] USB preflight logs include selected disk identity when a USB target is selected.
   - [ ] Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` without enabling `Verbose`.
 - [ ] **13.17** Confirm the selected WinPE boot language flows from the `General` page into media creation:
   - [ ] Available WinPE boot languages come from the installed ADK `WinPE_OCs` tree.
-  - [ ] The selected language appears in the `Start` page global summary.
+  - [ ] The selected language appears in the `Start` page global summary using canonical culture casing such as `fr-FR` or `en-US`.
   - [ ] The selected language is mapped to the Phase 12 service option that will control language pack and localized optional component package application during final execution.
   - [ ] The expert `Localization` page is not part of this flow.
-- [ ] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
-  - [ ] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
-  - [ ] Phase 13 global summary lists Deploy, Connect, and secret-key provisioning as deferred readiness gates.
+- [x] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
+  - [x] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
+  - [x] Phase 13 global summary lists Deploy, Connect, and secret-key provisioning as deferred readiness gates.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Connect configuration is incomplete.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Deploy configuration is incomplete.
   - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when encrypted secret-key provisioning is required but unavailable.
