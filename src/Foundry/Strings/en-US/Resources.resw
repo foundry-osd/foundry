@@ -51,6 +51,12 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="Common.Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="Common.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
     <value>Enable developer diagnostics and open the Foundry log folder.</value>
   </data>
@@ -68,6 +74,21 @@
   </data>
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
     <value>Run at startup</value>
+  </data>
+  <data name="GeneralSetting_WinPeLanguageCard.Header" xml:space="preserve">
+    <value>WinPE boot language</value>
+  </data>
+  <data name="GeneralSetting_WinPeLanguageCard.Description" xml:space="preserve">
+    <value>Select the language applied to generated WinPE boot media.</value>
+  </data>
+  <data name="GeneralSetting_WinPeLanguage.NotReady" xml:space="preserve">
+    <value>Install a compatible Windows ADK and WinPE Add-on to discover boot languages.</value>
+  </data>
+  <data name="GeneralSetting_WinPeLanguage.Empty" xml:space="preserve">
+    <value>No WinPE boot languages were found in the installed ADK.</value>
+  </data>
+  <data name="GeneralSetting_WinPeLanguage.Status" xml:space="preserve">
+    <value>{0} WinPE boot languages available.</value>
   </data>
   <data name="Language.English" xml:space="preserve">
     <value>English</value>
@@ -113,6 +134,240 @@
   </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="StartMedia.IsoSummaryButton" xml:space="preserve">
+    <value>Review ISO</value>
+  </data>
+  <data name="StartMedia.UsbSummaryButton" xml:space="preserve">
+    <value>Review USB</value>
+  </data>
+  <data name="StartMedia.IsoPath.Header" xml:space="preserve">
+    <value>ISO output</value>
+  </data>
+  <data name="StartMedia.IsoPath.Description" xml:space="preserve">
+    <value>Choose where the generated Foundry ISO will be written.</value>
+  </data>
+  <data name="StartMedia.Architecture.Header" xml:space="preserve">
+    <value>Architecture and signature</value>
+  </data>
+  <data name="StartMedia.Architecture.Description" xml:space="preserve">
+    <value>Select the boot architecture and PCA signature mode.</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
+    <value>WinPE boot language</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
+    <value>Controlled by the General settings page.</value>
+  </data>
+  <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
+    <value>USB target</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
+    <value>USB layout</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Description" xml:space="preserve">
+    <value>Select partition style and format mode for the future USB creation command.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
+    <value>Driver options</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
+    <value>Select optional vendor drivers and a custom driver folder.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
+    <value>Custom driver folder</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
+    <value>Optional folder containing additional .inf drivers.</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
+    <value>Final media commands</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
+    <value>Final ISO and USB execution stays disabled until Deploy and Connect provisioning are complete.</value>
+  </data>
+  <data name="StartMedia.CreateIsoButton" xml:space="preserve">
+    <value>Create ISO</value>
+  </data>
+  <data name="StartMedia.CreateUsbButton" xml:space="preserve">
+    <value>Create USB</value>
+  </data>
+  <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
+    <value>Quick format</value>
+  </data>
+  <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
+    <value>Full format</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
+    <value>Final ISO/USB execution is deferred until Deploy and Connect provisioning are complete.</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
+    <value>Select ISO output path</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
+    <value>ISO image</value>
+  </data>
+  <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
+    <value>Select custom driver folder</value>
+  </data>
+  <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
+    <value>USB targets can be refreshed after ADK readiness is complete.</value>
+  </data>
+  <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
+    <value>USB target refresh failed.</value>
+  </data>
+  <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
+    <value>{0} USB target candidates found.</value>
+  </data>
+  <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
+    <value>Disk {0} - {1} ({2})</value>
+  </data>
+  <data name="StartMedia.Summary.IsoTitle" xml:space="preserve">
+    <value>ISO dry-run summary</value>
+  </data>
+  <data name="StartMedia.Summary.UsbTitle" xml:space="preserve">
+    <value>USB dry-run summary</value>
+  </data>
+  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
+    <value>Blocking or deferred items:</value>
+  </data>
+  <data name="StartMedia.Status" xml:space="preserve">
+    <value>ISO summary: {0}; USB summary: {1}; ISO items: {2}; USB items: {3}</value>
+  </data>
+  <data name="StartMedia.Field.Adk" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
+    <value>WinPE boot language</value>
+  </data>
+  <data name="StartMedia.Field.AvailableWinPeLanguages" xml:space="preserve">
+    <value>Available WinPE boot languages</value>
+  </data>
+  <data name="StartMedia.Field.Architecture" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>Boot image source</value>
+  </data>
+  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
+    <value>ISO output path</value>
+  </data>
+  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
+    <value>USB target</value>
+  </data>
+  <data name="StartMedia.Field.Signature" xml:space="preserve">
+    <value>Signature mode</value>
+  </data>
+  <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
+    <value>USB partition style</value>
+  </data>
+  <data name="StartMedia.Field.FormatMode" xml:space="preserve">
+    <value>USB format mode</value>
+  </data>
+  <data name="StartMedia.Field.Drivers" xml:space="preserve">
+    <value>Drivers</value>
+  </data>
+  <data name="StartMedia.Field.Runtime" xml:space="preserve">
+    <value>Runtime payloads</value>
+  </data>
+  <data name="StartMedia.Field.Network" xml:space="preserve">
+    <value>Network configuration</value>
+  </data>
+  <data name="StartMedia.Field.Deploy" xml:space="preserve">
+    <value>Deploy configuration</value>
+  </data>
+  <data name="StartMedia.Field.Connect" xml:space="preserve">
+    <value>Connect provisioning</value>
+  </data>
+  <data name="StartMedia.Field.Secrets" xml:space="preserve">
+    <value>Media secrets</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
+    <value>ADK or WinPE Add-on is not ready.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
+    <value>ISO output path must end with .iso.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
+    <value>WinPE boot language is not selected.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
+    <value>Selected WinPE boot language is not available for the selected architecture.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RuntimePayloadNotReady" xml:space="preserve">
+    <value>Runtime payload readiness is deferred.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
+    <value>Network validation is deferred.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
+    <value>Deploy configuration generation is deferred.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
+    <value>Connect provisioning is deferred.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
+    <value>Encrypted media secret provisioning is deferred.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
+    <value>No USB target is selected.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
+    <value>ARM64 media requires GPT partition style.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
+    <value>Custom driver folder does not exist.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
+    <value>Custom driver folder does not contain .inf files.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
+    <value>Final media execution is deferred.</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>ADK WinPE boot image</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>WinRE Wi-Fi boot image</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.ByteUnit.B" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
+    <value>TB</value>
   </data>
   <data name="UpdateBanner.Action" xml:space="preserve">
     <value>View update</value>

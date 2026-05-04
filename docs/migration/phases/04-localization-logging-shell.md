@@ -142,8 +142,8 @@ git commit -m "feat(localization): migrate foundry localization to winui"
 - [ ] **10.6.1** Define future workflow logging contracts without blocking Phase 10 on unimplemented workflows:
   - [x] ADK detection logs required when ADK service/page work is implemented in Phase 12.
   - [ ] ISO/USB build start, progress, completion, cancellation, and failure logs required when media creation work is implemented.
-  - [ ] Bootstrap payload resolution logs required when payload resolution work is implemented in Phase 12.
-  - [ ] Complete the ADK/WinPE portion through Phase 12 implementation and validation.
+  - [x] Bootstrap payload resolution logs required when payload resolution work is implemented in Phase 12.
+  - [x] Complete the ADK/WinPE portion through Phase 12 implementation and validation.
 - [x] **10.7** Keep log folder command in UI.
 - [x] **10.7.1** Log folder command opens `C:\ProgramData\Foundry\Logs`.
 - [x] **10.7.2** Remove unused logging dependencies unless they serve a configured sink:
@@ -160,8 +160,8 @@ git commit -m "refactor: migrate foundry logging for winui"
 - [x] **10.10** Confirm startup failures are logged.
 - [x] **10.11** Confirm update failures are logged.
 - [ ] **10.12** Confirm media creation logs remain readable.
-  - Deferred until Phase 13 implements ISO/USB media creation in WinUI.
-  - Complete this through Phase 13 validation item **13.16**.
+  - Phase 13 covers readable Start-page preflight and dry-run logging.
+  - Final ISO/USB start, progress, completion, cancellation, and failure log validation is completed when final media execution is enabled after Deploy/Connect provisioning.
 - [x] **10.13** Confirm `Debug` events are absent when `diagnostics.developerMode=false`.
 - [x] **10.14** Confirm `Debug` events are written when `diagnostics.developerMode=true`.
 - [x] **10.15** Confirm concise source context appears for app services.

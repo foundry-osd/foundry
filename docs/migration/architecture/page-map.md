@@ -118,6 +118,8 @@ Footer
   - [ ] Runtime payloads.
   - [ ] Driver options.
   - [ ] Network validation.
+- [ ] During Phase 13, expose preflight and dry-run summaries only.
+- [ ] Keep final ISO/USB execution disabled until Deploy configuration and Connect/network provisioning are complete.
 - [ ] Provide the primary commands:
   - [ ] Create ISO.
   - [ ] Create USB.
