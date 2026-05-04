@@ -279,11 +279,11 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [x] **12.19** Local debug Deploy publish override still works.
 - [x] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
 
-**Manual validation deferred to Phase 13 Start page workflow**
+**Manual validation deferred to final media command enablement after Phases 14 and 15**
 
-- [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
-- [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command.
-- [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
+- [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command after final media execution is enabled.
+- [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command after final media execution is enabled.
+- [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow after final media execution is enabled.
 
 **ADK and WinPE service validation completed in Phase 12**
 
@@ -383,11 +383,11 @@ git commit -m "feat(media): add start page preflight workflow"
 
 **Validation**
 
-- [ ] **13.8** ADK missing state disables media dry-run summaries and final media commands.
+- [ ] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard.
 - [ ] **13.9** Invalid ISO path disables ISO dry-run summary and final ISO command.
 - [ ] **13.10** No USB candidate disables USB dry-run summary and final USB command.
 - [ ] **13.11** ARM64 enforces GPT partition style.
-- [ ] **13.12** USB warning contract is present but no destructive formatting runs in Phase 13.
+- [ ] **13.12** Future USB warning contract is represented by dry-run disk identity details, and no destructive formatting runs in Phase 13.
 - [ ] **13.13** ADK missing state disables `Start` navigation through the shell guard.
 - [ ] **13.14** ISO dry-run summary clearly shows that final ISO execution is deferred until Deploy/Connect provisioning is complete.
 - [ ] **13.15** USB dry-run summary clearly shows that final USB execution is deferred until Deploy/Connect provisioning is complete.
@@ -401,7 +401,8 @@ git commit -m "feat(media): add start page preflight workflow"
   - [ ] The selected language is mapped to the Phase 12 service option that will control language pack and localized optional component package application during final execution.
   - [ ] The expert `Localization` page is not part of this flow.
 - [ ] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
-  - [ ] ISO/USB creation is blocked when required Connect configuration is incomplete.
-  - [ ] ISO/USB creation is blocked when required Deploy configuration is incomplete.
-  - [ ] ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
-  - [ ] Final ISO/USB execution remains disabled in Phase 13 even when the dry-run summary is valid.
+  - [ ] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
+  - [ ] Phase 13 dry-run summaries list Deploy, Connect, and secret-key provisioning as deferred readiness gates.
+  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Connect configuration is incomplete.
+  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Deploy configuration is incomplete.
+  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when encrypted secret-key provisioning is required but unavailable.

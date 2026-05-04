@@ -281,6 +281,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
+        if (SelectedArchitecture?.Value == WinPeArchitecture.Arm64 && value.Value == UsbPartitionStyle.Mbr)
+        {
+            SelectedPartitionStyle = SelectOption(PartitionStyles, UsbPartitionStyle.Gpt);
+            return;
+        }
+
         appSettingsService.Current.Media.UsbPartitionStyle = value.Value.ToString();
         SaveAndRefresh();
     }
