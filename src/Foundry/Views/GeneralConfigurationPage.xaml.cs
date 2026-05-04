@@ -37,6 +37,11 @@ public sealed partial class GeneralConfigurationPage : Page
 
     private void CreateMediaButton_Click(object sender, RoutedEventArgs e)
     {
+        if (!ViewModel.CanCreateMedia)
+        {
+            return;
+        }
+
         App.Current.NavService.NavigateTo(typeof(StartPage), localizationService.GetString("StartPage_Title.Text"));
     }
 
@@ -89,6 +94,7 @@ public sealed partial class GeneralConfigurationPage : Page
         CreateMediaButton.Content = localizationService.GetString("GeneralConfiguration_CreateMedia.Button");
 
         ViewModel.RefreshLocalizedOptions();
+        ViewModel.RefreshAdkState();
 
         bool wasInitializingWinPeLanguageSelection = isInitializingWinPeLanguageSelection;
         isInitializingWinPeLanguageSelection = true;

@@ -97,6 +97,7 @@
                               HeaderIcon="{dev:FontIcon GlyphCode=E768}">
                 <Button x:Name="CreateMediaButton"
                         MinWidth="{StaticResource SettingActionControlMinWidth}"
+                        IsEnabled="{x:Bind ViewModel.CanCreateMedia, Mode=OneWay}"
                         Click="CreateMediaButton_Click" />
             </dev:SettingsCard>
         </StackPanel>

@@ -237,9 +237,6 @@
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architecture</value>
   </data>
-  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Boot image source</value>
-  </data>
   <data name="StartMedia.Field.IsoPath" xml:space="preserve">
     <value>ISO output path</value>
   </data>
@@ -314,12 +311,6 @@
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
     <value>Final media execution is deferred.</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>ADK WinPE boot image</value>
-  </data>
-  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi boot image</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
     <value>PCA 2011</value>

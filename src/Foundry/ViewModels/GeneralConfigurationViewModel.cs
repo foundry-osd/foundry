@@ -91,6 +91,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     [ObservableProperty]
     public partial bool HasWinPeLanguages { get; set; }
 
+    [ObservableProperty]
+    public partial bool CanCreateMedia { get; set; }
+
     [RelayCommand]
     private async Task BrowseIsoOutputPathAsync()
     {
@@ -130,12 +133,18 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         SelectedFormatMode = SelectOption(FormatModes, selectedValue);
     }
 
+    public void RefreshAdkState()
+    {
+        CanCreateMedia = adkService.CurrentStatus.CanCreateMedia;
+    }
+
     public void RefreshWinPeLanguages()
     {
+        RefreshAdkState();
         AvailableWinPeLanguages.Clear();
         HasWinPeLanguages = false;
 
-        if (!adkService.CurrentStatus.CanCreateMedia)
+        if (!CanCreateMedia)
         {
             SelectedWinPeLanguage = null;
             return;

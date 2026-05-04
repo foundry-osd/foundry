@@ -320,7 +320,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMedia)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(options.WinPeLanguage)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Architecture")}: {FormatArchitecture(options.Architecture)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.BootImageSource")}: {FormatBootImageSource(options.BootImageSource)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.IsoPath")}: {FormatValue(options.IsoOutputPath)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.UsbTarget")}: {FormatUsbCandidate(options.SelectedUsbDisk)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Signature")}: {FormatSignatureMode(options.SignatureMode)}");
@@ -486,11 +485,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeArchitecture.Arm64 => "arm64",
             _ => architecture.ToString()
         };
-    }
-
-    private string FormatBootImageSource(WinPeBootImageSource bootImageSource)
-    {
-        return localizationService.GetString($"StartMedia.BootImageSource.{bootImageSource}");
     }
 
     private string FormatSignatureMode(WinPeSignatureMode signatureMode)

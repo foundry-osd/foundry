@@ -348,7 +348,7 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [x] **13.3** Port commands with clear page ownership:
   - [x] Browse ISO path.
   - [x] Browse custom driver folder.
-  - [x] Add a `Create media` action on the main `General` page that navigates to `Start`.
+  - [x] Add a `Create media` action on the main `General` page that navigates to `Start` and remains gated by compatible ADK readiness.
   - [x] Refresh USB disks manually from the `Start` page because USB target selection is execution-time state.
   - [x] Refresh USB disks automatically when the `Start` page loads and ADK is compatible.
   - [x] Generate one global media summary on the `Start` page.
@@ -370,7 +370,7 @@ git commit -m "feat(winpe): apply programdata media layout"
     - [x] Network validation.
     - [x] `Foundry.Connect` provisioning readiness from Phase 15.
     - [x] Secret envelope/key provisioning readiness when embedded Wi-Fi secrets are required.
-    - [x] Boot image source selection: standard WinPE or Wi-Fi-capable WinRE path.
+    - [x] No boot image source selector is exposed in Phase 13; Wi-Fi/WinRE-specific provisioning remains owned by the future `Network` page workflow.
   - [x] **13.6.2** Map final ISO creation requirements to a future operation overlay contract without enabling execution.
   - [x] **13.6.3** Map final USB creation requirements to a future operation overlay contract without enabling execution.
   - [x] **13.6.4** Keep final navigation-blocking ISO/USB execution validation deferred until final media command enablement.
@@ -383,7 +383,7 @@ git commit -m "feat(media): add start page preflight workflow"
 
 **Validation**
 
-- [ ] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard.
+- [ ] **13.8** ADK missing or incompatible state blocks `Start` navigation, which disables media dry-run summaries and final media commands through the shell guard and the `General` page `Create media` action.
 - [ ] **13.9** Invalid ISO path appears as a blocking reason in the global summary and disables the final ISO command.
 - [ ] **13.10** No USB candidate appears as a blocking reason in the global summary and disables the final USB command.
 - [ ] **13.11** ARM64 enforces GPT partition style.
