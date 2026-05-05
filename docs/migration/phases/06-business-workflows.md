@@ -1,18 +1,22 @@
 # Business Workflow Phases
 
-## Phase 14: Expert Configuration Workflow
+## Phase 14: Expert Deploy Configuration Workflow
 
 **Priority:** medium.
 
 **Goal:** port expert mode without mixing it into the standard workflow.
 
+**Prerequisites and boundary:** Phase 11 shell/overlay behavior, Phase 12 WinPE/media services, and Phase 13 media preflight must be complete before Phase 14 implementation starts. Phase 13 item **13.18** intentionally keeps final ISO/USB execution disabled until deploy configuration, Connect provisioning, and secret readiness are complete. Phase 14 may make deploy configuration readiness real, but it must not complete **13.18.1** or enable final media execution; that belongs to the final media enablement PR after Phases 14 and 15.
+
+**Scope boundary:** Phase 14 owns Expert Deploy configuration state, runtime deploy configuration generation, and deployment localization behavior. It may create or bind minimal expert page state needed for persistence and runtime config generation, but full Network provisioning belongs to Phase 15, and full Autopilot/customization workflows belong to Phase 16.
+
 - [ ] **14.1** Port expert sections without exposing `General` as an Expert navigation page:
-  - [ ] Network.
+  - [ ] Network document state only; full provisioning UI and runtime handoff are Phase 15.
   - [ ] Localization.
-  - [ ] Autopilot.
-  - [ ] Customization.
+  - [ ] Autopilot document state only; profile import, tenant download, and profile embedding are Phase 16.
+  - [ ] Customization document state only; deployment customization controls are Phase 16.
   - [ ] Keep `General` in the General navigation section.
-  - [ ] Preserve serialization of the existing expert document `general` section when required by schema compatibility.
+  - [ ] Preserve the existing expert document `general` section internally when required by schema compatibility.
 - [ ] **14.1.1** Keep expert `Localization` scoped to OS deployment localization, not WinPE boot language:
   - [ ] Port WPF `LocalizationSettingsViewModel` behavior for deployment language selection.
   - [ ] Preserve `LocalizationSettings.VisibleLanguageCodes`.
@@ -30,9 +34,9 @@
     - [ ] Public-IP auto-detection mapped through `iana-windows-timezones.json`.
     - [ ] `UTC` fallback.
   - [ ] Do not confuse deployment timezone with WinPE boot display language from `General`.
-- [ ] **14.2** Port configuration import.
-- [ ] **14.3** Port configuration export.
-- [ ] **14.4** Port deploy configuration export.
+- [ ] **14.2** Persist Expert Deploy configuration through the approved app workflow state path.
+- [ ] **14.3** Do not add user-facing manual configuration file commands.
+- [ ] **14.4** Generate the `Foundry.Deploy` runtime configuration internally for media creation.
 - [ ] **14.5** Preserve JSON defaults.
 - [ ] **14.6** Preserve validation behavior.
 - [ ] **14.7** Preserve schema compatibility.
@@ -46,19 +50,23 @@
   - [ ] Add or update `Foundry.Deploy` validation for contradictory effective states.
   - [ ] Generated WinUI media always includes a complete effective `foundry.deploy.config.json`, even for standard workflow defaults.
   - [ ] Treat this as an intentional WinUI migration improvement over WPF, where deploy config embedding was tied to expert mode.
+- [ ] **14.7.2** Wire deploy configuration readiness into the `Start` page preflight without enabling final ISO/USB execution:
+  - [ ] Replace the Phase 13 hardcoded deploy readiness placeholder with real deploy configuration readiness.
+  - [ ] Keep runtime, Connect provisioning, network provisioning, secret readiness, and final execution gates blocked until their planned phases are complete.
+  - [ ] Leave **13.18.1** unchecked until the final media enablement PR after Phases 14 and 15.
 - [ ] **14.8** Add tests only where business logic changed.
 - [ ] **14.9** Commit:
 
 ```powershell
-git commit -m "feat(configuration): port expert configuration workflow"
+git commit -m "feat(configuration): port expert deploy configuration workflow"
 ```
 
 **Validation**
 
-- [ ] **14.10** Import existing expert config from WPF app.
-- [ ] **14.11** Export expert config from WinUI app.
-- [ ] **14.12** Compare normalized JSON output with WPF reference for the same input.
-- [ ] **14.13** Export deploy config and validate `Foundry.Deploy` can consume it.
+- [ ] **14.10** Confirm no user-facing manual configuration file commands are exposed.
+- [ ] **14.11** Validate Expert Deploy settings persist through the normal app workflow state path.
+- [ ] **14.12** Validate generated runtime Deploy config for representative standard and expert settings.
+- [ ] **14.13** Generate deploy config and validate `Foundry.Deploy` can consume it.
 - [ ] **14.14** Validate `Foundry.Deploy` applies or tolerates `localization.defaultTimeZoneId`.
 - [ ] **14.15** Validate generated standard media deploy config contains complete default root sections.
 
@@ -67,6 +75,15 @@ git commit -m "feat(configuration): port expert configuration workflow"
 **Priority:** medium.
 
 **Goal:** port network and Wi-Fi provisioning logic used by Foundry.Connect handoff.
+
+**Prerequisites and boundary:** Phase 14 must provide Deploy configuration state, runtime Deploy config generation, and deploy configuration readiness before Phase 15 starts. Phase 15 may make Connect, network, and required-secret readiness real for the `Start` page preflight, but it must still leave final ISO/USB execution disabled until the final media enablement PR.
+
+**Recommended implementation split:** Phase 15 has security-sensitive and runtime-sensitive work. Prefer focused PRs under the same phase rather than one broad branch:
+
+- [ ] `15.A` owns Network page state, validation, and WPF-compatible network asset selection.
+- [ ] `15.B` owns complete effective `Foundry.Connect` configuration generation and asset copy layout.
+- [ ] `15.C` owns embedded secret envelopes, per-media key lifecycle, and `Foundry.Connect` runtime decryption.
+- [ ] `15.D` owns `Start` page preflight readiness wiring for Connect, network, and required secrets without enabling final media execution.
 
 - [ ] **15.1** Port network settings model bindings.
 - [ ] **15.2** Port Wi-Fi settings validation.
@@ -83,6 +100,7 @@ git commit -m "feat(configuration): port expert configuration workflow"
   - [ ] Serialize effective default values instead of relying on missing root sections.
   - [ ] Keep `Foundry.Connect` tolerant for missing optional properties, but do not rely on sparse generated media configs.
   - [ ] Add or update `Foundry.Connect` validation for contradictory effective states.
+- [ ] **15.6.1.1** Replace any generated-media fallback that emits sparse or legacy-shaped Connect JSON with the same complete effective generator used by the Network workflow.
 - [ ] **15.6.2** Define the embedded secret schema explicitly:
   - [ ] Use a new generated config property for encrypted values, for example `passphraseSecret`.
   - [ ] Do not write personal Wi-Fi passphrases to generated media as plaintext `passphrase` values.
@@ -113,8 +131,10 @@ git commit -m "feat(configuration): port expert configuration workflow"
     - [ ] Use `aes-gcm-v1`.
     - [ ] Use `System.Security.Cryptography.AesGcm`.
     - [ ] Generate a random 256-bit per-media key with `RandomNumberGenerator`.
-    - [ ] Generate a random nonce per encrypted value.
-    - [ ] Store nonce, tag, and ciphertext in the configuration secret envelope.
+    - [ ] Generate a random 96-bit nonce per encrypted value.
+    - [ ] Use a 128-bit authentication tag.
+    - [ ] Use the .NET `AesGcm` constructor overload that declares the tag size.
+    - [ ] Store base64url-encoded nonce, tag, and ciphertext in the configuration secret envelope.
     - [ ] Store the per-media key separately under `X:\Foundry\Config\Secrets\media-secrets.key`.
     - [ ] Generate the per-media key during ISO/USB media creation, not at app startup or settings save time.
     - [ ] Copy the per-media key into the generated ISO/USB boot image only when encrypted secrets are present.
@@ -131,6 +151,9 @@ git commit -m "feat(configuration): port expert configuration workflow"
     - [ ] Wired certificates: `Network\Certificates\Wired`.
     - [ ] Wi-Fi certificates: `Network\Certificates\Wifi`.
     - [ ] Generated config-relative paths must match these folders.
+- [ ] **15.7.10** Wire Connect, network, and required-secret readiness into the `Start` page preflight without enabling final ISO/USB execution:
+  - [ ] Replace the Phase 13 hardcoded network, Connect provisioning, and required-secret readiness placeholders with real readiness values.
+  - [ ] Keep runtime payload readiness and final execution gates blocked until the final media enablement PR.
 - [ ] **15.8** Commit:
 
 ```powershell
@@ -160,12 +183,15 @@ git commit -m "feat(network): port connect provisioning workflow"
   - [ ] Complete effective Connect config documents.
   - [ ] Complete effective Deploy config documents.
   - [ ] Encrypted secret envelopes instead of plaintext generated media secrets.
+- [ ] **15.19** `Start` page preflight shows real network, Connect, and required-secret readiness while final ISO/USB execution remains deferred.
 
 ## Phase 16: Autopilot And Customization Workflows
 
 **Priority:** medium-low.
 
 **Goal:** port remaining expert workflow features after core media creation is functional.
+
+**Prerequisites and boundary:** Phase 16 extends the media workflow with optional Autopilot and customization payloads. Media creation must remain usable when Autopilot is disabled, and Graph authentication, token cache behavior, environment-variable-driven Graph configuration, and Graph HTTP calls must remain in the WinUI app/infrastructure layer.
 
 - [ ] **16.1** Port Autopilot profile selection.
 - [ ] **16.2** Port Autopilot profile import/selection dialog.
@@ -177,6 +203,10 @@ git commit -m "feat(network): port connect provisioning workflow"
 - [ ] **16.3.1** Use the blocking operation overlay for Autopilot tenant download.
 - [ ] **16.4** Preserve generated deploy configuration output.
 - [ ] **16.5** Preserve profile file embedding into WinPE media.
+- [ ] **16.5.1** Wire Autopilot/customization readiness into the `Start` page preflight:
+  - [ ] Do not block media creation when Autopilot is disabled.
+  - [ ] Block or warn when Autopilot is enabled but no valid profile is selected.
+  - [ ] Show selected profile metadata without exposing tenant tokens or Graph response bodies.
 - [ ] **16.6** Commit:
 
 ```powershell
@@ -186,5 +216,6 @@ git commit -m "feat(autopilot): port autopilot and customization workflows"
 **Validation**
 
 - [ ] **16.7** Existing Autopilot-related tests pass.
-- [ ] **16.8** Exported deploy config includes selected profiles.
+- [ ] **16.8** Generated deploy config includes selected profiles.
 - [ ] **16.9** WinPE media includes expected profile payload.
+- [ ] **16.10** `Foundry.Core` has no dependency on Azure Identity, Microsoft Graph clients, `InteractiveBrowserCredential`, or Graph HTTP plumbing.

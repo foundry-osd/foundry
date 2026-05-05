@@ -273,7 +273,7 @@ Foundry Cache:\
 - [ ] Diagnostics use `Logs\...`.
 - [ ] Network certificates use the WPF-compatible layout `Network\Certificates\Wired` and `Network\Certificates\Wifi`; generated config paths must match that layout.
 - [ ] App settings use `Settings\appsettings.json`.
-- [ ] App settings must not contain secrets or workflow/export configuration.
+- [ ] App settings must not contain secrets or workflow configuration.
 - [ ] The WinUI app must not use the DevWinUI prototype AppData root as a working directory.
 - [ ] The WinUI app must not write app settings, logs, cache, workspaces, or temp files under `%LocalAppData%`.
 - [ ] Application code must not fall back to the old host-side folders.

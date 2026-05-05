@@ -85,13 +85,13 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
   - [x] Phase 10: production logging, because later ADK/media/update work must be diagnosable.
   - [x] Phase 7: Velopack distribution and update flow.
   - [x] Phase 8: CI and release workflow update.
-- [ ] **Shell and prerequisite lane**
+- [x] **Shell and prerequisite lane**
   - [x] Phase 9: WinUI `.resw` localization foundation.
   - [x] Phase 11: DevWinUI shell navigation, pages, settings, and operation overlay.
-  - [ ] Phase 12: ADK, WinPE services, filesystem layout, and runtime layout normalization.
-  - [ ] Phase 13: Start page ISO/USB creation UI and media command wiring.
+  - [x] Phase 12: ADK, WinPE services, filesystem layout, and runtime layout normalization.
+  - [x] Phase 13: Start page ISO/USB creation UI and media command wiring.
 - [ ] **Business workflow lane**
-  - [ ] Phase 14: configuration import/export and expert document compatibility.
+  - [ ] Phase 14: Expert Deploy configuration and runtime compatibility.
   - [ ] Phase 15: network provisioning and `Foundry.Connect` handoff.
   - [ ] Phase 16: Autopilot and customization workflows.
 - [ ] **Cutover lane**
@@ -114,15 +114,15 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 
 - [x] Phase 4.
 - [x] Phase 5.
-- [ ] Phase 12 pure services.
-- [ ] Phase 14 serialization logic.
+- [x] Phase 12 pure services.
+- [ ] Phase 14 Deploy configuration logic.
 - [ ] Phase 15 provisioning logic.
 
 ### Workstream C: WinUI Shell
 
 - [x] Phase 6.
 - [x] Phase 11.
-- [ ] Phase 13 UI.
+- [x] Phase 13 UI.
 - [ ] Phase 14 UI.
 - [ ] Phase 16 UI.
 
@@ -150,11 +150,11 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [x] PR 9: production logging contract.
 - [x] PR 10: DevWinUI shell navigation, settings, update banner, and blocking operation overlay.
 - [x] PR 11: ADK status, ADK page, and navigation readiness integration.
-- [ ] PR 12: WinPE service foundations.
-- [ ] PR 13: Connect/Deploy runtime layout normalization.
-- [ ] PR 14: new `ProgramData`, ISO, USB, and WinPE media layout enforcement.
-- [ ] PR 15: Start page media creation UI and dry-run summary.
-- [ ] PR 16: expert configuration import/export workflow.
+- [x] PR 12: WinPE service foundations.
+- [x] PR 13: Connect/Deploy runtime layout normalization.
+- [x] PR 14: new `ProgramData`, ISO, USB, and WinPE media layout enforcement.
+- [x] PR 15: Start page media creation UI and dry-run summary.
+- [ ] PR 16: Expert Deploy configuration workflow.
 - [ ] PR 17: network provisioning and `Foundry.Connect` handoff workflow.
 - [ ] PR 18: final Start page ISO/USB command enablement after Phase 15.
 - [ ] PR 19: Autopilot and customization workflows.

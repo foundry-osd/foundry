@@ -6,9 +6,16 @@
 
 **Goal:** prove the migrated WinUI app still produces runtime artifacts consumed by WPF Connect/Deploy.
 
+**Prerequisites and boundary:** Run Phase 17 after Phases 14, 15, 16, and the final media enablement PR are complete. Phase 17 should prove compatibility; only commit targeted fixes when the smoke tests expose a concrete incompatibility.
+
 - [ ] **17.1** Build `Foundry.Connect` as WPF.
 - [ ] **17.2** Build `Foundry.Deploy` as WPF.
 - [ ] **17.3** Generate WinPE media from WinUI `Foundry`.
+  - [ ] ISO media.
+  - [ ] USB media on a disposable drive when hardware is available.
+  - [ ] Standard workflow without optional Network/Autopilot settings.
+  - [ ] Expert workflow with deploy localization and generated Connect configuration.
+  - [ ] Expert workflow with Autopilot enabled when a test profile is available.
 - [ ] **17.4** Boot test media in a VM.
 - [ ] **17.5** Confirm `Foundry.Connect` starts in WinPE.
 - [ ] **17.6** Confirm `Foundry.Connect` reads generated network configuration.
@@ -36,6 +43,8 @@ git commit -m "fix: preserve winpe runtime compatibility"
 
 **Goal:** remove prototype leftovers and reduce long-term maintenance risk.
 
+**Boundary:** Phase 18 removes only confirmed obsolete migration/prototype leftovers. Do not remove the archived WPF reference before the first stable WinUI release has been validated, because it remains the behavior reference for compatibility investigations.
+
 - [ ] **18.1** Remove DevWinUI placeholder strings and metadata.
 - [ ] **18.2** Remove unused settings pages or rename them to product-specific pages.
 - [ ] **18.3** Remove unused packages.
@@ -44,13 +53,14 @@ git commit -m "fix: preserve winpe runtime compatibility"
   - [ ] Disable trimming if it breaks reflection-heavy dependencies.
   - [ ] Add annotations only where needed.
 - [ ] **18.6** Remove x86 prototype leftovers:
-  - [ ] Remove `x86` from `Platforms`.
-  - [ ] Remove `win-x86` from `RuntimeIdentifiers`.
+  - [ ] Remove `x86` from WinUI app `Platforms` only if it still exists.
+  - [ ] Remove `win-x86` from WinUI app `RuntimeIdentifiers` only if it still exists.
   - [ ] Confirm no x86 publish profile, workflow matrix entry, installer, or release artifact remains.
+  - [ ] Do not remove legitimate `x86` references for Windows Kits paths, ADK tooling, driver metadata, third-party asset documentation, or WPF runtime support.
 - [ ] **18.7** Review unpackaged app leftovers from the WinUI template:
-  - [ ] Remove or ignore `Package.appxmanifest` if it is not used by the Velopack `WindowsPackageType=None` build.
-  - [ ] Remove stale packaged-only context menu declarations if Velopack/unpackaged install path does not use them.
-  - [ ] Remove or replace `RuntimeHelper.IsPackaged()` branches that no longer apply.
+  - [ ] Remove, ignore, or document `Package.appxmanifest` depending on whether the WinUI build or Visual Studio tooling still requires it.
+  - [ ] Remove stale packaged-only context menu declarations only if Velopack/unpackaged install path does not use them.
+  - [ ] Remove or replace `RuntimeHelper.IsPackaged()` branches only when they are unreachable or contradict the selected unpackaged Velopack model.
 - [ ] **18.8** Confirm Phase 11 removed `nucs.JsonSettings` from the WinUI app.
   - [ ] Confirm no runtime dependency still requires it.
   - [ ] Confirm persisted app settings use the internal settings service.
@@ -72,6 +82,8 @@ git commit -m "chore: clean up winui migration leftovers"
 **Priority:** medium-low.
 
 **Goal:** make repository and user documentation match the new app.
+
+**Boundary:** Repository docs live in this repo. User-facing documentation site updates may need the adjacent `foundry-osd.github.io` repository and should be handled as a separate docs-site change when release links, screenshots, or workflow pages need to change.
 
 - [ ] **19.1** Update `README.md`.
 - [ ] **19.2** Update developer build docs.
@@ -114,6 +126,8 @@ git commit -m "docs: document winui foundry migration"
 - [ ] **20.7** Tag first WinUI release.
   - [ ] Use date-based tag format `vYY.M.D.Build`.
 - [ ] **20.8** Monitor first release installation/update telemetry manually through GitHub issues/downloads/log reports.
+- [ ] **20.8.1** Keep the WPF reference archive until the first stable WinUI release has been validated.
+- [ ] **20.8.2** After merge validation, delete merged feature branches and clean up migration worktrees.
 - [ ] **20.9** Commit release workflow restoration:
 
 ```powershell

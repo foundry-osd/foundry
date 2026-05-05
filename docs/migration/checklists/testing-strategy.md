@@ -22,8 +22,14 @@
   - [ ] Complete effective `Foundry.Connect` and `Foundry.Deploy` configuration generation.
   - [ ] `Foundry.Deploy` deployment timezone model and bootstrap fallback behavior.
   - [ ] Network secret envelope serialization and decryption.
+  - [ ] AES-GCM envelope nonce/tag/key handling, including 96-bit nonces, 128-bit tags, and explicit tag-size construction.
   - [ ] Media secret key provisioning and cleanup.
+  - [ ] `Foundry.Connect` legacy plaintext passphrase tolerance for standalone or old configs.
+  - [ ] `Foundry.Connect` encrypted secret decryption for generated WinPE media configs.
   - [ ] Redaction of plaintext secrets, encrypted secret payloads, and media keys in logs, validation errors, summaries, and diagnostics.
+  - [ ] Final media preflight readiness gates for Deploy, Connect, runtime payload, network, required secrets, and optional Autopilot payloads.
+  - [ ] Autopilot profile JSON import, tenant download conversion, profile folder naming, and disabled-state media behavior.
+  - [ ] `Foundry.Core` remains free of Azure Identity, Microsoft Graph, and WinUI dependencies.
   - [ ] Update feed/version selection.
   - [ ] App settings persistence through `IAppSettingsService`.
   - [ ] Startup readiness gating and navigation-state decisions.

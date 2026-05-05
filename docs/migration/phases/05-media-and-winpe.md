@@ -36,8 +36,9 @@ The `12.A` to `12.D` labels are implementation slices, not extra phase numbers. 
 
 **Deferred infrastructure completion:** Phase 12 is also responsible for completing the ADK/WinPE portions of earlier deferred infrastructure work:
 
-- [x] Complete Phase 6 readiness item **6.8.1** for ADK detection, WinPE Add-on readiness, and ADK-gated startup readiness.
-- [x] Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known; keep the final `Start` page refresh command wiring in Phase 13.
+- [x] Complete Phase 6 readiness item **6.8.1** for startup readiness:
+  - [x] ADK detection, WinPE Add-on readiness, and ADK-gated shell navigation.
+  - [x] USB target service readiness after ADK compatibility is known; keep the final `Start` page refresh command wiring in Phase 13.
 - [x] Complete Phase 10 logging contract item **10.6.1** for ADK detection and bootstrap payload resolution logs.
 
 **WPF reference scenario audit:** before implementing each Phase 12 slice, compare the new WinUI/Core behavior against the archived WPF reference without modifying it:
@@ -374,7 +375,7 @@ git commit -m "feat(winpe): apply programdata media layout"
   - [x] **13.6.2** Map final ISO creation requirements to a future operation overlay contract without enabling execution.
   - [x] **13.6.3** Map final USB creation requirements to a future operation overlay contract without enabling execution.
   - [x] **13.6.4** Keep final navigation-blocking ISO/USB execution validation deferred until final media command enablement.
-- [x] **13.6.5** Complete Phase 6 readiness item **6.8.1** for USB target service readiness after ADK compatibility is known.
+- [x] **13.6.5** Complete the USB target refresh portion of Phase 6 readiness item **6.8.1** after ADK compatibility is known.
 - [x] **13.7** Commit:
 
 ```powershell

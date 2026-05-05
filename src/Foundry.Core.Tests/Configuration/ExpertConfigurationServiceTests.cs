@@ -1,17 +1,14 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration;
 
 public sealed class ExpertConfigurationServiceTests
 {
     [Fact]
-    public async Task SaveAsync_ThenLoadAsync_RoundTripsBusinessSettings()
+    public void Serialize_ThenDeserialize_RoundTripsBusinessSettings()
     {
         var service = new ExpertConfigurationService();
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = Path.Combine(tempDirectory.Path, "config", "foundry.json");
 
         var document = new FoundryExpertConfigurationDocument
         {
@@ -38,10 +35,9 @@ public sealed class ExpertConfigurationServiceTests
             }
         };
 
-        await service.SaveAsync(configurationPath, document);
-        FoundryExpertConfigurationDocument loaded = await service.LoadAsync(configurationPath);
+        string json = service.Serialize(document);
+        FoundryExpertConfigurationDocument loaded = service.Deserialize(json);
 
-        Assert.True(File.Exists(configurationPath));
         Assert.True(loaded.Network.WifiProvisioned);
         Assert.Equal("CorpWiFi", loaded.Network.Wifi.Ssid);
         Assert.Equal("FD-", loaded.Customization.MachineNaming.Prefix);

@@ -262,10 +262,9 @@ git commit -m "refactor: migrate foundry logging for winui"
     - [x] Check for updates.
     - [x] About.
   - [x] Do not add a dedicated Logs navigation button; use the existing settings diagnostics/log-folder command.
-  - [x] Keep import/export configuration actions for later workflow phases instead of adding them as menu-bar equivalents:
-    - [x] Import expert configuration is handled by Phase 14.
-    - [x] Export expert configuration is handled by Phase 14.
-    - [x] Export deploy configuration is handled by Phase 14.
+  - [x] Keep manual configuration file commands out of the shell:
+    - [x] User-facing Expert configuration file commands must not be exposed.
+    - [x] Deploy runtime configuration generation is handled by the media workflow, not a menu command.
 - [x] **11.7.1** Add shell update notification behavior:
   - [x] Use a global top-shell WinUI `InfoBar` banner pattern inspired by UniGetUI's `UpdatesBanner`.
   - [x] Host the banner in the shell, above the page content and shared across pages.
@@ -299,7 +298,7 @@ git commit -m "refactor: migrate foundry logging for winui"
   - [x] `updates.feedUrl`.
   - [x] `diagnostics.developerMode`.
   - [x] No secrets.
-  - [x] No workflow or export configuration.
+  - [x] No workflow configuration.
 - [x] **11.9** Commit:
 
 ```powershell

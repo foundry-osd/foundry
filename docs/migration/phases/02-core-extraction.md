@@ -91,8 +91,8 @@ git commit -m "refactor: extract foundry core project"
   - [x] USB candidate refresh.
   - [x] ISO creation.
   - [x] USB creation.
-  - [x] Expert configuration import/export.
-  - [x] Deploy configuration export.
+  - [x] Legacy expert configuration document model boundaries.
+  - [x] Deploy runtime configuration generation.
   - [x] Progress/status display.
   - [x] Update check.
   - [x] About/help links.
