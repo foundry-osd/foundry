@@ -16,6 +16,7 @@ namespace Foundry.Common
         public static readonly string OperatingSystemCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "OperatingSystems");
         public static readonly string ToolCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "Tools");
         public static readonly string WorkspacesDirectoryPath = Path.Combine(RootDirectoryPath, "Workspaces");
+        public static readonly string ConfigurationWorkspaceDirectoryPath = Path.Combine(WorkspacesDirectoryPath, "Configuration");
         public static readonly string WinPeWorkspaceDirectoryPath = Path.Combine(WorkspacesDirectoryPath, "WinPe");
         public static readonly string IsoWorkspaceDirectoryPath = Path.Combine(WorkspacesDirectoryPath, "Iso");
         public static readonly string TempDirectoryPath = Path.Combine(RootDirectoryPath, "Temp");
@@ -24,6 +25,7 @@ namespace Foundry.Common
         public static readonly string DownloadsTempDirectoryPath = Path.Combine(TempDirectoryPath, "Downloads");
         public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Foundry.log");
         public static readonly string AppSettingsPath = Path.Combine(SettingsDirectoryPath, "appsettings.json");
+        public static readonly string ExpertDeployConfigurationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "foundry.expert.config.json");
 
         public const string RepositoryUrl = "https://github.com/foundry-osd/foundry";
         public const string LatestReleaseUrl = RepositoryUrl + "/releases/latest";
@@ -38,6 +40,7 @@ namespace Foundry.Common
             Directory.CreateDirectory(OperatingSystemCacheDirectoryPath);
             Directory.CreateDirectory(ToolCacheDirectoryPath);
             Directory.CreateDirectory(WorkspacesDirectoryPath);
+            Directory.CreateDirectory(ConfigurationWorkspaceDirectoryPath);
             Directory.CreateDirectory(WinPeWorkspaceDirectoryPath);
             Directory.CreateDirectory(IsoWorkspaceDirectoryPath);
             Directory.CreateDirectory(TempDirectoryPath);

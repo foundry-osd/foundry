@@ -120,6 +120,21 @@
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Localization</value>
   </data>
+  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
+    <value>Visible deployment languages</value>
+  </data>
+  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
+    <value>Default deployment language</value>
+  </data>
+  <data name="Localization.TimeZone.Header" xml:space="preserve">
+    <value>Deployment time zone</value>
+  </data>
+  <data name="Localization.ForceSingleVisibleLanguage" xml:space="preserve">
+    <value>Force single visible language</value>
+  </data>
+  <data name="Localization.AutomaticOption" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
     <value>Network</value>
   </data>

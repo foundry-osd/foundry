@@ -7,6 +7,7 @@ public sealed record DeploymentLaunchRequest
     public required DeploymentMode Mode { get; init; }
     public required string CacheRootPath { get; init; }
     public required string TargetComputerName { get; init; }
+    public string? DefaultTimeZoneId { get; init; }
     public required TargetDiskInfo? SelectedTargetDisk { get; init; }
     public required OperatingSystemCatalogItem? SelectedOperatingSystem { get; init; }
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }

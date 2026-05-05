@@ -5,6 +5,7 @@ using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
+using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
 using Serilog;
@@ -17,6 +18,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAdkService adkService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private readonly IWinPeUsbMediaService usbMediaService;
+    private readonly IExpertDeployConfigurationStateService expertDeployConfigurationStateService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
@@ -27,6 +29,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IAdkService adkService,
         IWinPeLanguageDiscoveryService languageDiscoveryService,
         IWinPeUsbMediaService usbMediaService,
+        IExpertDeployConfigurationStateService expertDeployConfigurationStateService,
         IApplicationLocalizationService localizationService,
         IAppDispatcher appDispatcher,
         ILogger logger)
@@ -35,6 +38,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.adkService = adkService;
         this.languageDiscoveryService = languageDiscoveryService;
         this.usbMediaService = usbMediaService;
+        this.expertDeployConfigurationStateService = expertDeployConfigurationStateService;
         this.localizationService = localizationService;
         this.appDispatcher = appDispatcher;
         this.logger = logger.ForContext<StartMediaViewModel>();
@@ -60,6 +64,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
 
         adkService.StatusChanged += OnAdkStatusChanged;
+        expertDeployConfigurationStateService.StateChanged += OnExpertDeployConfigurationStateChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
 
         ApplyLocalizedText();
@@ -128,6 +133,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public void Dispose()
     {
         adkService.StatusChanged -= OnAdkStatusChanged;
+        expertDeployConfigurationStateService.StateChanged -= OnExpertDeployConfigurationStateChanged;
         localizationService.LanguageChanged -= OnLanguageChanged;
     }
 
@@ -212,6 +218,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
     }
 
+    private void OnExpertDeployConfigurationStateChanged(object? sender, EventArgs e)
+    {
+        if (!appDispatcher.TryEnqueue(RefreshEvaluation))
+        {
+            logger.Warning("Failed to enqueue Start page Expert Deploy configuration refresh.");
+        }
+    }
+
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
         if (!appDispatcher.TryEnqueue(() =>
@@ -279,7 +293,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IsAdkReady = adkService.CurrentStatus.CanCreateMedia,
             IsRuntimePayloadReady = false,
             IsNetworkConfigurationReady = false,
-            IsDeployConfigurationReady = false,
+            IsDeployConfigurationReady = expertDeployConfigurationStateService.IsDeployConfigurationReady,
             IsConnectProvisioningReady = false,
             AreRequiredSecretsReady = false,
             IsFinalExecutionEnabled = false,
