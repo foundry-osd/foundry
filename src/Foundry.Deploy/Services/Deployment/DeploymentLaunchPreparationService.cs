@@ -74,6 +74,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             CacheRootPath = request.CacheRootPath,
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
             TargetComputerName = normalizedComputerName,
+            DefaultTimeZoneId = string.IsNullOrWhiteSpace(request.DefaultTimeZoneId) ? null : request.DefaultTimeZoneId.Trim(),
             OperatingSystem = request.SelectedOperatingSystem,
             DriverPackSelectionKind = request.DriverPackSelectionKind,
             DriverPack = request.SelectedDriverPack,

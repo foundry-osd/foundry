@@ -1,8 +1,10 @@
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Adk;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Application;
 using Foundry.Services.Adk;
+using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Settings;
@@ -23,6 +25,10 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
+        services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
+        services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
+        services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
+        services.AddSingleton<IExpertDeployConfigurationStateService, ExpertDeployConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IWinPeUsbMediaService, WinPeUsbMediaService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
@@ -44,6 +50,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<MainViewModel>();
         services.AddSingleton<ContextMenuService>();
         services.AddTransient<GeneralConfigurationViewModel>();
+        services.AddTransient<LocalizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();

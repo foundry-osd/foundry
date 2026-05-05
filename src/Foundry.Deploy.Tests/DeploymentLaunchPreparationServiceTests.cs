@@ -80,6 +80,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 targetComputerName: " LAB_01 ",
                 driverPackSelectionKind: DriverPackSelectionKind.OemCatalog,
                 selectedDriverPack: driverPack,
+                defaultTimeZoneId: " Romance Standard Time ",
                 isAutopilotEnabled: true,
                 selectedAutopilotProfile: autopilotProfile));
 
@@ -88,6 +89,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Equal(1, shell.ConfirmationCallCount);
         Assert.Equal(targetDisk.DiskNumber, result.Context?.TargetDiskNumber);
         Assert.Equal("LAB01", result.Context?.TargetComputerName);
+        Assert.Equal("Romance Standard Time", result.Context?.DefaultTimeZoneId);
         Assert.Same(driverPack, result.Context?.DriverPack);
         Assert.Same(autopilotProfile, result.Context?.SelectedAutopilotProfile);
     }
@@ -95,6 +97,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     private static DeploymentLaunchRequest CreateRequest(
         TargetDiskInfo? selectedTargetDisk,
         string targetComputerName = "LAB-01",
+        string? defaultTimeZoneId = null,
         DriverPackSelectionKind driverPackSelectionKind = DriverPackSelectionKind.None,
         DriverPackCatalogItem? selectedDriverPack = null,
         bool isAutopilotEnabled = false,
@@ -106,6 +109,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             Mode = DeploymentMode.Usb,
             CacheRootPath = @"X:\Foundry\Runtime",
             TargetComputerName = targetComputerName,
+            DefaultTimeZoneId = defaultTimeZoneId,
             SelectedTargetDisk = selectedTargetDisk,
             SelectedOperatingSystem = new OperatingSystemCatalogItem
             {

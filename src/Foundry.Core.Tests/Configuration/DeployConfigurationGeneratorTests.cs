@@ -55,6 +55,23 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Serialize_WhenDefaultTimeZoneIdIsSet_WritesCamelCaseProperty()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = generator.Generate(new FoundryExpertConfigurationDocument
+        {
+            Localization = new LocalizationSettings
+            {
+                DefaultTimeZoneId = "Romance Standard Time"
+            }
+        });
+
+        string json = generator.Serialize(document);
+
+        Assert.Contains("\"defaultTimeZoneId\": \"Romance Standard Time\"", json, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void Generate_ResolvesDefaultAutopilotProfileFolder()
     {
         var generator = new DeployConfigurationGenerator();

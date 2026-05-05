@@ -32,6 +32,7 @@ public interface IWindowsDeploymentService
         string computerName,
         string processorArchitecture,
         string workingDirectory,
+        string? defaultTimeZoneId = null,
         CancellationToken cancellationToken = default);
 
     Task ConfigureRecoveryEnvironmentAsync(
