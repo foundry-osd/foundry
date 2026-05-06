@@ -1,0 +1,212 @@
+using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
+using Foundry.Services.Configuration;
+using Foundry.Services.Localization;
+using Microsoft.UI.Xaml;
+
+namespace Foundry.ViewModels;
+
+public sealed partial class CustomizationConfigurationViewModel : ObservableObject, IDisposable
+{
+    private readonly IExpertDeployConfigurationStateService configurationStateService;
+    private readonly IApplicationLocalizationService localizationService;
+    private bool isApplyingState = true;
+    private bool isSavingState;
+
+    public CustomizationConfigurationViewModel(
+        IExpertDeployConfigurationStateService configurationStateService,
+        IApplicationLocalizationService localizationService)
+    {
+        this.configurationStateService = configurationStateService;
+        this.localizationService = localizationService;
+
+        RefreshLocalizedText();
+        ApplyState(configurationStateService.Current.Customization);
+
+        localizationService.LanguageChanged += OnLanguageChanged;
+        configurationStateService.StateChanged += OnConfigurationStateChanged;
+        isApplyingState = false;
+    }
+
+    public int MachineNamePrefixMaxLength => ComputerNameRules.MaxLength;
+    public bool IsMachineNamingOptionsEnabled => IsMachineNamingEnabled;
+    public bool HasMachineNamePrefixValidationError => !string.IsNullOrWhiteSpace(MachineNamePrefixValidationMessage);
+    public Visibility MachineNamePrefixValidationVisibility => HasMachineNamePrefixValidationError
+        ? Visibility.Visible
+        : Visibility.Collapsed;
+
+    [ObservableProperty]
+    public partial string PageTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string MachineNamingHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string MachineNamingDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string MachineNamingEnableText { get; set; }
+
+    [ObservableProperty]
+    public partial string MachineNamingPrefixLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string MachineNamingAutoGenerateText { get; set; }
+
+    [ObservableProperty]
+    public partial string MachineNamingAllowManualSuffixEditText { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsMachineNamingOptionsEnabled))]
+    [NotifyPropertyChangedFor(nameof(MachineNamePrefixValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasMachineNamePrefixValidationError))]
+    [NotifyPropertyChangedFor(nameof(MachineNamePrefixValidationVisibility))]
+    public partial bool IsMachineNamingEnabled { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(MachineNamePrefixValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasMachineNamePrefixValidationError))]
+    [NotifyPropertyChangedFor(nameof(MachineNamePrefixValidationVisibility))]
+    public partial string MachineNamePrefix { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial bool MachineNameAutoGenerate { get; set; }
+
+    [ObservableProperty]
+    public partial bool AllowManualSuffixEdit { get; set; } = true;
+
+    public string MachineNamePrefixValidationMessage
+    {
+        get
+        {
+            if (!IsMachineNamingEnabled || string.IsNullOrWhiteSpace(MachineNamePrefix))
+            {
+                return string.Empty;
+            }
+
+            return ComputerNameRules.IsValid(MachineNamePrefix.Trim())
+                ? string.Empty
+                : localizationService.GetString("Customization.MachineNamingPrefixValidation");
+        }
+    }
+
+    public void Dispose()
+    {
+        localizationService.LanguageChanged -= OnLanguageChanged;
+        configurationStateService.StateChanged -= OnConfigurationStateChanged;
+    }
+
+    partial void OnIsMachineNamingEnabledChanged(bool value)
+    {
+        SaveState();
+    }
+
+    partial void OnMachineNamePrefixChanged(string value)
+    {
+        if (isApplyingState)
+        {
+            return;
+        }
+
+        string normalizedPrefix = NormalizePrefix(value);
+        if (!string.Equals(value, normalizedPrefix, StringComparison.Ordinal))
+        {
+            MachineNamePrefix = normalizedPrefix;
+            return;
+        }
+
+        SaveState();
+    }
+
+    partial void OnMachineNameAutoGenerateChanged(bool value)
+    {
+        SaveState();
+    }
+
+    partial void OnAllowManualSuffixEditChanged(bool value)
+    {
+        SaveState();
+    }
+
+    private void ApplyState(CustomizationSettings settings)
+    {
+        isApplyingState = true;
+        try
+        {
+            IsMachineNamingEnabled = settings.MachineNaming.IsEnabled;
+            MachineNamePrefix = settings.MachineNaming.Prefix ?? string.Empty;
+            MachineNameAutoGenerate = settings.MachineNaming.AutoGenerateName;
+            AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;
+        }
+        finally
+        {
+            isApplyingState = false;
+        }
+    }
+
+    private void SaveState()
+    {
+        if (isApplyingState || HasMachineNamePrefixValidationError)
+        {
+            return;
+        }
+
+        string normalizedPrefix = NormalizePrefix(MachineNamePrefix);
+        string? prefix = string.IsNullOrWhiteSpace(normalizedPrefix)
+            ? null
+            : normalizedPrefix;
+
+        isSavingState = true;
+        try
+        {
+            configurationStateService.UpdateCustomization(new CustomizationSettings
+            {
+                MachineNaming = new MachineNamingSettings
+                {
+                    IsEnabled = IsMachineNamingEnabled,
+                    Prefix = IsMachineNamingEnabled ? prefix : null,
+                    AutoGenerateName = IsMachineNamingEnabled && MachineNameAutoGenerate,
+                    AllowManualSuffixEdit = !IsMachineNamingEnabled || AllowManualSuffixEdit
+                }
+            });
+        }
+        finally
+        {
+            isSavingState = false;
+        }
+    }
+
+    private void RefreshLocalizedText()
+    {
+        PageTitle = localizationService.GetString("CustomizationPage_Title.Text");
+        MachineNamingHeader = localizationService.GetString("Customization.MachineNamingHeader");
+        MachineNamingDescription = localizationService.GetString("Customization.MachineNamingDescription");
+        MachineNamingEnableText = localizationService.GetString("Customization.MachineNamingEnableLabel");
+        MachineNamingPrefixLabel = localizationService.GetString("Customization.MachineNamingPrefixLabel");
+        MachineNamingAutoGenerateText = localizationService.GetString("Customization.MachineNamingAutoGenerateLabel");
+        MachineNamingAllowManualSuffixEditText = localizationService.GetString("Customization.MachineNamingAllowManualSuffixLabel");
+        OnPropertyChanged(nameof(MachineNamePrefixValidationMessage));
+        OnPropertyChanged(nameof(HasMachineNamePrefixValidationError));
+        OnPropertyChanged(nameof(MachineNamePrefixValidationVisibility));
+    }
+
+    private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
+    {
+        RefreshLocalizedText();
+    }
+
+    private void OnConfigurationStateChanged(object? sender, EventArgs e)
+    {
+        if (isSavingState)
+        {
+            return;
+        }
+
+        ApplyState(configurationStateService.Current.Customization);
+    }
+
+    private static string NormalizePrefix(string? value)
+    {
+        return ComputerNameRules.Normalize(value?.Trim());
+    }
+}

@@ -93,6 +93,27 @@
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Personnalisation</value>
   </data>
+  <data name="Customization.MachineNamingHeader" xml:space="preserve">
+    <value>Nommage machine</value>
+  </data>
+  <data name="Customization.MachineNamingDescription" xml:space="preserve">
+    <value>Contrôler le nom d'ordinateur cible généré pendant le déploiement.</value>
+  </data>
+  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
+    <value>Activer les règles de nommage machine</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
+    <value>Préfixe</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>Générer automatiquement le suffixe après le préfixe</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>Autoriser la modification manuelle après le préfixe</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
+    <value>Le préfixe doit utiliser 1 à 15 caractères parmi A-Z, a-z, 0-9 ou -.</value>
+  </data>
   <data name="DocumentationPage_DocsLink.Content" xml:space="preserve">
     <value>Documentation</value>
   </data>

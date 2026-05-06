@@ -54,6 +54,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddTransient<LocalizationConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
+        services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
