@@ -72,6 +72,14 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public void UpdateCustomization(CustomizationSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { Customization = SanitizeCustomizationForPersistence(settings) };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public string GenerateDeployConfigurationJson()
     {
         return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(Current));
@@ -119,7 +127,27 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     {
         return document with
         {
-            Network = NetworkConfigurationValidator.SanitizeForPersistence(document.Network)
+            Network = NetworkConfigurationValidator.SanitizeForPersistence(document.Network),
+            Customization = SanitizeCustomizationForPersistence(document.Customization)
+        };
+    }
+
+    private static CustomizationSettings SanitizeCustomizationForPersistence(CustomizationSettings settings)
+    {
+        string normalizedPrefix = ComputerNameRules.Normalize(settings.MachineNaming.Prefix?.Trim());
+        string? prefix = string.IsNullOrWhiteSpace(normalizedPrefix)
+            ? null
+            : normalizedPrefix;
+
+        return settings with
+        {
+            MachineNaming = new MachineNamingSettings
+            {
+                IsEnabled = settings.MachineNaming.IsEnabled,
+                Prefix = settings.MachineNaming.IsEnabled ? prefix : null,
+                AutoGenerateName = settings.MachineNaming.IsEnabled && settings.MachineNaming.AutoGenerateName,
+                AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled || settings.MachineNaming.AllowManualSuffixEdit
+            }
         };
     }
 

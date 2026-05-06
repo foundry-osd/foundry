@@ -20,6 +20,8 @@ public interface IExpertDeployConfigurationStateService
 
     void UpdateLocalization(LocalizationSettings settings);
 
+    void UpdateCustomization(CustomizationSettings settings);
+
     FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath);
 
     string GenerateDeployConfigurationJson();

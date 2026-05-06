@@ -198,31 +198,106 @@ git commit -m "feat(network): wire connect preflight readiness"
 
 **Goal:** port remaining expert workflow features after core media creation is functional.
 
-**Prerequisites and boundary:** Phase 16 extends the media workflow with optional Autopilot and customization payloads. Media creation must remain usable when Autopilot is disabled, and Graph authentication, token cache behavior, environment-variable-driven Graph configuration, and Graph HTTP calls must remain in the WinUI app/infrastructure layer.
+**Prerequisites and boundary:** Phase 16 extends the media workflow with optional Autopilot and customization payloads. Media creation must remain usable when Autopilot is disabled. Microsoft Graph authentication, token cache behavior, environment-variable-driven Graph configuration, and Graph HTTP calls must remain in the WinUI `Foundry` app/infrastructure layer, not in `Foundry.Core`.
 
-- [ ] **16.1** Port Autopilot profile selection.
-- [ ] **16.2** Port Autopilot profile import/selection dialog.
-  - [ ] **16.2.1** Use the blocking operation overlay for profile import.
-  - [ ] **16.2.2** Keep Microsoft Graph authentication in the WinUI `Foundry` app/infrastructure layer.
-  - [ ] **16.2.3** Keep `InteractiveBrowserCredential`, token cache behavior, environment-variable-driven Graph configuration, and Graph HTTP calls out of `Foundry.Core`.
-  - [ ] **16.2.4** Move only pure Autopilot conversion, validation, and file transformation logic to `Foundry.Core` when useful.
-- [ ] **16.3** Port customization settings.
-- [ ] **16.3.1** Use the blocking operation overlay for Autopilot tenant download.
-- [ ] **16.4** Preserve generated deploy configuration output.
-- [ ] **16.5** Preserve profile file embedding into WinPE media.
-- [ ] **16.5.1** Wire Autopilot/customization readiness into the `Start` page preflight:
-  - [ ] Do not block media creation when Autopilot is disabled.
-  - [ ] Block or warn when Autopilot is enabled but no valid profile is selected.
-  - [ ] Show selected profile metadata without exposing tenant tokens or Graph response bodies.
-- [ ] **16.6** Commit:
+**Scope boundary:** preserve user-visible WPF parity for machine naming, Autopilot profile import, Autopilot tenant download, profile selection, generated deploy config, and WinPE profile embedding where those contracts remain valid. Do not preserve obsolete WPF-era runtime quirks. Do not implement APPX removal or custom deploy configuration editing in Phase 16; the WPF app only exposed those as disabled placeholders.
+
+**Architecture direction:** do not add backward-compatibility logic for obsolete WPF-era contracts. If Phase 16 reveals that `Foundry.Deploy`, `Foundry.Connect`, or shared configuration contracts should be simplified or adjusted, make the focused change in the same split and update the generated runtime contracts/tests accordingly. Prefer clear WinUI/Core-era contracts and maintainable runtime behavior over preserving legacy implementation quirks.
+
+**Recommended implementation split:** Phase 16 has a low-risk local customization slice and higher-risk Autopilot/Graph slices. Implement each split in a separate worktree, branch, and pull request. After each split is implemented, run automated verification, complete required manual validation, wait for CI to pass, squash-merge the PR, sync `feat/winui-migration`, clean the worktree, then start the next split.
+
+- [ ] **16.A** Port customization machine naming.
+  - [ ] **16.A.1** Add the WinUI customization settings page state for:
+    - [ ] Enable machine naming rules.
+    - [ ] Machine name prefix.
+    - [ ] Auto-generate the suffix after the prefix.
+    - [ ] Allow manual editing after the prefix.
+  - [ ] **16.A.2** Preserve WPF normalization:
+    - [ ] Disabled machine naming writes no prefix.
+    - [ ] Disabled machine naming forces `autoGenerateName=false`.
+    - [ ] Disabled machine naming forces `allowManualSuffixEdit=true`.
+    - [ ] Enabled machine naming trims the prefix before persistence/generation.
+  - [ ] **16.A.2.1** Validate machine naming prefix early in the WinUI authoring flow using the same computer-name rules that `Foundry.Deploy` enforces at runtime.
+  - [ ] **16.A.3** Preserve generated Deploy config output for `customization.machineNaming`.
+  - [ ] **16.A.4** Keep APPX removal and custom deploy configuration editing out of scope.
+
+- [ ] **16.B** Port Autopilot manual profile import and local profile management.
+  - [ ] **16.B.1** Add the WinUI Autopilot page state for:
+    - [ ] Enable Autopilot.
+    - [ ] Import profile JSON.
+    - [ ] Remove selected profile.
+    - [ ] Select default profile.
+    - [ ] Show imported profiles with display name, source, imported timestamp, and folder name.
+  - [ ] **16.B.2** Preserve WPF manual import behavior:
+    - [ ] Parse and validate JSON.
+    - [ ] Reject empty, invalid, or non-ASCII profile JSON.
+    - [ ] Resolve display name from `Comment_File`, filename, or parent folder.
+    - [ ] Generate `manual-<sha>` IDs from profile JSON.
+    - [ ] Sanitize profile folder names.
+    - [ ] Merge duplicate profiles by ID.
+    - [ ] Sort profiles by display name, then ID.
+    - [ ] Fall back to the first profile when the default profile is removed or missing.
+  - [ ] **16.B.3** Persist full imported profile JSON in expert configuration.
+  - [ ] **16.B.3.1** Add explicit expert configuration state updates for Autopilot and Customization:
+    - [ ] `UpdateAutopilot(AutopilotSettings settings)`.
+    - [ ] `UpdateCustomization(CustomizationSettings settings)`.
+  - [ ] **16.B.4** Preserve generated Deploy config output:
+    - [ ] `autopilot.isEnabled`.
+    - [ ] `autopilot.defaultProfileFolderName`.
+  - [ ] **16.B.5** Preserve Autopilot profile path contracts:
+    - [ ] Embedded WinPE relative path: `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+    - [ ] Runtime WinPE path consumed by `Foundry.Deploy`: `X:\Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+    - [ ] Target Windows staging path written by `Foundry.Deploy`: `%SystemDrive%\Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json`.
+    - [ ] Generated Deploy config stores the selected/default profile folder name, not a full path.
+
+- [ ] **16.C** Port Autopilot Microsoft Graph tenant import.
+  - [ ] **16.C.1** Keep Microsoft Graph authentication in the WinUI `Foundry` app/infrastructure layer.
+  - [ ] **16.C.2** Keep `InteractiveBrowserCredential`, token cache behavior, environment-variable-driven Graph configuration, and Graph HTTP calls out of `Foundry.Core`.
+  - [ ] **16.C.3** Preserve WPF Graph behavior:
+    - [ ] Use `DeviceManagementServiceConfig.Read.All` and `User.Read` scopes.
+    - [ ] Preserve `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID` and `FOUNDRY_AUTOPILOT_GRAPH_TENANT_ID` overrides.
+    - [ ] Query `v1.0/organization?$select=id,verifiedDomains` for tenant information and verified domain.
+    - [ ] Query `beta/deviceManagement/windowsAutopilotDeploymentProfiles`.
+    - [ ] Handle paged Graph responses.
+    - [ ] Convert tenant deployment profiles into offline `AutopilotConfigurationFile.json` content.
+  - [ ] **16.C.4** Use the blocking operation overlay for tenant authentication/download, then close the overlay before showing profile selection.
+  - [ ] **16.C.5** Use a WinUI `ContentDialog` for downloaded profile selection instead of a separate WPF-style window:
+    - [ ] Profiles selected by default.
+    - [ ] Select all.
+    - [ ] Clear.
+    - [ ] Selected count.
+    - [ ] Import disabled when no profile is selected.
+    - [ ] Cancel returns no imported profiles.
+  - [ ] **16.C.6** Do not show tenant tokens or raw Graph response bodies in UI, summaries, logs, or diagnostics.
+
+- [ ] **16.D** Wire Autopilot/customization readiness into `Start` preflight and finish Phase 16 validation.
+  - [ ] **16.D.1** Do not block media creation when Autopilot is disabled.
+  - [ ] **16.D.2** Block or warn when Autopilot is enabled but no valid default profile is selected.
+  - [ ] **16.D.3** Show selected Autopilot profile metadata without exposing tenant tokens or Graph response bodies.
+  - [ ] **16.D.4** Keep final ISO/USB execution disabled until the final media enablement PR.
+  - [ ] **16.D.5** Preserve generated Deploy config and Autopilot profile path contracts across the final Phase 16 state.
+  - [ ] **16.D.6** Update `Foundry.Deploy` Autopilot startup behavior so generated Deploy config is the source of truth:
+    - [ ] Respect `autopilot.isEnabled=false` even when embedded Autopilot profiles exist.
+    - [ ] Select/use a default Autopilot profile only when `autopilot.isEnabled=true`.
+    - [ ] Remove any automatic enablement based only on profile presence.
+
+- [ ] **16.6** Commit each split independently:
 
 ```powershell
-git commit -m "feat(autopilot): port autopilot and customization workflows"
+git commit -m "feat(customization): port machine naming settings"
+git commit -m "feat(autopilot): port manual profile import"
+git commit -m "feat(autopilot): add graph profile import"
+git commit -m "feat(autopilot): wire start readiness"
 ```
 
 **Validation**
 
-- [ ] **16.7** Existing Autopilot-related tests pass.
-- [ ] **16.8** Generated deploy config includes selected profiles.
-- [ ] **16.9** WinPE media includes expected profile payload.
+- [ ] **16.7** Existing Autopilot-related and Deploy configuration tests pass.
+- [ ] **16.8** Generated Deploy config includes machine naming and selected Autopilot profile settings.
+- [ ] **16.9** WinPE asset provisioning service-level validation includes expected Autopilot profile payloads; real generated boot-media validation remains deferred until final ISO/USB media execution is enabled.
 - [ ] **16.10** `Foundry.Core` has no dependency on Azure Identity, Microsoft Graph clients, `InteractiveBrowserCredential`, or Graph HTTP plumbing.
+- [ ] **16.11** Manual Autopilot JSON import rejects empty, invalid, or non-ASCII JSON.
+- [ ] **16.12** Manual Autopilot JSON import preserves WPF-compatible profile ID, display name, folder name, merge, sort, and default-profile fallback behavior.
+- [ ] **16.13** Graph tenant import downloads profiles through the blocking overlay and imports selected profiles through a WinUI `ContentDialog`.
+- [ ] **16.14** Autopilot disabled does not block `Start` preflight.
+- [ ] **16.15** Autopilot enabled without a valid default profile blocks or warns in `Start` preflight.
