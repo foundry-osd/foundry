@@ -260,7 +260,7 @@ git commit -m "feat(network): wire connect preflight readiness"
     - [x] Query `beta/deviceManagement/windowsAutopilotDeploymentProfiles`.
     - [x] Handle paged Graph responses.
     - [x] Convert tenant deployment profiles into offline `AutopilotConfigurationFile.json` content.
-  - [x] **16.C.4** Use the blocking operation overlay for tenant authentication/download, then close the overlay before showing profile selection.
+  - [x] **16.C.4** Use a cancellable WinUI `ContentDialog` for tenant authentication/download, then close it before showing profile selection.
   - [x] **16.C.5** Use a WinUI `ContentDialog` for downloaded profile selection instead of a separate WPF-style window:
     - [x] Profiles selected by default.
     - [x] Select all.
@@ -298,6 +298,6 @@ git commit -m "feat(autopilot): wire start readiness"
 - [x] **16.10** `Foundry.Core` has no dependency on Azure Identity, Microsoft Graph clients, `InteractiveBrowserCredential`, or Graph HTTP plumbing.
 - [x] **16.11** Manual Autopilot JSON import rejects empty, invalid, or non-ASCII JSON.
 - [x] **16.12** Manual Autopilot JSON import preserves WPF-compatible profile ID, display name, folder name, merge, sort, and default-profile fallback behavior.
-- [ ] **16.13** Graph tenant import downloads profiles through the blocking overlay and imports selected profiles through a WinUI `ContentDialog`.
+- [ ] **16.13** Graph tenant import downloads profiles through a cancellable WinUI `ContentDialog` and imports selected profiles through a separate WinUI `ContentDialog`.
 - [ ] **16.14** Autopilot disabled does not block `Start` preflight.
 - [ ] **16.15** Autopilot enabled without a valid default profile blocks or warns in `Start` preflight.

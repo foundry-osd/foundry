@@ -4,6 +4,5 @@ public enum OperationKind
 {
     None,
     AdkInstall,
-    AdkUpgrade,
-    AutopilotProfileDownload
+    AdkUpgrade
 }

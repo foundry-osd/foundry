@@ -7,8 +7,6 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
-using Foundry.Services.Operations;
-using Foundry.Services.Shell;
 using Microsoft.UI.Xaml;
 using Serilog;
 
@@ -16,16 +14,13 @@ namespace Foundry.ViewModels;
 
 public sealed partial class AutopilotConfigurationViewModel : ObservableObject, IDisposable
 {
-    private static readonly TimeSpan TenantDownloadTimeout = TimeSpan.FromMinutes(3);
-
     private readonly IExpertDeployConfigurationStateService configurationStateService;
     private readonly IAutopilotProfileImportService autopilotProfileImportService;
     private readonly IAutopilotTenantProfileService autopilotTenantProfileService;
+    private readonly IAutopilotTenantDownloadDialogService tenantDownloadDialogService;
     private readonly IAutopilotProfileSelectionDialogService profileSelectionDialogService;
     private readonly IFilePickerService filePickerService;
     private readonly IDialogService dialogService;
-    private readonly IOperationProgressService operationProgressService;
-    private readonly IShellNavigationGuardService shellNavigationGuardService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly ILogger logger;
     private bool isApplyingState = true;
@@ -35,22 +30,20 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         IExpertDeployConfigurationStateService configurationStateService,
         IAutopilotProfileImportService autopilotProfileImportService,
         IAutopilotTenantProfileService autopilotTenantProfileService,
+        IAutopilotTenantDownloadDialogService tenantDownloadDialogService,
         IAutopilotProfileSelectionDialogService profileSelectionDialogService,
         IFilePickerService filePickerService,
         IDialogService dialogService,
-        IOperationProgressService operationProgressService,
-        IShellNavigationGuardService shellNavigationGuardService,
         IApplicationLocalizationService localizationService,
         ILogger logger)
     {
         this.configurationStateService = configurationStateService;
         this.autopilotProfileImportService = autopilotProfileImportService;
         this.autopilotTenantProfileService = autopilotTenantProfileService;
+        this.tenantDownloadDialogService = tenantDownloadDialogService;
         this.profileSelectionDialogService = profileSelectionDialogService;
         this.filePickerService = filePickerService;
         this.dialogService = dialogService;
-        this.operationProgressService = operationProgressService;
-        this.shellNavigationGuardService = shellNavigationGuardService;
         this.localizationService = localizationService;
         this.logger = logger.ForContext<AutopilotConfigurationViewModel>();
 
@@ -177,74 +170,58 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private async Task DownloadProfilesAsync()
     {
         IsDownloading = true;
-        ShellNavigationState previousShellState = shellNavigationGuardService.State;
-        string terminalStatus = localizationService.GetString("Autopilot.DownloadCanceled");
-        shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
-        operationProgressService.Start(
-            OperationKind.AutopilotProfileDownload,
-            localizationService.GetString("Autopilot.DownloadInProgress"));
-
-        IReadOnlyList<AutopilotProfileSettings> availableProfiles;
-        using CancellationTokenSource downloadTimeout = new(TenantDownloadTimeout);
         try
         {
             logger.Information("Starting Autopilot profile download from tenant.");
-            operationProgressService.Report(20, localizationService.GetString("Autopilot.DownloadConnecting"));
-            availableProfiles = await autopilotTenantProfileService.DownloadFromTenantAsync(downloadTimeout.Token);
-
-            if (availableProfiles.Count == 0)
+            IReadOnlyList<AutopilotProfileSettings>? availableProfiles =
+                await tenantDownloadDialogService.DownloadAsync(autopilotTenantProfileService.DownloadFromTenantAsync);
+            if (availableProfiles is null)
             {
-                terminalStatus = localizationService.GetString("Autopilot.DownloadCompletedNoProfiles");
-                operationProgressService.Complete(terminalStatus);
-                logger.Information("Autopilot tenant download completed. ProfileCount=0");
+                logger.Information("Autopilot tenant download was canceled.");
                 return;
             }
 
-            terminalStatus = localizationService.GetString("Autopilot.DownloadSelectProfiles");
-            operationProgressService.Report(70, terminalStatus);
+            if (availableProfiles.Count == 0)
+            {
+                logger.Information("Autopilot tenant download completed. ProfileCount=0");
+                await dialogService.ShowMessageAsync(new DialogRequest(
+                    localizationService.GetString("Autopilot.DownloadNoProfilesTitle"),
+                    localizationService.GetString("Autopilot.DownloadCompletedNoProfiles")));
+                return;
+            }
+
+            IReadOnlyList<AutopilotProfileSettings>? selectedProfiles =
+                await profileSelectionDialogService.PickProfilesAsync(availableProfiles);
+            if (selectedProfiles is null)
+            {
+                logger.Information("Autopilot tenant download was canceled from the profile selection dialog.");
+                return;
+            }
+
+            MergeProfiles(selectedProfiles);
+            logger.Information(
+                "Autopilot tenant download completed. RetrievedProfileCount={RetrievedProfileCount}, ImportedProfileCount={ImportedProfileCount}",
+                availableProfiles.Count,
+                selectedProfiles.Count);
         }
-        catch (OperationCanceledException ex) when (downloadTimeout.IsCancellationRequested)
+        catch (OperationCanceledException)
         {
-            terminalStatus = localizationService.GetString("Autopilot.DownloadTimedOut");
-            operationProgressService.Complete(terminalStatus);
-            logger.Warning(ex, "Autopilot tenant download timed out.");
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.DownloadFailedTitle"),
-                terminalStatus));
+            logger.Information("Autopilot tenant download was canceled.");
             return;
         }
-        catch (Exception ex) when (ex is OperationCanceledException or InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
+        catch (Exception ex) when (ex is InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
         {
-            terminalStatus = localizationService.FormatString("Autopilot.DownloadFailedFormat", ex.Message);
-            operationProgressService.Complete(terminalStatus);
+            string failureMessage = localizationService.FormatString("Autopilot.DownloadFailedFormat", ex.Message);
             logger.Error(ex, "Autopilot tenant download failed.");
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.DownloadFailedTitle"),
-                terminalStatus));
+                failureMessage));
             return;
         }
         finally
         {
-            operationProgressService.Reset(terminalStatus);
-            shellNavigationGuardService.SetState(previousShellState == ShellNavigationState.OperationRunning
-                ? ShellNavigationState.Ready
-                : previousShellState);
             IsDownloading = false;
         }
-
-        IReadOnlyList<AutopilotProfileSettings>? selectedProfiles =
-            await profileSelectionDialogService.PickProfilesAsync(availableProfiles);
-        if (selectedProfiles is null)
-        {
-            logger.Information("Autopilot tenant download was canceled from the profile selection dialog.");
-            return;
-        }
-
-        MergeProfiles(selectedProfiles);
-        logger.Information(
-            "Autopilot tenant download completed. RetrievedProfileCount={RetrievedProfileCount}, ImportedProfileCount={ImportedProfileCount}",
-            availableProfiles.Count,
-            selectedProfiles.Count);
     }
 
     [RelayCommand(CanExecute = nameof(CanRemoveSelectedProfile))]

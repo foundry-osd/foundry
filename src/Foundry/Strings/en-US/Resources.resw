@@ -138,17 +138,17 @@
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>{0}</value>
   </data>
-  <data name="Autopilot.DownloadInProgress" xml:space="preserve">
-    <value>Downloading Autopilot profiles from tenant...</value>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>Sign in to Microsoft Graph</value>
   </data>
-  <data name="Autopilot.DownloadConnecting" xml:space="preserve">
-    <value>Connecting to Microsoft Graph...</value>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>Complete sign-in in the browser to download Autopilot profiles.</value>
   </data>
-  <data name="Autopilot.DownloadSelectProfiles" xml:space="preserve">
-    <value>Select the Autopilot profiles to import.</value>
+  <data name="Autopilot.TenantDownloadDialogCancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="Autopilot.DownloadCanceled" xml:space="preserve">
-    <value>Autopilot profile import was canceled.</value>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>No Autopilot profiles found</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>No Autopilot profiles were returned by the tenant.</value>
@@ -158,9 +158,6 @@
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Autopilot profile download failed: {0}</value>
-  </data>
-  <data name="Autopilot.DownloadTimedOut" xml:space="preserve">
-    <value>Autopilot profile download timed out. Try again and complete the browser sign-in prompt.</value>
   </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
     <value>Select Autopilot profiles</value>

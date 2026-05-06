@@ -138,17 +138,17 @@
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>{0}</value>
   </data>
-  <data name="Autopilot.DownloadInProgress" xml:space="preserve">
-    <value>Téléchargement des profils Autopilot depuis le tenant...</value>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>Connexion à Microsoft Graph</value>
   </data>
-  <data name="Autopilot.DownloadConnecting" xml:space="preserve">
-    <value>Connexion à Microsoft Graph...</value>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>Terminez l'authentification dans le navigateur pour télécharger les profils Autopilot.</value>
   </data>
-  <data name="Autopilot.DownloadSelectProfiles" xml:space="preserve">
-    <value>Sélectionnez les profils Autopilot à importer.</value>
+  <data name="Autopilot.TenantDownloadDialogCancel" xml:space="preserve">
+    <value>Annuler</value>
   </data>
-  <data name="Autopilot.DownloadCanceled" xml:space="preserve">
-    <value>L'import des profils Autopilot a été annulé.</value>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>Aucun profil Autopilot trouvé</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
     <value>Aucun profil Autopilot n'a été renvoyé par le tenant.</value>
@@ -158,9 +158,6 @@
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Le téléchargement des profils Autopilot a échoué : {0}</value>
-  </data>
-  <data name="Autopilot.DownloadTimedOut" xml:space="preserve">
-    <value>Le téléchargement des profils Autopilot a expiré. Réessayez et terminez l'authentification dans le navigateur.</value>
   </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
     <value>Sélectionner les profils Autopilot</value>
