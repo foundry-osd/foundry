@@ -1,13 +1,125 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.NetworkPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
-                Padding="{ThemeResource ContentPagePadding}">
+                Padding="{ThemeResource ContentPagePadding}"
+                VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
-                    Spacing="5">
-            <TextBlock x:Uid="NetworkPage_Title"
+                    dev:PanelAttach.ChildrenTransitions="Default"
+                    Spacing="8">
+            <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource TitleTextBlockStyle}" />
+
+            <dev:SettingsExpander Header="{x:Bind ViewModel.EthernetHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.EthernetDescription, Mode=OneWay}"
+                                  HeaderIcon="{dev:FontIcon GlyphCode=E839}">
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.Dot1xEnableText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsDot1xEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <dev:SettingsExpander.Items>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsDot1xSectionEnabled, Mode=OneWay}">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="10">
+                            <TextBox MinWidth="420"
+                                     Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.BrowseDot1xProfileTemplateCommand}"
+                                    Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                        </StackPanel>
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.RequiresCertificateText, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsDot1xSectionEnabled, Mode=OneWay}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.IsDot1xCertificateRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsDot1xCertificatePathEnabled, Mode=OneWay}">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="10">
+                            <TextBox MinWidth="420"
+                                     Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
+                                    Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                        </StackPanel>
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Visibility="{x:Bind ViewModel.Dot1xValidationVisibility, Mode=OneWay}">
+                        <TextBlock Text="{x:Bind ViewModel.Dot1xValidationMessage, Mode=OneWay}"
+                                   TextWrapping="Wrap" />
+                    </dev:SettingsCard>
+                </dev:SettingsExpander.Items>
+            </dev:SettingsExpander>
+
+            <dev:SettingsExpander Header="{x:Bind ViewModel.WifiHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.WifiDescription, Mode=OneWay}"
+                                  HeaderIcon="{dev:FontIcon GlyphCode=E701}">
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.WifiProvisionedText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsWifiProvisioned, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <dev:SettingsExpander.Items>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.WifiConfiguredText, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiProvisioned, Mode=OneWay}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.IsWifiConfigured, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.WifiSsidLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiConfigurationSectionEnabled, Mode=OneWay}">
+                        <TextBox MinWidth="420"
+                                 Text="{x:Bind ViewModel.WifiSsid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.WifiSecurityTypeLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiSecuritySelectionEnabled, Mode=OneWay}">
+                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.WifiSecurityTypes, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedWifiSecurityType, Mode=TwoWay}" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.WifiPassphraseLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.WifiPersonalDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiPersonalSectionEnabled, Mode=OneWay}">
+                        <PasswordBox x:Name="WifiPassphraseBox"
+                                     MinWidth="420"
+                                     Loaded="WifiPassphraseBox_OnLoaded"
+                                     PasswordChanged="WifiPassphraseBox_OnPasswordChanged" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.WifiEnterpriseHeader, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.WifiEnterpriseDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiEnterpriseSectionEnabled, Mode=OneWay}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{x:Bind ViewModel.WifiEnterpriseTemplateText, Mode=OneWay}" />
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="10">
+                                <TextBox MinWidth="420"
+                                         Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        Command="{x:Bind ViewModel.BrowseWifiEnterpriseProfileTemplateCommand}"
+                                        Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.RequiresCertificateText, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiEnterpriseSectionEnabled, Mode=OneWay}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.IsWifiCertificateRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.WifiCertificateLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiCertificatePathEnabled, Mode=OneWay}">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="10">
+                            <TextBox MinWidth="420"
+                                     Text="{x:Bind ViewModel.WifiCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.BrowseWifiCertificateCommand}"
+                                    Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                        </StackPanel>
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Visibility="{x:Bind ViewModel.WifiValidationVisibility, Mode=OneWay}">
+                        <TextBlock Text="{x:Bind ViewModel.WifiValidationMessage, Mode=OneWay}"
+                                   TextWrapping="Wrap" />
+                    </dev:SettingsCard>
+                </dev:SettingsExpander.Items>
+            </dev:SettingsExpander>
         </StackPanel>
     </ScrollView>
 </Page>

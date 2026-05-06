@@ -51,6 +51,14 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public void UpdateNetwork(NetworkSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { Network = settings };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public string GenerateDeployConfigurationJson()
     {
         return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(Current));
@@ -78,6 +86,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
 
     private void Save()
     {
+        Current = Current with { Network = NetworkConfigurationValidator.SanitizeForPersistence(Current.Network) };
         Directory.CreateDirectory(Constants.ConfigurationWorkspaceDirectoryPath);
         string json = expertConfigurationService.Serialize(Current);
         File.WriteAllText(Constants.ExpertDeployConfigurationStatePath, json);

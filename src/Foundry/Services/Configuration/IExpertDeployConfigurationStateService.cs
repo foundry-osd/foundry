@@ -10,6 +10,8 @@ public interface IExpertDeployConfigurationStateService
 
     bool IsDeployConfigurationReady { get; }
 
+    void UpdateNetwork(NetworkSettings settings);
+
     void UpdateLocalization(LocalizationSettings settings);
 
     string GenerateDeployConfigurationJson();

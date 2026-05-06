@@ -51,6 +51,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ContextMenuService>();
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddTransient<LocalizationConfigurationViewModel>();
+        services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
