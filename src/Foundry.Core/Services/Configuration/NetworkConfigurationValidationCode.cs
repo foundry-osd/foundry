@@ -7,6 +7,7 @@ public enum NetworkConfigurationValidationCode
     WiredProfileTemplateRequired,
     WiredProfileTemplateMissing,
     WiredCertificateRequired,
+    WiredCertificateMissing,
     WifiSsidRequired,
     UnsupportedWifiSecurityType,
     WifiPersonalPassphraseInvalid,
@@ -14,5 +15,6 @@ public enum NetworkConfigurationValidationCode
     WifiEnterpriseProfileTemplateMissing,
     WifiEnterpriseAuthenticationUnsupported,
     WifiEnterpriseAuthenticationMismatch,
-    WifiEnterpriseCertificateRequired
+    WifiEnterpriseCertificateRequired,
+    WifiEnterpriseCertificateMissing
 }

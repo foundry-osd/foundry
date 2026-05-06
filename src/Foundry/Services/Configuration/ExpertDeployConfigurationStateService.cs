@@ -9,25 +9,30 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     private readonly IExpertConfigurationService expertConfigurationService;
     private readonly IDeployConfigurationGenerator deployConfigurationGenerator;
     private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
+    private readonly INetworkSecretStateService networkSecretStateService;
     private readonly ILogger logger;
 
     public ExpertDeployConfigurationStateService(
         IExpertConfigurationService expertConfigurationService,
         IDeployConfigurationGenerator deployConfigurationGenerator,
         IConnectConfigurationGenerator connectConfigurationGenerator,
+        INetworkSecretStateService networkSecretStateService,
         ILogger logger)
     {
         this.expertConfigurationService = expertConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
         this.connectConfigurationGenerator = connectConfigurationGenerator;
+        this.networkSecretStateService = networkSecretStateService;
         this.logger = logger.ForContext<ExpertDeployConfigurationStateService>();
-        Current = Load();
+        Current = SanitizeForPersistence(Load());
         Save();
     }
 
     public event EventHandler? StateChanged;
 
     public FoundryExpertConfigurationDocument Current { get; private set; }
+
+    public bool IsNetworkConfigurationReady => EvaluateNetworkMediaReadiness().IsNetworkConfigurationReady;
 
     public bool IsDeployConfigurationReady
     {
@@ -46,6 +51,10 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         }
     }
 
+    public bool IsConnectProvisioningReady => EvaluateNetworkMediaReadiness().IsConnectProvisioningReady;
+
+    public bool AreRequiredSecretsReady => EvaluateNetworkMediaReadiness().AreRequiredSecretsReady;
+
     public void UpdateLocalization(LocalizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -57,7 +66,8 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     public void UpdateNetwork(NetworkSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        Current = Current with { Network = settings };
+        networkSecretStateService.Update(settings);
+        Current = Current with { Network = NetworkConfigurationValidator.SanitizeForPersistence(settings) };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -69,7 +79,12 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
 
     public FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath)
     {
-        return connectConfigurationGenerator.CreateProvisioningBundle(Current, stagingDirectoryPath);
+        FoundryExpertConfigurationDocument document = Current with
+        {
+            Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network)
+        };
+
+        return connectConfigurationGenerator.CreateProvisioningBundle(document, stagingDirectoryPath);
     }
 
     private FoundryExpertConfigurationDocument Load()
@@ -94,10 +109,23 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
 
     private void Save()
     {
-        Current = Current with { Network = NetworkConfigurationValidator.SanitizeForPersistence(Current.Network) };
         Directory.CreateDirectory(Constants.ConfigurationWorkspaceDirectoryPath);
-        string json = expertConfigurationService.Serialize(Current);
+        FoundryExpertConfigurationDocument document = SanitizeForPersistence(Current);
+        string json = expertConfigurationService.Serialize(document);
         File.WriteAllText(Constants.ExpertDeployConfigurationStatePath, json);
+    }
+
+    private static FoundryExpertConfigurationDocument SanitizeForPersistence(FoundryExpertConfigurationDocument document)
+    {
+        return document with
+        {
+            Network = NetworkConfigurationValidator.SanitizeForPersistence(document.Network)
+        };
+    }
+
+    private NetworkMediaReadinessEvaluation EvaluateNetworkMediaReadiness()
+    {
+        return NetworkMediaReadinessEvaluator.Evaluate(Current.Network, networkSecretStateService.PersonalWifiPassphrase);
     }
 
     private void TryMoveInvalidState(string backupPath, Exception originalException)

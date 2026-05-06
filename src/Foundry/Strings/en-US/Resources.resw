@@ -231,6 +231,9 @@
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
     <value>Wired 802.1X requires a trusted root CA certificate file when certificate trust is enabled.</value>
   </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>Wired 802.1X trusted root CA certificate file was not found.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi configuration requires an SSID.</value>
   </data>
@@ -254,6 +257,9 @@
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
     <value>Enterprise Wi-Fi requires a trusted root CA certificate file when certificate trust is enabled.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>Enterprise Wi-Fi trusted root CA certificate file was not found.</value>
   </data>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Operation in progress</value>
@@ -316,7 +322,7 @@
     <value>Final media commands</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Final ISO and USB execution stays disabled until Deploy and Connect provisioning are complete.</value>
+    <value>Final ISO and USB execution stays disabled until the final media enablement phase.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Create ISO</value>
@@ -331,7 +337,7 @@
     <value>Full format</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>Final ISO/USB execution is deferred until Deploy and Connect provisioning are complete.</value>
+    <value>Final ISO/USB execution is deferred until the final media enablement phase.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Select ISO output path</value>
@@ -418,16 +424,16 @@
     <value>Runtime payload readiness is deferred.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
-    <value>Network validation is deferred.</value>
+    <value>Network configuration is not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Deploy configuration generation is deferred.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
-    <value>Connect provisioning is deferred.</value>
+    <value>Connect provisioning is not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
-    <value>Encrypted media secret provisioning is deferred.</value>
+    <value>Required media secrets are not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
     <value>No USB target is selected.</value>

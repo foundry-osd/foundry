@@ -29,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
         services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
+        services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
         services.AddSingleton<IExpertDeployConfigurationStateService, ExpertDeployConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IWinPeUsbMediaService, WinPeUsbMediaService>();

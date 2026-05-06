@@ -101,6 +101,64 @@ public sealed class NetworkConfigurationValidatorTests
     }
 
     [Fact]
+    public void Validate_WhenWiredCertificatePathDoesNotExist_ReturnsWiredCertificateMissing()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = Path.Combine(tempDirectory.Path, "wired.xml");
+        File.WriteAllText(profilePath, "<LANProfile />");
+
+        NetworkConfigurationValidationResult result = NetworkConfigurationValidator.Validate(
+            new NetworkSettings
+            {
+                Dot1x = new Dot1xSettings
+                {
+                    IsEnabled = true,
+                    ProfileTemplatePath = profilePath,
+                    CertificatePath = Path.Combine(tempDirectory.Path, "missing.cer")
+                }
+            });
+
+        Assert.Equal(NetworkConfigurationValidationCode.WiredCertificateMissing, result.Code);
+    }
+
+    [Fact]
+    public void Validate_WhenWifiCertificatePathDoesNotExist_ReturnsWifiEnterpriseCertificateMissing()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = Path.Combine(tempDirectory.Path, "wifi.xml");
+        File.WriteAllText(
+            profilePath,
+            """
+            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+              <MSM>
+                <security>
+                  <authEncryption>
+                    <authentication>WPA2</authentication>
+                  </authEncryption>
+                </security>
+              </MSM>
+            </WLANProfile>
+            """);
+
+        NetworkConfigurationValidationResult result = NetworkConfigurationValidator.Validate(
+            new NetworkSettings
+            {
+                WifiProvisioned = true,
+                Wifi = new WifiSettings
+                {
+                    IsEnabled = true,
+                    Ssid = "CorpWiFi",
+                    SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                    HasEnterpriseProfile = true,
+                    EnterpriseProfileTemplatePath = profilePath,
+                    CertificatePath = Path.Combine(tempDirectory.Path, "missing.cer")
+                }
+            });
+
+        Assert.Equal(NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing, result.Code);
+    }
+
+    [Fact]
     public void SanitizeForPersistence_RemovesPlaintextWifiPassphrase()
     {
         NetworkSettings settings = new()

@@ -231,6 +231,9 @@
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
     <value>Le 802.1X filaire nécessite un certificat d'autorité racine de confiance lorsque la confiance par certificat est activée.</value>
   </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>Le fichier du certificat d'autorité racine de confiance 802.1X filaire est introuvable.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>La configuration Wi-Fi nécessite un SSID.</value>
   </data>
@@ -254,6 +257,9 @@
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
     <value>Le Wi-Fi d'entreprise nécessite un certificat d'autorité racine de confiance lorsque la confiance par certificat est activée.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>Le fichier du certificat d'autorité racine de confiance Wi-Fi d'entreprise est introuvable.</value>
   </data>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Opération en cours</value>
@@ -316,7 +322,7 @@
     <value>Commandes média finales</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>L'exécution ISO et USB finale reste désactivée tant que le provisionnement Deploy et Connect n'est pas terminé.</value>
+    <value>L'exécution ISO et USB finale reste désactivée jusqu'à la phase d'activation finale des médias.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Créer l'ISO</value>
@@ -331,7 +337,7 @@
     <value>Formatage complet</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>L'exécution ISO/USB finale est différée jusqu'à la fin du provisionnement Deploy et Connect.</value>
+    <value>L'exécution ISO/USB finale est différée jusqu'à la phase d'activation finale des médias.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Sélectionner le chemin de sortie ISO</value>
@@ -418,16 +424,16 @@
     <value>La validation des payloads runtime est différée.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
-    <value>La validation réseau est différée.</value>
+    <value>La configuration réseau n'est pas prête.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>La génération de configuration Deploy est différée.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
-    <value>Le provisionnement Connect est différé.</value>
+    <value>Le provisionnement Connect n'est pas prêt.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
-    <value>Le provisionnement chiffré des secrets média est différé.</value>
+    <value>Les secrets média requis ne sont pas prêts.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
     <value>Aucune cible USB n'est sélectionnée.</value>

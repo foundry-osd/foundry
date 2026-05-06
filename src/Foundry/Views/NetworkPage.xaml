@@ -17,7 +17,8 @@
 
             <dev:SettingsExpander Header="{x:Bind ViewModel.EthernetHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.EthernetDescription, Mode=OneWay}"
-                                  HeaderIcon="{dev:FontIcon GlyphCode=E839}">
+                                  HeaderIcon="{dev:FontIcon GlyphCode=E839}"
+                                  IsExpanded="True">
                 <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.Dot1xEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsDot1xEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <dev:SettingsExpander.Items>
@@ -56,7 +57,8 @@
 
             <dev:SettingsExpander Header="{x:Bind ViewModel.WifiHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.WifiDescription, Mode=OneWay}"
-                                  HeaderIcon="{dev:FontIcon GlyphCode=E701}">
+                                  HeaderIcon="{dev:FontIcon GlyphCode=E701}"
+                                  IsExpanded="True">
                 <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.WifiProvisionedText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsWifiProvisioned, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <dev:SettingsExpander.Items>

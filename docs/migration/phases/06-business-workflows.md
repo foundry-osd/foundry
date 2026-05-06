@@ -84,7 +84,7 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 - [x] `15.A` owns Network page state, validation, and WPF-compatible network asset selection.
 - [x] `15.B` owns complete effective `Foundry.Connect` configuration generation and asset copy layout.
 - [x] `15.C` owns embedded secret envelopes, per-media key lifecycle, and `Foundry.Connect` runtime decryption.
-- [ ] `15.D` owns `Start` page preflight readiness wiring for Connect, network, and required secrets without enabling final media execution.
+- [x] `15.D` owns `Start` page preflight readiness wiring for Connect, network, and required secrets without enabling final media execution.
 
 **Phase 15 delivery workflow:** implement each split in a separate worktree, branch, and pull request. After each split is implemented, run automated verification, complete any required manual validation, wait for CI to pass, squash-merge the PR, sync `feat/winui-migration`, clean the worktree, then start the next split. If `15.C` grows too large, split it again into secret envelope generation and `Foundry.Connect` runtime decryption PRs.
 
@@ -124,7 +124,7 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 
   - [x] No generated Connect config schema bump is required for the additive `passphraseSecret` model; legacy plaintext remains tolerated.
   - [x] Document normalization rules so WPF JSON comparisons ignore the intentional plaintext-to-envelope change.
-- [ ] **15.7** Preserve asset file preparation behavior.
+- [x] **15.7** Preserve asset file preparation behavior.
   - [x] **15.7.1** Use explicit WinUI `PasswordBox` handling for Wi-Fi and network secrets.
   - [x] **15.7.2** Never log network secrets.
   - [x] **15.7.3** Never display network secrets in the Start summary.
@@ -155,13 +155,13 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
     - [x] Wired certificates: `Network\Certificates\Wired`.
     - [x] Wi-Fi certificates: `Network\Certificates\Wifi`.
     - [x] Generated config-relative paths must match these folders.
-- [ ] **15.7.10** Wire Connect, network, and required-secret readiness into the `Start` page preflight without enabling final ISO/USB execution:
-  - [ ] Replace the Phase 13 hardcoded network, Connect provisioning, and required-secret readiness placeholders with real readiness values.
-  - [ ] Keep runtime payload readiness and final execution gates blocked until the final media enablement PR.
-- [ ] **15.8** Commit:
+- [x] **15.7.10** Wire Connect, network, and required-secret readiness into the `Start` page preflight without enabling final ISO/USB execution:
+  - [x] Replace the Phase 13 hardcoded network, Connect provisioning, and required-secret readiness placeholders with real readiness values.
+  - [x] Keep runtime payload readiness and final execution gates blocked until the final media enablement PR.
+- [x] **15.8** Commit:
 
 ```powershell
-git commit -m "feat(network): port connect provisioning workflow"
+git commit -m "feat(network): wire connect preflight readiness"
 ```
 
 **Validation**
@@ -190,7 +190,7 @@ git commit -m "feat(network): port connect provisioning workflow"
   - [x] Complete effective Connect config documents.
   - [x] Complete effective Deploy config documents.
   - [x] Encrypted secret envelopes instead of plaintext generated media secrets.
-- [ ] **15.19** `Start` page preflight shows real network, Connect, and required-secret readiness while final ISO/USB execution remains deferred.
+- [x] **15.19** `Start` page preflight shows real network, Connect, and required-secret readiness while final ISO/USB execution remains deferred.
 
 ## Phase 16: Autopilot And Customization Workflows
 

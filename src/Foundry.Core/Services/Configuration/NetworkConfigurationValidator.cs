@@ -135,6 +135,12 @@ public static class NetworkConfigurationValidator
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateRequired);
         }
 
+        if (!string.IsNullOrWhiteSpace(settings.CertificatePath) &&
+            !File.Exists(Path.GetFullPath(settings.CertificatePath)))
+        {
+            return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateMissing);
+        }
+
         return NetworkConfigurationValidationResult.Success;
     }
 
@@ -213,9 +219,18 @@ public static class NetworkConfigurationValidator
             }
         }
 
-        return settings.RequiresCertificate && string.IsNullOrWhiteSpace(settings.CertificatePath)
-            ? NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired)
-            : NetworkConfigurationValidationResult.Success;
+        if (settings.RequiresCertificate && string.IsNullOrWhiteSpace(settings.CertificatePath))
+        {
+            return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired);
+        }
+
+        if (!string.IsNullOrWhiteSpace(settings.CertificatePath) &&
+            !File.Exists(Path.GetFullPath(settings.CertificatePath)))
+        {
+            return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
+        }
+
+        return NetworkConfigurationValidationResult.Success;
     }
 
     private static bool IsPersonalSecurityType(string? securityType)

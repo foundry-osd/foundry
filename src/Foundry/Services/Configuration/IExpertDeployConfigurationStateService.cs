@@ -8,7 +8,13 @@ public interface IExpertDeployConfigurationStateService
 
     FoundryExpertConfigurationDocument Current { get; }
 
+    bool IsNetworkConfigurationReady { get; }
+
     bool IsDeployConfigurationReady { get; }
+
+    bool IsConnectProvisioningReady { get; }
+
+    bool AreRequiredSecretsReady { get; }
 
     void UpdateNetwork(NetworkSettings settings);
 
