@@ -2,10 +2,10 @@
 <Page x:Class="Foundry.Views.AutopilotPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dev="using:DevWinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:tv="using:WinUI.TableView"
       xmlns:viewModels="using:Foundry.ViewModels"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
@@ -49,29 +49,28 @@
                             <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
                                        TextWrapping="Wrap"
                                        Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
-                            <controls:DataGrid AutoGenerateColumns="False"
-                                               HeadersVisibility="Column"
-                                               IsReadOnly="True"
-                                               ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
-                                               MaxHeight="320"
-                                               SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}"
-                                               SelectionMode="Single"
-                                               Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
-                                <controls:DataGrid.Columns>
-                                    <controls:DataGridTextColumn Binding="{Binding DisplayName}"
-                                                                 Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}"
-                                                                 Width="2*" />
-                                    <controls:DataGridTextColumn Binding="{Binding Source}"
-                                                                 Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}"
-                                                                 Width="*" />
-                                    <controls:DataGridTextColumn Binding="{Binding ImportedAtDisplay}"
-                                                                 Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}"
-                                                                 Width="*" />
-                                    <controls:DataGridTextColumn Binding="{Binding FolderName}"
-                                                                 Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}"
-                                                                 Width="2*" />
-                                </controls:DataGrid.Columns>
-                            </controls:DataGrid>
+                            <tv:TableView AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                                          MaxHeight="320"
+                                          SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}"
+                                          SelectionMode="Single"
+                                          Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
+                                <tv:TableView.Columns>
+                                    <tv:TableViewTextColumn Binding="{Binding DisplayName}"
+                                                            Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}"
+                                                            Width="2*" />
+                                    <tv:TableViewTextColumn Binding="{Binding Source}"
+                                                            Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}"
+                                                            Width="*" />
+                                    <tv:TableViewTextColumn Binding="{Binding ImportedAtDisplay}"
+                                                            Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}"
+                                                            Width="*" />
+                                    <tv:TableViewTextColumn Binding="{Binding FolderName}"
+                                                            Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}"
+                                                            Width="2*" />
+                                </tv:TableView.Columns>
+                            </tv:TableView>
                         </StackPanel>
                     </dev:SettingsCard>
                 </dev:SettingsExpander.Items>

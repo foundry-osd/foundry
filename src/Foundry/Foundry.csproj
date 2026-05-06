@@ -56,7 +56,6 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Common" Version="8.4.2" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
     <PackageReference Include="DevWinUI" Version="9.9.4" />
     <PackageReference Include="DevWinUI.ContextMenu" Version="9.9.1" />
     <PackageReference Include="DevWinUI.Controls" Version="9.9.4" />
@@ -71,6 +70,7 @@
     <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Velopack" Version="0.0.1589-ga2c5a97" />
+    <PackageReference Include="WinUI.TableView" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
