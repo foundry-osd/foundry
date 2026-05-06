@@ -4,6 +4,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Application;
 using Foundry.Services.Adk;
+using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
@@ -29,6 +30,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
         services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
         services.AddSingleton<IAutopilotProfileImportService, AutopilotProfileImportService>();
+        services.AddSingleton<IAutopilotTenantProfileService, AutopilotTenantProfileService>();
+        services.AddSingleton<IAutopilotTenantDownloadDialogService, AutopilotTenantDownloadDialogService>();
+        services.AddSingleton<IAutopilotProfileSelectionDialogService, AutopilotProfileSelectionDialogService>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
         services.AddSingleton<IExpertDeployConfigurationStateService, ExpertDeployConfigurationStateService>();

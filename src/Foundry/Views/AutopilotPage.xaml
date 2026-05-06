@@ -31,6 +31,9 @@
                             Command="{x:Bind ViewModel.ImportProfileCommand}"
                             Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
                     <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            Command="{x:Bind ViewModel.DownloadProfilesCommand}"
+                            Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                             Command="{x:Bind ViewModel.RemoveSelectedProfileCommand}"
                             Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
                 </StackPanel>

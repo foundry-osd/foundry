@@ -250,25 +250,25 @@ git commit -m "feat(network): wire connect preflight readiness"
     - [x] Target Windows staging path written by `Foundry.Deploy`: `%SystemDrive%\Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json`.
     - [x] Generated Deploy config stores the selected/default profile folder name, not a full path.
 
-- [ ] **16.C** Port Autopilot Microsoft Graph tenant import.
-  - [ ] **16.C.1** Keep Microsoft Graph authentication in the WinUI `Foundry` app/infrastructure layer.
-  - [ ] **16.C.2** Keep `InteractiveBrowserCredential`, token cache behavior, environment-variable-driven Graph configuration, and Graph HTTP calls out of `Foundry.Core`.
-  - [ ] **16.C.3** Preserve WPF Graph behavior:
-    - [ ] Use `DeviceManagementServiceConfig.Read.All` and `User.Read` scopes.
-    - [ ] Preserve `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID` and `FOUNDRY_AUTOPILOT_GRAPH_TENANT_ID` overrides.
-    - [ ] Query `v1.0/organization?$select=id,verifiedDomains` for tenant information and verified domain.
-    - [ ] Query `beta/deviceManagement/windowsAutopilotDeploymentProfiles`.
-    - [ ] Handle paged Graph responses.
-    - [ ] Convert tenant deployment profiles into offline `AutopilotConfigurationFile.json` content.
-  - [ ] **16.C.4** Use the blocking operation overlay for tenant authentication/download, then close the overlay before showing profile selection.
-  - [ ] **16.C.5** Use a WinUI `ContentDialog` for downloaded profile selection instead of a separate WPF-style window:
-    - [ ] Profiles selected by default.
-    - [ ] Select all.
-    - [ ] Clear.
-    - [ ] Selected count.
-    - [ ] Import disabled when no profile is selected.
-    - [ ] Cancel returns no imported profiles.
-  - [ ] **16.C.6** Do not show tenant tokens or raw Graph response bodies in UI, summaries, logs, or diagnostics.
+- [x] **16.C** Port Autopilot Microsoft Graph tenant import.
+  - [x] **16.C.1** Keep Microsoft Graph authentication in the WinUI `Foundry` app/infrastructure layer.
+  - [x] **16.C.2** Keep `InteractiveBrowserCredential`, token cache behavior, environment-variable-driven Graph configuration, and Graph HTTP calls out of `Foundry.Core`.
+  - [x] **16.C.3** Preserve WPF Graph behavior:
+    - [x] Use `DeviceManagementServiceConfig.Read.All` and `User.Read` scopes.
+    - [x] Preserve `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID` and `FOUNDRY_AUTOPILOT_GRAPH_TENANT_ID` overrides.
+    - [x] Query `v1.0/organization?$select=id,verifiedDomains` for tenant information and verified domain.
+    - [x] Query `beta/deviceManagement/windowsAutopilotDeploymentProfiles`.
+    - [x] Handle paged Graph responses.
+    - [x] Convert tenant deployment profiles into offline `AutopilotConfigurationFile.json` content.
+  - [x] **16.C.4** Use a cancellable WinUI `ContentDialog` for tenant authentication/download, then close it before showing profile selection.
+  - [x] **16.C.5** Use a WinUI `ContentDialog` for downloaded profile selection instead of a separate WPF-style window:
+    - [x] Profiles selected by default.
+    - [x] Select all.
+    - [x] Clear.
+    - [x] Selected count.
+    - [x] Import disabled when no profile is selected.
+    - [x] Cancel returns no imported profiles.
+  - [x] **16.C.6** Do not show tenant tokens or raw Graph response bodies in UI, summaries, logs, or diagnostics.
 
 - [ ] **16.D** Wire Autopilot/customization readiness into `Start` preflight and finish Phase 16 validation.
   - [ ] **16.D.1** Do not block media creation when Autopilot is disabled.
@@ -298,6 +298,6 @@ git commit -m "feat(autopilot): wire start readiness"
 - [x] **16.10** `Foundry.Core` has no dependency on Azure Identity, Microsoft Graph clients, `InteractiveBrowserCredential`, or Graph HTTP plumbing.
 - [x] **16.11** Manual Autopilot JSON import rejects empty, invalid, or non-ASCII JSON.
 - [x] **16.12** Manual Autopilot JSON import preserves WPF-compatible profile ID, display name, folder name, merge, sort, and default-profile fallback behavior.
-- [ ] **16.13** Graph tenant import downloads profiles through the blocking overlay and imports selected profiles through a WinUI `ContentDialog`.
+- [x] **16.13** Graph tenant import downloads profiles through a cancellable WinUI `ContentDialog` and imports selected profiles through a separate WinUI `ContentDialog`.
 - [ ] **16.14** Autopilot disabled does not block `Start` preflight.
 - [ ] **16.15** Autopilot enabled without a valid default profile blocks or warns in `Start` preflight.

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.AutopilotProfileSelectionDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:tv="using:WinUI.TableView"
+               DefaultButton="Primary"
+               mc:Ignorable="d">
+    <Grid x:Name="DialogContentRoot"
+          RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Description}"
+                   TextWrapping="Wrap" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock VerticalAlignment="Center"
+                       Style="{ThemeResource CaptionTextBlockStyle}"
+                       Text="{Binding SelectedCountDisplay}" />
+
+            <Button Grid.Column="1"
+                    MinWidth="110"
+                    Margin="12,0,8,0"
+                    Command="{Binding SelectAllCommand}"
+                    Content="{Binding SelectAllText}" />
+            <Button Grid.Column="2"
+                    MinWidth="110"
+                    Command="{Binding ClearCommand}"
+                    Content="{Binding ClearText}" />
+        </Grid>
+
+        <tv:TableView x:Name="ProfilesTable"
+                      Grid.Row="2"
+                      AutoGenerateColumns="False"
+                      CanFilterColumns="False"
+                      CanReorderColumns="False"
+                      CanResizeColumns="False"
+                      CanSortColumns="False"
+                      CornerButtonMode="None"
+                      HeadersVisibility="Columns"
+                      ItemsSource="{Binding Profiles}"
+                      SelectedItem="{Binding SelectedProfile, Mode=TwoWay}"
+                      SelectionMode="Single"
+                      SelectionUnit="Row"
+                      ShowExportOptions="False">
+            <tv:TableView.Columns>
+                <tv:TableViewTemplateColumn Header=""
+                                            MaxWidth="48"
+                                            MinWidth="48"
+                                            Width="48">
+                    <tv:TableViewTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      IsChecked="{Binding IsSelected, Mode=OneWay}"
+                                      IsHitTestVisible="False" />
+                        </DataTemplate>
+                    </tv:TableViewTemplateColumn.CellTemplate>
+                </tv:TableViewTemplateColumn>
+                <tv:TableViewTextColumn Binding="{Binding DisplayName}"
+                                        Header="{x:Bind ViewModel.NameColumnHeader, Mode=OneWay}" />
+                <tv:TableViewTextColumn Binding="{Binding FolderName}"
+                                        Header="{x:Bind ViewModel.FolderColumnHeader, Mode=OneWay}" />
+            </tv:TableView.Columns>
+        </tv:TableView>
+    </Grid>
+</ContentDialog>
