@@ -18,7 +18,7 @@
             <dev:SettingsExpander Header="{x:Bind ViewModel.EthernetHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.EthernetDescription, Mode=OneWay}"
                                   HeaderIcon="{dev:FontIcon GlyphCode=E839}">
-                <ToggleSwitch Header="{x:Bind ViewModel.Dot1xEnableText, Mode=OneWay}"
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.Dot1xEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsDot1xEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <dev:SettingsExpander.Items>
                     <dev:SettingsCard Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
@@ -57,14 +57,13 @@
             <dev:SettingsExpander Header="{x:Bind ViewModel.WifiHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.WifiDescription, Mode=OneWay}"
                                   HeaderIcon="{dev:FontIcon GlyphCode=E701}">
-                <StackPanel Spacing="8">
-                    <ToggleSwitch Header="{x:Bind ViewModel.WifiProvisionedText, Mode=OneWay}"
-                                  IsOn="{x:Bind ViewModel.IsWifiProvisioned, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <ToggleSwitch Header="{x:Bind ViewModel.WifiConfiguredText, Mode=OneWay}"
-                                  IsEnabled="{x:Bind ViewModel.IsWifiProvisioned, Mode=OneWay}"
-                                  IsOn="{x:Bind ViewModel.IsWifiConfigured, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.WifiProvisionedText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsWifiProvisioned, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <dev:SettingsExpander.Items>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.WifiConfiguredText, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsWifiProvisioned, Mode=OneWay}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.IsWifiConfigured, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </dev:SettingsCard>
                     <dev:SettingsCard Header="{x:Bind ViewModel.WifiSsidLabel, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsWifiConfigurationSectionEnabled, Mode=OneWay}">
                         <TextBox MinWidth="420"
