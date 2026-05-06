@@ -102,6 +102,9 @@
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importer un profil</value>
   </data>
+  <data name="Autopilot.DownloadButton" xml:space="preserve">
+    <value>Télécharger depuis le tenant</value>
+  </data>
   <data name="Autopilot.RemoveButton" xml:space="preserve">
     <value>Supprimer la sélection</value>
   </data>
@@ -134,6 +137,48 @@
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>{0}</value>
+  </data>
+  <data name="Autopilot.DownloadInProgress" xml:space="preserve">
+    <value>Téléchargement des profils Autopilot depuis le tenant...</value>
+  </data>
+  <data name="Autopilot.DownloadConnecting" xml:space="preserve">
+    <value>Connexion à Microsoft Graph...</value>
+  </data>
+  <data name="Autopilot.DownloadSelectProfiles" xml:space="preserve">
+    <value>Sélectionnez les profils Autopilot à importer.</value>
+  </data>
+  <data name="Autopilot.DownloadCanceled" xml:space="preserve">
+    <value>L'import des profils Autopilot a été annulé.</value>
+  </data>
+  <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
+    <value>Aucun profil Autopilot n'a été renvoyé par le tenant.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
+    <value>Échec du téléchargement Autopilot</value>
+  </data>
+  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
+    <value>Le téléchargement des profils Autopilot a échoué : {0}</value>
+  </data>
+  <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
+    <value>Sélectionner les profils Autopilot</value>
+  </data>
+  <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
+    <value>Choisissez les profils du tenant à importer dans Foundry.</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
+    <value>Tout sélectionner</value>
+  </data>
+  <data name="Autopilot.TenantPickerClear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="Autopilot.TenantPickerImport" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>{0} profil(s) sélectionné(s) sur {1}</value>
   </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Personnalisation</value>

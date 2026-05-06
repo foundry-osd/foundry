@@ -1,11 +1,16 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using Azure.Identity;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
+using Foundry.Services.Operations;
+using Foundry.Services.Shell;
 using Microsoft.UI.Xaml;
+using Serilog;
 
 namespace Foundry.ViewModels;
 
@@ -13,24 +18,39 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 {
     private readonly IExpertDeployConfigurationStateService configurationStateService;
     private readonly IAutopilotProfileImportService autopilotProfileImportService;
+    private readonly IAutopilotTenantProfileService autopilotTenantProfileService;
+    private readonly IAutopilotProfileSelectionDialogService profileSelectionDialogService;
     private readonly IFilePickerService filePickerService;
     private readonly IDialogService dialogService;
+    private readonly IOperationProgressService operationProgressService;
+    private readonly IShellNavigationGuardService shellNavigationGuardService;
     private readonly IApplicationLocalizationService localizationService;
+    private readonly ILogger logger;
     private bool isApplyingState = true;
     private bool isSavingState;
 
     public AutopilotConfigurationViewModel(
         IExpertDeployConfigurationStateService configurationStateService,
         IAutopilotProfileImportService autopilotProfileImportService,
+        IAutopilotTenantProfileService autopilotTenantProfileService,
+        IAutopilotProfileSelectionDialogService profileSelectionDialogService,
         IFilePickerService filePickerService,
         IDialogService dialogService,
-        IApplicationLocalizationService localizationService)
+        IOperationProgressService operationProgressService,
+        IShellNavigationGuardService shellNavigationGuardService,
+        IApplicationLocalizationService localizationService,
+        ILogger logger)
     {
         this.configurationStateService = configurationStateService;
         this.autopilotProfileImportService = autopilotProfileImportService;
+        this.autopilotTenantProfileService = autopilotTenantProfileService;
+        this.profileSelectionDialogService = profileSelectionDialogService;
         this.filePickerService = filePickerService;
         this.dialogService = dialogService;
+        this.operationProgressService = operationProgressService;
+        this.shellNavigationGuardService = shellNavigationGuardService;
         this.localizationService = localizationService;
+        this.logger = logger.ForContext<AutopilotConfigurationViewModel>();
 
         RefreshLocalizedText();
         ApplyState(configurationStateService.Current.Autopilot);
@@ -64,6 +84,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string ImportButtonText { get; set; }
 
     [ObservableProperty]
+    public partial string DownloadButtonText { get; set; }
+
+    [ObservableProperty]
     public partial string RemoveButtonText { get; set; }
 
     [ObservableProperty]
@@ -90,6 +113,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsAutopilotSectionEnabled))]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
     public partial bool IsAutopilotEnabled { get; set; }
 
@@ -102,8 +126,15 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
     public partial bool IsImporting { get; set; }
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
+    public partial bool IsDownloading { get; set; }
 
     public void Dispose()
     {
@@ -138,6 +169,69 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         {
             IsImporting = false;
         }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanDownloadProfiles))]
+    private async Task DownloadProfilesAsync()
+    {
+        IsDownloading = true;
+        ShellNavigationState previousShellState = shellNavigationGuardService.State;
+        string terminalStatus = localizationService.GetString("Autopilot.DownloadCanceled");
+        shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
+        operationProgressService.Start(
+            OperationKind.AutopilotProfileDownload,
+            localizationService.GetString("Autopilot.DownloadInProgress"));
+
+        IReadOnlyList<AutopilotProfileSettings> availableProfiles;
+        try
+        {
+            logger.Information("Starting Autopilot profile download from tenant.");
+            operationProgressService.Report(20, localizationService.GetString("Autopilot.DownloadConnecting"));
+            availableProfiles = await autopilotTenantProfileService.DownloadFromTenantAsync();
+
+            if (availableProfiles.Count == 0)
+            {
+                terminalStatus = localizationService.GetString("Autopilot.DownloadCompletedNoProfiles");
+                operationProgressService.Complete(terminalStatus);
+                logger.Information("Autopilot tenant download completed. ProfileCount=0");
+                return;
+            }
+
+            terminalStatus = localizationService.GetString("Autopilot.DownloadSelectProfiles");
+            operationProgressService.Report(70, terminalStatus);
+        }
+        catch (Exception ex) when (ex is OperationCanceledException or InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
+        {
+            terminalStatus = localizationService.FormatString("Autopilot.DownloadFailedFormat", ex.Message);
+            operationProgressService.Complete(terminalStatus);
+            logger.Error(ex, "Autopilot tenant download failed.");
+            await dialogService.ShowMessageAsync(new DialogRequest(
+                localizationService.GetString("Autopilot.DownloadFailedTitle"),
+                terminalStatus));
+            return;
+        }
+        finally
+        {
+            operationProgressService.Reset(terminalStatus);
+            shellNavigationGuardService.SetState(previousShellState == ShellNavigationState.OperationRunning
+                ? ShellNavigationState.Ready
+                : previousShellState);
+            IsDownloading = false;
+        }
+
+        IReadOnlyList<AutopilotProfileSettings>? selectedProfiles =
+            await profileSelectionDialogService.PickProfilesAsync(availableProfiles);
+        if (selectedProfiles is null)
+        {
+            logger.Information("Autopilot tenant download was canceled from the profile selection dialog.");
+            return;
+        }
+
+        MergeProfiles(selectedProfiles);
+        logger.Information(
+            "Autopilot tenant download completed. RetrievedProfileCount={RetrievedProfileCount}, ImportedProfileCount={ImportedProfileCount}",
+            availableProfiles.Count,
+            selectedProfiles.Count);
     }
 
     [RelayCommand(CanExecute = nameof(CanRemoveSelectedProfile))]
@@ -260,6 +354,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         AutopilotDescription = localizationService.GetString("Autopilot.Description");
         EnableAutopilotText = localizationService.GetString("Autopilot.EnableLabel");
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
+        DownloadButtonText = localizationService.GetString("Autopilot.DownloadButton");
         RemoveButtonText = localizationService.GetString("Autopilot.RemoveButton");
         DefaultProfileLabel = localizationService.GetString("Autopilot.DefaultProfileLabel");
         ProfilesLabel = localizationService.GetString("Autopilot.ProfilesLabel");
@@ -300,11 +395,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private bool CanImportProfile()
     {
-        return IsAutopilotEnabled && !IsImporting;
+        return IsAutopilotEnabled && !IsImporting && !IsDownloading;
+    }
+
+    private bool CanDownloadProfiles()
+    {
+        return IsAutopilotEnabled && !IsImporting && !IsDownloading;
     }
 
     private bool CanRemoveSelectedProfile()
     {
-        return IsAutopilotEnabled && !IsImporting && SelectedProfile is not null;
+        return IsAutopilotEnabled && !IsImporting && !IsDownloading && SelectedProfile is not null;
     }
 }
