@@ -51,6 +51,10 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         string? wifiCertificateRelativePath = isWifiEnabled
             ? CopyAsset(wifi.CertificatePath, assetRootPath, WifiCertificateFolder, assetFiles)
             : null;
+        byte[]? mediaSecretsKey = ResolveMediaSecretsKey(isWifiEnabled, wifi);
+        SecretEnvelope? passphraseSecret = mediaSecretsKey is not null
+            ? ConnectSecretEnvelopeProtector.Encrypt(wifi.Passphrase!, mediaSecretsKey)
+            : null;
 
         FoundryConnectConfigurationDocument configuration = new()
         {
@@ -71,9 +75,8 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
                 SecurityType = isWifiEnabled
                     ? NetworkConfigurationValidator.NormalizeWifiSecurityType(wifi)
                     : null,
-                Passphrase = isWifiEnabled && !wifi.HasEnterpriseProfile
-                    ? wifi.Passphrase
-                    : null,
+                Passphrase = null,
+                PassphraseSecret = passphraseSecret,
                 EnterpriseProfileTemplatePath = isWifiEnabled && wifi.HasEnterpriseProfile
                     ? wifiProfileRelativePath
                     : null,
@@ -87,6 +90,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         {
             Configuration = configuration,
             ConfigurationJson = Serialize(configuration),
+            MediaSecretsKey = mediaSecretsKey,
             AssetFiles = assetFiles
         };
     }
@@ -137,6 +141,15 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         }
 
         Directory.CreateDirectory(path);
+    }
+
+    private static byte[]? ResolveMediaSecretsKey(bool isWifiEnabled, WifiSettings wifi)
+    {
+        return isWifiEnabled &&
+               !wifi.HasEnterpriseProfile &&
+               !string.IsNullOrWhiteSpace(wifi.Passphrase)
+            ? ConnectSecretEnvelopeProtector.GenerateMediaKey()
+            : null;
     }
 
     private static string NormalizeEmbeddedRelativePath(string relativePath)
