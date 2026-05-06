@@ -90,6 +90,57 @@
   <data name="AutopilotPage_Title.Text" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Import and select offline Autopilot profiles for deployment media.</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>Enable Autopilot</value>
+  </data>
+  <data name="Autopilot.StorageLabel" xml:space="preserve">
+    <value>Boot image storage path</value>
+  </data>
+  <data name="Autopilot.InjectionLabel" xml:space="preserve">
+    <value>Offline injection path</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>Import profile</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>Remove selected</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>Default profile</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>Imported profiles</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>No Autopilot profiles imported.</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>Imported</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>Import Autopilot profile JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>Autopilot import failed</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Customization</value>
   </data>

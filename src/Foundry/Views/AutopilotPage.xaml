@@ -1,13 +1,119 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.AutopilotPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dev="using:DevWinUI"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:Foundry.ViewModels"
+      mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
-                Padding="{ThemeResource ContentPagePadding}">
+                Padding="{ThemeResource ContentPagePadding}"
+                VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10"
-                    Spacing="5">
-            <TextBlock x:Uid="AutopilotPage_Title"
+                    dev:PanelAttach.ChildrenTransitions="Default"
+                    Spacing="8">
+            <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource TitleTextBlockStyle}" />
+
+            <dev:SettingsExpander Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}"
+                                  HeaderIcon="{dev:FontIcon GlyphCode=E7BF}"
+                                  IsExpanded="True">
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.EnableAutopilotText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsAutopilotEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <dev:SettingsExpander.Items>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.StorageLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                        <TextBlock Text="{x:Bind ViewModel.BootImageStoragePath, Mode=OneWay}"
+                                   TextWrapping="Wrap" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.InjectionLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                        <TextBlock Text="{x:Bind ViewModel.OfflineInjectionPath, Mode=OneWay}"
+                                   TextWrapping="Wrap" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="10">
+                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.ImportProfileCommand}"
+                                    Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
+                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.RemoveSelectedProfileCommand}"
+                                    Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
+                        </StackPanel>
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedDefaultProfile, Mode=TwoWay}" />
+                    </dev:SettingsCard>
+                    <dev:SettingsCard Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
+                                       TextWrapping="Wrap"
+                                       Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
+                            <Grid Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Text="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}" />
+                                    <TextBlock Grid.Column="3"
+                                               Text="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}" />
+                                </Grid>
+                                <ListView Grid.Row="1"
+                                          MaxHeight="320"
+                                          ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                                          SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}"
+                                          SelectionMode="Single">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="viewModels:AutopilotProfileEntryViewModel">
+                                            <Grid ColumnSpacing="12">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="2*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0"
+                                                           Text="{x:Bind DisplayName, Mode=OneWay}"
+                                                           TextWrapping="Wrap" />
+                                                <TextBlock Grid.Column="1"
+                                                           Text="{x:Bind Source, Mode=OneWay}"
+                                                           TextWrapping="Wrap" />
+                                                <TextBlock Grid.Column="2"
+                                                           Text="{x:Bind ImportedAtDisplay, Mode=OneWay}"
+                                                           TextWrapping="Wrap" />
+                                                <TextBlock Grid.Column="3"
+                                                           Text="{x:Bind FolderName, Mode=OneWay}"
+                                                           TextWrapping="Wrap" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Grid>
+                        </StackPanel>
+                    </dev:SettingsCard>
+                </dev:SettingsExpander.Items>
+            </dev:SettingsExpander>
         </StackPanel>
     </ScrollView>
 </Page>

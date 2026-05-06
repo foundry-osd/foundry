@@ -80,6 +80,14 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public void UpdateAutopilot(AutopilotSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { Autopilot = SanitizeAutopilotForPersistence(settings) };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public string GenerateDeployConfigurationJson()
     {
         return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(Current));
@@ -128,7 +136,33 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         return document with
         {
             Network = NetworkConfigurationValidator.SanitizeForPersistence(document.Network),
-            Customization = SanitizeCustomizationForPersistence(document.Customization)
+            Customization = SanitizeCustomizationForPersistence(document.Customization),
+            Autopilot = SanitizeAutopilotForPersistence(document.Autopilot)
+        };
+    }
+
+    private static AutopilotSettings SanitizeAutopilotForPersistence(AutopilotSettings settings)
+    {
+        AutopilotProfileSettings[] profiles = settings.Profiles
+            .Where(profile =>
+                !string.IsNullOrWhiteSpace(profile.Id) &&
+                !string.IsNullOrWhiteSpace(profile.DisplayName) &&
+                !string.IsNullOrWhiteSpace(profile.FolderName) &&
+                !string.IsNullOrWhiteSpace(profile.Source) &&
+                !string.IsNullOrWhiteSpace(profile.JsonContent))
+            .OrderBy(profile => profile.DisplayName, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(profile => profile.Id, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        string? defaultProfileId = profiles.Any(profile =>
+            string.Equals(profile.Id, settings.DefaultProfileId, StringComparison.OrdinalIgnoreCase))
+            ? settings.DefaultProfileId
+            : profiles.FirstOrDefault()?.Id;
+
+        return settings with
+        {
+            DefaultProfileId = defaultProfileId,
+            Profiles = profiles
         };
     }
 

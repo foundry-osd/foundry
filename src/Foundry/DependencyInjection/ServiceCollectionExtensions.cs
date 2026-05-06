@@ -28,6 +28,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
         services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
+        services.AddSingleton<IAutopilotProfileImportService, AutopilotProfileImportService>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
         services.AddSingleton<IExpertDeployConfigurationStateService, ExpertDeployConfigurationStateService>();
@@ -54,6 +55,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddTransient<LocalizationConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
+        services.AddTransient<AutopilotConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<GeneralSettingViewModel>();

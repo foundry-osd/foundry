@@ -90,6 +90,57 @@
   <data name="AutopilotPage_Title.Text" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Importer et sélectionner des profils Autopilot hors ligne pour le média de déploiement.</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>Activer Autopilot</value>
+  </data>
+  <data name="Autopilot.StorageLabel" xml:space="preserve">
+    <value>Chemin de stockage dans l'image de démarrage</value>
+  </data>
+  <data name="Autopilot.InjectionLabel" xml:space="preserve">
+    <value>Chemin d'injection hors ligne</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>Importer un profil</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>Supprimer la sélection</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>Profil par défaut</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>Profils importés</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>Aucun profil Autopilot importé.</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>Importé</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>Dossier</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>Importer un profil Autopilot JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>Échec de l'import Autopilot</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Personnalisation</value>
   </data>
