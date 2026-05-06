@@ -64,18 +64,40 @@ public sealed class NetworkConfigurationValidatorTests
     [Fact]
     public void Validate_WhenWiredCertificateIsRequiredWithoutPath_ReturnsWiredCertificateRequired()
     {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = Path.Combine(tempDirectory.Path, "wired.xml");
+        File.WriteAllText(profilePath, "<LANProfile />");
+
         NetworkConfigurationValidationResult result = NetworkConfigurationValidator.Validate(
             new NetworkSettings
             {
                 Dot1x = new Dot1xSettings
                 {
                     IsEnabled = true,
-                    ProfileTemplatePath = "wired.xml",
+                    ProfileTemplatePath = profilePath,
                     RequiresCertificate = true
                 }
             });
 
         Assert.Equal(NetworkConfigurationValidationCode.WiredCertificateRequired, result.Code);
+    }
+
+    [Fact]
+    public void Validate_WhenWiredProfilePathDoesNotExist_ReturnsWiredProfileTemplateMissing()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+
+        NetworkConfigurationValidationResult result = NetworkConfigurationValidator.Validate(
+            new NetworkSettings
+            {
+                Dot1x = new Dot1xSettings
+                {
+                    IsEnabled = true,
+                    ProfileTemplatePath = Path.Combine(tempDirectory.Path, "missing.xml")
+                }
+            });
+
+        Assert.Equal(NetworkConfigurationValidationCode.WiredProfileTemplateMissing, result.Code);
     }
 
     [Fact]

@@ -236,7 +236,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [RelayCommand]
     private async Task BrowseDot1xProfileTemplateAsync()
     {
-        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", [".xml", "*"]);
+        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", [".xml"]);
         if (!string.IsNullOrWhiteSpace(path))
         {
             Dot1xProfileTemplatePath = path;
@@ -256,7 +256,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [RelayCommand]
     private async Task BrowseWifiEnterpriseProfileTemplateAsync()
     {
-        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", [".xml", "*"]);
+        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", [".xml"]);
         if (!string.IsNullOrWhiteSpace(path))
         {
             WifiEnterpriseProfileTemplatePath = path;
@@ -549,12 +549,18 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             return string.Empty;
         }
 
-        if (dot1xOnly && result.Code is not (NetworkConfigurationValidationCode.WiredProfileTemplateRequired or NetworkConfigurationValidationCode.WiredCertificateRequired))
+        if (dot1xOnly && result.Code is not (
+            NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
+            NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
+            NetworkConfigurationValidationCode.WiredCertificateRequired))
         {
             return string.Empty;
         }
 
-        if (!dot1xOnly && result.Code is NetworkConfigurationValidationCode.WiredProfileTemplateRequired or NetworkConfigurationValidationCode.WiredCertificateRequired)
+        if (!dot1xOnly && result.Code is
+            NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
+            NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
+            NetworkConfigurationValidationCode.WiredCertificateRequired)
         {
             return string.Empty;
         }
@@ -563,6 +569,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         {
             NetworkConfigurationValidationCode.WifiProvisioningRequired => "Network.ErrorWifiProvisioningRequired",
             NetworkConfigurationValidationCode.WiredProfileTemplateRequired => "Network.ErrorWiredProfileTemplateRequired",
+            NetworkConfigurationValidationCode.WiredProfileTemplateMissing => "Network.ErrorWiredProfileTemplateMissing",
             NetworkConfigurationValidationCode.WiredCertificateRequired => "Network.ErrorWiredCertificateRequired",
             NetworkConfigurationValidationCode.WifiSsidRequired => "Network.ErrorWifiSsidRequired",
             NetworkConfigurationValidationCode.UnsupportedWifiSecurityType => "Network.ErrorUnsupportedWifiSecurityTypeFormat",

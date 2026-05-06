@@ -267,21 +267,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
     private static string CreateFallbackFoundryConnectConfigurationJson()
     {
-        return """
-               {
-                 "schemaVersion": 1,
-                 "capabilities": {
-                   "wifiProvisioned": false
-                 },
-                 "network": {
-                   "internetProbes": [
-                     "http://www.msftconnecttest.com/connecttest.txt",
-                     "https://www.google.com/generate_204"
-                   ],
-                   "timeoutSeconds": 5
-                 }
-               }
-               """;
+        return JsonSerializer.Serialize(new FoundryConnectConfigurationDocument(), ConfigurationJsonDefaults.SerializerOptions);
     }
 
     private static string CreateFallbackDeployConfigurationJson()

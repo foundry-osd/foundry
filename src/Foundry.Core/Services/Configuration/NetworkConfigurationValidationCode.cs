@@ -5,6 +5,7 @@ public enum NetworkConfigurationValidationCode
     None,
     WifiProvisioningRequired,
     WiredProfileTemplateRequired,
+    WiredProfileTemplateMissing,
     WiredCertificateRequired,
     WifiSsidRequired,
     UnsupportedWifiSecurityType,

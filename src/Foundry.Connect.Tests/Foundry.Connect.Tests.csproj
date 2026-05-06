@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
     <ProjectReference Include="..\Foundry.Connect\Foundry.Connect.csproj" />
   </ItemGroup>
 
