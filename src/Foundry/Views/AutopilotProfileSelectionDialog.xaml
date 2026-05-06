@@ -6,7 +6,8 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                DefaultButton="Primary"
                mc:Ignorable="d">
-    <Grid Width="760"
+    <Grid MinWidth="460"
+          MaxWidth="560"
           MaxHeight="520"
           RowSpacing="12">
         <Grid.RowDefinitions>
@@ -41,43 +42,34 @@
 
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Profiles}"
+                  MaxHeight="360"
                   SelectionMode="None">
-            <ListView.Header>
-                <Grid Padding="12,0,12,8"
-                      ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="48" />
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1"
-                               FontWeight="SemiBold"
-                               Text="{Binding NameColumnHeader}" />
-                    <TextBlock Grid.Column="2"
-                               FontWeight="SemiBold"
-                               Text="{Binding FolderColumnHeader}" />
-                </Grid>
-            </ListView.Header>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="12,8"
-                          ColumnSpacing="12">
+                          ColumnSpacing="12"
+                          HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="48" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <CheckBox HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   IsChecked="{Binding IsSelected, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="1"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding DisplayName}"
-                                   TextTrimming="CharacterEllipsis" />
-                        <TextBlock Grid.Column="2"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding FolderName}"
-                                   TextTrimming="CharacterEllipsis" />
+                        <StackPanel Grid.Column="1"
+                                    Spacing="2">
+                            <TextBlock Text="{Binding DisplayName}"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                                       Text="{Binding FolderName}"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
