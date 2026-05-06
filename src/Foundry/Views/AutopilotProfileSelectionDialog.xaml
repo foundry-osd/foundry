@@ -6,28 +6,28 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                xmlns:tv="using:WinUI.TableView"
                DefaultButton="Primary"
-               Loaded="OnLoaded"
                mc:Ignorable="d">
     <Grid x:Name="DialogContentRoot"
           RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid>
+        <TextBlock Text="{Binding Description}"
+                   TextWrapping="Wrap" />
+
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Spacing="6">
-                <TextBlock Text="{Binding Description}"
-                           TextWrapping="Wrap" />
-                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                           Text="{Binding SelectedCountDisplay}" />
-            </StackPanel>
+            <TextBlock VerticalAlignment="Center"
+                       Style="{ThemeResource CaptionTextBlockStyle}"
+                       Text="{Binding SelectedCountDisplay}" />
 
             <Button Grid.Column="1"
                     MinWidth="110"
@@ -40,7 +40,8 @@
                     Content="{Binding ClearText}" />
         </Grid>
 
-        <tv:TableView Grid.Row="1"
+        <tv:TableView x:Name="ProfilesTable"
+                      Grid.Row="2"
                       AutoGenerateColumns="False"
                       CanFilterColumns="False"
                       CanReorderColumns="False"
@@ -49,13 +50,24 @@
                       CornerButtonMode="None"
                       HeadersVisibility="Columns"
                       ItemsSource="{Binding Profiles}"
+                      SelectedItem="{Binding SelectedProfile, Mode=TwoWay}"
                       SelectionMode="Single"
                       SelectionUnit="Row"
                       ShowExportOptions="False">
             <tv:TableView.Columns>
-                <tv:TableViewCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}"
-                                            Header=""
-                                            MinWidth="48" />
+                <tv:TableViewTemplateColumn Header=""
+                                            MaxWidth="48"
+                                            MinWidth="48"
+                                            Width="48">
+                    <tv:TableViewTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      IsChecked="{Binding IsSelected, Mode=OneWay}"
+                                      IsHitTestVisible="False" />
+                        </DataTemplate>
+                    </tv:TableViewTemplateColumn.CellTemplate>
+                </tv:TableViewTemplateColumn>
                 <tv:TableViewTextColumn Binding="{Binding DisplayName}"
                                         Header="{x:Bind ViewModel.NameColumnHeader, Mode=OneWay}" />
                 <tv:TableViewTextColumn Binding="{Binding FolderName}"

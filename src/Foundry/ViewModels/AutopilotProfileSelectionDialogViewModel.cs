@@ -62,6 +62,9 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
     [ObservableProperty]
     public partial bool HasSelectedProfiles { get; set; }
 
+    [ObservableProperty]
+    public partial SelectableAutopilotProfileEntryViewModel? SelectedProfile { get; set; }
+
     public IReadOnlyList<AutopilotProfileSettings> GetSelectedProfiles()
     {
         return Profiles
@@ -135,6 +138,17 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
         RefreshLocalizedText();
+    }
+
+    partial void OnSelectedProfileChanged(SelectableAutopilotProfileEntryViewModel? value)
+    {
+        if (value is null)
+        {
+            return;
+        }
+
+        value.IsSelected = !value.IsSelected;
+        SelectedProfile = null;
     }
 }
 

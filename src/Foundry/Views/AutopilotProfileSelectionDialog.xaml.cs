@@ -4,12 +4,15 @@ namespace Foundry.Views;
 
 public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
 {
-    private const double DialogHorizontalMargin = 360;
-    private const double DialogVerticalMargin = 260;
-    private const double MinimumDialogContentWidth = 520;
-    private const double MaximumDialogContentWidth = 980;
-    private const double MinimumDialogContentHeight = 360;
-    private const double MaximumDialogContentHeight = 640;
+    private const double DialogChromeWidth = 96;
+    private const double MinimumContentWidth = 560;
+    private const double MaximumContentWidth = 980;
+    private const double SelectionColumnWidth = 48;
+    private const double ColumnPaddingWidth = 96;
+    private const double AverageCharacterWidth = 7.5;
+    private const double TableHeaderHeight = 36;
+    private const double TableRowHeight = 41;
+    private const int MaximumVisibleRows = 8;
 
     public AutopilotProfileSelectionDialog(AutopilotProfileSelectionDialogViewModel viewModel)
     {
@@ -20,6 +23,7 @@ public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
         PrimaryButtonText = ViewModel.ImportText;
         CloseButtonText = ViewModel.CancelText;
         IsPrimaryButtonEnabled = ViewModel.HasSelectedProfiles;
+        ApplyContentLayout();
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Closed += OnClosed;
     }
@@ -54,39 +58,37 @@ public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
 
     private void OnClosed(ContentDialog sender, ContentDialogClosedEventArgs args)
     {
-        App.MainWindow.SizeChanged -= OnMainWindowSizeChanged;
         ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         Closed -= OnClosed;
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e)
+    private void ApplyContentLayout()
     {
-        App.MainWindow.SizeChanged -= OnMainWindowSizeChanged;
-        App.MainWindow.SizeChanged += OnMainWindowSizeChanged;
-        UpdateDialogSize();
-    }
-
-    private void OnMainWindowSizeChanged(object sender, WindowSizeChangedEventArgs args)
-    {
-        UpdateDialogSize();
-    }
-
-    private void UpdateDialogSize()
-    {
-        double windowWidth = App.MainWindow.AppWindow.Size.Width;
-        double windowHeight = App.MainWindow.AppWindow.Size.Height;
+        double availableWindowWidth = Math.Max(MinimumContentWidth, App.MainWindow.AppWindow.Size.Width * 0.72);
         double contentWidth = Math.Clamp(
-            windowWidth - DialogHorizontalMargin,
-            MinimumDialogContentWidth,
-            MaximumDialogContentWidth);
-        double contentHeight = Math.Clamp(
-            windowHeight - DialogVerticalMargin,
-            MinimumDialogContentHeight,
-            MaximumDialogContentHeight);
+            CalculateDesiredContentWidth(),
+            MinimumContentWidth,
+            Math.Min(MaximumContentWidth, availableWindowWidth));
+        int visibleRows = Math.Clamp(ViewModel.Profiles.Count, 1, MaximumVisibleRows);
 
-        MaxWidth = contentWidth + 96;
-        MaxHeight = contentHeight + 180;
+        Resources["ContentDialogMaxWidth"] = contentWidth + DialogChromeWidth;
         DialogContentRoot.Width = contentWidth;
-        DialogContentRoot.MaxHeight = contentHeight;
+        ProfilesTable.Height = TableHeaderHeight + (visibleRows * TableRowHeight);
+    }
+
+    private double CalculateDesiredContentWidth()
+    {
+        int longestNameLength = ViewModel.Profiles
+            .Select(profile => profile.DisplayName.Length)
+            .DefaultIfEmpty(ViewModel.NameColumnHeader.Length)
+            .Max();
+        int longestFolderLength = ViewModel.Profiles
+            .Select(profile => profile.FolderName.Length)
+            .DefaultIfEmpty(ViewModel.FolderColumnHeader.Length)
+            .Max();
+
+        double nameWidth = Math.Min(longestNameLength * AverageCharacterWidth, 420);
+        double folderWidth = Math.Min(longestFolderLength * AverageCharacterWidth, 460);
+        return SelectionColumnWidth + nameWidth + folderWidth + ColumnPaddingWidth;
     }
 }
