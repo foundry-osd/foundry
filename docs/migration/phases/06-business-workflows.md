@@ -221,34 +221,34 @@ git commit -m "feat(network): wire connect preflight readiness"
   - [x] **16.A.3** Preserve generated Deploy config output for `customization.machineNaming`.
   - [x] **16.A.4** Keep APPX removal and custom deploy configuration editing out of scope.
 
-- [ ] **16.B** Port Autopilot manual profile import and local profile management.
-  - [ ] **16.B.1** Add the WinUI Autopilot page state for:
-    - [ ] Enable Autopilot.
-    - [ ] Import profile JSON.
-    - [ ] Remove selected profile.
-    - [ ] Select default profile.
-    - [ ] Show imported profiles with display name, source, imported timestamp, and folder name.
-  - [ ] **16.B.2** Preserve WPF manual import behavior:
-    - [ ] Parse and validate JSON.
-    - [ ] Reject empty, invalid, or non-ASCII profile JSON.
-    - [ ] Resolve display name from `Comment_File`, filename, or parent folder.
-    - [ ] Generate `manual-<sha>` IDs from profile JSON.
-    - [ ] Sanitize profile folder names.
-    - [ ] Merge duplicate profiles by ID.
-    - [ ] Sort profiles by display name, then ID.
-    - [ ] Fall back to the first profile when the default profile is removed or missing.
-  - [ ] **16.B.3** Persist full imported profile JSON in expert configuration.
-  - [ ] **16.B.3.1** Add explicit expert configuration state updates for Autopilot and Customization:
-    - [ ] `UpdateAutopilot(AutopilotSettings settings)`.
+- [x] **16.B** Port Autopilot manual profile import and local profile management.
+  - [x] **16.B.1** Add the WinUI Autopilot page state for:
+    - [x] Enable Autopilot.
+    - [x] Import profile JSON.
+    - [x] Remove selected profile.
+    - [x] Select default profile.
+    - [x] Show imported profiles with display name, source, imported timestamp, and folder name.
+  - [x] **16.B.2** Preserve WPF manual import behavior:
+    - [x] Parse and validate JSON.
+    - [x] Reject empty, invalid, or non-ASCII profile JSON.
+    - [x] Resolve display name from `Comment_File`, filename, or parent folder.
+    - [x] Generate `manual-<sha>` IDs from profile JSON.
+    - [x] Sanitize profile folder names.
+    - [x] Merge duplicate profiles by ID.
+    - [x] Sort profiles by display name, then ID.
+    - [x] Fall back to the first profile when the default profile is removed or missing.
+  - [x] **16.B.3** Persist full imported profile JSON in expert configuration.
+  - [x] **16.B.3.1** Add explicit expert configuration state updates for Autopilot and Customization:
+    - [x] `UpdateAutopilot(AutopilotSettings settings)`.
     - [x] `UpdateCustomization(CustomizationSettings settings)`.
-  - [ ] **16.B.4** Preserve generated Deploy config output:
-    - [ ] `autopilot.isEnabled`.
-    - [ ] `autopilot.defaultProfileFolderName`.
-  - [ ] **16.B.5** Preserve Autopilot profile path contracts:
-    - [ ] Embedded WinPE relative path: `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
-    - [ ] Runtime WinPE path consumed by `Foundry.Deploy`: `X:\Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
-    - [ ] Target Windows staging path written by `Foundry.Deploy`: `%SystemDrive%\Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json`.
-    - [ ] Generated Deploy config stores the selected/default profile folder name, not a full path.
+  - [x] **16.B.4** Preserve generated Deploy config output:
+    - [x] `autopilot.isEnabled`.
+    - [x] `autopilot.defaultProfileFolderName`.
+  - [x] **16.B.5** Preserve Autopilot profile path contracts:
+    - [x] Embedded WinPE relative path: `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+    - [x] Runtime WinPE path consumed by `Foundry.Deploy`: `X:\Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+    - [x] Target Windows staging path written by `Foundry.Deploy`: `%SystemDrive%\Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json`.
+    - [x] Generated Deploy config stores the selected/default profile folder name, not a full path.
 
 - [ ] **16.C** Port Autopilot Microsoft Graph tenant import.
   - [ ] **16.C.1** Keep Microsoft Graph authentication in the WinUI `Foundry` app/infrastructure layer.
@@ -292,12 +292,12 @@ git commit -m "feat(autopilot): wire start readiness"
 
 **Validation**
 
-- [ ] **16.7** Existing Autopilot-related and Deploy configuration tests pass.
-- [ ] **16.8** Generated Deploy config includes machine naming and selected Autopilot profile settings.
-- [ ] **16.9** WinPE asset provisioning service-level validation includes expected Autopilot profile payloads; real generated boot-media validation remains deferred until final ISO/USB media execution is enabled.
-- [ ] **16.10** `Foundry.Core` has no dependency on Azure Identity, Microsoft Graph clients, `InteractiveBrowserCredential`, or Graph HTTP plumbing.
-- [ ] **16.11** Manual Autopilot JSON import rejects empty, invalid, or non-ASCII JSON.
-- [ ] **16.12** Manual Autopilot JSON import preserves WPF-compatible profile ID, display name, folder name, merge, sort, and default-profile fallback behavior.
+- [x] **16.7** Existing Autopilot-related and Deploy configuration tests pass.
+- [x] **16.8** Generated Deploy config includes machine naming and selected Autopilot profile settings.
+- [x] **16.9** WinPE asset provisioning service-level validation includes expected Autopilot profile payloads; real generated boot-media validation remains deferred until final ISO/USB media execution is enabled.
+- [x] **16.10** `Foundry.Core` has no dependency on Azure Identity, Microsoft Graph clients, `InteractiveBrowserCredential`, or Graph HTTP plumbing.
+- [x] **16.11** Manual Autopilot JSON import rejects empty, invalid, or non-ASCII JSON.
+- [x] **16.12** Manual Autopilot JSON import preserves WPF-compatible profile ID, display name, folder name, merge, sort, and default-profile fallback behavior.
 - [ ] **16.13** Graph tenant import downloads profiles through the blocking overlay and imports selected profiles through a WinUI `ContentDialog`.
 - [ ] **16.14** Autopilot disabled does not block `Start` preflight.
 - [ ] **16.15** Autopilot enabled without a valid default profile blocks or warns in `Start` preflight.
