@@ -206,20 +206,20 @@ git commit -m "feat(network): wire connect preflight readiness"
 
 **Recommended implementation split:** Phase 16 has a low-risk local customization slice and higher-risk Autopilot/Graph slices. Implement each split in a separate worktree, branch, and pull request. After each split is implemented, run automated verification, complete required manual validation, wait for CI to pass, squash-merge the PR, sync `feat/winui-migration`, clean the worktree, then start the next split.
 
-- [ ] **16.A** Port customization machine naming.
-  - [ ] **16.A.1** Add the WinUI customization settings page state for:
-    - [ ] Enable machine naming rules.
-    - [ ] Machine name prefix.
-    - [ ] Auto-generate the suffix after the prefix.
-    - [ ] Allow manual editing after the prefix.
-  - [ ] **16.A.2** Preserve WPF normalization:
-    - [ ] Disabled machine naming writes no prefix.
-    - [ ] Disabled machine naming forces `autoGenerateName=false`.
-    - [ ] Disabled machine naming forces `allowManualSuffixEdit=true`.
-    - [ ] Enabled machine naming trims the prefix before persistence/generation.
-  - [ ] **16.A.2.1** Validate machine naming prefix early in the WinUI authoring flow using the same computer-name rules that `Foundry.Deploy` enforces at runtime.
-  - [ ] **16.A.3** Preserve generated Deploy config output for `customization.machineNaming`.
-  - [ ] **16.A.4** Keep APPX removal and custom deploy configuration editing out of scope.
+- [x] **16.A** Port customization machine naming.
+  - [x] **16.A.1** Add the WinUI customization settings page state for:
+    - [x] Enable machine naming rules.
+    - [x] Machine name prefix.
+    - [x] Auto-generate the suffix after the prefix.
+    - [x] Allow manual editing after the prefix.
+  - [x] **16.A.2** Preserve WPF normalization:
+    - [x] Disabled machine naming writes no prefix.
+    - [x] Disabled machine naming forces `autoGenerateName=false`.
+    - [x] Disabled machine naming forces `allowManualSuffixEdit=true`.
+    - [x] Enabled machine naming trims the prefix before persistence/generation.
+  - [x] **16.A.2.1** Validate machine naming prefix early in the WinUI authoring flow using the same computer-name rules that `Foundry.Deploy` enforces at runtime.
+  - [x] **16.A.3** Preserve generated Deploy config output for `customization.machineNaming`.
+  - [x] **16.A.4** Keep APPX removal and custom deploy configuration editing out of scope.
 
 - [ ] **16.B** Port Autopilot manual profile import and local profile management.
   - [ ] **16.B.1** Add the WinUI Autopilot page state for:
@@ -240,7 +240,7 @@ git commit -m "feat(network): wire connect preflight readiness"
   - [ ] **16.B.3** Persist full imported profile JSON in expert configuration.
   - [ ] **16.B.3.1** Add explicit expert configuration state updates for Autopilot and Customization:
     - [ ] `UpdateAutopilot(AutopilotSettings settings)`.
-    - [ ] `UpdateCustomization(CustomizationSettings settings)`.
+    - [x] `UpdateCustomization(CustomizationSettings settings)`.
   - [ ] **16.B.4** Preserve generated Deploy config output:
     - [ ] `autopilot.isEnabled`.
     - [ ] `autopilot.defaultProfileFolderName`.
