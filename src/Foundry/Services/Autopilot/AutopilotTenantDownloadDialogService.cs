@@ -24,9 +24,10 @@ public sealed class AutopilotTenantDownloadDialogService(
             return null;
         }
 
-        dialog.DispatcherQueue.TryEnqueue(dialog.Hide);
+        IReadOnlyList<AutopilotProfileSettings> profiles = await downloadTask;
+        dialog.Hide();
         await dialogTask;
-        return await downloadTask;
+        return profiles;
     }
 
     private ContentDialog CreateDialog(CancellationTokenSource cancellationTokenSource)
