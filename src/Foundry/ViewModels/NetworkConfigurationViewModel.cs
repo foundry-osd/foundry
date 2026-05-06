@@ -11,6 +11,7 @@ namespace Foundry.ViewModels;
 public sealed partial class NetworkConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IExpertDeployConfigurationStateService configurationStateService;
+    private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IFilePickerService filePickerService;
     private readonly IApplicationLocalizationService localizationService;
     private bool isApplyingState = true;
@@ -18,10 +19,12 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     public NetworkConfigurationViewModel(
         IExpertDeployConfigurationStateService configurationStateService,
+        INetworkSecretStateService networkSecretStateService,
         IFilePickerService filePickerService,
         IApplicationLocalizationService localizationService)
     {
         this.configurationStateService = configurationStateService;
+        this.networkSecretStateService = networkSecretStateService;
         this.filePickerService = filePickerService;
         this.localizationService = localizationService;
 
@@ -310,6 +313,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         if (!value)
         {
             IsWifiConfigured = false;
+            networkSecretStateService.ClearPersonalWifiPassphrase();
         }
 
         SaveState();
@@ -325,6 +329,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             WifiEnterpriseProfileTemplatePath = string.Empty;
             IsWifiCertificateRequired = false;
             WifiCertificatePath = string.Empty;
+            networkSecretStateService.ClearPersonalWifiPassphrase();
         }
 
         SaveState();
@@ -340,6 +345,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         if (!IsWifiPersonalSelected)
         {
             WifiPassphrase = string.Empty;
+            networkSecretStateService.ClearPersonalWifiPassphrase();
         }
 
         if (!IsWifiEnterpriseSelected)
@@ -356,6 +362,11 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     partial void OnWifiPassphraseChanged(string value)
     {
+        if (!isApplyingState && IsWifiPersonalSectionEnabled && string.IsNullOrWhiteSpace(value))
+        {
+            networkSecretStateService.ClearPersonalWifiPassphrase();
+        }
+
         SaveState();
     }
 
@@ -397,7 +408,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         IsWifiConfigured = settings.Wifi.IsEnabled;
         WifiSsid = settings.Wifi.Ssid ?? string.Empty;
         SelectedWifiSecurityType = SelectWifiSecurityOption(NetworkConfigurationValidator.NormalizeWifiSecurityType(settings.Wifi));
-        WifiPassphrase = settings.Wifi.Passphrase ?? string.Empty;
+        WifiPassphrase = ResolveWifiPassphrase(settings);
         WifiEnterpriseProfileTemplatePath = settings.Wifi.EnterpriseProfileTemplatePath ?? string.Empty;
         IsWifiCertificateRequired = settings.Wifi.RequiresCertificate;
         WifiCertificatePath = settings.Wifi.CertificatePath ?? string.Empty;
@@ -542,6 +553,20 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         ApplyState(configurationStateService.Current.Network);
     }
 
+    private string ResolveWifiPassphrase(NetworkSettings settings)
+    {
+        if (!(settings.WifiProvisioned || settings.Wifi.IsEnabled) ||
+            !settings.Wifi.IsEnabled ||
+            !IsWifiPersonalSelected)
+        {
+            return string.Empty;
+        }
+
+        return !string.IsNullOrWhiteSpace(settings.Wifi.Passphrase)
+            ? settings.Wifi.Passphrase.Trim()
+            : networkSecretStateService.PersonalWifiPassphrase ?? string.Empty;
+    }
+
     private string FormatValidationMessage(NetworkConfigurationValidationResult result, bool dot1xOnly)
     {
         if (result.IsValid)
@@ -552,7 +577,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         if (dot1xOnly && result.Code is not (
             NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
             NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
-            NetworkConfigurationValidationCode.WiredCertificateRequired))
+            NetworkConfigurationValidationCode.WiredCertificateRequired or
+            NetworkConfigurationValidationCode.WiredCertificateMissing))
         {
             return string.Empty;
         }
@@ -560,7 +586,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         if (!dot1xOnly && result.Code is
             NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
             NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
-            NetworkConfigurationValidationCode.WiredCertificateRequired)
+            NetworkConfigurationValidationCode.WiredCertificateRequired or
+            NetworkConfigurationValidationCode.WiredCertificateMissing)
         {
             return string.Empty;
         }
@@ -571,6 +598,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             NetworkConfigurationValidationCode.WiredProfileTemplateRequired => "Network.ErrorWiredProfileTemplateRequired",
             NetworkConfigurationValidationCode.WiredProfileTemplateMissing => "Network.ErrorWiredProfileTemplateMissing",
             NetworkConfigurationValidationCode.WiredCertificateRequired => "Network.ErrorWiredCertificateRequired",
+            NetworkConfigurationValidationCode.WiredCertificateMissing => "Network.ErrorWiredCertificateMissing",
             NetworkConfigurationValidationCode.WifiSsidRequired => "Network.ErrorWifiSsidRequired",
             NetworkConfigurationValidationCode.UnsupportedWifiSecurityType => "Network.ErrorUnsupportedWifiSecurityTypeFormat",
             NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid => "Network.ErrorWifiPersonalPassphraseInvalid",
@@ -579,6 +607,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationUnsupported => "Network.ErrorWifiEnterpriseAuthenticationUnsupported",
             NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationMismatch => "Network.ErrorWifiEnterpriseAuthenticationMismatchFormat",
             NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired => "Network.ErrorWifiEnterpriseCertificateRequired",
+            NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing => "Network.ErrorWifiEnterpriseCertificateMissing",
             _ => string.Empty
         };
 

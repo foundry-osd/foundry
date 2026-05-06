@@ -292,10 +292,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             IsAdkReady = adkService.CurrentStatus.CanCreateMedia,
             IsRuntimePayloadReady = false,
-            IsNetworkConfigurationReady = false,
+            IsNetworkConfigurationReady = expertDeployConfigurationStateService.IsNetworkConfigurationReady,
             IsDeployConfigurationReady = expertDeployConfigurationStateService.IsDeployConfigurationReady,
-            IsConnectProvisioningReady = false,
-            AreRequiredSecretsReady = false,
+            IsConnectProvisioningReady = expertDeployConfigurationStateService.IsConnectProvisioningReady,
+            AreRequiredSecretsReady = expertDeployConfigurationStateService.AreRequiredSecretsReady,
             IsFinalExecutionEnabled = false,
             IsoOutputPath = IsoOutputPath,
             Architecture = SelectedArchitecture?.Value ?? WinPeArchitecture.X64,
