@@ -4,11 +4,11 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:tv="using:WinUI.TableView"
                DefaultButton="Primary"
+               Loaded="OnLoaded"
                mc:Ignorable="d">
-    <Grid MinWidth="460"
-          MaxWidth="560"
-          MaxHeight="520"
+    <Grid x:Name="DialogContentRoot"
           RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -40,39 +40,27 @@
                     Content="{Binding ClearText}" />
         </Grid>
 
-        <ListView Grid.Row="1"
-                  ItemsSource="{Binding Profiles}"
-                  MaxHeight="360"
-                  SelectionMode="None">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment"
-                            Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="12,8"
-                          ColumnSpacing="12"
-                          HorizontalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <CheckBox HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  IsChecked="{Binding IsSelected, Mode=TwoWay}" />
-                        <StackPanel Grid.Column="1"
-                                    Spacing="2">
-                            <TextBlock Text="{Binding DisplayName}"
-                                       TextTrimming="CharacterEllipsis" />
-                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
-                                       Text="{Binding FolderName}"
-                                       TextTrimming="CharacterEllipsis" />
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <tv:TableView Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      CanFilterColumns="False"
+                      CanReorderColumns="False"
+                      CanResizeColumns="False"
+                      CanSortColumns="False"
+                      CornerButtonMode="None"
+                      HeadersVisibility="Columns"
+                      ItemsSource="{Binding Profiles}"
+                      SelectionMode="Single"
+                      SelectionUnit="Row"
+                      ShowExportOptions="False">
+            <tv:TableView.Columns>
+                <tv:TableViewCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}"
+                                            Header=""
+                                            MinWidth="48" />
+                <tv:TableViewTextColumn Binding="{Binding DisplayName}"
+                                        Header="{x:Bind ViewModel.NameColumnHeader, Mode=OneWay}" />
+                <tv:TableViewTextColumn Binding="{Binding FolderName}"
+                                        Header="{x:Bind ViewModel.FolderColumnHeader, Mode=OneWay}" />
+            </tv:TableView.Columns>
+        </tv:TableView>
     </Grid>
 </ContentDialog>

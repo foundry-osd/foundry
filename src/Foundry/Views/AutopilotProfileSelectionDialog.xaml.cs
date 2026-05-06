@@ -4,6 +4,13 @@ namespace Foundry.Views;
 
 public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
 {
+    private const double DialogHorizontalMargin = 360;
+    private const double DialogVerticalMargin = 260;
+    private const double MinimumDialogContentWidth = 520;
+    private const double MaximumDialogContentWidth = 980;
+    private const double MinimumDialogContentHeight = 360;
+    private const double MaximumDialogContentHeight = 640;
+
     public AutopilotProfileSelectionDialog(AutopilotProfileSelectionDialogViewModel viewModel)
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
@@ -47,7 +54,39 @@ public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
 
     private void OnClosed(ContentDialog sender, ContentDialogClosedEventArgs args)
     {
+        App.MainWindow.SizeChanged -= OnMainWindowSizeChanged;
         ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         Closed -= OnClosed;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        App.MainWindow.SizeChanged -= OnMainWindowSizeChanged;
+        App.MainWindow.SizeChanged += OnMainWindowSizeChanged;
+        UpdateDialogSize();
+    }
+
+    private void OnMainWindowSizeChanged(object sender, WindowSizeChangedEventArgs args)
+    {
+        UpdateDialogSize();
+    }
+
+    private void UpdateDialogSize()
+    {
+        double windowWidth = App.MainWindow.AppWindow.Size.Width;
+        double windowHeight = App.MainWindow.AppWindow.Size.Height;
+        double contentWidth = Math.Clamp(
+            windowWidth - DialogHorizontalMargin,
+            MinimumDialogContentWidth,
+            MaximumDialogContentWidth);
+        double contentHeight = Math.Clamp(
+            windowHeight - DialogVerticalMargin,
+            MinimumDialogContentHeight,
+            MaximumDialogContentHeight);
+
+        MaxWidth = contentWidth + 96;
+        MaxHeight = contentHeight + 180;
+        DialogContentRoot.Width = contentWidth;
+        DialogContentRoot.MaxHeight = contentHeight;
     }
 }
