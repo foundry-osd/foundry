@@ -107,7 +107,7 @@ X:\
       foundry.connect.provisioning-source.txt
       foundry.deploy.provisioning-source.txt
       iana-windows-timezones.json
-      Secrets\
+      Secrets\                         # only when encrypted embedded secrets are present
         media-secrets.key
 
       Network\
@@ -193,7 +193,7 @@ X:\
       foundry.connect.provisioning-source.txt
       foundry.deploy.provisioning-source.txt
       iana-windows-timezones.json
-      Secrets\
+      Secrets\                         # only when encrypted embedded secrets are present
         media-secrets.key
 
       Network\

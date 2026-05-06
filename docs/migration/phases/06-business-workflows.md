@@ -86,12 +86,14 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 - [ ] `15.C` owns embedded secret envelopes, per-media key lifecycle, and `Foundry.Connect` runtime decryption.
 - [ ] `15.D` owns `Start` page preflight readiness wiring for Connect, network, and required secrets without enabling final media execution.
 
+**Phase 15 delivery workflow:** implement each split in a separate worktree, branch, and pull request. After each split is implemented, run automated verification, complete any required manual validation, wait for CI to pass, squash-merge the PR, sync `feat/winui-migration`, clean the worktree, then start the next split. If `15.C` grows too large, split it again into secret envelope generation and `Foundry.Connect` runtime decryption PRs.
+
 - [ ] **15.1** Port network settings model bindings.
 - [ ] **15.2** Port Wi-Fi settings validation.
 - [ ] **15.3** Port 802.1X settings.
 - [ ] **15.4** Port certificate picker through WinUI shell service.
 - [ ] **15.5** Port provisioning bundle creation.
-- [ ] **15.6** Preserve `Foundry.Connect` configuration schema.
+- [ ] **15.6** Preserve `Foundry.Connect` configuration compatibility.
 - [ ] **15.6.1** Generate complete effective `Foundry.Connect` runtime configuration documents:
   - [ ] Always include `schemaVersion`.
   - [ ] Always include `capabilities`.
@@ -106,6 +108,7 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
   - [ ] Use a new generated config property for encrypted values, for example `passphraseSecret`.
   - [ ] Do not write personal Wi-Fi passphrases to generated media as plaintext `passphrase` values.
   - [ ] Keep `Foundry.Connect` tolerant for legacy plaintext `passphrase` when running old or standalone configs.
+  - [ ] Do not persist Wi-Fi or network plaintext secrets in `foundry.expert.config.json`; keep authoring-time secret values transient until generated media encryption is performed.
   - [ ] Use this envelope shape for encrypted generated media secrets:
 
 ```json
@@ -180,6 +183,7 @@ git commit -m "feat(network): port connect provisioning workflow"
   - [ ] Nonces.
   - [ ] Tags.
 - [ ] **15.17** Generated media contains `media-secrets.key` only when an encrypted secret envelope is present.
+  - [ ] Validate this at the service/workspace provisioning level during Phase 15; full generated ISO/USB execution remains deferred until the final media enablement PR.
 - [ ] **15.18** WPF comparison tests account for intentional WinUI changes:
   - [ ] Complete effective Connect config documents.
   - [ ] Complete effective Deploy config documents.
