@@ -6,7 +6,6 @@
       xmlns:dev="using:DevWinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:tv="using:WinUI.TableView"
-      xmlns:viewModels="using:Foundry.ViewModels"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
@@ -17,64 +16,68 @@
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource TitleTextBlockStyle}" />
 
-            <dev:SettingsExpander Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
-                                  Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}"
-                                  HeaderIcon="{dev:FontIcon GlyphCode=E7BF}"
-                                  IsExpanded="True">
+            <dev:SettingsCard Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
+                              Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}"
+                              HeaderIcon="{dev:FontIcon GlyphCode=E7BF}">
                 <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.EnableAutopilotText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsAutopilotEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <dev:SettingsExpander.Items>
-                    <dev:SettingsCard Header="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}"
-                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
-                        <StackPanel Orientation="Horizontal"
-                                    Spacing="10">
-                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                    Command="{x:Bind ViewModel.ImportProfileCommand}"
-                                    Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
-                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                    Command="{x:Bind ViewModel.RemoveSelectedProfileCommand}"
-                                    Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
-                        </StackPanel>
-                    </dev:SettingsCard>
-                    <dev:SettingsCard Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}"
-                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
-                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                  DisplayMemberPath="DisplayName"
+            </dev:SettingsCard>
+
+            <dev:SettingsCard Header="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}"
+                              IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="10">
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            Command="{x:Bind ViewModel.ImportProfileCommand}"
+                            Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            Command="{x:Bind ViewModel.RemoveSelectedProfileCommand}"
+                            Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
+                </StackPanel>
+            </dev:SettingsCard>
+
+            <dev:SettingsCard Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}"
+                              IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                          DisplayMemberPath="DisplayName"
+                          ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                          SelectedItem="{x:Bind ViewModel.SelectedDefaultProfile, Mode=TwoWay}" />
+            </dev:SettingsCard>
+
+            <dev:SettingsCard Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}"
+                              IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
+                               TextWrapping="Wrap"
+                               Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
+                    <tv:TableView AutoGenerateColumns="False"
+                                  CanFilterColumns="False"
+                                  CanReorderColumns="False"
+                                  CanResizeColumns="False"
+                                  CanSortColumns="False"
+                                  CornerButtonMode="None"
+                                  HeadersVisibility="Columns"
+                                  IsReadOnly="True"
                                   ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
-                                  SelectedItem="{x:Bind ViewModel.SelectedDefaultProfile, Mode=TwoWay}" />
-                    </dev:SettingsCard>
-                    <dev:SettingsCard Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}"
-                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
-                        <StackPanel Spacing="8">
-                            <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
-                                       TextWrapping="Wrap"
-                                       Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
-                            <tv:TableView AutoGenerateColumns="False"
-                                          IsReadOnly="True"
-                                          ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
-                                          MaxHeight="320"
-                                          SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}"
-                                          SelectionMode="Single"
-                                          Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
-                                <tv:TableView.Columns>
-                                    <tv:TableViewTextColumn Binding="{Binding DisplayName}"
-                                                            Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}"
-                                                            Width="2*" />
-                                    <tv:TableViewTextColumn Binding="{Binding Source}"
-                                                            Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}"
-                                                            Width="*" />
-                                    <tv:TableViewTextColumn Binding="{Binding ImportedAtDisplay}"
-                                                            Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}"
-                                                            Width="*" />
-                                    <tv:TableViewTextColumn Binding="{Binding FolderName}"
-                                                            Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}"
-                                                            Width="2*" />
-                                </tv:TableView.Columns>
-                            </tv:TableView>
-                        </StackPanel>
-                    </dev:SettingsCard>
-                </dev:SettingsExpander.Items>
-            </dev:SettingsExpander>
+                                  MaxHeight="320"
+                                  SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}"
+                                  SelectionMode="Single"
+                                  SelectionUnit="Row"
+                                  ShowExportOptions="False"
+                                  Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
+                        <tv:TableView.Columns>
+                            <tv:TableViewTextColumn Binding="{Binding DisplayName}"
+                                                    Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}" />
+                            <tv:TableViewTextColumn Binding="{Binding Source}"
+                                                    Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}" />
+                            <tv:TableViewTextColumn Binding="{Binding ImportedAtDisplay}"
+                                                    Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}" />
+                            <tv:TableViewTextColumn Binding="{Binding FolderName}"
+                                                    Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}" />
+                        </tv:TableView.Columns>
+                    </tv:TableView>
+                </StackPanel>
+            </dev:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>
