@@ -99,12 +99,6 @@
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Activer Autopilot</value>
   </data>
-  <data name="Autopilot.StorageLabel" xml:space="preserve">
-    <value>Chemin de stockage dans l'image de démarrage</value>
-  </data>
-  <data name="Autopilot.InjectionLabel" xml:space="preserve">
-    <value>Chemin d'injection hors ligne</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importer un profil</value>
   </data>

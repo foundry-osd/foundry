@@ -61,18 +61,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string EnableAutopilotText { get; set; }
 
     [ObservableProperty]
-    public partial string StorageLabel { get; set; }
-
-    [ObservableProperty]
-    public partial string InjectionLabel { get; set; }
-
-    [ObservableProperty]
-    public partial string BootImageStoragePath { get; set; }
-
-    [ObservableProperty]
-    public partial string OfflineInjectionPath { get; set; }
-
-    [ObservableProperty]
     public partial string ImportButtonText { get; set; }
 
     [ObservableProperty]
@@ -271,10 +259,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         AutopilotHeader = localizationService.GetString("Autopilot.Header");
         AutopilotDescription = localizationService.GetString("Autopilot.Description");
         EnableAutopilotText = localizationService.GetString("Autopilot.EnableLabel");
-        StorageLabel = localizationService.GetString("Autopilot.StorageLabel");
-        InjectionLabel = localizationService.GetString("Autopilot.InjectionLabel");
-        BootImageStoragePath = @"X:\Foundry\Config\Autopilot";
-        OfflineInjectionPath = @"%SystemDrive%\Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json";
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
         RemoveButtonText = localizationService.GetString("Autopilot.RemoveButton");
         DefaultProfileLabel = localizationService.GetString("Autopilot.DefaultProfileLabel");
