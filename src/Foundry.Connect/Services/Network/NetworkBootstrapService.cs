@@ -20,7 +20,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     private const string WifiSecurityLegacyWpa2Personal = "WPA2-Personal";
     private const string WifiSecurityWpa3Personal = "WPA3-Personal";
     private const string WifiSecurityLegacyPersonal = "Personal";
-    private const string TemporaryWifiProfileFileName = "wifi-profile.xml";
     private static readonly TimeSpan WifiConnectionTimeout = TimeSpan.FromSeconds(15);
     private static readonly TimeSpan WifiConnectionPollInterval = TimeSpan.FromMilliseconds(500);
     private static readonly TimeSpan WifiProfileImportRetryDelay = TimeSpan.FromSeconds(2);
@@ -124,46 +123,51 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
         }
 
-        string profilePath = await WriteTemporaryWifiProfileAsync(
-            BuildWifiProfileXml(trimmedSsid, securityType, passphrase, ssidHex),
-            cancellationToken).ConfigureAwait(false);
-
-        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
-        if (wirelessInterfaceIds.Count == 0)
+        string? profilePath = null;
+        try
         {
-            return "No wireless adapter is available to connect the selected Wi-Fi network.";
-        }
+            profilePath = await WriteTemporaryWifiProfileAsync(
+                BuildWifiProfileXml(trimmedSsid, securityType, passphrase, ssidHex),
+                cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(profilePath, cancellationToken).ConfigureAwait(false);
-        if (addProfileResult.ExitCode != 0)
-        {
-            _logger.LogWarning(
-                "Failed to import discovered Wi-Fi profile. Ssid={Ssid}, ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+            IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+            if (wirelessInterfaceIds.Count == 0)
+            {
+                return "No wireless adapter is available to connect the selected Wi-Fi network.";
+            }
+
+            ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(profilePath, cancellationToken).ConfigureAwait(false);
+            if (addProfileResult.ExitCode != 0)
+            {
+                _logger.LogWarning(
+                    "Failed to import discovered Wi-Fi profile. Ssid={Ssid}, ExitCode={ExitCode}",
+                    trimmedSsid,
+                    addProfileResult.ExitCode);
+                return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
+            }
+
+            ProcessExecutionResult connectResult = await ExecuteProcessAsync(
+                "netsh",
+                $"wlan connect name=\"{EscapeNetshArgument(trimmedSsid)}\"",
+                cancellationToken).ConfigureAwait(false);
+            if (connectResult.ExitCode != 0)
+            {
+                return $"Wi-Fi connection request failed for '{trimmedSsid}': {CollapseError(connectResult)}";
+            }
+
+            WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
+                wirelessInterfaceIds,
                 trimmedSsid,
-                profilePath,
-                addProfileResult.ExitCode,
-                addProfileResult.StandardOutput,
-                addProfileResult.StandardError);
-            return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
-        }
+                cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult connectResult = await ExecuteProcessAsync(
-            "netsh",
-            $"wlan connect name=\"{EscapeNetshArgument(trimmedSsid)}\"",
-            cancellationToken).ConfigureAwait(false);
-        if (connectResult.ExitCode != 0)
+            return attemptResult.IsConnected
+                ? $"Wi-Fi connected to '{trimmedSsid}'."
+                : $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
+        }
+        finally
         {
-            return $"Wi-Fi connection request failed for '{trimmedSsid}': {CollapseError(connectResult)}";
+            DeleteTemporaryProfile(profilePath);
         }
-
-        WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
-            wirelessInterfaceIds,
-            trimmedSsid,
-            cancellationToken).ConfigureAwait(false);
-
-        return attemptResult.IsConnected
-            ? $"Wi-Fi connected to '{trimmedSsid}'."
-            : $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
     }
 
     public async Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
@@ -267,6 +271,11 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             messages.Add(ImportCertificate(certificatePath));
         }
 
+        if (NativeWifiApi.GetInterfaceIds().Count == 0)
+        {
+            return string.Join(" ", messages);
+        }
+
         string? wifiProfilePath = await EnsureWifiProfileFileAsync(cancellationToken).ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(wifiProfilePath))
         {
@@ -274,26 +283,28 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return string.Join(" ", messages);
         }
 
-        if (NativeWifiApi.GetInterfaceIds().Count == 0)
+        try
         {
-            return string.Join(" ", messages);
-        }
+            ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
-
-        if (addProfileResult.ExitCode != 0)
-        {
-            _logger.LogWarning(
-                "Failed to add Wi-Fi profile. ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
-                wifiProfilePath,
-                addProfileResult.ExitCode,
-                addProfileResult.StandardOutput,
-                addProfileResult.StandardError);
-            messages.Add($"Wi-Fi profile import failed: {CollapseError(addProfileResult)}");
+            if (addProfileResult.ExitCode != 0)
+            {
+                _logger.LogWarning(
+                    "Failed to add provisioned Wi-Fi profile. ExitCode={ExitCode}",
+                    addProfileResult.ExitCode);
+                messages.Add($"Wi-Fi profile import failed: {CollapseError(addProfileResult)}");
+            }
+            else
+            {
+                messages.Add("Wi-Fi profile imported.");
+            }
         }
-        else
+        finally
         {
-            messages.Add("Wi-Fi profile imported.");
+            if (!_configuration.Wifi.HasEnterpriseProfile)
+            {
+                DeleteTemporaryProfile(wifiProfilePath);
+            }
         }
 
         if (_configuration.Wifi.HasEnterpriseProfile && _configuration.Wifi.AllowRuntimeCredentials)
@@ -362,13 +373,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             }
 
             _logger.LogInformation(
-                "Wi-Fi profile import attempt {Attempt} failed in WinPE. Retrying in {DelaySeconds}s. ProfilePath={ProfilePath}, ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                "Wi-Fi profile import attempt {Attempt} failed in WinPE. Retrying in {DelaySeconds}s. ExitCode={ExitCode}",
                 attempt,
                 WifiProfileImportRetryDelay.TotalSeconds,
-                profilePath,
-                lastResult.ExitCode,
-                lastResult.StandardOutput,
-                lastResult.StandardError);
+                lastResult.ExitCode);
 
             await Task.Delay(WifiProfileImportRetryDelay, cancellationToken).ConfigureAwait(false);
         }
@@ -380,13 +388,33 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         string profileXml,
         CancellationToken cancellationToken)
     {
-        string profilePath = Path.Combine(ResolveTemporaryProfileRoot(), TemporaryWifiProfileFileName);
+        string profilePath = Path.Combine(ResolveTemporaryProfileRoot(), $"wifi-profile-{Guid.NewGuid():N}.xml");
         await File.WriteAllTextAsync(
             profilePath,
             profileXml,
             new UTF8Encoding(false),
             cancellationToken).ConfigureAwait(false);
         return profilePath;
+    }
+
+    private void DeleteTemporaryProfile(string? profilePath)
+    {
+        if (string.IsNullOrWhiteSpace(profilePath))
+        {
+            return;
+        }
+
+        try
+        {
+            if (File.Exists(profilePath))
+            {
+                File.Delete(profilePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogDebug(ex, "Failed to delete a temporary Wi-Fi profile file.");
+        }
     }
 
     private string ResolveTemporaryProfileRoot()

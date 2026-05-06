@@ -214,7 +214,34 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
         File.WriteAllText(curlSourcePath, "curl");
-        byte[] secretKey = [1, 2, 3, 4];
+        byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret(),
+                MediaSecretsKey = secretKey
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenMediaSecretKeyHasNoEncryptedSecret_ReturnsFailure()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -230,8 +257,35 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             },
             CancellationToken.None);
 
-        Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
+        Assert.False(result.IsSuccess);
+        Assert.Contains("must not be provisioned without encrypted", result.Error?.Details, StringComparison.Ordinal);
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenEncryptedSecretHasNoMediaSecretKey_ReturnsFailure()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret()
+            },
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("require a media secret key", result.Error?.Details, StringComparison.Ordinal);
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets")));
     }
 
     [Fact]
@@ -316,5 +370,37 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         {
             Directory.Delete(RootPath, recursive: true);
         }
+    }
+
+    private static string CreateConnectConfigurationWithEncryptedSecret()
+    {
+        return """
+        {
+          "schemaVersion": 1,
+          "capabilities": {
+            "wifiProvisioned": true
+          },
+          "dot1x": {},
+          "wifi": {
+            "isEnabled": true,
+            "ssid": "Corp WiFi",
+            "securityType": "WPA2/WPA3-Personal",
+            "passphraseSecret": {
+              "kind": "encrypted",
+              "algorithm": "aes-gcm-v1",
+              "keyId": "media",
+              "nonce": "AAAAAAAAAAAAAAAA",
+              "tag": "AAAAAAAAAAAAAAAAAAAAAA",
+              "ciphertext": "AAAAAAAA"
+            }
+          },
+          "internetProbe": {
+            "probeUris": [
+              "http://www.msftconnecttest.com/connecttest.txt"
+            ],
+            "timeoutSeconds": 5
+          }
+        }
+        """;
     }
 }

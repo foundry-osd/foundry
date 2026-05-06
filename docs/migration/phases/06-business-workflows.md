@@ -81,35 +81,35 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 
 **Recommended implementation split:** Phase 15 has security-sensitive and runtime-sensitive work. Prefer focused PRs under the same phase rather than one broad branch:
 
-- [ ] `15.A` owns Network page state, validation, and WPF-compatible network asset selection.
-- [ ] `15.B` owns complete effective `Foundry.Connect` configuration generation and asset copy layout.
-- [ ] `15.C` owns embedded secret envelopes, per-media key lifecycle, and `Foundry.Connect` runtime decryption.
+- [x] `15.A` owns Network page state, validation, and WPF-compatible network asset selection.
+- [x] `15.B` owns complete effective `Foundry.Connect` configuration generation and asset copy layout.
+- [x] `15.C` owns embedded secret envelopes, per-media key lifecycle, and `Foundry.Connect` runtime decryption.
 - [ ] `15.D` owns `Start` page preflight readiness wiring for Connect, network, and required secrets without enabling final media execution.
 
 **Phase 15 delivery workflow:** implement each split in a separate worktree, branch, and pull request. After each split is implemented, run automated verification, complete any required manual validation, wait for CI to pass, squash-merge the PR, sync `feat/winui-migration`, clean the worktree, then start the next split. If `15.C` grows too large, split it again into secret envelope generation and `Foundry.Connect` runtime decryption PRs.
 
-- [ ] **15.1** Port network settings model bindings.
-- [ ] **15.2** Port Wi-Fi settings validation.
-- [ ] **15.3** Port 802.1X settings.
-- [ ] **15.4** Port certificate picker through WinUI shell service.
-- [ ] **15.5** Port provisioning bundle creation.
-- [ ] **15.6** Preserve `Foundry.Connect` configuration compatibility.
-- [ ] **15.6.1** Generate complete effective `Foundry.Connect` runtime configuration documents:
-  - [ ] Always include `schemaVersion`.
-  - [ ] Always include `capabilities`.
-  - [ ] Always include `dot1x`.
-  - [ ] Always include `wifi`.
-  - [ ] Always include `internetProbe`.
-  - [ ] Serialize effective default values instead of relying on missing root sections.
-  - [ ] Keep `Foundry.Connect` tolerant for missing optional properties, but do not rely on sparse generated media configs.
-  - [ ] Add or update `Foundry.Connect` validation for contradictory effective states.
-- [ ] **15.6.1.1** Replace any generated-media fallback that emits sparse or legacy-shaped Connect JSON with the same complete effective generator used by the Network workflow.
-- [ ] **15.6.2** Define the embedded secret schema explicitly:
-  - [ ] Use a new generated config property for encrypted values, for example `passphraseSecret`.
-  - [ ] Do not write personal Wi-Fi passphrases to generated media as plaintext `passphrase` values.
-  - [ ] Keep `Foundry.Connect` tolerant for legacy plaintext `passphrase` when running old or standalone configs.
-  - [ ] Do not persist Wi-Fi or network plaintext secrets in `foundry.expert.config.json`; keep authoring-time secret values transient until generated media encryption is performed.
-  - [ ] Use this envelope shape for encrypted generated media secrets:
+- [x] **15.1** Port network settings model bindings.
+- [x] **15.2** Port Wi-Fi settings validation.
+- [x] **15.3** Port 802.1X settings.
+- [x] **15.4** Port certificate picker through WinUI shell service.
+- [x] **15.5** Port provisioning bundle creation.
+- [x] **15.6** Preserve `Foundry.Connect` configuration compatibility.
+- [x] **15.6.1** Generate complete effective `Foundry.Connect` runtime configuration documents:
+  - [x] Always include `schemaVersion`.
+  - [x] Always include `capabilities`.
+  - [x] Always include `dot1x`.
+  - [x] Always include `wifi`.
+  - [x] Always include `internetProbe`.
+  - [x] Serialize effective default values instead of relying on missing root sections.
+  - [x] Keep `Foundry.Connect` tolerant for missing optional properties, but do not rely on sparse generated media configs.
+  - [x] Add or update `Foundry.Connect` validation for contradictory effective states.
+- [x] **15.6.1.1** Replace any generated-media fallback that emits sparse or legacy-shaped Connect JSON with the same complete effective generator used by the Network workflow.
+- [x] **15.6.2** Define the embedded secret schema explicitly:
+  - [x] Use a new generated config property for encrypted values, for example `passphraseSecret`.
+  - [x] Do not write personal Wi-Fi passphrases to generated media as plaintext `passphrase` values.
+  - [x] Keep `Foundry.Connect` tolerant for legacy plaintext `passphrase` when running old or standalone configs.
+  - [x] Do not persist Wi-Fi or network plaintext secrets in `foundry.expert.config.json`; keep authoring-time secret values transient until generated media encryption is performed.
+  - [x] Use this envelope shape for encrypted generated media secrets:
 
 ```json
 {
@@ -122,39 +122,39 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 }
 ```
 
-  - [ ] Bump the generated Connect config schema version if the model requires it.
-  - [ ] Document normalization rules so WPF JSON comparisons ignore the intentional plaintext-to-envelope change.
+  - [x] No generated Connect config schema bump is required for the additive `passphraseSecret` model; legacy plaintext remains tolerated.
+  - [x] Document normalization rules so WPF JSON comparisons ignore the intentional plaintext-to-envelope change.
 - [ ] **15.7** Preserve asset file preparation behavior.
-  - [ ] **15.7.1** Use explicit WinUI `PasswordBox` handling for Wi-Fi and network secrets.
-  - [ ] **15.7.2** Never log network secrets.
-  - [ ] **15.7.3** Never display network secrets in the Start summary.
-  - [ ] **15.7.4** Serialize secrets only when required by the runtime or configuration contract.
-  - [ ] **15.7.5** Do not serialize Wi-Fi or network secrets as plaintext when embedded for unattended WinPE execution.
-  - [ ] **15.7.6** Do not use DPAPI for generated WinPE runtime secrets because WinPE cannot decrypt data tied to the authoring Windows user or machine context.
-  - [ ] **15.7.7** Add an explicit secret envelope for embedded runtime secrets:
-    - [ ] Use `aes-gcm-v1`.
-    - [ ] Use `System.Security.Cryptography.AesGcm`.
-    - [ ] Generate a random 256-bit per-media key with `RandomNumberGenerator`.
-    - [ ] Generate a random 96-bit nonce per encrypted value.
-    - [ ] Use a 128-bit authentication tag.
-    - [ ] Use the .NET `AesGcm` constructor overload that declares the tag size.
-    - [ ] Store base64url-encoded nonce, tag, and ciphertext in the configuration secret envelope.
-    - [ ] Store the per-media key separately under `X:\Foundry\Config\Secrets\media-secrets.key`.
-    - [ ] Generate the per-media key during ISO/USB media creation, not at app startup or settings save time.
-    - [ ] Copy the per-media key into the generated ISO/USB boot image only when encrypted secrets are present.
-    - [ ] Remove any transient host-side secret-key staging file after media creation succeeds or fails.
-    - [ ] Resolve the per-media key automatically in `Foundry.Connect`; never ask the operator for a decryption key.
-    - [ ] Never store the per-media key inline in `foundry.connect.config.json`.
-    - [ ] Never log the key, plaintext secret, ciphertext, tag, or nonce.
-  - [ ] **15.7.8** Document the security boundary:
-    - [ ] Embedded encrypted secrets prevent casual JSON inspection.
-    - [ ] Embedded encrypted secrets are not a strong boundary against an attacker who has the boot media and key file.
-  - [ ] **15.7.9** Preserve the WPF-compatible network asset layout:
-    - [ ] Wired profiles: `Network\Wired\Profiles`.
-    - [ ] Wi-Fi profiles: `Network\Wifi\Profiles`.
-    - [ ] Wired certificates: `Network\Certificates\Wired`.
-    - [ ] Wi-Fi certificates: `Network\Certificates\Wifi`.
-    - [ ] Generated config-relative paths must match these folders.
+  - [x] **15.7.1** Use explicit WinUI `PasswordBox` handling for Wi-Fi and network secrets.
+  - [x] **15.7.2** Never log network secrets.
+  - [x] **15.7.3** Never display network secrets in the Start summary.
+  - [x] **15.7.4** Serialize secrets only when required by the runtime or configuration contract.
+  - [x] **15.7.5** Do not serialize Wi-Fi or network secrets as plaintext when embedded for unattended WinPE execution.
+  - [x] **15.7.6** Do not use DPAPI for generated WinPE runtime secrets because WinPE cannot decrypt data tied to the authoring Windows user or machine context.
+  - [x] **15.7.7** Add an explicit secret envelope for embedded runtime secrets:
+    - [x] Use `aes-gcm-v1`.
+    - [x] Use `System.Security.Cryptography.AesGcm`.
+    - [x] Generate a random 256-bit per-media key with `RandomNumberGenerator`.
+    - [x] Generate a random 96-bit nonce per encrypted value.
+    - [x] Use a 128-bit authentication tag.
+    - [x] Use the .NET `AesGcm` constructor overload that declares the tag size.
+    - [x] Store base64url-encoded nonce, tag, and ciphertext in the configuration secret envelope.
+    - [x] Store the per-media key separately under `X:\Foundry\Config\Secrets\media-secrets.key`.
+    - [x] Generate the per-media key during media provisioning bundle creation, not at app startup or settings save time.
+    - [x] Copy the per-media key into the generated ISO/USB boot image only when encrypted secrets are present.
+    - [x] No transient host-side secret-key staging file is written by Phase 15.C.
+    - [x] Resolve the per-media key automatically in `Foundry.Connect`; never ask the operator for a decryption key.
+    - [x] Never store the per-media key inline in `foundry.connect.config.json`.
+    - [x] Never log the key, plaintext secret, ciphertext, tag, or nonce.
+  - [x] **15.7.8** Document the security boundary:
+    - [x] Embedded encrypted secrets prevent casual JSON inspection.
+    - [x] Embedded encrypted secrets are not a strong boundary against an attacker who has the boot media and key file.
+  - [x] **15.7.9** Preserve the WPF-compatible network asset layout:
+    - [x] Wired profiles: `Network\Wired\Profiles`.
+    - [x] Wi-Fi profiles: `Network\Wifi\Profiles`.
+    - [x] Wired certificates: `Network\Certificates\Wired`.
+    - [x] Wi-Fi certificates: `Network\Certificates\Wifi`.
+    - [x] Generated config-relative paths must match these folders.
 - [ ] **15.7.10** Wire Connect, network, and required-secret readiness into the `Start` page preflight without enabling final ISO/USB execution:
   - [ ] Replace the Phase 13 hardcoded network, Connect provisioning, and required-secret readiness placeholders with real readiness values.
   - [ ] Keep runtime payload readiness and final execution gates blocked until the final media enablement PR.
@@ -166,28 +166,30 @@ git commit -m "feat(network): port connect provisioning workflow"
 
 **Validation**
 
-- [ ] **15.9** Existing `FoundryConnectProvisioningServiceTests` pass.
-- [ ] **15.10** Generated `Foundry.Connect` configuration matches WPF reference for equivalent settings.
-- [ ] **15.11** Certificate asset copy behavior is preserved.
-  - [ ] Wired certificates are copied to `Network\Certificates\Wired`.
-  - [ ] Wi-Fi certificates are copied to `Network\Certificates\Wifi`.
-  - [ ] Config-relative certificate paths point to those folders.
-- [ ] **15.12** Generated `foundry.connect.config.json` has every schema root section present.
-- [ ] **15.13** Embedded Wi-Fi/network secrets are represented as secret envelopes, not plaintext strings.
-- [ ] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets in WinPE/runtime tests.
-- [ ] **15.15** `Foundry.Connect` decrypts embedded secrets automatically without prompting the operator for a decryption key.
-- [ ] **15.16** Logs, validation errors, summaries, and UI diagnostics redact:
-  - [ ] Plaintext secrets.
-  - [ ] Per-media keys.
-  - [ ] Ciphertext.
-  - [ ] Nonces.
-  - [ ] Tags.
-- [ ] **15.17** Generated media contains `media-secrets.key` only when an encrypted secret envelope is present.
-  - [ ] Validate this at the service/workspace provisioning level during Phase 15; full generated ISO/USB execution remains deferred until the final media enablement PR.
-- [ ] **15.18** WPF comparison tests account for intentional WinUI changes:
-  - [ ] Complete effective Connect config documents.
-  - [ ] Complete effective Deploy config documents.
-  - [ ] Encrypted secret envelopes instead of plaintext generated media secrets.
+- [x] **15.9** Existing Connect provisioning and runtime configuration tests pass.
+- [x] **15.10** Generated `Foundry.Connect` configuration matches the preserved WPF-compatible asset layout for equivalent settings.
+- [x] **15.11** Certificate asset copy behavior is preserved.
+  - [x] Wired certificates are copied to `Network\Certificates\Wired`.
+  - [x] Wi-Fi certificates are copied to `Network\Certificates\Wifi`.
+  - [x] Config-relative certificate paths point to those folders.
+- [x] **15.12** Generated `foundry.connect.config.json` has every schema root section present.
+- [x] **15.13** Embedded Wi-Fi/network secrets are represented as secret envelopes, not plaintext strings.
+- [x] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets in runtime tests.
+  - [ ] Real generated boot-image validation is deferred until ISO/USB media creation is enabled.
+- [x] **15.15** `Foundry.Connect` decrypts embedded secrets automatically without prompting the operator for a decryption key.
+  - [ ] Real generated boot-image validation is deferred until ISO/USB media creation is enabled.
+- [x] **15.16** Logs, validation errors, summaries, and UI diagnostics redact:
+  - [x] Plaintext secrets.
+  - [x] Per-media keys.
+  - [x] Ciphertext.
+  - [x] Nonces.
+  - [x] Tags.
+- [x] **15.17** Generated media contains `media-secrets.key` only when an encrypted secret envelope is present.
+  - [x] Validate this at the service/workspace provisioning level during Phase 15; full generated ISO/USB execution remains deferred until the final media enablement PR.
+- [x] **15.18** WPF comparison tests account for intentional WinUI changes:
+  - [x] Complete effective Connect config documents.
+  - [x] Complete effective Deploy config documents.
+  - [x] Encrypted secret envelopes instead of plaintext generated media secrets.
 - [ ] **15.19** `Start` page preflight shows real network, Connect, and required-secret readiness while final ISO/USB execution remains deferred.
 
 ## Phase 16: Autopilot And Customization Workflows

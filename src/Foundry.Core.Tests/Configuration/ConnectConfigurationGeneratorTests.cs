@@ -27,6 +27,7 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.Equal(5, internetProbe.GetProperty("timeoutSeconds").GetInt32());
         Assert.NotEmpty(internetProbe.GetProperty("probeUris").EnumerateArray());
         Assert.Empty(bundle.AssetFiles);
+        Assert.Null(bundle.MediaSecretsKey);
     }
 
     [Fact]
@@ -94,7 +95,7 @@ public sealed class ConnectConfigurationGeneratorTests
     }
 
     [Fact]
-    public void CreateProvisioningBundle_WhenPersonalWifiHasTransientPassphrase_PreservesPassphraseForCurrentRuntime()
+    public void CreateProvisioningBundle_WhenPersonalWifiHasTransientPassphrase_WritesEncryptedSecretEnvelope()
     {
         using var tempDirectory = new TemporaryDirectory();
         var generator = new ConnectConfigurationGenerator();
@@ -117,7 +118,18 @@ public sealed class ConnectConfigurationGeneratorTests
             tempDirectory.Path);
 
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
-        Assert.Equal("super-secret-passphrase", document.RootElement.GetProperty("wifi").GetProperty("passphrase").GetString());
+        JsonElement wifi = document.RootElement.GetProperty("wifi");
+        Assert.False(wifi.TryGetProperty("passphrase", out _));
+        Assert.True(wifi.TryGetProperty("passphraseSecret", out JsonElement envelope));
+        Assert.Equal("encrypted", envelope.GetProperty("kind").GetString());
+        Assert.Equal("aes-gcm-v1", envelope.GetProperty("algorithm").GetString());
+        Assert.Equal("media", envelope.GetProperty("keyId").GetString());
+        Assert.False(string.IsNullOrWhiteSpace(envelope.GetProperty("nonce").GetString()));
+        Assert.False(string.IsNullOrWhiteSpace(envelope.GetProperty("tag").GetString()));
+        Assert.False(string.IsNullOrWhiteSpace(envelope.GetProperty("ciphertext").GetString()));
+        Assert.DoesNotContain("super-secret-passphrase", bundle.ConfigurationJson, StringComparison.Ordinal);
+        Assert.NotNull(bundle.MediaSecretsKey);
+        Assert.Equal(32, bundle.MediaSecretsKey.Length);
         Assert.Empty(bundle.AssetFiles);
     }
 
