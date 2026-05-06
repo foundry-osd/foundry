@@ -14,5 +14,7 @@ public interface IExpertDeployConfigurationStateService
 
     void UpdateLocalization(LocalizationSettings settings);
 
+    FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath);
+
     string GenerateDeployConfigurationJson();
 }

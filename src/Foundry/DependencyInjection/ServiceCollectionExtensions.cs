@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
+        services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<IExpertDeployConfigurationStateService, ExpertDeployConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();

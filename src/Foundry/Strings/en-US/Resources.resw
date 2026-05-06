@@ -225,6 +225,9 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X requires a wired profile template.</value>
   </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>Wired 802.1X profile template file was not found.</value>
+  </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
     <value>Wired 802.1X requires a trusted root CA certificate file when certificate trust is enabled.</value>
   </data>

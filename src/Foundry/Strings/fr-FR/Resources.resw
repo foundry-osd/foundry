@@ -225,6 +225,9 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Le 802.1X filaire nécessite un modèle de profil filaire.</value>
   </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>Le fichier du modèle de profil 802.1X filaire est introuvable.</value>
+  </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
     <value>Le 802.1X filaire nécessite un certificat d'autorité racine de confiance lorsque la confiance par certificat est activée.</value>
   </data>

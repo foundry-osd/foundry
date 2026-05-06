@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.WinPe;
 
@@ -173,6 +174,38 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Contains("\"localization\":", deployConfigurationJson, StringComparison.Ordinal);
         Assert.Contains("\"customization\":", deployConfigurationJson, StringComparison.Ordinal);
         Assert.Contains("\"autopilot\":", deployConfigurationJson, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenConnectConfigurationIsMissing_WritesCompleteDefaultConnectConfiguration()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}"
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        string connectConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json"));
+        using JsonDocument document = JsonDocument.Parse(connectConfigurationJson);
+        JsonElement root = document.RootElement;
+        Assert.True(root.TryGetProperty("schemaVersion", out _));
+        Assert.True(root.TryGetProperty("capabilities", out _));
+        Assert.True(root.TryGetProperty("dot1x", out _));
+        Assert.True(root.TryGetProperty("wifi", out _));
+        Assert.True(root.TryGetProperty("internetProbe", out _));
+        Assert.False(root.TryGetProperty("network", out _));
     }
 
     [Fact]

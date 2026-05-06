@@ -125,6 +125,11 @@ public static class NetworkConfigurationValidator
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredProfileTemplateRequired);
         }
 
+        if (!File.Exists(Path.GetFullPath(settings.ProfileTemplatePath)))
+        {
+            return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredProfileTemplateMissing);
+        }
+
         if (settings.RequiresCertificate && string.IsNullOrWhiteSpace(settings.CertificatePath))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateRequired);

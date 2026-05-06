@@ -8,15 +8,18 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
 {
     private readonly IExpertConfigurationService expertConfigurationService;
     private readonly IDeployConfigurationGenerator deployConfigurationGenerator;
+    private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly ILogger logger;
 
     public ExpertDeployConfigurationStateService(
         IExpertConfigurationService expertConfigurationService,
         IDeployConfigurationGenerator deployConfigurationGenerator,
+        IConnectConfigurationGenerator connectConfigurationGenerator,
         ILogger logger)
     {
         this.expertConfigurationService = expertConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
+        this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.logger = logger.ForContext<ExpertDeployConfigurationStateService>();
         Current = Load();
         Save();
@@ -62,6 +65,11 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     public string GenerateDeployConfigurationJson()
     {
         return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(Current));
+    }
+
+    public FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath)
+    {
+        return connectConfigurationGenerator.CreateProvisioningBundle(Current, stagingDirectoryPath);
     }
 
     private FoundryExpertConfigurationDocument Load()
