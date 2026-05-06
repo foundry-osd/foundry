@@ -13,9 +13,21 @@ public sealed class AutopilotTenantDownloadDialogService(
 
         using var cancellationTokenSource = new CancellationTokenSource();
         ContentDialog dialog = CreateDialog(cancellationTokenSource);
-        Task<IReadOnlyList<AutopilotProfileSettings>> downloadTask = downloadProfilesAsync(cancellationTokenSource.Token);
+        TaskCompletionSource dialogOpenedTask = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        dialog.Opened += OnDialogOpened;
         Task<ContentDialogResult> dialogTask = dialog.ShowAsync().AsTask();
 
+        Task completedBeforeOpenTask = await Task.WhenAny(dialogOpenedTask.Task, dialogTask);
+        dialog.Opened -= OnDialogOpened;
+        if (completedBeforeOpenTask == dialogTask)
+        {
+            cancellationTokenSource.Cancel();
+            return null;
+        }
+
+        Task<IReadOnlyList<AutopilotProfileSettings>> downloadTask = Task.Run(
+            () => downloadProfilesAsync(cancellationTokenSource.Token),
+            cancellationTokenSource.Token);
         Task completedTask = await Task.WhenAny(downloadTask, dialogTask);
         if (completedTask == dialogTask)
         {
@@ -24,10 +36,24 @@ public sealed class AutopilotTenantDownloadDialogService(
             return null;
         }
 
-        IReadOnlyList<AutopilotProfileSettings> profiles = await downloadTask;
-        dialog.Hide();
-        await dialogTask;
+        IReadOnlyList<AutopilotProfileSettings> profiles;
+        try
+        {
+            profiles = await downloadTask;
+        }
+        catch
+        {
+            await CloseDialogAsync(dialog, dialogTask);
+            throw;
+        }
+
+        await CloseDialogAsync(dialog, dialogTask);
         return profiles;
+
+        void OnDialogOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)
+        {
+            dialogOpenedTask.TrySetResult();
+        }
     }
 
     private ContentDialog CreateDialog(CancellationTokenSource cancellationTokenSource)
@@ -80,5 +106,15 @@ public sealed class AutopilotTenantDownloadDialogService(
         {
             // The user canceled the dialog; late task completion is intentionally ignored.
         }
+    }
+
+    private static async Task CloseDialogAsync(ContentDialog dialog, Task<ContentDialogResult> dialogTask)
+    {
+        if (!dialogTask.IsCompleted)
+        {
+            dialog.Hide();
+        }
+
+        await dialogTask;
     }
 }
