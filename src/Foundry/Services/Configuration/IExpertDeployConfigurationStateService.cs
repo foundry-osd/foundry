@@ -22,6 +22,8 @@ public interface IExpertDeployConfigurationStateService
 
     void UpdateCustomization(CustomizationSettings settings);
 
+    void UpdateAutopilot(AutopilotSettings settings);
+
     FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath);
 
     string GenerateDeployConfigurationJson();
