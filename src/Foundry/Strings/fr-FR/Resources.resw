@@ -159,6 +159,9 @@
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Le téléchargement des profils Autopilot a échoué : {0}</value>
   </data>
+  <data name="Autopilot.DownloadTimedOut" xml:space="preserve">
+    <value>Le téléchargement des profils Autopilot a expiré. Réessayez et terminez l'authentification dans le navigateur.</value>
+  </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
     <value>Sélectionner les profils Autopilot</value>
   </data>

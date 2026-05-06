@@ -159,6 +159,9 @@
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
     <value>Autopilot profile download failed: {0}</value>
   </data>
+  <data name="Autopilot.DownloadTimedOut" xml:space="preserve">
+    <value>Autopilot profile download timed out. Try again and complete the browser sign-in prompt.</value>
+  </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
     <value>Select Autopilot profiles</value>
   </data>

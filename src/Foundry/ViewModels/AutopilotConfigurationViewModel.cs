@@ -16,6 +16,8 @@ namespace Foundry.ViewModels;
 
 public sealed partial class AutopilotConfigurationViewModel : ObservableObject, IDisposable
 {
+    private static readonly TimeSpan TenantDownloadTimeout = TimeSpan.FromMinutes(3);
+
     private readonly IExpertDeployConfigurationStateService configurationStateService;
     private readonly IAutopilotProfileImportService autopilotProfileImportService;
     private readonly IAutopilotTenantProfileService autopilotTenantProfileService;
@@ -183,11 +185,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             localizationService.GetString("Autopilot.DownloadInProgress"));
 
         IReadOnlyList<AutopilotProfileSettings> availableProfiles;
+        using CancellationTokenSource downloadTimeout = new(TenantDownloadTimeout);
         try
         {
             logger.Information("Starting Autopilot profile download from tenant.");
             operationProgressService.Report(20, localizationService.GetString("Autopilot.DownloadConnecting"));
-            availableProfiles = await autopilotTenantProfileService.DownloadFromTenantAsync();
+            availableProfiles = await autopilotTenantProfileService.DownloadFromTenantAsync(downloadTimeout.Token);
 
             if (availableProfiles.Count == 0)
             {
@@ -199,6 +202,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
             terminalStatus = localizationService.GetString("Autopilot.DownloadSelectProfiles");
             operationProgressService.Report(70, terminalStatus);
+        }
+        catch (OperationCanceledException ex) when (downloadTimeout.IsCancellationRequested)
+        {
+            terminalStatus = localizationService.GetString("Autopilot.DownloadTimedOut");
+            operationProgressService.Complete(terminalStatus);
+            logger.Warning(ex, "Autopilot tenant download timed out.");
+            await dialogService.ShowMessageAsync(new DialogRequest(
+                localizationService.GetString("Autopilot.DownloadFailedTitle"),
+                terminalStatus));
+            return;
         }
         catch (Exception ex) when (ex is OperationCanceledException or InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
         {
