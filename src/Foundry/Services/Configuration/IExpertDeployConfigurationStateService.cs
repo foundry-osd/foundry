@@ -16,6 +16,14 @@ public interface IExpertDeployConfigurationStateService
 
     bool AreRequiredSecretsReady { get; }
 
+    bool IsAutopilotEnabled { get; }
+
+    bool IsAutopilotConfigurationReady { get; }
+
+    string? SelectedAutopilotProfileDisplayName { get; }
+
+    string? SelectedAutopilotProfileFolderName { get; }
+
     void UpdateNetwork(NetworkSettings settings);
 
     void UpdateLocalization(LocalizationSettings settings);

@@ -93,6 +93,11 @@ public static class MediaPreflightService
             reasons.Add(MediaPreflightBlockingReason.RequiredSecretsNotReady);
         }
 
+        if (options.IsAutopilotEnabled && !options.IsAutopilotConfigurationReady)
+        {
+            reasons.Add(MediaPreflightBlockingReason.AutopilotConfigurationNotReady);
+        }
+
         if (string.IsNullOrWhiteSpace(options.WinPeLanguage))
         {
             reasons.Add(MediaPreflightBlockingReason.MissingWinPeLanguage);

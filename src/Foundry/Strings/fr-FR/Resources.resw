@@ -519,6 +519,15 @@
   <data name="StartMedia.Field.Secrets" xml:space="preserve">
     <value>Secrets média</value>
   </data>
+  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
+    <value>Activé : {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.NotReady" xml:space="preserve">
+    <value>Activé ; profil par défaut manquant</value>
+  </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>L'ADK ou le module complémentaire WinPE n'est pas prêt.</value>
   </data>
@@ -545,6 +554,9 @@
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Les secrets média requis ne sont pas prêts.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
+    <value>Autopilot est activé mais aucun profil par défaut valide n'est sélectionné.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
     <value>Aucune cible USB n'est sélectionnée.</value>

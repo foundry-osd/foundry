@@ -270,16 +270,16 @@ git commit -m "feat(network): wire connect preflight readiness"
     - [x] Cancel returns no imported profiles.
   - [x] **16.C.6** Do not show tenant tokens or raw Graph response bodies in UI, summaries, logs, or diagnostics.
 
-- [ ] **16.D** Wire Autopilot/customization readiness into `Start` preflight and finish Phase 16 validation.
-  - [ ] **16.D.1** Do not block media creation when Autopilot is disabled.
-  - [ ] **16.D.2** Block or warn when Autopilot is enabled but no valid default profile is selected.
-  - [ ] **16.D.3** Show selected Autopilot profile metadata without exposing tenant tokens or Graph response bodies.
-  - [ ] **16.D.4** Keep final ISO/USB execution disabled until the final media enablement PR.
-  - [ ] **16.D.5** Preserve generated Deploy config and Autopilot profile path contracts across the final Phase 16 state.
-  - [ ] **16.D.6** Update `Foundry.Deploy` Autopilot startup behavior so generated Deploy config is the source of truth:
-    - [ ] Respect `autopilot.isEnabled=false` even when embedded Autopilot profiles exist.
-    - [ ] Select/use a default Autopilot profile only when `autopilot.isEnabled=true`.
-    - [ ] Remove any automatic enablement based only on profile presence.
+- [x] **16.D** Wire Autopilot/customization readiness into `Start` preflight and finish Phase 16 validation.
+  - [x] **16.D.1** Do not block media creation when Autopilot is disabled.
+  - [x] **16.D.2** Block or warn when Autopilot is enabled but no valid default profile is selected.
+  - [x] **16.D.3** Show selected Autopilot profile metadata without exposing tenant tokens or Graph response bodies.
+  - [x] **16.D.4** Keep final ISO/USB execution disabled until the final media enablement PR.
+  - [x] **16.D.5** Preserve generated Deploy config and Autopilot profile path contracts across the final Phase 16 state.
+  - [x] **16.D.6** Update `Foundry.Deploy` Autopilot startup behavior so generated Deploy config is the source of truth:
+    - [x] Respect `autopilot.isEnabled=false` even when embedded Autopilot profiles exist.
+    - [x] Select/use a default Autopilot profile only when `autopilot.isEnabled=true`.
+    - [x] Remove any automatic enablement based only on profile presence.
 
 - [ ] **16.6** Commit each split independently:
 
@@ -299,5 +299,6 @@ git commit -m "feat(autopilot): wire start readiness"
 - [x] **16.11** Manual Autopilot JSON import rejects empty, invalid, or non-ASCII JSON.
 - [x] **16.12** Manual Autopilot JSON import preserves WPF-compatible profile ID, display name, folder name, merge, sort, and default-profile fallback behavior.
 - [x] **16.13** Graph tenant import downloads profiles through a cancellable WinUI `ContentDialog` and imports selected profiles through a separate WinUI `ContentDialog`.
-- [ ] **16.14** Autopilot disabled does not block `Start` preflight.
-- [ ] **16.15** Autopilot enabled without a valid default profile blocks or warns in `Start` preflight.
+- [x] **16.14** Autopilot disabled does not block `Start` preflight.
+- [x] **16.15** Autopilot enabled without a valid default profile blocks or warns in `Start` preflight.
+- [ ] **16.16** Deferred until final media generation is enabled: boot generated media into `Foundry.Deploy` with Autopilot enabled but no embedded profile, and confirm the Autopilot section remains visible so the operator can disable it.
