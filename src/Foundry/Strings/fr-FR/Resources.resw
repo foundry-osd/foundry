@@ -612,11 +612,35 @@
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>Média USB terminé.</value>
   </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>Export de l'image Windows avec DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>Résolution de l'index de l'image WinRE avec DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>Montage de l'image avec DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>Injection des pilotes avec DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>Application du pack de langue avec DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>Application des composants optionnels avec DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>Application des paramètres régionaux avec DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>Validation des changements de l'image avec DISM.</value>
+  </data>
   <data name="StartMedia.Operation.SuccessTitle" xml:space="preserve">
     <value>Création du média terminée</value>
   </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>Le média ISO a été créé avec succès : {0}</value>
+    <value>Le média ISO a été créé avec succès.</value>
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
     <value>Le média USB a été créé avec succès. Volume de démarrage : {0}. Volume cache : {1}.</value>

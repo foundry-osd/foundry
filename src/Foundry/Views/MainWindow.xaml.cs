@@ -322,8 +322,8 @@ namespace Foundry.Views
                 Text = GetOperationDialogStatusText(),
                 TextWrapping = TextWrapping.Wrap,
                 MaxWidth = 440,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                TextAlignment = TextAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                TextAlignment = TextAlignment.Left
             };
 
             operationProgressBar = new ProgressBar
@@ -340,7 +340,9 @@ namespace Foundry.Views
             {
                 Text = GetSecondaryOperationDialogStatusText(),
                 TextWrapping = TextWrapping.Wrap,
-                MaxWidth = 440
+                MaxWidth = 440,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                TextAlignment = TextAlignment.Left
             };
 
             operationSecondaryProgressBar = new ProgressBar
@@ -369,7 +371,7 @@ namespace Foundry.Views
                 MinWidth = 420,
                 MaxWidth = 520,
                 Padding = new Thickness(0, 8, 0, 0),
-                Spacing = 20,
+                Spacing = 16,
                 Children =
                 {
                     new Microsoft.UI.Xaml.Controls.ProgressRing

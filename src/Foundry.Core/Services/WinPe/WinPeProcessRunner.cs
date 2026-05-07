@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Foundry.Core.Services.WinPe;
 
-public sealed class WinPeProcessRunner : IWinPeProcessRunner
+public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
 {
     private const string InternalSetEnvKey = "FOUNDRY_ADK_SETENV_PATH";
 
@@ -11,6 +11,25 @@ public sealed class WinPeProcessRunner : IWinPeProcessRunner
         string fileName,
         string arguments,
         string workingDirectory,
+        CancellationToken cancellationToken,
+        IReadOnlyDictionary<string, string>? environmentOverrides = null)
+    {
+        return await RunWithOutputAsync(
+            fileName,
+            arguments,
+            workingDirectory,
+            null,
+            null,
+            cancellationToken,
+            environmentOverrides).ConfigureAwait(false);
+    }
+
+    public async Task<WinPeProcessExecution> RunWithOutputAsync(
+        string fileName,
+        string arguments,
+        string workingDirectory,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData,
         CancellationToken cancellationToken,
         IReadOnlyDictionary<string, string>? environmentOverrides = null)
     {
@@ -58,6 +77,7 @@ public sealed class WinPeProcessRunner : IWinPeProcessRunner
         {
             if (args.Data is not null)
             {
+                onOutputData?.Invoke(args.Data);
                 stdoutBuilder.AppendLine(args.Data);
             }
         };
@@ -66,6 +86,7 @@ public sealed class WinPeProcessRunner : IWinPeProcessRunner
         {
             if (args.Data is not null)
             {
+                onErrorData?.Invoke(args.Data);
                 stderrBuilder.AppendLine(args.Data);
             }
         };

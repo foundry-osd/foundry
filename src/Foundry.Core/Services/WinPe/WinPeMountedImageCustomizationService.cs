@@ -84,7 +84,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             artifact.BootWimPath,
             artifact.MountDirectoryPath,
             artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+            cancellationToken,
+            CreateDismProgress(options.Progress, 30, "Mounting boot image.")).ConfigureAwait(false);
 
         if (!mountResult.IsSuccess)
         {
@@ -119,6 +120,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             options.DriverPackagePaths,
             tools.DismPath,
             artifact.WorkingDirectoryPath,
+            options.Progress,
             cancellationToken).ConfigureAwait(false);
 
         if (!driverInjectionResult.IsSuccess)
@@ -134,7 +136,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 Architecture = artifact.Architecture,
                 Tools = tools,
                 WinPeLanguage = options.WinPeLanguage,
-                WorkingDirectoryPath = artifact.WorkingDirectoryPath
+                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
+                DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.")
             },
             cancellationToken).ConfigureAwait(false);
 
@@ -178,7 +181,9 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         }
 
         ReportProgress(options.Progress, 90, "Committing image changes.");
-        WinPeResult commitResult = await session.CommitAsync(cancellationToken).ConfigureAwait(false);
+        WinPeResult commitResult = await session.CommitAsync(
+            cancellationToken,
+            CreateDismProgress(options.Progress, 90, "Committing image changes.")).ConfigureAwait(false);
         if (commitResult.IsSuccess)
         {
             ReportProgress(options.Progress, 100, "Image customization completed.");
@@ -192,6 +197,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         IReadOnlyList<string> driverPackagePaths,
         string dismPath,
         string workingDirectoryPath,
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
         CancellationToken cancellationToken)
     {
         if (driverPackagePaths.Count == 0)
@@ -206,7 +212,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 DriverPackagePaths = driverPackagePaths,
                 RecurseSubdirectories = true,
                 DismExecutablePath = dismPath,
-                WorkingDirectoryPath = workingDirectoryPath
+                WorkingDirectoryPath = workingDirectoryPath,
+                DismProgress = CreateDismProgress(progress, 45, "Injecting drivers into mounted image.")
             },
             cancellationToken).ConfigureAwait(false);
     }
@@ -354,5 +361,13 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             Percent = percent,
             Status = status
         });
+    }
+
+    private static IProgress<WinPeDismProgress>? CreateDismProgress(
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
+        int percent,
+        string status)
+    {
+        return progress is null ? null : new WinPeDismProgressForwarder(progress, percent, status);
     }
 }

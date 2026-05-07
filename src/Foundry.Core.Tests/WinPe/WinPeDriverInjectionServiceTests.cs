@@ -61,7 +61,48 @@ public sealed class WinPeDriverInjectionServiceTests
         Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
     }
 
-    private sealed class FakeInjectionRunner : IWinPeProcessRunner
+    [Fact]
+    public async Task InjectAsync_ReportsDismProgressFromProcessOutput()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-injection-{Guid.NewGuid():N}");
+        string mountedImagePath = Path.Combine(root, "mount");
+        string workingDirectory = Path.Combine(root, "work");
+        string driverDirectory = Path.Combine(root, "drivers");
+        Directory.CreateDirectory(mountedImagePath);
+        Directory.CreateDirectory(workingDirectory);
+        Directory.CreateDirectory(driverDirectory);
+
+        var runner = new FakeInjectionRunner(["25%", "100%"]);
+        var progress = new CollectingProgress<WinPeDismProgress>();
+        var service = new WinPeDriverInjectionService(runner);
+
+        try
+        {
+            WinPeResult result = await service.InjectAsync(
+                new WinPeDriverInjectionOptions
+                {
+                    MountedImagePath = mountedImagePath,
+                    WorkingDirectoryPath = workingDirectory,
+                    DriverPackagePaths = [driverDirectory],
+                    DismExecutablePath = "dism.exe",
+                    RecurseSubdirectories = true,
+                    DismProgress = progress
+                },
+                CancellationToken.None);
+
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            Assert.Collection(
+                progress.Reports,
+                report => Assert.Equal(25, report.Percent),
+                report => Assert.Equal(100, report.Percent));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    private sealed class FakeInjectionRunner(IReadOnlyList<string>? outputLines = null) : IWinPeProcessOutputRunner
     {
         public List<WinPeProcessExecution> Executions { get; } = [];
 
@@ -83,6 +124,23 @@ public sealed class WinPeDriverInjectionServiceTests
             return Task.FromResult(execution);
         }
 
+        public Task<WinPeProcessExecution> RunWithOutputAsync(
+            string fileName,
+            string arguments,
+            string workingDirectory,
+            Action<string>? onOutputData,
+            Action<string>? onErrorData,
+            CancellationToken cancellationToken,
+            IReadOnlyDictionary<string, string>? environmentOverrides = null)
+        {
+            foreach (string line in outputLines ?? [])
+            {
+                onOutputData?.Invoke(line);
+            }
+
+            return RunAsync(fileName, arguments, workingDirectory, cancellationToken, environmentOverrides);
+        }
+
         public Task<WinPeProcessExecution> RunCmdScriptAsync(
             string scriptPath,
             string scriptArguments,
@@ -99,6 +157,16 @@ public sealed class WinPeDriverInjectionServiceTests
             CancellationToken cancellationToken)
         {
             throw new NotSupportedException();
+        }
+    }
+
+    private sealed class CollectingProgress<T> : IProgress<T>
+    {
+        public List<T> Reports { get; } = [];
+
+        public void Report(T value)
+        {
+            Reports.Add(value);
         }
     }
 }

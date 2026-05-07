@@ -319,11 +319,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             if (target == FinalMediaTarget.Iso)
             {
-                string isoOutputPath = await CreateIsoMediaAsync(options, CancellationToken.None);
-                successMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    localizationService.GetString("StartMedia.Operation.IsoSuccessMessage"),
-                    isoOutputPath);
+                _ = await CreateIsoMediaAsync(options, CancellationToken.None);
+                successMessage = localizationService.GetString("StartMedia.Operation.IsoSuccessMessage");
             }
             else
             {
@@ -634,10 +631,23 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             : LocalizeCustomizationStatus(progress.Status);
 
         logger.Debug(
-            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}",
+            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
             progress.Status,
             progress.Percent,
-            normalizedProgress);
+            normalizedProgress,
+            progress.DetailStatus,
+            progress.DetailPercent);
+
+        if (progress.DetailPercent.HasValue || !string.IsNullOrWhiteSpace(progress.DetailStatus))
+        {
+            operationProgressService.Report(
+                normalizedProgress,
+                status,
+                progress.DetailPercent,
+                LocalizeDismProgressStatus(progress.DetailStatus));
+            return;
+        }
+
         operationProgressService.Report(normalizedProgress, status);
     }
 
@@ -727,6 +737,26 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         return status;
+    }
+
+    private string LocalizeDismProgressStatus(string status)
+    {
+        string resourceKey = status switch
+        {
+            "Exporting Windows image with DISM." => "StartMedia.Operation.DismExportingWindowsImage",
+            "Resolving WinRE image index with DISM." => "StartMedia.Operation.DismResolvingWinReImageIndex",
+            "Mounting image with DISM." => "StartMedia.Operation.DismMountingImage",
+            "Injecting drivers with DISM." => "StartMedia.Operation.DismInjectingDrivers",
+            "Applying language pack with DISM." => "StartMedia.Operation.DismApplyingLanguagePack",
+            "Applying optional components with DISM." => "StartMedia.Operation.DismApplyingOptionalComponents",
+            "Applying international settings with DISM." => "StartMedia.Operation.DismApplyingInternationalSettings",
+            "Committing image changes with DISM." => "StartMedia.Operation.DismCommittingImageChanges",
+            _ => string.Empty
+        };
+
+        return string.IsNullOrWhiteSpace(resourceKey)
+            ? status
+            : localizationService.GetString(resourceKey);
     }
 
     private string LocalizeFinalMediaStatus(string status)

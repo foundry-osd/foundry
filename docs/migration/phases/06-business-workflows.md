@@ -343,7 +343,7 @@ git commit -m "feat(autopilot): wire start readiness"
   - [x] Never log media secret keys.
   - [x] Never show plaintext secrets or media keys in summaries, validation errors, or operation output.
   - [x] Create `media-secrets.key` only when generated media contains encrypted secret envelopes.
-- [ ] **16.E.6** Commit:
+- [x] **16.E.6** Commit:
 
 ```powershell
 git commit -m "feat(media): enable final iso and usb commands"
@@ -374,7 +374,7 @@ git commit -m "feat(media): enable final iso and usb commands"
 - [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, pre-format cancellation, and failure events without exposing secrets.
   - [x] Add debug coverage for WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, and workspace cleanup.
   - [ ] Re-run ISO/USB creation and confirm the new debug events appear without plaintext Wi-Fi passphrases or media keys.
-- [ ] **16.E.13** Improve long-running media progress UX:
-  - [ ] Show the current overall operation percentage beside the primary progress bar when progress is determinate.
-  - [ ] Extend the progress contract to support optional nested progress for internet downloads.
-  - [ ] Show a secondary progress bar only while a download exposes nested byte-level progress.
+- [x] **16.E.13** Improve long-running media progress UX:
+  - [x] Show the current overall operation percentage beside the primary progress bar when progress is determinate.
+  - [x] Extend the progress contract to support optional nested progress for internet downloads and DISM operations.
+  - [x] Show a secondary progress bar only while a download or DISM operation exposes nested progress.

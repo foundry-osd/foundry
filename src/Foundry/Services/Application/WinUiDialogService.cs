@@ -42,7 +42,9 @@ public sealed class WinUiDialogService : IDialogService
         {
             Text = message,
             TextWrapping = TextWrapping.Wrap,
-            MaxWidth = 520
+            MinWidth = 360,
+            MaxWidth = 520,
+            Margin = new Thickness(0, 4, 0, 8)
         };
     }
 
