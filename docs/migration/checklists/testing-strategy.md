@@ -47,3 +47,6 @@
   - [ ] USB creation.
   - [ ] WinPE VM boot.
   - [ ] Final generated ISO boots in a VM after final media execution is enabled and confirms bootstrap/config/runtime resolution.
+  - [ ] Final generated media blocks ISO/USB creation when Deploy, Connect, runtime payload, network, or required-secret readiness is incomplete.
+  - [ ] Final generated media validates `Foundry.Connect` reads generated network configuration and decrypts embedded secrets without prompting.
+  - [ ] Final generated media validates `Foundry.Deploy` loads generated deploy configuration and handles Autopilot enabled-without-profile recovery.

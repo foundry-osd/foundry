@@ -6,7 +6,7 @@
 
 **Goal:** port expert mode without mixing it into the standard workflow.
 
-**Prerequisites and boundary:** Phase 11 shell/overlay behavior, Phase 12 WinPE/media services, and Phase 13 media preflight must be complete before Phase 14 implementation starts. Phase 13 item **13.18** intentionally keeps final ISO/USB execution disabled until deploy configuration, Connect provisioning, and secret readiness are complete. Phase 14 may make deploy configuration readiness real, but it must not complete **13.18.1** or enable final media execution; that belongs to the final media enablement PR after Phases 14 and 15.
+**Prerequisites and boundary:** Phase 11 shell/overlay behavior, Phase 12 WinPE/media services, and Phase 13 media preflight must be complete before Phase 14 implementation starts. Phase 13 item **13.18** intentionally keeps final ISO/USB execution disabled until deploy configuration, Connect provisioning, secret, runtime payload, and optional Autopilot/customization readiness are complete. Phase 14 may make deploy configuration readiness real, but it must not complete **13.18.1** or enable final media execution; that belongs to Phase 16.E final media command enablement.
 
 **Scope boundary:** Phase 14 owns Expert Deploy configuration state, runtime deploy configuration generation, and deployment localization behavior. It may create or bind minimal expert page state needed for persistence and runtime config generation, but full Network provisioning belongs to Phase 15, and full Autopilot/customization workflows belong to Phase 16.
 
@@ -53,7 +53,7 @@
 - [x] **14.7.2** Wire deploy configuration readiness into the `Start` page preflight without enabling final ISO/USB execution:
   - [x] Replace the Phase 13 hardcoded deploy readiness placeholder with real deploy configuration readiness.
   - [x] Keep runtime, Connect provisioning, network provisioning, secret readiness, and final execution gates blocked until their planned phases are complete.
-  - [x] Leave **13.18.1** unchecked until the final media enablement PR after Phases 14 and 15.
+  - [x] Leave **13.18.1** unchecked until Phase 16.E final media command enablement.
 - [x] **14.8** Add tests only where business logic changed.
 - [x] **14.9** Commit:
 
@@ -67,7 +67,7 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 - [x] **14.11** Validate Expert Deploy settings persist through the normal app workflow state path.
 - [x] **14.12** Validate generated runtime Deploy config for representative standard and expert settings.
 - [ ] **14.13** Generate deploy config and validate `Foundry.Deploy` can consume it.
-  - Deferred until final ISO/USB media creation is enabled after Phase 15; Phase 14 validates generation and model compatibility, but cannot run the real generated-media `Foundry.Deploy` path yet.
+  - Deferred until Phase 16.E enables final ISO/USB media creation; Phase 14 validates generation and model compatibility, but cannot run the real generated-media `Foundry.Deploy` path yet.
 - [x] **14.14** Validate `Foundry.Deploy` applies or tolerates `localization.defaultTimeZoneId`.
 - [x] **14.15** Validate generated standard media deploy config contains complete default root sections.
 
@@ -77,7 +77,7 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 
 **Goal:** port network and Wi-Fi provisioning logic used by Foundry.Connect handoff.
 
-**Prerequisites and boundary:** Phase 14 must provide Deploy configuration state, runtime Deploy config generation, and deploy configuration readiness before Phase 15 starts. Phase 15 may make Connect, network, and required-secret readiness real for the `Start` page preflight, but it must still leave final ISO/USB execution disabled until the final media enablement PR.
+**Prerequisites and boundary:** Phase 14 must provide Deploy configuration state, runtime Deploy config generation, and deploy configuration readiness before Phase 15 starts. Phase 15 may make Connect, network, and required-secret readiness real for the `Start` page preflight, but it must still leave final ISO/USB execution disabled until Phase 16.E final media command enablement.
 
 **Recommended implementation split:** Phase 15 has security-sensitive and runtime-sensitive work. Prefer focused PRs under the same phase rather than one broad branch:
 
@@ -157,7 +157,7 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
     - [x] Generated config-relative paths must match these folders.
 - [x] **15.7.10** Wire Connect, network, and required-secret readiness into the `Start` page preflight without enabling final ISO/USB execution:
   - [x] Replace the Phase 13 hardcoded network, Connect provisioning, and required-secret readiness placeholders with real readiness values.
-  - [x] Keep runtime payload readiness and final execution gates blocked until the final media enablement PR.
+  - [x] Keep runtime payload readiness and final execution gates blocked until Phase 16.E final media command enablement.
 - [x] **15.8** Commit:
 
 ```powershell
@@ -185,7 +185,7 @@ git commit -m "feat(network): wire connect preflight readiness"
   - [x] Nonces.
   - [x] Tags.
 - [x] **15.17** Generated media contains `media-secrets.key` only when an encrypted secret envelope is present.
-  - [x] Validate this at the service/workspace provisioning level during Phase 15; full generated ISO/USB execution remains deferred until the final media enablement PR.
+  - [x] Validate this at the service/workspace provisioning level during Phase 15; full generated ISO/USB execution remains deferred until Phase 16.E final media command enablement.
 - [x] **15.18** WPF comparison tests account for intentional WinUI changes:
   - [x] Complete effective Connect config documents.
   - [x] Complete effective Deploy config documents.
@@ -274,14 +274,14 @@ git commit -m "feat(network): wire connect preflight readiness"
   - [x] **16.D.1** Do not block media creation when Autopilot is disabled.
   - [x] **16.D.2** Block or warn when Autopilot is enabled but no valid default profile is selected.
   - [x] **16.D.3** Show selected Autopilot profile metadata without exposing tenant tokens or Graph response bodies.
-  - [x] **16.D.4** Keep final ISO/USB execution disabled until the final media enablement PR.
+  - [x] **16.D.4** Keep final ISO/USB execution disabled until Phase 16.E final media command enablement.
   - [x] **16.D.5** Preserve generated Deploy config and Autopilot profile path contracts across the final Phase 16 state.
   - [x] **16.D.6** Update `Foundry.Deploy` Autopilot startup behavior so generated Deploy config is the source of truth:
     - [x] Respect `autopilot.isEnabled=false` even when embedded Autopilot profiles exist.
     - [x] Select/use a default Autopilot profile only when `autopilot.isEnabled=true`.
     - [x] Remove any automatic enablement based only on profile presence.
 
-- [ ] **16.6** Commit each split independently:
+- [x] **16.6** Commit each split independently:
 
 ```powershell
 git commit -m "feat(customization): port machine naming settings"
@@ -302,3 +302,66 @@ git commit -m "feat(autopilot): wire start readiness"
 - [x] **16.14** Autopilot disabled does not block `Start` preflight.
 - [x] **16.15** Autopilot enabled without a valid default profile blocks or warns in `Start` preflight.
 - [ ] **16.16** Deferred until final media generation is enabled: boot generated media into `Foundry.Deploy` with Autopilot enabled but no embedded profile, and confirm the Autopilot section remains visible so the operator can disable it.
+
+## Phase 16.E: Final Media Command Enablement
+
+**Priority:** high before compatibility testing.
+
+**Goal:** turn the `Start` page from readiness-only mode into the real ISO/USB execution entry point after Deploy, Connect, network, secret, runtime payload, and optional Autopilot/customization readiness are all real.
+
+**Prerequisites and boundary:** Phases 14, 15, and 16 must be complete. Phase 16.E owns final media command enablement and must absorb deferred real-media validations from Phases 12, 13, 14, 15, and 16. Phase 16.E should not perform the broader Connect/Deploy compatibility pass; that remains Phase 17 after media can be generated from WinUI.
+
+- [ ] **16.E.1** Replace remaining final media placeholders in `Start` preflight:
+  - [ ] Runtime payload readiness is real, not hardcoded.
+  - [ ] `Foundry.Connect` runtime payload availability is checked for the selected RID.
+  - [ ] `Foundry.Deploy` runtime payload availability is checked for the selected RID.
+  - [ ] Blocking reasons identify missing runtime payloads separately from Deploy, Connect, network, secret, or Autopilot readiness.
+- [ ] **16.E.2** Wire final ISO/USB command enablement:
+  - [ ] Enable `Create ISO` only when ADK, ISO path, architecture, Deploy, Connect, network, required secrets, runtime payloads, and optional Autopilot readiness pass.
+  - [ ] Enable `Create USB` only when all ISO requirements pass and a stable USB target is selected.
+  - [ ] Keep USB creation disabled when no USB target is selected without blocking ISO creation.
+  - [ ] Keep command state readable in the global summary.
+- [ ] **16.E.3** Wire `Create ISO` execution from WinUI:
+  - [ ] Use the existing operation overlay contract for progress, cancellation, completion, and failure.
+  - [ ] Call the core ISO media service from an app-level orchestration service or view model command, not from page code-behind.
+  - [ ] Generate the complete effective Deploy and Connect configuration files during media provisioning.
+  - [ ] Provision runtime payloads, network assets, encrypted secret keys, Autopilot profiles, customization settings, drivers, and boot-language assets into the generated media layout.
+- [ ] **16.E.4** Wire `Create USB` execution from WinUI:
+  - [ ] Require an explicit destructive USB confirmation dialog.
+  - [ ] Default the destructive confirmation to cancel.
+  - [ ] Revalidate selected USB disk identity immediately before formatting.
+  - [ ] Use the existing operation overlay contract for progress, cancellation, completion, and failure.
+- [ ] **16.E.5** Keep secrets safe during final execution:
+  - [ ] Never log plaintext Wi-Fi/network secrets.
+  - [ ] Never log media secret keys.
+  - [ ] Never show plaintext secrets or media keys in summaries, validation errors, or operation output.
+  - [ ] Create `media-secrets.key` only when generated media contains encrypted secret envelopes.
+- [ ] **16.E.6** Commit:
+
+```powershell
+git commit -m "feat(media): enable final iso and usb commands"
+```
+
+**Validation**
+
+- [ ] **16.E.7** Complete deferred Phase 12 generated media validation:
+  - [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
+  - [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command when hardware is available.
+  - [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
+- [ ] **16.E.8** Complete deferred Phase 13 command gate validation:
+  - [ ] **13.18.1** ISO/USB creation is blocked when required Connect configuration is incomplete.
+  - [ ] **13.18.1** ISO/USB creation is blocked when required Deploy configuration is incomplete.
+  - [ ] **13.18.1** ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
+  - [ ] **13.18.1** ISO/USB creation is blocked when runtime payloads are unavailable.
+  - [ ] **13.18.1** ISO/USB creation is blocked or warned when Autopilot is enabled without a valid embedded profile.
+- [ ] **16.E.9** Complete deferred Phase 14 generated-media validation:
+  - [ ] **14.13** Generated media contains `foundry.deploy.config.json`.
+  - [ ] **14.13** `Foundry.Deploy` can load the generated Deploy config from generated media.
+- [ ] **16.E.10** Complete deferred Phase 15 generated-media validation:
+  - [ ] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets from generated boot media.
+  - [ ] **15.15** `Foundry.Connect` decrypts embedded secrets from generated boot media without prompting the operator for a decryption key.
+- [ ] **16.E.11** Complete deferred Phase 16 generated-media validation:
+  - [ ] **16.16** Boot generated media into `Foundry.Deploy` with Autopilot enabled but no embedded profile, and confirm the Autopilot section remains visible so the operator can disable it.
+  - [ ] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+  - [ ] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
+- [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, cancellation, and failure events without exposing secrets.

@@ -90,10 +90,12 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
   - [x] Phase 11: DevWinUI shell navigation, pages, settings, and operation overlay.
   - [x] Phase 12: ADK, WinPE services, filesystem layout, and runtime layout normalization.
   - [x] Phase 13: Start page ISO/USB creation UI and media command wiring.
-- [ ] **Business workflow lane**
-  - [ ] Phase 14: Expert Deploy configuration and runtime compatibility.
-  - [ ] Phase 15: network provisioning and `Foundry.Connect` handoff.
-  - [ ] Phase 16: Autopilot and customization workflows.
+- [x] **Business workflow lane**
+  - [x] Phase 14: Expert Deploy configuration and runtime compatibility.
+  - [x] Phase 15: network provisioning and `Foundry.Connect` handoff.
+  - [x] Phase 16: Autopilot and customization workflows.
+- [ ] **Final media enablement lane**
+  - [ ] Phase 16.E: enable final ISO/USB commands after Deploy, Connect, network, secret, runtime payload, and optional Autopilot readiness are real.
 - [ ] **Cutover lane**
   - [ ] Phase 17: `Foundry.Connect` and `Foundry.Deploy` compatibility pass.
   - [ ] Phase 18: cleanup and dependency review.
@@ -115,16 +117,18 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [x] Phase 4.
 - [x] Phase 5.
 - [x] Phase 12 pure services.
-- [ ] Phase 14 Deploy configuration logic.
-- [ ] Phase 15 provisioning logic.
+- [x] Phase 14 Deploy configuration logic.
+- [x] Phase 15 provisioning logic.
+- [ ] Phase 16.E final media execution orchestration.
 
 ### Workstream C: WinUI Shell
 
 - [x] Phase 6.
 - [x] Phase 11.
 - [x] Phase 13 UI.
-- [ ] Phase 14 UI.
-- [ ] Phase 16 UI.
+- [x] Phase 14 UI.
+- [x] Phase 16 UI.
+- [ ] Phase 16.E Start page command wiring.
 
 ### Workstream D: Distribution
 
@@ -154,10 +158,10 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [x] PR 13: Connect/Deploy runtime layout normalization.
 - [x] PR 14: new `ProgramData`, ISO, USB, and WinPE media layout enforcement.
 - [x] PR 15: Start page media creation UI and dry-run summary.
-- [ ] PR 16: Expert Deploy configuration workflow.
-- [ ] PR 17: network provisioning and `Foundry.Connect` handoff workflow.
-- [ ] PR 18: final Start page ISO/USB command enablement after Phase 15.
-- [ ] PR 19: Autopilot and customization workflows.
+- [x] PR 16: Expert Deploy configuration workflow.
+- [x] PR 17: network provisioning and `Foundry.Connect` handoff workflow.
+- [x] PR 18: Autopilot and customization workflows.
+- [ ] PR 19: final Start page ISO/USB command enablement after Phase 16.
 - [ ] PR 20: Connect/Deploy compatibility fixes.
 - [ ] PR 21: cleanup and docs.
 - [ ] PR 22: final cutover and scheduled release restoration.

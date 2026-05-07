@@ -119,7 +119,7 @@ Footer
   - [ ] Driver options.
   - [ ] Network validation.
 - [ ] During Phase 13, expose preflight and dry-run summaries only.
-- [ ] Keep final ISO/USB execution disabled through the Deploy and Connect/network provisioning phases; command enablement belongs to the final media enablement PR after those readiness signals are real.
+- [ ] Keep final ISO/USB execution disabled through the Deploy, Connect/network, secret, runtime payload, and optional Autopilot/customization readiness phases; command enablement belongs to Phase 16.E after those readiness signals are real.
 - [ ] Provide the primary commands:
   - [ ] Create ISO.
   - [ ] Create USB.

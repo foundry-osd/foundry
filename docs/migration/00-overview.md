@@ -50,7 +50,8 @@
 
 - [ ] WinUI 3 is provided through Windows App SDK.
 - [ ] For unpackaged or externally packaged Windows App SDK apps, startup must handle Windows App SDK runtime initialization correctly before using Windows App SDK APIs.
-- [ ] `DeploymentManager.Initialize()` can initialize/register Windows App SDK runtime packages for packaged apps.
+- [ ] Validate the selected unpackaged Velopack MSI distribution model on a clean machine or clean VM, including Windows App SDK runtime/bootstrap initialization before WinUI APIs are used.
+- [ ] `DeploymentManager` APIs can help identify or initialize Windows App SDK runtime package state where applicable, but the migration must not rely on packaged-app-only assumptions for the unpackaged Velopack MSI path.
 - [ ] Velopack supports Windows installer/update packaging and can generate an `.msi` installer with `vpk pack --msi`.
 - [ ] The target installer mode is Velopack MSI with `--instLocation PerMachine`, not a repository-owned WiX installer project.
 - [ ] The target app packaging model is unpackaged WinUI with `WindowsPackageType=None`.

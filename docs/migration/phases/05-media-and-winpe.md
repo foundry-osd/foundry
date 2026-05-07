@@ -280,7 +280,7 @@ git commit -m "feat(winpe): apply programdata media layout"
 - [x] **12.19** Local debug Deploy publish override still works.
 - [x] **12.23** New host-side `ProgramData` layout is used without old-folder fallback.
 
-**Manual validation deferred to final media command enablement after Phases 14 and 15**
+**Manual validation deferred to Phase 16.E final media command enablement**
 
 - [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command after final media execution is enabled.
 - [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command after final media execution is enabled.
@@ -328,7 +328,7 @@ git commit -m "feat(winpe): apply programdata media layout"
 
 **Prerequisites:** Phase 11 shell/overlay contract and the Phase 12 ADK/WinPE service contract must be available before implementing the `Start` page media workflow.
 
-**Provisioning boundary:** the final production ISO/USB creation path also depends on Phase 14 for complete `Foundry.Deploy` configuration generation and Phase 15 for complete `Foundry.Connect` configuration, network asset provisioning, and encrypted embedded Wi-Fi secrets. Phase 13 builds the `General` media defaults UI, the `Start` global summary, readiness checks, and USB discovery. Final Create ISO/Create USB execution remains disabled or explicitly marked incomplete until the final enablement PR after Phases 14 and 15.
+**Provisioning boundary:** the final production ISO/USB creation path also depends on Phase 14 for complete `Foundry.Deploy` configuration generation, Phase 15 for complete `Foundry.Connect` configuration, network asset provisioning, and encrypted embedded Wi-Fi secrets, and Phase 16 for optional Autopilot/customization readiness. Phase 13 builds the `General` media defaults UI, the `Start` global summary, readiness checks, and USB discovery. Final Create ISO/Create USB execution remains disabled or explicitly marked incomplete until Phase 16.E final media command enablement.
 
 - [x] **13.1** Create WinUI view model for media defaults on the main `General` page and media preflight on the `Start` page.
   - [x] Keep WinPE boot language selection owned by the main `General` page because the WPF source stores it in `GeneralSettings.WinPeLanguage`.
@@ -353,7 +353,7 @@ git commit -m "feat(winpe): apply programdata media layout"
   - [x] Refresh USB disks manually from the `Start` page because USB target selection is execution-time state.
   - [x] Refresh USB disks automatically when the `Start` page loads and ADK is compatible.
   - [x] Generate one global media summary on the `Start` page.
-  - [x] Keep final Create ISO/Create USB execution disabled until the final media enablement PR.
+  - [x] Keep final Create ISO/Create USB execution disabled until Phase 16.E final media command enablement.
 - [x] **13.4** Prepare the future WinUI destructive USB warning dialog contract in the dry-run flow.
   - [x] Show disk number, friendly name, and size in the USB target summary.
   - [x] Document that the future final USB command must default to cancel/no.
@@ -402,10 +402,12 @@ git commit -m "feat(media): add start page preflight workflow"
   - [x] The selected language appears in the `Start` page global summary using canonical culture casing such as `fr-FR` or `en-US`.
   - [x] The selected language is mapped to the Phase 12 service option that will control language pack and localized optional component package application during final execution.
   - [x] The expert `Localization` page is not part of this flow.
-- [x] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration and Phase 15 Connect/network provisioning readiness:
+- [x] **13.18** Confirm final media command enablement waits for Phase 14 Deploy configuration, Phase 15 Connect/network provisioning, and Phase 16 optional Autopilot/customization readiness:
   - [x] Phase 13 keeps final ISO/USB execution disabled even when the dry-run summary is valid.
-  - [x] Phase 13 global summary lists Deploy, Connect, and secret-key provisioning as deferred readiness gates.
-- [ ] **13.18.1** Confirm final media command enablement after Phases 14 and 15:
-  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Connect configuration is incomplete.
-  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when required Deploy configuration is incomplete.
-  - [ ] Final media enablement after Phases 14 and 15 blocks ISO/USB creation when encrypted secret-key provisioning is required but unavailable.
+  - [x] Phase 13 global summary lists Deploy, Connect, secret-key, runtime payload, and optional Autopilot provisioning as deferred readiness gates.
+- [ ] **13.18.1** Confirm Phase 16.E final media command enablement:
+  - [ ] Final media enablement blocks ISO/USB creation when required Connect configuration is incomplete.
+  - [ ] Final media enablement blocks ISO/USB creation when required Deploy configuration is incomplete.
+  - [ ] Final media enablement blocks ISO/USB creation when encrypted secret-key provisioning is required but unavailable.
+  - [ ] Final media enablement blocks ISO/USB creation when runtime payloads for `Foundry.Connect` or `Foundry.Deploy` are unavailable.
+  - [ ] Final media enablement blocks or warns when Autopilot is enabled without a valid embedded profile.

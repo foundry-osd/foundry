@@ -7,7 +7,8 @@
 - [ ] All relevant unit tests pass.
 - [ ] Velopack package builds.
 - [ ] MSI installer builds.
-- [ ] Installed app launches.
+- [ ] Installed app launches from a clean MSI install.
+- [ ] Windows App SDK runtime/bootstrap initialization works for the selected unpackaged Velopack MSI distribution model before WinUI APIs are used.
 - [ ] Manual update check works.
 - [ ] No-update state works.
 - [ ] Logs are created under the expected directory.
@@ -22,8 +23,10 @@
 - [ ] Logs, summaries, validation errors, and diagnostics do not expose plaintext secrets, encrypted payloads, nonces, tags, or media keys.
 - [ ] Generated WinPE media launches `Foundry.Connect`.
 - [ ] Generated WinPE media can launch `Foundry.Deploy`.
-- [ ] Final Create ISO/Create USB commands are enabled only when Deploy, Connect, runtime payload, network, and required-secret readiness checks pass.
+- [ ] Final Create ISO/Create USB commands are enabled only when Deploy, Connect, runtime payload, network, required-secret, and optional Autopilot readiness checks pass.
+- [ ] Final Create ISO/Create USB commands remain blocked when required Deploy, Connect, runtime payload, network, or secret readiness is incomplete.
 - [ ] Autopilot media payloads are embedded when Autopilot is enabled and a valid profile is selected.
+- [ ] Autopilot enabled without an embedded profile keeps the operator-visible recovery/disable path available in `Foundry.Deploy`.
 - [ ] Media creation remains available when Autopilot is disabled.
 - [ ] Generated ISO/USB media uses the expected `X:\Foundry`, `Runtime`, `Config`, `Seed`, `Tools`, `OperatingSystem`, and `DriverPack` layout.
 - [ ] Generated ISO/USB media stores both runtime agents under `Runtime\<ApplicationName>\<rid>`.
