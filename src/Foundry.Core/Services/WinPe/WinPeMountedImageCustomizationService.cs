@@ -63,7 +63,9 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                         Tools = tools,
                         WinPeLanguage = options.WinPeLanguage,
                         CacheDirectoryPath = options.WinReCacheDirectoryPath,
-                        CatalogUri = options.WinReCatalogUri ?? WinReBootImagePreparationService.DefaultOperatingSystemCatalogUri
+                        CatalogUri = options.WinReCatalogUri ?? WinReBootImagePreparationService.DefaultOperatingSystemCatalogUri,
+                        DownloadProgress = options.DownloadProgress,
+                        Progress = options.Progress
                     },
                     cancellationToken).ConfigureAwait(false);
 

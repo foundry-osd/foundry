@@ -25,5 +25,6 @@ public sealed record UsbOutputOptions
     public string? ExpertDeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = [];
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
+    public IProgress<WinPeMediaProgress>? Progress { get; init; }
     public bool PreserveBuildWorkspace { get; init; }
 }

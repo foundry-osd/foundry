@@ -328,12 +328,14 @@ git commit -m "feat(autopilot): wire start readiness"
   - [x] Call the core ISO media service from an app-level orchestration service or view model command, not from page code-behind.
   - [x] Generate the complete effective Deploy and Connect configuration files during media provisioning.
   - [x] Provision runtime payloads, network assets, encrypted secret keys, Autopilot profiles, customization settings, drivers, and boot-language assets into the generated media layout.
+  - [x] Select the WinRE Wi-Fi boot image source whenever Wi-Fi provisioning is enabled, matching the WPF workflow.
   - [x] Clean temporary WinPE workspaces after the ISO operation exits.
 - [x] **16.E.4** Wire `Create USB` execution from WinUI:
   - [x] Require an explicit destructive USB confirmation dialog.
   - [x] Default the destructive confirmation to cancel.
   - [x] Keep destructive confirmation content readable with wrapping and a wider dialog content area.
   - [x] Revalidate selected USB disk identity immediately before formatting.
+  - [x] Select the WinRE Wi-Fi boot image source whenever Wi-Fi provisioning is enabled, matching the WPF workflow.
   - [x] Use the existing operation overlay contract for progress, completion, and failure; cancellation is limited to the pre-format confirmation step until the operation overlay supports cancellation.
   - [x] Clean temporary WinPE workspaces after the USB operation exits.
 - [x] **16.E.5** Keep secrets safe during final execution:
@@ -372,3 +374,7 @@ git commit -m "feat(media): enable final iso and usb commands"
 - [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, pre-format cancellation, and failure events without exposing secrets.
   - [x] Add debug coverage for WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, and workspace cleanup.
   - [ ] Re-run ISO/USB creation and confirm the new debug events appear without plaintext Wi-Fi passphrases or media keys.
+- [ ] **16.E.13** Improve long-running media progress UX:
+  - [ ] Show the current overall operation percentage beside the primary progress bar when progress is determinate.
+  - [ ] Extend the progress contract to support optional nested progress for internet downloads.
+  - [ ] Show a secondary progress bar only while a download exposes nested byte-level progress.

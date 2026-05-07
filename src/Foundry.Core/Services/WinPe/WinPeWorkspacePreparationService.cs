@@ -52,9 +52,10 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 BootImageSource = options.BootImageSource,
                 DriverVendors = options.DriverVendors,
                 CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
-                Artifact = artifact
+                Artifact = artifact,
+                DownloadProgress = options.DownloadProgress
             },
-            cancellationToken).ConfigureAwait(false);
+                cancellationToken).ConfigureAwait(false);
 
         if (!drivers.IsSuccess)
         {
@@ -74,6 +75,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 RuntimePayloadProvisioning = options.RuntimePayloadProvisioning,
                 WinReCacheDirectoryPath = options.WinReCacheDirectoryPath,
                 WinReCatalogUri = options.WinReCatalogUri,
+                DownloadProgress = options.DownloadProgress,
                 Progress = options.CustomizationProgress
             },
             cancellationToken).ConfigureAwait(false);

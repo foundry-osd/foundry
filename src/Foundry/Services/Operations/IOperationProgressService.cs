@@ -6,6 +6,8 @@ public interface IOperationProgressService
     OperationProgressState State { get; }
     void Start(OperationKind kind, string status);
     void Report(int progress, string status);
+    void Report(int progress, string status, int? secondaryProgress, string secondaryStatus);
+    void ClearSecondary();
     void Complete(string status);
     void Reset(string status = "");
 }
