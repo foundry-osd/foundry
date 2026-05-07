@@ -68,17 +68,20 @@ Footer
 
 ### Home
 
-- [ ] Act as an operational dashboard, not a marketing or documentation page.
-- [ ] Show the current Foundry readiness state:
-  - [ ] ADK compatibility.
-  - [ ] Update state.
-  - [ ] Media readiness.
-  - [ ] Most relevant blocked prerequisite.
-- [ ] Highlight missing prerequisites with direct actions.
+- [ ] Act as a simple welcome/onboarding page, not a dense operational dashboard.
+- [ ] Keep visible content intentionally limited:
+  - [ ] Short welcome text.
+  - [ ] One lightweight ADK status card.
+  - [ ] A small set of clear action buttons.
+- [ ] The ADK status card shows only the essential state:
+  - [ ] Compatible/ready state is visibly positive, for example green.
+  - [ ] Missing or incompatible state is visibly non-ready and links to `ADK`.
+  - [ ] Detailed ADK version, policy, and install diagnostics stay on the `ADK` page.
 - [ ] Link to `ADK` when ADK is missing or incompatible.
 - [ ] Link to `General` when standard media defaults need configuration.
 - [ ] Link to `Start` when the app is ready to create media.
-- [ ] Link to the relevant Expert page only when an enabled expert workflow is blocking readiness.
+- [ ] Link to `Documentation` as a secondary onboarding action.
+- [ ] Do not link to Expert pages from Home unless a future explicit onboarding need is approved.
 - [ ] Avoid duplicating detailed configuration controls from other pages.
 
 ### ADK

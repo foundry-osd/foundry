@@ -43,7 +43,7 @@
   - [ ] Theme switching.
   - [ ] Runtime language switching.
   - [ ] Phase 18 UI review across common desktop sizes, light/dark themes, and English/French text.
-  - [ ] Home page dashboard actions and workflow-page layout consistency.
+  - [ ] Home page onboarding actions, lightweight ADK status card, and workflow-page layout consistency.
   - [ ] Velopack install/update.
   - [ ] ISO creation.
   - [ ] USB creation.

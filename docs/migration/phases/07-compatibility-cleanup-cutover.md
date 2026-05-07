@@ -51,9 +51,11 @@ git commit -m "fix: preserve winpe runtime compatibility"
 **Prerequisites and boundary:** Run Phase 18 after Phase 17 compatibility validation. Phase 18 may change WinUI pages, layout, control usage, and shell/page presentation. It must not change generated media contracts, Connect/Deploy runtime configuration schemas, secret handling, or release packaging behavior unless a visual issue exposes a concrete integration bug. Keep DevWinUI as the shell/navigation baseline; do not blindly remove DevWinUI packages that still own navigation, title bar, breadcrumb, settings shell, or content-frame behavior.
 
 - [ ] **18.1** Define the Home page role:
-  - [ ] Home is an operational start point, not a marketing or documentation page.
-  - [ ] Show current readiness at a glance: ADK state, update state, media readiness, and last relevant configuration state.
-  - [ ] Provide direct next actions such as configure media, open Start, open ADK, or continue blocked prerequisites.
+  - [ ] Home is a simple welcome/onboarding page, not a dense operational dashboard.
+  - [ ] Keep the page intentionally sparse with only a short welcome message, a lightweight ADK status card, and a small set of primary action buttons.
+  - [ ] The ADK status card shows only the essential state, using a clear success/non-success visual treatment such as green for compatible/ready and a warning/error state when missing or incompatible.
+  - [ ] Provide direct next actions such as open ADK, configure media, open Start, or open documentation.
+  - [ ] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
   - [ ] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
 - [ ] **18.2** Review page information architecture:
   - [ ] `General` owns standard media defaults.
