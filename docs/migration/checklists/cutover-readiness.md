@@ -30,6 +30,8 @@
 - [ ] Media creation remains available when Autopilot is disabled.
 - [ ] Generated ISO/USB media uses the expected `X:\Foundry`, `Runtime`, `Config`, `Seed`, `Tools`, `OperatingSystem`, and `DriverPack` layout.
 - [ ] Generated ISO/USB media stores both runtime agents under `Runtime\<ApplicationName>\<rid>`.
+- [ ] Phase 18 UI/UX review is complete: Home is operational, workflow pages have coherent layouts, and DevWinUI page-level control usage has been audited against native WinUI and Windows Community Toolkit alternatives.
+- [ ] Common desktop sizes, light/dark themes, and runtime language switching have been manually checked for overlapping or unusable UI.
 - [ ] WinUI `Foundry` writes new host-side data only to the approved `C:\ProgramData\Foundry` layout.
 - [ ] Release workflow publishes all expected artifacts.
 - [ ] Main `Foundry` release artifacts are Velopack package/MSI artifacts, not old single-file portable `.exe` assets.

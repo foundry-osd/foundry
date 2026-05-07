@@ -68,10 +68,17 @@ Footer
 
 ### Home
 
-- [ ] Show the current Foundry readiness state.
-- [ ] Highlight missing prerequisites.
+- [ ] Act as an operational dashboard, not a marketing or documentation page.
+- [ ] Show the current Foundry readiness state:
+  - [ ] ADK compatibility.
+  - [ ] Update state.
+  - [ ] Media readiness.
+  - [ ] Most relevant blocked prerequisite.
+- [ ] Highlight missing prerequisites with direct actions.
 - [ ] Link to `ADK` when ADK is missing or incompatible.
-- [ ] Link to `Start` when the app is ready.
+- [ ] Link to `General` when standard media defaults need configuration.
+- [ ] Link to `Start` when the app is ready to create media.
+- [ ] Link to the relevant Expert page only when an enabled expert workflow is blocking readiness.
 - [ ] Avoid duplicating detailed configuration controls from other pages.
 
 ### ADK

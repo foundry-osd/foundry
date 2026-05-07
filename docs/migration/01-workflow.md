@@ -98,9 +98,10 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
   - [ ] Phase 16.E: enable final ISO/USB commands after Deploy, Connect, network, secret, runtime payload, and optional Autopilot readiness are real.
 - [ ] **Cutover lane**
   - [ ] Phase 17: `Foundry.Connect` and `Foundry.Deploy` compatibility pass.
-  - [ ] Phase 18: cleanup and dependency review.
-  - [ ] Phase 19: documentation update.
-  - [ ] Phase 20: final cutover to `main`.
+  - [ ] Phase 18: Foundry UI/UX review and control rationalization.
+  - [ ] Phase 19: cleanup and dependency review.
+  - [ ] Phase 20: documentation update.
+  - [ ] Phase 21: final cutover to `main`.
 
 ## Suggested Independent Workstreams
 
@@ -110,7 +111,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [x] Phase 2.
 - [x] Phase 3.
 - [x] Phase 8.
-- [ ] Phase 20.
+- [ ] Phase 21.
 
 ### Workstream B: Core Extraction
 
@@ -129,12 +130,13 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [x] Phase 14 UI.
 - [x] Phase 16 UI.
 - [ ] Phase 16.E Start page command wiring.
+- [ ] Phase 18 UI/UX review and control rationalization.
 
 ### Workstream D: Distribution
 
 - [x] Phase 7.
 - [x] Phase 8 release packaging.
-- [ ] Phase 19 installation/update docs.
+- [ ] Phase 20 installation/update docs.
 
 ### Workstream E: Localization And Logging
 
@@ -163,5 +165,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [x] PR 18: Autopilot and customization workflows.
 - [ ] PR 19: final Start page ISO/USB command enablement after Phase 16.
 - [ ] PR 20: Connect/Deploy compatibility fixes.
-- [ ] PR 21: cleanup and docs.
-- [ ] PR 22: final cutover and scheduled release restoration.
+- [ ] PR 21: Foundry UI/UX review and control rationalization.
+- [ ] PR 22: cleanup and dependency review.
+- [ ] PR 23: documentation update.
+- [ ] PR 24: final cutover and scheduled release restoration.

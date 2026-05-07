@@ -43,7 +43,7 @@
 - [ ] Current `Foundry` update logic only checks GitHub releases; it does not install updates.
 - [ ] The WinUI 3 prototype at `F:\Foundry` is a shell app with DevWinUI navigation/settings scaffolding, but no migrated business logic.
 - [ ] The WinUI 3 prototype contains local `bin`, `obj`, and `.vs` folders that must not be moved into the repository.
-- [ ] The UI migration is not a 1:1 WPF screen rewrite; DevWinUI is the long-term baseline shell and Foundry workflows should be integrated into it progressively.
+- [ ] The UI migration is not a 1:1 WPF screen rewrite; DevWinUI is the long-term baseline for shell/navigation chrome, and Foundry workflow pages should use native WinUI or Windows Community Toolkit controls when they provide a clearer product-specific page experience.
 - [ ] The business logic migration is not a 1:1 code rewrite; targeted refactoring is allowed when it improves readability, maintainability, or shared boundaries.
 
 ## External Guidance Captured
@@ -66,7 +66,7 @@
 - [ ] Do not migrate `Foundry.Deploy` to WinUI 3.
 - [ ] Do not treat `Foundry.Connect` and `Foundry.Deploy` as untouchable if a targeted non-UI change improves shared logic or reduces duplication.
 - [ ] Do not recreate the WPF UI layout 1:1.
-- [ ] Keep DevWinUI as the long-term shell baseline for navigation, settings, title bar, and shell behavior.
+- [ ] Keep DevWinUI as the long-term shell baseline for navigation, title bar, and shell behavior, but do not keep DevWinUI page-level controls when native WinUI or Windows Community Toolkit equivalents are simpler, better supported, or visually more coherent.
 - [ ] Do not require an application restart when changing the Foundry UI language.
 - [ ] Keep WinUI `Foundry` app data under `C:\ProgramData\Foundry`; do not use AppData working directories inherited from the DevWinUI prototype.
 - [ ] Do not add UI tests for WPF views, WinUI pages, XAML, bindings, visual layout, or framework behavior.

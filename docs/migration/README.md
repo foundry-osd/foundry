@@ -24,7 +24,7 @@ Use this file as the single prompt entry point. It links to the migration contex
 - [Localization, Logging, And Shell Phases](phases/04-localization-logging-shell.md): phases 9-11.
 - [Media And WinPE Phases](phases/05-media-and-winpe.md): phases 12-13.
 - [Business Workflow Phases](phases/06-business-workflows.md): phases 14-16.
-- [Compatibility, Cleanup, And Cutover Phases](phases/07-compatibility-cleanup-cutover.md): phases 17-20.
+- [Compatibility, UI Review, Cleanup, And Cutover Phases](phases/07-compatibility-cleanup-cutover.md): phases 17-21.
 
 ## Checklists
 

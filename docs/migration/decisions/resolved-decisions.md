@@ -52,8 +52,9 @@ These decisions are locked for the current migration plan. Reopen one only if im
   - Do not build, test, package, or release x86 Foundry artifacts.
 
 - [x] **RD-010: DevWinUI shell baseline**
-  - DevWinUI remains the long-term Foundry shell baseline after the migration.
-  - Keep DevWinUI navigation, title bar, breadcrumb, settings, and content-frame conventions unless a specific package becomes unused or blocks implementation.
+  - DevWinUI remains the long-term Foundry shell/navigation baseline after the migration.
+  - Keep DevWinUI navigation, title bar, breadcrumb, and content-frame conventions unless a specific package becomes unused or blocks implementation.
+  - Do not treat DevWinUI page-level controls as mandatory. Prefer native WinUI controls first, then Windows Community Toolkit controls, when they are simpler, better supported, or more coherent for Foundry workflow pages.
   - Remove prototype metadata and placeholder strings, not the DevWinUI shell approach.
 
 - [x] **RD-011: Date-based release versioning**
