@@ -83,6 +83,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
     public bool HasAutopilotProfiles => AutopilotProfiles.Count > 0;
+    public bool IsAutopilotSectionVisible => IsAutopilotEnabled || HasAutopilotProfiles;
     public bool IsAutopilotProfileSelectionEnabled => IsAutopilotEnabled && HasAutopilotProfiles;
     public string TargetDiskSelectionHint => !string.IsNullOrWhiteSpace(SelectedTargetDisk?.SelectionWarning)
         ? SelectedTargetDisk.SelectionWarning
@@ -90,6 +91,8 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public string AutopilotProfileHint =>
         HasAutopilotProfiles
             ? Format("Preparation.AutopilotProfilesAvailableFormat", AutopilotProfiles.Count)
+            : IsAutopilotEnabled
+                ? GetString("Preparation.AutopilotProfilesMissing")
             : string.Empty;
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
@@ -190,11 +193,14 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         }
 
         OnPropertyChanged(nameof(HasAutopilotProfiles));
+        OnPropertyChanged(nameof(IsAutopilotSectionVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         OnPropertyChanged(nameof(AutopilotProfileHint));
 
-        SelectedAutopilotProfile = ResolveDefaultAutopilotProfile(settings.DefaultProfileFolderName);
-        IsAutopilotEnabled = SelectedAutopilotProfile is not null;
+        SelectedAutopilotProfile = settings.IsEnabled
+            ? ResolveDefaultAutopilotProfile(settings.DefaultProfileFolderName)
+            : null;
+        IsAutopilotEnabled = settings.IsEnabled;
 
         RaiseStateChanged();
     }
@@ -319,7 +325,9 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     partial void OnIsAutopilotEnabledChanged(bool value)
     {
+        OnPropertyChanged(nameof(IsAutopilotSectionVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
+        OnPropertyChanged(nameof(AutopilotProfileHint));
         RaiseStateChanged();
     }
 
@@ -477,7 +485,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             }
         }
 
-        return AutopilotProfiles.FirstOrDefault();
+        return null;
     }
 
     private void RaiseStateChanged()

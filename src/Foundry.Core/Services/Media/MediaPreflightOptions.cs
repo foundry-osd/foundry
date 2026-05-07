@@ -10,6 +10,10 @@ public sealed record MediaPreflightOptions
     public bool IsDeployConfigurationReady { get; init; }
     public bool IsConnectProvisioningReady { get; init; }
     public bool AreRequiredSecretsReady { get; init; }
+    public bool IsAutopilotEnabled { get; init; }
+    public bool IsAutopilotConfigurationReady { get; init; } = true;
+    public string? AutopilotProfileDisplayName { get; init; }
+    public string? AutopilotProfileFolderName { get; init; }
     public bool IsFinalExecutionEnabled { get; init; }
     public string IsoOutputPath { get; init; } = string.Empty;
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;

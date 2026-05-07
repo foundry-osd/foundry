@@ -55,6 +55,18 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
 
     public bool AreRequiredSecretsReady => EvaluateNetworkMediaReadiness().AreRequiredSecretsReady;
 
+    public bool IsAutopilotEnabled => Current.Autopilot.IsEnabled;
+
+    public bool IsAutopilotConfigurationReady => !Current.Autopilot.IsEnabled || GetSelectedAutopilotProfile() is not null;
+
+    public string? SelectedAutopilotProfileDisplayName => Current.Autopilot.IsEnabled
+        ? GetSelectedAutopilotProfile()?.DisplayName
+        : null;
+
+    public string? SelectedAutopilotProfileFolderName => Current.Autopilot.IsEnabled
+        ? GetSelectedAutopilotProfile()?.FolderName
+        : null;
+
     public void UpdateLocalization(LocalizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -188,6 +200,17 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     private NetworkMediaReadinessEvaluation EvaluateNetworkMediaReadiness()
     {
         return NetworkMediaReadinessEvaluator.Evaluate(Current.Network, networkSecretStateService.PersonalWifiPassphrase);
+    }
+
+    private AutopilotProfileSettings? GetSelectedAutopilotProfile()
+    {
+        if (string.IsNullOrWhiteSpace(Current.Autopilot.DefaultProfileId))
+        {
+            return null;
+        }
+
+        return Current.Autopilot.Profiles.FirstOrDefault(profile =>
+            string.Equals(profile.Id, Current.Autopilot.DefaultProfileId, StringComparison.OrdinalIgnoreCase));
     }
 
     private void TryMoveInvalidState(string backupPath, Exception originalException)

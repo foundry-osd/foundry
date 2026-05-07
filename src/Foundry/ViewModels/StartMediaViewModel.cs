@@ -296,6 +296,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IsDeployConfigurationReady = expertDeployConfigurationStateService.IsDeployConfigurationReady,
             IsConnectProvisioningReady = expertDeployConfigurationStateService.IsConnectProvisioningReady,
             AreRequiredSecretsReady = expertDeployConfigurationStateService.AreRequiredSecretsReady,
+            IsAutopilotEnabled = expertDeployConfigurationStateService.IsAutopilotEnabled,
+            IsAutopilotConfigurationReady = expertDeployConfigurationStateService.IsAutopilotConfigurationReady,
+            AutopilotProfileDisplayName = expertDeployConfigurationStateService.SelectedAutopilotProfileDisplayName,
+            AutopilotProfileFolderName = expertDeployConfigurationStateService.SelectedAutopilotProfileFolderName,
             IsFinalExecutionEnabled = false,
             IsoOutputPath = IsoOutputPath,
             Architecture = SelectedArchitecture?.Value ?? WinPeArchitecture.X64,
@@ -339,6 +343,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Deploy")}: {FormatReady(options.IsDeployConfigurationReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Connect")}: {FormatReady(options.IsConnectProvisioningReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Secrets")}: {FormatReady(options.AreRequiredSecretsReady)}");
+        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Autopilot")}: {FormatAutopilot(options)}");
         builder.AppendLine();
         builder.AppendLine(localizationService.GetString("StartMedia.FinalExecution.Deferred"));
 
@@ -372,7 +377,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
 
         logger.Information(
-            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, AutopilotProfile={AutopilotProfile}, AutopilotFolder={AutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
             options.Architecture,
             NormalizeCultureName(options.WinPeLanguage),
             options.BootImageSource,
@@ -385,6 +390,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsDeployConfigurationReady,
             options.IsConnectProvisioningReady,
             options.AreRequiredSecretsReady,
+            options.IsAutopilotEnabled,
+            options.IsAutopilotConfigurationReady,
+            options.AutopilotProfileDisplayName,
+            options.AutopilotProfileFolderName,
             evaluation.CanGenerateIsoSummary || evaluation.CanGenerateUsbSummary,
             string.Join(",", reasons));
     }
@@ -468,6 +477,24 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string FormatReady(bool isReady)
     {
         return isReady ? localizationService.GetString("Common.Enabled") : localizationService.GetString("Common.Disabled");
+    }
+
+    private string FormatAutopilot(MediaPreflightOptions options)
+    {
+        if (!options.IsAutopilotEnabled)
+        {
+            return FormatReady(false);
+        }
+
+        if (!options.IsAutopilotConfigurationReady)
+        {
+            return localizationService.GetString("StartMedia.Autopilot.NotReady");
+        }
+
+        return string.Format(
+            localizationService.GetString("StartMedia.Autopilot.ProfileFormat"),
+            FormatValue(options.AutopilotProfileDisplayName),
+            FormatValue(options.AutopilotProfileFolderName));
     }
 
     private static string FormatValue(string? value)

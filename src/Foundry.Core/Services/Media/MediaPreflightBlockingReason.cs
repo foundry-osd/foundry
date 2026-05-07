@@ -11,6 +11,7 @@ public enum MediaPreflightBlockingReason
     DeployConfigurationNotReady,
     ConnectProvisioningNotReady,
     RequiredSecretsNotReady,
+    AutopilotConfigurationNotReady,
     NoUsbTarget,
     Arm64RequiresGpt,
     CustomDriverDirectoryNotFound,

@@ -39,6 +39,38 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
+    public void Evaluate_WhenAutopilotIsDisabled_DoesNotBlockDryRun()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                IsAutopilotEnabled = false,
+                IsAutopilotConfigurationReady = false
+            });
+
+        Assert.True(evaluation.CanGenerateIsoSummary);
+        Assert.True(evaluation.CanGenerateUsbSummary);
+        Assert.DoesNotContain(MediaPreflightBlockingReason.AutopilotConfigurationNotReady, evaluation.IsoBlockingReasons);
+        Assert.DoesNotContain(MediaPreflightBlockingReason.AutopilotConfigurationNotReady, evaluation.UsbBlockingReasons);
+    }
+
+    [Fact]
+    public void Evaluate_WhenAutopilotDefaultProfileIsMissing_BlocksDryRun()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                IsAutopilotEnabled = true,
+                IsAutopilotConfigurationReady = false
+            });
+
+        Assert.False(evaluation.CanGenerateIsoSummary);
+        Assert.False(evaluation.CanGenerateUsbSummary);
+        Assert.Contains(MediaPreflightBlockingReason.AutopilotConfigurationNotReady, evaluation.IsoBlockingReasons);
+        Assert.Contains(MediaPreflightBlockingReason.AutopilotConfigurationNotReady, evaluation.UsbBlockingReasons);
+    }
+
+    [Fact]
     public void Evaluate_WhenWinPeLanguageIsNotAvailableForArchitecture_BlocksDryRun()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
