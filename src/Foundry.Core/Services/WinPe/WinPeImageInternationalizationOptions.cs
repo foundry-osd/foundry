@@ -7,4 +7,5 @@ public sealed record WinPeImageInternationalizationOptions
     public WinPeToolPaths? Tools { get; init; }
     public string WinPeLanguage { get; init; } = string.Empty;
     public string WorkingDirectoryPath { get; init; } = string.Empty;
+    public IProgress<WinPeDismProgress>? DismProgress { get; init; }
 }

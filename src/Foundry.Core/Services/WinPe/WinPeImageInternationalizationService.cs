@@ -64,6 +64,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             optionalComponentsRoot,
             normalizedLocale,
             options.WorkingDirectoryPath,
+            options.DismProgress,
             cancellationToken).ConfigureAwait(false);
 
         if (!packageResult.IsSuccess)
@@ -77,6 +78,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             canonicalLocale,
             inputLocale,
             options.WorkingDirectoryPath,
+            options.DismProgress,
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -86,6 +88,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string optionalComponentsRoot,
         string normalizedLocale,
         string workingDirectoryPath,
+        IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
         string languagePackPath = Path.Combine(optionalComponentsRoot, normalizedLocale, "lp.cab");
@@ -103,6 +106,8 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             languagePackPath,
             workingDirectoryPath,
             "Failed to add the selected WinPE language pack.",
+            "Applying language pack with DISM.",
+            dismProgress,
             cancellationToken).ConfigureAwait(false);
 
         if (!languagePackResult.IsSuccess)
@@ -123,6 +128,8 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     neutralPackagePath,
                     workingDirectoryPath,
                     $"Failed to add the '{component}' WinPE optional component.",
+                    "Applying optional components with DISM.",
+                    dismProgress,
                     cancellationToken).ConfigureAwait(false);
 
                 if (!neutralResult.IsSuccess)
@@ -140,6 +147,8 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     localizedPackagePath,
                     workingDirectoryPath,
                     $"Failed to add the localized '{component}' WinPE optional component.",
+                    "Applying optional components with DISM.",
+                    dismProgress,
                     cancellationToken).ConfigureAwait(false);
 
                 if (!localizedResult.IsSuccess)
@@ -163,12 +172,17 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string packagePath,
         string workingDirectoryPath,
         string failureMessage,
+        string progressStatus,
+        IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
-        WinPeProcessExecution execution = await _processRunner.RunAsync(
+        WinPeProcessExecution execution = await WinPeDismProcessRunner.RunAsync(
+            _processRunner,
             dismPath,
             $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(packagePath)}",
             workingDirectoryPath,
+            progressStatus,
+            dismProgress,
             cancellationToken).ConfigureAwait(false);
 
         if (execution.IsSuccess || IsIgnorablePackageFailure(execution))
@@ -188,6 +202,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string canonicalLocale,
         string inputLocale,
         string workingDirectoryPath,
+        IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
         string[] arguments =
@@ -198,10 +213,13 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
 
         foreach (string args in arguments)
         {
-            WinPeProcessExecution execution = await _processRunner.RunAsync(
+            WinPeProcessExecution execution = await WinPeDismProcessRunner.RunAsync(
+                _processRunner,
                 dismPath,
                 args,
                 workingDirectoryPath,
+                "Applying international settings with DISM.",
+                dismProgress,
                 cancellationToken).ConfigureAwait(false);
 
             if (!execution.IsSuccess)

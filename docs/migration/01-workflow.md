@@ -97,7 +97,7 @@ Use the numeric phase IDs for stable prompts, but execute the work in dependency
 - [ ] **Final media enablement lane**
   - [ ] Phase 16.E: enable final ISO/USB commands after Deploy, Connect, network, secret, runtime payload, and optional Autopilot readiness are real.
 - [ ] **Cutover lane**
-  - [ ] Phase 17: `Foundry.Connect` and `Foundry.Deploy` compatibility pass.
+  - [ ] Phase 17: end-to-end generated media validation through `Foundry.Connect` and `Foundry.Deploy`.
   - [ ] Phase 18: Foundry UI/UX review and control rationalization.
   - [ ] Phase 19: cleanup and dependency review.
   - [ ] Phase 20: documentation update.

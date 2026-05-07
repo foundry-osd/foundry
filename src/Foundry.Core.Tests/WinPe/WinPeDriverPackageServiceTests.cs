@@ -37,6 +37,7 @@ public sealed class WinPeDriverPackageServiceTests
                 ],
                 downloadRoot,
                 extractRoot,
+                null,
                 CancellationToken.None);
 
             Assert.True(result.IsSuccess, result.Error?.Details);
@@ -75,6 +76,7 @@ public sealed class WinPeDriverPackageServiceTests
                 ],
                 Path.Combine(root, "downloads"),
                 Path.Combine(root, "extracted"),
+                null,
                 CancellationToken.None);
 
             Assert.False(result.IsSuccess);

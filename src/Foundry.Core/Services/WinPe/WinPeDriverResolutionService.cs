@@ -67,6 +67,7 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
                     selectedPackages,
                     Path.Combine(request.Artifact.DriverWorkspacePath, "downloads"),
                     Path.Combine(request.Artifact.DriverWorkspacePath, "extracted"),
+                    request.DownloadProgress,
                     cancellationToken).ConfigureAwait(false);
 
                 if (!prepared.IsSuccess)

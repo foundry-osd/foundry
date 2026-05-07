@@ -6,5 +6,6 @@ public interface IWinPeDriverPackageService
         IReadOnlyList<WinPeDriverCatalogEntry> packages,
         string downloadRootPath,
         string extractRootPath,
+        IProgress<WinPeDownloadProgress>? downloadProgress,
         CancellationToken cancellationToken);
 }

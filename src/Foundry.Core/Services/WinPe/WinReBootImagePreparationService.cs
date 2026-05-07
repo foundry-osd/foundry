@@ -41,6 +41,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             return WinPeResult<WinReBootImagePreparationResult>.Failure(validationError);
         }
 
+        ReportProgress(options.Progress, 2, "Resolving WinRE source catalog.");
         WinPeResult<IReadOnlyList<WinReSourceCandidate>> candidatesResult = await SelectCatalogCandidatesAsync(
             options.CatalogUri,
             options.Artifact.Architecture,
@@ -52,6 +53,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             return WinPeResult<WinReBootImagePreparationResult>.Failure(candidatesResult.Error!);
         }
 
+        ReportProgress(options.Progress, 4, "Selected WinRE source package.");
         var failures = new List<WinPeDiagnostic>();
         foreach (WinReSourceCandidate candidate in candidatesResult.Value!)
         {
@@ -314,10 +316,12 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         {
             WinPeFileSystemHelper.EnsureDirectoryClean(sourceDirectory);
             Directory.CreateDirectory(exportDirectory);
+            ReportProgress(options.Progress, 5, "Preparing WinRE source package.");
 
             WinPeResult<string> sourcePathResult = await EnsureDownloadedAsync(
                 options.CacheDirectoryPath,
                 candidate.Source,
+                options.DownloadProgress,
                 cancellationToken).ConfigureAwait(false);
 
             if (!sourcePathResult.IsSuccess)
@@ -325,11 +329,13 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 return WinPeResult<WinReBootImagePreparationResult>.Failure(sourcePathResult.Error!);
             }
 
+            ReportProgress(options.Progress, 16, "Resolving WinRE image index.");
             WinPeResult<int> indexResult = await ResolveImageIndexAsync(
                 options.Tools.DismPath,
                 sourcePathResult.Value!,
                 candidate.RequestedEdition,
                 options.Artifact.WorkingDirectoryPath,
+                CreateDismProgress(options.Progress, 16, "Resolving WinRE image index."),
                 cancellationToken).ConfigureAwait(false);
 
             if (!indexResult.IsSuccess)
@@ -337,10 +343,14 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 return WinPeResult<WinReBootImagePreparationResult>.Failure(indexResult.Error!);
             }
 
-            WinPeProcessExecution exportResult = await _processRunner.RunAsync(
+            ReportProgress(options.Progress, 19, "Exporting Windows image for WinRE extraction.");
+            WinPeProcessExecution exportResult = await WinPeDismProcessRunner.RunAsync(
+                _processRunner,
                 options.Tools.DismPath,
                 $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(sourcePathResult.Value!)} /SourceIndex:{indexResult.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
                 options.Artifact.WorkingDirectoryPath,
+                "Exporting Windows image with DISM.",
+                CreateDismProgress(options.Progress, 19, "Exporting Windows image for WinRE extraction."),
                 cancellationToken).ConfigureAwait(false);
 
             if (!exportResult.IsSuccess || !File.Exists(installWimPath))
@@ -351,13 +361,15 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                     exportResult.ToDiagnosticText());
             }
 
+            ReportProgress(options.Progress, 24, "Mounting WinRE source image.");
             WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
                 _processRunner,
                 options.Tools.DismPath,
                 installWimPath,
                 mountDirectory,
                 options.Artifact.WorkingDirectoryPath,
-                cancellationToken).ConfigureAwait(false);
+                cancellationToken,
+                CreateDismProgress(options.Progress, 24, "Mounting WinRE source image.")).ConfigureAwait(false);
 
             if (!mountResult.IsSuccess)
             {
@@ -377,6 +389,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                     cancellationToken).ConfigureAwait(false);
             }
 
+            ReportProgress(options.Progress, 27, "Staging WinRE Wi-Fi dependencies.");
             WinPeResult<WinReBootImagePreparationResult> dependencyResult = PrepareWirelessDependencyFiles(
                 mountDirectory,
                 dependencyDirectory);
@@ -386,6 +399,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 return await FailWithDiscardAsync(dependencyResult.Error!, session, cancellationToken).ConfigureAwait(false);
             }
 
+            ReportProgress(options.Progress, 29, "Replacing boot image with WinRE.");
             Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
             File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
 
@@ -398,6 +412,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
             TryDeleteDirectory(exportDirectory);
             TryDeleteDirectory(mountDirectory);
+            ReportProgress(options.Progress, 30, "WinRE Wi-Fi boot image is ready.");
             return dependencyResult;
         }
         catch (Exception ex)
@@ -430,6 +445,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
     private async Task<WinPeResult<string>> EnsureDownloadedAsync(
         string cacheDirectoryPath,
         WinReCatalogItem source,
+        IProgress<WinPeDownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
         string sourceCachePath = BuildCachedSourcePath(cacheDirectoryPath, source);
@@ -461,12 +477,14 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
         try
         {
+            ReportDownloadProgress(progress, 0, "Downloading WinRE source package.");
             using HttpResponseMessage response = await _httpClient.GetAsync(
                 sourceUri,
                 HttpCompletionOption.ResponseHeadersRead,
                 cancellationToken).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
+            long? totalBytes = response.Content.Headers.ContentLength;
             await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
             await using (FileStream destinationStream = new(
                              temporaryDownloadPath,
@@ -476,7 +494,12 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                              81920,
                              useAsync: true))
             {
-                await sourceStream.CopyToAsync(destinationStream, cancellationToken).ConfigureAwait(false);
+                await CopyDownloadToFileAsync(
+                    sourceStream,
+                    destinationStream,
+                    totalBytes,
+                    progress,
+                    cancellationToken).ConfigureAwait(false);
             }
 
             File.Move(temporaryDownloadPath, sourceCachePath, overwrite: true);
@@ -509,17 +532,73 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         return WinPeResult<string>.Success(sourceCachePath);
     }
 
+    private static async Task CopyDownloadToFileAsync(
+        Stream sourceStream,
+        FileStream destinationStream,
+        long? totalBytes,
+        IProgress<WinPeDownloadProgress>? progress,
+        CancellationToken cancellationToken)
+    {
+        byte[] buffer = new byte[81920];
+        long bytesWritten = 0;
+        int lastReportedPercent = -1;
+
+        while (true)
+        {
+            int bytesRead = await sourceStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
+            if (bytesRead == 0)
+            {
+                break;
+            }
+
+            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
+            bytesWritten += bytesRead;
+
+            if (totalBytes is > 0)
+            {
+                int downloadPercent = (int)Math.Clamp(bytesWritten * 100 / totalBytes.Value, 0, 100);
+                if (downloadPercent != lastReportedPercent)
+                {
+                    lastReportedPercent = downloadPercent;
+                    ReportDownloadProgress(
+                        progress,
+                        downloadPercent,
+                        $"Downloading WinRE source package ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)}).");
+                }
+            }
+            else
+            {
+                ReportDownloadProgress(
+                    progress,
+                    null,
+                    $"Downloading WinRE source package ({FormatBytes(bytesWritten)} downloaded).");
+            }
+        }
+
+        if (totalBytes is > 0)
+        {
+            ReportDownloadProgress(
+                progress,
+                100,
+                $"Downloading WinRE source package ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)}).");
+        }
+    }
+
     private async Task<WinPeResult<int>> ResolveImageIndexAsync(
         string dismPath,
         string sourceImagePath,
         string requestedEdition,
         string workingDirectory,
+        IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
-        WinPeProcessExecution imageInfoResult = await _processRunner.RunAsync(
+        WinPeProcessExecution imageInfoResult = await WinPeDismProcessRunner.RunAsync(
+            _processRunner,
             dismPath,
             $"/English /Get-ImageInfo /ImageFile:{WinPeProcessRunner.Quote(sourceImagePath)}",
             workingDirectory,
+            "Resolving WinRE image index with DISM.",
+            dismProgress,
             cancellationToken).ConfigureAwait(false);
 
         if (!imageInfoResult.IsSuccess)
@@ -626,9 +705,59 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         };
     }
 
+    private static void ReportProgress(
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
+        int percent,
+        string status)
+    {
+        progress?.Report(new WinPeMountedImageCustomizationProgress
+        {
+            Percent = Math.Clamp(percent, 0, 100),
+            Status = status
+        });
+    }
+
+    private static void ReportDownloadProgress(IProgress<WinPeDownloadProgress>? progress, int? percent, string status)
+    {
+        progress?.Report(new WinPeDownloadProgress
+        {
+            Percent = percent.HasValue
+                ? Math.Clamp(percent.Value, 0, 100)
+                : null,
+            Status = status
+        });
+    }
+
+    private static IProgress<WinPeDismProgress>? CreateDismProgress(
+        IProgress<WinPeMountedImageCustomizationProgress>? progress,
+        int percent,
+        string status)
+    {
+        return progress is null ? null : new WinPeDismProgressForwarder(progress, percent, status);
+    }
+
+    private static string FormatBytes(long bytes)
+    {
+        string[] units = ["B", "KB", "MB", "GB", "TB"];
+        double value = bytes;
+        int unitIndex = 0;
+
+        while (value >= 1024 && unitIndex < units.Length - 1)
+        {
+            value /= 1024;
+            unitIndex++;
+        }
+
+        return unitIndex == 0
+            ? $"{bytes} {units[unitIndex]}"
+            : $"{value:F1} {units[unitIndex]}";
+    }
+
     private static string ReadElement(XElement parent, string elementName)
     {
-        return (parent.Element(elementName)?.Value ?? string.Empty).Trim();
+        return (parent.Elements()
+            .FirstOrDefault(element => element.Name.LocalName.Equals(elementName, StringComparison.OrdinalIgnoreCase))
+            ?.Value ?? string.Empty).Trim();
     }
 
     private static void TryDeleteDirectory(string path)

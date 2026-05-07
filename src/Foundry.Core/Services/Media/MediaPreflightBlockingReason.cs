@@ -7,6 +7,8 @@ public enum MediaPreflightBlockingReason
     MissingWinPeLanguage,
     WinPeLanguageUnavailable,
     RuntimePayloadNotReady,
+    ConnectRuntimePayloadNotReady,
+    DeployRuntimePayloadNotReady,
     NetworkConfigurationNotReady,
     DeployConfigurationNotReady,
     ConnectProvisioningNotReady,

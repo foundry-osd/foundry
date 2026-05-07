@@ -7,4 +7,6 @@ public sealed record WinReBootImagePreparationOptions
     public required string WinPeLanguage { get; init; }
     public required string CacheDirectoryPath { get; init; }
     public Uri CatalogUri { get; init; } = WinReBootImagePreparationService.DefaultOperatingSystemCatalogUri;
+    public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
+    public IProgress<WinPeMountedImageCustomizationProgress>? Progress { get; init; }
 }

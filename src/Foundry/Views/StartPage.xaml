@@ -61,10 +61,12 @@
                             Spacing="10">
                     <Button x:Name="CreateIsoButton"
                             MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            IsEnabled="False" />
+                            Command="{x:Bind ViewModel.CreateIsoCommand}"
+                            IsEnabled="{x:Bind ViewModel.CanCreateIso, Mode=OneWay}" />
                     <Button x:Name="CreateUsbButton"
                             MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            IsEnabled="False" />
+                            Command="{x:Bind ViewModel.CreateUsbCommand}"
+                            IsEnabled="{x:Bind ViewModel.CanCreateUsb, Mode=OneWay}" />
                 </StackPanel>
             </dev:SettingsCard>
         </StackPanel>

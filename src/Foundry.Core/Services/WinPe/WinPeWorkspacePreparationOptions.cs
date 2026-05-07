@@ -15,5 +15,6 @@ public sealed record WinPeWorkspacePreparationOptions
     public string WinReCacheDirectoryPath { get; init; } = string.Empty;
     public Uri? WinReCatalogUri { get; init; }
     public IProgress<WinPeWorkspacePreparationStage>? Progress { get; init; }
+    public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
     public IProgress<WinPeMountedImageCustomizationProgress>? CustomizationProgress { get; init; }
 }

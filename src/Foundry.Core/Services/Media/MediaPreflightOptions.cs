@@ -6,6 +6,8 @@ public sealed record MediaPreflightOptions
 {
     public bool IsAdkReady { get; init; }
     public bool IsRuntimePayloadReady { get; init; }
+    public bool? IsConnectRuntimePayloadReady { get; init; }
+    public bool? IsDeployRuntimePayloadReady { get; init; }
     public bool IsNetworkConfigurationReady { get; init; }
     public bool IsDeployConfigurationReady { get; init; }
     public bool IsConnectProvisioningReady { get; init; }

@@ -32,10 +32,13 @@ public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
         foreach (string packagePath in options.DriverPackagePaths)
         {
             string normalizedPath = packagePath.Trim();
-            WinPeProcessExecution result = await _processRunner.RunAsync(
+            WinPeProcessExecution result = await WinPeDismProcessRunner.RunAsync(
+                _processRunner,
                 dismPath,
                 $"/Image:{WinPeProcessRunner.Quote(options.MountedImagePath)} /Add-Driver /Driver:{WinPeProcessRunner.Quote(normalizedPath)}{recurse}",
                 options.WorkingDirectoryPath,
+                "Injecting drivers with DISM.",
+                options.DismProgress,
                 cancellationToken).ConfigureAwait(false);
 
             if (!result.IsSuccess)

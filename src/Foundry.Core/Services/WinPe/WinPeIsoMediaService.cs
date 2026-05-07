@@ -33,8 +33,10 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
         try
         {
+            ReportProgress(options.Progress, 0, "Preparing ISO output path.");
             EnsureOutputDirectoryExists(requestedOutputPath);
             preparedOutputPath = PrepareOutputPath(requestedOutputPath, options.IsoTempDirectoryPath);
+            ReportProgress(options.Progress, 20, "Preparing ISO workspace.");
             string makeWinPeMediaWorkspacePath = PrepareWorkspacePath(
                 preparedWorkspace.Artifact.WorkingDirectoryPath,
                 options.IsoTempDirectoryPath,
@@ -49,6 +51,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 $"/ISO /F {WinPeProcessRunner.Quote(makeWinPeMediaWorkspacePath)} {WinPeProcessRunner.Quote(preparedOutputPath)}" +
                 (preparedWorkspace.UseBootEx ? " /bootex" : string.Empty);
 
+            ReportProgress(options.Progress, 40, "Running MakeWinPEMedia for ISO.");
             WinPeProcessExecution execution = await _processRunner.RunCmdScriptAsync(
                 preparedWorkspace.Tools.MakeWinPeMediaPath,
                 arguments,
@@ -63,7 +66,9 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     execution.ToDiagnosticText());
             }
 
+            ReportProgress(options.Progress, 90, "Finalizing ISO output.");
             FinalizeOutput(preparedOutputPath, requestedOutputPath);
+            ReportProgress(options.Progress, 100, "ISO media completed.");
             return WinPeResult.Success();
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
@@ -253,6 +258,15 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
     private static bool ContainsNonAscii(string value)
     {
         return value.Any(character => character > 127);
+    }
+
+    private static void ReportProgress(IProgress<WinPeMediaProgress>? progress, int percent, string status)
+    {
+        progress?.Report(new WinPeMediaProgress
+        {
+            Percent = Math.Clamp(percent, 0, 100),
+            Status = status
+        });
     }
 
     private static string ToAsciiSafeFileName(string fileName)

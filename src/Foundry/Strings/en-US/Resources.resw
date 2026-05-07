@@ -433,7 +433,7 @@
     <value>Final media commands</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Final ISO and USB execution stays disabled until the final media enablement phase.</value>
+    <value>Create the final ISO or USB media after all readiness checks pass.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Create ISO</value>
@@ -449,6 +449,201 @@
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
     <value>Final ISO/USB execution is deferred until the final media enablement phase.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>Final ISO/USB execution is enabled when all readiness checks pass.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>ISO creation is blocked</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>USB creation is blocked</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>Format USB target</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>This will erase disk {0}: {1} ({2}). Continue only if this is the intended disposable USB target.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>Format and create USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>Creating WinPE workspace.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>Preparing WinPE workspace.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>Resolving driver packages.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>Customizing the boot image.</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>Evaluating boot signature policy.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>Preparing boot image customization.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>Mounting boot image.</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>Injecting drivers into the boot image.</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>Applying language and optional components.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>Provisioning Foundry boot assets.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>Provisioning Foundry runtime payloads.</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>Committing boot image changes.</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>Boot image customization completed.</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>Cleaning WinPE workspace.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>Creating ISO media.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>Creating USB media.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>Final media creation completed.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>Final media creation failed.</value>
+  </data>
+  <data name="StartMedia.Operation.FailedTitle" xml:space="preserve">
+    <value>Media creation failed</value>
+  </data>
+  <data name="StartMedia.Operation.Downloading" xml:space="preserve">
+    <value>Downloading.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
+    <value>Resolving WinRE source catalog.</value>
+  </data>
+  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
+    <value>Selected WinRE source package.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
+    <value>Preparing WinRE source package.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Validating cached WinRE source package.</value>
+  </data>
+  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Using cached WinRE source package.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
+    <value>Downloading WinRE source package.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
+    <value>Downloading driver package</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
+    <value>Validating WinRE source package.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
+    <value>Resolving WinRE image index.</value>
+  </data>
+  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
+    <value>Exporting Windows image for WinRE extraction.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
+    <value>Mounting WinRE source image.</value>
+  </data>
+  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
+    <value>Staging WinRE Wi-Fi dependencies.</value>
+  </data>
+  <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
+    <value>Replacing boot image with WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
+    <value>WinRE Wi-Fi boot image is ready.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
+    <value>Preparing ISO output path.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
+    <value>Preparing ISO workspace.</value>
+  </data>
+  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
+    <value>Running MakeWinPEMedia for ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
+    <value>Finalizing ISO output.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
+    <value>ISO media completed.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
+    <value>Validating USB target.</value>
+  </data>
+  <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
+    <value>Checking USB target safety.</value>
+  </data>
+  <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
+    <value>Partitioning and formatting USB target.</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
+    <value>Copying WinPE media to USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
+    <value>Configuring USB boot files.</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
+    <value>Verifying USB boot media.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
+    <value>Preparing USB cache partition.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
+    <value>Provisioning USB runtime payloads.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
+    <value>USB media completed.</value>
+  </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>Exporting Windows image with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>Resolving WinRE image index with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>Mounting image with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>Injecting drivers with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>Applying language pack with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>Applying optional components with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>Applying international settings with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>Committing image changes with DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.SuccessTitle" xml:space="preserve">
+    <value>Media creation completed</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
+    <value>The ISO media was created successfully.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
+    <value>USB media was created successfully. Boot volume: {0}. Cache volume: {1}.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Select ISO output path</value>
@@ -482,6 +677,9 @@
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
     <value>WinPE boot language</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>Boot image source</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
     <value>Architecture</value>
@@ -543,6 +741,12 @@
   <data name="StartMedia.BlockingReason.RuntimePayloadNotReady" xml:space="preserve">
     <value>Runtime payload readiness is deferred.</value>
   </data>
+  <data name="StartMedia.BlockingReason.ConnectRuntimePayloadNotReady" xml:space="preserve">
+    <value>Foundry.Connect runtime payload is not available for the selected architecture.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployRuntimePayloadNotReady" xml:space="preserve">
+    <value>Foundry.Deploy runtime payload is not available for the selected architecture.</value>
+  </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>Network configuration is not ready.</value>
   </data>
@@ -578,6 +782,12 @@
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>Standard WinPE</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>WinRE Wi-Fi image</value>
   </data>
   <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
     <value>Dell</value>

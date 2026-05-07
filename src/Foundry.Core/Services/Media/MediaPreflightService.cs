@@ -68,7 +68,19 @@ public static class MediaPreflightService
             reasons.Add(MediaPreflightBlockingReason.AdkNotReady);
         }
 
-        if (!options.IsRuntimePayloadReady)
+        if (options.IsConnectRuntimePayloadReady.HasValue || options.IsDeployRuntimePayloadReady.HasValue)
+        {
+            if (options.IsConnectRuntimePayloadReady != true)
+            {
+                reasons.Add(MediaPreflightBlockingReason.ConnectRuntimePayloadNotReady);
+            }
+
+            if (options.IsDeployRuntimePayloadReady != true)
+            {
+                reasons.Add(MediaPreflightBlockingReason.DeployRuntimePayloadNotReady);
+            }
+        }
+        else if (!options.IsRuntimePayloadReady)
         {
             reasons.Add(MediaPreflightBlockingReason.RuntimePayloadNotReady);
         }
@@ -131,6 +143,8 @@ public static class MediaPreflightService
         return
         [
             MediaPreflightBlockingReason.RuntimePayloadNotReady,
+            MediaPreflightBlockingReason.ConnectRuntimePayloadNotReady,
+            MediaPreflightBlockingReason.DeployRuntimePayloadNotReady,
             MediaPreflightBlockingReason.NetworkConfigurationNotReady,
             MediaPreflightBlockingReason.DeployConfigurationNotReady,
             MediaPreflightBlockingReason.ConnectProvisioningNotReady,

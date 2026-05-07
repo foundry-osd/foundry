@@ -11,5 +11,6 @@ public sealed record WinPeMountedImageCustomizationOptions
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
     public string WinReCacheDirectoryPath { get; init; } = string.Empty;
     public Uri? WinReCatalogUri { get; init; }
+    public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
     public IProgress<WinPeMountedImageCustomizationProgress>? Progress { get; init; }
 }

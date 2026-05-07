@@ -1,33 +1,79 @@
 # Compatibility, UI Review, Cleanup, And Cutover Phases
 
-## Phase 17: Foundry.Connect And Foundry.Deploy Compatibility Pass
+## Phase 17: End-To-End Generated Media Validation
 
 **Priority:** high before cutover.
 
-**Goal:** prove the migrated WinUI app still produces runtime artifacts consumed by WPF Connect/Deploy.
+**Goal:** prove the full Foundry solution works from WinUI configuration through ISO/USB generation, WinPE boot, `Foundry.Connect` execution, and `Foundry.Deploy` execution.
 
-**Prerequisites and boundary:** Run Phase 17 after Phase 16.E final media command enablement is complete. Phase 17 should prove compatibility; only commit targeted fixes when the smoke tests expose a concrete incompatibility.
+**Prerequisites and boundary:** Run Phase 17 after Phase 16.E final media command enablement is complete and merged. Phase 17 is an end-to-end validation phase, not a broad refactor phase. Only commit targeted fixes when the generated-media tests expose a concrete incompatibility in configuration contracts, media layout, bootstrapping, Connect, Deploy, logging, or operator flow. Do not add backward-compatibility fallbacks for obsolete WPF-era paths or schemas; fix the generated contract and runtime consumers directly.
 
-- [ ] **17.1** Build `Foundry.Connect` as WPF.
-- [ ] **17.2** Build `Foundry.Deploy` as WPF.
-- [ ] **17.3** Generate WinPE media from WinUI `Foundry`.
-  - [ ] ISO media.
-  - [ ] USB media on a disposable drive when hardware is available.
-  - [ ] Standard workflow without optional Network/Autopilot settings.
-  - [ ] Expert workflow with deploy localization and generated Connect configuration.
-  - [ ] Expert workflow with Autopilot enabled when a test profile is available.
-- [ ] **17.4** Boot test media in a VM.
-- [ ] **17.5** Confirm `Foundry.Connect` starts in WinPE.
-- [ ] **17.6** Confirm `Foundry.Connect` reads generated network configuration.
-- [ ] **17.7** Confirm `Foundry.Deploy` can be launched from the runtime handoff.
-- [ ] **17.8** Confirm deployment configuration loads.
-- [ ] **17.8.1** Confirm `Foundry.Deploy` reads generated Autopilot configuration when Autopilot is enabled and a profile is embedded.
-- [ ] **17.8.2** Confirm `Foundry.Deploy` keeps Autopilot operator controls visible when Autopilot is enabled but no profile is embedded.
-- [ ] **17.9** Confirm both runtime agents use the normalized layout:
-  - [ ] `Runtime\Foundry.Connect\<rid>`.
-  - [ ] `Runtime\Foundry.Deploy\<rid>`.
-- [ ] **17.10** Confirm logs are written to expected locations.
-- [ ] **17.11** Commit compatibility or targeted shared-logic fixes only if required:
+- [ ] **17.1** Prepare a clean validation matrix:
+  - [ ] Record ADK and WinPE Add-on version, Windows host build, target architecture, signature mode, and generated media paths.
+  - [ ] Record whether each run uses ISO, USB, VM boot, physical boot, standard configuration, expert configuration, Wi-Fi/WinRE, secrets, Autopilot, and customization.
+  - [ ] Keep disposable generated artifacts and logs until the phase is reviewed.
+- [ ] **17.2** Build the full solution in the same configuration used by generated media:
+  - [ ] `Foundry`.
+  - [ ] `Foundry.Core`.
+  - [ ] `Foundry.Connect`.
+  - [ ] `Foundry.Deploy`.
+  - [ ] All available test projects.
+- [ ] **17.3** Generate baseline media from WinUI `Foundry`:
+  - [ ] ISO media with standard configuration and no optional expert features.
+  - [ ] USB media on a disposable drive with standard configuration when hardware is available.
+  - [ ] Confirm generated ISO/USB media matches the documented `X:\Foundry`, `Runtime`, `Config`, `Seed`, `Tools`, `OperatingSystem`, and `DriverPack` layout.
+  - [ ] Confirm `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>` are present in the expected ISO and USB locations.
+- [ ] **17.4** Generate complete expert media from WinUI `Foundry`:
+  - [ ] Deploy localization configured.
+  - [ ] Connect provisioning enabled.
+  - [ ] Network provisioning enabled.
+  - [ ] Encrypted media secrets enabled when required.
+  - [ ] WinRE Wi-Fi boot image selected when Wi-Fi provisioning is enabled.
+  - [ ] Autopilot enabled with an embedded default test profile.
+  - [ ] Customization enabled when test values are available.
+  - [ ] ISO media generated successfully.
+  - [ ] USB media generated successfully on a disposable drive when hardware is available.
+- [ ] **17.5** Validate generated boot image contents before boot:
+  - [ ] `boot.wim` contains `X:\Foundry` runtime, configuration, bootstrap, secrets, network assets, Autopilot assets, and tools expected for the selected workflow.
+  - [ ] `boot.wim` does not contain plaintext Wi-Fi passphrases, plaintext media secret keys, or host-only workspace artifacts.
+  - [ ] WinRE Wi-Fi media contains the expected WinRE-derived boot image and injected drivers/assets.
+  - [ ] Temporary WinPE workspaces under `C:\ProgramData\Foundry\Workspaces\WinPe` are cleaned after successful and failed runs.
+- [ ] **17.6** Boot generated ISO media in a VM:
+  - [ ] WinPE reaches Foundry bootstrap.
+  - [ ] `Foundry.Connect` starts automatically or through the expected bootstrap handoff.
+  - [ ] `Foundry.Connect` loads generated Connect configuration from `X:\Foundry\Config`.
+  - [ ] `Foundry.Connect` reads generated network assets when present.
+  - [ ] `Foundry.Connect` decrypts embedded `aes-gcm-v1` secrets without prompting for a decryption key.
+  - [ ] `Foundry.Connect` completes or reaches the expected operator state without schema or path errors.
+- [ ] **17.7** Boot generated USB media:
+  - [ ] Physical USB boot reaches Foundry bootstrap when hardware is available.
+  - [ ] USB BOOT partition remains minimal and bootable.
+  - [ ] USB cache partition keeps persistent runtime/cache data under the documented layout.
+  - [ ] `Foundry.Connect` resolves runtime/cache paths correctly from USB media.
+  - [ ] Logs stay under expected WinPE and deployment locations; USB cache does not become the boot log sink.
+- [ ] **17.8** Validate `Foundry.Deploy` handoff:
+  - [ ] `Foundry.Deploy` can be launched from the `Foundry.Connect` runtime handoff.
+  - [ ] `Foundry.Deploy` loads generated `foundry.deploy.config.json`.
+  - [ ] Deploy localization values are loaded and applied.
+  - [ ] Deployment storage, OS image, driver, and customization settings load without relying on missing-root defaults.
+  - [ ] Runtime errors are logged with enough context to troubleshoot media layout or schema issues.
+- [ ] **17.9** Validate Autopilot generated-media behavior:
+  - [ ] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+  - [ ] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
+  - [ ] `Foundry.Deploy` reads the embedded default Autopilot profile when Autopilot is enabled and a profile is embedded.
+  - [ ] `Foundry.Deploy` keeps Autopilot operator controls visible when Autopilot is enabled but no profile is embedded, so the operator can disable it.
+- [ ] **17.10** Validate negative command gates from WinUI `Start`:
+  - [ ] ISO/USB creation is blocked when required Connect configuration is incomplete.
+  - [ ] ISO/USB creation is blocked when required Deploy configuration is incomplete.
+  - [ ] ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
+  - [ ] ISO/USB creation is blocked when runtime payloads are unavailable.
+  - [ ] ISO/USB creation is blocked or warned when Autopilot is enabled without a valid embedded profile.
+- [ ] **17.11** Validate operation logs:
+  - [ ] `C:\ProgramData\Foundry\Logs\Foundry.log` includes final ISO/USB start, progress, completion, pre-format cancellation, and failure events.
+  - [ ] Logs include WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, workspace cleanup, and runtime handoff context.
+  - [ ] Logs do not expose plaintext Wi-Fi passphrases, media secret keys, or decrypted secret values.
+  - [ ] `Foundry.Connect` and `Foundry.Deploy` runtime logs are written to expected WinPE/deployment locations.
+- [ ] **17.12** Commit compatibility or targeted shared-logic fixes only if required:
 
 ```powershell
 git commit -m "fix: preserve winpe runtime compatibility"
@@ -35,12 +81,14 @@ git commit -m "fix: preserve winpe runtime compatibility"
 
 **Validation**
 
-- [ ] **17.12** VM smoke test completed.
-- [ ] **17.13** Physical USB smoke test completed if hardware is available.
-- [ ] **17.14** No schema-breaking changes found.
+- [ ] **17.13** ISO end-to-end smoke test completed in a VM.
+- [ ] **17.14** Physical USB end-to-end smoke test completed when hardware is available.
+- [ ] **17.15** Complete expert media smoke test completed through `Foundry.Connect` and `Foundry.Deploy`.
+- [ ] **17.16** No schema-breaking changes found.
   - [ ] Complete effective Deploy config remains accepted by `Foundry.Deploy`.
   - [ ] Complete effective Connect config remains accepted by `Foundry.Connect`.
   - [ ] Generated media does not rely on sparse missing-root defaults.
+- [ ] **17.17** Deferred validations from Phases 12, 13, 14, 15, and 16 are closed or explicitly moved to a later cutover checklist item with a reason.
 
 ## Phase 18: Foundry UI/UX Review And Control Rationalization
 

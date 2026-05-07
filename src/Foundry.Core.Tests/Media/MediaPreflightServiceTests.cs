@@ -39,6 +39,22 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
+    public void Evaluate_WhenRuntimePayloadsAreMissing_ReportsConnectAndDeploySeparately()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                IsRuntimePayloadReady = false,
+                IsConnectRuntimePayloadReady = false,
+                IsDeployRuntimePayloadReady = false
+            });
+
+        Assert.Contains(MediaPreflightBlockingReason.ConnectRuntimePayloadNotReady, evaluation.IsoBlockingReasons);
+        Assert.Contains(MediaPreflightBlockingReason.DeployRuntimePayloadNotReady, evaluation.IsoBlockingReasons);
+        Assert.DoesNotContain(MediaPreflightBlockingReason.RuntimePayloadNotReady, evaluation.IsoBlockingReasons);
+    }
+
+    [Fact]
     public void Evaluate_WhenAutopilotIsDisabled_DoesNotBlockDryRun()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(

@@ -129,7 +129,7 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
 
         ForceSingleVisibleLanguage = settings.ForceSingleVisibleLanguage;
         RefreshDefaultLanguageOptions(settings.DefaultLanguageCodeOverride);
-        SelectedTimeZone = SelectStringOption(TimeZoneOptions, settings.DefaultTimeZoneId);
+        SelectedTimeZone = SelectStringOption(TimeZoneOptions, settings.DefaultTimeZoneId) ?? TimeZoneOptions[0];
 
         isApplyingState = false;
     }

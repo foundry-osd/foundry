@@ -7,4 +7,5 @@ public sealed record WinPeDriverInjectionOptions
     public bool RecurseSubdirectories { get; init; } = true;
     public string? DismExecutablePath { get; init; }
     public string WorkingDirectoryPath { get; init; } = string.Empty;
+    public IProgress<WinPeDismProgress>? DismProgress { get; init; }
 }
