@@ -309,7 +309,7 @@ git commit -m "feat(autopilot): wire start readiness"
 
 **Goal:** turn the `Start` page from readiness-only mode into the real ISO/USB execution entry point after Deploy, Connect, network, secret, runtime payload, and optional Autopilot/customization readiness are all real.
 
-**Prerequisites and boundary:** Phases 14, 15, and 16 must be complete. Phase 16.E owns final media command enablement and must absorb deferred real-media validations from Phases 12, 13, 14, 15, and 16. Phase 16.E should not perform the broader Connect/Deploy compatibility pass; that remains Phase 17 after media can be generated from WinUI.
+**Prerequisites and boundary:** Phases 14, 15, and 16 must be complete. Phase 16.E owns final media command enablement and generated-media creation from WinUI. The broader generated-media boot validation through `Foundry.Connect` and `Foundry.Deploy` belongs to Phase 17 after media can be generated from WinUI.
 
 - [x] **16.E.1** Replace remaining final media placeholders in `Start` preflight:
   - [x] Runtime payload readiness is real, not hardcoded.
@@ -351,23 +351,23 @@ git commit -m "feat(media): enable final iso and usb commands"
 
 **Validation**
 
-- [ ] **16.E.7** Complete deferred Phase 12 generated media validation:
+- [ ] **16.E.7** Complete deferred Phase 12 generated media validation during Phase 17:
   - [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
   - [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command when hardware is available.
   - [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
-- [ ] **16.E.8** Complete deferred Phase 13 command gate validation:
+- [ ] **16.E.8** Complete deferred Phase 13 command gate validation during Phase 17:
   - [ ] **13.18.1** ISO/USB creation is blocked when required Connect configuration is incomplete.
   - [ ] **13.18.1** ISO/USB creation is blocked when required Deploy configuration is incomplete.
   - [ ] **13.18.1** ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
   - [ ] **13.18.1** ISO/USB creation is blocked when runtime payloads are unavailable.
   - [ ] **13.18.1** ISO/USB creation is blocked or warned when Autopilot is enabled without a valid embedded profile.
-- [ ] **16.E.9** Complete deferred Phase 14 generated-media validation:
+- [ ] **16.E.9** Complete deferred Phase 14 generated-media validation during Phase 17:
   - [ ] **14.13** Generated media contains `foundry.deploy.config.json`.
   - [ ] **14.13** `Foundry.Deploy` can load the generated Deploy config from generated media.
-- [ ] **16.E.10** Complete deferred Phase 15 generated-media validation:
+- [ ] **16.E.10** Complete deferred Phase 15 generated-media validation during Phase 17:
   - [ ] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets from generated boot media.
   - [ ] **15.15** `Foundry.Connect` decrypts embedded secrets from generated boot media without prompting the operator for a decryption key.
-- [ ] **16.E.11** Complete deferred Phase 16 generated-media validation:
+- [ ] **16.E.11** Complete deferred Phase 16 generated-media validation during Phase 17:
   - [ ] **16.16** Boot generated media into `Foundry.Deploy` with Autopilot enabled but no embedded profile, and confirm the Autopilot section remains visible so the operator can disable it.
   - [ ] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
   - [ ] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
