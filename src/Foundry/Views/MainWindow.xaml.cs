@@ -316,6 +316,7 @@ namespace Foundry.Views
             {
                 Text = GetOperationDialogStatusText(),
                 TextWrapping = TextWrapping.Wrap,
+                MaxWidth = 440,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 TextAlignment = TextAlignment.Center
             };
@@ -324,19 +325,23 @@ namespace Foundry.Views
             {
                 Minimum = 0,
                 Maximum = 100,
-                Value = operationProgressService.State.Progress
+                Value = operationProgressService.State.Progress,
+                Height = 4,
+                Margin = new Thickness(0, 4, 0, 0)
             };
 
             return new StackPanel
             {
-                MinWidth = 360,
-                Spacing = 16,
+                MinWidth = 420,
+                MaxWidth = 520,
+                Padding = new Thickness(0, 8, 0, 0),
+                Spacing = 24,
                 Children =
                 {
                     new Microsoft.UI.Xaml.Controls.ProgressRing
                     {
-                        Width = 48,
-                        Height = 48,
+                        Width = 56,
+                        Height = 56,
                         IsActive = true,
                         HorizontalAlignment = HorizontalAlignment.Center
                     },

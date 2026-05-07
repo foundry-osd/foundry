@@ -474,6 +474,42 @@
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>Préparation de l'espace de travail WinPE.</value>
   </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>Résolution des packages de pilotes.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>Personnalisation de l'image de démarrage.</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>Évaluation de la stratégie de signature de démarrage.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>Préparation de la personnalisation de l'image de démarrage.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>Montage de l'image de démarrage.</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>Injection des pilotes dans l'image de démarrage.</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>Application de la langue et des composants optionnels.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>Provisionnement des ressources de démarrage Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>Provisionnement des charges utiles d'exécution Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>Validation des modifications de l'image de démarrage.</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>Personnalisation de l'image de démarrage terminée.</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>Nettoyage de l'espace de travail WinPE.</value>
+  </data>
   <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
     <value>Création du média ISO.</value>
   </data>

@@ -212,13 +212,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.UsbQueryTempDirectoryPath,
                 CancellationToken.None);
 
-                UsbCandidates.Clear();
-                if (result.IsSuccess && result.Value is not null)
+            UsbCandidates.Clear();
+            if (result.IsSuccess && result.Value is not null)
+            {
+                foreach (WinPeUsbDiskCandidate candidate in result.Value)
                 {
-                    foreach (WinPeUsbDiskCandidate candidate in result.Value)
-                    {
                     UsbCandidates.Add(CreateUsbDiskOption(candidate));
-                    }
+                }
 
                 SelectedUsbDisk = UsbCandidates.FirstOrDefault(option => option.Value.DiskNumber == SelectedUsbDisk?.Value.DiskNumber)
                     ?? UsbCandidates.FirstOrDefault();
@@ -357,22 +357,38 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task CreateIsoMediaAsync(MediaPreflightOptions options, CancellationToken cancellationToken)
     {
-        PreparedMediaWorkspace workspace = await PrepareMediaWorkspaceAsync(
-            options,
-            includeRuntimePayloadInImage: true,
-            cancellationToken);
+        PreparedMediaWorkspace? workspace = null;
 
-        operationProgressService.Report(90, localizationService.GetString("StartMedia.Operation.CreatingIso"));
-        WinPeResult result = await isoMediaService.CreateAsync(
-            new WinPeIsoMediaOptions
-            {
-                PreparedWorkspace = workspace.PreparedWorkspace,
-                OutputIsoPath = options.IsoOutputPath,
-                IsoTempDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "Iso")
-            },
-            cancellationToken);
+        try
+        {
+            workspace = await PrepareMediaWorkspaceAsync(
+                options,
+                includeRuntimePayloadInImage: true,
+                cancellationToken);
 
-        EnsureSuccess(result);
+            operationProgressService.Report(90, localizationService.GetString("StartMedia.Operation.CreatingIso"));
+            logger.Debug(
+                "Creating ISO media. OutputIsoPath={OutputIsoPath}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
+                options.IsoOutputPath,
+                workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
+                workspace.PreparedWorkspace.UseBootEx);
+
+            WinPeResult result = await isoMediaService.CreateAsync(
+                new WinPeIsoMediaOptions
+                {
+                    PreparedWorkspace = workspace.PreparedWorkspace,
+                    OutputIsoPath = options.IsoOutputPath,
+                    IsoTempDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "Iso")
+                },
+                cancellationToken);
+
+            EnsureSuccess(result);
+            logger.Debug("ISO media service completed. OutputIsoPath={OutputIsoPath}", options.IsoOutputPath);
+        }
+        finally
+        {
+            CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
+        }
     }
 
     private async Task CreateUsbMediaAsync(MediaPreflightOptions options, CancellationToken cancellationToken)
@@ -382,30 +398,53 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             throw new InvalidOperationException(localizationService.GetString("StartMedia.BlockingReason.NoUsbTarget"));
         }
 
-        PreparedMediaWorkspace workspace = await PrepareMediaWorkspaceAsync(
-            options,
-            includeRuntimePayloadInImage: false,
-            cancellationToken);
+        PreparedMediaWorkspace? workspace = null;
 
-        WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
-        operationProgressService.Report(90, localizationService.GetString("StartMedia.Operation.CreatingUsb"));
-        WinPeResult<WinPeUsbProvisionResult> result = await usbMediaService.ProvisionAndPopulateAsync(
-            new UsbOutputOptions
-            {
-                TargetDiskNumber = selectedDisk.DiskNumber,
-                ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
-                ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
-                ExpectedDiskUniqueId = selectedDisk.UniqueId,
-                PartitionStyle = options.UsbPartitionStyle,
-                FormatMode = options.UsbFormatMode,
-                RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning
-            },
-            workspace.PreparedWorkspace.Artifact,
-            workspace.Tools,
-            workspace.PreparedWorkspace.UseBootEx,
-            cancellationToken);
+        try
+        {
+            workspace = await PrepareMediaWorkspaceAsync(
+                options,
+                includeRuntimePayloadInImage: false,
+                cancellationToken);
 
-        EnsureSuccess(result);
+            WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
+            operationProgressService.Report(90, localizationService.GetString("StartMedia.Operation.CreatingUsb"));
+            logger.Debug(
+                "Creating USB media. DiskNumber={DiskNumber}, DiskName={DiskName}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
+                selectedDisk.DiskNumber,
+                selectedDisk.FriendlyName,
+                options.UsbPartitionStyle,
+                options.UsbFormatMode,
+                workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
+                workspace.PreparedWorkspace.UseBootEx);
+
+            WinPeResult<WinPeUsbProvisionResult> result = await usbMediaService.ProvisionAndPopulateAsync(
+                new UsbOutputOptions
+                {
+                    TargetDiskNumber = selectedDisk.DiskNumber,
+                    ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
+                    ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
+                    ExpectedDiskUniqueId = selectedDisk.UniqueId,
+                    PartitionStyle = options.UsbPartitionStyle,
+                    FormatMode = options.UsbFormatMode,
+                    RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning
+                },
+                workspace.PreparedWorkspace.Artifact,
+                workspace.Tools,
+                workspace.PreparedWorkspace.UseBootEx,
+                cancellationToken);
+
+            EnsureSuccess(result);
+            logger.Debug(
+                "USB media service completed. DiskNumber={DiskNumber}, BootVolume={BootVolume}, CacheVolume={CacheVolume}",
+                selectedDisk.DiskNumber,
+                result.Value?.BootDriveLetter,
+                result.Value?.CacheDriveLetter);
+        }
+        finally
+        {
+            CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
+        }
     }
 
     private async Task<PreparedMediaWorkspace> PrepareMediaWorkspaceAsync(
@@ -413,65 +452,114 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         bool includeRuntimePayloadInImage,
         CancellationToken cancellationToken)
     {
-        WinPeToolPaths tools = ResolveWinPeToolsOrThrow();
-        WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = CreateRuntimePayloadProvisioningOptions(
-            options.Architecture,
-            Constants.WinPeWorkspaceDirectoryPath,
-            Constants.WinPeWorkspaceDirectoryPath,
-            Constants.WinPeWorkspaceDirectoryPath);
+        WinPeBuildArtifact? artifact = null;
 
-        operationProgressService.Report(10, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
-        WinPeResult<WinPeBuildArtifact> buildResult = await buildService.BuildAsync(
-            new WinPeBuildOptions
-            {
-                OutputDirectoryPath = Constants.WinPeWorkspaceDirectoryPath,
-                AdkRootPath = tools.KitsRootPath,
-                Architecture = options.Architecture,
-                SignatureMode = options.SignatureMode
-            },
-            cancellationToken);
-        EnsureSuccess(buildResult);
-
-        WinPeBuildArtifact artifact = buildResult.Value!;
-        FoundryConnectProvisioningBundle connectBundle = expertDeployConfigurationStateService.GenerateConnectProvisioningBundle(
-            Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"));
-
-        WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
+        try
         {
-            WorkingDirectoryPath = artifact.WorkingDirectoryPath,
-            MountedImagePath = artifact.MountDirectoryPath,
-            UsbCacheRootPath = string.Empty
-        };
+            WinPeToolPaths tools = ResolveWinPeToolsOrThrow();
+            logger.Debug(
+                "Resolved WinPE tools. KitsRootPath={KitsRootPath}, DismPath={DismPath}, MakeWinPeMediaPath={MakeWinPeMediaPath}",
+                tools.KitsRootPath,
+                tools.DismPath,
+                tools.MakeWinPeMediaPath);
 
-        operationProgressService.Report(25, localizationService.GetString("StartMedia.Operation.PreparingWorkspace"));
-        WinPeResult<WinPeWorkspacePreparationResult> preparationResult = await workspacePreparationService.PrepareAsync(
-            new WinPeWorkspacePreparationOptions
-            {
-                Artifact = artifact,
-                Tools = tools,
-                SignatureMode = options.SignatureMode,
-                BootImageSource = options.BootImageSource,
-                DriverCatalogUri = new WinPeDriverCatalogOptions().CatalogUri,
-                DriverVendors = options.DriverVendors,
-                CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
-                WinPeLanguage = options.WinPeLanguage,
-                AssetProvisioning = CreateAssetProvisioningOptions(options, connectBundle),
-                RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
-                WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
-                Progress = new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage),
-                CustomizationProgress = new Progress<WinPeMountedImageCustomizationProgress>(ReportCustomizationProgress)
-            },
-            cancellationToken);
-        EnsureSuccess(preparationResult);
+            WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = CreateRuntimePayloadProvisioningOptions(
+                options.Architecture,
+                Constants.WinPeWorkspaceDirectoryPath,
+                Constants.WinPeWorkspaceDirectoryPath,
+                Constants.WinPeWorkspaceDirectoryPath);
+            RuntimePayloadReadiness runtimeReadiness = EvaluateRuntimePayloadReadiness(runtimePayloadProvisioning);
 
-        return new PreparedMediaWorkspace(
-            preparationResult.Value!,
-            tools,
-            artifactRuntimePayloadProvisioning with
+            logger.Debug(
+                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, BootImageSource={BootImageSource}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, HasConnectRuntimePayload={HasConnectRuntimePayload}, HasDeployRuntimePayload={HasDeployRuntimePayload}",
+                options.Architecture,
+                NormalizeCultureName(options.WinPeLanguage),
+                options.SignatureMode,
+                options.BootImageSource,
+                includeRuntimePayloadInImage,
+                options.DriverVendors.Count,
+                !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
+                options.IsAutopilotEnabled,
+                runtimeReadiness.IsConnectReady,
+                runtimeReadiness.IsDeployReady);
+
+            CleanupStaleWinPeWorkspaces();
+
+            operationProgressService.Report(10, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
+            WinPeResult<WinPeBuildArtifact> buildResult = await buildService.BuildAsync(
+                new WinPeBuildOptions
+                {
+                    OutputDirectoryPath = Constants.WinPeWorkspaceDirectoryPath,
+                    AdkRootPath = tools.KitsRootPath,
+                    Architecture = options.Architecture,
+                    SignatureMode = options.SignatureMode
+                },
+                cancellationToken);
+            EnsureSuccess(buildResult);
+
+            artifact = buildResult.Value!;
+            logger.Debug(
+                "WinPE workspace created. WorkingDirectoryPath={WorkingDirectoryPath}, MediaDirectoryPath={MediaDirectoryPath}, MountDirectoryPath={MountDirectoryPath}, BootWimPath={BootWimPath}",
+                artifact.WorkingDirectoryPath,
+                artifact.MediaDirectoryPath,
+                artifact.MountDirectoryPath,
+                artifact.BootWimPath);
+
+            FoundryConnectProvisioningBundle connectBundle = expertDeployConfigurationStateService.GenerateConnectProvisioningBundle(
+                Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"));
+            logger.Debug(
+                "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, HasMediaSecretsKey={HasMediaSecretsKey}, AutopilotProfileCount={AutopilotProfileCount}",
+                connectBundle.AssetFiles.Count,
+                connectBundle.MediaSecretsKey is { Length: > 0 },
+                options.IsAutopilotEnabled ? expertDeployConfigurationStateService.Current.Autopilot.Profiles.Count : 0);
+
+            WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
             {
-                MountedImagePath = string.Empty,
+                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
+                MountedImagePath = artifact.MountDirectoryPath,
                 UsbCacheRootPath = string.Empty
-            });
+            };
+
+            operationProgressService.Report(25, localizationService.GetString("StartMedia.Operation.PreparingWorkspace"));
+            WinPeResult<WinPeWorkspacePreparationResult> preparationResult = await workspacePreparationService.PrepareAsync(
+                new WinPeWorkspacePreparationOptions
+                {
+                    Artifact = artifact,
+                    Tools = tools,
+                    SignatureMode = options.SignatureMode,
+                    BootImageSource = options.BootImageSource,
+                    DriverCatalogUri = new WinPeDriverCatalogOptions().CatalogUri,
+                    DriverVendors = options.DriverVendors,
+                    CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
+                    WinPeLanguage = options.WinPeLanguage,
+                    AssetProvisioning = CreateAssetProvisioningOptions(options, connectBundle),
+                    RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
+                    WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
+                    Progress = new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage),
+                    CustomizationProgress = new Progress<WinPeMountedImageCustomizationProgress>(ReportCustomizationProgress)
+                },
+                cancellationToken);
+            EnsureSuccess(preparationResult);
+
+            logger.Debug(
+                "WinPE workspace prepared. UseBootEx={UseBootEx}, RuntimePayloadInImage={RuntimePayloadInImage}",
+                preparationResult.Value!.UseBootEx,
+                includeRuntimePayloadInImage);
+
+            return new PreparedMediaWorkspace(
+                preparationResult.Value!,
+                tools,
+                artifactRuntimePayloadProvisioning with
+                {
+                    MountedImagePath = string.Empty,
+                    UsbCacheRootPath = string.Empty
+                });
+        }
+        catch
+        {
+            CleanupPreparedWorkspace(artifact?.WorkingDirectoryPath);
+            throw;
+        }
     }
 
     private WinPeMountedImageAssetProvisioningOptions CreateAssetProvisioningOptions(
@@ -506,7 +594,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             _ => 45
         };
 
-        operationProgressService.Report(progress, localizationService.GetString("StartMedia.Operation.PreparingWorkspace"));
+        string statusResourceKey = stage switch
+        {
+            WinPeWorkspacePreparationStage.ResolvingDrivers => "StartMedia.Operation.ResolvingDrivers",
+            WinPeWorkspacePreparationStage.CustomizingImage => "StartMedia.Operation.CustomizingImage",
+            WinPeWorkspacePreparationStage.EvaluatingSignaturePolicy => "StartMedia.Operation.EvaluatingSignaturePolicy",
+            _ => "StartMedia.Operation.PreparingWorkspace"
+        };
+
+        logger.Debug("WinPE workspace preparation stage changed. Stage={Stage}, Progress={Progress}", stage, progress);
+        operationProgressService.Report(progress, localizationService.GetString(statusResourceKey));
     }
 
     private void ReportCustomizationProgress(WinPeMountedImageCustomizationProgress progress)
@@ -514,9 +611,128 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         int normalizedProgress = Math.Clamp(45 + (progress.Percent * 35 / 100), 45, 80);
         string status = string.IsNullOrWhiteSpace(progress.Status)
             ? localizationService.GetString("StartMedia.Operation.PreparingWorkspace")
-            : progress.Status;
+            : LocalizeCustomizationStatus(progress.Status);
 
+        logger.Debug(
+            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}",
+            progress.Status,
+            progress.Percent,
+            normalizedProgress);
         operationProgressService.Report(normalizedProgress, status);
+    }
+
+    private string LocalizeCustomizationStatus(string status)
+    {
+        string resourceKey = status switch
+        {
+            "Preparing boot image customization." => "StartMedia.Operation.PreparingBootImageCustomization",
+            "Mounting boot image." => "StartMedia.Operation.MountingBootImage",
+            "Injecting drivers into mounted image." => "StartMedia.Operation.InjectingDrivers",
+            "Applying language and optional components." => "StartMedia.Operation.ApplyingLanguageAndComponents",
+            "Provisioning Foundry boot assets." => "StartMedia.Operation.ProvisioningBootAssets",
+            "Provisioning Foundry runtime payloads." => "StartMedia.Operation.ProvisioningRuntimePayloads",
+            "Committing image changes." => "StartMedia.Operation.CommittingImageChanges",
+            "Image customization completed." => "StartMedia.Operation.ImageCustomizationCompleted",
+            _ => string.Empty
+        };
+
+        return string.IsNullOrWhiteSpace(resourceKey)
+            ? status
+            : localizationService.GetString(resourceKey);
+    }
+
+    private void CleanupPreparedWorkspace(string? workingDirectoryPath)
+    {
+        if (string.IsNullOrWhiteSpace(workingDirectoryPath))
+        {
+            return;
+        }
+
+        string workspaceRoot = Path.GetFullPath(Constants.WinPeWorkspaceDirectoryPath);
+        string workspacePath = Path.GetFullPath(workingDirectoryPath);
+        string normalizedRoot = workspaceRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            + Path.DirectorySeparatorChar;
+
+        if (!workspacePath.StartsWith(normalizedRoot, StringComparison.OrdinalIgnoreCase))
+        {
+            logger.Warning(
+                "Skipped WinPE workspace cleanup because the target is outside the workspace root. WorkspacePath={WorkspacePath}, WorkspaceRoot={WorkspaceRoot}",
+                workspacePath,
+                workspaceRoot);
+            return;
+        }
+
+        if (!Directory.Exists(workspacePath))
+        {
+            logger.Debug("Skipped WinPE workspace cleanup because the directory no longer exists. WorkspacePath={WorkspacePath}", workspacePath);
+            return;
+        }
+
+        DeleteWorkspaceDirectory(workspacePath, reportProgress: true);
+    }
+
+    private void CleanupStaleWinPeWorkspaces()
+    {
+        string workspaceRoot = Path.GetFullPath(Constants.WinPeWorkspaceDirectoryPath);
+        if (!Directory.Exists(workspaceRoot))
+        {
+            return;
+        }
+
+        foreach (string workspacePath in Directory.EnumerateDirectories(workspaceRoot))
+        {
+            DeleteWorkspaceDirectory(workspacePath, reportProgress: false);
+        }
+
+        foreach (string filePath in Directory.EnumerateFiles(workspaceRoot))
+        {
+            try
+            {
+                logger.Debug("Cleaning stale WinPE workspace file. FilePath={FilePath}", filePath);
+                File.Delete(filePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Warning(ex, "Failed to clean stale WinPE workspace file. FilePath={FilePath}", filePath);
+            }
+        }
+    }
+
+    private void DeleteWorkspaceDirectory(string workspacePath, bool reportProgress)
+    {
+        try
+        {
+            if (reportProgress)
+            {
+                operationProgressService.Report(95, localizationService.GetString("StartMedia.Operation.CleaningWorkspace"));
+            }
+
+            logger.Debug("Cleaning WinPE workspace. WorkspacePath={WorkspacePath}", workspacePath);
+            NormalizeWorkspaceAttributes(workspacePath);
+            Directory.Delete(workspacePath, recursive: true);
+            logger.Debug("WinPE workspace cleaned. WorkspacePath={WorkspacePath}", workspacePath);
+        }
+        catch (Exception ex)
+        {
+            logger.Warning(ex, "Failed to clean WinPE workspace. WorkspacePath={WorkspacePath}", workspacePath);
+        }
+    }
+
+    private static void NormalizeWorkspaceAttributes(string workspacePath)
+    {
+        foreach (string filePath in Directory.EnumerateFiles(workspacePath, "*", SearchOption.AllDirectories))
+        {
+            File.SetAttributes(filePath, FileAttributes.Normal);
+        }
+
+        foreach (string directoryPath in Directory
+            .EnumerateDirectories(workspacePath, "*", SearchOption.AllDirectories)
+            .OrderByDescending(path => path.Length))
+        {
+            File.SetAttributes(directoryPath, FileAttributes.Directory);
+        }
+
+        File.SetAttributes(workspacePath, FileAttributes.Directory);
     }
 
     private async Task ShowBlockedDialogAsync(

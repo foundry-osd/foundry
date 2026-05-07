@@ -323,14 +323,19 @@ git commit -m "feat(autopilot): wire start readiness"
   - [x] Keep command state readable in the global summary.
 - [x] **16.E.3** Wire `Create ISO` execution from WinUI:
   - [x] Use the existing operation overlay contract for progress, completion, and failure; the current overlay has no in-operation cancel affordance.
+  - [x] Localize app-visible WinPE provisioning progress, including mounted-image customization statuses emitted by core services.
+  - [x] Keep the operation dialog readable with WinUI spacing guidance for progress/status content.
   - [x] Call the core ISO media service from an app-level orchestration service or view model command, not from page code-behind.
   - [x] Generate the complete effective Deploy and Connect configuration files during media provisioning.
   - [x] Provision runtime payloads, network assets, encrypted secret keys, Autopilot profiles, customization settings, drivers, and boot-language assets into the generated media layout.
+  - [x] Clean temporary WinPE workspaces after the ISO operation exits.
 - [x] **16.E.4** Wire `Create USB` execution from WinUI:
   - [x] Require an explicit destructive USB confirmation dialog.
   - [x] Default the destructive confirmation to cancel.
+  - [x] Keep destructive confirmation content readable with wrapping and a wider dialog content area.
   - [x] Revalidate selected USB disk identity immediately before formatting.
   - [x] Use the existing operation overlay contract for progress, completion, and failure; cancellation is limited to the pre-format confirmation step until the operation overlay supports cancellation.
+  - [x] Clean temporary WinPE workspaces after the USB operation exits.
 - [x] **16.E.5** Keep secrets safe during final execution:
   - [x] Never log plaintext Wi-Fi/network secrets.
   - [x] Never log media secret keys.
@@ -365,3 +370,5 @@ git commit -m "feat(media): enable final iso and usb commands"
   - [ ] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
   - [ ] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
 - [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, pre-format cancellation, and failure events without exposing secrets.
+  - [x] Add debug coverage for WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, and workspace cleanup.
+  - [ ] Re-run ISO/USB creation and confirm the new debug events appear without plaintext Wi-Fi passphrases or media keys.

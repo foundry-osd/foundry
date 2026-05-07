@@ -11,7 +11,7 @@ public sealed class WinUiDialogService : IDialogService
         var dialog = new ContentDialog
         {
             Title = request.Title,
-            Content = request.Message,
+            Content = CreateMessageContent(request.Message),
             CloseButtonText = request.CloseButtonText,
             XamlRoot = GetXamlRoot()
         };
@@ -26,7 +26,7 @@ public sealed class WinUiDialogService : IDialogService
         var dialog = new ContentDialog
         {
             Title = request.Title,
-            Content = request.Message,
+            Content = CreateMessageContent(request.Message),
             PrimaryButtonText = request.PrimaryButtonText,
             CloseButtonText = request.CancelButtonText,
             XamlRoot = GetXamlRoot()
@@ -34,6 +34,16 @@ public sealed class WinUiDialogService : IDialogService
 
         ContentDialogResult result = await dialog.ShowAsync();
         return result == ContentDialogResult.Primary;
+    }
+
+    private static TextBlock CreateMessageContent(string message)
+    {
+        return new TextBlock
+        {
+            Text = message,
+            TextWrapping = TextWrapping.Wrap,
+            MaxWidth = 520
+        };
     }
 
     private static XamlRoot GetXamlRoot()
