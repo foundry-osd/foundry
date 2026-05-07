@@ -433,7 +433,7 @@
     <value>Final media commands</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Final ISO and USB execution stays disabled until the final media enablement phase.</value>
+    <value>Create the final ISO or USB media after all readiness checks pass.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Create ISO</value>
@@ -449,6 +449,45 @@
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
     <value>Final ISO/USB execution is deferred until the final media enablement phase.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>Final ISO/USB execution is enabled when all readiness checks pass.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>ISO creation is blocked</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>USB creation is blocked</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>Format USB target</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>This will erase disk {0}: {1} ({2}). Continue only if this is the intended disposable USB target.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>Format and create USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>Creating WinPE workspace.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>Preparing WinPE workspace.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>Creating ISO media.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>Creating USB media.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>Final media creation completed.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>Final media creation failed.</value>
+  </data>
+  <data name="StartMedia.Operation.FailedTitle" xml:space="preserve">
+    <value>Media creation failed</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Select ISO output path</value>
@@ -542,6 +581,12 @@
   </data>
   <data name="StartMedia.BlockingReason.RuntimePayloadNotReady" xml:space="preserve">
     <value>Runtime payload readiness is deferred.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectRuntimePayloadNotReady" xml:space="preserve">
+    <value>Foundry.Connect runtime payload is not available for the selected architecture.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployRuntimePayloadNotReady" xml:space="preserve">
+    <value>Foundry.Deploy runtime payload is not available for the selected architecture.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>Network configuration is not ready.</value>

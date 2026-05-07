@@ -433,7 +433,7 @@
     <value>Commandes média finales</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>L'exécution ISO et USB finale reste désactivée jusqu'à la phase d'activation finale des médias.</value>
+    <value>Crée le média ISO ou USB final après validation de tous les contrôles.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Créer l'ISO</value>
@@ -449,6 +449,45 @@
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
     <value>L'exécution ISO/USB finale est différée jusqu'à la phase d'activation finale des médias.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>L'exécution ISO/USB finale est activée quand tous les contrôles sont validés.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>La création ISO est bloquée</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>La création USB est bloquée</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>Formater la cible USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>Cette action va effacer le disque {0} : {1} ({2}). Continuez uniquement si c'est bien la cible USB jetable prévue.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>Formater et créer l'USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>Création de l'espace de travail WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>Préparation de l'espace de travail WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>Création du média ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>Création du média USB.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>Création du média final terminée.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>La création du média final a échoué.</value>
+  </data>
+  <data name="StartMedia.Operation.FailedTitle" xml:space="preserve">
+    <value>La création du média a échoué</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Sélectionner le chemin de sortie ISO</value>
@@ -542,6 +581,12 @@
   </data>
   <data name="StartMedia.BlockingReason.RuntimePayloadNotReady" xml:space="preserve">
     <value>La validation des payloads runtime est différée.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectRuntimePayloadNotReady" xml:space="preserve">
+    <value>Le payload runtime Foundry.Connect n'est pas disponible pour l'architecture sélectionnée.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployRuntimePayloadNotReady" xml:space="preserve">
+    <value>Le payload runtime Foundry.Deploy n'est pas disponible pour l'architecture sélectionnée.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>La configuration réseau n'est pas prête.</value>

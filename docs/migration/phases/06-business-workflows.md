@@ -311,31 +311,31 @@ git commit -m "feat(autopilot): wire start readiness"
 
 **Prerequisites and boundary:** Phases 14, 15, and 16 must be complete. Phase 16.E owns final media command enablement and must absorb deferred real-media validations from Phases 12, 13, 14, 15, and 16. Phase 16.E should not perform the broader Connect/Deploy compatibility pass; that remains Phase 17 after media can be generated from WinUI.
 
-- [ ] **16.E.1** Replace remaining final media placeholders in `Start` preflight:
-  - [ ] Runtime payload readiness is real, not hardcoded.
-  - [ ] `Foundry.Connect` runtime payload availability is checked for the selected RID.
-  - [ ] `Foundry.Deploy` runtime payload availability is checked for the selected RID.
-  - [ ] Blocking reasons identify missing runtime payloads separately from Deploy, Connect, network, secret, or Autopilot readiness.
-- [ ] **16.E.2** Wire final ISO/USB command enablement:
-  - [ ] Enable `Create ISO` only when ADK, ISO path, architecture, Deploy, Connect, network, required secrets, runtime payloads, and optional Autopilot readiness pass.
-  - [ ] Enable `Create USB` only when all ISO requirements pass and a stable USB target is selected.
-  - [ ] Keep USB creation disabled when no USB target is selected without blocking ISO creation.
-  - [ ] Keep command state readable in the global summary.
-- [ ] **16.E.3** Wire `Create ISO` execution from WinUI:
-  - [ ] Use the existing operation overlay contract for progress, cancellation, completion, and failure.
-  - [ ] Call the core ISO media service from an app-level orchestration service or view model command, not from page code-behind.
-  - [ ] Generate the complete effective Deploy and Connect configuration files during media provisioning.
-  - [ ] Provision runtime payloads, network assets, encrypted secret keys, Autopilot profiles, customization settings, drivers, and boot-language assets into the generated media layout.
-- [ ] **16.E.4** Wire `Create USB` execution from WinUI:
-  - [ ] Require an explicit destructive USB confirmation dialog.
-  - [ ] Default the destructive confirmation to cancel.
-  - [ ] Revalidate selected USB disk identity immediately before formatting.
-  - [ ] Use the existing operation overlay contract for progress, cancellation, completion, and failure.
-- [ ] **16.E.5** Keep secrets safe during final execution:
-  - [ ] Never log plaintext Wi-Fi/network secrets.
-  - [ ] Never log media secret keys.
-  - [ ] Never show plaintext secrets or media keys in summaries, validation errors, or operation output.
-  - [ ] Create `media-secrets.key` only when generated media contains encrypted secret envelopes.
+- [x] **16.E.1** Replace remaining final media placeholders in `Start` preflight:
+  - [x] Runtime payload readiness is real, not hardcoded.
+  - [x] `Foundry.Connect` runtime payload availability is checked for the selected RID.
+  - [x] `Foundry.Deploy` runtime payload availability is checked for the selected RID.
+  - [x] Blocking reasons identify missing runtime payloads separately from Deploy, Connect, network, secret, or Autopilot readiness.
+- [x] **16.E.2** Wire final ISO/USB command enablement:
+  - [x] Enable `Create ISO` only when ADK, ISO path, architecture, Deploy, Connect, network, required secrets, runtime payloads, and optional Autopilot readiness pass.
+  - [x] Enable `Create USB` only when all ISO requirements pass and a stable USB target is selected.
+  - [x] Keep USB creation disabled when no USB target is selected without blocking ISO creation.
+  - [x] Keep command state readable in the global summary.
+- [x] **16.E.3** Wire `Create ISO` execution from WinUI:
+  - [x] Use the existing operation overlay contract for progress, completion, and failure; the current overlay has no in-operation cancel affordance.
+  - [x] Call the core ISO media service from an app-level orchestration service or view model command, not from page code-behind.
+  - [x] Generate the complete effective Deploy and Connect configuration files during media provisioning.
+  - [x] Provision runtime payloads, network assets, encrypted secret keys, Autopilot profiles, customization settings, drivers, and boot-language assets into the generated media layout.
+- [x] **16.E.4** Wire `Create USB` execution from WinUI:
+  - [x] Require an explicit destructive USB confirmation dialog.
+  - [x] Default the destructive confirmation to cancel.
+  - [x] Revalidate selected USB disk identity immediately before formatting.
+  - [x] Use the existing operation overlay contract for progress, completion, and failure; cancellation is limited to the pre-format confirmation step until the operation overlay supports cancellation.
+- [x] **16.E.5** Keep secrets safe during final execution:
+  - [x] Never log plaintext Wi-Fi/network secrets.
+  - [x] Never log media secret keys.
+  - [x] Never show plaintext secrets or media keys in summaries, validation errors, or operation output.
+  - [x] Create `media-secrets.key` only when generated media contains encrypted secret envelopes.
 - [ ] **16.E.6** Commit:
 
 ```powershell
@@ -364,4 +364,4 @@ git commit -m "feat(media): enable final iso and usb commands"
   - [ ] **16.16** Boot generated media into `Foundry.Deploy` with Autopilot enabled but no embedded profile, and confirm the Autopilot section remains visible so the operator can disable it.
   - [ ] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
   - [ ] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
-- [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, cancellation, and failure events without exposing secrets.
+- [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, pre-format cancellation, and failure events without exposing secrets.
