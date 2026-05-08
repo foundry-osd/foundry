@@ -1090,10 +1090,10 @@
     <value>Installez le module complémentaire Windows PE correspondant au Windows ADK installé.</value>
   </data>
   <data name="Adk.SetupAction.Title" xml:space="preserve">
-    <value>Actions de configuration</value>
+    <value>Configuration ADK</value>
   </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
-    <value>Actualisez l'état ou installez les outils de déploiement Windows ADK et le module complémentaire Windows PE.</value>
+    <value>Installez ou mettez à niveau les outils de déploiement Windows ADK et le module complémentaire Windows PE requis pour créer des médias.</value>
   </data>
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Détails de préparation</value>
@@ -1166,9 +1166,6 @@
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
     <value>Échec de l'opération ADK</value>
-  </data>
-  <data name="AdkPage_RefreshButton.Content" xml:space="preserve">
-    <value>Actualiser l'état</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
     <value>Installer l'ADK et le module WinPE</value>

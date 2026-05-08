@@ -72,6 +72,9 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     public partial bool IsUpgradeButtonVisible { get; set; }
 
     [ObservableProperty]
+    public partial bool IsSetupActionVisible { get; set; }
+
+    [ObservableProperty]
     public partial bool IsActionEnabled { get; set; }
 
     public AdkPageViewModel(
@@ -119,13 +122,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         adkService.StatusChanged -= OnAdkStatusChanged;
         operationProgressService.StateChanged -= OnOperationProgressChanged;
         localizationService.LanguageChanged -= OnLanguageChanged;
-    }
-
-    [RelayCommand]
-    private async Task RefreshStatusAsync()
-    {
-        AdkInstallationStatus status = await adkService.RefreshStatusAsync();
-        ApplyShellState(status);
     }
 
     [RelayCommand]
@@ -222,6 +218,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             : localizationService.GetString("Adk.MediaCapability.Blocked");
         IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
         IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled || !status.IsWinPeAddonInstalled);
+        IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
         IsActionEnabled = !IsBusy;
     }
 

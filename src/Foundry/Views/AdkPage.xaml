@@ -21,16 +21,13 @@
                      Title="{x:Bind ViewModel.StatusTitle, Mode=OneWay}" />
 
             <wct:SettingsCard Description="{x:Bind ViewModel.SetupActionDescription, Mode=OneWay}"
-                              Header="{x:Bind ViewModel.SetupActionTitle, Mode=OneWay}">
+                              Header="{x:Bind ViewModel.SetupActionTitle, Mode=OneWay}"
+                              Visibility="{x:Bind ViewModel.IsSetupActionVisible, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE946;" />
                 </wct:SettingsCard.HeaderIcon>
                 <StackPanel Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            x:Uid="AdkPage_RefreshButton"
-                            Command="{x:Bind ViewModel.RefreshStatusCommand}"
-                            IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}" />
                     <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                             x:Uid="AdkPage_InstallButton"
                             Command="{x:Bind ViewModel.InstallAdkCommand}"
