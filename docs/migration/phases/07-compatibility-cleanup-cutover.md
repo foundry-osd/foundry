@@ -263,8 +263,8 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Replace page-owned `dev:SettingsCard` and `dev:SettingsExpander` usages with native WinUI composition or WCT settings controls on `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Settings`, `About`, and settings subpages where practical.
   - [ ] Keep DevWinUI page controls only when no native WinUI or WCT replacement fits the interaction cleanly, or when replacement creates unnecessary behavioral risk.
 - [ ] **18.7** Review each workflow page for expected desktop UX:
-  - [x] `ADK` clearly separates overall readiness, installed version/policy, WinPE add-on state, media capability, and install/upgrade/refresh actions.
-  - [x] Put one ADK readiness card first, then lower-priority details for installed version, required version policy, WinPE add-on status, and ISO/USB capability.
+  - [x] `ADK` clearly separates overall readiness, setup actions, and grouped readiness details for installed version/policy, WinPE add-on state, and media capability.
+  - [x] Put one ADK readiness card first, one setup action card second, then one compact readiness details card for installed version, required version policy, WinPE add-on status, and ISO/USB capability.
   - [x] Present ADK setup as one combined action that covers both Windows ADK and the WinPE add-on.
   - [x] Keep the ADK primary setup button label stable, such as `Install ADK and WinPE add-on`, even when only one component is missing.
   - [x] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; omit ADK-specific diagnostics/logs until real diagnostics content exists.

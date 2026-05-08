@@ -46,31 +46,57 @@
                 </StackPanel>
             </wct:SettingsCard>
 
-            <wct:SettingsCard Description="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
-                              Header="{x:Bind ViewModel.InstalledVersionTitle, Mode=OneWay}">
+            <wct:SettingsCard Header="{x:Bind ViewModel.ReadinessDetailsTitle, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE946;" />
                 </wct:SettingsCard.HeaderIcon>
-                <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                    <TextBlock Text="{x:Bind ViewModel.RequiredVersionPolicyTitle, Mode=OneWay}"
-                               Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
-                    <TextBlock Text="{x:Bind ViewModel.RequiredVersionPolicy, Mode=OneWay}"
-                               TextWrapping="WrapWholeWords" />
-                </StackPanel>
-            </wct:SettingsCard>
+                <Grid ColumnSpacing="{ThemeResource FoundrySpace24}"
+                      RowSpacing="{ThemeResource FoundrySpace8}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <wct:SettingsCard Description="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}"
-                              Header="{x:Bind ViewModel.WinPeAddonTitle, Mode=OneWay}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE7C1;" />
-                </wct:SettingsCard.HeaderIcon>
-            </wct:SettingsCard>
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="0"
+                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Text="{x:Bind ViewModel.InstalledVersionTitle, Mode=OneWay}"
+                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
 
-            <wct:SettingsCard Description="{x:Bind ViewModel.MediaCapabilityStatus, Mode=OneWay}"
-                              Header="{x:Bind ViewModel.MediaCapabilityTitle, Mode=OneWay}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE768;" />
-                </wct:SettingsCard.HeaderIcon>
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1"
+                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Text="{x:Bind ViewModel.RequiredVersionPolicyTitle, Mode=OneWay}"
+                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind ViewModel.RequiredVersionPolicy, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="0"
+                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Text="{x:Bind ViewModel.WinPeAddonTitle, Mode=OneWay}"
+                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="1"
+                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Text="{x:Bind ViewModel.MediaCapabilityTitle, Mode=OneWay}"
+                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind ViewModel.MediaCapabilityStatus, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
             </wct:SettingsCard>
         </StackPanel>
     </ScrollView>

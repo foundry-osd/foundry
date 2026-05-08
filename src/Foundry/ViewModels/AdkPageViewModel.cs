@@ -36,6 +36,9 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     public partial string SetupActionDescription { get; set; }
 
     [ObservableProperty]
+    public partial string ReadinessDetailsTitle { get; set; }
+
+    [ObservableProperty]
     public partial string InstalledVersionTitle { get; set; }
 
     [ObservableProperty]
@@ -92,6 +95,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         StatusSeverity = InfoBarSeverity.Informational;
         SetupActionTitle = string.Empty;
         SetupActionDescription = string.Empty;
+        ReadinessDetailsTitle = string.Empty;
         InstalledVersionTitle = string.Empty;
         InstalledVersion = string.Empty;
         RequiredVersionPolicyTitle = string.Empty;
@@ -203,6 +207,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         StatusSeverity = GetStatusSeverity(status);
         SetupActionTitle = localizationService.GetString("Adk.SetupAction.Title");
         SetupActionDescription = localizationService.GetString("Adk.SetupAction.Description");
+        ReadinessDetailsTitle = localizationService.GetString("Adk.ReadinessDetails.Title");
         InstalledVersionTitle = localizationService.GetString("Adk.Version.InstalledTitle");
         InstalledVersion = status.InstalledVersion ?? localizationService.GetString("Adk.Version.NotDetected");
         RequiredVersionPolicyTitle = localizationService.GetString("Adk.Version.RequiredPolicyTitle");

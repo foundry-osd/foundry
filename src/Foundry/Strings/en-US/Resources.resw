@@ -1095,6 +1095,9 @@
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Refresh readiness or install the Windows ADK Deployment Tools and Windows PE Add-on.</value>
   </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>Readiness details</value>
+  </data>
   <data name="Adk.Version.InstalledTitle" xml:space="preserve">
     <value>Installed version</value>
   </data>

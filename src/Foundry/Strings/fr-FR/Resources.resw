@@ -1095,6 +1095,9 @@
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Actualisez l'état ou installez les outils de déploiement Windows ADK et le module complémentaire Windows PE.</value>
   </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>Détails de préparation</value>
+  </data>
   <data name="Adk.Version.InstalledTitle" xml:space="preserve">
     <value>Version installée</value>
   </data>
