@@ -14,7 +14,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
     private readonly IApplicationLocalizationService localizationService;
-    private readonly IExternalProcessLauncher externalProcessLauncher;
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
 
@@ -61,16 +60,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     public partial string MediaCapabilityStatus { get; set; }
 
     [ObservableProperty]
-    public partial string DiagnosticsTitle { get; set; }
-
-    [ObservableProperty]
     public partial bool IsBusy { get; set; }
-
-    [ObservableProperty]
-    public partial int OperationProgress { get; set; }
-
-    [ObservableProperty]
-    public partial string OperationStatus { get; set; }
 
     [ObservableProperty]
     public partial bool IsInstallButtonVisible { get; set; }
@@ -86,7 +76,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
         IApplicationLocalizationService localizationService,
-        IExternalProcessLauncher externalProcessLauncher,
         IAppDispatcher appDispatcher,
         ILogger logger)
     {
@@ -94,7 +83,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
         this.localizationService = localizationService;
-        this.externalProcessLauncher = externalProcessLauncher;
         this.appDispatcher = appDispatcher;
         this.logger = logger.ForContext<AdkPageViewModel>();
 
@@ -112,8 +100,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         WinPeAddonStatus = string.Empty;
         MediaCapabilityTitle = string.Empty;
         MediaCapabilityStatus = string.Empty;
-        DiagnosticsTitle = string.Empty;
-        OperationStatus = localizationService.GetString("Adk.Operation.Ready");
         IsActionEnabled = true;
 
         adkService.StatusChanged += OnAdkStatusChanged;
@@ -150,12 +136,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         return RunBlockingAdkOperationAsync(adkService.UpgradeAsync);
     }
 
-    [RelayCommand]
-    private Task OpenLogsAsync()
-    {
-        return externalProcessLauncher.OpenFolderAsync(Constants.LogDirectoryPath);
-    }
-
     private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
     {
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
@@ -168,7 +148,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             logger.Warning("ADK page operation failed. ErrorMessage={ErrorMessage}", ex.Message);
-            OperationStatus = localizationService.GetString("Adk.Operation.Failed");
             shellNavigationGuardService.SetState(ShellNavigationState.AdkBlocked);
         }
     }
@@ -236,7 +215,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         MediaCapabilityStatus = status.CanCreateMedia
             ? localizationService.GetString("Adk.MediaCapability.Ready")
             : localizationService.GetString("Adk.MediaCapability.Blocked");
-        DiagnosticsTitle = localizationService.GetString("Adk.Diagnostics.Title");
         IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
         IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled || !status.IsWinPeAddonInstalled);
         IsActionEnabled = !IsBusy;
@@ -245,10 +223,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     private void ApplyOperationState(OperationProgressState state)
     {
         IsBusy = state.IsRunning;
-        OperationProgress = state.Progress;
-        OperationStatus = !string.IsNullOrWhiteSpace(state.Status)
-            ? state.Status
-            : localizationService.GetString("Adk.Operation.Ready");
         IsActionEnabled = !IsBusy;
     }
 

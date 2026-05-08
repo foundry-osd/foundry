@@ -145,7 +145,7 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `HeaderTile.Link` is used only for true external links such as documentation. In-app workflow tiles navigate through Foundry navigation handlers/services so shell selection and page state remain correct.
 - Decision: `ADK` install action is a combined Windows ADK + WinPE add-on flow; the UI must not present them as unrelated installers.
 - Decision: `ADK` primary setup button keeps a stable combined label such as `Install ADK and WinPE add-on`, even when only one component is missing.
-- Decision: `ADK` shows core readiness details by default and keeps diagnostics/logs collapsed by default.
+- Decision: `ADK` shows core readiness details by default and does not include a diagnostics/logs row unless a future page-specific diagnostics requirement is approved.
 - Decision: `General` action is renamed from `Create media` to a navigation-oriented label such as `Review and start`.
 - Decision: Phase 18 removes UI code made obsolete by the redesign, including stale pages, view models, navigation metadata, resources, and localization keys.
 - Decision: Phase 18 updates both `en-US` and `fr-FR` localization resources whenever labels, descriptions, actions, or page text change.
@@ -264,10 +264,10 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Keep DevWinUI page controls only when no native WinUI or WCT replacement fits the interaction cleanly, or when replacement creates unnecessary behavioral risk.
 - [ ] **18.7** Review each workflow page for expected desktop UX:
   - [x] `ADK` clearly separates overall readiness, installed version/policy, WinPE add-on state, media capability, and install/upgrade/refresh actions.
-  - [x] Put one ADK readiness card first, then lower-priority details for installed version, required version policy, WinPE add-on status, ISO/USB capability, and diagnostics/logs.
+  - [x] Put one ADK readiness card first, then lower-priority details for installed version, required version policy, WinPE add-on status, and ISO/USB capability.
   - [x] Present ADK setup as one combined action that covers both Windows ADK and the WinPE add-on.
   - [x] Keep the ADK primary setup button label stable, such as `Install ADK and WinPE add-on`, even when only one component is missing.
-  - [x] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; keep diagnostics/logs as a low-priority row without expanding hidden content unless real diagnostics are added.
+  - [x] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; omit ADK-specific diagnostics/logs until real diagnostics content exists.
   - [x] `ADK` removes duplicate operation-status text and shows operation progress only when useful.
   - [ ] `General` makes generated media settings scannable without hiding required execution prerequisites.
   - [ ] `General` shows disabled/empty reasons for WinPE language discovery and other unavailable prerequisites.

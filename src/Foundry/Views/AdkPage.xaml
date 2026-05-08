@@ -72,23 +72,6 @@
                     <FontIcon Glyph="&#xE768;" />
                 </wct:SettingsCard.HeaderIcon>
             </wct:SettingsCard>
-
-            <wct:SettingsCard Description="{x:Bind ViewModel.OperationStatus, Mode=OneWay}"
-                              Header="{x:Bind ViewModel.DiagnosticsTitle, Mode=OneWay}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE9F5;" />
-                </wct:SettingsCard.HeaderIcon>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <ProgressBar Width="{ThemeResource FoundryInlineProgressWidth}"
-                                 Maximum="100"
-                                 Value="{x:Bind ViewModel.OperationProgress, Mode=OneWay}"
-                                 Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
-                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            x:Uid="AdkPage_OpenLogsButton"
-                            Command="{x:Bind ViewModel.OpenLogsCommand}" />
-                </StackPanel>
-            </wct:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

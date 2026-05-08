@@ -1164,9 +1164,6 @@
   <data name="Adk.Operation.Failed" xml:space="preserve">
     <value>Échec de l'opération ADK</value>
   </data>
-  <data name="Adk.Diagnostics.Title" xml:space="preserve">
-    <value>Diagnostics et journaux</value>
-  </data>
   <data name="AdkPage_RefreshButton.Content" xml:space="preserve">
     <value>Actualiser l'état</value>
   </data>
@@ -1175,8 +1172,5 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Mettre à niveau l'ADK et le module WinPE</value>
-  </data>
-  <data name="AdkPage_OpenLogsButton.Content" xml:space="preserve">
-    <value>Ouvrir les journaux</value>
   </data>
 </root>
