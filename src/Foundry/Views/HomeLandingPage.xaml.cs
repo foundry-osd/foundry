@@ -1,3 +1,4 @@
+using Foundry.Services.Shell;
 using Microsoft.UI.Xaml.Input;
 using Windows.System;
 
@@ -5,10 +6,13 @@ namespace Foundry.Views;
 
 public sealed partial class HomeLandingPage : Page
 {
+    private readonly IShellNavigationGuardService shellNavigationGuardService;
+
     public HomeLandingViewModel ViewModel { get; }
 
     public HomeLandingPage()
     {
+        shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
         ViewModel = App.GetService<HomeLandingViewModel>();
         InitializeComponent();
         Unloaded += OnUnloaded;
@@ -62,11 +66,23 @@ public sealed partial class HomeLandingPage : Page
 
     private void NavigateToGeneral()
     {
+        if (shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            NavigateToAdk();
+            return;
+        }
+
         App.Current.NavService.NavigateTo(typeof(GeneralConfigurationPage), ViewModel.GeneralNavigationTitle);
     }
 
     private void NavigateToStart()
     {
+        if (shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            NavigateToAdk();
+            return;
+        }
+
         App.Current.NavService.NavigateTo(typeof(StartPage), ViewModel.StartNavigationTitle);
     }
 

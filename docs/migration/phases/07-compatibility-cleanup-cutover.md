@@ -197,7 +197,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Use clear title, short description, and theme-safe icon/source content for each `HeaderTile`; keep localized text short enough for compact tile layouts.
   - [x] Make the `HeaderTile` layout responsive across narrow, medium, and wide windows by wrapping, horizontal scrolling, or an equivalent validated layout behavior.
   - [x] Use `HeaderTile.Link` only for the external documentation tile; in-app tiles must route through Foundry navigation handlers/services.
-  - [x] Keep Home action tiles clickable when prerequisites are missing; explain blockers in the ADK readiness/status content instead of disabling navigation.
+  - [x] Keep Home action tiles visually available when prerequisites are missing, but route workflow actions that require ADK readiness (`Configure media`, `Review and start`) to `ADK` until Windows ADK and the WinPE add-on are ready.
   - [x] Place compact ADK readiness/status content in `MainLandingPage.FooterContent`, including whether Windows ADK and the WinPE add-on are both ready.
   - [x] The ADK readiness/status content shows only the essential state, using a clear success/non-success visual treatment such as ready, warning, or blocked.
   - [x] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.

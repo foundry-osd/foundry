@@ -500,9 +500,7 @@ namespace Foundry.Views
                 ShellNavigationState.OperationRunning => false,
                 ShellNavigationState.AdkBlocked => isFooter
                     || string.Equals(uniqueId, typeof(HomeLandingPage).FullName, StringComparison.Ordinal)
-                    || string.Equals(uniqueId, typeof(AdkPage).FullName, StringComparison.Ordinal)
-                    || string.Equals(uniqueId, typeof(GeneralConfigurationPage).FullName, StringComparison.Ordinal)
-                    || string.Equals(uniqueId, typeof(StartPage).FullName, StringComparison.Ordinal),
+                    || string.Equals(uniqueId, typeof(AdkPage).FullName, StringComparison.Ordinal),
                 _ => false
             };
         }
