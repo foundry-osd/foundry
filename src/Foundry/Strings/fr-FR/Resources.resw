@@ -1089,17 +1089,35 @@
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Installez le module complémentaire Windows PE correspondant au Windows ADK installé.</value>
   </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>Actions de configuration</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>Actualisez l'état ou installez les outils de déploiement Windows ADK et le module complémentaire Windows PE.</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>Version installée</value>
+  </data>
   <data name="Adk.Version.NotDetected" xml:space="preserve">
     <value>Version non détectée</value>
   </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>Politique de version requise</value>
+  </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
     <value>Nécessite Windows ADK 10.1.26100.2454+ avec le dernier correctif de maintenance ADK.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Module complémentaire Windows PE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Module complémentaire Windows PE installé</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
     <value>Module complémentaire Windows PE manquant</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>Capacité de création de médias</value>
   </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
     <value>La création ISO et USB peut être déverrouillée.</value>
@@ -1146,14 +1164,17 @@
   <data name="Adk.Operation.Failed" xml:space="preserve">
     <value>Échec de l'opération ADK</value>
   </data>
+  <data name="Adk.Diagnostics.Title" xml:space="preserve">
+    <value>Diagnostics et journaux</value>
+  </data>
   <data name="AdkPage_RefreshButton.Content" xml:space="preserve">
     <value>Actualiser l'état</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Installer l'ADK</value>
+    <value>Installer l'ADK et le module WinPE</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Mettre à niveau l'ADK</value>
+    <value>Mettre à niveau l'ADK et le module WinPE</value>
   </data>
   <data name="AdkPage_OpenLogsButton.Content" xml:space="preserve">
     <value>Ouvrir les journaux</value>

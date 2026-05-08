@@ -1089,17 +1089,35 @@
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Install the Windows PE Add-on for the installed Windows ADK.</value>
   </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>Setup actions</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>Refresh readiness or install the Windows ADK Deployment Tools and Windows PE Add-on.</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>Installed version</value>
+  </data>
   <data name="Adk.Version.NotDetected" xml:space="preserve">
     <value>Version not detected</value>
   </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>Required version policy</value>
+  </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
     <value>Requires Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Windows PE Add-on</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on installed</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
     <value>Windows PE Add-on missing</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>Media creation capability</value>
   </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
     <value>ISO and USB creation can be unlocked.</value>
@@ -1146,14 +1164,17 @@
   <data name="Adk.Operation.Failed" xml:space="preserve">
     <value>ADK operation failed</value>
   </data>
+  <data name="Adk.Diagnostics.Title" xml:space="preserve">
+    <value>Diagnostics and logs</value>
+  </data>
   <data name="AdkPage_RefreshButton.Content" xml:space="preserve">
     <value>Refresh status</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Install ADK</value>
+    <value>Install ADK and WinPE add-on</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Upgrade ADK</value>
+    <value>Upgrade ADK and WinPE add-on</value>
   </data>
   <data name="AdkPage_OpenLogsButton.Content" xml:space="preserve">
     <value>Open logs</value>

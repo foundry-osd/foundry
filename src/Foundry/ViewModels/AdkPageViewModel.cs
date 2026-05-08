@@ -28,16 +28,40 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     public partial string StatusDescription { get; set; }
 
     [ObservableProperty]
+    public partial InfoBarSeverity StatusSeverity { get; set; }
+
+    [ObservableProperty]
+    public partial string SetupActionTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string SetupActionDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string InstalledVersionTitle { get; set; }
+
+    [ObservableProperty]
     public partial string InstalledVersion { get; set; }
+
+    [ObservableProperty]
+    public partial string RequiredVersionPolicyTitle { get; set; }
 
     [ObservableProperty]
     public partial string RequiredVersionPolicy { get; set; }
 
     [ObservableProperty]
+    public partial string WinPeAddonTitle { get; set; }
+
+    [ObservableProperty]
     public partial string WinPeAddonStatus { get; set; }
 
     [ObservableProperty]
+    public partial string MediaCapabilityTitle { get; set; }
+
+    [ObservableProperty]
     public partial string MediaCapabilityStatus { get; set; }
+
+    [ObservableProperty]
+    public partial string DiagnosticsTitle { get; set; }
 
     [ObservableProperty]
     public partial bool IsBusy { get; set; }
@@ -77,10 +101,18 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         PageTitle = localizationService.GetString("Adk.PageTitle");
         StatusTitle = string.Empty;
         StatusDescription = string.Empty;
+        StatusSeverity = InfoBarSeverity.Informational;
+        SetupActionTitle = string.Empty;
+        SetupActionDescription = string.Empty;
+        InstalledVersionTitle = string.Empty;
         InstalledVersion = string.Empty;
+        RequiredVersionPolicyTitle = string.Empty;
         RequiredVersionPolicy = string.Empty;
+        WinPeAddonTitle = string.Empty;
         WinPeAddonStatus = string.Empty;
+        MediaCapabilityTitle = string.Empty;
         MediaCapabilityStatus = string.Empty;
+        DiagnosticsTitle = string.Empty;
         OperationStatus = localizationService.GetString("Adk.Operation.Ready");
         IsActionEnabled = true;
 
@@ -189,14 +221,22 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         StatusTitle = GetStatusTitle(status);
         StatusDescription = GetStatusDescription(status);
+        StatusSeverity = GetStatusSeverity(status);
+        SetupActionTitle = localizationService.GetString("Adk.SetupAction.Title");
+        SetupActionDescription = localizationService.GetString("Adk.SetupAction.Description");
+        InstalledVersionTitle = localizationService.GetString("Adk.Version.InstalledTitle");
         InstalledVersion = status.InstalledVersion ?? localizationService.GetString("Adk.Version.NotDetected");
+        RequiredVersionPolicyTitle = localizationService.GetString("Adk.Version.RequiredPolicyTitle");
         RequiredVersionPolicy = localizationService.GetString("Adk.Version.RequiredPolicy");
+        WinPeAddonTitle = localizationService.GetString("Adk.WinPeAddon.Title");
         WinPeAddonStatus = status.IsWinPeAddonInstalled
             ? localizationService.GetString("Adk.WinPeAddon.Installed")
             : localizationService.GetString("Adk.WinPeAddon.Missing");
+        MediaCapabilityTitle = localizationService.GetString("Adk.MediaCapability.Title");
         MediaCapabilityStatus = status.CanCreateMedia
             ? localizationService.GetString("Adk.MediaCapability.Ready")
             : localizationService.GetString("Adk.MediaCapability.Blocked");
+        DiagnosticsTitle = localizationService.GetString("Adk.Diagnostics.Title");
         IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
         IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled || !status.IsWinPeAddonInstalled);
         IsActionEnabled = !IsBusy;
@@ -230,6 +270,18 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         }
 
         return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+    }
+
+    private static InfoBarSeverity GetStatusSeverity(AdkInstallationStatus status)
+    {
+        if (status.CanCreateMedia)
+        {
+            return InfoBarSeverity.Success;
+        }
+
+        return status.IsInstalled && status.IsCompatible
+            ? InfoBarSeverity.Warning
+            : InfoBarSeverity.Error;
     }
 
     private string GetStatusDescription(AdkInstallationStatus status)
