@@ -57,51 +57,6 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Actualiser</value>
   </data>
-  <data name="Home.PageTitle" xml:space="preserve">
-    <value>Accueil</value>
-  </data>
-  <data name="Home.Welcome" xml:space="preserve">
-    <value>Bienvenue dans Foundry</value>
-  </data>
-  <data name="Home.Intro" xml:space="preserve">
-    <value>Préparez un média de déploiement Windows depuis un workflow de configuration validé.</value>
-  </data>
-  <data name="Home.AdkInstalledVersion" xml:space="preserve">
-    <value>Version installée</value>
-  </data>
-  <data name="Home.WinPeAddon" xml:space="preserve">
-    <value>Module complémentaire Windows PE</value>
-  </data>
-  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
-    <value>Ouvrir ADK</value>
-  </data>
-  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Vérifier l'état de l'ADK et du module complémentaire Windows PE.</value>
-  </data>
-  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
-    <value>Configurer le média</value>
-  </data>
-  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Choisir l'architecture, l'ISO, la langue WinPE, le format USB et les pilotes.</value>
-  </data>
-  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
-    <value>Vérifier et démarrer</value>
-  </data>
-  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Vérifier le résumé final et créer le média ISO ou USB.</value>
-  </data>
-  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
-    <value>Ouvrir la documentation</value>
-  </data>
-  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Ouvrir la documentation Foundry dans votre navigateur.</value>
-  </data>
-  <data name="Home.DocumentationFallback.Title" xml:space="preserve">
-    <value>Lien de documentation</value>
-  </data>
-  <data name="Home.DocumentationFallback.Message" xml:space="preserve">
-    <value>Foundry n'a pas pu ouvrir le navigateur. Ouvrez cette URL manuellement : {0}</value>
-  </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
     <value>Activer les diagnostics développeur et ouvrir le dossier des journaux Foundry.</value>
   </data>

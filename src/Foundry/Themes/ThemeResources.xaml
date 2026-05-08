@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
+            <x:String x:Key="HeaderCover">/Assets/Cover/CoverLight.png</x:String>
             <StaticResource x:Key="FoundryStatusReadyBrush" ResourceKey="SystemFillColorSuccessBrush" />
             <StaticResource x:Key="FoundryStatusReadyForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
             <StaticResource x:Key="FoundryStatusCompleteBrush" ResourceKey="SystemFillColorSuccessBrush" />
@@ -20,6 +21,7 @@
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
+            <x:String x:Key="HeaderCover">/Assets/Cover/CoverDark.png</x:String>
             <StaticResource x:Key="FoundryStatusReadyBrush" ResourceKey="SystemFillColorSuccessBrush" />
             <StaticResource x:Key="FoundryStatusReadyForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
             <StaticResource x:Key="FoundryStatusCompleteBrush" ResourceKey="SystemFillColorSuccessBrush" />
@@ -38,6 +40,7 @@
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="HighContrast">
+            <x:String x:Key="HeaderCover">/Assets/Cover/CoverDark.png</x:String>
             <StaticResource x:Key="FoundryStatusReadyBrush" ResourceKey="SystemColorButtonFaceBrush" />
             <StaticResource x:Key="FoundryStatusReadyForegroundBrush" ResourceKey="SystemColorButtonTextBrush" />
             <StaticResource x:Key="FoundryStatusCompleteBrush" ResourceKey="SystemColorButtonFaceBrush" />
