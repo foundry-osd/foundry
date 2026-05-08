@@ -9,17 +9,17 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock x:Uid="GeneralConfigurationPage_Title"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
             <dev:SettingsCard x:Name="IsoPathCard"
                               HeaderIcon="{dev:FontIcon GlyphCode=E8A5}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <TextBox MinWidth="420"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                    <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                              Text="{x:Bind ViewModel.IsoOutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Button x:Name="BrowseIsoButton"
                             MinWidth="{StaticResource SettingActionControlMinWidth}"
@@ -30,7 +30,7 @@
             <dev:SettingsCard x:Name="ArchitectureCard"
                               HeaderIcon="{dev:FontIcon GlyphCode=E7F4}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
                               DisplayMemberPath="DisplayName"
                               ItemsSource="{x:Bind ViewModel.Architectures, Mode=OneWay}"
@@ -45,7 +45,7 @@
                     <FontIcon Glyph="&#xE8AB;" />
                 </dev:SettingsCard.HeaderIcon>
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ComboBox x:Name="WinPeLanguageComboBox"
                               MinWidth="{StaticResource SettingActionControlMinWidth}"
                               IsEnabled="{x:Bind ViewModel.HasWinPeLanguages, Mode=OneWay}"
@@ -58,7 +58,7 @@
             <dev:SettingsCard x:Name="UsbLayoutCard"
                               HeaderIcon="{dev:FontIcon GlyphCode=E7C3}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
                               DisplayMemberPath="DisplayName"
                               ItemsSource="{x:Bind ViewModel.PartitionStyles, Mode=OneWay}"
@@ -73,7 +73,7 @@
             <dev:SettingsExpander x:Name="DriverOptionsCard"
                                   HeaderIcon="{dev:FontIcon GlyphCode=E90F}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ToggleSwitch x:Name="DellDriversToggle"
                                   IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <ToggleSwitch x:Name="HpDriversToggle"
@@ -82,8 +82,8 @@
                 <dev:SettingsExpander.Items>
                     <dev:SettingsCard x:Name="CustomDriverDirectoryCard">
                         <StackPanel Orientation="Horizontal"
-                                    Spacing="10">
-                            <TextBox MinWidth="420"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                      Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Button x:Name="BrowseCustomDriversButton"
                                     MinWidth="{StaticResource SettingActionControlMinWidth}"

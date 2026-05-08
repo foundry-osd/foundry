@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.HomeLandingPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,7 +13,7 @@
                          JsonNavigationService="{x:Bind local:App.Current.NavService}">
         <dev:MainLandingPage.HeaderContent>
             <StackPanel Orientation="Horizontal"
-                        Spacing="10">
+                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
                 <dev:HeaderTile AutomationProperties.Name="{x:Bind ViewModel.OpenAdkTitle, Mode=OneWay}"
                                 Description="{x:Bind ViewModel.OpenAdkDescription, Mode=OneWay}"
                                 KeyDown="OpenAdkTile_KeyDown"
@@ -58,15 +58,15 @@
 
         <dev:MainLandingPage.FooterContent>
             <StackPanel MaxWidth="{ThemeResource FoundryContentMaxWidth}"
-                        Spacing="12">
+                        Spacing="{ThemeResource FoundryContentGroupSpacing}">
                 <InfoBar IsClosable="False"
                          IsIconVisible="True"
                          IsOpen="True"
                          Message="{x:Bind ViewModel.AdkStatusDescription, Mode=OneWay}"
                          Severity="{x:Bind ViewModel.AdkStatusSeverity, Mode=OneWay}"
                          Title="{x:Bind ViewModel.AdkStatusTitle, Mode=OneWay}" />
-                <Grid ColumnSpacing="24"
-                      RowSpacing="4">
+                <Grid ColumnSpacing="{ThemeResource FoundrySpace24}"
+                      RowSpacing="{ThemeResource FoundrySpace4}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -78,7 +78,7 @@
 
                     <TextBlock Grid.Row="0"
                                Grid.Column="0"
-                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                Text="{x:Bind ViewModel.InstalledVersionLabel, Mode=OneWay}" />
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
@@ -86,7 +86,7 @@
                                TextTrimming="CharacterEllipsis" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="0"
-                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                Text="{x:Bind ViewModel.WinPeAddonLabel, Mode=OneWay}" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"

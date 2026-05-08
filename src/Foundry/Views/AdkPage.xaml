@@ -5,17 +5,17 @@
       xmlns:dev="using:DevWinUI">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
             <dev:SettingsCard Description="{x:Bind ViewModel.StatusDescription, Mode=OneWay}"
                               Header="{x:Bind ViewModel.StatusTitle, Mode=OneWay}"
                               HeaderIcon="{dev:FontIcon GlyphCode=E946}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                             x:Uid="AdkPage_RefreshButton"
                             Command="{x:Bind ViewModel.RefreshStatusCommand}"
@@ -47,8 +47,8 @@
                               Header="{x:Bind ViewModel.OperationStatus, Mode=OneWay}"
                               HeaderIcon="{dev:FontIcon GlyphCode=E9F5}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <ProgressBar Width="180"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                    <ProgressBar Width="{ThemeResource FoundryInlineProgressWidth}"
                                  Maximum="100"
                                  Value="{x:Bind ViewModel.OperationProgress, Mode=OneWay}"
                                  Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />

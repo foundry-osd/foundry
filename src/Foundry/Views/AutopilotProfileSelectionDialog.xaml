@@ -8,7 +8,7 @@
                DefaultButton="Primary"
                mc:Ignorable="d">
     <Grid x:Name="DialogContentRoot"
-          RowSpacing="12">
+          RowSpacing="{ThemeResource FoundryContentGroupSpacing}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -26,16 +26,16 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock VerticalAlignment="Center"
-                       Style="{ThemeResource CaptionTextBlockStyle}"
+                       Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                        Text="{Binding SelectedCountDisplay}" />
 
             <Button Grid.Column="1"
-                    MinWidth="110"
-                    Margin="12,0,8,0"
+                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                    Margin="{ThemeResource FoundryInlineLeadingButtonMargin}"
                     Command="{Binding SelectAllCommand}"
                     Content="{Binding SelectAllText}" />
             <Button Grid.Column="2"
-                    MinWidth="110"
+                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                     Command="{Binding ClearCommand}"
                     Content="{Binding ClearText}" />
         </Grid>

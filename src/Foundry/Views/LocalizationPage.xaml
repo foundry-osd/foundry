@@ -10,15 +10,15 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
             <dev:SettingsCard Header="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}"
                               HeaderIcon="{dev:FontIcon GlyphCode=E8AB}">
-                <ListView MaxHeight="360"
+                <ListView MaxHeight="{ThemeResource FoundryListMaxHeight}"
                           ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}"
                           SelectionMode="None">
                     <ListView.ItemTemplate>
@@ -40,7 +40,7 @@
 
             <dev:SettingsCard Header="{x:Bind ViewModel.TimeZoneHeader, Mode=OneWay}"
                               HeaderIcon="{dev:FontIcon GlyphCode=E916}">
-                <ComboBox MinWidth="420"
+                <ComboBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                           DisplayMemberPath="DisplayName"
                           ItemsSource="{x:Bind ViewModel.TimeZoneOptions, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />

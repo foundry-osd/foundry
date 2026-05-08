@@ -10,11 +10,11 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
             <dev:SettingsCard Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
                               Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}"
@@ -26,7 +26,7 @@
             <dev:SettingsCard Header="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}"
                               IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                             Command="{x:Bind ViewModel.ImportProfileCommand}"
                             Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
@@ -49,7 +49,7 @@
 
             <dev:SettingsCard Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}"
                               IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
-                <StackPanel Spacing="8">
+                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
                                TextWrapping="Wrap"
                                Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
@@ -62,7 +62,7 @@
                                   HeadersVisibility="Columns"
                                   IsReadOnly="True"
                                   ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
-                                  MaxHeight="320"
+                                  MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                                   SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}"
                                   SelectionMode="Single"
                                   SelectionUnit="Row"

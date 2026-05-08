@@ -9,31 +9,31 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
-            <Border Padding="18"
+            <Border Padding="{ThemeResource FoundryDefaultContentPadding}"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="4">
                 <Grid ColumnDefinitions="Auto,*"
-                      ColumnSpacing="16">
+                      ColumnSpacing="{ThemeResource FoundrySpace16}">
                     <FontIcon Grid.Column="0"
                               Glyph="&#xE946;"
                               VerticalAlignment="Top" />
                     <StackPanel Grid.Column="1"
-                                Spacing="6">
+                                Spacing="{ThemeResource FoundryTextGroupSpacing}">
                         <TextBlock FontWeight="SemiBold"
                                    Text="{x:Bind ViewModel.StatusSummary, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
                         <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    Text="{x:Bind ViewModel.FinalExecutionStatus, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
-                        <TextBlock MaxWidth="1120"
+                        <TextBlock MaxWidth="{ThemeResource FoundrySummaryTextMaxWidth}"
                                    Text="{x:Bind ViewModel.GlobalSummary, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
                     </StackPanel>
@@ -44,8 +44,8 @@
                               Description="{x:Bind ViewModel.UsbCandidateStatus, Mode=OneWay}"
                               HeaderIcon="{dev:FontIcon GlyphCode=E88E}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
-                    <ComboBox MinWidth="360"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                    <ComboBox MinWidth="{ThemeResource FoundryMediumInputMinWidth}"
                               DisplayMemberPath="DisplayName"
                               ItemsSource="{x:Bind ViewModel.UsbCandidates, Mode=OneWay}"
                               SelectedItem="{x:Bind ViewModel.SelectedUsbDisk, Mode=TwoWay}" />
@@ -58,7 +58,7 @@
             <dev:SettingsCard x:Name="FinalCommandsCard"
                               HeaderIcon="{dev:FontIcon GlyphCode=E7C1}">
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <Button x:Name="CreateIsoButton"
                             MinWidth="{StaticResource SettingActionControlMinWidth}"
                             Command="{x:Bind ViewModel.CreateIsoCommand}"

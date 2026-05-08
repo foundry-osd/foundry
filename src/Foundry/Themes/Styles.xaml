@@ -14,10 +14,12 @@
 
     <Thickness x:Key="ContentPageMargin">40,48,0,0</Thickness>
     <Thickness x:Key="ContentPagePadding">0,0,40,0</Thickness>
+    <Thickness x:Key="FoundryPageContentInset">8</Thickness>
     <Thickness x:Key="FoundryPageSectionSpacing">0,0,0,16</Thickness>
     <Thickness x:Key="FoundryCompactContentPadding">12</Thickness>
     <Thickness x:Key="FoundryDefaultContentPadding">16</Thickness>
     <Thickness x:Key="FoundryDialogContentPadding">24</Thickness>
+    <Thickness x:Key="FoundryInlineLeadingButtonMargin">12,0,8,0</Thickness>
 
     <StaticResource x:Key="FoundryControlCornerRadius" ResourceKey="ControlCornerRadius" />
     <StaticResource x:Key="FoundryCardCornerRadius" ResourceKey="ControlCornerRadius" />
@@ -28,8 +30,21 @@
     <x:Double x:Key="FoundryIconSizeLarge">24</x:Double>
     <x:Double x:Key="FoundryIconSizeHero">32</x:Double>
 
+    <x:Double x:Key="FoundryCompactStackSpacing">4</x:Double>
+    <x:Double x:Key="FoundryTextGroupSpacing">4</x:Double>
+    <x:Double x:Key="FoundryContentGroupSpacing">12</x:Double>
+    <x:Double x:Key="FoundrySettingsSectionSpacing">8</x:Double>
+    <x:Double x:Key="FoundryInlineControlSpacing">8</x:Double>
+
     <x:Double x:Key="FoundryContentMaxWidth">960</x:Double>
     <x:Double x:Key="FoundrySettingsControlMaxWidth">720</x:Double>
+    <x:Double x:Key="FoundryMediumInputMinWidth">360</x:Double>
+    <x:Double x:Key="FoundryWideInputMinWidth">420</x:Double>
+    <x:Double x:Key="FoundryCompactActionMinWidth">112</x:Double>
+    <x:Double x:Key="FoundryInlineProgressWidth">180</x:Double>
+    <x:Double x:Key="FoundrySummaryTextMaxWidth">1120</x:Double>
+    <x:Double x:Key="FoundryListMaxHeight">360</x:Double>
+    <x:Double x:Key="FoundryTableMaxHeight">320</x:Double>
     <x:Double x:Key="FoundryDialogMinWidth">560</x:Double>
     <x:Double x:Key="FoundryDialogMaxWidth">920</x:Double>
     <x:Double x:Key="FoundryDialogMaxHeight">680</x:Double>

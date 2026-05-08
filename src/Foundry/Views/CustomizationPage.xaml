@@ -9,11 +9,11 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
             <dev:SettingsExpander Header="{x:Bind ViewModel.MachineNamingHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.MachineNamingDescription, Mode=OneWay}"
@@ -24,7 +24,7 @@
                 <dev:SettingsExpander.Items>
                     <dev:SettingsCard Header="{x:Bind ViewModel.MachineNamingPrefixLabel, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsMachineNamingOptionsEnabled, Mode=OneWay}">
-                        <TextBox MinWidth="420"
+                        <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                  MaxLength="{x:Bind ViewModel.MachineNamePrefixMaxLength, Mode=OneWay}"
                                  Text="{x:Bind ViewModel.MachineNamePrefix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </dev:SettingsCard>

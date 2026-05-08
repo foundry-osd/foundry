@@ -5,8 +5,9 @@ namespace Foundry.Views;
 public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
 {
     private const double DialogChromeWidth = 96;
-    private const double MinimumContentWidth = 560;
-    private const double MaximumContentWidth = 980;
+    private const double FallbackMinimumContentWidth = 560;
+    private const double FallbackMaximumContentWidth = 980;
+    private const double FallbackMaximumDialogHeight = 760;
     private const double SelectionColumnWidth = 48;
     private const double ColumnPaddingWidth = 96;
     private const double AverageCharacterWidth = 7.5;
@@ -64,16 +65,28 @@ public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
 
     private void ApplyContentLayout()
     {
-        double availableWindowWidth = Math.Max(MinimumContentWidth, App.MainWindow.AppWindow.Size.Width * 0.72);
+        double minimumContentWidth = GetApplicationDoubleResource("FoundryDialogMinWidth", FallbackMinimumContentWidth);
+        double maximumContentWidth = GetApplicationDoubleResource("FoundryLargeDialogMaxWidth", FallbackMaximumContentWidth);
+        double maximumDialogHeight = GetApplicationDoubleResource("FoundryLargeDialogMaxHeight", FallbackMaximumDialogHeight);
+        double availableWindowWidth = Math.Max(minimumContentWidth, App.MainWindow.AppWindow.Size.Width * 0.72);
         double contentWidth = Math.Clamp(
             CalculateDesiredContentWidth(),
-            MinimumContentWidth,
-            Math.Min(MaximumContentWidth, availableWindowWidth));
+            minimumContentWidth,
+            Math.Min(maximumContentWidth, availableWindowWidth));
         int visibleRows = Math.Clamp(ViewModel.Profiles.Count, 1, MaximumVisibleRows);
 
+        Resources["ContentDialogMinWidth"] = minimumContentWidth + DialogChromeWidth;
         Resources["ContentDialogMaxWidth"] = contentWidth + DialogChromeWidth;
+        Resources["ContentDialogMaxHeight"] = maximumDialogHeight;
         DialogContentRoot.Width = contentWidth;
         ProfilesTable.Height = TableHeaderHeight + (visibleRows * TableRowHeight);
+    }
+
+    private static double GetApplicationDoubleResource(string key, double fallback)
+    {
+        return App.Current.Resources.TryGetValue(key, out object value) && value is double doubleValue
+            ? doubleValue
+            : fallback;
     }
 
     private double CalculateDesiredContentWidth()

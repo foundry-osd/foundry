@@ -9,11 +9,11 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
             <dev:SettingsExpander Header="{x:Bind ViewModel.EthernetHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.EthernetDescription, Mode=OneWay}"
@@ -25,8 +25,8 @@
                     <dev:SettingsCard Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsDot1xSectionEnabled, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal"
-                                    Spacing="10">
-                            <TextBox MinWidth="420"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                      Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseDot1xProfileTemplateCommand}"
@@ -40,8 +40,8 @@
                     <dev:SettingsCard Header="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsDot1xCertificatePathEnabled, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal"
-                                    Spacing="10">
-                            <TextBox MinWidth="420"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                      Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
@@ -68,7 +68,7 @@
                     </dev:SettingsCard>
                     <dev:SettingsCard Header="{x:Bind ViewModel.WifiSsidLabel, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsWifiConfigurationSectionEnabled, Mode=OneWay}">
-                        <TextBox MinWidth="420"
+                        <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                  Text="{x:Bind ViewModel.WifiSsid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </dev:SettingsCard>
                     <dev:SettingsCard Header="{x:Bind ViewModel.WifiSecurityTypeLabel, Mode=OneWay}"
@@ -82,18 +82,18 @@
                                       Description="{x:Bind ViewModel.WifiPersonalDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsWifiPersonalSectionEnabled, Mode=OneWay}">
                         <PasswordBox x:Name="WifiPassphraseBox"
-                                     MinWidth="420"
+                                     MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                      Loaded="WifiPassphraseBox_OnLoaded"
                                      PasswordChanged="WifiPassphraseBox_OnPasswordChanged" />
                     </dev:SettingsCard>
                     <dev:SettingsCard Header="{x:Bind ViewModel.WifiEnterpriseHeader, Mode=OneWay}"
                                       Description="{x:Bind ViewModel.WifiEnterpriseDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsWifiEnterpriseSectionEnabled, Mode=OneWay}">
-                        <StackPanel Spacing="8">
+                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                             <TextBlock Text="{x:Bind ViewModel.WifiEnterpriseTemplateText, Mode=OneWay}" />
                             <StackPanel Orientation="Horizontal"
-                                        Spacing="10">
-                                <TextBox MinWidth="420"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                          Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                                         Command="{x:Bind ViewModel.BrowseWifiEnterpriseProfileTemplateCommand}"
@@ -108,8 +108,8 @@
                     <dev:SettingsCard Header="{x:Bind ViewModel.WifiCertificateLabel, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsWifiCertificatePathEnabled, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal"
-                                    Spacing="10">
-                            <TextBox MinWidth="420"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                      Text="{x:Bind ViewModel.WifiCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseWifiCertificateCommand}"
