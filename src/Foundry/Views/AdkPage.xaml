@@ -73,12 +73,11 @@
                 </wct:SettingsCard.HeaderIcon>
             </wct:SettingsCard>
 
-            <wct:SettingsExpander Description="{x:Bind ViewModel.OperationStatus, Mode=OneWay}"
-                                  Header="{x:Bind ViewModel.DiagnosticsTitle, Mode=OneWay}"
-                                  IsExpanded="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
-                <wct:SettingsExpander.HeaderIcon>
+            <wct:SettingsCard Description="{x:Bind ViewModel.OperationStatus, Mode=OneWay}"
+                              Header="{x:Bind ViewModel.DiagnosticsTitle, Mode=OneWay}">
+                <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE9F5;" />
-                </wct:SettingsExpander.HeaderIcon>
+                </wct:SettingsCard.HeaderIcon>
                 <StackPanel Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ProgressBar Width="{ThemeResource FoundryInlineProgressWidth}"
@@ -89,7 +88,7 @@
                             x:Uid="AdkPage_OpenLogsButton"
                             Command="{x:Bind ViewModel.OpenLogsCommand}" />
                 </StackPanel>
-            </wct:SettingsExpander>
+            </wct:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

@@ -267,7 +267,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Put one ADK readiness card first, then lower-priority details for installed version, required version policy, WinPE add-on status, ISO/USB capability, and diagnostics/logs.
   - [x] Present ADK setup as one combined action that covers both Windows ADK and the WinPE add-on.
   - [x] Keep the ADK primary setup button label stable, such as `Install ADK and WinPE add-on`, even when only one component is missing.
-  - [x] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; keep diagnostics/logs collapsed by default.
+  - [x] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; keep diagnostics/logs as a low-priority row without expanding hidden content unless real diagnostics are added.
   - [x] `ADK` removes duplicate operation-status text and shows operation progress only when useful.
   - [ ] `General` makes generated media settings scannable without hiding required execution prerequisites.
   - [ ] `General` shows disabled/empty reasons for WinPE language discovery and other unavailable prerequisites.
