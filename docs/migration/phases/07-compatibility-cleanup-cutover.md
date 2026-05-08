@@ -165,20 +165,20 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: Bitmap assets are reserved for app/product identity; page-level icons should use a consistent theme-safe vector icon approach.
 
 - [ ] **18.1** Establish the Foundry WinUI design-token baseline:
-  - [ ] Add the Windows Community Toolkit WinUI controls package during the first design-token/control baseline slice and verify the app builds before page-level migrations.
-  - [ ] Extend `ThemeResources.xaml`, `Styles.xaml`, and `Fonts.xaml` only where useful to define Foundry-owned semantic resources instead of page-local literals.
-  - [ ] Color uses WinUI `ThemeResource` brushes and system color resources; avoid hard-coded colors and use accent color sparingly for important actions, selection, and state.
+  - [x] Add the Windows Community Toolkit WinUI controls package during the first design-token/control baseline slice and verify the app builds before page-level migrations.
+  - [x] Extend `ThemeResources.xaml`, `Styles.xaml`, and `Fonts.xaml` only where useful to define Foundry-owned semantic resources instead of page-local literals.
+  - [x] Color uses WinUI `ThemeResource` brushes and system color resources; avoid hard-coded colors and use accent color sparingly for important actions, selection, and state.
   - [ ] High contrast behavior uses compatible system foreground/background resources and does not rely on color alone to communicate readiness, warning, or blocked states.
-  - [ ] Geometry follows WinUI defaults: `ControlCornerRadius` for in-page controls, `OverlayCornerRadius` for dialogs/flyouts/overlays, and square corners only where adjacent edges join.
-  - [ ] Spacing follows a 4 epx measurement discipline with documented page, section, card, row, label/control, and dialog spacing tokens.
+  - [x] Geometry follows WinUI defaults: `ControlCornerRadius` for in-page controls, `OverlayCornerRadius` for dialogs/flyouts/overlays, and square corners only where adjacent edges join.
+  - [x] Spacing follows a 4 epx measurement discipline with documented page, section, card, row, label/control, and dialog spacing tokens.
   - [ ] Default sizing targets standard WinUI density; compact density is allowed only for clearly dense information surfaces after review.
   - [ ] Control width, height, and minimum-size resources follow WinUI 3/Fluent defaults and recommendations; custom control dimensions must be conservative, reusable, and justified by content wrapping, localization, or responsive layout constraints.
-  - [ ] Typography uses the WinUI type ramp and built-in text styles such as title, subtitle/body strong, body, caption, and secondary text resources instead of ad hoc font sizes.
+  - [x] Typography uses the WinUI type ramp and built-in text styles such as title, subtitle/body strong, body, caption, and secondary text resources instead of ad hoc font sizes.
   - [ ] Use Semibold only for hierarchy emphasis and avoid arbitrary bold/italic body styling.
   - [ ] `AccentButtonStyle` is reserved for the primary/relevant action in a section or dialog, with standard/subtle buttons for secondary actions.
   - [ ] Iconography standardizes on Segoe Fluent Icons or equivalent WinUI vector icons for commands, navigation, and status, using documented crisp icon sizes such as 16, 20, 24, and 32 epx.
   - [ ] Define semantic status resources for `ready`, `warning`, `blocked`, `busy`, and `complete`, including brush, icon, text, and action-slot guidance.
-  - [ ] Define reusable dialog sizing resources for standard dialogs and the larger About/WebView2 dialog.
+  - [x] Define reusable dialog sizing resources for standard dialogs and the larger About/WebView2 dialog.
   - [ ] Document the token inventory in the PR so future pages do not add raw colors, arbitrary radii, or inconsistent icon sizes.
 - [ ] **18.2** Define the Home page role:
   - [ ] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned page layout.
