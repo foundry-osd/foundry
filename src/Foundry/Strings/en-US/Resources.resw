@@ -241,7 +241,7 @@
     <value>Windows PE Add-on</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Prepare Windows deployment media from a validated configuration workflow.</value>
+    <value>Build Windows deployment media with a modern desktop workflow powered by WinPE.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
     <value>General</value>
