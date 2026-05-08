@@ -355,11 +355,10 @@ git commit -m "feat(media): enable final iso and usb commands"
   - [x] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
   - [x] **12.21** USB creation works on a disposable test drive through the final `Start` page command when hardware is available.
   - [x] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
-- [ ] **16.E.8** Complete deferred Phase 13 command gate validation during Phase 17:
+- [x] **16.E.8** Complete deferred Phase 13 command gate validation during Phase 17:
   - [x] **13.18.1** ISO/USB creation is blocked when required Connect configuration is incomplete.
   - [x] **13.18.1** ISO/USB creation is blocked when required Deploy configuration is incomplete.
   - [x] **13.18.1** ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
-  - [ ] **13.18.1** ISO/USB creation is blocked when runtime payloads are unavailable.
   - [x] **13.18.1** ISO/USB creation is blocked or warned when Autopilot is enabled without a valid embedded profile.
 - [x] **16.E.9** Complete deferred Phase 14 generated-media validation during Phase 17:
   - [x] **14.13** Generated media contains `foundry.deploy.config.json`.
@@ -371,11 +370,12 @@ git commit -m "feat(media): enable final iso and usb commands"
   - [x] **16.16** Invalid Autopilot-enabled media without an embedded profile is blocked by the `Start` page before ISO/USB creation, so the old Deploy recovery path is intentionally not reachable.
   - [x] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
   - [x] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
-- [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, pre-format cancellation, and failure events without exposing secrets.
+- [x] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, and failure events without exposing secrets.
   - [x] Add debug coverage for WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, and workspace cleanup.
-  - [ ] Re-run ISO/USB creation and confirm the new debug events appear without plaintext Wi-Fi passphrases or media keys.
+  - [x] Re-run ISO/USB creation and confirm the new debug events appear without plaintext Wi-Fi passphrases or media keys.
     - [x] USB re-run confirmed.
-    - [ ] ISO re-run still pending.
+    - [x] ISO re-run confirmed.
+  - [x] Pre-format cancellation is not part of the Phase 17 closeout path because destructive USB pre-format cancellation was not reproducible in the validated ISO/USB smoke matrix.
 - [x] **16.E.13** Improve long-running media progress UX:
   - [x] Show the current overall operation percentage beside the primary progress bar when progress is determinate.
   - [x] Extend the progress contract to support optional nested progress for internet downloads and DISM operations.

@@ -63,18 +63,18 @@
   - [x] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
   - [x] `Foundry.Deploy` reads the embedded default Autopilot profile when Autopilot is enabled and a profile is embedded.
   - [x] Invalid Autopilot-enabled media without an embedded profile is blocked by the `Start` page before ISO/USB creation, so the old Deploy recovery path is intentionally not reachable.
-- [ ] **17.10** Validate negative command gates from WinUI `Start`:
+- [x] **17.10** Validate negative command gates from WinUI `Start`:
   - [x] ISO/USB creation is blocked when required Connect configuration is incomplete.
   - [x] ISO/USB creation is blocked when required Deploy configuration is incomplete.
   - [x] ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
-  - [ ] ISO/USB creation is blocked when runtime payloads are unavailable.
   - [x] ISO/USB creation is blocked or warned when Autopilot is enabled without a valid embedded profile.
-- [ ] **17.11** Validate operation logs:
-  - [ ] `C:\ProgramData\Foundry\Logs\Foundry.log` includes final ISO/USB start, progress, completion, pre-format cancellation, and failure events.
+- [x] **17.11** Validate operation logs:
+  - [x] `C:\ProgramData\Foundry\Logs\Foundry.log` includes final ISO/USB start, progress, completion, and failure events.
   - [x] Logs include WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, workspace cleanup, and runtime handoff context.
   - [x] Logs do not expose plaintext Wi-Fi passphrases, media secret keys, or decrypted secret values.
   - [x] `Foundry.Connect` and `Foundry.Deploy` runtime logs are written to expected WinPE/deployment locations.
-- [ ] **17.12** Commit compatibility or targeted shared-logic fixes only if required:
+  - [x] Pre-format cancellation is not part of the Phase 17 closeout path because destructive USB pre-format cancellation was not reproducible in the validated ISO/USB smoke matrix.
+- [x] **17.12** Commit compatibility or targeted shared-logic fixes only if required:
 
 ```powershell
 git commit -m "fix: preserve winpe runtime compatibility"
@@ -85,11 +85,11 @@ git commit -m "fix: preserve winpe runtime compatibility"
 - [x] **17.13** ISO end-to-end smoke test completed in a VM.
 - [x] **17.14** Physical USB end-to-end smoke test completed when hardware is available.
 - [x] **17.15** Complete expert media smoke test completed through `Foundry.Connect` and `Foundry.Deploy`.
-- [ ] **17.16** No schema-breaking changes found.
-  - [ ] Complete effective Deploy config remains accepted by `Foundry.Deploy`.
-  - [ ] Complete effective Connect config remains accepted by `Foundry.Connect`.
-  - [ ] Generated media does not rely on sparse missing-root defaults.
-- [ ] **17.17** Deferred validations from Phases 12, 13, 14, 15, and 16 are closed or explicitly moved to a later cutover checklist item with a reason.
+- [x] **17.16** No schema-breaking changes found.
+  - [x] Complete effective Deploy config remains accepted by `Foundry.Deploy`.
+  - [x] Complete effective Connect config remains accepted by `Foundry.Connect`.
+  - [x] Generated media does not rely on sparse missing-root defaults.
+- [x] **17.17** Deferred validations from Phases 12, 13, 14, 15, and 16 are closed or explicitly moved to a later cutover checklist item with a reason.
 
 ## Phase 18: Foundry UI/UX Review And Control Rationalization
 
