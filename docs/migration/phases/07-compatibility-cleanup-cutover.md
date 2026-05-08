@@ -24,20 +24,20 @@
   - [ ] Confirm generated ISO/USB media matches the documented `X:\Foundry`, `Runtime`, `Config`, `Seed`, `Tools`, `OperatingSystem`, and `DriverPack` layout.
   - [ ] Confirm `Runtime\Foundry.Connect\<rid>` and `Runtime\Foundry.Deploy\<rid>` are present in the expected ISO and USB locations.
 - [ ] **17.4** Generate complete expert media from WinUI `Foundry`:
-  - [ ] Deploy localization configured.
-  - [ ] Connect provisioning enabled.
-  - [ ] Network provisioning enabled.
-  - [ ] Encrypted media secrets enabled when required.
-  - [ ] WinRE Wi-Fi boot image selected when Wi-Fi provisioning is enabled.
-  - [ ] Autopilot enabled with an embedded default test profile.
-  - [ ] Customization enabled when test values are available.
+  - [x] Deploy localization configured.
+  - [x] Connect provisioning enabled.
+  - [x] Network provisioning enabled.
+  - [x] Encrypted media secrets enabled when required.
+  - [x] WinRE Wi-Fi boot image selected when Wi-Fi provisioning is enabled.
+  - [x] Autopilot enabled with an embedded default test profile.
+  - [x] Customization enabled when test values are available.
   - [ ] ISO media generated successfully.
-  - [ ] USB media generated successfully on a disposable drive when hardware is available.
-- [ ] **17.5** Validate generated boot image contents before boot:
-  - [ ] `boot.wim` contains `X:\Foundry` runtime, configuration, bootstrap, secrets, network assets, Autopilot assets, and tools expected for the selected workflow.
-  - [ ] `boot.wim` does not contain plaintext Wi-Fi passphrases, plaintext media secret keys, or host-only workspace artifacts.
-  - [ ] WinRE Wi-Fi media contains the expected WinRE-derived boot image and injected drivers/assets.
-  - [ ] Temporary WinPE workspaces under `C:\ProgramData\Foundry\Workspaces\WinPe` are cleaned after successful and failed runs.
+  - [x] USB media generated successfully on a disposable drive when hardware is available.
+- [x] **17.5** Validate generated boot image contents before boot:
+  - [x] `boot.wim` contains `X:\Foundry` runtime, configuration, bootstrap, secrets, network assets, Autopilot assets, and tools expected for the selected workflow.
+  - [x] `boot.wim` does not contain plaintext Wi-Fi passphrases, plaintext media secret keys, or host-only workspace artifacts.
+  - [x] WinRE Wi-Fi media contains the expected WinRE-derived boot image and injected drivers/assets.
+  - [x] Temporary WinPE workspaces under `C:\ProgramData\Foundry\Workspaces\WinPe` are cleaned after successful and failed runs.
 - [ ] **17.6** Boot generated ISO media in a VM:
   - [ ] WinPE reaches Foundry bootstrap.
   - [ ] `Foundry.Connect` starts automatically or through the expected bootstrap handoff.
@@ -45,22 +45,23 @@
   - [ ] `Foundry.Connect` reads generated network assets when present.
   - [ ] `Foundry.Connect` decrypts embedded `aes-gcm-v1` secrets without prompting for a decryption key.
   - [ ] `Foundry.Connect` completes or reaches the expected operator state without schema or path errors.
-- [ ] **17.7** Boot generated USB media:
-  - [ ] Physical USB boot reaches Foundry bootstrap when hardware is available.
-  - [ ] USB BOOT partition remains minimal and bootable.
-  - [ ] USB cache partition keeps persistent runtime/cache data under the documented layout.
-  - [ ] `Foundry.Connect` resolves runtime/cache paths correctly from USB media.
-  - [ ] Logs stay under expected WinPE and deployment locations; USB cache does not become the boot log sink.
+- [x] **17.7** Boot generated USB media:
+  - [x] Physical USB boot reaches Foundry bootstrap when hardware is available.
+  - [x] USB BOOT partition remains minimal and bootable.
+  - [x] USB cache partition keeps persistent runtime/cache data under the documented layout.
+  - [x] `Foundry.Connect` resolves runtime/cache paths correctly from USB media.
+  - [x] Logs stay under expected WinPE and deployment locations; USB cache does not become the boot log sink.
 - [ ] **17.8** Validate `Foundry.Deploy` handoff:
-  - [ ] `Foundry.Deploy` can be launched from the `Foundry.Connect` runtime handoff.
-  - [ ] `Foundry.Deploy` loads generated `foundry.deploy.config.json`.
-  - [ ] Deploy localization values are loaded and applied.
+  - [x] `Foundry.Deploy` can be launched from the `Foundry.Connect` runtime handoff.
+  - [x] `Foundry.Deploy` loads generated `foundry.deploy.config.json`.
+  - [x] Deploy localization values are loaded and applied.
+  - [x] Deploy localization warnings are not emitted against the temporary empty catalog scope during startup.
   - [ ] Deployment storage, OS image, driver, and customization settings load without relying on missing-root defaults.
   - [ ] Runtime errors are logged with enough context to troubleshoot media layout or schema issues.
 - [ ] **17.9** Validate Autopilot generated-media behavior:
-  - [ ] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
-  - [ ] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
-  - [ ] `Foundry.Deploy` reads the embedded default Autopilot profile when Autopilot is enabled and a profile is embedded.
+  - [x] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+  - [x] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
+  - [x] `Foundry.Deploy` reads the embedded default Autopilot profile when Autopilot is enabled and a profile is embedded.
   - [ ] `Foundry.Deploy` keeps Autopilot operator controls visible when Autopilot is enabled but no profile is embedded, so the operator can disable it.
 - [ ] **17.10** Validate negative command gates from WinUI `Start`:
   - [ ] ISO/USB creation is blocked when required Connect configuration is incomplete.
@@ -70,9 +71,9 @@
   - [ ] ISO/USB creation is blocked or warned when Autopilot is enabled without a valid embedded profile.
 - [ ] **17.11** Validate operation logs:
   - [ ] `C:\ProgramData\Foundry\Logs\Foundry.log` includes final ISO/USB start, progress, completion, pre-format cancellation, and failure events.
-  - [ ] Logs include WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, workspace cleanup, and runtime handoff context.
-  - [ ] Logs do not expose plaintext Wi-Fi passphrases, media secret keys, or decrypted secret values.
-  - [ ] `Foundry.Connect` and `Foundry.Deploy` runtime logs are written to expected WinPE/deployment locations.
+  - [x] Logs include WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, workspace cleanup, and runtime handoff context.
+  - [x] Logs do not expose plaintext Wi-Fi passphrases, media secret keys, or decrypted secret values.
+  - [x] `Foundry.Connect` and `Foundry.Deploy` runtime logs are written to expected WinPE/deployment locations.
 - [ ] **17.12** Commit compatibility or targeted shared-logic fixes only if required:
 
 ```powershell
@@ -82,7 +83,7 @@ git commit -m "fix: preserve winpe runtime compatibility"
 **Validation**
 
 - [ ] **17.13** ISO end-to-end smoke test completed in a VM.
-- [ ] **17.14** Physical USB end-to-end smoke test completed when hardware is available.
+- [x] **17.14** Physical USB end-to-end smoke test completed when hardware is available.
 - [ ] **17.15** Complete expert media smoke test completed through `Foundry.Connect` and `Foundry.Deploy`.
 - [ ] **17.16** No schema-breaking changes found.
   - [ ] Complete effective Deploy config remains accepted by `Foundry.Deploy`.

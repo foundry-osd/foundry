@@ -283,8 +283,8 @@ git commit -m "feat(winpe): apply programdata media layout"
 **Manual validation deferred to Phase 16.E final media command enablement**
 
 - [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command after final media execution is enabled.
-- [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command after final media execution is enabled.
-- [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow after final media execution is enabled.
+- [x] **12.21** USB creation works on a disposable test drive through the final `Start` page command after final media execution is enabled.
+- [x] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow after final media execution is enabled.
 
 **ADK and WinPE service validation completed in Phase 12**
 

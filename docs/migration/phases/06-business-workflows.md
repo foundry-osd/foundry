@@ -66,8 +66,8 @@ git commit -m "feat(configuration): port expert deploy configuration workflow"
 - [x] **14.10** Confirm no user-facing manual configuration file commands are exposed.
 - [x] **14.11** Validate Expert Deploy settings persist through the normal app workflow state path.
 - [x] **14.12** Validate generated runtime Deploy config for representative standard and expert settings.
-- [ ] **14.13** Generate deploy config and validate `Foundry.Deploy` can consume it.
-  - Deferred until Phase 16.E enables final ISO/USB media creation; Phase 14 validates generation and model compatibility, but cannot run the real generated-media `Foundry.Deploy` path yet.
+- [x] **14.13** Generate deploy config and validate `Foundry.Deploy` can consume it.
+  - Real generated-media validation completed during Phase 17 after Phase 16.E enabled final ISO/USB media creation.
 - [x] **14.14** Validate `Foundry.Deploy` applies or tolerates `localization.defaultTimeZoneId`.
 - [x] **14.15** Validate generated standard media deploy config contains complete default root sections.
 
@@ -175,9 +175,9 @@ git commit -m "feat(network): wire connect preflight readiness"
 - [x] **15.12** Generated `foundry.connect.config.json` has every schema root section present.
 - [x] **15.13** Embedded Wi-Fi/network secrets are represented as secret envelopes, not plaintext strings.
 - [x] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets in runtime tests.
-  - [ ] Real generated boot-image validation is deferred until ISO/USB media creation is enabled.
+  - [x] Real generated boot-image validation completed during Phase 17 after ISO/USB media creation was enabled.
 - [x] **15.15** `Foundry.Connect` decrypts embedded secrets automatically without prompting the operator for a decryption key.
-  - [ ] Real generated boot-image validation is deferred until ISO/USB media creation is enabled.
+  - [x] Real generated boot-image validation completed during Phase 17 after ISO/USB media creation was enabled.
 - [x] **15.16** Logs, validation errors, summaries, and UI diagnostics redact:
   - [x] Plaintext secrets.
   - [x] Per-media keys.
@@ -185,7 +185,7 @@ git commit -m "feat(network): wire connect preflight readiness"
   - [x] Nonces.
   - [x] Tags.
 - [x] **15.17** Generated media contains `media-secrets.key` only when an encrypted secret envelope is present.
-  - [x] Validate this at the service/workspace provisioning level during Phase 15; full generated ISO/USB execution remains deferred until Phase 16.E final media command enablement.
+  - [x] Validated at the service/workspace provisioning level during Phase 15; real generated-media validation completed during Phase 17 after Phase 16.E final media command enablement.
 - [x] **15.18** WPF comparison tests account for intentional WinUI changes:
   - [x] Complete effective Connect config documents.
   - [x] Complete effective Deploy config documents.
@@ -294,7 +294,7 @@ git commit -m "feat(autopilot): wire start readiness"
 
 - [x] **16.7** Existing Autopilot-related and Deploy configuration tests pass.
 - [x] **16.8** Generated Deploy config includes machine naming and selected Autopilot profile settings.
-- [x] **16.9** WinPE asset provisioning service-level validation includes expected Autopilot profile payloads; real generated boot-media validation remains deferred until final ISO/USB media execution is enabled.
+- [x] **16.9** WinPE asset provisioning service-level validation includes expected Autopilot profile payloads; real generated boot-media validation completed during Phase 17 after final ISO/USB media execution was enabled.
 - [x] **16.10** `Foundry.Core` has no dependency on Azure Identity, Microsoft Graph clients, `InteractiveBrowserCredential`, or Graph HTTP plumbing.
 - [x] **16.11** Manual Autopilot JSON import rejects empty, invalid, or non-ASCII JSON.
 - [x] **16.12** Manual Autopilot JSON import preserves WPF-compatible profile ID, display name, folder name, merge, sort, and default-profile fallback behavior.
@@ -353,27 +353,29 @@ git commit -m "feat(media): enable final iso and usb commands"
 
 - [ ] **16.E.7** Complete deferred Phase 12 generated media validation during Phase 17:
   - [ ] **12.20** ISO creation works on a test machine with ADK through the final `Start` page command.
-  - [ ] **12.21** USB creation works on a disposable test drive through the final `Start` page command when hardware is available.
-  - [ ] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
+  - [x] **12.21** USB creation works on a disposable test drive through the final `Start` page command when hardware is available.
+  - [x] **12.22** Generated ISO/USB media matches the documented layout from the final `Start` page workflow.
 - [ ] **16.E.8** Complete deferred Phase 13 command gate validation during Phase 17:
   - [ ] **13.18.1** ISO/USB creation is blocked when required Connect configuration is incomplete.
   - [ ] **13.18.1** ISO/USB creation is blocked when required Deploy configuration is incomplete.
   - [ ] **13.18.1** ISO/USB creation is blocked when encrypted secret-key provisioning is required but unavailable.
   - [ ] **13.18.1** ISO/USB creation is blocked when runtime payloads are unavailable.
   - [ ] **13.18.1** ISO/USB creation is blocked or warned when Autopilot is enabled without a valid embedded profile.
-- [ ] **16.E.9** Complete deferred Phase 14 generated-media validation during Phase 17:
-  - [ ] **14.13** Generated media contains `foundry.deploy.config.json`.
-  - [ ] **14.13** `Foundry.Deploy` can load the generated Deploy config from generated media.
-- [ ] **16.E.10** Complete deferred Phase 15 generated-media validation during Phase 17:
-  - [ ] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets from generated boot media.
-  - [ ] **15.15** `Foundry.Connect` decrypts embedded secrets from generated boot media without prompting the operator for a decryption key.
+- [x] **16.E.9** Complete deferred Phase 14 generated-media validation during Phase 17:
+  - [x] **14.13** Generated media contains `foundry.deploy.config.json`.
+  - [x] **14.13** `Foundry.Deploy` can load the generated Deploy config from generated media.
+- [x] **16.E.10** Complete deferred Phase 15 generated-media validation during Phase 17:
+  - [x] **15.14** `Foundry.Connect` can decrypt embedded `aes-gcm-v1` secrets from generated boot media.
+  - [x] **15.15** `Foundry.Connect` decrypts embedded secrets from generated boot media without prompting the operator for a decryption key.
 - [ ] **16.E.11** Complete deferred Phase 16 generated-media validation during Phase 17:
   - [ ] **16.16** Boot generated media into `Foundry.Deploy` with Autopilot enabled but no embedded profile, and confirm the Autopilot section remains visible so the operator can disable it.
-  - [ ] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
-  - [ ] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
+  - [x] Generated media embeds selected Autopilot profiles under `Foundry\Config\Autopilot\<FolderName>\AutopilotConfigurationFile.json`.
+  - [x] Generated Deploy config stores the selected/default Autopilot profile folder name, not a full path.
 - [ ] **16.E.12** Logs are readable in `C:\ProgramData\Foundry\Logs\Foundry.log` and include final ISO/USB start, progress, completion, pre-format cancellation, and failure events without exposing secrets.
   - [x] Add debug coverage for WinPE tool resolution, workspace build, provisioning payload generation, preparation stages, image customization progress, ISO/USB service completion, and workspace cleanup.
   - [ ] Re-run ISO/USB creation and confirm the new debug events appear without plaintext Wi-Fi passphrases or media keys.
+    - [x] USB re-run confirmed.
+    - [ ] ISO re-run still pending.
 - [x] **16.E.13** Improve long-running media progress UX:
   - [x] Show the current overall operation percentage beside the primary progress bar when progress is determinate.
   - [x] Extend the progress contract to support optional nested progress for internet downloads and DISM operations.
