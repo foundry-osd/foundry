@@ -183,6 +183,12 @@
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Customization</value>
   </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry could not open the documentation in your browser. Use this URL instead.</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Open documentation</value>
+  </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
     <value>Machine naming</value>
   </data>
@@ -204,17 +210,41 @@
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Prefix must use 1 to 15 characters from A-Z, a-z, 0-9, or -.</value>
   </data>
-  <data name="DocumentationPage_DocsLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>Choose architecture, ISO, WinPE language, USB layout, and driver options.</value>
   </data>
-  <data name="DocumentationPage_IssuesLink.Content" xml:space="preserve">
-    <value>GitHub issues</value>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>Configure media</value>
   </data>
-  <data name="DocumentationPage_RepositoryLink.Content" xml:space="preserve">
-    <value>GitHub repository</value>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>Review Windows ADK and Windows PE Add-on readiness.</value>
   </data>
-  <data name="DocumentationPage_Title.Text" xml:space="preserve">
-    <value>Documentation</value>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>Open ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>Open Foundry documentation in your browser.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>Open documentation</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>Review the final media summary and create ISO or USB media.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>Review and start</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>Installed version</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Windows PE Add-on</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>Prepare Windows deployment media from a validated configuration workflow.</value>
+  </data>
+  <data name="Home.Header.Title" xml:space="preserve">
+    <value>Foundry</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
     <value>General</value>

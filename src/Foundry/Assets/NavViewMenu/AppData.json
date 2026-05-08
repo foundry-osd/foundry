@@ -123,16 +123,6 @@
       "IsFooterNavigationViewItem": true,
       "Items": [
         {
-          "UniqueId": "Foundry.Views.DocumentationPage",
-          "Title": "Documentation",
-          "LocalizeId": "Nav_DocumentationKey",
-          "UsexUid": true,
-          "IconGlyph": "E8A5",
-          "HideItem": true,
-          "IsNew": false,
-          "IsUpdated": false
-        },
-        {
           "UniqueId": "Foundry.Views.AboutPage",
           "Title": "About",
           "LocalizeId": "Nav_AboutKey",

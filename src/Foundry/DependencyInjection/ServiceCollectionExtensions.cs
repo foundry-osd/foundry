@@ -66,6 +66,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<AutopilotConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
+        services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();

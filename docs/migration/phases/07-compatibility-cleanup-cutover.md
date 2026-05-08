@@ -184,24 +184,24 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Define semantic status resources for `ready`, `warning`, `blocked`, `busy`, and `complete`, including brush, icon, text, and action-slot guidance.
   - [x] Define reusable dialog sizing resources for standard dialogs and the larger About/WebView2 dialog.
   - [ ] Document the token inventory in the PR so future pages do not add raw colors, arbitrary radii, or inconsistent icon sizes.
-- [ ] **18.2** Define the Home page role:
-  - [ ] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned `dev:MainLandingPage` composition.
-  - [ ] Home is a simple welcome/onboarding/status hub, not a dense operational dashboard.
-  - [ ] Configure `MainLandingPage.HeaderText` and `MainLandingPage.HeaderSubtitleText` with concise Foundry product/onboarding copy.
-  - [ ] Keep the `MainLandingPage` header area restrained; do not introduce a custom marketing hero, oversized visual treatment, or duplicated dashboard content.
-  - [ ] Remove Home-only cover resources only when the final `MainLandingPage` implementation no longer uses them.
-  - [ ] Keep the page intentionally sparse with only a short welcome message, compact ADK readiness/status content, and a small set of primary action tiles.
-  - [ ] Place the primary Home actions inside `MainLandingPage.HeaderContent`.
-  - [ ] Implement the four Home action tiles with DevWinUI `HeaderTile`: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
-  - [ ] Use clear title, short description, and theme-safe icon/source content for each `HeaderTile`; keep localized text short enough for compact tile layouts.
-  - [ ] Make the `HeaderTile` layout responsive across narrow, medium, and wide windows by wrapping, horizontal scrolling, or an equivalent validated layout behavior.
-  - [ ] Use `HeaderTile.Link` only for the external documentation tile; in-app tiles must route through Foundry navigation handlers/services.
-  - [ ] Keep Home action tiles clickable when prerequisites are missing; explain blockers in the ADK readiness/status content instead of disabling navigation.
-  - [ ] Place compact ADK readiness/status content in `MainLandingPage.FooterContent`, including whether Windows ADK and the WinPE add-on are both ready.
-  - [ ] The ADK readiness/status content shows only the essential state, using a clear success/non-success visual treatment such as ready, warning, or blocked.
-  - [ ] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
-  - [ ] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
-  - [ ] Use native WinUI layout and controls inside `HeaderContent` and `FooterContent` except for the approved DevWinUI `HeaderTile` action tiles.
+- [x] **18.2** Define the Home page role:
+  - [x] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned `dev:MainLandingPage` composition.
+  - [x] Home is a simple welcome/onboarding/status hub, not a dense operational dashboard.
+  - [x] Configure `MainLandingPage.HeaderText` and `MainLandingPage.HeaderSubtitleText` with concise Foundry product/onboarding copy.
+  - [x] Keep the `MainLandingPage` header area restrained; do not introduce a custom marketing hero, oversized visual treatment, or duplicated dashboard content.
+  - [x] Remove Home-only cover resources only when the final `MainLandingPage` implementation no longer uses them.
+  - [x] Keep the page intentionally sparse with only a short welcome message, compact ADK readiness/status content, and a small set of primary action tiles.
+  - [x] Place the primary Home actions inside `MainLandingPage.HeaderContent`.
+  - [x] Implement the four Home action tiles with DevWinUI `HeaderTile`: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
+  - [x] Use clear title, short description, and theme-safe icon/source content for each `HeaderTile`; keep localized text short enough for compact tile layouts.
+  - [x] Make the `HeaderTile` layout responsive across narrow, medium, and wide windows by wrapping, horizontal scrolling, or an equivalent validated layout behavior.
+  - [x] Use `HeaderTile.Link` only for the external documentation tile; in-app tiles must route through Foundry navigation handlers/services.
+  - [x] Keep Home action tiles clickable when prerequisites are missing; explain blockers in the ADK readiness/status content instead of disabling navigation.
+  - [x] Place compact ADK readiness/status content in `MainLandingPage.FooterContent`, including whether Windows ADK and the WinPE add-on are both ready.
+  - [x] The ADK readiness/status content shows only the essential state, using a clear success/non-success visual treatment such as ready, warning, or blocked.
+  - [x] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
+  - [x] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
+  - [x] Use native WinUI layout and controls inside `HeaderContent` and `FooterContent` except for the approved DevWinUI `HeaderTile` action tiles.
 - [ ] **18.3** Review page information architecture:
   - [ ] `General` owns generated media settings, including WinPE image/boot language.
   - [ ] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.
@@ -209,10 +209,10 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] `Start` presents readiness as scannable grouped checks with explicit blockers instead of a long prose summary.
   - [ ] `ADK` answers one primary question first: whether Foundry can proceed, and what action the user should take next.
   - [ ] `Network`, `Localization`, `Autopilot`, and `Customization` remain expert workflow pages.
-  - [ ] Footer surfaces remain documentation/about/settings entry points, not workflow pages.
-  - [ ] `Documentation` is a direct external navigation action to `https://foundry-osd.github.io/docs/intro`, not a separate in-app page; when launched from Home or the shell/footer, it does not change the current in-app navigation selection.
-  - [ ] Show a fallback `ContentDialog` with selectable/copyable documentation URL text if the external documentation launch fails.
-  - [ ] Remove `DocumentationPage` from the WinUI app once Documentation becomes an external navigation action.
+  - [x] Footer surfaces remain documentation/about/settings entry points, not workflow pages.
+  - [x] `Documentation` is a direct external navigation action to `https://foundry-osd.github.io/docs/intro`, not a separate in-app page; when launched from Home or the shell/footer, it does not change the current in-app navigation selection.
+  - [x] Show a fallback `ContentDialog` with selectable/copyable documentation URL text if the external documentation launch fails.
+  - [x] Remove `DocumentationPage` from the WinUI app once Documentation becomes an external navigation action.
   - [ ] Replace shell-navigated About surfaces with one modal `ContentDialog`.
   - [ ] Implement the About dialog with UniGetUI-style `SelectorBar` sections: `About`, `Licenses`, `Contributors`, and `Release notes`.
   - [ ] Implement a custom content-level close button with accessible name, tooltip, and simple default WinUI tab order.

@@ -1,7 +1,10 @@
+using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Shell;
 using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml.Input;
+using Windows.System;
 using Serilog;
 
 namespace Foundry.Views
@@ -11,7 +14,9 @@ namespace Foundry.Views
         private readonly IApplicationLocalizationService localizationService;
         private readonly IOperationProgressService operationProgressService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
+        private readonly IExternalProcessLauncher externalProcessLauncher;
         private readonly ILogger logger = Log.ForContext<MainWindow>();
+        private const string DocumentationNavigationTag = "Foundry.External.Documentation";
         private ContentDialog? operationDialog;
         private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
@@ -30,13 +35,14 @@ namespace Foundry.Views
             localizationService = App.GetService<IApplicationLocalizationService>();
             operationProgressService = App.GetService<IOperationProgressService>();
             shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
+            externalProcessLauncher = App.GetService<IExternalProcessLauncher>();
             ViewModel = App.GetService<MainViewModel>();
             this.InitializeComponent();
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
-            ApplyLocalizedShellText();
             InitializeNavigation();
+            ApplyLocalizedShellText();
             ApplyShellNavigationState();
 
             localizationService.LanguageChanged += OnLanguageChanged;
@@ -70,6 +76,8 @@ namespace Foundry.Views
             {
                 settingsItem.Content = localizationService.GetString("SettingsPage.PageTitle");
             }
+
+            EnsureExternalDocumentationFooterItem();
         }
 
         private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
@@ -137,6 +145,26 @@ namespace Foundry.Views
             if (step.Page == typeof(AppUpdateSettingPage))
             {
                 return localizationService.GetString("SettingsPage_UpdateCard.Header");
+            }
+
+            if (step.Page == typeof(HomeLandingPage))
+            {
+                return localizationService.GetString("Nav_HomeKey.Title");
+            }
+
+            if (step.Page == typeof(AdkPage))
+            {
+                return localizationService.GetString("Adk.PageTitle");
+            }
+
+            if (step.Page == typeof(GeneralConfigurationPage))
+            {
+                return localizationService.GetString("GeneralConfigurationPage_Title.Text");
+            }
+
+            if (step.Page == typeof(StartPage))
+            {
+                return localizationService.GetString("StartPage_Title.Text");
             }
 
             if (step.Page == typeof(AboutUsSettingPage))
@@ -472,9 +500,96 @@ namespace Foundry.Views
                 ShellNavigationState.OperationRunning => false,
                 ShellNavigationState.AdkBlocked => isFooter
                     || string.Equals(uniqueId, typeof(HomeLandingPage).FullName, StringComparison.Ordinal)
-                    || string.Equals(uniqueId, typeof(AdkPage).FullName, StringComparison.Ordinal),
+                    || string.Equals(uniqueId, typeof(AdkPage).FullName, StringComparison.Ordinal)
+                    || string.Equals(uniqueId, typeof(GeneralConfigurationPage).FullName, StringComparison.Ordinal)
+                    || string.Equals(uniqueId, typeof(StartPage).FullName, StringComparison.Ordinal),
                 _ => false
             };
+        }
+
+        private void EnsureExternalDocumentationFooterItem()
+        {
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, DocumentationNavigationTag);
+            if (item is null)
+            {
+                item = new()
+                {
+                    Tag = DocumentationNavigationTag,
+                    Icon = new FontIcon { Glyph = "\uE8A5" }
+                };
+                item.Tapped += DocumentationFooterItem_Tapped;
+                item.KeyDown += DocumentationFooterItem_KeyDown;
+                NavView.FooterMenuItems.Insert(0, item);
+            }
+
+            item.Content = localizationService.GetString("Nav_DocumentationKey.Title");
+            ToolTipService.SetToolTip(item, localizationService.GetString("Nav_DocumentationKey.Description"));
+            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+        }
+
+        private async void DocumentationFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            await OpenDocumentationAsync();
+        }
+
+        private async void DocumentationFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
+            {
+                return;
+            }
+
+            e.Handled = true;
+            await OpenDocumentationAsync();
+        }
+
+        private async Task OpenDocumentationAsync()
+        {
+            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            {
+                return;
+            }
+
+            try
+            {
+                await externalProcessLauncher.OpenUriAsync(new Uri(FoundryApplicationInfo.DocumentationUrl));
+            }
+            catch (Exception ex)
+            {
+                logger.Warning(ex, "Failed to open documentation URL.");
+                await ShowDocumentationFallbackDialogAsync();
+            }
+        }
+
+        private async Task ShowDocumentationFallbackDialogAsync()
+        {
+            ContentDialog dialog = new()
+            {
+                XamlRoot = RootGrid.XamlRoot,
+                Title = localizationService.GetString("Documentation.ExternalLaunchFailed.Title"),
+                PrimaryButtonText = localizationService.GetString("Common.Close"),
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new StackPanel
+                {
+                    Spacing = 12,
+                    Children =
+                    {
+                        new TextBlock
+                        {
+                            Text = localizationService.GetString("Documentation.ExternalLaunchFailed.Message"),
+                            TextWrapping = TextWrapping.Wrap
+                        },
+                        new Microsoft.UI.Xaml.Controls.TextBox
+                        {
+                            Text = FoundryApplicationInfo.DocumentationUrl,
+                            IsReadOnly = true
+                        }
+                    }
+                }
+            };
+
+            await dialog.ShowAsync();
         }
 
         private void ApplyOperationState(OperationProgressState state)
