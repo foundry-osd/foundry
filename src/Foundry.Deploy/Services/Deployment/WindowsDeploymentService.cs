@@ -342,7 +342,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string? unattendTimeZoneId = ResolveUnattendTimeZoneId(defaultTimeZoneId);
         if (string.IsNullOrWhiteSpace(unattendTimeZoneId))
         {
-            timeZoneElement.Remove();
+            if (timeZoneElement.Parent is not null)
+            {
+                timeZoneElement.Remove();
+            }
         }
         else
         {
