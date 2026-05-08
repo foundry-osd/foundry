@@ -118,7 +118,10 @@ Build after the design-token/package baseline and after each major implementatio
 
 **Validated UI decisions:**
 
-- Decision: `Home` is a guided onboarding/status hub, not a dashboard and not a generic DevWinUI landing page.
+- Decision: `Home` is a guided onboarding/status hub, not a dashboard and not a generic DevWinUI `AllLandingPage` catalog page.
+- Decision: `Home` uses DevWinUI `MainLandingPage` as the landing shell because its `HeaderContent` and `FooterContent` slots match the desired guided-entry layout without rebuilding the whole page container.
+- Decision: `Home` uses DevWinUI `HeaderTile` controls in `MainLandingPage.HeaderContent` for the four primary actions instead of generic `Card` controls.
+- Decision: `Home` uses `MainLandingPage.FooterContent` for compact ADK readiness/status content and secondary supporting information, not for a dense dashboard summary.
 - Decision: `Start` is the review-and-launch page; `General` edits generated media settings, including WinPE image/boot language.
 - Decision: `Documentation` opens `https://foundry-osd.github.io/docs/intro` directly instead of navigating to an in-app documentation page.
 - Decision: `About` owns product identity, version, update/release link, license, authors, support, and footer information, following the archived WPF Foundry About pattern and the simpler Connect/Deploy branded About layout.
@@ -137,8 +140,9 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `Settings` owns app preferences and update management.
 - Decision: `Settings` does not duplicate help/about/documentation surfaces; it owns app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options only.
 - Decision: `Settings` uses the DevWinUI built-in settings slot with explicit selected-item mapping for Settings and settings subpages.
-- Decision: `Home` uses simple DevWinUI `Card` controls for the four primary actions, aligned horizontally on normal desktop widths.
-- Decision: `Home` removes the branded cover/hero image concept and becomes status-first.
+- Decision: `Home` keeps the `MainLandingPage` header area restrained and status-oriented; it must not become a marketing hero, a visual catalog, or a duplicated dashboard.
+- Decision: `Home` action tiles use a responsive `HeaderContent` layout that wraps, scrolls horizontally, or otherwise remains usable at narrow, medium, and wide window sizes; do not use a raw non-wrapping horizontal `StackPanel` unless validation proves it behaves correctly.
+- Decision: `HeaderTile.Link` is used only for true external links such as documentation. In-app workflow tiles navigate through Foundry navigation handlers/services so shell selection and page state remain correct.
 - Decision: `ADK` install action is a combined Windows ADK + WinPE add-on flow; the UI must not present them as unrelated installers.
 - Decision: `ADK` primary setup button keeps a stable combined label such as `Install ADK and WinPE add-on`, even when only one component is missing.
 - Decision: `ADK` shows core readiness details by default and keeps diagnostics/logs collapsed by default.
@@ -181,18 +185,23 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Define reusable dialog sizing resources for standard dialogs and the larger About/WebView2 dialog.
   - [ ] Document the token inventory in the PR so future pages do not add raw colors, arbitrary radii, or inconsistent icon sizes.
 - [ ] **18.2** Define the Home page role:
-  - [ ] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned page layout.
+  - [ ] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned `dev:MainLandingPage` composition.
   - [ ] Home is a simple welcome/onboarding/status hub, not a dense operational dashboard.
-  - [ ] Remove the current branded cover/hero image concept and any Home-only cover resources that become unused.
-  - [ ] Keep the page intentionally sparse with only a short welcome message, a lightweight ADK status card, and a small set of primary action cards.
-  - [ ] The ADK status card shows only the essential state, using a clear success/non-success visual treatment such as green for compatible/ready and a warning/error state when missing or incompatible.
-  - [ ] Implement the four Home action cards: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
-  - [ ] Use simple DevWinUI `Card` controls for the Home action row with title, optional short content, and a clear click target.
-  - [ ] Align Home action cards horizontally on normal desktop widths and wrap or stack below the responsive threshold.
-  - [ ] Keep Home action cards clickable when prerequisites are missing; explain blockers in the ADK status card instead of disabling navigation.
+  - [ ] Configure `MainLandingPage.HeaderText` and `MainLandingPage.HeaderSubtitleText` with concise Foundry product/onboarding copy.
+  - [ ] Keep the `MainLandingPage` header area restrained; do not introduce a custom marketing hero, oversized visual treatment, or duplicated dashboard content.
+  - [ ] Remove Home-only cover resources only when the final `MainLandingPage` implementation no longer uses them.
+  - [ ] Keep the page intentionally sparse with only a short welcome message, compact ADK readiness/status content, and a small set of primary action tiles.
+  - [ ] Place the primary Home actions inside `MainLandingPage.HeaderContent`.
+  - [ ] Implement the four Home action tiles with DevWinUI `HeaderTile`: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
+  - [ ] Use clear title, short description, and theme-safe icon/source content for each `HeaderTile`; keep localized text short enough for compact tile layouts.
+  - [ ] Make the `HeaderTile` layout responsive across narrow, medium, and wide windows by wrapping, horizontal scrolling, or an equivalent validated layout behavior.
+  - [ ] Use `HeaderTile.Link` only for the external documentation tile; in-app tiles must route through Foundry navigation handlers/services.
+  - [ ] Keep Home action tiles clickable when prerequisites are missing; explain blockers in the ADK readiness/status content instead of disabling navigation.
+  - [ ] Place compact ADK readiness/status content in `MainLandingPage.FooterContent`, including whether Windows ADK and the WinPE add-on are both ready.
+  - [ ] The ADK readiness/status content shows only the essential state, using a clear success/non-success visual treatment such as ready, warning, or blocked.
   - [ ] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
   - [ ] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
-  - [ ] Use native WinUI layout and controls for the Home page content except for the approved DevWinUI `Card` action row.
+  - [ ] Use native WinUI layout and controls inside `HeaderContent` and `FooterContent` except for the approved DevWinUI `HeaderTile` action tiles.
 - [ ] **18.3** Review page information architecture:
   - [ ] `General` owns generated media settings, including WinPE image/boot language.
   - [ ] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.
@@ -239,7 +248,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Use table/grid controls only where users need row scanning, selection, sorting, or multi-column comparison.
   - [ ] Use WebView2 only for the About dialog release-notes tab; keep other About tabs native WinUI to avoid web UI where static local content is sufficient.
   - [ ] Page-level controls must use the approved design-token baseline for color, typography, icon size, spacing, and corner radius.
-  - [ ] Keep DevWinUI `Card` only as the approved Home action-row exception.
+  - [ ] Keep DevWinUI `MainLandingPage` and `HeaderTile` as approved Home-only exceptions where they provide the landing shell and primary action tiles.
   - [ ] Do not mix DevWinUI settings controls and Windows Community Toolkit settings controls on the same page unless there is a documented reason.
   - [ ] Migrate page-level `dev:SettingsCard` and `dev:SettingsExpander` usages page by page with the relevant UX slice instead of doing one broad control rewrite.
   - [ ] Keep DevWinUI shell controls where they provide the navigation/title bar/content-frame baseline.
