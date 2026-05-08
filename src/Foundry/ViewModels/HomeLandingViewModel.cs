@@ -136,7 +136,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
 
     private void ApplyLocalizedText()
     {
-        HeaderTitle = localizationService.GetString("Home.Header.Title");
+        HeaderTitle = ProcessInfoHelper.ProductNameAndVersion;
         HeaderSubtitle = localizationService.GetString("Home.Header.Subtitle");
         OpenAdkTitle = localizationService.GetString("Home.Action.OpenAdk.Title");
         OpenAdkDescription = localizationService.GetString("Home.Action.OpenAdk.Description");

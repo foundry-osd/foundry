@@ -243,9 +243,6 @@
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Préparer des médias de déploiement Windows depuis un workflow de configuration validé.</value>
   </data>
-  <data name="Home.Header.Title" xml:space="preserve">
-    <value>Foundry</value>
-  </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
     <value>Général</value>
   </data>
