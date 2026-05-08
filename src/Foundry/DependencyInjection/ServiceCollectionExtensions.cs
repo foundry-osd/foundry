@@ -59,6 +59,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IFilePickerService, WinUiFilePickerService>();
 
         services.AddTransient<MainViewModel>();
+        services.AddTransient<HomeLandingViewModel>();
         services.AddSingleton<ContextMenuService>();
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddTransient<LocalizationConfigurationViewModel>();

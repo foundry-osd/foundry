@@ -180,19 +180,19 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Define semantic status resources for `ready`, `warning`, `blocked`, `busy`, and `complete`, including brush, icon, text, and action-slot guidance.
   - [x] Define reusable dialog sizing resources for standard dialogs and the larger About/WebView2 dialog.
   - [ ] Document the token inventory in the PR so future pages do not add raw colors, arbitrary radii, or inconsistent icon sizes.
-- [ ] **18.2** Define the Home page role:
-  - [ ] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned page layout.
-  - [ ] Home is a simple welcome/onboarding/status hub, not a dense operational dashboard.
-  - [ ] Remove the current branded cover/hero image concept and any Home-only cover resources that become unused.
-  - [ ] Keep the page intentionally sparse with only a short welcome message, a lightweight ADK status card, and a small set of primary action cards.
-  - [ ] The ADK status card shows only the essential state, using a clear success/non-success visual treatment such as green for compatible/ready and a warning/error state when missing or incompatible.
-  - [ ] Implement the four Home action cards: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
-  - [ ] Use simple DevWinUI `Card` controls for the Home action row with title, optional short content, and a clear click target.
-  - [ ] Align Home action cards horizontally on normal desktop widths and wrap or stack below the responsive threshold.
-  - [ ] Keep Home action cards clickable when prerequisites are missing; explain blockers in the ADK status card instead of disabling navigation.
-  - [ ] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
-  - [ ] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
-  - [ ] Use native WinUI layout and controls for the Home page content except for the approved DevWinUI `Card` action row.
+- [x] **18.2** Define the Home page role:
+  - [x] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned page layout.
+  - [x] Home is a simple welcome/onboarding/status hub, not a dense operational dashboard.
+  - [x] Remove the current branded cover/hero image concept and any Home-only cover resources that become unused.
+  - [x] Keep the page intentionally sparse with only a short welcome message, a lightweight ADK status card, and a small set of primary action cards.
+  - [x] The ADK status card shows only the essential state, using a clear success/non-success visual treatment such as green for compatible/ready and a warning/error state when missing or incompatible.
+  - [x] Implement the four Home action cards: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
+  - [x] Use simple DevWinUI `Card` controls for the Home action row with title, optional short content, and a clear click target.
+  - [x] Align Home action cards horizontally on normal desktop widths and wrap or stack below the responsive threshold.
+  - [x] Keep Home action cards clickable when prerequisites are missing; explain blockers in the ADK status card instead of disabling navigation.
+  - [x] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
+  - [x] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
+  - [x] Use native WinUI layout and controls for the Home page content except for the approved DevWinUI `Card` action row.
 - [ ] **18.3** Review page information architecture:
   - [ ] `General` owns generated media settings, including WinPE image/boot language.
   - [ ] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.

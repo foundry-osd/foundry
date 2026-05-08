@@ -1,15 +1,110 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.HomeLandingPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dev="using:DevWinUI"
-      xmlns:local="using:Foundry"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:Foundry.ViewModels"
       mc:Ignorable="d">
-    <dev:AllLandingPage HeaderImage="{ThemeResource HeaderCover}"
-                        HeaderSubtitleText="{x:Bind dev:ProcessInfoHelper.Version}"
-                        HeaderText="{x:Bind dev:ProcessInfoHelper.ProductName}"
-                        JsonNavigationService="{x:Bind local:App.Current.NavService}" />
-</Page>
+    <ScrollView Margin="{ThemeResource ContentPageMargin}"
+                Padding="{ThemeResource ContentPagePadding}"
+                HorizontalAlignment="Stretch"
+                VerticalScrollBarVisibility="Auto">
+        <StackPanel MaxWidth="{ThemeResource FoundryContentMaxWidth}"
+                    HorizontalAlignment="Left"
+                    Spacing="{ThemeResource FoundrySpace24}">
+            <StackPanel Spacing="{ThemeResource FoundrySpace8}">
+                <TextBlock Text="{x:Bind ViewModel.WelcomeText, Mode=OneWay}"
+                           Style="{StaticResource FoundryPageTitleTextBlockStyle}" />
+                <TextBlock MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}"
+                           Text="{x:Bind ViewModel.IntroText, Mode=OneWay}"
+                           TextWrapping="WrapWholeWords"
+                           Style="{StaticResource FoundryBodyTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
 
+            <Border MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}"
+                    Padding="{ThemeResource FoundryDefaultContentPadding}"
+                    Background="{ThemeResource FoundrySurfaceBrush}"
+                    BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                <StackPanel Spacing="{ThemeResource FoundrySpace16}">
+                    <InfoBar IsOpen="True"
+                             IsClosable="False"
+                             Severity="{x:Bind ViewModel.AdkSeverity, Mode=OneWay}"
+                             Title="{x:Bind ViewModel.AdkCardTitle, Mode=OneWay}"
+                             Message="{x:Bind ViewModel.AdkCardDescription, Mode=OneWay}" />
+                    <Grid ColumnSpacing="{ThemeResource FoundrySpace24}"
+                          RowSpacing="{ThemeResource FoundrySpace4}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{x:Bind ViewModel.AdkInstalledVersionLabel, Mode=OneWay}"
+                                   Style="{StaticResource FoundryCaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="1"
+                                   Text="{x:Bind ViewModel.AdkInstalledVersion, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords"
+                                   Style="{StaticResource FoundryCaptionTextBlockStyle}" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="{x:Bind ViewModel.WinPeAddonLabel, Mode=OneWay}"
+                                   Style="{StaticResource FoundryCaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords"
+                                   Style="{StaticResource FoundryCaptionTextBlockStyle}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <GridView x:Name="ActionGridView"
+                      ItemsSource="{x:Bind ViewModel.Actions}"
+                      IsItemClickEnabled="True"
+                      ItemClick="ActionGridView_ItemClick"
+                      SelectionMode="None"
+                      HorizontalAlignment="Left"
+                      HorizontalContentAlignment="Stretch">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal"
+                                       ItemWidth="220"
+                                       ItemHeight="156" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:HomeActionItem">
+                        <dev:Card Title="{x:Bind Title}"
+                                  Padding="{ThemeResource FoundryDefaultContentPadding}"
+                                  MinWidth="204"
+                                  MinHeight="140">
+                            <StackPanel Spacing="{ThemeResource FoundrySpace12}">
+                                <FontIcon Glyph="{x:Bind IconGlyph}"
+                                          FontSize="{ThemeResource FoundryIconSizeLarge}"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                <TextBlock Text="{x:Bind Description}"
+                                           TextWrapping="WrapWholeWords"
+                                           MaxLines="3"
+                                           Style="{StaticResource FoundryCaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                        </dev:Card>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </StackPanel>
+    </ScrollView>
+</Page>

@@ -57,6 +57,51 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="Home.PageTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Home.Welcome" xml:space="preserve">
+    <value>Welcome to Foundry</value>
+  </data>
+  <data name="Home.Intro" xml:space="preserve">
+    <value>Prepare Windows deployment media from a validated configuration workflow.</value>
+  </data>
+  <data name="Home.AdkInstalledVersion" xml:space="preserve">
+    <value>Installed version</value>
+  </data>
+  <data name="Home.WinPeAddon" xml:space="preserve">
+    <value>Windows PE Add-on</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>Open ADK</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>Review ADK and Windows PE Add-on readiness.</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>Configure media</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>Choose architecture, ISO, WinPE language, USB layout, and drivers.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>Review and start</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>Review the final media summary and create ISO or USB media.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>Open documentation</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>Open Foundry documentation in your browser.</value>
+  </data>
+  <data name="Home.DocumentationFallback.Title" xml:space="preserve">
+    <value>Documentation link</value>
+  </data>
+  <data name="Home.DocumentationFallback.Message" xml:space="preserve">
+    <value>Foundry could not open the browser. Open this URL manually: {0}</value>
+  </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
     <value>Enable developer diagnostics and open the Foundry log folder.</value>
   </data>
