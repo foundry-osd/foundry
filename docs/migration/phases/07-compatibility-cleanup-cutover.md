@@ -312,8 +312,8 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Customization` clarifies machine naming labels/descriptions, for example `Auto-generate computer name suffix` and `Allow suffix edit during deployment`.
   - [x] `Settings` uses the meta-page header pattern; `About` uses the branded tabbed dialog header; `Documentation` opens externally and has no in-app header.
   - [x] `Settings` selected-item synchronization handles the built-in settings item and settings subpages correctly.
-  - [ ] Remove the title-bar theme quick toggle.
-  - [ ] Remove the title-bar search box.
+  - [x] Remove the title-bar theme quick toggle.
+  - [x] Remove the title-bar search box.
 - [ ] **18.8** Review accessibility and localization resilience:
   - [ ] Keyboard navigation reaches all interactive controls in a sensible order.
   - [ ] Icon-only actions have accessible names and tooltips.

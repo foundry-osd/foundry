@@ -70,9 +70,6 @@ namespace Foundry.Views
 
         private void ApplyLocalizedShellText()
         {
-            SearchBox.PlaceholderText = localizationService.GetString("MainWindow.SearchBox.PlaceholderText");
-            ToolTipService.SetToolTip(ThemeButton, localizationService.GetString("MainWindow.ThemeButton.ToolTip"));
-
             if (NavView.SettingsItem is NavigationViewItem settingsItem)
             {
                 settingsItem.Content = localizationService.GetString("SettingsPage.PageTitle");
@@ -184,32 +181,6 @@ namespace Foundry.Views
             ViewModel.Dispose();
         }
 
-        private async void ThemeButton_Click(object sender, RoutedEventArgs e)
-        {
-            await App.Current.ThemeService.SetElementThemeWithoutSaveAsync();
-        }
-
-        private void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (shellNavigationGuardService.State != ShellNavigationState.Ready)
-            {
-                sender.ItemsSource = null;
-                return;
-            }
-
-            AutoSuggestBoxHelper.OnITitleBarAutoSuggestBoxTextChangedEvent(sender, args, NavFrame);
-        }
-
-        private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (shellNavigationGuardService.State != ShellNavigationState.Ready)
-            {
-                return;
-            }
-
-            AutoSuggestBoxHelper.OnITitleBarAutoSuggestBoxQuerySubmittedEvent(sender, args, NavFrame);
-        }
-
         private void OnShellNavigationStateChanged(object? sender, EventArgs e)
         {
             if (!DispatcherQueue.HasThreadAccess)
@@ -284,7 +255,6 @@ namespace Foundry.Views
         {
             ShellNavigationState state = shellNavigationGuardService.State;
             bool isOperationRunning = state == ShellNavigationState.OperationRunning;
-            SearchBox.IsEnabled = state == ShellNavigationState.Ready;
             UpdateOperationDialog(isOperationRunning);
 
             ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, state);

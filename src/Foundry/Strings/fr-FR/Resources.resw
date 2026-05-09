@@ -147,12 +147,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>Français</value>
   </data>
-  <data name="MainWindow.SearchBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher</value>
-  </data>
-  <data name="MainWindow.ThemeButton.ToolTip" xml:space="preserve">
-    <value>Changer le thème</value>
-  </data>
   <data name="AutopilotPage_Title.Text" xml:space="preserve">
     <value>Autopilot</value>
   </data>
