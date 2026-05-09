@@ -12,7 +12,6 @@
 
                 <ResourceDictionary Source="Themes/ThemeResources.xaml" />
                 <ResourceDictionary Source="Themes/Fonts.xaml" />
-                <ResourceDictionary Source="Themes/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--  Other app resources here  -->
         </ResourceDictionary>

@@ -1044,9 +1044,6 @@
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Informations de produit et de version.</value>
   </data>
-  <data name="Nav_AboutKey.Subtitle" xml:space="preserve">
-    <value>Informations Foundry</value>
-  </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
     <value>À propos</value>
   </data>
@@ -1079,9 +1076,6 @@
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Documentation Foundry et liens du projet.</value>
-  </data>
-  <data name="Nav_DocumentationKey.Subtitle" xml:space="preserve">
-    <value>Documentation</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentation</value>

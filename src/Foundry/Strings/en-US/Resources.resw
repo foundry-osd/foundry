@@ -1044,9 +1044,6 @@
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Product and version information.</value>
   </data>
-  <data name="Nav_AboutKey.Subtitle" xml:space="preserve">
-    <value>Foundry information</value>
-  </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
     <value>About</value>
   </data>
@@ -1079,9 +1076,6 @@
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry documentation and project links.</value>
-  </data>
-  <data name="Nav_DocumentationKey.Subtitle" xml:space="preserve">
-    <value>Documentation</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentation</value>

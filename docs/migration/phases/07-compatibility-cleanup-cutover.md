@@ -331,10 +331,11 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Update date/time text follows the active UI culture instead of hard-coded invariant formatting.
   - [x] Settings no-op guard handling is either removed or made meaningful through shell-owned guard state.
   - [x] Removed the obsolete `src\Foundry\Assets\Fluent` bitmap assets; retained app identity, cover, navigation metadata, and package Store assets.
-- [ ] **18.9** Remove obsolete UI artifacts:
-  - [ ] Remove pages, view models, navigation entries, commands, resources, assets, and localization keys that become unused after the Phase 18 UI redesign.
-  - [ ] Remove obsolete artifacts in the same implementation slice that makes them obsolete, then run one final stale-reference sweep before Phase 18 completion.
-  - [ ] Confirm removed `DocumentationPage`, duplicate About surfaces, title-bar search/theme controls, and retired DevWinUI page-level controls leave no stale references.
+- [x] **18.9** Remove obsolete UI artifacts:
+  - [x] Remove pages, view models, navigation entries, commands, resources, assets, and localization keys that become unused after the Phase 18 UI redesign.
+  - [x] Remove obsolete artifacts in the same implementation slice that makes them obsolete, then run one final stale-reference sweep before Phase 18 completion.
+  - [x] Confirm removed `DocumentationPage`, duplicate About surfaces, title-bar search/theme controls, and retired DevWinUI page-level controls leave no stale references.
+  - [x] Removed the empty `Themes/Converters.xaml` dictionary, unused design-token constants, and unused footer subtitle localization keys.
 - [ ] **18.10** Commit:
 
 ```powershell
