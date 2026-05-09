@@ -258,6 +258,9 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Content dialogs size to their content within sane min/max constraints and remain centered.
   - [ ] Long paths, localized strings, and profile names are clipped or wrapped intentionally.
   - [ ] Avoid nested scroll friction where `ListView` or `TableView` sits inside an outer `ScrollView`.
+  - [x] Replace the `Localization` visible-language `ListView` with a non-scrolling `ItemsControl` so the page owns scrolling.
+  - [x] Tokenize repeated About dialog page margins and the Start readiness status-column width.
+  - [x] Clip the Settings diagnostics log path intentionally and expose the full path through a tooltip.
 - [ ] **18.5** Rationalize control ownership:
   - [ ] Prefer native WinUI 3 controls for common primitives: `Button`, `ToggleSwitch`, `ComboBox`, `InfoBar`, `ContentDialog`, `NavigationView`, `ListView`, layout panels, and command surfaces.
   - [x] Prefer Windows Community Toolkit controls for Windows-settings-style page content: `SettingsCard` and `SettingsExpander` from the WinUI 3 toolkit package.

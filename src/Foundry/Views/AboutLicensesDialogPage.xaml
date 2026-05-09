@@ -13,7 +13,7 @@
                                             TrueBrush="{ThemeResource ControlFillColorSecondaryBrush}" />
     </Page.Resources>
 
-    <ScrollView Margin="0,10,0,0"
+    <ScrollView Margin="{ThemeResource FoundryDialogPageMargin}"
                 VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="{ThemeResource FoundrySpace16}">
             <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"

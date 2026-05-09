@@ -20,16 +20,14 @@
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE8AB;" />
                 </wct:SettingsCard.HeaderIcon>
-                <ListView MaxHeight="{ThemeResource FoundryListMaxHeight}"
-                          ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}"
-                          SelectionMode="None">
-                    <ListView.ItemTemplate>
+                <ItemsControl ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:LocalizationLanguageOptionViewModel">
                             <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
                                       IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </wct:SettingsCard>
 
             <wct:SettingsCard Header="{x:Bind ViewModel.DefaultLanguageHeader, Mode=OneWay}">

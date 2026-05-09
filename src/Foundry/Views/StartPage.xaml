@@ -40,7 +40,7 @@
                         Tag="{x:Bind NavigationTarget}"
                         Visibility="{x:Bind ActionVisibility}" />
                 <TextBlock Grid.Column="3"
-                           MinWidth="112"
+                           MinWidth="{ThemeResource FoundryStatusTextMinWidth}"
                            VerticalAlignment="Center"
                            Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                            Text="{x:Bind Status}"

@@ -13,7 +13,7 @@
                                             TrueBrush="{ThemeResource ControlFillColorSecondaryBrush}" />
     </Page.Resources>
 
-    <Grid Margin="0,10,0,0">
+    <Grid Margin="{ThemeResource FoundryDialogPageMargin}">
         <ScrollView VerticalScrollBarVisibility="Auto"
                     Visibility="{Binding ContributorsListVisibility}">
             <StackPanel Spacing="{ThemeResource FoundrySpace4}">

@@ -55,7 +55,10 @@
                     <HyperlinkButton HorizontalAlignment="Stretch"
                                       HorizontalContentAlignment="Left"
                                       Command="{x:Bind ViewModel.OpenLogFolderCommand}"
-                                      Content="{x:Bind ViewModel.LogDirectoryPath}" />
+                                      ToolTipService.ToolTip="{x:Bind ViewModel.LogDirectoryPath}">
+                        <TextBlock Text="{x:Bind ViewModel.LogDirectoryPath}"
+                                   TextTrimming="CharacterEllipsis" />
+                    </HyperlinkButton>
                 </wct:SettingsExpander.ItemsHeader>
             </wct:SettingsExpander>
 
