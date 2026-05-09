@@ -66,6 +66,9 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     public partial string MachineNamingAllowManualSuffixEditDescription { get; set; }
 
     [ObservableProperty]
+    public partial bool IsMachineNamingExpanded { get; set; }
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsMachineNamingOptionsEnabled))]
     [NotifyPropertyChangedFor(nameof(MachineNamePrefixValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasMachineNamePrefixValidationError))]
@@ -107,6 +110,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     partial void OnIsMachineNamingEnabledChanged(bool value)
     {
+        IsMachineNamingExpanded = value;
         SaveState();
     }
 
@@ -143,6 +147,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         try
         {
             IsMachineNamingEnabled = settings.MachineNaming.IsEnabled;
+            IsMachineNamingExpanded = settings.MachineNaming.IsEnabled;
             MachineNamePrefix = settings.MachineNaming.Prefix ?? string.Empty;
             MachineNameAutoGenerate = settings.MachineNaming.AutoGenerateName;
             AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;

@@ -16,7 +16,7 @@
 
             <wct:SettingsExpander Header="{x:Bind ViewModel.MachineNamingHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.MachineNamingDescription, Mode=OneWay}"
-                                  IsExpanded="True">
+                                  IsExpanded="{x:Bind ViewModel.IsMachineNamingExpanded, Mode=TwoWay}">
                 <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE8D4;" />
                 </wct:SettingsExpander.HeaderIcon>
