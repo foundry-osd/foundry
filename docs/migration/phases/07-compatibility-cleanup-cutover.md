@@ -289,9 +289,9 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Home`, `ADK`, and `Start` share the same tokenized status-surface contract for ready, warning, blocked, busy, and complete states.
   - [x] `Start` shows explicit USB loading, empty, and error states while discovery runs or fails.
   - [x] Preserve current USB candidate selection behavior during the `Start` page cleanup.
-  - [ ] `Network` uses stronger progressive disclosure for Ethernet 802.1X and Wi-Fi instead of opening all advanced sections by default.
-  - [ ] Collapse Ethernet 802.1X and Wi-Fi sections by default unless the section is enabled, configured, or invalid.
-  - [ ] Place Network validation feedback next to the field or section it blocks and keep secret handling opaque.
+  - [x] `Network` uses stronger progressive disclosure for Ethernet 802.1X and Wi-Fi instead of opening all advanced sections by default.
+  - [x] Collapse Ethernet 802.1X and Wi-Fi sections by default unless the section is enabled, configured, or invalid.
+  - [x] Place Network validation feedback next to the field or section it blocks and keep secret handling opaque.
   - [ ] Keep WinPE image/boot language on `General`, not on `Localization`.
   - [ ] `Localization` clearly owns deployment OS language choices and removes the separate single-visible-language toggle from the user-facing UI.
   - [ ] Preserve current visible deployment language semantics while removing the user-facing `Force single visible deployment language` toggle.
