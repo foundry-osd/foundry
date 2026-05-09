@@ -326,6 +326,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] All changed UI strings are updated in both `en-US` and `fr-FR` resources in the same Phase 18 slice.
   - [ ] Exact UI labels/descriptions may be finalized during implementation unless this plan fixes the label explicitly.
   - [ ] Remove obsolete localization keys for deleted pages, removed actions, and retired controls once no code references remain.
+  - [ ] Audit `src\Foundry\Assets` and identify assets that are no longer referenced by the WinUI app after the Phase 18 UI changes.
   - [ ] Localized requirement text keeps the same operational meaning in English and French, especially ADK version policy text.
   - [ ] Update date/time text follows the active UI culture instead of hard-coded invariant formatting.
   - [ ] Settings no-op guard handling is either removed or made meaningful through shell-owned guard state.
