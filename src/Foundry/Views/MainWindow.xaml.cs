@@ -17,6 +17,7 @@ namespace Foundry.Views
         private readonly IExternalProcessLauncher externalProcessLauncher;
         private readonly ILogger logger = Log.ForContext<MainWindow>();
         private const string DocumentationNavigationTag = "Foundry.External.Documentation";
+        private const string AboutNavigationTag = "Foundry.External.About";
         private ContentDialog? operationDialog;
         private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
@@ -78,6 +79,7 @@ namespace Foundry.Views
             }
 
             EnsureExternalDocumentationFooterItem();
+            EnsureExternalAboutFooterItem();
         }
 
         private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
@@ -165,11 +167,6 @@ namespace Foundry.Views
             if (step.Page == typeof(StartPage))
             {
                 return localizationService.GetString("StartPage_Title.Text");
-            }
-
-            if (step.Page == typeof(AboutUsSettingPage))
-            {
-                return localizationService.GetString("SettingsPage_AboutCard.Header");
             }
 
             return step.Label;
@@ -525,6 +522,26 @@ namespace Foundry.Views
             ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
         }
 
+        private void EnsureExternalAboutFooterItem()
+        {
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, AboutNavigationTag);
+            if (item is null)
+            {
+                item = new()
+                {
+                    Tag = AboutNavigationTag,
+                    Icon = new FontIcon { Glyph = "\uE946" }
+                };
+                item.Tapped += AboutFooterItem_Tapped;
+                item.KeyDown += AboutFooterItem_KeyDown;
+                NavView.FooterMenuItems.Insert(Math.Min(1, NavView.FooterMenuItems.Count), item);
+            }
+
+            item.Content = localizationService.GetString("Nav_AboutKey.Title");
+            ToolTipService.SetToolTip(item, localizationService.GetString("Nav_AboutKey.Description"));
+            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+        }
+
         private async void DocumentationFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
             e.Handled = true;
@@ -540,6 +557,23 @@ namespace Foundry.Views
 
             e.Handled = true;
             await OpenDocumentationAsync();
+        }
+
+        private async void AboutFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            await ShowAboutDialogAsync();
+        }
+
+        private async void AboutFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
+            {
+                return;
+            }
+
+            e.Handled = true;
+            await ShowAboutDialogAsync();
         }
 
         private async Task OpenDocumentationAsync()
@@ -585,6 +619,22 @@ namespace Foundry.Views
                         }
                     }
                 }
+            };
+
+            await dialog.ShowAsync();
+        }
+
+        private async Task ShowAboutDialogAsync()
+        {
+            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            {
+                return;
+            }
+
+            AboutDialog dialog = new(App.GetService<AboutUsSettingViewModel>())
+            {
+                XamlRoot = RootGrid.XamlRoot,
+                RequestedTheme = RootGrid.ActualTheme
             };
 
             await dialog.ShowAsync();
@@ -657,6 +707,12 @@ namespace Foundry.Views
                 return;
             }
 
+            if (IsSettingsPageType(pageType))
+            {
+                NavView.SelectedItem = NavView.SettingsItem;
+                return;
+            }
+
             NavigationViewItem? item = FindNavigationItem(NavView.MenuItems, pageType.FullName)
                 ?? FindNavigationItem(NavView.FooterMenuItems, pageType.FullName);
 
@@ -664,6 +720,14 @@ namespace Foundry.Views
             {
                 NavView.SelectedItem = item;
             }
+        }
+
+        private static bool IsSettingsPageType(Type pageType)
+        {
+            return pageType == typeof(SettingsPage)
+                || pageType == typeof(GeneralSettingPage)
+                || pageType == typeof(ThemeSettingPage)
+                || pageType == typeof(AppUpdateSettingPage);
         }
 
         private static NavigationViewItem? FindNavigationItem(IList<object> items, string? uniqueId)

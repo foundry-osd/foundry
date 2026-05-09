@@ -8,6 +8,8 @@ public static class FoundryApplicationInfo
     public const string DocumentationUrl = "https://foundry-osd.github.io/docs/intro";
     public const string RepositoryUrl = Constants.RepositoryUrl;
     public const string IssuesUrl = Constants.RepositoryUrl + "/issues";
+    public const string LicenseUrl = Constants.RepositoryUrl + "/blob/main/LICENSE";
+    public const string ReleasesUrl = Constants.RepositoryUrl + "/releases";
     public const string LatestReleaseUrl = Constants.LatestReleaseUrl;
     public const string SupportUrl = IssuesUrl;
 

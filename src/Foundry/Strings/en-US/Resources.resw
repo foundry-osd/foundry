@@ -12,20 +12,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About_FoundryExpander.Description" xml:space="preserve">
-    <value>Foundry migration shell and deployment media authoring tool.</value>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="About_FoundryExpander.Header" xml:space="preserve">
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>Created and maintained by Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>Contributors</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>Foundry is a modern Windows deployment solution built around a desktop authoring app and WinPE runtime agents.</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>Foundry source code is distributed under the MIT License.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
     <value>Foundry</value>
   </data>
-  <data name="About_RelatedLinksText.Text" xml:space="preserve">
-    <value>Related links</value>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>License</value>
   </data>
-  <data name="About_ReleaseNotesLink.Content" xml:space="preserve">
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>Open release notes in browser</value>
+  </data>
+  <data name="AboutDialog.ProjectAuthorRole" xml:space="preserve">
+    <value>Project author and maintainer</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>Release notes could not be loaded in the embedded browser.</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>Loading release notes...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Release notes</value>
   </data>
-  <data name="About_SourceCodeLink.Content" xml:space="preserve">
-    <value>Source code</value>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Foundry includes 7-Zip Extra tooling for media creation support.</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-Zip Extra</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Windows deployment media authoring</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>Third-party package licenses are tracked through the project repository and dependency manifests.</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>Third-party dependencies</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>About Foundry</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Check for new version</value>
@@ -1091,12 +1148,6 @@
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Settings</value>
-  </data>
-  <data name="SettingsPage_AboutCard.Description" xml:space="preserve">
-    <value>Product, version, repository, and release information.</value>
-  </data>
-  <data name="SettingsPage_AboutCard.Header" xml:space="preserve">
-    <value>About</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Manage startup, language, diagnostics, and application behavior.</value>

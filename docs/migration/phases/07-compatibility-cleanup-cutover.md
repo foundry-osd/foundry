@@ -221,24 +221,24 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Documentation` is a direct external navigation action to `https://foundry-osd.github.io/docs/intro`, not a separate in-app page; when launched from Home or the shell/footer, it does not change the current in-app navigation selection.
   - [x] Show a fallback `ContentDialog` with selectable/copyable documentation URL text if the external documentation launch fails.
   - [x] Remove `DocumentationPage` from the WinUI app once Documentation becomes an external navigation action.
-  - [ ] Replace shell-navigated About surfaces with one modal `ContentDialog`.
-  - [ ] Implement the About dialog with UniGetUI-style `SelectorBar` sections: `About`, `Licenses`, `Contributors`, and `Release notes`.
-  - [ ] Implement a custom content-level close button with accessible name, tooltip, and simple default WinUI tab order.
-  - [ ] Size the About dialog larger than UniGetUI with responsive min/max constraints for 1366x768 and 1920x1080.
-  - [ ] Open the About dialog on the `About` section every time.
-  - [ ] Limit About-tab links to repository, issues/support, and license.
-  - [ ] `About` tab uses a branded layout with app logo, app name, version, approved link set, authors, support, and footer text.
-  - [ ] Render `Licenses` as a curated native WinUI list for Foundry and third-party licenses with external links.
-  - [ ] Render `Contributors` as a curated native WinUI list with GitHub profile links and avatar URLs.
-  - [ ] `Contributors` tab includes loading, broken-avatar, and offline fallback behavior so network failures do not break the dialog.
-  - [ ] Use initials or a generic person icon when contributor avatars fail or the app is offline.
+  - [x] Replace shell-navigated About surfaces with one modal `ContentDialog`.
+  - [x] Implement the About dialog with UniGetUI-style `SelectorBar` sections: `About`, `Licenses`, `Contributors`, and `Release notes`.
+  - [x] Implement a custom content-level close button with accessible name, tooltip, and simple default WinUI tab order.
+  - [x] Size the About dialog larger than UniGetUI with responsive min/max constraints for 1366x768 and 1920x1080.
+  - [x] Open the About dialog on the `About` section every time.
+  - [x] Limit About-tab links to repository, issues/support, and license.
+  - [x] `About` tab uses a branded layout with app logo, app name, version, approved link set, authors, support, and footer text.
+  - [x] Render `Licenses` as a curated native WinUI list for Foundry and third-party licenses with external links.
+  - [x] Render `Contributors` as a curated native WinUI list with GitHub profile links and avatar URLs.
+  - [x] `Contributors` tab includes loading, broken-avatar, and offline fallback behavior so network failures do not break the dialog.
+  - [x] Use initials or a generic person icon when contributor avatars fail or the app is offline.
   - [ ] Do not add a separate `Translators` tab unless real Foundry translator credits exist.
-  - [ ] Embed the full repository GitHub releases list with WebView2 at `https://github.com/foundry-osd/foundry/releases`.
-  - [ ] Show release-notes loading progress, dispose WebView2 on close, and avoid intercepting external navigation in Phase 18.
-  - [ ] WebView2 usage is scoped to release notes, includes loading/error/fallback UI, and documents runtime distribution expectations for the Velopack/unpackaged app.
-  - [ ] Show a native fallback message with an `Open releases in browser` action if the GitHub releases page cannot load.
-  - [ ] Keep Settings scoped to app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options.
-  - [ ] Remove the duplicate `Settings > About` subpage and keep only the shell/footer About command.
+  - [x] Embed the full repository GitHub releases list with WebView2 at `https://github.com/foundry-osd/foundry/releases`.
+  - [x] Show release-notes loading progress, dispose WebView2 on close, and avoid intercepting external navigation in Phase 18.
+  - [x] WebView2 usage is scoped to release notes, includes loading/error/fallback UI, and documents runtime distribution expectations for the Velopack/unpackaged app.
+  - [x] Show a native fallback message with an `Open releases in browser` action if the GitHub releases page cannot load.
+  - [x] Keep Settings scoped to app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options.
+  - [x] Remove the duplicate `Settings > About` subpage and keep only the shell/footer About command.
   - [ ] Operation progress `ContentDialog` surfaces use one consistent structure for title, current operation text, progress indicator, optional log/details affordance, final success/failure state, and close behavior.
   - [ ] Operation progress dialogs block accidental close while work is running and restore a sensible focus target when complete.
 - [ ] **18.4** Audit layout quality on every page:
@@ -254,7 +254,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Prefer native WinUI 3 controls for common primitives: `Button`, `ToggleSwitch`, `ComboBox`, `InfoBar`, `ContentDialog`, `NavigationView`, `ListView`, layout panels, and command surfaces.
   - [ ] Prefer Windows Community Toolkit controls for Windows-settings-style page content: `SettingsCard` and `SettingsExpander` from the WinUI 3 toolkit package.
   - [ ] Use table/grid controls only where users need row scanning, selection, sorting, or multi-column comparison.
-  - [ ] Use WebView2 only for the About dialog release-notes tab; keep other About tabs native WinUI to avoid web UI where static local content is sufficient.
+  - [x] Use WebView2 only for the About dialog release-notes tab; keep other About tabs native WinUI to avoid web UI where static local content is sufficient.
   - [ ] Page-level controls must use the approved design-token baseline for color, typography, icon size, spacing, and corner radius.
   - [ ] Keep DevWinUI `MainLandingPage` and `HeaderTile` as approved Home-only exceptions where they provide the landing shell and primary action tiles.
   - [ ] Do not mix DevWinUI settings controls and Windows Community Toolkit settings controls on the same page unless there is a documented reason.
@@ -302,8 +302,8 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Add Autopilot profile deletion confirmation with the profile name and destructive-action wording.
   - [x] Keep both Customization machine naming options while improving labels, validation placement, spacing, and design-token alignment.
   - [x] `Customization` clarifies machine naming labels/descriptions, for example `Auto-generate computer name suffix` and `Allow suffix edit during deployment`.
-  - [ ] `Settings` uses the meta-page header pattern; `About` uses the branded tabbed dialog header; `Documentation` opens externally and has no in-app header.
-  - [ ] `Settings` selected-item synchronization handles the built-in settings item and settings subpages correctly.
+  - [x] `Settings` uses the meta-page header pattern; `About` uses the branded tabbed dialog header; `Documentation` opens externally and has no in-app header.
+  - [x] `Settings` selected-item synchronization handles the built-in settings item and settings subpages correctly.
   - [ ] Remove the title-bar theme quick toggle.
   - [ ] Remove the title-bar search box.
 - [ ] **18.8** Review accessibility and localization resilience:

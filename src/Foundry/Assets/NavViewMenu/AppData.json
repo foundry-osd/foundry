@@ -121,18 +121,7 @@
       "IsSpecialSection": false,
       "ShowItemsWithoutGroup": true,
       "IsFooterNavigationViewItem": true,
-      "Items": [
-        {
-          "UniqueId": "Foundry.Views.AboutPage",
-          "Title": "About",
-          "LocalizeId": "Nav_AboutKey",
-          "UsexUid": true,
-          "IconGlyph": "E946",
-          "HideItem": true,
-          "IsNew": false,
-          "IsUpdated": false
-        }
-      ]
+      "Items": []
     }
   ]
 }
