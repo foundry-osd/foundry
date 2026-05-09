@@ -699,6 +699,15 @@
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>L'actualisation des cibles USB a échoué.</value>
   </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>Recherche des cibles USB.</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>Les cibles USB n'ont pas encore été analysées.</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>Aucune cible USB candidate n'a été trouvée.</value>
+  </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>{0} cibles USB candidates trouvées.</value>
   </data>
@@ -710,6 +719,96 @@
   </data>
   <data name="StartMedia.Status" xml:space="preserve">
     <value>Résumé média : {0}; points bloquants ou différés : {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>Prêt à créer les médias ISO et USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>Prêt à créer le média ISO</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>Prêt à créer le média USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>{0} contrôles de préparation nécessitent une action</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>Prérequis</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>Contrôles nécessaires avant que Foundry puisse construire le média.</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>Sortie média</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>Choix finaux pour la sortie ISO et USB.</value>
+  </data>
+  <data name="StartMedia.Readiness.RuntimePayloads.Header" xml:space="preserve">
+    <value>Payloads runtime</value>
+  </data>
+  <data name="StartMedia.Readiness.RuntimePayloads.Description" xml:space="preserve">
+    <value>Applications copiées dans le média généré.</value>
+  </data>
+  <data name="StartMedia.Readiness.ExpertConfiguration.Header" xml:space="preserve">
+    <value>Configuration expert</value>
+  </data>
+  <data name="StartMedia.Readiness.ExpertConfiguration.Description" xml:space="preserve">
+    <value>Paramètres de déploiement utilisés par Foundry dans WinPE.</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>Prêt</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>Avertissement</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>Bloqué</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>Non configuré</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>Chargement</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>Vérifier</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Windows ADK et le module complémentaire Windows PE sont prêts.</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>Les options de pilotes sont valides.</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.Connect" xml:space="preserve">
+    <value>Runtime Foundry.Connect</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.ConnectReady" xml:space="preserve">
+    <value>Le payload runtime Foundry.Connect est disponible.</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.Deploy" xml:space="preserve">
+    <value>Runtime Foundry.Deploy</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.DeployReady" xml:space="preserve">
+    <value>Le payload runtime Foundry.Deploy est disponible.</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>La configuration réseau peut être provisionnée.</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>La configuration Deploy peut être générée.</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>Le bundle de provisionnement Connect peut être généré.</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>Les secrets média requis sont disponibles.</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>Autopilot est désactivé et ne bloque pas la création média.</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>

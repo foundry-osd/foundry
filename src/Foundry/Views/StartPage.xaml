@@ -5,8 +5,51 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dev="using:DevWinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:Foundry.ViewModels"
       xmlns:wct="using:CommunityToolkit.WinUI.Controls"
       mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="StartReadinessItemTemplate"
+                      x:DataType="viewModels:StartReadinessItemViewModel">
+            <Grid MinHeight="56"
+                  Padding="0,6"
+                  ColumnSpacing="{ThemeResource FoundrySpace12}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <FontIcon Grid.Column="0"
+                          VerticalAlignment="Top"
+                          FontSize="{ThemeResource FoundryIconSizeSmall}"
+                          Glyph="{x:Bind Glyph}" />
+                <StackPanel Grid.Column="1"
+                            Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                    <TextBlock FontWeight="SemiBold"
+                               Text="{x:Bind Title}"
+                               TextWrapping="WrapWholeWords" />
+                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Text="{x:Bind Description}"
+                               TextWrapping="WrapWholeWords" />
+                </StackPanel>
+                <TextBlock Grid.Column="2"
+                           MinWidth="112"
+                           VerticalAlignment="Center"
+                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                           Text="{x:Bind Status}"
+                           TextWrapping="NoWrap" />
+                <Button Grid.Column="3"
+                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                        VerticalAlignment="Center"
+                        Click="ReadinessActionButton_Click"
+                        Content="{x:Bind ActionText}"
+                        Tag="{x:Bind NavigationTarget}"
+                        Visibility="{x:Bind ActionVisibility}" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
@@ -16,30 +59,48 @@
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
-            <Border Padding="{ThemeResource FoundryDefaultContentPadding}"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4">
-                <Grid ColumnDefinitions="Auto,*"
-                      ColumnSpacing="{ThemeResource FoundrySpace16}">
-                    <FontIcon Grid.Column="0"
-                              Glyph="&#xE946;"
-                              VerticalAlignment="Top" />
-                    <StackPanel Grid.Column="1"
-                                Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                        <TextBlock FontWeight="SemiBold"
-                                   Text="{x:Bind ViewModel.StatusSummary, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
-                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   Text="{x:Bind ViewModel.FinalExecutionStatus, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
-                        <TextBlock MaxWidth="{ThemeResource FoundrySummaryTextMaxWidth}"
-                                   Text="{x:Bind ViewModel.GlobalSummary, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
-                    </StackPanel>
-                </Grid>
-            </Border>
+            <InfoBar IsClosable="False"
+                     IsIconVisible="True"
+                     IsOpen="True"
+                     Message="{x:Bind ViewModel.FinalExecutionStatus, Mode=OneWay}"
+                     Severity="{x:Bind ViewModel.ReadinessSeverity, Mode=OneWay}"
+                     Title="{x:Bind ViewModel.StatusSummary, Mode=OneWay}" />
+
+            <wct:SettingsCard x:Name="ReadinessPrerequisitesCard"
+                              HorizontalContentAlignment="Stretch">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE946;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                              ItemsSource="{x:Bind ViewModel.PrerequisiteReadinessItems, Mode=OneWay}" />
+            </wct:SettingsCard>
+
+            <wct:SettingsCard x:Name="ReadinessMediaOutputCard"
+                              HorizontalContentAlignment="Stretch">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE8A5;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                              ItemsSource="{x:Bind ViewModel.MediaOutputReadinessItems, Mode=OneWay}" />
+            </wct:SettingsCard>
+
+            <wct:SettingsCard x:Name="ReadinessRuntimePayloadsCard"
+                              HorizontalContentAlignment="Stretch">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE756;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                              ItemsSource="{x:Bind ViewModel.RuntimePayloadReadinessItems, Mode=OneWay}" />
+            </wct:SettingsCard>
+
+            <wct:SettingsCard x:Name="ReadinessExpertConfigurationCard"
+                              HorizontalContentAlignment="Stretch">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE713;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                              ItemsSource="{x:Bind ViewModel.ExpertConfigurationReadinessItems, Mode=OneWay}" />
+            </wct:SettingsCard>
 
             <wct:SettingsCard x:Name="IsoPathCard">
                 <wct:SettingsCard.HeaderIcon>

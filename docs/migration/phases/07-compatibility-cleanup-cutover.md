@@ -210,7 +210,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `General` owns boot-image and driver configuration, including WinPE image/boot language.
   - [x] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.
   - [x] `Start` owns final media summary, ISO output, USB selection, USB layout, and ISO/USB execution.
-  - [ ] `Start` presents readiness as scannable grouped checks with explicit blockers instead of a long prose summary.
+  - [x] `Start` presents readiness as scannable grouped checks with explicit blockers instead of a long prose summary.
   - [x] `ADK` answers one primary question first: whether Foundry can proceed, and what action the user should take next.
   - [ ] `Network`, `Localization`, `Autopilot`, and `Customization` remain expert workflow pages.
   - [x] Footer surfaces remain documentation/about/settings entry points, not workflow pages.
@@ -279,12 +279,12 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Start` clearly distinguishes readiness checks, USB target selection, and final commands.
   - [x] Move ISO output selection from `General` to `Start`.
   - [x] Move USB partition style and USB format mode from `General` to the `Start` USB target surface.
-  - [ ] Organize `Start` readiness into grouped checklist sections: prerequisites, media output, runtime payloads, and expert configuration.
-  - [ ] `Start` readiness items show ready, warning, blocked, or not configured states with links to the owning page when action is needed.
-  - [ ] Wire `Start` readiness links to navigate only to the owning page without cross-page auto-focus, auto-scroll, or forced section expansion.
-  - [ ] `Home`, `ADK`, and `Start` share the same tokenized status-surface contract for ready, warning, blocked, busy, and complete states.
-  - [ ] `Start` shows explicit USB loading, empty, and error states while discovery runs or fails.
-  - [ ] Preserve current USB candidate selection behavior during the `Start` page cleanup.
+  - [x] Organize `Start` readiness into grouped checklist sections: prerequisites, media output, runtime payloads, and expert configuration.
+  - [x] `Start` readiness items show ready, warning, blocked, or not configured states with links to the owning page when action is needed.
+  - [x] Wire `Start` readiness links to navigate only to the owning page without cross-page auto-focus, auto-scroll, or forced section expansion.
+  - [x] `Home`, `ADK`, and `Start` share the same tokenized status-surface contract for ready, warning, blocked, busy, and complete states.
+  - [x] `Start` shows explicit USB loading, empty, and error states while discovery runs or fails.
+  - [x] Preserve current USB candidate selection behavior during the `Start` page cleanup.
   - [ ] `Network` uses stronger progressive disclosure for Ethernet 802.1X and Wi-Fi instead of opening all advanced sections by default.
   - [ ] Collapse Ethernet 802.1X and Wi-Fi sections by default unless the section is enabled, configured, or invalid.
   - [ ] Place Network validation feedback next to the field or section it blocks and keep secret handling opaque.

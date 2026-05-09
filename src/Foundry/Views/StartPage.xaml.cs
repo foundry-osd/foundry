@@ -26,6 +26,15 @@ public sealed partial class StartPage : Page
 
     private void ApplyLocalizedText()
     {
+        ReadinessPrerequisitesCard.Header = localizationService.GetString("StartMedia.Readiness.Prerequisites.Header");
+        ReadinessPrerequisitesCard.Description = localizationService.GetString("StartMedia.Readiness.Prerequisites.Description");
+        ReadinessMediaOutputCard.Header = localizationService.GetString("StartMedia.Readiness.MediaOutput.Header");
+        ReadinessMediaOutputCard.Description = localizationService.GetString("StartMedia.Readiness.MediaOutput.Description");
+        ReadinessRuntimePayloadsCard.Header = localizationService.GetString("StartMedia.Readiness.RuntimePayloads.Header");
+        ReadinessRuntimePayloadsCard.Description = localizationService.GetString("StartMedia.Readiness.RuntimePayloads.Description");
+        ReadinessExpertConfigurationCard.Header = localizationService.GetString("StartMedia.Readiness.ExpertConfiguration.Header");
+        ReadinessExpertConfigurationCard.Description = localizationService.GetString("StartMedia.Readiness.ExpertConfiguration.Description");
+
         IsoPathCard.Header = localizationService.GetString("StartMedia.IsoPath.Header");
         IsoPathCard.Description = localizationService.GetString("StartMedia.IsoPath.Description");
         BrowseIsoButton.Content = localizationService.GetString("Common.Browse");
@@ -41,6 +50,33 @@ public sealed partial class StartPage : Page
         FinalCommandsCard.Description = localizationService.GetString("StartMedia.FinalCommands.Description");
         CreateIsoButton.Content = localizationService.GetString("StartMedia.CreateIsoButton");
         CreateUsbButton.Content = localizationService.GetString("StartMedia.CreateUsbButton");
+    }
+
+    private void ReadinessActionButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { Tag: StartReadinessNavigationTarget navigationTarget })
+        {
+            return;
+        }
+
+        switch (navigationTarget)
+        {
+            case StartReadinessNavigationTarget.Adk:
+                App.Current.NavService.NavigateTo(typeof(AdkPage), localizationService.GetString("Adk.PageTitle"));
+                break;
+            case StartReadinessNavigationTarget.General:
+                App.Current.NavService.NavigateTo(typeof(GeneralConfigurationPage), localizationService.GetString("GeneralConfigurationPage_Title.Text"));
+                break;
+            case StartReadinessNavigationTarget.Network:
+                App.Current.NavService.NavigateTo(typeof(NetworkPage), localizationService.GetString("NetworkPage_Title.Text"));
+                break;
+            case StartReadinessNavigationTarget.Autopilot:
+                App.Current.NavService.NavigateTo(typeof(AutopilotPage), localizationService.GetString("AutopilotPage_Title.Text"));
+                break;
+            case StartReadinessNavigationTarget.Customization:
+                App.Current.NavService.NavigateTo(typeof(CustomizationPage), localizationService.GetString("CustomizationPage_Title.Text"));
+                break;
+        }
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
