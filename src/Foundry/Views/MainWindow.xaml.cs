@@ -19,15 +19,16 @@ namespace Foundry.Views
         private const string DocumentationNavigationTag = "Foundry.External.Documentation";
         private const string AboutNavigationTag = "Foundry.External.About";
         private ContentDialog? operationDialog;
-        private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
         private TextBlock? operationStatusText;
         private ProgressBar? operationProgressBar;
         private TextBlock? operationProgressPercentText;
+        private Microsoft.UI.Xaml.Controls.ProgressRing? operationProgressRing;
         private StackPanel? operationSecondaryProgressPanel;
         private TextBlock? operationSecondaryStatusText;
         private ProgressBar? operationSecondaryProgressBar;
         private TextBlock? operationSecondaryProgressPercentText;
+        private bool operationDialogCanClose;
 
         public MainViewModel ViewModel { get; }
 
@@ -272,7 +273,7 @@ namespace Foundry.Views
                 return;
             }
 
-            HideOperationDialog();
+            CompleteOperationDialog();
         }
 
         private async void ShowOperationDialog()
@@ -291,6 +292,7 @@ namespace Foundry.Views
                 DefaultButton = ContentDialogButton.None
             };
 
+            operationDialogCanClose = false;
             dialog.Closing += OnOperationDialogClosing;
             operationDialog = dialog;
 
@@ -306,7 +308,7 @@ namespace Foundry.Views
                     operationDialog = null;
                 }
 
-                isClosingOperationDialog = false;
+                ClearOperationDialogReferences();
             }
         }
 
@@ -361,6 +363,14 @@ namespace Foundry.Views
                 }
             };
 
+            operationProgressRing = new Microsoft.UI.Xaml.Controls.ProgressRing
+            {
+                Width = 56,
+                Height = 56,
+                IsActive = true,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
             return new StackPanel
             {
                 MinWidth = 420,
@@ -369,13 +379,7 @@ namespace Foundry.Views
                 Spacing = 16,
                 Children =
                 {
-                    new Microsoft.UI.Xaml.Controls.ProgressRing
-                    {
-                        Width = 56,
-                        Height = 56,
-                        IsActive = true,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    },
+                    operationProgressRing,
                     operationStatusText,
                     CreateProgressRow(operationProgressBar, operationProgressPercentText),
                     operationSecondaryProgressPanel
@@ -410,27 +414,35 @@ namespace Foundry.Views
             };
         }
 
-        private void HideOperationDialog()
+        private void CompleteOperationDialog()
         {
             if (operationDialog is null)
             {
                 return;
             }
 
+            operationDialogCanClose = true;
+            operationDialog.Title = localizationService.GetString("Shell.OperationCompleted");
+            operationDialog.CloseButtonText = localizationService.GetString("Common.Close");
+            operationDialog.DefaultButton = ContentDialogButton.Close;
+            ApplyOperationState(operationProgressService.State);
+        }
+
+        private void ClearOperationDialogReferences()
+        {
             operationStatusText = null;
             operationProgressBar = null;
             operationProgressPercentText = null;
+            operationProgressRing = null;
             operationSecondaryProgressPanel = null;
             operationSecondaryStatusText = null;
             operationSecondaryProgressBar = null;
             operationSecondaryProgressPercentText = null;
-            isClosingOperationDialog = true;
-            operationDialog.Hide();
         }
 
         private void OnOperationDialogClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
-            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning && !isClosingOperationDialog)
+            if (!operationDialogCanClose)
             {
                 args.Cancel = true;
             }
@@ -620,17 +632,24 @@ namespace Foundry.Views
 
             if (operationProgressBar is not null)
             {
-                operationProgressBar.Value = state.Progress;
+                operationProgressBar.Value = operationDialogCanClose ? 100 : state.Progress;
             }
 
             if (operationProgressPercentText is not null)
             {
-                operationProgressPercentText.Text = FormatProgressPercent(state.Progress);
+                operationProgressPercentText.Text = FormatProgressPercent(operationDialogCanClose ? 100 : state.Progress);
+            }
+
+            if (operationProgressRing is not null)
+            {
+                operationProgressRing.IsActive = !operationDialogCanClose;
             }
 
             if (operationSecondaryProgressPanel is not null)
             {
-                operationSecondaryProgressPanel.Visibility = state.HasSecondaryProgress ? Visibility.Visible : Visibility.Collapsed;
+                operationSecondaryProgressPanel.Visibility = !operationDialogCanClose && state.HasSecondaryProgress
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
             }
 
             if (operationSecondaryStatusText is not null)

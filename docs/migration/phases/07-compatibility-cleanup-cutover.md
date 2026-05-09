@@ -247,8 +247,8 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Show a native fallback message with an `Open releases in browser` action if the GitHub releases page cannot load.
   - [x] Keep Settings scoped to app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options.
   - [x] Remove the duplicate `Settings > About` subpage and keep only the shell/footer About command.
-  - [ ] Operation progress `ContentDialog` surfaces use one consistent structure for title, current operation text, progress indicator, optional log/details affordance, final success/failure state, and close behavior.
-  - [ ] Operation progress dialogs block accidental close while work is running and restore a sensible focus target when complete.
+  - [x] Operation progress `ContentDialog` surfaces use one consistent structure for title, current operation text, progress indicator, optional log/details affordance, final success/failure state, and close behavior.
+  - [x] Operation progress dialogs block accidental close while work is running and restore a sensible focus target when complete.
 - [ ] **18.4** Audit layout quality on every page:
   - [ ] No overlapping text, toggles, buttons, tables, or content dialogs.
   - [ ] Page command buttons are placed consistently and are visually tied to their section.

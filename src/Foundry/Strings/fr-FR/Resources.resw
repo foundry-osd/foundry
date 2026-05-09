@@ -501,6 +501,9 @@
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Opération en cours</value>
   </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>Opération terminée</value>
+  </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Démarrer</value>
   </data>
@@ -654,9 +657,6 @@
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>La création du média final a échoué.</value>
   </data>
-  <data name="StartMedia.Operation.FailedTitle" xml:space="preserve">
-    <value>La création du média a échoué</value>
-  </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Téléchargement en cours.</value>
   </data>
@@ -767,9 +767,6 @@
   </data>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Validation des changements de l'image avec DISM.</value>
-  </data>
-  <data name="StartMedia.Operation.SuccessTitle" xml:space="preserve">
-    <value>Création du média terminée</value>
   </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Le média ISO a été créé avec succès.</value>

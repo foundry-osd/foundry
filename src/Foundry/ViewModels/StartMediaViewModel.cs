@@ -346,7 +346,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RefreshEvaluation();
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
         string terminalStatus = string.Empty;
-        string? failureMessage = null;
         string? successMessage = null;
 
         try
@@ -380,15 +379,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     usbResult.CacheDriveLetter);
             }
 
-            terminalStatus = localizationService.GetString("StartMedia.Operation.Completed");
+            terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
             operationProgressService.Complete(terminalStatus);
             logger.Information("Final media creation completed. Target={Target}", target);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            terminalStatus = localizationService.GetString("StartMedia.Operation.Failed");
+            string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
+            terminalStatus = string.IsNullOrWhiteSpace(ex.Message)
+                ? failedStatus
+                : $"{failedStatus} {ex.Message}";
             operationProgressService.Report(100, terminalStatus);
-            failureMessage = ex.Message;
             logger.Error(ex, "Final media creation failed. Target={Target}", target);
         }
         finally
@@ -399,21 +400,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             operationProgressService.Reset(terminalStatus);
             IsMediaOperationRunning = false;
             RefreshEvaluation();
-        }
-
-        if (!string.IsNullOrWhiteSpace(failureMessage))
-        {
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("StartMedia.Operation.FailedTitle"),
-                failureMessage,
-                localizationService.GetString("Common.Close")));
-        }
-        else if (!string.IsNullOrWhiteSpace(successMessage))
-        {
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("StartMedia.Operation.SuccessTitle"),
-                successMessage,
-                localizationService.GetString("Common.Close")));
         }
     }
 
