@@ -6,6 +6,7 @@ using Foundry.Services.Application;
 using Foundry.Services.Adk;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
+using Foundry.Services.GitHub;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Settings;
@@ -49,6 +50,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IApplicationUpdateStateService, ApplicationUpdateStateService>();
         services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
         services.AddSingleton<IStartupReadinessService, StartupReadinessService>();
+        services.AddSingleton<IGitHubRepositoryContributorService, GitHubRepositoryContributorService>();
 
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IJsonNavigationService, JsonNavigationService>();
@@ -66,6 +68,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<AutopilotConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
+        services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();

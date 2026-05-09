@@ -1,3 +1,4 @@
+using System.Globalization;
 using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
@@ -67,7 +68,7 @@ namespace Foundry.ViewModels
             releaseNotes = localizationService.GetString("Update.ReleaseNotesFallback");
 
             CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
-            LastUpdateCheck = appSettingsService.Current.Updates.LastCheckedAt?.ToString("yyyy-MM-dd HH:mm") ?? localizationService.GetString("Update.NotChecked");
+            LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
             IsCheckButtonEnabled = true;
             LoadingStatus = localizationService.GetString("Update.Status.Ready");
 
@@ -100,7 +101,7 @@ namespace Foundry.ViewModels
                 appSettingsService.Current.Updates.LastCheckedAt = checkedAt;
                 appSettingsService.Save();
 
-                LastUpdateCheck = checkedAt.ToString("yyyy-MM-dd HH:mm");
+                LastUpdateCheck = FormatLastUpdateCheck(checkedAt);
                 ApplyCurrentUpdateState(result);
             }
             finally
@@ -186,8 +187,7 @@ namespace Foundry.ViewModels
             if (!appDispatcher.TryEnqueue(() =>
             {
                 CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
-                LastUpdateCheck = appSettingsService.Current.Updates.LastCheckedAt?.ToString("yyyy-MM-dd HH:mm")
-                    ?? localizationService.GetString("Update.NotChecked");
+                LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
                 ApplyCurrentUpdateState(currentCheckResult);
             }))
             {
@@ -232,6 +232,12 @@ namespace Foundry.ViewModels
                 ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.Status.NotInstalled"),
                 _ => result.Message
             };
+        }
+
+        private string FormatLastUpdateCheck(DateTimeOffset? checkedAt)
+        {
+            return checkedAt?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)
+                ?? localizationService.GetString("Update.NotChecked");
         }
     }
 }

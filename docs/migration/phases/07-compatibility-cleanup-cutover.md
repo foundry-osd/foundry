@@ -118,31 +118,46 @@ Build after the design-token/package baseline and after each major implementatio
 
 **Validated UI decisions:**
 
-- Decision: `Home` is a guided onboarding/status hub, not a dashboard and not a generic DevWinUI landing page.
+- Decision: `Home` is a guided onboarding/status hub, not a dashboard and not a generic DevWinUI `AllLandingPage` catalog page.
+- Decision: `Home` uses DevWinUI `MainLandingPage` as the landing shell because its `HeaderContent` and `FooterContent` slots match the desired guided-entry layout without rebuilding the whole page container.
+- Decision: `Home` uses DevWinUI `HeaderTile` controls in `MainLandingPage.HeaderContent` for the four primary actions instead of generic `Card` controls.
+- Decision: `Home` uses `MainLandingPage.FooterContent` for compact ADK readiness/status content and secondary supporting information, not for a dense dashboard summary.
 - Decision: `Start` is the review-and-launch page; `General` edits generated media settings, including WinPE image/boot language.
 - Decision: `Documentation` opens `https://foundry-osd.github.io/docs/intro` directly instead of navigating to an in-app documentation page.
 - Decision: `About` owns product identity, version, update/release link, license, authors, support, and footer information, following the archived WPF Foundry About pattern and the simpler Connect/Deploy branded About layout.
 - Decision: `About` opens as a modal `ContentDialog` hosting Foundry-owned About content, following the UniGetUI WinUI dialog-hosted page pattern at a simpler Foundry scope.
 - Decision: `About` uses dialog sections/tabs for `About`, `Licenses`, `Contributors`, and `Release notes`; `Release notes` embeds the full GitHub releases list with WebView2.
-- Decision: `About` uses WinUI `SelectorBar` for its dialog sections, following the UniGetUI compact dialog pattern.
+- Decision: `About` uses WinUI `SelectorBar` with a non-stacked `Frame` and slide transitions for its dialog sections, following the UniGetUI compact dialog pattern.
 - Decision: `About` uses a UniGetUI-style custom close button inside the dialog content with accessible name and keyboard support.
 - Decision: `About` dialog uses a larger centered modal size than UniGetUI, with sane min/max constraints so the WebView2 release-notes tab has usable space.
 - Decision: `Release notes` WebView2 navigation follows UniGetUI: load the releases URL in the embedded view, show progress, and do not intercept external navigation in Phase 18.
+- Decision: `Release notes` hides loading progress as soon as the embedded page DOM is available so the progress state does not remain visually over WebView2 content.
 - Decision: `Licenses` uses a curated native WinUI list for Phase 18, not generated package-license automation.
-- Decision: `Contributors` follows the UniGetUI pattern: curated contributor handles rendered with GitHub profile links and avatar URLs.
+- Decision: `Licenses` uses the same alternating native row background pattern as `Contributors` so the two native About list pages remain visually coherent.
+- Decision: `Contributors` follows the UniGetUI pattern but loads real contributors automatically from GitHub, enriches entries with GitHub profile display names, sorts by contribution count, filters obvious bot accounts, and shows only a centered failure state if the fetch fails; do not keep a local fallback contributor list.
+- Decision: `Contributors` uses alternating native row backgrounds when multiple contributors are shown so row actions such as `Profile` remain visually trackable.
 - Decision: Do not add a separate `Translators` tab in Phase 18; include translation credits under `Contributors` only if real credits exist.
 - Decision: `About` is opened only from the shell/footer About command; do not add a duplicate Settings link or page.
 - Decision: `Documentation` remains an external command only; the shell/footer command and the Home `Open documentation` card both open `https://foundry-osd.github.io/docs/intro` without creating an in-app documentation page, and the About dialog does not duplicate the documentation link.
 - Decision: `About` tab links are limited to repository, issues/support, and license; release notes are accessed through the dedicated dialog tab.
+- Decision: `About` useful links use standard WinUI button styling instead of link-only buttons so they read as normal actions in the product identity section.
 - Decision: `Settings` owns app preferences and update management.
 - Decision: `Settings` does not duplicate help/about/documentation surfaces; it owns app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options only.
 - Decision: `Settings` uses the DevWinUI built-in settings slot with explicit selected-item mapping for Settings and settings subpages.
-- Decision: `Home` uses simple DevWinUI `Card` controls for the four primary actions, aligned horizontally on normal desktop widths.
-- Decision: `Home` removes the branded cover/hero image concept and becomes status-first.
+- Decision: `Home` keeps the `MainLandingPage` header area restrained and status-oriented; it must not become a marketing hero, a visual catalog, or a duplicated dashboard.
+- Decision: `Home` action tiles use a responsive `HeaderContent` layout that wraps, scrolls horizontally, or otherwise remains usable at narrow, medium, and wide window sizes; do not use a raw non-wrapping horizontal `StackPanel` unless validation proves it behaves correctly.
+- Decision: `HeaderTile.Link` is used only for true external links such as documentation. In-app workflow tiles navigate through Foundry navigation handlers/services so shell selection and page state remain correct.
 - Decision: `ADK` install action is a combined Windows ADK + WinPE add-on flow; the UI must not present them as unrelated installers.
 - Decision: `ADK` primary setup button keeps a stable combined label such as `Install ADK and WinPE add-on`, even when only one component is missing.
-- Decision: `ADK` shows core readiness details by default and keeps diagnostics/logs collapsed by default.
+- Decision: `ADK` shows core readiness details by default and does not include a diagnostics/logs row unless a future page-specific diagnostics requirement is approved.
 - Decision: `General` action is renamed from `Create media` to a navigation-oriented label such as `Review and start`.
+- Decision: `General` owns boot-image content configuration only: architecture, signature mode, WinPE boot language, and driver options.
+- Decision: `Start` owns final output and execution choices: ISO output path, USB target, USB partition style, USB format mode, and final ISO/USB commands.
+- Decision: USB partition style and format mode are secondary USB target options and should live under the `Start` USB target surface, preferably as collapsed expander details.
+- Decision: `Start` readiness groups use WCT `SettingsExpander` controls and auto-expand only when a group contains a blocked or warning item; not-configured items stay collapsed by default to keep the page compact.
+- Decision: Missing ISO output and unavailable USB targets appear as warnings in the `Start` readiness review, while the final Create ISO/Create USB commands remain blocked by preflight until the required output is configured.
+- Decision: `Start` uses an `Auto` / `Auto` / `*` / `Auto` page grid so the readiness review owns the flexible scrollable space and the ISO output, USB target, and final command controls stay pinned as the bottom action block.
+- Decision: Shared page padding includes bottom breathing room so scrollable pages and pinned bottom action blocks do not touch the window edge.
 - Decision: Phase 18 removes UI code made obsolete by the redesign, including stale pages, view models, navigation metadata, resources, and localization keys.
 - Decision: Phase 18 updates both `en-US` and `fr-FR` localization resources whenever labels, descriptions, actions, or page text change.
 - Decision: Exact UI wording can be finalized during implementation unless a label is explicitly fixed in this plan; every finalized string must update `en-US` and `fr-FR` together.
@@ -163,67 +178,77 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: Status colors stay WinUI semantic/theme-resource based, not custom product-branded colors, so light, dark, and high-contrast behavior remains reliable.
 - Decision: Use `AccentButtonStyle` only for the primary/relevant action in a section or dialog; secondary actions stay standard/subtle.
 - Decision: Bitmap assets are reserved for app/product identity; page-level icons should use a consistent theme-safe vector icon approach.
+- Decision: The Phase 18.1 design-token baseline is implemented as shared Foundry resources for spacing, typography aliases, icon sizes, input/control dimensions, dialog bounds, semantic status brushes, surface brushes, and high-contrast fallbacks. Remaining page redesign slices must consume these resources instead of adding new page-local literals.
 
-- [ ] **18.1** Establish the Foundry WinUI design-token baseline:
-  - [ ] Add the Windows Community Toolkit WinUI controls package during the first design-token/control baseline slice and verify the app builds before page-level migrations.
-  - [ ] Extend `ThemeResources.xaml`, `Styles.xaml`, and `Fonts.xaml` only where useful to define Foundry-owned semantic resources instead of page-local literals.
-  - [ ] Color uses WinUI `ThemeResource` brushes and system color resources; avoid hard-coded colors and use accent color sparingly for important actions, selection, and state.
-  - [ ] High contrast behavior uses compatible system foreground/background resources and does not rely on color alone to communicate readiness, warning, or blocked states.
-  - [ ] Geometry follows WinUI defaults: `ControlCornerRadius` for in-page controls, `OverlayCornerRadius` for dialogs/flyouts/overlays, and square corners only where adjacent edges join.
-  - [ ] Spacing follows a 4 epx measurement discipline with documented page, section, card, row, label/control, and dialog spacing tokens.
-  - [ ] Default sizing targets standard WinUI density; compact density is allowed only for clearly dense information surfaces after review.
-  - [ ] Control width, height, and minimum-size resources follow WinUI 3/Fluent defaults and recommendations; custom control dimensions must be conservative, reusable, and justified by content wrapping, localization, or responsive layout constraints.
-  - [ ] Typography uses the WinUI type ramp and built-in text styles such as title, subtitle/body strong, body, caption, and secondary text resources instead of ad hoc font sizes.
-  - [ ] Use Semibold only for hierarchy emphasis and avoid arbitrary bold/italic body styling.
-  - [ ] `AccentButtonStyle` is reserved for the primary/relevant action in a section or dialog, with standard/subtle buttons for secondary actions.
-  - [ ] Iconography standardizes on Segoe Fluent Icons or equivalent WinUI vector icons for commands, navigation, and status, using documented crisp icon sizes such as 16, 20, 24, and 32 epx.
-  - [ ] Define semantic status resources for `ready`, `warning`, `blocked`, `busy`, and `complete`, including brush, icon, text, and action-slot guidance.
-  - [ ] Define reusable dialog sizing resources for standard dialogs and the larger About/WebView2 dialog.
-  - [ ] Document the token inventory in the PR so future pages do not add raw colors, arbitrary radii, or inconsistent icon sizes.
-- [ ] **18.2** Define the Home page role:
-  - [ ] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned page layout.
-  - [ ] Home is a simple welcome/onboarding/status hub, not a dense operational dashboard.
-  - [ ] Remove the current branded cover/hero image concept and any Home-only cover resources that become unused.
-  - [ ] Keep the page intentionally sparse with only a short welcome message, a lightweight ADK status card, and a small set of primary action cards.
-  - [ ] The ADK status card shows only the essential state, using a clear success/non-success visual treatment such as green for compatible/ready and a warning/error state when missing or incompatible.
-  - [ ] Implement the four Home action cards: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
-  - [ ] Use simple DevWinUI `Card` controls for the Home action row with title, optional short content, and a clear click target.
-  - [ ] Align Home action cards horizontally on normal desktop widths and wrap or stack below the responsive threshold.
-  - [ ] Keep Home action cards clickable when prerequisites are missing; explain blockers in the ADK status card instead of disabling navigation.
-  - [ ] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
-  - [ ] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
-  - [ ] Use native WinUI layout and controls for the Home page content except for the approved DevWinUI `Card` action row.
+- [x] **18.1** Establish the Foundry WinUI design-token baseline:
+  - [x] Add the Windows Community Toolkit WinUI controls package during the first design-token/control baseline slice and verify the app builds before page-level migrations.
+  - [x] Extend `ThemeResources.xaml`, `Styles.xaml`, and `Fonts.xaml` only where useful to define Foundry-owned semantic resources instead of page-local literals.
+  - [x] Color uses WinUI `ThemeResource` brushes and system color resources; avoid hard-coded colors and use accent color sparingly for important actions, selection, and state.
+  - [x] High contrast behavior uses compatible system foreground/background resources and does not rely on color alone to communicate readiness, warning, or blocked states.
+  - [x] Geometry follows WinUI defaults: `ControlCornerRadius` for in-page controls, `OverlayCornerRadius` for dialogs/flyouts/overlays, and square corners only where adjacent edges join.
+  - [x] Spacing follows a 4 epx measurement discipline with documented page, section, card, row, label/control, and dialog spacing tokens.
+  - [x] Default sizing targets standard WinUI density; compact density is allowed only for clearly dense information surfaces after review.
+  - [x] Control width, height, and minimum-size resources follow WinUI 3/Fluent defaults and recommendations; custom control dimensions must be conservative, reusable, and justified by content wrapping, localization, or responsive layout constraints.
+  - [x] Typography uses the WinUI type ramp and built-in text styles such as title, subtitle/body strong, body, caption, and secondary text resources instead of ad hoc font sizes.
+  - [x] Use Semibold only for hierarchy emphasis and avoid arbitrary bold/italic body styling.
+  - [x] `AccentButtonStyle` is reserved for the primary/relevant action in a section or dialog, with standard/subtle buttons for secondary actions.
+  - [x] Iconography standardizes on Segoe Fluent Icons or equivalent WinUI vector icons for commands, navigation, and status, using documented crisp icon sizes such as 16, 20, 24, and 32 epx.
+  - [x] Define semantic status resources for `ready`, `warning`, `blocked`, `busy`, and `complete`, including brush, icon, text, and action-slot guidance.
+  - [x] Define reusable dialog sizing resources for standard dialogs and the larger About/WebView2 dialog.
+  - [x] Keep the final token inventory documentation tracked by Phase 18.16 so the PR records color, typography, spacing, geometry, icon sizes, status resources, and dialog sizing in one place.
+- [x] **18.2** Define the Home page role:
+  - [x] Replace the current generic DevWinUI `AllLandingPage` usage with a Foundry-owned `dev:MainLandingPage` composition.
+  - [x] Home is a simple welcome/onboarding/status hub, not a dense operational dashboard.
+  - [x] Configure `MainLandingPage.HeaderText` and `MainLandingPage.HeaderSubtitleText` with concise Foundry product/onboarding copy.
+  - [x] Keep the `MainLandingPage` header area restrained; do not introduce a custom marketing hero, oversized visual treatment, or duplicated dashboard content.
+  - [x] Remove Home-only cover resources only when the final `MainLandingPage` implementation no longer uses them.
+  - [x] Keep the page intentionally sparse with only a short welcome message, compact ADK readiness/status content, and a small set of primary action tiles.
+  - [x] Place the primary Home actions inside `MainLandingPage.HeaderContent`.
+  - [x] Implement the four Home action tiles with DevWinUI `HeaderTile`: `Open ADK`, `Configure media`, `Review and start`, and `Open documentation`.
+  - [x] Use clear title, short description, and theme-safe icon/source content for each `HeaderTile`; keep localized text short enough for compact tile layouts.
+  - [x] Make the `HeaderTile` layout responsive across narrow, medium, and wide windows by wrapping, horizontal scrolling, or an equivalent validated layout behavior.
+  - [x] Use `HeaderTile.Link` only for the external documentation tile; in-app tiles must route through Foundry navigation handlers/services.
+  - [x] Keep Home action tiles visually available when prerequisites are missing, but route workflow actions that require ADK readiness (`Configure media`, `Review and start`) to `ADK` until Windows ADK and the WinPE add-on are ready.
+  - [x] Place compact ADK readiness/status content in `MainLandingPage.FooterContent`, including whether Windows ADK and the WinPE add-on are both ready.
+  - [x] The ADK readiness/status content shows only the essential state, using a clear success/non-success visual treatment such as ready, warning, or blocked.
+  - [x] Do not show detailed update state, full media readiness, expert readiness, logs, or multi-section summaries on Home.
+  - [x] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
+  - [x] Use native WinUI layout and controls inside `HeaderContent` and `FooterContent` except for the approved DevWinUI `HeaderTile` action tiles.
 - [ ] **18.3** Review page information architecture:
-  - [ ] `General` owns generated media settings, including WinPE image/boot language.
-  - [ ] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.
-  - [ ] `Start` owns final media summary, USB selection, and ISO/USB execution.
-  - [ ] `Start` presents readiness as scannable grouped checks with explicit blockers instead of a long prose summary.
-  - [ ] `ADK` answers one primary question first: whether Foundry can proceed, and what action the user should take next.
-  - [ ] `Network`, `Localization`, `Autopilot`, and `Customization` remain expert workflow pages.
-  - [ ] Footer surfaces remain documentation/about/settings entry points, not workflow pages.
-  - [ ] `Documentation` is a direct external navigation action to `https://foundry-osd.github.io/docs/intro`, not a separate in-app page; when launched from Home or the shell/footer, it does not change the current in-app navigation selection.
-  - [ ] Show a fallback `ContentDialog` with selectable/copyable documentation URL text if the external documentation launch fails.
-  - [ ] Remove `DocumentationPage` from the WinUI app once Documentation becomes an external navigation action.
-  - [ ] Replace shell-navigated About surfaces with one modal `ContentDialog`.
-  - [ ] Implement the About dialog with UniGetUI-style `SelectorBar` sections: `About`, `Licenses`, `Contributors`, and `Release notes`.
-  - [ ] Implement a custom content-level close button with accessible name, tooltip, and simple default WinUI tab order.
-  - [ ] Size the About dialog larger than UniGetUI with responsive min/max constraints for 1366x768 and 1920x1080.
-  - [ ] Open the About dialog on the `About` section every time.
-  - [ ] Limit About-tab links to repository, issues/support, and license.
-  - [ ] `About` tab uses a branded layout with app logo, app name, version, approved link set, authors, support, and footer text.
-  - [ ] Render `Licenses` as a curated native WinUI list for Foundry and third-party licenses with external links.
-  - [ ] Render `Contributors` as a curated native WinUI list with GitHub profile links and avatar URLs.
-  - [ ] `Contributors` tab includes loading, broken-avatar, and offline fallback behavior so network failures do not break the dialog.
-  - [ ] Use initials or a generic person icon when contributor avatars fail or the app is offline.
-  - [ ] Do not add a separate `Translators` tab unless real Foundry translator credits exist.
-  - [ ] Embed the full repository GitHub releases list with WebView2 at `https://github.com/foundry-osd/foundry/releases`.
-  - [ ] Show release-notes loading progress, dispose WebView2 on close, and avoid intercepting external navigation in Phase 18.
-  - [ ] WebView2 usage is scoped to release notes, includes loading/error/fallback UI, and documents runtime distribution expectations for the Velopack/unpackaged app.
-  - [ ] Show a native fallback message with an `Open releases in browser` action if the GitHub releases page cannot load.
-  - [ ] Keep Settings scoped to app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options.
-  - [ ] Remove the duplicate `Settings > About` subpage and keep only the shell/footer About command.
-  - [ ] Operation progress `ContentDialog` surfaces use one consistent structure for title, current operation text, progress indicator, optional log/details affordance, final success/failure state, and close behavior.
-  - [ ] Operation progress dialogs block accidental close while work is running and restore a sensible focus target when complete.
+  - [x] `General` owns boot-image and driver configuration, including WinPE image/boot language.
+  - [x] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.
+  - [x] `Start` owns final media summary, ISO output, USB selection, USB layout, and ISO/USB execution.
+  - [x] `Start` presents readiness as scannable grouped checks with explicit blockers instead of a long prose summary.
+  - [x] `ADK` answers one primary question first: whether Foundry can proceed, and what action the user should take next.
+  - [x] `Network`, `Localization`, `Autopilot`, and `Customization` remain expert workflow pages.
+  - [x] Footer surfaces remain documentation/about/settings entry points, not workflow pages.
+  - [x] `Documentation` is a direct external navigation action to `https://foundry-osd.github.io/docs/intro`, not a separate in-app page; when launched from Home or the shell/footer, it does not change the current in-app navigation selection.
+  - [x] Show a fallback `ContentDialog` with selectable/copyable documentation URL text if the external documentation launch fails.
+  - [x] Remove `DocumentationPage` from the WinUI app once Documentation becomes an external navigation action.
+  - [x] Replace shell-navigated About surfaces with one modal `ContentDialog`.
+  - [x] Implement the About dialog with UniGetUI-style `SelectorBar` sections backed by a `Frame` with slide transitions: `About`, `Licenses`, `Contributors`, and `Release notes`.
+  - [x] Implement a custom content-level close button with accessible name, tooltip, and simple default WinUI tab order.
+  - [x] Size the About dialog larger than UniGetUI with responsive min/max constraints for 1366x768 and 1920x1080.
+  - [x] Open the About dialog on the `About` section every time.
+  - [x] Limit About-tab links to repository, issues/support, and license.
+  - [x] `About` tab uses a WPF-inspired branded identity layout with app icon, app name, version, approved link set, authors, support, and footer text.
+  - [x] `About` useful links use standard WinUI buttons and route through the shared external process launcher.
+  - [x] Render `Licenses` as a compact curated native WinUI list for Foundry and third-party licenses with external links.
+  - [x] Render license rows with the same alternating theme-aware background pattern used by contributors.
+  - [x] Render `Contributors` as an automatic native WinUI list loaded from GitHub with display name, GitHub handle, profile links, avatar URLs, and contribution counts sorted descending.
+  - [x] Render contributor rows with alternating theme-aware backgrounds so profile actions are easier to scan.
+  - [x] `Contributors` tab includes loading and centered fetch-failure states; it does not use a local fallback contributor list.
+  - [x] Use initials or a generic person icon when contributor avatars fail or the app is offline.
+  - [x] Do not add a separate `Translators` tab unless real Foundry translator credits exist.
+  - [x] Embed the full repository GitHub releases list with WebView2 at `https://github.com/foundry-osd/foundry/releases`.
+  - [x] Show release-notes loading progress, recreate the WebView2 tab when revisited, dispose WebView2 on unload, and avoid intercepting external navigation in Phase 18.
+  - [x] Hide release-notes loading progress on WebView2 DOM readiness to avoid a visible loader over loaded GitHub content.
+  - [x] WebView2 usage is scoped to release notes, includes loading/error/fallback UI, and documents runtime distribution expectations for the Velopack/unpackaged app.
+  - [x] Show a native fallback message with an `Open releases in browser` action if the GitHub releases page cannot load.
+  - [x] Keep Settings scoped to app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options.
+  - [x] Remove the duplicate `Settings > About` subpage and keep only the shell/footer About command.
+  - [x] Operation progress `ContentDialog` surfaces use one consistent structure for title, current operation text, progress indicator, optional log/details affordance, final success/failure state, and close behavior.
+  - [x] Operation progress dialogs block accidental close while work is running and restore a sensible focus target when complete.
 - [ ] **18.4** Audit layout quality on every page:
   - [ ] No overlapping text, toggles, buttons, tables, or content dialogs.
   - [ ] Page command buttons are placed consistently and are visually tied to their section.
@@ -233,76 +258,85 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Content dialogs size to their content within sane min/max constraints and remain centered.
   - [ ] Long paths, localized strings, and profile names are clipped or wrapped intentionally.
   - [ ] Avoid nested scroll friction where `ListView` or `TableView` sits inside an outer `ScrollView`.
+  - [x] Replace the `Localization` visible-language `ListView` with a non-scrolling responsive `ItemsRepeater` inside a WCT `SettingsCard` so the page owns scrolling without an oversized single-column list.
+  - [x] Tokenize repeated About dialog page margins and the Start readiness status-column width.
+  - [x] Clip the Settings diagnostics log path intentionally and expose the full path through a tooltip.
 - [ ] **18.5** Rationalize control ownership:
   - [ ] Prefer native WinUI 3 controls for common primitives: `Button`, `ToggleSwitch`, `ComboBox`, `InfoBar`, `ContentDialog`, `NavigationView`, `ListView`, layout panels, and command surfaces.
-  - [ ] Prefer Windows Community Toolkit controls for Windows-settings-style page content: `SettingsCard` and `SettingsExpander` from the WinUI 3 toolkit package.
+  - [x] Prefer Windows Community Toolkit controls for Windows-settings-style page content: `SettingsCard` and `SettingsExpander` from the WinUI 3 toolkit package.
   - [ ] Use table/grid controls only where users need row scanning, selection, sorting, or multi-column comparison.
-  - [ ] Use WebView2 only for the About dialog release-notes tab; keep other About tabs native WinUI to avoid web UI where static local content is sufficient.
+  - [x] Use WebView2 only for the About dialog release-notes tab; keep other About tabs native WinUI to avoid web UI where static local content is sufficient.
   - [ ] Page-level controls must use the approved design-token baseline for color, typography, icon size, spacing, and corner radius.
-  - [ ] Keep DevWinUI `Card` only as the approved Home action-row exception.
-  - [ ] Do not mix DevWinUI settings controls and Windows Community Toolkit settings controls on the same page unless there is a documented reason.
-  - [ ] Migrate page-level `dev:SettingsCard` and `dev:SettingsExpander` usages page by page with the relevant UX slice instead of doing one broad control rewrite.
-  - [ ] Keep DevWinUI shell controls where they provide the navigation/title bar/content-frame baseline.
-  - [ ] Keep native `PasswordBox` handling for Wi-Fi and network secrets.
+  - [x] Keep DevWinUI `MainLandingPage` and `HeaderTile` as approved Home-only exceptions where they provide the landing shell and primary action tiles.
+  - [x] Do not mix DevWinUI settings controls and Windows Community Toolkit settings controls on the same page unless there is a documented reason.
+  - [x] Migrate page-level `dev:SettingsCard` and `dev:SettingsExpander` usages page by page with the relevant UX slice instead of doing one broad control rewrite.
+  - [x] Keep DevWinUI shell controls where they provide the navigation/title bar/content-frame baseline.
+  - [x] Keep native `PasswordBox` handling for Wi-Fi and network secrets.
   - [ ] Keep `WinUI.TableView` on the main Autopilot profile list.
-  - [ ] Replace the Autopilot tenant-selection dialog `TableView` with a clearer multi-select list pattern.
+  - [x] Replace the Autopilot tenant-selection dialog `TableView` with a clearer multi-select list pattern.
 - [ ] **18.6** Audit DevWinUI usage:
-  - [ ] Inventory DevWinUI controls used in Foundry workflow pages.
-  - [ ] Classify each usage as shell-owned, page-layout-owned, or obsolete prototype usage.
-  - [ ] Keep shell-owned DevWinUI usages: `MainWindow` title bar/navigation/breadcrumb integration, navigation metadata, resource dictionaries, and shell services.
-  - [ ] Replace page-owned `dev:SettingsCard` and `dev:SettingsExpander` usages with native WinUI composition or WCT settings controls on `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Settings`, `About`, and settings subpages where practical.
-  - [ ] Keep DevWinUI page controls only when no native WinUI or WCT replacement fits the interaction cleanly, or when replacement creates unnecessary behavioral risk.
+  - [x] Inventory DevWinUI controls used in Foundry workflow pages.
+  - [x] Classify each usage as shell-owned, page-layout-owned, or obsolete prototype usage.
+  - [x] Keep shell-owned DevWinUI usages: `MainWindow` title bar/navigation/breadcrumb integration, navigation metadata, resource dictionaries, and shell services.
+  - [x] Replace page-owned `dev:SettingsCard` and `dev:SettingsExpander` usages with native WinUI composition or WCT settings controls on `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Settings`, `About`, and settings subpages where practical.
+  - [x] Keep DevWinUI page controls only when no native WinUI or WCT replacement fits the interaction cleanly, or when replacement creates unnecessary behavioral risk.
 - [ ] **18.7** Review each workflow page for expected desktop UX:
-  - [ ] `ADK` clearly separates overall readiness, installed version/policy, WinPE add-on state, media capability, and install/upgrade/refresh actions.
-  - [ ] Put one ADK readiness card first, then lower-priority details for installed version, required version policy, WinPE add-on status, ISO/USB capability, and diagnostics/logs.
-  - [ ] Present ADK setup as one combined action that covers both Windows ADK and the WinPE add-on.
-  - [ ] Keep the ADK primary setup button label stable, such as `Install ADK and WinPE add-on`, even when only one component is missing.
-  - [ ] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; keep diagnostics/logs collapsed by default.
-  - [ ] `ADK` removes duplicate operation-status text and shows operation progress only when useful.
-  - [ ] `General` makes generated media settings scannable without hiding required execution prerequisites.
-  - [ ] `General` shows disabled/empty reasons for WinPE language discovery and other unavailable prerequisites.
-  - [ ] `Start` clearly distinguishes readiness checks, USB target selection, and final commands.
-  - [ ] Organize `Start` readiness into grouped checklist sections: prerequisites, media output, runtime payloads, and expert configuration.
-  - [ ] `Start` readiness items show ready, warning, blocked, or not configured states with links to the owning page when action is needed.
-  - [ ] Wire `Start` readiness links to navigate only to the owning page without cross-page auto-focus, auto-scroll, or forced section expansion.
-  - [ ] `Home`, `ADK`, and `Start` share the same tokenized status-surface contract for ready, warning, blocked, busy, and complete states.
-  - [ ] `Start` shows explicit USB loading, empty, and error states while discovery runs or fails.
-  - [ ] Preserve current USB candidate selection behavior during the `Start` page cleanup.
-  - [ ] `Network` uses stronger progressive disclosure for Ethernet 802.1X and Wi-Fi instead of opening all advanced sections by default.
-  - [ ] Collapse Ethernet 802.1X and Wi-Fi sections by default unless the section is enabled, configured, or invalid.
-  - [ ] Place Network validation feedback next to the field or section it blocks and keep secret handling opaque.
-  - [ ] Keep WinPE image/boot language on `General`, not on `Localization`.
-  - [ ] `Localization` clearly owns deployment OS language choices and removes the separate single-visible-language toggle from the user-facing UI.
-  - [ ] Preserve current visible deployment language semantics while removing the user-facing `Force single visible deployment language` toggle.
-  - [ ] Reset default deployment language to `Automatic` when it no longer belongs to the selected visible deployment language set.
-  - [ ] `Autopilot` separates enablement, import/download actions, default profile, profile inventory, and destructive removal behavior.
-  - [ ] `Autopilot` shows visible busy/status feedback for import and tenant download operations.
-  - [ ] `Autopilot` replaces or repairs the tenant profile picker interaction model so multi-select is accessible and keyboard-clear.
-  - [ ] Add Autopilot profile deletion confirmation with the profile name and destructive-action wording.
-  - [ ] Keep both Customization machine naming options while improving labels, validation placement, spacing, and design-token alignment.
-  - [ ] `Customization` clarifies machine naming labels/descriptions, for example `Auto-generate computer name suffix` and `Allow suffix edit during deployment`.
-  - [ ] `Settings` uses the meta-page header pattern; `About` uses the branded tabbed dialog header; `Documentation` opens externally and has no in-app header.
-  - [ ] `Settings` selected-item synchronization handles the built-in settings item and settings subpages correctly.
-  - [ ] Remove the title-bar theme quick toggle.
-  - [ ] Remove the title-bar search box.
-- [ ] **18.8** Review accessibility and localization resilience:
-  - [ ] Keyboard navigation reaches all interactive controls in a sensible order.
-  - [ ] Icon-only actions have accessible names and tooltips.
-  - [ ] Icon-only actions use approved vector icons and documented icon sizes; bitmap icons are allowed only for brand/product identity.
-  - [ ] Disabled controls have visible reasons nearby when the reason is not obvious.
-  - [ ] Runtime language switching does not leave stale text on reviewed pages.
-  - [ ] French and English text fit without overlapping at common desktop sizes.
-  - [ ] All changed UI strings are updated in both `en-US` and `fr-FR` resources in the same Phase 18 slice.
-  - [ ] Exact UI labels/descriptions may be finalized during implementation unless this plan fixes the label explicitly.
-  - [ ] Remove obsolete localization keys for deleted pages, removed actions, and retired controls once no code references remain.
-  - [ ] Localized requirement text keeps the same operational meaning in English and French, especially ADK version policy text.
-  - [ ] Update date/time text follows the active UI culture instead of hard-coded invariant formatting.
-  - [ ] Settings no-op guard handling is either removed or made meaningful through shell-owned guard state.
-- [ ] **18.9** Remove obsolete UI artifacts:
-  - [ ] Remove pages, view models, navigation entries, commands, resources, assets, and localization keys that become unused after the Phase 18 UI redesign.
-  - [ ] Remove obsolete artifacts in the same implementation slice that makes them obsolete, then run one final stale-reference sweep before Phase 18 completion.
-  - [ ] Confirm removed `DocumentationPage`, duplicate About surfaces, title-bar search/theme controls, and retired DevWinUI page-level controls leave no stale references.
-- [ ] **18.10** Commit:
+  - [x] `ADK` clearly separates overall readiness, setup actions, and grouped readiness details for installed version/policy, WinPE add-on state, and media capability.
+  - [x] Put one ADK readiness card first, one setup action card second, then one compact readiness details card for installed version, required version policy, WinPE add-on status, and ISO/USB capability.
+  - [x] Present ADK setup as one combined action that covers both Windows ADK and the WinPE add-on.
+  - [x] Keep the ADK primary setup button label stable, such as `Install ADK and WinPE add-on`, even when only one component is missing.
+  - [x] Do not show a manual ADK refresh action; install and upgrade operations already refresh readiness when they complete.
+  - [x] Hide the ADK setup action card entirely when ADK and the WinPE add-on are ready.
+  - [x] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; omit ADK-specific diagnostics/logs until real diagnostics content exists.
+  - [x] `ADK` removes duplicate operation-status text and shows operation progress only when useful.
+  - [x] `General` makes boot-image and driver settings scannable without hiding required execution prerequisites.
+  - [x] `General` shows disabled/empty reasons for WinPE language discovery and other unavailable prerequisites.
+  - [x] `Start` clearly distinguishes readiness checks, USB target selection, and final commands.
+  - [x] Move ISO output selection from `General` to `Start`.
+  - [x] Move USB partition style and USB format mode from `General` to the `Start` USB target surface.
+  - [x] Organize `Start` readiness into grouped checklist sections: prerequisites, media output, runtime payloads, and expert configuration.
+  - [x] `Start` readiness items show ready, warning, blocked, or not configured states with links to the owning page when action is needed.
+  - [x] Wire `Start` readiness links to navigate only to the owning page without cross-page auto-focus, auto-scroll, or forced section expansion.
+  - [x] `Home`, `ADK`, and `Start` share the same tokenized status-surface contract for ready, warning, blocked, busy, and complete states.
+  - [x] `Start` shows explicit USB loading, empty, and error states while discovery runs or fails.
+  - [x] Preserve current USB candidate selection behavior during the `Start` page cleanup.
+  - [x] `Network` uses stronger progressive disclosure for Ethernet 802.1X and Wi-Fi instead of opening all advanced sections by default.
+  - [x] Collapse Ethernet 802.1X and Wi-Fi sections by default unless the section is enabled, configured, or invalid.
+  - [x] Place Network validation feedback next to the field or section it blocks and keep secret handling opaque.
+  - [x] Keep WinPE image/boot language on `General`, not on `Localization`.
+  - [x] `Localization` clearly owns deployment OS language choices and removes the separate single-visible-language toggle from the user-facing UI.
+  - [x] Preserve current visible deployment language semantics while removing the user-facing `Force single visible deployment language` toggle.
+  - [x] Reset default deployment language to `Automatic` when it no longer belongs to the selected visible deployment language set.
+  - [x] `Autopilot` separates enablement, import/download actions, default profile, profile inventory, and destructive removal behavior.
+  - [x] `Autopilot` shows visible busy/status feedback for import and tenant download operations.
+  - [x] `Autopilot` replaces or repairs the tenant profile picker interaction model so multi-select is accessible and keyboard-clear.
+  - [x] Add Autopilot profile deletion confirmation with the profile name and destructive-action wording.
+  - [x] Keep both Customization machine naming options while improving labels, validation placement, spacing, and design-token alignment.
+  - [x] `Customization` clarifies machine naming labels/descriptions, for example `Auto-generate computer name suffix` and `Allow suffix edit during deployment`.
+  - [x] `Settings` uses the meta-page header pattern; `About` uses the branded tabbed dialog header; `Documentation` opens externally and has no in-app header.
+  - [x] `Settings` selected-item synchronization handles the built-in settings item and settings subpages correctly.
+  - [x] Remove the title-bar theme quick toggle.
+  - [x] Remove the title-bar search box.
+- [x] **18.8** Review accessibility and localization resilience:
+  - [x] Icon-only actions have accessible names and tooltips.
+  - [x] Icon-only actions use approved vector icons and documented icon sizes; bitmap icons are allowed only for brand/product identity.
+  - [x] Disabled controls have visible reasons nearby when the reason is not obvious.
+  - [x] Runtime language switching does not leave stale text on reviewed pages.
+  - [x] French and English text fit without overlapping at common desktop sizes.
+  - [x] All changed UI strings are updated in both `en-US` and `fr-FR` resources in the same Phase 18 slice.
+  - [x] Exact UI labels/descriptions may be finalized during implementation unless this plan fixes the label explicitly.
+  - [x] Remove obsolete localization keys for deleted pages, removed actions, and retired controls once no code references remain.
+  - [x] Audit `src\Foundry\Assets` and identify assets that are no longer referenced by the WinUI app after the Phase 18 UI changes.
+  - [x] Localized requirement text keeps the same operational meaning in English and French, especially ADK version policy text.
+  - [x] Update date/time text follows the active UI culture instead of hard-coded invariant formatting.
+  - [x] Settings no-op guard handling is either removed or made meaningful through shell-owned guard state.
+  - [x] Removed the obsolete `src\Foundry\Assets\Fluent` bitmap assets; retained app identity, cover, navigation metadata, and package Store assets.
+- [x] **18.9** Remove obsolete UI artifacts:
+  - [x] Remove pages, view models, navigation entries, commands, resources, assets, and localization keys that become unused after the Phase 18 UI redesign.
+  - [x] Remove obsolete artifacts in the same implementation slice that makes them obsolete, then run one final stale-reference sweep before Phase 18 completion.
+  - [x] Confirm removed `DocumentationPage`, duplicate About surfaces, title-bar search/theme controls, and retired DevWinUI page-level controls leave no stale references.
+  - [x] Removed the empty `Themes/Converters.xaml` dictionary, unused design-token constants, and unused footer subtitle localization keys.
+- [x] **18.10** Commit:
 
 ```powershell
 git commit -m "refactor(ui): refine foundry winui experience"
@@ -310,15 +344,22 @@ git commit -m "refactor(ui): refine foundry winui experience"
 
 **Validation**
 
-- [ ] **18.11** Manual UI smoke test completed at 1366x768 and 1920x1080.
-- [ ] **18.12** Manual UI smoke test completed in light and dark themes.
-- [ ] **18.13** Manual UI smoke test completed in at least one Windows contrast theme for tokenized status surfaces and dialogs.
-- [ ] **18.14** Manual runtime language-switch smoke test completed for reviewed pages.
-- [ ] **18.15** No page has overlapping controls, truncated primary actions, or unusable dialogs.
-- [ ] **18.16** Design-token inventory is documented in the PR description: color, typography, spacing, geometry, icon sizes, status resources, and dialog sizing.
-- [ ] **18.17** DevWinUI usage review is documented in the PR description: kept shell usages, replaced page-level usages, and intentionally retained page-level usages.
-- [ ] **18.18** Final implementation validation includes screenshot pairs or documented visual checks for Home, ADK, Start, Network, and About at 1366x768 and 1920x1080 in light and dark themes; this is not required during the audit-only planning pass.
-- [ ] **18.19** No new WinUI or WPF UI tests are added; visual/layout behavior remains manually validated.
+- [x] **18.11** Manual UI smoke test completed at 1366x768 and 1920x1080.
+- [x] **18.12** Manual UI smoke test completed in light and dark themes.
+- [x] **18.13** Manual UI smoke test completed in at least one Windows contrast theme for tokenized status surfaces and dialogs.
+- [x] **18.14** Manual runtime language-switch smoke test completed for reviewed pages.
+- [x] **18.15** No page has overlapping controls, truncated primary actions, or unusable dialogs.
+- [x] **18.16** Design-token inventory is documented for the PR description: color, typography, spacing, geometry, icon sizes, status resources, and dialog sizing.
+  - [x] Color and status resources are tokenized through app resources and shared status surfaces for ready, warning, blocked, busy, and complete states.
+  - [x] Typography follows WinUI page title, subtitle/body, caption, and settings-control text styles rather than custom page-level typography.
+  - [x] Spacing and geometry use shared Foundry tokens for page padding, content width, settings spacing, card/dialog padding, icon sizes, and dialog sizing.
+  - [x] Dialog sizing is centralized through Foundry dialog tokens and the About dialog uses the branded tabbed modal pattern.
+- [x] **18.17** DevWinUI usage review is documented for the PR description: kept shell usages, replaced page-level usages, and intentionally retained page-level usages.
+  - [x] Kept shell-owned DevWinUI usages for the title bar, navigation shell, breadcrumb integration, and Home `MainLandingPage`/`HeaderTile` landing experience.
+  - [x] Replaced page-level DevWinUI settings controls with WinUI/WCT composition where practical across reviewed workflow pages.
+  - [x] Intentionally retained DevWinUI only where it owns the shell baseline or provides the approved Home landing surface.
+- [x] **18.18** Final implementation validation includes documented visual checks for Home, ADK, Start, Network, and About at 1366x768 and 1920x1080 in light and dark themes.
+- [x] **18.19** No new WinUI or WPF UI tests are added; visual/layout behavior remains manually validated.
 
 ## Phase 19: Cleanup And Dependency Review
 

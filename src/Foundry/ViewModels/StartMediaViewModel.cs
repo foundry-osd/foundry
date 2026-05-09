@@ -26,6 +26,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeWorkspacePreparationService workspacePreparationService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
+    private readonly IFilePickerService filePickerService;
     private readonly IExpertDeployConfigurationStateService expertDeployConfigurationStateService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
@@ -34,6 +35,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
+    private UsbCandidateDiscoveryState usbCandidateDiscoveryState = UsbCandidateDiscoveryState.NotLoaded;
+    private bool isLoadingConfiguration = true;
 
     public StartMediaViewModel(
         IAppSettingsService appSettingsService,
@@ -44,6 +47,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeWorkspacePreparationService workspacePreparationService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
+        IFilePickerService filePickerService,
         IExpertDeployConfigurationStateService expertDeployConfigurationStateService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
@@ -60,6 +64,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.workspacePreparationService = workspacePreparationService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
+        this.filePickerService = filePickerService;
         this.expertDeployConfigurationStateService = expertDeployConfigurationStateService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
@@ -73,17 +78,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             new(WinPeArchitecture.X64, "x64"),
             new(WinPeArchitecture.Arm64, "arm64")
         ];
-        PartitionStyles =
-        [
-            new(UsbPartitionStyle.Gpt, "GPT"),
-            new(UsbPartitionStyle.Mbr, "MBR")
-        ];
+        PartitionStyles = [];
         FormatModes = [];
 
         IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
         SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
         UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
-        SelectedPartitionStyle = SelectOption(PartitionStyles, ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt));
+        RebuildPartitionStyles();
         IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
         IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
         CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
@@ -92,6 +93,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         expertDeployConfigurationStateService.StateChanged += OnExpertDeployConfigurationStateChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
 
+        isLoadingConfiguration = false;
         ApplyLocalizedText();
         RefreshEvaluation();
     }
@@ -100,6 +102,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public ObservableCollection<SelectionOption<UsbPartitionStyle>> PartitionStyles { get; }
     public ObservableCollection<SelectionOption<UsbFormatMode>> FormatModes { get; }
     public ObservableCollection<SelectionOption<WinPeUsbDiskCandidate>> UsbCandidates { get; } = [];
+    public ObservableCollection<StartReadinessItemViewModel> PrerequisiteReadinessItems { get; } = [];
+    public ObservableCollection<StartReadinessItemViewModel> MediaOutputReadinessItems { get; } = [];
+    public ObservableCollection<StartReadinessItemViewModel> RuntimePayloadReadinessItems { get; } = [];
+    public ObservableCollection<StartReadinessItemViewModel> ExpertConfigurationReadinessItems { get; } = [];
 
     [ObservableProperty]
     public partial string PageTitle { get; set; } = string.Empty;
@@ -164,6 +170,21 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial string UsbCandidateStatus { get; set; } = string.Empty;
 
+    [ObservableProperty]
+    public partial InfoBarSeverity ReadinessSeverity { get; set; } = InfoBarSeverity.Informational;
+
+    [ObservableProperty]
+    public partial bool IsPrerequisiteReadinessExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsMediaOutputReadinessExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsRuntimePayloadReadinessExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsExpertConfigurationReadinessExpanded { get; set; }
+
     public void Dispose()
     {
         adkService.StatusChanged -= OnAdkStatusChanged;
@@ -185,10 +206,27 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
+    private async Task BrowseIsoOutputPathAsync()
+    {
+        string? path = await filePickerService.PickSaveFileAsync(
+            new FileSavePickerRequest(
+                localizationService.GetString("StartMedia.IsoPicker.Title"),
+                "Foundry",
+                [new(localizationService.GetString("StartMedia.IsoPicker.Filter"), [".iso"])],
+                ".iso"));
+
+        if (!string.IsNullOrWhiteSpace(path))
+        {
+            IsoOutputPath = path;
+        }
+    }
+
+    [RelayCommand]
     private async Task RefreshUsbCandidatesAsync()
     {
         if (!adkService.CurrentStatus.CanCreateMedia)
         {
+            usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Blocked;
             UsbCandidateStatus = localizationService.GetString("StartMedia.Usb.AdkBlocked");
             RefreshEvaluation();
             return;
@@ -197,6 +235,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
+            usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Error;
             UsbCandidateStatus = toolsResult.Error?.Message ?? localizationService.GetString("StartMedia.Usb.QueryFailed");
             logger.Warning("USB target refresh skipped because ADK tools were not resolved. ErrorCode={ErrorCode}", toolsResult.Error?.Code);
             RefreshEvaluation();
@@ -204,6 +243,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         IsRefreshingUsbCandidates = true;
+        usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Loading;
+        UsbCandidateStatus = localizationService.GetString("StartMedia.Usb.Loading");
+        RefreshEvaluation();
 
         try
         {
@@ -222,12 +264,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
                 SelectedUsbDisk = UsbCandidates.FirstOrDefault(option => option.Value.DiskNumber == SelectedUsbDisk?.Value.DiskNumber)
                     ?? UsbCandidates.FirstOrDefault();
-                UsbCandidateStatus = string.Format(localizationService.GetString("StartMedia.Usb.CandidatesFound"), UsbCandidates.Count);
+                usbCandidateDiscoveryState = UsbCandidates.Count == 0
+                    ? UsbCandidateDiscoveryState.Empty
+                    : UsbCandidateDiscoveryState.Ready;
+                UsbCandidateStatus = UsbCandidates.Count == 0
+                    ? localizationService.GetString("StartMedia.Usb.NoCandidatesFound")
+                    : string.Format(localizationService.GetString("StartMedia.Usb.CandidatesFound"), UsbCandidates.Count);
                 logger.Information("USB targets refreshed. CandidateCount={CandidateCount}", UsbCandidates.Count);
             }
             else
             {
                 SelectedUsbDisk = null;
+                usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Error;
                 UsbCandidateStatus = result.Error?.Message ?? localizationService.GetString("StartMedia.Usb.QueryFailed");
                 logger.Warning("USB target refresh failed. ErrorCode={ErrorCode}", result.Error?.Code);
             }
@@ -298,7 +346,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RefreshEvaluation();
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
         string terminalStatus = string.Empty;
-        string? failureMessage = null;
         string? successMessage = null;
 
         try
@@ -332,15 +379,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     usbResult.CacheDriveLetter);
             }
 
-            terminalStatus = localizationService.GetString("StartMedia.Operation.Completed");
+            terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
             operationProgressService.Complete(terminalStatus);
             logger.Information("Final media creation completed. Target={Target}", target);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            terminalStatus = localizationService.GetString("StartMedia.Operation.Failed");
+            string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
+            terminalStatus = string.IsNullOrWhiteSpace(ex.Message)
+                ? failedStatus
+                : $"{failedStatus} {ex.Message}";
             operationProgressService.Report(100, terminalStatus);
-            failureMessage = ex.Message;
             logger.Error(ex, "Final media creation failed. Target={Target}", target);
         }
         finally
@@ -351,21 +400,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             operationProgressService.Reset(terminalStatus);
             IsMediaOperationRunning = false;
             RefreshEvaluation();
-        }
-
-        if (!string.IsNullOrWhiteSpace(failureMessage))
-        {
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("StartMedia.Operation.FailedTitle"),
-                failureMessage,
-                localizationService.GetString("Common.Close")));
-        }
-        else if (!string.IsNullOrWhiteSpace(successMessage))
-        {
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("StartMedia.Operation.SuccessTitle"),
-                successMessage,
-                localizationService.GetString("Common.Close")));
         }
     }
 
@@ -899,6 +933,48 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RefreshEvaluation();
     }
 
+    partial void OnIsoOutputPathChanged(string value)
+    {
+        if (isLoadingConfiguration)
+        {
+            return;
+        }
+
+        appSettingsService.Current.Media.IsoOutputPath = value;
+        appSettingsService.Save();
+        RefreshEvaluation();
+    }
+
+    partial void OnSelectedPartitionStyleChanged(SelectionOption<UsbPartitionStyle>? value)
+    {
+        if (value is null || isLoadingConfiguration)
+        {
+            return;
+        }
+
+        if (SelectedArchitecture?.Value == WinPeArchitecture.Arm64 && value.Value == UsbPartitionStyle.Mbr)
+        {
+            SelectedPartitionStyle = SelectOption(PartitionStyles, UsbPartitionStyle.Gpt);
+            return;
+        }
+
+        appSettingsService.Current.Media.UsbPartitionStyle = value.Value.ToString();
+        appSettingsService.Save();
+        RefreshEvaluation();
+    }
+
+    partial void OnSelectedFormatModeChanged(SelectionOption<UsbFormatMode>? value)
+    {
+        if (value is null || isLoadingConfiguration)
+        {
+            return;
+        }
+
+        appSettingsService.Current.Media.UsbFormatMode = value.Value.ToString();
+        appSettingsService.Save();
+        RefreshEvaluation();
+    }
+
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
     {
         if (!appDispatcher.TryEnqueue(RefreshEvaluation))
@@ -939,7 +1015,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void RefreshEvaluation()
     {
-        LoadConfigurationFromSettings();
+        isLoadingConfiguration = true;
+        try
+        {
+            LoadConfigurationFromSettings();
+        }
+        finally
+        {
+            isLoadingConfiguration = false;
+        }
+
         WinPeLanguage = NormalizeCultureName(appSettingsService.Current.Media.WinPeLanguage);
         availableWinPeLanguages = GetAvailableWinPeLanguages();
         MediaPreflightOptions options = CreatePreflightOptions();
@@ -951,8 +1036,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         FinalExecutionStatus = options.IsFinalExecutionEnabled
             ? localizationService.GetString("StartMedia.FinalExecution.Ready")
             : localizationService.GetString("StartMedia.FinalExecution.Deferred");
+        ReadinessSeverity = GetReadinessSeverity(evaluation);
         StatusSummary = BuildStatusText(evaluation);
         GlobalSummary = BuildGlobalSummary(options, evaluation);
+        RebuildReadinessItems(options, evaluation);
 
     }
 
@@ -961,7 +1048,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
         SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
         UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
-        SelectedPartitionStyle = SelectOption(PartitionStyles, ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt));
+        RebuildPartitionStyles();
         SelectedFormatMode = SelectOption(FormatModes, ParseEnum(appSettingsService.Current.Media.UsbFormatMode, UsbFormatMode.Quick));
         IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
         IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
@@ -1019,12 +1106,326 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)
     {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
+        if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
+        {
+            return localizationService.GetString("StartMedia.Readiness.Status.ReadyIsoAndUsb");
+        }
 
-        return string.Format(
-            localizationService.GetString("StartMedia.Status"),
-            FormatReady(evaluation.CanGenerateIsoSummary || evaluation.CanGenerateUsbSummary),
-            reasons.Count);
+        if (evaluation.CanCreateIso)
+        {
+            return localizationService.GetString("StartMedia.Readiness.Status.ReadyIso");
+        }
+
+        if (evaluation.CanCreateUsb)
+        {
+            return localizationService.GetString("StartMedia.Readiness.Status.ReadyUsb");
+        }
+
+        IReadOnlyList<MediaPreflightBlockingReason> blockingReasons = GetGlobalBlockingReasons(evaluation)
+            .Where(IsBlockingReadinessReason)
+            .ToList();
+
+        return blockingReasons.Count == 0
+            ? localizationService.GetString("StartMedia.Readiness.Status.Warnings")
+            : string.Format(localizationService.GetString("StartMedia.Readiness.Status.NeedsAttention"), blockingReasons.Count);
+    }
+
+    private InfoBarSeverity GetReadinessSeverity(MediaPreflightEvaluation evaluation)
+    {
+        if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
+        {
+            return InfoBarSeverity.Success;
+        }
+
+        if (evaluation.CanCreateIso || evaluation.CanCreateUsb)
+        {
+            return InfoBarSeverity.Informational;
+        }
+
+        if (!GetGlobalBlockingReasons(evaluation).Any(IsBlockingReadinessReason))
+        {
+            return InfoBarSeverity.Warning;
+        }
+
+        return InfoBarSeverity.Error;
+    }
+
+    private void RebuildReadinessItems(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    {
+        IsPrerequisiteReadinessExpanded = ReplaceReadinessItems(
+            PrerequisiteReadinessItems,
+            [
+                BuildAdkReadinessItem(options),
+                BuildWinPeLanguageReadinessItem(options, evaluation),
+                BuildDriverReadinessItem(evaluation)
+            ]);
+
+        IsMediaOutputReadinessExpanded = ReplaceReadinessItems(
+            MediaOutputReadinessItems,
+            [
+                BuildIsoOutputReadinessItem(options, evaluation),
+                BuildUsbTargetReadinessItem(options),
+                BuildUsbLayoutReadinessItem(options, evaluation)
+            ]);
+
+        IsRuntimePayloadReadinessExpanded = ReplaceReadinessItems(
+            RuntimePayloadReadinessItems,
+            [
+                BuildConnectRuntimePayloadReadinessItem(options),
+                BuildDeployRuntimePayloadReadinessItem(options)
+            ]);
+
+        IsExpertConfigurationReadinessExpanded = ReplaceReadinessItems(
+            ExpertConfigurationReadinessItems,
+            [
+                BuildNetworkReadinessItem(options),
+                BuildDeployConfigurationReadinessItem(options),
+                BuildConnectProvisioningReadinessItem(options),
+                BuildRequiredSecretsReadinessItem(options),
+                BuildAutopilotReadinessItem(options)
+            ]);
+    }
+
+    private StartReadinessItemViewModel BuildAdkReadinessItem(MediaPreflightOptions options)
+    {
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.Adk"),
+            options.IsAdkReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            options.IsAdkReady
+                ? localizationService.GetString("StartMedia.Readiness.Adk.Ready")
+                : GetBlockingReasonText(MediaPreflightBlockingReason.AdkNotReady),
+            options.IsAdkReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Adk);
+    }
+
+    private StartReadinessItemViewModel BuildWinPeLanguageReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    {
+        MediaPreflightBlockingReason? reason = GetFirstReason(
+            evaluation,
+            MediaPreflightBlockingReason.MissingWinPeLanguage,
+            MediaPreflightBlockingReason.WinPeLanguageUnavailable);
+
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.WinPeLanguage"),
+            reason.HasValue ? StartReadinessState.Blocked : StartReadinessState.Ready,
+            reason.HasValue
+                ? GetBlockingReasonText(reason.Value)
+                : FormatValue(NormalizeCultureName(options.WinPeLanguage)),
+            reason.HasValue ? StartReadinessNavigationTarget.General : StartReadinessNavigationTarget.None);
+    }
+
+    private StartReadinessItemViewModel BuildDriverReadinessItem(MediaPreflightEvaluation evaluation)
+    {
+        MediaPreflightBlockingReason? reason = GetFirstReason(
+            evaluation,
+            MediaPreflightBlockingReason.CustomDriverDirectoryNotFound,
+            MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
+
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.Drivers"),
+            reason.HasValue ? StartReadinessState.Blocked : StartReadinessState.Ready,
+            reason.HasValue
+                ? GetBlockingReasonText(reason.Value)
+                : localizationService.GetString("StartMedia.Readiness.Drivers.Ready"),
+            reason.HasValue ? StartReadinessNavigationTarget.General : StartReadinessNavigationTarget.None);
+    }
+
+    private StartReadinessItemViewModel BuildIsoOutputReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    {
+        bool hasInvalidIsoPath = HasReason(evaluation, MediaPreflightBlockingReason.InvalidIsoPath);
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.IsoPath"),
+            hasInvalidIsoPath ? StartReadinessState.Warning : StartReadinessState.Ready,
+            hasInvalidIsoPath
+                ? GetBlockingReasonText(MediaPreflightBlockingReason.InvalidIsoPath)
+                : FormatValue(options.IsoOutputPath));
+    }
+
+    private StartReadinessItemViewModel BuildUsbTargetReadinessItem(MediaPreflightOptions options)
+    {
+        StartReadinessState state = usbCandidateDiscoveryState switch
+        {
+            UsbCandidateDiscoveryState.Loading => StartReadinessState.Loading,
+            UsbCandidateDiscoveryState.Empty => StartReadinessState.Warning,
+            UsbCandidateDiscoveryState.Error => StartReadinessState.Warning,
+            _ => options.SelectedUsbDisk is null ? StartReadinessState.NotConfigured : StartReadinessState.Ready
+        };
+
+        string description = state == StartReadinessState.Ready
+            ? FormatUsbCandidate(options.SelectedUsbDisk)
+            : string.IsNullOrWhiteSpace(UsbCandidateStatus)
+                ? localizationService.GetString("StartMedia.Usb.NotLoaded")
+                : UsbCandidateStatus;
+
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.UsbTarget"),
+            state,
+            description);
+    }
+
+    private StartReadinessItemViewModel BuildUsbLayoutReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    {
+        bool requiresGpt = HasReason(evaluation, MediaPreflightBlockingReason.Arm64RequiresGpt);
+        string description = requiresGpt
+            ? GetBlockingReasonText(MediaPreflightBlockingReason.Arm64RequiresGpt)
+            : string.Format(
+                localizationService.GetString("StartMedia.Readiness.UsbLayout.Format"),
+                evaluation.EffectiveUsbPartitionStyle,
+                FormatUsbFormatMode(options.UsbFormatMode));
+
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.UsbLayout.Header"),
+            requiresGpt ? StartReadinessState.Warning : StartReadinessState.Ready,
+            description);
+    }
+
+    private StartReadinessItemViewModel BuildConnectRuntimePayloadReadinessItem(MediaPreflightOptions options)
+    {
+        bool isReady = options.IsConnectRuntimePayloadReady == true;
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Readiness.Runtime.Connect"),
+            isReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            isReady
+                ? localizationService.GetString("StartMedia.Readiness.Runtime.ConnectReady")
+                : GetBlockingReasonText(MediaPreflightBlockingReason.ConnectRuntimePayloadNotReady));
+    }
+
+    private StartReadinessItemViewModel BuildDeployRuntimePayloadReadinessItem(MediaPreflightOptions options)
+    {
+        bool isReady = options.IsDeployRuntimePayloadReady == true;
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Readiness.Runtime.Deploy"),
+            isReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            isReady
+                ? localizationService.GetString("StartMedia.Readiness.Runtime.DeployReady")
+                : GetBlockingReasonText(MediaPreflightBlockingReason.DeployRuntimePayloadNotReady));
+    }
+
+    private StartReadinessItemViewModel BuildNetworkReadinessItem(MediaPreflightOptions options)
+    {
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.Network"),
+            options.IsNetworkConfigurationReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            options.IsNetworkConfigurationReady
+                ? localizationService.GetString("StartMedia.Readiness.Network.Ready")
+                : GetBlockingReasonText(MediaPreflightBlockingReason.NetworkConfigurationNotReady),
+            options.IsNetworkConfigurationReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Network);
+    }
+
+    private StartReadinessItemViewModel BuildDeployConfigurationReadinessItem(MediaPreflightOptions options)
+    {
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.Deploy"),
+            options.IsDeployConfigurationReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            options.IsDeployConfigurationReady
+                ? localizationService.GetString("StartMedia.Readiness.Deploy.Ready")
+                : GetBlockingReasonText(MediaPreflightBlockingReason.DeployConfigurationNotReady),
+            options.IsDeployConfigurationReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Customization);
+    }
+
+    private StartReadinessItemViewModel BuildConnectProvisioningReadinessItem(MediaPreflightOptions options)
+    {
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.Connect"),
+            options.IsConnectProvisioningReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            options.IsConnectProvisioningReady
+                ? localizationService.GetString("StartMedia.Readiness.Connect.Ready")
+                : GetBlockingReasonText(MediaPreflightBlockingReason.ConnectProvisioningNotReady),
+            options.IsConnectProvisioningReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Network);
+    }
+
+    private StartReadinessItemViewModel BuildRequiredSecretsReadinessItem(MediaPreflightOptions options)
+    {
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.Secrets"),
+            options.AreRequiredSecretsReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            options.AreRequiredSecretsReady
+                ? localizationService.GetString("StartMedia.Readiness.Secrets.Ready")
+                : GetBlockingReasonText(MediaPreflightBlockingReason.RequiredSecretsNotReady),
+            options.AreRequiredSecretsReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Network);
+    }
+
+    private StartReadinessItemViewModel BuildAutopilotReadinessItem(MediaPreflightOptions options)
+    {
+        if (!options.IsAutopilotEnabled)
+        {
+            return CreateReadinessItem(
+                localizationService.GetString("StartMedia.Field.Autopilot"),
+                StartReadinessState.NotConfigured,
+                localizationService.GetString("StartMedia.Readiness.Autopilot.Disabled"));
+        }
+
+        return CreateReadinessItem(
+            localizationService.GetString("StartMedia.Field.Autopilot"),
+            options.IsAutopilotConfigurationReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
+            options.IsAutopilotConfigurationReady
+                ? FormatAutopilot(options)
+                : GetBlockingReasonText(MediaPreflightBlockingReason.AutopilotConfigurationNotReady),
+            options.IsAutopilotConfigurationReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Autopilot);
+    }
+
+    private StartReadinessItemViewModel CreateReadinessItem(
+        string title,
+        StartReadinessState state,
+        string description,
+        StartReadinessNavigationTarget navigationTarget = StartReadinessNavigationTarget.None)
+    {
+        return new StartReadinessItemViewModel(
+            title,
+            description,
+            localizationService.GetString($"StartMedia.Readiness.State.{state}"),
+            GetReadinessGlyph(state),
+            state is StartReadinessState.Blocked or StartReadinessState.Warning,
+            navigationTarget,
+            navigationTarget == StartReadinessNavigationTarget.None
+                ? string.Empty
+                : localizationService.GetString("StartMedia.Readiness.Action.Review"));
+    }
+
+    private static bool ReplaceReadinessItems(
+        ObservableCollection<StartReadinessItemViewModel> target,
+        IEnumerable<StartReadinessItemViewModel> items)
+    {
+        target.Clear();
+        bool hasAttentionItem = false;
+        foreach (StartReadinessItemViewModel item in items)
+        {
+            target.Add(item);
+            hasAttentionItem |= item.ExpandsGroup;
+        }
+
+        return hasAttentionItem;
+    }
+
+    private static MediaPreflightBlockingReason? GetFirstReason(
+        MediaPreflightEvaluation evaluation,
+        params MediaPreflightBlockingReason[] reasons)
+    {
+        foreach (MediaPreflightBlockingReason reason in reasons)
+        {
+            if (HasReason(evaluation, reason))
+            {
+                return reason;
+            }
+        }
+
+        return null;
+    }
+
+    private static bool HasReason(MediaPreflightEvaluation evaluation, MediaPreflightBlockingReason reason)
+    {
+        return evaluation.IsoBlockingReasons.Contains(reason) || evaluation.UsbBlockingReasons.Contains(reason);
+    }
+
+    private static string GetReadinessGlyph(StartReadinessState state)
+    {
+        return state switch
+        {
+            StartReadinessState.Ready => "\uE8FB",
+            StartReadinessState.Warning => "\uE7BA",
+            StartReadinessState.Blocked => "\uE711",
+            StartReadinessState.Loading => "\uE895",
+            _ => "\uE946"
+        };
     }
 
     private string BuildGlobalSummary(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
@@ -1112,6 +1513,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             .ToList();
     }
 
+    private static bool IsBlockingReadinessReason(MediaPreflightBlockingReason reason)
+    {
+        return reason is not (MediaPreflightBlockingReason.InvalidIsoPath
+            or MediaPreflightBlockingReason.NoUsbTarget
+            or MediaPreflightBlockingReason.Arm64RequiresGpt);
+    }
+
     private IReadOnlyList<string> GetAvailableWinPeLanguages()
     {
         if (!adkService.CurrentStatus.CanCreateMedia)
@@ -1151,6 +1559,23 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         FormatModes.Add(new(UsbFormatMode.Quick, localizationService.GetString("StartMedia.FormatMode.Quick")));
         FormatModes.Add(new(UsbFormatMode.Complete, localizationService.GetString("StartMedia.FormatMode.Complete")));
         SelectedFormatMode = SelectOption(FormatModes, selectedValue);
+    }
+
+    private void RebuildPartitionStyles()
+    {
+        UsbPartitionStyle selectedValue = SelectedArchitecture?.Value == WinPeArchitecture.Arm64
+            ? UsbPartitionStyle.Gpt
+            : SelectedPartitionStyle?.Value ?? ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt);
+
+        PartitionStyles.Clear();
+        PartitionStyles.Add(new(UsbPartitionStyle.Gpt, "GPT"));
+
+        if (SelectedArchitecture?.Value != WinPeArchitecture.Arm64)
+        {
+            PartitionStyles.Add(new(UsbPartitionStyle.Mbr, "MBR"));
+        }
+
+        SelectedPartitionStyle = SelectOption(PartitionStyles, selectedValue) ?? PartitionStyles[0];
     }
 
     private void RebuildUsbCandidateDisplayNames()
@@ -1415,6 +1840,25 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         Iso,
         Usb
+    }
+
+    private enum StartReadinessState
+    {
+        Ready,
+        Warning,
+        Blocked,
+        NotConfigured,
+        Loading
+    }
+
+    private enum UsbCandidateDiscoveryState
+    {
+        NotLoaded,
+        Loading,
+        Ready,
+        Empty,
+        Error,
+        Blocked
     }
 
     private sealed record RuntimePayloadReadiness(bool IsConnectReady, bool IsDeployReady)

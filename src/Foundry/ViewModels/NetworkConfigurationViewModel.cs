@@ -100,6 +100,12 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public partial string BrowseButtonText { get; set; }
 
     [ObservableProperty]
+    public partial bool IsDot1xExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsWifiExpanded { get; set; }
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsDot1xSectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDot1xCertificatePathEnabled))]
     [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
@@ -229,6 +235,47 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public Visibility WifiValidationVisibility => HasWifiValidationError ? Visibility.Visible : Visibility.Collapsed;
     public bool HasValidationError => HasDot1xValidationError || HasWifiValidationError;
     public string ValidationMessage => HasDot1xValidationError ? Dot1xValidationMessage : WifiValidationMessage;
+    public Visibility Dot1xSettingsVisibility => IsDot1xEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility Dot1xCertificatePathVisibility => IsDot1xCertificatePathEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WifiConfiguredVisibility => IsWifiProvisioned ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WifiConfigurationFieldsVisibility => IsWifiConfigurationSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WifiPersonalSettingsVisibility => IsWifiPersonalSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WifiEnterpriseSettingsVisibility => IsWifiEnterpriseSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WifiCertificatePathVisibility => IsWifiCertificatePathEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public string Dot1xProfileTemplateValidationMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings()),
+        NetworkConfigurationValidationCode.WiredProfileTemplateRequired,
+        NetworkConfigurationValidationCode.WiredProfileTemplateMissing);
+    public Visibility Dot1xProfileTemplateValidationVisibility => ToVisibility(Dot1xProfileTemplateValidationMessage);
+    public string Dot1xCertificateValidationMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings()),
+        NetworkConfigurationValidationCode.WiredCertificateRequired,
+        NetworkConfigurationValidationCode.WiredCertificateMissing);
+    public Visibility Dot1xCertificateValidationVisibility => ToVisibility(Dot1xCertificateValidationMessage);
+    public string WifiSsidValidationMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()),
+        NetworkConfigurationValidationCode.WifiSsidRequired);
+    public Visibility WifiSsidValidationVisibility => ToVisibility(WifiSsidValidationMessage);
+    public string WifiSecurityTypeValidationMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()),
+        NetworkConfigurationValidationCode.UnsupportedWifiSecurityType);
+    public Visibility WifiSecurityTypeValidationVisibility => ToVisibility(WifiSecurityTypeValidationMessage);
+    public string WifiPassphraseValidationMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()),
+        NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid);
+    public Visibility WifiPassphraseValidationVisibility => ToVisibility(WifiPassphraseValidationMessage);
+    public string WifiEnterpriseTemplateValidationMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()),
+        NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateRequired,
+        NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateMissing,
+        NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationUnsupported,
+        NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationMismatch);
+    public Visibility WifiEnterpriseTemplateValidationVisibility => ToVisibility(WifiEnterpriseTemplateValidationMessage);
+    public string WifiCertificateValidationMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()),
+        NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired,
+        NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
+    public Visibility WifiCertificateValidationVisibility => ToVisibility(WifiCertificateValidationMessage);
 
     public void Dispose()
     {
@@ -286,11 +333,13 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
 
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnDot1xProfileTemplatePathChanged(string value)
     {
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnIsDot1xCertificateRequiredChanged(bool value)
@@ -301,11 +350,13 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
 
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnDot1xCertificatePathChanged(string value)
     {
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnIsWifiProvisionedChanged(bool value)
@@ -317,6 +368,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
 
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnIsWifiConfiguredChanged(bool value)
@@ -333,11 +385,13 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
 
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnWifiSsidChanged(string value)
     {
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnSelectedWifiSecurityTypeChanged(SelectionOption<string>? value)
@@ -358,6 +412,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         OnPropertyChanged(nameof(IsWifiPersonalSelected));
         OnPropertyChanged(nameof(IsWifiEnterpriseSelected));
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnWifiPassphraseChanged(string value)
@@ -368,11 +423,13 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
 
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnWifiEnterpriseProfileTemplatePathChanged(string value)
     {
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnIsWifiCertificateRequiredChanged(bool value)
@@ -383,11 +440,13 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
 
         SaveState();
+        RefreshPresentationState();
     }
 
     partial void OnWifiCertificatePathChanged(string value)
     {
         SaveState();
+        RefreshPresentationState();
     }
 
     private async Task<string?> PickOpenFileAsync(string titleKey, IReadOnlyList<string> filters)
@@ -413,6 +472,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         IsWifiCertificateRequired = settings.Wifi.RequiresCertificate;
         WifiCertificatePath = settings.Wifi.CertificatePath ?? string.Empty;
         isApplyingState = false;
+        RefreshPresentationState();
     }
 
     private void SaveState()
@@ -516,6 +576,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiEnterpriseTemplateText = localizationService.GetString("Network.WifiEnterpriseTemplateLabel");
         WifiCertificateLabel = localizationService.GetString("Wifi.CertificateLabel");
         BrowseButtonText = localizationService.GetString("Common.Browse");
+        RefreshPresentationState();
     }
 
     private void RefreshWifiSecurityTypes()
@@ -553,6 +614,52 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         ApplyState(configurationStateService.Current.Network);
     }
 
+    private void RefreshPresentationState()
+    {
+        OnPropertyChanged(nameof(Dot1xSettingsVisibility));
+        OnPropertyChanged(nameof(Dot1xCertificatePathVisibility));
+        OnPropertyChanged(nameof(WifiConfiguredVisibility));
+        OnPropertyChanged(nameof(WifiConfigurationFieldsVisibility));
+        OnPropertyChanged(nameof(WifiPersonalSettingsVisibility));
+        OnPropertyChanged(nameof(WifiEnterpriseSettingsVisibility));
+        OnPropertyChanged(nameof(WifiCertificatePathVisibility));
+        OnPropertyChanged(nameof(Dot1xProfileTemplateValidationMessage));
+        OnPropertyChanged(nameof(Dot1xProfileTemplateValidationVisibility));
+        OnPropertyChanged(nameof(Dot1xCertificateValidationMessage));
+        OnPropertyChanged(nameof(Dot1xCertificateValidationVisibility));
+        OnPropertyChanged(nameof(WifiSsidValidationMessage));
+        OnPropertyChanged(nameof(WifiSsidValidationVisibility));
+        OnPropertyChanged(nameof(WifiSecurityTypeValidationMessage));
+        OnPropertyChanged(nameof(WifiSecurityTypeValidationVisibility));
+        OnPropertyChanged(nameof(WifiPassphraseValidationMessage));
+        OnPropertyChanged(nameof(WifiPassphraseValidationVisibility));
+        OnPropertyChanged(nameof(WifiEnterpriseTemplateValidationMessage));
+        OnPropertyChanged(nameof(WifiEnterpriseTemplateValidationVisibility));
+        OnPropertyChanged(nameof(WifiCertificateValidationMessage));
+        OnPropertyChanged(nameof(WifiCertificateValidationVisibility));
+
+        IsDot1xExpanded = ShouldExpandDot1xSection();
+        IsWifiExpanded = ShouldExpandWifiSection();
+    }
+
+    private bool ShouldExpandDot1xSection()
+    {
+        return IsDot1xEnabled ||
+               HasDot1xValidationError ||
+               !string.IsNullOrWhiteSpace(Dot1xProfileTemplatePath) ||
+               !string.IsNullOrWhiteSpace(Dot1xCertificatePath);
+    }
+
+    private bool ShouldExpandWifiSection()
+    {
+        return IsWifiProvisioned ||
+               IsWifiConfigured ||
+               HasWifiValidationError ||
+               !string.IsNullOrWhiteSpace(WifiSsid) ||
+               !string.IsNullOrWhiteSpace(WifiEnterpriseProfileTemplatePath) ||
+               !string.IsNullOrWhiteSpace(WifiCertificatePath);
+    }
+
     private string ResolveWifiPassphrase(NetworkSettings settings)
     {
         if (!(settings.WifiProvisioned || settings.Wifi.IsEnabled) ||
@@ -565,6 +672,29 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         return !string.IsNullOrWhiteSpace(settings.Wifi.Passphrase)
             ? settings.Wifi.Passphrase.Trim()
             : networkSecretStateService.PersonalWifiPassphrase ?? string.Empty;
+    }
+
+    private string FormatFieldValidationMessage(
+        NetworkConfigurationValidationResult result,
+        params NetworkConfigurationValidationCode[] supportedCodes)
+    {
+        return supportedCodes.Contains(result.Code)
+            ? FormatValidationMessage(result, IsDot1xValidationCode(result.Code))
+            : string.Empty;
+    }
+
+    private static Visibility ToVisibility(string value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    private static bool IsDot1xValidationCode(NetworkConfigurationValidationCode code)
+    {
+        return code is
+            NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
+            NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
+            NetworkConfigurationValidationCode.WiredCertificateRequired or
+            NetworkConfigurationValidationCode.WiredCertificateMissing;
     }
 
     private string FormatValidationMessage(NetworkConfigurationValidationResult result, bool dot1xOnly)

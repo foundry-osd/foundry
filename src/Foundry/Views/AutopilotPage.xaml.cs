@@ -16,4 +16,12 @@ public sealed partial class AutopilotPage : Page
         Unloaded -= OnUnloaded;
         ViewModel.Dispose();
     }
+
+    private void ProfilesTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is WinUI.TableView.TableView tableView)
+        {
+            ViewModel.ReplaceSelectedProfiles(tableView.SelectedItems.OfType<AutopilotProfileEntryViewModel>());
+        }
+    }
 }

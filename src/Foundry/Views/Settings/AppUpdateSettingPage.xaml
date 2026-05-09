@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.AppUpdateSettingPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,62 +7,70 @@
       xmlns:local="using:Foundry"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:Foundry.Views"
+      xmlns:wct="using:CommunityToolkit.WinUI.Controls"
       dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="5">
-            <dev:SettingsCard Header="{x:Bind ViewModel.CurrentVersion}"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Update.png}">
-                <dev:SettingsCard.Description>
+                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
+            <wct:SettingsCard Header="{x:Bind ViewModel.CurrentVersion}">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE895;" />
+                </wct:SettingsCard.HeaderIcon>
+                <wct:SettingsCard.Description>
                     <StackPanel Orientation="Horizontal"
-                                Spacing="5">
+                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
                         <TextBlock x:Uid="AppUpdate_LastCheckLabel"
-                                   Style="{StaticResource SecondaryTextStyle}" />
+                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
                         <TextBlock FlowDirection="LeftToRight"
-                                   Style="{StaticResource SecondaryTextStyle}"
+                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                    Text="{x:Bind ViewModel.LastUpdateCheck}" />
                     </StackPanel>
-                </dev:SettingsCard.Description>
+                </wct:SettingsCard.Description>
                 <StackPanel Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                             x:Uid="AppUpdate_CheckButton"
                             Command="{x:Bind ViewModel.CheckForUpdateCommand}"
                             IsEnabled="{x:Bind ViewModel.IsCheckButtonEnabled, Mode=OneWay}"
                             Style="{ThemeResource AccentButtonStyle}" />
                 </StackPanel>
-            </dev:SettingsCard>
+            </wct:SettingsCard>
 
-            <dev:SettingsCard Description="{x:Bind ViewModel.UpdateFeedUrl}"
-                              Header="{x:Bind ViewModel.UpdateChannel}"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Info.png}" />
+            <wct:SettingsCard Description="{x:Bind ViewModel.UpdateFeedUrl}"
+                              Header="{x:Bind ViewModel.UpdateChannel}">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE946;" />
+                </wct:SettingsCard.HeaderIcon>
+            </wct:SettingsCard>
 
-            <dev:SettingsCard Header="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Info.png}">
-                <dev:SettingsCard.Description>
+            <wct:SettingsCard Header="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE946;" />
+                </wct:SettingsCard.HeaderIcon>
+                <wct:SettingsCard.Description>
                     <HyperlinkButton Padding="5,0"
                                      x:Uid="AppUpdate_ReleaseNotesLink"
                                      Command="{x:Bind ViewModel.GetReleaseNotesCommand}"
                                      Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
-                </dev:SettingsCard.Description>
+                </wct:SettingsCard.Description>
                 <StackPanel VerticalAlignment="Center"
                             Orientation="Horizontal"
-                            Spacing="10">
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ProgressBar Width="160"
                                  Maximum="100"
                                  Value="{x:Bind ViewModel.DownloadProgress, Mode=OneWay}"
                                  Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                             x:Uid="AppUpdate_DownloadRestartButton"
                             Command="{x:Bind ViewModel.DownloadAndRestartUpdateCommand}"
                             Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
                 </StackPanel>
-            </dev:SettingsCard>
+            </wct:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

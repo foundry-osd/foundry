@@ -12,20 +12,86 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About_FoundryExpander.Description" xml:space="preserve">
-    <value>Shell de migration Foundry et outil de création de médias de déploiement.</value>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>À propos</value>
   </data>
-  <data name="About_FoundryExpander.Header" xml:space="preserve">
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>Créé et maintenu par Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>Contributeurs</value>
+  </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>Impossible de charger les contributeurs depuis GitHub.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>Chargement des contributeurs...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>{0} contribution(s)</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>Foundry est une solution moderne de déploiement Windows construite autour d'une application de création de médias et d'agents WinPE.</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>Le code source de Foundry est distribué sous licence MIT.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
     <value>Foundry</value>
   </data>
-  <data name="About_RelatedLinksText.Text" xml:space="preserve">
-    <value>Liens associés</value>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>Licence</value>
   </data>
-  <data name="About_ReleaseNotesLink.Content" xml:space="preserve">
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>Licences</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>Ouvrir les notes de version dans le navigateur</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>Les notes de version n'ont pas pu être chargées dans le navigateur intégré.</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>Chargement des notes de version...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
     <value>Notes de version</value>
   </data>
-  <data name="About_SourceCodeLink.Content" xml:space="preserve">
-    <value>Code source</value>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>Dépôt</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Foundry inclut les outils 7-Zip Extra pour la création de médias.</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-Zip Extra</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Création de médias de déploiement Windows</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>Les licences des dépendances tierces sont suivies dans le dépôt du projet et les manifestes de dépendances.</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>Dépendances tierces</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>À propos de Foundry</value>
+  </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>Liens utiles</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Rechercher une nouvelle version</value>
@@ -81,12 +147,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>Français</value>
   </data>
-  <data name="MainWindow.SearchBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher</value>
-  </data>
-  <data name="MainWindow.ThemeButton.ToolTip" xml:space="preserve">
-    <value>Changer le thème</value>
-  </data>
   <data name="AutopilotPage_Title.Text" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -107,6 +167,33 @@
   </data>
   <data name="Autopilot.RemoveButton" xml:space="preserve">
     <value>Supprimer la sélection</value>
+  </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>Actions de profil</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>Import du profil Autopilot...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>Téléchargement des profils Autopilot...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>Supprimer le profil Autopilot ?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>Supprimer « {0} » des profils Autopilot importés ?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>Supprimer le profil</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
+    <value>Supprimer les profils Autopilot ?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
+    <value>Supprimer les {0} profils Autopilot sélectionnés ?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
+    <value>Supprimer les profils</value>
   </data>
   <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
     <value>Profil par défaut</value>
@@ -183,50 +270,92 @@
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Personnalisation</value>
   </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry n'a pas pu ouvrir la documentation dans votre navigateur. Utilisez cette URL à la place.</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Ouvrir la documentation</value>
+  </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
     <value>Nommage machine</value>
   </data>
   <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Contrôler le nom d'ordinateur cible généré pendant le déploiement.</value>
+    <value>Contrôler la génération du nom d'ordinateur déployé dans WinPE.</value>
   </data>
   <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
     <value>Activer les règles de nommage machine</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
-    <value>Préfixe</value>
+    <value>Préfixe du nom d'ordinateur</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
+    <value>Préfixe appliqué avant le suffixe généré ou modifiable pendant le déploiement.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
-    <value>Générer automatiquement le suffixe après le préfixe</value>
+    <value>Générer automatiquement le suffixe du nom d'ordinateur</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
+    <value>Générer automatiquement le suffixe pendant le déploiement.</value>
   </data>
   <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
-    <value>Autoriser la modification manuelle après le préfixe</value>
+    <value>Autoriser la modification du suffixe pendant le déploiement</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
+    <value>Autoriser l'opérateur de déploiement à modifier le suffixe après le préfixe.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Le préfixe doit utiliser 1 à 15 caractères parmi A-Z, a-z, 0-9 ou -.</value>
   </data>
-  <data name="DocumentationPage_DocsLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>Choisir l'architecture, l'ISO, la langue WinPE, la disposition USB et les pilotes.</value>
   </data>
-  <data name="DocumentationPage_IssuesLink.Content" xml:space="preserve">
-    <value>Issues GitHub</value>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>Configurer le média</value>
   </data>
-  <data name="DocumentationPage_RepositoryLink.Content" xml:space="preserve">
-    <value>Dépôt GitHub</value>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>Vérifier l'état du Windows ADK et du module complémentaire Windows PE.</value>
   </data>
-  <data name="DocumentationPage_Title.Text" xml:space="preserve">
-    <value>Documentation</value>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>Ouvrir ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>Ouvrir la documentation Foundry dans votre navigateur.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>Ouvrir la documentation</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>Vérifier le résumé final et créer le média ISO ou USB.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>Vérifier et démarrer</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>Version installée</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Module complémentaire Windows PE</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>Créez des médias de déploiement Windows avec un workflow desktop moderne basé sur WinPE.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
     <value>Général</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Créer un média</value>
+    <value>Étape suivante</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Vérifier les paramètres média configurés et lancer la création ISO ou USB depuis la page Démarrer.</value>
+    <value>Vérifier les cibles de sortie finales depuis la page Démarrer après validation de Windows ADK et du module Windows PE.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>Créer un média</value>
+    <value>Vérifier et démarrer</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>Installez Windows ADK et le module complémentaire Windows PE avant de sélectionner la langue de démarrage WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>Aucun module linguistique WinPE n'a été détecté pour l'architecture sélectionnée.</value>
   </data>
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Localisation</value>
@@ -239,9 +368,6 @@
   </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>Fuseau horaire de déploiement</value>
-  </data>
-  <data name="Localization.ForceSingleVisibleLanguage" xml:space="preserve">
-    <value>Forcer une seule langue visible</value>
   </data>
   <data name="Localization.AutomaticOption" xml:space="preserve">
     <value>Automatique</value>
@@ -375,6 +501,9 @@
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Opération en cours</value>
   </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>Opération terminée</value>
+  </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
     <value>Démarrer</value>
   </data>
@@ -400,7 +529,7 @@
     <value>Langue de démarrage WinPE</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>Contrôlée par la page Paramètres généraux.</value>
+    <value>Langue utilisée par l'environnement de démarrage WinPE.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>Cible USB</value>
@@ -408,8 +537,11 @@
   <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
     <value>Disposition USB</value>
   </data>
-  <data name="StartMedia.UsbLayout.Description" xml:space="preserve">
-    <value>Sélectionner le style de partition et le mode de formatage pour la future commande USB.</value>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>Schéma de partition utilisé lors de la préparation de la cible USB sélectionnée.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>Comportement de formatage utilisé avant la copie du média USB final.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
     <value>Options de pilotes</value>
@@ -522,9 +654,6 @@
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>La création du média final a échoué.</value>
   </data>
-  <data name="StartMedia.Operation.FailedTitle" xml:space="preserve">
-    <value>La création du média a échoué</value>
-  </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Téléchargement en cours.</value>
   </data>
@@ -636,9 +765,6 @@
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
     <value>Validation des changements de l'image avec DISM.</value>
   </data>
-  <data name="StartMedia.Operation.SuccessTitle" xml:space="preserve">
-    <value>Création du média terminée</value>
-  </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Le média ISO a été créé avec succès.</value>
   </data>
@@ -660,6 +786,15 @@
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>L'actualisation des cibles USB a échoué.</value>
   </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>Recherche des cibles USB.</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>Les cibles USB n'ont pas encore été analysées.</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>Aucune cible USB candidate n'a été trouvée.</value>
+  </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
     <value>{0} cibles USB candidates trouvées.</value>
   </data>
@@ -669,8 +804,98 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Points bloquants ou différés :</value>
   </data>
-  <data name="StartMedia.Status" xml:space="preserve">
-    <value>Résumé média : {0}; points bloquants ou différés : {1}</value>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>Prêt à créer les médias ISO et USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>Prêt à créer le média ISO</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>Prêt à créer le média USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>{0} blocages de préparation nécessitent une action</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>Vérifier les avertissements de sortie média</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>Prérequis</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>Contrôles nécessaires avant que Foundry puisse construire le média.</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>Sortie média</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>Choix finaux pour la sortie ISO et USB.</value>
+  </data>
+  <data name="StartMedia.Readiness.RuntimePayloads.Header" xml:space="preserve">
+    <value>Payloads runtime</value>
+  </data>
+  <data name="StartMedia.Readiness.RuntimePayloads.Description" xml:space="preserve">
+    <value>Applications copiées dans le média généré.</value>
+  </data>
+  <data name="StartMedia.Readiness.ExpertConfiguration.Header" xml:space="preserve">
+    <value>Configuration expert</value>
+  </data>
+  <data name="StartMedia.Readiness.ExpertConfiguration.Description" xml:space="preserve">
+    <value>Paramètres de déploiement utilisés par Foundry dans WinPE.</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>Prêt</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>Avertissement</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>Bloqué</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>Non configuré</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>Chargement</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>Vérifier</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Windows ADK et le module complémentaire Windows PE sont prêts.</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>Les options de pilotes sont valides.</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.Connect" xml:space="preserve">
+    <value>Runtime Foundry.Connect</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.ConnectReady" xml:space="preserve">
+    <value>Le payload runtime Foundry.Connect est disponible.</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.Deploy" xml:space="preserve">
+    <value>Runtime Foundry.Deploy</value>
+  </data>
+  <data name="StartMedia.Readiness.Runtime.DeployReady" xml:space="preserve">
+    <value>Le payload runtime Foundry.Deploy est disponible.</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>La configuration réseau peut être provisionnée.</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>La configuration Deploy peut être générée.</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>Le bundle de provisionnement Connect peut être généré.</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>Les secrets média requis sont disponibles.</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>Autopilot est désactivé et ne bloque pas la création média.</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
@@ -819,9 +1044,6 @@
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Informations de produit et de version.</value>
   </data>
-  <data name="Nav_AboutKey.Subtitle" xml:space="preserve">
-    <value>Informations Foundry</value>
-  </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
     <value>À propos</value>
   </data>
@@ -854,9 +1076,6 @@
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Documentation Foundry et liens du projet.</value>
-  </data>
-  <data name="Nav_DocumentationKey.Subtitle" xml:space="preserve">
-    <value>Documentation</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentation</value>
@@ -918,12 +1137,6 @@
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Paramètres</value>
   </data>
-  <data name="SettingsPage_AboutCard.Description" xml:space="preserve">
-    <value>Produit, version, dépôt et informations de publication.</value>
-  </data>
-  <data name="SettingsPage_AboutCard.Header" xml:space="preserve">
-    <value>À propos</value>
-  </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Gérer le démarrage, la langue, les diagnostics et le comportement de l'application.</value>
   </data>
@@ -947,6 +1160,9 @@
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
     <value>Couleur d'accentuation</value>
+  </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>Ouvrir</value>
   </data>
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>Acrylique</value>
@@ -1062,11 +1278,29 @@
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Installez le module complémentaire Windows PE correspondant au Windows ADK installé.</value>
   </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>Configuration ADK</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>Installez ou mettez à niveau les outils de déploiement Windows ADK et le module complémentaire Windows PE requis pour créer des médias.</value>
+  </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>Détails de préparation</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>Version installée</value>
+  </data>
   <data name="Adk.Version.NotDetected" xml:space="preserve">
     <value>Version non détectée</value>
   </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>Politique de version requise</value>
+  </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
     <value>Nécessite Windows ADK 10.1.26100.2454+ avec le dernier correctif de maintenance ADK.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Module complémentaire Windows PE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Module complémentaire Windows PE installé</value>
@@ -1074,14 +1308,14 @@
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
     <value>Module complémentaire Windows PE manquant</value>
   </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>Capacité de création de médias</value>
+  </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
     <value>La création ISO et USB peut être déverrouillée.</value>
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
     <value>La création ISO et USB reste bloquée.</value>
-  </data>
-  <data name="Adk.Operation.Ready" xml:space="preserve">
-    <value>Aucune opération ADK n'est en cours.</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
     <value>Installation de Windows ADK</value>
@@ -1119,16 +1353,10 @@
   <data name="Adk.Operation.Failed" xml:space="preserve">
     <value>Échec de l'opération ADK</value>
   </data>
-  <data name="AdkPage_RefreshButton.Content" xml:space="preserve">
-    <value>Actualiser l'état</value>
-  </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Installer l'ADK</value>
+    <value>Installer l'ADK et le module WinPE</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Mettre à niveau l'ADK</value>
-  </data>
-  <data name="AdkPage_OpenLogsButton.Content" xml:space="preserve">
-    <value>Ouvrir les journaux</value>
+    <value>Mettre à niveau l'ADK et le module WinPE</value>
   </data>
 </root>

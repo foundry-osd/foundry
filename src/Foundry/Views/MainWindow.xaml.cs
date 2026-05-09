@@ -1,7 +1,10 @@
+using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Shell;
 using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml.Input;
+using Windows.System;
 using Serilog;
 
 namespace Foundry.Views
@@ -11,17 +14,21 @@ namespace Foundry.Views
         private readonly IApplicationLocalizationService localizationService;
         private readonly IOperationProgressService operationProgressService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
+        private readonly IExternalProcessLauncher externalProcessLauncher;
         private readonly ILogger logger = Log.ForContext<MainWindow>();
+        private const string DocumentationNavigationTag = "Foundry.External.Documentation";
+        private const string AboutNavigationTag = "Foundry.External.About";
         private ContentDialog? operationDialog;
-        private bool isClosingOperationDialog;
         private JsonNavigationService? jsonNavigationService;
         private TextBlock? operationStatusText;
         private ProgressBar? operationProgressBar;
         private TextBlock? operationProgressPercentText;
+        private Microsoft.UI.Xaml.Controls.ProgressRing? operationProgressRing;
         private StackPanel? operationSecondaryProgressPanel;
         private TextBlock? operationSecondaryStatusText;
         private ProgressBar? operationSecondaryProgressBar;
         private TextBlock? operationSecondaryProgressPercentText;
+        private bool operationDialogCanClose;
 
         public MainViewModel ViewModel { get; }
 
@@ -30,13 +37,14 @@ namespace Foundry.Views
             localizationService = App.GetService<IApplicationLocalizationService>();
             operationProgressService = App.GetService<IOperationProgressService>();
             shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
+            externalProcessLauncher = App.GetService<IExternalProcessLauncher>();
             ViewModel = App.GetService<MainViewModel>();
             this.InitializeComponent();
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
-            ApplyLocalizedShellText();
             InitializeNavigation();
+            ApplyLocalizedShellText();
             ApplyShellNavigationState();
 
             localizationService.LanguageChanged += OnLanguageChanged;
@@ -63,13 +71,13 @@ namespace Foundry.Views
 
         private void ApplyLocalizedShellText()
         {
-            SearchBox.PlaceholderText = localizationService.GetString("MainWindow.SearchBox.PlaceholderText");
-            ToolTipService.SetToolTip(ThemeButton, localizationService.GetString("MainWindow.ThemeButton.ToolTip"));
-
             if (NavView.SettingsItem is NavigationViewItem settingsItem)
             {
                 settingsItem.Content = localizationService.GetString("SettingsPage.PageTitle");
             }
+
+            EnsureExternalDocumentationFooterItem();
+            EnsureExternalAboutFooterItem();
         }
 
         private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
@@ -139,9 +147,24 @@ namespace Foundry.Views
                 return localizationService.GetString("SettingsPage_UpdateCard.Header");
             }
 
-            if (step.Page == typeof(AboutUsSettingPage))
+            if (step.Page == typeof(HomeLandingPage))
             {
-                return localizationService.GetString("SettingsPage_AboutCard.Header");
+                return localizationService.GetString("Nav_HomeKey.Title");
+            }
+
+            if (step.Page == typeof(AdkPage))
+            {
+                return localizationService.GetString("Adk.PageTitle");
+            }
+
+            if (step.Page == typeof(GeneralConfigurationPage))
+            {
+                return localizationService.GetString("GeneralConfigurationPage_Title.Text");
+            }
+
+            if (step.Page == typeof(StartPage))
+            {
+                return localizationService.GetString("StartPage_Title.Text");
             }
 
             return step.Label;
@@ -157,32 +180,6 @@ namespace Foundry.Views
             AppTitleBar.PaneToggleRequested -= OnTitleBarPaneToggleRequested;
             Closed -= OnClosed;
             ViewModel.Dispose();
-        }
-
-        private async void ThemeButton_Click(object sender, RoutedEventArgs e)
-        {
-            await App.Current.ThemeService.SetElementThemeWithoutSaveAsync();
-        }
-
-        private void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (shellNavigationGuardService.State != ShellNavigationState.Ready)
-            {
-                sender.ItemsSource = null;
-                return;
-            }
-
-            AutoSuggestBoxHelper.OnITitleBarAutoSuggestBoxTextChangedEvent(sender, args, NavFrame);
-        }
-
-        private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (shellNavigationGuardService.State != ShellNavigationState.Ready)
-            {
-                return;
-            }
-
-            AutoSuggestBoxHelper.OnITitleBarAutoSuggestBoxQuerySubmittedEvent(sender, args, NavFrame);
         }
 
         private void OnShellNavigationStateChanged(object? sender, EventArgs e)
@@ -259,7 +256,6 @@ namespace Foundry.Views
         {
             ShellNavigationState state = shellNavigationGuardService.State;
             bool isOperationRunning = state == ShellNavigationState.OperationRunning;
-            SearchBox.IsEnabled = state == ShellNavigationState.Ready;
             UpdateOperationDialog(isOperationRunning);
 
             ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, state);
@@ -277,7 +273,7 @@ namespace Foundry.Views
                 return;
             }
 
-            HideOperationDialog();
+            CompleteOperationDialog();
         }
 
         private async void ShowOperationDialog()
@@ -296,6 +292,7 @@ namespace Foundry.Views
                 DefaultButton = ContentDialogButton.None
             };
 
+            operationDialogCanClose = false;
             dialog.Closing += OnOperationDialogClosing;
             operationDialog = dialog;
 
@@ -311,7 +308,7 @@ namespace Foundry.Views
                     operationDialog = null;
                 }
 
-                isClosingOperationDialog = false;
+                ClearOperationDialogReferences();
             }
         }
 
@@ -366,6 +363,14 @@ namespace Foundry.Views
                 }
             };
 
+            operationProgressRing = new Microsoft.UI.Xaml.Controls.ProgressRing
+            {
+                Width = 56,
+                Height = 56,
+                IsActive = true,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
             return new StackPanel
             {
                 MinWidth = 420,
@@ -374,13 +379,7 @@ namespace Foundry.Views
                 Spacing = 16,
                 Children =
                 {
-                    new Microsoft.UI.Xaml.Controls.ProgressRing
-                    {
-                        Width = 56,
-                        Height = 56,
-                        IsActive = true,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    },
+                    operationProgressRing,
                     operationStatusText,
                     CreateProgressRow(operationProgressBar, operationProgressPercentText),
                     operationSecondaryProgressPanel
@@ -415,27 +414,35 @@ namespace Foundry.Views
             };
         }
 
-        private void HideOperationDialog()
+        private void CompleteOperationDialog()
         {
             if (operationDialog is null)
             {
                 return;
             }
 
+            operationDialogCanClose = true;
+            operationDialog.Title = localizationService.GetString("Shell.OperationCompleted");
+            operationDialog.CloseButtonText = localizationService.GetString("Common.Close");
+            operationDialog.DefaultButton = ContentDialogButton.Close;
+            ApplyOperationState(operationProgressService.State);
+        }
+
+        private void ClearOperationDialogReferences()
+        {
             operationStatusText = null;
             operationProgressBar = null;
             operationProgressPercentText = null;
+            operationProgressRing = null;
             operationSecondaryProgressPanel = null;
             operationSecondaryStatusText = null;
             operationSecondaryProgressBar = null;
             operationSecondaryProgressPercentText = null;
-            isClosingOperationDialog = true;
-            operationDialog.Hide();
         }
 
         private void OnOperationDialogClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
-            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning && !isClosingOperationDialog)
+            if (!operationDialogCanClose)
             {
                 args.Cancel = true;
             }
@@ -477,6 +484,145 @@ namespace Foundry.Views
             };
         }
 
+        private void EnsureExternalDocumentationFooterItem()
+        {
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, DocumentationNavigationTag);
+            if (item is null)
+            {
+                item = new()
+                {
+                    Tag = DocumentationNavigationTag,
+                    Icon = new FontIcon { Glyph = "\uE8A5" }
+                };
+                item.Tapped += DocumentationFooterItem_Tapped;
+                item.KeyDown += DocumentationFooterItem_KeyDown;
+                NavView.FooterMenuItems.Insert(0, item);
+            }
+
+            item.Content = localizationService.GetString("Nav_DocumentationKey.Title");
+            ToolTipService.SetToolTip(item, localizationService.GetString("Nav_DocumentationKey.Description"));
+            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+        }
+
+        private void EnsureExternalAboutFooterItem()
+        {
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, AboutNavigationTag);
+            if (item is null)
+            {
+                item = new()
+                {
+                    Tag = AboutNavigationTag,
+                    Icon = new FontIcon { Glyph = "\uE946" }
+                };
+                item.Tapped += AboutFooterItem_Tapped;
+                item.KeyDown += AboutFooterItem_KeyDown;
+                NavView.FooterMenuItems.Insert(Math.Min(1, NavView.FooterMenuItems.Count), item);
+            }
+
+            item.Content = localizationService.GetString("Nav_AboutKey.Title");
+            ToolTipService.SetToolTip(item, localizationService.GetString("Nav_AboutKey.Description"));
+            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+        }
+
+        private async void DocumentationFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            await OpenDocumentationAsync();
+        }
+
+        private async void DocumentationFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
+            {
+                return;
+            }
+
+            e.Handled = true;
+            await OpenDocumentationAsync();
+        }
+
+        private async void AboutFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            await ShowAboutDialogAsync();
+        }
+
+        private async void AboutFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
+            {
+                return;
+            }
+
+            e.Handled = true;
+            await ShowAboutDialogAsync();
+        }
+
+        private async Task OpenDocumentationAsync()
+        {
+            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            {
+                return;
+            }
+
+            try
+            {
+                await externalProcessLauncher.OpenUriAsync(new Uri(FoundryApplicationInfo.DocumentationUrl));
+            }
+            catch (Exception ex)
+            {
+                logger.Warning(ex, "Failed to open documentation URL.");
+                await ShowDocumentationFallbackDialogAsync();
+            }
+        }
+
+        private async Task ShowDocumentationFallbackDialogAsync()
+        {
+            ContentDialog dialog = new()
+            {
+                XamlRoot = RootGrid.XamlRoot,
+                Title = localizationService.GetString("Documentation.ExternalLaunchFailed.Title"),
+                PrimaryButtonText = localizationService.GetString("Common.Close"),
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new StackPanel
+                {
+                    Spacing = 12,
+                    Children =
+                    {
+                        new TextBlock
+                        {
+                            Text = localizationService.GetString("Documentation.ExternalLaunchFailed.Message"),
+                            TextWrapping = TextWrapping.Wrap
+                        },
+                        new Microsoft.UI.Xaml.Controls.TextBox
+                        {
+                            Text = FoundryApplicationInfo.DocumentationUrl,
+                            IsReadOnly = true
+                        }
+                    }
+                }
+            };
+
+            await dialog.ShowAsync();
+        }
+
+        private async Task ShowAboutDialogAsync()
+        {
+            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            {
+                return;
+            }
+
+            AboutDialog dialog = new(App.GetService<AboutUsSettingViewModel>())
+            {
+                XamlRoot = RootGrid.XamlRoot,
+                RequestedTheme = RootGrid.ActualTheme
+            };
+
+            await dialog.ShowAsync();
+            SynchronizeSelectedNavigationItem(NavFrame.CurrentSourcePageType);
+        }
+
         private void ApplyOperationState(OperationProgressState state)
         {
             if (operationStatusText is not null)
@@ -486,17 +632,24 @@ namespace Foundry.Views
 
             if (operationProgressBar is not null)
             {
-                operationProgressBar.Value = state.Progress;
+                operationProgressBar.Value = operationDialogCanClose ? 100 : state.Progress;
             }
 
             if (operationProgressPercentText is not null)
             {
-                operationProgressPercentText.Text = FormatProgressPercent(state.Progress);
+                operationProgressPercentText.Text = FormatProgressPercent(operationDialogCanClose ? 100 : state.Progress);
+            }
+
+            if (operationProgressRing is not null)
+            {
+                operationProgressRing.IsActive = !operationDialogCanClose;
             }
 
             if (operationSecondaryProgressPanel is not null)
             {
-                operationSecondaryProgressPanel.Visibility = state.HasSecondaryProgress ? Visibility.Visible : Visibility.Collapsed;
+                operationSecondaryProgressPanel.Visibility = !operationDialogCanClose && state.HasSecondaryProgress
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
             }
 
             if (operationSecondaryStatusText is not null)
@@ -544,6 +697,12 @@ namespace Foundry.Views
                 return;
             }
 
+            if (IsSettingsPageType(pageType))
+            {
+                NavView.SelectedItem = NavView.SettingsItem;
+                return;
+            }
+
             NavigationViewItem? item = FindNavigationItem(NavView.MenuItems, pageType.FullName)
                 ?? FindNavigationItem(NavView.FooterMenuItems, pageType.FullName);
 
@@ -551,6 +710,14 @@ namespace Foundry.Views
             {
                 NavView.SelectedItem = item;
             }
+        }
+
+        private static bool IsSettingsPageType(Type pageType)
+        {
+            return pageType == typeof(SettingsPage)
+                || pageType == typeof(GeneralSettingPage)
+                || pageType == typeof(ThemeSettingPage)
+                || pageType == typeof(AppUpdateSettingPage);
         }
 
         private static NavigationViewItem? FindNavigationItem(IList<object> items, string? uniqueId)

@@ -3,53 +3,59 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:dev="using:DevWinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:viewModels="using:Foundry.ViewModels"
+      xmlns:wct="using:CommunityToolkit.WinUI.Controls"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10"
-                    dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="8">
+        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource TitleTextBlockStyle}" />
+                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
-            <dev:SettingsCard Header="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E8AB}">
-                <ListView MaxHeight="360"
-                          ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}"
-                          SelectionMode="None">
-                    <ListView.ItemTemplate>
+            <wct:SettingsCard Header="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}"
+                              HorizontalContentAlignment="Right">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE8AB;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ItemsRepeater HorizontalAlignment="Right"
+                               MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
+                               ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                           MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
+                                           MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:LocalizationLanguageOptionViewModel">
                             <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
                                       IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </dev:SettingsCard>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </wct:SettingsCard>
 
-            <dev:SettingsCard Header="{x:Bind ViewModel.DefaultLanguageHeader, Mode=OneWay}"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E774}">
-                <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+            <wct:SettingsCard Header="{x:Bind ViewModel.DefaultLanguageHeader, Mode=OneWay}">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE774;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                           DisplayMemberPath="DisplayName"
                           ItemsSource="{x:Bind ViewModel.DefaultLanguageOptions, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.SelectedDefaultLanguage, Mode=TwoWay}" />
-            </dev:SettingsCard>
+            </wct:SettingsCard>
 
-            <dev:SettingsCard Header="{x:Bind ViewModel.TimeZoneHeader, Mode=OneWay}"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E916}">
-                <ComboBox MinWidth="420"
+            <wct:SettingsCard Header="{x:Bind ViewModel.TimeZoneHeader, Mode=OneWay}">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE916;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                           DisplayMemberPath="DisplayName"
                           ItemsSource="{x:Bind ViewModel.TimeZoneOptions, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />
-            </dev:SettingsCard>
-
-            <dev:SettingsCard Header="{x:Bind ViewModel.ForceSingleVisibleLanguageText, Mode=OneWay}"
-                              HeaderIcon="{dev:FontIcon GlyphCode=E8FB}">
-                <ToggleSwitch IsOn="{x:Bind ViewModel.ForceSingleVisibleLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </dev:SettingsCard>
+            </wct:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

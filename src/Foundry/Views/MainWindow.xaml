@@ -17,24 +17,9 @@
                   IsBackButtonVisible="True"
                   IsPaneToggleButtonVisible="True"
                   Subtitle="{x:Bind dev:ProcessInfoHelper.VersionWithPrefix}">
-            <AutoSuggestBox x:Name="SearchBox"
-                            MinWidth="320"
-                            VerticalAlignment="Center"
-                            QueryIcon="Find"
-                            QuerySubmitted="OnQuerySubmitted"
-                            TextChanged="OnTextChanged" />
             <TitleBar.IconSource>
                 <ImageIconSource ImageSource="ms-appx:///Assets/AppIcon.png" />
             </TitleBar.IconSource>
-            <TitleBar.RightHeader>
-                <Button x:Name="ThemeButton"
-                        Height="32"
-                        Margin="0,0,4,0"
-                        Click="ThemeButton_Click"
-                        Content="{dev:FontIcon GlyphCode=E793,
-                                               FontSize=16}"
-                        Style="{ThemeResource SubtleButtonStyle}" />
-            </TitleBar.RightHeader>
         </TitleBar>
         <NavigationView x:Name="NavView"
                         Grid.Row="1"

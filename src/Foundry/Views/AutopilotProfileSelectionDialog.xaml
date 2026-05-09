@@ -4,11 +4,15 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-               xmlns:tv="using:WinUI.TableView"
+               xmlns:viewModels="using:Foundry.ViewModels"
+               CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
+               CornerRadius="{ThemeResource OverlayCornerRadius}"
                DefaultButton="Primary"
+               PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+               Style="{ThemeResource DefaultContentDialogStyle}"
                mc:Ignorable="d">
     <Grid x:Name="DialogContentRoot"
-          RowSpacing="12">
+          RowSpacing="{ThemeResource FoundryContentGroupSpacing}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -26,53 +30,38 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock VerticalAlignment="Center"
-                       Style="{ThemeResource CaptionTextBlockStyle}"
+                       Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                        Text="{Binding SelectedCountDisplay}" />
 
             <Button Grid.Column="1"
-                    MinWidth="110"
-                    Margin="12,0,8,0"
+                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                    Margin="{ThemeResource FoundryInlineLeadingButtonMargin}"
                     Command="{Binding SelectAllCommand}"
                     Content="{Binding SelectAllText}" />
             <Button Grid.Column="2"
-                    MinWidth="110"
+                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                     Command="{Binding ClearCommand}"
                     Content="{Binding ClearText}" />
         </Grid>
 
-        <tv:TableView x:Name="ProfilesTable"
-                      Grid.Row="2"
-                      AutoGenerateColumns="False"
-                      CanFilterColumns="False"
-                      CanReorderColumns="False"
-                      CanResizeColumns="False"
-                      CanSortColumns="False"
-                      CornerButtonMode="None"
-                      HeadersVisibility="Columns"
-                      ItemsSource="{Binding Profiles}"
-                      SelectedItem="{Binding SelectedProfile, Mode=TwoWay}"
-                      SelectionMode="Single"
-                      SelectionUnit="Row"
-                      ShowExportOptions="False">
-            <tv:TableView.Columns>
-                <tv:TableViewTemplateColumn Header=""
-                                            MaxWidth="48"
-                                            MinWidth="48"
-                                            Width="48">
-                    <tv:TableViewTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      IsChecked="{Binding IsSelected, Mode=OneWay}"
-                                      IsHitTestVisible="False" />
-                        </DataTemplate>
-                    </tv:TableViewTemplateColumn.CellTemplate>
-                </tv:TableViewTemplateColumn>
-                <tv:TableViewTextColumn Binding="{Binding DisplayName}"
-                                        Header="{x:Bind ViewModel.NameColumnHeader, Mode=OneWay}" />
-                <tv:TableViewTextColumn Binding="{Binding FolderName}"
-                                        Header="{x:Bind ViewModel.FolderColumnHeader, Mode=OneWay}" />
-            </tv:TableView.Columns>
-        </tv:TableView>
+        <ListView x:Name="ProfilesList"
+                  Grid.Row="2"
+                  ItemsSource="{Binding Profiles}"
+                  SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:SelectableAutopilotProfileEntryViewModel">
+                    <CheckBox IsChecked="{x:Bind IsSelected, Mode=TwoWay}">
+                        <StackPanel Spacing="{ThemeResource FoundrySpace2}">
+                            <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                       Text="{x:Bind FolderName, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                        </StackPanel>
+                    </CheckBox>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </ContentDialog>

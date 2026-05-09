@@ -182,7 +182,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         CaptureNetworkSnapshot();
 
         _deploymentStartTimeUtc = DateTimeOffset.Now;
-        StartTimeText = _deploymentStartTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+        StartTimeText = FormatDeploymentStartTime(_deploymentStartTimeUtc.Value);
         ElapsedTimeText = "00:00:00";
         StartElapsedTimeTracking();
 
@@ -247,7 +247,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         SetCurrentStepProgressText("Applying image: 65%");
         CaptureNetworkSnapshot();
         _deploymentStartTimeUtc = DateTimeOffset.Now;
-        StartTimeText = _deploymentStartTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+        StartTimeText = FormatDeploymentStartTime(_deploymentStartTimeUtc.Value);
         ElapsedTimeText = "00:00:00";
         StartElapsedTimeTracking();
         SetStatus("Debug preview: progress page.");
@@ -479,6 +479,11 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
         TimeSpan elapsed = DateTimeOffset.Now - _deploymentStartTimeUtc.Value;
         ElapsedTimeText = elapsed.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+    }
+
+    private static string FormatDeploymentStartTime(DateTimeOffset startTime)
+    {
+        return startTime.ToLocalTime().ToString("G", CultureInfo.CurrentCulture);
     }
 
     private void StartRebootCountdown()

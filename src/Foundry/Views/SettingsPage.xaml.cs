@@ -56,9 +56,6 @@ namespace Foundry.Views
             UpdateSettingsCard.CommandParameter = CreateNavigationParameter(
                 typeof(AppUpdateSettingPage),
                 "SettingsPage_UpdateCard.Header");
-            AboutSettingsCard.CommandParameter = CreateNavigationParameter(
-                typeof(AboutUsSettingPage),
-                "SettingsPage_AboutCard.Header");
         }
 
         private NavigationParameterExtension CreateNavigationParameter(Type pageType, string titleResourceKey)
@@ -99,7 +96,6 @@ namespace Foundry.Views
             GeneralSettingsCard.IsEnabled = true;
             ThemeSettingsCard.IsEnabled = true;
             UpdateSettingsCard.IsEnabled = true;
-            AboutSettingsCard.IsEnabled = true;
         }
     }
 

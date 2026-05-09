@@ -14,7 +14,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
     private readonly IApplicationLocalizationService localizationService;
-    private readonly IExternalProcessLauncher externalProcessLauncher;
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
 
@@ -28,13 +27,37 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     public partial string StatusDescription { get; set; }
 
     [ObservableProperty]
+    public partial InfoBarSeverity StatusSeverity { get; set; }
+
+    [ObservableProperty]
+    public partial string SetupActionTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string SetupActionDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string ReadinessDetailsTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string InstalledVersionTitle { get; set; }
+
+    [ObservableProperty]
     public partial string InstalledVersion { get; set; }
+
+    [ObservableProperty]
+    public partial string RequiredVersionPolicyTitle { get; set; }
 
     [ObservableProperty]
     public partial string RequiredVersionPolicy { get; set; }
 
     [ObservableProperty]
+    public partial string WinPeAddonTitle { get; set; }
+
+    [ObservableProperty]
     public partial string WinPeAddonStatus { get; set; }
+
+    [ObservableProperty]
+    public partial string MediaCapabilityTitle { get; set; }
 
     [ObservableProperty]
     public partial string MediaCapabilityStatus { get; set; }
@@ -43,16 +66,13 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     public partial bool IsBusy { get; set; }
 
     [ObservableProperty]
-    public partial int OperationProgress { get; set; }
-
-    [ObservableProperty]
-    public partial string OperationStatus { get; set; }
-
-    [ObservableProperty]
     public partial bool IsInstallButtonVisible { get; set; }
 
     [ObservableProperty]
     public partial bool IsUpgradeButtonVisible { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsSetupActionVisible { get; set; }
 
     [ObservableProperty]
     public partial bool IsActionEnabled { get; set; }
@@ -62,7 +82,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
         IApplicationLocalizationService localizationService,
-        IExternalProcessLauncher externalProcessLauncher,
         IAppDispatcher appDispatcher,
         ILogger logger)
     {
@@ -70,18 +89,24 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
         this.localizationService = localizationService;
-        this.externalProcessLauncher = externalProcessLauncher;
         this.appDispatcher = appDispatcher;
         this.logger = logger.ForContext<AdkPageViewModel>();
 
         PageTitle = localizationService.GetString("Adk.PageTitle");
         StatusTitle = string.Empty;
         StatusDescription = string.Empty;
+        StatusSeverity = InfoBarSeverity.Informational;
+        SetupActionTitle = string.Empty;
+        SetupActionDescription = string.Empty;
+        ReadinessDetailsTitle = string.Empty;
+        InstalledVersionTitle = string.Empty;
         InstalledVersion = string.Empty;
+        RequiredVersionPolicyTitle = string.Empty;
         RequiredVersionPolicy = string.Empty;
+        WinPeAddonTitle = string.Empty;
         WinPeAddonStatus = string.Empty;
+        MediaCapabilityTitle = string.Empty;
         MediaCapabilityStatus = string.Empty;
-        OperationStatus = localizationService.GetString("Adk.Operation.Ready");
         IsActionEnabled = true;
 
         adkService.StatusChanged += OnAdkStatusChanged;
@@ -100,13 +125,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private async Task RefreshStatusAsync()
-    {
-        AdkInstallationStatus status = await adkService.RefreshStatusAsync();
-        ApplyShellState(status);
-    }
-
-    [RelayCommand]
     private Task InstallAdkAsync()
     {
         return RunBlockingAdkOperationAsync(adkService.InstallAsync);
@@ -116,12 +134,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     private Task UpgradeAdkAsync()
     {
         return RunBlockingAdkOperationAsync(adkService.UpgradeAsync);
-    }
-
-    [RelayCommand]
-    private Task OpenLogsAsync()
-    {
-        return externalProcessLauncher.OpenFolderAsync(Constants.LogDirectoryPath);
     }
 
     private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
@@ -136,7 +148,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             logger.Warning("ADK page operation failed. ErrorMessage={ErrorMessage}", ex.Message);
-            OperationStatus = localizationService.GetString("Adk.Operation.Failed");
             shellNavigationGuardService.SetState(ShellNavigationState.AdkBlocked);
         }
     }
@@ -189,26 +200,31 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         StatusTitle = GetStatusTitle(status);
         StatusDescription = GetStatusDescription(status);
+        StatusSeverity = GetStatusSeverity(status);
+        SetupActionTitle = localizationService.GetString("Adk.SetupAction.Title");
+        SetupActionDescription = localizationService.GetString("Adk.SetupAction.Description");
+        ReadinessDetailsTitle = localizationService.GetString("Adk.ReadinessDetails.Title");
+        InstalledVersionTitle = localizationService.GetString("Adk.Version.InstalledTitle");
         InstalledVersion = status.InstalledVersion ?? localizationService.GetString("Adk.Version.NotDetected");
+        RequiredVersionPolicyTitle = localizationService.GetString("Adk.Version.RequiredPolicyTitle");
         RequiredVersionPolicy = localizationService.GetString("Adk.Version.RequiredPolicy");
+        WinPeAddonTitle = localizationService.GetString("Adk.WinPeAddon.Title");
         WinPeAddonStatus = status.IsWinPeAddonInstalled
             ? localizationService.GetString("Adk.WinPeAddon.Installed")
             : localizationService.GetString("Adk.WinPeAddon.Missing");
+        MediaCapabilityTitle = localizationService.GetString("Adk.MediaCapability.Title");
         MediaCapabilityStatus = status.CanCreateMedia
             ? localizationService.GetString("Adk.MediaCapability.Ready")
             : localizationService.GetString("Adk.MediaCapability.Blocked");
         IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
         IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled || !status.IsWinPeAddonInstalled);
+        IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
         IsActionEnabled = !IsBusy;
     }
 
     private void ApplyOperationState(OperationProgressState state)
     {
         IsBusy = state.IsRunning;
-        OperationProgress = state.Progress;
-        OperationStatus = !string.IsNullOrWhiteSpace(state.Status)
-            ? state.Status
-            : localizationService.GetString("Adk.Operation.Ready");
         IsActionEnabled = !IsBusy;
     }
 
@@ -230,6 +246,18 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         }
 
         return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+    }
+
+    private static InfoBarSeverity GetStatusSeverity(AdkInstallationStatus status)
+    {
+        if (status.CanCreateMedia)
+        {
+            return InfoBarSeverity.Success;
+        }
+
+        return status.IsInstalled && status.IsCompatible
+            ? InfoBarSeverity.Warning
+            : InfoBarSeverity.Error;
     }
 
     private string GetStatusDescription(AdkInstallationStatus status)
