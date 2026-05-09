@@ -300,8 +300,8 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Autopilot` shows visible busy/status feedback for import and tenant download operations.
   - [x] `Autopilot` replaces or repairs the tenant profile picker interaction model so multi-select is accessible and keyboard-clear.
   - [x] Add Autopilot profile deletion confirmation with the profile name and destructive-action wording.
-  - [ ] Keep both Customization machine naming options while improving labels, validation placement, spacing, and design-token alignment.
-  - [ ] `Customization` clarifies machine naming labels/descriptions, for example `Auto-generate computer name suffix` and `Allow suffix edit during deployment`.
+  - [x] Keep both Customization machine naming options while improving labels, validation placement, spacing, and design-token alignment.
+  - [x] `Customization` clarifies machine naming labels/descriptions, for example `Auto-generate computer name suffix` and `Allow suffix edit during deployment`.
   - [ ] `Settings` uses the meta-page header pattern; `About` uses the branded tabbed dialog header; `Documentation` opens externally and has no in-app header.
   - [ ] `Settings` selected-item synchronization handles the built-in settings item and settings subpages correctly.
   - [ ] Remove the title-bar theme quick toggle.
