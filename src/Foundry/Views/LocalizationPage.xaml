@@ -28,7 +28,7 @@
 
                     <StackPanel VerticalAlignment="Center"
                                 Orientation="Horizontal"
-                                Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
                         <FontIcon FontSize="{ThemeResource FoundryIconSizeDefault}"
                                   Glyph="&#xE8AB;" />
 
