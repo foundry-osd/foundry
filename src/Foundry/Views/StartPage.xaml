@@ -66,41 +66,57 @@
                      Severity="{x:Bind ViewModel.ReadinessSeverity, Mode=OneWay}"
                      Title="{x:Bind ViewModel.StatusSummary, Mode=OneWay}" />
 
-            <wct:SettingsCard x:Name="ReadinessPrerequisitesCard"
-                              HorizontalContentAlignment="Stretch">
-                <wct:SettingsCard.HeaderIcon>
+            <wct:SettingsExpander x:Name="ReadinessPrerequisitesCard"
+                                  IsExpanded="{x:Bind ViewModel.IsPrerequisiteReadinessExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE946;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                              ItemsSource="{x:Bind ViewModel.PrerequisiteReadinessItems, Mode=OneWay}" />
-            </wct:SettingsCard>
+                </wct:SettingsExpander.HeaderIcon>
+                <wct:SettingsExpander.Items>
+                    <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                        <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                                      ItemsSource="{x:Bind ViewModel.PrerequisiteReadinessItems, Mode=OneWay}" />
+                    </Grid>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
 
-            <wct:SettingsCard x:Name="ReadinessMediaOutputCard"
-                              HorizontalContentAlignment="Stretch">
-                <wct:SettingsCard.HeaderIcon>
+            <wct:SettingsExpander x:Name="ReadinessMediaOutputCard"
+                                  IsExpanded="{x:Bind ViewModel.IsMediaOutputReadinessExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE8A5;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                              ItemsSource="{x:Bind ViewModel.MediaOutputReadinessItems, Mode=OneWay}" />
-            </wct:SettingsCard>
+                </wct:SettingsExpander.HeaderIcon>
+                <wct:SettingsExpander.Items>
+                    <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                        <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                                      ItemsSource="{x:Bind ViewModel.MediaOutputReadinessItems, Mode=OneWay}" />
+                    </Grid>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
 
-            <wct:SettingsCard x:Name="ReadinessRuntimePayloadsCard"
-                              HorizontalContentAlignment="Stretch">
-                <wct:SettingsCard.HeaderIcon>
+            <wct:SettingsExpander x:Name="ReadinessRuntimePayloadsCard"
+                                  IsExpanded="{x:Bind ViewModel.IsRuntimePayloadReadinessExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE756;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                              ItemsSource="{x:Bind ViewModel.RuntimePayloadReadinessItems, Mode=OneWay}" />
-            </wct:SettingsCard>
+                </wct:SettingsExpander.HeaderIcon>
+                <wct:SettingsExpander.Items>
+                    <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                        <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                                      ItemsSource="{x:Bind ViewModel.RuntimePayloadReadinessItems, Mode=OneWay}" />
+                    </Grid>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
 
-            <wct:SettingsCard x:Name="ReadinessExpertConfigurationCard"
-                              HorizontalContentAlignment="Stretch">
-                <wct:SettingsCard.HeaderIcon>
+            <wct:SettingsExpander x:Name="ReadinessExpertConfigurationCard"
+                                  IsExpanded="{x:Bind ViewModel.IsExpertConfigurationReadinessExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE713;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                              ItemsSource="{x:Bind ViewModel.ExpertConfigurationReadinessItems, Mode=OneWay}" />
-            </wct:SettingsCard>
+                </wct:SettingsExpander.HeaderIcon>
+                <wct:SettingsExpander.Items>
+                    <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                        <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
+                                      ItemsSource="{x:Bind ViewModel.ExpertConfigurationReadinessItems, Mode=OneWay}" />
+                    </Grid>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
 
             <wct:SettingsCard x:Name="IsoPathCard">
                 <wct:SettingsCard.HeaderIcon>

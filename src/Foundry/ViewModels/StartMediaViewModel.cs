@@ -173,6 +173,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial InfoBarSeverity ReadinessSeverity { get; set; } = InfoBarSeverity.Informational;
 
+    [ObservableProperty]
+    public partial bool IsPrerequisiteReadinessExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsMediaOutputReadinessExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsRuntimePayloadReadinessExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsExpertConfigurationReadinessExpanded { get; set; }
+
     public void Dispose()
     {
         adkService.StatusChanged -= OnAdkStatusChanged;
@@ -1145,7 +1157,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void RebuildReadinessItems(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
-        ReplaceReadinessItems(
+        IsPrerequisiteReadinessExpanded = ReplaceReadinessItems(
             PrerequisiteReadinessItems,
             [
                 BuildAdkReadinessItem(options),
@@ -1153,7 +1165,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 BuildDriverReadinessItem(evaluation)
             ]);
 
-        ReplaceReadinessItems(
+        IsMediaOutputReadinessExpanded = ReplaceReadinessItems(
             MediaOutputReadinessItems,
             [
                 BuildIsoOutputReadinessItem(options, evaluation),
@@ -1161,14 +1173,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 BuildUsbLayoutReadinessItem(options, evaluation)
             ]);
 
-        ReplaceReadinessItems(
+        IsRuntimePayloadReadinessExpanded = ReplaceReadinessItems(
             RuntimePayloadReadinessItems,
             [
                 BuildConnectRuntimePayloadReadinessItem(options),
                 BuildDeployRuntimePayloadReadinessItem(options)
             ]);
 
-        ReplaceReadinessItems(
+        IsExpertConfigurationReadinessExpanded = ReplaceReadinessItems(
             ExpertConfigurationReadinessItems,
             [
                 BuildNetworkReadinessItem(options),
@@ -1367,21 +1379,26 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             description,
             localizationService.GetString($"StartMedia.Readiness.State.{state}"),
             GetReadinessGlyph(state),
+            state is StartReadinessState.Blocked or StartReadinessState.Warning,
             navigationTarget,
             navigationTarget == StartReadinessNavigationTarget.None
                 ? string.Empty
                 : localizationService.GetString("StartMedia.Readiness.Action.Review"));
     }
 
-    private static void ReplaceReadinessItems(
+    private static bool ReplaceReadinessItems(
         ObservableCollection<StartReadinessItemViewModel> target,
         IEnumerable<StartReadinessItemViewModel> items)
     {
         target.Clear();
+        bool hasAttentionItem = false;
         foreach (StartReadinessItemViewModel item in items)
         {
             target.Add(item);
+            hasAttentionItem |= item.ExpandsGroup;
         }
+
+        return hasAttentionItem;
     }
 
     private static MediaPreflightBlockingReason? GetFirstReason(

@@ -17,6 +17,7 @@ public sealed class StartReadinessItemViewModel
         string description,
         string status,
         string glyph,
+        bool expandsGroup,
         StartReadinessNavigationTarget navigationTarget = StartReadinessNavigationTarget.None,
         string actionText = "")
     {
@@ -24,6 +25,7 @@ public sealed class StartReadinessItemViewModel
         Description = description;
         Status = status;
         Glyph = glyph;
+        ExpandsGroup = expandsGroup;
         NavigationTarget = navigationTarget;
         ActionText = actionText;
     }
@@ -35,6 +37,8 @@ public sealed class StartReadinessItemViewModel
     public string Status { get; }
 
     public string Glyph { get; }
+
+    public bool ExpandsGroup { get; }
 
     public StartReadinessNavigationTarget NavigationTarget { get; }
 
