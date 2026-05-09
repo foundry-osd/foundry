@@ -26,13 +26,15 @@
                     <wct:SettingsCard Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.Dot1xSettingsVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace4}">
                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                         Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1"
                                         MinWidth="{StaticResource SettingActionControlMinWidth}"
                                         Command="{x:Bind ViewModel.BrowseDot1xProfileTemplateCommand}"
@@ -51,13 +53,15 @@
                     <wct:SettingsCard Header="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.Dot1xCertificatePathVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace4}">
                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                         Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1"
                                         MinWidth="{StaticResource SettingActionControlMinWidth}"
                                         Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
@@ -88,8 +92,10 @@
                     <wct:SettingsCard Header="{x:Bind ViewModel.WifiSsidLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.WifiConfigurationFieldsVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
-                            <TextBox Text="{x:Bind ViewModel.WifiSsid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace4}">
+                            <TextBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                     Text="{x:Bind ViewModel.WifiSsid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                        Text="{x:Bind ViewModel.WifiSsidValidationMessage, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords"
@@ -99,9 +105,10 @@
                     <wct:SettingsCard Header="{x:Bind ViewModel.WifiSecurityTypeLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.WifiConfigurationFieldsVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace4}">
                             <ComboBox DisplayMemberPath="DisplayName"
-                                      HorizontalAlignment="Stretch"
+                                      Width="{ThemeResource FoundryWideInputMinWidth}"
                                       ItemsSource="{x:Bind ViewModel.WifiSecurityTypes, Mode=OneWay}"
                                       SelectedItem="{x:Bind ViewModel.SelectedWifiSecurityType, Mode=TwoWay}" />
                             <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}"
@@ -114,8 +121,10 @@
                                       Description="{x:Bind ViewModel.WifiPersonalDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.WifiPersonalSettingsVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace4}">
                             <PasswordBox x:Name="WifiPassphraseBox"
+                                         Width="{ThemeResource FoundryWideInputMinWidth}"
                                          Loaded="WifiPassphraseBox_OnLoaded"
                                          PasswordChanged="WifiPassphraseBox_OnPasswordChanged" />
                             <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}"
@@ -128,16 +137,18 @@
                                       Description="{x:Bind ViewModel.WifiEnterpriseDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.WifiEnterpriseSettingsVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace4}">
                             <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        Text="{x:Bind ViewModel.WifiEnterpriseTemplateText, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords" />
                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                         Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1"
                                         MinWidth="{StaticResource SettingActionControlMinWidth}"
                                         Command="{x:Bind ViewModel.BrowseWifiEnterpriseProfileTemplateCommand}"
@@ -156,13 +167,15 @@
                     <wct:SettingsCard Header="{x:Bind ViewModel.WifiCertificateLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.WifiCertificatePathVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace4}">
                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{x:Bind ViewModel.WifiCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                         Text="{x:Bind ViewModel.WifiCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1"
                                         MinWidth="{StaticResource SettingActionControlMinWidth}"
                                         Command="{x:Bind ViewModel.BrowseWifiCertificateCommand}"
