@@ -21,6 +21,15 @@
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Contributors</value>
   </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>Contributors could not be loaded from GitHub.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>Loading contributors...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>{0} contribution(s)</value>
+  </data>
   <data name="AboutDialog.Description" xml:space="preserve">
     <value>Foundry is a modern Windows deployment solution built around a desktop authoring app and WinPE runtime agents.</value>
   </data>
@@ -47,9 +56,6 @@
   </data>
   <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
     <value>Open release notes in browser</value>
-  </data>
-  <data name="AboutDialog.ProjectAuthorRole" xml:space="preserve">
-    <value>Project author and maintainer</value>
   </data>
   <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
     <value>Release notes could not be loaded in the embedded browser.</value>

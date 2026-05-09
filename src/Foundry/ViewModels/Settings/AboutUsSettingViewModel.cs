@@ -1,13 +1,36 @@
+using System.Collections.ObjectModel;
+using Foundry.Core.Services.Application;
+using Foundry.Services.GitHub;
+
 namespace Foundry.ViewModels
 {
     public sealed partial class AboutUsSettingViewModel : ObservableObject
     {
         private readonly Foundry.Services.Localization.IApplicationLocalizationService localizationService;
+        private readonly IGitHubRepositoryContributorService contributorService;
+        private readonly IAppDispatcher appDispatcher;
+        private bool hasLoadedContributors;
 
-        public AboutUsSettingViewModel(Foundry.Services.Localization.IApplicationLocalizationService localizationService)
+        public AboutUsSettingViewModel(
+            Foundry.Services.Localization.IApplicationLocalizationService localizationService,
+            IGitHubRepositoryContributorService contributorService,
+            IAppDispatcher appDispatcher)
         {
             this.localizationService = localizationService;
+            this.contributorService = contributorService;
+            this.appDispatcher = appDispatcher;
         }
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ContributorsLoadingVisibility))]
+        [NotifyPropertyChangedFor(nameof(ContributorsListVisibility))]
+        [NotifyPropertyChangedFor(nameof(ContributorsErrorVisibility))]
+        public partial bool IsLoadingContributors { get; set; }
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ContributorsListVisibility))]
+        [NotifyPropertyChangedFor(nameof(ContributorsErrorVisibility))]
+        public partial bool HasContributorLoadFailed { get; set; }
 
         public string Title => localizationService.GetString("AboutDialog.Title");
         public string Subtitle => localizationService.GetString("AboutDialog.Subtitle");
@@ -28,6 +51,8 @@ namespace Foundry.ViewModels
         public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
         public string ReleaseNotesErrorText => localizationService.GetString("AboutDialog.ReleaseNotesError");
         public string OpenReleaseNotesText => localizationService.GetString("AboutDialog.OpenReleaseNotes");
+        public string ContributorsLoadingText => localizationService.GetString("AboutDialog.ContributorsLoading");
+        public string ContributorsErrorText => localizationService.GetString("AboutDialog.ContributorsError");
         public Uri RepositoryUri { get; } = new(FoundryApplicationInfo.RepositoryUrl);
         public Uri LatestReleaseUri { get; } = new(FoundryApplicationInfo.LatestReleaseUrl);
         public Uri ReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
@@ -53,16 +78,71 @@ namespace Foundry.ViewModels
                 RepositoryUri)
         };
 
-        public IReadOnlyList<ContributorItemViewModel> ContributorItems => new[]
+        public ObservableCollection<ContributorItemViewModel> ContributorItems { get; } = [];
+
+        public Visibility ContributorsLoadingVisibility => IsLoadingContributors ? Visibility.Visible : Visibility.Collapsed;
+
+        public Visibility ContributorsListVisibility => !IsLoadingContributors && !HasContributorLoadFailed && ContributorItems.Count > 0
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
+        public Visibility ContributorsErrorVisibility => !IsLoadingContributors && HasContributorLoadFailed
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
+        public async Task LoadContributorsAsync(CancellationToken cancellationToken = default)
         {
-            new ContributorItemViewModel(
-                "Mickaël CHAVE",
-                localizationService.GetString("AboutDialog.ProjectAuthorRole"),
-                "MC",
-                localizationService.GetString("AboutDialog.OpenProfile"),
-                new Uri("https://github.com/mchave3"),
-                new Uri("https://github.com/mchave3.png"))
-        };
+            if (hasLoadedContributors || IsLoadingContributors)
+            {
+                return;
+            }
+
+            IsLoadingContributors = true;
+            HasContributorLoadFailed = false;
+
+            try
+            {
+                IReadOnlyList<GitHubRepositoryContributor> contributors =
+                    await contributorService.GetContributorsAsync(cancellationToken);
+
+                await appDispatcher.EnqueueAsync(() =>
+                {
+                    ContributorItems.Clear();
+                    foreach (GitHubRepositoryContributor contributor in contributors)
+                    {
+                        ContributorItems.Add(new ContributorItemViewModel(
+                            contributor.Login,
+                            localizationService.FormatString("AboutDialog.ContributionCountFormat", contributor.Contributions),
+                            contributor.Login.Length >= 2 ? contributor.Login[..2].ToUpperInvariant() : contributor.Login.ToUpperInvariant(),
+                            localizationService.GetString("AboutDialog.OpenProfile"),
+                            contributor.ProfileUri,
+                            contributor.AvatarUri));
+                    }
+
+                    hasLoadedContributors = ContributorItems.Count > 0;
+                    HasContributorLoadFailed = ContributorItems.Count == 0;
+                    RaiseContributorStateChanged();
+                });
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            catch
+            {
+                HasContributorLoadFailed = true;
+            }
+            finally
+            {
+                IsLoadingContributors = false;
+                RaiseContributorStateChanged();
+            }
+        }
+
+        private void RaiseContributorStateChanged()
+        {
+            OnPropertyChanged(nameof(ContributorsListVisibility));
+            OnPropertyChanged(nameof(ContributorsErrorVisibility));
+        }
     }
 
     public sealed record AboutLinkItemViewModel(string Title, string Description, string LinkText, Uri Uri);

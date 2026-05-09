@@ -6,47 +6,70 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       NavigationCacheMode="Required"
       mc:Ignorable="d">
-    <ScrollView Margin="0,10,0,0"
-                VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="{ThemeResource FoundrySpace4}">
-            <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
-                       Text="{Binding ContributorsSectionText}" />
-            <ItemsControl ItemsSource="{Binding ContributorItems}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="{ThemeResource FoundryDefaultContentPadding}"
-                              ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+    <Grid Margin="0,10,0,0">
+        <ScrollView VerticalScrollBarVisibility="Auto"
+                    Visibility="{Binding ContributorsListVisibility}">
+            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
+                           Text="{Binding ContributorsSectionText}" />
+                <ItemsControl ItemsSource="{Binding ContributorItems}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="{ThemeResource FoundryDefaultContentPadding}"
+                                  ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <PersonPicture Width="40"
-                                           Height="40"
-                                           DisplayName="{Binding Name}"
-                                           Initials="{Binding Initials}">
-                                <PersonPicture.ProfilePicture>
-                                    <BitmapImage UriSource="{Binding AvatarUri}" />
-                                </PersonPicture.ProfilePicture>
-                            </PersonPicture>
+                                <PersonPicture Width="40"
+                                               Height="40"
+                                               DisplayName="{Binding Name}"
+                                               Initials="{Binding Initials}">
+                                    <PersonPicture.ProfilePicture>
+                                        <BitmapImage UriSource="{Binding AvatarUri}" />
+                                    </PersonPicture.ProfilePicture>
+                                </PersonPicture>
 
-                            <StackPanel Grid.Column="1"
-                                        VerticalAlignment="Center"
-                                        Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                                <TextBlock FontWeight="SemiBold"
-                                           Text="{Binding Name}" />
-                                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                           Text="{Binding Role}" />
-                            </StackPanel>
+                                <StackPanel Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                    <TextBlock FontWeight="SemiBold"
+                                               Text="{Binding Name}" />
+                                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               Text="{Binding Role}" />
+                                </StackPanel>
 
-                            <HyperlinkButton Grid.Column="2"
-                                             Content="{Binding LinkText}"
-                                             NavigateUri="{Binding ProfileUri}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                <HyperlinkButton Grid.Column="2"
+                                                 Content="{Binding LinkText}"
+                                                 NavigateUri="{Binding ProfileUri}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollView>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="{ThemeResource FoundryContentGroupSpacing}"
+                    Visibility="{Binding ContributorsLoadingVisibility}">
+            <ProgressRing Width="40"
+                          Height="40"
+                          HorizontalAlignment="Center"
+                          IsActive="{Binding IsLoadingContributors}" />
+            <TextBlock Text="{Binding ContributorsLoadingText}" />
         </StackPanel>
-    </ScrollView>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="{ThemeResource FoundryContentGroupSpacing}"
+                    Visibility="{Binding ContributorsErrorVisibility}">
+            <FontIcon FontSize="{ThemeResource FoundryIconSizeHero}"
+                      Glyph="&#xE783;" />
+            <TextBlock Text="{Binding ContributorsErrorText}"
+                       TextWrapping="WrapWholeWords" />
+        </StackPanel>
+    </Grid>
 </Page>

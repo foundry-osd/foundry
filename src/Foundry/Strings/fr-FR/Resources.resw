@@ -21,6 +21,15 @@
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
     <value>Contributeurs</value>
   </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>Impossible de charger les contributeurs depuis GitHub.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>Chargement des contributeurs...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>{0} contribution(s)</value>
+  </data>
   <data name="AboutDialog.Description" xml:space="preserve">
     <value>Foundry est une solution moderne de déploiement Windows construite autour d'une application de création de médias et d'agents WinPE.</value>
   </data>
@@ -47,9 +56,6 @@
   </data>
   <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
     <value>Ouvrir les notes de version dans le navigateur</value>
-  </data>
-  <data name="AboutDialog.ProjectAuthorRole" xml:space="preserve">
-    <value>Auteur et mainteneur du projet</value>
   </data>
   <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
     <value>Les notes de version n'ont pas pu être chargées dans le navigateur intégré.</value>

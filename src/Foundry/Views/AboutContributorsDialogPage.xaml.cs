@@ -7,9 +7,14 @@ public sealed partial class AboutContributorsDialogPage : Page
         InitializeComponent();
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         DataContext = e.Parameter;
         base.OnNavigatedTo(e);
+
+        if (DataContext is AboutUsSettingViewModel viewModel)
+        {
+            await viewModel.LoadContributorsAsync();
+        }
     }
 }
