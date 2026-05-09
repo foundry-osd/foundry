@@ -258,7 +258,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Content dialogs size to their content within sane min/max constraints and remain centered.
   - [ ] Long paths, localized strings, and profile names are clipped or wrapped intentionally.
   - [ ] Avoid nested scroll friction where `ListView` or `TableView` sits inside an outer `ScrollView`.
-  - [x] Replace the `Localization` visible-language `ListView` with a non-scrolling `ItemsControl` so the page owns scrolling.
+  - [x] Replace the `Localization` visible-language `ListView` with a non-scrolling responsive `ItemsRepeater` selection surface so the page owns scrolling without an oversized single-column list.
   - [x] Tokenize repeated About dialog page margins and the Start readiness status-column width.
   - [x] Clip the Settings diagnostics log path intentionally and expose the full path through a tooltip.
 - [ ] **18.5** Rationalize control ownership:

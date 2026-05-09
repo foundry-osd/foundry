@@ -15,20 +15,48 @@
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
-            <wct:SettingsCard Header="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}"
-                              HorizontalContentAlignment="Stretch">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8AB;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ItemsControl ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="viewModels:LocalizationLanguageOptionViewModel">
-                            <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
-                                      IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </wct:SettingsCard>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{ThemeResource FoundryCardCornerRadius}"
+                    Padding="{ThemeResource FoundryDefaultContentPadding}">
+                <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}"
+                      RowSpacing="{ThemeResource FoundryContentGroupSpacing}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Grid.RowSpan="2"
+                              FontSize="{ThemeResource FoundryIconSizeDefault}"
+                              Glyph="&#xE8AB;" />
+
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Text="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}" />
+
+                    <ItemsRepeater Grid.Row="1"
+                                   Grid.Column="1"
+                                   ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                               MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
+                                               MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:LocalizationLanguageOptionViewModel">
+                                <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
+                                          IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </Grid>
+            </Border>
 
             <wct:SettingsCard Header="{x:Bind ViewModel.DefaultLanguageHeader, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>

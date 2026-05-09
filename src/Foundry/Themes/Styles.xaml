@@ -41,6 +41,7 @@
     <x:Double x:Key="FoundrySettingsControlMaxWidth">720</x:Double>
     <x:Double x:Key="FoundryMediumInputMinWidth">360</x:Double>
     <x:Double x:Key="FoundryWideInputMinWidth">420</x:Double>
+    <x:Double x:Key="FoundryCheckboxGridItemMinWidth">260</x:Double>
     <x:Double x:Key="FoundryCompactActionMinWidth">112</x:Double>
     <x:Double x:Key="FoundryStatusTextMinWidth">112</x:Double>
     <x:Double x:Key="FoundryInlineProgressWidth">180</x:Double>
