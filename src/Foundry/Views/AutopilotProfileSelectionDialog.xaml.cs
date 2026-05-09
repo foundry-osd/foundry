@@ -11,8 +11,7 @@ public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
     private const double SelectionColumnWidth = 48;
     private const double ColumnPaddingWidth = 96;
     private const double AverageCharacterWidth = 7.5;
-    private const double TableHeaderHeight = 36;
-    private const double TableRowHeight = 41;
+    private const double ListRowHeight = 54;
     private const int MaximumVisibleRows = 8;
 
     public AutopilotProfileSelectionDialog(AutopilotProfileSelectionDialogViewModel viewModel)
@@ -79,7 +78,7 @@ public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
         Resources["ContentDialogMaxWidth"] = contentWidth + DialogChromeWidth;
         Resources["ContentDialogMaxHeight"] = maximumDialogHeight;
         DialogContentRoot.Width = contentWidth;
-        ProfilesTable.Height = TableHeaderHeight + (visibleRows * TableRowHeight);
+        ProfilesList.Height = visibleRows * ListRowHeight;
     }
 
     private static double GetApplicationDoubleResource(string key, double fallback)

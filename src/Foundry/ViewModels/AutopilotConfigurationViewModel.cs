@@ -62,6 +62,13 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public bool HasProfiles => Profiles.Count > 0;
     public Visibility EmptyProfilesVisibility => HasProfiles ? Visibility.Collapsed : Visibility.Visible;
     public Visibility ProfilesVisibility => HasProfiles ? Visibility.Visible : Visibility.Collapsed;
+    public bool IsBusy => IsImporting || IsDownloading;
+    public Visibility BusyStatusVisibility => IsBusy ? Visibility.Visible : Visibility.Collapsed;
+    public string BusyStatusText => IsImporting
+        ? ImportingStatusText
+        : IsDownloading
+            ? DownloadingStatusText
+            : string.Empty;
 
     [ObservableProperty]
     public partial string PageTitle { get; set; }
@@ -83,6 +90,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string RemoveButtonText { get; set; }
+
+    [ObservableProperty]
+    public partial string ActionsHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string ImportingStatusText { get; set; }
+
+    [ObservableProperty]
+    public partial string DownloadingStatusText { get; set; }
+
+    [ObservableProperty]
+    public partial string RemoveProfileConfirmationTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string RemoveProfileConfirmationPrimaryButton { get; set; }
 
     [ObservableProperty]
     public partial string DefaultProfileLabel { get; set; }
@@ -123,12 +145,18 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
+    [NotifyPropertyChangedFor(nameof(IsBusy))]
+    [NotifyPropertyChangedFor(nameof(BusyStatusText))]
+    [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
     public partial bool IsImporting { get; set; }
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
+    [NotifyPropertyChangedFor(nameof(IsBusy))]
+    [NotifyPropertyChangedFor(nameof(BusyStatusText))]
+    [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
     public partial bool IsDownloading { get; set; }
 
     public void Dispose()
@@ -225,15 +253,26 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     }
 
     [RelayCommand(CanExecute = nameof(CanRemoveSelectedProfile))]
-    private void RemoveSelectedProfile()
+    private async Task RemoveSelectedProfileAsync()
     {
         if (SelectedProfile is null)
         {
             return;
         }
 
-        string removedProfileId = SelectedProfile.Id;
-        Profiles.Remove(SelectedProfile);
+        AutopilotProfileEntryViewModel profileToRemove = SelectedProfile;
+        bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
+            RemoveProfileConfirmationTitle,
+            localizationService.FormatString("Autopilot.RemoveConfirmationMessageFormat", profileToRemove.DisplayName),
+            RemoveProfileConfirmationPrimaryButton,
+            localizationService.GetString("Common.Cancel")));
+        if (!confirmed)
+        {
+            return;
+        }
+
+        string removedProfileId = profileToRemove.Id;
+        Profiles.Remove(profileToRemove);
 
         SelectedProfile = Profiles.FirstOrDefault();
         if (SelectedDefaultProfile is null ||
@@ -346,6 +385,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
         DownloadButtonText = localizationService.GetString("Autopilot.DownloadButton");
         RemoveButtonText = localizationService.GetString("Autopilot.RemoveButton");
+        ActionsHeader = localizationService.GetString("Autopilot.ActionsHeader");
+        ImportingStatusText = localizationService.GetString("Autopilot.ImportingStatus");
+        DownloadingStatusText = localizationService.GetString("Autopilot.DownloadingStatus");
+        RemoveProfileConfirmationTitle = localizationService.GetString("Autopilot.RemoveConfirmationTitle");
+        RemoveProfileConfirmationPrimaryButton = localizationService.GetString("Autopilot.RemoveConfirmationPrimaryButton");
         DefaultProfileLabel = localizationService.GetString("Autopilot.DefaultProfileLabel");
         ProfilesLabel = localizationService.GetString("Autopilot.ProfilesLabel");
         EmptyProfilesText = localizationService.GetString("Autopilot.ProfilesEmptyLabel");
@@ -353,6 +397,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ProfileSourceColumnHeader = localizationService.GetString("Autopilot.ColumnSource");
         ProfileImportedColumnHeader = localizationService.GetString("Autopilot.ColumnImported");
         ProfileFolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
+        OnPropertyChanged(nameof(BusyStatusText));
     }
 
     private void RefreshProfileState()

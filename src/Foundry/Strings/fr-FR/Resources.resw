@@ -108,6 +108,24 @@
   <data name="Autopilot.RemoveButton" xml:space="preserve">
     <value>Supprimer la sélection</value>
   </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>Actions de profil</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>Import du profil Autopilot...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>Téléchargement des profils Autopilot...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>Supprimer le profil Autopilot ?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>Supprimer « {0} » des profils Autopilot importés ?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>Supprimer le profil</value>
+  </data>
   <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
     <value>Profil par défaut</value>
   </data>

@@ -296,10 +296,10 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Localization` clearly owns deployment OS language choices and removes the separate single-visible-language toggle from the user-facing UI.
   - [x] Preserve current visible deployment language semantics while removing the user-facing `Force single visible deployment language` toggle.
   - [x] Reset default deployment language to `Automatic` when it no longer belongs to the selected visible deployment language set.
-  - [ ] `Autopilot` separates enablement, import/download actions, default profile, profile inventory, and destructive removal behavior.
-  - [ ] `Autopilot` shows visible busy/status feedback for import and tenant download operations.
-  - [ ] `Autopilot` replaces or repairs the tenant profile picker interaction model so multi-select is accessible and keyboard-clear.
-  - [ ] Add Autopilot profile deletion confirmation with the profile name and destructive-action wording.
+  - [x] `Autopilot` separates enablement, import/download actions, default profile, profile inventory, and destructive removal behavior.
+  - [x] `Autopilot` shows visible busy/status feedback for import and tenant download operations.
+  - [x] `Autopilot` replaces or repairs the tenant profile picker interaction model so multi-select is accessible and keyboard-clear.
+  - [x] Add Autopilot profile deletion confirmation with the profile name and destructive-action wording.
   - [ ] Keep both Customization machine naming options while improving labels, validation placement, spacing, and design-token alignment.
   - [ ] `Customization` clarifies machine naming labels/descriptions, for example `Auto-generate computer name suffix` and `Allow suffix edit during deployment`.
   - [ ] `Settings` uses the meta-page header pattern; `About` uses the branded tabbed dialog header; `Documentation` opens externally and has no in-app header.
