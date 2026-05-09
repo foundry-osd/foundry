@@ -23,6 +23,7 @@ namespace Foundry.ViewModels
         public string LicenseText => localizationService.GetString("AboutDialog.LicenseLink");
         public string AuthorsText => localizationService.GetString("AboutDialog.AuthorsText");
         public string FooterText => localizationService.GetString("AboutDialog.Footer");
+        public string UsefulLinksText => localizationService.GetString("AboutDialog.UsefulLinks");
         public string CloseText => localizationService.GetString("Common.Close");
         public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
         public string ReleaseNotesErrorText => localizationService.GetString("AboutDialog.ReleaseNotesError");
@@ -59,8 +60,8 @@ namespace Foundry.ViewModels
                 localizationService.GetString("AboutDialog.ProjectAuthorRole"),
                 "MC",
                 localizationService.GetString("AboutDialog.OpenProfile"),
-                new Uri("https://github.com/mchav"),
-                new Uri("https://github.com/mchav.png"))
+                new Uri("https://github.com/mchave3"),
+                new Uri("https://github.com/mchave3.png"))
         };
     }
 

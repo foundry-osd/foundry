@@ -4,7 +4,6 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-               CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
                CornerRadius="{ThemeResource OverlayCornerRadius}"
                DefaultButton="None"
                Style="{ThemeResource DefaultContentDialogStyle}"
@@ -13,38 +12,11 @@
           RowSpacing="{ThemeResource FoundryContentGroupSpacing}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
-                <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
-                           Text="{Binding Title}" />
-                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           Text="{Binding Subtitle}" />
-            </StackPanel>
-
-            <Button Grid.Column="1"
-                    Width="32"
-                    Height="32"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="{Binding CloseText}"
-                    Click="CloseButton_Click"
-                    Content="&#xE8BB;"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    Style="{ThemeResource SubtleButtonStyle}"
-                    ToolTipService.ToolTip="{Binding CloseText}" />
-        </Grid>
-
         <SelectorBar x:Name="SectionSelector"
-                     Grid.Row="1"
+                     HorizontalAlignment="Center"
                      SelectionChanged="SectionSelector_SelectionChanged">
             <SelectorBarItem Text="{Binding AboutSectionText}" />
             <SelectorBarItem Text="{Binding LicensesSectionText}" />
@@ -52,163 +24,35 @@
             <SelectorBarItem Text="{Binding ReleaseNotesSectionText}" />
         </SelectorBar>
 
-        <Grid Grid.Row="2">
-            <ScrollView x:Name="AboutSection"
-                        VerticalScrollBarVisibility="Auto">
-                <Grid Padding="0,8,0,0"
-                      ColumnSpacing="{ThemeResource FoundrySpace24}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+        <Button Width="46"
+                Height="31"
+                Padding="0"
+                Margin="0,-24,-24,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                AutomationProperties.Name="{Binding CloseText}"
+                Background="Transparent"
+                BorderThickness="0"
+                Click="CloseButton_Click"
+                CornerRadius="0"
+                ToolTipService.ToolTip="{Binding CloseText}">
+            <Button.Resources>
+                <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                 Color="#E81123" />
+                <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                 Color="#A80000" />
+                <SolidColorBrush x:Key="ButtonForegroundPointerOver"
+                                 Color="#FFFFFF" />
+                <SolidColorBrush x:Key="ButtonForegroundPressed"
+                                 Color="#FFFFFF" />
+            </Button.Resources>
+            <FontIcon FontSize="12"
+                      Glyph="&#xE711;" />
+        </Button>
 
-                    <Image Width="96"
-                           Height="96"
-                           Source="ms-appx:///Assets/AppIcon.png" />
-
-                    <StackPanel Grid.Column="1"
-                                Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                        <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                            <TextBlock Style="{ThemeResource FoundrySectionTitleTextBlockStyle}"
-                                       Text="{Binding AppName}" />
-                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                       IsTextSelectionEnabled="True"
-                                       Text="{Binding Version}" />
-                        </StackPanel>
-
-                        <TextBlock MaxWidth="{ThemeResource FoundrySummaryTextMaxWidth}"
-                                   Text="{Binding Description}"
-                                   TextWrapping="WrapWholeWords" />
-
-                        <StackPanel Orientation="Horizontal"
-                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <HyperlinkButton Content="{Binding RepositoryText}"
-                                             NavigateUri="{Binding RepositoryUri}" />
-                            <HyperlinkButton Content="{Binding SupportText}"
-                                             NavigateUri="{Binding SupportUri}" />
-                            <HyperlinkButton Content="{Binding LicenseText}"
-                                             NavigateUri="{Binding LicenseUri}" />
-                        </StackPanel>
-
-                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   Text="{Binding AuthorsText}"
-                                   TextWrapping="WrapWholeWords" />
-                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                   Text="{Binding FooterText}"
-                                   TextWrapping="WrapWholeWords" />
-                    </StackPanel>
-                </Grid>
-            </ScrollView>
-
-            <ScrollView x:Name="LicensesSection"
-                        Visibility="Collapsed"
-                        VerticalScrollBarVisibility="Auto">
-                <StackPanel Padding="0,8,0,0"
-                            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-                    <ItemsControl ItemsSource="{Binding LicenseItems}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Padding="{ThemeResource FoundryDefaultContentPadding}"
-                                      ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                                        <TextBlock FontWeight="SemiBold"
-                                                   Text="{Binding Title}"
-                                                   TextWrapping="WrapWholeWords" />
-                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                   Text="{Binding Description}"
-                                                   TextWrapping="WrapWholeWords" />
-                                    </StackPanel>
-
-                                    <HyperlinkButton Grid.Column="1"
-                                                     Content="{Binding LinkText}"
-                                                     NavigateUri="{Binding Uri}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </ScrollView>
-
-            <ScrollView x:Name="ContributorsSection"
-                        Visibility="Collapsed"
-                        VerticalScrollBarVisibility="Auto">
-                <StackPanel Padding="0,8,0,0"
-                            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-                    <ItemsControl ItemsSource="{Binding ContributorItems}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Padding="{ThemeResource FoundryDefaultContentPadding}"
-                                      ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <PersonPicture Width="40"
-                                                   Height="40"
-                                                   DisplayName="{Binding Name}"
-                                                   Initials="{Binding Initials}">
-                                        <PersonPicture.ProfilePicture>
-                                            <BitmapImage UriSource="{Binding AvatarUri}" />
-                                        </PersonPicture.ProfilePicture>
-                                    </PersonPicture>
-
-                                    <StackPanel Grid.Column="1"
-                                                VerticalAlignment="Center"
-                                                Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                                        <TextBlock FontWeight="SemiBold"
-                                                   Text="{Binding Name}" />
-                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                   Text="{Binding Role}" />
-                                    </StackPanel>
-
-                                    <HyperlinkButton Grid.Column="2"
-                                                     Content="{Binding LinkText}"
-                                                     NavigateUri="{Binding ProfileUri}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </ScrollView>
-
-            <Grid x:Name="ReleaseNotesSection"
-                  Visibility="Collapsed">
-                <WebView2 x:Name="ReleaseNotesWebView"
-                          Source="{Binding ReleasesUri}"
-                          NavigationCompleted="ReleaseNotesWebView_NavigationCompleted"
-                          NavigationStarting="ReleaseNotesWebView_NavigationStarting" />
-
-                <StackPanel x:Name="ReleaseNotesLoadingPanel"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                    <ProgressRing Width="40"
-                                  Height="40"
-                                  IsActive="True" />
-                    <TextBlock Text="{Binding ReleaseNotesLoadingText}" />
-                </StackPanel>
-
-                <StackPanel x:Name="ReleaseNotesErrorPanel"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Spacing="{ThemeResource FoundryContentGroupSpacing}"
-                            Visibility="Collapsed">
-                    <FontIcon FontSize="{ThemeResource FoundryIconSizeHero}"
-                              Glyph="&#xE783;" />
-                    <TextBlock Text="{Binding ReleaseNotesErrorText}"
-                               TextWrapping="WrapWholeWords" />
-                    <HyperlinkButton Content="{Binding OpenReleaseNotesText}"
-                                     NavigateUri="{Binding ReleasesUri}" />
-                </StackPanel>
-            </Grid>
-        </Grid>
+        <Frame x:Name="ContentFrame"
+               Grid.Row="1"
+               Margin="10,0,10,0"
+               IsNavigationStackEnabled="False" />
     </Grid>
 </ContentDialog>

@@ -638,6 +638,7 @@ namespace Foundry.Views
             };
 
             await dialog.ShowAsync();
+            SynchronizeSelectedNavigationItem(NavFrame.CurrentSourcePageType);
         }
 
         private void ApplyOperationState(OperationProgressState state)

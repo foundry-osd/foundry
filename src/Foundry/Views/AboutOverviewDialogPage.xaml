@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.AboutOverviewDialogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      NavigationCacheMode="Required"
+      mc:Ignorable="d">
+    <ScrollView Margin="0,10,0,0"
+                VerticalScrollBarVisibility="Auto">
+        <Grid MinHeight="520">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid ColumnSpacing="{ThemeResource FoundrySpace24}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="128" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Width="112"
+                        Height="112"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource ControlFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                    <Image Width="72"
+                           Height="72"
+                           Source="ms-appx:///Assets/AppIcon.png"
+                           Stretch="Uniform" />
+                </Border>
+
+                <StackPanel Grid.Column="1"
+                            MaxWidth="{ThemeResource FoundrySummaryTextMaxWidth}"
+                            Spacing="{ThemeResource FoundrySpace12}">
+                    <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
+                                   Text="{Binding Title}" />
+                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   FontWeight="SemiBold"
+                                   Text="{Binding Subtitle}" />
+                        <TextBlock FontSize="15"
+                                   FontWeight="SemiBold"
+                                   IsTextSelectionEnabled="True"
+                                   Text="{Binding Version}" />
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding Description}"
+                               TextWrapping="WrapWholeWords" />
+
+                    <StackPanel Margin="0,8,0,0"
+                                Spacing="{ThemeResource FoundrySpace8}">
+                        <TextBlock Style="{ThemeResource FoundrySectionTitleTextBlockStyle}"
+                                   Text="{Binding UsefulLinksText}" />
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundrySpace16}">
+                            <HyperlinkButton Padding="0"
+                                             Content="{Binding RepositoryText}"
+                                             NavigateUri="{Binding RepositoryUri}" />
+                            <HyperlinkButton Padding="0"
+                                             Content="{Binding SupportText}"
+                                             NavigateUri="{Binding SupportUri}" />
+                            <HyperlinkButton Padding="0"
+                                             Content="{Binding LicenseText}"
+                                             NavigateUri="{Binding LicenseUri}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="1"
+                        Margin="0,24,0,0"
+                        Spacing="{ThemeResource FoundrySpace4}">
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Text="{Binding AuthorsText}"
+                           TextWrapping="WrapWholeWords" />
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                           Text="{Binding FooterText}"
+                           TextWrapping="WrapWholeWords" />
+            </StackPanel>
+        </Grid>
+    </ScrollView>
+</Page>

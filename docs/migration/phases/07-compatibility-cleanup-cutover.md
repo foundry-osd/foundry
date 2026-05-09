@@ -127,12 +127,12 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `About` owns product identity, version, update/release link, license, authors, support, and footer information, following the archived WPF Foundry About pattern and the simpler Connect/Deploy branded About layout.
 - Decision: `About` opens as a modal `ContentDialog` hosting Foundry-owned About content, following the UniGetUI WinUI dialog-hosted page pattern at a simpler Foundry scope.
 - Decision: `About` uses dialog sections/tabs for `About`, `Licenses`, `Contributors`, and `Release notes`; `Release notes` embeds the full GitHub releases list with WebView2.
-- Decision: `About` uses WinUI `SelectorBar` for its dialog sections, following the UniGetUI compact dialog pattern.
+- Decision: `About` uses WinUI `SelectorBar` with a non-stacked `Frame` and slide transitions for its dialog sections, following the UniGetUI compact dialog pattern.
 - Decision: `About` uses a UniGetUI-style custom close button inside the dialog content with accessible name and keyboard support.
 - Decision: `About` dialog uses a larger centered modal size than UniGetUI, with sane min/max constraints so the WebView2 release-notes tab has usable space.
 - Decision: `Release notes` WebView2 navigation follows UniGetUI: load the releases URL in the embedded view, show progress, and do not intercept external navigation in Phase 18.
 - Decision: `Licenses` uses a curated native WinUI list for Phase 18, not generated package-license automation.
-- Decision: `Contributors` follows the UniGetUI pattern: curated contributor handles rendered with GitHub profile links and avatar URLs.
+- Decision: `Contributors` follows the UniGetUI pattern: curated real contributor handles rendered with GitHub profile links and avatar URLs; Phase 18 does not dynamically fetch contributor data from GitHub.
 - Decision: Do not add a separate `Translators` tab in Phase 18; include translation credits under `Contributors` only if real credits exist.
 - Decision: `About` is opened only from the shell/footer About command; do not add a duplicate Settings link or page.
 - Decision: `Documentation` remains an external command only; the shell/footer command and the Home `Open documentation` card both open `https://foundry-osd.github.io/docs/intro` without creating an in-app documentation page, and the About dialog does not duplicate the documentation link.
@@ -222,19 +222,19 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Show a fallback `ContentDialog` with selectable/copyable documentation URL text if the external documentation launch fails.
   - [x] Remove `DocumentationPage` from the WinUI app once Documentation becomes an external navigation action.
   - [x] Replace shell-navigated About surfaces with one modal `ContentDialog`.
-  - [x] Implement the About dialog with UniGetUI-style `SelectorBar` sections: `About`, `Licenses`, `Contributors`, and `Release notes`.
+  - [x] Implement the About dialog with UniGetUI-style `SelectorBar` sections backed by a `Frame` with slide transitions: `About`, `Licenses`, `Contributors`, and `Release notes`.
   - [x] Implement a custom content-level close button with accessible name, tooltip, and simple default WinUI tab order.
   - [x] Size the About dialog larger than UniGetUI with responsive min/max constraints for 1366x768 and 1920x1080.
   - [x] Open the About dialog on the `About` section every time.
   - [x] Limit About-tab links to repository, issues/support, and license.
-  - [x] `About` tab uses a branded layout with app logo, app name, version, approved link set, authors, support, and footer text.
-  - [x] Render `Licenses` as a curated native WinUI list for Foundry and third-party licenses with external links.
+  - [x] `About` tab uses a WPF-inspired branded identity layout with app icon, app name, version, approved link set, authors, support, and footer text.
+  - [x] Render `Licenses` as a compact curated native WinUI list for Foundry and third-party licenses with external links.
   - [x] Render `Contributors` as a curated native WinUI list with GitHub profile links and avatar URLs.
   - [x] `Contributors` tab includes loading, broken-avatar, and offline fallback behavior so network failures do not break the dialog.
   - [x] Use initials or a generic person icon when contributor avatars fail or the app is offline.
-  - [ ] Do not add a separate `Translators` tab unless real Foundry translator credits exist.
+  - [x] Do not add a separate `Translators` tab unless real Foundry translator credits exist.
   - [x] Embed the full repository GitHub releases list with WebView2 at `https://github.com/foundry-osd/foundry/releases`.
-  - [x] Show release-notes loading progress, dispose WebView2 on close, and avoid intercepting external navigation in Phase 18.
+  - [x] Show release-notes loading progress, recreate the WebView2 tab when revisited, dispose WebView2 on unload, and avoid intercepting external navigation in Phase 18.
   - [x] WebView2 usage is scoped to release notes, includes loading/error/fallback UI, and documents runtime distribution expectations for the Velopack/unpackaged app.
   - [x] Show a native fallback message with an `Open releases in browser` action if the GitHub releases page cannot load.
   - [x] Keep Settings scoped to app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options.

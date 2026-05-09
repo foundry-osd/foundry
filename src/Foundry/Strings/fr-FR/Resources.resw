@@ -84,6 +84,9 @@
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>À propos de Foundry</value>
   </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>Liens utiles</value>
+  </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Rechercher une nouvelle version</value>
   </data>
