@@ -318,7 +318,6 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Remove the title-bar theme quick toggle.
   - [x] Remove the title-bar search box.
 - [ ] **18.8** Review accessibility and localization resilience:
-  - [ ] Keyboard navigation reaches all interactive controls in a sensible order.
   - [ ] Icon-only actions have accessible names and tooltips.
   - [ ] Icon-only actions use approved vector icons and documented icon sizes; bitmap icons are allowed only for brand/product identity.
   - [ ] Disabled controls have visible reasons nearby when the reason is not obvious.
