@@ -20,28 +20,24 @@
                     BorderThickness="1"
                     CornerRadius="{ThemeResource FoundryCardCornerRadius}"
                     Padding="{ThemeResource FoundryDefaultContentPadding}">
-                <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}"
-                      RowSpacing="{ThemeResource FoundryContentGroupSpacing}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <FontIcon Grid.RowSpan="2"
-                              FontSize="{ThemeResource FoundryIconSizeDefault}"
-                              Glyph="&#xE8AB;" />
+                    <StackPanel VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                        <FontIcon FontSize="{ThemeResource FoundryIconSizeDefault}"
+                                  Glyph="&#xE8AB;" />
 
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               FontWeight="SemiBold"
-                               Text="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   FontWeight="SemiBold"
+                                   Text="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}" />
+                    </StackPanel>
 
-                    <ItemsRepeater Grid.Row="1"
-                                   Grid.Column="1"
+                    <ItemsRepeater Grid.Column="1"
                                    HorizontalAlignment="Right"
                                    MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
                                    ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
