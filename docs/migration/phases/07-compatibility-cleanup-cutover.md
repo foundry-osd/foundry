@@ -220,7 +220,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Start` owns final media summary, ISO output, USB selection, USB layout, and ISO/USB execution.
   - [x] `Start` presents readiness as scannable grouped checks with explicit blockers instead of a long prose summary.
   - [x] `ADK` answers one primary question first: whether Foundry can proceed, and what action the user should take next.
-  - [ ] `Network`, `Localization`, `Autopilot`, and `Customization` remain expert workflow pages.
+  - [x] `Network`, `Localization`, `Autopilot`, and `Customization` remain expert workflow pages.
   - [x] Footer surfaces remain documentation/about/settings entry points, not workflow pages.
   - [x] `Documentation` is a direct external navigation action to `https://foundry-osd.github.io/docs/intro`, not a separate in-app page; when launched from Home or the shell/footer, it does not change the current in-app navigation selection.
   - [x] Show a fallback `ContentDialog` with selectable/copyable documentation URL text if the external documentation launch fails.
