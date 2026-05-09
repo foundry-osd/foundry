@@ -111,7 +111,7 @@ namespace Foundry.ViewModels
                     foreach (GitHubRepositoryContributor contributor in contributors)
                     {
                         ContributorItems.Add(new ContributorItemViewModel(
-                            contributor.Login,
+                            CreateContributorDisplayName(contributor),
                             localizationService.FormatString("AboutDialog.ContributionCountFormat", contributor.Contributions),
                             contributor.Login.Length >= 2 ? contributor.Login[..2].ToUpperInvariant() : contributor.Login.ToUpperInvariant(),
                             localizationService.GetString("AboutDialog.OpenProfile"),
@@ -142,6 +142,13 @@ namespace Foundry.ViewModels
         {
             OnPropertyChanged(nameof(ContributorsListVisibility));
             OnPropertyChanged(nameof(ContributorsErrorVisibility));
+        }
+
+        private static string CreateContributorDisplayName(GitHubRepositoryContributor contributor)
+        {
+            return string.IsNullOrWhiteSpace(contributor.DisplayName)
+                ? $"@{contributor.Login}"
+                : $"{contributor.DisplayName} (@{contributor.Login})";
         }
     }
 
