@@ -612,7 +612,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
         if (driverPack.ReleaseDate is not null)
         {
-            return driverPack.ReleaseDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return driverPack.ReleaseDate.Value.ToLocalTime().ToString("d", CultureInfo.CurrentCulture);
         }
 
         if (!string.IsNullOrWhiteSpace(driverPack.PackageId))

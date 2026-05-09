@@ -317,19 +317,20 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Settings` selected-item synchronization handles the built-in settings item and settings subpages correctly.
   - [x] Remove the title-bar theme quick toggle.
   - [x] Remove the title-bar search box.
-- [ ] **18.8** Review accessibility and localization resilience:
-  - [ ] Icon-only actions have accessible names and tooltips.
-  - [ ] Icon-only actions use approved vector icons and documented icon sizes; bitmap icons are allowed only for brand/product identity.
-  - [ ] Disabled controls have visible reasons nearby when the reason is not obvious.
-  - [ ] Runtime language switching does not leave stale text on reviewed pages.
-  - [ ] French and English text fit without overlapping at common desktop sizes.
-  - [ ] All changed UI strings are updated in both `en-US` and `fr-FR` resources in the same Phase 18 slice.
-  - [ ] Exact UI labels/descriptions may be finalized during implementation unless this plan fixes the label explicitly.
-  - [ ] Remove obsolete localization keys for deleted pages, removed actions, and retired controls once no code references remain.
-  - [ ] Audit `src\Foundry\Assets` and identify assets that are no longer referenced by the WinUI app after the Phase 18 UI changes.
-  - [ ] Localized requirement text keeps the same operational meaning in English and French, especially ADK version policy text.
-  - [ ] Update date/time text follows the active UI culture instead of hard-coded invariant formatting.
-  - [ ] Settings no-op guard handling is either removed or made meaningful through shell-owned guard state.
+- [x] **18.8** Review accessibility and localization resilience:
+  - [x] Icon-only actions have accessible names and tooltips.
+  - [x] Icon-only actions use approved vector icons and documented icon sizes; bitmap icons are allowed only for brand/product identity.
+  - [x] Disabled controls have visible reasons nearby when the reason is not obvious.
+  - [x] Runtime language switching does not leave stale text on reviewed pages.
+  - [x] French and English text fit without overlapping at common desktop sizes.
+  - [x] All changed UI strings are updated in both `en-US` and `fr-FR` resources in the same Phase 18 slice.
+  - [x] Exact UI labels/descriptions may be finalized during implementation unless this plan fixes the label explicitly.
+  - [x] Remove obsolete localization keys for deleted pages, removed actions, and retired controls once no code references remain.
+  - [x] Audit `src\Foundry\Assets` and identify assets that are no longer referenced by the WinUI app after the Phase 18 UI changes.
+  - [x] Localized requirement text keeps the same operational meaning in English and French, especially ADK version policy text.
+  - [x] Update date/time text follows the active UI culture instead of hard-coded invariant formatting.
+  - [x] Settings no-op guard handling is either removed or made meaningful through shell-owned guard state.
+  - [x] Removed the obsolete `src\Foundry\Assets\Fluent` bitmap assets; retained app identity, cover, navigation metadata, and package Store assets.
 - [ ] **18.9** Remove obsolete UI artifacts:
   - [ ] Remove pages, view models, navigation entries, commands, resources, assets, and localization keys that become unused after the Phase 18 UI redesign.
   - [ ] Remove obsolete artifacts in the same implementation slice that makes them obsolete, then run one final stale-reference sweep before Phase 18 completion.

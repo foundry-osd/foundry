@@ -104,10 +104,12 @@
                                 Grid.Column="1"
                                 MinWidth="40"
                                 Padding="10,0"
+                                AutomationProperties.Name="{Binding DataContext.Strings[Wifi.TogglePassphraseVisibility], RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Click="SelectedWifiRevealButton_OnClick"
-                                Loaded="SelectedWifiRevealButton_OnLoaded">
+                                Loaded="SelectedWifiRevealButton_OnLoaded"
+                                ToolTip="{Binding DataContext.Strings[Wifi.TogglePassphraseVisibility], RelativeSource={RelativeSource AncestorType=UserControl}}">
                                 <TextBlock
                                     FontFamily="{StaticResource SymbolThemeFontFamily}"
                                     FontSize="14"
@@ -514,9 +516,11 @@
                         Grid.Column="2"
                         MinWidth="40"
                         Padding="10,0"
+                        AutomationProperties.Name="{Binding Strings[Wifi.RefreshNetworks]}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Stretch"
-                        Command="{Binding RefreshStatusCommand}">
+                        Command="{Binding RefreshStatusCommand}"
+                        ToolTip="{Binding Strings[Wifi.RefreshNetworks]}">
                         <TextBlock
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
                             FontSize="14"

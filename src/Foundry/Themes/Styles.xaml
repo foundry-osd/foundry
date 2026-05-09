@@ -45,6 +45,7 @@
     <x:Double x:Key="FoundryLanguageGridMaxWidth">960</x:Double>
     <x:Double x:Key="FoundryCompactActionMinWidth">112</x:Double>
     <x:Double x:Key="FoundryStatusTextMinWidth">112</x:Double>
+    <x:Double x:Key="FoundryStatusTextMaxWidth">160</x:Double>
     <x:Double x:Key="FoundryInlineProgressWidth">180</x:Double>
     <x:Double x:Key="FoundrySummaryTextMaxWidth">1120</x:Double>
     <x:Double x:Key="FoundryListMaxHeight">360</x:Double>

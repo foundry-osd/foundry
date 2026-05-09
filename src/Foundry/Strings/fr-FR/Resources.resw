@@ -346,7 +346,7 @@
     <value>Étape suivante</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Vérifier les cibles de sortie finales et lancer la création ISO ou USB depuis la page Démarrer.</value>
+    <value>Vérifier les cibles de sortie finales depuis la page Démarrer après validation de Windows ADK et du module Windows PE.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Vérifier et démarrer</value>
@@ -536,9 +536,6 @@
   </data>
   <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
     <value>Disposition USB</value>
-  </data>
-  <data name="StartMedia.UsbLayout.Description" xml:space="preserve">
-    <value>Sélectionner le style de partition et le mode de formatage pour la future commande USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>Schéma de partition utilisé lors de la préparation de la cible USB sélectionnée.</value>
@@ -806,9 +803,6 @@
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Points bloquants ou différés :</value>
-  </data>
-  <data name="StartMedia.Status" xml:space="preserve">
-    <value>Résumé média : {0}; points bloquants ou différés : {1}</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
     <value>Prêt à créer les médias ISO et USB</value>
@@ -1328,9 +1322,6 @@
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
     <value>La création ISO et USB reste bloquée.</value>
-  </data>
-  <data name="Adk.Operation.Ready" xml:space="preserve">
-    <value>Aucune opération ADK n'est en cours.</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
     <value>Installation de Windows ADK</value>
