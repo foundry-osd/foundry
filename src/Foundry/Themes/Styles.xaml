@@ -13,7 +13,7 @@
     <x:Double x:Key="FoundrySpace32">32</x:Double>
 
     <Thickness x:Key="ContentPageMargin">40,48,0,0</Thickness>
-    <Thickness x:Key="ContentPagePadding">0,0,40,0</Thickness>
+    <Thickness x:Key="ContentPagePadding">0,0,40,24</Thickness>
     <Thickness x:Key="FoundryPageContentInset">8</Thickness>
     <Thickness x:Key="FoundryPageSectionSpacing">0,0,0,16</Thickness>
     <Thickness x:Key="FoundryCompactContentPadding">12</Thickness>

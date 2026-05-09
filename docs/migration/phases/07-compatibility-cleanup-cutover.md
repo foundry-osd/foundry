@@ -153,6 +153,7 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `Start` readiness groups use WCT `SettingsExpander` controls and auto-expand only when a group contains a blocked or warning item; not-configured items stay collapsed by default to keep the page compact.
 - Decision: Missing ISO output and unavailable USB targets appear as warnings in the `Start` readiness review, while the final Create ISO/Create USB commands remain blocked by preflight until the required output is configured.
 - Decision: `Start` uses an `Auto` / `Auto` / `*` / `Auto` page grid so the readiness review owns the flexible scrollable space and the ISO output, USB target, and final command controls stay pinned as the bottom action block.
+- Decision: Shared page padding includes bottom breathing room so scrollable pages and pinned bottom action blocks do not touch the window edge.
 - Decision: Phase 18 removes UI code made obsolete by the redesign, including stale pages, view models, navigation metadata, resources, and localization keys.
 - Decision: Phase 18 updates both `en-US` and `fr-FR` localization resources whenever labels, descriptions, actions, or page text change.
 - Decision: Exact UI wording can be finalized during implementation unless a label is explicitly fixed in this plan; every finalized string must update `en-US` and `fr-FR` together.
