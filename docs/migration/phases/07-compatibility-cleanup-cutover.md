@@ -336,7 +336,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Remove obsolete artifacts in the same implementation slice that makes them obsolete, then run one final stale-reference sweep before Phase 18 completion.
   - [x] Confirm removed `DocumentationPage`, duplicate About surfaces, title-bar search/theme controls, and retired DevWinUI page-level controls leave no stale references.
   - [x] Removed the empty `Themes/Converters.xaml` dictionary, unused design-token constants, and unused footer subtitle localization keys.
-- [ ] **18.10** Commit:
+- [x] **18.10** Commit:
 
 ```powershell
 git commit -m "refactor(ui): refine foundry winui experience"
