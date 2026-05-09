@@ -147,6 +147,9 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `ADK` primary setup button keeps a stable combined label such as `Install ADK and WinPE add-on`, even when only one component is missing.
 - Decision: `ADK` shows core readiness details by default and does not include a diagnostics/logs row unless a future page-specific diagnostics requirement is approved.
 - Decision: `General` action is renamed from `Create media` to a navigation-oriented label such as `Review and start`.
+- Decision: `General` owns boot-image content configuration only: architecture, signature mode, WinPE boot language, and driver options.
+- Decision: `Start` owns final output and execution choices: ISO output path, USB target, USB partition style, USB format mode, and final ISO/USB commands.
+- Decision: USB partition style and format mode are secondary USB target options and should live under the `Start` USB target surface, preferably as collapsed expander details.
 - Decision: Phase 18 removes UI code made obsolete by the redesign, including stale pages, view models, navigation metadata, resources, and localization keys.
 - Decision: Phase 18 updates both `en-US` and `fr-FR` localization resources whenever labels, descriptions, actions, or page text change.
 - Decision: Exact UI wording can be finalized during implementation unless a label is explicitly fixed in this plan; every finalized string must update `en-US` and `fr-FR` together.
@@ -204,9 +207,9 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Avoid duplicating every Expert page; Home should summarize and route, not become a second configuration surface.
   - [x] Use native WinUI layout and controls inside `HeaderContent` and `FooterContent` except for the approved DevWinUI `HeaderTile` action tiles.
 - [ ] **18.3** Review page information architecture:
-  - [ ] `General` owns generated media settings, including WinPE image/boot language.
-  - [ ] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.
-  - [ ] `Start` owns final media summary, USB selection, and ISO/USB execution.
+  - [x] `General` owns boot-image and driver configuration, including WinPE image/boot language.
+  - [x] Rename or reframe the current `Create media` action on `General` to a navigation-oriented label such as `Review and start`.
+  - [x] `Start` owns final media summary, ISO output, USB selection, USB layout, and ISO/USB execution.
   - [ ] `Start` presents readiness as scannable grouped checks with explicit blockers instead of a long prose summary.
   - [x] `ADK` answers one primary question first: whether Foundry can proceed, and what action the user should take next.
   - [ ] `Network`, `Localization`, `Autopilot`, and `Customization` remain expert workflow pages.
@@ -271,9 +274,11 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Hide the ADK setup action card entirely when ADK and the WinPE add-on are ready.
   - [x] Show installed version, required version policy, WinPE add-on state, and media capability without extra clicks; omit ADK-specific diagnostics/logs until real diagnostics content exists.
   - [x] `ADK` removes duplicate operation-status text and shows operation progress only when useful.
-  - [ ] `General` makes generated media settings scannable without hiding required execution prerequisites.
-  - [ ] `General` shows disabled/empty reasons for WinPE language discovery and other unavailable prerequisites.
-  - [ ] `Start` clearly distinguishes readiness checks, USB target selection, and final commands.
+  - [x] `General` makes boot-image and driver settings scannable without hiding required execution prerequisites.
+  - [x] `General` shows disabled/empty reasons for WinPE language discovery and other unavailable prerequisites.
+  - [x] `Start` clearly distinguishes readiness checks, USB target selection, and final commands.
+  - [x] Move ISO output selection from `General` to `Start`.
+  - [x] Move USB partition style and USB format mode from `General` to the `Start` USB target surface.
   - [ ] Organize `Start` readiness into grouped checklist sections: prerequisites, media output, runtime payloads, and expert configuration.
   - [ ] `Start` readiness items show ready, warning, blocked, or not configured states with links to the owning page when action is needed.
   - [ ] Wire `Start` readiness links to navigate only to the owning page without cross-page auto-focus, auto-scroll, or forced section expansion.

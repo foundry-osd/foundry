@@ -26,6 +26,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeWorkspacePreparationService workspacePreparationService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
+    private readonly IFilePickerService filePickerService;
     private readonly IExpertDeployConfigurationStateService expertDeployConfigurationStateService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
@@ -34,6 +35,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IAppDispatcher appDispatcher;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
+    private bool isLoadingConfiguration = true;
 
     public StartMediaViewModel(
         IAppSettingsService appSettingsService,
@@ -44,6 +46,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeWorkspacePreparationService workspacePreparationService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
+        IFilePickerService filePickerService,
         IExpertDeployConfigurationStateService expertDeployConfigurationStateService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
@@ -60,6 +63,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.workspacePreparationService = workspacePreparationService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
+        this.filePickerService = filePickerService;
         this.expertDeployConfigurationStateService = expertDeployConfigurationStateService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
@@ -73,17 +77,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             new(WinPeArchitecture.X64, "x64"),
             new(WinPeArchitecture.Arm64, "arm64")
         ];
-        PartitionStyles =
-        [
-            new(UsbPartitionStyle.Gpt, "GPT"),
-            new(UsbPartitionStyle.Mbr, "MBR")
-        ];
+        PartitionStyles = [];
         FormatModes = [];
 
         IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
         SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
         UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
-        SelectedPartitionStyle = SelectOption(PartitionStyles, ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt));
+        RebuildPartitionStyles();
         IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
         IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
         CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
@@ -92,6 +92,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         expertDeployConfigurationStateService.StateChanged += OnExpertDeployConfigurationStateChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
 
+        isLoadingConfiguration = false;
         ApplyLocalizedText();
         RefreshEvaluation();
     }
@@ -182,6 +183,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         MediaPreflightOptions options = CreatePreflightOptions();
         LogPreflightSummary(options, MediaPreflightService.Evaluate(options));
+    }
+
+    [RelayCommand]
+    private async Task BrowseIsoOutputPathAsync()
+    {
+        string? path = await filePickerService.PickSaveFileAsync(
+            new FileSavePickerRequest(
+                localizationService.GetString("StartMedia.IsoPicker.Title"),
+                "Foundry",
+                [new(localizationService.GetString("StartMedia.IsoPicker.Filter"), [".iso"])],
+                ".iso"));
+
+        if (!string.IsNullOrWhiteSpace(path))
+        {
+            IsoOutputPath = path;
+        }
     }
 
     [RelayCommand]
@@ -899,6 +916,48 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RefreshEvaluation();
     }
 
+    partial void OnIsoOutputPathChanged(string value)
+    {
+        if (isLoadingConfiguration)
+        {
+            return;
+        }
+
+        appSettingsService.Current.Media.IsoOutputPath = value;
+        appSettingsService.Save();
+        RefreshEvaluation();
+    }
+
+    partial void OnSelectedPartitionStyleChanged(SelectionOption<UsbPartitionStyle>? value)
+    {
+        if (value is null || isLoadingConfiguration)
+        {
+            return;
+        }
+
+        if (SelectedArchitecture?.Value == WinPeArchitecture.Arm64 && value.Value == UsbPartitionStyle.Mbr)
+        {
+            SelectedPartitionStyle = SelectOption(PartitionStyles, UsbPartitionStyle.Gpt);
+            return;
+        }
+
+        appSettingsService.Current.Media.UsbPartitionStyle = value.Value.ToString();
+        appSettingsService.Save();
+        RefreshEvaluation();
+    }
+
+    partial void OnSelectedFormatModeChanged(SelectionOption<UsbFormatMode>? value)
+    {
+        if (value is null || isLoadingConfiguration)
+        {
+            return;
+        }
+
+        appSettingsService.Current.Media.UsbFormatMode = value.Value.ToString();
+        appSettingsService.Save();
+        RefreshEvaluation();
+    }
+
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
     {
         if (!appDispatcher.TryEnqueue(RefreshEvaluation))
@@ -939,7 +998,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void RefreshEvaluation()
     {
-        LoadConfigurationFromSettings();
+        isLoadingConfiguration = true;
+        try
+        {
+            LoadConfigurationFromSettings();
+        }
+        finally
+        {
+            isLoadingConfiguration = false;
+        }
+
         WinPeLanguage = NormalizeCultureName(appSettingsService.Current.Media.WinPeLanguage);
         availableWinPeLanguages = GetAvailableWinPeLanguages();
         MediaPreflightOptions options = CreatePreflightOptions();
@@ -961,7 +1029,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
         SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
         UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
-        SelectedPartitionStyle = SelectOption(PartitionStyles, ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt));
+        RebuildPartitionStyles();
         SelectedFormatMode = SelectOption(FormatModes, ParseEnum(appSettingsService.Current.Media.UsbFormatMode, UsbFormatMode.Quick));
         IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
         IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
@@ -1151,6 +1219,23 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         FormatModes.Add(new(UsbFormatMode.Quick, localizationService.GetString("StartMedia.FormatMode.Quick")));
         FormatModes.Add(new(UsbFormatMode.Complete, localizationService.GetString("StartMedia.FormatMode.Complete")));
         SelectedFormatMode = SelectOption(FormatModes, selectedValue);
+    }
+
+    private void RebuildPartitionStyles()
+    {
+        UsbPartitionStyle selectedValue = SelectedArchitecture?.Value == WinPeArchitecture.Arm64
+            ? UsbPartitionStyle.Gpt
+            : SelectedPartitionStyle?.Value ?? ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt);
+
+        PartitionStyles.Clear();
+        PartitionStyles.Add(new(UsbPartitionStyle.Gpt, "GPT"));
+
+        if (SelectedArchitecture?.Value != WinPeArchitecture.Arm64)
+        {
+            PartitionStyles.Add(new(UsbPartitionStyle.Mbr, "MBR"));
+        }
+
+        SelectedPartitionStyle = SelectOption(PartitionStyles, selectedValue) ?? PartitionStyles[0];
     }
 
     private void RebuildUsbCandidateDisplayNames()

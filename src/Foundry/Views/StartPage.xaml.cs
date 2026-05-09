@@ -26,8 +26,16 @@ public sealed partial class StartPage : Page
 
     private void ApplyLocalizedText()
     {
+        IsoPathCard.Header = localizationService.GetString("StartMedia.IsoPath.Header");
+        IsoPathCard.Description = localizationService.GetString("StartMedia.IsoPath.Description");
+        BrowseIsoButton.Content = localizationService.GetString("Common.Browse");
+
         UsbTargetCard.Header = localizationService.GetString("StartMedia.UsbTarget.Header");
         RefreshUsbButton.Content = localizationService.GetString("Common.Refresh");
+        UsbPartitionStyleCard.Header = localizationService.GetString("StartMedia.Field.PartitionStyle");
+        UsbPartitionStyleCard.Description = localizationService.GetString("StartMedia.UsbLayout.PartitionStyle.Description");
+        UsbFormatModeCard.Header = localizationService.GetString("StartMedia.Field.FormatMode");
+        UsbFormatModeCard.Description = localizationService.GetString("StartMedia.UsbLayout.FormatMode.Description");
 
         FinalCommandsCard.Header = localizationService.GetString("StartMedia.FinalCommands.Header");
         FinalCommandsCard.Description = localizationService.GetString("StartMedia.FinalCommands.Description");

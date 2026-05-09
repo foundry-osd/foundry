@@ -247,13 +247,19 @@
     <value>Général</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Créer un média</value>
+    <value>Étape suivante</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Vérifier les paramètres média configurés et lancer la création ISO ou USB depuis la page Démarrer.</value>
+    <value>Vérifier les cibles de sortie finales et lancer la création ISO ou USB depuis la page Démarrer.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>Créer un média</value>
+    <value>Vérifier et démarrer</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>Installez Windows ADK et le module complémentaire Windows PE avant de sélectionner la langue de démarrage WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>Aucun module linguistique WinPE n'a été détecté pour l'architecture sélectionnée.</value>
   </data>
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Localisation</value>
@@ -427,7 +433,7 @@
     <value>Langue de démarrage WinPE</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>Contrôlée par la page Paramètres généraux.</value>
+    <value>Langue utilisée par l'environnement de démarrage WinPE.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>Cible USB</value>
@@ -437,6 +443,12 @@
   </data>
   <data name="StartMedia.UsbLayout.Description" xml:space="preserve">
     <value>Sélectionner le style de partition et le mode de formatage pour la future commande USB.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>Schéma de partition utilisé lors de la préparation de la cible USB sélectionnée.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>Comportement de formatage utilisé avant la copie du média USB final.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
     <value>Options de pilotes</value>

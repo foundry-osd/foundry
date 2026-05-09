@@ -6,6 +6,7 @@ using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
+using Microsoft.UI.Xaml;
 using Serilog;
 
 namespace Foundry.ViewModels;
@@ -40,38 +41,24 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             new(WinPeArchitecture.X64, "x64"),
             new(WinPeArchitecture.Arm64, "arm64")
         ];
-        PartitionStyles = [];
 
-        IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
         SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
         UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
-        RefreshPartitionStyles();
         IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
         IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
         CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
-        RefreshLocalizedOptions();
+        WinPeLanguageUnavailableDescription = string.Empty;
         isInitializing = false;
     }
 
     public ObservableCollection<SelectionOption<WinPeArchitecture>> Architectures { get; }
-    public ObservableCollection<SelectionOption<UsbPartitionStyle>> PartitionStyles { get; }
-    public ObservableCollection<SelectionOption<UsbFormatMode>> FormatModes { get; } = [];
     public ObservableCollection<string> AvailableWinPeLanguages { get; } = [];
-
-    [ObservableProperty]
-    public partial string IsoOutputPath { get; set; }
 
     [ObservableProperty]
     public partial SelectionOption<WinPeArchitecture>? SelectedArchitecture { get; set; }
 
     [ObservableProperty]
     public partial bool UseCa2023Signature { get; set; }
-
-    [ObservableProperty]
-    public partial SelectionOption<UsbPartitionStyle>? SelectedPartitionStyle { get; set; }
-
-    [ObservableProperty]
-    public partial SelectionOption<UsbFormatMode>? SelectedFormatMode { get; set; }
 
     [ObservableProperty]
     public partial bool IncludeDellDrivers { get; set; }
@@ -85,27 +72,17 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     [ObservableProperty]
     public partial string? SelectedWinPeLanguage { get; set; }
 
+    [NotifyPropertyChangedFor(nameof(WinPeLanguageUnavailableVisibility))]
     [ObservableProperty]
     public partial bool HasWinPeLanguages { get; set; }
 
     [ObservableProperty]
     public partial bool CanCreateMedia { get; set; }
 
-    [RelayCommand]
-    private async Task BrowseIsoOutputPathAsync()
-    {
-        string? path = await filePickerService.PickSaveFileAsync(
-            new FileSavePickerRequest(
-                localizationService.GetString("StartMedia.IsoPicker.Title"),
-                "Foundry",
-                [new(localizationService.GetString("StartMedia.IsoPicker.Filter"), [".iso"])],
-                ".iso"));
+    [ObservableProperty]
+    public partial string WinPeLanguageUnavailableDescription { get; set; }
 
-        if (!string.IsNullOrWhiteSpace(path))
-        {
-            IsoOutputPath = path;
-        }
-    }
+    public Visibility WinPeLanguageUnavailableVisibility => HasWinPeLanguages ? Visibility.Collapsed : Visibility.Visible;
 
     [RelayCommand]
     private async Task BrowseCustomDriverDirectoryAsync()
@@ -117,17 +94,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         {
             CustomDriverDirectoryPath = path;
         }
-    }
-
-    public void RefreshLocalizedOptions()
-    {
-        UsbFormatMode selectedValue = SelectedFormatMode?.Value
-            ?? ParseEnum(appSettingsService.Current.Media.UsbFormatMode, UsbFormatMode.Quick);
-
-        FormatModes.Clear();
-        FormatModes.Add(new(UsbFormatMode.Quick, localizationService.GetString("StartMedia.FormatMode.Quick")));
-        FormatModes.Add(new(UsbFormatMode.Complete, localizationService.GetString("StartMedia.FormatMode.Complete")));
-        SelectedFormatMode = SelectOption(FormatModes, selectedValue);
     }
 
     public void RefreshAdkState()
@@ -143,6 +109,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
 
         if (!CanCreateMedia)
         {
+            WinPeLanguageUnavailableDescription = localizationService.GetString("GeneralConfiguration.WinPeLanguage.AdkBlocked");
             SelectedWinPeLanguage = null;
             return;
         }
@@ -151,6 +118,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
             logger.Warning("WinPE language discovery skipped because ADK tools were not resolved. ErrorCode={ErrorCode}", toolsResult.Error?.Code);
+            WinPeLanguageUnavailableDescription = localizationService.GetString("GeneralConfiguration.WinPeLanguage.Unavailable");
             SelectedWinPeLanguage = null;
             return;
         }
@@ -169,6 +137,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
                 "WinPE language discovery returned no languages. Architecture={Architecture}, ErrorCode={ErrorCode}",
                 architecture,
                 result.Error?.Code);
+            WinPeLanguageUnavailableDescription = localizationService.GetString("GeneralConfiguration.WinPeLanguage.Unavailable");
             SelectedWinPeLanguage = null;
             return;
         }
@@ -181,6 +150,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
 
         HasWinPeLanguages = true;
+        WinPeLanguageUnavailableDescription = string.Empty;
         SelectedWinPeLanguage = selected;
         appSettingsService.Current.Media.WinPeLanguage = selected;
         appSettingsService.Save();
@@ -198,17 +168,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         SelectedWinPeLanguage = appSettingsService.Current.Media.WinPeLanguage;
     }
 
-    partial void OnIsoOutputPathChanged(string value)
-    {
-        if (isInitializing)
-        {
-            return;
-        }
-
-        appSettingsService.Current.Media.IsoOutputPath = value;
-        Save();
-    }
-
     partial void OnSelectedArchitectureChanged(SelectionOption<WinPeArchitecture>? value)
     {
         if (value is null || isInitializing)
@@ -217,7 +176,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
 
         appSettingsService.Current.Media.Architecture = value.Value.ToString();
-        RefreshPartitionStyles();
+        EnsureUsbPartitionStyleAllowedForArchitecture(value.Value);
 
         Save();
         RefreshWinPeLanguages();
@@ -231,34 +190,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
 
         appSettingsService.Current.Media.UseCa2023Signature = value;
-        Save();
-    }
-
-    partial void OnSelectedPartitionStyleChanged(SelectionOption<UsbPartitionStyle>? value)
-    {
-        if (value is null || isInitializing)
-        {
-            return;
-        }
-
-        if (SelectedArchitecture?.Value == WinPeArchitecture.Arm64 && value.Value == UsbPartitionStyle.Mbr)
-        {
-            SelectedPartitionStyle = SelectOption(PartitionStyles, UsbPartitionStyle.Gpt);
-            return;
-        }
-
-        appSettingsService.Current.Media.UsbPartitionStyle = value.Value.ToString();
-        Save();
-    }
-
-    partial void OnSelectedFormatModeChanged(SelectionOption<UsbFormatMode>? value)
-    {
-        if (value is null || isInitializing)
-        {
-            return;
-        }
-
-        appSettingsService.Current.Media.UsbFormatMode = value.Value.ToString();
         Save();
     }
 
@@ -300,22 +231,17 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         appSettingsService.Save();
     }
 
-    private void RefreshPartitionStyles()
+    private void EnsureUsbPartitionStyleAllowedForArchitecture(WinPeArchitecture architecture)
     {
-        UsbPartitionStyle selectedValue = SelectedArchitecture?.Value == WinPeArchitecture.Arm64
-            ? UsbPartitionStyle.Gpt
-            : SelectedPartitionStyle?.Value ?? ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt);
-
-        PartitionStyles.Clear();
-        PartitionStyles.Add(new(UsbPartitionStyle.Gpt, "GPT"));
-
-        if (SelectedArchitecture?.Value != WinPeArchitecture.Arm64)
+        if (architecture != WinPeArchitecture.Arm64)
         {
-            PartitionStyles.Add(new(UsbPartitionStyle.Mbr, "MBR"));
+            return;
         }
 
-        SelectedPartitionStyle = SelectOption(PartitionStyles, selectedValue) ?? PartitionStyles[0];
-        appSettingsService.Current.Media.UsbPartitionStyle = SelectedPartitionStyle.Value.ToString();
+        if (ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt) == UsbPartitionStyle.Mbr)
+        {
+            appSettingsService.Current.Media.UsbPartitionStyle = UsbPartitionStyle.Gpt.ToString();
+        }
     }
 
     private static string SelectWinPeLanguage(IReadOnlyList<string> languages, string? preferredLanguage, string currentLanguage)

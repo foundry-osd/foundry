@@ -247,13 +247,19 @@
     <value>General</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Create media</value>
+    <value>Next step</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Review the configured media settings and start ISO or USB creation from the Start page.</value>
+    <value>Review the final output targets and start ISO or USB creation from the Start page.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>Create media</value>
+    <value>Review and start</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>Install Windows ADK and the Windows PE Add-on before selecting the WinPE boot language.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>No WinPE language packs were detected for the selected architecture.</value>
   </data>
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Localization</value>
@@ -427,7 +433,7 @@
     <value>WinPE boot language</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>Controlled by the General settings page.</value>
+    <value>Language used by the WinPE boot environment.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
     <value>USB target</value>
@@ -437,6 +443,12 @@
   </data>
   <data name="StartMedia.UsbLayout.Description" xml:space="preserve">
     <value>Select partition style and format mode for the future USB creation command.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>Partition scheme used when preparing the selected USB target.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>Format behavior used before copying the final USB media.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
     <value>Driver options</value>

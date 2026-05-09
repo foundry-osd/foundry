@@ -64,10 +64,6 @@ public sealed partial class GeneralConfigurationPage : Page
 
     private void ApplyLocalizedText()
     {
-        IsoPathCard.Header = localizationService.GetString("StartMedia.IsoPath.Header");
-        IsoPathCard.Description = localizationService.GetString("StartMedia.IsoPath.Description");
-        BrowseIsoButton.Content = localizationService.GetString("Common.Browse");
-
         ArchitectureCard.Header = localizationService.GetString("StartMedia.Architecture.Header");
         ArchitectureCard.Description = localizationService.GetString("StartMedia.Architecture.Description");
         Ca2023Toggle.OnContent = localizationService.GetString("StartMedia.Signature.Ca2023");
@@ -75,9 +71,6 @@ public sealed partial class GeneralConfigurationPage : Page
 
         WinPeLanguageCard.Header = localizationService.GetString("StartMedia.WinPeLanguage.Header");
         WinPeLanguageCard.Description = localizationService.GetString("StartMedia.WinPeLanguage.Description");
-
-        UsbLayoutCard.Header = localizationService.GetString("StartMedia.UsbLayout.Header");
-        UsbLayoutCard.Description = localizationService.GetString("StartMedia.UsbLayout.Description");
 
         DriverOptionsCard.Header = localizationService.GetString("StartMedia.DriverOptions.Header");
         DriverOptionsCard.Description = localizationService.GetString("StartMedia.DriverOptions.Description");
@@ -93,7 +86,6 @@ public sealed partial class GeneralConfigurationPage : Page
         CreateMediaCard.Description = localizationService.GetString("GeneralConfiguration_CreateMedia.Description");
         CreateMediaButton.Content = localizationService.GetString("GeneralConfiguration_CreateMedia.Button");
 
-        ViewModel.RefreshLocalizedOptions();
         ViewModel.RefreshAdkState();
 
         bool wasInitializingWinPeLanguageSelection = isInitializingWinPeLanguageSelection;
