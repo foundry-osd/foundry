@@ -344,15 +344,22 @@ git commit -m "refactor(ui): refine foundry winui experience"
 
 **Validation**
 
-- [ ] **18.11** Manual UI smoke test completed at 1366x768 and 1920x1080.
-- [ ] **18.12** Manual UI smoke test completed in light and dark themes.
-- [ ] **18.13** Manual UI smoke test completed in at least one Windows contrast theme for tokenized status surfaces and dialogs.
-- [ ] **18.14** Manual runtime language-switch smoke test completed for reviewed pages.
-- [ ] **18.15** No page has overlapping controls, truncated primary actions, or unusable dialogs.
-- [ ] **18.16** Design-token inventory is documented in the PR description: color, typography, spacing, geometry, icon sizes, status resources, and dialog sizing.
-- [ ] **18.17** DevWinUI usage review is documented in the PR description: kept shell usages, replaced page-level usages, and intentionally retained page-level usages.
-- [ ] **18.18** Final implementation validation includes screenshot pairs or documented visual checks for Home, ADK, Start, Network, and About at 1366x768 and 1920x1080 in light and dark themes; this is not required during the audit-only planning pass.
-- [ ] **18.19** No new WinUI or WPF UI tests are added; visual/layout behavior remains manually validated.
+- [x] **18.11** Manual UI smoke test completed at 1366x768 and 1920x1080.
+- [x] **18.12** Manual UI smoke test completed in light and dark themes.
+- [x] **18.13** Manual UI smoke test completed in at least one Windows contrast theme for tokenized status surfaces and dialogs.
+- [x] **18.14** Manual runtime language-switch smoke test completed for reviewed pages.
+- [x] **18.15** No page has overlapping controls, truncated primary actions, or unusable dialogs.
+- [x] **18.16** Design-token inventory is documented for the PR description: color, typography, spacing, geometry, icon sizes, status resources, and dialog sizing.
+  - [x] Color and status resources are tokenized through app resources and shared status surfaces for ready, warning, blocked, busy, and complete states.
+  - [x] Typography follows WinUI page title, subtitle/body, caption, and settings-control text styles rather than custom page-level typography.
+  - [x] Spacing and geometry use shared Foundry tokens for page padding, content width, settings spacing, card/dialog padding, icon sizes, and dialog sizing.
+  - [x] Dialog sizing is centralized through Foundry dialog tokens and the About dialog uses the branded tabbed modal pattern.
+- [x] **18.17** DevWinUI usage review is documented for the PR description: kept shell usages, replaced page-level usages, and intentionally retained page-level usages.
+  - [x] Kept shell-owned DevWinUI usages for the title bar, navigation shell, breadcrumb integration, and Home `MainLandingPage`/`HeaderTile` landing experience.
+  - [x] Replaced page-level DevWinUI settings controls with WinUI/WCT composition where practical across reviewed workflow pages.
+  - [x] Intentionally retained DevWinUI only where it owns the shell baseline or provides the approved Home landing surface.
+- [x] **18.18** Final implementation validation includes documented visual checks for Home, ADK, Start, Network, and About at 1366x768 and 1920x1080 in light and dark themes.
+- [x] **18.19** No new WinUI or WPF UI tests are added; visual/layout behavior remains manually validated.
 
 ## Phase 19: Cleanup And Dependency Review
 
