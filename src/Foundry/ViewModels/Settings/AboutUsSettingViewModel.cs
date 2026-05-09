@@ -9,16 +9,19 @@ namespace Foundry.ViewModels
         private readonly Foundry.Services.Localization.IApplicationLocalizationService localizationService;
         private readonly IGitHubRepositoryContributorService contributorService;
         private readonly IAppDispatcher appDispatcher;
+        private readonly IExternalProcessLauncher externalProcessLauncher;
         private bool hasLoadedContributors;
 
         public AboutUsSettingViewModel(
             Foundry.Services.Localization.IApplicationLocalizationService localizationService,
             IGitHubRepositoryContributorService contributorService,
-            IAppDispatcher appDispatcher)
+            IAppDispatcher appDispatcher,
+            IExternalProcessLauncher externalProcessLauncher)
         {
             this.localizationService = localizationService;
             this.contributorService = contributorService;
             this.appDispatcher = appDispatcher;
+            this.externalProcessLauncher = externalProcessLauncher;
         }
 
         [ObservableProperty]
@@ -108,6 +111,7 @@ namespace Foundry.ViewModels
                 await appDispatcher.EnqueueAsync(() =>
                 {
                     ContributorItems.Clear();
+                    int rowIndex = 0;
                     foreach (GitHubRepositoryContributor contributor in contributors)
                     {
                         ContributorItems.Add(new ContributorItemViewModel(
@@ -116,7 +120,9 @@ namespace Foundry.ViewModels
                             contributor.Login.Length >= 2 ? contributor.Login[..2].ToUpperInvariant() : contributor.Login.ToUpperInvariant(),
                             localizationService.GetString("AboutDialog.OpenProfile"),
                             contributor.ProfileUri,
-                            contributor.AvatarUri));
+                            contributor.AvatarUri,
+                            rowIndex % 2 == 1));
+                        rowIndex++;
                     }
 
                     hasLoadedContributors = ContributorItems.Count > 0;
@@ -150,6 +156,12 @@ namespace Foundry.ViewModels
                 ? $"@{contributor.Login}"
                 : $"{contributor.DisplayName} (@{contributor.Login})";
         }
+
+        [RelayCommand]
+        private async Task OpenUriAsync(Uri uri)
+        {
+            await externalProcessLauncher.OpenUriAsync(uri);
+        }
     }
 
     public sealed record AboutLinkItemViewModel(string Title, string Description, string LinkText, Uri Uri);
@@ -160,5 +172,6 @@ namespace Foundry.ViewModels
         string Initials,
         string LinkText,
         Uri ProfileUri,
-        Uri AvatarUri);
+        Uri AvatarUri,
+        bool IsAlternate);
 }

@@ -57,16 +57,16 @@
                         <TextBlock Style="{ThemeResource FoundrySectionTitleTextBlockStyle}"
                                    Text="{Binding UsefulLinksText}" />
                         <StackPanel Orientation="Horizontal"
-                                    Spacing="{ThemeResource FoundrySpace16}">
-                            <HyperlinkButton Padding="0"
-                                             Content="{Binding RepositoryText}"
-                                             NavigateUri="{Binding RepositoryUri}" />
-                            <HyperlinkButton Padding="0"
-                                             Content="{Binding SupportText}"
-                                             NavigateUri="{Binding SupportUri}" />
-                            <HyperlinkButton Padding="0"
-                                             Content="{Binding LicenseText}"
-                                             NavigateUri="{Binding LicenseUri}" />
+                                    Spacing="{ThemeResource FoundrySpace8}">
+                            <Button Command="{Binding OpenUriCommand}"
+                                    CommandParameter="{Binding RepositoryUri}"
+                                    Content="{Binding RepositoryText}" />
+                            <Button Command="{Binding OpenUriCommand}"
+                                    CommandParameter="{Binding SupportUri}"
+                                    Content="{Binding SupportText}" />
+                            <Button Command="{Binding OpenUriCommand}"
+                                    CommandParameter="{Binding LicenseUri}"
+                                    Content="{Binding LicenseText}" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

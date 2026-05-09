@@ -18,6 +18,11 @@ public sealed partial class AboutReleaseNotesDialogPage : Page
 
     public void CloseWebView()
     {
+        if (ReleaseNotesWebView.CoreWebView2 is not null)
+        {
+            ReleaseNotesWebView.CoreWebView2.DOMContentLoaded -= CoreWebView2_DOMContentLoaded;
+        }
+
         ReleaseNotesWebView.Close();
     }
 
@@ -37,5 +42,18 @@ public sealed partial class AboutReleaseNotesDialogPage : Page
     {
         ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
         ReleaseNotesErrorPanel.Visibility = args.IsSuccess ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    private void ReleaseNotesWebView_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+    {
+        if (args.Exception is null && sender.CoreWebView2 is not null)
+        {
+            sender.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
+        }
+    }
+
+    private void CoreWebView2_DOMContentLoaded(CoreWebView2 sender, CoreWebView2DOMContentLoadedEventArgs args)
+    {
+        ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
     }
 }

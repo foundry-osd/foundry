@@ -131,12 +131,15 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `About` uses a UniGetUI-style custom close button inside the dialog content with accessible name and keyboard support.
 - Decision: `About` dialog uses a larger centered modal size than UniGetUI, with sane min/max constraints so the WebView2 release-notes tab has usable space.
 - Decision: `Release notes` WebView2 navigation follows UniGetUI: load the releases URL in the embedded view, show progress, and do not intercept external navigation in Phase 18.
+- Decision: `Release notes` hides loading progress as soon as the embedded page DOM is available so the progress state does not remain visually over WebView2 content.
 - Decision: `Licenses` uses a curated native WinUI list for Phase 18, not generated package-license automation.
 - Decision: `Contributors` follows the UniGetUI pattern but loads real contributors automatically from GitHub, enriches entries with GitHub profile display names, sorts by contribution count, filters obvious bot accounts, and shows only a centered failure state if the fetch fails; do not keep a local fallback contributor list.
+- Decision: `Contributors` uses alternating native row backgrounds when multiple contributors are shown so row actions such as `Profile` remain visually trackable.
 - Decision: Do not add a separate `Translators` tab in Phase 18; include translation credits under `Contributors` only if real credits exist.
 - Decision: `About` is opened only from the shell/footer About command; do not add a duplicate Settings link or page.
 - Decision: `Documentation` remains an external command only; the shell/footer command and the Home `Open documentation` card both open `https://foundry-osd.github.io/docs/intro` without creating an in-app documentation page, and the About dialog does not duplicate the documentation link.
 - Decision: `About` tab links are limited to repository, issues/support, and license; release notes are accessed through the dedicated dialog tab.
+- Decision: `About` useful links use standard WinUI button styling instead of link-only buttons so they read as normal actions in the product identity section.
 - Decision: `Settings` owns app preferences and update management.
 - Decision: `Settings` does not duplicate help/about/documentation surfaces; it owns app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options only.
 - Decision: `Settings` uses the DevWinUI built-in settings slot with explicit selected-item mapping for Settings and settings subpages.
@@ -228,13 +231,16 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] Open the About dialog on the `About` section every time.
   - [x] Limit About-tab links to repository, issues/support, and license.
   - [x] `About` tab uses a WPF-inspired branded identity layout with app icon, app name, version, approved link set, authors, support, and footer text.
+  - [x] `About` useful links use standard WinUI buttons and route through the shared external process launcher.
   - [x] Render `Licenses` as a compact curated native WinUI list for Foundry and third-party licenses with external links.
   - [x] Render `Contributors` as an automatic native WinUI list loaded from GitHub with display name, GitHub handle, profile links, avatar URLs, and contribution counts sorted descending.
+  - [x] Render contributor rows with alternating theme-aware backgrounds so profile actions are easier to scan.
   - [x] `Contributors` tab includes loading and centered fetch-failure states; it does not use a local fallback contributor list.
   - [x] Use initials or a generic person icon when contributor avatars fail or the app is offline.
   - [x] Do not add a separate `Translators` tab unless real Foundry translator credits exist.
   - [x] Embed the full repository GitHub releases list with WebView2 at `https://github.com/foundry-osd/foundry/releases`.
   - [x] Show release-notes loading progress, recreate the WebView2 tab when revisited, dispose WebView2 on unload, and avoid intercepting external navigation in Phase 18.
+  - [x] Hide release-notes loading progress on WebView2 DOM readiness to avoid a visible loader over loaded GitHub content.
   - [x] WebView2 usage is scoped to release notes, includes loading/error/fallback UI, and documents runtime distribution expectations for the Velopack/unpackaged app.
   - [x] Show a native fallback message with an `Open releases in browser` action if the GitHub releases page cannot load.
   - [x] Keep Settings scoped to app preferences, theme/backdrop, updates, diagnostics preferences, and developer-mode style options.

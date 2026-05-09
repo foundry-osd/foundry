@@ -9,6 +9,7 @@
     <Grid Margin="0,10,0,0">
         <WebView2 x:Name="ReleaseNotesWebView"
                   Source="{Binding ReleasesUri}"
+                  CoreWebView2Initialized="ReleaseNotesWebView_CoreWebView2Initialized"
                   NavigationCompleted="ReleaseNotesWebView_NavigationCompleted"
                   NavigationStarting="ReleaseNotesWebView_NavigationStarting" />
 
