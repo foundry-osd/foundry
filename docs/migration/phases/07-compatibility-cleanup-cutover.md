@@ -133,6 +133,7 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `Release notes` WebView2 navigation follows UniGetUI: load the releases URL in the embedded view, show progress, and do not intercept external navigation in Phase 18.
 - Decision: `Release notes` hides loading progress as soon as the embedded page DOM is available so the progress state does not remain visually over WebView2 content.
 - Decision: `Licenses` uses a curated native WinUI list for Phase 18, not generated package-license automation.
+- Decision: `Licenses` uses the same alternating native row background pattern as `Contributors` so the two native About list pages remain visually coherent.
 - Decision: `Contributors` follows the UniGetUI pattern but loads real contributors automatically from GitHub, enriches entries with GitHub profile display names, sorts by contribution count, filters obvious bot accounts, and shows only a centered failure state if the fetch fails; do not keep a local fallback contributor list.
 - Decision: `Contributors` uses alternating native row backgrounds when multiple contributors are shown so row actions such as `Profile` remain visually trackable.
 - Decision: Do not add a separate `Translators` tab in Phase 18; include translation credits under `Contributors` only if real credits exist.
@@ -233,6 +234,7 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `About` tab uses a WPF-inspired branded identity layout with app icon, app name, version, approved link set, authors, support, and footer text.
   - [x] `About` useful links use standard WinUI buttons and route through the shared external process launcher.
   - [x] Render `Licenses` as a compact curated native WinUI list for Foundry and third-party licenses with external links.
+  - [x] Render license rows with the same alternating theme-aware background pattern used by contributors.
   - [x] Render `Contributors` as an automatic native WinUI list loaded from GitHub with display name, GitHub handle, profile links, avatar URLs, and contribution counts sorted descending.
   - [x] Render contributor rows with alternating theme-aware backgrounds so profile actions are easier to scan.
   - [x] `Contributors` tab includes loading and centered fetch-failure states; it does not use a local fallback contributor list.

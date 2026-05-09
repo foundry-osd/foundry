@@ -68,17 +68,20 @@ namespace Foundry.ViewModels
                 localizationService.GetString("AboutDialog.FoundryLicenseTitle"),
                 localizationService.GetString("AboutDialog.FoundryLicenseDescription"),
                 localizationService.GetString("AboutDialog.OpenLink"),
-                LicenseUri),
+                LicenseUri,
+                false),
             new AboutLinkItemViewModel(
                 localizationService.GetString("AboutDialog.SevenZipLicenseTitle"),
                 localizationService.GetString("AboutDialog.SevenZipLicenseDescription"),
                 localizationService.GetString("AboutDialog.OpenLink"),
-                new Uri("https://www.7-zip.org/license.txt")),
+                new Uri("https://www.7-zip.org/license.txt"),
+                true),
             new AboutLinkItemViewModel(
                 localizationService.GetString("AboutDialog.ThirdPartyLicenseTitle"),
                 localizationService.GetString("AboutDialog.ThirdPartyLicenseDescription"),
                 localizationService.GetString("AboutDialog.OpenLink"),
-                RepositoryUri)
+                RepositoryUri,
+                false)
         };
 
         public ObservableCollection<ContributorItemViewModel> ContributorItems { get; } = [];
@@ -164,7 +167,7 @@ namespace Foundry.ViewModels
         }
     }
 
-    public sealed record AboutLinkItemViewModel(string Title, string Description, string LinkText, Uri Uri);
+    public sealed record AboutLinkItemViewModel(string Title, string Description, string LinkText, Uri Uri, bool IsAlternate);
 
     public sealed record ContributorItemViewModel(
         string Name,
