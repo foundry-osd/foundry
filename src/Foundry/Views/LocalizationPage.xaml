@@ -15,46 +15,27 @@
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
-            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="{ThemeResource FoundryCardCornerRadius}"
-                    Padding="{ThemeResource FoundryDefaultContentPadding}">
-                <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel VerticalAlignment="Center"
-                                Orientation="Horizontal"
-                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                        <FontIcon FontSize="{ThemeResource FoundryIconSizeDefault}"
-                                  Glyph="&#xE8AB;" />
-
-                        <TextBlock VerticalAlignment="Center"
-                                   FontWeight="SemiBold"
-                                   Text="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}" />
-                    </StackPanel>
-
-                    <ItemsRepeater Grid.Column="1"
-                                   HorizontalAlignment="Right"
-                                   MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
-                                   ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
-                        <ItemsRepeater.Layout>
-                            <UniformGridLayout MinColumnSpacing="{ThemeResource FoundrySpace12}"
-                                               MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
-                                               MinRowSpacing="{ThemeResource FoundrySpace4}" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="viewModels:LocalizationLanguageOptionViewModel">
-                                <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
-                                          IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-                </Grid>
-            </Border>
+            <wct:SettingsCard Header="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}"
+                              HorizontalContentAlignment="Right">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE8AB;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ItemsRepeater HorizontalAlignment="Right"
+                               MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
+                               ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                           MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
+                                           MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="viewModels:LocalizationLanguageOptionViewModel">
+                            <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
+                                      IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </wct:SettingsCard>
 
             <wct:SettingsCard Header="{x:Bind ViewModel.DefaultLanguageHeader, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
