@@ -1236,11 +1236,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private StartReadinessItemViewModel BuildIsoOutputReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
-        bool isBlocked = HasReason(evaluation, MediaPreflightBlockingReason.InvalidIsoPath);
+        bool hasInvalidIsoPath = HasReason(evaluation, MediaPreflightBlockingReason.InvalidIsoPath);
         return CreateReadinessItem(
             localizationService.GetString("StartMedia.Field.IsoPath"),
-            isBlocked ? StartReadinessState.Blocked : StartReadinessState.Ready,
-            isBlocked
+            hasInvalidIsoPath ? StartReadinessState.Warning : StartReadinessState.Ready,
+            hasInvalidIsoPath
                 ? GetBlockingReasonText(MediaPreflightBlockingReason.InvalidIsoPath)
                 : FormatValue(options.IsoOutputPath));
     }
@@ -1250,7 +1250,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         StartReadinessState state = usbCandidateDiscoveryState switch
         {
             UsbCandidateDiscoveryState.Loading => StartReadinessState.Loading,
-            UsbCandidateDiscoveryState.Empty => StartReadinessState.NotConfigured,
+            UsbCandidateDiscoveryState.Empty => StartReadinessState.Warning,
             UsbCandidateDiscoveryState.Error => StartReadinessState.Warning,
             _ => options.SelectedUsbDisk is null ? StartReadinessState.NotConfigured : StartReadinessState.Ready
         };

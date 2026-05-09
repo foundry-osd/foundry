@@ -33,19 +33,19 @@
                                Text="{x:Bind Description}"
                                TextWrapping="WrapWholeWords" />
                 </StackPanel>
-                <TextBlock Grid.Column="2"
-                           MinWidth="112"
-                           VerticalAlignment="Center"
-                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                           Text="{x:Bind Status}"
-                           TextWrapping="NoWrap" />
-                <Button Grid.Column="3"
+                <Button Grid.Column="2"
                         MinWidth="{StaticResource SettingActionControlMinWidth}"
                         VerticalAlignment="Center"
                         Click="ReadinessActionButton_Click"
                         Content="{x:Bind ActionText}"
                         Tag="{x:Bind NavigationTarget}"
                         Visibility="{x:Bind ActionVisibility}" />
+                <TextBlock Grid.Column="3"
+                           MinWidth="112"
+                           VerticalAlignment="Center"
+                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                           Text="{x:Bind Status}"
+                           TextWrapping="NoWrap" />
             </Grid>
         </DataTemplate>
     </Page.Resources>

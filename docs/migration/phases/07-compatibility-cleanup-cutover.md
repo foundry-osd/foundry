@@ -151,6 +151,7 @@ Build after the design-token/package baseline and after each major implementatio
 - Decision: `Start` owns final output and execution choices: ISO output path, USB target, USB partition style, USB format mode, and final ISO/USB commands.
 - Decision: USB partition style and format mode are secondary USB target options and should live under the `Start` USB target surface, preferably as collapsed expander details.
 - Decision: `Start` readiness groups use WCT `SettingsExpander` controls and auto-expand only when a group contains a blocked or warning item; not-configured items stay collapsed by default to keep the page compact.
+- Decision: Missing ISO output and unavailable USB targets appear as warnings in the `Start` readiness review, while the final Create ISO/Create USB commands remain blocked by preflight until the required output is configured.
 - Decision: Phase 18 removes UI code made obsolete by the redesign, including stale pages, view models, navigation metadata, resources, and localization keys.
 - Decision: Phase 18 updates both `en-US` and `fr-FR` localization resources whenever labels, descriptions, actions, or page text change.
 - Decision: Exact UI wording can be finalized during implementation unless a label is explicitly fixed in this plan; every finalized string must update `en-US` and `fr-FR` together.
