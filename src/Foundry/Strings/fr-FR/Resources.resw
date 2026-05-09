@@ -273,9 +273,6 @@
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>Fuseau horaire de déploiement</value>
   </data>
-  <data name="Localization.ForceSingleVisibleLanguage" xml:space="preserve">
-    <value>Forcer une seule langue visible</value>
-  </data>
   <data name="Localization.AutomaticOption" xml:space="preserve">
     <value>Automatique</value>
   </data>

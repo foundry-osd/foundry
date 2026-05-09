@@ -30,7 +30,6 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
         VisibleLanguagesHeader = localizationService.GetString("Localization.VisibleLanguages.Header");
         DefaultLanguageHeader = localizationService.GetString("Localization.DefaultLanguage.Header");
         TimeZoneHeader = localizationService.GetString("Localization.TimeZone.Header");
-        ForceSingleVisibleLanguageText = localizationService.GetString("Localization.ForceSingleVisibleLanguage");
         AutomaticOptionText = localizationService.GetString("Localization.AutomaticOption");
 
         BuildLanguageOptions(languageRegistryService.GetLanguages());
@@ -59,9 +58,6 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
     public partial string TimeZoneHeader { get; set; }
 
     [ObservableProperty]
-    public partial string ForceSingleVisibleLanguageText { get; set; }
-
-    [ObservableProperty]
     public partial string AutomaticOptionText { get; set; }
 
     [ObservableProperty]
@@ -69,9 +65,6 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
 
     [ObservableProperty]
     public partial SelectionOption<string>? SelectedTimeZone { get; set; }
-
-    [ObservableProperty]
-    public partial bool ForceSingleVisibleLanguage { get; set; }
 
     public void Dispose()
     {
@@ -89,11 +82,6 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
     }
 
     partial void OnSelectedTimeZoneChanged(SelectionOption<string>? value)
-    {
-        SaveState();
-    }
-
-    partial void OnForceSingleVisibleLanguageChanged(bool value)
     {
         SaveState();
     }
@@ -116,6 +104,7 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
     private void ApplyState(LocalizationSettings settings)
     {
         isApplyingState = true;
+        bool normalizeForceSingleVisibleLanguage = settings.ForceSingleVisibleLanguage;
 
         HashSet<string> visibleCodes = settings.VisibleLanguageCodes
             .Select(NormalizeForComparison)
@@ -127,11 +116,15 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
             option.IsSelected = visibleCodes.Contains(NormalizeForComparison(option.Code));
         }
 
-        ForceSingleVisibleLanguage = settings.ForceSingleVisibleLanguage;
         RefreshDefaultLanguageOptions(settings.DefaultLanguageCodeOverride);
         SelectedTimeZone = SelectStringOption(TimeZoneOptions, settings.DefaultTimeZoneId) ?? TimeZoneOptions[0];
 
         isApplyingState = false;
+
+        if (normalizeForceSingleVisibleLanguage)
+        {
+            SaveState();
+        }
     }
 
     private void SaveState()
@@ -171,7 +164,7 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
                 VisibleLanguageCodes = visibleLanguageCodes,
                 DefaultLanguageCodeOverride = defaultLanguageCodeOverride,
                 DefaultTimeZoneId = defaultTimeZoneId,
-                ForceSingleVisibleLanguage = ForceSingleVisibleLanguage
+                ForceSingleVisibleLanguage = false
             });
         }
         finally
@@ -246,7 +239,6 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
         VisibleLanguagesHeader = localizationService.GetString("Localization.VisibleLanguages.Header");
         DefaultLanguageHeader = localizationService.GetString("Localization.DefaultLanguage.Header");
         TimeZoneHeader = localizationService.GetString("Localization.TimeZone.Header");
-        ForceSingleVisibleLanguageText = localizationService.GetString("Localization.ForceSingleVisibleLanguage");
         AutomaticOptionText = localizationService.GetString("Localization.AutomaticOption");
         RefreshDefaultLanguageOptions(SelectedDefaultLanguage?.Value);
         RefreshTimeZones();

@@ -292,10 +292,10 @@ Build after the design-token/package baseline and after each major implementatio
   - [x] `Network` uses stronger progressive disclosure for Ethernet 802.1X and Wi-Fi instead of opening all advanced sections by default.
   - [x] Collapse Ethernet 802.1X and Wi-Fi sections by default unless the section is enabled, configured, or invalid.
   - [x] Place Network validation feedback next to the field or section it blocks and keep secret handling opaque.
-  - [ ] Keep WinPE image/boot language on `General`, not on `Localization`.
-  - [ ] `Localization` clearly owns deployment OS language choices and removes the separate single-visible-language toggle from the user-facing UI.
-  - [ ] Preserve current visible deployment language semantics while removing the user-facing `Force single visible deployment language` toggle.
-  - [ ] Reset default deployment language to `Automatic` when it no longer belongs to the selected visible deployment language set.
+  - [x] Keep WinPE image/boot language on `General`, not on `Localization`.
+  - [x] `Localization` clearly owns deployment OS language choices and removes the separate single-visible-language toggle from the user-facing UI.
+  - [x] Preserve current visible deployment language semantics while removing the user-facing `Force single visible deployment language` toggle.
+  - [x] Reset default deployment language to `Automatic` when it no longer belongs to the selected visible deployment language set.
   - [ ] `Autopilot` separates enablement, import/download actions, default profile, profile inventory, and destructive removal behavior.
   - [ ] `Autopilot` shows visible busy/status feedback for import and tenant download operations.
   - [ ] `Autopilot` replaces or repairs the tenant profile picker interaction model so multi-select is accessible and keyboard-clear.
