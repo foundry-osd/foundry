@@ -57,7 +57,7 @@
                                 Command="{x:Bind ViewModel.DownloadProfilesCommand}"
                                 Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
                         <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                Command="{x:Bind ViewModel.RemoveSelectedProfileCommand}"
+                                Command="{x:Bind ViewModel.RemoveSelectedProfilesCommand}"
                                 Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
                     </StackPanel>
                 </Grid>
@@ -84,7 +84,8 @@
                     <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
                                TextWrapping="Wrap"
                                Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
-                    <tv:TableView AutoGenerateColumns="False"
+                    <tv:TableView x:Name="ProfilesTable"
+                                  AutoGenerateColumns="False"
                                   CanFilterColumns="False"
                                   CanReorderColumns="False"
                                   CanResizeColumns="False"
@@ -94,8 +95,8 @@
                                   IsReadOnly="True"
                                   ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
                                   MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                                  SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}"
-                                  SelectionMode="Single"
+                                  SelectionChanged="ProfilesTable_SelectionChanged"
+                                  SelectionMode="Multiple"
                                   SelectionUnit="Row"
                                   ShowExportOptions="False"
                                   Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">

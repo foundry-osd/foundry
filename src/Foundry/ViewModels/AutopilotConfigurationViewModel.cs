@@ -53,10 +53,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
         Profiles.CollectionChanged += OnProfilesCollectionChanged;
+        SelectedProfiles.CollectionChanged += OnSelectedProfilesCollectionChanged;
         isApplyingState = false;
     }
 
     public ObservableCollection<AutopilotProfileEntryViewModel> Profiles { get; } = [];
+    public ObservableCollection<AutopilotProfileEntryViewModel> SelectedProfiles { get; } = [];
 
     public bool IsAutopilotSectionEnabled => IsAutopilotEnabled;
     public bool HasProfiles => Profiles.Count > 0;
@@ -107,6 +109,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string RemoveProfileConfirmationPrimaryButton { get; set; }
 
     [ObservableProperty]
+    public partial string RemoveProfilesConfirmationTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string RemoveProfilesConfirmationPrimaryButton { get; set; }
+
+    [ObservableProperty]
     public partial string DefaultProfileLabel { get; set; }
 
     [ObservableProperty]
@@ -131,12 +139,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyPropertyChangedFor(nameof(IsAutopilotSectionEnabled))]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
-    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
     public partial bool IsAutopilotEnabled { get; set; }
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
-    public partial AutopilotProfileEntryViewModel? SelectedProfile { get; set; }
 
     [ObservableProperty]
     public partial AutopilotProfileEntryViewModel? SelectedDefaultProfile { get; set; }
@@ -144,7 +148,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
-    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
     [NotifyPropertyChangedFor(nameof(IsBusy))]
     [NotifyPropertyChangedFor(nameof(BusyStatusText))]
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
@@ -153,7 +157,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
-    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
     [NotifyPropertyChangedFor(nameof(IsBusy))]
     [NotifyPropertyChangedFor(nameof(BusyStatusText))]
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
@@ -164,6 +168,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
         Profiles.CollectionChanged -= OnProfilesCollectionChanged;
+        SelectedProfiles.CollectionChanged -= OnSelectedProfilesCollectionChanged;
     }
 
     [RelayCommand(CanExecute = nameof(CanImportProfile))]
@@ -252,31 +257,41 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
     }
 
-    [RelayCommand(CanExecute = nameof(CanRemoveSelectedProfile))]
-    private async Task RemoveSelectedProfileAsync()
+    [RelayCommand(CanExecute = nameof(CanRemoveSelectedProfiles))]
+    private async Task RemoveSelectedProfilesAsync()
     {
-        if (SelectedProfile is null)
+        AutopilotProfileEntryViewModel[] profilesToRemove = SelectedProfiles.ToArray();
+        if (profilesToRemove.Length == 0)
         {
             return;
         }
 
-        AutopilotProfileEntryViewModel profileToRemove = SelectedProfile;
+        bool isSingleProfileRemoval = profilesToRemove.Length == 1;
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
-            RemoveProfileConfirmationTitle,
-            localizationService.FormatString("Autopilot.RemoveConfirmationMessageFormat", profileToRemove.DisplayName),
-            RemoveProfileConfirmationPrimaryButton,
+            isSingleProfileRemoval ? RemoveProfileConfirmationTitle : RemoveProfilesConfirmationTitle,
+            isSingleProfileRemoval
+                ? localizationService.FormatString("Autopilot.RemoveConfirmationMessageFormat", profilesToRemove[0].DisplayName)
+                : localizationService.FormatString("Autopilot.RemoveProfilesConfirmationMessageFormat", profilesToRemove.Length),
+            isSingleProfileRemoval ? RemoveProfileConfirmationPrimaryButton : RemoveProfilesConfirmationPrimaryButton,
             localizationService.GetString("Common.Cancel")));
         if (!confirmed)
         {
             return;
         }
 
-        string removedProfileId = profileToRemove.Id;
-        Profiles.Remove(profileToRemove);
+        HashSet<string> removedProfileIds = profilesToRemove
+            .Select(profile => profile.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-        SelectedProfile = Profiles.FirstOrDefault();
+        foreach (AutopilotProfileEntryViewModel profile in profilesToRemove)
+        {
+            Profiles.Remove(profile);
+        }
+
+        SelectedProfiles.Clear();
+
         if (SelectedDefaultProfile is null ||
-            string.Equals(SelectedDefaultProfile.Id, removedProfileId, StringComparison.OrdinalIgnoreCase))
+            removedProfileIds.Contains(SelectedDefaultProfile.Id))
         {
             SelectedDefaultProfile = Profiles.FirstOrDefault();
         }
@@ -302,8 +317,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             IsAutopilotEnabled = settings.IsEnabled;
             ReplaceProfiles(
                 settings.Profiles.Select(AutopilotProfileEntryViewModel.FromSettings),
-                settings.DefaultProfileId,
-                SelectedProfile?.Id);
+                settings.DefaultProfileId);
         }
         finally
         {
@@ -322,14 +336,13 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
 
         string? preferredDefaultProfileId = SelectedDefaultProfile?.Id ?? incomingProfiles.FirstOrDefault()?.Id;
-        ReplaceProfiles(mergedProfiles.Values, preferredDefaultProfileId, SelectedProfile?.Id);
+        ReplaceProfiles(mergedProfiles.Values, preferredDefaultProfileId);
         SaveState();
     }
 
     private void ReplaceProfiles(
         IEnumerable<AutopilotProfileEntryViewModel> profiles,
-        string? preferredDefaultProfileId,
-        string? preferredSelectedProfileId)
+        string? preferredDefaultProfileId)
     {
         AutopilotProfileEntryViewModel[] orderedProfiles = profiles
             .OrderBy(profile => profile.DisplayName, StringComparer.OrdinalIgnoreCase)
@@ -342,9 +355,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             Profiles.Add(profile);
         }
 
-        SelectedProfile = Profiles.FirstOrDefault(profile =>
-                              string.Equals(profile.Id, preferredSelectedProfileId, StringComparison.OrdinalIgnoreCase))
-                          ?? Profiles.FirstOrDefault();
+        SelectedProfiles.Clear();
 
         SelectedDefaultProfile = Profiles.FirstOrDefault(profile =>
                                      string.Equals(profile.Id, preferredDefaultProfileId, StringComparison.OrdinalIgnoreCase))
@@ -390,6 +401,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         DownloadingStatusText = localizationService.GetString("Autopilot.DownloadingStatus");
         RemoveProfileConfirmationTitle = localizationService.GetString("Autopilot.RemoveConfirmationTitle");
         RemoveProfileConfirmationPrimaryButton = localizationService.GetString("Autopilot.RemoveConfirmationPrimaryButton");
+        RemoveProfilesConfirmationTitle = localizationService.GetString("Autopilot.RemoveProfilesConfirmationTitle");
+        RemoveProfilesConfirmationPrimaryButton = localizationService.GetString("Autopilot.RemoveProfilesConfirmationPrimaryButton");
         DefaultProfileLabel = localizationService.GetString("Autopilot.DefaultProfileLabel");
         ProfilesLabel = localizationService.GetString("Autopilot.ProfilesLabel");
         EmptyProfilesText = localizationService.GetString("Autopilot.ProfilesEmptyLabel");
@@ -405,12 +418,26 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(HasProfiles));
         OnPropertyChanged(nameof(EmptyProfilesVisibility));
         OnPropertyChanged(nameof(ProfilesVisibility));
-        RemoveSelectedProfileCommand.NotifyCanExecuteChanged();
+        RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
     }
 
     private void OnProfilesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
         RefreshProfileState();
+    }
+
+    private void OnSelectedProfilesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
+    }
+
+    public void ReplaceSelectedProfiles(IEnumerable<AutopilotProfileEntryViewModel> profiles)
+    {
+        SelectedProfiles.Clear();
+        foreach (AutopilotProfileEntryViewModel profile in profiles)
+        {
+            SelectedProfiles.Add(profile);
+        }
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
@@ -438,8 +465,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return IsAutopilotEnabled && !IsImporting && !IsDownloading;
     }
 
-    private bool CanRemoveSelectedProfile()
+    private bool CanRemoveSelectedProfiles()
     {
-        return IsAutopilotEnabled && !IsImporting && !IsDownloading && SelectedProfile is not null;
+        return IsAutopilotEnabled && !IsImporting && !IsDownloading && SelectedProfiles.Count > 0;
     }
 }
