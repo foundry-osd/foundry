@@ -88,7 +88,9 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
 
     private void BuildLanguageOptions(IReadOnlyList<LanguageRegistryEntry> languages)
     {
-        foreach (LanguageRegistryEntry language in languages)
+        foreach (LanguageRegistryEntry language in languages
+            .OrderBy(language => language.DisplayName, StringComparer.CurrentCultureIgnoreCase)
+            .ThenBy(language => language.Code, StringComparer.OrdinalIgnoreCase))
         {
             string code = Canonicalize(language.Code);
             var option = new LocalizationLanguageOptionViewModel(
