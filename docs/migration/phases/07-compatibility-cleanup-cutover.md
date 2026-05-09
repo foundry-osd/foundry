@@ -260,23 +260,23 @@ Build after the design-token/package baseline and after each major implementatio
   - [ ] Avoid nested scroll friction where `ListView` or `TableView` sits inside an outer `ScrollView`.
 - [ ] **18.5** Rationalize control ownership:
   - [ ] Prefer native WinUI 3 controls for common primitives: `Button`, `ToggleSwitch`, `ComboBox`, `InfoBar`, `ContentDialog`, `NavigationView`, `ListView`, layout panels, and command surfaces.
-  - [ ] Prefer Windows Community Toolkit controls for Windows-settings-style page content: `SettingsCard` and `SettingsExpander` from the WinUI 3 toolkit package.
+  - [x] Prefer Windows Community Toolkit controls for Windows-settings-style page content: `SettingsCard` and `SettingsExpander` from the WinUI 3 toolkit package.
   - [ ] Use table/grid controls only where users need row scanning, selection, sorting, or multi-column comparison.
   - [x] Use WebView2 only for the About dialog release-notes tab; keep other About tabs native WinUI to avoid web UI where static local content is sufficient.
   - [ ] Page-level controls must use the approved design-token baseline for color, typography, icon size, spacing, and corner radius.
-  - [ ] Keep DevWinUI `MainLandingPage` and `HeaderTile` as approved Home-only exceptions where they provide the landing shell and primary action tiles.
-  - [ ] Do not mix DevWinUI settings controls and Windows Community Toolkit settings controls on the same page unless there is a documented reason.
-  - [ ] Migrate page-level `dev:SettingsCard` and `dev:SettingsExpander` usages page by page with the relevant UX slice instead of doing one broad control rewrite.
-  - [ ] Keep DevWinUI shell controls where they provide the navigation/title bar/content-frame baseline.
-  - [ ] Keep native `PasswordBox` handling for Wi-Fi and network secrets.
+  - [x] Keep DevWinUI `MainLandingPage` and `HeaderTile` as approved Home-only exceptions where they provide the landing shell and primary action tiles.
+  - [x] Do not mix DevWinUI settings controls and Windows Community Toolkit settings controls on the same page unless there is a documented reason.
+  - [x] Migrate page-level `dev:SettingsCard` and `dev:SettingsExpander` usages page by page with the relevant UX slice instead of doing one broad control rewrite.
+  - [x] Keep DevWinUI shell controls where they provide the navigation/title bar/content-frame baseline.
+  - [x] Keep native `PasswordBox` handling for Wi-Fi and network secrets.
   - [ ] Keep `WinUI.TableView` on the main Autopilot profile list.
-  - [ ] Replace the Autopilot tenant-selection dialog `TableView` with a clearer multi-select list pattern.
+  - [x] Replace the Autopilot tenant-selection dialog `TableView` with a clearer multi-select list pattern.
 - [ ] **18.6** Audit DevWinUI usage:
-  - [ ] Inventory DevWinUI controls used in Foundry workflow pages.
-  - [ ] Classify each usage as shell-owned, page-layout-owned, or obsolete prototype usage.
-  - [ ] Keep shell-owned DevWinUI usages: `MainWindow` title bar/navigation/breadcrumb integration, navigation metadata, resource dictionaries, and shell services.
-  - [ ] Replace page-owned `dev:SettingsCard` and `dev:SettingsExpander` usages with native WinUI composition or WCT settings controls on `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Settings`, `About`, and settings subpages where practical.
-  - [ ] Keep DevWinUI page controls only when no native WinUI or WCT replacement fits the interaction cleanly, or when replacement creates unnecessary behavioral risk.
+  - [x] Inventory DevWinUI controls used in Foundry workflow pages.
+  - [x] Classify each usage as shell-owned, page-layout-owned, or obsolete prototype usage.
+  - [x] Keep shell-owned DevWinUI usages: `MainWindow` title bar/navigation/breadcrumb integration, navigation metadata, resource dictionaries, and shell services.
+  - [x] Replace page-owned `dev:SettingsCard` and `dev:SettingsExpander` usages with native WinUI composition or WCT settings controls on `ADK`, `General`, `Start`, `Network`, `Localization`, `Autopilot`, `Customization`, `Settings`, `About`, and settings subpages where practical.
+  - [x] Keep DevWinUI page controls only when no native WinUI or WCT replacement fits the interaction cleanly, or when replacement creates unnecessary behavioral risk.
 - [ ] **18.7** Review each workflow page for expected desktop UX:
   - [x] `ADK` clearly separates overall readiness, setup actions, and grouped readiness details for installed version/policy, WinPE add-on state, and media capability.
   - [x] Put one ADK readiness card first, one setup action card second, then one compact readiness details card for installed version, required version policy, WinPE add-on status, and ISO/USB capability.

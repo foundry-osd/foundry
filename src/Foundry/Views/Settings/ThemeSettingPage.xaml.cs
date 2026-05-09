@@ -6,6 +6,11 @@
         {
             this.InitializeComponent();
         }
+
+        private async void AccentButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:colors"));
+        }
     }
 
 

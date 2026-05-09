@@ -7,6 +7,7 @@
       xmlns:local="using:Foundry"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:Foundry.Views"
+      xmlns:wct="using:CommunityToolkit.WinUI.Controls"
       dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
@@ -15,8 +16,10 @@
         <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="{ThemeResource FoundryCompactStackSpacing}">
-            <dev:SettingsCard x:Uid="ThemeSetting_AppThemeCard"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Theme.png}">
+            <wct:SettingsCard x:Uid="ThemeSetting_AppThemeCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;" />
+                </wct:SettingsCard.HeaderIcon>
                 <ComboBox dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
                     <ComboBoxItem x:Uid="ThemeSetting_LightItem"
                                   Tag="Light" />
@@ -25,9 +28,11 @@
                     <ComboBoxItem x:Uid="ThemeSetting_DefaultItem"
                                   Tag="Default" />
                 </ComboBox>
-            </dev:SettingsCard>
-            <dev:SettingsCard x:Uid="ThemeSetting_MaterialCard"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Backdrop.png}">
+            </wct:SettingsCard>
+            <wct:SettingsCard x:Uid="ThemeSetting_MaterialCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE771;" />
+                </wct:SettingsCard.HeaderIcon>
                 <ComboBox dev:ThemeServiceAttach.ThemeService="{x:Bind local:App.Current.ThemeService}">
                     <ComboBoxItem x:Uid="ThemeSetting_MicaItem"
                                   Tag="Mica" />
@@ -38,12 +43,15 @@
                     <ComboBoxItem x:Uid="ThemeSetting_AcrylicThinItem"
                                   Tag="AcrylicThin" />
                 </ComboBox>
-            </dev:SettingsCard>
-            <dev:SettingsCard ActionIcon="{dev:BitmapIcon Source=Assets/Fluent/External.png}"
-                              x:Uid="ThemeSetting_AccentCard"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Color.png}"
-                              IsClickEnabled="True"
-                              LaunchUri="ms-settings:colors" />
+            </wct:SettingsCard>
+            <wct:SettingsCard x:Uid="ThemeSetting_AccentCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE2B1;" />
+                </wct:SettingsCard.HeaderIcon>
+                <Button x:Uid="ThemeSetting_AccentButton"
+                        Click="AccentButton_Click"
+                        MinWidth="{ThemeResource FoundryCompactActionMinWidth}" />
+            </wct:SettingsCard>
         </StackPanel>
     </ScrollView>
 </Page>

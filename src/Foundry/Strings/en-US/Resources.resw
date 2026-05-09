@@ -1176,6 +1176,9 @@
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
     <value>Accent color</value>
   </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>Open</value>
+  </data>
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>Acrylic</value>
   </data>

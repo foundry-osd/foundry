@@ -7,6 +7,7 @@
       xmlns:local="using:Foundry"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:Foundry.Views"
+      xmlns:wct="using:CommunityToolkit.WinUI.Controls"
       dev:BreadcrumbNavigator.IsHeaderVisible="True"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
@@ -16,20 +17,22 @@
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="{ThemeResource FoundryCompactStackSpacing}">
 
-            <dev:SettingsCard x:Name="StartupCard"
-                              x:Uid="GeneralSetting_StartupCard"
-                              HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/Startup.png}">
+            <wct:SettingsCard x:Name="StartupCard"
+                               x:Uid="GeneralSetting_StartupCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE7F4;" />
+                </wct:SettingsCard.HeaderIcon>
                 <ToggleSwitch x:Name="StartupToggle"
-                              IsOn="{x:Bind dev:StartupHelper.IsAppStartupWithWindowsForXamlBindingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </dev:SettingsCard>
+                               IsOn="{x:Bind dev:StartupHelper.IsAppStartupWithWindowsForXamlBindingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wct:SettingsCard>
 
-            <dev:SettingsCard x:Name="LanguageCard"
-                              x:Uid="GeneralSetting_LanguageCard">
-                <dev:SettingsCard.HeaderIcon>
+            <wct:SettingsCard x:Name="LanguageCard"
+                               x:Uid="GeneralSetting_LanguageCard">
+                <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xF2B7;" />
-                </dev:SettingsCard.HeaderIcon>
+                </wct:SettingsCard.HeaderIcon>
                 <ComboBox x:Name="LanguageComboBox"
-                          MinWidth="{StaticResource SettingActionControlMinWidth}"
+                          MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                           ItemsSource="{x:Bind ViewModel.SupportedLanguages, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
                           SelectionChanged="LanguageComboBox_SelectionChanged">
@@ -39,20 +42,22 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-            </dev:SettingsCard>
+            </wct:SettingsCard>
 
-            <dev:SettingsExpander x:Name="DiagnosticsCard"
-                                  x:Uid="GeneralSetting_DiagnosticsCard"
-                                  HeaderIcon="{dev:BitmapIcon Source=Assets/Fluent/DevMode.png}">
+            <wct:SettingsExpander x:Name="DiagnosticsCard"
+                                   x:Uid="GeneralSetting_DiagnosticsCard">
+                <wct:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xE9D9;" />
+                </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch x:Name="DiagnosticsToggle"
-                              IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <dev:SettingsExpander.ItemsHeader>
+                               IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <wct:SettingsExpander.ItemsHeader>
                     <HyperlinkButton HorizontalAlignment="Stretch"
-                                     HorizontalContentAlignment="Left"
-                                     Command="{x:Bind ViewModel.OpenLogFolderCommand}"
-                                     Content="{x:Bind ViewModel.LogDirectoryPath}" />
-                </dev:SettingsExpander.ItemsHeader>
-            </dev:SettingsExpander>
+                                      HorizontalContentAlignment="Left"
+                                      Command="{x:Bind ViewModel.OpenLogFolderCommand}"
+                                      Content="{x:Bind ViewModel.LogDirectoryPath}" />
+                </wct:SettingsExpander.ItemsHeader>
+            </wct:SettingsExpander>
 
         </StackPanel>
     </ScrollView>
