@@ -730,7 +730,10 @@
     <value>Prêt à créer le média USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>{0} contrôles de préparation nécessitent une action</value>
+    <value>{0} blocages de préparation nécessitent une action</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>Vérifier les avertissements de sortie média</value>
   </data>
   <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
     <value>Prérequis</value>

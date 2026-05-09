@@ -730,7 +730,10 @@
     <value>Ready to create USB media</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>{0} readiness items need attention</value>
+    <value>{0} readiness blockers need action</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>Review media output warnings</value>
   </data>
   <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
     <value>Prerequisites</value>

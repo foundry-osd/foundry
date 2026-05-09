@@ -1120,8 +1120,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)
     {
-        IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
-
         if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
         {
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyIsoAndUsb");
@@ -1137,7 +1135,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyUsb");
         }
 
-        return string.Format(localizationService.GetString("StartMedia.Readiness.Status.NeedsAttention"), reasons.Count);
+        IReadOnlyList<MediaPreflightBlockingReason> blockingReasons = GetGlobalBlockingReasons(evaluation)
+            .Where(IsBlockingReadinessReason)
+            .ToList();
+
+        return blockingReasons.Count == 0
+            ? localizationService.GetString("StartMedia.Readiness.Status.Warnings")
+            : string.Format(localizationService.GetString("StartMedia.Readiness.Status.NeedsAttention"), blockingReasons.Count);
     }
 
     private InfoBarSeverity GetReadinessSeverity(MediaPreflightEvaluation evaluation)
@@ -1150,6 +1154,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         if (evaluation.CanCreateIso || evaluation.CanCreateUsb)
         {
             return InfoBarSeverity.Informational;
+        }
+
+        if (!GetGlobalBlockingReasons(evaluation).Any(IsBlockingReadinessReason))
+        {
+            return InfoBarSeverity.Warning;
         }
 
         return InfoBarSeverity.Error;
@@ -1516,6 +1525,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             .Where(reason => reason != MediaPreflightBlockingReason.NoUsbTarget)
             .Distinct()
             .ToList();
+    }
+
+    private static bool IsBlockingReadinessReason(MediaPreflightBlockingReason reason)
+    {
+        return reason is not (MediaPreflightBlockingReason.InvalidIsoPath
+            or MediaPreflightBlockingReason.NoUsbTarget
+            or MediaPreflightBlockingReason.Arm64RequiresGpt);
     }
 
     private IReadOnlyList<string> GetAvailableWinPeLanguages()

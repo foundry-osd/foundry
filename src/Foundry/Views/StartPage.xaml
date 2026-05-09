@@ -118,67 +118,70 @@
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
 
-            <wct:SettingsCard x:Name="IsoPathCard">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8A5;" />
-                </wct:SettingsCard.HeaderIcon>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                             Text="{x:Bind ViewModel.IsoOutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button x:Name="BrowseIsoButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.BrowseIsoOutputPathCommand}" />
-                </StackPanel>
-            </wct:SettingsCard>
+            <StackPanel Margin="{ThemeResource FoundrySeparatedSectionMargin}"
+                        Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                <wct:SettingsCard x:Name="IsoPathCard">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8A5;" />
+                    </wct:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                 Text="{x:Bind ViewModel.IsoOutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button x:Name="BrowseIsoButton"
+                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                Command="{x:Bind ViewModel.BrowseIsoOutputPathCommand}" />
+                    </StackPanel>
+                </wct:SettingsCard>
 
-            <wct:SettingsExpander x:Name="UsbTargetCard"
-                                  Description="{x:Bind ViewModel.UsbCandidateStatus, Mode=OneWay}">
-                <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE88E;" />
-                </wct:SettingsExpander.HeaderIcon>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <ComboBox MinWidth="{ThemeResource FoundryMediumInputMinWidth}"
-                              DisplayMemberPath="DisplayName"
-                              ItemsSource="{x:Bind ViewModel.UsbCandidates, Mode=OneWay}"
-                              SelectedItem="{x:Bind ViewModel.SelectedUsbDisk, Mode=TwoWay}" />
-                    <Button x:Name="RefreshUsbButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.RefreshUsbCandidatesCommand}" />
-                </StackPanel>
-                <wct:SettingsExpander.Items>
-                    <wct:SettingsCard x:Name="UsbPartitionStyleCard">
-                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                <wct:SettingsExpander x:Name="UsbTargetCard"
+                                      Description="{x:Bind ViewModel.UsbCandidateStatus, Mode=OneWay}">
+                    <wct:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xE88E;" />
+                    </wct:SettingsExpander.HeaderIcon>
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <ComboBox MinWidth="{ThemeResource FoundryMediumInputMinWidth}"
                                   DisplayMemberPath="DisplayName"
-                                  ItemsSource="{x:Bind ViewModel.PartitionStyles, Mode=OneWay}"
-                                  SelectedItem="{x:Bind ViewModel.SelectedPartitionStyle, Mode=TwoWay}" />
-                    </wct:SettingsCard>
-                    <wct:SettingsCard x:Name="UsbFormatModeCard">
-                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                  DisplayMemberPath="DisplayName"
-                                  ItemsSource="{x:Bind ViewModel.FormatModes, Mode=OneWay}"
-                                  SelectedItem="{x:Bind ViewModel.SelectedFormatMode, Mode=TwoWay}" />
-                    </wct:SettingsCard>
-                </wct:SettingsExpander.Items>
-            </wct:SettingsExpander>
+                                  ItemsSource="{x:Bind ViewModel.UsbCandidates, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedUsbDisk, Mode=TwoWay}" />
+                        <Button x:Name="RefreshUsbButton"
+                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                Command="{x:Bind ViewModel.RefreshUsbCandidatesCommand}" />
+                    </StackPanel>
+                    <wct:SettingsExpander.Items>
+                        <wct:SettingsCard x:Name="UsbPartitionStyleCard">
+                            <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                      DisplayMemberPath="DisplayName"
+                                      ItemsSource="{x:Bind ViewModel.PartitionStyles, Mode=OneWay}"
+                                      SelectedItem="{x:Bind ViewModel.SelectedPartitionStyle, Mode=TwoWay}" />
+                        </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="UsbFormatModeCard">
+                            <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                      DisplayMemberPath="DisplayName"
+                                      ItemsSource="{x:Bind ViewModel.FormatModes, Mode=OneWay}"
+                                      SelectedItem="{x:Bind ViewModel.SelectedFormatMode, Mode=TwoWay}" />
+                        </wct:SettingsCard>
+                    </wct:SettingsExpander.Items>
+                </wct:SettingsExpander>
 
-            <wct:SettingsCard x:Name="FinalCommandsCard">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE7C1;" />
-                </wct:SettingsCard.HeaderIcon>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <Button x:Name="CreateIsoButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.CreateIsoCommand}"
-                            IsEnabled="{x:Bind ViewModel.CanCreateIso, Mode=OneWay}" />
-                    <Button x:Name="CreateUsbButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.CreateUsbCommand}"
-                            IsEnabled="{x:Bind ViewModel.CanCreateUsb, Mode=OneWay}" />
-                </StackPanel>
-            </wct:SettingsCard>
+                <wct:SettingsCard x:Name="FinalCommandsCard">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE7C1;" />
+                    </wct:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <Button x:Name="CreateIsoButton"
+                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                Command="{x:Bind ViewModel.CreateIsoCommand}"
+                                IsEnabled="{x:Bind ViewModel.CanCreateIso, Mode=OneWay}" />
+                        <Button x:Name="CreateUsbButton"
+                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                Command="{x:Bind ViewModel.CreateUsbCommand}"
+                                IsEnabled="{x:Bind ViewModel.CanCreateUsb, Mode=OneWay}" />
+                    </StackPanel>
+                </wct:SettingsCard>
+            </StackPanel>
         </StackPanel>
     </ScrollView>
 </Page>
