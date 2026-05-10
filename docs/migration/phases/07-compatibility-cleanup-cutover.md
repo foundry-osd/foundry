@@ -449,18 +449,25 @@ git commit -m "chore: align release automation and app branding"
 **Boundary:** Repository docs live in this repo. User-facing documentation site updates may need the adjacent `foundry-osd.github.io` repository and should be handled as a separate docs-site change when release links, screenshots, or workflow pages need to change. Do not update user-facing workflow screenshots before Phase 16.E, Phase 17 smoke validation, and Phase 18 UI review are complete.
 
 - [x] **20.1** Update `README.md`.
-- [ ] **20.2** Update developer build docs.
-- [ ] **20.3** Update release process docs.
-- [ ] **20.4** Update installation/update docs.
-- [ ] **20.5** Update screenshots only after UI stabilizes.
+- [x] **20.2** Update developer build docs.
+  - [x] Updated the docs-site build-from-source page with test guidance, current MSI asset names, and the source-run versus installed Velopack update-path caveat.
+- [x] **20.3** Update release process docs.
+  - [x] Added the current release schedule, `src` change gate, manual release controls, tag format, and Velopack package-version mapping to `docs\migration\architecture\release-and-installation.md`.
+- [x] **20.4** Update installation/update docs.
+  - [x] Added current MSI asset names, Velopack packaging behavior, bootstrap dependencies, disabled MSI customization status, and installed update-flow notes to `docs\migration\architecture\release-and-installation.md`.
+- [x] **20.5** Update screenshots only after UI stabilizes.
+  - [x] No screenshots were added in this pass; the docs-site pages keep explicit suggested-screenshot placeholders until final public captures are available.
 - [ ] **20.6** Update docs site if needed:
-  - [ ] Confirm the exact adjacent repository path before editing.
-  - [ ] Download links point to `FoundrySetup-x64.msi` and `FoundrySetup-arm64.msi`.
-  - [ ] Foundry standard workflow.
-  - [ ] Media creation.
-  - [ ] Expert mode.
-  - [ ] Configuration localization.
-- [ ] **20.7** Commit:
+  - [x] Confirm the exact adjacent repository path before editing: `E:\Github\Foundry Project\foundry-osd.github.io`.
+  - [x] Download links point to `FoundrySetup-x64.msi` and `FoundrySetup-arm64.msi`.
+  - [x] Quick start uses `Foundry OSD` for the desktop app display name.
+  - [x] Build-from-source notes mention source runs do not validate the installed Velopack update path.
+  - [x] Foundry standard workflow.
+  - [x] Media creation.
+  - [x] Expert mode.
+  - [x] Configuration localization.
+  - [x] Do not update user-facing screenshots until the docs-site pages are otherwise aligned.
+- [x] **20.7** Commit:
 
 ```powershell
 git commit -m "docs: document winui foundry migration"
@@ -468,8 +475,8 @@ git commit -m "docs: document winui foundry migration"
 
 **Validation**
 
-- [ ] **20.8** Build docs site if changed.
-- [ ] **20.9** Confirm install/update instructions match Velopack artifacts.
+- [x] **20.8** Build docs site if changed.
+- [x] **20.9** Confirm install/update instructions match Velopack artifacts.
 
 ## Phase 21: Final Cutover To Main
 

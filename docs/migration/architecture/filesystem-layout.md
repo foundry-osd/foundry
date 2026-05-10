@@ -276,4 +276,5 @@ Foundry Cache:\
 - [ ] App settings must not contain secrets or workflow configuration.
 - [ ] The WinUI app must not use the DevWinUI prototype AppData root as a working directory.
 - [ ] The WinUI app must not write app settings, logs, cache, workspaces, or temp files under `%LocalAppData%`.
+- [ ] The approved `%LocalAppData%` exception is WebView2 user data at `%LOCALAPPDATA%\Foundry\WebView2`, required so installed per-machine builds do not try to create WebView2 data under `Program Files`.
 - [ ] Application code must not fall back to the old host-side folders.
