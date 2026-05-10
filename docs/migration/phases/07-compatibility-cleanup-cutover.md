@@ -394,6 +394,10 @@ git commit -m "refactor(ui): refine foundry winui experience"
     - `Assets\Installer\Conclusion.md` for `--instConclusion`.
   - [x] Keep the script comments for reusing the root `LICENSE` file by copying it to `artifacts\velopack\installer-license.md` during packaging so Velopack receives a supported extension without duplicating the license in source control.
   - [x] Keep MSI customization disabled in `Publish-FoundryVelopack.ps1` until the known Velopack custom MSI rendering bugs are fixed, then re-enable the commented `--msiVersion`, `--instWelcome`, `--instLicense`, `--instReadme`, `--instConclusion`, `--msiBanner`, and `--msiLogo` options.
+- [x] **19.5.3** Keep About release-notes WebView2 data in a writable per-user directory for per-machine installs:
+  - [x] Create `%LOCALAPPDATA%\Foundry\WebView2` during Foundry data-directory initialization.
+  - [x] Initialize the release-notes WebView2 explicitly with that user-data folder before navigating to GitHub releases.
+  - [x] Keep the native release-notes fallback visible if WebView2 initialization fails.
 - [ ] **19.6** Remove x86 prototype leftovers:
   - [ ] Remove `x86` from WinUI app `Platforms` only if it still exists.
   - [ ] Remove `win-x86` from WinUI app `RuntimeIdentifiers` only if it still exists.
