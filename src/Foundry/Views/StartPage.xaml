@@ -80,12 +80,12 @@
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE946;" />
                         </wct:SettingsExpander.HeaderIcon>
-                        <wct:SettingsExpander.Items>
+                        <wct:SettingsExpander.ItemsHeader>
                             <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
                                 <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
                                               ItemsSource="{x:Bind ViewModel.PrerequisiteReadinessItems, Mode=OneWay}" />
                             </Grid>
-                        </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>
 
                     <wct:SettingsExpander x:Name="ReadinessMediaOutputCard"
@@ -93,12 +93,12 @@
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE8A5;" />
                         </wct:SettingsExpander.HeaderIcon>
-                        <wct:SettingsExpander.Items>
+                        <wct:SettingsExpander.ItemsHeader>
                             <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
                                 <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
                                               ItemsSource="{x:Bind ViewModel.MediaOutputReadinessItems, Mode=OneWay}" />
                             </Grid>
-                        </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>
 
                     <wct:SettingsExpander x:Name="ReadinessRuntimePayloadsCard"
@@ -106,12 +106,12 @@
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE756;" />
                         </wct:SettingsExpander.HeaderIcon>
-                        <wct:SettingsExpander.Items>
+                        <wct:SettingsExpander.ItemsHeader>
                             <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
                                 <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
                                               ItemsSource="{x:Bind ViewModel.RuntimePayloadReadinessItems, Mode=OneWay}" />
                             </Grid>
-                        </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>
 
                     <wct:SettingsExpander x:Name="ReadinessExpertConfigurationCard"
@@ -119,12 +119,12 @@
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE713;" />
                         </wct:SettingsExpander.HeaderIcon>
-                        <wct:SettingsExpander.Items>
+                        <wct:SettingsExpander.ItemsHeader>
                             <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
                                 <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
                                               ItemsSource="{x:Bind ViewModel.ExpertConfigurationReadinessItems, Mode=OneWay}" />
                             </Grid>
-                        </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>
                 </StackPanel>
             </ScrollView>
