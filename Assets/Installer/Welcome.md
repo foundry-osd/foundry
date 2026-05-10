@@ -1,5 +1,5 @@
-# Welcome to Foundry
+# Welcome to Foundry OSD
 
-Foundry provides a clean, fully guided desktop UI for Windows imaging, provisioning, and repeatable device setup.
+Foundry OSD provides a clean, fully guided desktop UI for Windows imaging, provisioning, and repeatable device setup.
 
-Use Foundry to validate Windows ADK readiness, configure deployment options, and generate repeatable Windows deployment media.
+Use Foundry OSD to validate Windows ADK readiness, configure deployment options, and generate repeatable Windows deployment media.

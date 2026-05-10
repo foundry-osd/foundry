@@ -412,10 +412,26 @@ git commit -m "refactor(ui): refine foundry winui experience"
   - [x] Confirm no runtime dependency still requires it.
   - [x] Confirm persisted app settings use the internal settings service.
 - [x] **19.8.1** Confirm Phase 11 removed or replaced remaining DevWinUI prototype AppData working directory usage.
+- [x] **19.8.2** Restore automated release scheduling:
+  - [x] Run the release workflow every Tuesday at `13:00 UTC`, which corresponds to `15:00` in French summer time.
+  - [x] Keep manual `workflow_dispatch` release support.
+  - [x] Keep `force=true` as an explicit release override.
+  - [x] Create scheduled releases only when files under `src\` changed since the latest published GitHub release.
+- [x] **19.8.3** Normalize main app branding and ownership metadata:
+  - [x] Keep the repository and project ecosystem named `Foundry`.
+  - [x] Rename the main desktop app display name to `Foundry OSD`.
+  - [x] Keep source folders, namespaces, executable names, Velopack package ID, release tags, `ProgramData\Foundry`, `%LOCALAPPDATA%\Foundry`, WinPE paths, and runtime payload names unchanged.
+  - [x] Set company metadata to `Foundry Project`.
+  - [x] Keep `Mickaël CHAVE` as the primary maintainer/author.
+  - [x] Keep `Foundry Connect` and `Foundry Deploy` as runtime agent names.
+- [x] **19.8.4** Update user-facing project text:
+  - [x] Update `README.md` to use `Foundry OSD` for the desktop app and current MSI asset names.
+  - [x] Update installer text assets under `Assets\Installer`.
+  - [x] Update `en-US` and `fr-FR` main app strings where the UI refers to the desktop app.
 - [ ] **19.9** Commit:
 
 ```powershell
-git commit -m "chore: clean up winui migration leftovers"
+git commit -m "chore: align release automation and app branding"
 ```
 
 **Validation**
@@ -432,7 +448,7 @@ git commit -m "chore: clean up winui migration leftovers"
 
 **Boundary:** Repository docs live in this repo. User-facing documentation site updates may need the adjacent `foundry-osd.github.io` repository and should be handled as a separate docs-site change when release links, screenshots, or workflow pages need to change. Do not update user-facing workflow screenshots before Phase 16.E, Phase 17 smoke validation, and Phase 18 UI review are complete.
 
-- [ ] **20.1** Update `README.md`.
+- [x] **20.1** Update `README.md`.
 - [ ] **20.2** Update developer build docs.
 - [ ] **20.3** Update release process docs.
 - [ ] **20.4** Update installation/update docs.
@@ -473,16 +489,16 @@ git commit -m "docs: document winui foundry migration"
   - [ ] Windows App SDK runtime/bootstrap initialization succeeds before WinUI APIs are used.
   - [ ] Missing or present Windows App SDK runtime state is handled by the selected Velopack MSI distribution model.
   - [ ] Installed app launches without requiring Visual Studio or a development environment.
-- [ ] **21.6** Commit release workflow restoration after a successful manual release dry run:
+- [x] **21.6** Restore scheduled release automation during Phase 19 after validating the WinUI app and release packaging model:
 
 ```powershell
-git commit -m "ci: restore scheduled releases after winui migration"
+git commit -m "chore: align release automation and app branding"
 ```
 
 - [ ] **21.7** Merge `feat/winui-migration` into `main`.
 - [ ] **21.8** Tag first WinUI release.
   - [ ] Use date-based tag format `vYY.M.D.Build`.
-- [ ] **21.9** Re-enable Sunday scheduled release only after the first manual WinUI release succeeds from `main`.
+- [ ] **21.9** Monitor the Tuesday scheduled release after the first successful WinUI release from `main`.
 - [ ] **21.10** Monitor first release installation/update telemetry manually through GitHub issues/downloads/log reports.
 - [ ] **21.11** Keep the WPF reference archive until the first stable WinUI release has been validated.
 - [ ] **21.12** After merge validation, delete merged feature branches and clean up migration worktrees.

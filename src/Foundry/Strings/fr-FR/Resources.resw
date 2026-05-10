@@ -31,16 +31,16 @@
     <value>{0} contribution(s)</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry est une solution moderne de déploiement Windows construite autour d'une application de création de médias et d'agents WinPE.</value>
+    <value>Foundry OSD est une application moderne de création de médias de déploiement Windows construite autour d'agents WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Mickaël CHAVE.</value>
+    <value>Copyright (c) 2026 Foundry Project.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Le code source de Foundry est distribué sous licence MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
-    <value>Foundry</value>
+    <value>Foundry OSD</value>
   </data>
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Licence</value>
@@ -70,7 +70,7 @@
     <value>Dépôt</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry inclut les outils 7-Zip Extra pour la création de médias.</value>
+    <value>Foundry OSD inclut les outils 7-Zip Extra pour la création de médias.</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
     <value>7-Zip Extra</value>
@@ -88,7 +88,7 @@
     <value>Dépendances tierces</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>À propos de Foundry</value>
+    <value>À propos de Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Liens utiles</value>
@@ -130,13 +130,13 @@
     <value>Diagnostics et commentaires</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
-    <value>Changer la langue de l'application sans redémarrer Foundry.</value>
+    <value>Changer la langue de l'application sans redémarrer Foundry OSD.</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Langue</value>
   </data>
   <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Lancer automatiquement Foundry lorsque vous ouvrez une session Windows.</value>
+    <value>Lancer automatiquement Foundry OSD lorsque vous ouvrez une session Windows.</value>
   </data>
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
     <value>Lancer au démarrage</value>
@@ -319,7 +319,7 @@
     <value>Ouvrir ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Ouvrir la documentation Foundry dans votre navigateur.</value>
+    <value>Ouvrir la documentation Foundry OSD dans votre navigateur.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Ouvrir la documentation</value>
@@ -1096,13 +1096,13 @@
     <value>Général</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Accueil Foundry</value>
+    <value>Accueil Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
-    <value>Foundry</value>
+    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
-    <value>Foundry</value>
+    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Accueil</value>
@@ -1150,7 +1150,7 @@
     <value>Apparence et comportement</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>Rechercher les mises à jour Foundry et consulter les notes de version.</value>
+    <value>Rechercher les mises à jour Foundry OSD et consulter les notes de version.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Mettre à jour l'application</value>
@@ -1201,7 +1201,7 @@
     <value>Version actuelle {0}</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry va télécharger la mise à jour et redémarrer pour l'appliquer.</value>
+    <value>Foundry OSD va télécharger la mise à jour et redémarrer pour l'appliquer.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
     <value>Télécharger et redémarrer</value>
@@ -1234,10 +1234,10 @@
     <value>Échec de la recherche de mise à jour : {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
-    <value>Foundry est à jour.</value>
+    <value>Foundry OSD est à jour.</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
-    <value>Recherche de mise à jour ignorée car Foundry ne s'exécute pas depuis une installation Velopack.</value>
+    <value>Recherche de mise à jour ignorée car Foundry OSD ne s'exécute pas depuis une installation Velopack.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Prêt</value>
@@ -1246,10 +1246,10 @@
     <value>Recherche de mise à jour ignorée car un débogueur est attaché.</value>
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
-    <value>Une mise à jour Foundry est disponible.</value>
+    <value>Une mise à jour Foundry OSD est disponible.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
-    <value>Foundry {0} est disponible.</value>
+    <value>Foundry OSD {0} est disponible.</value>
   </data>
   <data name="Adk.PageTitle" xml:space="preserve">
     <value>Windows ADK</value>
@@ -1258,7 +1258,7 @@
     <value>L'ADK est prêt</value>
   </data>
   <data name="Adk.Status.ReadyDescription" xml:space="preserve">
-    <value>Foundry peut créer des médias ISO et USB.</value>
+    <value>Foundry OSD peut créer des médias ISO et USB.</value>
   </data>
   <data name="Adk.Status.MissingTitle" xml:space="preserve">
     <value>L'ADK n'est pas installé</value>

@@ -10,9 +10,9 @@
 
   <!-- NuGet Package Metadata (common) -->
   <PropertyGroup>
-    <Authors>Mickaël CHAVE &amp; Foundry Contributors</Authors>
-    <Company>Mickaël CHAVE</Company>
-    <Copyright>Copyright (c) 2026 Foundry Contributors. Licensed under the MIT License.</Copyright>
+    <Authors>Mickaël CHAVE; Foundry Contributors</Authors>
+    <Company>Foundry Project</Company>
+    <Copyright>Copyright (c) 2026 Foundry Project. Licensed under the MIT License.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/foundry-osd/foundry</PackageProjectUrl>
     <RepositoryUrl>https://github.com/foundry-osd/foundry.git</RepositoryUrl>

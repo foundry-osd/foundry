@@ -3,6 +3,7 @@ namespace Foundry.Common
     public static partial class Constants
     {
         public const string ApplicationName = "Foundry";
+        public const string ApplicationDisplayName = "Foundry OSD";
         public const string DefaultUpdateChannel = "stable";
 
         public static readonly string RootDirectoryPath = Path.Combine(

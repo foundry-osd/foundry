@@ -1,10 +1,8 @@
 name: Release
 
 on:
-  # Scheduled Sunday releases are disabled during the WinUI migration.
-  # Restore the schedule during the final cutover once the WinUI app is release-ready.
-  # schedule:
-  #   - cron: '0 3 * * 0'
+  schedule:
+    - cron: '0 13 * * 2'
   workflow_dispatch:
     inputs:
       force:
@@ -65,12 +63,14 @@ jobs:
               Write-Host 'No published release found yet.'
           }
 
-          $changeCount = if ([string]::IsNullOrWhiteSpace($latestReleaseTag)) {
-              [int](git rev-list --count HEAD)
+          $changedSourceFiles = if ([string]::IsNullOrWhiteSpace($latestReleaseTag)) {
+              @(git ls-files 'src')
           }
           else {
-              [int](git rev-list --count "$latestReleaseTag..HEAD")
+              @(git diff --name-only "$latestReleaseTag..HEAD" -- src)
           }
+
+          $sourceChangeCount = $changedSourceFiles.Count
 
           $parisNow = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTimeOffset]::UtcNow, 'Europe/Paris')
           $datePrefix = 'v{0}.{1}.{2}' -f ($parisNow.Year % 100), $parisNow.Month, $parisNow.Day
@@ -98,7 +98,7 @@ jobs:
           $velopackVersion = '{0}.{1}.{2}-build.{3}' -f $versionParts[0], $versionParts[1], $versionParts[2], $versionParts[3]
           $releaseName = "Foundry $releaseTag"
           $isManualDispatch = $env:GITHUB_EVENT_NAME -eq 'workflow_dispatch'
-          $shouldRelease = $changeCount -gt 0 -or $env:FORCE_RELEASE -eq 'true' -or $isManualDispatch
+          $shouldRelease = $sourceChangeCount -gt 0 -or $env:FORCE_RELEASE -eq 'true' -or $isManualDispatch
 
           "should_release=$($shouldRelease.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
           "release_tag=$releaseTag" >> $env:GITHUB_OUTPUT
@@ -110,9 +110,10 @@ jobs:
           if ($shouldRelease) {
               Write-Host "Release will be created with tag '$releaseTag'."
               Write-Host "Velopack package version will be '$velopackVersion'."
+              Write-Host "Detected $sourceChangeCount source file change(s) since the latest published release."
           }
           else {
-              Write-Host "No commits found since '$latestReleaseTag'. Skipping release creation."
+              Write-Host "No source changes found since '$latestReleaseTag'. Skipping release creation."
           }
 
       - name: Create GitHub release
@@ -217,7 +218,7 @@ jobs:
               $body = "No release notes were generated."
           }
 
-          Set-Content -Path $releaseNotesPath -Value "# Foundry $releaseTag`n`n$body" -NoNewline
+          Set-Content -Path $releaseNotesPath -Value "# Foundry OSD $releaseTag`n`n$body" -NoNewline
           Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_NOTES_PATH=$releaseNotesPath"
 
       - name: Build release assets

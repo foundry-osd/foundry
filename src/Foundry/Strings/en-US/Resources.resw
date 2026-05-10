@@ -31,16 +31,16 @@
     <value>{0} contribution(s)</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry is a modern Windows deployment solution built around a desktop authoring app and WinPE runtime agents.</value>
+    <value>Foundry OSD is a modern Windows deployment media authoring app built around WinPE runtime agents.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Mickaël CHAVE.</value>
+    <value>Copyright (c) 2026 Foundry Project.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry source code is distributed under the MIT License.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
-    <value>Foundry</value>
+    <value>Foundry OSD</value>
   </data>
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>License</value>
@@ -70,7 +70,7 @@
     <value>Repository</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry includes 7-Zip Extra tooling for media creation support.</value>
+    <value>Foundry OSD includes 7-Zip Extra tooling for media creation support.</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
     <value>7-Zip Extra</value>
@@ -88,7 +88,7 @@
     <value>Third-party dependencies</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>About Foundry</value>
+    <value>About Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
     <value>Useful links</value>
@@ -130,13 +130,13 @@
     <value>Diagnostics and feedback</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
-    <value>Change the application language without restarting Foundry.</value>
+    <value>Change the application language without restarting Foundry OSD.</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
     <value>Language</value>
   </data>
   <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Automatically launch Foundry when you log in to Windows.</value>
+    <value>Automatically launch Foundry OSD when you log in to Windows.</value>
   </data>
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
     <value>Run at startup</value>
@@ -319,7 +319,7 @@
     <value>Open ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Open Foundry documentation in your browser.</value>
+    <value>Open Foundry OSD documentation in your browser.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Open documentation</value>
@@ -1096,13 +1096,13 @@
     <value>General</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry home</value>
+    <value>Foundry OSD home</value>
   </data>
   <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
-    <value>Foundry</value>
+    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
-    <value>Foundry</value>
+    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Home</value>
@@ -1150,7 +1150,7 @@
     <value>Appearance and behavior</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>Check for Foundry updates and review release notes.</value>
+    <value>Check for Foundry OSD updates and review release notes.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Update app</value>
@@ -1201,7 +1201,7 @@
     <value>Current version {0}</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry will download the update and restart to apply it.</value>
+    <value>Foundry OSD will download the update and restart to apply it.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
     <value>Download and restart</value>
@@ -1234,10 +1234,10 @@
     <value>Update check failed: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
-    <value>Foundry is up to date.</value>
+    <value>Foundry OSD is up to date.</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
-    <value>Update check skipped because Foundry is not running from a Velopack installation.</value>
+    <value>Update check skipped because Foundry OSD is not running from a Velopack installation.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Ready</value>
@@ -1246,10 +1246,10 @@
     <value>Update check skipped because a debugger is attached.</value>
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
-    <value>A Foundry update is available.</value>
+    <value>A Foundry OSD update is available.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
-    <value>Foundry {0} is available.</value>
+    <value>Foundry OSD {0} is available.</value>
   </data>
   <data name="Adk.PageTitle" xml:space="preserve">
     <value>Windows ADK</value>
@@ -1258,7 +1258,7 @@
     <value>ADK is ready</value>
   </data>
   <data name="Adk.Status.ReadyDescription" xml:space="preserve">
-    <value>Foundry can create ISO and USB media.</value>
+    <value>Foundry OSD can create ISO and USB media.</value>
   </data>
   <data name="Adk.Status.MissingTitle" xml:space="preserve">
     <value>ADK is not installed</value>
