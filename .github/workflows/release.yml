@@ -2,13 +2,18 @@ name: Release
 
 on:
   schedule:
-    - cron: '0 3 * * 0'
+    - cron: '0 13 * * 2'
   workflow_dispatch:
     inputs:
       force:
         description: Create a release even if no commits exist since the latest published release
         required: false
         default: false
+        type: boolean
+      draft:
+        description: Create the GitHub release as a draft
+        required: false
+        default: true
         type: boolean
 
 permissions:
@@ -22,10 +27,14 @@ jobs:
   prepare-release:
     name: Prepare Release
     runs-on: ubuntu-slim
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     outputs:
       should_release: ${{ steps.compute.outputs.should_release }}
       release_tag: ${{ steps.compute.outputs.release_tag }}
       release_name: ${{ steps.compute.outputs.release_name }}
+      release_version: ${{ steps.compute.outputs.release_version }}
+      velopack_version: ${{ steps.compute.outputs.velopack_version }}
+      draft_release: ${{ steps.compute.outputs.draft_release }}
 
     steps:
       - name: Checkout repository
@@ -40,6 +49,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           FORCE_RELEASE: ${{ inputs.force && 'true' || 'false' }}
+          DRAFT_RELEASE: ${{ inputs.draft && 'true' || 'false' }}
         run: |
           $ErrorActionPreference = 'Stop'
 
@@ -53,12 +63,14 @@ jobs:
               Write-Host 'No published release found yet.'
           }
 
-          $changeCount = if ([string]::IsNullOrWhiteSpace($latestReleaseTag)) {
-              [int](git rev-list --count HEAD)
+          $changedSourceFiles = if ([string]::IsNullOrWhiteSpace($latestReleaseTag)) {
+              @(git ls-files 'src')
           }
           else {
-              [int](git rev-list --count "$latestReleaseTag..HEAD")
+              @(git diff --name-only "$latestReleaseTag..HEAD" -- src)
           }
+
+          $sourceChangeCount = $changedSourceFiles.Count
 
           $parisNow = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTimeOffset]::UtcNow, 'Europe/Paris')
           $datePrefix = 'v{0}.{1}.{2}' -f ($parisNow.Year % 100), $parisNow.Month, $parisNow.Day
@@ -81,18 +93,27 @@ jobs:
           }
 
           $releaseTag = "$datePrefix.$nextBuild"
+          $releaseVersion = $releaseTag.Substring(1)
+          $versionParts = $releaseVersion.Split('.')
+          $velopackVersion = '{0}.{1}.{2}-build.{3}' -f $versionParts[0], $versionParts[1], $versionParts[2], $versionParts[3]
           $releaseName = "Foundry $releaseTag"
-          $shouldRelease = $changeCount -gt 0 -or $env:FORCE_RELEASE -eq 'true'
+          $isManualDispatch = $env:GITHUB_EVENT_NAME -eq 'workflow_dispatch'
+          $shouldRelease = $sourceChangeCount -gt 0 -or $env:FORCE_RELEASE -eq 'true' -or $isManualDispatch
 
           "should_release=$($shouldRelease.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
           "release_tag=$releaseTag" >> $env:GITHUB_OUTPUT
           "release_name=$releaseName" >> $env:GITHUB_OUTPUT
+          "release_version=$releaseVersion" >> $env:GITHUB_OUTPUT
+          "velopack_version=$velopackVersion" >> $env:GITHUB_OUTPUT
+          "draft_release=$env:DRAFT_RELEASE" >> $env:GITHUB_OUTPUT
 
           if ($shouldRelease) {
               Write-Host "Release will be created with tag '$releaseTag'."
+              Write-Host "Velopack package version will be '$velopackVersion'."
+              Write-Host "Detected $sourceChangeCount source file change(s) since the latest published release."
           }
           else {
-              Write-Host "No commits found since '$latestReleaseTag'. Skipping release creation."
+              Write-Host "No source changes found since '$latestReleaseTag'. Skipping release creation."
           }
 
       - name: Create GitHub release
@@ -101,10 +122,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${{ steps.compute.outputs.release_tag }}" `
-            --title "${{ steps.compute.outputs.release_name }}" `
-            --target "${{ github.sha }}" `
-            --generate-notes
+          $releaseArgs = @(
+              '${{ steps.compute.outputs.release_tag }}',
+              '--title', '${{ steps.compute.outputs.release_name }}',
+              '--target', '${{ github.sha }}',
+              '--generate-notes'
+          )
+
+          if ('${{ steps.compute.outputs.draft_release }}' -eq 'true') {
+              $releaseArgs += '--draft'
+          }
+
+          gh release create @releaseArgs
 
   publish-release-assets:
     name: Publish Release Assets
@@ -151,7 +180,13 @@ jobs:
               throw "Release tag '$tag' does not contain a valid calendar date."
           }
 
-          $version = $tag.Substring(1)
+          $version = '${{ needs.prepare-release.outputs.release_version }}'
+          $velopackVersion = '${{ needs.prepare-release.outputs.velopack_version }}'
+          $expectedVelopackVersion = '{0}.{1}.{2}-build.{3}' -f $match.Groups['year'].Value, $match.Groups['month'].Value, $match.Groups['day'].Value, $match.Groups['build'].Value
+          if ($velopackVersion -ne $expectedVelopackVersion) {
+              throw "Velopack version '$velopackVersion' does not match expected value '$expectedVelopackVersion'."
+          }
+
           $propsPath = Join-Path $env:GITHUB_WORKSPACE 'src\Directory.Build.props'
           $content = Get-Content -Path $propsPath -Raw
 
@@ -167,6 +202,24 @@ jobs:
           Set-Content -Path $propsPath -Value $content -NoNewline
 
           Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_VERSION=$version"
+          Add-Content -Path $env:GITHUB_ENV -Value "VELOPACK_VERSION=$velopackVersion"
+
+      - name: Prepare release notes
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $releaseTag = '${{ needs.prepare-release.outputs.release_tag }}'
+          $releaseNotesPath = Join-Path $env:GITHUB_WORKSPACE 'artifacts\release-notes.md'
+          New-Item -Path (Split-Path -Parent $releaseNotesPath) -ItemType Directory -Force | Out-Null
+
+          $body = gh release view $releaseTag --json body --jq '.body'
+          if ([string]::IsNullOrWhiteSpace($body)) {
+              $body = "No release notes were generated."
+          }
+
+          Set-Content -Path $releaseNotesPath -Value "# Foundry OSD $releaseTag`n`n$body" -NoNewline
+          Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_NOTES_PATH=$releaseNotesPath"
 
       - name: Build release assets
         shell: pwsh
@@ -174,9 +227,9 @@ jobs:
           $workspace = $env:GITHUB_WORKSPACE
           $releaseRoot = Join-Path $workspace 'artifacts\release'
           $publishRoot = Join-Path $releaseRoot 'publish'
-          $foundryProject = Join-Path $workspace 'src\Foundry\Foundry.csproj'
           $connectProject = Join-Path $workspace 'src\Foundry.Connect\Foundry.Connect.csproj'
           $deployProject = Join-Path $workspace 'src\Foundry.Deploy\Foundry.Deploy.csproj'
+          $velopackScript = Join-Path $workspace 'scripts\Publish-FoundryVelopack.ps1'
           $publishProperties = @(
               'PublishSingleFile=true',
               'EnableCompressionInSingleFile=true',
@@ -192,6 +245,8 @@ jobs:
                   [string]$ProjectPath,
                   [Parameter(Mandatory = $true)]
                   [string]$RuntimeIdentifier,
+                  [Parameter(Mandatory = $true)]
+                  [string]$Platform,
                   [Parameter(Mandatory = $true)]
                   [string]$OutputPath
               )
@@ -209,7 +264,8 @@ jobs:
                   '-r', $RuntimeIdentifier,
                   '--self-contained', 'true',
                   '-o', $OutputPath,
-                  '--nologo'
+                  '--nologo',
+                  "-p:Platform=$Platform"
               )
 
               foreach ($property in $publishProperties) {
@@ -230,21 +286,19 @@ jobs:
           New-Item -Path $publishRoot -ItemType Directory -Force | Out-Null
 
           foreach ($runtimeIdentifier in @('win-x64', 'win-arm64')) {
-              $architecture = if ($runtimeIdentifier -eq 'win-x64') { 'x64' } else { 'arm64' }
+              $platform = if ($runtimeIdentifier -eq 'win-x64') { 'x64' } else { 'ARM64' }
 
-              $foundryPublishPath = Join-Path $publishRoot (Join-Path 'Foundry' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $foundryProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $foundryPublishPath
+              powershell -ExecutionPolicy Bypass -File $velopackScript `
+                  -RuntimeIdentifier $runtimeIdentifier `
+                  -PackVersion $env:VELOPACK_VERSION `
+                  -ReleaseNotesPath $env:RELEASE_NOTES_PATH
 
-              $foundryExecutable = Join-Path $foundryPublishPath 'Foundry.exe'
-              if (-not (Test-Path -Path $foundryExecutable -PathType Leaf)) {
-                  throw "Expected Foundry executable not found: '$foundryExecutable'."
+              if ($LASTEXITCODE -ne 0) {
+                  throw "Velopack packaging failed for Foundry ($runtimeIdentifier)."
               }
 
-              $foundryAssetPath = Join-Path $releaseRoot "Foundry-${architecture}.exe"
-              Copy-Item -Path $foundryExecutable -Destination $foundryAssetPath -Force
-
               $deployPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Deploy' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $deployProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $deployPublishPath
+              Invoke-Publish -ProjectPath $deployProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $deployPublishPath
 
               $deployExecutable = Join-Path $deployPublishPath 'Foundry.Deploy.exe'
               if (-not (Test-Path -Path $deployExecutable -PathType Leaf)) {
@@ -255,7 +309,7 @@ jobs:
               Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
 
               $connectPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Connect' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $connectProject -RuntimeIdentifier $runtimeIdentifier -OutputPath $connectPublishPath
+              Invoke-Publish -ProjectPath $connectProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $connectPublishPath
 
               $connectExecutable = Join-Path $connectPublishPath 'Foundry.Connect.exe'
               if (-not (Test-Path -Path $connectExecutable -PathType Leaf)) {
@@ -272,10 +326,39 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $releaseTag = '${{ needs.prepare-release.outputs.release_tag }}'
+          $releaseName = '${{ needs.prepare-release.outputs.release_name }}'
           $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts\release'
+          $velopackRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts\velopack'
+          $vpkExecutable = Join-Path $env:GITHUB_WORKSPACE 'artifacts\tools\vpk\vpk.exe'
+
+          if (-not (Test-Path -Path $vpkExecutable -PathType Leaf)) {
+              throw "Velopack CLI was not installed: '$vpkExecutable'."
+          }
+
+          foreach ($runtimeIdentifier in @('win-x64', 'win-arm64')) {
+              $velopackReleasePath = Join-Path $velopackRoot (Join-Path 'releases' $runtimeIdentifier)
+              if (-not (Test-Path -Path $velopackReleasePath -PathType Container)) {
+                  throw "Velopack release output was not created: '$velopackReleasePath'."
+              }
+
+              Get-ChildItem -Path $velopackReleasePath -Filter '*-Setup.exe' -File |
+                  Remove-Item -Force
+
+              & $vpkExecutable upload github `
+                  --outputDir $velopackReleasePath `
+                  --channel $runtimeIdentifier `
+                  --repoUrl "https://github.com/${{ github.repository }}" `
+                  --token $env:GH_TOKEN `
+                  --merge true `
+                  --releaseName $releaseName `
+                  --tag $releaseTag
+
+              if ($LASTEXITCODE -ne 0) {
+                  throw "Velopack GitHub upload failed for '$runtimeIdentifier'."
+              }
+          }
+
           $assets = @(
-              (Join-Path $releaseRoot 'Foundry-x64.exe'),
-              (Join-Path $releaseRoot 'Foundry-arm64.exe'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),

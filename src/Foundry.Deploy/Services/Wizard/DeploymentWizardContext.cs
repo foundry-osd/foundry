@@ -33,6 +33,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public DeploymentPreparationViewModel Preparation { get; }
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
+    public string? DefaultTimeZoneId { get; private set; }
 
     public event EventHandler? StateChanged;
     public event Action<string>? StatusMessageGenerated;
@@ -109,6 +110,9 @@ public sealed class DeploymentWizardContext : IDisposable
             document.Localization.VisibleLanguageCodes,
             document.Localization.DefaultLanguageCodeOverride,
             document.Localization.ForceSingleVisibleLanguage);
+        DefaultTimeZoneId = string.IsNullOrWhiteSpace(document.Localization.DefaultTimeZoneId)
+            ? null
+            : document.Localization.DefaultTimeZoneId.Trim();
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
             string.IsNullOrWhiteSpace(Preparation.TargetComputerName)

@@ -1,4 +1,5 @@
 using System.IO;
+using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Runtime;
@@ -64,6 +65,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 throw new FoundryConnectConfigurationException($"Configuration file is empty or invalid: {fullPath}");
             }
 
+            configuration = DecryptEmbeddedSecrets(configuration, fullPath);
             ConfigurationPath = fullPath;
             IsLoadedFromDisk = true;
             _logger.LogInformation("Loaded Foundry.Connect configuration from disk. ConfigurationPath={ConfigurationPath}", fullPath);
@@ -133,13 +135,72 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 WifiProvisioned = capabilities.WifiProvisioned
             },
             Dot1x = configuration.Dot1x ?? new Dot1xSettings(),
-            Wifi = configuration.Wifi ?? new WifiSettings(),
+            Wifi = NormalizeWifi(configuration.Wifi),
             InternetProbe = new InternetProbeOptions
             {
                 ProbeUris = probeUris,
                 TimeoutSeconds = Math.Clamp(probe.TimeoutSeconds, 1, 30)
             }
         };
+    }
+
+    private static FoundryConnectConfiguration DecryptEmbeddedSecrets(
+        FoundryConnectConfiguration configuration,
+        string configurationPath)
+    {
+        WifiSettings? wifi = configuration.Wifi;
+        if (wifi?.PassphraseSecret is null)
+        {
+            return configuration;
+        }
+
+        byte[] mediaSecretsKey = LoadMediaSecretsKey(configurationPath);
+        string passphrase;
+        try
+        {
+            passphrase = ConnectSecretEnvelopeProtector.Decrypt(wifi.PassphraseSecret, mediaSecretsKey);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(mediaSecretsKey);
+        }
+
+        return new FoundryConnectConfiguration
+        {
+            SchemaVersion = configuration.SchemaVersion,
+            Capabilities = configuration.Capabilities,
+            Dot1x = configuration.Dot1x,
+            Wifi = wifi with
+            {
+                Passphrase = passphrase,
+                PassphraseSecret = null
+            },
+            InternetProbe = configuration.InternetProbe
+        };
+    }
+
+    private static WifiSettings NormalizeWifi(WifiSettings? wifi)
+    {
+        return wifi is null
+            ? new WifiSettings()
+            : wifi with { PassphraseSecret = null };
+    }
+
+    private static byte[] LoadMediaSecretsKey(string configurationPath)
+    {
+        string? configurationDirectory = Path.GetDirectoryName(configurationPath);
+        if (string.IsNullOrWhiteSpace(configurationDirectory))
+        {
+            throw new FoundryConnectConfigurationException("Configuration directory could not be resolved for encrypted secrets.");
+        }
+
+        string keyPath = Path.Combine(configurationDirectory, "Secrets", "media-secrets.key");
+        if (!File.Exists(keyPath))
+        {
+            throw new FoundryConnectConfigurationException("Media secret key file was not found for encrypted secrets.");
+        }
+
+        return File.ReadAllBytes(keyPath);
     }
 
     private readonly record struct ConfigurationResolution(string? Path, bool IsRequired);

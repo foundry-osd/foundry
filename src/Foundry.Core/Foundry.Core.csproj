@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <RuntimeIdentifiers></RuntimeIdentifiers>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Configuration\languages.json">
+      <LogicalName>Foundry.Core.Configuration.Languages</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\Configuration\iana-windows-timezones.json">
+      <LogicalName>Foundry.Core.Configuration.IanaWindowsTimeZones</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\WinPe\FoundryBootstrap.ps1">
+      <LogicalName>Foundry.Core.WinPe.FoundryBootstrap</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\7z\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Foundry.Core.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

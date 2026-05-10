@@ -2,12 +2,8 @@ namespace Foundry.Services.Operations;
 
 public enum OperationKind
 {
-    AdkDownload,
+    None,
     AdkInstall,
     AdkUpgrade,
-    AdkUninstall,
-    AutopilotProfileImport,
-    AutopilotProfileDownload,
-    IsoCreate,
-    UsbCreate
+    MediaCreation
 }
