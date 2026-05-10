@@ -45,8 +45,8 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
 
         if (context.RuntimeState.Mode == DeploymentMode.Iso)
         {
-            Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "Cache", "OperatingSystems"));
-            Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "Cache", "DriverPacks"));
+            Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "OperatingSystem"));
+            Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "DriverPack"));
         }
 
         context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Preparing target workspace...");

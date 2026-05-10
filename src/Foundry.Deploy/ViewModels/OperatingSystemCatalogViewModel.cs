@@ -257,7 +257,6 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 SelectedLanguageCode = configuredDefaultLanguageCode;
             }
             else if (!_hasLoggedUnavailableDefaultLanguageOverride &&
-                     LanguageFilters.Count > 0 &&
                      !string.IsNullOrWhiteSpace(_configuredDefaultLanguageCodeOverride))
             {
                 _logger.LogWarning(
@@ -325,11 +324,6 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             .ToArray();
 
         if (_configuredVisibleLanguageCodes.Count == 0)
-        {
-            return availableLanguageValues;
-        }
-
-        if (availableLanguageValues.Length == 0)
         {
             return availableLanguageValues;
         }

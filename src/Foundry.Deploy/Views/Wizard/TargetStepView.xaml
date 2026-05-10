@@ -125,7 +125,7 @@
                             Margin="0"
                             Padding="16"
                             Style="{StaticResource SectionCardBorderStyle}"
-                            Visibility="{Binding IsAutopilotSectionVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding HasAutopilotProfiles, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <StackPanel>
                                 <TextBlock
                                     Margin="0,0,0,16"

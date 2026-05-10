@@ -159,12 +159,6 @@
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
-  <data name="Wifi.RefreshNetworks" xml:space="preserve">
-    <value>Actualiser les réseaux Wi-Fi</value>
-  </data>
-  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
-    <value>Afficher ou masquer le mot de passe Wi-Fi</value>
-  </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Wi-Fi provisionné</value>
   </data>

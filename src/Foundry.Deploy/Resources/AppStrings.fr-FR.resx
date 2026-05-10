@@ -48,7 +48,6 @@
   <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer la préparation hors ligne du profil.</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profils disponibles : {0}</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Autopilot est activé, mais aucun profil intégré n'a été trouvé.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>

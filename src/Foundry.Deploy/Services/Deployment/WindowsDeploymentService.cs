@@ -263,7 +263,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string computerName,
         string processorArchitecture,
         string workingDirectory,
-        string? defaultTimeZoneId = null,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -336,57 +335,16 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         computerNameElement.Value = computerName;
 
-        XElement timeZoneElement = component.Element(unattendNamespace + "TimeZone")
-            ?? new XElement(unattendNamespace + "TimeZone");
-
-        string? unattendTimeZoneId = ResolveUnattendTimeZoneId(defaultTimeZoneId);
-        if (string.IsNullOrWhiteSpace(unattendTimeZoneId))
-        {
-            if (timeZoneElement.Parent is not null)
-            {
-                timeZoneElement.Remove();
-            }
-        }
-        else
-        {
-            if (timeZoneElement.Parent is null)
-            {
-                component.Add(timeZoneElement);
-            }
-
-            timeZoneElement.Value = unattendTimeZoneId;
-        }
-
         document.Declaration ??= new XDeclaration("1.0", "utf-8", "yes");
         document.Save(unattendPath);
 
         _logger.LogInformation(
-            "Offline computer name configured. ComputerName={ComputerName}, UnattendPath={UnattendPath}, ProcessorArchitecture={ProcessorArchitecture}, DefaultTimeZoneConfigured={DefaultTimeZoneConfigured}",
+            "Offline computer name configured. ComputerName={ComputerName}, UnattendPath={UnattendPath}, ProcessorArchitecture={ProcessorArchitecture}",
             computerName,
             unattendPath,
-            normalizedArchitecture,
-            !string.IsNullOrWhiteSpace(unattendTimeZoneId));
+            normalizedArchitecture);
 
         return Task.CompletedTask;
-    }
-
-    private static string? ResolveUnattendTimeZoneId(string? timeZoneId)
-    {
-        if (string.IsNullOrWhiteSpace(timeZoneId))
-        {
-            return null;
-        }
-
-        string normalizedTimeZoneId = timeZoneId.Trim();
-        if (TimeZoneInfo.TryConvertIanaIdToWindowsId(normalizedTimeZoneId, out string? windowsTimeZoneId) &&
-            !string.IsNullOrWhiteSpace(windowsTimeZoneId))
-        {
-            return windowsTimeZoneId;
-        }
-
-        return normalizedTimeZoneId.Contains('/', StringComparison.Ordinal)
-            ? null
-            : normalizedTimeZoneId;
     }
 
     public async Task ConfigureRecoveryEnvironmentAsync(

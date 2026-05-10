@@ -37,7 +37,7 @@
             BasedOn="{StaticResource BodyStrongTextBlockStyle}"
             TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
         </Style>
     </UserControl.Resources>
 

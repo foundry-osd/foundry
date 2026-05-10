@@ -417,12 +417,6 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-# Foundry WinUI migration prototype artifacts
-.vs/
-bin/
-obj/
-*.csproj.user
-
 # Keep bundled 7-Zip architecture folders tracked.
 !src/Foundry/Assets/7z/[xX]64/
 !src/Foundry/Assets/7z/[xX]64/**

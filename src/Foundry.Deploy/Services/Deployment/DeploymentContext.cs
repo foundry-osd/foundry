@@ -8,7 +8,6 @@ public sealed record DeploymentContext
     public required string CacheRootPath { get; init; }
     public required int TargetDiskNumber { get; init; }
     public required string TargetComputerName { get; init; }
-    public string? DefaultTimeZoneId { get; init; }
     public required OperatingSystemCatalogItem OperatingSystem { get; init; }
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public DriverPackCatalogItem? DriverPack { get; init; }

@@ -8,13 +8,6 @@
           - 'src/Foundry/**'
           - 'src/Foundry.Tests/**'
 
-# Foundry shared business logic
-'project: foundry-core':
-  - changed-files:
-      - any-glob-to-any-file:
-          - 'src/Foundry.Core/**'
-          - 'src/Foundry.Core.Tests/**'
-
 # Foundry deployment application
 'project: foundry-deploy':
   - changed-files:

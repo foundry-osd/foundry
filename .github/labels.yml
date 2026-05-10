@@ -46,10 +46,6 @@
   color: '1d76db'
   description: Changes in the Foundry desktop application
 
-- name: 'project: foundry-core'
-  color: '0052cc'
-  description: Changes in the Foundry.Core shared business logic library
-
 - name: 'project: foundry-deploy'
   color: '0e8a16'
   description: Changes in the Foundry.Deploy deployment application

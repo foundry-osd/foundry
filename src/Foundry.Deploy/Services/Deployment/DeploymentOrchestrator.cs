@@ -165,7 +165,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             _logger.LogWarning("Deployment orchestration cancelled.");
             if (executionContext is not null)
             {
-                await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
                 await executionContext
                     .AppendLogAsync(DeploymentLogLevel.Warning, "[WARN] Deployment cancelled by user.", CancellationToken.None)
                     .ConfigureAwait(false);
@@ -184,7 +183,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             _logger.LogError(ex, "Deployment orchestration failed.");
             if (executionContext is not null)
             {
-                await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
                 await executionContext
                     .AppendLogAsync(DeploymentLogLevel.Error, $"[ERROR] {ex}", CancellationToken.None)
                     .ConfigureAwait(false);
@@ -204,45 +202,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return (int)Math.Round((double)stepIndex / _steps.Count * 100d);
     }
 
-    private static async Task TryRebindLogsToFinalTargetAsync(
-        DeploymentStepExecutionContext executionContext,
-        CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(executionContext.RuntimeState.TargetWindowsPartitionRoot))
-        {
-            return;
-        }
-
-        string finalRoot = Path.Combine(executionContext.RuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry");
-        if (executionContext.LogSession.RootPath.Equals(finalRoot, StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
-        try
-        {
-            await executionContext.RebindLogSessionToTargetAsync(finalRoot, cancellationToken).ConfigureAwait(false);
-        }
-        catch
-        {
-            // Keep the original log session available if final target log relocation fails.
-        }
-    }
-
     private static string ResolveLogsDirectory(
         DeploymentStepExecutionContext? executionContext,
         DeploymentRuntimeState? runtimeState = null)
     {
-        if (executionContext is not null &&
-            !string.IsNullOrWhiteSpace(executionContext.LogSession.LogsDirectoryPath))
-        {
-            return executionContext.LogSession.LogsDirectoryPath;
-        }
-
         DeploymentRuntimeState? effectiveRuntimeState = executionContext?.RuntimeState ?? runtimeState;
         if (!string.IsNullOrWhiteSpace(effectiveRuntimeState?.TargetWindowsPartitionRoot))
         {
             return Path.Combine(effectiveRuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "Logs");
+        }
+
+        if (executionContext is not null &&
+            !string.IsNullOrWhiteSpace(executionContext.LogSession.LogsDirectoryPath))
+        {
+            return executionContext.LogSession.LogsDirectoryPath;
         }
 
         return executionContext?.ResolveWorkspaceLogsPath() ?? string.Empty;

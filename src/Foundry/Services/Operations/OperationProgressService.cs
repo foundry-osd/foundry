@@ -1,78 +1,240 @@
+using System.Windows;
+using System.Windows.Threading;
+
 namespace Foundry.Services.Operations;
 
-internal sealed class OperationProgressService : IOperationProgressService
+public sealed class OperationProgressService : IOperationProgressService
 {
-    public event EventHandler<OperationProgressChangedEventArgs>? StateChanged;
+    private static readonly TimeSpan TerminalStatusRetention = TimeSpan.FromSeconds(5);
+    private readonly object _sync = new();
+    private readonly Dispatcher? _dispatcher = Application.Current?.Dispatcher;
+    private bool _isOperationInProgress;
+    private int _progress;
+    private string? _status;
+    private OperationKind? _currentOperation;
+    private long _stateVersion;
+    private CancellationTokenSource? _pendingResetCts;
 
-    public OperationProgressState State { get; private set; } = OperationProgressState.Idle;
-
-    public void Start(OperationKind kind, string status)
+    public bool IsOperationInProgress
     {
-        if (kind == OperationKind.None)
+        get
         {
-            throw new ArgumentOutOfRangeException(nameof(kind), kind, "An operation kind is required.");
+            lock (_sync)
+            {
+                return _isOperationInProgress;
+            }
         }
-
-        SetState(new(kind, 0, status, null, string.Empty));
     }
 
-    public void Report(int progress, string status)
+    public int Progress
     {
-        Report(progress, status, null, string.Empty);
+        get
+        {
+            lock (_sync)
+            {
+                return _progress;
+            }
+        }
     }
 
-    public void Report(int progress, string status, int? secondaryProgress, string secondaryStatus)
+    public string? Status
     {
-        if (!State.IsRunning)
+        get
         {
-            return;
+            lock (_sync)
+            {
+                return _status;
+            }
+        }
+    }
+
+    public OperationKind? CurrentOperation
+    {
+        get
+        {
+            lock (_sync)
+            {
+                return _currentOperation;
+            }
+        }
+    }
+
+    public bool CanStartOperation
+    {
+        get
+        {
+            lock (_sync)
+            {
+                return !_isOperationInProgress;
+            }
+        }
+    }
+
+    public event EventHandler? ProgressChanged;
+
+    public bool TryStart(OperationKind kind, string initialStatus, int initialProgress = 0)
+    {
+        lock (_sync)
+        {
+            if (_isOperationInProgress)
+            {
+                return false;
+            }
+
+            CancelPendingReset_NoLock();
+            _isOperationInProgress = true;
+            _currentOperation = kind;
+            _progress = Math.Clamp(initialProgress, 0, 100);
+            _status = initialStatus;
+            _stateVersion++;
         }
 
-        SetState(State with
+        RaiseProgressChanged();
+        return true;
+    }
+
+    public void Report(int progress, string? status = null)
+    {
+        lock (_sync)
         {
-            Progress = Math.Clamp(progress, 0, 100),
-            Status = status,
-            SecondaryProgress = secondaryProgress.HasValue
-                ? Math.Clamp(secondaryProgress.Value, 0, 100)
-                : null,
-            SecondaryStatus = secondaryStatus
+            if (!_isOperationInProgress)
+            {
+                return;
+            }
+
+            var normalizedProgress = Math.Clamp(progress, 0, 100);
+            _progress = Math.Max(_progress, normalizedProgress);
+
+            if (status is not null)
+            {
+                _status = status;
+            }
+        }
+
+        RaiseProgressChanged();
+    }
+
+    public void Complete(string? status = null)
+    {
+        long completedVersion;
+        lock (_sync)
+        {
+            if (!_isOperationInProgress)
+            {
+                return;
+            }
+
+            _progress = 100;
+            if (status is not null)
+            {
+                _status = status;
+            }
+
+            _isOperationInProgress = false;
+            _currentOperation = null;
+            _stateVersion++;
+            completedVersion = _stateVersion;
+        }
+
+        RaiseProgressChanged();
+        ScheduleDelayedReset(completedVersion);
+    }
+
+    public void Fail(string status)
+    {
+        long failedVersion;
+        lock (_sync)
+        {
+            if (!_isOperationInProgress)
+            {
+                return;
+            }
+
+            _status = status;
+            _isOperationInProgress = false;
+            _currentOperation = null;
+            _stateVersion++;
+            failedVersion = _stateVersion;
+        }
+
+        RaiseProgressChanged();
+        ScheduleDelayedReset(failedVersion);
+    }
+
+    public void ResetToIdle()
+    {
+        lock (_sync)
+        {
+            CancelPendingReset_NoLock();
+            _isOperationInProgress = false;
+            _currentOperation = null;
+            _progress = 0;
+            _status = null;
+            _stateVersion++;
+        }
+
+        RaiseProgressChanged();
+    }
+
+    private void ScheduleDelayedReset(long expectedStateVersion)
+    {
+        var cts = new CancellationTokenSource();
+
+        lock (_sync)
+        {
+            _pendingResetCts?.Cancel();
+            _pendingResetCts?.Dispose();
+            _pendingResetCts = cts;
+        }
+
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await Task.Delay(TerminalStatusRetention, cts.Token);
+            }
+            catch (TaskCanceledException)
+            {
+                return;
+            }
+
+            bool shouldReset;
+            lock (_sync)
+            {
+                shouldReset = !cts.IsCancellationRequested &&
+                              !_isOperationInProgress &&
+                              _status is not null &&
+                              _stateVersion == expectedStateVersion;
+            }
+
+            if (shouldReset)
+            {
+                ResetToIdle();
+            }
         });
     }
 
-    public void ClearSecondary()
+    private void CancelPendingReset_NoLock()
     {
-        if (!State.IsRunning || !State.HasSecondaryProgress)
+        _pendingResetCts?.Cancel();
+        _pendingResetCts?.Dispose();
+        _pendingResetCts = null;
+    }
+
+    private void RaiseProgressChanged()
+    {
+        EventHandler? handler = ProgressChanged;
+        if (handler is null)
         {
             return;
         }
 
-        SetState(State with { SecondaryProgress = null, SecondaryStatus = string.Empty });
-    }
-
-    public void Complete(string status)
-    {
-        if (!State.IsRunning)
+        if (_dispatcher is null || _dispatcher.CheckAccess())
         {
+            handler(this, EventArgs.Empty);
             return;
         }
 
-        SetState(State with
-        {
-            Progress = 100,
-            Status = status,
-            SecondaryProgress = null,
-            SecondaryStatus = string.Empty
-        });
-    }
-
-    public void Reset(string status = "")
-    {
-        SetState(OperationProgressState.Idle with { Status = status });
-    }
-
-    private void SetState(OperationProgressState state)
-    {
-        State = state;
-        StateChanged?.Invoke(this, new(State));
+        _ = _dispatcher.InvokeAsync(() => handler(this, EventArgs.Empty), DispatcherPriority.DataBind);
     }
 }

@@ -16,9 +16,6 @@ public sealed class DeploymentStepExecutionContext
     private const string TempFolderName = "Temp";
     private const string StateFolderName = "State";
     private const string RuntimeFolderName = "Runtime";
-    private const string CacheFolderName = "Cache";
-    private const string OperatingSystemsFolderName = "OperatingSystems";
-    private const string DriverPacksFolderName = "DriverPacks";
     private const string DryRunWorkspaceFolderName = "DryRun";
     private const string RuntimeWorkspaceFolderName = "Runtime";
     private const long UnknownTotalDownloadProgressIncrementBytes = 16L * 1024 * 1024;
@@ -205,10 +202,10 @@ public sealed class DeploymentStepExecutionContext
         if (RuntimeState.Mode == DeploymentMode.Iso &&
             !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot))
         {
-            return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, OperatingSystemsFolderName);
+            return Path.Combine(RuntimeState.TargetFoundryRoot, "OperatingSystem");
         }
 
-        return Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, OperatingSystemsFolderName);
+        return Path.Combine(EnsureCacheBaseRoot(), "OperatingSystem");
     }
 
     public string ResolveDriverPackCacheRoot()
@@ -216,10 +213,10 @@ public sealed class DeploymentStepExecutionContext
         if (RuntimeState.Mode == DeploymentMode.Iso &&
             !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot))
         {
-            return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, DriverPacksFolderName);
+            return Path.Combine(RuntimeState.TargetFoundryRoot, "DriverPack");
         }
 
-        return Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, DriverPacksFolderName);
+        return Path.Combine(EnsureCacheBaseRoot(), "DriverPack");
     }
 
     public string EnsureTargetFoundryRoot()

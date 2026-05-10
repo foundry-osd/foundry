@@ -272,7 +272,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Mode = _deploymentRuntimeContext.Mode,
                 CacheRootPath = Preparation.CacheRootPath,
                 TargetComputerName = Preparation.TargetComputerName,
-                DefaultTimeZoneId = _wizardContext.DefaultTimeZoneId,
                 SelectedTargetDisk = Preparation.SelectedTargetDisk,
                 SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
                 DriverPackSelectionKind = effectiveDriverPackKind,

@@ -25,7 +25,7 @@
 ---
 
 
-Foundry replaces legacy imaging scripts with Foundry OSD, a clean, fully-guided modern desktop UI. Whether you are deploying dozens of machines in an enterprise or just standardizing your personal setups, Foundry ensures you always have the right drivers, the right OS version, and a repeatable configuration.
+Foundry replaces legacy imaging scripts with a clean, fully-guided modern UI. Whether you are deploying dozens of machines in an enterprise or just standardizing your personal setups, Foundry ensures you always have the right drivers, the right OS version, and a repeatable configuration.
 
 <p align="center">
   <img src="Assets/GitHub/social-preview.png" alt="Foundry preview">
@@ -33,12 +33,12 @@ Foundry replaces legacy imaging scripts with Foundry OSD, a clean, fully-guided 
 
 ## 📥 Download & Installation
 
-Get started by downloading the latest Foundry OSD MSI installer for your workstation architecture.
+Get started by downloading the latest Foundry standalone executable for your workstation architecture. No complex installation required.
 
 <p align="center">
-  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/FoundrySetup-x64.msi"><img src="https://img.shields.io/badge/Download-Windows_x64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download x64"></a>
+  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_x64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download x64"></a>
   &nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/FoundrySetup-arm64.msi"><img src="https://img.shields.io/badge/Download-Windows_ARM64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download ARM64"></a>
+  <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-arm64.exe"><img src="https://img.shields.io/badge/Download-Windows_ARM64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download ARM64"></a>
 </p>
 
 > 💡 **Next steps:** For prerequisites (like the Windows ADK) and how to configure your first deployment, check out our [Getting Started guide](https://foundry-osd.github.io/docs/getting-started).
@@ -54,7 +54,7 @@ Get started by downloading the latest Foundry OSD MSI installer for your worksta
 
 Foundry breaks down the deployment journey into 4 straightforward steps:
 
-1.  **🏗️ Create Media:** Run the `Foundry OSD` desktop app on your admin PC to craft your deployment media.
+1.  **🏗️ Create Media:** Run the `Foundry` desktop app on your admin PC to craft your deployment media.
 2.  **🌐 Connect:** Boot the target device into WinPE. `Foundry Connect` immediately kicks in to validate and secure wired or Wi-Fi network access.
 3.  **🎯 Deploy:** `Foundry Deploy` launches a guided UI to select the target disk, desired OS, and auto-fetches the matched hardware drivers.
 4.  **✅ Finish:** The OS image is downloaded, applied, and configured. The device reboots into a ready-to-use Windows state.
@@ -63,7 +63,7 @@ Foundry breaks down the deployment journey into 4 straightforward steps:
 
 Foundry is more than just a single executable. It is supported by a modular ecosystem across dedicated repositories ensuring stability and easy contribution:
 
-*   [`foundry`](https://github.com/foundry-osd/foundry) *(This repository)*: The core repository containing the Foundry OSD Windows desktop authoring app and the WinPE runtime agents (`Connect` and `Deploy`).
+*   [`foundry`](https://github.com/foundry-osd/foundry) *(This repository)*: The core repository containing the Windows desktop authoring app and the WinPE runtime agents (`Connect` and `Deploy`).
 *   [`catalog`](https://github.com/foundry-osd/catalog): The automated backend engine that dynamically curates driver packs and OS catalogs, ensuring you always inject the exact vendor drivers needed during deployment.
 *   [`foundry-osd.github.io`](https://foundry-osd.github.io/): Our comprehensive documentation and developer hub.
 

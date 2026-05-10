@@ -1,19 +1,14 @@
-using Foundry.Core.Services.Application;
-using Foundry.Core.Services.Adk;
-using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.WinPe;
-using Foundry.Services.Application;
-using Foundry.Services.Adk;
 using Foundry.Services.Autopilot;
+using Foundry.Services.Adk;
+using Foundry.Services.ApplicationUpdate;
+using Foundry.Services.ApplicationShell;
 using Foundry.Services.Configuration;
-using Foundry.Services.GitHub;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
-using Foundry.Services.Settings;
-using Foundry.Services.Shell;
-using Foundry.Services.Startup;
-using Foundry.Services.Updates;
-using Serilog;
+using Foundry.Services.Theme;
+using Foundry.Services.WinPe;
+using Foundry.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundry.DependencyInjection;
 
@@ -21,58 +16,38 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddFoundryApplicationServices(this IServiceCollection services)
     {
-        services.AddSingleton(Log.Logger);
-
+        services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
+        services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<AutopilotSettingsViewModel>();
 
-        services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
-        services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
+        services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
+        services.AddSingleton<IAutopilotProfileService, AutopilotProfileService>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
+        services.AddSingleton<IFoundryConnectProvisioningService, FoundryConnectProvisioningService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
-        services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
-        services.AddSingleton<IAutopilotProfileImportService, AutopilotProfileImportService>();
-        services.AddSingleton<IAutopilotTenantProfileService, AutopilotTenantProfileService>();
-        services.AddSingleton<IAutopilotTenantDownloadDialogService, AutopilotTenantDownloadDialogService>();
-        services.AddSingleton<IAutopilotProfileSelectionDialogService, AutopilotProfileSelectionDialogService>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
-        services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
-        services.AddSingleton<IExpertDeployConfigurationStateService, ExpertDeployConfigurationStateService>();
-        services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
-        services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
-        services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
-        services.AddSingleton<IWinPeWorkspacePreparationService, WinPeWorkspacePreparationService>();
-        services.AddSingleton<IWinPeIsoMediaService, WinPeIsoMediaService>();
-        services.AddSingleton<IWinPeUsbMediaService, WinPeUsbMediaService>();
+        services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<ILocalizationService, LocalizationService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IAdkService, AdkService>();
-        services.AddSingleton<IShellNavigationGuardService, ShellNavigationGuardService>();
-        services.AddSingleton<IApplicationLocalizationService, ApplicationLocalizationService>();
-        services.AddSingleton<IApplicationUpdateStateService, ApplicationUpdateStateService>();
-        services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
-        services.AddSingleton<IStartupReadinessService, StartupReadinessService>();
-        services.AddSingleton<IGitHubRepositoryContributorService, GitHubRepositoryContributorService>();
-
-        services.AddSingleton<IThemeService, ThemeService>();
-        services.AddSingleton<IJsonNavigationService, JsonNavigationService>();
-        services.AddSingleton<IApplicationLifetimeService, WinUiApplicationLifetimeService>();
-        services.AddSingleton<IAppDispatcher, WinUiAppDispatcher>();
-        services.AddSingleton<IDialogService, WinUiDialogService>();
-        services.AddSingleton<IExternalProcessLauncher, WinUiExternalProcessLauncher>();
-        services.AddSingleton<IFilePickerService, WinUiFilePickerService>();
-
-        services.AddTransient<MainViewModel>();
-        services.AddSingleton<ContextMenuService>();
-        services.AddTransient<GeneralConfigurationViewModel>();
-        services.AddTransient<LocalizationConfigurationViewModel>();
-        services.AddTransient<NetworkConfigurationViewModel>();
-        services.AddTransient<AutopilotConfigurationViewModel>();
-        services.AddTransient<CustomizationConfigurationViewModel>();
-        services.AddTransient<StartMediaViewModel>();
-        services.AddTransient<HomeLandingViewModel>();
-        services.AddTransient<GeneralSettingViewModel>();
-        services.AddTransient<AdkPageViewModel>();
-        services.AddTransient<AppUpdateSettingViewModel>();
-        services.AddTransient<AboutUsSettingViewModel>();
+        services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
+        services.AddSingleton<IWinPeDriverCatalogService, WinPeDriverCatalogService>();
+        services.AddSingleton<IWinPeDriverInjectionService, WinPeDriverInjectionService>();
+        services.AddSingleton<WinPeToolResolver>();
+        services.AddSingleton<WinPeProcessRunner>();
+        services.AddSingleton<WinPeDriverPackageService>();
+        services.AddSingleton<IWinPeDriverResolutionService, WinPeDriverResolutionService>();
+        services.AddSingleton<IWinPeImageInternationalizationService, WinPeImageInternationalizationService>();
+        services.AddSingleton<IWinReBootImagePreparationService, WinReBootImagePreparationService>();
+        services.AddSingleton<IWinPeLocalConnectEmbeddingService, WinPeLocalConnectEmbeddingService>();
+        services.AddSingleton<IWinPeLocalDeployEmbeddingService, WinPeLocalDeployEmbeddingService>();
+        services.AddSingleton<IWinPeMountedImageAssetProvisioningService, WinPeMountedImageAssetProvisioningService>();
+        services.AddSingleton<IWinPeMountedImageCustomizationService, WinPeMountedImageCustomizationService>();
+        services.AddSingleton<WinPeUsbMediaService>();
+        services.AddSingleton<IWinPeWorkspacePreparationService, WinPeWorkspacePreparationService>();
+        services.AddSingleton<IMediaOutputService, MediaOutputService>();
 
         return services;
     }

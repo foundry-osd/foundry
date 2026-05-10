@@ -6,7 +6,6 @@ public sealed record WifiSettings
     public string? Ssid { get; init; }
     public string? SecurityType { get; init; }
     public string? Passphrase { get; init; }
-    public SecretEnvelope? PassphraseSecret { get; init; }
     public bool HasEnterpriseProfile { get; init; }
     public string? EnterpriseProfileTemplatePath { get; init; }
     public NetworkAuthenticationMode EnterpriseAuthenticationMode { get; init; } = NetworkAuthenticationMode.UserOnly;
