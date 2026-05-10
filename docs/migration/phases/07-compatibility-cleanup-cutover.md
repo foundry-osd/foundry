@@ -384,16 +384,16 @@ git commit -m "refactor(ui): refine foundry winui experience"
     - `win-arm64`: `net10.0-arm64-desktop,webview2,vcredist144-arm64`.
   - [x] Keep `Foundry.Connect` and `Foundry.Deploy` self-contained because they are deployed as runtime payloads for generated media and WinPE scenarios.
   - [x] Confirm `Directory.Build.props`, `Directory.Solution.props`, and project files do not override the selected Velopack publish mode.
-- [ ] **19.5.2** Add reproducible Velopack MSI customization assets:
-  - [ ] Store installer-only assets under the repository root `Assets\Installer`, not under `src\Foundry\Assets`, because they are packaging inputs and should not be copied into the app runtime assets.
-  - [ ] Use these planned files:
+- [x] **19.5.2** Add reproducible Velopack MSI customization assets:
+  - [x] Store installer-only assets under the repository root `Assets\Installer`, not under `src\Foundry\Assets`, because they are packaging inputs and should not be copied into the app runtime assets.
+  - [x] Keep these planned files:
     - `Assets\Installer\MsiBanner.bmp` for `--msiBanner` (`493x58`).
     - `Assets\Installer\MsiLogo.bmp` for `--msiLogo` (`493x312`).
     - `Assets\Installer\Welcome.md` for `--instWelcome`.
     - `Assets\Installer\Readme.md` for `--instReadme`.
     - `Assets\Installer\Conclusion.md` for `--instConclusion`.
-  - [ ] Reuse the root `LICENSE` file for `--instLicense`; create a packaging-specific license file only if Velopack rejects the extensionless root license.
-  - [ ] Wire `Publish-FoundryVelopack.ps1` to the root installer asset paths and `--msiVersion $applicationVersion`.
+  - [x] Keep the script comments for reusing the root `LICENSE` file by copying it to `artifacts\velopack\installer-license.md` during packaging so Velopack receives a supported extension without duplicating the license in source control.
+  - [x] Keep MSI customization disabled in `Publish-FoundryVelopack.ps1` until the known Velopack custom MSI rendering bugs are fixed, then re-enable the commented `--msiVersion`, `--instWelcome`, `--instLicense`, `--instReadme`, `--instConclusion`, `--msiBanner`, and `--msiLogo` options.
 - [ ] **19.6** Remove x86 prototype leftovers:
   - [ ] Remove `x86` from WinUI app `Platforms` only if it still exists.
   - [ ] Remove `win-x86` from WinUI app `RuntimeIdentifiers` only if it still exists.

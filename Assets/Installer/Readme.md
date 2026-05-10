@@ -1,7 +1,7 @@
 # Foundry
 
-Foundry is a modern Windows deployment solution built around a desktop authoring app and WinPE runtime agents.
+Foundry replaces legacy imaging scripts with a clean, fully guided Windows deployment UI for imaging, provisioning, and repeatable device setup.
 
-After installation, open Foundry to review the Windows ADK status, configure deployment media, and create ISO or USB output.
+After installation, open Foundry to review the Windows ADK status, configure deployment media, and create ISO or USB boot media.
 
-Documentation is available at https://foundry-osd.github.io/docs/intro.
+Project repository: https://github.com/foundry-osd/foundry.

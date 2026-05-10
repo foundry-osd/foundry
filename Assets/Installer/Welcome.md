@@ -1,5 +1,5 @@
 # Welcome to Foundry
 
-Foundry installs the desktop authoring app used to create Windows deployment ISO and USB media.
+Foundry provides a clean, fully guided desktop UI for Windows imaging, provisioning, and repeatable device setup.
 
-The installer will also bootstrap required desktop dependencies when they are missing.
+Use Foundry to validate Windows ADK readiness, configure deployment options, and generate repeatable Windows deployment media.
