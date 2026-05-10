@@ -376,6 +376,14 @@ git commit -m "refactor(ui): refine foundry winui experience"
 - [ ] **19.5** Review trimming settings:
   - [ ] Disable trimming if it breaks reflection-heavy dependencies.
   - [ ] Add annotations only where needed.
+- [x] **19.5.1** Reduce main Foundry Velopack package size without changing WinPE runtime payload packaging:
+  - [x] Publish the main `Foundry` WinUI app as framework-dependent for .NET.
+  - [x] Keep `WindowsAppSDKSelfContained=true` for the main `Foundry` WinUI app so the Windows App SDK runtime remains bundled with the app payload.
+  - [x] Configure Velopack runtime bootstrapping for `.NET Desktop Runtime`, WebView2, and VC++ 14.4:
+    - `win-x64`: `net10.0-x64-desktop,webview2,vcredist144-x64`.
+    - `win-arm64`: `net10.0-arm64-desktop,webview2,vcredist144-arm64`.
+  - [x] Keep `Foundry.Connect` and `Foundry.Deploy` self-contained because they are deployed as runtime payloads for generated media and WinPE scenarios.
+  - [x] Confirm `Directory.Build.props`, `Directory.Solution.props`, and project files do not override the selected Velopack publish mode.
 - [ ] **19.6** Remove x86 prototype leftovers:
   - [ ] Remove `x86` from WinUI app `Platforms` only if it still exists.
   - [ ] Remove `win-x86` from WinUI app `RuntimeIdentifiers` only if it still exists.

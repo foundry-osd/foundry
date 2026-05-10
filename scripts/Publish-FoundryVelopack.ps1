@@ -27,6 +27,12 @@ $generatedReleaseNotesPath = Join-Path $artifactsRoot 'release-notes.md'
 $platform = if ($RuntimeIdentifier -eq 'win-x64') { 'x64' } else { 'ARM64' }
 $artifactArchitecture = if ($RuntimeIdentifier -eq 'win-x64') { 'x64' } else { 'arm64' }
 $velopackChannel = $RuntimeIdentifier
+$velopackFrameworks = if ($RuntimeIdentifier -eq 'win-x64') {
+    'net10.0-x64-desktop,webview2,vcredist144-x64'
+}
+else {
+    'net10.0-arm64-desktop,webview2,vcredist144-arm64'
+}
 $targetFramework = 'net10.0-windows10.0.26100.0'
 $runtimeBuildDir = Join-Path $repoRoot "src\Foundry\bin\$platform\$Configuration\$targetFramework\$RuntimeIdentifier"
 
@@ -85,11 +91,13 @@ else {
 dotnet publish $projectPath `
     -c $Configuration `
     -r $RuntimeIdentifier `
-    --self-contained true `
+    --no-self-contained `
     -o $publishDir `
     --nologo `
     -p:Platform=$platform `
     -p:PublishProfile= `
+    -p:SelfContained=false `
+    -p:WindowsAppSDKSelfContained=true `
     -p:PublishTrimmed=false `
     -p:Version=$applicationVersion `
     -p:AssemblyVersion=$applicationVersion `
@@ -136,6 +144,7 @@ foreach ($directory in $winUiResourceDirectories) {
     --mainExe Foundry.exe `
     --channel $velopackChannel `
     --runtime $RuntimeIdentifier `
+    --framework $velopackFrameworks `
     --outputDir $releaseDir `
     --icon (Join-Path $repoRoot 'src\Foundry\Assets\AppIcon.ico') `
     --releaseNotes $generatedReleaseNotesPath `
