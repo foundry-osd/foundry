@@ -398,20 +398,20 @@ git commit -m "refactor(ui): refine foundry winui experience"
   - [x] Create `%LOCALAPPDATA%\Foundry\WebView2` during Foundry data-directory initialization.
   - [x] Initialize the release-notes WebView2 explicitly with that user-data folder before navigating to GitHub releases.
   - [x] Keep the native release-notes fallback visible if WebView2 initialization fails.
-- [ ] **19.6** Remove x86 prototype leftovers:
-  - [ ] Remove `x86` from WinUI app `Platforms` only if it still exists.
-  - [ ] Remove `win-x86` from WinUI app `RuntimeIdentifiers` only if it still exists.
-  - [ ] Confirm no x86 publish profile, workflow matrix entry, installer, or release artifact remains.
-  - [ ] Do not remove legitimate `x86` references for Windows Kits paths, ADK tooling, driver metadata, third-party asset documentation, or WPF runtime support.
-- [ ] **19.7** Review unpackaged app leftovers from the WinUI template:
-  - [ ] Keep `Package.appxmanifest` only if the WinUI build or Visual Studio tooling still requires it; otherwise remove it.
-  - [ ] Remove stale packaged-only context menu declarations only if Velopack/unpackaged install path does not use them.
-  - [ ] Remove or replace `RuntimeHelper.IsPackaged()` branches only when they are unreachable or contradict the selected unpackaged Velopack model.
-  - [ ] Document any retained unpackaged-template artifact with the concrete reason it is still required.
-- [ ] **19.8** Confirm Phase 11 removed `nucs.JsonSettings` from the WinUI app.
-  - [ ] Confirm no runtime dependency still requires it.
-  - [ ] Confirm persisted app settings use the internal settings service.
-- [ ] **19.8.1** Confirm Phase 11 removed or replaced remaining DevWinUI prototype AppData working directory usage.
+- [x] **19.6** Remove x86 prototype leftovers:
+  - [x] Confirm `x86` is absent from active WinUI app `Platforms`.
+  - [x] Confirm `win-x86` is absent from active WinUI app `RuntimeIdentifiers`.
+  - [x] Confirm no x86 publish profile, workflow matrix entry, installer, or release artifact remains.
+  - [x] Keep legitimate `x86` references for Windows Kits paths, ADK tooling, driver metadata, third-party asset documentation, tests, and WPF reference archive.
+- [x] **19.7** Review unpackaged app leftovers from the WinUI template:
+  - [x] Keep `Package.appxmanifest` for now because Microsoft Store packaging remains a possible future distribution path, but do not treat the current manifest as production-ready Store metadata.
+  - [x] Keep stale-looking packaged-only context menu declarations for now because they are tied to the retained packaged/MSIX path.
+  - [x] Keep `RuntimeHelper.IsPackaged()` context-menu registration for now because it remains scoped to packaged execution and does not affect the Velopack/unpackaged path.
+  - [x] Document retained packaged artifacts as intentional Microsoft Store optionality, not active Velopack requirements.
+- [x] **19.8** Confirm Phase 11 removed `nucs.JsonSettings` from the WinUI app.
+  - [x] Confirm no runtime dependency still requires it.
+  - [x] Confirm persisted app settings use the internal settings service.
+- [x] **19.8.1** Confirm Phase 11 removed or replaced remaining DevWinUI prototype AppData working directory usage.
 - [ ] **19.9** Commit:
 
 ```powershell
@@ -420,9 +420,9 @@ git commit -m "chore: clean up winui migration leftovers"
 
 **Validation**
 
-- [ ] **19.10** `dotnet list .\src\Foundry\Foundry.csproj package`.
-- [ ] **19.11** Confirm no placeholder DevWinUI URLs remain.
-- [ ] **19.12** Confirm no `bin`, `obj`, `.vs`, or `.csproj.user` files are tracked.
+- [x] **19.10** `dotnet list .\src\Foundry\Foundry.csproj package`.
+- [x] **19.11** Confirm no placeholder DevWinUI URLs remain; the remaining DevWinUI URL is the legitimate `AppData.json` schema reference.
+- [x] **19.12** Confirm no `bin`, `obj`, `.vs`, or `.csproj.user` files are tracked.
 
 ## Phase 20: Documentation Update
 
