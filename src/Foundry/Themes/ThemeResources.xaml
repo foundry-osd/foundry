@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <x:String x:Key="HeaderCover">/Assets/Cover/CoverLight.png</x:String>
+            <StaticResource x:Key="FoundryStatusReadyBrush" ResourceKey="SystemFillColorSuccessBrush" />
+            <StaticResource x:Key="FoundryStatusReadyForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusCompleteBrush" ResourceKey="SystemFillColorSuccessBrush" />
+            <StaticResource x:Key="FoundryStatusCompleteForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusWarningBrush" ResourceKey="SystemFillColorCautionBrush" />
+            <StaticResource x:Key="FoundryStatusWarningForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusBlockedBrush" ResourceKey="SystemFillColorCriticalBrush" />
+            <StaticResource x:Key="FoundryStatusBlockedForegroundBrush" ResourceKey="TextOnAccentFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusBusyBrush" ResourceKey="AccentFillColorDefaultBrush" />
+            <StaticResource x:Key="FoundryStatusBusyForegroundBrush" ResourceKey="TextOnAccentFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusNeutralBrush" ResourceKey="ControlFillColorSecondaryBrush" />
+            <StaticResource x:Key="FoundryStatusNeutralForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundrySurfaceBrush" ResourceKey="LayerFillColorDefaultBrush" />
+            <StaticResource x:Key="FoundrySurfaceSecondaryBrush" ResourceKey="LayerOnAcrylicFillColorDefaultBrush" />
+            <StaticResource x:Key="FoundrySurfaceBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <x:String x:Key="HeaderCover">/Assets/Cover/CoverDark.png</x:String>
+            <StaticResource x:Key="FoundryStatusReadyBrush" ResourceKey="SystemFillColorSuccessBrush" />
+            <StaticResource x:Key="FoundryStatusReadyForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusCompleteBrush" ResourceKey="SystemFillColorSuccessBrush" />
+            <StaticResource x:Key="FoundryStatusCompleteForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusWarningBrush" ResourceKey="SystemFillColorCautionBrush" />
+            <StaticResource x:Key="FoundryStatusWarningForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusBlockedBrush" ResourceKey="SystemFillColorCriticalBrush" />
+            <StaticResource x:Key="FoundryStatusBlockedForegroundBrush" ResourceKey="TextOnAccentFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusBusyBrush" ResourceKey="AccentFillColorDefaultBrush" />
+            <StaticResource x:Key="FoundryStatusBusyForegroundBrush" ResourceKey="TextOnAccentFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundryStatusNeutralBrush" ResourceKey="ControlFillColorSecondaryBrush" />
+            <StaticResource x:Key="FoundryStatusNeutralForegroundBrush" ResourceKey="TextFillColorPrimaryBrush" />
+            <StaticResource x:Key="FoundrySurfaceBrush" ResourceKey="LayerFillColorDefaultBrush" />
+            <StaticResource x:Key="FoundrySurfaceSecondaryBrush" ResourceKey="LayerOnAcrylicFillColorDefaultBrush" />
+            <StaticResource x:Key="FoundrySurfaceBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="HighContrast">
+            <x:String x:Key="HeaderCover">/Assets/Cover/CoverDark.png</x:String>
+            <StaticResource x:Key="FoundryStatusReadyBrush" ResourceKey="SystemColorButtonFaceBrush" />
+            <StaticResource x:Key="FoundryStatusReadyForegroundBrush" ResourceKey="SystemColorButtonTextBrush" />
+            <StaticResource x:Key="FoundryStatusCompleteBrush" ResourceKey="SystemColorButtonFaceBrush" />
+            <StaticResource x:Key="FoundryStatusCompleteForegroundBrush" ResourceKey="SystemColorButtonTextBrush" />
+            <StaticResource x:Key="FoundryStatusWarningBrush" ResourceKey="SystemColorButtonFaceBrush" />
+            <StaticResource x:Key="FoundryStatusWarningForegroundBrush" ResourceKey="SystemColorButtonTextBrush" />
+            <StaticResource x:Key="FoundryStatusBlockedBrush" ResourceKey="SystemColorButtonFaceBrush" />
+            <StaticResource x:Key="FoundryStatusBlockedForegroundBrush" ResourceKey="SystemColorButtonTextBrush" />
+            <StaticResource x:Key="FoundryStatusBusyBrush" ResourceKey="SystemColorButtonFaceBrush" />
+            <StaticResource x:Key="FoundryStatusBusyForegroundBrush" ResourceKey="SystemColorButtonTextBrush" />
+            <StaticResource x:Key="FoundryStatusNeutralBrush" ResourceKey="SystemColorButtonFaceBrush" />
+            <StaticResource x:Key="FoundryStatusNeutralForegroundBrush" ResourceKey="SystemColorButtonTextBrush" />
+            <StaticResource x:Key="FoundrySurfaceBrush" ResourceKey="SystemColorWindowBrush" />
+            <StaticResource x:Key="FoundrySurfaceSecondaryBrush" ResourceKey="SystemColorWindowBrush" />
+            <StaticResource x:Key="FoundrySurfaceBorderBrush" ResourceKey="SystemColorWindowTextBrush" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

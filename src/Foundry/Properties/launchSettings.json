@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Foundry OSD (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Foundry OSD (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

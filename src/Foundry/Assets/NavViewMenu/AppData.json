@@ -1,0 +1,127 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Ghost1372/DevWinUI/refs/heads/main/tools/AppData.Schema.json",
+  "Groups": [
+    {
+      "UniqueId": "Foundry.Navigation.GeneralHeader",
+      "Title": "General",
+      "LocalizeId": "Nav_GeneralSection",
+      "UsexUid": true,
+      "IsSpecialSection": false,
+      "IsNavigationViewItemHeader": true,
+      "Items": []
+    },
+    {
+      "UniqueId": "Foundry.Navigation.GeneralItems",
+      "Title": "General Items",
+      "IsSpecialSection": false,
+      "ShowItemsWithoutGroup": true,
+      "Items": [
+        {
+          "UniqueId": "Foundry.Views.HomeLandingPage",
+          "Title": "Home",
+          "LocalizeId": "Nav_HomeKey",
+          "UsexUid": true,
+          "ImagePath": "ms-appx:///Assets/AppIcon.png",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.AdkPage",
+          "Title": "ADK",
+          "LocalizeId": "Nav_AdkKey",
+          "UsexUid": true,
+          "IconGlyph": "E946",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.GeneralConfigurationPage",
+          "Title": "General",
+          "LocalizeId": "Nav_GeneralConfigurationKey",
+          "UsexUid": true,
+          "IconGlyph": "E713",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.StartPage",
+          "Title": "Start",
+          "LocalizeId": "Nav_StartKey",
+          "UsexUid": true,
+          "IconGlyph": "E768",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        }
+      ]
+    },
+    {
+      "UniqueId": "Foundry.Navigation.ExpertHeader",
+      "Title": "Expert",
+      "LocalizeId": "Nav_ExpertSection",
+      "UsexUid": true,
+      "IsSpecialSection": false,
+      "IsNavigationViewItemHeader": true,
+      "Items": []
+    },
+    {
+      "UniqueId": "Foundry.Navigation.ExpertItems",
+      "Title": "Expert Items",
+      "IsSpecialSection": false,
+      "ShowItemsWithoutGroup": true,
+      "Items": [
+        {
+          "UniqueId": "Foundry.Views.NetworkPage",
+          "Title": "Network",
+          "LocalizeId": "Nav_NetworkKey",
+          "UsexUid": true,
+          "IconGlyph": "E968",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.LocalizationPage",
+          "Title": "Localization",
+          "LocalizeId": "Nav_LocalizationKey",
+          "UsexUid": true,
+          "IconGlyph": "E909",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.AutopilotPage",
+          "Title": "Autopilot",
+          "LocalizeId": "Nav_AutopilotKey",
+          "UsexUid": true,
+          "IconGlyph": "E7C1",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.CustomizationPage",
+          "Title": "Customization",
+          "LocalizeId": "Nav_CustomizationKey",
+          "UsexUid": true,
+          "IconGlyph": "E771",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
+        }
+      ]
+    },
+    {
+      "UniqueId": "Foundry.Navigation.FooterItems",
+      "Title": "Footer",
+      "IsSpecialSection": false,
+      "ShowItemsWithoutGroup": true,
+      "IsFooterNavigationViewItem": true,
+      "Items": []
+    }
+  ]
+}

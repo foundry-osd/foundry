@@ -7,15 +7,19 @@
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
   </Project>
+  <Project Path="Foundry.Core/Foundry.Core.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="Foundry.Core.Tests/Foundry.Core.Tests.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
   <Project Path="Foundry.Connect/Foundry.Connect.csproj">
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
   </Project>
   <Project Path="Foundry.Deploy/Foundry.Deploy.csproj">
-    <Platform Solution="*|x64" Project="x64" />
-    <Platform Solution="*|ARM64" Project="ARM64" />
-  </Project>
-  <Project Path="Foundry.Tests/Foundry.Tests.csproj">
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
   </Project>

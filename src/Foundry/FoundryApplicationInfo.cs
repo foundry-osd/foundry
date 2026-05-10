@@ -4,21 +4,17 @@ namespace Foundry;
 
 public static class FoundryApplicationInfo
 {
-    private const string RepositoryBaseUrl = "https://github.com/foundry-osd/foundry";
-    private static readonly string AppVersion = ResolveVersion();
-
-    public const string AppName = "Foundry";
-    public const string DocumentationUrl = RepositoryBaseUrl + "#readme";
-    public const string RepositoryUrl = RepositoryBaseUrl;
-    public const string IssuesUrl = RepositoryBaseUrl + "/issues";
-    public const string LatestReleaseUrl = RepositoryBaseUrl + "/releases/latest";
-    public const string LatestReleaseApiUrl = "https://api.github.com/repos/foundry-osd/foundry/releases/latest";
-    public const string LicenseUrl = RepositoryBaseUrl + "/blob/main/LICENSE";
-    public const string AuthorsUrl = RepositoryBaseUrl + "/graphs/contributors";
+    public const string AppName = Constants.ApplicationDisplayName;
+    public const string DocumentationUrl = "https://foundry-osd.github.io/docs/intro";
+    public const string RepositoryUrl = Constants.RepositoryUrl;
+    public const string ContributorsApiUrl = "https://api.github.com/repos/foundry-osd/foundry/contributors";
+    public const string IssuesUrl = Constants.RepositoryUrl + "/issues";
+    public const string LicenseUrl = Constants.RepositoryUrl + "/blob/main/LICENSE";
+    public const string ReleasesUrl = Constants.RepositoryUrl + "/releases";
+    public const string LatestReleaseUrl = Constants.LatestReleaseUrl;
     public const string SupportUrl = IssuesUrl;
-    public static string LatestReleaseDisplayUrl => FormatDisplayUrl(LatestReleaseUrl);
 
-    public static string Version => AppVersion;
+    public static string Version { get; } = ResolveVersion();
 
     private static string ResolveVersion()
     {
@@ -33,15 +29,5 @@ public static class FoundryApplicationInfo
         }
 
         return assembly.GetName().Version?.ToString() ?? "0.0.0.0";
-    }
-
-    private static string FormatDisplayUrl(string url)
-    {
-        if (Uri.TryCreate(url, UriKind.Absolute, out Uri? uri))
-        {
-            return uri.Host + uri.AbsolutePath;
-        }
-
-        return url;
     }
 }

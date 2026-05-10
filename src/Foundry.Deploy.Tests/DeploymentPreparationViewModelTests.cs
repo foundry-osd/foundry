@@ -11,7 +11,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentPreparationViewModelTests
 {
     [Fact]
-    public void ApplyAutopilotConfiguration_WhenProfilesExist_EnablesAutopilotByDefault()
+    public void ApplyAutopilotConfiguration_WhenProfilesExistButConfigIsDisabled_KeepsAutopilotDisabled()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
         AutopilotProfileCatalogItem profile = CreateProfile("default", "Default Profile");
@@ -19,9 +19,10 @@ public sealed class DeploymentPreparationViewModelTests
         viewModel.ApplyAutopilotConfiguration(new DeployAutopilotSettings(), [profile]);
 
         Assert.True(viewModel.HasAutopilotProfiles);
-        Assert.True(viewModel.IsAutopilotEnabled);
-        Assert.True(viewModel.IsAutopilotProfileSelectionEnabled);
-        Assert.Same(profile, viewModel.SelectedAutopilotProfile);
+        Assert.True(viewModel.IsAutopilotSectionVisible);
+        Assert.False(viewModel.IsAutopilotEnabled);
+        Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
+        Assert.Null(viewModel.SelectedAutopilotProfile);
     }
 
     [Fact]
@@ -32,7 +33,7 @@ public sealed class DeploymentPreparationViewModelTests
         AutopilotProfileCatalogItem defaultProfile = CreateProfile("default", "Default Profile");
 
         viewModel.ApplyAutopilotConfiguration(
-            new DeployAutopilotSettings { DefaultProfileFolderName = "default" },
+            new DeployAutopilotSettings { IsEnabled = true, DefaultProfileFolderName = "default" },
             [firstProfile, defaultProfile]);
 
         Assert.True(viewModel.IsAutopilotEnabled);
@@ -40,17 +41,35 @@ public sealed class DeploymentPreparationViewModelTests
     }
 
     [Fact]
-    public void ApplyAutopilotConfiguration_WhenProfilesAreMissing_DisablesAutopilot()
+    public void ApplyAutopilotConfiguration_WhenEnabledDefaultProfileIsMissing_DoesNotFallbackToFirstProfile()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        AutopilotProfileCatalogItem firstProfile = CreateProfile("first", "First Profile");
+
+        viewModel.ApplyAutopilotConfiguration(
+            new DeployAutopilotSettings { IsEnabled = true, DefaultProfileFolderName = "missing" },
+            [firstProfile]);
+
+        Assert.True(viewModel.HasAutopilotProfiles);
+        Assert.True(viewModel.IsAutopilotEnabled);
+        Assert.True(viewModel.IsAutopilotSectionVisible);
+        Assert.True(viewModel.IsAutopilotProfileSelectionEnabled);
+        Assert.Null(viewModel.SelectedAutopilotProfile);
+    }
+
+    [Fact]
+    public void ApplyAutopilotConfiguration_WhenEnabledProfileIsMissing_KeepsAutopilotEnabledWithoutSelection()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
 
         viewModel.ApplyAutopilotConfiguration(new DeployAutopilotSettings { IsEnabled = true }, []);
 
         Assert.False(viewModel.HasAutopilotProfiles);
-        Assert.False(viewModel.IsAutopilotEnabled);
+        Assert.True(viewModel.IsAutopilotEnabled);
+        Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
-        Assert.Equal(string.Empty, viewModel.AutopilotProfileHint);
+        Assert.NotEqual(string.Empty, viewModel.AutopilotProfileHint);
     }
 
     [Fact]
@@ -59,10 +78,13 @@ public sealed class DeploymentPreparationViewModelTests
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
         AutopilotProfileCatalogItem profile = CreateProfile("default", "Default Profile");
 
-        viewModel.ApplyAutopilotConfiguration(new DeployAutopilotSettings(), [profile]);
+        viewModel.ApplyAutopilotConfiguration(
+            new DeployAutopilotSettings { IsEnabled = true, DefaultProfileFolderName = "default" },
+            [profile]);
         viewModel.IsAutopilotEnabled = false;
 
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
+        Assert.True(viewModel.IsAutopilotSectionVisible);
 
         viewModel.IsAutopilotEnabled = true;
 

@@ -1,39 +1,66 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Foundry.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-public sealed partial class AutopilotProfileSelectionDialogViewModel : LocalizedViewModelBase
+public sealed partial class AutopilotProfileSelectionDialogViewModel : ObservableObject, IDisposable
 {
+    private readonly IApplicationLocalizationService localizationService;
+
     public AutopilotProfileSelectionDialogViewModel(
-        ILocalizationService localizationService,
+        IApplicationLocalizationService localizationService,
         IReadOnlyList<AutopilotProfileSettings> availableProfiles)
-        : base(localizationService)
     {
+        this.localizationService = localizationService;
         ArgumentNullException.ThrowIfNull(availableProfiles);
 
+        RefreshLocalizedText();
         foreach (AutopilotProfileSettings profile in availableProfiles
                      .OrderBy(profile => profile.DisplayName, StringComparer.OrdinalIgnoreCase)
                      .ThenBy(profile => profile.Id, StringComparer.OrdinalIgnoreCase))
         {
-            var entry = new SelectableAutopilotProfileEntry(profile);
+            var entry = new SelectableAutopilotProfileEntryViewModel(profile);
             entry.PropertyChanged += OnProfilePropertyChanged;
             Profiles.Add(entry);
         }
+
+        RefreshSelectionState();
+        localizationService.LanguageChanged += OnLanguageChanged;
     }
 
-    public ObservableCollection<SelectableAutopilotProfileEntry> Profiles { get; } = [];
+    public ObservableCollection<SelectableAutopilotProfileEntryViewModel> Profiles { get; } = [];
 
-    public string SelectedCountDisplay => string.Format(
-        Strings["Autopilot.TenantPickerSelectedCountFormat"],
-        Profiles.Count(profile => profile.IsSelected),
-        Profiles.Count);
+    [ObservableProperty]
+    public partial string Title { get; set; }
 
-    public event EventHandler<bool?>? CloseRequested;
+    [ObservableProperty]
+    public partial string Description { get; set; }
+
+    [ObservableProperty]
+    public partial string SelectAllText { get; set; }
+
+    [ObservableProperty]
+    public partial string ClearText { get; set; }
+
+    [ObservableProperty]
+    public partial string ImportText { get; set; }
+
+    [ObservableProperty]
+    public partial string CancelText { get; set; }
+
+    [ObservableProperty]
+    public partial string NameColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string FolderColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string SelectedCountDisplay { get; set; }
+
+    [ObservableProperty]
+    public partial bool HasSelectedProfiles { get; set; }
 
     public IReadOnlyList<AutopilotProfileSettings> GetSelectedProfiles()
     {
@@ -43,77 +70,87 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Localized
             .ToArray();
     }
 
-    public override void Dispose()
+    public void Dispose()
     {
-        foreach (SelectableAutopilotProfileEntry profile in Profiles)
+        localizationService.LanguageChanged -= OnLanguageChanged;
+        foreach (SelectableAutopilotProfileEntryViewModel profile in Profiles)
         {
             profile.PropertyChanged -= OnProfilePropertyChanged;
         }
-
-        base.Dispose();
     }
 
     [RelayCommand]
     private void SelectAll()
     {
-        foreach (SelectableAutopilotProfileEntry profile in Profiles)
+        foreach (SelectableAutopilotProfileEntryViewModel profile in Profiles)
         {
             profile.IsSelected = true;
         }
+
+        RefreshSelectionState();
     }
 
     [RelayCommand]
-    private void ClearSelection()
+    private void Clear()
     {
-        foreach (SelectableAutopilotProfileEntry profile in Profiles)
+        foreach (SelectableAutopilotProfileEntryViewModel profile in Profiles)
         {
             profile.IsSelected = false;
         }
+
+        RefreshSelectionState();
     }
 
-    [RelayCommand(CanExecute = nameof(CanImportSelectedProfiles))]
-    private void ImportSelectedProfiles()
+    private void RefreshLocalizedText()
     {
-        CloseRequested?.Invoke(this, true);
+        Title = localizationService.GetString("Autopilot.TenantPickerTitle");
+        Description = localizationService.GetString("Autopilot.TenantPickerDescription");
+        SelectAllText = localizationService.GetString("Autopilot.TenantPickerSelectAll");
+        ClearText = localizationService.GetString("Autopilot.TenantPickerClear");
+        ImportText = localizationService.GetString("Autopilot.TenantPickerImport");
+        CancelText = localizationService.GetString("Autopilot.TenantPickerCancel");
+        NameColumnHeader = localizationService.GetString("Autopilot.ColumnName");
+        FolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
+        RefreshSelectionState();
     }
 
-    [RelayCommand]
-    private void Cancel()
+    private void RefreshSelectionState()
     {
-        CloseRequested?.Invoke(this, false);
-    }
-
-    private bool CanImportSelectedProfiles()
-    {
-        return Profiles.Any(profile => profile.IsSelected);
+        int selectedCount = Profiles.Count(profile => profile.IsSelected);
+        HasSelectedProfiles = selectedCount > 0;
+        SelectedCountDisplay = localizationService.FormatString(
+            "Autopilot.TenantPickerSelectedCountFormat",
+            selectedCount,
+            Profiles.Count);
     }
 
     private void OnProfilePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (!string.Equals(e.PropertyName, nameof(SelectableAutopilotProfileEntry.IsSelected), StringComparison.Ordinal))
+        if (string.Equals(e.PropertyName, nameof(SelectableAutopilotProfileEntryViewModel.IsSelected), StringComparison.Ordinal))
         {
-            return;
+            RefreshSelectionState();
         }
-
-        OnPropertyChanged(nameof(SelectedCountDisplay));
-        ImportSelectedProfilesCommand.NotifyCanExecuteChanged();
     }
+
+    private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
+    {
+        RefreshLocalizedText();
+    }
+
 }
 
-public sealed partial class SelectableAutopilotProfileEntry : ObservableObject
+public sealed partial class SelectableAutopilotProfileEntryViewModel : ObservableObject
 {
-    public SelectableAutopilotProfileEntry(AutopilotProfileSettings profile)
+    public SelectableAutopilotProfileEntryViewModel(AutopilotProfileSettings profile)
     {
         Profile = profile ?? throw new ArgumentNullException(nameof(profile));
-        isSelected = true;
+        IsSelected = true;
     }
 
     public AutopilotProfileSettings Profile { get; }
-
     public string DisplayName => Profile.DisplayName;
-
     public string FolderName => Profile.FolderName;
 
     [ObservableProperty]
-    private bool isSelected;
+    public partial bool IsSelected { get; set; }
 }
