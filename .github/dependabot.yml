@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "10:00"
     groups:
       actions-deps:
         patterns:
@@ -13,6 +15,8 @@ updates:
     directory: "/src"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "10:00"
     groups:
       nuget-deps:
         patterns:
