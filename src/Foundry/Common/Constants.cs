@@ -3,10 +3,15 @@ namespace Foundry.Common
     public static partial class Constants
     {
         public const string ApplicationName = "Foundry";
+        public const string ApplicationDisplayName = "Foundry OSD";
         public const string DefaultUpdateChannel = "stable";
 
         public static readonly string RootDirectoryPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            ApplicationName);
+
+        public static readonly string UserRootDirectoryPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             ApplicationName);
 
         public static readonly string SettingsDirectoryPath = Path.Combine(RootDirectoryPath, "Settings");
@@ -23,6 +28,7 @@ namespace Foundry.Common
         public static readonly string UsbQueryTempDirectoryPath = Path.Combine(TempDirectoryPath, "UsbQuery");
         public static readonly string WinReTempDirectoryPath = Path.Combine(TempDirectoryPath, "WinRe");
         public static readonly string DownloadsTempDirectoryPath = Path.Combine(TempDirectoryPath, "Downloads");
+        public static readonly string WebView2UserDataDirectoryPath = Path.Combine(UserRootDirectoryPath, "WebView2");
         public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Foundry.log");
         public static readonly string AppSettingsPath = Path.Combine(SettingsDirectoryPath, "appsettings.json");
         public static readonly string ExpertDeployConfigurationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "foundry.expert.config.json");
@@ -47,6 +53,7 @@ namespace Foundry.Common
             Directory.CreateDirectory(UsbQueryTempDirectoryPath);
             Directory.CreateDirectory(WinReTempDirectoryPath);
             Directory.CreateDirectory(DownloadsTempDirectoryPath);
+            Directory.CreateDirectory(WebView2UserDataDirectoryPath);
         }
     }
 }

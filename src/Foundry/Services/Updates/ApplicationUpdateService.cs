@@ -104,7 +104,7 @@ internal sealed class ApplicationUpdateService(
 
             if (updateInfo is null)
             {
-                const string message = "Foundry is up to date.";
+                string message = $"{FoundryApplicationInfo.AppName} is up to date.";
                 logger.Information(
                     "{Message} IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
                     message,
@@ -120,7 +120,7 @@ internal sealed class ApplicationUpdateService(
             VelopackAsset targetRelease = updateInfo.TargetFullRelease;
             string version = targetRelease.Version?.ToString() ?? "unknown";
             string releaseNotes = ResolveReleaseNotes(targetRelease);
-            string updateMessage = $"Foundry {version} is available.";
+            string updateMessage = $"{FoundryApplicationInfo.AppName} {version} is available.";
 
             logger.Information(
                 "Foundry update available. Version={Version}, FileName={FileName}, Size={Size}, IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",

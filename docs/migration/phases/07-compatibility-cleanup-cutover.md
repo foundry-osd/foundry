@@ -369,38 +369,76 @@ git commit -m "refactor(ui): refine foundry winui experience"
 
 **Boundary:** Phase 19 removes only confirmed obsolete migration/prototype leftovers. Do not remove the archived WPF reference before the first stable WinUI release has been validated, because it remains the behavior reference for compatibility investigations. Do not remove DevWinUI shell assets, `AppData.json` navigation metadata, or DevWinUI packages that remain part of the long-term shell baseline.
 
-- [ ] **19.1** Remove DevWinUI placeholder strings and metadata.
-- [ ] **19.2** Remove unused settings pages or rename them to product-specific pages.
-- [ ] **19.3** Remove unused packages.
-- [ ] **19.4** Keep DevWinUI packages as the long-term shell baseline unless a specific package becomes unused after Foundry pages are integrated.
-- [ ] **19.5** Review trimming settings:
-  - [ ] Disable trimming if it breaks reflection-heavy dependencies.
-  - [ ] Add annotations only where needed.
-- [ ] **19.6** Remove x86 prototype leftovers:
-  - [ ] Remove `x86` from WinUI app `Platforms` only if it still exists.
-  - [ ] Remove `win-x86` from WinUI app `RuntimeIdentifiers` only if it still exists.
-  - [ ] Confirm no x86 publish profile, workflow matrix entry, installer, or release artifact remains.
-  - [ ] Do not remove legitimate `x86` references for Windows Kits paths, ADK tooling, driver metadata, third-party asset documentation, or WPF runtime support.
-- [ ] **19.7** Review unpackaged app leftovers from the WinUI template:
-  - [ ] Keep `Package.appxmanifest` only if the WinUI build or Visual Studio tooling still requires it; otherwise remove it.
-  - [ ] Remove stale packaged-only context menu declarations only if Velopack/unpackaged install path does not use them.
-  - [ ] Remove or replace `RuntimeHelper.IsPackaged()` branches only when they are unreachable or contradict the selected unpackaged Velopack model.
-  - [ ] Document any retained unpackaged-template artifact with the concrete reason it is still required.
-- [ ] **19.8** Confirm Phase 11 removed `nucs.JsonSettings` from the WinUI app.
-  - [ ] Confirm no runtime dependency still requires it.
-  - [ ] Confirm persisted app settings use the internal settings service.
-- [ ] **19.8.1** Confirm Phase 11 removed or replaced remaining DevWinUI prototype AppData working directory usage.
-- [ ] **19.9** Commit:
+- [x] **19.1** Remove DevWinUI placeholder strings and metadata.
+- [x] **19.2** Remove unused settings pages or rename them to product-specific pages.
+- [x] **19.3** Remove unused packages.
+- [x] **19.4** Keep DevWinUI packages as the long-term shell baseline unless a specific package becomes unused after Foundry pages are integrated.
+- [x] **19.5** Review trimming settings:
+  - [x] Disable trimming if it breaks reflection-heavy dependencies.
+  - [x] Add annotations only where needed.
+- [x] **19.5.1** Reduce main Foundry Velopack package size without changing WinPE runtime payload packaging:
+  - [x] Publish the main `Foundry` WinUI app as framework-dependent for .NET.
+  - [x] Keep `WindowsAppSDKSelfContained=true` for the main `Foundry` WinUI app so the Windows App SDK runtime remains bundled with the app payload.
+  - [x] Configure Velopack runtime bootstrapping for `.NET Desktop Runtime`, WebView2, and VC++ 14.4:
+    - `win-x64`: `net10.0-x64-desktop,webview2,vcredist144-x64`.
+    - `win-arm64`: `net10.0-arm64-desktop,webview2,vcredist144-arm64`.
+  - [x] Keep `Foundry.Connect` and `Foundry.Deploy` self-contained because they are deployed as runtime payloads for generated media and WinPE scenarios.
+  - [x] Confirm `Directory.Build.props`, `Directory.Solution.props`, and project files do not override the selected Velopack publish mode.
+- [x] **19.5.2** Add reproducible Velopack MSI customization assets:
+  - [x] Store installer-only assets under the repository root `Assets\Installer`, not under `src\Foundry\Assets`, because they are packaging inputs and should not be copied into the app runtime assets.
+  - [x] Keep these planned files:
+    - `Assets\Installer\MsiBanner.bmp` for `--msiBanner` (`493x58`).
+    - `Assets\Installer\MsiLogo.bmp` for `--msiLogo` (`493x312`).
+    - `Assets\Installer\Welcome.md` for `--instWelcome`.
+    - `Assets\Installer\Readme.md` for `--instReadme`.
+    - `Assets\Installer\Conclusion.md` for `--instConclusion`.
+  - [x] Keep the script comments for reusing the root `LICENSE` file by copying it to `artifacts\velopack\installer-license.md` during packaging so Velopack receives a supported extension without duplicating the license in source control.
+  - [x] Keep MSI customization disabled in `Publish-FoundryVelopack.ps1` until the known Velopack custom MSI rendering bugs are fixed, then re-enable the commented `--msiVersion`, `--instWelcome`, `--instLicense`, `--instReadme`, `--instConclusion`, `--msiBanner`, and `--msiLogo` options.
+- [x] **19.5.3** Keep About release-notes WebView2 data in a writable per-user directory for per-machine installs:
+  - [x] Create `%LOCALAPPDATA%\Foundry\WebView2` during Foundry data-directory initialization.
+  - [x] Initialize the release-notes WebView2 explicitly with that user-data folder before navigating to GitHub releases.
+  - [x] Keep the native release-notes fallback visible if WebView2 initialization fails.
+- [x] **19.6** Remove x86 prototype leftovers:
+  - [x] Confirm `x86` is absent from active WinUI app `Platforms`.
+  - [x] Confirm `win-x86` is absent from active WinUI app `RuntimeIdentifiers`.
+  - [x] Confirm no x86 publish profile, workflow matrix entry, installer, or release artifact remains.
+  - [x] Keep legitimate `x86` references for Windows Kits paths, ADK tooling, driver metadata, third-party asset documentation, tests, and WPF reference archive.
+- [x] **19.7** Review unpackaged app leftovers from the WinUI template:
+  - [x] Keep `Package.appxmanifest` for now because Microsoft Store packaging remains a possible future distribution path, but do not treat the current manifest as production-ready Store metadata.
+  - [x] Keep stale-looking packaged-only context menu declarations for now because they are tied to the retained packaged/MSIX path.
+  - [x] Keep `RuntimeHelper.IsPackaged()` context-menu registration for now because it remains scoped to packaged execution and does not affect the Velopack/unpackaged path.
+  - [x] Document retained packaged artifacts as intentional Microsoft Store optionality, not active Velopack requirements.
+- [x] **19.8** Confirm Phase 11 removed `nucs.JsonSettings` from the WinUI app.
+  - [x] Confirm no runtime dependency still requires it.
+  - [x] Confirm persisted app settings use the internal settings service.
+- [x] **19.8.1** Confirm Phase 11 removed or replaced remaining DevWinUI prototype AppData working directory usage.
+- [x] **19.8.2** Restore automated release scheduling:
+  - [x] Run the release workflow every Tuesday at `13:00 UTC`, which corresponds to `15:00` in French summer time.
+  - [x] Keep manual `workflow_dispatch` release support.
+  - [x] Keep `force=true` as an explicit release override.
+  - [x] Create scheduled releases only when files under `src\` changed since the latest published GitHub release.
+- [x] **19.8.3** Normalize main app branding and ownership metadata:
+  - [x] Keep the repository and project ecosystem named `Foundry`.
+  - [x] Rename the main desktop app display name to `Foundry OSD`.
+  - [x] Keep source folders, namespaces, executable names, Velopack package ID, release tags, `ProgramData\Foundry`, `%LOCALAPPDATA%\Foundry`, WinPE paths, and runtime payload names unchanged.
+  - [x] Set company metadata to `Foundry Project`.
+  - [x] Keep `Mickaël CHAVE` as the primary maintainer/author.
+  - [x] Keep `Foundry Connect` and `Foundry Deploy` as runtime agent names.
+- [x] **19.8.4** Update user-facing project text:
+  - [x] Update `README.md` to use `Foundry OSD` for the desktop app and current MSI asset names.
+  - [x] Update installer text assets under `Assets\Installer`.
+  - [x] Update `en-US` and `fr-FR` main app strings where the UI refers to the desktop app.
+- [x] **19.9** Commit:
 
 ```powershell
-git commit -m "chore: clean up winui migration leftovers"
+git commit -m "chore: align release automation and app branding"
 ```
 
 **Validation**
 
-- [ ] **19.10** `dotnet list .\src\Foundry\Foundry.csproj package`.
-- [ ] **19.11** Confirm no placeholder DevWinUI URLs remain.
-- [ ] **19.12** Confirm no `bin`, `obj`, `.vs`, or `.csproj.user` files are tracked.
+- [x] **19.10** `dotnet list .\src\Foundry\Foundry.csproj package`.
+- [x] **19.11** Confirm no placeholder DevWinUI URLs remain; the remaining DevWinUI URL is the legitimate `AppData.json` schema reference.
+- [x] **19.12** Confirm no `bin`, `obj`, `.vs`, or `.csproj.user` files are tracked.
 
 ## Phase 20: Documentation Update
 
@@ -410,7 +448,7 @@ git commit -m "chore: clean up winui migration leftovers"
 
 **Boundary:** Repository docs live in this repo. User-facing documentation site updates may need the adjacent `foundry-osd.github.io` repository and should be handled as a separate docs-site change when release links, screenshots, or workflow pages need to change. Do not update user-facing workflow screenshots before Phase 16.E, Phase 17 smoke validation, and Phase 18 UI review are complete.
 
-- [ ] **20.1** Update `README.md`.
+- [x] **20.1** Update `README.md`.
 - [ ] **20.2** Update developer build docs.
 - [ ] **20.3** Update release process docs.
 - [ ] **20.4** Update installation/update docs.
@@ -451,16 +489,16 @@ git commit -m "docs: document winui foundry migration"
   - [ ] Windows App SDK runtime/bootstrap initialization succeeds before WinUI APIs are used.
   - [ ] Missing or present Windows App SDK runtime state is handled by the selected Velopack MSI distribution model.
   - [ ] Installed app launches without requiring Visual Studio or a development environment.
-- [ ] **21.6** Commit release workflow restoration after a successful manual release dry run:
+- [x] **21.6** Restore scheduled release automation during Phase 19 after validating the WinUI app and release packaging model:
 
 ```powershell
-git commit -m "ci: restore scheduled releases after winui migration"
+git commit -m "chore: align release automation and app branding"
 ```
 
 - [ ] **21.7** Merge `feat/winui-migration` into `main`.
 - [ ] **21.8** Tag first WinUI release.
   - [ ] Use date-based tag format `vYY.M.D.Build`.
-- [ ] **21.9** Re-enable Sunday scheduled release only after the first manual WinUI release succeeds from `main`.
+- [ ] **21.9** Monitor the Tuesday scheduled release after the first successful WinUI release from `main`.
 - [ ] **21.10** Monitor first release installation/update telemetry manually through GitHub issues/downloads/log reports.
 - [ ] **21.11** Keep the WPF reference archive until the first stable WinUI release has been validated.
 - [ ] **21.12** After merge validation, delete merged feature branches and clean up migration worktrees.
