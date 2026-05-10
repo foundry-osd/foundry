@@ -384,6 +384,16 @@ git commit -m "refactor(ui): refine foundry winui experience"
     - `win-arm64`: `net10.0-arm64-desktop,webview2,vcredist144-arm64`.
   - [x] Keep `Foundry.Connect` and `Foundry.Deploy` self-contained because they are deployed as runtime payloads for generated media and WinPE scenarios.
   - [x] Confirm `Directory.Build.props`, `Directory.Solution.props`, and project files do not override the selected Velopack publish mode.
+- [ ] **19.5.2** Add reproducible Velopack MSI customization assets:
+  - [ ] Store installer-only assets under the repository root `Assets\Installer`, not under `src\Foundry\Assets`, because they are packaging inputs and should not be copied into the app runtime assets.
+  - [ ] Use these planned files:
+    - `Assets\Installer\MsiBanner.bmp` for `--msiBanner` (`493x58`).
+    - `Assets\Installer\MsiLogo.bmp` for `--msiLogo` (`493x312`).
+    - `Assets\Installer\Welcome.md` for `--instWelcome`.
+    - `Assets\Installer\Readme.md` for `--instReadme`.
+    - `Assets\Installer\Conclusion.md` for `--instConclusion`.
+  - [ ] Reuse the root `LICENSE` file for `--instLicense`; create a packaging-specific license file only if Velopack rejects the extensionless root license.
+  - [ ] Wire `Publish-FoundryVelopack.ps1` to the root installer asset paths and `--msiVersion $applicationVersion`.
 - [ ] **19.6** Remove x86 prototype leftovers:
   - [ ] Remove `x86` from WinUI app `Platforms` only if it still exists.
   - [ ] Remove `win-x86` from WinUI app `RuntimeIdentifiers` only if it still exists.
