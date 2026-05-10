@@ -503,6 +503,7 @@ git commit -m "chore: align release automation and app branding"
 ```
 
 - [ ] **21.7** Merge `feat/winui-migration` into `main`.
+  - [ ] Before the final merge, clear the migration plan so it no longer presents the completed WinUI migration as active work.
 - [ ] **21.8** Tag first WinUI release.
   - [ ] Use date-based tag format `vYY.M.D.Build`.
 - [ ] **21.9** Monitor the Tuesday scheduled release after the first successful WinUI release from `main`.
