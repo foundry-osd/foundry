@@ -15,6 +15,7 @@ Use this file as the single prompt entry point. It links to the migration contex
 
 - [Filesystem Layout](architecture/filesystem-layout.md): `ProgramData`, ISO, USB, `X:\Foundry`, runtime, cache, logs, and no-fallback rules.
 - [Page Map And Navigation Contract](architecture/page-map.md): `NavigationView` sections, page responsibilities, ADK-blocked navigation, and blocking operation overlays.
+- [Release And Installation](architecture/release-and-installation.md): release schedule, `src` change gating, Velopack packaging, installer assets, and bootstrap dependencies.
 
 ## Execution Phases
 

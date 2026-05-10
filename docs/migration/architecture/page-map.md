@@ -166,7 +166,7 @@ Footer
 - [ ] Do not expose a dedicated `Logs` footer page.
 - [ ] Log-folder access remains available from diagnostics/settings surfaces.
 - [ ] `Documentation` links to user-facing documentation.
-- [ ] `About` shows product, version, repository, issue, and update information.
+- [ ] `About` opens a ContentDialog with product information, licenses, GitHub contributors, and GitHub release notes.
 
 ## Update Banner Contract
 

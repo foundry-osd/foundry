@@ -26,7 +26,9 @@
 - [ ] Replace the current GitHub-release-only update check with a Velopack-based installer and update flow for the main `Foundry` app.
 - [ ] Keep the migration incremental, reviewable, and recoverable.
 
-## Current State Summary
+## Migration Baseline Summary
+
+This section records the baseline captured before the WinUI migration phases were executed. Use the phase records and cutover checklist for the current implementation state.
 
 - [ ] `E:\Github\Foundry Project` is a workspace folder, not a Git repository.
 - [ ] The app repository is `E:\Github\Foundry Project\foundry`.
