@@ -2,7 +2,7 @@ name: Auto Labeler
 
 on:
   pull_request_target:
-    branches: [main, feat/winui-migration]
+    branches: [main]
     types: [opened, synchronize, reopened]
 
 permissions:

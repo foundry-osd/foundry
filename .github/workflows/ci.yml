@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-      - feat/winui-migration
   workflow_dispatch:
 
 permissions:
