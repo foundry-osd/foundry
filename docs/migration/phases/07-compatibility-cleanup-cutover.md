@@ -369,13 +369,13 @@ git commit -m "refactor(ui): refine foundry winui experience"
 
 **Boundary:** Phase 19 removes only confirmed obsolete migration/prototype leftovers. Do not remove the archived WPF reference before the first stable WinUI release has been validated, because it remains the behavior reference for compatibility investigations. Do not remove DevWinUI shell assets, `AppData.json` navigation metadata, or DevWinUI packages that remain part of the long-term shell baseline.
 
-- [ ] **19.1** Remove DevWinUI placeholder strings and metadata.
-- [ ] **19.2** Remove unused settings pages or rename them to product-specific pages.
-- [ ] **19.3** Remove unused packages.
-- [ ] **19.4** Keep DevWinUI packages as the long-term shell baseline unless a specific package becomes unused after Foundry pages are integrated.
-- [ ] **19.5** Review trimming settings:
-  - [ ] Disable trimming if it breaks reflection-heavy dependencies.
-  - [ ] Add annotations only where needed.
+- [x] **19.1** Remove DevWinUI placeholder strings and metadata.
+- [x] **19.2** Remove unused settings pages or rename them to product-specific pages.
+- [x] **19.3** Remove unused packages.
+- [x] **19.4** Keep DevWinUI packages as the long-term shell baseline unless a specific package becomes unused after Foundry pages are integrated.
+- [x] **19.5** Review trimming settings:
+  - [x] Disable trimming if it breaks reflection-heavy dependencies.
+  - [x] Add annotations only where needed.
 - [x] **19.5.1** Reduce main Foundry Velopack package size without changing WinPE runtime payload packaging:
   - [x] Publish the main `Foundry` WinUI app as framework-dependent for .NET.
   - [x] Keep `WindowsAppSDKSelfContained=true` for the main `Foundry` WinUI app so the Windows App SDK runtime remains bundled with the app payload.
@@ -428,7 +428,7 @@ git commit -m "refactor(ui): refine foundry winui experience"
   - [x] Update `README.md` to use `Foundry OSD` for the desktop app and current MSI asset names.
   - [x] Update installer text assets under `Assets\Installer`.
   - [x] Update `en-US` and `fr-FR` main app strings where the UI refers to the desktop app.
-- [ ] **19.9** Commit:
+- [x] **19.9** Commit:
 
 ```powershell
 git commit -m "chore: align release automation and app branding"
