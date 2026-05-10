@@ -19,9 +19,7 @@ Code rules:
 Cleanup rules:
 - After an implementation, check whether replaced code, unused files, obsolete helpers, dead configuration, or outdated documentation became unnecessary
 - Remove obsolete code only when it is clearly made redundant by the current change and is within the task scope
-- Do not remove legacy or compatibility code unless the task explicitly replaces it or the migration plan says it can be removed
-- During migration work, prefer removing obsolete WPF-era code only after the WinUI or Core replacement is implemented and validated
-- Do not modify the archived WPF reference during the migration; it is the source of truth for existing business behavior
+- Do not remove legacy or compatibility code unless the task explicitly replaces it or the user asks for that cleanup
 
 Unit testing rules:
 - Add unit tests only when they provide clear business value
@@ -38,7 +36,7 @@ Unit testing rules:
 
 Git rules:
 - Follow Conventional Commits for all commit messages
-- Prefer Conventional Commit scopes when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(migration): ...`
+- Prefer Conventional Commit scopes when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(readme): ...`
 - Write commit messages in English
 - Keep commits atomic and focused
 
@@ -59,16 +57,15 @@ Worktree / branch / PR rules:
 
 Pull request rules:
 - Write pull request titles in English using Conventional Commits
-- Prefer scoped pull request titles when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(migration): ...`
+- Prefer scoped pull request titles when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(readme): ...`
 - Write concise pull request descriptions in English
 - Include: summary, reason, main changes, and testing notes
 
 .NET / WPF / WinUI 3 rules:
 - Handle this Visual Studio solution as a mixed WPF and WinUI 3 solution
-- Foundry.Connect and Foundry.Deploy remain WPF unless a Foundry change necessarily flows into them
-- Foundry is the WinUI 3 migration target
+- Foundry is a WinUI 3 desktop application
+- Foundry.Connect and Foundry.Deploy are WPF runtime applications
 - Keep WPF-specific logic and WinUI 3-specific logic separated when their UI frameworks differ
-- Do not force 1:1 UI migration when a cleaner WinUI 3 implementation fits the target shell and architecture better
 - Respect DevWinUI shell and navigation patterns when present
 - Follow MVVM when applicable
 - Keep business logic out of code-behind whenever possible
@@ -93,14 +90,8 @@ Logging rules:
 - Prefer structured properties when the existing logger supports them
 - Add logging only from the main agent, not from subagents
 
-Migration plan rules:
-- When working from the migration plan, update checkboxes as tasks are completed
-- Keep phase numbering stable so tasks can be referenced by number
-- Do not mark manually validated tasks complete without user confirmation
-- Do not start the next phase when the user explicitly asks to stop after the current one
-
 Documentation rules:
-- Update docs, README files, and migration plans when behavior, packaging, install paths, release assets, or user-facing workflows change
+- Update docs and README files when behavior, packaging, install paths, release assets, or user-facing workflows change
 - Keep documentation maintainable and split large plans into focused files when needed
 
 Subagent rules:
