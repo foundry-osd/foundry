@@ -39,19 +39,16 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
-    public void Evaluate_WhenRuntimePayloadsAreMissing_ReportsConnectAndDeploySeparately()
+    public void Evaluate_WhenFinalExecutionIsEnabled_AllowsMediaCreationWithoutRuntimePayloadChecks()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
             CreateReadyOptions() with
             {
-                IsRuntimePayloadReady = false,
-                IsConnectRuntimePayloadReady = false,
-                IsDeployRuntimePayloadReady = false
+                IsFinalExecutionEnabled = true
             });
 
-        Assert.Contains(MediaPreflightBlockingReason.ConnectRuntimePayloadNotReady, evaluation.IsoBlockingReasons);
-        Assert.Contains(MediaPreflightBlockingReason.DeployRuntimePayloadNotReady, evaluation.IsoBlockingReasons);
-        Assert.DoesNotContain(MediaPreflightBlockingReason.RuntimePayloadNotReady, evaluation.IsoBlockingReasons);
+        Assert.True(evaluation.CanCreateIso);
+        Assert.True(evaluation.CanCreateUsb);
     }
 
     [Fact]
@@ -121,7 +118,6 @@ public sealed class MediaPreflightServiceTests
         return new MediaPreflightOptions
         {
             IsAdkReady = true,
-            IsRuntimePayloadReady = true,
             IsNetworkConfigurationReady = true,
             IsDeployConfigurationReady = true,
             IsConnectProvisioningReady = true,

@@ -678,6 +678,9 @@
   <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
     <value>Téléchargement du package de pilotes</value>
   </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>Téléchargement du payload runtime {0}.</value>
+  </data>
   <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
     <value>Validation du package source WinRE.</value>
   </data>
@@ -831,12 +834,6 @@
   <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
     <value>Choix finaux pour la sortie ISO et USB.</value>
   </data>
-  <data name="StartMedia.Readiness.RuntimePayloads.Header" xml:space="preserve">
-    <value>Payloads runtime</value>
-  </data>
-  <data name="StartMedia.Readiness.RuntimePayloads.Description" xml:space="preserve">
-    <value>Applications copiées dans le média généré.</value>
-  </data>
   <data name="StartMedia.Readiness.ExpertConfiguration.Header" xml:space="preserve">
     <value>Configuration expert</value>
   </data>
@@ -869,18 +866,6 @@
   </data>
   <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
     <value>{0}; {1}</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.Connect" xml:space="preserve">
-    <value>Runtime Foundry.Connect</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.ConnectReady" xml:space="preserve">
-    <value>Le payload runtime Foundry.Connect est disponible.</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.Deploy" xml:space="preserve">
-    <value>Runtime Foundry.Deploy</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.DeployReady" xml:space="preserve">
-    <value>Le payload runtime Foundry.Deploy est disponible.</value>
   </data>
   <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
     <value>La configuration réseau peut être provisionnée.</value>
@@ -927,9 +912,6 @@
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Pilotes</value>
   </data>
-  <data name="StartMedia.Field.Runtime" xml:space="preserve">
-    <value>Payloads runtime</value>
-  </data>
   <data name="StartMedia.Field.Network" xml:space="preserve">
     <value>Configuration réseau</value>
   </data>
@@ -962,15 +944,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>La langue de démarrage WinPE sélectionnée n'est pas disponible pour l'architecture sélectionnée.</value>
-  </data>
-  <data name="StartMedia.BlockingReason.RuntimePayloadNotReady" xml:space="preserve">
-    <value>La validation des payloads runtime est différée.</value>
-  </data>
-  <data name="StartMedia.BlockingReason.ConnectRuntimePayloadNotReady" xml:space="preserve">
-    <value>Le payload runtime Foundry.Connect n'est pas disponible pour l'architecture sélectionnée.</value>
-  </data>
-  <data name="StartMedia.BlockingReason.DeployRuntimePayloadNotReady" xml:space="preserve">
-    <value>Le payload runtime Foundry.Deploy n'est pas disponible pour l'architecture sélectionnée.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>La configuration réseau n'est pas prête.</value>

@@ -232,6 +232,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             ReportProgress(options.Progress, 92, "Provisioning USB runtime payloads.");
             WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
                 CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
+                options.DownloadProgress,
                 cancellationToken).ConfigureAwait(false);
 
             if (!runtimePayloadResult.IsSuccess)
