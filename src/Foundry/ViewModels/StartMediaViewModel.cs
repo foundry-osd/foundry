@@ -104,7 +104,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public ObservableCollection<SelectionOption<WinPeUsbDiskCandidate>> UsbCandidates { get; } = [];
     public ObservableCollection<StartReadinessItemViewModel> PrerequisiteReadinessItems { get; } = [];
     public ObservableCollection<StartReadinessItemViewModel> MediaOutputReadinessItems { get; } = [];
-    public ObservableCollection<StartReadinessItemViewModel> RuntimePayloadReadinessItems { get; } = [];
     public ObservableCollection<StartReadinessItemViewModel> ExpertConfigurationReadinessItems { get; } = [];
 
     [ObservableProperty]
@@ -178,9 +177,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     public partial bool IsMediaOutputReadinessExpanded { get; set; }
-
-    [ObservableProperty]
-    public partial bool IsRuntimePayloadReadinessExpanded { get; set; }
 
     [ObservableProperty]
     public partial bool IsExpertConfigurationReadinessExpanded { get; set; }
@@ -476,6 +472,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    DownloadProgress = new Progress<WinPeDownloadProgress>(ReportDownloadProgress),
                     Progress = new Progress<WinPeMediaProgress>(ReportFinalMediaProgress)
                 },
                 workspace.PreparedWorkspace.Artifact,
@@ -518,10 +515,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.WinPeWorkspaceDirectoryPath,
                 Constants.WinPeWorkspaceDirectoryPath,
                 Constants.WinPeWorkspaceDirectoryPath);
-            RuntimePayloadReadiness runtimeReadiness = EvaluateRuntimePayloadReadiness(runtimePayloadProvisioning);
+            runtimePayloadProvisioning = AddReleaseConnectProvisioning(runtimePayloadProvisioning);
 
             logger.Debug(
-                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, BootImageSource={BootImageSource}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, HasConnectRuntimePayload={HasConnectRuntimePayload}, HasDeployRuntimePayload={HasDeployRuntimePayload}",
+                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, BootImageSource={BootImageSource}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsConnectRuntimeProvisioningEnabled={IsConnectRuntimeProvisioningEnabled}, ConnectRuntimeSource={ConnectRuntimeSource}, IsDeployRuntimeProvisioningEnabled={IsDeployRuntimeProvisioningEnabled}, DeployRuntimeSource={DeployRuntimeSource}",
                 options.Architecture,
                 NormalizeCultureName(options.WinPeLanguage),
                 options.SignatureMode,
@@ -530,8 +527,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 options.DriverVendors.Count,
                 !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
                 options.IsAutopilotEnabled,
-                runtimeReadiness.IsConnectReady,
-                runtimeReadiness.IsDeployReady);
+                runtimePayloadProvisioning.Connect.IsEnabled,
+                ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
+                runtimePayloadProvisioning.Deploy.IsEnabled,
+                ResolveProvisioningSource(runtimePayloadProvisioning.Deploy));
 
             CleanupStaleWinPeWorkspaces();
 
@@ -582,7 +581,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     DriverVendors = options.DriverVendors,
                     CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                     WinPeLanguage = options.WinPeLanguage,
-                    AssetProvisioning = CreateAssetProvisioningOptions(options, connectBundle),
+                    AssetProvisioning = CreateAssetProvisioningOptions(options, connectBundle, runtimePayloadProvisioning),
                     RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
                     WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                     Progress = new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage),
@@ -615,7 +614,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private WinPeMountedImageAssetProvisioningOptions CreateAssetProvisioningOptions(
         MediaPreflightOptions options,
-        FoundryConnectProvisioningBundle connectBundle)
+        FoundryConnectProvisioningBundle connectBundle,
+        WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning)
     {
         return new WinPeMountedImageAssetProvisioningOptions
         {
@@ -630,9 +630,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AutopilotProfiles = options.IsAutopilotEnabled
                 ? expertDeployConfigurationStateService.Current.Autopilot.Profiles
                 : [],
-            ConnectProvisioningSource = WinPeProvisioningSource.Local,
-            DeployProvisioningSource = WinPeProvisioningSource.Local
+            ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
+            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy)
         };
+    }
+
+    private static WinPeProvisioningSource ResolveProvisioningSource(WinPeRuntimePayloadApplicationOptions options)
+    {
+        return options.IsEnabled ? options.ProvisioningSource : WinPeProvisioningSource.Release;
     }
 
     private void ReportWorkspacePreparationStage(WinPeWorkspacePreparationStage stage)
@@ -1068,19 +1073,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             vendors.Add(WinPeVendorSelection.Hp);
         }
 
-        RuntimePayloadReadiness runtimeReadiness = EvaluateRuntimePayloadReadiness(
-            CreateRuntimePayloadProvisioningOptions(
-                SelectedArchitecture?.Value ?? WinPeArchitecture.X64,
-                Constants.WinPeWorkspaceDirectoryPath,
-                Constants.WinPeWorkspaceDirectoryPath,
-                Constants.WinPeWorkspaceDirectoryPath));
-
         return new MediaPreflightOptions
         {
             IsAdkReady = adkService.CurrentStatus.CanCreateMedia,
-            IsRuntimePayloadReady = runtimeReadiness.IsReady,
-            IsConnectRuntimePayloadReady = runtimeReadiness.IsConnectReady,
-            IsDeployRuntimePayloadReady = runtimeReadiness.IsDeployReady,
             IsNetworkConfigurationReady = expertDeployConfigurationStateService.IsNetworkConfigurationReady,
             IsDeployConfigurationReady = expertDeployConfigurationStateService.IsDeployConfigurationReady,
             IsConnectProvisioningReady = expertDeployConfigurationStateService.IsConnectProvisioningReady,
@@ -1166,13 +1161,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 BuildIsoOutputReadinessItem(options, evaluation),
                 BuildUsbTargetReadinessItem(options),
                 BuildUsbLayoutReadinessItem(options, evaluation)
-            ]);
-
-        IsRuntimePayloadReadinessExpanded = ReplaceReadinessItems(
-            RuntimePayloadReadinessItems,
-            [
-                BuildConnectRuntimePayloadReadinessItem(options),
-                BuildDeployRuntimePayloadReadinessItem(options)
             ]);
 
         IsExpertConfigurationReadinessExpanded = ReplaceReadinessItems(
@@ -1276,28 +1264,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             localizationService.GetString("StartMedia.UsbLayout.Header"),
             requiresGpt ? StartReadinessState.Warning : StartReadinessState.Ready,
             description);
-    }
-
-    private StartReadinessItemViewModel BuildConnectRuntimePayloadReadinessItem(MediaPreflightOptions options)
-    {
-        bool isReady = options.IsConnectRuntimePayloadReady == true;
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Readiness.Runtime.Connect"),
-            isReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            isReady
-                ? localizationService.GetString("StartMedia.Readiness.Runtime.ConnectReady")
-                : GetBlockingReasonText(MediaPreflightBlockingReason.ConnectRuntimePayloadNotReady));
-    }
-
-    private StartReadinessItemViewModel BuildDeployRuntimePayloadReadinessItem(MediaPreflightOptions options)
-    {
-        bool isReady = options.IsDeployRuntimePayloadReady == true;
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Readiness.Runtime.Deploy"),
-            isReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            isReady
-                ? localizationService.GetString("StartMedia.Readiness.Runtime.DeployReady")
-                : GetBlockingReasonText(MediaPreflightBlockingReason.DeployRuntimePayloadNotReady));
     }
 
     private StartReadinessItemViewModel BuildNetworkReadinessItem(MediaPreflightOptions options)
@@ -1442,7 +1408,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.PartitionStyle")}: {evaluation.EffectiveUsbPartitionStyle}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.FormatMode")}: {FormatUsbFormatMode(options.UsbFormatMode)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Drivers")}: {FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPath)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Runtime")}: {FormatReady(options.IsRuntimePayloadReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Network")}: {FormatReady(options.IsNetworkConfigurationReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Deploy")}: {FormatReady(options.IsDeployConfigurationReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Connect")}: {FormatReady(options.IsConnectProvisioningReady)}");
@@ -1483,7 +1448,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
 
         logger.Information(
-            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, RuntimeReady={RuntimeReady}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, AutopilotProfile={AutopilotProfile}, AutopilotFolder={AutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, AutopilotProfile={AutopilotProfile}, AutopilotFolder={AutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
             options.Architecture,
             NormalizeCultureName(options.WinPeLanguage),
             options.BootImageSource,
@@ -1491,7 +1456,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.SelectedUsbDisk is not null,
             options.SelectedUsbDisk?.DiskNumber,
             options.SelectedUsbDisk?.FriendlyName,
-            options.IsRuntimePayloadReady,
             options.IsNetworkConfigurationReady,
             options.IsDeployConfigurationReady,
             options.IsConnectProvisioningReady,
@@ -1755,26 +1719,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             projectDiscoveryStartPath: FindRepositoryRoot());
     }
 
-    private static RuntimePayloadReadiness EvaluateRuntimePayloadReadiness(WinPeRuntimePayloadProvisioningOptions options)
+    private static WinPeRuntimePayloadProvisioningOptions AddReleaseConnectProvisioning(
+        WinPeRuntimePayloadProvisioningOptions options)
     {
-        bool connectReady = IsRuntimeApplicationReady(options.Connect);
-        bool deployReady = IsRuntimeApplicationReady(options.Deploy);
-        return new RuntimePayloadReadiness(connectReady, deployReady);
-    }
-
-    private static bool IsRuntimeApplicationReady(WinPeRuntimePayloadApplicationOptions options)
-    {
-        if (!options.IsEnabled)
+        if (options.Connect.IsEnabled)
         {
-            return false;
+            return options;
         }
 
-        if (!string.IsNullOrWhiteSpace(options.ArchivePath))
+        return options with
         {
-            return File.Exists(options.ArchivePath);
-        }
-
-        return !string.IsNullOrWhiteSpace(options.ProjectPath) && File.Exists(options.ProjectPath);
+            Connect = new WinPeRuntimePayloadApplicationOptions
+            {
+                IsEnabled = true,
+                ProvisioningSource = WinPeProvisioningSource.Release
+            }
+        };
     }
 
     private static string ResolveCurlExecutablePath()
@@ -1859,11 +1819,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         Empty,
         Error,
         Blocked
-    }
-
-    private sealed record RuntimePayloadReadiness(bool IsConnectReady, bool IsDeployReady)
-    {
-        public bool IsReady => IsConnectReady && IsDeployReady;
     }
 
     private sealed record PreparedMediaWorkspace(

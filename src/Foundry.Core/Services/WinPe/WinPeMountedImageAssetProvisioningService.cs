@@ -341,7 +341,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     {
         return source switch
         {
-            WinPeProvisioningSource.Local => "local",
+            WinPeProvisioningSource.Debug => "debug",
             WinPeProvisioningSource.Release => "release",
             _ => throw new ArgumentOutOfRangeException(nameof(source), source, "Unsupported provisioning source.")
         };

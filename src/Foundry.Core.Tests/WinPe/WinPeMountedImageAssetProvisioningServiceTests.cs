@@ -107,7 +107,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                         JsonContent = "{\"profile\":1}"
                     }
                 ],
-                ConnectProvisioningSource = WinPeProvisioningSource.Local,
+                ConnectProvisioningSource = WinPeProvisioningSource.Debug,
                 DeployProvisioningSource = WinPeProvisioningSource.Release
             },
             CancellationToken.None);
@@ -116,7 +116,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired", "Profiles")));
         Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json")));
         Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json")));
-        Assert.Equal("local", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.provisioning-source.txt")));
+        Assert.Equal("debug", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.provisioning-source.txt")));
         Assert.Equal("release", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.provisioning-source.txt")));
         Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "iana-windows-timezones.json")));
         Assert.Equal("<WLANProfile />", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wifi", "Profiles", "profile.xml")));

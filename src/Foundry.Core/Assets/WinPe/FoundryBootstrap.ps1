@@ -1706,15 +1706,36 @@ try {
 
     $connectProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Connect'
     $deployProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Deploy'
-    $skipConnectReleaseLookup = $connectProvisioningSource -eq 'local'
-    $skipDeployReleaseLookup = $deployProvisioningSource -eq 'local'
+    $skipConnectReleaseLookup = $connectProvisioningSource -eq 'debug'
+    $skipDeployReleaseLookup = $deployProvisioningSource -eq 'debug'
 
-    $connectExecutable = Resolve-ApplicationExecutable `
-        -ApplicationName 'Foundry.Connect' `
-        -BootstrapRoot $bootstrapRoot `
-        -RuntimeIdentifier $runtimeIdentifier `
-        -Headers $headers `
-        -SkipReleaseLookup:$skipConnectReleaseLookup
+    $connectExecutable = $null
+    if ($skipConnectReleaseLookup) {
+        $connectExecutable = Resolve-ApplicationExecutable `
+            -ApplicationName 'Foundry.Connect' `
+            -BootstrapRoot $bootstrapRoot `
+            -RuntimeIdentifier $runtimeIdentifier `
+            -Headers $headers `
+            -SkipReleaseLookup
+    }
+    else {
+        try {
+            $connectExecutable = Resolve-ApplicationExecutable `
+                -ApplicationName 'Foundry.Connect' `
+                -BootstrapRoot $bootstrapRoot `
+                -RuntimeIdentifier $runtimeIdentifier `
+                -Headers $headers `
+                -SkipReleaseLookup
+        }
+        catch {
+            Write-Log "No cached Foundry.Connect runtime was available before launch: $($_.Exception.Message). Resolving release content now." -Level Warning -ConsoleMessage 'Foundry.Connect cache missing. Resolving release content.'
+            $connectExecutable = Resolve-ApplicationExecutable `
+                -ApplicationName 'Foundry.Connect' `
+                -BootstrapRoot $bootstrapRoot `
+                -RuntimeIdentifier $runtimeIdentifier `
+                -Headers $headers
+        }
+    }
 
     $connectExitCode = Invoke-ConnectExecutable `
         -Executable $connectExecutable `
@@ -1736,7 +1757,10 @@ try {
     Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
 
     if ($skipConnectReleaseLookup) {
-        Write-Log 'Skipping Foundry.Connect cache verification because the provisioned runtime is local.' -ConsoleMessage 'Foundry.Connect local runtime detected. Skipping update check.'
+        Write-Log 'Skipping Foundry.Connect cache verification because the provisioned runtime is debug.' -ConsoleMessage 'Foundry.Connect debug runtime detected. Skipping update check.'
+    }
+    elseif ($deploymentMode -ne 'Usb') {
+        Write-Log 'Skipping Foundry.Connect cache verification because the deployment mode is ISO.' -ConsoleMessage 'Foundry.Connect update check skipped in ISO mode.'
     }
     else {
         try {
