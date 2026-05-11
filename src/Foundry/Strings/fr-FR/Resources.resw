@@ -678,6 +678,9 @@
   <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
     <value>Téléchargement du package de pilotes</value>
   </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>Téléchargement du payload runtime {0}.</value>
+  </data>
   <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
     <value>Validation du package source WinRE.</value>
   </data>

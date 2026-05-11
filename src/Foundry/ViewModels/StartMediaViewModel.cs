@@ -775,6 +775,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return localizationService.GetString("StartMedia.Operation.DownloadingDriverPackage") + suffix;
         }
 
+        const string runtimeDownloadPrefix = "Downloading ";
+        const string runtimeDownloadSuffix = " runtime payload.";
+        if (status.StartsWith(runtimeDownloadPrefix, StringComparison.Ordinal))
+        {
+            int suffixIndex = status.IndexOf('(', StringComparison.Ordinal);
+            int applicationNameEndIndex = status.IndexOf(runtimeDownloadSuffix, StringComparison.Ordinal);
+            if (applicationNameEndIndex > runtimeDownloadPrefix.Length)
+            {
+                string applicationName = status[runtimeDownloadPrefix.Length..applicationNameEndIndex];
+                string suffix = suffixIndex >= 0
+                    ? $" {status[suffixIndex..]}"
+                    : string.Empty;
+                return localizationService.FormatString("StartMedia.Operation.DownloadingRuntimePayloadFormat", applicationName) + suffix;
+            }
+        }
+
         return status;
     }
 
