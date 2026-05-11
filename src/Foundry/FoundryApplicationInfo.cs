@@ -5,7 +5,7 @@ namespace Foundry;
 public static class FoundryApplicationInfo
 {
     public const string AppName = Constants.ApplicationDisplayName;
-    public const string DocumentationUrl = "https://foundry-osd.github.io/docs/intro";
+    public const string DocumentationUrl = "https://foundry-osd.github.io/docs/start";
     public const string RepositoryUrl = Constants.RepositoryUrl;
     public const string ContributorsApiUrl = "https://api.github.com/repos/foundry-osd/foundry/contributors";
     public const string IssuesUrl = Constants.RepositoryUrl + "/issues";
