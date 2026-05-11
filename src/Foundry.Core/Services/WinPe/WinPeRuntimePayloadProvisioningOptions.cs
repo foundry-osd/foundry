@@ -28,17 +28,17 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
             UsbCacheRootPath = usbCacheRootPath,
             Connect = CreateApplicationOptions(
                 "Foundry.Connect",
-                WinPeRuntimePayloadEnvironmentVariables.LocalConnectEnable,
-                WinPeRuntimePayloadEnvironmentVariables.LocalConnectArchive,
-                WinPeRuntimePayloadEnvironmentVariables.LocalConnectProject,
+                WinPeRuntimePayloadEnvironmentVariables.DebugConnectEnable,
+                WinPeRuntimePayloadEnvironmentVariables.DebugConnectArchive,
+                WinPeRuntimePayloadEnvironmentVariables.DebugConnectProject,
                 isDebuggerAttached,
                 getEnvironmentVariable,
                 projectDiscoveryStartPath),
             Deploy = CreateApplicationOptions(
                 "Foundry.Deploy",
-                WinPeRuntimePayloadEnvironmentVariables.LocalDeployEnable,
-                WinPeRuntimePayloadEnvironmentVariables.LocalDeployArchive,
-                WinPeRuntimePayloadEnvironmentVariables.LocalDeployProject,
+                WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable,
+                WinPeRuntimePayloadEnvironmentVariables.DebugDeployArchive,
+                WinPeRuntimePayloadEnvironmentVariables.DebugDeployProject,
                 isDebuggerAttached,
                 getEnvironmentVariable,
                 projectDiscoveryStartPath)

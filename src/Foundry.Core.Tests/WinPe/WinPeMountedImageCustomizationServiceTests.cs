@@ -288,12 +288,15 @@ public sealed class WinPeMountedImageCustomizationServiceTests
     private sealed class FakeRuntimePayloadProvisioningService(WinPeResult? result = null) : IWinPeRuntimePayloadProvisioningService
     {
         public List<WinPeRuntimePayloadProvisioningOptions> Options { get; } = [];
+        public List<IProgress<WinPeDownloadProgress>?> DownloadProgressItems { get; } = [];
 
         public Task<WinPeResult> ProvisionAsync(
             WinPeRuntimePayloadProvisioningOptions options,
+            IProgress<WinPeDownloadProgress>? downloadProgress = null,
             CancellationToken cancellationToken = default)
         {
             Options.Add(options);
+            DownloadProgressItems.Add(downloadProgress);
             return Task.FromResult(result ?? WinPeResult.Success());
         }
     }

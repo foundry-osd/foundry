@@ -5,7 +5,7 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeRuntimePayloadProvisioningOptionsTests
 {
     [Fact]
-    public void CreateDeveloperOptions_WhenDebuggerAttachedAndProjectsExist_EnablesLocalRuntimes()
+    public void CreateDeveloperOptions_WhenDebuggerAttachedAndProjectsExist_EnablesDebugRuntimes()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
         string connectProjectPath = root.CreateProject("Foundry.Connect");
@@ -22,12 +22,14 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
 
         Assert.True(options.Connect.IsEnabled);
         Assert.True(options.Deploy.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.Connect.ProvisioningSource);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.Deploy.ProvisioningSource);
         Assert.Equal(connectProjectPath, options.Connect.ProjectPath);
         Assert.Equal(deployProjectPath, options.Deploy.ProjectPath);
     }
 
     [Fact]
-    public void CreateDeveloperOptions_WhenDebuggerIsNotAttached_DoesNotAutoEnableLocalRuntimes()
+    public void CreateDeveloperOptions_WhenDebuggerIsNotAttached_DoesNotAutoEnableDebugRuntimes()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
         root.CreateProject("Foundry.Connect");
@@ -61,12 +63,13 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
             isDebuggerAttached: true,
             getEnvironmentVariable: key => key switch
             {
-                WinPeRuntimePayloadEnvironmentVariables.LocalConnectArchive => archivePath,
+                WinPeRuntimePayloadEnvironmentVariables.DebugConnectArchive => archivePath,
                 _ => null
             },
             projectDiscoveryStartPath: root.RootPath);
 
         Assert.True(options.Connect.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.Connect.ProvisioningSource);
         Assert.Equal(archivePath, options.Connect.ArchivePath);
         Assert.Empty(options.Connect.ProjectPath);
     }

@@ -678,6 +678,9 @@
   <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
     <value>Downloading driver package</value>
   </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>Downloading {0} runtime payload.</value>
+  </data>
   <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
     <value>Validating WinRE source package.</value>
   </data>
@@ -831,12 +834,6 @@
   <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
     <value>Final ISO and USB output choices.</value>
   </data>
-  <data name="StartMedia.Readiness.RuntimePayloads.Header" xml:space="preserve">
-    <value>Runtime payloads</value>
-  </data>
-  <data name="StartMedia.Readiness.RuntimePayloads.Description" xml:space="preserve">
-    <value>Applications copied into the generated media.</value>
-  </data>
   <data name="StartMedia.Readiness.ExpertConfiguration.Header" xml:space="preserve">
     <value>Expert configuration</value>
   </data>
@@ -869,18 +866,6 @@
   </data>
   <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
     <value>{0}; {1}</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.Connect" xml:space="preserve">
-    <value>Foundry.Connect runtime</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.ConnectReady" xml:space="preserve">
-    <value>Foundry.Connect runtime payload is available.</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.Deploy" xml:space="preserve">
-    <value>Foundry.Deploy runtime</value>
-  </data>
-  <data name="StartMedia.Readiness.Runtime.DeployReady" xml:space="preserve">
-    <value>Foundry.Deploy runtime payload is available.</value>
   </data>
   <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
     <value>Network configuration can be provisioned.</value>
@@ -927,9 +912,6 @@
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
     <value>Drivers</value>
   </data>
-  <data name="StartMedia.Field.Runtime" xml:space="preserve">
-    <value>Runtime payloads</value>
-  </data>
   <data name="StartMedia.Field.Network" xml:space="preserve">
     <value>Network configuration</value>
   </data>
@@ -962,15 +944,6 @@
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Selected WinPE boot language is not available for the selected architecture.</value>
-  </data>
-  <data name="StartMedia.BlockingReason.RuntimePayloadNotReady" xml:space="preserve">
-    <value>Runtime payload readiness is deferred.</value>
-  </data>
-  <data name="StartMedia.BlockingReason.ConnectRuntimePayloadNotReady" xml:space="preserve">
-    <value>Foundry.Connect runtime payload is not available for the selected architecture.</value>
-  </data>
-  <data name="StartMedia.BlockingReason.DeployRuntimePayloadNotReady" xml:space="preserve">
-    <value>Foundry.Deploy runtime payload is not available for the selected architecture.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>Network configuration is not ready.</value>

@@ -172,6 +172,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                     MountedImagePath = session.MountDirectoryPath,
                     Architecture = artifact.Architecture
                 },
+                options.DownloadProgress,
                 cancellationToken).ConfigureAwait(false);
 
             if (!runtimePayloadResult.IsSuccess)

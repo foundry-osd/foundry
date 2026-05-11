@@ -1,4 +1,7 @@
 using System.IO.Compression;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.WinPe;
@@ -6,7 +9,7 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeRuntimePayloadProvisioningServiceTests
 {
     [Fact]
-    public async Task ProvisionAsync_WhenLocalArchivesAreProvided_ExtractsToNormalizedIsoAndUsbRuntimeRoots()
+    public async Task ProvisionAsync_WhenDebugArchivesAreProvided_ExtractsToNormalizedIsoAndUsbRuntimeRoots()
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         string connectArchivePath = workspace.CreateArchive("connect.zip", "Foundry.Connect.exe");
@@ -35,7 +38,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
                     ArchivePath = deployArchivePath
                 }
             },
-            CancellationToken.None);
+            cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect", "win-x64", "Foundry.Connect.exe")));
@@ -70,7 +73,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
                     ProjectPath = projectPath
                 }
             },
-            CancellationToken.None);
+            cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Empty(runner.Executions);
@@ -100,7 +103,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
                     ProjectPath = projectPath
                 }
             },
-            CancellationToken.None);
+            cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         WinPeProcessExecution execution = Assert.Single(runner.Executions);
@@ -134,7 +137,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
                     ProjectPath = projectPath
                 }
             },
-            CancellationToken.None);
+            cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         WinPeProcessExecution execution = Assert.Single(runner.Executions);
@@ -143,6 +146,41 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.Contains("-r win-x64", execution.Arguments);
         Assert.Contains("/p:PublishSingleFile=true", execution.Arguments);
         Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect", "win-x64", "Foundry.Connect.exe")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenReleaseConnectIsEnabled_DownloadsAndExtractsReleaseAsset()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        byte[] archiveBytes = await File.ReadAllBytesAsync(workspace.CreateArchive("connect-release.zip", "Foundry.Connect.exe"));
+        var httpHandler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", archiveBytes);
+        var service = new WinPeRuntimePayloadProvisioningService(
+            new FakeRuntimeProcessRunner(),
+            new HttpClient(httpHandler));
+        var progress = new CapturingProgress<WinPeDownloadProgress>();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeRuntimePayloadProvisioningOptions
+            {
+                Architecture = WinPeArchitecture.X64,
+                WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+                MountedImagePath = workspace.MountedImagePath,
+                Connect = new WinPeRuntimePayloadApplicationOptions
+                {
+                    IsEnabled = true,
+                    ProvisioningSource = WinPeProvisioningSource.Release
+                }
+            },
+            progress,
+            cancellationToken: CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Contains(FakeReleaseHttpMessageHandler.LatestReleaseUri, httpHandler.RequestUris);
+        Assert.Contains(FakeReleaseHttpMessageHandler.DownloadUri, httpHandler.RequestUris);
+        Assert.Contains(progress.Items, item => item is { Percent: 0, Status: "Downloading Foundry.Connect runtime payload." });
+        Assert.Contains(progress.Items, item => item.Percent == 100 && item.Status.Contains("Foundry.Connect", StringComparison.Ordinal));
+        Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect", "win-x64", "Foundry.Connect.exe")));
+        Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Deploy")));
     }
 
     [Fact]
@@ -160,11 +198,66 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
                 MountedImagePath = workspace.MountedImagePath,
                 UsbCacheRootPath = workspace.UsbCacheRootPath
             },
-            CancellationToken.None);
+            cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect")));
         Assert.False(Directory.Exists(Path.Combine(workspace.UsbCacheRootPath, "Runtime", "Foundry.Deploy")));
+    }
+
+    private sealed class FakeReleaseHttpMessageHandler(string assetName, byte[] archiveBytes) : HttpMessageHandler
+    {
+        public const string LatestReleaseUri = "https://api.github.com/repos/foundry-osd/foundry/releases/latest";
+        public const string DownloadUri = "https://example.test/Foundry.Connect-win-x64.zip";
+
+        public List<string> RequestUris { get; } = [];
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            string requestUri = request.RequestUri?.AbsoluteUri ?? string.Empty;
+            RequestUris.Add(requestUri);
+
+            if (string.Equals(requestUri, LatestReleaseUri, StringComparison.Ordinal))
+            {
+                string digest = Convert.ToHexString(SHA256.HashData(archiveBytes)).ToLowerInvariant();
+                string json = $$"""
+                    {
+                      "assets": [
+                        {
+                          "name": "{{assetName}}",
+                          "browser_download_url": "{{DownloadUri}}",
+                          "digest": "sha256:{{digest}}"
+                        }
+                      ]
+                    }
+                    """;
+
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(json, Encoding.UTF8, "application/json")
+                });
+            }
+
+            if (string.Equals(requestUri, DownloadUri, StringComparison.Ordinal))
+            {
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(archiveBytes)
+                });
+            }
+
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
+        }
+    }
+
+    private sealed class CapturingProgress<T> : IProgress<T>
+    {
+        public List<T> Items { get; } = [];
+
+        public void Report(T value)
+        {
+            Items.Add(value);
+        }
     }
 
     private sealed class FakeRuntimeProcessRunner : IWinPeProcessRunner
