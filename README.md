@@ -41,7 +41,7 @@ Get started by downloading the latest Foundry OSD MSI installer for your worksta
   <a href="https://github.com/foundry-osd/foundry/releases/latest/download/FoundrySetup-arm64.msi"><img src="https://img.shields.io/badge/Download-Windows_ARM64-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download ARM64"></a>
 </p>
 
-> 💡 **Next steps:** For prerequisites (like the Windows ADK) and how to configure your first deployment, check out our [Getting Started guide](https://foundry-osd.github.io/docs/getting-started).
+> 💡 **Next steps:** For prerequisites (like the Windows ADK) and how to configure your first deployment, check out our [Quick Start guide](https://foundry-osd.github.io/docs/start/quick-start).
 
 ## ✨ Highlights
 
