@@ -341,9 +341,6 @@ jobs:
                   throw "Velopack release output was not created: '$velopackReleasePath'."
               }
 
-              Get-ChildItem -Path $velopackReleasePath -Filter '*-Setup.exe' -File |
-                  Remove-Item -Force
-
               & $vpkExecutable upload github `
                   --outputDir $velopackReleasePath `
                   --channel $runtimeIdentifier `
@@ -355,6 +352,19 @@ jobs:
 
               if ($LASTEXITCODE -ne 0) {
                   throw "Velopack GitHub upload failed for '$runtimeIdentifier'."
+              }
+
+              $setupAssetNames = gh release view $releaseTag --json assets --jq '.assets[].name' |
+                  Where-Object { $_ -like "*-$runtimeIdentifier-Setup.exe" }
+              if ($LASTEXITCODE -ne 0) {
+                  throw "Unable to inspect GitHub release assets for '$releaseTag'."
+              }
+
+              foreach ($setupAssetName in $setupAssetNames) {
+                  gh release delete-asset $releaseTag $setupAssetName --yes
+                  if ($LASTEXITCODE -ne 0) {
+                      throw "Unable to delete GitHub release asset '$setupAssetName'."
+                  }
               }
           }
 
