@@ -43,6 +43,11 @@ namespace Foundry.Views
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+            if (AppWindow.Presenter is OverlappedPresenter presenter)
+            {
+                presenter.Maximize();
+            }
+
             InitializeNavigation();
             ApplyLocalizedShellText();
             ApplyShellNavigationState();
