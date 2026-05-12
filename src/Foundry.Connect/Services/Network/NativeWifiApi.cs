@@ -5,12 +5,18 @@ using Foundry.Connect.Models.Network;
 
 namespace Foundry.Connect.Services.Network;
 
+/// <summary>
+/// Provides the native WLAN API calls used by Foundry.Connect to discover and inspect Wi-Fi state.
+/// </summary>
 internal static class NativeWifiApi
 {
     private const uint ClientVersion = 2;
     private const uint AvailableNetworkIncludeAllAdhocProfiles = 0x00000001;
     private const int WlanMaxPhyTypeNumber = 8;
 
+    /// <summary>
+    /// Describes a WLAN interface and its current SSID when connected.
+    /// </summary>
     internal sealed record WifiInterfaceConnectionInfo(
         Guid InterfaceId,
         string InterfaceDescription,

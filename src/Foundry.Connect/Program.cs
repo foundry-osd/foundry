@@ -12,10 +12,18 @@ using Serilog;
 
 namespace Foundry.Connect;
 
+/// <summary>
+/// Provides the WPF entry point for Foundry.Connect in WinPE.
+/// </summary>
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
 
+    /// <summary>
+    /// Configures logging, validates runtime constraints, builds the host, and runs the WPF shell.
+    /// </summary>
+    /// <param name="args">Command-line arguments passed to Foundry.Connect.</param>
+    /// <returns>The process exit code.</returns>
     [STAThread]
     public static int Main(string[] args)
     {
@@ -87,6 +95,7 @@ public static class Program
             return IsTruthy(overrideValue);
         }
 
+        // WinPE does not provide the full desktop composition stack required by WPF fluent backdrop effects.
         return ConnectWorkspacePaths.IsWinPeRuntime();
     }
 

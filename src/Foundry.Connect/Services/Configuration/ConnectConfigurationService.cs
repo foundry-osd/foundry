@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Configuration;
 
+/// <summary>
+/// Resolves, reads, decrypts, and normalizes Foundry.Connect runtime configuration.
+/// </summary>
 public sealed class ConnectConfigurationService : IConnectConfigurationService
 {
     private const string DefaultConfigFileName = "foundry.connect.config.json";
@@ -20,16 +23,24 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     private readonly string[] _args;
     private readonly ILogger<ConnectConfigurationService> _logger;
 
+    /// <summary>
+    /// Initializes a configuration service.
+    /// </summary>
+    /// <param name="args">Command-line arguments used to resolve configuration.</param>
+    /// <param name="logger">The logger used for configuration diagnostics.</param>
     public ConnectConfigurationService(string[] args, ILogger<ConnectConfigurationService> logger)
     {
         _args = args ?? Array.Empty<string>();
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public string? ConfigurationPath { get; private set; }
 
+    /// <inheritdoc />
     public bool IsLoadedFromDisk { get; private set; }
 
+    /// <inheritdoc />
     public FoundryConnectConfiguration Load()
     {
         ConfigurationResolution resolution = ResolveConfigurationPath(_args);
@@ -118,6 +129,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
         if (probeUris.Length == 0)
         {
+            // Keep internet detection useful even when the generated configuration omits explicit probe endpoints.
             probeUris =
             [
                 "http://www.msftconnecttest.com/connecttest.txt",
@@ -162,6 +174,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
         finally
         {
+            // The media key should not remain in memory after decrypting the runtime Wi-Fi passphrase.
             CryptographicOperations.ZeroMemory(mediaSecretsKey);
         }
 

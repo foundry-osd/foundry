@@ -19,6 +19,9 @@ using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
 
 namespace Foundry.Connect.ViewModels;
 
+/// <summary>
+/// Coordinates the Foundry.Connect shell, localized network status, Wi-Fi actions, and auto-continue behavior.
+/// </summary>
 public partial class MainWindowViewModel : LocalizedViewModelBase
 {
     private const string PendingStatusGlyph = "\uE709";
@@ -133,6 +136,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [ObservableProperty]
     private string selectedWifiPassphrase = string.Empty;
 
+    /// <summary>
+    /// Initializes the main window view model and wires runtime services.
+    /// </summary>
     public MainWindowViewModel(
         IThemeService themeService,
         ILocalizationService localizationService,
@@ -161,63 +167,157 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ApplyLocalizedDefaults();
     }
 
+    /// <summary>
+    /// Gets the discovered Wi-Fi networks shown in the UI.
+    /// </summary>
     public ObservableCollection<WifiNetworkItemViewModel> WifiNetworks { get; } = [];
+
+    /// <summary>
+    /// Gets the supported UI cultures.
+    /// </summary>
     public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
 
+    /// <summary>
+    /// Gets the current UI culture.
+    /// </summary>
     public CultureInfo CurrentCulture => LocalizationService.CurrentCulture;
+
+    /// <summary>
+    /// Gets the current application theme mode.
+    /// </summary>
     public ConnectThemeMode CurrentTheme => _themeService.CurrentTheme;
 
     public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
 
+    /// <summary>
+    /// Gets the configuration source text shown in the footer.
+    /// </summary>
     public string ConfigurationSourceText => _configurationService.IsLoadedFromDisk && !string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath)
         ? Format("Common.ConfigurationFromPathFormat", _configurationService.ConfigurationPath!)
         : GetString("Common.ConfigurationBuiltInDefaults");
 
+    /// <summary>
+    /// Gets the localized automatic refresh interval text.
+    /// </summary>
     public string RefreshIntervalText => Format("Common.RefreshIntervalFormat", FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds);
 
+    /// <summary>
+    /// Gets the localized window title.
+    /// </summary>
     public string WindowTitle => GetString("App.WindowTitle");
 
+    /// <summary>
+    /// Gets the auto-continue countdown text.
+    /// </summary>
     public string AutoContinueText => Format("Status.AutoContinueFormat", CountdownSecondsRemaining);
 
+    /// <summary>
+    /// Gets the localized timestamp for the last completed network refresh.
+    /// </summary>
     public string LastUpdatedText => LastUpdatedAt is null
         ? GetString("Common.LastUpdatePending")
         : Format("Common.LastUpdateFormat", LastUpdatedAt.Value.LocalDateTime);
 
     public bool HasWifiNetworks => WifiNetworks.Count > 0;
 
+    /// <summary>
+    /// Gets a value indicating whether debug-only menu actions are visible.
+    /// </summary>
     public bool IsDebugMenuVisible => Debugger.IsAttached;
 
+    /// <summary>
+    /// Gets the layout mode after applying an optional debug override.
+    /// </summary>
     public NetworkLayoutMode EffectiveLayoutMode => DebugLayoutOverride ?? LayoutMode;
 
+    /// <summary>
+    /// Gets a value indicating whether the configuration contains a provisioned Wi-Fi profile.
+    /// </summary>
     public bool HasProvisionedWifiProfile => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled;
+
     public bool HasCurrentConnectionChip => !string.IsNullOrWhiteSpace(CurrentConnectionChipText);
+
     public bool HasEthernetSecondaryStatus => !string.IsNullOrWhiteSpace(EthernetSecondaryStatusText);
+
+    /// <summary>
+    /// Gets a value indicating whether automatic bootstrap can continue to deployment.
+    /// </summary>
     public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
+
+    /// <summary>
+    /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.
+    /// </summary>
     public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid);
+
+    /// <summary>
+    /// Gets a value indicating whether the provisioned Wi-Fi profile can be connected now.
+    /// </summary>
     public bool CanConnectConfiguredWifi => HasProvisionedWifiProfile &&
                                            IsWifiRuntimeAvailable &&
                                            HasWirelessAdapter &&
                                            !IsProvisionedWifiConnected &&
                                            !IsNetworkActionInProgress;
+
+    /// <summary>
+    /// Gets a value indicating whether the provisioned Wi-Fi profile can be disconnected now.
+    /// </summary>
     public bool CanDisconnectConfiguredWifi => HasProvisionedWifiProfile &&
                                               IsProvisionedWifiConnected &&
                                               !IsNetworkActionInProgress;
+
+    /// <summary>
+    /// Gets the resolved display name of the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiProfileName => ResolveProvisionedWifiProfileName();
+
+    /// <summary>
+    /// Gets the authentication label for the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiAuthenticationText => BuildProvisionedWifiAuthenticationText();
+
+    /// <summary>
+    /// Gets the source hint for the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiSourceHintText => BuildProvisionedWifiSourceHintText();
+
+    /// <summary>
+    /// Gets the current connection status for the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiStatusText => BuildProvisionedWifiStatusText();
+
+    /// <summary>
+    /// Gets a value indicating whether provisioned Wi-Fi controls should be shown.
+    /// </summary>
     public bool ShowProvisionedWifiContent => HasProvisionedWifiProfile &&
                                               string.IsNullOrWhiteSpace(BuildWifiUnavailableText());
+
+    /// <summary>
+    /// Gets the placeholder text shown when provisioned Wi-Fi cannot be displayed.
+    /// </summary>
     public string ProvisionedWifiPlaceholderText => BuildProvisionedWifiPlaceholderText();
+
     public bool HasProvisionedWifiActionFeedback => !string.IsNullOrWhiteSpace(ProvisionedWifiActionFeedbackText);
+
+    /// <summary>
+    /// Gets the empty-state text for Wi-Fi discovery.
+    /// </summary>
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
+
+    /// <summary>
+    /// Gets a value indicating whether selected Wi-Fi action feedback should be shown.
+    /// </summary>
     public bool HasSelectedWifiActionFeedback => !string.IsNullOrWhiteSpace(SelectedWifiActionFeedbackText);
+
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
                                           !network.IsConnected &&
                                           (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
                                           !IsNetworkActionInProgress;
+
     public bool CanDisconnectSelectedWifi => SelectedWifiNetwork is { IsConnected: true } && !IsNetworkActionInProgress;
 
+    /// <summary>
+    /// Applies provisioned network settings, refreshes the first snapshot, and starts background monitoring.
+    /// </summary>
     public async Task InitializeAsync()
     {
         if (_isInitialized)
@@ -369,6 +469,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             refreshAfterAction: true).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Handles a user closing the window before Foundry.Connect has completed successfully.
+    /// </summary>
     public void HandleWindowClosing()
     {
         if (!_applicationLifetimeService.IsExitRequested)
@@ -468,6 +571,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             ShouldRetryConfiguredWifiConnect())
         {
             _lastConfiguredWifiConnectAttemptAt = DateTimeOffset.UtcNow;
+            // Auto-retry the provisioned Wi-Fi profile only when Ethernet has not already satisfied internet access.
             _ = Task.Run(async () =>
             {
                 await ExecuteProvisionedWifiActionAsync(
@@ -1086,6 +1190,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return GetString("Wifi.ActionDisconnectFailed");
     }
 
+    /// <summary>
+    /// Represents one Wi-Fi network row in the discovery list.
+    /// </summary>
     public sealed class WifiNetworkItemViewModel : ObservableObject
     {
         private string _displaySsid = string.Empty;
@@ -1099,6 +1206,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         private bool _requiresPassphrase;
         private bool _isConnected;
 
+        /// <summary>
+        /// Initializes a Wi-Fi network row with its stable SSID key.
+        /// </summary>
+        /// <param name="ssid">The SSID used to identify the row.</param>
         public WifiNetworkItemViewModel(string ssid)
         {
             Ssid = ssid;
