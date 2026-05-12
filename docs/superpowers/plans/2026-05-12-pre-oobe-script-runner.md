@@ -24,6 +24,9 @@
 - Modify `src/Foundry.Deploy/Services/Deployment/DeploymentRuntimeState.cs`: add pre-OOBE runner, manifest, and staged script path tracking.
 - Modify `src/Foundry.Deploy/Services/Deployment/Steps/FinalizeDeploymentAndWriteLogsStep.cs`: include pre-OOBE paths in deployment summary.
 - Add `src/Foundry.Deploy.Tests/PreOobeScriptProvisioningServiceTests.cs`: cover ordering, idempotency, manifest, runner, and `SetupComplete.cmd` output.
+- In the separate Docusaurus documentation repo, create `E:/Github/Foundry Project/foundry-osd.github.io/docs/technical/deployment-orchestrator.md`: implementation-level deployment pipeline documentation.
+- In the separate Docusaurus documentation repo, create `E:/Github/Foundry Project/foundry-osd.github.io/docs/technical/post-winpe-handoff.md`: post-WinPE and pre-OOBE handoff documentation.
+- In the separate Docusaurus documentation repo, modify `E:/Github/Foundry Project/foundry-osd.github.io/sidebars.ts`: add a final top-level `Technical Deep Dives` category.
 
 ## Design Rules
 
@@ -34,6 +37,7 @@
 - Optional customizations are registered only when Foundry.Deploy sees the corresponding Foundry OSD configuration option.
 - `SetupComplete.cmd` contains one Foundry block and does not contain feature-specific logic.
 - All called scripts are PowerShell.
+- Technical documentation belongs in a separate last-position Docusaurus sidebar category named `Technical Deep Dives`, because it targets advanced readers rather than the common documentation path.
 
 ---
 
@@ -483,7 +487,202 @@ Expected: all Foundry.Deploy tests pass.
 
 ---
 
-### Task 6: Verify Full Solution
+### Task 6: Document Technical Deep Dives
+
+**Files:**
+- Create: `E:/Github/Foundry Project/foundry-osd.github.io/docs/technical/deployment-orchestrator.md`
+- Create: `E:/Github/Foundry Project/foundry-osd.github.io/docs/technical/post-winpe-handoff.md`
+- Modify: `E:/Github/Foundry Project/foundry-osd.github.io/sidebars.ts`
+
+- [ ] **Step 1: Create the technical docs directory**
+
+Run:
+
+```powershell
+New-Item -ItemType Directory -Force -Path "E:\Github\Foundry Project\foundry-osd.github.io\docs\technical"
+```
+
+Expected: `docs\technical` exists in the Docusaurus repo.
+
+- [ ] **Step 2: Add deployment orchestrator documentation**
+
+Create `docs/technical/deployment-orchestrator.md` with:
+
+```md
+---
+title: Deployment Orchestrator
+description: Understand how Foundry Deploy orders and executes deployment steps inside WinPE.
+---
+
+# Deployment orchestrator
+
+This page is a technical deep dive. It describes the internal Foundry Deploy execution pipeline for maintainers and advanced readers.
+
+Foundry Deploy runs in WinPE after Foundry Connect completes successfully. Deployment execution is handled by ordered `IDeploymentStep` instances. The orchestrator sorts steps by `IDeploymentStep.Order`, verifies that the registered step names match the expected workflow, and executes each step against a shared runtime state.
+
+## Ordered steps
+
+The deployment pipeline runs in this order:
+
+1. Gather deployment variables
+2. Initialize deployment workspace
+3. Validate target configuration
+4. Resolve cache strategy
+5. Prepare target disk layout
+6. Download operating system image
+7. Apply operating system image
+8. Configure target computer name and time zone through `Windows\Panther\unattend.xml`
+9. Configure recovery environment
+10. Download driver pack
+11. Extract driver pack
+12. Apply driver pack or stage deferred first-boot execution
+13. Download firmware update
+14. Apply firmware update
+15. Seal recovery partition
+16. Stage Autopilot configuration
+17. Finalize deployment and write logs
+
+## Runtime state
+
+Each step reads and updates the deployment runtime state. The runtime state carries target partition paths, selected operating system metadata, driver-pack strategy, firmware update paths, Autopilot staging details, pre-OOBE script paths, completed steps, and final artifact locations.
+
+## Offline Windows staging
+
+Foundry Deploy writes several artifacts into the applied Windows image before reboot:
+
+- `Windows\Panther\unattend.xml` for specialize-pass settings such as computer name and time zone.
+- `Windows\Setup\Scripts\SetupComplete.cmd` for post-WinPE first-boot execution.
+- `Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json` when offline Autopilot profile staging is enabled.
+- `Windows\Temp\Foundry` for deployment logs, summaries, staged packages, and pre-OOBE assets.
+
+## Failure behavior
+
+If a step fails, orchestration stops, the failure is logged, and Foundry Deploy reports the failed step to the operator. Logs are rebound to the final Windows target location when the Windows partition is available.
+```
+
+- [ ] **Step 3: Add post-WinPE handoff documentation**
+
+Create `docs/technical/post-winpe-handoff.md` with:
+
+```md
+---
+title: Post-WinPE Handoff
+description: Understand what Foundry stages before reboot and what Windows executes before OOBE.
+---
+
+# Post-WinPE handoff
+
+This page is a technical deep dive. It explains what happens after Foundry Deploy finishes in WinPE and the target device boots into the applied Windows image.
+
+## Handoff boundary
+
+Foundry Deploy runs in WinPE. Before reboot, it applies Windows, configures boot files, writes offline configuration artifacts, and stages any first-boot assets required by the selected deployment options.
+
+After reboot, Windows starts from the applied image. Foundry Deploy is no longer running. Windows setup consumes the files that were staged while the image was offline.
+
+## Specialize pass
+
+Computer name and time zone are written to:
+
+`Windows\Panther\unattend.xml`
+
+Windows setup applies those values during the specialize pass before the user reaches OOBE.
+
+## SetupComplete
+
+Deferred first-boot execution is staged through:
+
+`Windows\Setup\Scripts\SetupComplete.cmd`
+
+`SetupComplete.cmd` runs after Windows setup completes and before the user reaches the desktop. Foundry uses it only as a stable launcher for post-WinPE work that cannot be completed offline.
+
+## Pre-OOBE PowerShell runner
+
+The pre-OOBE runner model keeps `SetupComplete.cmd` small. `SetupComplete.cmd` launches one generated PowerShell runner under:
+
+`Windows\Temp\Foundry\PreOobe`
+
+The runner executes enabled PowerShell scripts in deterministic order:
+
+1. Script priority
+2. Script id
+
+Driver provisioning is priority `100` and runs before customization scripts. Customization scripts are registered only when the corresponding Foundry OSD or Foundry Deploy configuration enables them.
+
+## Deferred driver provisioning
+
+Most driver packs are applied offline with DISM. Some packages, such as selected executable or MSI packages, must run after Windows boots. In those cases, Foundry stages the package under:
+
+`Windows\Temp\Foundry\DriverPack\Packages`
+
+The pre-OOBE runner then invokes the driver PowerShell script during first boot.
+
+## Operational artifacts
+
+Foundry stores logs, deployment summaries, staged packages, and pre-OOBE manifests under:
+
+`Windows\Temp\Foundry`
+
+These files exist to make the deployment handoff auditable after WinPE exits.
+```
+
+- [ ] **Step 4: Add the final sidebar category**
+
+Modify `sidebars.ts` and append this category after `Developer`:
+
+```ts
+{
+  type: 'category',
+  label: 'Technical Deep Dives',
+  description:
+    'Implementation-level details for Foundry runtime behavior, orchestration, and handoff internals.',
+  link: {
+    type: 'generated-index',
+    title: 'Technical Deep Dives',
+    slug: '/technical',
+    description:
+      'Implementation-level details for Foundry runtime behavior, orchestration, and handoff internals.',
+  },
+  items: [
+    'technical/deployment-orchestrator',
+    'technical/post-winpe-handoff',
+  ],
+},
+```
+
+Expected: `Technical Deep Dives` is the last top-level sidebar category.
+
+- [ ] **Step 5: Verify Docusaurus builds**
+
+Run:
+
+```powershell
+npm run build
+```
+
+from:
+
+```text
+E:\Github\Foundry Project\foundry-osd.github.io
+```
+
+Expected: Docusaurus build succeeds.
+
+- [ ] **Step 6: Commit documentation changes**
+
+Run from `E:\Github\Foundry Project\foundry-osd.github.io`:
+
+```powershell
+git status --short
+git add docs\technical sidebars.ts
+git commit -m "docs: add technical deep dives"
+```
+
+Expected: one focused documentation commit in the Docusaurus repo.
+
+---
+
+### Task 7: Verify Full Solution
 
 **Files:**
 - No source changes.
@@ -533,6 +732,6 @@ Expected: one focused implementation commit.
 
 ## Self-Review
 
-- Spec coverage: dynamic priority ordering, same-priority tie-breaking, conditional registration, PowerShell-only scripts, and `SetupComplete.cmd` launcher behavior are covered.
+- Spec coverage: dynamic priority ordering, same-priority tie-breaking, conditional registration, PowerShell-only scripts, `SetupComplete.cmd` launcher behavior, and Docusaurus technical deep-dive documentation are covered.
 - Completion scan: no unresolved planning markers remain.
 - Type consistency: `PreOobeScriptDefinition`, `PreOobeScriptPriority`, `PreOobeScriptProvisioningResult`, and `IPreOobeScriptProvisioningService` names are consistent across tasks.
