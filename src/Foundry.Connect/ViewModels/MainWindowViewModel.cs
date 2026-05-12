@@ -189,53 +189,148 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
 
+    /// <summary>
+    /// Gets the configuration source text shown in the footer.
+    /// </summary>
     public string ConfigurationSourceText => _configurationService.IsLoadedFromDisk && !string.IsNullOrWhiteSpace(_configurationService.ConfigurationPath)
         ? Format("Common.ConfigurationFromPathFormat", _configurationService.ConfigurationPath!)
         : GetString("Common.ConfigurationBuiltInDefaults");
 
+    /// <summary>
+    /// Gets the localized automatic refresh interval text.
+    /// </summary>
     public string RefreshIntervalText => Format("Common.RefreshIntervalFormat", FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds);
 
+    /// <summary>
+    /// Gets the localized window title.
+    /// </summary>
     public string WindowTitle => GetString("App.WindowTitle");
 
+    /// <summary>
+    /// Gets the auto-continue countdown text.
+    /// </summary>
     public string AutoContinueText => Format("Status.AutoContinueFormat", CountdownSecondsRemaining);
 
+    /// <summary>
+    /// Gets the localized timestamp for the last completed network refresh.
+    /// </summary>
     public string LastUpdatedText => LastUpdatedAt is null
         ? GetString("Common.LastUpdatePending")
         : Format("Common.LastUpdateFormat", LastUpdatedAt.Value.LocalDateTime);
 
+    /// <summary>
+    /// Gets a value indicating whether Wi-Fi discovery has visible network rows.
+    /// </summary>
     public bool HasWifiNetworks => WifiNetworks.Count > 0;
 
+    /// <summary>
+    /// Gets a value indicating whether debug-only menu actions are visible.
+    /// </summary>
     public bool IsDebugMenuVisible => Debugger.IsAttached;
 
+    /// <summary>
+    /// Gets the layout mode after applying an optional debug override.
+    /// </summary>
     public NetworkLayoutMode EffectiveLayoutMode => DebugLayoutOverride ?? LayoutMode;
 
+    /// <summary>
+    /// Gets a value indicating whether the configuration contains a provisioned Wi-Fi profile.
+    /// </summary>
     public bool HasProvisionedWifiProfile => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled;
+
+    /// <summary>
+    /// Gets a value indicating whether the current Wi-Fi connection chip should be shown.
+    /// </summary>
     public bool HasCurrentConnectionChip => !string.IsNullOrWhiteSpace(CurrentConnectionChipText);
+
+    /// <summary>
+    /// Gets a value indicating whether Ethernet secondary status text should be shown.
+    /// </summary>
     public bool HasEthernetSecondaryStatus => !string.IsNullOrWhiteSpace(EthernetSecondaryStatusText);
+
+    /// <summary>
+    /// Gets a value indicating whether automatic bootstrap can continue to deployment.
+    /// </summary>
     public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
+
+    /// <summary>
+    /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.
+    /// </summary>
     public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid);
+
+    /// <summary>
+    /// Gets a value indicating whether the provisioned Wi-Fi profile can be connected now.
+    /// </summary>
     public bool CanConnectConfiguredWifi => HasProvisionedWifiProfile &&
                                            IsWifiRuntimeAvailable &&
                                            HasWirelessAdapter &&
                                            !IsProvisionedWifiConnected &&
                                            !IsNetworkActionInProgress;
+
+    /// <summary>
+    /// Gets a value indicating whether the provisioned Wi-Fi profile can be disconnected now.
+    /// </summary>
     public bool CanDisconnectConfiguredWifi => HasProvisionedWifiProfile &&
                                               IsProvisionedWifiConnected &&
                                               !IsNetworkActionInProgress;
+
+    /// <summary>
+    /// Gets the resolved display name of the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiProfileName => ResolveProvisionedWifiProfileName();
+
+    /// <summary>
+    /// Gets the authentication label for the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiAuthenticationText => BuildProvisionedWifiAuthenticationText();
+
+    /// <summary>
+    /// Gets the source hint for the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiSourceHintText => BuildProvisionedWifiSourceHintText();
+
+    /// <summary>
+    /// Gets the current connection status for the provisioned Wi-Fi profile.
+    /// </summary>
     public string ProvisionedWifiStatusText => BuildProvisionedWifiStatusText();
+
+    /// <summary>
+    /// Gets a value indicating whether provisioned Wi-Fi controls should be shown.
+    /// </summary>
     public bool ShowProvisionedWifiContent => HasProvisionedWifiProfile &&
                                               string.IsNullOrWhiteSpace(BuildWifiUnavailableText());
+
+    /// <summary>
+    /// Gets the placeholder text shown when provisioned Wi-Fi cannot be displayed.
+    /// </summary>
     public string ProvisionedWifiPlaceholderText => BuildProvisionedWifiPlaceholderText();
+
+    /// <summary>
+    /// Gets a value indicating whether provisioned Wi-Fi action feedback should be shown.
+    /// </summary>
     public bool HasProvisionedWifiActionFeedback => !string.IsNullOrWhiteSpace(ProvisionedWifiActionFeedbackText);
+
+    /// <summary>
+    /// Gets the empty-state text for Wi-Fi discovery.
+    /// </summary>
     public string WifiDiscoveryEmptyStateText => BuildWifiDiscoveryEmptyStateText();
+
+    /// <summary>
+    /// Gets a value indicating whether selected Wi-Fi action feedback should be shown.
+    /// </summary>
     public bool HasSelectedWifiActionFeedback => !string.IsNullOrWhiteSpace(SelectedWifiActionFeedbackText);
+
+    /// <summary>
+    /// Gets a value indicating whether the selected discovered Wi-Fi network can be connected now.
+    /// </summary>
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
                                           !network.IsConnected &&
                                           (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
                                           !IsNetworkActionInProgress;
+
+    /// <summary>
+    /// Gets a value indicating whether the selected discovered Wi-Fi network can be disconnected now.
+    /// </summary>
     public bool CanDisconnectSelectedWifi => SelectedWifiNetwork is { IsConnected: true } && !IsNetworkActionInProgress;
 
     /// <summary>
@@ -1203,6 +1298,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         /// <summary>
         /// Updates display and connection state for this Wi-Fi network row.
         /// </summary>
+        /// <param name="displaySsid">SSID text shown to the user.</param>
+        /// <param name="displayAuthentication">Authentication text shown to the user.</param>
+        /// <param name="ssidHex">Hex-encoded SSID returned by WLAN APIs, when available.</param>
+        /// <param name="authentication">Raw authentication value used for connection decisions.</param>
+        /// <param name="encryption">Encryption label shown to the user.</param>
+        /// <param name="signalStrengthPercent">Signal strength percentage.</param>
+        /// <param name="signalGlyph">Signal glyph shown by the UI.</param>
+        /// <param name="canDirectConnect">Whether Foundry.Connect can create or use a direct connection profile.</param>
+        /// <param name="requiresPassphrase">Whether the row requires a passphrase before connecting.</param>
+        /// <param name="isConnected">Whether this row represents the current Wi-Fi connection.</param>
         public void Update(
             string displaySsid,
             string displayAuthentication,

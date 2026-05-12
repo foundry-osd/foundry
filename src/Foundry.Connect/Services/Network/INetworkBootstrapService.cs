@@ -20,7 +20,7 @@ public interface INetworkBootstrapService
     Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken);
 
     /// <summary>
-    /// Connects a discovered personal or open Wi-Fi network.
+    /// Connects a discovered open, OWE, or personal Wi-Fi network.
     /// </summary>
     /// <param name="ssid">The discovered SSID.</param>
     /// <param name="ssidHex">The optional SSID hex value returned by WLAN APIs.</param>
