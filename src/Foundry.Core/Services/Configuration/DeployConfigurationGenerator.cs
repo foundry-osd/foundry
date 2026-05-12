@@ -4,8 +4,12 @@ using Foundry.Core.Models.Configuration.Deploy;
 
 namespace Foundry.Core.Services.Configuration;
 
+/// <summary>
+/// Generates the reduced Foundry.Deploy runtime configuration from Expert Deploy settings.
+/// </summary>
 public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 {
+    /// <inheritdoc />
     public FoundryDeployConfigurationDocument Generate(FoundryExpertConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -16,6 +20,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 LanguageCodeUtility.NormalizeForComparison(defaultLanguageCodeOverride),
                 StringComparison.OrdinalIgnoreCase)))
         {
+            // The default language override is only valid when the language remains visible to the deployment UI.
             defaultLanguageCodeOverride = null;
         }
 
@@ -52,6 +57,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         };
     }
 
+    /// <inheritdoc />
     public string Serialize(FoundryDeployConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
