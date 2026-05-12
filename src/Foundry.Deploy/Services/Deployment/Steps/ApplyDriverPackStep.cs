@@ -1,4 +1,5 @@
 using System.IO;
+using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
 
@@ -9,16 +10,16 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
     private const int FileCopyBufferSize = 80 * 1024;
 
     private readonly IWindowsDeploymentService _windowsDeploymentService;
-    private readonly ISetupCompleteScriptService _setupCompleteScriptService;
+    private readonly IPreOobeScriptProvisioningService _preOobeScriptProvisioningService;
     private readonly IDriverPackStrategyResolver _driverPackStrategyResolver;
 
     public ApplyDriverPackStep(
         IWindowsDeploymentService windowsDeploymentService,
-        ISetupCompleteScriptService setupCompleteScriptService,
+        IPreOobeScriptProvisioningService preOobeScriptProvisioningService,
         IDriverPackStrategyResolver driverPackStrategyResolver)
     {
         _windowsDeploymentService = windowsDeploymentService;
-        _setupCompleteScriptService = setupCompleteScriptService;
+        _preOobeScriptProvisioningService = preOobeScriptProvisioningService;
         _driverPackStrategyResolver = driverPackStrategyResolver;
     }
 
@@ -154,13 +155,6 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             "DriverPack",
             "Packages",
             packageFileName);
-        string setupCompletePath = Path.Combine(
-            context.RuntimeState.TargetWindowsPartitionRoot,
-            "Windows",
-            "Setup",
-            "Scripts",
-            "SetupComplete.cmd");
-
         context.EmitCurrentStepIndeterminate("Applying driver pack...", "Staging package...");
         await CopyFileWithProgressAsync(
                 sourcePath,
@@ -170,15 +164,42 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             .ConfigureAwait(false);
 
         context.EmitCurrentStepIndeterminate("Applying driver pack...", "Updating SetupComplete hook...");
-        string scriptBody = BuildDeferredScript(runtimePackagePath, executionPlan.DeferredCommandKind);
-        _setupCompleteScriptService.EnsureBlock(setupCompletePath, "FOUNDRY DRIVERPACK", scriptBody);
+        PreOobeScriptProvisioningResult preOobeResult = _preOobeScriptProvisioningService.Provision(
+            context.RuntimeState.TargetWindowsPartitionRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "driver-pack",
+                    FileName = "Install-DriverPack.ps1",
+                    ResourceName = PreOobeScriptResources.InstallDriverPack,
+                    Priority = PreOobeScriptPriority.DriverProvisioning,
+                    Arguments =
+                    [
+                        "-CommandKind",
+                        executionPlan.DeferredCommandKind.ToString(),
+                        "-PackagePath",
+                        runtimePackagePath
+                    ]
+                },
+                new PreOobeScriptDefinition
+                {
+                    Id = "cleanup",
+                    FileName = "Cleanup-PreOobe.ps1",
+                    ResourceName = PreOobeScriptResources.CleanupPreOobe,
+                    Priority = PreOobeScriptPriority.Cleanup
+                }
+            ]);
 
         context.RuntimeState.DeferredDriverPackagePath = targetPackagePath;
-        context.RuntimeState.DriverPackSetupCompleteHookPath = setupCompletePath;
+        context.RuntimeState.DriverPackSetupCompleteHookPath = preOobeResult.SetupCompletePath;
+        context.RuntimeState.PreOobeSetupCompletePath = preOobeResult.SetupCompletePath;
+        context.RuntimeState.PreOobeRunnerPath = preOobeResult.RunnerPath;
+        context.RuntimeState.PreOobeManifestPath = preOobeResult.ManifestPath;
+        context.RuntimeState.PreOobeScriptPaths = preOobeResult.StagedScriptPaths;
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Warning,
-            $"Driver pack staged for first boot: '{targetPackagePath}'. SetupComplete hook: '{setupCompletePath}'.",
+            $"Driver pack staged for first boot: '{targetPackagePath}'. SetupComplete hook: '{preOobeResult.SetupCompletePath}'.",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Driver pack staged for first boot.");
@@ -233,6 +254,40 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             "Setup",
             "Scripts",
             "SetupComplete.cmd");
+        context.RuntimeState.PreOobeSetupCompletePath = context.RuntimeState.DriverPackSetupCompleteHookPath;
+        context.RuntimeState.PreOobeRunnerPath = Path.Combine(
+            context.RuntimeState.TargetWindowsPartitionRoot,
+            "Windows",
+            "Temp",
+            "Foundry",
+            "PreOobe",
+            "Invoke-FoundryPreOobe.ps1");
+        context.RuntimeState.PreOobeManifestPath = Path.Combine(
+            context.RuntimeState.TargetWindowsPartitionRoot,
+            "Windows",
+            "Temp",
+            "Foundry",
+            "PreOobe",
+            "pre-oobe-manifest.json");
+        context.RuntimeState.PreOobeScriptPaths =
+        [
+            Path.Combine(
+                context.RuntimeState.TargetWindowsPartitionRoot,
+                "Windows",
+                "Temp",
+                "Foundry",
+                "PreOobe",
+                "Scripts",
+                "Install-DriverPack.ps1"),
+            Path.Combine(
+                context.RuntimeState.TargetWindowsPartitionRoot,
+                "Windows",
+                "Temp",
+                "Foundry",
+                "PreOobe",
+                "Scripts",
+                "Cleanup-PreOobe.ps1")
+        ];
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Warning,
@@ -300,41 +355,6 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         }
 
         progress?.Report(100d);
-    }
-
-    private static string BuildDeferredScript(string packagePath, DeferredDriverPackageCommandKind commandKind)
-    {
-        string escapedPackagePath = EscapeForBatch(packagePath);
-
-        return commandKind switch
-        {
-            DeferredDriverPackageCommandKind.LenovoExecutable => string.Join(
-                Environment.NewLine,
-                [
-                    $"if exist \"{escapedPackagePath}\" (",
-                    $"  \"{escapedPackagePath}\" /SILENT /SUPPRESSMSGBOXES",
-                    "  reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\UnattendSettings\\PnPUnattend\\DriverPaths\\1\" /v Path /t REG_SZ /d \"C:\\Drivers\" /f",
-                    "  pnpunattend.exe AuditSystem /L",
-                    "  reg delete \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\UnattendSettings\\PnPUnattend\\DriverPaths\\1\" /v Path /f",
-                    "  rd /s /q C:\\Drivers",
-                    $"  del /q \"{escapedPackagePath}\"",
-                    ")"
-                ]),
-            DeferredDriverPackageCommandKind.SurfaceMsi => string.Join(
-                Environment.NewLine,
-                [
-                    $"if exist \"{escapedPackagePath}\" (",
-                    $"  msiexec /i \"{escapedPackagePath}\" /qn /norestart /l*v \"C:\\Windows\\Temp\\Foundry\\DriverPack\\surface-driverpack.log\"",
-                    $"  del /q \"{escapedPackagePath}\"",
-                    ")"
-                ]),
-            _ => throw new InvalidOperationException($"Unsupported deferred driver pack command '{commandKind}'.")
-        };
-    }
-
-    private static string EscapeForBatch(string value)
-    {
-        return value.Replace("\"", "\"\"", StringComparison.Ordinal);
     }
 
     private static double MapProgress(double percent, double start, double end)

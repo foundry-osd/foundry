@@ -4,6 +4,7 @@ using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
@@ -59,6 +60,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
+        services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();

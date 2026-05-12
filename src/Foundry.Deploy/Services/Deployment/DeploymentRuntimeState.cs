@@ -32,8 +32,36 @@ public sealed record DeploymentRuntimeState
     public DriverPackInstallMode DriverPackInstallMode { get; set; } = DriverPackInstallMode.None;
     public string? DriverPackExtractionMethod { get; set; }
     public string? ExtractedDriverPackPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offline path to the driver package staged for first-boot installation.
+    /// </summary>
     public string? DeferredDriverPackagePath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offline SetupComplete.cmd path used by deferred driver provisioning.
+    /// </summary>
     public string? DriverPackSetupCompleteHookPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offline SetupComplete.cmd path used to launch the pre-OOBE runner.
+    /// </summary>
+    public string? PreOobeSetupCompletePath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offline path to the generated pre-OOBE PowerShell runner.
+    /// </summary>
+    public string? PreOobeRunnerPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offline path to the generated pre-OOBE execution manifest.
+    /// </summary>
+    public string? PreOobeManifestPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offline paths to staged pre-OOBE PowerShell scripts.
+    /// </summary>
+    public IReadOnlyList<string> PreOobeScriptPaths { get; set; } = [];
     public bool ApplyFirmwareUpdates { get; set; } = true;
     public string? DownloadedFirmwarePath { get; set; }
     public string? ExtractedFirmwarePath { get; set; }
