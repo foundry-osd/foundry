@@ -6,13 +6,13 @@ namespace Foundry.Services.Updates;
 public interface IApplicationUpdateService
 {
     /// <summary>
-    /// Initializes the update subsystem before any checks are requested.
+    /// Logs update settings and starts the optional startup check without blocking application launch.
     /// </summary>
     /// <param name="cancellationToken">Token that cancels initialization.</param>
     Task InitializeAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Checks the configured update feed for a newer release.
+    /// Checks the configured update feed for a newer release and publishes the result to update state.
     /// </summary>
     /// <param name="isStartupCheck">Whether the check is part of startup and may be skipped by settings.</param>
     /// <param name="cancellationToken">Token that cancels the check.</param>
@@ -28,7 +28,8 @@ public interface IApplicationUpdateService
     Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(IProgress<int>? progress = null, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Applies the downloaded update and restarts the application.
+    /// Applies the downloaded update and restarts the application when a pending update exists.
     /// </summary>
+    /// <remarks>The call logs and returns when no update has been checked and downloaded.</remarks>
     void ApplyUpdateAndRestart();
 }

@@ -5,6 +5,10 @@ namespace Foundry.Services.Configuration;
 /// <summary>
 /// Owns the mutable expert deployment configuration assembled by the Foundry UI.
 /// </summary>
+/// <remarks>
+/// <see cref="Current"/> is always safe to persist. Volatile network secrets are kept outside the document and
+/// merged only when <see cref="GenerateConnectProvisioningBundle"/> creates the Connect payload.
+/// </remarks>
 public interface IExpertDeployConfigurationStateService
 {
     /// <summary>
@@ -13,7 +17,7 @@ public interface IExpertDeployConfigurationStateService
     event EventHandler? StateChanged;
 
     /// <summary>
-    /// Gets the current expert configuration document.
+    /// Gets the current expert configuration document after removing values that must not be persisted.
     /// </summary>
     FoundryExpertConfigurationDocument Current { get; }
 
@@ -58,7 +62,7 @@ public interface IExpertDeployConfigurationStateService
     string? SelectedAutopilotProfileFolderName { get; }
 
     /// <summary>
-    /// Replaces the network configuration section.
+    /// Replaces the network configuration section and stores required secrets in volatile state.
     /// </summary>
     /// <param name="settings">New network settings.</param>
     void UpdateNetwork(NetworkSettings settings);
@@ -82,7 +86,7 @@ public interface IExpertDeployConfigurationStateService
     void UpdateAutopilot(AutopilotSettings settings);
 
     /// <summary>
-    /// Generates Connect provisioning files for the current expert configuration.
+    /// Generates Connect provisioning files after merging required volatile secrets back into the current network settings.
     /// </summary>
     /// <param name="stagingDirectoryPath">Directory where provisioning files should be staged.</param>
     /// <returns>The generated Connect provisioning bundle.</returns>

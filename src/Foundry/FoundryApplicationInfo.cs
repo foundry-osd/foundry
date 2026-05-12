@@ -7,9 +7,6 @@ namespace Foundry;
 /// </summary>
 public static class FoundryApplicationInfo
 {
-    /// <summary>
-    /// Gets the product display name.
-    /// </summary>
     public const string AppName = Constants.ApplicationDisplayName;
 
     /// <summary>
@@ -17,9 +14,6 @@ public static class FoundryApplicationInfo
     /// </summary>
     public const string DocumentationUrl = "https://foundry-osd.github.io/docs/start";
 
-    /// <summary>
-    /// Gets the source repository URL.
-    /// </summary>
     public const string RepositoryUrl = Constants.RepositoryUrl;
 
     /// <summary>
@@ -42,9 +36,6 @@ public static class FoundryApplicationInfo
     /// </summary>
     public const string ReleasesUrl = Constants.RepositoryUrl + "/releases";
 
-    /// <summary>
-    /// Gets the latest release URL.
-    /// </summary>
     public const string LatestReleaseUrl = Constants.LatestReleaseUrl;
 
     /// <summary>

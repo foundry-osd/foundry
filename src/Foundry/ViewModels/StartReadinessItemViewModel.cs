@@ -99,9 +99,6 @@ public sealed class StartReadinessItemViewModel
     /// </summary>
     public StartReadinessNavigationTarget NavigationTarget { get; }
 
-    /// <summary>
-    /// Gets the action button text.
-    /// </summary>
     public string ActionText { get; }
 
     /// <summary>
