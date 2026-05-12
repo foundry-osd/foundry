@@ -4,8 +4,12 @@ using System.Text.RegularExpressions;
 
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>
+/// Updates SetupComplete.cmd by appending or removing marked Foundry command blocks.
+/// </summary>
 public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
 {
+    /// <inheritdoc />
     public string EnsureBlock(string setupCompletePath, string markerKey, string scriptBody)
     {
         if (string.IsNullOrWhiteSpace(setupCompletePath))
@@ -51,6 +55,7 @@ public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
         return setupCompletePath;
     }
 
+    /// <inheritdoc />
     public string RemoveBlock(string setupCompletePath, string markerKey)
     {
         if (string.IsNullOrWhiteSpace(setupCompletePath))

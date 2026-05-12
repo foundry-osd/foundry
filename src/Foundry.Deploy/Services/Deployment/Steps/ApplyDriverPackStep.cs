@@ -171,7 +171,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                 {
                     Id = "driver-pack",
                     FileName = "Install-DriverPack.ps1",
-                    ResourceName = "Foundry.Deploy.PreOobe.InstallDriverPack",
+                    ResourceName = PreOobeScriptResources.InstallDriverPack,
                     Priority = PreOobeScriptPriority.DriverProvisioning,
                     Arguments =
                     [

@@ -31,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\PreOobe\Install-DriverPack.ps1">
-      <LogicalName>Foundry.Deploy.PreOobe.InstallDriverPack</LogicalName>
+    <EmbeddedResource Include="Assets\PreOobe\*.ps1">
+      <LogicalName>Foundry.Deploy.PreOobe.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 

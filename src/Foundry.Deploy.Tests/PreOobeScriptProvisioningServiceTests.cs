@@ -7,7 +7,7 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class PreOobeScriptProvisioningServiceTests
 {
-    private const string DriverResourceName = "Foundry.Deploy.PreOobe.InstallDriverPack";
+    private const string DriverResourceName = PreOobeScriptResources.InstallDriverPack;
 
     [Fact]
     public void Provision_OrdersScriptsByPriorityThenId()

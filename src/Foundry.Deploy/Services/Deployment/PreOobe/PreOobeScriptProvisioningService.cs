@@ -5,6 +5,9 @@ using System.Text.Json;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
+/// <summary>
+/// Provisions the pre-OOBE PowerShell runner inside an offline Windows installation.
+/// </summary>
 public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisioningService
 {
     private const string SetupCompleteMarkerKey = "FOUNDRY PRE-OOBE";
@@ -15,11 +18,16 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
 
     private readonly ISetupCompleteScriptService _setupCompleteScriptService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PreOobeScriptProvisioningService"/> class.
+    /// </summary>
+    /// <param name="setupCompleteScriptService">Service used to update SetupComplete.cmd idempotently.</param>
     public PreOobeScriptProvisioningService(ISetupCompleteScriptService setupCompleteScriptService)
     {
         _setupCompleteScriptService = setupCompleteScriptService;
     }
 
+    /// <inheritdoc />
     public PreOobeScriptProvisioningResult Provision(
         string targetWindowsPartitionRoot,
         IEnumerable<PreOobeScriptDefinition> scripts)
