@@ -8,6 +8,9 @@ using Foundry.Deploy.Services.Operations;
 
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>
+/// Provides shared state, logging, workspace paths, and progress helpers to deployment steps.
+/// </summary>
 public sealed class DeploymentStepExecutionContext
 {
     private const string WinPeRoot = @"X:\Foundry";
@@ -28,6 +31,9 @@ public sealed class DeploymentStepExecutionContext
     private readonly ITargetDiskService _targetDiskService;
     private readonly Action<DeploymentStepProgress> _emitStepProgress;
 
+    /// <summary>
+    /// Initializes a deployment step execution context and creates the initial log session.
+    /// </summary>
     public DeploymentStepExecutionContext(
         DeploymentContext request,
         DeploymentRuntimeState runtimeState,
@@ -49,25 +55,52 @@ public sealed class DeploymentStepExecutionContext
         LogSession = _deploymentLogService.Initialize(RuntimeState.WorkspaceRoot);
     }
 
+    /// <summary>
+    /// Gets the immutable deployment request.
+    /// </summary>
     public DeploymentContext Request { get; }
 
+    /// <summary>
+    /// Gets mutable runtime state persisted between deployment steps.
+    /// </summary>
     public DeploymentRuntimeState RuntimeState { get; }
 
+    /// <summary>
+    /// Gets the planned step names in execution order.
+    /// </summary>
     public IReadOnlyList<string> PlannedSteps { get; }
 
+    /// <summary>
+    /// Gets the active deployment log session.
+    /// </summary>
     public DeploymentLogSession LogSession { get; private set; }
 
+    /// <summary>
+    /// Gets the one-based index of the currently executing step.
+    /// </summary>
     public int StepIndex { get; private set; }
 
+    /// <summary>
+    /// Gets the total number of planned deployment steps.
+    /// </summary>
     public int StepCount { get; private set; }
 
+    /// <summary>
+    /// Gets the name of the currently executing step.
+    /// </summary>
     public string StepName { get; private set; } = string.Empty;
 
+    /// <summary>
+    /// Resolves the workspace root for WinPE, dry-run, or local runtime execution.
+    /// </summary>
+    /// <param name="context">The deployment request.</param>
+    /// <returns>The workspace root path.</returns>
     public static string ResolveWorkspaceRoot(DeploymentContext context)
     {
         bool hasWinPeDrive = Directory.Exists(WinPeDriveRoot);
         if (hasWinPeDrive)
         {
+            // Real WinPE runs use X:\Foundry so logs and transient files stay with the boot environment.
             return WinPeRoot;
         }
 
@@ -75,6 +108,11 @@ public sealed class DeploymentStepExecutionContext
         return Path.Combine(Path.GetTempPath(), "Foundry", modeFolder);
     }
 
+    /// <summary>
+    /// Updates the current step metadata before a deployment step runs.
+    /// </summary>
+    /// <param name="step">Step that is about to execute.</param>
+    /// <param name="stepIndex">One-based step index.</param>
     public void SetCurrentStep(IDeploymentStep step, int stepIndex)
     {
         ArgumentNullException.ThrowIfNull(step);
@@ -85,6 +123,14 @@ public sealed class DeploymentStepExecutionContext
         RuntimeState.CurrentStep = step.Name;
     }
 
+    /// <summary>
+    /// Emits the current step state and optional nested progress to subscribers.
+    /// </summary>
+    /// <param name="state">Current state of the deployment step.</param>
+    /// <param name="message">Optional primary progress message.</param>
+    /// <param name="stepSubProgressPercent">Optional nested step progress percentage.</param>
+    /// <param name="stepSubProgressIndeterminate">Whether nested progress should be shown as indeterminate.</param>
+    /// <param name="stepSubProgressLabel">Optional nested progress label.</param>
     public void EmitCurrentStep(
         DeploymentStepState state,
         string? message,
@@ -107,6 +153,11 @@ public sealed class DeploymentStepExecutionContext
         });
     }
 
+    /// <summary>
+    /// Emits the current step as running with an indeterminate nested progress label.
+    /// </summary>
+    /// <param name="stepMessage">Primary progress message.</param>
+    /// <param name="stepSubProgressLabel">Nested indeterminate progress label.</param>
     public void EmitCurrentStepIndeterminate(string stepMessage, string stepSubProgressLabel)
     {
         EmitCurrentStep(
@@ -117,11 +168,22 @@ public sealed class DeploymentStepExecutionContext
             stepSubProgressLabel: stepSubProgressLabel);
     }
 
+    /// <summary>
+    /// Reports shell-level progress for the current step.
+    /// </summary>
+    /// <param name="message">Progress message shown by the shell.</param>
     public void ReportCurrentStepProgress(string message)
     {
         _operationProgressService.Report(CalculateStepProgressPercent(StepIndex, StepCount), message);
     }
 
+    /// <summary>
+    /// Appends an entry to the active deployment log.
+    /// </summary>
+    /// <param name="level">Log level for the entry.</param>
+    /// <param name="message">Log message.</param>
+    /// <param name="cancellationToken">Token that cancels the write.</param>
+    /// <returns>A task that completes after the log entry is persisted.</returns>
     public Task AppendLogAsync(
         DeploymentLogLevel level,
         string message,
@@ -130,11 +192,22 @@ public sealed class DeploymentStepExecutionContext
         return _deploymentLogService.AppendAsync(LogSession, level, message, cancellationToken);
     }
 
+    /// <summary>
+    /// Persists the current runtime state into the active log session.
+    /// </summary>
+    /// <param name="cancellationToken">Token that cancels the write.</param>
+    /// <returns>A task that completes after state is persisted.</returns>
     public Task SaveRuntimeStateAsync(CancellationToken cancellationToken = default)
     {
         return _deploymentLogService.SaveStateAsync(LogSession, RuntimeState, cancellationToken);
     }
 
+    /// <summary>
+    /// Moves the active log session to the target Windows Foundry root after the target partition is available.
+    /// </summary>
+    /// <param name="targetFoundryRoot">Foundry root on the applied Windows partition.</param>
+    /// <param name="cancellationToken">Token that cancels the transfer log write.</param>
+    /// <returns>A task that completes after the log session is rebound.</returns>
     public async Task RebindLogSessionToTargetAsync(
         string targetFoundryRoot,
         CancellationToken cancellationToken = default)
@@ -159,6 +232,11 @@ public sealed class DeploymentStepExecutionContext
         }
     }
 
+    /// <summary>
+    /// Revalidates that the selected target disk is still present and selectable.
+    /// </summary>
+    /// <param name="cancellationToken">Token that cancels disk enumeration.</param>
+    /// <returns>The selected disk, or a failed step result when validation fails.</returns>
     public async Task<(TargetDiskInfo? SelectedDisk, DeploymentStepResult? Failure)> TryGetValidatedTargetDiskAsync(
         CancellationToken cancellationToken = default)
     {
@@ -179,16 +257,28 @@ public sealed class DeploymentStepExecutionContext
         return (selectedDisk, null);
     }
 
+    /// <summary>
+    /// Creates required workspace folders under the current runtime workspace root.
+    /// </summary>
     public void EnsureWorkspaceFolders()
     {
         EnsureWorkspaceFolders(RuntimeState.WorkspaceRoot);
     }
 
+    /// <summary>
+    /// Resolves the logs folder path for the active workspace.
+    /// </summary>
+    /// <returns>The workspace logs path.</returns>
     public string ResolveWorkspaceLogsPath()
     {
         return Path.Combine(ResolveWorkspaceRoot(RuntimeState), LogsFolderName);
     }
 
+    /// <summary>
+    /// Resolves a path under the active workspace temporary folder.
+    /// </summary>
+    /// <param name="relativeSegments">Optional path segments below the temporary folder.</param>
+    /// <returns>The resolved temporary path.</returns>
     public string ResolveWorkspaceTempPath(params string[] relativeSegments)
     {
         string currentPath = Path.Combine(ResolveWorkspaceRoot(RuntimeState), TempFolderName);
@@ -200,6 +290,10 @@ public sealed class DeploymentStepExecutionContext
         return currentPath;
     }
 
+    /// <summary>
+    /// Resolves the operating system cache root for the current deployment mode.
+    /// </summary>
+    /// <returns>The operating system cache root.</returns>
     public string ResolveOperatingSystemCacheRoot()
     {
         if (RuntimeState.Mode == DeploymentMode.Iso &&
@@ -211,6 +305,10 @@ public sealed class DeploymentStepExecutionContext
         return Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, OperatingSystemsFolderName);
     }
 
+    /// <summary>
+    /// Resolves the driver pack cache root for the current deployment mode.
+    /// </summary>
+    /// <returns>The driver pack cache root.</returns>
     public string ResolveDriverPackCacheRoot()
     {
         if (RuntimeState.Mode == DeploymentMode.Iso &&
@@ -222,12 +320,22 @@ public sealed class DeploymentStepExecutionContext
         return Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, DriverPacksFolderName);
     }
 
+    /// <summary>
+    /// Gets the target Foundry root or throws when the target partition has not been prepared.
+    /// </summary>
+    /// <returns>The target Foundry root path.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the target Foundry root is unavailable.</exception>
     public string EnsureTargetFoundryRoot()
     {
         return RuntimeState.TargetFoundryRoot
             ?? throw new InvalidOperationException("Target Foundry root is unavailable.");
     }
 
+    /// <summary>
+    /// Creates a progress adapter that maps artifact download progress to shell and step progress.
+    /// </summary>
+    /// <param name="artifactLabel">User-facing artifact label.</param>
+    /// <returns>A download progress reporter.</returns>
     public IProgress<DownloadProgress> CreateDownloadProgressReporter(string artifactLabel)
     {
         double? lastReportedPercent = null;
@@ -279,6 +387,12 @@ public sealed class DeploymentStepExecutionContext
         });
     }
 
+    /// <summary>
+    /// Creates a progress adapter that emits monotonic nested step percentages.
+    /// </summary>
+    /// <param name="stepMessage">Primary step message.</param>
+    /// <param name="stepLabelPrefix">Nested label prefix.</param>
+    /// <returns>A percentage progress reporter.</returns>
     public IProgress<double> CreateStepPercentProgressReporter(string stepMessage, string stepLabelPrefix)
     {
         object progressSync = new();
@@ -306,6 +420,12 @@ public sealed class DeploymentStepExecutionContext
         });
     }
 
+    /// <summary>
+    /// Chooses the primary hash when available, otherwise falls back to a secondary hash.
+    /// </summary>
+    /// <param name="primaryHash">Preferred hash value.</param>
+    /// <param name="secondaryHash">Fallback hash value.</param>
+    /// <returns>The trimmed hash value, or an empty string.</returns>
     public static string ResolvePreferredHash(string? primaryHash, string? secondaryHash)
     {
         if (!string.IsNullOrWhiteSpace(primaryHash))
@@ -316,6 +436,12 @@ public sealed class DeploymentStepExecutionContext
         return secondaryHash?.Trim() ?? string.Empty;
     }
 
+    /// <summary>
+    /// Resolves a safe artifact file name from a preferred name or source URL.
+    /// </summary>
+    /// <param name="preferredFileName">Preferred catalog file name.</param>
+    /// <param name="sourceUrl">Source URL used when no preferred file name is available.</param>
+    /// <returns>A safe file name for local storage.</returns>
     public static string ResolveFileName(string preferredFileName, string sourceUrl)
     {
         if (!string.IsNullOrWhiteSpace(preferredFileName))
@@ -335,6 +461,11 @@ public sealed class DeploymentStepExecutionContext
         return $"artifact-{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}.bin";
     }
 
+    /// <summary>
+    /// Replaces invalid file-name characters in a path segment.
+    /// </summary>
+    /// <param name="value">Path segment to sanitize.</param>
+    /// <returns>A non-empty path segment.</returns>
     public static string SanitizePathSegment(string value)
     {
         if (string.IsNullOrWhiteSpace(value))

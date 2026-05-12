@@ -5,6 +5,9 @@ using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
+/// <summary>
+/// Applies INF driver packs to Windows and WinRE, or stages vendor installers through the SetupComplete pre-OOBE hook.
+/// </summary>
 public sealed class ApplyDriverPackStep : DeploymentStepBase
 {
     private const int FileCopyBufferSize = 80 * 1024;
@@ -13,6 +16,9 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
     private readonly IPreOobeScriptProvisioningService _preOobeScriptProvisioningService;
     private readonly IDriverPackStrategyResolver _driverPackStrategyResolver;
 
+    /// <summary>
+    /// Initializes the driver pack application step.
+    /// </summary>
     public ApplyDriverPackStep(
         IWindowsDeploymentService windowsDeploymentService,
         IPreOobeScriptProvisioningService preOobeScriptProvisioningService,
@@ -23,8 +29,10 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         _driverPackStrategyResolver = driverPackStrategyResolver;
     }
 
+    /// <inheritdoc />
     public override int Order => 12;
 
+    /// <inheritdoc />
     public override string Name => DeploymentStepNames.ApplyDriverPack;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
@@ -167,6 +175,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         PreOobeScriptProvisioningResult preOobeResult = _preOobeScriptProvisioningService.Provision(
             context.RuntimeState.TargetWindowsPartitionRoot,
             [
+                // Drivers run in the first pre-OOBE bucket so later customization scripts can rely on the driver baseline.
                 new PreOobeScriptDefinition
                 {
                     Id = "driver-pack",
@@ -181,6 +190,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                         runtimePackagePath
                     ]
                 },
+                // Cleanup is a separate late pre-OOBE script so driver installation remains focused on installation only.
                 new PreOobeScriptDefinition
                 {
                     Id = "cleanup",
