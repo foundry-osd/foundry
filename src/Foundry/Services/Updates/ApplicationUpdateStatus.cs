@@ -1,7 +1,7 @@
 namespace Foundry.Services.Updates;
 
 /// <summary>
-/// Describes the application update lifecycle state shown by the shell and settings UI.
+/// Describes update states emitted by the update service or synthesized by update UI workflows.
 /// </summary>
 public enum ApplicationUpdateStatus
 {

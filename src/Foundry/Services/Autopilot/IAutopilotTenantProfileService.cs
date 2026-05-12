@@ -8,9 +8,9 @@ namespace Foundry.Services.Autopilot;
 public interface IAutopilotTenantProfileService
 {
     /// <summary>
-    /// Authenticates to Microsoft Graph and downloads available Autopilot profiles.
+    /// Opens interactive Microsoft Graph sign-in when needed and downloads available Autopilot profiles.
     /// </summary>
-    /// <param name="cancellationToken">Token that cancels tenant access and download operations.</param>
+    /// <param name="cancellationToken">Token that cancels token acquisition and Graph download operations.</param>
     /// <returns>The profiles converted to Foundry configuration settings.</returns>
     Task<IReadOnlyList<AutopilotProfileSettings>> DownloadFromTenantAsync(CancellationToken cancellationToken = default);
 }

@@ -24,6 +24,76 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
     private const string AutopilotProfilesRequestPath = "beta/deviceManagement/windowsAutopilotDeploymentProfiles";
     private const string TenantDownloadSource = "Tenant download";
 
+    /// <summary>
+    /// Offline Autopilot profile schema version expected by Windows OOBE.
+    /// </summary>
+    private const int OfflineAutopilotProfileVersion = 2049;
+
+    /// <summary>
+    /// Base OOBE bitmask used by generated offline Autopilot profiles.
+    /// </summary>
+    private const int OobeConfigBaseFlags = 8 + 256;
+
+    /// <summary>
+    /// OOBE bitmask flag for standard user account type.
+    /// </summary>
+    private const int OobeConfigStandardUserFlag = 2;
+
+    /// <summary>
+    /// OOBE bitmask flag for hiding privacy settings.
+    /// </summary>
+    private const int OobeConfigHidePrivacySettingsFlag = 4;
+
+    /// <summary>
+    /// OOBE bitmask flag for hiding the license page.
+    /// </summary>
+    private const int OobeConfigHideEulaFlag = 16;
+
+    /// <summary>
+    /// OOBE bitmask flag for skipping keyboard selection.
+    /// </summary>
+    private const int OobeConfigSkipKeyboardSelectionFlag = 1024;
+
+    /// <summary>
+    /// OOBE bitmask flags for shared device usage.
+    /// </summary>
+    private const int OobeConfigSharedDeviceFlags = 96;
+
+    /// <summary>
+    /// Offline Autopilot value that requires enrollment during OOBE.
+    /// </summary>
+    private const int ForcedEnrollmentEnabled = 1;
+
+    /// <summary>
+    /// Offline Autopilot value that allows enrollment escape during OOBE.
+    /// </summary>
+    private const int ForcedEnrollmentDisabled = 0;
+
+    /// <summary>
+    /// Offline Autopilot value for hybrid Microsoft Entra join profiles.
+    /// </summary>
+    private const int DomainJoinMethodHybridEntraJoin = 1;
+
+    /// <summary>
+    /// Offline Autopilot value for Microsoft Entra join profiles.
+    /// </summary>
+    private const int DomainJoinMethodEntraJoin = 0;
+
+    /// <summary>
+    /// Value used by offline profiles to disable Autopilot update during OOBE.
+    /// </summary>
+    private const int AutopilotUpdateDisabled = 1;
+
+    /// <summary>
+    /// Autopilot update timeout written to offline profiles, in milliseconds.
+    /// </summary>
+    private const int AutopilotUpdateTimeoutMilliseconds = 1800000;
+
+    /// <summary>
+    /// Offline Autopilot value that skips domain controller connectivity checks for hybrid join.
+    /// </summary>
+    private const int HybridJoinSkipDcConnectivityCheckEnabled = 1;
+
     private static readonly string[] GraphScopes =
     [
         "DeviceManagementServiceConfig.Read.All",
@@ -118,32 +188,32 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
         bool hidePrivacySettings = oobeSettings.HidePrivacySettings ?? oobeSettings.PrivacySettingsHidden ?? false;
         bool hideEula = oobeSettings.HideEula ?? oobeSettings.EulaHidden ?? false;
         bool skipKeyboardSelectionPage = oobeSettings.SkipKeyboardSelectionPage ?? oobeSettings.KeyboardSelectionPageSkipped ?? false;
-        int forcedEnrollment = hideEscapeLink ? 1 : 0;
-        int oobeConfig = 8 + 256;
+        int forcedEnrollment = hideEscapeLink ? ForcedEnrollmentEnabled : ForcedEnrollmentDisabled;
+        int oobeConfig = OobeConfigBaseFlags;
 
         if (string.Equals(oobeSettings.UserType, "standard", StringComparison.OrdinalIgnoreCase))
         {
-            oobeConfig += 2;
+            oobeConfig += OobeConfigStandardUserFlag;
         }
 
         if (hidePrivacySettings)
         {
-            oobeConfig += 4;
+            oobeConfig += OobeConfigHidePrivacySettingsFlag;
         }
 
         if (hideEula)
         {
-            oobeConfig += 16;
+            oobeConfig += OobeConfigHideEulaFlag;
         }
 
         if (skipKeyboardSelectionPage)
         {
-            oobeConfig += 1024;
+            oobeConfig += OobeConfigSkipKeyboardSelectionFlag;
         }
 
         if (string.Equals(oobeSettings.DeviceUsageType, "shared", StringComparison.OrdinalIgnoreCase))
         {
-            oobeConfig += 96;
+            oobeConfig += OobeConfigSharedDeviceFlags;
         }
 
         string aadServerData = JsonSerializer.Serialize(
@@ -157,19 +227,19 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
         var configuration = new OfflineAutopilotConfiguration
         {
             CommentFile = $"Profile {displayName}",
-            Version = 2049,
+            Version = OfflineAutopilotProfileVersion,
             ZtdCorrelationId = profile.Id ?? string.Empty,
             CloudAssignedDomainJoinMethod = string.Equals(
                 profile.ODataType,
                 "#microsoft.graph.activeDirectoryWindowsAutopilotDeploymentProfile",
-                StringComparison.OrdinalIgnoreCase) ? 1 : 0,
+                StringComparison.OrdinalIgnoreCase) ? DomainJoinMethodHybridEntraJoin : DomainJoinMethodEntraJoin,
             CloudAssignedOobeConfig = oobeConfig,
             CloudAssignedForcedEnrollment = forcedEnrollment,
             CloudAssignedTenantId = organization.Id,
             CloudAssignedTenantDomain = organization.DefaultDomain,
             CloudAssignedAadServerData = aadServerData,
-            CloudAssignedAutopilotUpdateDisabled = 1,
-            CloudAssignedAutopilotUpdateTimeout = 1800000
+            CloudAssignedAutopilotUpdateDisabled = AutopilotUpdateDisabled,
+            CloudAssignedAutopilotUpdateTimeout = AutopilotUpdateTimeoutMilliseconds
         };
 
         if (!string.IsNullOrWhiteSpace(profile.DeviceNameTemplate))
@@ -185,7 +255,7 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
 
         if (profile.HybridAzureAdJoinSkipConnectivityCheck == true)
         {
-            configuration.HybridJoinSkipDcConnectivityCheck = 1;
+            configuration.HybridJoinSkipDcConnectivityCheck = HybridJoinSkipDcConnectivityCheckEnabled;
         }
 
         return JsonSerializer.Serialize(
