@@ -31,6 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\PreOobe\Install-DriverPack.ps1">
+      <LogicalName>Foundry.Deploy.PreOobe.InstallDriverPack</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="..\Foundry\Assets\7z\**\*">
       <Link>Assets\7z\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

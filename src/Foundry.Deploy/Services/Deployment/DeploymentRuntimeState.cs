@@ -34,6 +34,10 @@ public sealed record DeploymentRuntimeState
     public string? ExtractedDriverPackPath { get; set; }
     public string? DeferredDriverPackagePath { get; set; }
     public string? DriverPackSetupCompleteHookPath { get; set; }
+    public string? PreOobeSetupCompletePath { get; set; }
+    public string? PreOobeRunnerPath { get; set; }
+    public string? PreOobeManifestPath { get; set; }
+    public IReadOnlyList<string> PreOobeScriptPaths { get; set; } = [];
     public bool ApplyFirmwareUpdates { get; set; } = true;
     public string? DownloadedFirmwarePath { get; set; }
     public string? ExtractedFirmwarePath { get; set; }

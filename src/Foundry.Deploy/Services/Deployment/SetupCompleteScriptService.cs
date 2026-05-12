@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -47,6 +48,41 @@ public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
             ? string.Empty
             : Environment.NewLine;
         File.WriteAllText(setupCompletePath, existing + separator + snippet, Encoding.ASCII);
+        return setupCompletePath;
+    }
+
+    public string RemoveBlock(string setupCompletePath, string markerKey)
+    {
+        if (string.IsNullOrWhiteSpace(setupCompletePath))
+        {
+            throw new ArgumentException("SetupComplete path is required.", nameof(setupCompletePath));
+        }
+
+        if (string.IsNullOrWhiteSpace(markerKey))
+        {
+            throw new ArgumentException("Marker key is required.", nameof(markerKey));
+        }
+
+        if (!File.Exists(setupCompletePath))
+        {
+            return setupCompletePath;
+        }
+
+        string normalizedKey = NormalizeMarkerKey(markerKey);
+        string beginMarker = $"REM >>> {normalizedKey} BEGIN";
+        string endMarker = $"REM <<< {normalizedKey} END";
+        string existing = File.ReadAllText(setupCompletePath);
+        string pattern =
+            $@"(?im)^[ \t]*{Regex.Escape(beginMarker)}[ \t]*\r?\n" +
+            $@"[\s\S]*?" +
+            $@"^[ \t]*{Regex.Escape(endMarker)}[ \t]*(?:\r?\n)?";
+        string updated = Regex.Replace(existing, pattern, string.Empty);
+
+        if (!string.Equals(existing, updated, StringComparison.Ordinal))
+        {
+            File.WriteAllText(setupCompletePath, updated, Encoding.ASCII);
+        }
+
         return setupCompletePath;
     }
 
