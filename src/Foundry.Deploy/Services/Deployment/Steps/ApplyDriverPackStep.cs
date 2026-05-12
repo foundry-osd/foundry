@@ -180,6 +180,13 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                         "-PackagePath",
                         runtimePackagePath
                     ]
+                },
+                new PreOobeScriptDefinition
+                {
+                    Id = "cleanup",
+                    FileName = "Cleanup-PreOobe.ps1",
+                    ResourceName = PreOobeScriptResources.CleanupPreOobe,
+                    Priority = PreOobeScriptPriority.Cleanup
                 }
             ]);
 
@@ -271,7 +278,15 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                 "Foundry",
                 "PreOobe",
                 "Scripts",
-                "Install-DriverPack.ps1")
+                "Install-DriverPack.ps1"),
+            Path.Combine(
+                context.RuntimeState.TargetWindowsPartitionRoot,
+                "Windows",
+                "Temp",
+                "Foundry",
+                "PreOobe",
+                "Scripts",
+                "Cleanup-PreOobe.ps1")
         ];
 
         await context.AppendLogAsync(

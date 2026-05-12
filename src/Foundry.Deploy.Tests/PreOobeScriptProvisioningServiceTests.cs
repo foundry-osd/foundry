@@ -80,6 +80,33 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_StagesEmbeddedCleanupScript()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "cleanup",
+                    FileName = "Cleanup-PreOobe.ps1",
+                    ResourceName = PreOobeScriptResources.CleanupPreOobe,
+                    Priority = PreOobeScriptPriority.Cleanup
+                }
+            ]);
+
+        string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
+        string stagedScript = File.ReadAllText(stagedScriptPath);
+
+        Assert.EndsWith(Path.Combine("Scripts", "Cleanup-PreOobe.ps1"), stagedScriptPath);
+        Assert.Contains("'C:\\DRIVERS'", stagedScript);
+        Assert.Contains("'C:\\Drivers'", stagedScript);
+        Assert.Contains("Remove-RootFolder", stagedScript);
+    }
+
+    [Fact]
     public void Provision_WritesSetupCompleteLauncherBlock()
     {
         string windowsRoot = CreateWindowsRoot();
