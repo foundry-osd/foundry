@@ -93,6 +93,14 @@ Logging rules:
 Documentation rules:
 - Update docs and README files when behavior, packaging, install paths, release assets, or user-facing workflows change
 - Keep documentation maintainable and split large plans into focused files when needed
+- Treat code comments as part of the implementation contract, not as decorative text
+- Add XML documentation comments to public and internal types, members, interfaces, records, and enums when they express domain behavior, extension points, orchestration rules, or cross-module contracts
+- Comments must explain intent, constraints, side effects, ordering requirements, platform assumptions, and lifecycle behavior when those are not obvious from the code
+- Add inline comments only for non-obvious logic that would be difficult to maintain correctly from the code alone
+- Keep comments concise, accurate, and aligned with the implementation
+- Update or remove related comments in the same change when code behavior changes
+- Do not add comments that merely restate obvious code
+- Prefer accurate comments over more comments
 
 Subagent rules:
 - Use subagents when the user explicitly asks for them or when parallel read-only analysis materially helps the task
