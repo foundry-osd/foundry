@@ -215,7 +215,8 @@ public sealed record DeploymentRuntimeState
     public string? StagedAutopilotConfigurationPath { get; set; }
 
     /// <summary>
-    /// Gets or sets the Foundry root staged on the target Windows partition.
+    /// Gets or sets the transient Foundry workspace on the target Windows partition.
+    /// Finalization rebinds retained artifacts under Windows\Temp\Foundry and removes this root.
     /// </summary>
     public string? TargetFoundryRoot { get; set; }
 

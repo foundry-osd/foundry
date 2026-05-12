@@ -16,10 +16,10 @@ public interface IDeploymentOrchestrator
     event EventHandler<DeploymentStepProgress>? StepProgressChanged;
 
     /// <summary>
-    /// Executes the deployment request.
+    /// Executes the deployment request when no other deployment is active.
     /// </summary>
     /// <param name="context">Deployment request selected by the user.</param>
     /// <param name="cancellationToken">Token that cancels the deployment.</param>
-    /// <returns>The final deployment result.</returns>
+    /// <returns>The final deployment result, or a failed result when the single-operation gate rejects the request.</returns>
     Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default);
 }

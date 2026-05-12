@@ -84,6 +84,7 @@ public interface IWindowsDeploymentService
     /// <summary>
     /// Copies and configures Windows RE on the recovery partition.
     /// </summary>
+    /// <remarks>Requires winre.wim in the applied image and winrecfg.exe in the boot environment.</remarks>
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
     /// <param name="recoveryPartitionRoot">Root path of the recovery partition.</param>
     /// <param name="workingDirectory">Directory used for temporary scripts and command output.</param>

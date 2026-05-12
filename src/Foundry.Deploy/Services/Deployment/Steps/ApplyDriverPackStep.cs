@@ -6,7 +6,7 @@ using Foundry.Deploy.Services.Logging;
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
 /// <summary>
-/// Applies INF driver packs offline or stages vendor installers for pre-OOBE execution.
+/// Applies INF driver packs to Windows and WinRE, or stages vendor installers through the SetupComplete pre-OOBE hook.
 /// </summary>
 public sealed class ApplyDriverPackStep : DeploymentStepBase
 {
