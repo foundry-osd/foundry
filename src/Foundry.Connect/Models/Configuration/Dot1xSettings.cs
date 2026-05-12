@@ -21,7 +21,8 @@ public sealed record Dot1xSettings
     public NetworkAuthenticationMode AuthenticationMode { get; init; } = NetworkAuthenticationMode.MachineOnly;
 
     /// <summary>
-    /// Gets a value indicating whether the user may supply credentials at runtime.
+    /// Gets a value indicating whether runtime credentials were requested for this profile.
+    /// Runtime credential collection is not implemented in the current bootstrap flow.
     /// </summary>
     public bool AllowRuntimeCredentials { get; init; }
 

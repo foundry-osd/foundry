@@ -13,6 +13,7 @@ internal static class ProvisionedWifiProfileResolver
 
     /// <summary>
     /// Resolves a configured asset path relative to the configuration file directory.
+    /// When no configuration file path is available, relative assets are resolved from the application base directory.
     /// </summary>
     /// <param name="value">Configured path value.</param>
     /// <param name="configurationPath">Configuration file path that anchors relative assets.</param>

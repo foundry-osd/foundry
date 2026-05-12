@@ -218,9 +218,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ? GetString("Common.LastUpdatePending")
         : Format("Common.LastUpdateFormat", LastUpdatedAt.Value.LocalDateTime);
 
-    /// <summary>
-    /// Gets a value indicating whether Wi-Fi discovery has visible network rows.
-    /// </summary>
     public bool HasWifiNetworks => WifiNetworks.Count > 0;
 
     /// <summary>
@@ -238,14 +235,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// </summary>
     public bool HasProvisionedWifiProfile => _configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled;
 
-    /// <summary>
-    /// Gets a value indicating whether the current Wi-Fi connection chip should be shown.
-    /// </summary>
     public bool HasCurrentConnectionChip => !string.IsNullOrWhiteSpace(CurrentConnectionChipText);
 
-    /// <summary>
-    /// Gets a value indicating whether Ethernet secondary status text should be shown.
-    /// </summary>
     public bool HasEthernetSecondaryStatus => !string.IsNullOrWhiteSpace(EthernetSecondaryStatusText);
 
     /// <summary>
@@ -305,9 +296,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// </summary>
     public string ProvisionedWifiPlaceholderText => BuildProvisionedWifiPlaceholderText();
 
-    /// <summary>
-    /// Gets a value indicating whether provisioned Wi-Fi action feedback should be shown.
-    /// </summary>
     public bool HasProvisionedWifiActionFeedback => !string.IsNullOrWhiteSpace(ProvisionedWifiActionFeedbackText);
 
     /// <summary>
@@ -320,17 +308,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// </summary>
     public bool HasSelectedWifiActionFeedback => !string.IsNullOrWhiteSpace(SelectedWifiActionFeedbackText);
 
-    /// <summary>
-    /// Gets a value indicating whether the selected discovered Wi-Fi network can be connected now.
-    /// </summary>
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
                                           !network.IsConnected &&
                                           (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
                                           !IsNetworkActionInProgress;
 
-    /// <summary>
-    /// Gets a value indicating whether the selected discovered Wi-Fi network can be disconnected now.
-    /// </summary>
     public bool CanDisconnectSelectedWifi => SelectedWifiNetwork is { IsConnected: true } && !IsNetworkActionInProgress;
 
     /// <summary>
@@ -1295,19 +1277,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             private set => SetProperty(ref _isConnected, value);
         }
 
-        /// <summary>
-        /// Updates display and connection state for this Wi-Fi network row.
-        /// </summary>
-        /// <param name="displaySsid">SSID text shown to the user.</param>
-        /// <param name="displayAuthentication">Authentication text shown to the user.</param>
-        /// <param name="ssidHex">Hex-encoded SSID returned by WLAN APIs, when available.</param>
-        /// <param name="authentication">Raw authentication value used for connection decisions.</param>
-        /// <param name="encryption">Encryption label shown to the user.</param>
-        /// <param name="signalStrengthPercent">Signal strength percentage.</param>
-        /// <param name="signalGlyph">Signal glyph shown by the UI.</param>
-        /// <param name="canDirectConnect">Whether Foundry.Connect can create or use a direct connection profile.</param>
-        /// <param name="requiresPassphrase">Whether the row requires a passphrase before connecting.</param>
-        /// <param name="isConnected">Whether this row represents the current Wi-Fi connection.</param>
         public void Update(
             string displaySsid,
             string displayAuthentication,

@@ -6,7 +6,8 @@ namespace Foundry.Connect.Models.Configuration;
 public sealed class NetworkCapabilitiesOptions
 {
     /// <summary>
-    /// Gets a value indicating whether generated media contains a provisioned Wi-Fi configuration.
+    /// Gets a value indicating whether runtime Wi-Fi features are enabled for the generated media.
+    /// This gates both provisioned Wi-Fi bootstrap and discovered-network connection actions.
     /// </summary>
     public bool WifiProvisioned { get; init; }
 }
