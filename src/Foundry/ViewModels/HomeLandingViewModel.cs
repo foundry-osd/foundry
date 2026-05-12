@@ -7,6 +7,9 @@ using Serilog;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Provides localized home page content and ADK readiness status.
+/// </summary>
 public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
 {
     private readonly IAdkService adkService;
@@ -65,11 +68,29 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial InfoBarSeverity AdkStatusSeverity { get; set; }
 
+    /// <summary>
+    /// Gets the documentation URL opened by the home page.
+    /// </summary>
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl;
+
+    /// <summary>
+    /// Gets the localized navigation title for the ADK page.
+    /// </summary>
     public string AdkNavigationTitle => localizationService.GetString("Adk.PageTitle");
+
+    /// <summary>
+    /// Gets the localized navigation title for general configuration.
+    /// </summary>
     public string GeneralNavigationTitle => localizationService.GetString("GeneralConfigurationPage_Title.Text");
+
+    /// <summary>
+    /// Gets the localized navigation title for media creation.
+    /// </summary>
     public string StartNavigationTitle => localizationService.GetString("StartPage_Title.Text");
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HomeLandingViewModel"/> class.
+    /// </summary>
     public HomeLandingViewModel(
         IAdkService adkService,
         IApplicationLocalizationService localizationService,
@@ -105,6 +126,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         ApplyLocalizedText();
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         adkService.StatusChanged -= OnAdkStatusChanged;

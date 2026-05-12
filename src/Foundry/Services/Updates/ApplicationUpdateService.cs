@@ -7,6 +7,9 @@ using Velopack.Sources;
 
 namespace Foundry.Services.Updates;
 
+/// <summary>
+/// Wraps Velopack update checks, downloads, and restart handoff for the WinUI shell.
+/// </summary>
 internal sealed class ApplicationUpdateService(
     IAppSettingsService appSettingsService,
     IApplicationLifetimeService applicationLifetimeService,
@@ -17,6 +20,7 @@ internal sealed class ApplicationUpdateService(
     private Velopack.UpdateInfo? pendingUpdate;
     private UpdateManager? pendingUpdateManager;
 
+    /// <inheritdoc />
     public Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -29,12 +33,14 @@ internal sealed class ApplicationUpdateService(
 
         if (appSettingsService.Current.Updates.CheckOnStartup)
         {
+            // Startup checks are intentionally fire-and-forget so update availability never blocks app launch.
             _ = Task.Run(() => RunStartupCheckAsync(CancellationToken.None), CancellationToken.None);
         }
 
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public async Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(
         bool isStartupCheck = false,
         CancellationToken cancellationToken = default)
@@ -148,6 +154,7 @@ internal sealed class ApplicationUpdateService(
         }
     }
 
+    /// <inheritdoc />
     public async Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(
         IProgress<int>? progress = null,
         CancellationToken cancellationToken = default)
@@ -185,6 +192,7 @@ internal sealed class ApplicationUpdateService(
         }
     }
 
+    /// <inheritdoc />
     public void ApplyUpdateAndRestart()
     {
         if (pendingUpdate is null || pendingUpdateManager is null)
@@ -236,6 +244,7 @@ internal sealed class ApplicationUpdateService(
             GetFeedUrlLogValue(feedUrl),
             appSettingsService.Current.Updates.Channel);
 
+        // GitHub feeds use prerelease visibility as the channel selector; stable channels only see releases.
         GithubSource source = new(
             feedUrl,
             accessToken: string.Empty,

@@ -12,6 +12,9 @@ using Serilog;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Backs the Autopilot configuration page, including local imports, tenant downloads, selection, and persistence.
+/// </summary>
 public sealed partial class AutopilotConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IExpertDeployConfigurationStateService configurationStateService;
@@ -57,7 +60,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         isApplyingState = false;
     }
 
+    /// <summary>
+    /// Gets the ordered Autopilot profiles available for deployment.
+    /// </summary>
     public ObservableCollection<AutopilotProfileEntryViewModel> Profiles { get; } = [];
+
+    /// <summary>
+    /// Gets the currently selected profile rows for bulk UI actions.
+    /// </summary>
     public ObservableCollection<AutopilotProfileEntryViewModel> SelectedProfiles { get; } = [];
 
     public bool IsAutopilotSectionEnabled => IsAutopilotEnabled;
@@ -163,6 +173,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
     public partial bool IsDownloading { get; set; }
 
+    /// <summary>
+    /// Releases subscriptions to localization, configuration state, and profile collections.
+    /// </summary>
     public void Dispose()
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
@@ -332,6 +345,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
         foreach (AutopilotProfileSettings incomingProfile in incomingProfiles)
         {
+            // Tenant downloads and file imports are keyed by Graph profile ID so newer payloads replace older copies.
             mergedProfiles[incomingProfile.Id] = AutopilotProfileEntryViewModel.FromSettings(incomingProfile);
         }
 
@@ -431,6 +445,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
     }
 
+    /// <summary>
+    /// Replaces the selected profile rows after a XAML selection change.
+    /// </summary>
+    /// <param name="profiles">The selected profile view models.</param>
     public void ReplaceSelectedProfiles(IEnumerable<AutopilotProfileEntryViewModel> profiles)
     {
         SelectedProfiles.Clear();

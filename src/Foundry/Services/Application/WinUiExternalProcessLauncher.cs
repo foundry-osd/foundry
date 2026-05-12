@@ -4,10 +4,14 @@ using Serilog;
 
 namespace Foundry.Services.Application;
 
+/// <summary>
+/// Opens URIs, folders, and files with the Windows shell from WinUI commands.
+/// </summary>
 public sealed class WinUiExternalProcessLauncher(ILogger logger) : IExternalProcessLauncher
 {
     private readonly ILogger logger = logger.ForContext<WinUiExternalProcessLauncher>();
 
+    /// <inheritdoc />
     public Task OpenUriAsync(Uri uri)
     {
         ArgumentNullException.ThrowIfNull(uri);
@@ -15,6 +19,7 @@ public sealed class WinUiExternalProcessLauncher(ILogger logger) : IExternalProc
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public Task OpenFolderAsync(string folderPath)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(folderPath);
@@ -32,6 +37,7 @@ public sealed class WinUiExternalProcessLauncher(ILogger logger) : IExternalProc
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public Task OpenFileAsync(string filePath)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
@@ -66,6 +72,7 @@ public sealed class WinUiExternalProcessLauncher(ILogger logger) : IExternalProc
             Fragment = string.Empty
         };
 
+        // Strip credentials and query strings before logging externally opened URIs.
         return builder.Uri.ToString().TrimEnd('/');
     }
 }

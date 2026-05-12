@@ -4,14 +4,23 @@ using Serilog.Events;
 
 namespace Foundry.Common
 {
+    /// <summary>
+    /// Configures process-wide Serilog logging and global exception capture for the WinUI app.
+    /// </summary>
     public static partial class LoggerSetup
     {
         private static readonly LoggingLevelSwitch MinimumLevelSwitch = new(LogEventLevel.Information);
         private static bool globalExceptionHandlersRegistered;
 
+        /// <summary>
+        /// Gets the active Serilog logger instance.
+        /// </summary>
         public static ILogger Logger { get; private set; } = Serilog.Core.Logger.None;
         private static ILogger SetupLogger => Log.ForContext("SourceContext", typeof(LoggerSetup).FullName);
 
+        /// <summary>
+        /// Initializes the Foundry log sinks and assigns <see cref="Log.Logger"/>.
+        /// </summary>
         public static void ConfigureLogger()
         {
             Directory.CreateDirectory(Constants.LogDirectoryPath);
@@ -30,6 +39,10 @@ namespace Foundry.Common
             Log.Logger = Logger;
         }
 
+        /// <summary>
+        /// Updates the minimum logging level used by runtime diagnostics.
+        /// </summary>
+        /// <param name="isEnabled">Whether developer diagnostics should enable debug logging.</param>
         public static void SetDeveloperModeEnabled(bool isEnabled)
         {
             LogEventLevel targetLevel = isEnabled ? LogEventLevel.Debug : LogEventLevel.Information;
@@ -42,6 +55,9 @@ namespace Foundry.Common
             SetupLogger.Information("Developer diagnostics logging level changed. DeveloperMode={DeveloperMode}, MinimumLevel={MinimumLevel}", isEnabled, targetLevel);
         }
 
+        /// <summary>
+        /// Registers process-wide exception handlers once for non-UI failures.
+        /// </summary>
         public static void RegisterGlobalExceptionHandlers()
         {
             if (globalExceptionHandlersRegistered)
@@ -73,6 +89,7 @@ namespace Foundry.Common
 
         private sealed class LogComponentEnricher : ILogEventEnricher
         {
+            /// <inheritdoc />
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 string component = Constants.ApplicationName;

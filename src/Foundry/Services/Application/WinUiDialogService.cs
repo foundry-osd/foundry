@@ -2,8 +2,12 @@ using Foundry.Core.Services.Application;
 
 namespace Foundry.Services.Application;
 
+/// <summary>
+/// Displays simple WinUI message and confirmation dialogs for application services and view models.
+/// </summary>
 public sealed class WinUiDialogService : IDialogService
 {
+    /// <inheritdoc />
     public async Task ShowMessageAsync(DialogRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
@@ -19,6 +23,7 @@ public sealed class WinUiDialogService : IDialogService
         await dialog.ShowAsync();
     }
 
+    /// <inheritdoc />
     public async Task<bool> ConfirmAsync(ConfirmationDialogRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
