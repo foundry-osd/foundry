@@ -2,12 +2,24 @@ using Foundry.Connect.Models;
 
 namespace Foundry.Connect.Models.Network;
 
+/// <summary>
+/// Represents a point-in-time network status snapshot displayed by Foundry.Connect.
+/// </summary>
 public sealed class NetworkStatusSnapshot
 {
+    /// <summary>
+    /// Gets the layout mode selected from detected network capabilities.
+    /// </summary>
     public NetworkLayoutMode LayoutMode { get; init; }
 
+    /// <summary>
+    /// Gets whether an internet probe succeeded.
+    /// </summary>
     public bool HasInternetAccess { get; init; }
 
+    /// <summary>
+    /// Gets whether any Ethernet adapter was detected.
+    /// </summary>
     public bool HasEthernetAdapter { get; init; }
 
     public bool IsEthernetConnected { get; init; }
@@ -32,5 +44,8 @@ public sealed class NetworkStatusSnapshot
 
     public string? ConnectedWifiSsid { get; init; }
 
+    /// <summary>
+    /// Gets the discovered Wi-Fi networks.
+    /// </summary>
     public IReadOnlyList<WifiNetworkSummary> WifiNetworks { get; init; } = Array.Empty<WifiNetworkSummary>();
 }

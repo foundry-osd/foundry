@@ -19,6 +19,9 @@ using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
 
 namespace Foundry.Connect.ViewModels;
 
+/// <summary>
+/// Coordinates the Foundry.Connect shell, localized network status, Wi-Fi actions, and auto-continue behavior.
+/// </summary>
 public partial class MainWindowViewModel : LocalizedViewModelBase
 {
     private const string PendingStatusGlyph = "\uE709";
@@ -133,6 +136,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [ObservableProperty]
     private string selectedWifiPassphrase = string.Empty;
 
+    /// <summary>
+    /// Initializes the main window view model and wires runtime services.
+    /// </summary>
     public MainWindowViewModel(
         IThemeService themeService,
         ILocalizationService localizationService,
@@ -161,10 +167,24 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ApplyLocalizedDefaults();
     }
 
+    /// <summary>
+    /// Gets the discovered Wi-Fi networks shown in the UI.
+    /// </summary>
     public ObservableCollection<WifiNetworkItemViewModel> WifiNetworks { get; } = [];
+
+    /// <summary>
+    /// Gets the supported UI cultures.
+    /// </summary>
     public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
 
+    /// <summary>
+    /// Gets the current UI culture.
+    /// </summary>
     public CultureInfo CurrentCulture => LocalizationService.CurrentCulture;
+
+    /// <summary>
+    /// Gets the current application theme mode.
+    /// </summary>
     public ConnectThemeMode CurrentTheme => _themeService.CurrentTheme;
 
     public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
@@ -218,6 +238,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                                           !IsNetworkActionInProgress;
     public bool CanDisconnectSelectedWifi => SelectedWifiNetwork is { IsConnected: true } && !IsNetworkActionInProgress;
 
+    /// <summary>
+    /// Applies provisioned network settings, refreshes the first snapshot, and starts background monitoring.
+    /// </summary>
     public async Task InitializeAsync()
     {
         if (_isInitialized)
@@ -369,6 +392,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             refreshAfterAction: true).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Handles a user closing the window before Foundry.Connect has completed successfully.
+    /// </summary>
     public void HandleWindowClosing()
     {
         if (!_applicationLifetimeService.IsExitRequested)
@@ -468,6 +494,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             ShouldRetryConfiguredWifiConnect())
         {
             _lastConfiguredWifiConnectAttemptAt = DateTimeOffset.UtcNow;
+            // Auto-retry the provisioned Wi-Fi profile only when Ethernet has not already satisfied internet access.
             _ = Task.Run(async () =>
             {
                 await ExecuteProvisionedWifiActionAsync(
@@ -1086,6 +1113,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return GetString("Wifi.ActionDisconnectFailed");
     }
 
+    /// <summary>
+    /// Represents one Wi-Fi network row in the discovery list.
+    /// </summary>
     public sealed class WifiNetworkItemViewModel : ObservableObject
     {
         private string _displaySsid = string.Empty;
@@ -1099,6 +1129,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         private bool _requiresPassphrase;
         private bool _isConnected;
 
+        /// <summary>
+        /// Initializes a Wi-Fi network row with its stable SSID key.
+        /// </summary>
+        /// <param name="ssid">The SSID used to identify the row.</param>
         public WifiNetworkItemViewModel(string ssid)
         {
             Ssid = ssid;
@@ -1166,6 +1200,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             private set => SetProperty(ref _isConnected, value);
         }
 
+        /// <summary>
+        /// Updates display and connection state for this Wi-Fi network row.
+        /// </summary>
         public void Update(
             string displaySsid,
             string displayAuthentication,

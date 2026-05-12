@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
 
+/// <summary>
+/// Applies provisioned 802.1X/Wi-Fi profiles and issues netsh commands for runtime Wi-Fi operations.
+/// </summary>
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
     private const string OpenSecurityType = "Open";
@@ -29,6 +32,12 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     private readonly IConnectConfigurationService _configurationService;
     private readonly ILogger<NetworkBootstrapService> _logger;
 
+    /// <summary>
+    /// Initializes a network bootstrap service.
+    /// </summary>
+    /// <param name="configuration">The loaded runtime configuration.</param>
+    /// <param name="configurationService">The configuration service used to resolve relative asset paths.</param>
+    /// <param name="logger">The logger used for network command diagnostics.</param>
     public NetworkBootstrapService(
         FoundryConnectConfiguration configuration,
         IConnectConfigurationService configurationService,
@@ -39,6 +48,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public async Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
     {
         List<string> messages = [];
@@ -58,6 +68,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : string.Join(" ", messages.Where(static value => !string.IsNullOrWhiteSpace(value)));
     }
 
+    /// <inheritdoc />
     public async Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken)
     {
         if (!_configuration.Capabilities.WifiProvisioned || !_configuration.Wifi.IsEnabled)
@@ -104,6 +115,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : $"{ensureMessage} Wi-Fi connection failed: {attemptResult.FailureMessage}";
     }
 
+    /// <inheritdoc />
     public async Task<string> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken)
     {
         if (!_configuration.Capabilities.WifiProvisioned && !Debugger.IsAttached)
@@ -170,6 +182,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
     }
 
+    /// <inheritdoc />
     public async Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
     {
         IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
@@ -372,6 +385,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 break;
             }
 
+            // WinPE can expose WLAN AutoConfig before profile import is fully ready; a short retry avoids false failures.
             _logger.LogInformation(
                 "Wi-Fi profile import attempt {Attempt} failed in WinPE. Retrying in {DelaySeconds}s. ExitCode={ExitCode}",
                 attempt,
@@ -589,6 +603,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         bool isOwe = string.Equals(securityType, OweSecurityType, StringComparison.OrdinalIgnoreCase);
         bool isPersonal = IsPersonalSecurityType(securityType);
 
+        // Profiles are generated as XML because netsh remains the lowest-friction API available in WinPE.
         if (isOpen)
         {
             return $$"""
