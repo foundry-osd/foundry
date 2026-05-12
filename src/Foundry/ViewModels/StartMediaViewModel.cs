@@ -16,6 +16,9 @@ using Serilog;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Coordinates media creation options, readiness evaluation, and final ISO or USB creation commands.
+/// </summary>
 public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 {
     private readonly IAppSettingsService appSettingsService;
@@ -38,6 +41,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private UsbCandidateDiscoveryState usbCandidateDiscoveryState = UsbCandidateDiscoveryState.NotLoaded;
     private bool isLoadingConfiguration = true;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StartMediaViewModel"/> class.
+    /// </summary>
     public StartMediaViewModel(
         IAppSettingsService appSettingsService,
         IAdkService adkService,
@@ -98,12 +104,39 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RefreshEvaluation();
     }
 
+    /// <summary>
+    /// Gets the available WinPE architecture options.
+    /// </summary>
     public ObservableCollection<SelectionOption<WinPeArchitecture>> Architectures { get; }
+
+    /// <summary>
+    /// Gets the USB partition style options valid for the selected architecture.
+    /// </summary>
     public ObservableCollection<SelectionOption<UsbPartitionStyle>> PartitionStyles { get; }
+
+    /// <summary>
+    /// Gets the USB formatting mode options.
+    /// </summary>
     public ObservableCollection<SelectionOption<UsbFormatMode>> FormatModes { get; }
+
+    /// <summary>
+    /// Gets removable USB disk candidates discovered for media creation.
+    /// </summary>
     public ObservableCollection<SelectionOption<WinPeUsbDiskCandidate>> UsbCandidates { get; } = [];
+
+    /// <summary>
+    /// Gets readiness items that describe prerequisite blockers.
+    /// </summary>
     public ObservableCollection<StartReadinessItemViewModel> PrerequisiteReadinessItems { get; } = [];
+
+    /// <summary>
+    /// Gets readiness items that describe ISO and USB output blockers.
+    /// </summary>
     public ObservableCollection<StartReadinessItemViewModel> MediaOutputReadinessItems { get; } = [];
+
+    /// <summary>
+    /// Gets readiness items that describe expert configuration blockers.
+    /// </summary>
     public ObservableCollection<StartReadinessItemViewModel> ExpertConfigurationReadinessItems { get; } = [];
 
     [ObservableProperty]
@@ -181,6 +214,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial bool IsExpertConfigurationReadinessExpanded { get; set; }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         adkService.StatusChanged -= OnAdkStatusChanged;
@@ -188,6 +222,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         localizationService.LanguageChanged -= OnLanguageChanged;
     }
 
+    /// <summary>
+    /// Refreshes readiness and disk candidates after the page is loaded.
+    /// </summary>
     public async Task InitializeAsync()
     {
         RefreshEvaluation();
@@ -340,6 +377,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         IsMediaOperationRunning = true;
         RefreshEvaluation();
+        // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
         string terminalStatus = string.Empty;
         string? successMessage = null;

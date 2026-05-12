@@ -6,8 +6,15 @@ using Velopack;
 
 namespace Foundry;
 
+/// <summary>
+/// Provides the packaged WinUI application entry point.
+/// </summary>
 public static class Program
 {
+    /// <summary>
+    /// Initializes process-wide services, runs Velopack startup hooks, and starts the WinUI dispatcher.
+    /// </summary>
+    /// <param name="args">Command-line arguments passed to the packaged application.</param>
     [STAThread]
     public static void Main(string[] args)
     {

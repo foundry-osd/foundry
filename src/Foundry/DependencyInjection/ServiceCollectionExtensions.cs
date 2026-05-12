@@ -17,8 +17,16 @@ using Serilog;
 
 namespace Foundry.DependencyInjection;
 
+/// <summary>
+/// Registers the Foundry WinUI composition root.
+/// </summary>
 public static class ServiceCollectionExtensions
 {
+    /// <summary>
+    /// Adds application services, view models, shell services, and Core service integrations.
+    /// </summary>
+    /// <param name="services">Service collection to update.</param>
+    /// <returns>The same service collection for chaining.</returns>
     public static IServiceCollection AddFoundryApplicationServices(this IServiceCollection services)
     {
         services.AddSingleton(Log.Logger);

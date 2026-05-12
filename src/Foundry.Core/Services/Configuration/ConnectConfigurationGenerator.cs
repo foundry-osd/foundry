@@ -3,6 +3,9 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
 
+/// <summary>
+/// Generates Foundry.Connect runtime configuration and stages network assets for boot media.
+/// </summary>
 public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerator
 {
     private const string StagedAssetRootFolderName = "FoundryConnectAssets";
@@ -12,11 +15,13 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     private const string WiredCertificateFolder = @"Network\Certificates\Wired";
     private const string WifiCertificateFolder = @"Network\Certificates\Wifi";
 
+    /// <inheritdoc />
     public FoundryConnectConfigurationDocument Generate(FoundryExpertConfigurationDocument document, string stagingDirectoryPath)
     {
         return CreateProvisioningBundle(document, stagingDirectoryPath).Configuration;
     }
 
+    /// <inheritdoc />
     public FoundryConnectProvisioningBundle CreateProvisioningBundle(
         FoundryExpertConfigurationDocument document,
         string stagingDirectoryPath)
@@ -56,6 +61,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
             ? ConnectSecretEnvelopeProtector.Encrypt(wifi.Passphrase!, mediaSecretsKey)
             : null;
 
+        // The generated document uses media-relative asset paths; source file paths stay outside the runtime JSON.
         FoundryConnectConfigurationDocument configuration = new()
         {
             Capabilities = new ConnectNetworkCapabilitiesSettings
@@ -95,6 +101,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         };
     }
 
+    /// <inheritdoc />
     public string Serialize(FoundryConnectConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -145,6 +152,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
 
     private static byte[]? ResolveMediaSecretsKey(bool isWifiEnabled, WifiSettings wifi)
     {
+        // Personal Wi-Fi is the only current flow that needs a media secret key.
         return isWifiEnabled &&
                !wifi.HasEnterpriseProfile &&
                !string.IsNullOrWhiteSpace(wifi.Passphrase)

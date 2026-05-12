@@ -3,10 +3,15 @@ using Microsoft.UI.Dispatching;
 
 namespace Foundry.Services.Application;
 
+/// <summary>
+/// Marshals work onto the WinUI dispatcher queue.
+/// </summary>
 public sealed class WinUiAppDispatcher : IAppDispatcher
 {
+    /// <inheritdoc />
     public bool HasThreadAccess => GetDispatcherQueue().HasThreadAccess;
 
+    /// <inheritdoc />
     public bool TryEnqueue(Action action)
     {
         ArgumentNullException.ThrowIfNull(action);
@@ -21,6 +26,7 @@ public sealed class WinUiAppDispatcher : IAppDispatcher
         return dispatcherQueue.TryEnqueue(() => action());
     }
 
+    /// <inheritdoc />
     public Task EnqueueAsync(Action action)
     {
         ArgumentNullException.ThrowIfNull(action);

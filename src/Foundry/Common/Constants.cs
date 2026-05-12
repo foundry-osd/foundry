@@ -1,9 +1,23 @@
 namespace Foundry.Common
 {
+    /// <summary>
+    /// Defines application-wide constants and well-known local storage paths.
+    /// </summary>
     public static partial class Constants
     {
+        /// <summary>
+        /// Gets the application folder and process identity name.
+        /// </summary>
         public const string ApplicationName = "Foundry";
+
+        /// <summary>
+        /// Gets the user-facing product display name.
+        /// </summary>
         public const string ApplicationDisplayName = "Foundry OSD";
+
+        /// <summary>
+        /// Gets the default update channel used by the update service.
+        /// </summary>
         public const string DefaultUpdateChannel = "stable";
 
         public static readonly string RootDirectoryPath = Path.Combine(
@@ -37,6 +51,9 @@ namespace Foundry.Common
         public const string LatestReleaseUrl = RepositoryUrl + "/releases/latest";
         public const string DefaultUpdateFeedUrl = RepositoryUrl;
 
+        /// <summary>
+        /// Creates all application data directories required before services read or write state.
+        /// </summary>
         public static void EnsureDataDirectories()
         {
             Directory.CreateDirectory(SettingsDirectoryPath);

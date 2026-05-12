@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
 
+/// <summary>
+/// Builds network status snapshots from Windows adapter state, native WLAN APIs, and configured Internet probes.
+/// </summary>
 public sealed class NetworkStatusService : INetworkStatusService
 {
     private static readonly HttpClient HttpClient = new(new HttpClientHandler

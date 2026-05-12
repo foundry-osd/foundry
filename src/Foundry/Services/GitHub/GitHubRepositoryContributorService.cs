@@ -3,10 +3,14 @@ using System.Text.Json;
 
 namespace Foundry.Services.GitHub;
 
+/// <summary>
+/// Reads contributor metadata from the public GitHub REST API.
+/// </summary>
 public sealed class GitHubRepositoryContributorService : IGitHubRepositoryContributorService
 {
     private static readonly HttpClient HttpClient = CreateHttpClient();
 
+    /// <inheritdoc />
     public async Task<IReadOnlyList<GitHubRepositoryContributor>> GetContributorsAsync(CancellationToken cancellationToken = default)
     {
         using HttpRequestMessage request = new(HttpMethod.Get, FoundryApplicationInfo.ContributorsApiUrl);
@@ -35,6 +39,7 @@ public sealed class GitHubRepositoryContributorService : IGitHubRepositoryContri
                 continue;
             }
 
+            // The contributors endpoint omits profile display names, so each user is enriched separately.
             contributors.Add(await EnrichContributorAsync(contributor, cancellationToken).ConfigureAwait(false));
         }
 

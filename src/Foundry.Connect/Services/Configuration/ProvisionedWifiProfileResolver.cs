@@ -4,10 +4,20 @@ using Foundry.Connect.Models.Configuration;
 
 namespace Foundry.Connect.Services.Configuration;
 
+/// <summary>
+/// Resolves provisioned Wi-Fi profile names and asset paths from the runtime configuration location.
+/// </summary>
 internal static class ProvisionedWifiProfileResolver
 {
     private static readonly XNamespace WlanProfileNamespace = "http://www.microsoft.com/networking/WLAN/profile/v1";
 
+    /// <summary>
+    /// Resolves a configured asset path relative to the configuration file directory.
+    /// When no configuration file path is available, relative assets are resolved from the application base directory.
+    /// </summary>
+    /// <param name="value">Configured path value.</param>
+    /// <param name="configurationPath">Configuration file path that anchors relative assets.</param>
+    /// <returns>An absolute path, or <see langword="null"/> when no value is configured.</returns>
     public static string? ResolveAssetPath(string? value, string? configurationPath)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -31,6 +41,12 @@ internal static class ProvisionedWifiProfileResolver
         return Path.GetFullPath(Path.Combine(configurationDirectoryPath, trimmed));
     }
 
+    /// <summary>
+    /// Resolves the profile name used by the provisioned Wi-Fi configuration.
+    /// </summary>
+    /// <param name="wifiSettings">Provisioned Wi-Fi settings.</param>
+    /// <param name="configurationPath">Configuration file path that anchors relative assets.</param>
+    /// <returns>The WLAN profile name or SSID when available.</returns>
     public static string? ResolveProfileName(WifiSettings wifiSettings, string? configurationPath)
     {
         if (wifiSettings.HasEnterpriseProfile)
@@ -44,6 +60,11 @@ internal static class ProvisionedWifiProfileResolver
             : wifiSettings.Ssid.Trim();
     }
 
+    /// <summary>
+    /// Reads the WLAN profile name from a profile XML file.
+    /// </summary>
+    /// <param name="profilePath">Path to the WLAN profile XML file.</param>
+    /// <returns>The profile name, or <see langword="null"/> when it cannot be read.</returns>
     public static string? TryReadProfileName(string? profilePath)
     {
         if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
@@ -68,6 +89,11 @@ internal static class ProvisionedWifiProfileResolver
             : profileName;
     }
 
+    /// <summary>
+    /// Reads the WLAN authentication mode from a profile XML file.
+    /// </summary>
+    /// <param name="profilePath">Path to the WLAN profile XML file.</param>
+    /// <returns>The authentication value, or <see langword="null"/> when it cannot be read.</returns>
     public static string? TryReadProfileAuthentication(string? profilePath)
     {
         if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))

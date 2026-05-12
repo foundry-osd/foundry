@@ -1,5 +1,8 @@
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Coordinates driver resolution, boot image customization, and signature policy validation for a WinPE workspace.
+/// </summary>
 public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparationService
 {
     private readonly IWinPeDriverResolutionService _driverResolutionService;
@@ -7,6 +10,9 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
     private readonly WinPeToolResolver _toolResolver;
     private readonly IWinPeProcessRunner _processRunner;
 
+    /// <summary>
+    /// Initializes a workspace preparation service using the default WinPE services.
+    /// </summary>
     public WinPeWorkspacePreparationService()
         : this(
             new WinPeDriverResolutionService(new WinPeDriverCatalogService(), new WinPeDriverPackageService()),
@@ -28,6 +34,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
         _processRunner = processRunner;
     }
 
+    /// <inheritdoc />
     public async Task<WinPeResult<WinPeWorkspacePreparationResult>> PrepareAsync(
         WinPeWorkspacePreparationOptions options,
         CancellationToken cancellationToken = default)
@@ -89,6 +96,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
         bool useBootEx = false;
         if (options.SignatureMode == WinPeSignatureMode.Pca2023)
         {
+            // PCA2023 boot media requires a newer ADK MakeWinPEMedia implementation with /bootex support.
             useBootEx = await _toolResolver.IsBootExSupportedAsync(
                 tools,
                 _processRunner,
