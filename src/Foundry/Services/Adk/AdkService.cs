@@ -6,6 +6,9 @@ using Serilog;
 
 namespace Foundry.Services.Adk;
 
+/// <summary>
+/// Coordinates Windows ADK detection and elevated installer execution for the main application.
+/// </summary>
 internal sealed class AdkService(
     IAdkInstallationProbe installationProbe,
     IOperationProgressService operationProgressService,
@@ -24,8 +27,10 @@ internal sealed class AdkService(
     private readonly ILogger logger = logger.ForContext<AdkService>();
     private readonly SemaphoreSlim operationLock = new(1, 1);
 
+    /// <inheritdoc />
     public event EventHandler<AdkStatusChangedEventArgs>? StatusChanged;
 
+    /// <inheritdoc />
     public AdkInstallationStatus CurrentStatus { get; private set; } = new(
         false,
         false,
@@ -34,6 +39,7 @@ internal sealed class AdkService(
         null,
         "Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch");
 
+    /// <inheritdoc />
     public Task<AdkInstallationStatus> RefreshStatusAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -50,11 +56,13 @@ internal sealed class AdkService(
         return Task.FromResult(status);
     }
 
+    /// <inheritdoc />
     public Task<AdkInstallationStatus> InstallAsync(CancellationToken cancellationToken = default)
     {
         return RunInstallOperationAsync(OperationKind.AdkInstall, uninstallFirst: false, cancellationToken);
     }
 
+    /// <inheritdoc />
     public Task<AdkInstallationStatus> UpgradeAsync(CancellationToken cancellationToken = default)
     {
         return RunInstallOperationAsync(OperationKind.AdkUpgrade, uninstallFirst: true, cancellationToken);
@@ -65,6 +73,7 @@ internal sealed class AdkService(
         bool uninstallFirst,
         CancellationToken cancellationToken)
     {
+        // ADK setup changes machine-level state and may show UAC, so only one install or upgrade can run at a time.
         await operationLock.WaitAsync(cancellationToken);
         string terminalStatus = string.Empty;
 
@@ -162,6 +171,7 @@ internal sealed class AdkService(
 
     private async Task UninstallExistingBundlesAsync(CancellationToken cancellationToken)
     {
+        // Upgrade uses the registered uninstall commands instead of assuming a fixed ADK install location.
         IReadOnlyList<AdkUninstallCommand> uninstallCommands = AdkUninstallCommandSelector.SelectBundleUninstallCommands(
             installationProbe.GetInstalledProducts());
 

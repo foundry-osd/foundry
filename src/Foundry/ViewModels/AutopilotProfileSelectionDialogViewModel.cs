@@ -5,6 +5,9 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Backs the tenant profile picker shown after downloading Autopilot profiles from Microsoft Graph.
+/// </summary>
 public sealed partial class AutopilotProfileSelectionDialogViewModel : ObservableObject, IDisposable
 {
     private readonly IApplicationLocalizationService localizationService;
@@ -30,6 +33,9 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
         localizationService.LanguageChanged += OnLanguageChanged;
     }
 
+    /// <summary>
+    /// Gets the available profiles with per-row selection state.
+    /// </summary>
     public ObservableCollection<SelectableAutopilotProfileEntryViewModel> Profiles { get; } = [];
 
     [ObservableProperty]
@@ -62,6 +68,10 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
     [ObservableProperty]
     public partial bool HasSelectedProfiles { get; set; }
 
+    /// <summary>
+    /// Gets the selected Autopilot profile settings to import into the deployment configuration.
+    /// </summary>
+    /// <returns>The selected profile settings.</returns>
     public IReadOnlyList<AutopilotProfileSettings> GetSelectedProfiles()
     {
         return Profiles
@@ -70,6 +80,9 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
             .ToArray();
     }
 
+    /// <summary>
+    /// Releases localization and row selection subscriptions.
+    /// </summary>
     public void Dispose()
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
@@ -139,16 +152,34 @@ public sealed partial class AutopilotProfileSelectionDialogViewModel : Observabl
 
 }
 
+/// <summary>
+/// Wraps a tenant Autopilot profile with dialog selection state.
+/// </summary>
 public sealed partial class SelectableAutopilotProfileEntryViewModel : ObservableObject
 {
+    /// <summary>
+    /// Initializes a selectable profile row.
+    /// </summary>
+    /// <param name="profile">The downloaded profile represented by this row.</param>
     public SelectableAutopilotProfileEntryViewModel(AutopilotProfileSettings profile)
     {
         Profile = profile ?? throw new ArgumentNullException(nameof(profile));
         IsSelected = true;
     }
 
+    /// <summary>
+    /// Gets the downloaded profile represented by this row.
+    /// </summary>
     public AutopilotProfileSettings Profile { get; }
+
+    /// <summary>
+    /// Gets the display name shown in the profile picker.
+    /// </summary>
     public string DisplayName => Profile.DisplayName;
+
+    /// <summary>
+    /// Gets the staging folder name shown in the profile picker.
+    /// </summary>
     public string FolderName => Profile.FolderName;
 
     [ObservableProperty]

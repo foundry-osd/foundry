@@ -10,6 +10,9 @@ using Serilog;
 
 namespace Foundry.Services.Autopilot;
 
+/// <summary>
+/// Downloads Windows Autopilot deployment profiles from Microsoft Graph and converts them to offline profile JSON.
+/// </summary>
 public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTenantProfileService
 {
     private const string DefaultClientId = "83eb3a92-030d-49b7-881b-32a1eb3e110a";
@@ -20,6 +23,76 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
     private const string OrganizationRequestPath = "v1.0/organization?$select=id,verifiedDomains";
     private const string AutopilotProfilesRequestPath = "beta/deviceManagement/windowsAutopilotDeploymentProfiles";
     private const string TenantDownloadSource = "Tenant download";
+
+    /// <summary>
+    /// Offline Autopilot profile schema version expected by Windows OOBE.
+    /// </summary>
+    private const int OfflineAutopilotProfileVersion = 2049;
+
+    /// <summary>
+    /// Base OOBE bitmask used by generated offline Autopilot profiles.
+    /// </summary>
+    private const int OobeConfigBaseFlags = 8 + 256;
+
+    /// <summary>
+    /// OOBE bitmask flag for standard user account type.
+    /// </summary>
+    private const int OobeConfigStandardUserFlag = 2;
+
+    /// <summary>
+    /// OOBE bitmask flag for hiding privacy settings.
+    /// </summary>
+    private const int OobeConfigHidePrivacySettingsFlag = 4;
+
+    /// <summary>
+    /// OOBE bitmask flag for hiding the license page.
+    /// </summary>
+    private const int OobeConfigHideEulaFlag = 16;
+
+    /// <summary>
+    /// OOBE bitmask flag for skipping keyboard selection.
+    /// </summary>
+    private const int OobeConfigSkipKeyboardSelectionFlag = 1024;
+
+    /// <summary>
+    /// OOBE bitmask flags for shared device usage.
+    /// </summary>
+    private const int OobeConfigSharedDeviceFlags = 96;
+
+    /// <summary>
+    /// Offline Autopilot value that requires enrollment during OOBE.
+    /// </summary>
+    private const int ForcedEnrollmentEnabled = 1;
+
+    /// <summary>
+    /// Offline Autopilot value that allows enrollment escape during OOBE.
+    /// </summary>
+    private const int ForcedEnrollmentDisabled = 0;
+
+    /// <summary>
+    /// Offline Autopilot value for hybrid Microsoft Entra join profiles.
+    /// </summary>
+    private const int DomainJoinMethodHybridEntraJoin = 1;
+
+    /// <summary>
+    /// Offline Autopilot value for Microsoft Entra join profiles.
+    /// </summary>
+    private const int DomainJoinMethodEntraJoin = 0;
+
+    /// <summary>
+    /// Value used by offline profiles to disable Autopilot update during OOBE.
+    /// </summary>
+    private const int AutopilotUpdateDisabled = 1;
+
+    /// <summary>
+    /// Autopilot update timeout written to offline profiles, in milliseconds.
+    /// </summary>
+    private const int AutopilotUpdateTimeoutMilliseconds = 1800000;
+
+    /// <summary>
+    /// Offline Autopilot value that skips domain controller connectivity checks for hybrid join.
+    /// </summary>
+    private const int HybridJoinSkipDcConnectivityCheckEnabled = 1;
 
     private static readonly string[] GraphScopes =
     [
@@ -34,6 +107,7 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
 
     private readonly ILogger logger = logger.ForContext<AutopilotTenantProfileService>();
 
+    /// <inheritdoc />
     public async Task<IReadOnlyList<AutopilotProfileSettings>> DownloadFromTenantAsync(CancellationToken cancellationToken = default)
     {
         TokenCredential credential = CreateCredential();
@@ -70,6 +144,7 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
             RedirectUri = new Uri(DefaultRedirectUri, UriKind.Absolute),
             TokenCachePersistenceOptions = new TokenCachePersistenceOptions
             {
+                // Keep Graph auth reusable for Foundry without sharing a token cache name with unrelated tools.
                 Name = "FoundryAutopilotGraph"
             }
         });
@@ -108,36 +183,37 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
         string displayName)
     {
         OutOfBoxExperienceSettings oobeSettings = profile.OutOfBoxExperienceSettings ?? new();
+        // Microsoft Graph has used both current and legacy property names for these OOBE flags.
         bool hideEscapeLink = oobeSettings.HideEscapeLink ?? oobeSettings.EscapeLinkHidden ?? false;
         bool hidePrivacySettings = oobeSettings.HidePrivacySettings ?? oobeSettings.PrivacySettingsHidden ?? false;
         bool hideEula = oobeSettings.HideEula ?? oobeSettings.EulaHidden ?? false;
         bool skipKeyboardSelectionPage = oobeSettings.SkipKeyboardSelectionPage ?? oobeSettings.KeyboardSelectionPageSkipped ?? false;
-        int forcedEnrollment = hideEscapeLink ? 1 : 0;
-        int oobeConfig = 8 + 256;
+        int forcedEnrollment = hideEscapeLink ? ForcedEnrollmentEnabled : ForcedEnrollmentDisabled;
+        int oobeConfig = OobeConfigBaseFlags;
 
         if (string.Equals(oobeSettings.UserType, "standard", StringComparison.OrdinalIgnoreCase))
         {
-            oobeConfig += 2;
+            oobeConfig += OobeConfigStandardUserFlag;
         }
 
         if (hidePrivacySettings)
         {
-            oobeConfig += 4;
+            oobeConfig += OobeConfigHidePrivacySettingsFlag;
         }
 
         if (hideEula)
         {
-            oobeConfig += 16;
+            oobeConfig += OobeConfigHideEulaFlag;
         }
 
         if (skipKeyboardSelectionPage)
         {
-            oobeConfig += 1024;
+            oobeConfig += OobeConfigSkipKeyboardSelectionFlag;
         }
 
         if (string.Equals(oobeSettings.DeviceUsageType, "shared", StringComparison.OrdinalIgnoreCase))
         {
-            oobeConfig += 96;
+            oobeConfig += OobeConfigSharedDeviceFlags;
         }
 
         string aadServerData = JsonSerializer.Serialize(
@@ -151,19 +227,19 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
         var configuration = new OfflineAutopilotConfiguration
         {
             CommentFile = $"Profile {displayName}",
-            Version = 2049,
+            Version = OfflineAutopilotProfileVersion,
             ZtdCorrelationId = profile.Id ?? string.Empty,
             CloudAssignedDomainJoinMethod = string.Equals(
                 profile.ODataType,
                 "#microsoft.graph.activeDirectoryWindowsAutopilotDeploymentProfile",
-                StringComparison.OrdinalIgnoreCase) ? 1 : 0,
+                StringComparison.OrdinalIgnoreCase) ? DomainJoinMethodHybridEntraJoin : DomainJoinMethodEntraJoin,
             CloudAssignedOobeConfig = oobeConfig,
             CloudAssignedForcedEnrollment = forcedEnrollment,
             CloudAssignedTenantId = organization.Id,
             CloudAssignedTenantDomain = organization.DefaultDomain,
             CloudAssignedAadServerData = aadServerData,
-            CloudAssignedAutopilotUpdateDisabled = 1,
-            CloudAssignedAutopilotUpdateTimeout = 1800000
+            CloudAssignedAutopilotUpdateDisabled = AutopilotUpdateDisabled,
+            CloudAssignedAutopilotUpdateTimeout = AutopilotUpdateTimeoutMilliseconds
         };
 
         if (!string.IsNullOrWhiteSpace(profile.DeviceNameTemplate))
@@ -179,7 +255,7 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
 
         if (profile.HybridAzureAdJoinSkipConnectivityCheck == true)
         {
-            configuration.HybridJoinSkipDcConnectivityCheck = 1;
+            configuration.HybridJoinSkipDcConnectivityCheck = HybridJoinSkipDcConnectivityCheckEnabled;
         }
 
         return JsonSerializer.Serialize(
@@ -233,6 +309,7 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
                     !string.IsNullOrWhiteSpace(profile.DisplayName)));
             }
 
+            // Graph pagination returns an absolute nextLink; HttpClient accepts it even with a configured base address.
             requestPath = response?.NextLink;
         }
 
@@ -277,8 +354,17 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
     }
 }
 
+/// <summary>
+/// Tenant identity information required to generate offline Autopilot JSON.
+/// </summary>
+/// <param name="Id">The Microsoft Entra tenant ID.</param>
+/// <param name="DefaultDomain">The tenant default verified domain.</param>
 internal sealed record OrganizationInfo(string Id, string DefaultDomain);
 
+/// <summary>
+/// Represents a Microsoft Graph collection response.
+/// </summary>
+/// <typeparam name="TItem">The collection item type.</typeparam>
 internal sealed record GraphCollectionResponse<TItem>
 {
     public List<TItem>? Value { get; init; }
@@ -287,18 +373,27 @@ internal sealed record GraphCollectionResponse<TItem>
     public string? NextLink { get; init; }
 }
 
+/// <summary>
+/// Represents the subset of organization data required by offline Autopilot generation.
+/// </summary>
 internal sealed record OrganizationResponse
 {
     public string? Id { get; init; }
     public List<VerifiedDomain>? VerifiedDomains { get; init; }
 }
 
+/// <summary>
+/// Represents a verified tenant domain returned by Microsoft Graph.
+/// </summary>
 internal sealed record VerifiedDomain
 {
     public string? Name { get; init; }
     public bool IsDefault { get; init; }
 }
 
+/// <summary>
+/// Represents the Microsoft Graph Autopilot deployment profile payload consumed by Foundry.
+/// </summary>
 internal sealed record AutopilotDeploymentProfile
 {
     [JsonPropertyName("@odata.type")]
@@ -315,6 +410,9 @@ internal sealed record AutopilotDeploymentProfile
     public OutOfBoxExperienceSettings? OutOfBoxExperienceSettings { get; init; }
 }
 
+/// <summary>
+/// Represents the OOBE-related flags returned on an Autopilot deployment profile.
+/// </summary>
 internal sealed record OutOfBoxExperienceSettings
 {
     public string? UserType { get; init; }
@@ -334,13 +432,26 @@ internal sealed record OutOfBoxExperienceSettings
     public bool? EscapeLinkHidden { get; init; }
 }
 
+/// <summary>
+/// Represents the nested Azure AD server data embedded in offline Autopilot JSON.
+/// </summary>
+/// <param name="ZeroTouchConfig">The zero-touch configuration payload.</param>
 internal sealed record CloudAssignedAadServerData(ZeroTouchConfig ZeroTouchConfig);
 
+/// <summary>
+/// Represents the tenant zero-touch configuration embedded in offline Autopilot JSON.
+/// </summary>
+/// <param name="CloudAssignedTenantDomain">The tenant domain assigned to the device.</param>
+/// <param name="CloudAssignedTenantUpn">The optional assigned user principal name.</param>
+/// <param name="ForcedEnrollment">Whether enrollment is forced during OOBE.</param>
 internal sealed record ZeroTouchConfig(
     string CloudAssignedTenantDomain,
     string CloudAssignedTenantUpn,
     int ForcedEnrollment);
 
+/// <summary>
+/// Represents the offline Autopilot configuration file staged for Windows OOBE.
+/// </summary>
 internal sealed record OfflineAutopilotConfiguration
 {
     [JsonPropertyName("Comment_File")]
@@ -364,6 +475,9 @@ internal sealed record OfflineAutopilotConfiguration
     public int? HybridJoinSkipDcConnectivityCheck { get; set; }
 }
 
+/// <summary>
+/// Provides source-generated JSON metadata for Microsoft Graph and offline Autopilot payloads.
+/// </summary>
 [JsonSourceGenerationOptions(
     PropertyNameCaseInsensitive = true,
     WriteIndented = true,

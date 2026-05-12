@@ -8,6 +8,13 @@ using Microsoft.UI.Xaml;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Backs the network configuration page and keeps persisted 802.1X/Wi-Fi settings in sync with the UI.
+/// </summary>
+/// <remarks>
+/// Personal Wi-Fi passphrases are routed through <see cref="INetworkSecretStateService"/> so they can be used for
+/// provisioning without becoming durable application settings.
+/// </remarks>
 public sealed partial class NetworkConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IExpertDeployConfigurationStateService configurationStateService;
@@ -37,6 +44,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         isApplyingState = false;
     }
 
+    /// <summary>
+    /// Gets the Wi-Fi security type options shown by the network page.
+    /// </summary>
     public ObservableCollection<SelectionOption<string>> WifiSecurityTypes { get; } = [];
 
     [ObservableProperty]
@@ -277,6 +287,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
     public Visibility WifiCertificateValidationVisibility => ToVisibility(WifiCertificateValidationMessage);
 
+    /// <summary>
+    /// Releases subscriptions to localization and shared configuration state.
+    /// </summary>
     public void Dispose()
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
@@ -485,6 +498,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         isSavingState = true;
         try
         {
+            // Store only the sanitized network model; volatile secrets stay in the secret state service.
             configurationStateService.UpdateNetwork(BuildSettingsForValidation());
         }
         finally

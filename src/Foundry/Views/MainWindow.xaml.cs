@@ -9,6 +9,9 @@ using Serilog;
 
 namespace Foundry.Views
 {
+    /// <summary>
+    /// Hosts the main WinUI shell, navigation view, global operation dialog, and update banner.
+    /// </summary>
     public sealed partial class MainWindow : Window
     {
         private readonly IApplicationLocalizationService localizationService;
@@ -30,8 +33,14 @@ namespace Foundry.Views
         private TextBlock? operationSecondaryProgressPercentText;
         private bool operationDialogCanClose;
 
+        /// <summary>
+        /// Gets the shell view model.
+        /// </summary>
         public MainViewModel ViewModel { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             localizationService = App.GetService<IApplicationLocalizationService>();
@@ -263,6 +272,7 @@ namespace Foundry.Views
             bool isOperationRunning = state == ShellNavigationState.OperationRunning;
             UpdateOperationDialog(isOperationRunning);
 
+            // The navigation guard owns route availability so individual pages do not duplicate ADK or operation checks.
             ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, state);
             ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, state);
 

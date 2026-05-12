@@ -5,6 +5,9 @@ using Serilog;
 
 namespace Foundry.ViewModels
 {
+    /// <summary>
+    /// Owns shell-level update banner state for the main window.
+    /// </summary>
     public sealed partial class MainViewModel : ObservableObject, IDisposable
     {
         private readonly IApplicationUpdateStateService updateStateService;
@@ -26,6 +29,9 @@ namespace Foundry.ViewModels
         [ObservableProperty]
         public partial string UpdateBannerActionText { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
         public MainViewModel(
             IApplicationUpdateStateService updateStateService,
             IApplicationLocalizationService localizationService,
@@ -46,18 +52,25 @@ namespace Foundry.ViewModels
             ApplyUpdateState(updateStateService.CurrentResult);
         }
 
+        /// <summary>
+        /// Hides the update banner until a different update result is published.
+        /// </summary>
         public void DismissUpdateBanner()
         {
             isUpdateBannerDismissed = true;
             IsUpdateBannerOpen = false;
         }
 
+        /// <summary>
+        /// Marks the update banner action as handled and hides the banner.
+        /// </summary>
         public void MarkUpdateBannerActionOpened()
         {
             isUpdateBannerDismissed = true;
             IsUpdateBannerOpen = false;
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             updateStateService.StateChanged -= OnUpdateStateChanged;

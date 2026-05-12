@@ -6,6 +6,9 @@ using Serilog;
 
 namespace Foundry.Services.Startup;
 
+/// <summary>
+/// Initializes startup state that controls whether the shell can enter media creation workflows.
+/// </summary>
 internal sealed class StartupReadinessService(
     IAppSettingsService appSettingsService,
     IApplicationUpdateService updateService,
@@ -15,6 +18,7 @@ internal sealed class StartupReadinessService(
 {
     private readonly ILogger logger = logger.ForContext<StartupReadinessService>();
 
+    /// <inheritdoc />
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -32,6 +36,7 @@ internal sealed class StartupReadinessService(
                 appSettingsService.Current.Updates.Channel);
 
             var adkStatus = await adkService.RefreshStatusAsync(cancellationToken);
+            // ADK readiness is the startup gate for every route that can create or modify boot media.
             shellNavigationGuardService.SetState(adkStatus.CanCreateMedia ? ShellNavigationState.Ready : ShellNavigationState.AdkBlocked);
 
             await updateService.InitializeAsync(cancellationToken);
