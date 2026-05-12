@@ -39,9 +39,29 @@ public sealed record WinPeDriverCatalogEntry
     /// Gets the supported WinPE architecture.
     /// </summary>
     public WinPeArchitecture Architecture { get; init; }
+
+    /// <summary>
+    /// Gets the package download URI.
+    /// </summary>
     public string DownloadUri { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the expected package file name in the local cache.
+    /// </summary>
     public string FileName { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the archive or installer format used by the package.
+    /// </summary>
     public string Format { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the expected SHA-256 hash used for integrity validation.
+    /// </summary>
     public string Sha256 { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the vendor release date when the catalog provides one.
+    /// </summary>
     public DateTimeOffset? ReleaseDate { get; init; }
 }

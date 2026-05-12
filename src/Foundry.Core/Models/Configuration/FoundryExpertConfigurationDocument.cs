@@ -26,12 +26,12 @@ public sealed record FoundryExpertConfigurationDocument
     public NetworkSettings Network { get; init; } = new();
 
     /// <summary>
-    /// Gets OS localization settings generated for deployment.
+    /// Gets user-authored OS localization settings used when deployment configuration is generated.
     /// </summary>
     public LocalizationSettings Localization { get; init; } = new();
 
     /// <summary>
-    /// Gets post-apply customization settings generated for deployment.
+    /// Gets user-authored customization settings used when deployment configuration is generated.
     /// </summary>
     public CustomizationSettings Customization { get; init; } = new();
 
