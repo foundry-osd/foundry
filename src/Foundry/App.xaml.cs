@@ -7,19 +7,55 @@ using Serilog;
 
 namespace Foundry
 {
+    /// <summary>
+    /// Owns the WinUI application lifetime and exposes the host services used by XAML pages.
+    /// </summary>
     public partial class App : Application
     {
         private static readonly ILogger AppLogger = Log.ForContext<App>();
         private bool isShuttingDown;
 
+        /// <summary>
+        /// Gets the active Foundry application instance.
+        /// </summary>
         public new static App Current => (App)Application.Current;
+
+        /// <summary>
+        /// Gets the main window once the application has launched.
+        /// </summary>
         public static Window MainWindow = Window.Current;
+
+        /// <summary>
+        /// Gets the native window handle used by WinUI-backed platform services.
+        /// </summary>
         public static IntPtr Hwnd => WinRT.Interop.WindowNative.GetWindowHandle(MainWindow);
+
+        /// <summary>
+        /// Gets the dependency injection host for the application.
+        /// </summary>
         public IHost Host { get; }
+
+        /// <summary>
+        /// Gets the service provider rooted in <see cref="Host"/>.
+        /// </summary>
         public IServiceProvider Services => Host.Services;
+
+        /// <summary>
+        /// Gets the navigation service registered by the app shell.
+        /// </summary>
         public IJsonNavigationService NavService => GetService<IJsonNavigationService>();
+
+        /// <summary>
+        /// Gets the theme service used to apply runtime theme changes.
+        /// </summary>
         public IThemeService ThemeService => GetService<IThemeService>();
 
+        /// <summary>
+        /// Resolves a required service from the application host.
+        /// </summary>
+        /// <typeparam name="T">The service contract type.</typeparam>
+        /// <returns>The registered service instance.</returns>
+        /// <exception cref="ArgumentException">Thrown when the requested service has not been registered.</exception>
         public static T GetService<T>() where T : class
         {
             if (Current.Services.GetService(typeof(T)) is not T service)
@@ -30,6 +66,9 @@ namespace Foundry
             return service;
         }
 
+        /// <summary>
+        /// Creates the application host, initializes settings and localization, and loads the XAML application.
+        /// </summary>
         public App()
         {
             Host = FoundryHost.Create();
@@ -41,6 +80,10 @@ namespace Foundry
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Creates and activates the main window, then starts application readiness checks.
+        /// </summary>
+        /// <param name="args">Launch activation arguments provided by WinUI.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             try

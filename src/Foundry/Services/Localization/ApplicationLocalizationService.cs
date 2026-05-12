@@ -8,6 +8,9 @@ using Windows.System.UserProfile;
 
 namespace Foundry.Services.Localization;
 
+/// <summary>
+/// Applies the selected UI language and resolves localized WinUI resource strings.
+/// </summary>
 internal sealed class ApplicationLocalizationService(
     IAppSettingsService appSettingsService,
     ILogger logger) : IApplicationLocalizationService
@@ -17,10 +20,13 @@ internal sealed class ApplicationLocalizationService(
     private ResourceContext? resourceContext;
     private string currentLanguage = SupportedCultureCatalog.DefaultCultureCode;
 
+    /// <inheritdoc />
     public string CurrentLanguage => currentLanguage;
 
+    /// <inheritdoc />
     public event EventHandler<ApplicationLanguageChangedEventArgs>? LanguageChanged;
 
+    /// <inheritdoc />
     public Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -53,6 +59,7 @@ internal sealed class ApplicationLocalizationService(
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public Task SetLanguageAsync(string languageCode, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -93,6 +100,7 @@ internal sealed class ApplicationLocalizationService(
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc />
     public string GetString(string key)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(key);
@@ -135,11 +143,13 @@ internal sealed class ApplicationLocalizationService(
             ?? resourceMap.TryGetValue(resourceKey, resourceContext);
     }
 
+    /// <inheritdoc />
     public string FormatString(string key, params object[] args)
     {
         return string.Format(CultureInfo.CurrentCulture, GetString(key), args);
     }
 
+    /// <inheritdoc />
     public IReadOnlyList<SupportedCultureOption> CreateSupportedLanguageOptions()
     {
         CultureInfo currentCulture = CultureInfo.GetCultureInfo(currentLanguage);
@@ -152,6 +162,7 @@ internal sealed class ApplicationLocalizationService(
         CultureInfo.DefaultThreadCurrentCulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
 
+        // WinUI resource lookup uses the primary language override plus an explicit ResourceContext qualifier.
         ApplicationLanguages.PrimaryLanguageOverride = languageCode;
 
         resourceManager ??= new ResourceManager();

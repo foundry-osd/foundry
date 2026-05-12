@@ -8,6 +8,9 @@ using Serilog;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Drives the ADK readiness page and install or upgrade actions.
+/// </summary>
 public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
 {
     private readonly IAdkService adkService;
@@ -77,6 +80,9 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial bool IsActionEnabled { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AdkPageViewModel"/> class.
+    /// </summary>
     public AdkPageViewModel(
         IAdkService adkService,
         IOperationProgressService operationProgressService,
@@ -117,6 +123,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         ApplyOperationState(operationProgressService.State);
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         adkService.StatusChanged -= OnAdkStatusChanged;
@@ -138,6 +145,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
 
     private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
     {
+        // ADK setup can display UAC and modifies machine-level components, so the shell blocks navigation while it runs.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
 
         try
