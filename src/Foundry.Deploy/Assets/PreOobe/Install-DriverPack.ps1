@@ -54,10 +54,6 @@ finally {
         reg delete 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1' /v Path /f | Out-Null
     }
 
-    if (Test-Path -Path 'C:\Drivers') {
-        Remove-Item -Path 'C:\Drivers' -Recurse -Force
-    }
-
     if (Test-Path -Path $ResolvedPackagePath -PathType Leaf) {
         Remove-Item -Path $ResolvedPackagePath -Force
     }

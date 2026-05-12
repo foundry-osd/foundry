@@ -107,6 +107,39 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_KeepsRootFolderCleanupOutOfDriverScript()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "driver-pack",
+                    FileName = "Install-DriverPack.ps1",
+                    ResourceName = PreOobeScriptResources.InstallDriverPack,
+                    Priority = PreOobeScriptPriority.DriverProvisioning
+                },
+                new PreOobeScriptDefinition
+                {
+                    Id = "cleanup",
+                    FileName = "Cleanup-PreOobe.ps1",
+                    ResourceName = PreOobeScriptResources.CleanupPreOobe,
+                    Priority = PreOobeScriptPriority.Cleanup
+                }
+            ]);
+
+        string scriptsRoot = Path.GetDirectoryName(result.StagedScriptPaths[0])!;
+        string driverScript = File.ReadAllText(Path.Combine(scriptsRoot, "Install-DriverPack.ps1"));
+        string cleanupScript = File.ReadAllText(Path.Combine(scriptsRoot, "Cleanup-PreOobe.ps1"));
+
+        Assert.DoesNotContain("Remove-Item -Path 'C:\\Drivers'", driverScript);
+        Assert.Contains("'C:\\Drivers'", cleanupScript);
+    }
+
+    [Fact]
     public void Provision_WritesSetupCompleteLauncherBlock()
     {
         string windowsRoot = CreateWindowsRoot();
