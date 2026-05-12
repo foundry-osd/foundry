@@ -16,7 +16,7 @@ public sealed record WifiSettings
     public string? Ssid { get; init; }
 
     /// <summary>
-    /// Gets the normalized Wi-Fi security type.
+    /// Gets the configured Wi-Fi security type before validation and runtime generation normalize it.
     /// </summary>
     public string? SecurityType { get; init; }
 
@@ -41,12 +41,14 @@ public sealed record WifiSettings
     public string? EnterpriseProfileTemplatePath { get; init; }
 
     /// <summary>
-    /// Gets the expected authentication mode for the enterprise profile template.
+    /// Gets the source enterprise authentication mode.
+    /// Runtime Foundry.Connect generation currently emits the fixed user-only mode.
     /// </summary>
     public NetworkAuthenticationMode EnterpriseAuthenticationMode { get; init; } = NetworkAuthenticationMode.UserOnly;
 
     /// <summary>
-    /// Gets whether runtime credentials are allowed when the enterprise profile is applied.
+    /// Gets whether the source configuration requested runtime credentials.
+    /// Runtime Foundry.Connect generation currently disables runtime credential collection.
     /// </summary>
     public bool AllowRuntimeCredentials { get; init; }
 

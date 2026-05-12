@@ -18,6 +18,6 @@ public interface IExpertConfigurationService
     /// Deserializes an Expert Deploy configuration document from JSON.
     /// </summary>
     /// <param name="json">The JSON document content.</param>
-    /// <returns>The deserialized Expert Deploy configuration document.</returns>
+    /// <returns>The deserialized document, or a default document when the JSON literal is <c>null</c>.</returns>
     FoundryExpertConfigurationDocument Deserialize(string json);
 }

@@ -6,12 +6,12 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record FoundryConnectProvisionedAssetFile
 {
     /// <summary>
-    /// Gets the absolute or staging-root source path of the generated asset.
+    /// Gets the existing staged file path to copy into the mounted image.
     /// </summary>
     public string SourcePath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the destination path relative to the Connect provisioning root.
+    /// Gets the destination path relative to the mounted image root.
     /// </summary>
     public string RelativeDestinationPath { get; init; } = string.Empty;
 }

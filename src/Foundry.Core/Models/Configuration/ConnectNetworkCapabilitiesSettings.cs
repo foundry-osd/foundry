@@ -6,7 +6,8 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record ConnectNetworkCapabilitiesSettings
 {
     /// <summary>
-    /// Gets a value indicating whether the media contains a provisioned Wi-Fi profile.
+    /// Gets a value indicating whether generated media should expose runtime Wi-Fi features.
+    /// Active profile availability still depends on the generated Wi-Fi settings.
     /// </summary>
     public bool WifiProvisioned { get; init; }
 }

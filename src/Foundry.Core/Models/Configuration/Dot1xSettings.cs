@@ -16,12 +16,14 @@ public sealed record Dot1xSettings
     public string? ProfileTemplatePath { get; init; }
 
     /// <summary>
-    /// Gets the expected authentication mode for the profile template.
+    /// Gets the source authentication mode.
+    /// Runtime Foundry.Connect generation currently emits the fixed machine-only mode.
     /// </summary>
     public NetworkAuthenticationMode AuthenticationMode { get; init; } = NetworkAuthenticationMode.MachineOnly;
 
     /// <summary>
-    /// Gets whether runtime credentials are allowed when the profile is applied.
+    /// Gets whether the source configuration requested runtime credentials.
+    /// Runtime Foundry.Connect generation currently disables runtime credential collection.
     /// </summary>
     public bool AllowRuntimeCredentials { get; init; }
 
