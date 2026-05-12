@@ -41,9 +41,29 @@ public sealed record DeploymentContext
     /// Gets the selected driver pack strategy.
     /// </summary>
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
+
+    /// <summary>
+    /// Gets the selected catalog driver pack when a catalog-backed strategy is used.
+    /// </summary>
     public DriverPackCatalogItem? DriverPack { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether matching firmware updates should be downloaded and applied.
+    /// </summary>
     public bool ApplyFirmwareUpdates { get; init; } = true;
+
+    /// <summary>
+    /// Gets a value indicating whether an Autopilot profile should be staged for OOBE.
+    /// </summary>
     public bool IsAutopilotEnabled { get; init; }
+
+    /// <summary>
+    /// Gets the selected Autopilot profile staged into the offline Windows image.
+    /// </summary>
     public AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether deployment runs against a temporary workspace instead of mutating a target disk.
+    /// </summary>
     public bool IsDryRun { get; init; }
 }

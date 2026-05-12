@@ -19,8 +19,24 @@ public sealed record DriverPackExecutionPlan
     /// Gets the deferred command kind used by the pre-OOBE driver script.
     /// </summary>
     public required DeferredDriverPackageCommandKind DeferredCommandKind { get; init; }
+
+    /// <summary>
+    /// Gets the downloaded driver package path.
+    /// </summary>
     public required string DownloadedPath { get; init; }
+
+    /// <summary>
+    /// Gets the effective file extension used to choose extraction and installation behavior.
+    /// </summary>
     public required string EffectiveFileExtension { get; init; }
+
+    /// <summary>
+    /// Gets the normalized manufacturer name used by strategy resolution.
+    /// </summary>
     public required string Manufacturer { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether the strategy expects extracted INF payloads.
+    /// </summary>
     public required bool RequiresInfPayload { get; init; }
 }

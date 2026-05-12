@@ -3,8 +3,12 @@ using Foundry.Deploy.Models;
 
 namespace Foundry.Deploy.Services.DriverPacks;
 
+/// <summary>
+/// Chooses offline INF or deferred pre-OOBE driver installation based on package source, manufacturer, and format.
+/// </summary>
 public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
 {
+    /// <inheritdoc />
     public DriverPackExecutionPlan Resolve(
         DriverPackSelectionKind selectionKind,
         DriverPackCatalogItem? driverPack,

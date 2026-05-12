@@ -118,7 +118,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                // Steps are intentionally ordered by IDeploymentStep.Order, then checked against DeploymentStepNames.All.
                 IDeploymentStep step = _steps[i];
                 executionContext.SetCurrentStep(step, i + 1);
 
