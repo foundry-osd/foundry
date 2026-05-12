@@ -3,10 +3,16 @@ using System.Xml.Linq;
 
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Loads WinPE driver catalog XML from HTTP or disk and maps matching entries to catalog records.
+/// </summary>
 public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
 {
     private readonly HttpClient _httpClient;
 
+    /// <summary>
+    /// Initializes a driver catalog service with a default HTTP client.
+    /// </summary>
     public WinPeDriverCatalogService()
         : this(new HttpClient())
     {
@@ -17,6 +23,7 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
         _httpClient = httpClient;
     }
 
+    /// <inheritdoc />
     public async Task<WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>> GetCatalogAsync(
         WinPeDriverCatalogOptions options,
         CancellationToken cancellationToken = default)
@@ -40,6 +47,7 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             }
             else
             {
+                // Local catalog paths are supported to allow offline media creation and catalog testing.
                 xmlContent = await File.ReadAllTextAsync(options.CatalogUri, cancellationToken).ConfigureAwait(false);
             }
         }
@@ -108,6 +116,7 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             if (name.Contains("preview", StringComparison.OrdinalIgnoreCase) ||
                 version.Contains("preview", StringComparison.OrdinalIgnoreCase))
             {
+                // Preview packages are intentionally excluded from boot media because recovery environments need stable drivers.
                 continue;
             }
 

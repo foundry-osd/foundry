@@ -2,8 +2,16 @@ using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Services.Media;
 
+/// <summary>
+/// Evaluates whether the current media configuration can produce ISO or USB output.
+/// </summary>
 public static class MediaPreflightService
 {
+    /// <summary>
+    /// Evaluates media creation readiness for ISO and USB targets.
+    /// </summary>
+    /// <param name="options">The preflight options collected from app state.</param>
+    /// <returns>The preflight evaluation including blocking reasons for each target.</returns>
     public static MediaPreflightEvaluation Evaluate(MediaPreflightOptions options)
     {
         ArgumentNullException.ThrowIfNull(options);
@@ -25,6 +33,7 @@ public static class MediaPreflightService
         UsbPartitionStyle effectiveUsbPartitionStyle = options.UsbPartitionStyle;
         if (options.Architecture == WinPeArchitecture.Arm64 && options.UsbPartitionStyle == UsbPartitionStyle.Mbr)
         {
+            // ARM64 boot media requires GPT even when the persisted USB preference still says MBR.
             effectiveUsbPartitionStyle = UsbPartitionStyle.Gpt;
             usbReasons.Add(MediaPreflightBlockingReason.Arm64RequiresGpt);
         }

@@ -1,14 +1,51 @@
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Describes how Foundry.Connect and Foundry.Deploy runtime payloads are staged into a mounted boot image.
+/// </summary>
 public sealed record WinPeRuntimePayloadProvisioningOptions
 {
+    /// <summary>
+    /// Gets the target runtime architecture.
+    /// </summary>
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;
+
+    /// <summary>
+    /// Gets the working directory used for publish/archive extraction.
+    /// </summary>
     public string WorkingDirectoryPath { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the mounted image root path.
+    /// </summary>
     public string MountedImagePath { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the USB cache root path staged into the boot image.
+    /// </summary>
     public string UsbCacheRootPath { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets Foundry.Connect payload options.
+    /// </summary>
     public WinPeRuntimePayloadApplicationOptions Connect { get; init; } = new();
+
+    /// <summary>
+    /// Gets Foundry.Deploy payload options.
+    /// </summary>
     public WinPeRuntimePayloadApplicationOptions Deploy { get; init; } = new();
 
+    /// <summary>
+    /// Creates development-time payload options from debugger state and environment variables.
+    /// </summary>
+    /// <param name="architecture">The target runtime architecture.</param>
+    /// <param name="workingDirectoryPath">The working directory used for payload preparation.</param>
+    /// <param name="mountedImagePath">The mounted image root path.</param>
+    /// <param name="usbCacheRootPath">The USB cache root path.</param>
+    /// <param name="isDebuggerAttached">Whether a debugger is attached to the app process.</param>
+    /// <param name="getEnvironmentVariable">An optional environment variable accessor for tests.</param>
+    /// <param name="projectDiscoveryStartPath">An optional path used to discover sibling project files.</param>
+    /// <returns>Runtime payload provisioning options.</returns>
     public static WinPeRuntimePayloadProvisioningOptions CreateDeveloperOptions(
         WinPeArchitecture architecture,
         string workingDirectoryPath,
