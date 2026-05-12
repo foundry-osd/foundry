@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>
+/// Runs the deployment workflow in the registered step order and persists progress/log state.
+/// </summary>
 public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 {
     private readonly IOperationProgressService _operationProgressService;
@@ -14,6 +17,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly IReadOnlyList<IDeploymentStep> _steps;
     private readonly ILogger<DeploymentOrchestrator> _logger;
 
+    /// <summary>
+    /// Initializes the deployment orchestrator and validates the registered step sequence.
+    /// </summary>
     public DeploymentOrchestrator(
         IOperationProgressService operationProgressService,
         IDeploymentLogService deploymentLogService,
@@ -46,10 +52,13 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         }
     }
 
+    /// <inheritdoc />
     public IReadOnlyList<string> PlannedSteps { get; }
 
+    /// <inheritdoc />
     public event EventHandler<DeploymentStepProgress>? StepProgressChanged;
 
+    /// <inheritdoc />
     public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation(
@@ -109,6 +118,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
+                // Steps are intentionally ordered by IDeploymentStep.Order, then checked against DeploymentStepNames.All.
                 IDeploymentStep step = _steps[i];
                 executionContext.SetCurrentStep(step, i + 1);
 

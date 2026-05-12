@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>
+/// Performs destructive disk layout, offline Windows image servicing, boot configuration, and WinRE operations.
+/// </summary>
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
     private const int EfiPartitionSizeMb = 260;
@@ -26,12 +29,18 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<WindowsDeploymentService> _logger;
 
+    /// <summary>
+    /// Initializes a Windows deployment service.
+    /// </summary>
+    /// <param name="processRunner">The process runner used for diskpart, DISM, bcdboot, and winrecfg.</param>
+    /// <param name="logger">The logger used for deployment diagnostics.</param>
     public WindowsDeploymentService(IProcessRunner processRunner, ILogger<WindowsDeploymentService> logger)
     {
         _processRunner = processRunner;
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public async Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
         int diskNumber,
         string workingDirectory,
@@ -52,6 +61,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         string[] scriptLines =
         [
+            // This is the destructive boundary of deployment: the selected disk is cleaned and repartitioned.
             $"select disk {diskNumber}",
             "online disk noerr",
             "attributes disk clear readonly noerr",
@@ -104,6 +114,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         };
     }
 
+    /// <inheritdoc />
     public async Task<int> ResolveImageIndexAsync(
         string imagePath,
         string requestedEdition,
@@ -158,6 +169,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return resolvedIndex;
     }
 
+    /// <inheritdoc />
     public async Task ApplyImageAsync(
         string imagePath,
         int imageIndex,
@@ -213,6 +225,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("OS image apply completed. ImagePath={ImagePath}, Index={ImageIndex}", imagePath, imageIndex);
     }
 
+    /// <inheritdoc />
     public async Task<string?> GetAppliedWindowsEditionAsync(
         string windowsPartitionRoot,
         string workingDirectory,
@@ -258,6 +271,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return edition;
     }
 
+    /// <inheritdoc />
     public Task ConfigureOfflineComputerNameAsync(
         string windowsPartitionRoot,
         string computerName,
@@ -299,6 +313,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(unattendNamespace + "unattend"));
 
+        // The specialize pass is used so computer name and time zone are applied before OOBE starts.
         XElement root = EnsureUnattendRoot(document, unattendNamespace);
         XElement settings = root
             .Elements(unattendNamespace + "settings")
@@ -389,6 +404,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             : normalizedTimeZoneId;
     }
 
+    /// <inheritdoc />
     public async Task ConfigureRecoveryEnvironmentAsync(
         string windowsPartitionRoot,
         string recoveryPartitionRoot,
@@ -437,6 +453,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("Recovery environment configured successfully.");
     }
 
+    /// <inheritdoc />
     public async Task SealRecoveryPartitionAsync(
         string recoveryPartitionRoot,
         char recoveryPartitionLetter,
@@ -475,6 +492,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("Recovery partition sealed successfully. RecoveryPartitionLetter={RecoveryPartitionLetter}", normalizedLetter);
     }
 
+    /// <inheritdoc />
     public async Task ApplyOfflineDriversAsync(
         string windowsPartitionRoot,
         string driverRoot,
@@ -530,6 +548,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("Offline driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
 
+    /// <inheritdoc />
     public async Task ApplyRecoveryDriversAsync(
         string recoveryPartitionRoot,
         string driverRoot,
@@ -666,6 +685,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         {
             if (mounted)
             {
+                // Always unmount WinRE even after driver injection failure so the image is not left mounted.
                 string[] unmountArguments = shouldCommit
                     ? ["/Unmount-Image", $"/MountDir:{mountPath}", "/Commit"]
                     : ["/Unmount-Image", $"/MountDir:{mountPath}", "/Discard"];
@@ -724,6 +744,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("Recovery driver injection completed. DriverRoot={DriverRoot}", driverRoot);
     }
 
+    /// <inheritdoc />
     public async Task ConfigureBootAsync(
         string windowsPartitionRoot,
         string systemPartitionRoot,

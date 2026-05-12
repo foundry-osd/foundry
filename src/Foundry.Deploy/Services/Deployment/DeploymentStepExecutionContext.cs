@@ -8,6 +8,9 @@ using Foundry.Deploy.Services.Operations;
 
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>
+/// Provides shared state, logging, workspace paths, and progress helpers to deployment steps.
+/// </summary>
 public sealed class DeploymentStepExecutionContext
 {
     private const string WinPeRoot = @"X:\Foundry";
@@ -28,6 +31,9 @@ public sealed class DeploymentStepExecutionContext
     private readonly ITargetDiskService _targetDiskService;
     private readonly Action<DeploymentStepProgress> _emitStepProgress;
 
+    /// <summary>
+    /// Initializes a deployment step execution context and creates the initial log session.
+    /// </summary>
     public DeploymentStepExecutionContext(
         DeploymentContext request,
         DeploymentRuntimeState runtimeState,
@@ -49,12 +55,24 @@ public sealed class DeploymentStepExecutionContext
         LogSession = _deploymentLogService.Initialize(RuntimeState.WorkspaceRoot);
     }
 
+    /// <summary>
+    /// Gets the immutable deployment request.
+    /// </summary>
     public DeploymentContext Request { get; }
 
+    /// <summary>
+    /// Gets mutable runtime state persisted between deployment steps.
+    /// </summary>
     public DeploymentRuntimeState RuntimeState { get; }
 
+    /// <summary>
+    /// Gets the planned step names in execution order.
+    /// </summary>
     public IReadOnlyList<string> PlannedSteps { get; }
 
+    /// <summary>
+    /// Gets the active deployment log session.
+    /// </summary>
     public DeploymentLogSession LogSession { get; private set; }
 
     public int StepIndex { get; private set; }
@@ -63,11 +81,17 @@ public sealed class DeploymentStepExecutionContext
 
     public string StepName { get; private set; } = string.Empty;
 
+    /// <summary>
+    /// Resolves the workspace root for WinPE, dry-run, or local runtime execution.
+    /// </summary>
+    /// <param name="context">The deployment request.</param>
+    /// <returns>The workspace root path.</returns>
     public static string ResolveWorkspaceRoot(DeploymentContext context)
     {
         bool hasWinPeDrive = Directory.Exists(WinPeDriveRoot);
         if (hasWinPeDrive)
         {
+            // Real WinPE runs use X:\Foundry so logs and transient files stay with the boot environment.
             return WinPeRoot;
         }
 

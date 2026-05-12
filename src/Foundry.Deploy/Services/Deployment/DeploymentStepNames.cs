@@ -1,5 +1,8 @@
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>
+/// Defines the canonical deployment step names and their expected workflow order.
+/// </summary>
 public static class DeploymentStepNames
 {
     public const string GatherDeploymentVariables = "Gather deployment variables";
@@ -20,6 +23,9 @@ public static class DeploymentStepNames
     public const string StageAutopilotConfiguration = "Stage Autopilot configuration";
     public const string FinalizeDeploymentAndWriteLogs = "Finalize deployment and write logs";
 
+    /// <summary>
+    /// Gets the canonical deployment workflow order validated by <see cref="DeploymentOrchestrator"/>.
+    /// </summary>
     public static readonly IReadOnlyList<string> All =
     [
         GatherDeploymentVariables,
