@@ -4,10 +4,20 @@ using Serilog;
 
 namespace Foundry.Services.Settings;
 
+/// <summary>
+/// Persists application settings as JSON under the Foundry settings directory.
+/// </summary>
+/// <remarks>
+/// Invalid settings files are moved aside with an <c>.invalid</c> suffix and replaced by defaults.
+/// </remarks>
 internal sealed partial class JsonAppSettingsService : IAppSettingsService
 {
     private readonly ILogger logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JsonAppSettingsService"/> class.
+    /// </summary>
+    /// <param name="logger">Logger used for persistence and recovery diagnostics.</param>
     public JsonAppSettingsService(ILogger logger)
     {
         this.logger = logger.ForContext<JsonAppSettingsService>();
@@ -16,9 +26,13 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
         Save();
     }
 
+    /// <inheritdoc />
     public FoundryAppSettings Current { get; }
+
+    /// <inheritdoc />
     public bool IsFirstRun { get; }
 
+    /// <inheritdoc />
     public void Save()
     {
         try

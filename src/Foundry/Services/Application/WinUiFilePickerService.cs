@@ -3,8 +3,12 @@ using Microsoft.Windows.Storage.Pickers;
 
 namespace Foundry.Services.Application;
 
+/// <summary>
+/// Implements file and folder picking through WinUI picker controls bound to the main window.
+/// </summary>
 public sealed class WinUiFilePickerService : IFilePickerService
 {
+    /// <inheritdoc />
     public async Task<string?> PickOpenFileAsync(FileOpenPickerRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
@@ -23,6 +27,7 @@ public sealed class WinUiFilePickerService : IFilePickerService
         return result?.Path;
     }
 
+    /// <inheritdoc />
     public async Task<string?> PickSaveFileAsync(FileSavePickerRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
@@ -43,6 +48,7 @@ public sealed class WinUiFilePickerService : IFilePickerService
         return result?.Path;
     }
 
+    /// <inheritdoc />
     public async Task<string?> PickFolderAsync(FolderPickerRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);

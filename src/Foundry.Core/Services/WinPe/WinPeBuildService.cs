@@ -1,10 +1,16 @@
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Creates WinPE workspaces by invoking ADK Copype and preparing Foundry working folders.
+/// </summary>
 public sealed class WinPeBuildService : IWinPeBuildService
 {
     private readonly WinPeToolResolver _toolResolver;
     private readonly IWinPeProcessRunner _processRunner;
 
+    /// <summary>
+    /// Initializes a WinPE build service using the default ADK tool resolver and process runner.
+    /// </summary>
     public WinPeBuildService()
         : this(new WinPeToolResolver(), new WinPeProcessRunner())
     {
@@ -16,6 +22,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
         _processRunner = processRunner;
     }
 
+    /// <inheritdoc />
     public async Task<WinPeResult<WinPeBuildArtifact>> BuildAsync(
         WinPeBuildOptions options,
         CancellationToken cancellationToken = default)
@@ -41,6 +48,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
         {
             if (Directory.Exists(workingDirectory) && options.CleanExistingWorkingDirectory)
             {
+                // The workspace is owned by this build stage, so stale ADK output is removed before Copype runs.
                 Directory.Delete(workingDirectory, recursive: true);
             }
 

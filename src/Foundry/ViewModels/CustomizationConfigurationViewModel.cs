@@ -6,6 +6,9 @@ using Microsoft.UI.Xaml;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Backs deployment customization settings that are generated into the Expert Deploy configuration.
+/// </summary>
 public sealed partial class CustomizationConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IExpertDeployConfigurationStateService configurationStateService;
@@ -28,9 +31,24 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         isApplyingState = false;
     }
 
+    /// <summary>
+    /// Gets the maximum computer-name prefix length accepted by Windows naming rules.
+    /// </summary>
     public int MachineNamePrefixMaxLength => ComputerNameRules.MaxLength;
+
+    /// <summary>
+    /// Gets whether machine naming controls should be enabled.
+    /// </summary>
     public bool IsMachineNamingOptionsEnabled => IsMachineNamingEnabled;
+
+    /// <summary>
+    /// Gets whether the current machine-name prefix has a validation error.
+    /// </summary>
     public bool HasMachineNamePrefixValidationError => !string.IsNullOrWhiteSpace(MachineNamePrefixValidationMessage);
+
+    /// <summary>
+    /// Gets the visibility for the machine-name prefix validation message.
+    /// </summary>
     public Visibility MachineNamePrefixValidationVisibility => HasMachineNamePrefixValidationError
         ? Visibility.Visible
         : Visibility.Collapsed;
@@ -87,6 +105,9 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     [ObservableProperty]
     public partial bool AllowManualSuffixEdit { get; set; } = true;
 
+    /// <summary>
+    /// Gets the localized validation message for the machine-name prefix.
+    /// </summary>
     public string MachineNamePrefixValidationMessage
     {
         get
@@ -102,6 +123,9 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         }
     }
 
+    /// <summary>
+    /// Releases subscriptions to localization and shared configuration state.
+    /// </summary>
     public void Dispose()
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
@@ -173,6 +197,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         isSavingState = true;
         try
         {
+            // Disabled machine naming intentionally clears generated JSON fields instead of preserving stale UI values.
             configurationStateService.UpdateCustomization(new CustomizationSettings
             {
                 MachineNaming = new MachineNamingSettings

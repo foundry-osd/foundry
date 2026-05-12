@@ -4,6 +4,13 @@ using Serilog;
 
 namespace Foundry.Services.Configuration;
 
+/// <summary>
+/// Maintains the user-facing Expert Deploy configuration state and generates deploy/connect payloads from it.
+/// </summary>
+/// <remarks>
+/// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and are only merged
+/// when a provisioning bundle is generated.
+/// </remarks>
 internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfigurationStateService
 {
     private readonly IExpertConfigurationService expertConfigurationService;
@@ -28,12 +35,16 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         Save();
     }
 
+    /// <inheritdoc />
     public event EventHandler? StateChanged;
 
+    /// <inheritdoc />
     public FoundryExpertConfigurationDocument Current { get; private set; }
 
+    /// <inheritdoc />
     public bool IsNetworkConfigurationReady => EvaluateNetworkMediaReadiness().IsNetworkConfigurationReady;
 
+    /// <inheritdoc />
     public bool IsDeployConfigurationReady
     {
         get
@@ -51,22 +62,29 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         }
     }
 
+    /// <inheritdoc />
     public bool IsConnectProvisioningReady => EvaluateNetworkMediaReadiness().IsConnectProvisioningReady;
 
+    /// <inheritdoc />
     public bool AreRequiredSecretsReady => EvaluateNetworkMediaReadiness().AreRequiredSecretsReady;
 
+    /// <inheritdoc />
     public bool IsAutopilotEnabled => Current.Autopilot.IsEnabled;
 
+    /// <inheritdoc />
     public bool IsAutopilotConfigurationReady => !Current.Autopilot.IsEnabled || GetSelectedAutopilotProfile() is not null;
 
+    /// <inheritdoc />
     public string? SelectedAutopilotProfileDisplayName => Current.Autopilot.IsEnabled
         ? GetSelectedAutopilotProfile()?.DisplayName
         : null;
 
+    /// <inheritdoc />
     public string? SelectedAutopilotProfileFolderName => Current.Autopilot.IsEnabled
         ? GetSelectedAutopilotProfile()?.FolderName
         : null;
 
+    /// <inheritdoc />
     public void UpdateLocalization(LocalizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -75,6 +93,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <inheritdoc />
     public void UpdateNetwork(NetworkSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -84,6 +103,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <inheritdoc />
     public void UpdateCustomization(CustomizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -92,6 +112,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <inheritdoc />
     public void UpdateAutopilot(AutopilotSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -100,11 +121,13 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <inheritdoc />
     public string GenerateDeployConfigurationJson()
     {
         return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(Current));
     }
 
+    /// <inheritdoc />
     public FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath)
     {
         FoundryExpertConfigurationDocument document = Current with
@@ -155,6 +178,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
 
     private static AutopilotSettings SanitizeAutopilotForPersistence(AutopilotSettings settings)
     {
+        // Keep persisted profiles deterministic because the selected profile is referenced by ID across sessions.
         AutopilotProfileSettings[] profiles = settings.Profiles
             .Where(profile =>
                 !string.IsNullOrWhiteSpace(profile.Id) &&
@@ -187,6 +211,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
 
         return settings with
         {
+            // Disabled machine naming must not leak a stale prefix into generated deployment JSON.
             MachineNaming = new MachineNamingSettings
             {
                 IsEnabled = settings.MachineNaming.IsEnabled,

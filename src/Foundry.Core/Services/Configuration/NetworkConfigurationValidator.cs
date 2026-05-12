@@ -3,18 +3,49 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
 
+/// <summary>
+/// Validates and normalizes Expert Deploy network settings before they are persisted or provisioned.
+/// </summary>
 public static class NetworkConfigurationValidator
 {
+    /// <summary>
+    /// Represents an open Wi-Fi network.
+    /// </summary>
     public const string WifiSecurityOpen = "Open";
+
+    /// <summary>
+    /// Represents opportunistic wireless encryption.
+    /// </summary>
     public const string WifiSecurityOwe = "OWE";
+
+    /// <summary>
+    /// Represents WPA2/WPA3 personal Wi-Fi security.
+    /// </summary>
     public const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
+
+    /// <summary>
+    /// Represents WPA2/WPA3 enterprise Wi-Fi security.
+    /// </summary>
     public const string WifiSecurityEnterprise = "WPA2/WPA3-Enterprise";
+
+    /// <summary>
+    /// Represents WPA3 enterprise Wi-Fi security.
+    /// </summary>
     public const string WifiSecurityEnterpriseWpa3 = "WPA3ENT";
+
+    /// <summary>
+    /// Represents WPA3 enterprise 192-bit Wi-Fi security.
+    /// </summary>
     public const string WifiSecurityEnterpriseWpa3192 = "WPA3ENT192";
 
     private static readonly string[] LegacyWifiSecurityPersonalValues = ["WPA2-Personal", "WPA3-Personal", "Personal"];
     private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "WPA3", "Enterprise"];
 
+    /// <summary>
+    /// Validates the full network configuration and returns the first blocking issue.
+    /// </summary>
+    /// <param name="settings">The network settings to validate.</param>
+    /// <returns>A validation result.</returns>
     public static NetworkConfigurationValidationResult Validate(NetworkSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -33,6 +64,11 @@ public static class NetworkConfigurationValidator
         return ValidateWifi(settings.WifiProvisioned, settings.Wifi);
     }
 
+    /// <summary>
+    /// Removes volatile network values that should not be persisted in application settings.
+    /// </summary>
+    /// <param name="settings">The network settings to sanitize.</param>
+    /// <returns>A sanitized copy of the network settings.</returns>
     public static NetworkSettings SanitizeForPersistence(NetworkSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -46,6 +82,11 @@ public static class NetworkConfigurationValidator
         };
     }
 
+    /// <summary>
+    /// Normalizes a Wi-Fi security type while preserving compatibility with older configuration values.
+    /// </summary>
+    /// <param name="settings">The Wi-Fi settings to inspect.</param>
+    /// <returns>The normalized Wi-Fi security type.</returns>
     public static string NormalizeWifiSecurityType(WifiSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -77,11 +118,21 @@ public static class NetworkConfigurationValidator
             : WifiSecurityOpen;
     }
 
+    /// <summary>
+    /// Gets whether a security type represents an enterprise Wi-Fi profile.
+    /// </summary>
+    /// <param name="securityType">The security type to inspect.</param>
+    /// <returns><see langword="true"/> when the security type is enterprise.</returns>
     public static bool IsEnterpriseSecurityType(string? securityType)
     {
         return NormalizeEnterpriseSecurityType(securityType) is not null;
     }
 
+    /// <summary>
+    /// Normalizes an enterprise Wi-Fi security type.
+    /// </summary>
+    /// <param name="securityType">The security type to normalize.</param>
+    /// <returns>The normalized enterprise security type, or <see langword="null"/> when unsupported.</returns>
     public static string? NormalizeEnterpriseSecurityType(string? securityType)
     {
         if (string.IsNullOrWhiteSpace(securityType))
@@ -249,6 +300,7 @@ public static class NetworkConfigurationValidator
     {
         try
         {
+            // WPA3 enterprise profiles must match the explicit authentication mode selected in the UI.
             XDocument document = XDocument.Load(Path.GetFullPath(profileTemplatePath));
             XNamespace wlanProfile = "http://www.microsoft.com/networking/WLAN/profile/v1";
             string? authentication = document

@@ -11,6 +11,9 @@ using Serilog;
 
 namespace Foundry.ViewModels;
 
+/// <summary>
+/// Backs the general media settings page and persists WinPE architecture, language, and driver-source choices.
+/// </summary>
 public sealed partial class GeneralConfigurationViewModel : ObservableObject
 {
     private readonly IAppSettingsService appSettingsService;
@@ -51,7 +54,14 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         isInitializing = false;
     }
 
+    /// <summary>
+    /// Gets the WinPE architecture options supported by the media build workflow.
+    /// </summary>
     public ObservableCollection<SelectionOption<WinPeArchitecture>> Architectures { get; }
+
+    /// <summary>
+    /// Gets the WinPE language packs discovered from the installed ADK.
+    /// </summary>
     public ObservableCollection<string> AvailableWinPeLanguages { get; } = [];
 
     [ObservableProperty]
@@ -82,6 +92,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     [ObservableProperty]
     public partial string WinPeLanguageUnavailableDescription { get; set; }
 
+    /// <summary>
+    /// Gets whether the WinPE language picker should be hidden because no language packs are available.
+    /// </summary>
     public Visibility WinPeLanguageUnavailableVisibility => HasWinPeLanguages ? Visibility.Collapsed : Visibility.Visible;
 
     [RelayCommand]
@@ -96,11 +109,17 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Refreshes whether media creation is currently allowed by the detected ADK state.
+    /// </summary>
     public void RefreshAdkState()
     {
         CanCreateMedia = adkService.CurrentStatus.CanCreateMedia;
     }
 
+    /// <summary>
+    /// Reloads available WinPE languages from the ADK path matching the selected architecture.
+    /// </summary>
     public void RefreshWinPeLanguages()
     {
         RefreshAdkState();
@@ -156,6 +175,10 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         appSettingsService.Save();
     }
 
+    /// <summary>
+    /// Persists the selected WinPE language after normalizing it to a culture name.
+    /// </summary>
+    /// <param name="selectedLanguage">The selected WinPE language.</param>
     public void SetWinPeLanguage(string? selectedLanguage)
     {
         if (string.IsNullOrWhiteSpace(selectedLanguage))
@@ -240,6 +263,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
 
         if (ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt) == UsbPartitionStyle.Mbr)
         {
+            // ARM64 boot media must remain GPT-compatible, so changing the architecture also repairs the persisted USB style.
             appSettingsService.Current.Media.UsbPartitionStyle = UsbPartitionStyle.Gpt.ToString();
         }
     }
