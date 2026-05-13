@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace Foundry.Deploy.Services.System;
 
+/// <summary>
+/// Runs archive extraction for deployment payloads through the 7-Zip executable provisioned in the WinPE image.
+/// </summary>
 public sealed class ArchiveExtractionService : IArchiveExtractionService
 {
     private readonly IProcessRunner _processRunner;
@@ -12,6 +15,7 @@ public sealed class ArchiveExtractionService : IArchiveExtractionService
         _processRunner = processRunner;
     }
 
+    /// <inheritdoc />
     public async Task ExtractWithSevenZipAsync(
         string archivePath,
         string extractedPath,
@@ -68,33 +72,46 @@ public sealed class ArchiveExtractionService : IArchiveExtractionService
 
     private static string ResolveSevenZipExecutablePath()
     {
-        string winPePath = Path.Combine(Environment.SystemDirectory, "7za.exe");
-        if (File.Exists(winPePath))
-        {
-            return winPePath;
-        }
+        return ResolveSevenZipExecutablePath(Environment.SystemDirectory);
+    }
 
+    /// <summary>
+    /// Resolves the single supported 7-Zip executable location for Foundry.Deploy in WinPE.
+    /// </summary>
+    /// <param name="systemDirectory">The WinPE system directory used to derive the boot image root.</param>
+    /// <returns>The architecture-specific executable under <c>Foundry\Tools\7zip</c>.</returns>
+    /// <exception cref="FileNotFoundException">
+    /// Thrown when the boot image was not provisioned with the expected Foundry 7-Zip tool.
+    /// </exception>
+    internal static string ResolveSevenZipExecutablePath(string systemDirectory)
+    {
         string runtimeFolder = RuntimeInformation.ProcessArchitecture switch
         {
             Architecture.Arm64 => "arm64",
             _ => "x64"
         };
 
-        string architectureSpecific = Path.Combine(AppContext.BaseDirectory, "Assets", "7z", runtimeFolder, "7za.exe");
-        if (File.Exists(architectureSpecific))
+        string? provisionedPath = null;
+        string? winPeRoot = ResolveWindowsRoot(systemDirectory);
+        if (!string.IsNullOrWhiteSpace(winPeRoot))
         {
-            return architectureSpecific;
-        }
-
-        string bundledPath = Path.Combine(AppContext.BaseDirectory, "Assets", "7z", "7za.exe");
-        if (File.Exists(bundledPath))
-        {
-            return bundledPath;
+            provisionedPath = Path.Combine(winPeRoot, "Foundry", "Tools", "7zip", runtimeFolder, "7za.exe");
+            if (File.Exists(provisionedPath))
+            {
+                return provisionedPath;
+            }
         }
 
         throw new FileNotFoundException(
-            "No usable 7-Zip executable was found. Expected a WinPE copy in System32 or the bundled Assets\\7z payload.",
-            architectureSpecific);
+            $"No usable 7-Zip executable was found. Expected the provisioned WinPE tool at '{provisionedPath}'.",
+            provisionedPath);
+    }
+
+    private static string? ResolveWindowsRoot(string systemDirectory)
+    {
+        DirectoryInfo? windowsDirectoryInfo = Directory.GetParent(systemDirectory);
+        DirectoryInfo? windowsRootInfo = windowsDirectoryInfo?.Parent;
+        return windowsRootInfo?.FullName;
     }
 
     private static string ToDiagnostic(ProcessExecutionResult execution)

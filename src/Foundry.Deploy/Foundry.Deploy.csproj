@@ -41,13 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Foundry\Assets\7z\**\*">
-      <Link>Assets\7z\%(RecursiveDir)%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Assets\Icons\app.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
