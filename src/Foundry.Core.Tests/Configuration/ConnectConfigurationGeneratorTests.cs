@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Telemetry;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -28,6 +29,27 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.NotEmpty(internetProbe.GetProperty("probeUris").EnumerateArray());
         Assert.Empty(bundle.AssetFiles);
         Assert.Null(bundle.MediaSecretsKey);
+    }
+
+    [Fact]
+    public void Generate_PropagatesTelemetrySettings()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+        var telemetry = new TelemetrySettings
+        {
+            IsEnabled = false,
+            InstallId = "install-id",
+            HostUrl = TelemetryDefaults.PostHogEuHost,
+            ProjectToken = "project-token",
+            RuntimePayloadSource = TelemetryRuntimePayloadSources.Debug
+        };
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryExpertConfigurationDocument { Telemetry = telemetry },
+            tempDirectory.Path);
+
+        Assert.Same(telemetry, result.Telemetry);
     }
 
     [Fact]

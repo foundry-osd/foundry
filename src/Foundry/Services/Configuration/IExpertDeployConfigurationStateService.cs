@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Telemetry;
 
 namespace Foundry.Services.Configuration;
 
@@ -86,15 +87,23 @@ public interface IExpertDeployConfigurationStateService
     void UpdateAutopilot(AutopilotSettings settings);
 
     /// <summary>
+    /// Replaces telemetry settings propagated into generated runtime configuration.
+    /// </summary>
+    /// <param name="settings">New telemetry settings.</param>
+    void UpdateTelemetry(TelemetrySettings settings);
+
+    /// <summary>
     /// Generates Connect provisioning files after merging required volatile secrets back into the current network settings.
     /// </summary>
     /// <param name="stagingDirectoryPath">Directory where provisioning files should be staged.</param>
+    /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Connect document.</param>
     /// <returns>The generated Connect provisioning bundle.</returns>
-    FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath);
+    FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null);
 
     /// <summary>
     /// Generates the Deploy configuration JSON for the current expert configuration.
     /// </summary>
+    /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Deploy document.</param>
     /// <returns>Serialized Deploy configuration JSON.</returns>
-    string GenerateDeployConfigurationJson();
+    string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null);
 }

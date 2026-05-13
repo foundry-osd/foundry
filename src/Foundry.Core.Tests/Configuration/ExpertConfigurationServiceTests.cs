@@ -1,5 +1,6 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Telemetry;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -32,6 +33,14 @@ public sealed class ExpertConfigurationServiceTests
                     AutoGenerateName = true,
                     AllowManualSuffixEdit = false
                 }
+            },
+            Telemetry = new TelemetrySettings
+            {
+                IsEnabled = false,
+                InstallId = "install-id",
+                HostUrl = TelemetryDefaults.PostHogEuHost,
+                ProjectToken = "project-token",
+                RuntimePayloadSource = TelemetryRuntimePayloadSources.None
             }
         };
 
@@ -43,6 +52,9 @@ public sealed class ExpertConfigurationServiceTests
         Assert.Equal("FD-", loaded.Customization.MachineNaming.Prefix);
         Assert.True(loaded.Customization.MachineNaming.AutoGenerateName);
         Assert.False(loaded.Customization.MachineNaming.AllowManualSuffixEdit);
+        Assert.False(loaded.Telemetry.IsEnabled);
+        Assert.Equal("install-id", loaded.Telemetry.InstallId);
+        Assert.Equal("project-token", loaded.Telemetry.ProjectToken);
     }
 
     [Fact]

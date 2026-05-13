@@ -31,4 +31,8 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
+  </ItemGroup>
+
 </Project>

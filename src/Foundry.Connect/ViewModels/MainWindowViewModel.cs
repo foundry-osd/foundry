@@ -14,6 +14,7 @@ using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
+using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
 
@@ -41,6 +42,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly FoundryConnectConfiguration _configuration;
     private readonly INetworkBootstrapService _networkBootstrapService;
     private readonly INetworkStatusService _networkStatusService;
+    private readonly ITelemetryService _telemetryService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly SemaphoreSlim _refreshGate = new(1, 1);
@@ -51,6 +53,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool _isInitialized;
     private bool _isDisposed;
     private bool _isSyncingWifiNetworks;
+    private bool _hasTrackedNetworkReady;
     private string? _lastSelectedWifiNetworkSsid;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
     private string? _connectedWifiSsid;
@@ -148,6 +151,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         FoundryConnectConfiguration configuration,
         INetworkBootstrapService networkBootstrapService,
         INetworkStatusService networkStatusService,
+        ITelemetryService telemetryService,
         ILogger<MainWindowViewModel> logger)
         : base(localizationService)
     {
@@ -158,6 +162,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _configuration = configuration;
         _networkBootstrapService = networkBootstrapService;
         _networkStatusService = networkStatusService;
+        _telemetryService = telemetryService;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _isAutoCloseEnabled = !Debugger.IsAttached;
@@ -514,6 +519,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 snapshot.HasWirelessAdapter,
                 snapshot.WifiNetworks.Count);
             await RunOnUiAsync(() => ApplySnapshot(snapshot)).ConfigureAwait(false);
+            await TrackNetworkReadyAsync(snapshot, cancellationToken).ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
@@ -580,6 +586,71 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     refreshAfterAction: true).ConfigureAwait(false);
             });
         }
+    }
+
+    private async Task TrackNetworkReadyAsync(NetworkStatusSnapshot snapshot, CancellationToken cancellationToken)
+    {
+        if (_hasTrackedNetworkReady || !snapshot.HasInternetAccess)
+        {
+            return;
+        }
+
+        _hasTrackedNetworkReady = true;
+        string connectionType = NetworkTelemetryClassifier.ClassifyConnection(snapshot);
+        string wifiSecurity = ResolveWifiSecurity(snapshot, connectionType);
+        string wifiSource = ResolveWifiSource(snapshot, connectionType);
+        var properties = new Dictionary<string, object?>
+            {
+                ["success"] = true,
+                ["connection_type"] = connectionType,
+                ["wifi_security"] = wifiSecurity,
+                ["wifi_source"] = wifiSource,
+                ["wired_dot1x_enabled"] = _configuration.Dot1x.IsEnabled,
+                ["wifi_provisioned"] = HasProvisionedWifiProfile
+            };
+
+        _logger.LogDebug(
+            "Tracking network-ready telemetry event. ConnectionType={ConnectionType}, WifiSecurity={WifiSecurity}, WifiSource={WifiSource}, WiredDot1xEnabled={WiredDot1xEnabled}, WifiProvisioned={WifiProvisioned}.",
+            connectionType,
+            wifiSecurity,
+            wifiSource,
+            _configuration.Dot1x.IsEnabled,
+            HasProvisionedWifiProfile);
+
+        await _telemetryService.TrackAsync("connect_network_ready", properties, cancellationToken).ConfigureAwait(false);
+        _logger.LogDebug("Network-ready telemetry event queued. ConnectionType={ConnectionType}.", connectionType);
+    }
+
+    private string ResolveWifiSecurity(NetworkStatusSnapshot snapshot, string connectionType)
+    {
+        if (!string.Equals(connectionType, "wifi", StringComparison.Ordinal))
+        {
+            return "none";
+        }
+
+        WifiNetworkSummary? connectedNetwork = snapshot.WifiNetworks.FirstOrDefault(network =>
+            string.Equals(network.Ssid, snapshot.ConnectedWifiSsid, StringComparison.OrdinalIgnoreCase));
+        if (connectedNetwork is not null)
+        {
+            return NetworkTelemetryClassifier.ClassifyWifiSecurity(connectedNetwork.Authentication);
+        }
+
+        if (_configuration.Wifi.HasEnterpriseProfile)
+        {
+            return "enterprise";
+        }
+
+        return NetworkTelemetryClassifier.ClassifyWifiSecurity(_configuration.Wifi.SecurityType);
+    }
+
+    private string ResolveWifiSource(NetworkStatusSnapshot snapshot, string connectionType)
+    {
+        if (!string.Equals(connectionType, "wifi", StringComparison.Ordinal))
+        {
+            return "none";
+        }
+
+        return IsProvisionedWifiConnection(snapshot.ConnectedWifiSsid) ? "provisioned" : "manual";
     }
 
     private void ApplyPrimaryStatus(bool hasInternetAccess)

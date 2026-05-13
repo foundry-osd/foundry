@@ -1,3 +1,7 @@
+using System.Globalization;
+using System.Net.Http;
+using System.Runtime.InteropServices;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
@@ -18,7 +22,9 @@ using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
+using Foundry.Telemetry;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.DependencyInjection;
 
@@ -39,6 +45,32 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
+        services.AddSingleton(CreateTelemetryOptions);
+        services.AddSingleton(CreateTelemetryContext);
+        services.AddSingleton<ITelemetryService>(sp =>
+        {
+            TelemetryOptions options = sp.GetRequiredService<TelemetryOptions>();
+            ILogger<PostHogTelemetryService> logger = sp.GetRequiredService<ILogger<PostHogTelemetryService>>();
+            logger.LogDebug(
+                "Configuring telemetry service. App={App}, IsEnabled={IsEnabled}, HasProjectToken={HasProjectToken}, HasInstallId={HasInstallId}, HostUrl={HostUrl}.",
+                "foundry-deploy",
+                options.IsEnabled,
+                !string.IsNullOrWhiteSpace(options.ProjectToken),
+                !string.IsNullOrWhiteSpace(options.InstallId),
+                options.HostUrl);
+
+            if (!options.CanSend)
+            {
+                logger.LogDebug("Telemetry service disabled for Foundry.Deploy because runtime options are incomplete or disabled.");
+                return new NullTelemetryService();
+            }
+
+            return new PostHogTelemetryService(
+                new HttpClient(),
+                options,
+                sp.GetRequiredService<TelemetryContext>(),
+                logger);
+        });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
@@ -82,5 +114,39 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
 
         return services;
+    }
+
+    private static TelemetryOptions CreateTelemetryOptions(IServiceProvider serviceProvider)
+    {
+        TelemetrySettings settings = LoadTelemetrySettings(serviceProvider);
+        return new TelemetryOptions(
+            settings.IsEnabled,
+            string.IsNullOrWhiteSpace(settings.HostUrl) ? TelemetryDefaults.PostHogEuHost : settings.HostUrl,
+            string.IsNullOrWhiteSpace(settings.ProjectToken) ? TelemetryDefaults.ProjectToken : settings.ProjectToken,
+            settings.InstallId);
+    }
+
+    private static TelemetryContext CreateTelemetryContext(IServiceProvider serviceProvider)
+    {
+        TelemetrySettings settings = LoadTelemetrySettings(serviceProvider);
+        return new TelemetryContext(
+            "foundry-deploy",
+            FoundryDeployApplicationInfo.Version,
+            TelemetryBuildConfiguration.Current,
+            WinPeRuntimeDetector.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop,
+            string.IsNullOrWhiteSpace(settings.RuntimePayloadSource)
+                ? TelemetryRuntimePayloadSources.Unknown
+                : settings.RuntimePayloadSource,
+            RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
+            CultureInfo.CurrentUICulture.Name,
+            Guid.NewGuid().ToString("D"));
+    }
+
+    private static TelemetrySettings LoadTelemetrySettings(IServiceProvider serviceProvider)
+    {
+        return serviceProvider.GetRequiredService<IExpertDeployConfigurationService>()
+            .LoadOptional()
+            .Document
+            ?.Telemetry ?? new TelemetrySettings();
     }
 }

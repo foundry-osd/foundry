@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <RuntimeIdentifiers></RuntimeIdentifiers>
+    <FoundryPostHogProjectToken Condition="'$(FoundryPostHogProjectToken)' == ''"></FoundryPostHogProjectToken>
+    <TelemetryGeneratedDirectory>$(BaseIntermediateOutputPath)Generated</TelemetryGeneratedDirectory>
+  </PropertyGroup>
+
+  <Target Name="GenerateTelemetryProjectToken" BeforeTargets="BeforeCompile">
+    <MakeDir Directories="$(TelemetryGeneratedDirectory)" />
+    <WriteLinesToFile
+        File="$(TelemetryGeneratedDirectory)\TelemetryProjectToken.g.cs"
+        Overwrite="true"
+        Lines="namespace Foundry.Telemetry%3B%0A%0Ainternal static class TelemetryProjectToken%0A%7B%0A    public const string Value = &quot;$(FoundryPostHogProjectToken)&quot;%3B%0A%7D" />
+    <ItemGroup>
+      <Compile Include="$(TelemetryGeneratedDirectory)\TelemetryProjectToken.g.cs" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
+  </ItemGroup>
+
+</Project>

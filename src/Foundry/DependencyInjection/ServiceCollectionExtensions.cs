@@ -13,7 +13,12 @@ using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Startup;
 using Foundry.Services.Updates;
+using Foundry.Telemetry;
+using Microsoft.Extensions.Logging;
 using Serilog;
+using System.Globalization;
+using System.Net.Http;
+using System.Runtime.InteropServices;
 
 namespace Foundry.DependencyInjection;
 
@@ -34,6 +39,49 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindow>();
 
         services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
+        services.AddSingleton(sp =>
+        {
+            FoundryAppSettings settings = sp.GetRequiredService<IAppSettingsService>().Current;
+            return new TelemetryOptions(
+                settings.Telemetry.IsEnabled,
+                TelemetryDefaults.PostHogEuHost,
+                TelemetryDefaults.ProjectToken,
+                settings.Telemetry.InstallId);
+        });
+        services.AddSingleton(_ => new TelemetryContext(
+            "foundry",
+            FoundryApplicationInfo.Version,
+            TelemetryBuildConfiguration.Current,
+            TelemetryRuntimeModes.Desktop,
+            TelemetryRuntimePayloadSources.None,
+            RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
+            CultureInfo.CurrentUICulture.Name,
+            Guid.NewGuid().ToString("D")));
+        services.AddSingleton<ITelemetryService>(sp =>
+        {
+            TelemetryOptions options = sp.GetRequiredService<TelemetryOptions>();
+            Microsoft.Extensions.Logging.ILogger<PostHogTelemetryService> logger =
+                sp.GetRequiredService<Microsoft.Extensions.Logging.ILogger<PostHogTelemetryService>>();
+            logger.LogDebug(
+                "Configuring telemetry service. App={App}, IsEnabled={IsEnabled}, HasProjectToken={HasProjectToken}, HasInstallId={HasInstallId}, HostUrl={HostUrl}.",
+                "foundry",
+                options.IsEnabled,
+                !string.IsNullOrWhiteSpace(options.ProjectToken),
+                !string.IsNullOrWhiteSpace(options.InstallId),
+                options.HostUrl);
+
+            if (!options.CanSend)
+            {
+                logger.LogDebug("Telemetry service disabled for Foundry because runtime options are incomplete or disabled.");
+                return new NullTelemetryService();
+            }
+
+            return new PostHogTelemetryService(
+                new HttpClient(),
+                options,
+                sp.GetRequiredService<TelemetryContext>(),
+                logger);
+        });
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
         services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
@@ -77,6 +125,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();
+        services.AddTransient<SettingsPageViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();

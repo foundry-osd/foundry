@@ -1,3 +1,5 @@
+using Foundry.Telemetry;
+
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
@@ -34,4 +36,9 @@ public sealed record FoundryConnectConfigurationDocument
     /// Gets internet connectivity probe settings.
     /// </summary>
     public ConnectInternetProbeSettings InternetProbe { get; init; } = new();
+
+    /// <summary>
+    /// Gets telemetry policy and runtime settings consumed by Foundry.Connect.
+    /// </summary>
+    public TelemetrySettings Telemetry { get; init; } = new();
 }

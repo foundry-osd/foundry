@@ -1,3 +1,5 @@
+using Foundry.Telemetry;
+
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
@@ -39,4 +41,9 @@ public sealed record FoundryExpertConfigurationDocument
     /// Gets Autopilot profile settings staged for OOBE.
     /// </summary>
     public AutopilotSettings Autopilot { get; init; } = new();
+
+    /// <summary>
+    /// Gets telemetry policy and runtime settings propagated into generated media.
+    /// </summary>
+    public TelemetrySettings Telemetry { get; init; } = new();
 }

@@ -3,6 +3,7 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Foundry.Telemetry;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -21,6 +22,7 @@ public sealed class DeploymentOrchestratorTests
             logService,
             new FakeTargetDiskService(),
             steps,
+            new RecordingTelemetryService(),
             NullLogger<DeploymentOrchestrator>.Instance);
 
         DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
@@ -38,6 +40,57 @@ public sealed class DeploymentOrchestratorTests
         Assert.False(result.IsSuccess);
         Assert.Equal(expectedFinalLogsPath, result.LogsDirectoryPath);
         Assert.True(Directory.Exists(expectedFinalLogsPath));
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenDeploymentFails_TracksCompletionTelemetry()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var telemetryService = new RecordingTelemetryService();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            new FakeDeploymentLogService(),
+            new FakeTargetDiskService(),
+            CreateSteps(Path.Combine(workspace.RootPath, "TargetWindows")),
+            telemetryService,
+            NullLogger<DeploymentOrchestrator>.Instance);
+
+        await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            OperatingSystem = new OperatingSystemCatalogItem
+            {
+                WindowsRelease = "11",
+                ReleaseId = "24H2",
+                Build = "26100",
+                Architecture = "x64",
+                LanguageCode = "en-US"
+            },
+            DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
+            DriverPack = new DriverPackCatalogItem
+            {
+                Manufacturer = "Dell",
+                Name = "pc14255-x20jr_win11_1.0_a05.exe",
+                ModelNames = ["Latitude 5450"]
+            },
+            ApplyFirmwareUpdates = true,
+            IsAutopilotEnabled = true
+        });
+
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.Equal("deployment_completed", telemetryEvent.Name);
+        Assert.False((bool)telemetryEvent.Properties["success"]!);
+        Assert.False((bool)telemetryEvent.Properties["cancelled"]!);
+        Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, telemetryEvent.Properties["failed_step_name"]);
+        Assert.Equal("windows_11", telemetryEvent.Properties["os_product"]);
+        Assert.Equal("dell", telemetryEvent.Properties["driver_pack_vendor"]);
+        Assert.Equal("latitude 5450", telemetryEvent.Properties["driver_pack_model"]);
+        Assert.True((bool)telemetryEvent.Properties["firmware_updates_enabled"]!);
+        Assert.True((bool)telemetryEvent.Properties["autopilot_enabled"]!);
     }
 
     private static IDeploymentStep[] CreateSteps(string targetWindowsRoot)
@@ -162,6 +215,25 @@ public sealed class DeploymentOrchestratorTests
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
         {
             return Task.FromResult<int?>(null);
+        }
+    }
+
+    private sealed class RecordingTelemetryService : ITelemetryService
+    {
+        public List<TelemetryEvent> Events { get; } = [];
+
+        public Task TrackAsync(
+            string eventName,
+            IReadOnlyDictionary<string, object?> properties,
+            CancellationToken cancellationToken = default)
+        {
+            Events.Add(new TelemetryEvent(eventName, new Dictionary<string, object?>(properties)));
+            return Task.CompletedTask;
+        }
+
+        public Task FlushAsync(CancellationToken cancellationToken = default)
+        {
+            return Task.CompletedTask;
         }
     }
 

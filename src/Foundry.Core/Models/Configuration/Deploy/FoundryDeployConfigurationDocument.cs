@@ -1,3 +1,5 @@
+using Foundry.Telemetry;
+
 namespace Foundry.Core.Models.Configuration.Deploy;
 
 /// <summary>
@@ -29,4 +31,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// Gets Autopilot profile staging settings.
     /// </summary>
     public DeployAutopilotSettings Autopilot { get; init; } = new();
+
+    /// <summary>
+    /// Gets telemetry policy and runtime settings consumed by Foundry.Deploy.
+    /// </summary>
+    public TelemetrySettings Telemetry { get; init; } = new();
 }

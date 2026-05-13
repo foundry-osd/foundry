@@ -5,6 +5,7 @@ using Foundry.Connect.Models;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Telemetry;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -45,6 +46,7 @@ public static class Program
 
             using IHost host = BuildHost(args);
             Log.Information("Host built successfully.");
+            ITelemetryService telemetryService = host.Services.GetRequiredService<ITelemetryService>();
 
             App app = host.Services.GetRequiredService<App>();
             Log.Information("Resolved App instance.");
@@ -56,6 +58,9 @@ public static class Program
             Log.Information("Resolved MainWindow instance.");
             Log.Information("Entering WPF run loop.");
             int exitCode = app.Run(mainWindow);
+            Log.Debug("Flushing Foundry.Connect telemetry events.");
+            telemetryService.FlushAsync().GetAwaiter().GetResult();
+            Log.Debug("Foundry.Connect telemetry flush completed.");
 
             Log.Information("Foundry.Connect exited with code {ExitCode}.", exitCode);
             return exitCode;

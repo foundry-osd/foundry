@@ -1,5 +1,6 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Telemetry;
 using Serilog;
 
 namespace Foundry.Services.Configuration;
@@ -122,17 +123,31 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     }
 
     /// <inheritdoc />
-    public string GenerateDeployConfigurationJson()
+    public void UpdateTelemetry(TelemetrySettings settings)
     {
-        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(Current));
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { Telemetry = settings };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
     /// <inheritdoc />
-    public FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath)
+    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null)
+    {
+        FoundryExpertConfigurationDocument document = telemetryOverride is null
+            ? Current
+            : Current with { Telemetry = telemetryOverride };
+
+        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document));
+    }
+
+    /// <inheritdoc />
+    public FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null)
     {
         FoundryExpertConfigurationDocument document = Current with
         {
-            Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network)
+            Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network),
+            Telemetry = telemetryOverride ?? Current.Telemetry
         };
 
         return connectConfigurationGenerator.CreateProvisioningBundle(document, stagingDirectoryPath);

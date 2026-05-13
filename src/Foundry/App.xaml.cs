@@ -2,6 +2,7 @@ using Foundry.DependencyInjection;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
 using Foundry.Services.Startup;
+using Foundry.Telemetry;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
@@ -136,6 +137,9 @@ namespace Foundry
             }
 
             await GetService<IStartupReadinessService>().InitializeAsync();
+            AppLogger.Debug("Tracking Foundry startup telemetry event.");
+            await GetService<ITelemetryService>().TrackAsync("app_started", new Dictionary<string, object?>());
+            AppLogger.Debug("Foundry startup telemetry event queued.");
             AppLogger.Information("Foundry WinUI startup completed.");
         }
 
@@ -158,6 +162,9 @@ namespace Foundry
 
             isShuttingDown = true;
             AppLogger.Information("Foundry WinUI shutdown started.");
+            AppLogger.Debug("Flushing Foundry telemetry events.");
+            GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();
+            AppLogger.Debug("Foundry telemetry flush completed.");
             Host.Dispose();
             Log.CloseAndFlush();
         }

@@ -23,6 +23,7 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
         this.logger = logger.ForContext<JsonAppSettingsService>();
         IsFirstRun = !File.Exists(Constants.AppSettingsPath);
         Current = Load();
+        EnsureTelemetryInstallId(Current);
         Save();
     }
 
@@ -89,6 +90,14 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
             }
 
             return new FoundryAppSettings();
+        }
+    }
+
+    private static void EnsureTelemetryInstallId(FoundryAppSettings settings)
+    {
+        if (string.IsNullOrWhiteSpace(settings.Telemetry.InstallId))
+        {
+            settings.Telemetry.InstallId = Guid.NewGuid().ToString("D");
         }
     }
 
