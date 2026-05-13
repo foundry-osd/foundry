@@ -21,7 +21,7 @@
                                 Title="{x:Bind ViewModel.OpenAdkTitle, Mode=OneWay}">
                     <dev:HeaderTile.Source>
                         <FontIcon FontSize="{ThemeResource FoundryIconSizeHero}"
-                                  Glyph="&#xE946;" />
+                                  Glyph="&#xEC7A;" />
                     </dev:HeaderTile.Source>
                 </dev:HeaderTile>
                 <dev:HeaderTile AutomationProperties.Name="{x:Bind ViewModel.ConfigureMediaTitle, Mode=OneWay}"

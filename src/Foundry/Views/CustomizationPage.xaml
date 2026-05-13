@@ -18,7 +18,7 @@
                                   Description="{x:Bind ViewModel.MachineNamingDescription, Mode=OneWay}"
                                   IsExpanded="{x:Bind ViewModel.IsMachineNamingExpanded, Mode=TwoWay}">
                 <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE8D4;" />
+                    <FontIcon Glyph="&#xE8AC;" />
                 </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.MachineNamingEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsMachineNamingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

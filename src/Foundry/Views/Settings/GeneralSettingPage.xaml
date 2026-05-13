@@ -47,7 +47,7 @@
             <wct:SettingsExpander x:Name="DiagnosticsCard"
                                    x:Uid="GeneralSetting_DiagnosticsCard">
                 <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE9D9;" />
+                    <FontIcon Glyph="&#xEC7A;" />
                 </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch x:Name="DiagnosticsToggle"
                                IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

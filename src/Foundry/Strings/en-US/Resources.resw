@@ -277,7 +277,7 @@
     <value>Open documentation</value>
   </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Machine naming</value>
+    <value>Computer name</value>
   </data>
   <data name="Customization.MachineNamingDescription" xml:space="preserve">
     <value>Control how the deployed computer name is generated in WinPE.</value>
@@ -307,7 +307,7 @@
     <value>Prefix must use 1 to 15 characters from A-Z, a-z, 0-9, or -.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Choose architecture, ISO, WinPE language, USB layout, and driver options.</value>
+    <value>Choose the architecture, boot image language, and drivers to inject into the boot image.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Configure media</value>

@@ -78,7 +78,7 @@
                     <wct:SettingsExpander x:Name="ReadinessPrerequisitesCard"
                                           IsExpanded="{x:Bind ViewModel.IsPrerequisiteReadinessExpanded, Mode=TwoWay}">
                         <wct:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE946;" />
+                            <FontIcon Glyph="&#xE9D5;" />
                         </wct:SettingsExpander.HeaderIcon>
                         <wct:SettingsExpander.ItemsHeader>
                             <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
@@ -120,7 +120,7 @@
                         Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                 <wct:SettingsCard x:Name="IsoPathCard">
                     <wct:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE8A5;" />
+                        <FontIcon Glyph="&#xE958;" />
                     </wct:SettingsCard.HeaderIcon>
                     <StackPanel Orientation="Horizontal"
                                 Spacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -165,7 +165,7 @@
 
                 <wct:SettingsCard x:Name="FinalCommandsCard">
                     <wct:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE7C1;" />
+                        <FontIcon Glyph="&#xE768;" />
                     </wct:SettingsCard.HeaderIcon>
                     <StackPanel Orientation="Horizontal"
                                 Spacing="{ThemeResource FoundryInlineControlSpacing}">

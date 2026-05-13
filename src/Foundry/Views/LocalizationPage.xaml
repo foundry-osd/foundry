@@ -18,13 +18,14 @@
             <wct:SettingsCard Header="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}"
                               HorizontalContentAlignment="Right">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8AB;" />
+                    <FontIcon Glyph="&#xF2B7;" />
                 </wct:SettingsCard.HeaderIcon>
                 <ItemsRepeater HorizontalAlignment="Right"
                                MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
                                ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
                     <ItemsRepeater.Layout>
-                        <UniformGridLayout MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                        <UniformGridLayout MaximumRowsOrColumns="2"
+                                           MinColumnSpacing="{ThemeResource FoundrySpace12}"
                                            MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
                                            MinRowSpacing="{ThemeResource FoundrySpace4}" />
                     </ItemsRepeater.Layout>
@@ -49,7 +50,7 @@
 
             <wct:SettingsCard Header="{x:Bind ViewModel.TimeZoneHeader, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE916;" />
+                    <FontIcon Glyph="&#xE823;" />
                 </wct:SettingsCard.HeaderIcon>
                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                           DisplayMemberPath="DisplayName"

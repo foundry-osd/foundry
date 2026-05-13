@@ -21,7 +21,7 @@
           "Title": "Home",
           "LocalizeId": "Nav_HomeKey",
           "UsexUid": true,
-          "ImagePath": "ms-appx:///Assets/AppIcon.png",
+          "IconGlyph": "E80F",
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false
@@ -31,7 +31,7 @@
           "Title": "ADK",
           "LocalizeId": "Nav_AdkKey",
           "UsexUid": true,
-          "IconGlyph": "E946",
+          "IconGlyph": "EC7A",
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false
@@ -74,21 +74,21 @@
       "ShowItemsWithoutGroup": true,
       "Items": [
         {
-          "UniqueId": "Foundry.Views.NetworkPage",
-          "Title": "Network",
-          "LocalizeId": "Nav_NetworkKey",
+          "UniqueId": "Foundry.Views.LocalizationPage",
+          "Title": "Localization",
+          "LocalizeId": "Nav_LocalizationKey",
           "UsexUid": true,
-          "IconGlyph": "E968",
+          "IconGlyph": "F2B7",
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false
         },
         {
-          "UniqueId": "Foundry.Views.LocalizationPage",
-          "Title": "Localization",
-          "LocalizeId": "Nav_LocalizationKey",
+          "UniqueId": "Foundry.Views.NetworkPage",
+          "Title": "Network",
+          "LocalizeId": "Nav_NetworkKey",
           "UsexUid": true,
-          "IconGlyph": "E909",
+          "IconGlyph": "E774",
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false
@@ -98,7 +98,7 @@
           "Title": "Autopilot",
           "LocalizeId": "Nav_AutopilotKey",
           "UsexUid": true,
-          "IconGlyph": "E7C1",
+          "IconGlyph": "E753",
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false
@@ -108,7 +108,7 @@
           "Title": "Customization",
           "LocalizeId": "Nav_CustomizationKey",
           "UsexUid": true,
-          "IconGlyph": "E771",
+          "IconGlyph": "EB3C",
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false

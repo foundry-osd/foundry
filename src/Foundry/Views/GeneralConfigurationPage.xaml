@@ -18,7 +18,7 @@
 
             <wct:SettingsCard x:Name="ArchitectureCard">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE7F4;" />
+                    <FontIcon Glyph="&#xE770;" />
                 </wct:SettingsCard.HeaderIcon>
                 <StackPanel Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -33,7 +33,7 @@
 
             <wct:SettingsCard x:Name="WinPeLanguageCard">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8AB;" />
+                    <FontIcon Glyph="&#xF2B7;" />
                 </wct:SettingsCard.HeaderIcon>
                 <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
                     <ComboBox x:Name="WinPeLanguageComboBox"

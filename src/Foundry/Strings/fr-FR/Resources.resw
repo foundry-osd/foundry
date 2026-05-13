@@ -277,7 +277,7 @@
     <value>Ouvrir la documentation</value>
   </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Nommage machine</value>
+    <value>Nom de l'ordinateur</value>
   </data>
   <data name="Customization.MachineNamingDescription" xml:space="preserve">
     <value>Contrôler la génération du nom d'ordinateur déployé dans WinPE.</value>
@@ -307,7 +307,7 @@
     <value>Le préfixe doit utiliser 1 à 15 caractères parmi A-Z, a-z, 0-9 ou -.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Choisir l'architecture, l'ISO, la langue WinPE, la disposition USB et les pilotes.</value>
+    <value>Choisir l'architecture, la langue de l'image de démarrage et les pilotes à injecter dans cette image.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Configurer le média</value>
