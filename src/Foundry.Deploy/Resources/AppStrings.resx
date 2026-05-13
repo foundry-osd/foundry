@@ -68,6 +68,17 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Loading catalogs...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogs loaded: {0} OS entries, {1} driver packs.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalog load failed: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Retail</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volume</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Home</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Home N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Home Single Language</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Education</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Education N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Enterprise</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Enterprise N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Driver Source</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
@@ -100,7 +111,6 @@
 ErrorCode=0x80070005
 Details: Access denied while mounting image to target path.
 Action: Verify disk attributes and retry deployment.</value></data>
-  <data name="Debug.ApplyingImageProgressFormat" xml:space="preserve"><value>Applying image: {0}%</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Refresh</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Previous</value></data>
@@ -137,6 +147,18 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blocked: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG VIRTUAL TARGET</value></data>
   <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Selected disk blocked: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Target disk {0} is no longer present.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Target disk {0} is blocked: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Confirm Disk Erase</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>This operation will ERASE the selected disk and apply a new operating system.
+
+Disk: {0}
+Model: {1}
+Bus: {2}
+Size: {3}
+
+OS: {4}
+Continue?</value></data>
   <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Select an operating system.</value></data>
   <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Enter a valid computer name.</value></data>
   <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Select a target disk.</value></data>
@@ -171,6 +193,8 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Reboot command failed: {0}</value></data>
   <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Unable to open log file: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe failed with exit code {0}. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>System reboot</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Required reboot executable 'wpeutil.exe' was not found.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Unknown step</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>No error details were provided.</value></data>
   <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Gather deployment variables</value></data>
@@ -210,7 +234,10 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Target configuration validated.</value></data>
   <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Target configuration validated (simulation).</value></data>
   <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Resolving cache strategy...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Resolving cache location...</value></data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Checking cache disk conflict...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Cache strategy resolved.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Cache strategy resolved (simulation).</value></data>
   <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Preparing target disk layout...</value></data>
   <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Partitioning target disk...</value></data>
   <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Preparing target workspace...</value></data>
@@ -222,6 +249,8 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Checking cache...</value></data>
   <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Operating system image ready (simulation).</value></data>
   <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Operating system image was not downloaded.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Operating system image downloaded.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Operating system image resolved from cache.</value></data>
   <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Applying OS image...</value></data>
   <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Inspecting image...</value></data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Applying image...</value></data>
@@ -246,13 +275,18 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>OEM driver pack mode selected but no driver pack was provided.</value></data>
   <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Driver pack downloaded.</value></data>
   <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Driver pack downloaded (simulation).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Driver pack resolved from cache.</value></data>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Extracting driver pack...</value></data>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Driver pack was not downloaded.</value></data>
   <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Driver pack extracted.</value></data>
   <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Driver pack extracted (simulation).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Driver pack prepared for deferred installation.</value></data>
   <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>No driver pack operation is required.</value></data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Unsupported driver pack install mode.</value></data>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>No extracted INF driver payload is available.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Driver pack source payload is unavailable for deferred staging.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog did not produce a driver payload.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Deferred driver pack staging was requested without a supported deferred command.</value></data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Applying driver pack...</value></data>
   <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Applying Windows drivers...</value></data>
   <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Mounting WinRE...</value></data>
@@ -260,6 +294,12 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Unmounting WinRE...</value></data>
   <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Staging package...</value></data>
   <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Updating SetupComplete hook...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Downloading</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Extracting</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Applying</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Staging</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} downloaded</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Driver pack applied.</value></data>
   <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Driver pack staged for first boot.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Driver pack applied (simulation).</value></data>

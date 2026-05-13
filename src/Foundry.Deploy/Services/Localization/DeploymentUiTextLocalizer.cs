@@ -2,8 +2,16 @@ using System.Text.RegularExpressions;
 
 namespace Foundry.Deploy.Services.Localization;
 
+/// <summary>
+/// Translates deployment status values emitted by runtime services before they are shown by the WPF shell.
+/// </summary>
 public static partial class DeploymentUiTextLocalizer
 {
+    /// <summary>
+    /// Localizes an invariant deployment step name while preserving unknown labels from external sources.
+    /// </summary>
+    /// <param name="value">The invariant step name produced by the deployment pipeline.</param>
+    /// <returns>The localized step name, or a localized status message when the value is not a known step.</returns>
     public static string LocalizeStepName(string value)
     {
         return value switch
@@ -29,6 +37,11 @@ public static partial class DeploymentUiTextLocalizer
         };
     }
 
+    /// <summary>
+    /// Localizes invariant deployment messages and generated progress labels for the active UI culture.
+    /// </summary>
+    /// <param name="value">The invariant message emitted by services, progress reporters, or view models.</param>
+    /// <returns>The localized message, or the original value when no safe mapping exists.</returns>
     public static string LocalizeMessage(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -90,7 +103,10 @@ public static partial class DeploymentUiTextLocalizer
             "Target configuration validated." => LocalizationText.GetString("StepResult.TargetConfigurationValidated"),
             "Target configuration validated (simulation)." => LocalizationText.GetString("StepResult.TargetConfigurationValidatedSimulation"),
             "Resolving cache strategy..." => LocalizationText.GetString("StepMessage.ResolvingCacheStrategy"),
+            "Resolving cache location..." => LocalizationText.GetString("StepMessage.ResolvingCacheLocation"),
             "Checking cache disk conflict..." => LocalizationText.GetString("StepMessage.CheckingCacheDiskConflict"),
+            "Cache strategy resolved." => LocalizationText.GetString("StepResult.CacheStrategyResolved"),
+            "Cache strategy resolved (simulation)." => LocalizationText.GetString("StepResult.CacheStrategyResolvedSimulation"),
             "Preparing target disk layout..." => LocalizationText.GetString("StepMessage.PreparingTargetDiskLayout"),
             "Partitioning target disk..." => LocalizationText.GetString("StepMessage.PartitioningTargetDisk"),
             "Preparing target workspace..." => LocalizationText.GetString("StepMessage.PreparingTargetWorkspace"),
@@ -102,6 +118,8 @@ public static partial class DeploymentUiTextLocalizer
             "Checking cache..." => LocalizationText.GetString("StepMessage.CheckingCache"),
             "Operating system image ready (simulation)." => LocalizationText.GetString("StepResult.OperatingSystemImageReadySimulation"),
             "Operating system image was not downloaded." => LocalizationText.GetString("StepResult.OperatingSystemImageNotDownloaded"),
+            "Operating system image downloaded." => LocalizationText.GetString("StepResult.OperatingSystemImageDownloaded"),
+            "Operating system image resolved from cache." => LocalizationText.GetString("StepResult.OperatingSystemImageResolvedFromCache"),
             "Applying OS image..." => LocalizationText.GetString("StepMessage.ApplyingOperatingSystemImage"),
             "Inspecting image..." => LocalizationText.GetString("StepMessage.InspectingImage"),
             "Applying image..." => LocalizationText.GetString("StepMessage.ApplyingImage"),
@@ -126,13 +144,19 @@ public static partial class DeploymentUiTextLocalizer
             "OEM driver pack mode selected but no driver pack was provided." => LocalizationText.GetString("StepResult.OemDriverPackMissing"),
             "Driver pack downloaded." => LocalizationText.GetString("StepResult.DriverPackDownloaded"),
             "Driver pack downloaded (simulation)." => LocalizationText.GetString("StepResult.DriverPackDownloadedSimulation"),
+            "Driver pack resolved from cache." => LocalizationText.GetString("StepResult.DriverPackResolvedFromCache"),
+            "Downloading Driver pack..." => LocalizationText.GetString("StepMessage.DownloadingDriverPack"),
             "Extracting driver pack..." => LocalizationText.GetString("StepMessage.ExtractingDriverPack"),
             "Driver pack was not downloaded." => LocalizationText.GetString("StepResult.DriverPackNotDownloaded"),
             "Driver pack extracted." => LocalizationText.GetString("StepResult.DriverPackExtracted"),
             "Driver pack extracted (simulation)." => LocalizationText.GetString("StepResult.DriverPackExtractedSimulation"),
+            "Driver pack prepared for deferred installation." => LocalizationText.GetString("StepResult.DriverPackPreparedForDeferredInstallation"),
             "No driver pack operation is required." => LocalizationText.GetString("StepResult.NoDriverPackOperationRequired"),
             "Unsupported driver pack install mode." => LocalizationText.GetString("StepResult.UnsupportedDriverPackInstallMode"),
             "No extracted INF driver payload is available." => LocalizationText.GetString("StepResult.NoExtractedInfDriverPayload"),
+            "Driver pack source payload is unavailable for deferred staging." => LocalizationText.GetString("StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging"),
+            "Microsoft Update Catalog did not produce a driver payload." => LocalizationText.GetString("StepResult.MicrosoftUpdateCatalogDriverPayloadMissing"),
+            "Deferred driver pack staging was requested without a supported deferred command." => LocalizationText.GetString("StepResult.DeferredDriverPackStagingUnsupportedCommand"),
             "Applying driver pack..." => LocalizationText.GetString("StepMessage.ApplyingDriverPack"),
             "Applying Windows drivers..." => LocalizationText.GetString("StepMessage.ApplyingWindowsDrivers"),
             "Mounting WinRE..." => LocalizationText.GetString("StepMessage.MountingWinRe"),
@@ -172,13 +196,23 @@ public static partial class DeploymentUiTextLocalizer
             "Autopilot profile staged (simulation)." => LocalizationText.GetString("StepResult.AutopilotProfileStagedSimulation"),
             "Rebooting now..." => LocalizationText.GetString("Status.RebootingNow"),
             "Reboot command failed." => LocalizationText.GetString("Status.RebootCommandFailed"),
+            "System reboot" => LocalizationText.GetString("Status.SystemReboot"),
+            "Required reboot executable 'wpeutil.exe' was not found." => LocalizationText.GetString("Status.RequiredRebootExecutableMissing"),
             "Unknown step" => LocalizationText.GetString("Status.UnknownStep"),
             "No error details were provided." => LocalizationText.GetString("Status.NoErrorDetails"),
             "N/A" => LocalizationText.GetString("Common.NotAvailable"),
             "Unavailable" => LocalizationText.GetString("Common.Unavailable"),
             "None" => LocalizationText.GetString("Common.None"),
+            "Blocked: system disk" => LocalizationText.GetString("Disk.BlockedSystemDisk"),
+            "Blocked: boot disk" => LocalizationText.GetString("Disk.BlockedBootDisk"),
+            "Blocked: read-only" => LocalizationText.GetString("Disk.BlockedReadOnly"),
+            "Blocked: offline" => LocalizationText.GetString("Disk.BlockedOffline"),
             "Microsoft Update Catalog" => LocalizationText.GetString("DriverPack.MicrosoftUpdateCatalog"),
             "OEM Driver Pack" => LocalizationText.GetString("DriverPack.OemDriverPack"),
+            "Downloading" => LocalizationText.GetString("StepProgress.Downloading"),
+            "Extracting" => LocalizationText.GetString("StepProgress.Extracting"),
+            "Applying" => LocalizationText.GetString("StepProgress.Applying"),
+            "Staging" => LocalizationText.GetString("StepProgress.Staging"),
             _ => LocalizeDynamicMessage(value)
         };
     }
@@ -219,6 +253,21 @@ public static partial class DeploymentUiTextLocalizer
             return localized;
         }
 
+        match = TargetDiskMissingRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format("Disk.TargetMissingFormat", int.Parse(match.Groups["disk"].Value));
+        }
+
+        match = TargetDiskBlockedRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "Disk.TargetBlockedFormat",
+                int.Parse(match.Groups["disk"].Value),
+                LocalizeMessage(match.Groups["warning"].Value));
+        }
+
         if (TryLocalizeSingleSuffix(value, "Deployment failed: ", "Status.DeploymentFailedFormat", out localized))
         {
             return localized;
@@ -237,6 +286,23 @@ public static partial class DeploymentUiTextLocalizer
         if (value.StartsWith("Debug preview: DISM apply failed because the target partition is read-only.", StringComparison.Ordinal))
         {
             return LocalizationText.GetString("Debug.ErrorPreviewMessage");
+        }
+
+        match = StepPercentLabelRegex().Match(value);
+        if (match.Success)
+        {
+            string rawLabel = match.Groups["label"].Value;
+            string localizedLabel = LocalizeProgressLabel(rawLabel);
+            if (!localizedLabel.Equals(rawLabel, StringComparison.Ordinal))
+            {
+                return LocalizationText.Format("StepProgress.PercentFormat", localizedLabel, match.Groups["percent"].Value);
+            }
+        }
+
+        match = DownloadedBytesRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format("StepProgress.DownloadedBytesFormat", match.Groups["size"].Value);
         }
 
         match = ProfilesAvailableRegex().Match(value);
@@ -272,12 +338,6 @@ public static partial class DeploymentUiTextLocalizer
             return LocalizationText.Format("Status.StartingStepSubProgressFormat", LocalizeStepName(match.Groups["step"].Value));
         }
 
-        match = ApplyingImageProgressRegex().Match(value);
-        if (match.Success)
-        {
-            return LocalizationText.Format("Debug.ApplyingImageProgressFormat", match.Groups["percent"].Value);
-        }
-
         match = WpeUtilFailureRegex().Match(value);
         if (match.Success)
         {
@@ -285,6 +345,32 @@ public static partial class DeploymentUiTextLocalizer
         }
 
         return value;
+    }
+
+    /// <summary>
+    /// Localizes the invariant prefix used by generated percentage labels such as driver or image progress.
+    /// </summary>
+    /// <param name="label">The label text without the trailing percentage.</param>
+    /// <returns>The localized label without a trailing ellipsis when a mapping exists.</returns>
+    private static string LocalizeProgressLabel(string label)
+    {
+        string localized = LocalizeMessage(label);
+        if (!localized.Equals(label, StringComparison.Ordinal))
+        {
+            return localized;
+        }
+
+        localized = LocalizeMessage($"{label}...");
+        return localized.Equals($"{label}...", StringComparison.Ordinal)
+            ? label
+            : TrimTrailingEllipsis(localized);
+    }
+
+    private static string TrimTrailingEllipsis(string value)
+    {
+        return value.EndsWith("...", StringComparison.Ordinal)
+            ? value[..^3]
+            : value;
     }
 
     private static bool TryLocalizeSingleSuffix(string value, string prefix, string key, out string localized)
@@ -308,6 +394,18 @@ public static partial class DeploymentUiTextLocalizer
     [GeneratedRegex(@"^Target disks loaded: (?<count>\d+) detected\.$")]
     private static partial Regex TargetDisksLoadedRegex();
 
+    [GeneratedRegex(@"^Target disk (?<disk>\d+) is no longer present\.$")]
+    private static partial Regex TargetDiskMissingRegex();
+
+    [GeneratedRegex(@"^Target disk (?<disk>\d+) is blocked: (?<warning>.+)$")]
+    private static partial Regex TargetDiskBlockedRegex();
+
+    [GeneratedRegex(@"^(?<label>.+): (?<percent>\d+(?:[.,]\d+)?)%$")]
+    private static partial Regex StepPercentLabelRegex();
+
+    [GeneratedRegex(@"^(?<size>.+) downloaded$")]
+    private static partial Regex DownloadedBytesRegex();
+
     [GeneratedRegex(@"^Step: (?<current>\d+) of (?<total>\d+)$")]
     private static partial Regex StepCounterRegex();
 
@@ -316,9 +414,6 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Starting (?<step>.+)\.\.\.$")]
     private static partial Regex StartingStepSubProgressRegex();
-
-    [GeneratedRegex(@"^Applying image: (?<percent>\d+(?:[.,]\d+)?)%$")]
-    private static partial Regex ApplyingImageProgressRegex();
 
     [GeneratedRegex(@"^wpeutil\.exe failed with exit code (?<code>\d+)\. (?<diagnostic>.+)$")]
     private static partial Regex WpeUtilFailureRegex();
