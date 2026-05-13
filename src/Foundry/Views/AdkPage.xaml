@@ -24,7 +24,7 @@
                               Header="{x:Bind ViewModel.SetupActionTitle, Mode=OneWay}"
                               Visibility="{x:Bind ViewModel.IsSetupActionVisible, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE946;" />
+                    <FontIcon Glyph="&#xEC7A;" />
                 </wct:SettingsCard.HeaderIcon>
                 <StackPanel Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -45,7 +45,7 @@
 
             <wct:SettingsCard Header="{x:Bind ViewModel.ReadinessDetailsTitle, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE946;" />
+                    <FontIcon Glyph="&#xEC7A;" />
                 </wct:SettingsCard.HeaderIcon>
                 <Grid ColumnSpacing="{ThemeResource FoundrySpace24}"
                       RowSpacing="{ThemeResource FoundrySpace8}">

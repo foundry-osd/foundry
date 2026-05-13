@@ -18,7 +18,7 @@
             <wct:SettingsCard Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
                               Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE7BF;" />
+                    <FontIcon Glyph="&#xE753;" />
                 </wct:SettingsCard.HeaderIcon>
                 <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.EnableAutopilotText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsAutopilotEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -28,7 +28,7 @@
                               HorizontalContentAlignment="Stretch"
                               IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8B7;" />
+                    <FontIcon Glyph="&#xEF58;" />
                 </wct:SettingsCard.HeaderIcon>
                 <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                     <Grid.ColumnDefinitions>
@@ -66,7 +66,7 @@
             <wct:SettingsCard Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}"
                               IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8D7;" />
+                    <FontIcon Glyph="&#xECA7;" />
                 </wct:SettingsCard.HeaderIcon>
                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                           DisplayMemberPath="DisplayName"
@@ -78,7 +78,7 @@
                               HorizontalContentAlignment="Stretch"
                               IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8A5;" />
+                    <FontIcon Glyph="&#xE716;" />
                 </wct:SettingsCard.HeaderIcon>
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
