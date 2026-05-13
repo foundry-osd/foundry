@@ -125,6 +125,12 @@ Foundry Project is split across focused repositories:
 - [`catalog`](https://github.com/foundry-osd/catalog): Catalog automation for operating system, driver pack, and WinPE metadata.
 - [`foundry-osd.github.io`](https://foundry-osd.github.io/): Documentation, guides, and reference material.
 
+## Telemetry
+
+Foundry OSD collects anonymous usage telemetry to help prioritize project improvements. Telemetry is enabled by default and can be disabled from Settings. Generated Foundry Connect and Foundry Deploy runtime media follow the same setting.
+
+See the [telemetry documentation](https://foundry-osd.github.io/docs/reference/telemetry) for collected events, excluded data, and privacy details.
+
 ## Support
 
 Community involvement is welcome.

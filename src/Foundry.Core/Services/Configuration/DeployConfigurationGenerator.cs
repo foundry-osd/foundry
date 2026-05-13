@@ -53,7 +53,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 DefaultProfileFolderName = document.Autopilot.Profiles
                     .FirstOrDefault(profile => string.Equals(profile.Id, document.Autopilot.DefaultProfileId, StringComparison.OrdinalIgnoreCase))
                     ?.FolderName
-            }
+            },
+            Telemetry = document.Telemetry
         };
     }
 

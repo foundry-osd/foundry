@@ -1,5 +1,6 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Telemetry;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -29,6 +30,24 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Null(result.Customization.MachineNaming.Prefix);
         Assert.False(result.Customization.MachineNaming.AutoGenerateName);
         Assert.True(result.Customization.MachineNaming.AllowManualSuffixEdit);
+    }
+
+    [Fact]
+    public void Generate_PropagatesTelemetrySettings()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var telemetry = new TelemetrySettings
+        {
+            IsEnabled = false,
+            InstallId = "install-id",
+            HostUrl = TelemetryDefaults.PostHogEuHost,
+            ProjectToken = "project-token",
+            RuntimePayloadSource = TelemetryRuntimePayloadSources.Release
+        };
+
+        var result = generator.Generate(new FoundryExpertConfigurationDocument { Telemetry = telemetry });
+
+        Assert.Same(telemetry, result.Telemetry);
     }
 
     [Fact]

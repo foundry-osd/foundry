@@ -1116,6 +1116,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>General</value>
   </data>
+  <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
+    <value>Send anonymous usage telemetry to help improve Foundry. No names, secrets, SSIDs, IP addresses, file paths, disk identifiers, computer names, Autopilot profile names, or hardware identifiers are sent.</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
+    <value>Enable telemetry</value>
+  </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
     <value>Change theme, backdrop, and accent color preferences.</value>
   </data>

@@ -152,7 +152,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 ProbeUris = probeUris,
                 TimeoutSeconds = Math.Clamp(probe.TimeoutSeconds, 1, 30)
-            }
+            },
+            Telemetry = configuration.Telemetry
         };
     }
 
@@ -188,7 +189,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 Passphrase = passphrase,
                 PassphraseSecret = null
             },
-            InternetProbe = configuration.InternetProbe
+            InternetProbe = configuration.InternetProbe,
+            Telemetry = configuration.Telemetry
         };
     }
 

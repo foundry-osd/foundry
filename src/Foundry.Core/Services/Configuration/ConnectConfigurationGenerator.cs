@@ -89,7 +89,8 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
                 CertificatePath = wifiCertificateRelativePath,
                 EnterpriseAuthenticationMode = NetworkAuthenticationMode.UserOnly,
                 AllowRuntimeCredentials = false
-            }
+            },
+            Telemetry = document.Telemetry
         };
 
         return new FoundryConnectProvisioningBundle

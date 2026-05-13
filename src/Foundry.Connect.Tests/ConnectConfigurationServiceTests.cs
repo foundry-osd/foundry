@@ -3,6 +3,7 @@ using System.Text.Json.Nodes;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Telemetry;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConfiguration = Foundry.Core.Models.Configuration;
 
@@ -61,6 +62,38 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(
             ["https://example.com/health", "http://contoso.test/connect"],
             configuration.InternetProbe.ProbeUris);
+    }
+
+    [Fact]
+    public void Load_WhenConfigurationContainsTelemetry_PreservesTelemetrySettings()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "telemetry.json",
+            """
+            {
+              "schemaVersion": 1,
+              "telemetry": {
+                "isEnabled": false,
+                "installId": "install-id",
+                "hostUrl": "https://eu.i.posthog.com",
+                "projectToken": "project-token",
+                "runtimePayloadSource": "debug"
+              }
+            }
+            """);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.False(configuration.Telemetry.IsEnabled);
+        Assert.Equal("install-id", configuration.Telemetry.InstallId);
+        Assert.Equal(TelemetryDefaults.PostHogEuHost, configuration.Telemetry.HostUrl);
+        Assert.Equal("project-token", configuration.Telemetry.ProjectToken);
+        Assert.Equal(TelemetryRuntimePayloadSources.Debug, configuration.Telemetry.RuntimePayloadSource);
     }
 
     [Fact]

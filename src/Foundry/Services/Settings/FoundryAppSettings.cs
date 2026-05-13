@@ -34,6 +34,11 @@ public sealed class FoundryAppSettings
     /// Gets or sets diagnostic and developer-mode preferences.
     /// </summary>
     public DiagnosticsSettings Diagnostics { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets anonymous telemetry preferences and identity.
+    /// </summary>
+    public TelemetryAppSettings Telemetry { get; set; } = new();
 }
 
 /// <summary>
@@ -144,4 +149,20 @@ public sealed class DiagnosticsSettings
     /// Gets or sets a value indicating whether developer diagnostics are enabled.
     /// </summary>
     public bool DeveloperMode { get; set; }
+}
+
+/// <summary>
+/// Stores anonymous telemetry preference and the random installation identifier.
+/// </summary>
+public sealed class TelemetryAppSettings
+{
+    /// <summary>
+    /// Gets or sets a value indicating whether anonymous product telemetry is enabled.
+    /// </summary>
+    public bool IsEnabled { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the random anonymous installation identifier used for telemetry.
+    /// </summary>
+    public string InstallId { get; set; } = string.Empty;
 }

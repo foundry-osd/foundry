@@ -12,6 +12,7 @@ using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
+using Foundry.Telemetry;
 using Serilog;
 
 namespace Foundry.ViewModels;
@@ -31,6 +32,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly IFilePickerService filePickerService;
     private readonly IExpertDeployConfigurationStateService expertDeployConfigurationStateService;
+    private readonly ITelemetryService telemetryService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
     private readonly IDialogService dialogService;
@@ -55,6 +57,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeUsbMediaService usbMediaService,
         IFilePickerService filePickerService,
         IExpertDeployConfigurationStateService expertDeployConfigurationStateService,
+        ITelemetryService telemetryService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
         IDialogService dialogService,
@@ -72,6 +75,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.usbMediaService = usbMediaService;
         this.filePickerService = filePickerService;
         this.expertDeployConfigurationStateService = expertDeployConfigurationStateService;
+        this.telemetryService = telemetryService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
         this.dialogService = dialogService;
@@ -323,6 +327,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task CreateIsoAsync()
     {
+        SynchronizeRuntimeTelemetrySettings();
+
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         if (!evaluation.CanCreateIso)
@@ -337,6 +343,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task CreateUsbAsync()
     {
+        SynchronizeRuntimeTelemetrySettings();
+
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         if (!evaluation.CanCreateUsb || options.SelectedUsbDisk is null)
@@ -381,6 +389,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
         string terminalStatus = string.Empty;
         string? successMessage = null;
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        bool success = false;
 
         try
         {
@@ -415,6 +425,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
             operationProgressService.Complete(terminalStatus);
+            success = true;
             logger.Information("Final media creation completed. Target={Target}", target);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
@@ -428,6 +439,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
+            await TrackMediaCreatedAsync(target, options, success, stopwatch.Elapsed, CancellationToken.None);
             shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
                 ? ShellNavigationState.Ready
                 : ShellNavigationState.AdkBlocked);
@@ -554,6 +566,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.WinPeWorkspaceDirectoryPath,
                 Constants.WinPeWorkspaceDirectoryPath);
             runtimePayloadProvisioning = AddReleaseConnectProvisioning(runtimePayloadProvisioning);
+            TelemetrySettings connectTelemetrySettings = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect));
+            TelemetrySettings deployTelemetrySettings = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
 
             logger.Debug(
                 "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, BootImageSource={BootImageSource}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsConnectRuntimeProvisioningEnabled={IsConnectRuntimeProvisioningEnabled}, ConnectRuntimeSource={ConnectRuntimeSource}, IsDeployRuntimeProvisioningEnabled={IsDeployRuntimeProvisioningEnabled}, DeployRuntimeSource={DeployRuntimeSource}",
@@ -593,7 +607,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 artifact.BootWimPath);
 
             FoundryConnectProvisioningBundle connectBundle = expertDeployConfigurationStateService.GenerateConnectProvisioningBundle(
-                Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"));
+                Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"),
+                connectTelemetrySettings);
             logger.Debug(
                 "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, HasMediaSecretsKey={HasMediaSecretsKey}, AutopilotProfileCount={AutopilotProfileCount}",
                 connectBundle.AssetFiles.Count,
@@ -619,7 +634,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     DriverVendors = options.DriverVendors,
                     CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                     WinPeLanguage = options.WinPeLanguage,
-                    AssetProvisioning = CreateAssetProvisioningOptions(options, connectBundle, runtimePayloadProvisioning),
+                    AssetProvisioning = CreateAssetProvisioningOptions(options, connectBundle, runtimePayloadProvisioning, deployTelemetrySettings),
                     RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
                     WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                     Progress = new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage),
@@ -653,7 +668,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private WinPeMountedImageAssetProvisioningOptions CreateAssetProvisioningOptions(
         MediaPreflightOptions options,
         FoundryConnectProvisioningBundle connectBundle,
-        WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning)
+        WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
+        TelemetrySettings deployTelemetrySettings)
     {
         return new WinPeMountedImageAssetProvisioningOptions
         {
@@ -662,7 +678,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
-            ExpertDeployConfigurationJson = expertDeployConfigurationStateService.GenerateDeployConfigurationJson(),
+            ExpertDeployConfigurationJson = expertDeployConfigurationStateService.GenerateDeployConfigurationJson(deployTelemetrySettings),
             MediaSecretsKey = connectBundle.MediaSecretsKey,
             FoundryConnectAssetFiles = connectBundle.AssetFiles,
             AutopilotProfiles = options.IsAutopilotEnabled
@@ -676,6 +692,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private static WinPeProvisioningSource ResolveProvisioningSource(WinPeRuntimePayloadApplicationOptions options)
     {
         return options.IsEnabled ? options.ProvisioningSource : WinPeProvisioningSource.Release;
+    }
+
+    private static string ResolveRuntimePayloadSource(WinPeRuntimePayloadApplicationOptions options)
+    {
+        return ResolveProvisioningSource(options) switch
+        {
+            WinPeProvisioningSource.Debug => TelemetryRuntimePayloadSources.Debug,
+            WinPeProvisioningSource.Release => TelemetryRuntimePayloadSources.Release,
+            _ => TelemetryRuntimePayloadSources.Unknown
+        };
     }
 
     private void ReportWorkspacePreparationStage(WinPeWorkspacePreparationStage stage)
@@ -1151,6 +1177,77 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             CustomDriverDirectoryPath = CustomDriverDirectoryPath,
             SelectedUsbDisk = SelectedUsbDisk?.Value
         };
+    }
+
+    private void SynchronizeRuntimeTelemetrySettings()
+    {
+        expertDeployConfigurationStateService.UpdateTelemetry(CreateRuntimeTelemetrySettings(TelemetryRuntimePayloadSources.None));
+    }
+
+    private TelemetrySettings CreateRuntimeTelemetrySettings(string runtimePayloadSource)
+    {
+        return new TelemetrySettings
+        {
+            IsEnabled = appSettingsService.Current.Telemetry.IsEnabled,
+            InstallId = appSettingsService.Current.Telemetry.InstallId,
+            HostUrl = TelemetryDefaults.PostHogEuHost,
+            ProjectToken = TelemetryDefaults.ProjectToken,
+            RuntimePayloadSource = runtimePayloadSource
+        };
+    }
+
+    private async Task TrackMediaCreatedAsync(
+        FinalMediaTarget target,
+        MediaPreflightOptions options,
+        bool success,
+        TimeSpan duration,
+        CancellationToken cancellationToken)
+    {
+        WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = AddReleaseConnectProvisioning(CreateRuntimePayloadProvisioningOptions(
+            options.Architecture,
+            Constants.WinPeWorkspaceDirectoryPath,
+            Constants.WinPeWorkspaceDirectoryPath,
+            Constants.WinPeWorkspaceDirectoryPath));
+
+        var properties = new Dictionary<string, object?>
+            {
+                ["target"] = target == FinalMediaTarget.Iso ? "iso" : "usb",
+                ["success"] = success,
+                ["duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
+                ["architecture"] = options.Architecture.ToString().ToLowerInvariant(),
+                ["winpe_language"] = NormalizeCultureName(options.WinPeLanguage).ToLowerInvariant(),
+                ["boot_image_source"] = options.BootImageSource.ToString().ToLowerInvariant(),
+                ["signature_mode"] = options.SignatureMode.ToString().ToLowerInvariant(),
+                ["usb_partition_style"] = target == FinalMediaTarget.Usb
+                    ? options.UsbPartitionStyle.ToString().ToLowerInvariant()
+                    : "none",
+                ["usb_format_mode"] = target == FinalMediaTarget.Usb
+                    ? options.UsbFormatMode.ToString().ToLowerInvariant()
+                    : "none",
+                ["include_dell_drivers"] = options.DriverVendors.Contains(WinPeVendorSelection.Dell),
+                ["include_hp_drivers"] = options.DriverVendors.Contains(WinPeVendorSelection.Hp),
+                ["custom_drivers_enabled"] = !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
+                ["network_configured"] = options.IsNetworkConfigurationReady,
+                ["connect_configured"] = options.IsConnectProvisioningReady,
+                ["deploy_configured"] = options.IsDeployConfigurationReady,
+                ["connect_runtime_payload_source"] = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
+                ["deploy_runtime_payload_source"] = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
+                ["autopilot_enabled"] = options.IsAutopilotEnabled
+            };
+
+        logger.Debug(
+            "Tracking media telemetry event. Target={Target}, Success={Success}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
+            properties["target"],
+            success,
+            properties["duration_seconds"],
+            properties["architecture"],
+            properties["boot_image_source"],
+            properties["signature_mode"],
+            properties["connect_runtime_payload_source"],
+            properties["deploy_runtime_payload_source"]);
+
+        await telemetryService.TrackAsync("boot_media_created", properties, cancellationToken);
+        logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["target"], success);
     }
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)

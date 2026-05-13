@@ -15,6 +15,7 @@ using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.ViewModels;
+using Foundry.Telemetry;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -45,6 +46,10 @@ public static class Program
             ConfigureRuntimeCompatibility();
 
             using IHost host = BuildHost(args);
+            ITelemetryService telemetryService = host.Services.GetRequiredService<ITelemetryService>();
+            Log.Debug("Tracking Foundry.Deploy startup telemetry event.");
+            telemetryService.TrackAsync("app_started", new Dictionary<string, object?>()).GetAwaiter().GetResult();
+            Log.Debug("Foundry.Deploy startup telemetry event queued.");
 
             App app = host.Services.GetRequiredService<App>();
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
@@ -52,6 +57,9 @@ public static class Program
 
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
             int exitCode = app.Run(mainWindow);
+            Log.Debug("Flushing Foundry.Deploy telemetry events.");
+            telemetryService.FlushAsync().GetAwaiter().GetResult();
+            Log.Debug("Foundry.Deploy telemetry flush completed.");
 
             Log.Information("Foundry.Deploy exited with code {ExitCode}.", exitCode);
             return exitCode;

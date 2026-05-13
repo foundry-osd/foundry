@@ -1,3 +1,4 @@
+using Foundry.ViewModels;
 using Foundry.Services.Localization;
 using Foundry.Services.Shell;
 using Serilog;
@@ -10,10 +11,13 @@ namespace Foundry.Views
         private readonly IShellNavigationGuardService shellNavigationGuardService;
         private readonly ILogger logger = Log.ForContext<SettingsPage>();
 
+        public SettingsPageViewModel ViewModel { get; }
+
         public SettingsPage()
         {
             localizationService = App.GetService<IApplicationLocalizationService>();
             shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
+            ViewModel = App.GetService<SettingsPageViewModel>();
             this.InitializeComponent();
             ApplyLocalizedText();
             localizationService.LanguageChanged += OnLanguageChanged;
@@ -41,6 +45,10 @@ namespace Foundry.Views
 
         private void ApplyLocalizedText()
         {
+            TelemetryCard.Header = localizationService.GetString("SettingsPage_TelemetryCard.Header");
+            TelemetryCard.Description = localizationService.GetString("SettingsPage_TelemetryCard.Description");
+            TelemetryToggle.OnContent = localizationService.GetString("Common.Enabled");
+            TelemetryToggle.OffContent = localizationService.GetString("Common.Disabled");
             ApplyLocalizedNavigationParameters();
             ApplyNavigationGuardState();
         }

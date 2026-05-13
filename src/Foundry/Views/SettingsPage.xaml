@@ -25,6 +25,14 @@
                     <FontIcon Glyph="&#xE713;" />
                 </wct:SettingsCard.HeaderIcon>
             </wct:SettingsCard>
+            <wct:SettingsCard x:Name="TelemetryCard"
+                              x:Uid="SettingsPage_TelemetryCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE9D9;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ToggleSwitch x:Name="TelemetryToggle"
+                              IsOn="{x:Bind ViewModel.IsTelemetryEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wct:SettingsCard>
             <wct:SettingsCard x:Name="ThemeSettingsCard"
                               x:Uid="SettingsPage_ThemeCard"
                               IsClickEnabled="True"

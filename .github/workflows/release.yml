@@ -222,8 +222,14 @@ jobs:
           Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_NOTES_PATH=$releaseNotesPath"
 
       - name: Build release assets
+        env:
+          FoundryPostHogProjectToken: ${{ secrets.FoundryPostHogProjectToken }}
         shell: pwsh
         run: |
+          if ([string]::IsNullOrWhiteSpace($env:FoundryPostHogProjectToken)) {
+              throw "FoundryPostHogProjectToken secret is required for release assets."
+          }
+
           $workspace = $env:GITHUB_WORKSPACE
           $releaseRoot = Join-Path $workspace 'artifacts\release'
           $publishRoot = Join-Path $releaseRoot 'publish'
@@ -236,7 +242,8 @@ jobs:
               'IncludeNativeLibrariesForSelfExtract=true',
               'IncludeAllContentForSelfExtract=true',
               'DebugType=None',
-              'GenerateDocumentationFile=false'
+              'GenerateDocumentationFile=false',
+              "FoundryPostHogProjectToken=$env:FoundryPostHogProjectToken"
           )
 
           function Invoke-Publish {
