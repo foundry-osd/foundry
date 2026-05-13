@@ -1,6 +1,7 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Deployment;
+using System.Globalization;
 
 namespace Foundry.Deploy.Tests;
 
@@ -94,6 +95,36 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Same(autopilotProfile, result.Context?.SelectedAutopilotProfile);
     }
 
+    [Fact]
+    public void Prepare_WhenConfirmationIsShown_UsesLocalizedWarningText()
+    {
+        CultureInfo originalCulture = CultureInfo.CurrentCulture;
+        CultureInfo originalUiCulture = CultureInfo.CurrentUICulture;
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+
+        try
+        {
+            var shell = new FakeApplicationShellService { ConfirmationResult = true };
+            var service = new DeploymentLaunchPreparationService(shell);
+
+            TargetDiskInfo targetDisk = CreateDisk(sizeBytes: 0);
+
+            service.Prepare(CreateRequest(selectedTargetDisk: targetDisk));
+
+            Assert.Equal("Confirmer l’effacement du disque", shell.LastConfirmationTitle);
+            Assert.Contains("Cette opération va EFFACER le disque sélectionné et appliquer un nouveau système d’exploitation.", shell.LastConfirmationMessage);
+            Assert.Contains("Disque : 3", shell.LastConfirmationMessage);
+            Assert.Contains("Taille : Taille inconnue", shell.LastConfirmationMessage);
+            Assert.Contains("Continuer ?", shell.LastConfirmationMessage);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+            CultureInfo.CurrentUICulture = originalUiCulture;
+        }
+    }
+
     private static DeploymentLaunchRequest CreateRequest(
         TargetDiskInfo? selectedTargetDisk,
         string targetComputerName = "LAB-01",
@@ -131,14 +162,14 @@ public sealed class DeploymentLaunchPreparationServiceTests
         };
     }
 
-    private static TargetDiskInfo CreateDisk(bool isSelectable = true, string selectionWarning = "")
+    private static TargetDiskInfo CreateDisk(bool isSelectable = true, string selectionWarning = "", ulong sizeBytes = 256UL * 1024UL * 1024UL * 1024UL)
     {
         return new TargetDiskInfo
         {
             DiskNumber = 3,
             FriendlyName = "NVMe Disk",
             BusType = "NVMe",
-            SizeBytes = 256UL * 1024UL * 1024UL * 1024UL,
+            SizeBytes = sizeBytes,
             IsSelectable = isSelectable,
             SelectionWarning = selectionWarning
         };
@@ -150,6 +181,10 @@ public sealed class DeploymentLaunchPreparationServiceTests
 
         public int ConfirmationCallCount { get; private set; }
 
+        public string LastConfirmationTitle { get; private set; } = string.Empty;
+
+        public string LastConfirmationMessage { get; private set; } = string.Empty;
+
         public void ShowAbout()
         {
         }
@@ -157,6 +192,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
         public bool ConfirmWarning(string title, string message)
         {
             ConfirmationCallCount++;
+            LastConfirmationTitle = title;
+            LastConfirmationMessage = message;
             return ConfirmationResult;
         }
     }

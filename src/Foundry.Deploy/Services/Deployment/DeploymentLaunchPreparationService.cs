@@ -1,9 +1,13 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.ApplicationShell;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Validation;
 
 namespace Foundry.Deploy.Services.Deployment;
 
+/// <summary>
+/// Validates launch selections and asks the shell for destructive deployment confirmation before creating a deployment context.
+/// </summary>
 public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPreparationService
 {
     private readonly IApplicationShellService _applicationShellService;
@@ -13,6 +17,11 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         _applicationShellService = applicationShellService;
     }
 
+    /// <summary>
+    /// Builds a deployment context when the request is valid and the user confirms disk erasure.
+    /// </summary>
+    /// <param name="request">The wizard selections and launch options to validate.</param>
+    /// <returns>The normalized launch result, including a deployment context when startup can continue.</returns>
     public DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
@@ -91,23 +100,26 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             context);
     }
 
+    /// <summary>
+    /// Shows the final warning that live deployments erase the selected target disk.
+    /// </summary>
+    /// <param name="targetDisk">The disk that will be repartitioned.</param>
+    /// <param name="operatingSystem">The operating system image that will be applied.</param>
+    /// <returns><see langword="true"/> when the user confirms the destructive operation.</returns>
     private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemCatalogItem operatingSystem)
     {
         string sizeGiB = targetDisk.SizeBytes > 0
             ? $"{(targetDisk.SizeBytes / 1024d / 1024d / 1024d):0.0} GiB"
-            : "Unknown size";
+            : LocalizationText.GetString("Disk.UnknownSize");
 
-        string message =
-            "This operation will ERASE the selected disk and apply a new operating system." + Environment.NewLine +
-            Environment.NewLine +
-            $"Disk: {targetDisk.DiskNumber}" + Environment.NewLine +
-            $"Model: {targetDisk.FriendlyName}" + Environment.NewLine +
-            $"Bus: {targetDisk.BusType}" + Environment.NewLine +
-            $"Size: {sizeGiB}" + Environment.NewLine +
-            Environment.NewLine +
-            $"OS: {operatingSystem.DisplayLabel}" + Environment.NewLine +
-            "Continue?";
+        string message = LocalizationText.Format(
+            "Launch.ConfirmDiskEraseMessageFormat",
+            targetDisk.DiskNumber,
+            targetDisk.FriendlyName,
+            targetDisk.BusType,
+            sizeGiB,
+            operatingSystem.DisplayLabel);
 
-        return _applicationShellService.ConfirmWarning("Confirm Disk Erase", message);
+        return _applicationShellService.ConfirmWarning(LocalizationText.GetString("Launch.ConfirmDiskEraseTitle"), message);
     }
 }
