@@ -5,28 +5,30 @@ namespace Foundry.Telemetry.Tests;
 public sealed class TelemetryEventPropertyPolicyTests
 {
     [Fact]
-    public void Sanitize_DropsPropertiesOutsideEventAllowlist()
+    public void Sanitize_ForBootMediaFinished_DropsPropertiesOutsideEventAllowlist()
     {
         Dictionary<string, object?> input = new()
         {
-            ["target"] = "iso",
+            ["boot_media_target"] = "iso",
             ["success"] = true,
             ["duration_seconds"] = 12.5,
+            ["boot_media_architecture"] = "x64",
             ["ssid"] = "CorpWifi",
             ["iso_output_path"] = @"C:\Temp\Foundry.iso"
         };
 
-        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize("boot_media_created", input);
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, input);
 
-        Assert.Equal("iso", result["target"]);
+        Assert.Equal("iso", result["boot_media_target"]);
         Assert.True((bool)result["success"]!);
         Assert.Equal(12.5, result["duration_seconds"]);
+        Assert.Equal("x64", result["boot_media_architecture"]);
         Assert.False(result.ContainsKey("ssid"));
         Assert.False(result.ContainsKey("iso_output_path"));
     }
 
     [Fact]
-    public void Sanitize_DropsKnownDeploySensitiveValues()
+    public void Sanitize_ForDeploySessionFinished_DropsKnownDeploySensitiveValues()
     {
         Dictionary<string, object?> input = new()
         {
@@ -41,7 +43,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["exception"] = @"C:\Temp\failure.log"
         };
 
-        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize("deployment_completed", input);
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, input);
 
         Assert.Equal(false, result["success"]);
         Assert.Equal("ApplyOperatingSystemImage", result["failed_step_name"]);
@@ -49,5 +51,39 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False(result.ContainsKey("driver_pack_url"));
         Assert.False(result.ContainsKey("target_computer_name"));
         Assert.False(result.ContainsKey("exception"));
+    }
+
+    [Fact]
+    public void Sanitize_ForConnectSessionReady_AllowsLayoutMode()
+    {
+        Dictionary<string, object?> input = new()
+        {
+            ["success"] = true,
+            ["connection_type"] = "ethernet",
+            ["layout_mode"] = "ethernet_wifi",
+            ["adapter_name"] = "Ethernet 1"
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.ConnectSessionReady, input);
+
+        Assert.True((bool)result["success"]!);
+        Assert.Equal("ethernet", result["connection_type"]);
+        Assert.Equal("ethernet_wifi", result["layout_mode"]);
+        Assert.False(result.ContainsKey("adapter_name"));
+    }
+
+    [Fact]
+    public void IsKnownEvent_ReturnsFalseForOldAndUnknownEventNames()
+    {
+        Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.AppDailyActive));
+        Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.OsdBootMediaFinished));
+        Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.ConnectSessionReady));
+        Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.DeploySessionFinished));
+
+        Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("app_started"));
+        Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("boot_media_created"));
+        Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("connect_network_ready"));
+        Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("deployment_completed"));
+        Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("unknown_event"));
     }
 }

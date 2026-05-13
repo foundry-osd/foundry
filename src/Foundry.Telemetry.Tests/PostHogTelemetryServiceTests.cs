@@ -12,7 +12,7 @@ public sealed class PostHogTelemetryServiceTests
         using var httpClient = new HttpClient(new RecordingHttpMessageHandler { ThrowOnSend = true });
         var service = CreateService(httpClient);
 
-        await service.TrackAsync("boot_media_created", new Dictionary<string, object?> { ["target"] = "iso" });
+        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public sealed class PostHogTelemetryServiceTests
         var options = new TelemetryOptions(false, TelemetryDefaults.PostHogEuHost, "project-token", "install-id");
         var service = CreateService(httpClient, options);
 
-        await service.TrackAsync("boot_media_created", new Dictionary<string, object?> { ["target"] = "iso" });
+        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
 
         Assert.Equal(0, handler.SendCount);
     }
@@ -36,10 +36,11 @@ public sealed class PostHogTelemetryServiceTests
         var service = CreateService(httpClient);
 
         await service.TrackAsync(
-            "boot_media_created",
+            TelemetryEvents.OsdBootMediaFinished,
             new Dictionary<string, object?>
             {
-                ["target"] = "iso",
+                ["boot_media_target"] = "iso",
+                ["boot_media_architecture"] = "arm64",
                 ["ssid"] = "CorpWifi"
             });
 
@@ -47,18 +48,33 @@ public sealed class PostHogTelemetryServiceTests
 
         JsonElement root = handler.ReadJson();
         Assert.Equal("project-token", root.GetProperty("api_key").GetString());
-        Assert.Equal("boot_media_created", root.GetProperty("event").GetString());
+        Assert.Equal(TelemetryEvents.OsdBootMediaFinished, root.GetProperty("event").GetString());
         Assert.Equal("install-id", root.GetProperty("distinct_id").GetString());
         Assert.False(root.TryGetProperty("timestamp", out _));
 
         JsonElement properties = root.GetProperty("properties");
         Assert.False(properties.TryGetProperty("timestamp", out _));
-        Assert.Equal("iso", properties.GetProperty("target").GetString());
+        Assert.Equal("iso", properties.GetProperty("boot_media_target").GetString());
+        Assert.Equal("arm64", properties.GetProperty("boot_media_architecture").GetString());
         Assert.False(properties.TryGetProperty("ssid", out _));
-        Assert.Equal("foundry", properties.GetProperty("app").GetString());
+        Assert.Equal(TelemetryApps.FoundryOsd, properties.GetProperty("app").GetString());
         Assert.Equal("1.2.3", properties.GetProperty("app_version").GetString());
+        Assert.Equal("x64", properties.GetProperty("runtime_architecture").GetString());
+        Assert.False(properties.TryGetProperty("architecture", out _));
         Assert.False(properties.GetProperty("$process_person_profile").GetBoolean());
         Assert.False(properties.GetProperty("$geoip_disable").GetBoolean());
+    }
+
+    [Fact]
+    public async Task TrackAsync_WhenEventNameIsUnknown_DoesNotSend()
+    {
+        var handler = new RecordingHttpMessageHandler();
+        using var httpClient = new HttpClient(handler);
+        var service = CreateService(httpClient);
+
+        await service.TrackAsync("unknown_event", new Dictionary<string, object?> { ["success"] = true });
+
+        Assert.Equal(0, handler.SendCount);
     }
 
     [Fact]
@@ -78,7 +94,7 @@ public sealed class PostHogTelemetryServiceTests
     {
         var service = new NullTelemetryService();
 
-        await service.TrackAsync("boot_media_created", new Dictionary<string, object?> { ["target"] = "iso" });
+        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
         await service.FlushAsync();
     }
 
@@ -86,11 +102,12 @@ public sealed class PostHogTelemetryServiceTests
     {
         options ??= new TelemetryOptions(true, TelemetryDefaults.PostHogEuHost, "project-token", "install-id");
         var context = new TelemetryContext(
-            "foundry",
+            TelemetryApps.FoundryOsd,
             "1.2.3",
             "debug",
             TelemetryRuntimeModes.Desktop,
             TelemetryRuntimePayloadSources.None,
+            TelemetryBootMediaTargets.Usb,
             "x64",
             "en-US",
             "session-id");

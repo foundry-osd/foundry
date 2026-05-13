@@ -299,7 +299,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             properties["driver_pack_vendor"],
             properties["driver_pack_model"]);
 
-        return _telemetryService.TrackAsync("deployment_completed", properties, cancellationToken);
+        return _telemetryService.TrackAsync(TelemetryEvents.DeploySessionFinished, properties, cancellationToken);
     }
 
     private static string ResolveFailedStepName(DeploymentRuntimeState runtimeState)

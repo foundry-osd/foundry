@@ -165,4 +165,9 @@ public sealed class TelemetryAppSettings
     /// Gets or sets the random anonymous installation identifier used for telemetry.
     /// </summary>
     public string InstallId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the last local date where Foundry OSD activity telemetry was recorded.
+    /// </summary>
+    public string? LastDailyActiveDate { get; set; }
 }

@@ -1,3 +1,4 @@
+using Foundry.Connect.Models;
 using Foundry.Connect.Models.Network;
 
 namespace Foundry.Connect.Services.Network;
@@ -20,6 +21,20 @@ internal static class NetworkTelemetryClassifier
         }
 
         return string.IsNullOrWhiteSpace(snapshot.ConnectedWifiSsid) ? "unknown" : "wifi";
+    }
+
+    /// <summary>
+    /// Classifies the runtime layout into a stable telemetry category.
+    /// </summary>
+    /// <param name="layoutMode">Detected Connect layout mode.</param>
+    /// <returns>A stable layout category.</returns>
+    public static string ClassifyLayout(NetworkLayoutMode layoutMode)
+    {
+        return layoutMode switch
+        {
+            NetworkLayoutMode.EthernetWifi => "ethernet_wifi",
+            _ => "ethernet_only"
+        };
     }
 
     /// <summary>
