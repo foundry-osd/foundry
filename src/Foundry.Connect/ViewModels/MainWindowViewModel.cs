@@ -46,6 +46,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
     private readonly SemaphoreSlim _refreshGate = new(1, 1);
+    private readonly SemaphoreSlim _successfulExitGate = new(1, 1);
     private readonly CancellationTokenSource _disposeCts = new();
     private readonly bool _isAutoCloseEnabled;
 
@@ -53,7 +54,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool _isInitialized;
     private bool _isDisposed;
     private bool _isSyncingWifiNetworks;
-    private bool _hasTrackedNetworkReady;
+    private bool _hasTrackedSessionReady;
+    private NetworkStatusSnapshot? _lastNetworkReadySnapshot;
     private string? _lastSelectedWifiNetworkSsid;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
     private string? _connectedWifiSsid;
@@ -395,14 +397,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CanContinueBootstrap))]
-    private void ContinueBootstrap()
+    private async Task ContinueBootstrapAsync()
     {
-        if (_applicationLifetimeService.IsExitRequested)
-        {
-            return;
-        }
-
-        _applicationLifetimeService.Exit(FoundryConnectExitCode.Success);
+        await ContinueBootstrapSuccessfullyAsync(_disposeCts.Token).ConfigureAwait(false);
     }
 
     [RelayCommand(CanExecute = nameof(IsDebugMenuVisible))]
@@ -519,7 +516,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 snapshot.HasWirelessAdapter,
                 snapshot.WifiNetworks.Count);
             await RunOnUiAsync(() => ApplySnapshot(snapshot)).ConfigureAwait(false);
-            await TrackNetworkReadyAsync(snapshot, cancellationToken).ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
@@ -550,6 +546,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IsWifiRuntimeAvailable = snapshot.IsWifiRuntimeAvailable;
         HasWirelessAdapter = snapshot.HasWirelessAdapter;
         _connectedWifiSsid = snapshot.ConnectedWifiSsid;
+        _lastNetworkReadySnapshot = snapshot.HasInternetAccess ? snapshot : null;
 
         EthernetGlyph = ResolveEthernetGlyph(snapshot);
         EthernetStatusText = snapshot.EthernetStatusText;
@@ -588,14 +585,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
-    private async Task TrackNetworkReadyAsync(NetworkStatusSnapshot snapshot, CancellationToken cancellationToken)
+    private async Task TrackSessionReadyAsync(NetworkStatusSnapshot snapshot, CancellationToken cancellationToken)
     {
-        if (_hasTrackedNetworkReady || !snapshot.HasInternetAccess)
+        if (_hasTrackedSessionReady || !snapshot.HasInternetAccess)
         {
             return;
         }
 
-        _hasTrackedNetworkReady = true;
+        _hasTrackedSessionReady = true;
         string connectionType = NetworkTelemetryClassifier.ClassifyConnection(snapshot);
         string wifiSecurity = ResolveWifiSecurity(snapshot, connectionType);
         string wifiSource = ResolveWifiSource(snapshot, connectionType);
@@ -603,6 +600,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             {
                 ["success"] = true,
                 ["connection_type"] = connectionType,
+                ["layout_mode"] = NetworkTelemetryClassifier.ClassifyLayout(snapshot.LayoutMode),
                 ["wifi_security"] = wifiSecurity,
                 ["wifi_source"] = wifiSource,
                 ["wired_dot1x_enabled"] = _configuration.Dot1x.IsEnabled,
@@ -610,15 +608,42 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             };
 
         _logger.LogDebug(
-            "Tracking network-ready telemetry event. ConnectionType={ConnectionType}, WifiSecurity={WifiSecurity}, WifiSource={WifiSource}, WiredDot1xEnabled={WiredDot1xEnabled}, WifiProvisioned={WifiProvisioned}.",
+            "Tracking Connect session-ready telemetry event. ConnectionType={ConnectionType}, LayoutMode={LayoutMode}, WifiSecurity={WifiSecurity}, WifiSource={WifiSource}, WiredDot1xEnabled={WiredDot1xEnabled}, WifiProvisioned={WifiProvisioned}.",
             connectionType,
+            properties["layout_mode"],
             wifiSecurity,
             wifiSource,
             _configuration.Dot1x.IsEnabled,
             HasProvisionedWifiProfile);
 
-        await _telemetryService.TrackAsync("connect_network_ready", properties, cancellationToken).ConfigureAwait(false);
-        _logger.LogDebug("Network-ready telemetry event queued. ConnectionType={ConnectionType}.", connectionType);
+        await _telemetryService.TrackAsync(TelemetryEvents.ConnectSessionReady, properties, cancellationToken).ConfigureAwait(false);
+        _logger.LogDebug("Connect session-ready telemetry event queued. ConnectionType={ConnectionType}.", connectionType);
+    }
+
+    private async Task ContinueBootstrapSuccessfullyAsync(CancellationToken cancellationToken)
+    {
+        await _successfulExitGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+
+        try
+        {
+            if (_applicationLifetimeService.IsExitRequested)
+            {
+                return;
+            }
+
+            NetworkStatusSnapshot? snapshot = _lastNetworkReadySnapshot;
+            if (snapshot is null || !snapshot.HasInternetAccess)
+            {
+                return;
+            }
+
+            await TrackSessionReadyAsync(snapshot, cancellationToken).ConfigureAwait(false);
+            _applicationLifetimeService.Exit(FoundryConnectExitCode.Success);
+        }
+        finally
+        {
+            _successfulExitGate.Release();
+        }
     }
 
     private string ResolveWifiSecurity(NetworkStatusSnapshot snapshot, string connectionType)
@@ -715,7 +740,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             if (!_applicationLifetimeService.IsExitRequested)
             {
                 _logger.LogInformation("Internet validation remained stable through the countdown. Exiting successfully.");
-                _applicationLifetimeService.Exit(FoundryConnectExitCode.Success);
+                await ContinueBootstrapSuccessfullyAsync(cancellationToken).ConfigureAwait(false);
             }
         }
         catch (OperationCanceledException)
@@ -897,6 +922,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _countdownCts?.Dispose();
         _disposeCts.Dispose();
         _refreshGate.Dispose();
+        _successfulExitGate.Dispose();
         base.Dispose();
         _isDisposed = true;
     }

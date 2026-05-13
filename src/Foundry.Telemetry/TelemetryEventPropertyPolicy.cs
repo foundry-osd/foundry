@@ -33,13 +33,13 @@ public static class TelemetryEventPropertyPolicy
     private static readonly IReadOnlyDictionary<string, HashSet<string>> AllowedPropertiesByEvent =
         new Dictionary<string, HashSet<string>>(StringComparer.Ordinal)
         {
-            ["app_started"] = new(StringComparer.Ordinal),
-            ["boot_media_created"] = new(StringComparer.Ordinal)
+            [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal),
+            [TelemetryEvents.OsdBootMediaFinished] = new(StringComparer.Ordinal)
             {
-                "target",
+                "boot_media_target",
                 "success",
                 "duration_seconds",
-                "architecture",
+                "boot_media_architecture",
                 "winpe_language",
                 "boot_image_source",
                 "signature_mode",
@@ -55,16 +55,17 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_runtime_payload_source",
                 "autopilot_enabled"
             },
-            ["connect_network_ready"] = new(StringComparer.Ordinal)
+            [TelemetryEvents.ConnectSessionReady] = new(StringComparer.Ordinal)
             {
                 "success",
                 "connection_type",
+                "layout_mode",
                 "wifi_security",
                 "wifi_source",
                 "wired_dot1x_enabled",
                 "wifi_provisioned"
             },
-            ["deployment_completed"] = new(StringComparer.Ordinal)
+            [TelemetryEvents.DeploySessionFinished] = new(StringComparer.Ordinal)
             {
                 "success",
                 "cancelled",
@@ -88,6 +89,16 @@ public static class TelemetryEventPropertyPolicy
                 "autopilot_enabled"
             }
         };
+
+    /// <summary>
+    /// Returns whether the event name is part of the approved telemetry taxonomy.
+    /// </summary>
+    /// <param name="eventName">Telemetry event name to validate.</param>
+    /// <returns><see langword="true"/> when the event is allowed to leave the process.</returns>
+    public static bool IsKnownEvent(string eventName)
+    {
+        return AllowedPropertiesByEvent.ContainsKey(eventName);
+    }
 
     /// <summary>
     /// Returns only properties explicitly allowed for the supplied event.

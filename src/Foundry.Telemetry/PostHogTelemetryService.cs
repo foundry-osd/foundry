@@ -51,6 +51,12 @@ public sealed class PostHogTelemetryService : ITelemetryService
             return;
         }
 
+        if (!TelemetryEventPropertyPolicy.IsKnownEvent(eventName))
+        {
+            logger?.LogDebug("Telemetry event {EventName} skipped because it is not part of the approved taxonomy.", eventName);
+            return;
+        }
+
         try
         {
             Dictionary<string, object> finalProperties = BuildProperties(eventName, properties);
@@ -121,7 +127,8 @@ public sealed class PostHogTelemetryService : ITelemetryService
             ["build_configuration"] = context.BuildConfiguration,
             ["runtime"] = context.Runtime,
             ["runtime_payload_source"] = context.RuntimePayloadSource,
-            ["architecture"] = context.Architecture,
+            ["boot_media_target"] = context.BootMediaTarget,
+            ["runtime_architecture"] = context.RuntimeArchitecture,
             ["locale"] = context.Locale,
             ["session_id"] = context.SessionId,
             ["$process_person_profile"] = false,

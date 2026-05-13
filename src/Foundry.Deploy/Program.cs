@@ -47,9 +47,6 @@ public static class Program
 
             using IHost host = BuildHost(args);
             ITelemetryService telemetryService = host.Services.GetRequiredService<ITelemetryService>();
-            Log.Debug("Tracking Foundry.Deploy startup telemetry event.");
-            telemetryService.TrackAsync("app_started", new Dictionary<string, object?>()).GetAwaiter().GetResult();
-            Log.Debug("Foundry.Deploy startup telemetry event queued.");
 
             App app = host.Services.GetRequiredService<App>();
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;

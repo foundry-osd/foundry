@@ -1211,10 +1211,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         var properties = new Dictionary<string, object?>
             {
-                ["target"] = target == FinalMediaTarget.Iso ? "iso" : "usb",
+                ["boot_media_target"] = target == FinalMediaTarget.Iso
+                    ? TelemetryBootMediaTargets.Iso
+                    : TelemetryBootMediaTargets.Usb,
                 ["success"] = success,
                 ["duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
-                ["architecture"] = options.Architecture.ToString().ToLowerInvariant(),
+                ["boot_media_architecture"] = options.Architecture.ToString().ToLowerInvariant(),
                 ["winpe_language"] = NormalizeCultureName(options.WinPeLanguage).ToLowerInvariant(),
                 ["boot_image_source"] = options.BootImageSource.ToString().ToLowerInvariant(),
                 ["signature_mode"] = options.SignatureMode.ToString().ToLowerInvariant(),
@@ -1237,17 +1239,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         logger.Debug(
             "Tracking media telemetry event. Target={Target}, Success={Success}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
-            properties["target"],
+            properties["boot_media_target"],
             success,
             properties["duration_seconds"],
-            properties["architecture"],
+            properties["boot_media_architecture"],
             properties["boot_image_source"],
             properties["signature_mode"],
             properties["connect_runtime_payload_source"],
             properties["deploy_runtime_payload_source"]);
 
-        await telemetryService.TrackAsync("boot_media_created", properties, cancellationToken);
-        logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["target"], success);
+        await telemetryService.TrackAsync(TelemetryEvents.OsdBootMediaFinished, properties, cancellationToken);
+        logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["boot_media_target"], success);
     }
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)

@@ -30,6 +30,8 @@ namespace Foundry.Deploy.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
+    private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
+
     public static IServiceCollection AddFoundryDeployApplicationServices(this IServiceCollection services)
     {
         services.AddSingleton<App>();
@@ -53,7 +55,7 @@ public static class ServiceCollectionExtensions
             ILogger<PostHogTelemetryService> logger = sp.GetRequiredService<ILogger<PostHogTelemetryService>>();
             logger.LogDebug(
                 "Configuring telemetry service. App={App}, IsEnabled={IsEnabled}, HasProjectToken={HasProjectToken}, HasInstallId={HasInstallId}, HostUrl={HostUrl}.",
-                "foundry-deploy",
+                TelemetryApps.FoundryDeploy,
                 options.IsEnabled,
                 !string.IsNullOrWhiteSpace(options.ProjectToken),
                 !string.IsNullOrWhiteSpace(options.InstallId),
@@ -129,14 +131,18 @@ public static class ServiceCollectionExtensions
     private static TelemetryContext CreateTelemetryContext(IServiceProvider serviceProvider)
     {
         TelemetrySettings settings = LoadTelemetrySettings(serviceProvider);
+        string runtime = WinPeRuntimeDetector.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop;
         return new TelemetryContext(
-            "foundry-deploy",
+            TelemetryApps.FoundryDeploy,
             FoundryDeployApplicationInfo.Version,
             TelemetryBuildConfiguration.Current,
-            WinPeRuntimeDetector.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop,
+            runtime,
             string.IsNullOrWhiteSpace(settings.RuntimePayloadSource)
                 ? TelemetryRuntimePayloadSources.Unknown
                 : settings.RuntimePayloadSource,
+            TelemetryBootMediaTargetResolver.Resolve(
+                runtime,
+                Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable)),
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
             CultureInfo.CurrentUICulture.Name,
             Guid.NewGuid().ToString("D"));

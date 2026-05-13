@@ -137,10 +137,29 @@ namespace Foundry
             }
 
             await GetService<IStartupReadinessService>().InitializeAsync();
-            AppLogger.Debug("Tracking Foundry startup telemetry event.");
-            await GetService<ITelemetryService>().TrackAsync("app_started", new Dictionary<string, object?>());
-            AppLogger.Debug("Foundry startup telemetry event queued.");
+            await TrackDailyActiveAsync();
             AppLogger.Information("Foundry WinUI startup completed.");
+        }
+
+        private static async Task TrackDailyActiveAsync()
+        {
+            IAppSettingsService settingsService = GetService<IAppSettingsService>();
+            if (!settingsService.Current.Telemetry.IsEnabled)
+            {
+                return;
+            }
+
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            if (!TelemetryDailyActivityGate.ShouldTrack(today, settingsService.Current.Telemetry.LastDailyActiveDate))
+            {
+                return;
+            }
+
+            AppLogger.Debug("Tracking Foundry daily-active telemetry event.");
+            await GetService<ITelemetryService>().TrackAsync(TelemetryEvents.AppDailyActive, new Dictionary<string, object?>());
+            settingsService.Current.Telemetry.LastDailyActiveDate = TelemetryDailyActivityGate.FormatDate(today);
+            settingsService.Save();
+            AppLogger.Debug("Foundry daily-active telemetry event queued.");
         }
 
         private void RegisterWinUiExceptionHandler()

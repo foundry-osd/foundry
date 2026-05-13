@@ -1,3 +1,4 @@
+using Foundry.Connect.Models;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.Network;
 
@@ -39,5 +40,13 @@ public sealed class NetworkTelemetryClassifierTests
         };
 
         Assert.Equal("wifi", NetworkTelemetryClassifier.ClassifyConnection(snapshot));
+    }
+
+    [Theory]
+    [InlineData(NetworkLayoutMode.EthernetOnly, "ethernet_only")]
+    [InlineData(NetworkLayoutMode.EthernetWifi, "ethernet_wifi")]
+    public void ClassifyLayout_ReturnsStableCategory(NetworkLayoutMode layoutMode, string expected)
+    {
+        Assert.Equal(expected, NetworkTelemetryClassifier.ClassifyLayout(layoutMode));
     }
 }

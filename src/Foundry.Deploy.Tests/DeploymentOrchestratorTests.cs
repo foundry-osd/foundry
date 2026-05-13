@@ -82,7 +82,7 @@ public sealed class DeploymentOrchestratorTests
         });
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
-        Assert.Equal("deployment_completed", telemetryEvent.Name);
+        Assert.Equal(TelemetryEvents.DeploySessionFinished, telemetryEvent.Name);
         Assert.False((bool)telemetryEvent.Properties["success"]!);
         Assert.False((bool)telemetryEvent.Properties["cancelled"]!);
         Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, telemetryEvent.Properties["failed_step_name"]);

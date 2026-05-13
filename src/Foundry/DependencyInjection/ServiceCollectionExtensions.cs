@@ -49,11 +49,12 @@ public static class ServiceCollectionExtensions
                 settings.Telemetry.InstallId);
         });
         services.AddSingleton(_ => new TelemetryContext(
-            "foundry",
+            TelemetryApps.FoundryOsd,
             FoundryApplicationInfo.Version,
             TelemetryBuildConfiguration.Current,
             TelemetryRuntimeModes.Desktop,
             TelemetryRuntimePayloadSources.None,
+            TelemetryBootMediaTargets.None,
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
             CultureInfo.CurrentUICulture.Name,
             Guid.NewGuid().ToString("D")));
@@ -64,7 +65,7 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<Microsoft.Extensions.Logging.ILogger<PostHogTelemetryService>>();
             logger.LogDebug(
                 "Configuring telemetry service. App={App}, IsEnabled={IsEnabled}, HasProjectToken={HasProjectToken}, HasInstallId={HasInstallId}, HostUrl={HostUrl}.",
-                "foundry",
+                TelemetryApps.FoundryOsd,
                 options.IsEnabled,
                 !string.IsNullOrWhiteSpace(options.ProjectToken),
                 !string.IsNullOrWhiteSpace(options.InstallId),
