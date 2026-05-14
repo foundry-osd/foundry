@@ -1,8 +1,8 @@
 name: Release
 
 on:
-  schedule:
-    - cron: '0 13 * * 2'
+  # schedule:
+  #   - cron: '0 13 * * 2'
   workflow_dispatch:
     inputs:
       force:
