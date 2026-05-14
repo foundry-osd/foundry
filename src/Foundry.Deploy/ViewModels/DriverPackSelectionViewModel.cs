@@ -192,9 +192,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             ? versionCandidates
             : modelCandidates;
 
-        return finalCandidates
-            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
-            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+        return SortDriverPackCandidates(finalCandidates, _selectedOperatingSystem?.ReleaseId ?? string.Empty)
             .FirstOrDefault();
     }
 
@@ -318,7 +316,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         }
 
         DriverPackCatalogItem[] modelCandidates = FilterDriverPackCandidatesBySelectedModel(BuildSourceDriverPackCandidates());
-        DriverPackCatalogItem[] orderedCandidates = SortDriverPackCandidates(modelCandidates);
+        DriverPackCatalogItem[] orderedCandidates = SortDriverPackCandidates(modelCandidates, _selectedOperatingSystem?.ReleaseId ?? string.Empty);
 
         string[] versions = orderedCandidates
             .Select(GetDriverPackVersionDisplay)
@@ -397,11 +395,10 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             return containsOptionMatch;
         }
 
-        DriverPackCatalogItem? bestPackMatch = sourceCandidates
+        DriverPackCatalogItem? bestPackMatch = SortDriverPackCandidates(sourceCandidates
             .Where(item => item.ModelNames.Any(modelName =>
-                hardwareTokens.Any(token => IsFuzzyModelMatch(modelName, token))))
-            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
-            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+                hardwareTokens.Any(token => IsFuzzyModelMatch(modelName, token)))),
+            _selectedOperatingSystem?.ReleaseId ?? string.Empty)
             .FirstOrDefault();
 
         if (bestPackMatch is not null)
@@ -444,7 +441,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         }
 
         DriverPackCatalogItem[] baseCandidates = query.ToArray();
-        return SortDriverPackCandidates(baseCandidates);
+        return SortDriverPackCandidates(baseCandidates, _selectedOperatingSystem?.ReleaseId ?? string.Empty);
     }
 
     private DriverPackOptionItem? ResolveDefaultDriverPackOption(IReadOnlyList<DriverPackOptionItem> options)
@@ -612,7 +609,10 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
         if (driverPack.ReleaseDate is not null)
         {
-            return driverPack.ReleaseDate.Value.ToLocalTime().ToString("d", CultureInfo.CurrentCulture);
+            string releaseDate = driverPack.ReleaseDate.Value.ToLocalTime().ToString("d", CultureInfo.CurrentCulture);
+            return string.IsNullOrWhiteSpace(driverPack.OsReleaseId)
+                ? releaseDate
+                : $"{releaseDate} ({driverPack.OsReleaseId.Trim()})";
         }
 
         if (!string.IsNullOrWhiteSpace(driverPack.PackageId))
@@ -694,13 +694,28 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         return ContainsIgnoreCase(source, value) || ContainsIgnoreCase(value, source);
     }
 
-    private static DriverPackCatalogItem[] SortDriverPackCandidates(IEnumerable<DriverPackCatalogItem> candidates)
+    private static DriverPackCatalogItem[] SortDriverPackCandidates(
+        IEnumerable<DriverPackCatalogItem> candidates,
+        string targetReleaseId)
     {
+        int targetReleaseRank = WindowsReleaseId.GetSortRank(targetReleaseId);
         return candidates
-            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+            .OrderByDescending(item => GetDriverPackReleaseSortRank(item, targetReleaseRank))
+            .ThenByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
             .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
             .ToArray();
+    }
+
+    private static int GetDriverPackReleaseSortRank(DriverPackCatalogItem driverPack, int targetReleaseRank)
+    {
+        int releaseRank = WindowsReleaseId.GetSortRank(driverPack.OsReleaseId);
+        if (targetReleaseRank > 0 && releaseRank <= targetReleaseRank)
+        {
+            return releaseRank;
+        }
+
+        return 0;
     }
 
     private static bool IsArchitectureMatch(string osArchitecture, string driverArchitecture)

@@ -104,6 +104,10 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.Contains("'C:\\DRIVERS'", stagedScript);
         Assert.Contains("'C:\\Drivers'", stagedScript);
         Assert.Contains("Remove-RootFolder", stagedScript);
+        Assert.Contains("Start-Transcript -Path $TranscriptPath -Force", stagedScript);
+        Assert.Contains("Cleanup-PreOobe.transcript.log", stagedScript);
+        Assert.Contains("Write-FoundryLog", stagedScript);
+        Assert.Contains("$elapsed = $now - $script:ScriptStartedAt", stagedScript);
     }
 
     [Fact]
@@ -137,6 +141,56 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         Assert.DoesNotContain("Remove-Item -Path 'C:\\Drivers'", driverScript);
         Assert.Contains("'C:\\Drivers'", cleanupScript);
+    }
+
+    [Fact]
+    public void Provision_StagesDriverPackScriptWithTranscriptAndWaitedProcesses()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "driver-pack",
+                    FileName = "Install-DriverPack.ps1",
+                    ResourceName = PreOobeScriptResources.InstallDriverPack,
+                    Priority = PreOobeScriptPriority.DriverProvisioning
+                }
+            ]);
+
+        string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
+        string stagedScript = File.ReadAllText(stagedScriptPath);
+
+        Assert.Contains("Install-DriverPack.transcript.log", stagedScript);
+        Assert.Contains("Start-Transcript -Path $TranscriptPath -Force", stagedScript);
+        Assert.Contains("Write-FoundryLog", stagedScript);
+        Assert.Contains("$operationDuration = [DateTimeOffset]::Now - $operationStartedAt", stagedScript);
+        Assert.Contains("Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -Wait -PassThru", stagedScript);
+        Assert.Contains("-FilePath $ResolvedPackagePath", stagedScript);
+        Assert.Contains("-FilePath 'reg.exe'", stagedScript);
+        Assert.Contains("-FilePath 'pnpunattend.exe'", stagedScript);
+        Assert.DoesNotContain("& $ResolvedPackagePath", stagedScript);
+        Assert.DoesNotContain("pnpunattend.exe AuditSystem /L", stagedScript);
+    }
+
+    [Fact]
+    public void Provision_RunnerReliesOnScriptTranscriptsInsteadOfPerScriptRedirectLogs()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [CreateScript("driver-pack", "Install-DriverPack.ps1", PreOobeScriptPriority.DriverProvisioning)]);
+
+        string runner = File.ReadAllText(result.RunnerPath);
+
+        Assert.Contains("$name.transcript.log", runner);
+        Assert.DoesNotContain("$name.log", runner);
+        Assert.DoesNotContain("*> $logPath", runner);
     }
 
     [Fact]

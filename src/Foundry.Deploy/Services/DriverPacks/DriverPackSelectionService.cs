@@ -17,11 +17,12 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         HardwareProfile hardware,
         OperatingSystemCatalogItem operatingSystem)
     {
-        _logger.LogInformation("Selecting best driver pack. CatalogCount={CatalogCount}, Manufacturer={Manufacturer}, Model={Model}, OsRelease={OsRelease}, OsArchitecture={OsArchitecture}",
+        _logger.LogInformation("Selecting best driver pack. CatalogCount={CatalogCount}, Manufacturer={Manufacturer}, Model={Model}, WindowsRelease={WindowsRelease}, ReleaseId={ReleaseId}, OsArchitecture={OsArchitecture}",
             catalog.Count,
             hardware.Manufacturer,
             hardware.Model,
             operatingSystem.WindowsRelease,
+            operatingSystem.ReleaseId,
             operatingSystem.Architecture);
 
         if (catalog.Count == 0)
@@ -69,21 +70,12 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             };
         }
 
-        DriverPackCatalogItem[] releaseCandidates = candidates;
-        if (!string.IsNullOrWhiteSpace(targetReleaseId))
-        {
-            DriverPackCatalogItem[] releaseFiltered = candidates
-                .Where(item => IsReleaseIdMatch(item, targetReleaseId))
-                .ToArray();
-
-            if (releaseFiltered.Length > 0)
-            {
-                releaseCandidates = releaseFiltered;
-            }
-        }
-
-        DriverPackCatalogItem? exactModel = releaseCandidates
+        DriverPackCatalogItem[] modelCandidates = candidates
             .Where(item => item.ModelNames.Any(modelName => ContainsIgnoreCase(modelName, model) || ContainsIgnoreCase(modelName, product)))
+            .ToArray();
+        DriverPackCatalogItem[] modelReleaseCandidates = SelectReleaseCandidates(modelCandidates, targetReleaseId);
+
+        DriverPackCatalogItem? exactModel = modelReleaseCandidates
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .FirstOrDefault();
 
@@ -93,10 +85,11 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             return new DriverPackSelectionResult
             {
                 DriverPack = exactModel,
-                SelectionReason = "Matched by hardware model/product and latest release date."
+                SelectionReason = "Matched by hardware model/product and compatible OS release."
             };
         }
 
+        DriverPackCatalogItem[] releaseCandidates = SelectReleaseCandidates(candidates, targetReleaseId);
         DriverPackCatalogItem latest = releaseCandidates
             .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
             .First();
@@ -106,7 +99,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         return new DriverPackSelectionResult
         {
             DriverPack = latest,
-            SelectionReason = "No model exact match; selected newest manufacturer candidate."
+            SelectionReason = "No model exact match; selected newest compatible manufacturer candidate."
         };
     }
 
@@ -129,6 +122,47 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
 
         return Normalize(item.Name).Contains(targetReleaseId, StringComparison.OrdinalIgnoreCase) ||
                Normalize(item.OsReleaseId).Contains(targetReleaseId, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static DriverPackCatalogItem[] SelectReleaseCandidates(
+        IReadOnlyList<DriverPackCatalogItem> candidates,
+        string targetReleaseId)
+    {
+        if (candidates.Count == 0 || string.IsNullOrWhiteSpace(targetReleaseId))
+        {
+            return candidates.ToArray();
+        }
+
+        DriverPackCatalogItem[] releaseFiltered = candidates
+            .Where(item => IsReleaseIdMatch(item, targetReleaseId))
+            .ToArray();
+        if (releaseFiltered.Length > 0)
+        {
+            return releaseFiltered;
+        }
+
+        int targetReleaseRank = WindowsReleaseId.GetSortRank(targetReleaseId);
+        if (targetReleaseRank <= 0)
+        {
+            return candidates.ToArray();
+        }
+
+        DriverPackCatalogItem[] compatibleReleaseCandidates = candidates
+            .Where(item =>
+            {
+                int releaseRank = WindowsReleaseId.GetSortRank(item.OsReleaseId);
+                return releaseRank > 0 && releaseRank <= targetReleaseRank;
+            })
+            .ToArray();
+        if (compatibleReleaseCandidates.Length == 0)
+        {
+            return candidates.ToArray();
+        }
+
+        int bestReleaseRank = compatibleReleaseCandidates.Max(item => WindowsReleaseId.GetSortRank(item.OsReleaseId));
+        return compatibleReleaseCandidates
+            .Where(item => WindowsReleaseId.GetSortRank(item.OsReleaseId) == bestReleaseRank)
+            .ToArray();
     }
 
     private static string Normalize(string value)

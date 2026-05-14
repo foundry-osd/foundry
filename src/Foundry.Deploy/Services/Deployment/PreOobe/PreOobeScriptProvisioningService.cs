@@ -155,8 +155,6 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         builder.AppendLine("$ErrorActionPreference = 'Stop'");
         builder.AppendLine("$preOobeRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\PreOobe'");
         builder.AppendLine("$scriptsRoot = Join-Path $preOobeRoot 'Scripts'");
-        builder.AppendLine("$logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\PreOobe'");
-        builder.AppendLine("New-Item -Path $logRoot -ItemType Directory -Force | Out-Null");
         builder.AppendLine();
         builder.AppendLine("function Invoke-FoundryScript {");
         builder.AppendLine("    param(");
@@ -166,10 +164,11 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         builder.AppendLine("    )");
         builder.AppendLine();
         builder.AppendLine("    $name = [System.IO.Path]::GetFileNameWithoutExtension($ScriptPath)");
-        builder.AppendLine("    $logPath = Join-Path $logRoot \"$name.log\"");
-        builder.AppendLine("    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $ScriptPath @Arguments *> $logPath");
+        builder.AppendLine("    $logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\PreOobe'");
+        builder.AppendLine("    $transcriptPath = Join-Path $logRoot \"$name.transcript.log\"");
+        builder.AppendLine("    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $ScriptPath @Arguments");
         builder.AppendLine("    if ($LASTEXITCODE -ne 0) {");
-        builder.AppendLine("        throw \"Pre-OOBE script '$ScriptPath' failed with exit code $LASTEXITCODE. See '$logPath'.\"");
+        builder.AppendLine("        throw \"Pre-OOBE script '$ScriptPath' failed with exit code $LASTEXITCODE. See '$transcriptPath'.\"");
         builder.AppendLine("    }");
         builder.AppendLine("}");
         builder.AppendLine();
