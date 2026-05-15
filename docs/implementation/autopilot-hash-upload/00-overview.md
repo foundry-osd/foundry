@@ -24,6 +24,7 @@ This feature is intended to complement the existing offline Autopilot JSON profi
   - `feature/autopilot-hash-upload-docs`
 
 The foundation branch should remain documentation-first. Implementation branches should be small, reviewable, and merged back into the foundation branch in phase order.
+Implementation agents must not merge, squash, or auto-squash pull requests automatically. The repository owner handles PR merges manually.
 
 
 ## Pull Request Roadmap
