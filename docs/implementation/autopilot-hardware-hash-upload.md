@@ -160,7 +160,9 @@ JSON profile provisioning:
 Hardware hash upload:
 - Method toggle or radio selection: "Capture and upload hardware hash".
 - Tenant ID field.
-- Authentication mode selector.
+- Client ID field for the Entra application.
+- Certificate private key import field.
+- Certificate password field when the imported private key material requires one.
 - Group Tag field.
 - Optional assigned user UPN field.
 - Upload timing selector:
@@ -221,9 +223,10 @@ Proposed hash settings:
 public sealed record AutopilotHardwareHashUploadSettings
 {
     public string TenantId { get; init; } = string.Empty;
-    public AutopilotHashUploadAuthenticationMode AuthenticationMode { get; init; } = AutopilotHashUploadAuthenticationMode.DeviceCode;
     public string ClientId { get; init; } = string.Empty;
     public string? CertificateThumbprint { get; init; }
+    public SecretEnvelope? CertificatePrivateKeySecret { get; init; }
+    public SecretEnvelope? CertificatePasswordSecret { get; init; }
     public string? GroupTag { get; init; }
     public string? AssignedUserPrincipalName { get; init; }
     public AutopilotHashUploadMode UploadMode { get; init; } = AutopilotHashUploadMode.CaptureAndUpload;
@@ -234,12 +237,6 @@ public sealed record AutopilotHardwareHashUploadSettings
 Proposed enums:
 
 ```csharp
-public enum AutopilotHashUploadAuthenticationMode
-{
-    DeviceCode,
-    Certificate
-}
-
 public enum AutopilotHashUploadMode
 {
     CaptureOnly,
@@ -250,9 +247,9 @@ public enum AutopilotHashUploadMode
 Validation rules:
 - `IsEnabled=false`: no Autopilot settings are required.
 - `IsEnabled=true` and `JsonProfile`: selected profile must exist.
-- `IsEnabled=true` and `HardwareHashUpload`: tenant ID and supported auth settings must be valid.
+- `IsEnabled=true` and `HardwareHashUpload`: tenant ID, client ID, and certificate settings must be valid.
 - `CaptureOnly`: Graph auth settings are optional.
-- `CaptureAndUpload`: Graph auth settings are required.
+- `CaptureAndUpload`: certificate-based Graph auth settings are required.
 - `AssignedUserPrincipalName`, when set, must look like a UPN but should not be treated as proof that the user exists.
 - `GroupTag` must not contain commas and should stay ASCII-safe for CSV compatibility.
 
@@ -270,22 +267,20 @@ Recommended direction:
   - `Device.ReadWrite.All`
   - `GroupMember.ReadWrite.All`
 
-Authentication options to evaluate during implementation:
-- Device code flow for operator-driven upload.
-- Certificate-based app-only auth for controlled lab or factory use.
-- A brokered upload workflow outside WinPE if storing credentials in media is rejected.
+Supported WinPE authentication:
+- Microsoft Graph authentication inside WinPE must use certificate-based app-only auth only.
+- The certificate private key material is injected into the generated boot image as an encrypted media secret.
+- Device code flow, client secrets, and brokered upload are not supported WinPE authentication modes for this feature.
 
 Private keys, client secrets, and tenant-wide destructive permissions must not be silently embedded into generated media.
 
 Recommended auth decision:
-- Prefer certificate-based app-only auth for unattended or near zero-touch WinPE upload.
-- Keep device code flow as a manual/operator-assisted fallback if certificate material is not embedded.
+- Use certificate-based app-only auth for unattended or near zero-touch WinPE upload.
 - Avoid client secrets for generated media.
 
 Open auth design choices:
-- Whether the token is acquired by Foundry Deploy inside WinPE.
-- Whether Foundry OSD pre-validates tenant/app settings before media generation.
-- Whether a future broker service receives hashes from WinPE and performs Graph upload outside the media.
+- Whether Foundry OSD pre-validates tenant/app/certificate settings before media generation.
+- Whether Foundry Deploy validates the app certificate thumbprint before requesting a token.
 
 Secret handling rules:
 - Do not write access tokens to disk.
@@ -435,7 +430,7 @@ PR title: `feat(autopilot): add provisioning mode configuration`
 - [ ] Add `AutopilotProvisioningMode`.
 - [ ] Extend `AutopilotSettings` with mode and hardware hash upload settings.
 - [ ] Extend `DeployAutopilotSettings` with reduced runtime mode and upload settings.
-- [ ] Add encrypted certificate private key settings for certificate-based upload.
+- [ ] Add encrypted certificate private key settings for the required certificate-based upload path.
 - [ ] Update schema version handling if needed.
 - [ ] Keep old configurations backward compatible as JSON profile mode.
 - [ ] Update sanitization in `ExpertDeployConfigurationStateService`.
@@ -445,7 +440,8 @@ Automated tests:
 - [ ] Existing JSON profile config serializes and generates the same deploy output.
 - [ ] Enabled JSON mode requires a selected profile.
 - [ ] Enabled hash upload mode does not require a selected profile.
-- [ ] Invalid hash upload settings make Autopilot configuration not ready.
+- [ ] Capture-and-upload mode requires tenant ID, client ID, and encrypted certificate private key material.
+- [ ] Invalid certificate settings make Autopilot configuration not ready.
 - [ ] Certificate private key material is not serialized in plaintext.
 
 Manual checks:
@@ -502,7 +498,7 @@ Manual checks:
 - [ ] Build ARM64 ISO in JSON profile mode and confirm existing profile files are present.
 - [ ] Build ARM64 ISO in hash upload mode and confirm OA3/hash assets are present.
 - [ ] Confirm `WinPE-SecureStartup` is present in the mounted image package list.
-- [ ] Confirm no private key or client secret is written to media without explicit user action.
+- [ ] Confirm no plaintext private key or client secret is written to media.
 
 ### Phase 4: Foundry Deploy Runtime Branching
 PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
@@ -565,6 +561,7 @@ PR title: `feat(autopilot): import hardware hashes with Graph`
 
 - [ ] Add a minimal Graph Autopilot import client.
 - [ ] Add certificate-based credential creation from decrypted in-memory certificate material.
+- [ ] Reject any non-certificate authentication mode in WinPE.
 - [ ] Implement import request.
 - [ ] Implement polling for import completion.
 - [ ] Map Graph errors to operator-readable messages.
@@ -575,6 +572,7 @@ Automated tests:
 - [ ] Serializes import payload correctly.
 - [ ] Sends hardware identifier in the expected Graph format.
 - [ ] Decrypts certificate material in memory and does not write a decrypted PFX/private key to disk.
+- [ ] Fails clearly when tenant ID, client ID, certificate thumbprint, or encrypted certificate material is missing.
 - [ ] Handles `complete`.
 - [ ] Handles `error` with device error code/name.
 - [ ] Times out with a clear message.
@@ -591,10 +589,10 @@ PR title: `feat(autopilot): add secure tenant upload onboarding`
 
 - [ ] Add a permission matrix to user documentation.
 - [ ] Add tenant/app registration guidance.
-- [ ] Decide supported auth mode for the final implementation.
-- [ ] Document certificate app-only auth as the unattended WinPE upload path.
+- [ ] Document certificate app-only auth as the only supported WinPE Graph authentication path.
 - [ ] Document that generated media containing encrypted certificate private key material is tenant-sensitive.
 - [ ] Generalize the existing Foundry Connect AES-GCM media secret envelope for Autopilot secrets.
+- [ ] Document device code flow, client secrets, and brokered upload as unsupported WinPE authentication modes.
 - [ ] Explicitly document unsupported secret embedding patterns.
 - [ ] Add audit-safe logging rules.
 
@@ -730,7 +728,6 @@ Foundry.Connect owns:
 
 ## Open Questions
 - Should the final implementation keep a capture-only diagnostic mode in addition to capture-and-upload?
-- Which authentication mode is acceptable for generated media?
 - Should `PCPKsp.dll` copy failure stop the full deployment, or only stop the Autopilot upload step?
 - Should duplicate device cleanup ever be added, or should Foundry only surface the duplicate and stop?
 
