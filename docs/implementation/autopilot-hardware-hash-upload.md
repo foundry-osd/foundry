@@ -342,10 +342,16 @@ Permission split:
 
 | Surface | Authentication context | Required capability | Stored in boot media |
 | --- | --- | --- | --- |
-| Foundry OSD tenant onboarding | Interactive signed-in admin user | Create/reuse app registration, add Graph application permissions, verify admin consent, add/retire app certificate credentials, read Autopilot group tags. | No |
+| Foundry OSD tenant onboarding | Interactive signed-in admin user | Create/reuse app registration, add Graph application permissions, grant or verify admin consent, add/retire app certificate credentials, read Autopilot group tags. | No |
 | Foundry Deploy in WinPE | App-only certificate credential from generated media | Import the captured hardware hash and poll import/device visibility. | Yes, as encrypted PFX envelope plus media secret key |
 
 The interactive OSD user may need broad Entra application management rights during setup, but those delegated/session permissions are not embedded into the boot image. The boot image receives only the managed app identity and certificate material needed for Autopilot import.
+
+OSD setup permission guidance:
+- `Application.ReadWrite.All` is needed when Foundry OSD creates or updates the managed app registration, including required resource access and certificate credentials.
+- `AppRoleAssignment.ReadWrite.All` is needed if Foundry OSD grants the Microsoft Graph application role to the managed service principal instead of only detecting that admin consent is missing.
+- If the signed-in operator does not have enough rights to grant consent, Foundry OSD should show a consent-required state and block hash-upload media generation until the tenant admin completes consent.
+- These setup rights belong to the signed-in OSD operator session only. They are not stored, exported, or embedded in generated media.
 
 Supported WinPE authentication:
 - Microsoft Graph authentication inside WinPE must use certificate-based app-only auth only.
@@ -425,6 +431,8 @@ Minimum Graph permission matrix:
 | Delete Intune managed device | `DeviceManagementManagedDevices.ReadWrite.All` | Deferred. |
 | Delete Entra device | `Device.ReadWrite.All` | Deferred. |
 | Add device to group | `GroupMember.ReadWrite.All` | Deferred. |
+
+The supplied community script deletes existing records before import to force a clean re-registration path when a serial number already exists in Intune, Windows Autopilot, or Entra ID. That can be useful in a controlled technician script because it removes stale or duplicate records before importing the new hash, but it requires destructive tenant-wide permissions and can remove records the operator did not intend to delete. Foundry's final implementation should not do this automatically. It should surface duplicate/import errors, keep diagnostics, and continue OS deployment.
 
 Graph request rules:
 - Prefer a direct HTTP client abstraction with typed request/response records.
@@ -511,6 +519,8 @@ Failure taxonomy:
 - `ImportFailed`: Graph accepted the request path but import state reports `error`.
 - `ImportTimedOut`: import polling exceeded the configured timeout.
 - `AutopilotDeviceTimedOut`: import completed but the device did not appear in Windows Autopilot devices before the 10-minute wait timeout. Foundry Deploy logs a warning and continues OS deployment.
+
+Support library failures stop only the Autopilot hash upload step. They must be represented as warnings/skips in deployment state and must not fail the full OS deployment.
 
 ## Phased Implementation
 
