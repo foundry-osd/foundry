@@ -278,8 +278,8 @@ Authentication options to evaluate during implementation:
 Private keys, client secrets, and tenant-wide destructive permissions must not be silently embedded into generated media.
 
 Recommended auth decision:
-- Start with device code flow if the operator can complete sign-in from another device.
-- Treat certificate app-only auth as a controlled-lab feature only after secret handling is designed.
+- Prefer certificate-based app-only auth for unattended or near zero-touch WinPE upload.
+- Keep device code flow as a manual/operator-assisted fallback if certificate material is not embedded.
 - Avoid client secrets for generated media.
 
 Open auth design choices:
@@ -290,8 +290,30 @@ Open auth design choices:
 Secret handling rules:
 - Do not write access tokens to disk.
 - Do not log authorization headers, refresh tokens, client secrets, private keys, certificate raw data, or Graph request bodies containing hardware hashes unless explicitly redacted.
-- If certificate auth is implemented, prefer referencing a certificate already available to the runtime instead of embedding a PFX.
-- If a PFX import path is ever supported, require explicit user confirmation and document that the media becomes sensitive.
+- Store embedded certificate private key material with the same envelope concept used by Foundry Connect personal Wi-Fi secrets.
+- Require explicit user confirmation before embedding certificate private key material and document that the generated media becomes tenant-sensitive.
+- Treat media encryption as plaintext avoidance and integrity protection, not as a strong security boundary, because the decrypt key must also be available in the boot image.
+- Zero decrypted private key bytes and media secret key bytes as soon as they are no longer needed.
+- Never write a decrypted PFX, PEM private key, access token, or refresh token to disk.
+
+Existing Foundry Connect pattern:
+- Foundry Core generates a random 32-byte media secret key with `RandomNumberGenerator`.
+- Personal Wi-Fi passphrases are serialized as a `SecretEnvelope` with:
+  - `kind`: `encrypted`
+  - `algorithm`: `aes-gcm-v1`
+  - `keyId`: `media`
+  - base64url `nonce`, `tag`, and `ciphertext`
+- The raw passphrase is omitted from `foundry.connect.config.json`.
+- `WinPeMountedImageAssetProvisioningService` writes the 32-byte key to `X:\Foundry\Config\Secrets\media-secrets.key` only when encrypted secrets exist.
+- Foundry Connect reads the key, decrypts the envelope, then zeroes the key bytes.
+
+Autopilot certificate private key plan:
+- Generalize the Connect-only secret envelope code into a shared Core/Deploy media secret protector.
+- Reuse the same `aes-gcm-v1` envelope shape unless a binary envelope variant is required for PFX bytes.
+- Store the encrypted certificate material in the Deploy Autopilot hash upload configuration, not as a plaintext PFX file.
+- Reuse `X:\Foundry\Config\Secrets\media-secrets.key` for all encrypted media secrets in the same generated image, or rename it to a generic media secret key only if the path migration is handled cleanly.
+- Add media provisioning validation so encrypted Autopilot secrets require a media secret key, and a media secret key cannot be written without at least one encrypted secret.
+- Foundry Deploy should decrypt the certificate material in memory, create the Graph credential, and avoid writing decrypted key material back to disk.
 
 ## Microsoft Graph Import Shape
 Use Microsoft Graph `v1.0`:
@@ -413,6 +435,7 @@ PR title: `feat(autopilot): add provisioning mode configuration`
 - [ ] Add `AutopilotProvisioningMode`.
 - [ ] Extend `AutopilotSettings` with mode and hardware hash upload settings.
 - [ ] Extend `DeployAutopilotSettings` with reduced runtime mode and upload settings.
+- [ ] Add encrypted certificate private key settings for certificate-based upload.
 - [ ] Update schema version handling if needed.
 - [ ] Keep old configurations backward compatible as JSON profile mode.
 - [ ] Update sanitization in `ExpertDeployConfigurationStateService`.
@@ -423,6 +446,7 @@ Automated tests:
 - [ ] Enabled JSON mode requires a selected profile.
 - [ ] Enabled hash upload mode does not require a selected profile.
 - [ ] Invalid hash upload settings make Autopilot configuration not ready.
+- [ ] Certificate private key material is not serialized in plaintext.
 
 Manual checks:
 - [ ] Start Foundry with existing user config and confirm JSON profile mode is selected.
@@ -458,6 +482,7 @@ PR title: `feat(winpe): stage autopilot hash capture assets`
 - [ ] Locate and stage architecture-specific `oa3tool.exe` from the ADK for x64 and ARM64.
 - [ ] Add hash capture templates under a Foundry-owned WinPE path.
 - [ ] Add hash upload runtime configuration under `X:\Foundry\Config`.
+- [ ] Write encrypted Autopilot certificate private key envelopes and the media secret key through the shared media secret provisioning path.
 - [ ] Keep current profile JSON staging unchanged in JSON profile mode.
 - [ ] Do not stage JSON profile folders in hash upload mode unless the user also keeps profiles for another purpose.
 - [ ] Do not stage `PCPKsp.dll` during media build.
@@ -467,6 +492,8 @@ Automated tests:
 - [ ] Media asset provisioning writes hash upload assets only in hash mode.
 - [ ] Missing `oa3tool.exe` produces a clear validation error.
 - [ ] ADK asset resolution chooses the expected path for x64 and ARM64 media.
+- [ ] Encrypted Autopilot secrets require a media secret key.
+- [ ] A media secret key is rejected when no encrypted media secrets exist.
 - [ ] `WinPE-SecureStartup` missing or not applicable is surfaced clearly during media preparation.
 
 Manual checks:
@@ -537,6 +564,7 @@ Manual checks:
 PR title: `feat(autopilot): import hardware hashes with Graph`
 
 - [ ] Add a minimal Graph Autopilot import client.
+- [ ] Add certificate-based credential creation from decrypted in-memory certificate material.
 - [ ] Implement import request.
 - [ ] Implement polling for import completion.
 - [ ] Map Graph errors to operator-readable messages.
@@ -546,6 +574,7 @@ PR title: `feat(autopilot): import hardware hashes with Graph`
 Automated tests:
 - [ ] Serializes import payload correctly.
 - [ ] Sends hardware identifier in the expected Graph format.
+- [ ] Decrypts certificate material in memory and does not write a decrypted PFX/private key to disk.
 - [ ] Handles `complete`.
 - [ ] Handles `error` with device error code/name.
 - [ ] Times out with a clear message.
@@ -563,16 +592,19 @@ PR title: `feat(autopilot): add secure tenant upload onboarding`
 - [ ] Add a permission matrix to user documentation.
 - [ ] Add tenant/app registration guidance.
 - [ ] Decide supported auth mode for the final implementation.
-- [ ] Validate whether certificate auth can be safely used from generated media.
+- [ ] Document certificate app-only auth as the unattended WinPE upload path.
+- [ ] Document that generated media containing encrypted certificate private key material is tenant-sensitive.
+- [ ] Generalize the existing Foundry Connect AES-GCM media secret envelope for Autopilot secrets.
 - [ ] Explicitly document unsupported secret embedding patterns.
 - [ ] Add audit-safe logging rules.
 
 Automated tests:
-- [ ] Secret settings are not serialized into plain deploy config unless intentionally allowed.
+- [ ] Secret settings are never serialized into plain deploy config.
+- [ ] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
 - [ ] Logs redact tokens, secrets, private key paths, and certificate material.
 
 Manual checks:
-- [ ] Review generated media contents for secrets.
+- [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
 - [ ] Review logs after failed auth and successful auth.
 - [ ] Confirm least-privilege app registration can import devices.
 
@@ -647,7 +679,8 @@ Manual physical validation matrix:
 | --- | --- | --- |
 | OA3Tool produces empty or incomplete hash in WinPE | Import fails or device gets unreliable Autopilot behavior | Add `WinPE-SecureStartup`, retain OA3 diagnostics, document fallback to OOBE/full OS. |
 | TPM not visible from WinPE | Self-deploying/pre-provisioning unreliable | Do not recommend those scenarios until separately validated. |
-| Credentials embedded into media | Tenant compromise | Prefer device code or brokered upload; block silent secret embedding. |
+| Credentials embedded into media | Tenant compromise if generated media is lost | Encrypt certificate material with the media secret envelope, require explicit confirmation, document generated media as tenant-sensitive, and never write decrypted key material to disk. |
+| Media secret key and encrypted secret are both present in the boot image | Encryption can be bypassed by anyone with full media access | Treat envelope encryption as plaintext avoidance/integrity protection, not a hard security boundary. |
 | Broad Graph permissions copied from community script | Excessive tenant blast radius | Minimum permission matrix and no destructive final implementation flows. |
 | Duplicate devices already exist | Import fails or operator confusion | Surface duplicate/import error clearly; defer cleanup automation. |
 | Architecture-specific OA3Tool/support file mismatch | Runtime failure | Resolve ADK assets per selected WinPE architecture and validate both x64 and ARM64 media. |
