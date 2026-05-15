@@ -726,6 +726,33 @@
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>Partitionnement et formatage de la cible USB.</value>
   </data>
+  <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
+    <value>Ouverture du disque USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
+    <value>Préparation des attributs du disque USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
+    <value>Effacement de la table de partitions USB.</value>
+  </data>
+  <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
+    <value>Initialisation de la table de partitions USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
+    <value>Création de la partition BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
+    <value>Formatage de la partition BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
+    <value>Création de la partition cache.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
+    <value>Formatage de la partition cache.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
+    <value>Partitions USB formatées.</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copie du média WinPE vers l'USB.</value>
   </data>
