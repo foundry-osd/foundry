@@ -470,7 +470,7 @@ oa3tool.exe /Report /ConfigFile=.\OA3.cfg /NoKeyCheck /LogTrace=.\OA3.log
 
 The implementation should add `WinPE-SecureStartup` to the default WinPE optional component set, even when Autopilot hardware hash upload is disabled. The package is small, and making it default avoids a mode-specific boot image difference while improving TPM visibility for Autopilot quality. Existing media already includes WMI, NetFX, Scripting, PowerShell, WinReCfg, DismCmdlets, StorageWMI, Dot3Svc, and EnhancedStorage. PowerShell may remain present as an existing WinPE optional component, but Foundry must not use it to perform hash capture or upload.
 
-`PCPKsp.dll` must not be bundled in generated media. Copying it from the applied Windows image avoids redistributing the file with Foundry media and keeps the copied DLL aligned with the target OS architecture. If the file is missing or cannot be copied, the Autopilot hash upload step should be skipped with a clear diagnostic while the OS deployment continues.
+`PCPKsp.dll` must not be bundled in generated media. Copying it from the applied Windows image avoids redistributing the file with Foundry media and keeps the copied DLL aligned with the target OS architecture. If the file is missing, cannot be copied, or cannot be loaded by OA3Tool, the Autopilot hash upload workflow must fail as a blocking Autopilot prerequisite failure.
 
 Proposed WinPE paths:
 - `X:\Foundry\Tools\OA3\oa3tool.exe`
@@ -520,7 +520,7 @@ Failure taxonomy:
 - `ImportTimedOut`: import polling exceeded the configured timeout.
 - `AutopilotDeviceTimedOut`: import completed but the device did not appear in Windows Autopilot devices before the 10-minute wait timeout. Foundry Deploy logs a warning and continues OS deployment.
 
-Support library failures stop only the Autopilot hash upload step. They must be represented as warnings/skips in deployment state and must not fail the full OS deployment.
+Support library failures are blocking for the hardware hash upload workflow because `PCPKsp.dll` is a prerequisite for reliable OA3Tool hash capture in this design. They must be represented as Autopilot prerequisite failures, not as non-blocking tenant/auth skips.
 
 ## Phased Implementation
 
@@ -865,7 +865,7 @@ Manual physical validation matrix:
 | Broad Graph permissions copied from community script | Excessive tenant blast radius | Minimum permission matrix and no destructive final implementation flows. |
 | Duplicate devices already exist | Import fails or operator confusion | Surface duplicate/import error clearly; defer cleanup automation. |
 | Architecture-specific OA3Tool/support file mismatch | Runtime failure | Resolve ADK assets per selected WinPE architecture and validate both x64 and ARM64 media. |
-| `PCPKsp.dll` missing from applied OS or copy fails | Autopilot upload cannot proceed reliably | Copy from `<target Windows>\Windows\System32` after OS apply, skip only the Autopilot hash upload step, continue OS deployment, and retain diagnostics. |
+| `PCPKsp.dll` missing from applied OS or copy fails | Autopilot hash upload cannot meet prerequisites | Copy from `<target Windows>\Windows\System32` after OS apply and fail the Autopilot workflow as a blocking prerequisite error if the copy/load operation fails. |
 | UI conflates JSON and hash mode | Invalid media or deployment launch | Explicit `ProvisioningMode` and readiness rules. |
 
 ## Implementation Boundaries
@@ -923,7 +923,7 @@ Foundry.Connect owns:
 
 ## Resolved Decisions
 - No capture-only mode in the first implementation. Foundry always captures and uploads, while retaining OA3 and CSV diagnostics for troubleshooting.
-- `PCPKsp.dll` copy/load failure skips only the Autopilot hash upload step and does not block OS deployment.
+- `PCPKsp.dll` copy/load failure is blocking for the Autopilot hash upload workflow because it is a prerequisite for this capture path.
 - Duplicate device cleanup is not part of the final implementation. Foundry surfaces duplicate/import errors clearly, retains diagnostics, and continues OS deployment without deleting Intune, Autopilot, or Entra records.
 
 ## Source References
