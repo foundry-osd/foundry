@@ -43,7 +43,7 @@ public interface IExpertDeployConfigurationStateService
     bool AreRequiredSecretsReady { get; }
 
     /// <summary>
-    /// Gets a value indicating whether Autopilot staging is enabled.
+    /// Gets a value indicating whether Autopilot provisioning is enabled.
     /// </summary>
     bool IsAutopilotEnabled { get; }
 

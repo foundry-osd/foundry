@@ -68,4 +68,60 @@ public sealed class ExpertConfigurationServiceTests
         Assert.False(document.Network.WifiProvisioned);
         Assert.False(document.Autopilot.IsEnabled);
     }
+
+    [Fact]
+    public void Deserialize_WhenAutopilotProvisioningModeIsMissing_DefaultsToJsonProfile()
+    {
+        var service = new ExpertConfigurationService();
+
+        FoundryExpertConfigurationDocument document = service.Deserialize("""
+            {
+              "schemaVersion": 4,
+              "autopilot": {
+                "isEnabled": true
+              }
+            }
+            """);
+
+        Assert.Equal(AutopilotProvisioningMode.JsonProfile, document.Autopilot.ProvisioningMode);
+    }
+
+    [Fact]
+    public void Serialize_WhenHardwareHashSettingsArePersisted_DoesNotWritePrivateMaterial()
+    {
+        var service = new ExpertConfigurationService();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = new AutopilotHardwareHashUploadSettings
+                {
+                    Tenant = new AutopilotTenantRegistrationSettings
+                    {
+                        TenantId = "tenant-id",
+                        ApplicationObjectId = "application-object-id",
+                        ClientId = "client-id",
+                        ServicePrincipalObjectId = "service-principal-object-id"
+                    },
+                    ActiveCertificate = new AutopilotCertificateMetadata
+                    {
+                        KeyId = "certificate-key-id",
+                        Thumbprint = "ABCDEF123456",
+                        DisplayName = "Foundry OSD Autopilot Registration",
+                        ExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                    }
+                }
+            }
+        };
+
+        string json = service.Serialize(document);
+
+        Assert.Contains("\"provisioningMode\": \"hardwareHashUpload\"", json, StringComparison.Ordinal);
+        Assert.DoesNotContain("pfx", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("privateKey", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("accessToken", json, StringComparison.OrdinalIgnoreCase);
+    }
 }

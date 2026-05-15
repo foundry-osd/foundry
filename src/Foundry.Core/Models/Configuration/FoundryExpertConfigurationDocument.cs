@@ -10,7 +10,7 @@ public sealed record FoundryExpertConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Expert Deploy configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 4;
+    public const int CurrentSchemaVersion = 5;
 
     /// <summary>
     /// Gets the schema version of this configuration document.
@@ -38,7 +38,7 @@ public sealed record FoundryExpertConfigurationDocument
     public CustomizationSettings Customization { get; init; } = new();
 
     /// <summary>
-    /// Gets Autopilot profile settings staged for OOBE.
+    /// Gets Autopilot provisioning settings used during deployment.
     /// </summary>
     public AutopilotSettings Autopilot { get; init; } = new();
 

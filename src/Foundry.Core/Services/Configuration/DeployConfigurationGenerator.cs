@@ -13,6 +13,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     public FoundryDeployConfigurationDocument Generate(FoundryExpertConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
+        AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
 
         string[] visibleLanguageCodes = CanonicalizeLanguageCodes(document.Localization.VisibleLanguageCodes);
         string? defaultLanguageCodeOverride = CanonicalizeOptionalLanguageCode(document.Localization.DefaultLanguageCodeOverride);
@@ -50,9 +51,13 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             Autopilot = new DeployAutopilotSettings
             {
                 IsEnabled = document.Autopilot.IsEnabled,
-                DefaultProfileFolderName = document.Autopilot.Profiles
-                    .FirstOrDefault(profile => string.Equals(profile.Id, document.Autopilot.DefaultProfileId, StringComparison.OrdinalIgnoreCase))
-                    ?.FolderName
+                ProvisioningMode = document.Autopilot.ProvisioningMode,
+                DefaultProfileFolderName = document.Autopilot.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
+                    ? document.Autopilot.Profiles
+                        .FirstOrDefault(profile => string.Equals(profile.Id, document.Autopilot.DefaultProfileId, StringComparison.OrdinalIgnoreCase))
+                        ?.FolderName
+                    : null,
+                HardwareHashUpload = CreateDeployHardwareHashUploadSettings(document.Autopilot.HardwareHashUpload)
             },
             Telemetry = document.Telemetry
         };
@@ -90,5 +95,24 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
         return string.IsNullOrWhiteSpace(canonicalCode) ? null : canonicalCode;
+    }
+
+    private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(
+        AutopilotHardwareHashUploadSettings? settings)
+    {
+        if (settings?.Tenant is null)
+        {
+            return new DeployAutopilotHardwareHashUploadSettings();
+        }
+
+        return new DeployAutopilotHardwareHashUploadSettings
+        {
+            TenantId = settings.Tenant.TenantId,
+            ClientId = settings.Tenant.ClientId,
+            ActiveCertificateKeyId = settings.ActiveCertificate?.KeyId,
+            ActiveCertificateThumbprint = settings.ActiveCertificate?.Thumbprint,
+            ActiveCertificateExpiresOnUtc = settings.ActiveCertificate?.ExpiresOnUtc,
+            DefaultGroupTag = settings.DefaultGroupTag
+        };
     }
 }

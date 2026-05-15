@@ -114,6 +114,106 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal("profile-b-folder", result.Autopilot.DefaultProfileFolderName);
     }
 
+    [Fact]
+    public void Generate_WhenJsonProfileModeHasNoSelectedProfile_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.JsonProfile
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("JSON", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashModeIsEnabled_DoesNotRequireSelectedProfile()
+    {
+        var generator = new DeployConfigurationGenerator();
+        DateTimeOffset expiration = DateTimeOffset.UtcNow.AddMonths(6);
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(expiration)
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Autopilot.IsEnabled);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, result.Autopilot.ProvisioningMode);
+        Assert.Null(result.Autopilot.DefaultProfileFolderName);
+        Assert.Equal("tenant-id", result.Autopilot.HardwareHashUpload.TenantId);
+        Assert.Equal("client-id", result.Autopilot.HardwareHashUpload.ClientId);
+        Assert.Equal("certificate-key-id", result.Autopilot.HardwareHashUpload.ActiveCertificateKeyId);
+        Assert.Equal("ABCDEF123456", result.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
+        Assert.Equal(expiration, result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
+        Assert.Equal("Sales", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashCertificateIsExpired_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddDays(-1))
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("certificate", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_WhenAutopilotIsDisabledWithNullHardwareHashSettings_DoesNotThrow()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = false,
+                HardwareHashUpload = null!
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Autopilot.IsEnabled);
+        Assert.Equal(AutopilotProvisioningMode.JsonProfile, result.Autopilot.ProvisioningMode);
+        Assert.NotNull(result.Autopilot.HardwareHashUpload);
+    }
+
+    [Fact]
+    public void Generate_WhenProvisioningModeIsUnsupported_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = (AutopilotProvisioningMode)999
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("unsupported", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static AutopilotProfileSettings CreateProfile(string id, string folderName)
     {
         return new AutopilotProfileSettings
@@ -124,6 +224,29 @@ public sealed class DeployConfigurationGeneratorTests
             Source = "import",
             ImportedAtUtc = DateTimeOffset.UtcNow,
             JsonContent = "{}"
+        };
+    }
+
+    private static AutopilotHardwareHashUploadSettings CreateCompleteHardwareHashSettings(DateTimeOffset expiration)
+    {
+        return new AutopilotHardwareHashUploadSettings
+        {
+            Tenant = new AutopilotTenantRegistrationSettings
+            {
+                TenantId = "tenant-id",
+                ApplicationObjectId = "application-object-id",
+                ClientId = "client-id",
+                ServicePrincipalObjectId = "service-principal-object-id"
+            },
+            ActiveCertificate = new AutopilotCertificateMetadata
+            {
+                KeyId = "certificate-key-id",
+                Thumbprint = "ABCDEF123456",
+                DisplayName = "Foundry OSD Autopilot Registration",
+                ExpiresOnUtc = expiration
+            },
+            KnownGroupTags = ["Sales", "Engineering"],
+            DefaultGroupTag = "Sales"
         };
     }
 }
