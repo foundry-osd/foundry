@@ -422,6 +422,7 @@ FodyWeavers.xsd
 bin/
 obj/
 *.csproj.user
+*.lscache
 
 # Keep bundled 7-Zip architecture folders tracked.
 !src/Foundry/Assets/7z/[xX]64/
