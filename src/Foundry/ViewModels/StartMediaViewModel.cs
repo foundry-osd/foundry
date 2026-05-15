@@ -779,10 +779,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             : LocalizeFinalMediaStatus(progress.Status);
 
         logger.Debug(
-            "Final media output progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}",
+            "Final media output progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, LogDetail={LogDetail}",
             progress.Status,
             progress.Percent,
-            normalizedProgress);
+            normalizedProgress,
+            progress.LogDetail);
         operationProgressService.Report(normalizedProgress, status);
     }
 
@@ -890,6 +891,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "Validating USB target." => "StartMedia.Operation.ValidatingUsbTarget",
             "Checking USB target safety." => "StartMedia.Operation.CheckingUsbTargetSafety",
             "Partitioning and formatting USB target." => "StartMedia.Operation.PartitioningUsbTarget",
+            "Opening USB disk." => "StartMedia.Operation.OpeningUsbDisk",
+            "Preparing USB disk attributes." => "StartMedia.Operation.PreparingUsbDiskAttributes",
+            "Clearing USB partition table." => "StartMedia.Operation.ClearingUsbPartitionTable",
+            "Initializing USB partition table." => "StartMedia.Operation.InitializingUsbPartitionTable",
+            "Creating BOOT partition." => "StartMedia.Operation.CreatingUsbBootPartition",
+            "Formatting BOOT partition." => "StartMedia.Operation.FormattingUsbBootPartition",
+            "Creating cache partition." => "StartMedia.Operation.CreatingUsbCachePartition",
+            "Formatting cache partition." => "StartMedia.Operation.FormattingUsbCachePartition",
+            "USB partitions formatted." => "StartMedia.Operation.UsbPartitionsFormatted",
             "Copying WinPE media to USB." => "StartMedia.Operation.CopyingUsbMedia",
             "Configuring USB boot files." => "StartMedia.Operation.ConfiguringUsbBootFiles",
             "Verifying USB boot media." => "StartMedia.Operation.VerifyingUsbMedia",

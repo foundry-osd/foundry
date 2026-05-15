@@ -5,6 +5,9 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 {
+    private const string UsbProvisioningProgressPrefix = "FOUNDRY_USB_PROGRESS|";
+    private const string UsbProvisioningVerbosePrefix = "FOUNDRY_USB_VERBOSE|";
+
     private readonly IWinPeProcessRunner _processRunner;
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
 
@@ -126,6 +129,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(artifact);
+        ArgumentNullException.ThrowIfNull(tools);
 
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -181,7 +185,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             options.FormatMode,
             bootDriveLetter,
             cacheDriveLetter,
+            tools,
             artifact.WorkingDirectoryPath,
+            options.Progress,
             cancellationToken).ConfigureAwait(false);
         if (!provisioningResult.IsSuccess)
         {
@@ -320,42 +326,102 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         return exitCode is >= 0 and <= 7;
     }
 
-    internal static IReadOnlyList<string> BuildDiskPartScript(
+    internal static string BuildPowerShellProvisioningScript(
         int diskNumber,
         UsbPartitionStyle partitionStyle,
         UsbFormatMode formatMode,
         char bootDriveLetter,
         char cacheDriveLetter)
     {
-        string[] conversionLines = partitionStyle == UsbPartitionStyle.Gpt
-            ? ["convert mbr noerr", "convert gpt"]
-            : ["convert mbr"];
-        string activeLine = partitionStyle == UsbPartitionStyle.Mbr ? "active" : string.Empty;
-        string formatSuffix = formatMode == UsbFormatMode.Quick ? " quick" : string.Empty;
+        string partitionStyleText = partitionStyle == UsbPartitionStyle.Gpt ? "GPT" : "MBR";
+        string fullFormatValue = formatMode == UsbFormatMode.Complete ? "$true" : "$false";
+        char normalizedBootDriveLetter = char.ToUpperInvariant(bootDriveLetter);
+        char normalizedCacheDriveLetter = char.ToUpperInvariant(cacheDriveLetter);
+        string activeLine = partitionStyle == UsbPartitionStyle.Mbr
+            ? "Set-Partition -DiskNumber $diskNumber -PartitionNumber $bootPartition.PartitionNumber -IsActive $true -ErrorAction Stop"
+            : string.Empty;
 
         string[] scriptLines =
         [
-            $"select disk {diskNumber}",
-            "online disk noerr",
-            "attributes disk clear readonly noerr",
-            "clean",
-            ..conversionLines,
-            "create partition primary size=4096",
-            "select partition 1",
-            $"assign letter={bootDriveLetter}",
-            $"select volume={bootDriveLetter}",
-            $"format fs=fat32{formatSuffix} label=BOOT",
+            "$ErrorActionPreference = 'Stop'",
+            "Import-Module Storage",
+            "function Write-FoundryUsbProgress([int]$Percent, [string]$Status) {",
+            "    Write-Output (\"FOUNDRY_USB_PROGRESS|{0}|{1}\" -f $Percent, $Status)",
+            "}",
+            "function Write-FoundryUsbVerbose([string]$Message) {",
+            "    Write-Output (\"FOUNDRY_USB_VERBOSE|{0}\" -f $Message)",
+            "}",
+            $"$diskNumber = {diskNumber}",
+            $"$partitionStyle = '{partitionStyleText}'",
+            $"$fullFormat = {fullFormatValue}",
+            $"$bootDriveLetter = '{normalizedBootDriveLetter}'",
+            $"$cacheDriveLetter = '{normalizedCacheDriveLetter}'",
+            "Write-FoundryUsbVerbose \"Provisioning disk $diskNumber. PartitionStyle=$partitionStyle, FullFormat=$fullFormat, BootDriveLetter=$bootDriveLetter, CacheDriveLetter=$cacheDriveLetter.\"",
+            "Write-FoundryUsbProgress 21 'Opening USB disk.'",
+            "$disk = Get-Disk -Number $diskNumber -ErrorAction Stop",
+            "Write-FoundryUsbVerbose \"Disk opened. Number=$($disk.Number), FriendlyName=$($disk.FriendlyName), PartitionStyle=$($disk.PartitionStyle), Size=$($disk.Size), IsOffline=$($disk.IsOffline), IsReadOnly=$($disk.IsReadOnly).\"",
+            "Write-FoundryUsbProgress 23 'Preparing USB disk attributes.'",
+            "if ($disk.IsOffline) { Set-Disk -Number $diskNumber -IsOffline $false -ErrorAction Stop }",
+            "if ($disk.IsReadOnly) { Set-Disk -Number $diskNumber -IsReadOnly $false -ErrorAction Stop }",
+            "Write-FoundryUsbVerbose 'USB disk attributes prepared.'",
+            "Write-FoundryUsbProgress 26 'Clearing USB partition table.'",
+            "Clear-Disk -Number $diskNumber -RemoveData -RemoveOEM -Confirm:$false -ErrorAction Stop",
+            "Update-HostStorageCache -ErrorAction SilentlyContinue",
+            "Write-FoundryUsbVerbose 'USB partition table cleared and host storage cache refreshed.'",
+            "Write-FoundryUsbProgress 32 'Initializing USB partition table.'",
+            "$disk = Get-Disk -Number $diskNumber -ErrorAction Stop",
+            "if ($disk.PartitionStyle -eq 'RAW') {",
+            "    Initialize-Disk -Number $diskNumber -PartitionStyle $partitionStyle -ErrorAction Stop",
+            "} elseif ([string]$disk.PartitionStyle -ne $partitionStyle) {",
+            "    throw \"Disk $diskNumber could not be reset to $partitionStyle. Current partition style: $($disk.PartitionStyle).\"",
+            "}",
+            "$disk = Get-Disk -Number $diskNumber -ErrorAction Stop",
+            "Write-FoundryUsbVerbose \"USB partition table initialized. CurrentPartitionStyle=$($disk.PartitionStyle).\"",
+            "Write-FoundryUsbProgress 38 'Creating BOOT partition.'",
+            "$bootPartition = New-Partition -DiskNumber $diskNumber -Size 4096MB -DriveLetter $bootDriveLetter -ErrorAction Stop",
+            "Write-FoundryUsbVerbose \"BOOT partition created. PartitionNumber=$($bootPartition.PartitionNumber), DriveLetter=$($bootPartition.DriveLetter), Size=$($bootPartition.Size).\"",
             activeLine,
-            "create partition primary",
-            "select partition 2",
-            $"assign letter={cacheDriveLetter}",
-            $"select volume={cacheDriveLetter}",
-            $"format fs=ntfs{formatSuffix} label=\"Foundry Cache\""
+            "if ($partitionStyle -eq 'MBR') { Write-FoundryUsbVerbose \"BOOT partition marked active. PartitionNumber=$($bootPartition.PartitionNumber).\" }",
+            "Write-FoundryUsbProgress 44 'Formatting BOOT partition.'",
+            "$bootFormatArguments = @{",
+            "    DriveLetter = $bootDriveLetter",
+            "    FileSystem = 'FAT32'",
+            "    NewFileSystemLabel = 'BOOT'",
+            "    Confirm = $false",
+            "    Force = $true",
+            "    ErrorAction = 'Stop'",
+            "}",
+            "if ($fullFormat) { $bootFormatArguments['Full'] = $true }",
+            "Format-Volume @bootFormatArguments | Out-Null",
+            "Write-FoundryUsbVerbose \"BOOT partition formatted. DriveLetter=$bootDriveLetter, FileSystem=FAT32, Label=BOOT.\"",
+            "Write-FoundryUsbProgress 49 'Creating cache partition.'",
+            "$cachePartition = New-Partition -DiskNumber $diskNumber -UseMaximumSize -DriveLetter $cacheDriveLetter -ErrorAction Stop",
+            "Write-FoundryUsbVerbose \"Cache partition created. PartitionNumber=$($cachePartition.PartitionNumber), DriveLetter=$($cachePartition.DriveLetter), Size=$($cachePartition.Size).\"",
+            "Write-FoundryUsbProgress 53 'Formatting cache partition.'",
+            "$cacheFormatArguments = @{",
+            "    DriveLetter = $cacheDriveLetter",
+            "    FileSystem = 'NTFS'",
+            "    NewFileSystemLabel = 'Foundry Cache'",
+            "    Confirm = $false",
+            "    Force = $true",
+            "    ErrorAction = 'Stop'",
+            "}",
+            "if ($fullFormat) { $cacheFormatArguments['Full'] = $true }",
+            "Format-Volume @cacheFormatArguments | Out-Null",
+            "Write-FoundryUsbVerbose \"Cache partition formatted. DriveLetter=$cacheDriveLetter, FileSystem=NTFS, Label=Foundry Cache.\"",
+            "Write-FoundryUsbProgress 55 'USB partitions formatted.'",
+            "[pscustomobject]@{",
+            "    DiskNumber = $diskNumber",
+            "    BootDriveLetter = \"$bootDriveLetter`:\"",
+            "    CacheDriveLetter = \"$cacheDriveLetter`:\"",
+            "} | ConvertTo-Json -Compress"
         ];
 
-        return scriptLines
+        return string.Join(
+            Environment.NewLine,
+            scriptLines
             .Where(line => !string.IsNullOrWhiteSpace(line))
-            .ToArray();
+            .ToArray());
     }
 
     internal static void InitializeCachePartitionDirectories(string cacheRootPath)
@@ -470,25 +536,35 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         UsbFormatMode formatMode,
         char bootDriveLetter,
         char cacheDriveLetter,
+        WinPeToolPaths tools,
         string workingDirectoryPath,
+        IProgress<WinPeMediaProgress>? progress,
         CancellationToken cancellationToken)
     {
-        IReadOnlyList<string> diskPartScript = BuildDiskPartScript(
+        string script = BuildPowerShellProvisioningScript(
             diskNumber,
             partitionStyle,
             formatMode,
             bootDriveLetter,
             cacheDriveLetter);
 
-        string scriptPath = Path.Combine(workingDirectoryPath, "diskpart-usb.txt");
         Directory.CreateDirectory(workingDirectoryPath);
-        await File.WriteAllLinesAsync(scriptPath, diskPartScript, cancellationToken).ConfigureAwait(false);
-
-        WinPeProcessExecution execution = await _processRunner.RunAsync(
-            "diskpart.exe",
-            $"/s {WinPeProcessRunner.Quote(scriptPath)}",
-            workingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+        string encodedScript = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
+        string arguments = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand {encodedScript}";
+        var provisioningOutput = new UsbProvisioningOutputForwarder(progress);
+        WinPeProcessExecution execution = _processRunner is IWinPeProcessOutputRunner outputRunner
+            ? await outputRunner.RunWithOutputAsync(
+                tools.PowerShellPath,
+                arguments,
+                workingDirectoryPath,
+                provisioningOutput.Report,
+                null,
+                cancellationToken).ConfigureAwait(false)
+            : await _processRunner.RunAsync(
+                tools.PowerShellPath,
+                arguments,
+                workingDirectoryPath,
+                cancellationToken).ConfigureAwait(false);
 
         if (execution.IsSuccess)
         {
@@ -497,8 +573,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         string diagnostic = $"{execution.ToDiagnosticText()}{Environment.NewLine}" +
                             $"PartitionStyle: {partitionStyle}{Environment.NewLine}" +
-                            "DiskPartScript:" + Environment.NewLine +
-                            string.Join(Environment.NewLine, diskPartScript);
+                            "PowerShellProvisioningScript:" + Environment.NewLine +
+                            script;
         return WinPeResult.Failure(
             WinPeErrorCodes.UsbProvisioningFailed,
             "Failed to partition and format the USB disk.",
@@ -544,6 +620,46 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             Percent = Math.Clamp(percent, 0, 100),
             Status = status
         });
+    }
+
+    private sealed class UsbProvisioningOutputForwarder(IProgress<WinPeMediaProgress>? progress)
+    {
+        private int currentPercent = 20;
+        private string currentStatus = "Partitioning and formatting USB target.";
+
+        public void Report(string line)
+        {
+            if (progress is null)
+            {
+                return;
+            }
+
+            if (line.StartsWith(UsbProvisioningProgressPrefix, StringComparison.Ordinal))
+            {
+                string payload = line[UsbProvisioningProgressPrefix.Length..];
+                string[] parts = payload.Split('|', 2);
+                if (parts.Length != 2 || !int.TryParse(parts[0], out int percent))
+                {
+                    return;
+                }
+
+                currentPercent = percent;
+                currentStatus = parts[1];
+                ReportProgress(progress, currentPercent, currentStatus);
+                return;
+            }
+
+            string verboseLine = line.StartsWith(UsbProvisioningVerbosePrefix, StringComparison.Ordinal)
+                ? line[UsbProvisioningVerbosePrefix.Length..]
+                : line;
+
+            progress.Report(new WinPeMediaProgress
+            {
+                Percent = currentPercent,
+                Status = currentStatus,
+                LogDetail = verboseLine
+            });
+        }
     }
 
     private async Task<WinPeResult<WinPeUsbDiskIdentity>> GetDiskIdentityAsync(
