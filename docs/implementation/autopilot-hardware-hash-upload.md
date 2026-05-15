@@ -32,4 +32,4 @@ This index is the entry point for the Autopilot hardware hash upload plan. The d
 | 8 | `feature/autopilot-hash-upload-docs` | `docs(autopilot): document WinPE hardware hash upload` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-8-documentation-and-release-guardrails) |
 
 ## Documentation Reminder
-Phase 8 must update the Docusaurus documentation when the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes.
+Phase 8 must update the Docusaurus documentation when the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes. The Docusaurus repository is `E:\Github\Foundry Project\foundry-osd.github.io`; create a dedicated worktree and branch for that repository before editing documentation.

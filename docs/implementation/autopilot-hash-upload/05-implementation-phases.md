@@ -287,8 +287,11 @@ PR title: `docs(autopilot): document WinPE hardware hash upload`
 
 - [ ] Add user documentation for hardware hash upload from WinPE.
 - [ ] Update the Docusaurus documentation if the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes.
-- [ ] Locate the Docusaurus documentation source by searching for `docusaurus.config.*` or the docs package root before editing docs.
-- [ ] If the Docusaurus source is not in this repository, record the external documentation repository or path required for the docs update before opening the PR.
+- [ ] Use the Docusaurus repository at `E:\Github\Foundry Project\foundry-osd.github.io`.
+- [ ] Create a dedicated Docusaurus worktree before editing docs.
+- [ ] Create the Docusaurus branch `docs/autopilot-hash-upload` from the current documentation base branch.
+- [ ] Use the Docusaurus PR title `docs(autopilot): document WinPE hardware hash upload`.
+- [ ] Locate the Docusaurus documentation source inside that repository by searching for `docusaurus.config.*` or the docs package root before editing docs.
 - [ ] Mark WinPE hash capture as best-effort and not the Microsoft-standard method.
 - [ ] Document x64 and ARM64 scope.
 - [ ] Document that Foundry copies `PCPKsp.dll` from the applied OS to `X:\Windows\System32` late in deployment.

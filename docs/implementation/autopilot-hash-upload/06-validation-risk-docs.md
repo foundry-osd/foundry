@@ -83,8 +83,11 @@ Manual physical validation matrix:
   - Product boundaries update explaining the workaround status.
   - Manual test checklist.
 - Docusaurus documentation:
-  - Locate the docs source before editing by searching for `docusaurus.config.*` or the docs package root.
-  - If the docs source is external to this repository, record the required repository/path before opening the implementation PR.
+  - Use the Docusaurus repository at `E:\Github\Foundry Project\foundry-osd.github.io`.
+  - Create a dedicated Docusaurus worktree before editing docs.
+  - Create the Docusaurus branch `docs/autopilot-hash-upload` from the current documentation base branch.
+  - Use the Docusaurus PR title `docs(autopilot): document WinPE hardware hash upload`.
+  - Locate the docs source in that repository before editing by searching for `docusaurus.config.*` or the docs package root.
   - Update pages, sidebars, navigation, screenshots, and release notes when user-facing behavior changes.
   - Run the relevant Docusaurus build or preview command discovered from the docs package scripts if Docusaurus sources are changed.
 - Release notes:
