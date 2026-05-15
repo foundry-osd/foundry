@@ -5,6 +5,7 @@ This index is the entry point for the Autopilot hardware hash upload plan. The d
 ## Required Instructions
 - Implementation agents must follow the repository instructions in [AGENTS.md](../../AGENTS.md).
 - All PR titles, commit messages, code, and documentation changes must be in English.
+- Add XML documentation comments for public or non-obvious C# APIs when they clarify intent, contracts, or operational constraints.
 - Each phase branch must branch from `feature/autopilot-hash-upload-foundation` and merge back into that foundation branch before the next phase starts.
 - Do not run full solution tests during planning-only updates unless explicitly requested.
 

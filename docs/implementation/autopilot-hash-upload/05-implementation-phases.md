@@ -2,7 +2,7 @@
 
 Part of the [Autopilot hardware hash upload implementation plan](../autopilot-hardware-hash-upload.md).
 
-Implementation agents must follow the repository instructions in [AGENTS.md](../../../AGENTS.md).
+Implementation agents must follow the repository instructions in [AGENTS.md](../../../AGENTS.md). Add XML documentation comments for public or non-obvious C# APIs when they clarify intent, contracts, or operational constraints.
 
 ## Phased Implementation
 
@@ -32,6 +32,7 @@ PR title: `feat(autopilot): add provisioning mode configuration`
 - [ ] Keep old configurations backward compatible as JSON profile mode.
 - [ ] Update sanitization in `ExpertDeployConfigurationStateService`.
 - [ ] Update `DeployConfigurationGenerator`.
+- [ ] Add XML documentation comments to new public configuration records, enums, and service contracts when they clarify the behavior.
 
 Automated tests:
 - [ ] Existing JSON profile config serializes and generates the same deploy output.
@@ -63,6 +64,7 @@ PR title: `feat(autopilot): add provisioning method selection`
 - [ ] Enforce mutual exclusivity between JSON profile and hash upload modes.
 - [ ] Add localized strings in English and French resources.
 - [ ] Update readiness messages to include selected mode.
+- [ ] Add XML documentation comments to new public view-model members or UI service contracts when the behavior is not obvious.
 
 Automated tests:
 - [ ] View model mode changes save state.
@@ -108,6 +110,7 @@ PR title: `feat(autopilot): add secure tenant upload onboarding`
 - [ ] Document device code flow, client secrets, and brokered upload as unsupported WinPE authentication modes.
 - [ ] Explicitly document unsupported secret embedding patterns.
 - [ ] Add audit-safe logging rules.
+- [ ] Add XML documentation comments to new public tenant onboarding, certificate, and secret-protection APIs.
 
 Automated tests:
 - [ ] App registration discovery uses persisted application object ID before display name.
@@ -147,6 +150,7 @@ PR title: `feat(winpe): stage autopilot hash capture assets`
 - [ ] Keep current profile JSON staging unchanged in JSON profile mode.
 - [ ] Do not stage JSON profile folders in hash upload mode unless the user also keeps profiles for another purpose.
 - [ ] Do not stage `PCPKsp.dll` during media build.
+- [ ] Add XML documentation comments to new public media asset provisioning APIs and secret envelope APIs.
 
 Automated tests:
 - [ ] Media asset provisioning writes JSON profile assets only in JSON mode.
@@ -181,6 +185,7 @@ PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
 - [ ] Update deployment summary, logs, and telemetry with mode.
 - [ ] Skip Autopilot upload without blocking OS deployment when certificate, tenant, token, consent, permission, Conditional Access, Intune availability, or Graph connectivity validation fails.
 - [ ] Persist sanitized Autopilot diagnostics under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash`.
+- [ ] Add XML documentation comments to new public deployment runtime contracts and step classes.
 
 Automated tests:
 - [ ] JSON mode still stages the profile to `Windows\Provisioning\Autopilot`.
@@ -214,6 +219,7 @@ PR title: `feat(deploy): capture autopilot hardware hash in WinPE`
 - [ ] Write a local CSV artifact for troubleshooting.
 - [ ] Preserve OA3 logs in Foundry deployment logs.
 - [ ] Return structured failure codes for missing tool, `PCPKsp.dll` copy/load failure, empty hash, invalid XML, missing serial, and OA3 exit failure.
+- [ ] Add XML documentation comments to new public hash capture, OA3Tool, parser, and artifact writer APIs.
 
 Automated tests:
 - [ ] Resolves the applied Windows `System32` source path.
@@ -247,6 +253,7 @@ PR title: `feat(autopilot): import hardware hashes with Graph`
 - [ ] Add retry/backoff for transient HTTP failures.
 - [ ] Keep destructive cleanup out of the final hash upload workflow.
 - [ ] Sanitize `AutopilotUploadResult.json` before retaining it in `Windows\Temp\Foundry`.
+- [ ] Add XML documentation comments to new public Graph client, import polling, and retry-policy APIs.
 
 Automated tests:
 - [ ] Serializes import payload correctly.

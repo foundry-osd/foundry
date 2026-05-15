@@ -2,7 +2,7 @@
 
 Part of the [Autopilot hardware hash upload implementation plan](../autopilot-hardware-hash-upload.md).
 
-Implementation agents must follow the repository instructions in [AGENTS.md](../../../AGENTS.md).
+Implementation agents must follow the repository instructions in [AGENTS.md](../../../AGENTS.md). Add XML documentation comments for public or non-obvious C# APIs when they clarify intent, contracts, or operational constraints.
 
 ## Target UX
 On the Autopilot page:
