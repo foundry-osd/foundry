@@ -119,6 +119,8 @@ Target hash upload data flow:
 ```text
 Foundry Deploy deployment run
   -> apply Windows image
+  -> configure target computer name, recovery, drivers, firmware, and partition sealing
+  -> enter the late Autopilot provisioning step
   -> resolve the target Windows root
   -> copy <target Windows>\Windows\System32\PCPKsp.dll to X:\Windows\System32\PCPKsp.dll
   -> run C# OA3Tool capture service
@@ -132,7 +134,7 @@ Foundry Deploy deployment run
 Current assumptions to break carefully:
 - `IsAutopilotEnabled` currently implies "a JSON profile must be selected".
 - `AutopilotProfileCatalogService` only loads folder-based JSON profile assets.
-- `StageAutopilotConfigurationStep` has a profile-staging name but is the correct execution boundary for Autopilot mode branching.
+- `StageAutopilotConfigurationStep` has a profile-staging name and should become the late, mode-aware Autopilot provisioning boundary.
 - Media readiness only checks whether a selected profile exists when Autopilot is enabled.
 - Deploy summary and telemetry only track `autopilot_enabled`, not the provisioning method.
 
@@ -252,6 +254,13 @@ Foundry Deploy UX:
 - The default Windows Autopilot device visibility wait timeout is 10 minutes.
 - If the wait reaches the 10-minute timeout, Foundry Deploy should automatically continue to the next OS deployment step, mark Autopilot visibility waiting as timed out/skipped, and retain a clear warning in the deployment summary and logs.
 - Waiting for import completion and Windows Autopilot device visibility is mandatory internal behavior, not a user-facing option.
+
+Deployment workflow placement:
+- The Autopilot workflow should remain a single late deployment step after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
+- The current JSON-specific `StageAutopilotConfigurationStep` should be renamed conceptually to `ProvisionAutopilotStep`.
+- JSON mode should keep the current behavior inside this step: copy `AutopilotConfigurationFile.json` into `<target Windows>\Windows\Provisioning\Autopilot`.
+- Hardware hash mode should run inside the same step after the applied Windows root is available: copy `PCPKsp.dll`, run OA3Tool, upload the hash, wait for Windows Autopilot device visibility, and retain diagnostics.
+- Keeping both modes under one Autopilot step avoids splitting Autopilot behavior across unrelated deployment phases and keeps final artifact relocation in `FinalizeDeploymentAndWriteLogs`.
 
 ## Proposed Runtime Model
 Add an explicit provisioning mode.
@@ -692,9 +701,10 @@ PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
 - [ ] Update `DeploymentLaunchPreparationService` validation:
   - JSON mode requires selected profile.
   - Hash upload mode requires valid upload settings.
-- [ ] Keep `StageAutopilotConfigurationStep` profile-only so JSON mode copies `AutopilotConfigurationFile.json`.
-- [ ] Add a late hash upload deployment step after OS apply and before deployment finalization.
-- [ ] Hash upload mode skips JSON staging and runs the hash capture/upload workflow from the late deployment step.
+- [ ] Rename or replace `StageAutopilotConfigurationStep` with a mode-aware `ProvisionAutopilotStep`.
+- [ ] Keep the Autopilot provisioning step after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
+- [ ] JSON mode copies `AutopilotConfigurationFile.json` from the mode-aware Autopilot provisioning step.
+- [ ] Hash upload mode skips JSON staging and runs the hash capture/upload workflow from the same late Autopilot provisioning step.
 - [ ] Update deployment summary, logs, and telemetry with mode.
 - [ ] Skip Autopilot upload without blocking OS deployment when certificate, tenant, token, consent, permission, Conditional Access, Intune availability, or Graph connectivity validation fails.
 - [ ] Persist sanitized Autopilot diagnostics under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash`.
@@ -703,7 +713,8 @@ Automated tests:
 - [ ] JSON mode still stages the profile to `Windows\Provisioning\Autopilot`.
 - [ ] Hash upload mode skips JSON staging.
 - [ ] Dry run creates a hash-mode manifest without touching Graph.
-- [ ] Hash upload step is ordered after the applied Windows root is available.
+- [ ] Autopilot provisioning step is ordered after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
+- [ ] Hash upload mode runs only after the applied Windows root and target Windows `System32` are available.
 - [ ] Launch preparation rejects incomplete hash upload settings.
 - [ ] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
 - [ ] Tenant/auth failures skip only Autopilot hash upload and leave OS deployment available.
@@ -892,7 +903,7 @@ Foundry.Deploy owns:
 - Hardware hash Computer Target mode display.
 - Certificate expiration detection and non-blocking Autopilot skip.
 - Runtime group tag selection or custom group tag input.
-- Late deployment workflow step after OS apply.
+- Late mode-aware Autopilot deployment step after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
 - `PCPKsp.dll` copy from the applied Windows image to `X:\Windows\System32`.
 - OA3Tool execution through C# process orchestration.
 - Graph import through C# service abstractions.
