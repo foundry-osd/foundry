@@ -5,6 +5,7 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 {
+    internal const ulong MinimumUsbDiskSizeBytes = 16UL * 1024UL * 1024UL * 1024UL;
     private const string UsbProvisioningProgressPrefix = "FOUNDRY_USB_PROGRESS|";
     private const string UsbProvisioningVerbosePrefix = "FOUNDRY_USB_VERBOSE|";
 
@@ -279,6 +280,14 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 WinPeErrorCodes.UsbUnsafeTarget,
                 "Refusing to modify a system or boot disk.",
                 $"Disk {disk.Number}: IsSystem={disk.IsSystem}, IsBoot={disk.IsBoot}.");
+        }
+
+        if (disk.Size < MinimumUsbDiskSizeBytes)
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.UsbUnsafeTarget,
+                "Target USB disk is below the minimum supported size.",
+                $"Disk {disk.Number} size is {disk.Size} bytes. Foundry OSD requires a USB disk of at least 16 GB.");
         }
 
         if (string.IsNullOrWhiteSpace(options.ExpectedDiskFriendlyName) &&

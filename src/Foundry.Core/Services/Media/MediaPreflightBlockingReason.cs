@@ -12,6 +12,7 @@ public enum MediaPreflightBlockingReason
     RequiredSecretsNotReady,
     AutopilotConfigurationNotReady,
     NoUsbTarget,
+    UsbTargetBelowMinimumSize,
     Arm64RequiresGpt,
     CustomDriverDirectoryNotFound,
     CustomDriverDirectoryHasNoInfFiles,

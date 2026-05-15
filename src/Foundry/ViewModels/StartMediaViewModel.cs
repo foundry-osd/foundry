@@ -1322,7 +1322,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             MediaOutputReadinessItems,
             [
                 BuildIsoOutputReadinessItem(options, evaluation),
-                BuildUsbTargetReadinessItem(options),
+                BuildUsbTargetReadinessItem(options, evaluation),
                 BuildUsbLayoutReadinessItem(options, evaluation)
             ]);
 
@@ -1391,17 +1391,21 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 : FormatValue(options.IsoOutputPath));
     }
 
-    private StartReadinessItemViewModel BuildUsbTargetReadinessItem(MediaPreflightOptions options)
+    private StartReadinessItemViewModel BuildUsbTargetReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
     {
+        bool isBelowMinimumSize = HasReason(evaluation, MediaPreflightBlockingReason.UsbTargetBelowMinimumSize);
         StartReadinessState state = usbCandidateDiscoveryState switch
         {
             UsbCandidateDiscoveryState.Loading => StartReadinessState.Loading,
             UsbCandidateDiscoveryState.Empty => StartReadinessState.Warning,
             UsbCandidateDiscoveryState.Error => StartReadinessState.Warning,
+            _ when isBelowMinimumSize => StartReadinessState.Warning,
             _ => options.SelectedUsbDisk is null ? StartReadinessState.NotConfigured : StartReadinessState.Ready
         };
 
-        string description = state == StartReadinessState.Ready
+        string description = isBelowMinimumSize
+            ? GetBlockingReasonText(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize)
+            : state == StartReadinessState.Ready
             ? FormatUsbCandidate(options.SelectedUsbDisk)
             : string.IsNullOrWhiteSpace(UsbCandidateStatus)
                 ? localizationService.GetString("StartMedia.Usb.NotLoaded")
