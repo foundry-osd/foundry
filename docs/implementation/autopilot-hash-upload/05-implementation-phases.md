@@ -32,36 +32,36 @@ Manual checks:
 PR title: `feat(autopilot): add provisioning mode configuration`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
+- [x] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Add `AutopilotProvisioningMode`.
-- [ ] Extend `AutopilotSettings` with mode and hardware hash upload settings.
-- [ ] Extend `DeployAutopilotSettings` with reduced runtime mode and upload settings.
-- [ ] Add active certificate metadata: Graph `keyId`, thumbprint, expiration, and display name.
-- [ ] Add tenant app registration identity, service principal identity, known group tags, and default group tag settings.
-- [ ] Update schema version handling if needed.
-- [ ] Keep old configurations backward compatible as JSON profile mode.
-- [ ] Update sanitization in `ExpertDeployConfigurationStateService`.
-- [ ] Update `DeployConfigurationGenerator`.
-- [ ] Add XML documentation comments to new public configuration records, enums, and service contracts when they clarify the behavior.
+- [x] Add `AutopilotProvisioningMode`.
+- [x] Extend `AutopilotSettings` with mode and hardware hash upload settings.
+- [x] Extend `DeployAutopilotSettings` with reduced runtime mode and upload settings.
+- [x] Add active certificate metadata: Graph `keyId`, thumbprint, expiration, and display name.
+- [x] Add tenant app registration identity, service principal identity, known group tags, and default group tag settings.
+- [x] Update schema version handling if needed.
+- [x] Keep old configurations backward compatible as JSON profile mode.
+- [x] Update sanitization in `ExpertDeployConfigurationStateService`.
+- [x] Update `DeployConfigurationGenerator`.
+- [x] Add XML documentation comments to new public configuration records, enums, and service contracts when they clarify the behavior.
 
 Automated tests:
-- [ ] Existing JSON profile config serializes and generates the same deploy output.
-- [ ] Enabled JSON mode requires a selected profile.
-- [ ] Enabled hash upload mode does not require a selected profile.
-- [ ] Capture-and-upload mode requires tenant ID, application object ID, client ID, active certificate `keyId`, active certificate thumbprint, and unexpired certificate metadata.
-- [ ] Invalid certificate settings make Autopilot configuration not ready.
-- [ ] Expired certificate settings make OSD media generation not ready for hardware hash upload.
-- [ ] Persistent OSD settings never serialize PFX bytes, PFX password, decrypted private key material, or access tokens.
+- [x] Existing JSON profile config serializes and generates the same deploy output.
+- [x] Enabled JSON mode requires a selected profile.
+- [x] Enabled hash upload mode does not require a selected profile.
+- [x] Capture-and-upload mode requires tenant ID, application object ID, client ID, active certificate `keyId`, active certificate thumbprint, and unexpired certificate metadata.
+- [x] Invalid certificate settings make Autopilot configuration not ready.
+- [x] Expired certificate settings make OSD media generation not ready for hardware hash upload.
+- [x] Persistent OSD settings never serialize PFX bytes, PFX password, decrypted private key material, or access tokens.
 
 Manual checks:
-- [ ] Start Foundry with existing user config and confirm JSON profile mode is selected.
-- [ ] Disable Autopilot and confirm no profile or hash settings are required.
+- [ ] Deferred to the Phase 3 UI validation pass: start Foundry with existing user config and confirm JSON profile mode is selected.
+- [ ] Deferred to the Phase 3 UI validation pass: disable Autopilot and confirm no profile or hash settings are required.
 
 ### Phase 2: Security And Tenant Onboarding
 PR title: `feat(autopilot): add secure tenant upload onboarding`

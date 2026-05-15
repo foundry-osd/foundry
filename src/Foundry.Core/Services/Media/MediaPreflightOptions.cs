@@ -33,12 +33,12 @@ public sealed record MediaPreflightOptions
     public bool AreRequiredSecretsReady { get; init; }
 
     /// <summary>
-    /// Gets a value indicating whether Autopilot staging is enabled.
+    /// Gets a value indicating whether Autopilot provisioning is enabled.
     /// </summary>
     public bool IsAutopilotEnabled { get; init; }
 
     /// <summary>
-    /// Gets a value indicating whether the selected Autopilot profile is valid.
+    /// Gets a value indicating whether the selected Autopilot provisioning mode is valid.
     /// </summary>
     public bool IsAutopilotConfigurationReady { get; init; } = true;
 

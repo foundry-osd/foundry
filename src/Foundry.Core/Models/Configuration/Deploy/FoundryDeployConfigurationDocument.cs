@@ -10,7 +10,7 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Foundry.Deploy configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 2;
+    public const int CurrentSchemaVersion = 3;
 
     /// <summary>
     /// Gets the schema version of this deployment configuration document.
@@ -28,7 +28,7 @@ public sealed record FoundryDeployConfigurationDocument
     public DeployCustomizationSettings Customization { get; init; } = new();
 
     /// <summary>
-    /// Gets Autopilot profile staging settings.
+    /// Gets Autopilot provisioning settings.
     /// </summary>
     public DeployAutopilotSettings Autopilot { get; init; } = new();
 

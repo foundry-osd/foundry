@@ -195,7 +195,7 @@ public sealed record DeploymentRuntimeState
     public string? FirmwareUpdateTitle { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Autopilot staging is enabled.
+    /// Gets or sets a value indicating whether Autopilot provisioning is enabled.
     /// </summary>
     public bool IsAutopilotEnabled { get; set; }
 

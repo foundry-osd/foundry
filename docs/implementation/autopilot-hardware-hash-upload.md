@@ -38,7 +38,7 @@ Use this table as the cross-phase implementation status board. Detailed task, au
 | Phase | Branch created | Implementation complete | Verification complete | Manual checks complete | PR opened | Merged back |
 | --- | --- | --- | --- | --- | --- | --- |
 | 0 Foundation | [x] | [x] | [x] | [x] | [ ] | [ ] |
-| 1 Configuration model | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 1 Configuration model | [x] | [x] | [x] | [x] | [ ] | [ ] |
 | 2 Security and tenant onboarding | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 3 Autopilot page UX | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 4 Media build and WinPE assets | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
