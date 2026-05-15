@@ -168,11 +168,8 @@ Hardware hash upload:
   - Password-protected PFX input for media generation.
   - Autopilot group tag default selection.
 - Optional assigned user UPN field.
-- Upload timing selector:
-  - `CaptureAndUpload`
-  - `CaptureOnly` for diagnostics only, if retained.
-- Optional "wait for import completion" setting.
-- Optional "wait for assignment" setting should be deferred unless proven reliable.
+- No user-facing wait option. Foundry Deploy always waits for import/device visibility with the default countdown and timeout behavior.
+- No profile assignment wait in the final implementation.
 - Readiness and warning text for x64, ARM64, network connectivity, WinPE-SecureStartup, and unsupported scenarios.
 
 UX rules:
@@ -254,6 +251,7 @@ Foundry Deploy UX:
 - While waiting for the device to appear, Foundry Deploy should show an indeterminate sub-progress indicator and a countdown showing the time remaining before the wait times out.
 - The default Windows Autopilot device visibility wait timeout is 10 minutes.
 - If the wait reaches the 10-minute timeout, Foundry Deploy should automatically continue to the next OS deployment step, mark Autopilot visibility waiting as timed out/skipped, and retain a clear warning in the deployment summary and logs.
+- Waiting for import completion and Windows Autopilot device visibility is mandatory internal behavior, not a user-facing option.
 
 ## Proposed Runtime Model
 Add an explicit provisioning mode.
@@ -311,18 +309,6 @@ public sealed record AutopilotHardwareHashUploadSettings
     public IReadOnlyList<string> KnownGroupTags { get; init; } = [];
     public string? GroupTag { get; init; }
     public string? AssignedUserPrincipalName { get; init; }
-    public AutopilotHashUploadMode UploadMode { get; init; } = AutopilotHashUploadMode.CaptureAndUpload;
-    public bool WaitForImportCompletion { get; init; } = true;
-}
-```
-
-Proposed enums:
-
-```csharp
-public enum AutopilotHashUploadMode
-{
-    CaptureOnly,
-    CaptureAndUpload
 }
 ```
 
@@ -330,8 +316,7 @@ Validation rules:
 - `IsEnabled=false`: no Autopilot settings are required.
 - `IsEnabled=true` and `JsonProfile`: selected profile must exist.
 - `IsEnabled=true` and `HardwareHashUpload`: tenant ID, application object ID, client ID, service principal state, active certificate key ID, active certificate thumbprint, and certificate expiration must be valid.
-- `CaptureOnly`: Graph auth settings are optional.
-- `CaptureAndUpload`: certificate-based Graph auth settings are required.
+- Hardware hash upload always captures and uploads. There is no first-implementation capture-only mode.
 - Expired certificates make Foundry OSD hardware hash media generation not ready.
 - Expired certificates in Foundry Deploy skip Autopilot upload without blocking the OS deployment.
 - `AssignedUserPrincipalName`, when set, must look like a UPN but should not be treated as proof that the user exists.
@@ -345,13 +330,22 @@ The implementation must not use PowerShell for hardware hash capture or upload a
 Recommended direction:
 - Use direct Microsoft Graph REST calls through C# service abstractions.
 - Invoke OA3Tool through the existing C# process execution patterns, not through PowerShell.
-- Use least-privilege upload permissions:
-  - `DeviceManagementServiceConfig.ReadWrite.All` for import.
-  - `DeviceManagementServiceConfig.Read.All` only if read-only polling is separated.
+- Split OSD interactive onboarding permissions from WinPE app-only upload permissions.
+- Use least-privilege WinPE app-only upload permissions:
+  - `DeviceManagementServiceConfig.ReadWrite.All` for import and polling.
 - Defer destructive permissions:
   - `DeviceManagementManagedDevices.ReadWrite.All`
   - `Device.ReadWrite.All`
   - `GroupMember.ReadWrite.All`
+
+Permission split:
+
+| Surface | Authentication context | Required capability | Stored in boot media |
+| --- | --- | --- | --- |
+| Foundry OSD tenant onboarding | Interactive signed-in admin user | Create/reuse app registration, add Graph application permissions, verify admin consent, add/retire app certificate credentials, read Autopilot group tags. | No |
+| Foundry Deploy in WinPE | App-only certificate credential from generated media | Import the captured hardware hash and poll import/device visibility. | Yes, as encrypted PFX envelope plus media secret key |
+
+The interactive OSD user may need broad Entra application management rights during setup, but those delegated/session permissions are not embedded into the boot image. The boot image receives only the managed app identity and certificate material needed for Autopilot import.
 
 Supported WinPE authentication:
 - Microsoft Graph authentication inside WinPE must use certificate-based app-only auth only.
@@ -424,8 +418,9 @@ Minimum Graph permission matrix:
 
 | Capability | Permission | Implementation status |
 | --- | --- | --- |
-| Import Autopilot device identity | `DeviceManagementServiceConfig.ReadWrite.All` | Required for `CaptureAndUpload`. |
-| Poll imported device identity state | `DeviceManagementServiceConfig.Read.All` or `DeviceManagementServiceConfig.ReadWrite.All` | Required when waiting for completion. |
+| Import Autopilot device identity | `DeviceManagementServiceConfig.ReadWrite.All` | Required. |
+| Poll imported device identity state | `DeviceManagementServiceConfig.ReadWrite.All` | Required. |
+| Poll Windows Autopilot device visibility | `DeviceManagementServiceConfig.ReadWrite.All` | Required. |
 | Delete Autopilot device identity | `DeviceManagementServiceConfig.ReadWrite.All` | Deferred. Not automatic in the final hash upload workflow. |
 | Delete Intune managed device | `DeviceManagementManagedDevices.ReadWrite.All` | Deferred. |
 | Delete Entra device | `Device.ReadWrite.All` | Deferred. |
@@ -458,7 +453,7 @@ oa3tool.exe /Report /ConfigFile=.\OA3.cfg /NoKeyCheck /LogTrace=.\OA3.log
 7. Extract:
    - hardware hash
    - serial number
-8. Upload through the C# Microsoft Graph import service when `CaptureAndUpload` is selected.
+8. Upload through the C# Microsoft Graph import service.
 9. Save diagnostics:
    - `OA3.xml`
    - `OA3.log`
@@ -467,7 +462,7 @@ oa3tool.exe /Report /ConfigFile=.\OA3.cfg /NoKeyCheck /LogTrace=.\OA3.log
 
 The implementation should add `WinPE-SecureStartup` to the default WinPE optional component set, even when Autopilot hardware hash upload is disabled. The package is small, and making it default avoids a mode-specific boot image difference while improving TPM visibility for Autopilot quality. Existing media already includes WMI, NetFX, Scripting, PowerShell, WinReCfg, DismCmdlets, StorageWMI, Dot3Svc, and EnhancedStorage. PowerShell may remain present as an existing WinPE optional component, but Foundry must not use it to perform hash capture or upload.
 
-`PCPKsp.dll` must not be bundled in generated media. Copying it from the applied Windows image avoids redistributing the file with Foundry media and keeps the copied DLL aligned with the target OS architecture. If the file is missing or cannot be copied, the hash upload step should fail with a clear diagnostic and keep the rest of deployment behavior explicit.
+`PCPKsp.dll` must not be bundled in generated media. Copying it from the applied Windows image avoids redistributing the file with Foundry media and keeps the copied DLL aligned with the target OS architecture. If the file is missing or cannot be copied, the Autopilot hash upload step should be skipped with a clear diagnostic while the OS deployment continues.
 
 Proposed WinPE paths:
 - `X:\Foundry\Tools\OA3\oa3tool.exe`
@@ -781,6 +776,7 @@ Manual checks:
 - [ ] Confirm a 10-minute visibility timeout automatically continues OS deployment and records a warning.
 - [ ] Confirm assignment sync behavior is documented, even if not waited on by the final implementation.
 - [ ] Confirm duplicate device behavior is clear to the operator.
+- [ ] Confirm an existing duplicate device import error is surfaced clearly and does not trigger automatic cleanup.
 
 ### Phase 8: Documentation And Release Guardrails
 PR title: `docs(autopilot): document WinPE hardware hash upload`
@@ -844,8 +840,7 @@ Manual physical validation matrix:
 | ARM64 physical device with TPM 2.0 visible in WinPE | Yes |
 | ARM64 device with existing Autopilot registration | Yes, expected duplicate/error behavior must be clear. |
 | JSON profile mode regression on x64 and ARM64 media | Yes |
-| Capture-only diagnostic mode | Yes if included. |
-| Capture-and-upload mode | Yes |
+| Hardware hash upload mode | Yes |
 | Self-deploying/pre-provisioning | No, document as not recommended until separately validated. |
 
 ## Risk Register
@@ -860,7 +855,7 @@ Manual physical validation matrix:
 | Broad Graph permissions copied from community script | Excessive tenant blast radius | Minimum permission matrix and no destructive final implementation flows. |
 | Duplicate devices already exist | Import fails or operator confusion | Surface duplicate/import error clearly; defer cleanup automation. |
 | Architecture-specific OA3Tool/support file mismatch | Runtime failure | Resolve ADK assets per selected WinPE architecture and validate both x64 and ARM64 media. |
-| `PCPKsp.dll` missing from applied OS or copy fails | Hash capture fails late in deployment | Copy from `<target Windows>\Windows\System32` after OS apply, fail clearly, and retain diagnostics. |
+| `PCPKsp.dll` missing from applied OS or copy fails | Autopilot upload cannot proceed reliably | Copy from `<target Windows>\Windows\System32` after OS apply, skip only the Autopilot hash upload step, continue OS deployment, and retain diagnostics. |
 | UI conflates JSON and hash mode | Invalid media or deployment launch | Explicit `ProvisioningMode` and readiness rules. |
 
 ## Implementation Boundaries
@@ -916,10 +911,10 @@ Foundry.Connect owns:
   - Mark as x64 and ARM64 with Ethernet and Wi-Fi upload guidance.
   - Mention unsupported or risky self-deploying/pre-provisioning status.
 
-## Open Questions
-- Should the final implementation keep a capture-only diagnostic mode in addition to capture-and-upload?
-- Should `PCPKsp.dll` copy failure stop the full deployment, or only stop the Autopilot upload step?
-- Should duplicate device cleanup ever be added, or should Foundry only surface the duplicate and stop?
+## Resolved Decisions
+- No capture-only mode in the first implementation. Foundry always captures and uploads, while retaining OA3 and CSV diagnostics for troubleshooting.
+- `PCPKsp.dll` copy/load failure skips only the Autopilot hash upload step and does not block OS deployment.
+- Duplicate device cleanup is not part of the final implementation. Foundry surfaces duplicate/import errors clearly, retains diagnostics, and continues OS deployment without deleting Intune, Autopilot, or Entra records.
 
 ## Source References
 - Microsoft Learn: [Manually register devices with Windows Autopilot](https://learn.microsoft.com/en-us/autopilot/add-devices)
