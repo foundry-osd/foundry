@@ -32,7 +32,7 @@ All PR titles must stay in English and use Conventional Commits. Each phase bran
 | 4 | `feature/autopilot-hash-upload-runtime` | `feat(deploy): branch autopilot runtime by provisioning mode` | Deploy startup snapshot, launch validation, runtime state, late deployment step, dry-run manifests. |
 | 5 | `feature/autopilot-hash-upload-capture` | `feat(deploy): capture autopilot hardware hash in WinPE` | C# OA3Tool execution service, `PCPKsp.dll` copy, `OA3.xml` parsing, CSV/diagnostic artifacts. |
 | 6 | `feature/autopilot-hash-upload-graph` | `feat(autopilot): import hardware hashes with Graph` | C# Graph client, import polling, retry policy, operator-facing errors. |
-| 7 | `feature/autopilot-hash-upload-security` | `feat(autopilot): add secure tenant upload onboarding` | Auth mode, secret handling, redaction, permission validation, tenant readiness. |
+| 7 | `feature/autopilot-hash-upload-security` | `feat(autopilot): add secure tenant upload onboarding` | Tenant sign-in, app registration creation, certificate lifecycle, secret handling, permission validation. |
 | 8 | `feature/autopilot-hash-upload-docs` | `docs(autopilot): document WinPE hardware hash upload` | User docs, permissions matrix, troubleshooting, screenshots, release notes. |
 
 Expected PR description structure:
@@ -159,11 +159,14 @@ JSON profile provisioning:
 
 Hardware hash upload:
 - Method toggle or radio selection: "Capture and upload hardware hash".
-- Tenant ID field.
-- Client ID field for the Entra application.
-- Certificate private key import field.
-- Certificate password field when the imported private key material requires one.
-- Group Tag field.
+- Default state: tenant connection prompt.
+- Connected state:
+  - Tenant identity summary.
+  - Foundry-managed app registration status.
+  - Single managed certificate status.
+  - Certificate expiration state.
+  - Certificate private key input for media generation.
+  - Autopilot group tag default selection.
 - Optional assigned user UPN field.
 - Upload timing selector:
   - `CaptureAndUpload`
@@ -178,6 +181,54 @@ UX rules:
 - JSON profile data can remain stored while hash mode is selected, but it must not be required.
 - Hash upload settings can remain stored while JSON mode is selected, but they must not be required.
 - The Start page readiness summary should show the active method, not just "Autopilot enabled".
+
+Foundry OSD tenant onboarding UX:
+- The hardware hash expander first asks the user to connect to the tenant.
+- After sign-in, Foundry OSD searches for the managed app registration.
+- The planned app registration display name is `Foundry OSD Autopilot Registration`.
+- If the app registration does not exist, Foundry OSD creates it with the required Microsoft Graph application permissions.
+- If the app registration exists, Foundry OSD reuses it.
+- Foundry OSD manages exactly one certificate on that app registration.
+- If no certificate exists, show a create certificate action.
+- If a certificate exists, show:
+  - display name
+  - thumbprint
+  - start date
+  - expiration date
+  - expired/valid status
+  - delete certificate action
+  - replace certificate action
+- Certificate creation requires selecting a validity duration from a fixed list.
+- The default certificate validity is 12 months.
+- Certificate validity options should be fixed, for example:
+  - 3 months
+  - 6 months
+  - 12 months
+  - 24 months
+- When Foundry OSD creates a certificate, it shows the private key once in a content dialog.
+- The content dialog must clearly state that the private key is shown only once and must be stored by the operator.
+- Foundry OSD must not persist the raw private key after creation.
+- On later application launches, the user must sign in again before Foundry OSD can inspect or manage the tenant app registration.
+- Before media generation, the Autopilot page requires the private key for the currently provisioned certificate.
+- The private key input should be visually close to the certificate status so the operator understands which certificate it belongs to.
+- If the certificate is expired, Foundry OSD must show the expired status and require regenerating the certificate before the boot image can be built for hardware hash upload.
+- When connected to the tenant, Foundry OSD should list existing Autopilot group tags discovered from Intune and let the user choose the default group tag passed to Foundry Deploy.
+
+Foundry Deploy UX:
+- Foundry Deploy should render only the selected Autopilot provisioning mode from Foundry OSD.
+- JSON mode shows only the JSON/profile controls.
+- Hardware hash mode shows only hardware hash upload controls.
+- Hardware hash mode should attempt certificate-based Graph authentication automatically during startup/loading, before the Computer Target page becomes actionable.
+- The Computer Target page should expose two mutually exclusive group tag choices:
+  - select the default/existing group tag supplied by Foundry OSD
+  - enter a custom group tag when the desired value does not exist
+- If the certificate is expired in Foundry Deploy:
+  - do not block the OS deployment
+  - hide the group tag selection and custom group tag textbox
+  - show a clear message that Graph connection cannot be established because the certificate is expired
+  - tell the user to regenerate the certificate and recreate the boot image
+  - skip Autopilot hash upload for that deployment run
+- During the Autopilot provisioning step, after hash upload succeeds, Foundry Deploy must wait until the device appears in Intune Windows Autopilot devices before continuing.
 
 ## Proposed Runtime Model
 Add an explicit provisioning mode.
@@ -222,11 +273,16 @@ Proposed hash settings:
 ```csharp
 public sealed record AutopilotHardwareHashUploadSettings
 {
+    public const string ManagedAppRegistrationDisplayName = "Foundry OSD Autopilot Registration";
+
     public string TenantId { get; init; } = string.Empty;
     public string ClientId { get; init; } = string.Empty;
     public string? CertificateThumbprint { get; init; }
+    public DateTimeOffset? CertificateNotAfter { get; init; }
     public SecretEnvelope? CertificatePrivateKeySecret { get; init; }
     public SecretEnvelope? CertificatePasswordSecret { get; init; }
+    public string? DefaultGroupTag { get; init; }
+    public IReadOnlyList<string> KnownGroupTags { get; init; } = [];
     public string? GroupTag { get; init; }
     public string? AssignedUserPrincipalName { get; init; }
     public AutopilotHashUploadMode UploadMode { get; init; } = AutopilotHashUploadMode.CaptureAndUpload;
@@ -250,6 +306,8 @@ Validation rules:
 - `IsEnabled=true` and `HardwareHashUpload`: tenant ID, client ID, and certificate settings must be valid.
 - `CaptureOnly`: Graph auth settings are optional.
 - `CaptureAndUpload`: certificate-based Graph auth settings are required.
+- Expired certificates make Foundry OSD hardware hash media generation not ready.
+- Expired certificates in Foundry Deploy skip Autopilot upload without blocking the OS deployment.
 - `AssignedUserPrincipalName`, when set, must look like a UPN but should not be treated as proof that the user exists.
 - `GroupTag` must not contain commas and should stay ASCII-safe for CSV compatibility.
 
@@ -331,6 +389,8 @@ Import state polling should handle:
 - `complete`
 - `error`
 
+After the import state reaches `complete`, Foundry Deploy should poll Windows Autopilot device identities until the uploaded serial number is visible in Intune. This is the operator-facing completion condition for the Autopilot provisioning step.
+
 Minimum Graph permission matrix:
 
 | Capability | Permission | Implementation status |
@@ -348,6 +408,7 @@ Graph request rules:
 - Include request correlation IDs in logs when available.
 - Use bounded retries for transient `429`, `5xx`, and network failures.
 - Do not retry deterministic validation failures.
+- Treat expired certificate authentication as a non-blocking Autopilot skip in Foundry Deploy, not as a deployment failure.
 
 ## WinPE Hash Capture Strategy
 Final capture path:
@@ -404,9 +465,11 @@ Failure taxonomy:
 - `HashMissing`: `HardwareHash` is empty.
 - `SerialMissing`: BIOS serial number cannot be read.
 - `NetworkUnavailable`: Graph upload is requested but no network path is available.
+- `CertificateExpired`: certificate-based Graph authentication cannot run because the media certificate is expired. Foundry Deploy skips Autopilot upload and continues OS deployment.
 - `AuthenticationFailed`: token acquisition failed.
 - `ImportFailed`: Graph accepted the request path but import state reports `error`.
 - `ImportTimedOut`: import polling exceeded the configured timeout.
+- `AutopilotDeviceTimedOut`: import completed but the device did not appear in Windows Autopilot devices before timeout.
 
 ## Phased Implementation
 
@@ -431,6 +494,7 @@ PR title: `feat(autopilot): add provisioning mode configuration`
 - [ ] Extend `AutopilotSettings` with mode and hardware hash upload settings.
 - [ ] Extend `DeployAutopilotSettings` with reduced runtime mode and upload settings.
 - [ ] Add encrypted certificate private key settings for the required certificate-based upload path.
+- [ ] Add tenant app registration identity, certificate expiration, known group tags, and default group tag settings.
 - [ ] Update schema version handling if needed.
 - [ ] Keep old configurations backward compatible as JSON profile mode.
 - [ ] Update sanitization in `ExpertDeployConfigurationStateService`.
@@ -442,6 +506,7 @@ Automated tests:
 - [ ] Enabled hash upload mode does not require a selected profile.
 - [ ] Capture-and-upload mode requires tenant ID, client ID, and encrypted certificate private key material.
 - [ ] Invalid certificate settings make Autopilot configuration not ready.
+- [ ] Expired certificate settings make OSD media generation not ready for hardware hash upload.
 - [ ] Certificate private key material is not serialized in plaintext.
 
 Manual checks:
@@ -455,6 +520,13 @@ PR title: `feat(autopilot): add provisioning method selection`
 - [ ] Keep global Autopilot toggle.
 - [ ] Move existing import/download/remove/default profile/table UI into JSON profile expander.
 - [ ] Add hardware hash upload expander.
+- [ ] Add tenant connection state, connect action, and connected tenant summary.
+- [ ] Add managed app registration creation/reuse status for `Foundry OSD Autopilot Registration`.
+- [ ] Add single-certificate lifecycle controls: create, delete, replace, expired state.
+- [ ] Add certificate validity selection with a default of 12 months.
+- [ ] Add one-time private key content dialog after certificate creation.
+- [ ] Add private key input near the active certificate status for boot image generation.
+- [ ] Add tenant-discovered Autopilot group tag list and default group tag selection.
 - [ ] Enforce mutual exclusivity between JSON profile and hash upload modes.
 - [ ] Add localized strings in English and French resources.
 - [ ] Update readiness messages to include selected mode.
@@ -463,6 +535,9 @@ Automated tests:
 - [ ] View model mode changes save state.
 - [ ] Selecting JSON mode disables hash upload readiness requirements.
 - [ ] Selecting hash upload mode disables JSON profile selection requirements.
+- [ ] Hardware hash media generation is not ready when the connected app certificate is expired.
+- [ ] Hardware hash media generation requires a private key for the active certificate.
+- [ ] Creating a certificate exposes the private key once and never persists the raw private key.
 - [ ] Busy state still blocks JSON profile import/download/remove commands.
 
 Manual checks:
@@ -470,6 +545,10 @@ Manual checks:
 - [ ] Autopilot enabled: both expanders are visible.
 - [ ] Activating one method deactivates the other.
 - [ ] JSON profile import and tenant download still work.
+- [ ] Connect to a tenant with no app registration and confirm Foundry OSD creates `Foundry OSD Autopilot Registration`.
+- [ ] Connect to a tenant with an existing managed app registration and confirm Foundry OSD reuses it.
+- [ ] Create a certificate, verify the private key is shown once, close the dialog, and confirm it cannot be shown again.
+- [ ] Expire or simulate an expired certificate and confirm the OSD page clearly requires regenerating the certificate before boot image creation.
 
 ### Phase 3: Media Build And WinPE Assets
 PR title: `feat(winpe): stage autopilot hash capture assets`
@@ -505,6 +584,7 @@ PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
 
 - [ ] Load Autopilot provisioning mode from deploy config.
 - [ ] Expose mode in startup snapshot, preparation view model, launch request, deployment context, and runtime state.
+- [ ] Expose hardware hash group tag selection mode in the Computer Target page.
 - [ ] Update `DeploymentLaunchPreparationService` validation:
   - JSON mode requires selected profile.
   - Hash upload mode requires valid upload settings.
@@ -512,6 +592,7 @@ PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
 - [ ] Add a late hash upload deployment step after OS apply and before deployment finalization.
 - [ ] Hash upload mode skips JSON staging and runs the hash capture/upload workflow from the late deployment step.
 - [ ] Update deployment summary, logs, and telemetry with mode.
+- [ ] Skip Autopilot upload without blocking OS deployment when the embedded certificate is expired.
 
 Automated tests:
 - [ ] JSON mode still stages the profile to `Windows\Provisioning\Autopilot`.
@@ -519,11 +600,15 @@ Automated tests:
 - [ ] Dry run creates a hash-mode manifest without touching Graph.
 - [ ] Hash upload step is ordered after the applied Windows root is available.
 - [ ] Launch preparation rejects incomplete hash upload settings.
+- [ ] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
 
 Manual checks:
 - [ ] Deploy dry-run in JSON mode.
 - [ ] Deploy dry-run in hash upload mode.
 - [ ] Confirm summary page displays the selected Autopilot method.
+- [ ] In hash mode, confirm Computer Target shows only hardware hash controls.
+- [ ] In JSON mode, confirm Computer Target shows only JSON profile controls.
+- [ ] In hash mode with expired certificate, confirm Deploy shows the regeneration/recreate media message and still allows OS deployment.
 - [ ] Confirm logs contain mode, hash capture diagnostics path, and upload state.
 
 ### Phase 5: Hash Capture Service
@@ -564,6 +649,7 @@ PR title: `feat(autopilot): import hardware hashes with Graph`
 - [ ] Reject any non-certificate authentication mode in WinPE.
 - [ ] Implement import request.
 - [ ] Implement polling for import completion.
+- [ ] Implement polling until the uploaded serial number appears in Windows Autopilot devices.
 - [ ] Map Graph errors to operator-readable messages.
 - [ ] Add retry/backoff for transient HTTP failures.
 - [ ] Keep destructive cleanup out of the final hash upload workflow.
@@ -573,7 +659,9 @@ Automated tests:
 - [ ] Sends hardware identifier in the expected Graph format.
 - [ ] Decrypts certificate material in memory and does not write a decrypted PFX/private key to disk.
 - [ ] Fails clearly when tenant ID, client ID, certificate thumbprint, or encrypted certificate material is missing.
+- [ ] Treats expired certificate auth as skipped Autopilot, not failed deployment.
 - [ ] Handles `complete`.
+- [ ] Handles imported identity completion followed by Windows Autopilot device visibility.
 - [ ] Handles `error` with device error code/name.
 - [ ] Times out with a clear message.
 - [ ] Retries transient failures only.
@@ -581,6 +669,7 @@ Automated tests:
 Manual checks:
 - [ ] Import one test device into a test tenant.
 - [ ] Confirm Group Tag appears in Intune.
+- [ ] Confirm deployment waits until the device appears in Windows Autopilot devices.
 - [ ] Confirm assignment sync behavior is documented, even if not waited on by the final implementation.
 - [ ] Confirm duplicate device behavior is clear to the operator.
 
@@ -589,6 +678,8 @@ PR title: `feat(autopilot): add secure tenant upload onboarding`
 
 - [ ] Add a permission matrix to user documentation.
 - [ ] Add tenant/app registration guidance.
+- [ ] Implement and document managed app registration discovery/creation with display name `Foundry OSD Autopilot Registration`.
+- [ ] Implement and document single-certificate lifecycle management.
 - [ ] Document certificate app-only auth as the only supported WinPE Graph authentication path.
 - [ ] Document that generated media containing encrypted certificate private key material is tenant-sensitive.
 - [ ] Generalize the existing Foundry Connect AES-GCM media secret envelope for Autopilot secrets.
@@ -679,6 +770,8 @@ Manual physical validation matrix:
 | TPM not visible from WinPE | Self-deploying/pre-provisioning unreliable | Do not recommend those scenarios until separately validated. |
 | Credentials embedded into media | Tenant compromise if generated media is lost | Encrypt certificate material with the media secret envelope, require explicit confirmation, document generated media as tenant-sensitive, and never write decrypted key material to disk. |
 | Media secret key and encrypted secret are both present in the boot image | Encryption can be bypassed by anyone with full media access | Treat envelope encryption as plaintext avoidance/integrity protection, not a hard security boundary. |
+| Certificate expires before deployment | Autopilot upload cannot authenticate | Show expired state in Foundry OSD, block hardware hash media generation until certificate regeneration, and let Foundry Deploy continue OS deployment while skipping Autopilot upload. |
+| Operator loses one-time private key | Existing app certificate cannot be used for new media | Require creating/replacing the single managed certificate and rebuilding boot media. |
 | Broad Graph permissions copied from community script | Excessive tenant blast radius | Minimum permission matrix and no destructive final implementation flows. |
 | Duplicate devices already exist | Import fails or operator confusion | Surface duplicate/import error clearly; defer cleanup automation. |
 | Architecture-specific OA3Tool/support file mismatch | Runtime failure | Resolve ADK assets per selected WinPE architecture and validate both x64 and ARM64 media. |
@@ -688,6 +781,11 @@ Manual physical validation matrix:
 ## Implementation Boundaries
 Foundry app owns:
 - User-facing Autopilot mode selection.
+- Tenant sign-in for Autopilot hardware hash onboarding.
+- Managed app registration discovery and creation.
+- Single-certificate lifecycle management.
+- One-time private key presentation.
+- Autopilot group tag discovery and default selection.
 - Expert configuration persistence.
 - Media readiness and media generation.
 - Tenant setting pre-validation where possible.
@@ -701,10 +799,14 @@ Foundry.Core owns:
 Foundry.Deploy owns:
 - Runtime configuration consumption.
 - Deployment wizard behavior.
+- Hardware hash Computer Target mode display.
+- Certificate expiration detection and non-blocking Autopilot skip.
+- Runtime group tag selection or custom group tag input.
 - Late deployment workflow step after OS apply.
 - `PCPKsp.dll` copy from the applied Windows image to `X:\Windows\System32`.
 - OA3Tool execution through C# process orchestration.
 - Graph import through C# service abstractions.
+- Polling until the imported device appears in Windows Autopilot devices.
 - Deployment logs and summary artifacts.
 
 Foundry.Connect owns:
@@ -714,6 +816,9 @@ Foundry.Connect owns:
 - Foundry app documentation:
   - Autopilot provisioning modes.
   - Hardware hash upload setup.
+  - Tenant app registration onboarding.
+  - Certificate creation, one-time private key handling, expiration, and replacement.
+  - Group tag default selection.
   - Tenant permissions.
   - Security warning for generated media.
   - Troubleshooting.
