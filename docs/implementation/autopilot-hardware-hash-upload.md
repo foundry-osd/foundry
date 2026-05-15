@@ -211,11 +211,14 @@ Foundry OSD tenant onboarding UX:
   - 12 months
   - 24 months
 - Certificate creation produces a password-protected PFX only. PEM keys, unprotected private keys, and client secrets are not supported.
-- When Foundry OSD creates a certificate, it shows the private key material once in a content dialog.
-- The content dialog must clearly state that the private key material and PFX password are shown only once and must be stored by the operator.
-- Foundry OSD must not persist the raw PFX, PFX password, decrypted private key, or exported private key material after creation.
+- Certificate creation requires the operator to choose a PFX output path.
+- Certificate creation should let the operator generate a strong PFX password or enter a custom PFX password.
+- When Foundry OSD creates a certificate, it writes the PFX to the selected output path and shows the generated password once if Foundry generated it.
+- The content dialog must clearly state that the PFX and PFX password must be stored by the operator outside Foundry.
+- Foundry OSD must not persist the raw PFX, PFX password, decrypted private key, exported private key material, or a DPAPI-encrypted local PFX vault in ProgramData.
+- Foundry OSD may keep the PFX bytes and password in memory for the current app session only, so the operator can create the boot image immediately after certificate creation without selecting the same PFX again.
 - On later application launches, the user must sign in again before Foundry OSD can inspect or manage the tenant app registration.
-- Before media generation, the Autopilot page requires the password-protected PFX and its password for the currently active certificate.
+- After Foundry OSD restarts, before media generation, the Autopilot page requires selecting the password-protected PFX again and entering its password for the currently active certificate.
 - The PFX input should be visually close to the active certificate status so the operator understands which certificate it belongs to.
 - Foundry OSD must validate that the supplied PFX leaf certificate thumbprint matches the active certificate thumbprint before media generation.
 - If the certificate is expired, Foundry OSD must show the expired status and require regenerating the certificate before the boot image can be built for hardware hash upload.
@@ -334,7 +337,7 @@ Validation rules:
 - `AssignedUserPrincipalName`, when set, must look like a UPN but should not be treated as proof that the user exists.
 - `GroupTag` must not contain commas and should stay ASCII-safe for CSV compatibility.
 
-Deploy media generation should add encrypted `CertificatePfxSecret` and `CertificatePfxPasswordSecret` only to the generated WinPE deploy configuration for the current media build. These secret envelopes are not persisted in the normal Foundry OSD settings stored under ProgramData.
+Deploy media generation should add encrypted `CertificatePfxSecret` and `CertificatePfxPasswordSecret` only to the generated WinPE deploy configuration for the current media build. These secret envelopes are not persisted in the normal Foundry OSD settings stored under ProgramData, and Foundry OSD does not maintain a local encrypted PFX vault.
 
 ## Authentication Recommendation
 The implementation must not use PowerShell for hardware hash capture or upload actions.
@@ -362,10 +365,6 @@ Recommended auth decision:
 - Use certificate-based app-only auth for unattended or near zero-touch WinPE upload.
 - Avoid client secrets for generated media.
 
-Open auth design choices:
-- Whether Foundry OSD pre-validates tenant/app/certificate settings before media generation.
-- Whether Foundry Deploy validates the app certificate thumbprint before requesting a token.
-
 Secret handling rules:
 - Do not write access tokens to disk.
 - Do not log authorization headers, refresh tokens, client secrets, private keys, certificate raw data, or Graph request bodies containing hardware hashes unless explicitly redacted.
@@ -373,9 +372,11 @@ Secret handling rules:
 - Accept only password-protected PFX input for media generation.
 - Reject unprotected PFX files, PEM private keys, and PFX files whose leaf certificate thumbprint does not match the active certificate thumbprint.
 - Require explicit user confirmation before embedding certificate private key material and document that the generated media becomes tenant-sensitive.
+- Do not add a "remember this PFX" option or store a DPAPI-encrypted copy in ProgramData.
+- Keep operator-provided PFX bytes and PFX password in memory only for the current app session, then clear them when media generation finishes or the app closes.
 - Treat media encryption as plaintext avoidance and integrity protection, not as a strong security boundary, because the decrypt key must also be available in the boot image.
 - Zero decrypted private key bytes and media secret key bytes as soon as they are no longer needed.
-- Never write a decrypted PFX, PFX password, PEM private key, access token, or refresh token to disk.
+- Never write a decrypted PFX, PFX password, PEM private key, access token, or refresh token to disk except for the operator-selected PFX output created during certificate export.
 
 Existing Foundry Connect pattern:
 - Foundry Core generates a random 32-byte media secret key with `RandomNumberGenerator`.
@@ -610,6 +611,9 @@ PR title: `feat(autopilot): add secure tenant upload onboarding`
 - [ ] Merge new certificate credentials with the existing `keyCredentials` collection and never prune unknown credentials automatically.
 - [ ] Implement repair/adoption state for existing display-name matches, missing active certificate credentials, and multiple Foundry-looking credentials without a persisted active certificate.
 - [ ] Accept only password-protected PFX material for media generation.
+- [ ] Require a PFX output path during certificate creation.
+- [ ] Keep created PFX bytes and password in memory only for the current app session.
+- [ ] Do not implement a ProgramData PFX vault or "remember this PFX" option.
 - [ ] Validate the PFX leaf certificate thumbprint against the configured active certificate thumbprint.
 - [ ] Document certificate app-only auth as the only supported WinPE Graph authentication path.
 - [ ] Document that generated media containing encrypted certificate private key material is tenant-sensitive.
@@ -626,6 +630,8 @@ Automated tests:
 - [ ] Disabled or missing service principal maps to `ServicePrincipalUnavailable`.
 - [ ] Adding a certificate preserves existing non-active `keyCredentials`.
 - [ ] Retiring a certificate removes only the persisted active `keyId`.
+- [ ] Created PFX material is not persisted in ProgramData, even with DPAPI.
+- [ ] After app restart, media generation requires the operator to select the PFX again and enter its password.
 - [ ] PFX thumbprint mismatch blocks media generation.
 - [ ] Secret settings are never serialized into plain deploy config.
 - [ ] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
@@ -637,6 +643,8 @@ Manual checks:
 - [ ] Confirm required API permissions and admin consent status are visible in Foundry OSD.
 - [ ] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
 - [ ] Replace the active certificate and confirm the old credential is retained until the operator explicitly retires it.
+- [ ] Create a certificate, choose a PFX output path, and confirm the PFX exists only at the selected path.
+- [ ] Restart Foundry OSD and confirm it requires selecting the PFX again before media generation.
 - [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
 - [ ] Review logs after failed auth and successful auth.
 - [ ] Confirm least-privilege app registration can import devices.
