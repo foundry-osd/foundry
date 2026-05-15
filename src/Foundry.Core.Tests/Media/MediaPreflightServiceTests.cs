@@ -39,6 +39,32 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
+    public void Evaluate_WhenUsbCandidateIsBelowMinimumSize_BlocksUsbCreationOnly()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                SelectedUsbDisk = new WinPeUsbDiskCandidate
+                {
+                    DiskNumber = 3,
+                    FriendlyName = "Small USB",
+                    SerialNumber = "USB123",
+                    UniqueId = "USB-ID",
+                    BusType = "USB",
+                    IsRemovable = true,
+                    SizeBytes = 15UL * 1024UL * 1024UL * 1024UL
+                },
+                IsFinalExecutionEnabled = true
+            });
+
+        Assert.True(evaluation.CanCreateIso);
+        Assert.False(evaluation.CanGenerateUsbSummary);
+        Assert.False(evaluation.CanCreateUsb);
+        Assert.Contains(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize, evaluation.UsbBlockingReasons);
+        Assert.DoesNotContain(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize, evaluation.IsoBlockingReasons);
+    }
+
+    [Fact]
     public void Evaluate_WhenFinalExecutionIsEnabled_AllowsMediaCreationWithoutRuntimePayloadChecks()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(

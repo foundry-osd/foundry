@@ -79,7 +79,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                 context.RuntimeState.DriverPackUrl = driverPack.DownloadUrl;
 
                 string driverPackDirectory = Path.Combine(
-                    context.ResolveDriverPackCacheRoot(),
+                    context.ResolveDriverPackCacheRoot(driverPack.SizeBytes),
                     DeploymentStepExecutionContext.SanitizePathSegment(driverPack.Manufacturer));
                 Directory.CreateDirectory(driverPackDirectory);
 

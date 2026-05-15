@@ -70,7 +70,8 @@ public sealed class WinPeUsbMediaServiceTests
                 SerialNumber = "SERIAL-2",
                 UniqueId = "UNIQUE-2",
                 BusType = "USB",
-                IsRemovable = true
+                IsRemovable = true,
+                Size = 64UL * 1024UL * 1024UL * 1024UL
             });
 
         Assert.False(result.IsSuccess);
@@ -93,6 +94,28 @@ public sealed class WinPeUsbMediaServiceTests
                 BusType = "USB",
                 IsRemovable = true,
                 IsBoot = true
+            });
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbUnsafeTarget, result.Error?.Code);
+    }
+
+    [Fact]
+    public void ValidateDiskSafety_WhenTargetIsBelowMinimumSize_ReturnsUnsafeTarget()
+    {
+        WinPeResult result = WinPeUsbMediaService.ValidateDiskSafety(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 3,
+                ExpectedDiskFriendlyName = "Small USB"
+            },
+            new WinPeUsbDiskIdentity
+            {
+                Number = 3,
+                FriendlyName = "Small USB",
+                BusType = "USB",
+                IsRemovable = true,
+                Size = 15UL * 1024UL * 1024UL * 1024UL
             });
 
         Assert.False(result.IsSuccess);

@@ -990,6 +990,9 @@
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
     <value>Aucune cible USB n'est sélectionnée.</value>
   </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
+    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 16 Go.</value>
+  </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>Le média ARM64 exige le style de partition GPT.</value>
   </data>
