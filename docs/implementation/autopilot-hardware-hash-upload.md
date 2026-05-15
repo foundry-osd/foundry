@@ -59,15 +59,15 @@ Expected PR description structure:
   - Foundry Deploy runs inside WinPE and already stages the selected JSON profile into the applied Windows image.
   - Foundry Connect is not part of the feature scope.
 - The final implementation should support x64 and ARM64 by using architecture-specific ADK assets.
-- The final implementation should be Ethernet-first for the upload path and should avoid destructive cleanup of existing Intune, Autopilot, or Entra records.
+- The final implementation should support available WinPE networking, including Ethernet and Wi-Fi, and should avoid destructive cleanup of existing Intune, Autopilot, or Entra records.
 - Hash capture and upload should run near the end of the OS deployment workflow, after the Windows image is applied and the target Windows `System32` directory is available.
 
 ## Feasibility Constraints
 WinPE capture is useful because it lets an operator register a device before the installed OS reaches OOBE. The tradeoff is that Microsoft documents the normal Autopilot hash capture path around a full Windows environment, OOBE diagnostics, Audit Mode, or OEM/reseller registration.
 
 Operational constraints:
-- Ethernet should be treated as the supported network path.
-- Wi-Fi-only devices are risky because OA3Tool documentation and community experience point to incomplete or inconsistent device visibility from WinPE.
+- Ethernet and Wi-Fi should be treated as equivalent supported network paths when WinPE has the required network stack, drivers, and credentials.
+- Network readiness validation should focus on actual connectivity to Microsoft Graph, not on the adapter type.
 - TPM-dependent scenarios require extra caution. Self-deploying and pre-provisioning depend heavily on correct TPM capture.
 - Drivers matter. Missing storage, chipset, NIC, or TPM visibility can produce an empty or incomplete hash.
 - ADK version and architecture matter. The OA3Tool staged into media should come from the same installed ADK family used to build the WinPE image, with separate x64 and ARM64 resolution.
@@ -168,7 +168,7 @@ Hardware hash upload:
   - `CaptureOnly` for diagnostics only, if retained.
 - Optional "wait for import completion" setting.
 - Optional "wait for assignment" setting should be deferred unless proven reliable.
-- Readiness and warning text for x64, ARM64, Ethernet, WinPE-SecureStartup, and unsupported scenarios.
+- Readiness and warning text for x64, ARM64, network connectivity, WinPE-SecureStartup, and unsupported scenarios.
 
 UX rules:
 - The global Autopilot toggle controls whether either method is active.
@@ -356,7 +356,7 @@ oa3tool.exe /Report /ConfigFile=.\OA3.cfg /NoKeyCheck /LogTrace=.\OA3.log
    - generated CSV
    - Foundry upload result JSON
 
-The implementation should add or gate `WinPE-SecureStartup` because TPM visibility matters for Autopilot quality. Existing media already includes WMI, NetFX, Scripting, PowerShell, WinReCfg, DismCmdlets, StorageWMI, Dot3Svc, and EnhancedStorage. PowerShell may remain present as an existing WinPE optional component, but Foundry must not use it to perform hash capture or upload.
+The implementation should add `WinPE-SecureStartup` to the default WinPE optional component set, even when Autopilot hardware hash upload is disabled. The package is small, and making it default avoids a mode-specific boot image difference while improving TPM visibility for Autopilot quality. Existing media already includes WMI, NetFX, Scripting, PowerShell, WinReCfg, DismCmdlets, StorageWMI, Dot3Svc, and EnhancedStorage. PowerShell may remain present as an existing WinPE optional component, but Foundry must not use it to perform hash capture or upload.
 
 `PCPKsp.dll` must not be bundled in generated media. Copying it from the applied Windows image avoids redistributing the file with Foundry media and keeps the copied DLL aligned with the target OS architecture. If the file is missing or cannot be copied, the hash upload step should fail with a clear diagnostic and keep the rest of deployment behavior explicit.
 
@@ -454,7 +454,7 @@ Manual checks:
 ### Phase 3: Media Build And WinPE Assets
 PR title: `feat(winpe): stage autopilot hash capture assets`
 
-- [ ] Add `WinPE-SecureStartup` to required optional components or gate it behind hash upload mode.
+- [ ] Add `WinPE-SecureStartup` to the default required optional components for all generated WinPE media.
 - [ ] Locate and stage architecture-specific `oa3tool.exe` from the ADK for x64 and ARM64.
 - [ ] Add hash capture templates under a Foundry-owned WinPE path.
 - [ ] Add hash upload runtime configuration under `X:\Foundry\Config`.
@@ -467,7 +467,7 @@ Automated tests:
 - [ ] Media asset provisioning writes hash upload assets only in hash mode.
 - [ ] Missing `oa3tool.exe` produces a clear validation error.
 - [ ] ADK asset resolution chooses the expected path for x64 and ARM64 media.
-- [ ] `WinPE-SecureStartup` missing or not applicable is surfaced clearly.
+- [ ] `WinPE-SecureStartup` missing or not applicable is surfaced clearly during media preparation.
 
 Manual checks:
 - [ ] Build x64 ISO in JSON profile mode and confirm existing profile files are present.
@@ -527,7 +527,9 @@ Automated tests:
 
 Manual checks:
 - [ ] Run on one x64 physical test device with Ethernet.
+- [ ] Run on one x64 physical test device with Wi-Fi.
 - [ ] Run on one ARM64 physical test device with Ethernet.
+- [ ] Run on one ARM64 physical test device with Wi-Fi.
 - [ ] Confirm generated hash imports manually in Intune.
 - [ ] Confirm troubleshooting files are retained in logs.
 
@@ -581,11 +583,10 @@ PR title: `docs(autopilot): document WinPE hardware hash upload`
 - [ ] Mark WinPE hash capture as best-effort and not the Microsoft-standard method.
 - [ ] Document x64 and ARM64 scope.
 - [ ] Document that Foundry copies `PCPKsp.dll` from the applied OS to `X:\Windows\System32` late in deployment.
-- [ ] Document Ethernet recommendation.
+- [ ] Document network requirements for Ethernet and Wi-Fi.
 - [ ] Document unsupported or risky scenarios:
   - self-deploying mode
   - pre-provisioning
-  - Wi-Fi-only devices
   - missing TPM visibility
 - [ ] Update screenshots after UI implementation.
 
@@ -629,15 +630,16 @@ Manual physical validation matrix:
 | Scenario | Required before release |
 | --- | --- |
 | x64 physical device with Ethernet, user-driven Autopilot | Yes |
+| x64 physical device with Wi-Fi, user-driven Autopilot | Yes |
 | x64 physical device with TPM 2.0 visible in WinPE | Yes |
 | x64 device with existing Autopilot registration | Yes, expected duplicate/error behavior must be clear. |
 | ARM64 physical device with Ethernet, user-driven Autopilot | Yes |
+| ARM64 physical device with Wi-Fi, user-driven Autopilot | Yes |
 | ARM64 physical device with TPM 2.0 visible in WinPE | Yes |
 | ARM64 device with existing Autopilot registration | Yes, expected duplicate/error behavior must be clear. |
 | JSON profile mode regression on x64 and ARM64 media | Yes |
 | Capture-only diagnostic mode | Yes if included. |
 | Capture-and-upload mode | Yes |
-| Wi-Fi-only device | No, document as unsupported or risky. |
 | Self-deploying/pre-provisioning | No, document as not recommended until separately validated. |
 
 ## Risk Register
@@ -686,12 +688,12 @@ Foundry.Connect owns:
   - Troubleshooting.
 - Foundry OSD docs site:
   - New Autopilot hardware hash upload page.
-  - Requirements update for `WinPE-SecureStartup`.
+  - Requirements update documenting `WinPE-SecureStartup` as a default WinPE optional component.
   - Product boundaries update explaining the workaround status.
   - Manual test checklist.
 - Release notes:
-  - Mark as x64 and ARM64 with Ethernet-first upload guidance.
-  - Mention unsupported or risky Wi-Fi-only/self-deploying/pre-provisioning status.
+  - Mark as x64 and ARM64 with Ethernet and Wi-Fi upload guidance.
+  - Mention unsupported or risky self-deploying/pre-provisioning status.
 
 ## Open Questions
 - Should the final implementation keep a capture-only diagnostic mode in addition to capture-and-upload?
