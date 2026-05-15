@@ -9,7 +9,6 @@ internal static class ConfigurationJsonDefaults
     {
         WriteIndented = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 }

@@ -1,8 +1,11 @@
+using System.Text.Json.Serialization;
+
 namespace Foundry.Deploy.Models.Configuration;
 
 /// <summary>
 /// Defines how Foundry.Deploy should provision Autopilot data during OS deployment.
 /// </summary>
+[JsonConverter(typeof(AutopilotProvisioningModeJsonConverter))]
 public enum AutopilotProvisioningMode
 {
     /// <summary>
