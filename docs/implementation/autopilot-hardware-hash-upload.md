@@ -23,8 +23,8 @@ This index is the entry point for the Autopilot hardware hash upload plan. The d
 | --- | --- | --- | --- |
 | 0 | `feature/autopilot-hash-upload-foundation` | `docs(autopilot): plan hardware hash upload from WinPE` | [Overview](autopilot-hash-upload/00-overview.md) |
 | 1 | `feature/autopilot-hash-upload-config` | `feat(autopilot): add provisioning mode configuration` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-1-configuration-model) |
-| 2 | `feature/autopilot-hash-upload-ui` | `feat(autopilot): add provisioning method selection` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-2-autopilot-page-ux) |
-| 3 | `feature/autopilot-hash-upload-security` | `feat(autopilot): add secure tenant upload onboarding` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-3-security-and-tenant-onboarding) |
+| 2 | `feature/autopilot-hash-upload-security` | `feat(autopilot): add secure tenant upload onboarding` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-2-security-and-tenant-onboarding) |
+| 3 | `feature/autopilot-hash-upload-ui` | `feat(autopilot): add provisioning method selection` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-3-autopilot-page-ux) |
 | 4 | `feature/autopilot-hash-upload-media` | `feat(winpe): stage autopilot hash capture assets` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-4-media-build-and-winpe-assets) |
 | 5 | `feature/autopilot-hash-upload-runtime` | `feat(deploy): branch autopilot runtime by provisioning mode` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-5-foundry-deploy-runtime-branching) |
 | 6 | `feature/autopilot-hash-upload-capture` | `feat(deploy): capture autopilot hardware hash in WinPE` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-6-hash-capture-service) |

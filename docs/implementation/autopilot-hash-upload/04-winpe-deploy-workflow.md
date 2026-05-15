@@ -55,6 +55,7 @@ Artifact retention rules:
 - `AutopilotUploadResult.json` may contain timestamps, serial number, import identifier, active certificate thumbprint, Graph status, and operator-facing error text.
 - Retained artifacts, deployment state, deployment summary, and general log files must not contain access tokens, authorization headers, raw Graph request bodies, raw Graph response bodies, PFX bytes, PFX password, decrypted private key material, encrypted secret blobs, full certificate data, or media secret keys.
 - If the retained `AutopilotHash` folder inherits permissions broader than SYSTEM and Administrators, Foundry Deploy should tighten the ACL before finalization.
+- No automatic purge is planned for the first implementation. Phase 8 documentation should explain that these files are retained for troubleshooting and how an operator can remove them after diagnostics are no longer needed.
 
 Failure taxonomy:
 - `ToolMissing`: OA3Tool is not staged or cannot execute.
@@ -81,6 +82,7 @@ Failure taxonomy:
 - `AutopilotDeviceTimedOut`: import completed but the device did not appear in Windows Autopilot devices before the 10-minute wait timeout. Foundry Deploy logs a warning and continues OS deployment.
 
 Support library failures are blocking for the hardware hash upload workflow because `PCPKsp.dll` is a prerequisite for reliable OA3Tool hash capture in this design. They must be represented as Autopilot prerequisite failures, not as non-blocking tenant/auth skips.
+Import, duplicate-device, and visibility timeout failures are non-blocking Autopilot failures. Foundry Deploy should surface them clearly, retain sanitized diagnostics, and continue to the next OS deployment step.
 
 
 ## Implementation Boundaries

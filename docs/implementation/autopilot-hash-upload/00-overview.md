@@ -15,8 +15,8 @@ This feature is intended to complement the existing offline Autopilot JSON profi
 - Foundation worktree: `C:\Users\mchav\.config\superpowers\worktrees\foundry\autopilot-hash-upload-foundation`
 - Phase branches should branch from the foundation branch:
   - `feature/autopilot-hash-upload-config`
-  - `feature/autopilot-hash-upload-ui`
   - `feature/autopilot-hash-upload-security`
+  - `feature/autopilot-hash-upload-ui`
   - `feature/autopilot-hash-upload-media`
   - `feature/autopilot-hash-upload-runtime`
   - `feature/autopilot-hash-upload-capture`
@@ -33,8 +33,8 @@ All PR titles must stay in English and use Conventional Commits. Each phase bran
 | --- | --- | --- | --- |
 | 0 | `feature/autopilot-hash-upload-foundation` | `docs(autopilot): plan hardware hash upload from WinPE` | Feasibility, phased integration plan, risk register, test matrix. |
 | 1 | `feature/autopilot-hash-upload-config` | `feat(autopilot): add provisioning mode configuration` | Expert and Deploy configuration models, backward compatibility, readiness rules. |
-| 2 | `feature/autopilot-hash-upload-ui` | `feat(autopilot): add provisioning method selection` | Autopilot page expanders, mutually exclusive method selection, localized strings. |
-| 3 | `feature/autopilot-hash-upload-security` | `feat(autopilot): add secure tenant upload onboarding` | Tenant sign-in, app registration creation, certificate lifecycle, secret handling, permission validation. |
+| 2 | `feature/autopilot-hash-upload-security` | `feat(autopilot): add secure tenant upload onboarding` | Tenant sign-in, app registration creation, certificate lifecycle, secret handling, permission validation. |
+| 3 | `feature/autopilot-hash-upload-ui` | `feat(autopilot): add provisioning method selection` | Autopilot page expanders, mutually exclusive method selection, localized strings. |
 | 4 | `feature/autopilot-hash-upload-media` | `feat(winpe): stage autopilot hash capture assets` | WinPE optional component requirements, x64/ARM64 OA3Tool discovery, media payload layout. |
 | 5 | `feature/autopilot-hash-upload-runtime` | `feat(deploy): branch autopilot runtime by provisioning mode` | Deploy startup snapshot, launch validation, runtime state, late deployment step, dry-run manifests. |
 | 6 | `feature/autopilot-hash-upload-capture` | `feat(deploy): capture autopilot hardware hash in WinPE` | C# OA3Tool execution service, `PCPKsp.dll` copy, `OA3.xml` parsing, CSV/diagnostic artifacts. |

@@ -28,8 +28,10 @@ Permission split:
 The interactive OSD user may need broad Entra application management rights during setup, but those delegated/session permissions are not embedded into the boot image. The boot image receives only the managed app identity and certificate material needed for Autopilot import.
 
 OSD setup permission guidance:
+- `Application.Read.All` is sufficient only for read-only discovery of an existing managed app registration and service principal.
 - `Application.ReadWrite.All` is needed when Foundry OSD creates or updates the managed app registration, including required resource access and certificate credentials.
 - `AppRoleAssignment.ReadWrite.All` is needed if Foundry OSD grants the Microsoft Graph application role to the managed service principal instead of only detecting that admin consent is missing.
+- `DeviceManagementServiceConfig.Read.All` is needed when Foundry OSD discovers existing Windows Autopilot device identities or group tags for the setup UX. `DeviceManagementServiceConfig.ReadWrite.All` is needed only for the WinPE app-only import workflow and any setup-time validation that writes to Intune.
 - If the signed-in operator does not have enough rights to grant consent, Foundry OSD should show a consent-required state and block hash-upload media generation until the tenant admin completes consent.
 - These setup rights belong to the signed-in OSD operator session only. They are not stored, exported, or embedded in generated media.
 
@@ -121,6 +123,7 @@ Graph request rules:
 - Include request correlation IDs in logs when available.
 - Use bounded retries for transient `429`, `5xx`, and network failures.
 - Do not retry deterministic validation failures.
+- Treat `ImportFailed`, duplicate-device import errors, and `ImportTimedOut` as non-blocking Autopilot failures in Foundry Deploy: surface the error, retain sanitized diagnostics, and continue OS deployment.
 - For application certificate management, merge the existing `keyCredentials` collection with the new certificate credential instead of replacing the collection with only Foundry's credential.
 - Remove only the active Foundry-managed certificate credential identified by the persisted `keyId`, and never remove unknown or non-active certificate credentials automatically.
 - Treat any certificate, tenant, token, permission, consent, Conditional Access, Intune availability, or Graph connectivity failure as a non-blocking Autopilot skip in Foundry Deploy, not as a deployment failure.

@@ -115,6 +115,7 @@ Foundry Deploy UX:
   - tell the user to regenerate the certificate and recreate the boot image
   - skip Autopilot hash upload for that deployment run
 - Any tenant, certificate, token, consent, permission, Conditional Access, Intune availability, or Graph connectivity failure in Foundry Deploy must skip only the Autopilot hash upload and must not block the OS deployment.
+- Any Graph import failure, duplicate-device import failure, import polling timeout, or Windows Autopilot device visibility timeout must also skip/fail only the Autopilot workflow for that deployment run and continue OS deployment with a clear warning.
 - During the Autopilot provisioning step, after hash upload succeeds, Foundry Deploy must wait until the device appears in Intune Windows Autopilot devices before treating the Autopilot step as complete.
 - While waiting for the device to appear, Foundry Deploy should show an indeterminate sub-progress indicator and a countdown showing the time remaining before the wait times out.
 - The default Windows Autopilot device visibility wait timeout is 10 minutes.

@@ -60,9 +60,10 @@ Manual physical validation matrix:
 | Certificate expires before deployment | Autopilot upload cannot authenticate | Show expired state in Foundry OSD, block hardware hash media generation until certificate regeneration, and let Foundry Deploy continue OS deployment while skipping Autopilot upload. |
 | Operator loses one-time PFX/private key material | Existing app certificate cannot be used for new media | Require replacing the active certificate or choosing another valid active certificate by thumbprint, then rebuild boot media. |
 | Broad Graph permissions copied from community script | Excessive tenant blast radius | Minimum permission matrix and no destructive final implementation flows. |
-| Duplicate devices already exist | Import fails or operator confusion | Surface duplicate/import error clearly; defer cleanup automation. |
+| Duplicate devices already exist | Import fails or operator confusion | Surface duplicate/import error clearly, retain sanitized diagnostics, and continue OS deployment without automatic cleanup. |
 | Architecture-specific OA3Tool/support file mismatch | Runtime failure | Resolve ADK assets per selected WinPE architecture and validate both x64 and ARM64 media. |
 | `PCPKsp.dll` missing from applied OS or copy fails | Autopilot hash upload cannot meet prerequisites | Copy from `<target Windows>\Windows\System32` after OS apply and fail the Autopilot workflow as a blocking prerequisite error if the copy/load operation fails. |
+| Retained Autopilot diagnostics accumulate over time | Disk usage or stale troubleshooting data | Retain artifacts by default for debugging, keep the retained set allow-listed and sanitized, and document manual cleanup after diagnostics are no longer needed. |
 | UI conflates JSON and hash mode | Invalid media or deployment launch | Explicit `ProvisioningMode` and readiness rules. |
 
 
@@ -82,8 +83,10 @@ Manual physical validation matrix:
   - Product boundaries update explaining the workaround status.
   - Manual test checklist.
 - Docusaurus documentation:
+  - Locate the docs source before editing by searching for `docusaurus.config.*` or the docs package root.
+  - If the docs source is external to this repository, record the required repository/path before opening the implementation PR.
   - Update pages, sidebars, navigation, screenshots, and release notes when user-facing behavior changes.
-  - Run the relevant Docusaurus build or preview command if Docusaurus sources are changed.
+  - Run the relevant Docusaurus build or preview command discovered from the docs package scripts if Docusaurus sources are changed.
 - Release notes:
   - Mark as x64 and ARM64 with Ethernet and Wi-Fi upload guidance.
   - Mention unsupported or risky self-deploying/pre-provisioning status.
