@@ -228,7 +228,10 @@ Foundry Deploy UX:
   - show a clear message that Graph connection cannot be established because the certificate is expired
   - tell the user to regenerate the certificate and recreate the boot image
   - skip Autopilot hash upload for that deployment run
-- During the Autopilot provisioning step, after hash upload succeeds, Foundry Deploy must wait until the device appears in Intune Windows Autopilot devices before continuing.
+- During the Autopilot provisioning step, after hash upload succeeds, Foundry Deploy must wait until the device appears in Intune Windows Autopilot devices before treating the Autopilot step as complete.
+- While waiting for the device to appear, Foundry Deploy should show an indeterminate sub-progress indicator and a countdown showing the time remaining before the wait times out.
+- The default Windows Autopilot device visibility wait timeout is 10 minutes.
+- If the wait reaches the 10-minute timeout, Foundry Deploy should continue the OS deployment, mark Autopilot visibility waiting as timed out/skipped, and retain a clear warning in the deployment summary and logs.
 
 ## Proposed Runtime Model
 Add an explicit provisioning mode.
@@ -389,7 +392,7 @@ Import state polling should handle:
 - `complete`
 - `error`
 
-After the import state reaches `complete`, Foundry Deploy should poll Windows Autopilot device identities until the uploaded serial number is visible in Intune. This is the operator-facing completion condition for the Autopilot provisioning step.
+After the import state reaches `complete`, Foundry Deploy should poll Windows Autopilot device identities until the uploaded serial number is visible in Intune. This is the operator-facing completion condition for the Autopilot provisioning step. The wait should use a 10-minute default timeout with a visible countdown. Timeout is non-blocking for OS deployment because Intune can rarely take longer than 10 minutes to surface the device.
 
 Minimum Graph permission matrix:
 
@@ -469,7 +472,7 @@ Failure taxonomy:
 - `AuthenticationFailed`: token acquisition failed.
 - `ImportFailed`: Graph accepted the request path but import state reports `error`.
 - `ImportTimedOut`: import polling exceeded the configured timeout.
-- `AutopilotDeviceTimedOut`: import completed but the device did not appear in Windows Autopilot devices before timeout.
+- `AutopilotDeviceTimedOut`: import completed but the device did not appear in Windows Autopilot devices before the 10-minute wait timeout. Foundry Deploy logs a warning and continues OS deployment.
 
 ## Phased Implementation
 
@@ -650,6 +653,7 @@ PR title: `feat(autopilot): import hardware hashes with Graph`
 - [ ] Implement import request.
 - [ ] Implement polling for import completion.
 - [ ] Implement polling until the uploaded serial number appears in Windows Autopilot devices.
+- [ ] Add a 10-minute default timeout for Windows Autopilot device visibility polling.
 - [ ] Map Graph errors to operator-readable messages.
 - [ ] Add retry/backoff for transient HTTP failures.
 - [ ] Keep destructive cleanup out of the final hash upload workflow.
@@ -662,6 +666,7 @@ Automated tests:
 - [ ] Treats expired certificate auth as skipped Autopilot, not failed deployment.
 - [ ] Handles `complete`.
 - [ ] Handles imported identity completion followed by Windows Autopilot device visibility.
+- [ ] Handles Windows Autopilot device visibility timeout as a warning/non-blocking continuation.
 - [ ] Handles `error` with device error code/name.
 - [ ] Times out with a clear message.
 - [ ] Retries transient failures only.
@@ -670,6 +675,8 @@ Manual checks:
 - [ ] Import one test device into a test tenant.
 - [ ] Confirm Group Tag appears in Intune.
 - [ ] Confirm deployment waits until the device appears in Windows Autopilot devices.
+- [ ] Confirm the wait shows an indeterminate sub-progress indicator and countdown.
+- [ ] Confirm a 10-minute visibility timeout continues OS deployment and records a warning.
 - [ ] Confirm assignment sync behavior is documented, even if not waited on by the final implementation.
 - [ ] Confirm duplicate device behavior is clear to the operator.
 
@@ -806,7 +813,7 @@ Foundry.Deploy owns:
 - `PCPKsp.dll` copy from the applied Windows image to `X:\Windows\System32`.
 - OA3Tool execution through C# process orchestration.
 - Graph import through C# service abstractions.
-- Polling until the imported device appears in Windows Autopilot devices.
+- Polling until the imported device appears in Windows Autopilot devices, with a visible 10-minute countdown and non-blocking timeout.
 - Deployment logs and summary artifacts.
 
 Foundry.Connect owns:
