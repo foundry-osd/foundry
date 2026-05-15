@@ -9,6 +9,14 @@ Implementation agents must follow the repository instructions in [AGENTS.md](../
 ### Phase 0: Foundation Branch And Research
 PR title: `docs(autopilot): plan hardware hash upload from WinPE`
 
+Implementation progress:
+- [x] Foundation worktree created.
+- [x] Foundation branch created.
+- [x] Planning documentation committed.
+- [x] Foundation branch pushed.
+- [ ] Foundation PR opened.
+- [ ] Foundation PR reviewed and merged.
+
 - [x] Create dedicated worktree.
 - [x] Create foundation branch.
 - [x] Analyze supplied feasibility document.
@@ -22,6 +30,14 @@ Manual checks:
 
 ### Phase 1: Configuration Model
 PR title: `feat(autopilot): add provisioning mode configuration`
+
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Implementation checklist complete.
+- [ ] Automated tests complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] PR opened with the planned title.
+- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [ ] Add `AutopilotProvisioningMode`.
 - [ ] Extend `AutopilotSettings` with mode and hardware hash upload settings.
@@ -49,6 +65,14 @@ Manual checks:
 
 ### Phase 2: Security And Tenant Onboarding
 PR title: `feat(autopilot): add secure tenant upload onboarding`
+
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Implementation checklist complete.
+- [ ] Automated tests complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] PR opened with the planned title.
+- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [ ] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
 - [ ] Define tenant/app registration guidance for the OSD onboarding UX and Phase 8 documentation.
@@ -102,6 +126,14 @@ Manual checks:
 ### Phase 3: Autopilot Page UX
 PR title: `feat(autopilot): add provisioning method selection`
 
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Implementation checklist complete.
+- [ ] Automated tests complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] PR opened with the planned title.
+- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+
 - [ ] Replace single Autopilot action section with two settings expanders.
 - [ ] Keep global Autopilot toggle.
 - [ ] Move existing import/download/remove/default profile/table UI into JSON profile expander.
@@ -142,6 +174,14 @@ Manual checks:
 ### Phase 4: Media Build And WinPE Assets
 PR title: `feat(winpe): stage autopilot hash capture assets`
 
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Implementation checklist complete.
+- [ ] Automated tests complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] PR opened with the planned title.
+- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+
 - [ ] Add `WinPE-SecureStartup` to the default required optional components for all generated WinPE media.
 - [ ] Locate and stage architecture-specific `oa3tool.exe` from the ADK for x64 and ARM64.
 - [ ] Add hash capture templates under a Foundry-owned WinPE path.
@@ -171,6 +211,14 @@ Manual checks:
 
 ### Phase 5: Foundry Deploy Runtime Branching
 PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
+
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Implementation checklist complete.
+- [ ] Automated tests complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] PR opened with the planned title.
+- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [ ] Load Autopilot provisioning mode from deploy config.
 - [ ] Expose mode in startup snapshot, preparation view model, launch request, deployment context, and runtime state.
@@ -210,6 +258,14 @@ Manual checks:
 ### Phase 6: Hash Capture Service
 PR title: `feat(deploy): capture autopilot hardware hash in WinPE`
 
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Implementation checklist complete.
+- [ ] Automated tests complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] PR opened with the planned title.
+- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+
 - [ ] Add a C# service that runs OA3Tool with controlled working directory paths.
 - [ ] Add a C# service that copies `PCPKsp.dll` from `<target Windows>\Windows\System32` to `X:\Windows\System32`.
 - [ ] Validate source and destination architecture assumptions for x64 and ARM64.
@@ -241,6 +297,14 @@ Manual checks:
 
 ### Phase 7: Graph Upload Service
 PR title: `feat(autopilot): import hardware hashes with Graph`
+
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Implementation checklist complete.
+- [ ] Automated tests complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] PR opened with the planned title.
+- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [ ] Add a minimal Graph Autopilot import client.
 - [ ] Add certificate-based credential creation from decrypted in-memory certificate material.
@@ -284,6 +348,16 @@ Manual checks:
 
 ### Phase 8: Documentation And Release Guardrails
 PR title: `docs(autopilot): document WinPE hardware hash upload`
+
+Implementation progress:
+- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [ ] Docusaurus worktree and branch created.
+- [ ] Implementation checklist complete.
+- [ ] Documentation build or preview complete.
+- [ ] Manual checks complete or explicitly deferred.
+- [ ] Foundry PR opened with the planned title.
+- [ ] Docusaurus PR opened with the planned title.
+- [ ] Foundry and Docusaurus PRs merged.
 
 - [ ] Add user documentation for hardware hash upload from WinPE.
 - [ ] Update the Docusaurus documentation if the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes.

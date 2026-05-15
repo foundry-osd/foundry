@@ -31,5 +31,20 @@ This index is the entry point for the Autopilot hardware hash upload plan. The d
 | 7 | `feature/autopilot-hash-upload-graph` | `feat(autopilot): import hardware hashes with Graph` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-7-graph-upload-service) |
 | 8 | `feature/autopilot-hash-upload-docs` | `docs(autopilot): document WinPE hardware hash upload` | [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md#phase-8-documentation-and-release-guardrails) |
 
+## Implementation Progress Tracker
+Use this table as the cross-phase implementation status board. Detailed task, automated test, and manual checkboxes live in [Implementation Phases](autopilot-hash-upload/05-implementation-phases.md).
+
+| Phase | Branch created | Implementation complete | Verification complete | Manual checks complete | PR opened | Merged back |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 Foundation | [x] | [x] | [x] | [x] | [ ] | [ ] |
+| 1 Configuration model | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 2 Security and tenant onboarding | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 3 Autopilot page UX | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 4 Media build and WinPE assets | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 5 Foundry Deploy runtime branching | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 6 Hash capture service | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 7 Graph upload service | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 8 Documentation and release guardrails | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+
 ## Documentation Reminder
 Phase 8 must update the Docusaurus documentation when the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes. The Docusaurus repository is `E:\Github\Foundry Project\foundry-osd.github.io`; create a dedicated worktree and branch for that repository before editing documentation.
