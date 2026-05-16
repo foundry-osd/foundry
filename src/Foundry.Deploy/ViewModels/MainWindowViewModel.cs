@@ -280,6 +280,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
                 IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
                 SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
+                Oobe = _wizardContext.Oobe,
                 IsDryRun = IsDebugSafeMode
             });
 
