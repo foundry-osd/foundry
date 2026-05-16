@@ -11,6 +11,12 @@ param(
 
     [string]$VpkVersion = '0.0.1589-ga2c5a97',
 
+    [string]$VelopackFeedUrl = 'https://github.com/foundry-osd/foundry',
+
+    [string]$GitHubToken = $env:GITHUB_TOKEN,
+
+    [switch]$SkipPreviousReleaseDownload,
+
     [string]$ReleaseNotesPath
 )
 
@@ -75,7 +81,8 @@ Get-ChildItem -Path $releaseAssetsDir -File -ErrorAction SilentlyContinue |
         $_.Name -eq "assets.$velopackChannel.json" -or
         $_.Name -eq "releases.$velopackChannel.json" -or
         $_.Name -like "Foundry-*-$velopackChannel-full.nupkg" -or
-        $_.Name -match '^Foundry-\d+(\.\d+){2}-build\.\d+-full\.nupkg$'
+        $_.Name -like "Foundry-*-$velopackChannel-delta.nupkg" -or
+        $_.Name -match '^Foundry-\d+(\.\d+){2}-build\.\d+-(full|delta)\.nupkg$'
     } |
     Remove-Item -Force
 
@@ -89,6 +96,29 @@ else {
 
 if ($LASTEXITCODE -ne 0) {
     throw "Unable to install or update vpk $VpkVersion."
+}
+
+if (-not $SkipPreviousReleaseDownload) {
+    $downloadArgs = @(
+        'download',
+        'github',
+        '--repoUrl',
+        $VelopackFeedUrl,
+        '--channel',
+        $velopackChannel,
+        '--outputDir',
+        $releaseDir
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($GitHubToken)) {
+        $downloadArgs += @('--token', $GitHubToken)
+    }
+
+    & $vpkExe @downloadArgs
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning "Unable to download the previous Velopack release for $RuntimeIdentifier. Delta packages will not be generated."
+    }
 }
 
 # $installerInputPaths = @(
@@ -203,7 +233,7 @@ Get-ChildItem -Path $releaseDir -File |
         $_.Name -like 'RELEASES*' -or
         $_.Name -like 'assets.*.json' -or
         $_.Name -like 'releases.*.json' -or
-        $_.Extension -eq '.nupkg'
+        $_.Name -like "Foundry-$PackVersion-$velopackChannel-*.nupkg"
     } |
     Copy-Item -Destination $releaseAssetsDir -Force
 
