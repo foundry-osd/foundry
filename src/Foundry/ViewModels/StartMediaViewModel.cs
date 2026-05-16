@@ -2045,6 +2045,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         public string CurrentStepName { get; set; } = MediaCreationStepNames.Unknown;
     }
 
+    /// <summary>
+    /// Updates the active telemetry stage synchronously before forwarding workspace preparation progress to the UI.
+    /// </summary>
+    /// <remarks>
+    /// The synchronous telemetry update avoids losing the failing stage when a workspace preparation error is returned
+    /// before the UI progress callback has been dispatched.
+    /// </remarks>
     private sealed class MediaCreationWorkspacePreparationProgress(
         MediaCreationTelemetryState telemetryState,
         IProgress<WinPeWorkspacePreparationStage> uiProgress) : IProgress<WinPeWorkspacePreparationStage>
