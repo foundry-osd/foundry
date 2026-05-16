@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
@@ -48,6 +49,66 @@ public sealed class DeployConfigurationGeneratorTests
         var result = generator.Generate(new FoundryExpertConfigurationDocument { Telemetry = telemetry });
 
         Assert.Same(telemetry, result.Telemetry);
+    }
+
+    [Fact]
+    public void Generate_WhenOobeCustomizationIsEnabled_PropagatesOobeSettings()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    SkipLicenseTerms = true,
+                    DiagnosticDataLevel = OobeDiagnosticDataLevel.Off,
+                    HidePrivacySetup = true,
+                    AllowTailoredExperiences = false,
+                    AllowAdvertisingId = false,
+                    AllowOnlineSpeechRecognition = false,
+                    AllowInkingAndTypingDiagnostics = false,
+                    LocationAccess = OobeLocationAccessMode.ForceOff
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.Oobe.IsEnabled);
+        Assert.True(result.Customization.Oobe.SkipLicenseTerms);
+        Assert.Equal(DeployOobeDiagnosticDataLevel.Off, result.Customization.Oobe.DiagnosticDataLevel);
+        Assert.True(result.Customization.Oobe.HidePrivacySetup);
+        Assert.False(result.Customization.Oobe.AllowTailoredExperiences);
+        Assert.False(result.Customization.Oobe.AllowAdvertisingId);
+        Assert.False(result.Customization.Oobe.AllowOnlineSpeechRecognition);
+        Assert.False(result.Customization.Oobe.AllowInkingAndTypingDiagnostics);
+        Assert.Equal(DeployOobeLocationAccessMode.ForceOff, result.Customization.Oobe.LocationAccess);
+    }
+
+    [Fact]
+    public void Generate_WhenOobeCustomizationIsDisabled_DoesNotEnableRuntimeOobeSettings()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = false,
+                    DiagnosticDataLevel = OobeDiagnosticDataLevel.Optional,
+                    LocationAccess = OobeLocationAccessMode.ForceOff
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.Oobe.IsEnabled);
+        Assert.Equal(DeployOobeDiagnosticDataLevel.Required, result.Customization.Oobe.DiagnosticDataLevel);
+        Assert.Equal(DeployOobeLocationAccessMode.UserControlled, result.Customization.Oobe.LocationAccess);
     }
 
     [Fact]

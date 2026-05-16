@@ -1,3 +1,5 @@
+using Foundry.Deploy.Models.Configuration;
+
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>
@@ -69,7 +71,6 @@ public interface IWindowsDeploymentService
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
     /// <param name="computerName">Computer name written into unattend.xml.</param>
     /// <param name="processorArchitecture">Processor architecture used by unattend components.</param>
-    /// <param name="workingDirectory">Directory used for temporary XML work.</param>
     /// <param name="defaultTimeZoneId">Optional Windows time-zone identifier written into unattend.xml.</param>
     /// <param name="cancellationToken">Token that cancels unattend generation.</param>
     /// <returns>A task that completes after unattend.xml is written.</returns>
@@ -77,8 +78,23 @@ public interface IWindowsDeploymentService
         string windowsPartitionRoot,
         string computerName,
         string processorArchitecture,
-        string workingDirectory,
         string? defaultTimeZoneId = null,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Writes Windows OOBE unattend and policy settings into an offline Windows installation.
+    /// </summary>
+    /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
+    /// <param name="settings">The OOBE customization settings generated from the Expert Deploy configuration.</param>
+    /// <param name="processorArchitecture">Processor architecture used by unattend components.</param>
+    /// <param name="workingDirectory">Directory used for temporary command output.</param>
+    /// <param name="cancellationToken">Token that cancels OOBE configuration.</param>
+    /// <returns>A task that completes after OOBE settings are written.</returns>
+    Task ConfigureOfflineOobeAsync(
+        string windowsPartitionRoot,
+        DeployOobeSettings settings,
+        string processorArchitecture,
+        string workingDirectory,
         CancellationToken cancellationToken = default);
 
     /// <summary>

@@ -50,6 +50,88 @@
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
+
+            <wct:SettingsExpander Header="{x:Bind ViewModel.OobeHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.OobeDescription, Mode=OneWay}"
+                                  IsExpanded="{x:Bind ViewModel.IsOobeExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xF133;" />
+                </wct:SettingsExpander.HeaderIcon>
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.OobeEnableText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsOobeEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <wct:SettingsExpander.Items>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeSkipLicenseTermsLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeSkipLicenseTermsDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xEB95;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.SkipLicenseTerms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeDiagnosticDataLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeDiagnosticDataDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE9D9;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.OobeDiagnosticDataOptions, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedOobeDiagnosticData, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeHidePrivacySetupLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeHidePrivacySetupDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE705;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.HidePrivacySetup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeTailoredExperiencesLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeTailoredExperiencesDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE728;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowTailoredExperiences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeAdvertisingIdLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeAdvertisingIdDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE789;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowAdvertisingId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeOnlineSpeechRecognitionLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeOnlineSpeechRecognitionDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE720;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowOnlineSpeechRecognition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeInkingAndTypingDiagnosticsLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeInkingAndTypingDiagnosticsDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xED5F;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowInkingAndTypingDiagnostics, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeLocationAccessLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeLocationAccessDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE707;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.OobeLocationAccessOptions, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedOobeLocationAccess, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
         </StackPanel>
     </ScrollView>
 </Page>

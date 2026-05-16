@@ -6,7 +6,7 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
 {
-    public override int Order => 17;
+    public override int Order => 18;
 
     public override string Name => DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
 

@@ -9,4 +9,9 @@ public sealed record CustomizationSettings
     /// Gets hostname generation settings for deployed machines.
     /// </summary>
     public MachineNamingSettings MachineNaming { get; init; } = new();
+
+    /// <summary>
+    /// Gets Windows OOBE customization settings.
+    /// </summary>
+    public OobeSettings Oobe { get; init; } = new();
 }

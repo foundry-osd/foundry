@@ -1,4 +1,5 @@
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -15,5 +16,6 @@ public sealed record DeploymentLaunchRequest
     public required bool ApplyFirmwareUpdates { get; init; }
     public required bool IsAutopilotEnabled { get; init; }
     public required AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
+    public DeployOobeSettings Oobe { get; init; } = new();
     public required bool IsDryRun { get; init; }
 }

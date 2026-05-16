@@ -1,4 +1,5 @@
 using System.Xml.Linq;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -12,7 +13,6 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
-        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         Directory.CreateDirectory(windowsRoot);
 
         var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
@@ -21,7 +21,6 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            workingDirectory,
             "Romance Standard Time");
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
@@ -37,7 +36,6 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
-        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         Directory.CreateDirectory(windowsRoot);
 
         var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
@@ -46,7 +44,6 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            workingDirectory,
             "Europe/Paris");
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
@@ -54,6 +51,79 @@ public sealed class WindowsDeploymentServiceTests
         XNamespace ns = "urn:schemas-microsoft-com:unattend";
 
         Assert.Equal("Romance Standard Time", document.Descendants(ns + "TimeZone").Single().Value);
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineOobeAsync_WhenEnabled_WritesUnattendAndPrivacyPolicies()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureOfflineOobeAsync(
+            windowsRoot,
+            new DeployOobeSettings
+            {
+                IsEnabled = true,
+                SkipLicenseTerms = true,
+                DiagnosticDataLevel = DeployOobeDiagnosticDataLevel.Off,
+                HidePrivacySetup = true,
+                AllowTailoredExperiences = false,
+                AllowAdvertisingId = false,
+                AllowOnlineSpeechRecognition = false,
+                AllowInkingAndTypingDiagnostics = false,
+                LocationAccess = DeployOobeLocationAccessMode.ForceOff
+            },
+            "amd64",
+            workingDirectory);
+
+        string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
+        XDocument document = XDocument.Load(unattendPath);
+        XNamespace ns = "urn:schemas-microsoft-com:unattend";
+
+        Assert.Equal("true", document.Descendants(ns + "HideEULAPage").Single().Value);
+        Assert.Equal("3", document.Descendants(ns + "ProtectYourPC").Single().Value);
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"AllowTelemetry", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"DisablePrivacyExperience", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"DisabledByGroupPolicy", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"AllowInputPersonalization", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"AllowLinguisticDataCollection", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"LetAppsAccessLocation", StringComparison.Ordinal) && call.Contains("/d 2", StringComparison.Ordinal));
+        Assert.DoesNotContain(processRunner.Calls, call => call.Contains(@"DisableLocation", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"DisableTailoredExperiencesWithDiagnosticData", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineOobeAsync_WhenDisabled_DoesNotWriteUnattendOrPolicies()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureOfflineOobeAsync(
+            windowsRoot,
+            new DeployOobeSettings(),
+            "amd64",
+            workingDirectory);
+
+        string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
+
+        Assert.False(File.Exists(unattendPath));
+        Assert.Empty(processRunner.Calls);
+    }
+
+    private static string CreateWindowsRoot(TemporaryWorkspace workspace)
+    {
+        string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
+        Directory.CreateDirectory(Path.Combine(windowsRoot, "Windows", "System32", "config"));
+        Directory.CreateDirectory(Path.Combine(windowsRoot, "Users", "Default"));
+        File.WriteAllText(Path.Combine(windowsRoot, "Windows", "System32", "config", "SOFTWARE"), string.Empty);
+        File.WriteAllText(Path.Combine(windowsRoot, "Users", "Default", "NTUSER.DAT"), string.Empty);
+        return windowsRoot;
     }
 
     private sealed class TemporaryWorkspace : IDisposable
@@ -103,6 +173,43 @@ public sealed class WindowsDeploymentServiceTests
             Action<string>? onErrorData,
             CancellationToken cancellationToken = default)
         {
+            return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+        }
+    }
+
+    private sealed class RecordingProcessRunner : IProcessRunner
+    {
+        public List<string> Calls { get; } = [];
+
+        public Task<ProcessExecutionResult> RunAsync(
+            string fileName,
+            string arguments,
+            string workingDirectory,
+            CancellationToken cancellationToken = default)
+        {
+            Calls.Add($"{fileName} {arguments}");
+            return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+        }
+
+        public Task<ProcessExecutionResult> RunAsync(
+            string fileName,
+            IEnumerable<string> arguments,
+            string workingDirectory,
+            CancellationToken cancellationToken = default)
+        {
+            Calls.Add($"{fileName} {string.Join(' ', arguments)}");
+            return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+        }
+
+        public Task<ProcessExecutionResult> RunAsync(
+            string fileName,
+            IEnumerable<string> arguments,
+            string workingDirectory,
+            Action<string>? onOutputData,
+            Action<string>? onErrorData,
+            CancellationToken cancellationToken = default)
+        {
+            Calls.Add($"{fileName} {string.Join(' ', arguments)}");
             return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
         }
     }

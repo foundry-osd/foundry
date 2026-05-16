@@ -14,6 +14,19 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["duration_seconds"] = 12.5,
             ["boot_media_architecture"] = "x64",
             ["failed_step_name"] = "Prepare WinPE workspace",
+            ["customization_any_enabled"] = true,
+            ["customization_machine_naming_enabled"] = true,
+            ["customization_machine_naming_mode"] = "auto_generated_editable",
+            ["customization_machine_naming_prefix_configured"] = true,
+            ["customization_oobe_enabled"] = true,
+            ["customization_oobe_skip_license_terms"] = true,
+            ["customization_oobe_diagnostic_data_level"] = "off",
+            ["customization_oobe_hide_privacy_setup"] = true,
+            ["customization_oobe_tailored_experiences_enabled"] = false,
+            ["customization_oobe_advertising_id_enabled"] = false,
+            ["customization_oobe_online_speech_recognition_enabled"] = false,
+            ["customization_oobe_inking_typing_diagnostics_enabled"] = false,
+            ["customization_oobe_location_access"] = "force_off",
             ["ssid"] = "CorpWifi",
             ["iso_output_path"] = @"C:\Temp\Foundry.iso"
         };
@@ -25,6 +38,19 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal(12.5, result["duration_seconds"]);
         Assert.Equal("x64", result["boot_media_architecture"]);
         Assert.Equal("Prepare WinPE workspace", result["failed_step_name"]);
+        Assert.True((bool)result["customization_any_enabled"]!);
+        Assert.True((bool)result["customization_machine_naming_enabled"]!);
+        Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);
+        Assert.True((bool)result["customization_machine_naming_prefix_configured"]!);
+        Assert.True((bool)result["customization_oobe_enabled"]!);
+        Assert.True((bool)result["customization_oobe_skip_license_terms"]!);
+        Assert.Equal("off", result["customization_oobe_diagnostic_data_level"]);
+        Assert.True((bool)result["customization_oobe_hide_privacy_setup"]!);
+        Assert.False((bool)result["customization_oobe_tailored_experiences_enabled"]!);
+        Assert.False((bool)result["customization_oobe_advertising_id_enabled"]!);
+        Assert.False((bool)result["customization_oobe_online_speech_recognition_enabled"]!);
+        Assert.False((bool)result["customization_oobe_inking_typing_diagnostics_enabled"]!);
+        Assert.Equal("force_off", result["customization_oobe_location_access"]);
         Assert.False(result.ContainsKey("ssid"));
         Assert.False(result.ContainsKey("iso_output_path"));
     }

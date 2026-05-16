@@ -1,4 +1,5 @@
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -61,6 +62,11 @@ public sealed record DeploymentContext
     /// Gets the selected Autopilot profile staged into the offline Windows image.
     /// </summary>
     public AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
+
+    /// <summary>
+    /// Gets Windows OOBE customization settings applied to the offline installation.
+    /// </summary>
+    public DeployOobeSettings Oobe { get; init; } = new();
 
     /// <summary>
     /// Gets a value indicating whether deployment runs against a temporary workspace instead of mutating a target disk.

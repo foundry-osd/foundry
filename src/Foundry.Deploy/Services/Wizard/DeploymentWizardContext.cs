@@ -34,6 +34,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
     public string? DefaultTimeZoneId { get; private set; }
+    public DeployOobeSettings Oobe { get; private set; } = new();
 
     public event EventHandler? StateChanged;
     public event Action<string>? StatusMessageGenerated;
@@ -118,6 +119,7 @@ public sealed class DeploymentWizardContext : IDisposable
             string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
                 ? seedComputerName
                 : Preparation.TargetComputerName);
+        Oobe = document.Customization.Oobe ?? new DeployOobeSettings();
         Preparation.ApplyAutopilotConfiguration(document.Autopilot ?? new DeployAutopilotSettings(), autopilotProfiles);
     }
 

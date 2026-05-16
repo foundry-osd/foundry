@@ -1,4 +1,5 @@
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Deployment;
 using System.Globalization;
@@ -74,6 +75,12 @@ public sealed class DeploymentLaunchPreparationServiceTests
             DisplayName = "Corporate Profile",
             ConfigurationFilePath = @"C:\Autopilot\profile.json"
         };
+        DeployOobeSettings oobe = new()
+        {
+            IsEnabled = true,
+            DiagnosticDataLevel = DeployOobeDiagnosticDataLevel.Off,
+            LocationAccess = DeployOobeLocationAccessMode.ForceOff
+        };
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -83,7 +90,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 selectedDriverPack: driverPack,
                 defaultTimeZoneId: " Romance Standard Time ",
                 isAutopilotEnabled: true,
-                selectedAutopilotProfile: autopilotProfile));
+                selectedAutopilotProfile: autopilotProfile,
+                oobe: oobe));
 
         Assert.True(result.IsReadyToStart);
         Assert.Equal("LAB01", result.NormalizedComputerName);
@@ -93,6 +101,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Equal("Romance Standard Time", result.Context?.DefaultTimeZoneId);
         Assert.Same(driverPack, result.Context?.DriverPack);
         Assert.Same(autopilotProfile, result.Context?.SelectedAutopilotProfile);
+        Assert.Same(oobe, result.Context?.Oobe);
     }
 
     [Fact]
@@ -133,6 +142,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DriverPackCatalogItem? selectedDriverPack = null,
         bool isAutopilotEnabled = false,
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
+        DeployOobeSettings? oobe = null,
         bool isDryRun = false)
     {
         return new DeploymentLaunchRequest
@@ -158,6 +168,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             ApplyFirmwareUpdates = false,
             IsAutopilotEnabled = isAutopilotEnabled,
             SelectedAutopilotProfile = selectedAutopilotProfile,
+            Oobe = oobe ?? new DeployOobeSettings(),
             IsDryRun = isDryRun
         };
     }

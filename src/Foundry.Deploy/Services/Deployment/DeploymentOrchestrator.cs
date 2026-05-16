@@ -113,7 +113,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ApplyFirmwareUpdates = context.ApplyFirmwareUpdates,
             IsAutopilotEnabled = context.IsAutopilotEnabled,
             SelectedAutopilotProfileFolderName = context.SelectedAutopilotProfile?.FolderName,
-            SelectedAutopilotProfileDisplayName = context.SelectedAutopilotProfile?.DisplayName
+            SelectedAutopilotProfileDisplayName = context.SelectedAutopilotProfile?.DisplayName,
+            Oobe = context.Oobe
         };
 
         DeploymentStepExecutionContext? executionContext = null;

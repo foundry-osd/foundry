@@ -233,8 +233,16 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
                 Prefix = settings.MachineNaming.IsEnabled ? prefix : null,
                 AutoGenerateName = settings.MachineNaming.IsEnabled && settings.MachineNaming.AutoGenerateName,
                 AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled || settings.MachineNaming.AllowManualSuffixEdit
-            }
+            },
+            Oobe = SanitizeOobeForPersistence(settings.Oobe)
         };
+    }
+
+    private static OobeSettings SanitizeOobeForPersistence(OobeSettings settings)
+    {
+        return settings.IsEnabled
+            ? settings
+            : new OobeSettings();
     }
 
     private NetworkMediaReadinessEvaluation EvaluateNetworkMediaReadiness()
