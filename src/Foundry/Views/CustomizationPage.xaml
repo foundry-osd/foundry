@@ -55,7 +55,7 @@
                                   Description="{x:Bind ViewModel.OobeDescription, Mode=OneWay}"
                                   IsExpanded="{x:Bind ViewModel.IsOobeExpanded, Mode=TwoWay}">
                 <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE713;" />
+                    <FontIcon Glyph="&#xF133;" />
                 </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.OobeEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsOobeEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
