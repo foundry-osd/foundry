@@ -73,15 +73,17 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     public bool IsAutopilotEnabled => Current.Autopilot.IsEnabled;
 
     /// <inheritdoc />
-    public bool IsAutopilotConfigurationReady => !Current.Autopilot.IsEnabled || GetSelectedAutopilotProfile() is not null;
+    public bool IsAutopilotConfigurationReady => AutopilotConfigurationValidator.IsReady(Current.Autopilot, DateTimeOffset.UtcNow);
 
     /// <inheritdoc />
-    public string? SelectedAutopilotProfileDisplayName => Current.Autopilot.IsEnabled
+    public string? SelectedAutopilotProfileDisplayName => Current.Autopilot.IsEnabled &&
+                                                          Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
         ? GetSelectedAutopilotProfile()?.DisplayName
         : null;
 
     /// <inheritdoc />
-    public string? SelectedAutopilotProfileFolderName => Current.Autopilot.IsEnabled
+    public string? SelectedAutopilotProfileFolderName => Current.Autopilot.IsEnabled &&
+                                                         Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
         ? GetSelectedAutopilotProfile()?.FolderName
         : null;
 
@@ -213,7 +215,45 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         return settings with
         {
             DefaultProfileId = defaultProfileId,
-            Profiles = profiles
+            Profiles = profiles,
+            HardwareHashUpload = SanitizeHardwareHashUploadSettings(settings.HardwareHashUpload)
+        };
+    }
+
+    private static AutopilotHardwareHashUploadSettings SanitizeHardwareHashUploadSettings(
+        AutopilotHardwareHashUploadSettings? settings)
+    {
+        if (settings?.Tenant is null)
+        {
+            return new AutopilotHardwareHashUploadSettings();
+        }
+
+        string[] knownGroupTags = (settings.KnownGroupTags ?? [])
+            .Select(groupTag => groupTag.Trim())
+            .Where(groupTag => !string.IsNullOrWhiteSpace(groupTag))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(groupTag => groupTag, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        return settings with
+        {
+            Tenant = new AutopilotTenantRegistrationSettings
+            {
+                TenantId = NormalizeOptional(settings.Tenant.TenantId),
+                ApplicationObjectId = NormalizeOptional(settings.Tenant.ApplicationObjectId),
+                ClientId = NormalizeOptional(settings.Tenant.ClientId),
+                ServicePrincipalObjectId = NormalizeOptional(settings.Tenant.ServicePrincipalObjectId)
+            },
+            ActiveCertificate = settings.ActiveCertificate is null
+                ? null
+                : settings.ActiveCertificate with
+                {
+                    KeyId = NormalizeOptional(settings.ActiveCertificate.KeyId),
+                    Thumbprint = NormalizeOptional(settings.ActiveCertificate.Thumbprint)?.ToUpperInvariant(),
+                    DisplayName = NormalizeOptional(settings.ActiveCertificate.DisplayName)
+                },
+            KnownGroupTags = knownGroupTags,
+            DefaultGroupTag = NormalizeOptional(settings.DefaultGroupTag)
         };
     }
 
@@ -235,6 +275,12 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
                 AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled || settings.MachineNaming.AllowManualSuffixEdit
             }
         };
+    }
+
+    private static string? NormalizeOptional(string? value)
+    {
+        string? trimmed = value?.Trim();
+        return string.IsNullOrWhiteSpace(trimmed) ? null : trimmed;
     }
 
     private NetworkMediaReadinessEvaluation EvaluateNetworkMediaReadiness()

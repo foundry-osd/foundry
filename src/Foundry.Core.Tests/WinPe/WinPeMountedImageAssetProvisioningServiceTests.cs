@@ -170,7 +170,10 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         string deployConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"));
-        Assert.Contains("\"schemaVersion\": 2", deployConfigurationJson, StringComparison.Ordinal);
+        Assert.Contains(
+            $"\"schemaVersion\": {Foundry.Core.Models.Configuration.Deploy.FoundryDeployConfigurationDocument.CurrentSchemaVersion}",
+            deployConfigurationJson,
+            StringComparison.Ordinal);
         Assert.Contains("\"localization\":", deployConfigurationJson, StringComparison.Ordinal);
         Assert.Contains("\"customization\":", deployConfigurationJson, StringComparison.Ordinal);
         Assert.Contains("\"autopilot\":", deployConfigurationJson, StringComparison.Ordinal);
