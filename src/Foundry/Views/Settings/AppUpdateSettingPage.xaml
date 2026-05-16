@@ -67,9 +67,10 @@
                                        Text="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}" />
                         </Grid>
 
-                        <HyperlinkButton x:Uid="AppUpdate_ReleaseNotesLink"
-                                         Click="ReleaseNotesLink_Click"
-                                         Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
+                        <Button HorizontalAlignment="Left"
+                                x:Uid="AppUpdate_ReleaseNotesLink"
+                                Click="ReleaseNotesLink_Click"
+                                Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
                     </StackPanel>
                 </wct:SettingsCard.Description>
                 <StackPanel Orientation="Horizontal"
