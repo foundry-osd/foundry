@@ -264,6 +264,13 @@ Continuer ?</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>La partition Windows cible est indisponible.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nom de l’ordinateur cible configuré.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nom de l’ordinateur cible configuré (simulation).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>Personnalisation OOBE désactivée.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Configuration des paramètres OOBE...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Écriture des valeurs de confidentialité du premier démarrage...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>Personnalisation OOBE configurée.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>Paramètres OOBE configurés.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>[DRY-RUN] Personnalisation OOBE simulée.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>Paramètres OOBE configurés (simulation).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Configuration de l’environnement de récupération...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Préparation de l’environnement de récupération Windows...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>La partition de récupération est indisponible.</value></data>
