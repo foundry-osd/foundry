@@ -17,7 +17,6 @@ namespace Foundry.ViewModels
         private readonly IAppDispatcher appDispatcher;
         private readonly ILogger logger;
         private ApplicationUpdateCheckResult? currentCheckResult;
-        private string releaseNotes;
 
         [ObservableProperty]
         public partial string CurrentVersion { get; set; }
@@ -48,6 +47,11 @@ namespace Foundry.ViewModels
 
         public string UpdateChannel => appSettingsService.Current.Updates.Channel;
         public string UpdateFeedUrl => appSettingsService.Current.Updates.FeedUrl;
+        public string CloseText => localizationService.GetString("Common.Close");
+        public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
+        public string ReleaseNotesErrorText => localizationService.GetString("AboutDialog.ReleaseNotesError");
+        public string ReleaseNotesRepositoryText => localizationService.GetString("Update.ReleaseNotesRepository");
+        public Uri ReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
 
         public AppUpdateSettingViewModel(
             IAppSettingsService appSettingsService,
@@ -65,7 +69,6 @@ namespace Foundry.ViewModels
             this.localizationService = localizationService;
             this.appDispatcher = appDispatcher;
             this.logger = logger.ForContext<AppUpdateSettingViewModel>();
-            releaseNotes = localizationService.GetString("Update.ReleaseNotesFallback");
 
             CurrentVersion = localizationService.FormatString("Update.CurrentVersionFormat", FoundryApplicationInfo.Version);
             LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
@@ -162,15 +165,6 @@ namespace Foundry.ViewModels
             }
         }
 
-        [RelayCommand]
-        private Task GetReleaseNotesAsync()
-        {
-            return dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Update.ReleaseNotesDialogTitle"),
-                releaseNotes,
-                localizationService.GetString("Common.Close")));
-        }
-
         private void OnUpdateStateChanged(object? sender, ApplicationUpdateStateChangedEventArgs e)
         {
             if (!appDispatcher.TryEnqueue(() => ApplyCurrentUpdateState(e.CurrentResult)))
@@ -208,15 +202,13 @@ namespace Foundry.ViewModels
                 IsUpdateAvailable = false;
                 IsInstallButtonVisible = false;
                 IsReleaseNotesVisible = false;
-                releaseNotes = localizationService.GetString("Update.ReleaseNotesFallback");
                 return;
             }
 
             LoadingStatus = GetCheckStatusMessage(result);
             IsUpdateAvailable = result.IsUpdateAvailable;
             IsInstallButtonVisible = result.IsUpdateAvailable;
-            IsReleaseNotesVisible = result.IsUpdateAvailable && !string.IsNullOrWhiteSpace(result.ReleaseNotes);
-            releaseNotes = result.ReleaseNotes ?? localizationService.GetString("Update.NoReleaseNotes");
+            IsReleaseNotesVisible = result.IsUpdateAvailable;
         }
 
         private string GetCheckStatusMessage(ApplicationUpdateCheckResult result)

@@ -55,7 +55,7 @@
                 <wct:SettingsCard.Description>
                     <HyperlinkButton Padding="5,0"
                                      x:Uid="AppUpdate_ReleaseNotesLink"
-                                     Command="{x:Bind ViewModel.GetReleaseNotesCommand}"
+                                     Click="ReleaseNotesLink_Click"
                                      Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
                 </wct:SettingsCard.Description>
                 <StackPanel VerticalAlignment="Center"

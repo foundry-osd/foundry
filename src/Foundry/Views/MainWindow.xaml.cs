@@ -2,6 +2,7 @@ using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Shell;
+using System.ComponentModel;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Input;
 using Windows.System;
@@ -21,6 +22,9 @@ namespace Foundry.Views
         private readonly ILogger logger = Log.ForContext<MainWindow>();
         private const string DocumentationNavigationTag = "Foundry.External.Documentation";
         private const string AboutNavigationTag = "Foundry.External.About";
+        private const string UpdateNavigationTag = "Foundry.Navigation.UpdateAvailable";
+        private const string UpdateNavigationGlyph = "\uEBD3";
+        private const string StringInfoBadgeStyleKey = "StringInfoBadgeStyle";
         private ContentDialog? operationDialog;
         private JsonNavigationService? jsonNavigationService;
         private TextBlock? operationStatusText;
@@ -64,6 +68,7 @@ namespace Foundry.Views
             localizationService.LanguageChanged += OnLanguageChanged;
             operationProgressService.StateChanged += OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             NavFrame.Navigated += OnNavFrameNavigated;
             AppTitleBar.BackRequested += OnTitleBarBackRequested;
             AppTitleBar.PaneToggleRequested += OnTitleBarPaneToggleRequested;
@@ -92,6 +97,7 @@ namespace Foundry.Views
 
             EnsureExternalDocumentationFooterItem();
             EnsureExternalAboutFooterItem();
+            RefreshUpdateFooterItem();
         }
 
         private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
@@ -189,11 +195,23 @@ namespace Foundry.Views
             localizationService.LanguageChanged -= OnLanguageChanged;
             operationProgressService.StateChanged -= OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
+            ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
             NavFrame.Navigated -= OnNavFrameNavigated;
             AppTitleBar.BackRequested -= OnTitleBarBackRequested;
             AppTitleBar.PaneToggleRequested -= OnTitleBarPaneToggleRequested;
             Closed -= OnClosed;
             ViewModel.Dispose();
+        }
+
+        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is nameof(MainViewModel.IsUpdateFooterItemVisible)
+                or nameof(MainViewModel.UpdateFooterTitle)
+                or nameof(MainViewModel.UpdateFooterToolTip)
+                or nameof(MainViewModel.UpdateFooterBadgeValue))
+            {
+                RefreshUpdateFooterItem();
+            }
         }
 
         private void OnShellNavigationStateChanged(object? sender, EventArgs e)
@@ -245,27 +263,6 @@ namespace Foundry.Views
             NavView.IsPaneOpen = !NavView.IsPaneOpen;
         }
 
-        private void UpdateInfoBar_Closed(InfoBar sender, InfoBarClosedEventArgs args)
-        {
-            if (args.Reason == InfoBarCloseReason.CloseButton)
-            {
-                ViewModel.DismissUpdateBanner();
-            }
-        }
-
-        private void UpdateInfoBarActionButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
-            {
-                return;
-            }
-
-            ViewModel.MarkUpdateBannerActionOpened();
-            jsonNavigationService?.NavigateTo(
-                typeof(AppUpdateSettingPage),
-                localizationService.GetString("SettingsPage_UpdateCard.Header"));
-        }
-
         private void ApplyShellNavigationState()
         {
             ShellNavigationState state = shellNavigationGuardService.State;
@@ -278,6 +275,7 @@ namespace Foundry.Views
 
             NavView.IsBackEnabled = !isOperationRunning && NavFrame.CanGoBack;
             AppTitleBar.IsBackButtonVisible = !isOperationRunning && NavFrame.CanGoBack;
+            RefreshUpdateFooterItem();
         }
 
         private void UpdateOperationDialog(bool isOperationRunning)
@@ -519,6 +517,76 @@ namespace Foundry.Views
             ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
         }
 
+        private void RefreshUpdateFooterItem()
+        {
+            if (!ViewModel.IsUpdateFooterItemVisible)
+            {
+                RemoveUpdateFooterItem();
+                return;
+            }
+
+            EnsureUpdateFooterItem();
+        }
+
+        private void EnsureUpdateFooterItem()
+        {
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, UpdateNavigationTag);
+            if (item is null)
+            {
+                item = new()
+                {
+                    Tag = UpdateNavigationTag,
+                    Icon = new FontIcon { Glyph = UpdateNavigationGlyph }
+                };
+                item.Tapped += UpdateFooterItem_Tapped;
+                item.KeyDown += UpdateFooterItem_KeyDown;
+                NavView.FooterMenuItems.Insert(0, item);
+            }
+            else
+            {
+                int currentIndex = NavView.FooterMenuItems.IndexOf(item);
+                if (currentIndex > 0)
+                {
+                    NavView.FooterMenuItems.RemoveAt(currentIndex);
+                    NavView.FooterMenuItems.Insert(0, item);
+                }
+            }
+
+            item.Content = ViewModel.UpdateFooterTitle;
+            item.InfoBadge = CreateUpdateInfoBadge();
+            ToolTipService.SetToolTip(item, ViewModel.UpdateFooterToolTip);
+            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+        }
+
+        private void RemoveUpdateFooterItem()
+        {
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, UpdateNavigationTag);
+            if (item is null)
+            {
+                return;
+            }
+
+            item.Tapped -= UpdateFooterItem_Tapped;
+            item.KeyDown -= UpdateFooterItem_KeyDown;
+            NavView.FooterMenuItems.Remove(item);
+        }
+
+        private InfoBadge CreateUpdateInfoBadge()
+        {
+            InfoBadge badge = new()
+            {
+                Tag = ViewModel.UpdateFooterBadgeValue
+            };
+
+            if (App.Current.Resources.TryGetValue(StringInfoBadgeStyleKey, out object style)
+                && style is Style infoBadgeStyle)
+            {
+                badge.Style = infoBadgeStyle;
+            }
+
+            return badge;
+        }
+
         private void EnsureExternalAboutFooterItem()
         {
             NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, AboutNavigationTag);
@@ -537,6 +605,35 @@ namespace Foundry.Views
             item.Content = localizationService.GetString("Nav_AboutKey.Title");
             ToolTipService.SetToolTip(item, localizationService.GetString("Nav_AboutKey.Description"));
             ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+        }
+
+        private void UpdateFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            NavigateToUpdateSettingsPage();
+        }
+
+        private void UpdateFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
+            {
+                return;
+            }
+
+            e.Handled = true;
+            NavigateToUpdateSettingsPage();
+        }
+
+        private void NavigateToUpdateSettingsPage()
+        {
+            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            {
+                return;
+            }
+
+            jsonNavigationService?.NavigateTo(
+                typeof(AppUpdateSettingPage),
+                localizationService.GetString("SettingsPage_UpdateCard.Header"));
         }
 
         private async void DocumentationFooterItem_Tapped(object sender, TappedRoutedEventArgs e)

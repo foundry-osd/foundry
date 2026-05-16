@@ -97,7 +97,7 @@
     <value>Check for new version</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Download and restart</value>
+    <value>Install and restart</value>
   </data>
   <data name="AppUpdate_LastCheckLabel.Text" xml:space="preserve">
     <value>Last update check</value>
@@ -1044,6 +1044,9 @@
   <data name="UpdateBanner.Title" xml:space="preserve">
     <value>Update available</value>
   </data>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>NEW</value>
+  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Product and version information.</value>
   </data>
@@ -1229,6 +1232,9 @@
   </data>
   <data name="Update.ReleaseNotesFallback" xml:space="preserve">
     <value>Release notes will be available from the configured Velopack update feed.</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Checking for updates</value>
