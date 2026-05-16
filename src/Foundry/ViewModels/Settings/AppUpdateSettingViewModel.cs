@@ -17,6 +17,7 @@ namespace Foundry.ViewModels
         private readonly IAppDispatcher appDispatcher;
         private readonly ILogger logger;
         private ApplicationUpdateCheckResult? currentCheckResult;
+        private CancellationTokenSource? downloadProgressAnimationCts;
 
         [ObservableProperty]
         public partial string InstalledVersion { get; set; }
@@ -108,6 +109,7 @@ namespace Foundry.ViewModels
 
         public void Dispose()
         {
+            StopDownloadProgressAnimation();
             updateStateService.StateChanged -= OnUpdateStateChanged;
             localizationService.LanguageChanged -= OnLanguageChanged;
         }
@@ -155,21 +157,24 @@ namespace Foundry.ViewModels
             IsCheckButtonEnabled = false;
             IsInstallButtonVisible = false;
             DownloadStatus = localizationService.GetString("Update.Status.Downloading");
+            StopDownloadProgressAnimation();
             DownloadProgress = 0;
 
             try
             {
                 Progress<int> progress = new(value =>
                 {
-                    DownloadProgress = value;
+                    SetDownloadProgressTarget(value);
                     DownloadStatus = localizationService.GetString("Update.Status.Downloading");
                 });
 
                 ApplicationUpdateDownloadResult result = await applicationUpdateService.DownloadUpdateAsync(progress);
                 LoadingStatus = result.Message;
+                StopDownloadProgressAnimation();
 
                 if (result.Status == ApplicationUpdateStatus.ReadyToRestart)
                 {
+                    DownloadProgress = 100;
                     applicationUpdateService.ApplyUpdateAndRestart();
                 }
                 else
@@ -179,6 +184,7 @@ namespace Foundry.ViewModels
             }
             finally
             {
+                StopDownloadProgressAnimation();
                 IsLoading = false;
                 IsCheckButtonEnabled = true;
             }
@@ -343,6 +349,42 @@ namespace Foundry.ViewModels
         partial void OnDownloadProgressChanged(double value)
         {
             OnPropertyChanged(nameof(DownloadProgressText));
+        }
+
+        private void SetDownloadProgressTarget(double target)
+        {
+            target = Math.Clamp(Math.Round(target, 1), 0d, 100d);
+            if (target <= DownloadProgress)
+            {
+                return;
+            }
+
+            StopDownloadProgressAnimation();
+            downloadProgressAnimationCts = new CancellationTokenSource();
+            _ = AnimateDownloadProgressAsync(target, downloadProgressAnimationCts.Token);
+        }
+
+        private async Task AnimateDownloadProgressAsync(double target, CancellationToken cancellationToken)
+        {
+            try
+            {
+                while (!cancellationToken.IsCancellationRequested && DownloadProgress < target)
+                {
+                    double nextProgress = Math.Min(target, Math.Round(DownloadProgress + 0.1d, 1));
+                    await appDispatcher.EnqueueAsync(() => DownloadProgress = nextProgress);
+                    await Task.Delay(TimeSpan.FromMilliseconds(20), cancellationToken);
+                }
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+            }
+        }
+
+        private void StopDownloadProgressAnimation()
+        {
+            downloadProgressAnimationCts?.Cancel();
+            downloadProgressAnimationCts?.Dispose();
+            downloadProgressAnimationCts = null;
         }
     }
 }
