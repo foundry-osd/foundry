@@ -13,6 +13,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["success"] = true,
             ["duration_seconds"] = 12.5,
             ["boot_media_architecture"] = "x64",
+            ["failed_step_name"] = "Prepare WinPE workspace",
             ["ssid"] = "CorpWifi",
             ["iso_output_path"] = @"C:\Temp\Foundry.iso"
         };
@@ -23,6 +24,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["success"]!);
         Assert.Equal(12.5, result["duration_seconds"]);
         Assert.Equal("x64", result["boot_media_architecture"]);
+        Assert.Equal("Prepare WinPE workspace", result["failed_step_name"]);
         Assert.False(result.ContainsKey("ssid"));
         Assert.False(result.ContainsKey("iso_output_path"));
     }

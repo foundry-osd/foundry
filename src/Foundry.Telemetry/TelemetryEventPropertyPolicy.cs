@@ -39,6 +39,7 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_target",
                 "success",
                 "duration_seconds",
+                "failed_step_name",
                 "boot_media_architecture",
                 "winpe_language",
                 "boot_image_source",
