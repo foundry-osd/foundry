@@ -17,6 +17,20 @@ public sealed class WinPeEmbeddedAssetServiceTests
     }
 
     [Fact]
+    public void GetUsbProvisioningScriptTemplateContent_ReturnsProvisioningScriptTemplate()
+    {
+        var service = new WinPeEmbeddedAssetService();
+
+        string content = service.GetUsbProvisioningScriptTemplateContent();
+
+        Assert.Contains("Clear-Disk -Number $diskNumber", content, StringComparison.Ordinal);
+        Assert.Contains("{{DISK_NUMBER}}", content, StringComparison.Ordinal);
+        Assert.Contains("{{PARTITION_STYLE}}", content, StringComparison.Ordinal);
+        Assert.Contains("{{BOOT_DRIVE_LETTER}}", content, StringComparison.Ordinal);
+        Assert.Contains("{{CACHE_DRIVE_LETTER}}", content, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void GetIanaWindowsTimeZoneMapJson_ReturnsEmbeddedTimeZoneMap()
     {
         var service = new WinPeEmbeddedAssetService();
