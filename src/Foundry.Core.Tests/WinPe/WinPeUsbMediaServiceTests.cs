@@ -209,6 +209,24 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
+    public void BuildPowerShellProvisioningScript_WhenClearedDiskKeepsPreviousStyle_ResetsPartitionStyle()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("& diskpart.exe /s $diskPartResetScriptPath", script, StringComparison.Ordinal);
+        Assert.Contains("'clean'", script, StringComparison.Ordinal);
+        Assert.Contains("\"convert $($partitionStyle.ToLowerInvariant())\"", script, StringComparison.Ordinal);
+        Assert.Contains("Remove-Item -Path $diskPartResetScriptPath", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("could not be reset to $partitionStyle", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("Set-Disk -Number $diskNumber -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void BuildPowerShellProvisioningScript_WhenFormattingFreshPartitions_FormatsByExplicitDriveLetter()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
@@ -218,15 +236,37 @@ public sealed class WinPeUsbMediaServiceTests
             bootDriveLetter: 'S',
             cacheDriveLetter: 'T');
 
-        Assert.DoesNotContain("diskpart", script, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("select partition", script, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("select volume", script, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("create partition", script, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("format fs=", script, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("$bootDriveLetter = 'S'", script, StringComparison.Ordinal);
         Assert.Contains("$cacheDriveLetter = 'T'", script, StringComparison.Ordinal);
         Assert.Contains("DriveLetter = $bootDriveLetter", script, StringComparison.Ordinal);
         Assert.Contains("DriveLetter = $cacheDriveLetter", script, StringComparison.Ordinal);
         Assert.Contains("Format-Volume @bootFormatArguments", script, StringComparison.Ordinal);
         Assert.Contains("Format-Volume @cacheFormatArguments", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void BuildPowerShellProvisioningScript_WhenCreatingPartitions_WaitsForVolumesBeforeFormatting()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("function Wait-FoundryUsbVolume", script, StringComparison.Ordinal);
+        Assert.Contains("Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter -VolumeName 'BOOT'", script, StringComparison.Ordinal);
+        Assert.Contains("Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter -VolumeName 'cache'", script, StringComparison.Ordinal);
+        Assert.True(
+            script.IndexOf("Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Format-Volume @bootFormatArguments", StringComparison.Ordinal));
+        Assert.True(
+            script.IndexOf("Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Format-Volume @cacheFormatArguments", StringComparison.Ordinal));
     }
 
     [Fact]
