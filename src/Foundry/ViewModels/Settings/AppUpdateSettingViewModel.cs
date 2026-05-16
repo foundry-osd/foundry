@@ -43,13 +43,7 @@ namespace Foundry.ViewModels
         public partial string UpdateStatusTitle { get; set; }
 
         [ObservableProperty]
-        public partial string UpdateStatusMetadata { get; set; }
-
-        [ObservableProperty]
         public partial double DownloadProgress { get; set; }
-
-        [ObservableProperty]
-        public partial string DownloadStatus { get; set; }
 
         [ObservableProperty]
         public partial bool IsInstallButtonVisible { get; set; }
@@ -65,7 +59,6 @@ namespace Foundry.ViewModels
             ? localizationService.GetString("Update.Field.LatestVersion")
             : localizationService.GetString("Update.Field.AvailableVersion");
         public string LastUpdateCheckLabel => localizationService.GetString("Update.Field.LastUpdateCheck");
-        public string UpdateFeedLabel => localizationService.GetString("Update.Field.UpdateFeed");
         public string UpdateNewBadgeText => localizationService.GetString("Update.Badge.New");
         public string CloseText => localizationService.GetString("Common.Close");
         public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
@@ -100,9 +93,7 @@ namespace Foundry.ViewModels
             LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
             IsCheckButtonEnabled = true;
             LoadingStatus = localizationService.GetString("Update.Status.Ready");
-            DownloadStatus = localizationService.GetString("Update.Status.Downloading");
             UpdateStatusTitle = localizationService.GetString("Update.Status.Ready");
-            UpdateStatusMetadata = GetStatusMetadata();
 
             updateStateService.StateChanged += OnUpdateStateChanged;
             localizationService.LanguageChanged += OnLanguageChanged;
@@ -158,7 +149,6 @@ namespace Foundry.ViewModels
             IsLoading = true;
             IsCheckButtonEnabled = false;
             IsInstallButtonVisible = false;
-            DownloadStatus = localizationService.GetString("Update.Status.Downloading");
             DownloadProgress = 0;
 
             try
@@ -166,7 +156,6 @@ namespace Foundry.ViewModels
                 Progress<int> progress = new(value =>
                 {
                     SetDownloadProgressTarget(value);
-                    DownloadStatus = localizationService.GetString("Update.Status.Downloading");
                 });
 
                 ApplicationUpdateDownloadResult result = await applicationUpdateService.DownloadUpdateAsync(progress);
@@ -207,13 +196,11 @@ namespace Foundry.ViewModels
             {
                 InstalledVersion = FoundryApplicationInfo.Version;
                 LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
-                UpdateStatusMetadata = GetStatusMetadata();
                 OnPropertyChanged(nameof(UpdateSourceDescription));
                 OnPropertyChanged(nameof(UpdateSourceTitle));
                 OnPropertyChanged(nameof(InstalledVersionLabel));
                 OnPropertyChanged(nameof(AvailableVersionLabel));
                 OnPropertyChanged(nameof(LastUpdateCheckLabel));
-                OnPropertyChanged(nameof(UpdateFeedLabel));
                 OnPropertyChanged(nameof(UpdateNewBadgeText));
                 OnPropertyChanged(nameof(CloseText));
                 OnPropertyChanged(nameof(ReleaseNotesLoadingText));
@@ -224,7 +211,6 @@ namespace Foundry.ViewModels
                 OnPropertyChanged(nameof(InstallProgressDialogVersionText));
                 OnPropertyChanged(nameof(DownloadProgressLabel));
                 OnPropertyChanged(nameof(DownloadProgressText));
-                DownloadStatus = localizationService.GetString("Update.Status.Downloading");
                 ApplyCurrentUpdateState(currentCheckResult);
             }))
             {
@@ -243,7 +229,6 @@ namespace Foundry.ViewModels
             {
                 LoadingStatus = localizationService.GetString("Update.Status.Ready");
                 UpdateStatusTitle = localizationService.GetString("Update.Status.Ready");
-                UpdateStatusMetadata = GetStatusMetadata();
                 AvailableVersion = localizationService.GetString("Update.NotChecked");
                 IsUpdateAvailable = false;
                 IsInstallButtonVisible = false;
@@ -254,7 +239,6 @@ namespace Foundry.ViewModels
 
             LoadingStatus = GetCheckStatusMessage(result);
             UpdateStatusTitle = GetCheckStatusTitle(result);
-            UpdateStatusMetadata = GetStatusMetadata();
             AvailableVersion = GetAvailableVersion(result);
             OnPropertyChanged(nameof(InstallProgressDialogVersionText));
             IsUpdateAvailable = result.IsUpdateAvailable;
@@ -298,20 +282,12 @@ namespace Foundry.ViewModels
                 ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.StatusTitle.NoUpdate"),
                 ApplicationUpdateStatus.UpdateAvailable when result.Version is not null =>
                     localizationService.FormatString("Update.StatusTitle.UpdateAvailableFormat", result.Version),
-                ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("UpdateBanner.Title"),
+                ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("Update.StatusTitle.UpdateAvailable"),
                 ApplicationUpdateStatus.Failed => localizationService.GetString("Update.StatusTitle.Failed"),
                 ApplicationUpdateStatus.SkippedInDebug => localizationService.GetString("Update.StatusTitle.Skipped"),
                 ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.StatusTitle.Skipped"),
                 _ => localizationService.GetString("Update.Status.Ready")
             };
-        }
-
-        private string GetStatusMetadata()
-        {
-            return localizationService.FormatString(
-                "Update.StatusMetadataFormat",
-                InstalledVersion,
-                LastUpdateCheck);
         }
 
         private string GetUpdateSourceDescription()

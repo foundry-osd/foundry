@@ -1053,12 +1053,6 @@
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="UpdateBanner.Action" xml:space="preserve">
-    <value>Voir la mise à jour</value>
-  </data>
-  <data name="UpdateBanner.Title" xml:space="preserve">
-    <value>Mise à jour disponible</value>
-  </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Mise à jour</value>
   </data>
@@ -1242,17 +1236,11 @@
   <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
     <value>Progression du téléchargement</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressFormat" xml:space="preserve">
-    <value>{0:0.0} %</value>
-  </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
     <value>Téléchargement de la mise à jour</value>
   </data>
   <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
     <value>Version {0}</value>
-  </data>
-  <data name="Update.NoReleaseNotes" xml:space="preserve">
-    <value>Aucune note de version n'a été fournie pour cette mise à jour.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Jamais vérifié</value>
@@ -1272,26 +1260,11 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Dernière version</value>
   </data>
-  <data name="Update.Field.UpdateFeed" xml:space="preserve">
-    <value>Flux de mise à jour</value>
-  </data>
-  <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
-    <value>Notes de version</value>
-  </data>
-  <data name="Update.ReleaseNotesFallback" xml:space="preserve">
-    <value>Les notes de version seront disponibles depuis le flux de mise à jour Velopack configuré.</value>
-  </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
     <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Recherche de mises à jour</value>
-  </data>
-  <data name="Update.Status.Downloading" xml:space="preserve">
-    <value>Téléchargement de la mise à jour</value>
-  </data>
-  <data name="Update.Status.DownloadingProgressFormat" xml:space="preserve">
-    <value>Téléchargement de la mise à jour ({0} %)</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Échec de la recherche de mise à jour : {0}</value>
@@ -1302,11 +1275,11 @@
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>À jour</value>
   </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>Mise à jour disponible</value>
+  </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
     <value>Foundry OSD {0} est disponible</value>
-  </data>
-  <data name="Update.StatusMetadataFormat" xml:space="preserve">
-    <value>Version installée : {0} • Dernière vérification : {1}</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Recherche de mise à jour ignorée car Foundry OSD ne s'exécute pas depuis une installation Velopack.</value>

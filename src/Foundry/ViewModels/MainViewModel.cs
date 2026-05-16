@@ -6,7 +6,7 @@ using Serilog;
 namespace Foundry.ViewModels
 {
     /// <summary>
-    /// Owns shell-level update banner state for the main window.
+    /// Owns shell-level update footer state for the main window.
     /// </summary>
     public sealed partial class MainViewModel : ObservableObject, IDisposable
     {
@@ -63,7 +63,7 @@ namespace Foundry.ViewModels
             if (!appDispatcher.TryEnqueue(() => ApplyUpdateState(e.CurrentResult)))
             {
                 logger.Warning(
-                    "Failed to enqueue update banner state refresh. Status={Status}, Version={Version}",
+                    "Failed to enqueue update footer state refresh. Status={Status}, Version={Version}",
                     e.CurrentResult?.Status,
                     e.CurrentResult?.Version);
             }
@@ -74,7 +74,7 @@ namespace Foundry.ViewModels
             if (!appDispatcher.TryEnqueue(() => ApplyUpdateState(currentUpdateResult)))
             {
                 logger.Warning(
-                    "Failed to enqueue update banner localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                    "Failed to enqueue update footer localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
                     e.OldLanguage,
                     e.NewLanguage);
             }

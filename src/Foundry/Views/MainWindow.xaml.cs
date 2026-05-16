@@ -11,7 +11,7 @@ using Serilog;
 namespace Foundry.Views
 {
     /// <summary>
-    /// Hosts the main WinUI shell, navigation view, global operation dialog, and update banner.
+    /// Hosts the main WinUI shell, navigation view, global operation dialog, and update footer item.
     /// </summary>
     public sealed partial class MainWindow : Window
     {

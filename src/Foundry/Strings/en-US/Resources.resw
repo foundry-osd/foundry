@@ -1053,12 +1053,6 @@
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
     <value>TB</value>
   </data>
-  <data name="UpdateBanner.Action" xml:space="preserve">
-    <value>View update</value>
-  </data>
-  <data name="UpdateBanner.Title" xml:space="preserve">
-    <value>Update available</value>
-  </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Update</value>
   </data>
@@ -1242,17 +1236,11 @@
   <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
     <value>Download progress</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressFormat" xml:space="preserve">
-    <value>{0:0.0}%</value>
-  </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
     <value>Downloading update</value>
   </data>
   <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
     <value>Version {0}</value>
-  </data>
-  <data name="Update.NoReleaseNotes" xml:space="preserve">
-    <value>No release notes were provided for this update.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Not checked</value>
@@ -1272,26 +1260,11 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Latest version</value>
   </data>
-  <data name="Update.Field.UpdateFeed" xml:space="preserve">
-    <value>Update feed</value>
-  </data>
-  <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
-    <value>Release notes</value>
-  </data>
-  <data name="Update.ReleaseNotesFallback" xml:space="preserve">
-    <value>Release notes will be available from the configured Velopack update feed.</value>
-  </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
     <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Checking for updates</value>
-  </data>
-  <data name="Update.Status.Downloading" xml:space="preserve">
-    <value>Downloading update</value>
-  </data>
-  <data name="Update.Status.DownloadingProgressFormat" xml:space="preserve">
-    <value>Downloading update ({0}%)</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Update check failed: {0}</value>
@@ -1302,11 +1275,11 @@
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Up to date</value>
   </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
     <value>Foundry OSD {0} is available</value>
-  </data>
-  <data name="Update.StatusMetadataFormat" xml:space="preserve">
-    <value>Installed version: {0} • Last checked: {1}</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Update check skipped because Foundry OSD is not running from a Velopack installation.</value>

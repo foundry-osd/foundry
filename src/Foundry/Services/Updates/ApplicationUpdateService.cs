@@ -125,7 +125,6 @@ internal sealed class ApplicationUpdateService(
 
             VelopackAsset targetRelease = updateInfo.TargetFullRelease;
             string version = FormatDisplayVersion(targetRelease.Version?.ToString());
-            string releaseNotes = ResolveReleaseNotes(targetRelease);
             string updateMessage = $"{FoundryApplicationInfo.AppName} {version} is available.";
 
             logger.Information(
@@ -139,8 +138,7 @@ internal sealed class ApplicationUpdateService(
             return PublishCheckResult(new ApplicationUpdateCheckResult(
                 ApplicationUpdateStatus.UpdateAvailable,
                 updateMessage,
-                version,
-                releaseNotes));
+                version));
         }
         catch (Exception ex)
         {
@@ -294,21 +292,6 @@ internal sealed class ApplicationUpdateService(
         };
 
         return builder.Uri.ToString().TrimEnd('/');
-    }
-
-    private static string ResolveReleaseNotes(VelopackAsset targetRelease)
-    {
-        if (!string.IsNullOrWhiteSpace(targetRelease.NotesMarkdown))
-        {
-            return targetRelease.NotesMarkdown;
-        }
-
-        if (!string.IsNullOrWhiteSpace(targetRelease.NotesHTML))
-        {
-            return targetRelease.NotesHTML;
-        }
-
-        return "No release notes were provided for this update.";
     }
 
     private static string FormatDisplayVersion(string? packageVersion)
