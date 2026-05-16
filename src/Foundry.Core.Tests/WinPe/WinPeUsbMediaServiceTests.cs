@@ -199,6 +199,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$partitionStyle = 'GPT'", script, StringComparison.Ordinal);
         Assert.Contains("Initialize-Disk -Number $diskNumber -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
         Assert.Contains("if ($partitionStyle -eq 'GPT')", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
         Assert.Contains("$bootPartitionArguments['GptType'] = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'", script, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("FileSystem = 'FAT32'", script, StringComparison.Ordinal);
         Assert.Contains("NewFileSystemLabel = 'BOOT'", script, StringComparison.Ordinal);
@@ -316,6 +317,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$diskNumber = 8", script, StringComparison.Ordinal);
         Assert.Contains("$partitionStyle = 'MBR'", script, StringComparison.Ordinal);
         Assert.Contains("$fullFormat = $true", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
         Assert.Contains("$bootPartitionArguments['MbrType'] = 'FAT32'", script, StringComparison.Ordinal);
         Assert.Contains("$bootPartitionArguments['IsActive'] = $true", script, StringComparison.Ordinal);
         Assert.Contains("$cachePartitionArguments['MbrType'] = 'IFS'", script, StringComparison.Ordinal);

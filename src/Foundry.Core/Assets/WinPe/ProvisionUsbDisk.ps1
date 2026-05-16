@@ -82,7 +82,7 @@ Write-FoundryUsbVerbose "USB partition table initialized. CurrentPartitionStyle=
 Write-FoundryUsbProgress 38 'Creating BOOT partition.'
 $bootPartitionArguments = @{
     DiskNumber = $diskNumber
-    Size = 4096MB
+    Size = 2048MB
     DriveLetter = $bootDriveLetter
     ErrorAction = 'Stop'
 }
