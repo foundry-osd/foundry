@@ -58,12 +58,16 @@
             <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                        Text="{Binding DownloadProgressLabel}" />
-            <TextBlock Grid.Column="1"
-                       FlowDirection="LeftToRight"
-                       FontWeight="SemiBold"
-                       MinWidth="56"
-                       TextAlignment="Right"
-                       Text="{Binding DownloadProgressText}" />
+            <StackPanel Grid.Column="1"
+                        MinWidth="56"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <TextBlock FlowDirection="LeftToRight"
+                           FontWeight="SemiBold"
+                           Text="{Binding DownloadProgressText}" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="%" />
+            </StackPanel>
             <ProgressBar Grid.Row="1"
                          Grid.ColumnSpan="2"
                          Maximum="100"
