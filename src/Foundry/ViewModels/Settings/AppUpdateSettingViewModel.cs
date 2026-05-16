@@ -22,9 +22,6 @@ namespace Foundry.ViewModels
         public partial string InstalledVersion { get; set; }
 
         [ObservableProperty]
-        public partial string LatestVersion { get; set; }
-
-        [ObservableProperty]
         public partial string LastUpdateCheck { get; set; }
 
         [ObservableProperty]
@@ -43,6 +40,9 @@ namespace Foundry.ViewModels
         public partial string UpdateStatusTitle { get; set; }
 
         [ObservableProperty]
+        public partial string UpdateStatusMetadata { get; set; }
+
+        [ObservableProperty]
         public partial int DownloadProgress { get; set; }
 
         [ObservableProperty]
@@ -51,8 +51,8 @@ namespace Foundry.ViewModels
         [ObservableProperty]
         public partial bool IsReleaseNotesVisible { get; set; }
 
-        public string UpdateChannel => appSettingsService.Current.Updates.Channel;
         public string UpdateFeedUrl => appSettingsService.Current.Updates.FeedUrl;
+        public string UpdateSourceDescription => GetUpdateSourceDescription();
         public string UpdateSourceTitle => localizationService.GetString("AppUpdate.UpdateSourceTitle");
         public string CloseText => localizationService.GetString("Common.Close");
         public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
@@ -78,11 +78,11 @@ namespace Foundry.ViewModels
             this.logger = logger.ForContext<AppUpdateSettingViewModel>();
 
             InstalledVersion = FoundryApplicationInfo.Version;
-            LatestVersion = localizationService.GetString("Update.NotChecked");
             LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
             IsCheckButtonEnabled = true;
             LoadingStatus = localizationService.GetString("Update.Status.Ready");
             UpdateStatusTitle = localizationService.GetString("Update.Status.Ready");
+            UpdateStatusMetadata = GetStatusMetadata();
 
             updateStateService.StateChanged += OnUpdateStateChanged;
             localizationService.LanguageChanged += OnLanguageChanged;
@@ -191,6 +191,8 @@ namespace Foundry.ViewModels
             {
                 InstalledVersion = FoundryApplicationInfo.Version;
                 LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
+                UpdateStatusMetadata = GetStatusMetadata();
+                OnPropertyChanged(nameof(UpdateSourceDescription));
                 OnPropertyChanged(nameof(UpdateSourceTitle));
                 OnPropertyChanged(nameof(CloseText));
                 OnPropertyChanged(nameof(ReleaseNotesLoadingText));
@@ -214,7 +216,7 @@ namespace Foundry.ViewModels
             {
                 LoadingStatus = localizationService.GetString("Update.Status.Ready");
                 UpdateStatusTitle = localizationService.GetString("Update.Status.Ready");
-                LatestVersion = localizationService.GetString("Update.NotChecked");
+                UpdateStatusMetadata = GetStatusMetadata();
                 IsUpdateAvailable = false;
                 IsInstallButtonVisible = false;
                 IsReleaseNotesVisible = false;
@@ -223,7 +225,7 @@ namespace Foundry.ViewModels
 
             LoadingStatus = GetCheckStatusMessage(result);
             UpdateStatusTitle = GetCheckStatusTitle(result);
-            LatestVersion = GetLatestVersion(result);
+            UpdateStatusMetadata = GetStatusMetadata();
             IsUpdateAvailable = result.IsUpdateAvailable;
             IsInstallButtonVisible = result.IsUpdateAvailable;
             IsReleaseNotesVisible = result.IsUpdateAvailable;
@@ -234,9 +236,7 @@ namespace Foundry.ViewModels
             return result.Status switch
             {
                 ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.Status.NoUpdate"),
-                ApplicationUpdateStatus.UpdateAvailable => result.Version is not null
-                    ? localizationService.FormatString("Update.Status.UpdateAvailableWithVersion", result.Version)
-                    : localizationService.GetString("Update.Status.UpdateAvailable"),
+                ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("Update.Status.UpdateAvailableActionHint"),
                 ApplicationUpdateStatus.Failed => localizationService.FormatString("Update.Status.FailedFormat", result.Message),
                 ApplicationUpdateStatus.SkippedInDebug => localizationService.GetString("Update.Status.SkippedInDebug"),
                 ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.Status.NotInstalled"),
@@ -249,6 +249,8 @@ namespace Foundry.ViewModels
             return result.Status switch
             {
                 ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.StatusTitle.NoUpdate"),
+                ApplicationUpdateStatus.UpdateAvailable when result.Version is not null =>
+                    localizationService.FormatString("Update.StatusTitle.UpdateAvailableFormat", result.Version),
                 ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("UpdateBanner.Title"),
                 ApplicationUpdateStatus.Failed => localizationService.GetString("Update.StatusTitle.Failed"),
                 ApplicationUpdateStatus.SkippedInDebug => localizationService.GetString("Update.StatusTitle.Skipped"),
@@ -257,14 +259,42 @@ namespace Foundry.ViewModels
             };
         }
 
-        private string GetLatestVersion(ApplicationUpdateCheckResult result)
+        private string GetStatusMetadata()
         {
-            return result.Status switch
+            return localizationService.FormatString(
+                "Update.StatusMetadataFormat",
+                InstalledVersion,
+                LastUpdateCheck);
+        }
+
+        private string GetUpdateSourceDescription()
+        {
+            if (!IsGitHubRepositoryUrl(UpdateFeedUrl))
             {
-                ApplicationUpdateStatus.UpdateAvailable when result.Version is not null => result.Version,
-                ApplicationUpdateStatus.NoUpdate => InstalledVersion,
-                _ => localizationService.GetString("Update.LatestVersionUnavailable")
+                return localizationService.GetString("AppUpdate.SourceKind.SimpleWeb");
+            }
+
+            return localizationService.FormatString(
+                "AppUpdate.ReleaseLaneFormat",
+                GetLocalizedReleaseLane(appSettingsService.Current.Updates.Channel));
+        }
+
+        private string GetLocalizedReleaseLane(string? channel)
+        {
+            return channel?.Trim().ToLowerInvariant() switch
+            {
+                "beta" => localizationService.GetString("AppUpdate.ReleaseLane.Beta"),
+                "preview" => localizationService.GetString("AppUpdate.ReleaseLane.Preview"),
+                "prerelease" => localizationService.GetString("AppUpdate.ReleaseLane.Preview"),
+                _ => localizationService.GetString("AppUpdate.ReleaseLane.Stable")
             };
+        }
+
+        private static bool IsGitHubRepositoryUrl(string feedUrl)
+        {
+            return Uri.TryCreate(feedUrl, UriKind.Absolute, out Uri? uri)
+                && string.Equals(uri.Host, "github.com", StringComparison.OrdinalIgnoreCase)
+                && uri.AbsolutePath.Count(character => character == '/') == 2;
         }
 
         private string FormatLastUpdateCheck(DateTimeOffset? checkedAt)

@@ -99,20 +99,26 @@
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
     <value>Install and restart</value>
   </data>
-  <data name="AppUpdate_LastCheckLabel.Text" xml:space="preserve">
-    <value>Last update check</value>
-  </data>
-  <data name="AppUpdate_InstalledVersionLabel.Text" xml:space="preserve">
-    <value>Installed version</value>
-  </data>
-  <data name="AppUpdate_LatestVersionLabel.Text" xml:space="preserve">
-    <value>Latest version</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release notes</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Update source</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>Release lane: {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>Stable releases</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>Beta releases</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>Preview releases</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>Velopack web feed</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Close</value>
@@ -1053,8 +1059,11 @@
   <data name="UpdateBanner.Title" xml:space="preserve">
     <value>Update available</value>
   </data>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>NEW</value>
+    <value>New</value>
   </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Product and version information.</value>
@@ -1233,9 +1242,6 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Not checked</value>
   </data>
-  <data name="Update.LatestVersionUnavailable" xml:space="preserve">
-    <value>Not available</value>
-  </data>
   <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
     <value>Release notes</value>
   </data>
@@ -1263,6 +1269,12 @@
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
     <value>Up to date</value>
   </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Foundry OSD {0} is available</value>
+  </data>
+  <data name="Update.StatusMetadataFormat" xml:space="preserve">
+    <value>Installed version: {0} • Last checked: {1}</value>
+  </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Update check skipped because Foundry OSD is not running from a Velopack installation.</value>
   </data>
@@ -1280,6 +1292,9 @@
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
     <value>A Foundry OSD update is available.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>Install the update when you are ready. Foundry OSD will restart to finish applying it.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is available.</value>

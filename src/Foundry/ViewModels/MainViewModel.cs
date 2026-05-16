@@ -42,7 +42,7 @@ namespace Foundry.ViewModels
             this.appDispatcher = appDispatcher;
             this.logger = logger.ForContext<MainViewModel>();
 
-            UpdateFooterTitle = localizationService.GetString("UpdateBanner.Title");
+            UpdateFooterTitle = localizationService.GetString("UpdateFooter.Title");
             UpdateFooterToolTip = localizationService.GetString("Update.Status.UpdateAvailable");
             UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
 
@@ -83,7 +83,7 @@ namespace Foundry.ViewModels
         private void ApplyUpdateState(ApplicationUpdateCheckResult? result)
         {
             currentUpdateResult = result;
-            UpdateFooterTitle = localizationService.GetString("UpdateBanner.Title");
+            UpdateFooterTitle = localizationService.GetString("UpdateFooter.Title");
 
             if (result?.IsUpdateAvailable == true)
             {
@@ -91,7 +91,7 @@ namespace Foundry.ViewModels
                     ? localizationService.FormatString("Update.Status.UpdateAvailableWithVersion", result.Version)
                     : localizationService.GetString("Update.Status.UpdateAvailable");
 
-                UpdateFooterBadgeValue = result.Version ?? localizationService.GetString("UpdateFooter.BadgeFallback");
+                UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
                 IsUpdateFooterItemVisible = true;
                 return;
             }
