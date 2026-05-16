@@ -61,7 +61,9 @@ namespace Foundry.ViewModels
         public string UpdateSourceDescription => GetUpdateSourceDescription();
         public string UpdateSourceTitle => localizationService.GetString("AppUpdate.UpdateSourceTitle");
         public string InstalledVersionLabel => localizationService.GetString("Update.Field.InstalledVersion");
-        public string AvailableVersionLabel => localizationService.GetString("Update.Field.AvailableVersion");
+        public string AvailableVersionLabel => currentCheckResult?.Status == ApplicationUpdateStatus.NoUpdate
+            ? localizationService.GetString("Update.Field.LatestVersion")
+            : localizationService.GetString("Update.Field.AvailableVersion");
         public string LastUpdateCheckLabel => localizationService.GetString("Update.Field.LastUpdateCheck");
         public string UpdateFeedLabel => localizationService.GetString("Update.Field.UpdateFeed");
         public string UpdateNewBadgeText => localizationService.GetString("Update.Badge.New");
@@ -244,6 +246,7 @@ namespace Foundry.ViewModels
                 IsUpdateAvailable = false;
                 IsInstallButtonVisible = false;
                 IsReleaseNotesVisible = false;
+                OnPropertyChanged(nameof(AvailableVersionLabel));
                 return;
             }
 
@@ -254,6 +257,7 @@ namespace Foundry.ViewModels
             IsUpdateAvailable = result.IsUpdateAvailable;
             IsInstallButtonVisible = result.IsUpdateAvailable;
             IsReleaseNotesVisible = result.IsUpdateAvailable;
+            OnPropertyChanged(nameof(AvailableVersionLabel));
         }
 
         private string GetAvailableVersion(ApplicationUpdateCheckResult result)

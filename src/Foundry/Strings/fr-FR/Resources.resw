@@ -1266,6 +1266,9 @@
   <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
     <value>Dernière vérification</value>
   </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>Dernière version</value>
+  </data>
   <data name="Update.Field.UpdateFeed" xml:space="preserve">
     <value>Flux de mise à jour</value>
   </data>

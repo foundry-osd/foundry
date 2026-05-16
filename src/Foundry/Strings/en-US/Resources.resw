@@ -1266,6 +1266,9 @@
   <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
     <value>Last checked</value>
   </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>Latest version</value>
+  </data>
   <data name="Update.Field.UpdateFeed" xml:space="preserve">
     <value>Update feed</value>
   </data>
