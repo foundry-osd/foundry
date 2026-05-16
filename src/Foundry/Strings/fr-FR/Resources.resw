@@ -1237,7 +1237,7 @@
     <value>Mettre à jour Foundry OSD</value>
   </data>
   <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Foundry OSD télécharge la mise à jour. L'application redémarrera automatiquement quand elle sera prête.</value>
+    <value>Téléchargement de la mise à jour. Foundry OSD redémarrera quand elle sera prête.</value>
   </data>
   <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
     <value>Progression du téléchargement</value>
@@ -1246,7 +1246,10 @@
     <value>{0:0.0} %</value>
   </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Mise à jour de Foundry OSD</value>
+    <value>Téléchargement de la mise à jour</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
   </data>
   <data name="Update.NoReleaseNotes" xml:space="preserve">
     <value>Aucune note de version n'a été fournie pour cette mise à jour.</value>

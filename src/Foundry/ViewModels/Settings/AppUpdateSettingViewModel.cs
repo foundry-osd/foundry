@@ -73,6 +73,7 @@ namespace Foundry.ViewModels
         public string ReleaseNotesRepositoryText => localizationService.GetString("Update.ReleaseNotesRepository");
         public string InstallProgressDialogTitle => localizationService.GetString("Update.InstallProgressDialog.Title");
         public string InstallProgressDialogMessage => localizationService.GetString("Update.InstallProgressDialog.Message");
+        public string InstallProgressDialogVersionText => localizationService.FormatString("Update.InstallProgressDialog.VersionFormat", AvailableVersion);
         public string DownloadProgressLabel => localizationService.GetString("Update.InstallProgressDialog.ProgressLabel");
         public string DownloadProgressText => localizationService.FormatString("Update.InstallProgressDialog.ProgressFormat", DownloadProgress);
         public Uri ReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
@@ -220,6 +221,7 @@ namespace Foundry.ViewModels
                 OnPropertyChanged(nameof(ReleaseNotesRepositoryText));
                 OnPropertyChanged(nameof(InstallProgressDialogTitle));
                 OnPropertyChanged(nameof(InstallProgressDialogMessage));
+                OnPropertyChanged(nameof(InstallProgressDialogVersionText));
                 OnPropertyChanged(nameof(DownloadProgressLabel));
                 OnPropertyChanged(nameof(DownloadProgressText));
                 DownloadStatus = localizationService.GetString("Update.Status.Downloading");
@@ -254,6 +256,7 @@ namespace Foundry.ViewModels
             UpdateStatusTitle = GetCheckStatusTitle(result);
             UpdateStatusMetadata = GetStatusMetadata();
             AvailableVersion = GetAvailableVersion(result);
+            OnPropertyChanged(nameof(InstallProgressDialogVersionText));
             IsUpdateAvailable = result.IsUpdateAvailable;
             IsInstallButtonVisible = result.IsUpdateAvailable;
             IsReleaseNotesVisible = result.IsUpdateAvailable;

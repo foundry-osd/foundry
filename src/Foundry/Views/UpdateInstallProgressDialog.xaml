@@ -9,32 +9,37 @@
                Style="{ThemeResource DefaultContentDialogStyle}"
                Title="{Binding InstallProgressDialogTitle}"
                mc:Ignorable="d">
-    <Grid Width="460"
-          RowSpacing="{ThemeResource FoundrySpace16}">
+    <Grid Width="520"
+          RowSpacing="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid ColumnSpacing="{ThemeResource FoundrySpace16}">
+        <Grid ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border Width="44"
-                    Height="44"
+            <Border Width="52"
+                    Height="52"
                     Background="{ThemeResource AccentFillColorDefaultBrush}"
                     CornerRadius="{ThemeResource FoundryCardCornerRadius}">
-                <FontIcon FontSize="22"
+                <FontIcon FontSize="24"
                           Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
                           Glyph="&#xEBD3;" />
             </Border>
 
             <StackPanel Grid.Column="1"
                         VerticalAlignment="Center"
-                        Spacing="{ThemeResource FoundrySpace4}">
+                        Spacing="{ThemeResource FoundrySpace8}">
                 <TextBlock Text="{Binding InstallProgressDialogMessage}"
+                           TextWrapping="WrapWholeWords" />
+                <TextBlock FlowDirection="LeftToRight"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                           Text="{Binding InstallProgressDialogVersionText}"
                            TextWrapping="WrapWholeWords" />
                 <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                            Style="{ThemeResource FoundryCaptionTextBlockStyle}"
@@ -44,7 +49,7 @@
         </Grid>
 
         <Grid Grid.Row="1"
-              RowSpacing="{ThemeResource FoundrySpace8}">
+              RowSpacing="{ThemeResource FoundrySpace12}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

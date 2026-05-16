@@ -1237,7 +1237,7 @@
     <value>Update Foundry OSD</value>
   </data>
   <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Foundry OSD is downloading the update. The app will restart automatically when it is ready.</value>
+    <value>Downloading the update. Foundry OSD will restart when it is ready.</value>
   </data>
   <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
     <value>Download progress</value>
@@ -1246,7 +1246,10 @@
     <value>{0:0.0}%</value>
   </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Updating Foundry OSD</value>
+    <value>Downloading update</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
   </data>
   <data name="Update.NoReleaseNotes" xml:space="preserve">
     <value>No release notes were provided for this update.</value>
