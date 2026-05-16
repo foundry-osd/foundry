@@ -1289,6 +1289,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ["deploy_runtime_payload_source"] = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
                 ["autopilot_enabled"] = options.IsAutopilotEnabled
             };
+        AddCustomizationTelemetryProperties(properties, expertDeployConfigurationStateService.Current.Customization);
 
         logger.Debug(
             "Tracking media telemetry event. Target={Target}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
@@ -1304,6 +1305,65 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         await telemetryService.TrackAsync(TelemetryEvents.OsdBootMediaFinished, properties, cancellationToken);
         logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["boot_media_target"], success);
+    }
+
+    private static void AddCustomizationTelemetryProperties(
+        IDictionary<string, object?> properties,
+        CustomizationSettings customization)
+    {
+        MachineNamingSettings machineNaming = customization.MachineNaming;
+        OobeSettings oobe = customization.Oobe;
+
+        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled;
+        properties["customization_machine_naming_enabled"] = machineNaming.IsEnabled;
+        properties["customization_machine_naming_mode"] = ResolveMachineNamingTelemetryMode(machineNaming);
+        properties["customization_machine_naming_prefix_configured"] =
+            machineNaming.IsEnabled && !string.IsNullOrWhiteSpace(machineNaming.Prefix);
+        properties["customization_oobe_enabled"] = oobe.IsEnabled;
+        properties["customization_oobe_skip_license_terms"] = oobe.IsEnabled && oobe.SkipLicenseTerms;
+        properties["customization_oobe_diagnostic_data_level"] = ToTelemetryValue(oobe.DiagnosticDataLevel);
+        properties["customization_oobe_hide_privacy_setup"] = oobe.IsEnabled && oobe.HidePrivacySetup;
+        properties["customization_oobe_tailored_experiences_enabled"] = oobe.IsEnabled && oobe.AllowTailoredExperiences;
+        properties["customization_oobe_advertising_id_enabled"] = oobe.IsEnabled && oobe.AllowAdvertisingId;
+        properties["customization_oobe_online_speech_recognition_enabled"] = oobe.IsEnabled && oobe.AllowOnlineSpeechRecognition;
+        properties["customization_oobe_inking_typing_diagnostics_enabled"] = oobe.IsEnabled && oobe.AllowInkingAndTypingDiagnostics;
+        properties["customization_oobe_location_access"] = ToTelemetryValue(oobe.LocationAccess);
+    }
+
+    private static string ResolveMachineNamingTelemetryMode(MachineNamingSettings settings)
+    {
+        if (!settings.IsEnabled)
+        {
+            return "disabled";
+        }
+
+        if (!settings.AutoGenerateName)
+        {
+            return "manual";
+        }
+
+        return settings.AllowManualSuffixEdit
+            ? "auto_generated_editable"
+            : "auto_generated_locked";
+    }
+
+    private static string ToTelemetryValue(OobeDiagnosticDataLevel value)
+    {
+        return value switch
+        {
+            OobeDiagnosticDataLevel.Optional => "optional",
+            OobeDiagnosticDataLevel.Off => "off",
+            _ => "required"
+        };
+    }
+
+    private static string ToTelemetryValue(OobeLocationAccessMode value)
+    {
+        return value switch
+        {
+            OobeLocationAccessMode.ForceOff => "force_off",
+            _ => "user_controlled"
+        };
     }
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)

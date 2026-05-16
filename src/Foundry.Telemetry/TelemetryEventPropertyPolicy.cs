@@ -54,7 +54,20 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_configured",
                 "connect_runtime_payload_source",
                 "deploy_runtime_payload_source",
-                "autopilot_enabled"
+                "autopilot_enabled",
+                "customization_any_enabled",
+                "customization_machine_naming_enabled",
+                "customization_machine_naming_mode",
+                "customization_machine_naming_prefix_configured",
+                "customization_oobe_enabled",
+                "customization_oobe_skip_license_terms",
+                "customization_oobe_diagnostic_data_level",
+                "customization_oobe_hide_privacy_setup",
+                "customization_oobe_tailored_experiences_enabled",
+                "customization_oobe_advertising_id_enabled",
+                "customization_oobe_online_speech_recognition_enabled",
+                "customization_oobe_inking_typing_diagnostics_enabled",
+                "customization_oobe_location_access"
             },
             [TelemetryEvents.ConnectSessionReady] = new(StringComparer.Ordinal)
             {
