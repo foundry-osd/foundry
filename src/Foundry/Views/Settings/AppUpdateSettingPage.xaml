@@ -16,52 +16,168 @@
         <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-            <wct:SettingsCard Header="{x:Bind ViewModel.UpdateStatusTitle, Mode=OneWay}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE895;" />
-                </wct:SettingsCard.HeaderIcon>
-                <wct:SettingsCard.Description>
-                    <StackPanel MaxWidth="640"
-                                Spacing="{ThemeResource FoundrySpace4}">
-                        <TextBlock Text="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
-                        <TextBlock FlowDirection="LeftToRight"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                   Text="{x:Bind ViewModel.UpdateStatusMetadata, Mode=OneWay}"
+            <Border Padding="24"
+                    Background="{ThemeResource FoundrySurfaceSecondaryBrush}"
+                    BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                <Grid ColumnSpacing="24"
+                      RowSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border Width="56"
+                            Height="56"
+                            Background="{ThemeResource AccentFillColorDefaultBrush}"
+                            CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                        <FontIcon FontSize="28"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                  Glyph="&#xE895;" />
+                    </Border>
+
+                    <StackPanel Grid.Column="1"
+                                MaxWidth="760"
+                                Spacing="{ThemeResource FoundrySpace8}">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundrySpace8}">
+                            <TextBlock Style="{ThemeResource FoundrySectionTitleTextBlockStyle}"
+                                       Text="{x:Bind ViewModel.UpdateStatusTitle, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                            <Border Padding="8,3"
+                                    VerticalAlignment="Center"
+                                    Background="{ThemeResource AccentFillColorDefaultBrush}"
+                                    CornerRadius="{ThemeResource FoundryControlCornerRadius}"
+                                    Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}">
+                                <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                           Text="{x:Bind ViewModel.UpdateNewBadgeText, Mode=OneWay}" />
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Text="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
                     </StackPanel>
-                </wct:SettingsCard.Description>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-                    <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                            x:Uid="AppUpdate_DownloadRestartButton"
-                            Command="{x:Bind ViewModel.DownloadAndRestartUpdateCommand}"
-                            Style="{ThemeResource AccentButtonStyle}"
-                            Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
-                    <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                            x:Uid="AppUpdate_ReleaseNotesLink"
-                            Click="ReleaseNotesLink_Click"
-                            Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
-                    <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                            x:Uid="AppUpdate_CheckButton"
-                            Command="{x:Bind ViewModel.CheckForUpdateCommand}"
-                            IsEnabled="{x:Bind ViewModel.IsCheckButtonEnabled, Mode=OneWay}" />
-                    <ProgressBar Width="160"
+
+                    <StackPanel Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                        <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                x:Uid="AppUpdate_DownloadRestartButton"
+                                Command="{x:Bind ViewModel.DownloadAndRestartUpdateCommand}"
+                                Style="{ThemeResource AccentButtonStyle}"
+                                Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
+                        <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                x:Uid="AppUpdate_ReleaseNotesLink"
+                                Click="ReleaseNotesLink_Click"
+                                Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
+                        <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                x:Uid="AppUpdate_CheckButton"
+                                Command="{x:Bind ViewModel.CheckForUpdateCommand}"
+                                IsEnabled="{x:Bind ViewModel.IsCheckButtonEnabled, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <Grid Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          MaxWidth="980"
+                          HorizontalAlignment="Stretch"
+                          ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Padding="14,12"
+                                Background="{ThemeResource FoundrySurfaceBrush}"
+                                BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource FoundryControlCornerRadius}">
+                            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                                <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                           Text="{x:Bind ViewModel.InstalledVersionLabel, Mode=OneWay}" />
+                                <TextBlock FlowDirection="LeftToRight"
+                                           FontWeight="SemiBold"
+                                           Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
+                                           TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <FontIcon Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  FontSize="18"
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Glyph="&#xE8E4;" />
+
+                        <Border Grid.Column="2"
+                                Padding="14,12"
+                                Background="{ThemeResource FoundrySurfaceBrush}"
+                                BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource FoundryControlCornerRadius}">
+                            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                                <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                           Text="{x:Bind ViewModel.AvailableVersionLabel, Mode=OneWay}" />
+                                <TextBlock FlowDirection="LeftToRight"
+                                           FontWeight="SemiBold"
+                                           Text="{x:Bind ViewModel.AvailableVersion, Mode=OneWay}"
+                                           TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="3"
+                                Padding="14,12"
+                                Background="{ThemeResource FoundrySurfaceBrush}"
+                                BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource FoundryControlCornerRadius}">
+                            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                                <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                           Text="{x:Bind ViewModel.LastUpdateCheckLabel, Mode=OneWay}" />
+                                <TextBlock FlowDirection="LeftToRight"
+                                           FontWeight="SemiBold"
+                                           Text="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}"
+                                           TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <ProgressBar Grid.Row="2"
+                                 Grid.Column="1"
+                                 Grid.ColumnSpan="2"
                                  Maximum="100"
                                  Value="{x:Bind ViewModel.DownloadProgress, Mode=OneWay}"
                                  Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-                </StackPanel>
-            </wct:SettingsCard>
+                </Grid>
+            </Border>
 
-            <wct:SettingsCard Description="{x:Bind ViewModel.UpdateFeedUrl}"
-                              Header="{x:Bind ViewModel.UpdateSourceTitle, Mode=OneWay}">
+            <wct:SettingsCard Header="{x:Bind ViewModel.UpdateSourceTitle, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE946;" />
                 </wct:SettingsCard.HeaderIcon>
-                <TextBlock FlowDirection="LeftToRight"
-                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                           Text="{x:Bind ViewModel.UpdateSourceDescription, Mode=OneWay}" />
+                <wct:SettingsCard.Description>
+                    <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                        <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                   Text="{x:Bind ViewModel.UpdateFeedLabel, Mode=OneWay}" />
+                        <TextBlock FlowDirection="LeftToRight"
+                                   Text="{x:Bind ViewModel.UpdateFeedUrl, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </wct:SettingsCard.Description>
+                <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                           Text="{x:Bind ViewModel.UpdateSourceDescription, Mode=OneWay}"
+                           TextWrapping="WrapWholeWords" />
             </wct:SettingsCard>
         </StackPanel>
     </ScrollView>

@@ -1242,6 +1242,21 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Jamais vérifié</value>
   </data>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>Nouveau</value>
+  </data>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>Version disponible</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>Version installée</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>Dernière vérification</value>
+  </data>
+  <data name="Update.Field.UpdateFeed" xml:space="preserve">
+    <value>Flux de mise à jour</value>
+  </data>
   <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
     <value>Notes de version</value>
   </data>

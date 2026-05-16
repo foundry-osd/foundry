@@ -22,6 +22,9 @@ namespace Foundry.ViewModels
         public partial string InstalledVersion { get; set; }
 
         [ObservableProperty]
+        public partial string AvailableVersion { get; set; }
+
+        [ObservableProperty]
         public partial string LastUpdateCheck { get; set; }
 
         [ObservableProperty]
@@ -54,6 +57,11 @@ namespace Foundry.ViewModels
         public string UpdateFeedUrl => appSettingsService.Current.Updates.FeedUrl;
         public string UpdateSourceDescription => GetUpdateSourceDescription();
         public string UpdateSourceTitle => localizationService.GetString("AppUpdate.UpdateSourceTitle");
+        public string InstalledVersionLabel => localizationService.GetString("Update.Field.InstalledVersion");
+        public string AvailableVersionLabel => localizationService.GetString("Update.Field.AvailableVersion");
+        public string LastUpdateCheckLabel => localizationService.GetString("Update.Field.LastUpdateCheck");
+        public string UpdateFeedLabel => localizationService.GetString("Update.Field.UpdateFeed");
+        public string UpdateNewBadgeText => localizationService.GetString("Update.Badge.New");
         public string CloseText => localizationService.GetString("Common.Close");
         public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
         public string ReleaseNotesErrorText => localizationService.GetString("AboutDialog.ReleaseNotesError");
@@ -78,6 +86,7 @@ namespace Foundry.ViewModels
             this.logger = logger.ForContext<AppUpdateSettingViewModel>();
 
             InstalledVersion = FoundryApplicationInfo.Version;
+            AvailableVersion = localizationService.GetString("Update.NotChecked");
             LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
             IsCheckButtonEnabled = true;
             LoadingStatus = localizationService.GetString("Update.Status.Ready");
@@ -194,6 +203,11 @@ namespace Foundry.ViewModels
                 UpdateStatusMetadata = GetStatusMetadata();
                 OnPropertyChanged(nameof(UpdateSourceDescription));
                 OnPropertyChanged(nameof(UpdateSourceTitle));
+                OnPropertyChanged(nameof(InstalledVersionLabel));
+                OnPropertyChanged(nameof(AvailableVersionLabel));
+                OnPropertyChanged(nameof(LastUpdateCheckLabel));
+                OnPropertyChanged(nameof(UpdateFeedLabel));
+                OnPropertyChanged(nameof(UpdateNewBadgeText));
                 OnPropertyChanged(nameof(CloseText));
                 OnPropertyChanged(nameof(ReleaseNotesLoadingText));
                 OnPropertyChanged(nameof(ReleaseNotesErrorText));
@@ -217,6 +231,7 @@ namespace Foundry.ViewModels
                 LoadingStatus = localizationService.GetString("Update.Status.Ready");
                 UpdateStatusTitle = localizationService.GetString("Update.Status.Ready");
                 UpdateStatusMetadata = GetStatusMetadata();
+                AvailableVersion = localizationService.GetString("Update.NotChecked");
                 IsUpdateAvailable = false;
                 IsInstallButtonVisible = false;
                 IsReleaseNotesVisible = false;
@@ -226,9 +241,25 @@ namespace Foundry.ViewModels
             LoadingStatus = GetCheckStatusMessage(result);
             UpdateStatusTitle = GetCheckStatusTitle(result);
             UpdateStatusMetadata = GetStatusMetadata();
+            AvailableVersion = GetAvailableVersion(result);
             IsUpdateAvailable = result.IsUpdateAvailable;
             IsInstallButtonVisible = result.IsUpdateAvailable;
             IsReleaseNotesVisible = result.IsUpdateAvailable;
+        }
+
+        private string GetAvailableVersion(ApplicationUpdateCheckResult result)
+        {
+            if (result.Status == ApplicationUpdateStatus.UpdateAvailable && result.Version is not null)
+            {
+                return result.Version.ToString();
+            }
+
+            if (result.Status == ApplicationUpdateStatus.NoUpdate)
+            {
+                return InstalledVersion;
+            }
+
+            return localizationService.GetString("Update.NotChecked");
         }
 
         private string GetCheckStatusMessage(ApplicationUpdateCheckResult result)
