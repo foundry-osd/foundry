@@ -102,8 +102,17 @@
   <data name="AppUpdate_LastCheckLabel.Text" xml:space="preserve">
     <value>Dernière vérification</value>
   </data>
+  <data name="AppUpdate_InstalledVersionLabel.Text" xml:space="preserve">
+    <value>Version installée</value>
+  </data>
+  <data name="AppUpdate_LatestVersionLabel.Text" xml:space="preserve">
+    <value>Dernière version</value>
+  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notes de version</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>Source de mise à jour</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Fermer</value>
@@ -1209,14 +1218,11 @@
   <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
     <value>Mica</value>
   </data>
-  <data name="Update.CurrentVersionFormat" xml:space="preserve">
-    <value>Version actuelle {0}</value>
-  </data>
   <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
     <value>Foundry OSD va télécharger la mise à jour et redémarrer pour l'appliquer.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Télécharger et redémarrer</value>
+    <value>Installer et redémarrer</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
     <value>Appliquer la mise à jour</value>
@@ -1226,6 +1232,9 @@
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Jamais vérifié</value>
+  </data>
+  <data name="Update.LatestVersionUnavailable" xml:space="preserve">
+    <value>Non disponible</value>
   </data>
   <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
     <value>Notes de version</value>
@@ -1251,11 +1260,20 @@
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD est à jour.</value>
   </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>À jour</value>
+  </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Recherche de mise à jour ignorée car Foundry OSD ne s'exécute pas depuis une installation Velopack.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Prêt</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>Échec de la recherche de mise à jour</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>Recherche de mise à jour ignorée</value>
   </data>
   <data name="Update.Status.SkippedInDebug" xml:space="preserve">
     <value>Recherche de mise à jour ignorée car un débogueur est attaché.</value>

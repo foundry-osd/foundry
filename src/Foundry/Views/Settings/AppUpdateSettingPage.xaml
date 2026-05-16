@@ -15,19 +15,62 @@
                 VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
-            <wct:SettingsCard Header="{x:Bind ViewModel.CurrentVersion}">
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <wct:SettingsCard Header="{x:Bind ViewModel.UpdateStatusTitle, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE895;" />
                 </wct:SettingsCard.HeaderIcon>
                 <wct:SettingsCard.Description>
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                        <TextBlock x:Uid="AppUpdate_LastCheckLabel"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
-                        <TextBlock FlowDirection="LeftToRight"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                   Text="{x:Bind ViewModel.LastUpdateCheck}" />
+                    <StackPanel Spacing="{ThemeResource FoundrySpace12}">
+                        <TextBlock Text="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+
+                        <Grid MaxWidth="560"
+                              HorizontalAlignment="Left"
+                              ColumnSpacing="{ThemeResource FoundrySpace24}"
+                              RowSpacing="{ThemeResource FoundrySpace4}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       x:Uid="AppUpdate_InstalledVersionLabel"
+                                       Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="1"
+                                       FlowDirection="LeftToRight"
+                                       Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}" />
+
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       x:Uid="AppUpdate_LatestVersionLabel"
+                                       Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       FlowDirection="LeftToRight"
+                                       Text="{x:Bind ViewModel.LatestVersion, Mode=OneWay}" />
+
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       x:Uid="AppUpdate_LastCheckLabel"
+                                       Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="1"
+                                       FlowDirection="LeftToRight"
+                                       Text="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}" />
+                        </Grid>
+
+                        <HyperlinkButton Padding="0"
+                                         x:Uid="AppUpdate_ReleaseNotesLink"
+                                         Click="ReleaseNotesLink_Click"
+                                         Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
                     </StackPanel>
                 </wct:SettingsCard.Description>
                 <StackPanel Orientation="Horizontal"
@@ -38,29 +81,6 @@
                             Command="{x:Bind ViewModel.CheckForUpdateCommand}"
                             IsEnabled="{x:Bind ViewModel.IsCheckButtonEnabled, Mode=OneWay}"
                             Style="{ThemeResource AccentButtonStyle}" />
-                </StackPanel>
-            </wct:SettingsCard>
-
-            <wct:SettingsCard Description="{x:Bind ViewModel.UpdateFeedUrl}"
-                              Header="{x:Bind ViewModel.UpdateChannel}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE946;" />
-                </wct:SettingsCard.HeaderIcon>
-            </wct:SettingsCard>
-
-            <wct:SettingsCard Header="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE946;" />
-                </wct:SettingsCard.HeaderIcon>
-                <wct:SettingsCard.Description>
-                    <HyperlinkButton Padding="5,0"
-                                     x:Uid="AppUpdate_ReleaseNotesLink"
-                                     Click="ReleaseNotesLink_Click"
-                                     Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
-                </wct:SettingsCard.Description>
-                <StackPanel VerticalAlignment="Center"
-                            Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ProgressBar Width="160"
                                  Maximum="100"
                                  Value="{x:Bind ViewModel.DownloadProgress, Mode=OneWay}"
@@ -70,6 +90,16 @@
                             Command="{x:Bind ViewModel.DownloadAndRestartUpdateCommand}"
                             Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
                 </StackPanel>
+            </wct:SettingsCard>
+
+            <wct:SettingsCard Description="{x:Bind ViewModel.UpdateFeedUrl}"
+                              Header="{x:Bind ViewModel.UpdateSourceTitle, Mode=OneWay}">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE946;" />
+                </wct:SettingsCard.HeaderIcon>
+                <TextBlock FlowDirection="LeftToRight"
+                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                           Text="{x:Bind ViewModel.UpdateChannel}" />
             </wct:SettingsCard>
         </StackPanel>
     </ScrollView>

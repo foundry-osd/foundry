@@ -102,8 +102,17 @@
   <data name="AppUpdate_LastCheckLabel.Text" xml:space="preserve">
     <value>Last update check</value>
   </data>
+  <data name="AppUpdate_InstalledVersionLabel.Text" xml:space="preserve">
+    <value>Installed version</value>
+  </data>
+  <data name="AppUpdate_LatestVersionLabel.Text" xml:space="preserve">
+    <value>Latest version</value>
+  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release notes</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>Update source</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Close</value>
@@ -1209,14 +1218,11 @@
   <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
     <value>Mica</value>
   </data>
-  <data name="Update.CurrentVersionFormat" xml:space="preserve">
-    <value>Current version {0}</value>
-  </data>
   <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
     <value>Foundry OSD will download the update and restart to apply it.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Download and restart</value>
+    <value>Install and restart</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
     <value>Apply update</value>
@@ -1226,6 +1232,9 @@
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Not checked</value>
+  </data>
+  <data name="Update.LatestVersionUnavailable" xml:space="preserve">
+    <value>Not available</value>
   </data>
   <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
     <value>Release notes</value>
@@ -1251,11 +1260,20 @@
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD is up to date.</value>
   </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>Up to date</value>
+  </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Update check skipped because Foundry OSD is not running from a Velopack installation.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Ready</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>Update check failed</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>Update check skipped</value>
   </data>
   <data name="Update.Status.SkippedInDebug" xml:space="preserve">
     <value>Update check skipped because a debugger is attached.</value>
