@@ -391,7 +391,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string? successMessage = null;
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool success = false;
-        var telemetryState = new MediaCreationTelemetryState();
+        var telemetryProgressTracker = new MediaCreationTelemetryProgressTracker();
 
         try
         {
@@ -411,12 +411,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             if (target == FinalMediaTarget.Iso)
             {
-                _ = await CreateIsoMediaAsync(options, telemetryState, CancellationToken.None);
+                _ = await CreateIsoMediaAsync(options, telemetryProgressTracker, CancellationToken.None);
                 successMessage = localizationService.GetString("StartMedia.Operation.IsoSuccessMessage");
             }
             else
             {
-                WinPeUsbProvisionResult usbResult = await CreateUsbMediaAsync(options, telemetryState, CancellationToken.None);
+                WinPeUsbProvisionResult usbResult = await CreateUsbMediaAsync(options, telemetryProgressTracker, CancellationToken.None);
                 successMessage = string.Format(
                     CultureInfo.CurrentCulture,
                     localizationService.GetString("StartMedia.Operation.UsbSuccessMessage"),
@@ -440,7 +440,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ex,
                 "Final media creation failed. Target={Target}, FailedStepName={FailedStepName}",
                 target,
-                telemetryState.CurrentStepName);
+                telemetryProgressTracker.CurrentStepName);
         }
         finally
         {
@@ -448,7 +448,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 target,
                 options,
                 success,
-                success ? null : telemetryState.CurrentStepName,
+                success ? null : telemetryProgressTracker.CurrentStepName,
                 stopwatch.Elapsed,
                 CancellationToken.None);
             shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
@@ -462,7 +462,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<string> CreateIsoMediaAsync(
         MediaPreflightOptions options,
-        MediaCreationTelemetryState telemetryState,
+        MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
     {
         PreparedMediaWorkspace? workspace = null;
@@ -472,10 +472,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 includeRuntimePayloadInImage: true,
-                telemetryState: telemetryState,
+                telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
 
-            telemetryState.CurrentStepName = MediaCreationStepNames.CreateIsoMedia;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CreateIsoMedia);
             logger.Debug(
                 "Creating ISO media. OutputIsoPath={OutputIsoPath}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
                 options.IsoOutputPath,
@@ -488,7 +488,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PreparedWorkspace = workspace.PreparedWorkspace,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "Iso"),
-                    Progress = new Progress<WinPeMediaProgress>(ReportFinalMediaProgress)
+                    Progress = telemetryProgressTracker.CreateFinalMediaProgress(
+                        new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
                 cancellationToken);
 
@@ -504,10 +505,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<WinPeUsbProvisionResult> CreateUsbMediaAsync(
         MediaPreflightOptions options,
-        MediaCreationTelemetryState telemetryState,
+        MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
     {
-        telemetryState.CurrentStepName = MediaCreationStepNames.ValidateUsbTarget;
+        telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.ValidateUsbTarget);
         if (options.SelectedUsbDisk is null)
         {
             throw new InvalidOperationException(localizationService.GetString("StartMedia.BlockingReason.NoUsbTarget"));
@@ -520,11 +521,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 includeRuntimePayloadInImage: false,
-                telemetryState: telemetryState,
+                telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
 
             WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
-            telemetryState.CurrentStepName = MediaCreationStepNames.CreateUsbMedia;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CreateUsbMedia);
             logger.Debug(
                 "Creating USB media. DiskNumber={DiskNumber}, DiskName={DiskName}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
                 selectedDisk.DiskNumber,
@@ -544,8 +545,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
-                    DownloadProgress = new Progress<WinPeDownloadProgress>(ReportDownloadProgress),
-                    Progress = new Progress<WinPeMediaProgress>(ReportFinalMediaProgress)
+                    DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
+                        new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
+                    Progress = telemetryProgressTracker.CreateFinalMediaProgress(
+                        new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
                 workspace.PreparedWorkspace.Artifact,
                 workspace.Tools,
@@ -569,14 +572,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private async Task<PreparedMediaWorkspace> PrepareMediaWorkspaceAsync(
         MediaPreflightOptions options,
         bool includeRuntimePayloadInImage,
-        MediaCreationTelemetryState telemetryState,
+        MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
     {
         WinPeBuildArtifact? artifact = null;
 
         try
         {
-            telemetryState.CurrentStepName = MediaCreationStepNames.ResolveWinPeTools;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.ResolveWinPeTools);
             WinPeToolPaths tools = ResolveWinPeToolsOrThrow();
             logger.Debug(
                 "Resolved WinPE tools. KitsRootPath={KitsRootPath}, DismPath={DismPath}, MakeWinPeMediaPath={MakeWinPeMediaPath}",
@@ -584,7 +587,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 tools.DismPath,
                 tools.MakeWinPeMediaPath);
 
-            telemetryState.CurrentStepName = MediaCreationStepNames.PrepareRuntimePayloads;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareRuntimePayloads);
             WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = CreateRuntimePayloadProvisioningOptions(
                 options.Architecture,
                 Constants.WinPeWorkspaceDirectoryPath,
@@ -609,10 +612,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 runtimePayloadProvisioning.Deploy.IsEnabled,
                 ResolveProvisioningSource(runtimePayloadProvisioning.Deploy));
 
-            telemetryState.CurrentStepName = MediaCreationStepNames.CleanStaleWorkspaces;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CleanStaleWorkspaces);
             CleanupStaleWinPeWorkspaces();
 
-            telemetryState.CurrentStepName = MediaCreationStepNames.BuildWinPeWorkspace;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.BuildWinPeWorkspace);
             operationProgressService.Report(10, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
             WinPeResult<WinPeBuildArtifact> buildResult = await buildService.BuildAsync(
                 new WinPeBuildOptions
@@ -633,7 +636,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 artifact.MountDirectoryPath,
                 artifact.BootWimPath);
 
-            telemetryState.CurrentStepName = MediaCreationStepNames.GenerateProvisioningPayloads;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = expertDeployConfigurationStateService.GenerateConnectProvisioningBundle(
                 Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"),
                 connectTelemetrySettings);
@@ -650,10 +653,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 UsbCacheRootPath = string.Empty
             };
 
-            telemetryState.CurrentStepName = MediaCreationStepNames.PrepareWinPeWorkspace;
-            var workspacePreparationProgress = new MediaCreationWorkspacePreparationProgress(
-                telemetryState,
-                new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage));
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareWinPeWorkspace);
+            IProgress<WinPeWorkspacePreparationStage> workspacePreparationProgress =
+                telemetryProgressTracker.CreateWorkspacePreparationProgress(
+                    new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage));
 
             operationProgressService.Report(25, localizationService.GetString("StartMedia.Operation.PreparingWorkspace"));
             WinPeResult<WinPeWorkspacePreparationResult> preparationResult = await workspacePreparationService.PrepareAsync(
@@ -671,8 +674,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
                     WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                     Progress = workspacePreparationProgress,
-                    DownloadProgress = new Progress<WinPeDownloadProgress>(ReportDownloadProgress),
-                    CustomizationProgress = new Progress<WinPeMountedImageCustomizationProgress>(ReportCustomizationProgress)
+                    DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
+                        new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
+                    CustomizationProgress = telemetryProgressTracker.CreateCustomizationProgress(
+                        new Progress<WinPeMountedImageCustomizationProgress>(ReportCustomizationProgress))
                 },
                 cancellationToken);
             EnsureSuccess(preparationResult);
@@ -1296,17 +1301,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         await telemetryService.TrackAsync(TelemetryEvents.OsdBootMediaFinished, properties, cancellationToken);
         logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["boot_media_target"], success);
-    }
-
-    private static string ResolveMediaCreationFailedStepName(WinPeWorkspacePreparationStage stage)
-    {
-        return stage switch
-        {
-            WinPeWorkspacePreparationStage.ResolvingDrivers => MediaCreationStepNames.ResolveWinPeDrivers,
-            WinPeWorkspacePreparationStage.CustomizingImage => MediaCreationStepNames.CustomizeBootImage,
-            WinPeWorkspacePreparationStage.EvaluatingSignaturePolicy => MediaCreationStepNames.EvaluateSignaturePolicy,
-            _ => MediaCreationStepNames.PrepareWinPeWorkspace
-        };
     }
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)
@@ -2039,44 +2033,4 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeWorkspacePreparationResult PreparedWorkspace,
         WinPeToolPaths Tools,
         WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning);
-
-    private sealed class MediaCreationTelemetryState
-    {
-        public string CurrentStepName { get; set; } = MediaCreationStepNames.Unknown;
-    }
-
-    /// <summary>
-    /// Updates the active telemetry stage synchronously before forwarding workspace preparation progress to the UI.
-    /// </summary>
-    /// <remarks>
-    /// The synchronous telemetry update avoids losing the failing stage when a workspace preparation error is returned
-    /// before the UI progress callback has been dispatched.
-    /// </remarks>
-    private sealed class MediaCreationWorkspacePreparationProgress(
-        MediaCreationTelemetryState telemetryState,
-        IProgress<WinPeWorkspacePreparationStage> uiProgress) : IProgress<WinPeWorkspacePreparationStage>
-    {
-        public void Report(WinPeWorkspacePreparationStage value)
-        {
-            telemetryState.CurrentStepName = ResolveMediaCreationFailedStepName(value);
-            uiProgress.Report(value);
-        }
-    }
-
-    private static class MediaCreationStepNames
-    {
-        public const string Unknown = "unknown";
-        public const string ValidateUsbTarget = "Validate USB target";
-        public const string ResolveWinPeTools = "Resolve WinPE tools";
-        public const string PrepareRuntimePayloads = "Prepare runtime payloads";
-        public const string CleanStaleWorkspaces = "Clean stale WinPE workspaces";
-        public const string BuildWinPeWorkspace = "Build WinPE workspace";
-        public const string GenerateProvisioningPayloads = "Generate provisioning payloads";
-        public const string PrepareWinPeWorkspace = "Prepare WinPE workspace";
-        public const string ResolveWinPeDrivers = "Resolve WinPE drivers";
-        public const string CustomizeBootImage = "Customize boot image";
-        public const string EvaluateSignaturePolicy = "Evaluate signature policy";
-        public const string CreateIsoMedia = "Create ISO media";
-        public const string CreateUsbMedia = "Create USB media";
-    }
 }
