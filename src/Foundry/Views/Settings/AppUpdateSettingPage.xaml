@@ -16,50 +16,61 @@
         <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-            <Border Padding="24"
-                    Background="{ThemeResource FoundrySurfaceSecondaryBrush}"
+            <Border Background="{ThemeResource FoundrySurfaceSecondaryBrush}"
                     BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{ThemeResource FoundryCardCornerRadius}">
-                <StackPanel Spacing="{ThemeResource FoundrySpace24}">
-                    <StackPanel Orientation="Horizontal"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Background="{ThemeResource AccentFillColorDefaultBrush}"
+                            CornerRadius="4,0,0,4" />
+
+                    <StackPanel Grid.Column="1"
+                                Padding="24"
                                 Spacing="{ThemeResource FoundrySpace16}">
-                        <Border Width="48"
-                                Height="48"
-                                Background="{ThemeResource AccentFillColorDefaultBrush}"
-                                CornerRadius="{ThemeResource FoundryCardCornerRadius}">
-                            <FontIcon FontSize="24"
-                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                      Glyph="&#xE895;" />
-                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundrySpace16}">
+                            <Border Width="48"
+                                    Height="48"
+                                    Background="{ThemeResource AccentFillColorDefaultBrush}"
+                                    CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                                <FontIcon FontSize="24"
+                                          Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                          Glyph="&#xEBD3;" />
+                            </Border>
 
-                        <StackPanel VerticalAlignment="Center"
-                                    Spacing="{ThemeResource FoundrySpace4}">
-                            <StackPanel Orientation="Horizontal"
-                                        Spacing="{ThemeResource FoundrySpace8}">
-                                <TextBlock Style="{ThemeResource FoundrySectionTitleTextBlockStyle}"
-                                           Text="{x:Bind ViewModel.UpdateStatusTitle, Mode=OneWay}"
+                            <StackPanel VerticalAlignment="Center"
+                                        Spacing="{ThemeResource FoundrySpace4}">
+                                <StackPanel Orientation="Horizontal"
+                                            Spacing="{ThemeResource FoundrySpace8}">
+                                    <TextBlock Style="{ThemeResource FoundrySectionTitleTextBlockStyle}"
+                                               Text="{x:Bind ViewModel.UpdateStatusTitle, Mode=OneWay}"
+                                               TextWrapping="WrapWholeWords" />
+                                    <Border Padding="8,3"
+                                            VerticalAlignment="Center"
+                                            Background="{ThemeResource AccentFillColorDefaultBrush}"
+                                            CornerRadius="{ThemeResource FoundryControlCornerRadius}"
+                                            Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}">
+                                        <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                                   FontWeight="SemiBold"
+                                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                                   Text="{x:Bind ViewModel.UpdateNewBadgeText, Mode=OneWay}" />
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                           Text="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
                                            TextWrapping="WrapWholeWords" />
-                                <Border Padding="8,3"
-                                        VerticalAlignment="Center"
-                                        Background="{ThemeResource AccentFillColorDefaultBrush}"
-                                        CornerRadius="{ThemeResource FoundryControlCornerRadius}"
-                                        Visibility="{x:Bind ViewModel.IsUpdateAvailable, Mode=OneWay}">
-                                    <TextBlock Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                               FontWeight="SemiBold"
-                                               Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                               Text="{x:Bind ViewModel.UpdateNewBadgeText, Mode=OneWay}" />
-                                </Border>
                             </StackPanel>
-                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                       Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                       Text="{x:Bind ViewModel.LoadingStatus, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
                         </StackPanel>
-                    </StackPanel>
 
-                    <Grid HorizontalAlignment="Stretch"
-                          ColumnSpacing="{ThemeResource FoundrySpace12}">
+                        <Grid MaxWidth="1120"
+                              HorizontalAlignment="Stretch"
+                              ColumnSpacing="{ThemeResource FoundrySpace12}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -86,13 +97,13 @@
                                   VerticalAlignment="Center"
                                   FontSize="18"
                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                                  Glyph="&#xE8E4;" />
+                                  Glyph="&#xE72A;" />
 
                         <Border Grid.Column="2"
                                 Padding="14,12"
                                 Background="{ThemeResource FoundrySurfaceBrush}"
-                                BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
-                                BorderThickness="1"
+                                BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                                BorderThickness="2"
                                 CornerRadius="{ThemeResource FoundryControlCornerRadius}">
                             <StackPanel Spacing="{ThemeResource FoundrySpace4}">
                                 <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}"
@@ -146,7 +157,8 @@
                                 Command="{x:Bind ViewModel.CheckForUpdateCommand}"
                                 IsEnabled="{x:Bind ViewModel.IsCheckButtonEnabled, Mode=OneWay}" />
                     </StackPanel>
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Border>
 
             <wct:SettingsCard Header="{x:Bind ViewModel.UpdateSourceTitle, Mode=OneWay}">
