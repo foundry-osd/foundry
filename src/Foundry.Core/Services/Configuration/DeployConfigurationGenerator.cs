@@ -45,7 +45,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                                        document.Customization.MachineNaming.AutoGenerateName,
                     AllowManualSuffixEdit = !document.Customization.MachineNaming.IsEnabled ||
                                             document.Customization.MachineNaming.AllowManualSuffixEdit
-                }
+                },
+                Oobe = MapOobeSettings(document.Customization.Oobe)
             },
             Autopilot = new DeployAutopilotSettings
             {
@@ -90,5 +91,43 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
         return string.IsNullOrWhiteSpace(canonicalCode) ? null : canonicalCode;
+    }
+
+    private static DeployOobeSettings MapOobeSettings(OobeSettings settings)
+    {
+        if (!settings.IsEnabled)
+        {
+            return new DeployOobeSettings();
+        }
+
+        return new DeployOobeSettings
+        {
+            IsEnabled = true,
+            SkipLicenseTerms = settings.SkipLicenseTerms,
+            DiagnosticDataLevel = MapDiagnosticDataLevel(settings.DiagnosticDataLevel),
+            HidePrivacySetup = settings.HidePrivacySetup,
+            AllowTailoredExperiences = settings.AllowTailoredExperiences,
+            AllowAdvertisingId = settings.AllowAdvertisingId,
+            AllowOnlineSpeechRecognition = settings.AllowOnlineSpeechRecognition,
+            AllowInkingAndTypingDiagnostics = settings.AllowInkingAndTypingDiagnostics,
+            LocationAccess = MapLocationAccess(settings.LocationAccess)
+        };
+    }
+
+    private static DeployOobeDiagnosticDataLevel MapDiagnosticDataLevel(OobeDiagnosticDataLevel value)
+    {
+        return value switch
+        {
+            OobeDiagnosticDataLevel.Optional => DeployOobeDiagnosticDataLevel.Optional,
+            OobeDiagnosticDataLevel.Off => DeployOobeDiagnosticDataLevel.Off,
+            _ => DeployOobeDiagnosticDataLevel.Required
+        };
+    }
+
+    private static DeployOobeLocationAccessMode MapLocationAccess(OobeLocationAccessMode value)
+    {
+        return value == OobeLocationAccessMode.ForceOff
+            ? DeployOobeLocationAccessMode.ForceOff
+            : DeployOobeLocationAccessMode.UserControlled;
     }
 }
