@@ -5,6 +5,10 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 {
+    internal const ulong MinimumUsbDiskSizeBytes = 16UL * 1024UL * 1024UL * 1024UL;
+    private const string UsbProvisioningProgressPrefix = "FOUNDRY_USB_PROGRESS|";
+    private const string UsbProvisioningVerbosePrefix = "FOUNDRY_USB_VERBOSE|";
+
     private readonly IWinPeProcessRunner _processRunner;
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
 
@@ -126,6 +130,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(artifact);
+        ArgumentNullException.ThrowIfNull(tools);
 
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -181,7 +186,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             options.FormatMode,
             bootDriveLetter,
             cacheDriveLetter,
+            tools,
             artifact.WorkingDirectoryPath,
+            options.Progress,
             cancellationToken).ConfigureAwait(false);
         if (!provisioningResult.IsSuccess)
         {
@@ -275,6 +282,14 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 $"Disk {disk.Number}: IsSystem={disk.IsSystem}, IsBoot={disk.IsBoot}.");
         }
 
+        if (disk.Size < MinimumUsbDiskSizeBytes)
+        {
+            return WinPeResult.Failure(
+                WinPeErrorCodes.UsbUnsafeTarget,
+                "Target USB disk is below the minimum supported size.",
+                $"Disk {disk.Number} size is {disk.Size} bytes. Foundry OSD requires a USB disk of at least 16 GB.");
+        }
+
         if (string.IsNullOrWhiteSpace(options.ExpectedDiskFriendlyName) &&
             string.IsNullOrWhiteSpace(options.ExpectedDiskSerialNumber) &&
             string.IsNullOrWhiteSpace(options.ExpectedDiskUniqueId))
@@ -320,42 +335,26 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         return exitCode is >= 0 and <= 7;
     }
 
-    internal static IReadOnlyList<string> BuildDiskPartScript(
+    internal static string BuildPowerShellProvisioningScript(
         int diskNumber,
         UsbPartitionStyle partitionStyle,
         UsbFormatMode formatMode,
         char bootDriveLetter,
         char cacheDriveLetter)
     {
-        string[] conversionLines = partitionStyle == UsbPartitionStyle.Gpt
-            ? ["convert mbr noerr", "convert gpt"]
-            : ["convert mbr"];
-        string activeLine = partitionStyle == UsbPartitionStyle.Mbr ? "active" : string.Empty;
-        string formatSuffix = formatMode == UsbFormatMode.Quick ? " quick" : string.Empty;
+        string template = WinPeEmbeddedAssetService.ReadEmbeddedText(WinPeEmbeddedAssetService.UsbProvisioningScriptResourceName);
+        string partitionStyleText = partitionStyle == UsbPartitionStyle.Gpt ? "GPT" : "MBR";
+        string fullFormatValue = formatMode == UsbFormatMode.Complete ? "$true" : "$false";
+        char normalizedBootDriveLetter = char.ToUpperInvariant(bootDriveLetter);
+        char normalizedCacheDriveLetter = char.ToUpperInvariant(cacheDriveLetter);
 
-        string[] scriptLines =
-        [
-            $"select disk {diskNumber}",
-            "online disk noerr",
-            "attributes disk clear readonly noerr",
-            "clean",
-            ..conversionLines,
-            "create partition primary size=4096",
-            "select partition 1",
-            $"assign letter={bootDriveLetter}",
-            $"select volume={bootDriveLetter}",
-            $"format fs=fat32{formatSuffix} label=BOOT",
-            activeLine,
-            "create partition primary",
-            "select partition 2",
-            $"assign letter={cacheDriveLetter}",
-            $"select volume={cacheDriveLetter}",
-            $"format fs=ntfs{formatSuffix} label=\"Foundry Cache\""
-        ];
-
-        return scriptLines
-            .Where(line => !string.IsNullOrWhiteSpace(line))
-            .ToArray();
+        return template
+            .Replace("{{DISK_NUMBER}}", diskNumber.ToString())
+            .Replace("{{PARTITION_STYLE}}", partitionStyleText)
+            .Replace("{{FULL_FORMAT}}", fullFormatValue)
+            .Replace("{{BOOT_DRIVE_LETTER}}", normalizedBootDriveLetter.ToString())
+            .Replace("{{CACHE_DRIVE_LETTER}}", normalizedCacheDriveLetter.ToString())
+            .ReplaceLineEndings(Environment.NewLine);
     }
 
     internal static void InitializeCachePartitionDirectories(string cacheRootPath)
@@ -470,25 +469,35 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         UsbFormatMode formatMode,
         char bootDriveLetter,
         char cacheDriveLetter,
+        WinPeToolPaths tools,
         string workingDirectoryPath,
+        IProgress<WinPeMediaProgress>? progress,
         CancellationToken cancellationToken)
     {
-        IReadOnlyList<string> diskPartScript = BuildDiskPartScript(
+        string script = BuildPowerShellProvisioningScript(
             diskNumber,
             partitionStyle,
             formatMode,
             bootDriveLetter,
             cacheDriveLetter);
 
-        string scriptPath = Path.Combine(workingDirectoryPath, "diskpart-usb.txt");
         Directory.CreateDirectory(workingDirectoryPath);
-        await File.WriteAllLinesAsync(scriptPath, diskPartScript, cancellationToken).ConfigureAwait(false);
-
-        WinPeProcessExecution execution = await _processRunner.RunAsync(
-            "diskpart.exe",
-            $"/s {WinPeProcessRunner.Quote(scriptPath)}",
-            workingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+        string encodedScript = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
+        string arguments = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand {encodedScript}";
+        var provisioningOutput = new UsbProvisioningOutputForwarder(progress);
+        WinPeProcessExecution execution = _processRunner is IWinPeProcessOutputRunner outputRunner
+            ? await outputRunner.RunWithOutputAsync(
+                tools.PowerShellPath,
+                arguments,
+                workingDirectoryPath,
+                provisioningOutput.Report,
+                null,
+                cancellationToken).ConfigureAwait(false)
+            : await _processRunner.RunAsync(
+                tools.PowerShellPath,
+                arguments,
+                workingDirectoryPath,
+                cancellationToken).ConfigureAwait(false);
 
         if (execution.IsSuccess)
         {
@@ -497,8 +506,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         string diagnostic = $"{execution.ToDiagnosticText()}{Environment.NewLine}" +
                             $"PartitionStyle: {partitionStyle}{Environment.NewLine}" +
-                            "DiskPartScript:" + Environment.NewLine +
-                            string.Join(Environment.NewLine, diskPartScript);
+                            "PowerShellProvisioningScript:" + Environment.NewLine +
+                            script;
         return WinPeResult.Failure(
             WinPeErrorCodes.UsbProvisioningFailed,
             "Failed to partition and format the USB disk.",
@@ -544,6 +553,46 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             Percent = Math.Clamp(percent, 0, 100),
             Status = status
         });
+    }
+
+    private sealed class UsbProvisioningOutputForwarder(IProgress<WinPeMediaProgress>? progress)
+    {
+        private int currentPercent = 20;
+        private string currentStatus = "Partitioning and formatting USB target.";
+
+        public void Report(string line)
+        {
+            if (progress is null)
+            {
+                return;
+            }
+
+            if (line.StartsWith(UsbProvisioningProgressPrefix, StringComparison.Ordinal))
+            {
+                string payload = line[UsbProvisioningProgressPrefix.Length..];
+                string[] parts = payload.Split('|', 2);
+                if (parts.Length != 2 || !int.TryParse(parts[0], out int percent))
+                {
+                    return;
+                }
+
+                currentPercent = percent;
+                currentStatus = parts[1];
+                ReportProgress(progress, currentPercent, currentStatus);
+                return;
+            }
+
+            string verboseLine = line.StartsWith(UsbProvisioningVerbosePrefix, StringComparison.Ordinal)
+                ? line[UsbProvisioningVerbosePrefix.Length..]
+                : line;
+
+            progress.Report(new WinPeMediaProgress
+            {
+                Percent = currentPercent,
+                Status = currentStatus,
+                LogDetail = verboseLine
+            });
+        }
     }
 
     private async Task<WinPeResult<WinPeUsbDiskIdentity>> GetDiskIdentityAsync(

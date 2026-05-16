@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.UpdateInstallProgressDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               CornerRadius="{ThemeResource OverlayCornerRadius}"
+               DefaultButton="None"
+               Style="{ThemeResource DefaultContentDialogStyle}"
+               Title="{Binding InstallProgressDialogTitle}"
+               mc:Ignorable="d">
+    <Grid Width="520"
+          RowSpacing="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Width="52"
+                    Height="52"
+                    Background="{ThemeResource AccentFillColorDefaultBrush}"
+                    CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                <FontIcon FontSize="24"
+                          Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                          Glyph="&#xEBD3;" />
+            </Border>
+
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Spacing="{ThemeResource FoundrySpace8}">
+                <TextBlock Text="{Binding InstallProgressDialogMessage}"
+                           TextWrapping="WrapWholeWords" />
+                <TextBlock FlowDirection="LeftToRight"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                           Text="{Binding InstallProgressDialogVersionText}"
+                           TextWrapping="WrapWholeWords" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              RowSpacing="{ThemeResource FoundrySpace12}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                       Text="{Binding DownloadProgressLabel}" />
+            <StackPanel Grid.Column="1"
+                        MinWidth="56"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <TextBlock FlowDirection="LeftToRight"
+                           FontWeight="SemiBold"
+                           Text="{Binding DownloadProgressText}" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="%" />
+            </StackPanel>
+            <ProgressBar Grid.Row="1"
+                         Grid.ColumnSpan="2"
+                         Maximum="100"
+                         Value="{Binding DownloadProgress}" />
+        </Grid>
+    </Grid>
+</ContentDialog>

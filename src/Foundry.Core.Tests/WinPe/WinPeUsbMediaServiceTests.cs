@@ -70,7 +70,8 @@ public sealed class WinPeUsbMediaServiceTests
                 SerialNumber = "SERIAL-2",
                 UniqueId = "UNIQUE-2",
                 BusType = "USB",
-                IsRemovable = true
+                IsRemovable = true,
+                Size = 64UL * 1024UL * 1024UL * 1024UL
             });
 
         Assert.False(result.IsSuccess);
@@ -93,6 +94,28 @@ public sealed class WinPeUsbMediaServiceTests
                 BusType = "USB",
                 IsRemovable = true,
                 IsBoot = true
+            });
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbUnsafeTarget, result.Error?.Code);
+    }
+
+    [Fact]
+    public void ValidateDiskSafety_WhenTargetIsBelowMinimumSize_ReturnsUnsafeTarget()
+    {
+        WinPeResult result = WinPeUsbMediaService.ValidateDiskSafety(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 3,
+                ExpectedDiskFriendlyName = "Small USB"
+            },
+            new WinPeUsbDiskIdentity
+            {
+                Number = 3,
+                FriendlyName = "Small USB",
+                BusType = "USB",
+                IsRemovable = true,
+                Size = 15UL * 1024UL * 1024UL * 1024UL
             });
 
         Assert.False(result.IsSuccess);
@@ -163,40 +186,144 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
-    public void BuildDiskPartScript_WhenGptQuickFormat_CreatesBootAndCachePartitionsWithoutActive()
+    public void BuildPowerShellProvisioningScript_WhenGptQuickFormat_CreatesBootAndCachePartitionsWithExplicitTypesWithoutActive()
     {
-        IReadOnlyList<string> script = WinPeUsbMediaService.BuildDiskPartScript(
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
             diskNumber: 7,
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick,
             bootDriveLetter: 'S',
             cacheDriveLetter: 'T');
 
-        Assert.Contains("select disk 7", script);
-        Assert.Contains("convert mbr noerr", script);
-        Assert.Contains("convert gpt", script);
-        Assert.Contains("create partition primary size=4096", script);
-        Assert.Contains("format fs=fat32 quick label=BOOT", script);
-        Assert.Contains("format fs=ntfs quick label=\"Foundry Cache\"", script);
-        Assert.DoesNotContain("active", script);
+        Assert.Contains("$diskNumber = 7", script, StringComparison.Ordinal);
+        Assert.Contains("$partitionStyle = 'GPT'", script, StringComparison.Ordinal);
+        Assert.Contains("Initialize-Disk -Number $diskNumber -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
+        Assert.Contains("if ($partitionStyle -eq 'GPT')", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
+        Assert.Contains("$bootPartitionArguments['GptType'] = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'", script, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("FileSystem = 'FAT32'", script, StringComparison.Ordinal);
+        Assert.Contains("NewFileSystemLabel = 'BOOT'", script, StringComparison.Ordinal);
+        Assert.Contains("$cachePartitionArguments['GptType'] = '{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}'", script, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("FileSystem = 'NTFS'", script, StringComparison.Ordinal);
+        Assert.Contains("NewFileSystemLabel = 'Foundry Cache'", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("-IsActive $true", script, StringComparison.Ordinal);
+        Assert.Contains("$fullFormat = $false", script, StringComparison.Ordinal);
     }
 
     [Fact]
-    public void BuildDiskPartScript_WhenMbrCompleteFormat_MarksBootPartitionActiveWithoutQuickFormat()
+    public void BuildPowerShellProvisioningScript_WhenClearedDiskKeepsPreviousStyle_ResetsPartitionStyle()
     {
-        IReadOnlyList<string> script = WinPeUsbMediaService.BuildDiskPartScript(
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("& diskpart.exe /s $diskPartResetScriptPath", script, StringComparison.Ordinal);
+        Assert.Contains("'clean'", script, StringComparison.Ordinal);
+        Assert.Contains("\"convert $($partitionStyle.ToLowerInvariant())\"", script, StringComparison.Ordinal);
+        Assert.Contains("Remove-Item -Path $diskPartResetScriptPath", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("could not be reset to $partitionStyle", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("Set-Disk -Number $diskNumber -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void BuildPowerShellProvisioningScript_WhenFormattingFreshPartitions_FormatsByExplicitDriveLetter()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.DoesNotContain("select partition", script, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("select volume", script, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("create partition", script, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("format fs=", script, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("$bootDriveLetter = 'S'", script, StringComparison.Ordinal);
+        Assert.Contains("$cacheDriveLetter = 'T'", script, StringComparison.Ordinal);
+        Assert.Contains("DriveLetter = $bootDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("DriveLetter = $cacheDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("Format-Volume @bootFormatArguments", script, StringComparison.Ordinal);
+        Assert.Contains("Format-Volume @cacheFormatArguments", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void BuildPowerShellProvisioningScript_WhenCreatingPartitions_WaitsForVolumesBeforeFormatting()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("function Wait-FoundryUsbVolume", script, StringComparison.Ordinal);
+        Assert.Contains("Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter -VolumeName 'BOOT'", script, StringComparison.Ordinal);
+        Assert.Contains("Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter -VolumeName 'cache'", script, StringComparison.Ordinal);
+        Assert.True(
+            script.IndexOf("Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Format-Volume @bootFormatArguments", StringComparison.Ordinal));
+        Assert.True(
+            script.IndexOf("Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Format-Volume @cacheFormatArguments", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void BuildPowerShellProvisioningScript_WhenFormattingUsb_EmitsProgressMarkers()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("FOUNDRY_USB_PROGRESS|", script, StringComparison.Ordinal);
+        Assert.Contains("Write-FoundryUsbProgress 26 'Clearing USB partition table.'", script, StringComparison.Ordinal);
+        Assert.Contains("Write-FoundryUsbProgress 44 'Formatting BOOT partition.'", script, StringComparison.Ordinal);
+        Assert.Contains("Write-FoundryUsbProgress 53 'Formatting cache partition.'", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void BuildPowerShellProvisioningScript_WhenFormattingUsb_EmitsVerboseMarkers()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("FOUNDRY_USB_VERBOSE|", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("Write-Verbose", script, StringComparison.Ordinal);
+        Assert.Contains("Write-FoundryUsbVerbose \"Disk opened.", script, StringComparison.Ordinal);
+        Assert.Contains("Write-FoundryUsbVerbose \"BOOT partition created.", script, StringComparison.Ordinal);
+        Assert.Contains("Write-FoundryUsbVerbose \"Cache partition formatted.", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void BuildPowerShellProvisioningScript_WhenMbrCompleteFormat_MarksBootPartitionActiveAndFullFormat()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
             diskNumber: 8,
             partitionStyle: UsbPartitionStyle.Mbr,
             formatMode: UsbFormatMode.Complete,
             bootDriveLetter: 'U',
             cacheDriveLetter: 'V');
 
-        Assert.Contains("convert mbr", script);
-        Assert.DoesNotContain("convert mbr noerr", script);
-        Assert.DoesNotContain("convert gpt", script);
-        Assert.Contains("format fs=fat32 label=BOOT", script);
-        Assert.Contains("active", script);
-        Assert.Contains("format fs=ntfs label=\"Foundry Cache\"", script);
+        Assert.Contains("$diskNumber = 8", script, StringComparison.Ordinal);
+        Assert.Contains("$partitionStyle = 'MBR'", script, StringComparison.Ordinal);
+        Assert.Contains("$fullFormat = $true", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
+        Assert.Contains("$bootPartitionArguments['MbrType'] = 'FAT32'", script, StringComparison.Ordinal);
+        Assert.Contains("$bootPartitionArguments['IsActive'] = $true", script, StringComparison.Ordinal);
+        Assert.Contains("$cachePartitionArguments['MbrType'] = 'IFS'", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("Set-Partition -DiskNumber $diskNumber -PartitionNumber $bootPartition.PartitionNumber -IsActive $true", script, StringComparison.Ordinal);
+        Assert.Contains("if ($fullFormat) { $bootFormatArguments['Full'] = $true }", script, StringComparison.Ordinal);
+        Assert.Contains("if ($fullFormat) { $cacheFormatArguments['Full'] = $true }", script, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -314,7 +441,79 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("EncodedCommand", runner.Executions[0].Arguments, StringComparison.Ordinal);
     }
 
-    private sealed class FakeRunner(string output) : IWinPeProcessRunner
+    [Fact]
+    public async Task ProvisionAndPopulateAsync_WhenPartitioningUsb_UsesPowerShellStorageProvisioning()
+    {
+        string payload = """
+                         {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                         """;
+        var runner = new FakeRunner(payload);
+        using TempWorkspace workspace = TempWorkspace.Create();
+        var service = new WinPeUsbMediaService(runner);
+
+        await service.ProvisionAndPopulateAsync(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 9,
+                ExpectedDiskFriendlyName = "Safe USB",
+                PartitionStyle = UsbPartitionStyle.Gpt,
+                FormatMode = UsbFormatMode.Quick
+            },
+            new WinPeBuildArtifact
+            {
+                WorkingDirectoryPath = workspace.RootPath,
+                MediaDirectoryPath = Path.Combine(workspace.RootPath, "media"),
+                Architecture = WinPeArchitecture.X64
+            },
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
+            useBootEx: false,
+            CancellationToken.None);
+
+        Assert.DoesNotContain("diskpart.exe", runner.Executions.Select(execution => execution.FileName));
+        Assert.Equal(2, runner.Executions.Count(execution => execution.FileName == "pwsh.exe"));
+    }
+
+    [Fact]
+    public async Task ProvisionAndPopulateAsync_WhenProvisioningStreamsOutput_ReportsProvisioningSubstepsAndVerboseDetails()
+    {
+        string payload = """
+                         {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                         """;
+        var runner = new FakeOutputRunner(payload);
+        var progress = new RecordingProgress();
+        using TempWorkspace workspace = TempWorkspace.Create();
+        var service = new WinPeUsbMediaService(runner);
+
+        await service.ProvisionAndPopulateAsync(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 9,
+                ExpectedDiskFriendlyName = "Safe USB",
+                PartitionStyle = UsbPartitionStyle.Gpt,
+                FormatMode = UsbFormatMode.Quick,
+                Progress = progress
+            },
+            new WinPeBuildArtifact
+            {
+                WorkingDirectoryPath = workspace.RootPath,
+                MediaDirectoryPath = Path.Combine(workspace.RootPath, "media"),
+                Architecture = WinPeArchitecture.X64
+            },
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
+            useBootEx: false,
+            CancellationToken.None);
+
+        Assert.Contains(progress.Reports, report => report is { Percent: 26, Status: "Clearing USB partition table." });
+        Assert.Contains(progress.Reports, report => report is { Percent: 44, Status: "Formatting BOOT partition." });
+        Assert.Contains(progress.Reports, report => report is { Percent: 53, Status: "Formatting cache partition." });
+        Assert.Contains(
+            progress.Reports,
+            report => report.Percent == 44 &&
+                      report.Status == "Formatting BOOT partition." &&
+                      report.LogDetail == "BOOT partition formatted. DriveLetter=S, FileSystem=FAT32, Label=BOOT.");
+    }
+
+    private class FakeRunner(string output) : IWinPeProcessRunner
     {
         public List<WinPeProcessExecution> Executions { get; } = [];
 
@@ -353,6 +552,36 @@ public sealed class WinPeUsbMediaServiceTests
             CancellationToken cancellationToken)
         {
             throw new NotSupportedException();
+        }
+    }
+
+    private sealed class FakeOutputRunner(string output) : FakeRunner(output), IWinPeProcessOutputRunner
+    {
+        public Task<WinPeProcessExecution> RunWithOutputAsync(
+            string fileName,
+            string arguments,
+            string workingDirectory,
+            Action<string>? onOutputData,
+            Action<string>? onErrorData,
+            CancellationToken cancellationToken,
+            IReadOnlyDictionary<string, string>? environmentOverrides = null)
+        {
+            onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|26|Clearing USB partition table.");
+            onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|44|Formatting BOOT partition.");
+            onOutputData?.Invoke("FOUNDRY_USB_VERBOSE|BOOT partition formatted. DriveLetter=S, FileSystem=FAT32, Label=BOOT.");
+            onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|53|Formatting cache partition.");
+
+            return RunAsync(fileName, arguments, workingDirectory, cancellationToken, environmentOverrides);
+        }
+    }
+
+    private sealed class RecordingProgress : IProgress<WinPeMediaProgress>
+    {
+        public List<WinPeMediaProgress> Reports { get; } = [];
+
+        public void Report(WinPeMediaProgress value)
+        {
+            Reports.Add(value);
         }
     }
 

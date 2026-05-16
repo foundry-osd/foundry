@@ -19,7 +19,7 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        string osDirectory = context.ResolveOperatingSystemCacheRoot();
+        string osDirectory = context.ResolveOperatingSystemCacheRoot(context.Request.OperatingSystem.SizeBytes);
         Directory.CreateDirectory(osDirectory);
         const string stepMessage = "Downloading OS image...";
 

@@ -28,32 +28,7 @@
             <NavigationView.Header>
                 <dev:BreadcrumbNavigator x:Name="BreadCrumbNav" />
             </NavigationView.Header>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Frame x:Name="NavFrame"
-                       Grid.Row="1" />
-                <InfoBar x:Name="UpdateInfoBar"
-                         Grid.Row="0"
-                         Margin="16,8,16,0"
-                         VerticalAlignment="Top"
-                         Canvas.ZIndex="10"
-                         IsClosable="True"
-                         IsOpen="{x:Bind ViewModel.IsUpdateBannerOpen, Mode=OneWay}"
-                         Message="{x:Bind ViewModel.UpdateBannerMessage, Mode=OneWay}"
-                         Severity="Informational"
-                         Title="{x:Bind ViewModel.UpdateBannerTitle, Mode=OneWay}"
-                         Visibility="{x:Bind ViewModel.IsUpdateBannerOpen, Mode=OneWay}"
-                         Closed="UpdateInfoBar_Closed">
-                    <InfoBar.ActionButton>
-                        <Button Content="{x:Bind ViewModel.UpdateBannerActionText, Mode=OneWay}"
-                                Click="UpdateInfoBarActionButton_Click"
-                                Style="{ThemeResource AccentButtonStyle}" />
-                    </InfoBar.ActionButton>
-                </InfoBar>
-            </Grid>
+            <Frame x:Name="NavFrame" />
         </NavigationView>
     </Grid>
 </Window>

@@ -41,6 +41,7 @@ public sealed class PostHogTelemetryServiceTests
             {
                 ["boot_media_target"] = "iso",
                 ["boot_media_architecture"] = "arm64",
+                ["failed_step_name"] = "Customize boot image",
                 ["ssid"] = "CorpWifi"
             });
 
@@ -56,6 +57,7 @@ public sealed class PostHogTelemetryServiceTests
         Assert.False(properties.TryGetProperty("timestamp", out _));
         Assert.Equal("iso", properties.GetProperty("boot_media_target").GetString());
         Assert.Equal("arm64", properties.GetProperty("boot_media_architecture").GetString());
+        Assert.Equal("Customize boot image", properties.GetProperty("failed_step_name").GetString());
         Assert.False(properties.TryGetProperty("ssid", out _));
         Assert.Equal(TelemetryApps.FoundryOsd, properties.GetProperty("app").GetString());
         Assert.Equal("1.2.3", properties.GetProperty("app_version").GetString());

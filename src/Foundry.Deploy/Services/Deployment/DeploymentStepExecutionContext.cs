@@ -296,13 +296,17 @@ public sealed class DeploymentStepExecutionContext
     /// <returns>The operating system cache root.</returns>
     public string ResolveOperatingSystemCacheRoot()
     {
-        if (RuntimeState.Mode == DeploymentMode.Iso &&
-            !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot))
-        {
-            return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, OperatingSystemsFolderName);
-        }
+        return ResolvePayloadCacheRoot(OperatingSystemsFolderName, requiredBytes: 0);
+    }
 
-        return Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, OperatingSystemsFolderName);
+    /// <summary>
+    /// Resolves the operating system cache root and falls back to the target workspace when the USB cache is too small.
+    /// </summary>
+    /// <param name="requiredBytes">Expected payload size in bytes.</param>
+    /// <returns>The operating system cache root.</returns>
+    public string ResolveOperatingSystemCacheRoot(long requiredBytes)
+    {
+        return ResolvePayloadCacheRoot(OperatingSystemsFolderName, requiredBytes);
     }
 
     /// <summary>
@@ -311,13 +315,17 @@ public sealed class DeploymentStepExecutionContext
     /// <returns>The driver pack cache root.</returns>
     public string ResolveDriverPackCacheRoot()
     {
-        if (RuntimeState.Mode == DeploymentMode.Iso &&
-            !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot))
-        {
-            return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, DriverPacksFolderName);
-        }
+        return ResolvePayloadCacheRoot(DriverPacksFolderName, requiredBytes: 0);
+    }
 
-        return Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, DriverPacksFolderName);
+    /// <summary>
+    /// Resolves the driver pack cache root and falls back to the target workspace when the USB cache is too small.
+    /// </summary>
+    /// <param name="requiredBytes">Expected payload size in bytes.</param>
+    /// <returns>The driver pack cache root.</returns>
+    public string ResolveDriverPackCacheRoot(long requiredBytes)
+    {
+        return ResolvePayloadCacheRoot(DriverPacksFolderName, requiredBytes);
     }
 
     /// <summary>
@@ -487,6 +495,45 @@ public sealed class DeploymentStepExecutionContext
     private string EnsureCacheBaseRoot()
     {
         return ResolveCacheBaseRoot(EnsureResolvedCache());
+    }
+
+    private string ResolvePayloadCacheRoot(string payloadFolderName, long requiredBytes)
+    {
+        if (RuntimeState.Mode == DeploymentMode.Iso &&
+            !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot))
+        {
+            return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, payloadFolderName);
+        }
+
+        string cacheRoot = Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, payloadFolderName);
+        if (RuntimeState.Mode == DeploymentMode.Usb &&
+            requiredBytes > 0 &&
+            !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot) &&
+            !HasAvailableSpace(cacheRoot, requiredBytes))
+        {
+            return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, payloadFolderName);
+        }
+
+        return cacheRoot;
+    }
+
+    private static bool HasAvailableSpace(string path, long requiredBytes)
+    {
+        try
+        {
+            string rootPath = Path.GetPathRoot(Path.GetFullPath(path)) ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(rootPath))
+            {
+                return true;
+            }
+
+            var drive = new DriveInfo(rootPath);
+            return drive.IsReady && drive.AvailableFreeSpace >= requiredBytes;
+        }
+        catch
+        {
+            return true;
+        }
     }
 
     private static string ResolveWorkspaceRoot(DeploymentRuntimeState runtimeState)

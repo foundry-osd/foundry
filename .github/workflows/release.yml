@@ -224,6 +224,7 @@ jobs:
       - name: Build release assets
         env:
           FoundryPostHogProjectToken: ${{ secrets.FoundryPostHogProjectToken }}
+          GITHUB_TOKEN: ${{ github.token }}
         shell: pwsh
         run: |
           if ([string]::IsNullOrWhiteSpace($env:FoundryPostHogProjectToken)) {

@@ -29,6 +29,10 @@ public static class MediaPreflightService
         {
             usbReasons.Add(MediaPreflightBlockingReason.NoUsbTarget);
         }
+        else if (options.SelectedUsbDisk.SizeBytes < WinPeUsbMediaService.MinimumUsbDiskSizeBytes)
+        {
+            usbReasons.Add(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize);
+        }
 
         UsbPartitionStyle effectiveUsbPartitionStyle = options.UsbPartitionStyle;
         if (options.Architecture == WinPeArchitecture.Arm64 && options.UsbPartitionStyle == UsbPartitionStyle.Mbr)
