@@ -1236,6 +1236,15 @@
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
     <value>Apply update</value>
   </data>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>Foundry OSD is downloading the update. The app will restart automatically when it is ready.</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressFormat" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>Installing update</value>
+  </data>
   <data name="Update.NoReleaseNotes" xml:space="preserve">
     <value>No release notes were provided for this update.</value>
   </data>

@@ -144,24 +144,14 @@
                                 </Border>
                             </Grid>
 
-                            <ProgressBar Grid.Row="2"
-                                         Grid.Column="1"
-                                         Maximum="100"
-                                         Value="{x:Bind ViewModel.DownloadProgress, Mode=OneWay}"
-                                         Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-
-                            <StackPanel Grid.Row="3"
+                            <StackPanel Grid.Row="2"
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
                                         Orientation="Horizontal"
                                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <ProgressRing Width="24"
-                                              Height="24"
-                                              IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
-                                              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
                                 <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                                         x:Uid="AppUpdate_DownloadRestartButton"
-                                        Command="{x:Bind ViewModel.DownloadAndRestartUpdateCommand}"
+                                        Click="DownloadRestartButton_Click"
                                         Style="{ThemeResource AccentButtonStyle}"
                                         Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
                                 <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"

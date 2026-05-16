@@ -27,5 +27,32 @@
 
             await dialog.ShowAsync();
         }
+
+        private async void DownloadRestartButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool confirmed = await ViewModel.ConfirmDownloadAndRestartUpdateAsync();
+            if (!confirmed)
+            {
+                return;
+            }
+
+            UpdateInstallProgressDialog dialog = new(ViewModel)
+            {
+                XamlRoot = XamlRoot,
+                RequestedTheme = ActualTheme
+            };
+
+            Task<ContentDialogResult> dialogTask = dialog.ShowAsync().AsTask();
+
+            try
+            {
+                await ViewModel.DownloadAndRestartUpdateAsync();
+            }
+            finally
+            {
+                dialog.Hide();
+                await dialogTask;
+            }
+        }
     }
 }

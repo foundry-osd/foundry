@@ -66,6 +66,9 @@ namespace Foundry.ViewModels
         public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
         public string ReleaseNotesErrorText => localizationService.GetString("AboutDialog.ReleaseNotesError");
         public string ReleaseNotesRepositoryText => localizationService.GetString("Update.ReleaseNotesRepository");
+        public string InstallProgressDialogTitle => localizationService.GetString("Update.InstallProgressDialog.Title");
+        public string InstallProgressDialogMessage => localizationService.GetString("Update.InstallProgressDialog.Message");
+        public string DownloadProgressText => localizationService.FormatString("Update.InstallProgressDialog.ProgressFormat", DownloadProgress);
         public Uri ReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
 
         public AppUpdateSettingViewModel(
@@ -132,8 +135,16 @@ namespace Foundry.ViewModels
             }
         }
 
-        [RelayCommand]
-        private async Task DownloadAndRestartUpdateAsync()
+        public Task<bool> ConfirmDownloadAndRestartUpdateAsync()
+        {
+            return dialogService.ConfirmAsync(new ConfirmationDialogRequest(
+                localizationService.GetString("Update.ConfirmDownloadRestart.Title"),
+                localizationService.GetString("Update.ConfirmDownloadRestart.Message"),
+                localizationService.GetString("Update.ConfirmDownloadRestart.PrimaryButton"),
+                localizationService.GetString("Common.Cancel")));
+        }
+
+        public async Task DownloadAndRestartUpdateAsync()
         {
             IsLoading = true;
             IsCheckButtonEnabled = false;
@@ -143,21 +154,6 @@ namespace Foundry.ViewModels
 
             try
             {
-                bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
-                    localizationService.GetString("Update.ConfirmDownloadRestart.Title"),
-                    localizationService.GetString("Update.ConfirmDownloadRestart.Message"),
-                    localizationService.GetString("Update.ConfirmDownloadRestart.PrimaryButton"),
-                    localizationService.GetString("Common.Cancel")));
-
-                if (!confirmed)
-                {
-                    LoadingStatus = currentCheckResult is not null
-                        ? GetCheckStatusMessage(currentCheckResult)
-                        : localizationService.GetString("Update.Status.Ready");
-                    IsInstallButtonVisible = IsUpdateAvailable;
-                    return;
-                }
-
                 Progress<int> progress = new(value =>
                 {
                     DownloadProgress = value;
@@ -212,6 +208,9 @@ namespace Foundry.ViewModels
                 OnPropertyChanged(nameof(ReleaseNotesLoadingText));
                 OnPropertyChanged(nameof(ReleaseNotesErrorText));
                 OnPropertyChanged(nameof(ReleaseNotesRepositoryText));
+                OnPropertyChanged(nameof(InstallProgressDialogTitle));
+                OnPropertyChanged(nameof(InstallProgressDialogMessage));
+                OnPropertyChanged(nameof(DownloadProgressText));
                 ApplyCurrentUpdateState(currentCheckResult);
             }))
             {
@@ -332,6 +331,11 @@ namespace Foundry.ViewModels
         {
             return checkedAt?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)
                 ?? localizationService.GetString("Update.NotChecked");
+        }
+
+        partial void OnDownloadProgressChanged(int value)
+        {
+            OnPropertyChanged(nameof(DownloadProgressText));
         }
     }
 }
