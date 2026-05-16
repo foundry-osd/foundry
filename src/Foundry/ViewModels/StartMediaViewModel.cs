@@ -1093,7 +1093,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         appSettingsService.Current.Media.UsbPartitionStyle = value.Value.ToString();
         appSettingsService.Save();
-        RefreshEvaluation();
+        RefreshEvaluation(loadConfigurationFromSettings: false);
     }
 
     partial void OnSelectedFormatModeChanged(SelectionOption<UsbFormatMode>? value)
@@ -1110,7 +1110,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
     {
-        if (!appDispatcher.TryEnqueue(RefreshEvaluation))
+        if (!appDispatcher.TryEnqueue(() => RefreshEvaluation()))
         {
             logger.Warning("Failed to enqueue Start page ADK status refresh. IsReady={IsReady}", e.Status.CanCreateMedia);
         }
@@ -1118,7 +1118,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void OnExpertDeployConfigurationStateChanged(object? sender, EventArgs e)
     {
-        if (!appDispatcher.TryEnqueue(RefreshEvaluation))
+        if (!appDispatcher.TryEnqueue(() => RefreshEvaluation()))
         {
             logger.Warning("Failed to enqueue Start page Expert Deploy configuration refresh.");
         }
@@ -1146,16 +1146,19 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RebuildUsbCandidateDisplayNames();
     }
 
-    private void RefreshEvaluation()
+    private void RefreshEvaluation(bool loadConfigurationFromSettings = true)
     {
-        isLoadingConfiguration = true;
-        try
+        if (loadConfigurationFromSettings)
         {
-            LoadConfigurationFromSettings();
-        }
-        finally
-        {
-            isLoadingConfiguration = false;
+            isLoadingConfiguration = true;
+            try
+            {
+                LoadConfigurationFromSettings();
+            }
+            finally
+            {
+                isLoadingConfiguration = false;
+            }
         }
 
         WinPeLanguage = NormalizeCultureName(appSettingsService.Current.Media.WinPeLanguage);

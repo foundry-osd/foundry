@@ -80,9 +80,20 @@ if ([string]$disk.PartitionStyle -ne $partitionStyle) {
 Write-FoundryUsbVerbose "USB partition table initialized. CurrentPartitionStyle=$($disk.PartitionStyle)."
 
 Write-FoundryUsbProgress 38 'Creating BOOT partition.'
-$bootPartition = New-Partition -DiskNumber $diskNumber -Size 4096MB -DriveLetter $bootDriveLetter -ErrorAction Stop
+$bootPartitionArguments = @{
+    DiskNumber = $diskNumber
+    Size = 2048MB
+    DriveLetter = $bootDriveLetter
+    ErrorAction = 'Stop'
+}
+if ($partitionStyle -eq 'GPT') {
+    $bootPartitionArguments['GptType'] = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
+} else {
+    $bootPartitionArguments['MbrType'] = 'FAT32'
+    $bootPartitionArguments['IsActive'] = $true
+}
+$bootPartition = New-Partition @bootPartitionArguments
 Write-FoundryUsbVerbose "BOOT partition created. PartitionNumber=$($bootPartition.PartitionNumber), DriveLetter=$($bootPartition.DriveLetter), Size=$($bootPartition.Size)."
-{{ACTIVE_BOOT_PARTITION}}
 if ($partitionStyle -eq 'MBR') { Write-FoundryUsbVerbose "BOOT partition marked active. PartitionNumber=$($bootPartition.PartitionNumber)." }
 Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter -VolumeName 'BOOT'
 
@@ -100,7 +111,18 @@ Format-Volume @bootFormatArguments | Out-Null
 Write-FoundryUsbVerbose "BOOT partition formatted. DriveLetter=$bootDriveLetter, FileSystem=FAT32, Label=BOOT."
 
 Write-FoundryUsbProgress 49 'Creating cache partition.'
-$cachePartition = New-Partition -DiskNumber $diskNumber -UseMaximumSize -DriveLetter $cacheDriveLetter -ErrorAction Stop
+$cachePartitionArguments = @{
+    DiskNumber = $diskNumber
+    UseMaximumSize = $true
+    DriveLetter = $cacheDriveLetter
+    ErrorAction = 'Stop'
+}
+if ($partitionStyle -eq 'GPT') {
+    $cachePartitionArguments['GptType'] = '{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}'
+} else {
+    $cachePartitionArguments['MbrType'] = 'IFS'
+}
+$cachePartition = New-Partition @cachePartitionArguments
 Write-FoundryUsbVerbose "Cache partition created. PartitionNumber=$($cachePartition.PartitionNumber), DriveLetter=$($cachePartition.DriveLetter), Size=$($cachePartition.Size)."
 Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter -VolumeName 'cache'
 

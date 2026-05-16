@@ -186,7 +186,7 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
-    public void BuildPowerShellProvisioningScript_WhenGptQuickFormat_CreatesBootAndCachePartitionsWithoutActive()
+    public void BuildPowerShellProvisioningScript_WhenGptQuickFormat_CreatesBootAndCachePartitionsWithExplicitTypesWithoutActive()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
             diskNumber: 7,
@@ -198,10 +198,12 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$diskNumber = 7", script, StringComparison.Ordinal);
         Assert.Contains("$partitionStyle = 'GPT'", script, StringComparison.Ordinal);
         Assert.Contains("Initialize-Disk -Number $diskNumber -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
-        Assert.Contains("New-Partition -DiskNumber $diskNumber -Size 4096MB -DriveLetter $bootDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("if ($partitionStyle -eq 'GPT')", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
+        Assert.Contains("$bootPartitionArguments['GptType'] = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'", script, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("FileSystem = 'FAT32'", script, StringComparison.Ordinal);
         Assert.Contains("NewFileSystemLabel = 'BOOT'", script, StringComparison.Ordinal);
-        Assert.Contains("New-Partition -DiskNumber $diskNumber -UseMaximumSize -DriveLetter $cacheDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("$cachePartitionArguments['GptType'] = '{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}'", script, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("FileSystem = 'NTFS'", script, StringComparison.Ordinal);
         Assert.Contains("NewFileSystemLabel = 'Foundry Cache'", script, StringComparison.Ordinal);
         Assert.DoesNotContain("-IsActive $true", script, StringComparison.Ordinal);
@@ -315,7 +317,11 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$diskNumber = 8", script, StringComparison.Ordinal);
         Assert.Contains("$partitionStyle = 'MBR'", script, StringComparison.Ordinal);
         Assert.Contains("$fullFormat = $true", script, StringComparison.Ordinal);
-        Assert.Contains("Set-Partition -DiskNumber $diskNumber -PartitionNumber $bootPartition.PartitionNumber -IsActive $true", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
+        Assert.Contains("$bootPartitionArguments['MbrType'] = 'FAT32'", script, StringComparison.Ordinal);
+        Assert.Contains("$bootPartitionArguments['IsActive'] = $true", script, StringComparison.Ordinal);
+        Assert.Contains("$cachePartitionArguments['MbrType'] = 'IFS'", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("Set-Partition -DiskNumber $diskNumber -PartitionNumber $bootPartition.PartitionNumber -IsActive $true", script, StringComparison.Ordinal);
         Assert.Contains("if ($fullFormat) { $bootFormatArguments['Full'] = $true }", script, StringComparison.Ordinal);
         Assert.Contains("if ($fullFormat) { $cacheFormatArguments['Full'] = $true }", script, StringComparison.Ordinal);
     }

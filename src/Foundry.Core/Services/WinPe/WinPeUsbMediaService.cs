@@ -347,9 +347,6 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string fullFormatValue = formatMode == UsbFormatMode.Complete ? "$true" : "$false";
         char normalizedBootDriveLetter = char.ToUpperInvariant(bootDriveLetter);
         char normalizedCacheDriveLetter = char.ToUpperInvariant(cacheDriveLetter);
-        string activeLine = partitionStyle == UsbPartitionStyle.Mbr
-            ? "Set-Partition -DiskNumber $diskNumber -PartitionNumber $bootPartition.PartitionNumber -IsActive $true -ErrorAction Stop"
-            : string.Empty;
 
         return template
             .Replace("{{DISK_NUMBER}}", diskNumber.ToString())
@@ -357,7 +354,6 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             .Replace("{{FULL_FORMAT}}", fullFormatValue)
             .Replace("{{BOOT_DRIVE_LETTER}}", normalizedBootDriveLetter.ToString())
             .Replace("{{CACHE_DRIVE_LETTER}}", normalizedCacheDriveLetter.ToString())
-            .Replace("{{ACTIVE_BOOT_PARTITION}}", activeLine)
             .ReplaceLineEndings(Environment.NewLine);
     }
 
