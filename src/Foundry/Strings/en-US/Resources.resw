@@ -97,7 +97,7 @@
     <value>Check for new version</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Install and restart</value>
+    <value>Update and restart</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release notes</value>
@@ -1231,19 +1231,22 @@
     <value>Foundry OSD will download the update and restart to apply it.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Install and restart</value>
+    <value>Update and restart</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Apply update</value>
+    <value>Update Foundry OSD</value>
   </data>
   <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
     <value>Foundry OSD is downloading the update. The app will restart automatically when it is ready.</value>
   </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>Download progress</value>
+  </data>
   <data name="Update.InstallProgressDialog.ProgressFormat" xml:space="preserve">
-    <value>{0}%</value>
+    <value>{0:0.0}%</value>
   </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Installing update</value>
+    <value>Updating Foundry OSD</value>
   </data>
   <data name="Update.NoReleaseNotes" xml:space="preserve">
     <value>No release notes were provided for this update.</value>
@@ -1318,7 +1321,7 @@
     <value>A Foundry OSD update is available.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Install the update when you are ready. Foundry OSD will restart to finish applying it.</value>
+    <value>Update when you are ready. Foundry OSD will restart to finish applying it.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is available.</value>

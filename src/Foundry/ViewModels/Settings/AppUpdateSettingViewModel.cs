@@ -46,7 +46,10 @@ namespace Foundry.ViewModels
         public partial string UpdateStatusMetadata { get; set; }
 
         [ObservableProperty]
-        public partial int DownloadProgress { get; set; }
+        public partial double DownloadProgress { get; set; }
+
+        [ObservableProperty]
+        public partial string DownloadStatus { get; set; }
 
         [ObservableProperty]
         public partial bool IsInstallButtonVisible { get; set; }
@@ -68,6 +71,7 @@ namespace Foundry.ViewModels
         public string ReleaseNotesRepositoryText => localizationService.GetString("Update.ReleaseNotesRepository");
         public string InstallProgressDialogTitle => localizationService.GetString("Update.InstallProgressDialog.Title");
         public string InstallProgressDialogMessage => localizationService.GetString("Update.InstallProgressDialog.Message");
+        public string DownloadProgressLabel => localizationService.GetString("Update.InstallProgressDialog.ProgressLabel");
         public string DownloadProgressText => localizationService.FormatString("Update.InstallProgressDialog.ProgressFormat", DownloadProgress);
         public Uri ReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
 
@@ -93,6 +97,7 @@ namespace Foundry.ViewModels
             LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
             IsCheckButtonEnabled = true;
             LoadingStatus = localizationService.GetString("Update.Status.Ready");
+            DownloadStatus = localizationService.GetString("Update.Status.Downloading");
             UpdateStatusTitle = localizationService.GetString("Update.Status.Ready");
             UpdateStatusMetadata = GetStatusMetadata();
 
@@ -149,7 +154,7 @@ namespace Foundry.ViewModels
             IsLoading = true;
             IsCheckButtonEnabled = false;
             IsInstallButtonVisible = false;
-            LoadingStatus = localizationService.GetString("Update.Status.Downloading");
+            DownloadStatus = localizationService.GetString("Update.Status.Downloading");
             DownloadProgress = 0;
 
             try
@@ -157,7 +162,7 @@ namespace Foundry.ViewModels
                 Progress<int> progress = new(value =>
                 {
                     DownloadProgress = value;
-                    LoadingStatus = localizationService.FormatString("Update.Status.DownloadingProgressFormat", value);
+                    DownloadStatus = localizationService.GetString("Update.Status.Downloading");
                 });
 
                 ApplicationUpdateDownloadResult result = await applicationUpdateService.DownloadUpdateAsync(progress);
@@ -210,7 +215,9 @@ namespace Foundry.ViewModels
                 OnPropertyChanged(nameof(ReleaseNotesRepositoryText));
                 OnPropertyChanged(nameof(InstallProgressDialogTitle));
                 OnPropertyChanged(nameof(InstallProgressDialogMessage));
+                OnPropertyChanged(nameof(DownloadProgressLabel));
                 OnPropertyChanged(nameof(DownloadProgressText));
+                DownloadStatus = localizationService.GetString("Update.Status.Downloading");
                 ApplyCurrentUpdateState(currentCheckResult);
             }))
             {
@@ -333,7 +340,7 @@ namespace Foundry.ViewModels
                 ?? localizationService.GetString("Update.NotChecked");
         }
 
-        partial void OnDownloadProgressChanged(int value)
+        partial void OnDownloadProgressChanged(double value)
         {
             OnPropertyChanged(nameof(DownloadProgressText));
         }

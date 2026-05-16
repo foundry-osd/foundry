@@ -97,7 +97,7 @@
     <value>Rechercher une nouvelle version</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Installer et redémarrer</value>
+    <value>Mettre à jour et redémarrer</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notes de version</value>
@@ -1231,19 +1231,22 @@
     <value>Foundry OSD va télécharger la mise à jour et redémarrer pour l'appliquer.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Installer et redémarrer</value>
+    <value>Mettre à jour et redémarrer</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Appliquer la mise à jour</value>
+    <value>Mettre à jour Foundry OSD</value>
   </data>
   <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
     <value>Foundry OSD télécharge la mise à jour. L'application redémarrera automatiquement quand elle sera prête.</value>
   </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>Progression du téléchargement</value>
+  </data>
   <data name="Update.InstallProgressDialog.ProgressFormat" xml:space="preserve">
-    <value>{0} %</value>
+    <value>{0:0.0} %</value>
   </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Installation de la mise à jour</value>
+    <value>Mise à jour de Foundry OSD</value>
   </data>
   <data name="Update.NoReleaseNotes" xml:space="preserve">
     <value>Aucune note de version n'a été fournie pour cette mise à jour.</value>
@@ -1318,7 +1321,7 @@
     <value>Une mise à jour Foundry OSD est disponible.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Installez la mise à jour quand vous êtes prêt. Foundry OSD redémarrera pour terminer son application.</value>
+    <value>Mettez à jour quand vous êtes prêt. Foundry OSD redémarrera pour terminer son application.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} est disponible.</value>

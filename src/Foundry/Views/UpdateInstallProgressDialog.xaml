@@ -9,10 +9,19 @@
                Style="{ThemeResource DefaultContentDialogStyle}"
                Title="{Binding InstallProgressDialogTitle}"
                mc:Ignorable="d">
-    <StackPanel Width="420"
-                Spacing="{ThemeResource FoundryContentGroupSpacing}">
-        <StackPanel Orientation="Horizontal"
-                    Spacing="{ThemeResource FoundrySpace16}">
+    <Grid Width="460"
+          RowSpacing="{ThemeResource FoundrySpace16}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="{ThemeResource FoundrySpace16}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
             <Border Width="44"
                     Height="44"
                     Background="{ThemeResource AccentFillColorDefaultBrush}"
@@ -22,23 +31,40 @@
                           Glyph="&#xEBD3;" />
             </Border>
 
-            <StackPanel VerticalAlignment="Center"
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Center"
                         Spacing="{ThemeResource FoundrySpace4}">
                 <TextBlock Text="{Binding InstallProgressDialogMessage}"
                            TextWrapping="WrapWholeWords" />
                 <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                            Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                           Text="{Binding LoadingStatus}"
+                           Text="{Binding DownloadStatus}"
                            TextWrapping="WrapWholeWords" />
             </StackPanel>
-        </StackPanel>
+        </Grid>
 
-        <ProgressBar Maximum="100"
-                     Value="{Binding DownloadProgress}" />
+        <Grid Grid.Row="1"
+              RowSpacing="{ThemeResource FoundrySpace8}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock HorizontalAlignment="Right"
-                   FlowDirection="LeftToRight"
-                   FontWeight="SemiBold"
-                   Text="{Binding DownloadProgressText}" />
-    </StackPanel>
+            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                       Text="{Binding DownloadProgressLabel}" />
+            <TextBlock Grid.Column="1"
+                       FlowDirection="LeftToRight"
+                       FontWeight="SemiBold"
+                       Text="{Binding DownloadProgressText}" />
+            <ProgressBar Grid.Row="1"
+                         Grid.ColumnSpan="2"
+                         Maximum="100"
+                         Value="{Binding DownloadProgress}" />
+        </Grid>
+    </Grid>
 </ContentDialog>
