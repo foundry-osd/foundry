@@ -7,6 +7,51 @@ namespace Foundry.ViewModels;
 /// </summary>
 internal sealed class MediaCreationTelemetryProgressTracker
 {
+    private static readonly IReadOnlyList<StatusStepMapping> CustomizationStatusMappings =
+    [
+        new("Resolving WinRE source catalog", MediaCreationStepNames.ResolveWinReSourceCatalog),
+        new("Selected WinRE source package", MediaCreationStepNames.SelectWinReSourcePackage),
+        new("Preparing WinRE source package", MediaCreationStepNames.PrepareWinReSourcePackage),
+        new("Resolving WinRE image index", MediaCreationStepNames.ResolveWinReImageIndex),
+        new("Exporting Windows image", MediaCreationStepNames.ExportWinReSourceImage),
+        new("Mounting WinRE source image", MediaCreationStepNames.MountWinReSourceImage),
+        new("Staging WinRE Wi-Fi dependencies", MediaCreationStepNames.StageWinReWifiDependencies),
+        new("Replacing boot image with WinRE", MediaCreationStepNames.ReplaceBootImageWithWinRe),
+        new("Preparing boot image customization", MediaCreationStepNames.CustomizeBootImage),
+        new("Mounting boot image", MediaCreationStepNames.MountBootImage),
+        new("Injecting drivers", MediaCreationStepNames.InjectDriversIntoBootImage),
+        new("Applying language", MediaCreationStepNames.ApplyLanguageAndOptionalComponents),
+        new("Applying optional components", MediaCreationStepNames.ApplyLanguageAndOptionalComponents),
+        new("Applying international settings", MediaCreationStepNames.ApplyLanguageAndOptionalComponents),
+        new("Provisioning Foundry boot assets", MediaCreationStepNames.ProvisionBootAssets),
+        new("Provisioning Foundry runtime payloads", MediaCreationStepNames.ProvisionRuntimePayloads),
+        new("Committing image changes", MediaCreationStepNames.CommitBootImageChanges)
+    ];
+
+    private static readonly IReadOnlyList<StatusStepMapping> DownloadStatusMappings =
+    [
+        new("Downloading driver package", MediaCreationStepNames.DownloadWinPeDriverPackage),
+        new("Downloading WinRE source package", MediaCreationStepNames.DownloadWinReSourcePackage),
+        new("Downloading Foundry.Connect runtime payload", MediaCreationStepNames.DownloadConnectRuntimePayload),
+        new("Downloading Foundry.Deploy runtime payload", MediaCreationStepNames.DownloadDeployRuntimePayload)
+    ];
+
+    private static readonly IReadOnlyList<StatusStepMapping> FinalMediaStatusMappings =
+    [
+        new("Preparing ISO output path", MediaCreationStepNames.PrepareIsoOutputPath),
+        new("Preparing ISO workspace", MediaCreationStepNames.PrepareIsoWorkspace),
+        new("Running MakeWinPEMedia for ISO", MediaCreationStepNames.RunMakeWinPeMediaForIso),
+        new("Finalizing ISO output", MediaCreationStepNames.FinalizeIsoOutput),
+        new("Validating USB target", MediaCreationStepNames.ValidateUsbTarget),
+        new("Checking USB target safety", MediaCreationStepNames.CheckUsbTargetSafety),
+        new("Partitioning and formatting USB target", MediaCreationStepNames.PartitionAndFormatUsbTarget),
+        new("Copying WinPE media to USB", MediaCreationStepNames.CopyWinPeMediaToUsb),
+        new("Configuring USB boot files", MediaCreationStepNames.ConfigureUsbBootFiles),
+        new("Verifying USB boot media", MediaCreationStepNames.VerifyUsbBootMedia),
+        new("Preparing USB cache partition", MediaCreationStepNames.PrepareUsbCachePartition),
+        new("Provisioning USB runtime payloads", MediaCreationStepNames.ProvisionUsbRuntimePayloads)
+    ];
+
     /// <summary>
     /// Gets the last media creation stage reported before the operation completed or failed.
     /// </summary>
@@ -79,177 +124,33 @@ internal sealed class MediaCreationTelemetryProgressTracker
 
     private static string ResolveFailedStepName(WinPeMountedImageCustomizationProgress progress)
     {
-        string status = progress.Status;
-        if (status.StartsWith("Resolving WinRE source catalog", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ResolveWinReSourceCatalog;
-        }
-
-        if (status.StartsWith("Selected WinRE source package", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.SelectWinReSourcePackage;
-        }
-
-        if (status.StartsWith("Preparing WinRE source package", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.PrepareWinReSourcePackage;
-        }
-
-        if (status.StartsWith("Resolving WinRE image index", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ResolveWinReImageIndex;
-        }
-
-        if (status.StartsWith("Exporting Windows image", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ExportWinReSourceImage;
-        }
-
-        if (status.StartsWith("Mounting WinRE source image", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.MountWinReSourceImage;
-        }
-
-        if (status.StartsWith("Staging WinRE Wi-Fi dependencies", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.StageWinReWifiDependencies;
-        }
-
-        if (status.StartsWith("Replacing boot image with WinRE", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ReplaceBootImageWithWinRe;
-        }
-
-        if (status.StartsWith("Preparing boot image customization", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.CustomizeBootImage;
-        }
-
-        if (status.StartsWith("Mounting boot image", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.MountBootImage;
-        }
-
-        if (status.StartsWith("Injecting drivers", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.InjectDriversIntoBootImage;
-        }
-
-        if (status.StartsWith("Applying language", StringComparison.OrdinalIgnoreCase) ||
-            status.StartsWith("Applying optional components", StringComparison.OrdinalIgnoreCase) ||
-            status.StartsWith("Applying international settings", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ApplyLanguageAndOptionalComponents;
-        }
-
-        if (status.StartsWith("Provisioning Foundry boot assets", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ProvisionBootAssets;
-        }
-
-        if (status.StartsWith("Provisioning Foundry runtime payloads", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ProvisionRuntimePayloads;
-        }
-
-        if (status.StartsWith("Committing image changes", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.CommitBootImageChanges;
-        }
-
-        return MediaCreationStepNames.CustomizeBootImage;
+        return ResolveStatusStepName(progress.Status, CustomizationStatusMappings, MediaCreationStepNames.CustomizeBootImage);
     }
 
     private static string ResolveFailedStepName(WinPeDownloadProgress progress)
     {
-        string status = progress.Status;
-        if (status.StartsWith("Downloading driver package", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.DownloadWinPeDriverPackage;
-        }
-
-        if (status.StartsWith("Downloading WinRE source package", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.DownloadWinReSourcePackage;
-        }
-
-        if (status.StartsWith("Downloading Foundry.Connect runtime payload", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.DownloadConnectRuntimePayload;
-        }
-
-        if (status.StartsWith("Downloading Foundry.Deploy runtime payload", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.DownloadDeployRuntimePayload;
-        }
-
-        return MediaCreationStepNames.DownloadMediaDependency;
+        return ResolveStatusStepName(progress.Status, DownloadStatusMappings, MediaCreationStepNames.DownloadMediaDependency);
     }
 
     private static string ResolveFailedStepName(WinPeMediaProgress progress)
     {
-        string status = progress.Status;
-        if (status.StartsWith("Preparing ISO output path", StringComparison.OrdinalIgnoreCase))
+        return ResolveStatusStepName(progress.Status, FinalMediaStatusMappings, MediaCreationStepNames.CreateFinalMedia);
+    }
+
+    private static string ResolveStatusStepName(
+        string status,
+        IReadOnlyList<StatusStepMapping> mappings,
+        string fallback)
+    {
+        foreach (StatusStepMapping mapping in mappings)
         {
-            return MediaCreationStepNames.PrepareIsoOutputPath;
+            if (status.StartsWith(mapping.StatusPrefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return mapping.StepName;
+            }
         }
 
-        if (status.StartsWith("Preparing ISO workspace", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.PrepareIsoWorkspace;
-        }
-
-        if (status.StartsWith("Running MakeWinPEMedia for ISO", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.RunMakeWinPeMediaForIso;
-        }
-
-        if (status.StartsWith("Finalizing ISO output", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.FinalizeIsoOutput;
-        }
-
-        if (status.StartsWith("Validating USB target", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ValidateUsbTarget;
-        }
-
-        if (status.StartsWith("Checking USB target safety", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.CheckUsbTargetSafety;
-        }
-
-        if (status.StartsWith("Partitioning and formatting USB target", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.PartitionAndFormatUsbTarget;
-        }
-
-        if (status.StartsWith("Copying WinPE media to USB", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.CopyWinPeMediaToUsb;
-        }
-
-        if (status.StartsWith("Configuring USB boot files", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ConfigureUsbBootFiles;
-        }
-
-        if (status.StartsWith("Verifying USB boot media", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.VerifyUsbBootMedia;
-        }
-
-        if (status.StartsWith("Preparing USB cache partition", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.PrepareUsbCachePartition;
-        }
-
-        if (status.StartsWith("Provisioning USB runtime payloads", StringComparison.OrdinalIgnoreCase))
-        {
-            return MediaCreationStepNames.ProvisionUsbRuntimePayloads;
-        }
-
-        return MediaCreationStepNames.CreateFinalMedia;
+        return fallback;
     }
 
     private sealed class TrackingProgress<T>(
@@ -263,6 +164,8 @@ internal sealed class MediaCreationTelemetryProgressTracker
             uiProgress.Report(value);
         }
     }
+
+    private sealed record StatusStepMapping(string StatusPrefix, string StepName);
 }
 
 /// <summary>
