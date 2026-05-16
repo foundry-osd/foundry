@@ -68,9 +68,9 @@ internal sealed class OobePolicyRegistryWriter
                 workingDirectory,
                 cancellationToken).ConfigureAwait(false);
             await AddDwordAsync(
-                $@"{SoftwareHiveMount}\Policies\Microsoft\Windows\LocationAndSensors",
-                "DisableLocation",
-                settings.LocationAccess == DeployOobeLocationAccessMode.ForceOff ? 1 : 0,
+                $@"{SoftwareHiveMount}\Policies\Microsoft\Windows\AppPrivacy",
+                "LetAppsAccessLocation",
+                settings.LocationAccess == DeployOobeLocationAccessMode.ForceOff ? 2 : 0,
                 workingDirectory,
                 cancellationToken).ConfigureAwait(false);
         }

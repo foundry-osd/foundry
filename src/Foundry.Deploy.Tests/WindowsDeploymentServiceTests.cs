@@ -84,12 +84,14 @@ public sealed class WindowsDeploymentServiceTests
         XNamespace ns = "urn:schemas-microsoft-com:unattend";
 
         Assert.Equal("true", document.Descendants(ns + "HideEULAPage").Single().Value);
+        Assert.Equal("3", document.Descendants(ns + "ProtectYourPC").Single().Value);
         Assert.Contains(processRunner.Calls, call => call.Contains(@"AllowTelemetry", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
         Assert.Contains(processRunner.Calls, call => call.Contains(@"DisablePrivacyExperience", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
         Assert.Contains(processRunner.Calls, call => call.Contains(@"DisabledByGroupPolicy", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
         Assert.Contains(processRunner.Calls, call => call.Contains(@"AllowInputPersonalization", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
         Assert.Contains(processRunner.Calls, call => call.Contains(@"AllowLinguisticDataCollection", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
-        Assert.Contains(processRunner.Calls, call => call.Contains(@"DisableLocation", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"LetAppsAccessLocation", StringComparison.Ordinal) && call.Contains("/d 2", StringComparison.Ordinal));
+        Assert.DoesNotContain(processRunner.Calls, call => call.Contains(@"DisableLocation", StringComparison.Ordinal));
         Assert.Contains(processRunner.Calls, call => call.Contains(@"DisableTailoredExperiencesWithDiagnosticData", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
     }
 

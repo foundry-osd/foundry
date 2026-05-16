@@ -379,6 +379,15 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         SetElementValue(oobeElement, unattendNamespace, "HideEULAPage", settings.SkipLicenseTerms ? "true" : "false");
+        if (settings.HidePrivacySetup)
+        {
+            SetElementValue(oobeElement, unattendNamespace, "ProtectYourPC", "3");
+        }
+        else
+        {
+            RemoveElement(oobeElement, unattendNamespace, "ProtectYourPC");
+        }
+
         _unattendDocumentService.Save(windowsPartitionRoot, document);
 
         await _oobePolicyRegistryWriter
@@ -928,6 +937,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         element.Value = value;
+    }
+
+    private static void RemoveElement(XElement parent, XNamespace elementNamespace, string elementName)
+    {
+        parent.Element(elementNamespace + elementName)?.Remove();
     }
 
     private static IReadOnlyList<ImageIndexDescriptor> ParseImageDescriptors(string output)
