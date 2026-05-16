@@ -321,6 +321,78 @@
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Le préfixe doit utiliser 1 à 15 caractères parmi A-Z, a-z, 0-9 ou -.</value>
   </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>Expérience de première configuration</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>Configurer les écrans de première exécution Windows 11 et les valeurs de confidentialité par défaut.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>Personnaliser l’OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>Ignorer les termes de licence</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>Ignore la page des termes du contrat de licence logiciel Microsoft pendant l’OOBE.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>Données de diagnostic</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>Sélectionne le niveau de données de diagnostic Windows configuré avant la première connexion. Désactivé est uniquement respecté par les éditions Windows prises en charge ; les éditions non prises en charge reviennent à Obligatoire.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>Obligatoire</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>Facultatif</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>Masquer la configuration de confidentialité</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>Empêche Windows d’afficher la page des choix de confidentialité pendant la première connexion.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>Expériences personnalisées</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>Autorise Windows à utiliser les données de diagnostic pour personnaliser les conseils, publicités et recommandations.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>Identifiant publicitaire</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>Autorise les applications à utiliser l’identifiant publicitaire Windows entre applications.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>Reconnaissance vocale en ligne</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>Autorise les services Microsoft de reconnaissance vocale basés sur le cloud.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>Diagnostics de saisie manuscrite et clavier</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>Autorise la collecte facultative des données de diagnostic de saisie manuscrite et clavier.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>Accès à la localisation</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>Contrôle si Windows et les applications peuvent utiliser les services de localisation.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>Contrôlé par l’utilisateur</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>Forcer la désactivation</value>
+  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Choisir l'architecture, la langue de l'image de démarrage et les pilotes à injecter dans cette image.</value>
   </data>

@@ -321,6 +321,78 @@
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Prefix must use 1 to 15 characters from A-Z, a-z, 0-9, or -.</value>
   </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>Out-of-box experience</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>Configure Windows 11 first-run screens and privacy defaults.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>Customize OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>Skip license terms</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>Skips the Microsoft Software License Terms page during OOBE.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>Diagnostic data</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>Selects the Windows diagnostic data level configured before first sign-in. Off is only honored by supported Windows editions; unsupported editions fall back to Required.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>Hide privacy setup</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>Prevents Windows from showing the privacy choices page during first sign-in.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>Tailored experiences</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>Allows Windows to use diagnostic data for personalized tips, ads, and recommendations.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>Advertising ID</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>Allows apps to use the Windows advertising ID across apps.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>Online speech recognition</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>Allows Microsoft cloud-based speech recognition services.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>Inking and typing diagnostics</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>Allows optional inking and typing diagnostic data collection.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>Location access</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>Controls whether Windows and apps can use location services.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>User controlled</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>Force off</value>
+  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Choose the architecture, boot image language, and drivers to inject into the boot image.</value>
   </data>
