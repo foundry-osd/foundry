@@ -75,7 +75,7 @@ namespace Foundry.ViewModels
         public string InstallProgressDialogMessage => localizationService.GetString("Update.InstallProgressDialog.Message");
         public string InstallProgressDialogVersionText => localizationService.FormatString("Update.InstallProgressDialog.VersionFormat", AvailableVersion);
         public string DownloadProgressLabel => localizationService.GetString("Update.InstallProgressDialog.ProgressLabel");
-        public string DownloadProgressText => localizationService.FormatString("Update.InstallProgressDialog.ProgressFormat", DownloadProgress);
+        public string DownloadProgressText => FormatDownloadProgressText();
         public Uri ReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
 
         public AppUpdateSettingViewModel(
@@ -348,6 +348,17 @@ namespace Foundry.ViewModels
         {
             return checkedAt?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture)
                 ?? localizationService.GetString("Update.NotChecked");
+        }
+
+        private string FormatDownloadProgressText()
+        {
+            string formattedProgress = localizationService.FormatString(
+                "Update.InstallProgressDialog.ProgressFormat",
+                DownloadProgress);
+
+            return formattedProgress.Contains('%', StringComparison.Ordinal)
+                ? formattedProgress
+                : string.Create(CultureInfo.CurrentCulture, $"{DownloadProgress:0.0}%");
         }
 
         partial void OnDownloadProgressChanged(double value)
