@@ -4,11 +4,17 @@ using Serilog;
 
 namespace Foundry.Views;
 
+/// <summary>
+/// Hosts the WebView2 instance used inside the update release notes dialog.
+/// </summary>
 public sealed partial class UpdateReleaseNotesDialogPage : Page
 {
     private static readonly ILogger Logger = Log.ForContext<UpdateReleaseNotesDialogPage>();
     private bool isClosed;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateReleaseNotesDialogPage"/> class.
+    /// </summary>
     public UpdateReleaseNotesDialogPage()
     {
         InitializeComponent();
@@ -22,6 +28,9 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
         await InitializeReleaseNotesWebViewAsync(e.Parameter as AppUpdateSettingViewModel);
     }
 
+    /// <summary>
+    /// Releases the WebView2 instance and detaches browser event handlers before the dialog is disposed.
+    /// </summary>
     public void CloseWebView()
     {
         isClosed = true;

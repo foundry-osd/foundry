@@ -1,9 +1,18 @@
 ﻿namespace Foundry.Views
 {
+    /// <summary>
+    /// Hosts the application update settings UI and update-related dialogs.
+    /// </summary>
     public sealed partial class AppUpdateSettingPage : Page
     {
+        /// <summary>
+        /// Gets the update settings view model.
+        /// </summary>
         public AppUpdateSettingViewModel ViewModel { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppUpdateSettingPage"/> class.
+        /// </summary>
         public AppUpdateSettingPage()
         {
             ViewModel = App.GetService<AppUpdateSettingViewModel>();

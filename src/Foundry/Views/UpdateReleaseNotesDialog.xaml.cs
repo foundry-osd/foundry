@@ -1,11 +1,18 @@
 namespace Foundry.Views;
 
+/// <summary>
+/// Displays the Foundry release notes repository in a modal WebView2 dialog.
+/// </summary>
 public sealed partial class UpdateReleaseNotesDialog : ContentDialog
 {
     private const double DialogChromeWidth = 64;
     private const double FallbackContentWidth = 920;
     private const double FallbackContentHeight = 600;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateReleaseNotesDialog"/> class.
+    /// </summary>
+    /// <param name="viewModel">The update settings view model that provides the release notes URL and localized strings.</param>
     public UpdateReleaseNotesDialog(AppUpdateSettingViewModel viewModel)
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
@@ -16,6 +23,9 @@ public sealed partial class UpdateReleaseNotesDialog : ContentDialog
         Closed += OnClosed;
     }
 
+    /// <summary>
+    /// Gets the update settings view model that provides release notes dialog state.
+    /// </summary>
     public AppUpdateSettingViewModel ViewModel { get; }
 
     private void OnLoaded(object sender, RoutedEventArgs e)

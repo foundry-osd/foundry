@@ -7,6 +7,9 @@ using Serilog;
 
 namespace Foundry.ViewModels
 {
+    /// <summary>
+    /// Coordinates application update checks, release notes, and restart handoff state for the update settings page.
+    /// </summary>
     public sealed partial class AppUpdateSettingViewModel : ObservableObject, IDisposable
     {
         private readonly IAppSettingsService appSettingsService;
@@ -71,6 +74,9 @@ namespace Foundry.ViewModels
         public string DownloadProgressText => string.Create(CultureInfo.CurrentCulture, $"{DownloadProgress:0.#}");
         public Uri ReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppUpdateSettingViewModel"/> class.
+        /// </summary>
         public AppUpdateSettingViewModel(
             IAppSettingsService appSettingsService,
             IDialogService dialogService,
@@ -100,6 +106,7 @@ namespace Foundry.ViewModels
             ApplyCurrentUpdateState(updateStateService.CurrentResult);
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             updateStateService.StateChanged -= OnUpdateStateChanged;
@@ -134,6 +141,10 @@ namespace Foundry.ViewModels
             }
         }
 
+        /// <summary>
+        /// Shows the restart confirmation before downloading and applying an available update.
+        /// </summary>
+        /// <returns><see langword="true"/> when the user confirms the update and restart operation.</returns>
         public Task<bool> ConfirmDownloadAndRestartUpdateAsync()
         {
             return dialogService.ConfirmAsync(new ConfirmationDialogRequest(
@@ -144,6 +155,9 @@ namespace Foundry.ViewModels
                 IsPrimaryButtonAccent: true));
         }
 
+        /// <summary>
+        /// Downloads the available update, reports progress, and starts the Velopack restart handoff when ready.
+        /// </summary>
         public async Task DownloadAndRestartUpdateAsync()
         {
             IsLoading = true;
