@@ -6,7 +6,7 @@ using Serilog;
 namespace Foundry.ViewModels
 {
     /// <summary>
-    /// Owns shell-level update banner state for the main window.
+    /// Owns shell-level update footer state for the main window.
     /// </summary>
     public sealed partial class MainViewModel : ObservableObject, IDisposable
     {
@@ -15,19 +15,18 @@ namespace Foundry.ViewModels
         private readonly IAppDispatcher appDispatcher;
         private readonly ILogger logger;
         private ApplicationUpdateCheckResult? currentUpdateResult;
-        private bool isUpdateBannerDismissed;
 
         [ObservableProperty]
-        public partial bool IsUpdateBannerOpen { get; set; }
+        public partial bool IsUpdateFooterItemVisible { get; set; }
 
         [ObservableProperty]
-        public partial string UpdateBannerTitle { get; set; }
+        public partial string UpdateFooterTitle { get; set; }
 
         [ObservableProperty]
-        public partial string UpdateBannerMessage { get; set; }
+        public partial string UpdateFooterToolTip { get; set; }
 
         [ObservableProperty]
-        public partial string UpdateBannerActionText { get; set; }
+        public partial string UpdateFooterBadgeValue { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -43,31 +42,13 @@ namespace Foundry.ViewModels
             this.appDispatcher = appDispatcher;
             this.logger = logger.ForContext<MainViewModel>();
 
-            UpdateBannerTitle = localizationService.GetString("UpdateBanner.Title");
-            UpdateBannerMessage = localizationService.GetString("Update.Status.UpdateAvailable");
-            UpdateBannerActionText = localizationService.GetString("UpdateBanner.Action");
+            UpdateFooterTitle = localizationService.GetString("UpdateFooter.Title");
+            UpdateFooterToolTip = localizationService.GetString("Update.Status.UpdateAvailable");
+            UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
 
             updateStateService.StateChanged += OnUpdateStateChanged;
             localizationService.LanguageChanged += OnLanguageChanged;
             ApplyUpdateState(updateStateService.CurrentResult);
-        }
-
-        /// <summary>
-        /// Hides the update banner until a different update result is published.
-        /// </summary>
-        public void DismissUpdateBanner()
-        {
-            isUpdateBannerDismissed = true;
-            IsUpdateBannerOpen = false;
-        }
-
-        /// <summary>
-        /// Marks the update banner action as handled and hides the banner.
-        /// </summary>
-        public void MarkUpdateBannerActionOpened()
-        {
-            isUpdateBannerDismissed = true;
-            IsUpdateBannerOpen = false;
         }
 
         /// <inheritdoc />
@@ -82,7 +63,7 @@ namespace Foundry.ViewModels
             if (!appDispatcher.TryEnqueue(() => ApplyUpdateState(e.CurrentResult)))
             {
                 logger.Warning(
-                    "Failed to enqueue update banner state refresh. Status={Status}, Version={Version}",
+                    "Failed to enqueue update footer state refresh. Status={Status}, Version={Version}",
                     e.CurrentResult?.Status,
                     e.CurrentResult?.Version);
             }
@@ -93,7 +74,7 @@ namespace Foundry.ViewModels
             if (!appDispatcher.TryEnqueue(() => ApplyUpdateState(currentUpdateResult)))
             {
                 logger.Warning(
-                    "Failed to enqueue update banner localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
+                    "Failed to enqueue update footer localization refresh. OldLanguage={OldLanguage}, NewLanguage={NewLanguage}",
                     e.OldLanguage,
                     e.NewLanguage);
             }
@@ -101,31 +82,23 @@ namespace Foundry.ViewModels
 
         private void ApplyUpdateState(ApplicationUpdateCheckResult? result)
         {
-            bool updateChanged = currentUpdateResult?.Status != result?.Status
-                || !string.Equals(currentUpdateResult?.Version, result?.Version, StringComparison.Ordinal);
-
             currentUpdateResult = result;
-            UpdateBannerTitle = localizationService.GetString("UpdateBanner.Title");
-            UpdateBannerActionText = localizationService.GetString("UpdateBanner.Action");
+            UpdateFooterTitle = localizationService.GetString("UpdateFooter.Title");
 
             if (result?.IsUpdateAvailable == true)
             {
-                if (updateChanged)
-                {
-                    isUpdateBannerDismissed = false;
-                }
-
-                UpdateBannerMessage = result.Version is not null
+                UpdateFooterToolTip = result.Version is not null
                     ? localizationService.FormatString("Update.Status.UpdateAvailableWithVersion", result.Version)
                     : localizationService.GetString("Update.Status.UpdateAvailable");
 
-                IsUpdateBannerOpen = !isUpdateBannerDismissed;
+                UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
+                IsUpdateFooterItemVisible = true;
                 return;
             }
 
-            isUpdateBannerDismissed = false;
-            UpdateBannerMessage = localizationService.GetString("Update.Status.UpdateAvailable");
-            IsUpdateBannerOpen = false;
+            UpdateFooterToolTip = localizationService.GetString("Update.Status.UpdateAvailable");
+            UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
+            IsUpdateFooterItemVisible = false;
         }
     }
 }

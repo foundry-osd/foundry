@@ -97,13 +97,28 @@
     <value>Rechercher une nouvelle version</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Télécharger et redémarrer</value>
-  </data>
-  <data name="AppUpdate_LastCheckLabel.Text" xml:space="preserve">
-    <value>Dernière vérification</value>
+    <value>Mettre à jour et redémarrer</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notes de version</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>Source de mise à jour</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>Canal de version : {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>Versions stables</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>Versions bêta</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>Versions de préversion</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>Flux web Velopack</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Fermer</value>
@@ -1038,11 +1053,11 @@
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="UpdateBanner.Action" xml:space="preserve">
-    <value>Voir la mise à jour</value>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>Mise à jour</value>
   </data>
-  <data name="UpdateBanner.Title" xml:space="preserve">
-    <value>Mise à jour disponible</value>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>Nouveau</value>
   </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Informations de produit et de version.</value>
@@ -1206,38 +1221,50 @@
   <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
     <value>Mica</value>
   </data>
-  <data name="Update.CurrentVersionFormat" xml:space="preserve">
-    <value>Version actuelle {0}</value>
-  </data>
   <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
     <value>Foundry OSD va télécharger la mise à jour et redémarrer pour l'appliquer.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Télécharger et redémarrer</value>
+    <value>Mettre à jour et redémarrer</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Appliquer la mise à jour</value>
+    <value>Mettre à jour Foundry OSD</value>
   </data>
-  <data name="Update.NoReleaseNotes" xml:space="preserve">
-    <value>Aucune note de version n'a été fournie pour cette mise à jour.</value>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>Téléchargement de la mise à jour. Foundry OSD redémarrera quand elle sera prête.</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>Progression du téléchargement</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>Téléchargement de la mise à jour</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Jamais vérifié</value>
   </data>
-  <data name="Update.ReleaseNotesDialogTitle" xml:space="preserve">
-    <value>Notes de version</value>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>Nouveau</value>
   </data>
-  <data name="Update.ReleaseNotesFallback" xml:space="preserve">
-    <value>Les notes de version seront disponibles depuis le flux de mise à jour Velopack configuré.</value>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>Version disponible</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>Version installée</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>Dernière vérification</value>
+  </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>Dernière version</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Recherche de mises à jour</value>
-  </data>
-  <data name="Update.Status.Downloading" xml:space="preserve">
-    <value>Téléchargement de la mise à jour</value>
-  </data>
-  <data name="Update.Status.DownloadingProgressFormat" xml:space="preserve">
-    <value>Téléchargement de la mise à jour ({0} %)</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Échec de la recherche de mise à jour : {0}</value>
@@ -1245,17 +1272,35 @@
   <data name="Update.Status.NoUpdate" xml:space="preserve">
     <value>Foundry OSD est à jour.</value>
   </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>À jour</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>Mise à jour disponible</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Foundry OSD {0} est disponible</value>
+  </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Recherche de mise à jour ignorée car Foundry OSD ne s'exécute pas depuis une installation Velopack.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Prêt</value>
   </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>Échec de la recherche de mise à jour</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>Recherche de mise à jour ignorée</value>
+  </data>
   <data name="Update.Status.SkippedInDebug" xml:space="preserve">
     <value>Recherche de mise à jour ignorée car un débogueur est attaché.</value>
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
     <value>Une mise à jour Foundry OSD est disponible.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>Mettez à jour quand vous êtes prêt. Foundry OSD redémarrera pour terminer son application.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} est disponible.</value>

@@ -37,6 +37,12 @@ public sealed class WinUiDialogService : IDialogService
             XamlRoot = GetXamlRoot()
         };
 
+        if (request.IsPrimaryButtonAccent)
+        {
+            dialog.PrimaryButtonStyle = (Style)Microsoft.UI.Xaml.Application.Current.Resources["AccentButtonStyle"];
+            dialog.DefaultButton = ContentDialogButton.Primary;
+        }
+
         ContentDialogResult result = await dialog.ShowAsync();
         return result == ContentDialogResult.Primary;
     }
