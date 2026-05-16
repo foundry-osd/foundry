@@ -275,7 +275,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string windowsPartitionRoot,
         string computerName,
         string processorArchitecture,
-        string workingDirectory,
         string? defaultTimeZoneId = null,
         CancellationToken cancellationToken = default)
     {
@@ -292,8 +291,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 "Computer name must contain 1 to 15 valid characters (letters, numbers, or hyphen).",
                 nameof(computerName));
         }
-
-        Directory.CreateDirectory(workingDirectory);
 
         if (string.IsNullOrWhiteSpace(processorArchitecture))
         {

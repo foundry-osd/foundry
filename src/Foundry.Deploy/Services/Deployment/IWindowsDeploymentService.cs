@@ -71,7 +71,6 @@ public interface IWindowsDeploymentService
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
     /// <param name="computerName">Computer name written into unattend.xml.</param>
     /// <param name="processorArchitecture">Processor architecture used by unattend components.</param>
-    /// <param name="workingDirectory">Directory used for temporary XML work.</param>
     /// <param name="defaultTimeZoneId">Optional Windows time-zone identifier written into unattend.xml.</param>
     /// <param name="cancellationToken">Token that cancels unattend generation.</param>
     /// <returns>A task that completes after unattend.xml is written.</returns>
@@ -79,7 +78,6 @@ public interface IWindowsDeploymentService
         string windowsPartitionRoot,
         string computerName,
         string processorArchitecture,
-        string workingDirectory,
         string? defaultTimeZoneId = null,
         CancellationToken cancellationToken = default);
 

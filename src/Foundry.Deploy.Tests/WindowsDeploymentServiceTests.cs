@@ -13,7 +13,6 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
-        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         Directory.CreateDirectory(windowsRoot);
 
         var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
@@ -22,7 +21,6 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            workingDirectory,
             "Romance Standard Time");
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
@@ -38,7 +36,6 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
-        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         Directory.CreateDirectory(windowsRoot);
 
         var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
@@ -47,7 +44,6 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            workingDirectory,
             "Europe/Paris");
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
