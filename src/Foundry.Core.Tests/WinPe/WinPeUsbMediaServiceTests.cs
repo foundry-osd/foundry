@@ -198,7 +198,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$diskNumber = 7", script, StringComparison.Ordinal);
         Assert.Contains("$partitionStyle = 'GPT'", script, StringComparison.Ordinal);
         Assert.Contains("Initialize-Disk -Number $diskNumber -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
-        Assert.Contains("New-Partition -DiskNumber $diskNumber -Size 4096MB -DriveLetter $bootDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("New-Partition -DiskNumber $diskNumber -Size 2048MB -DriveLetter $bootDriveLetter", script, StringComparison.Ordinal);
         Assert.Contains("FileSystem = 'FAT32'", script, StringComparison.Ordinal);
         Assert.Contains("NewFileSystemLabel = 'BOOT'", script, StringComparison.Ordinal);
         Assert.Contains("New-Partition -DiskNumber $diskNumber -UseMaximumSize -DriveLetter $cacheDriveLetter", script, StringComparison.Ordinal);

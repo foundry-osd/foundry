@@ -80,7 +80,7 @@ if ([string]$disk.PartitionStyle -ne $partitionStyle) {
 Write-FoundryUsbVerbose "USB partition table initialized. CurrentPartitionStyle=$($disk.PartitionStyle)."
 
 Write-FoundryUsbProgress 38 'Creating BOOT partition.'
-$bootPartition = New-Partition -DiskNumber $diskNumber -Size 4096MB -DriveLetter $bootDriveLetter -ErrorAction Stop
+$bootPartition = New-Partition -DiskNumber $diskNumber -Size 2048MB -DriveLetter $bootDriveLetter -ErrorAction Stop
 Write-FoundryUsbVerbose "BOOT partition created. PartitionNumber=$($bootPartition.PartitionNumber), DriveLetter=$($bootPartition.DriveLetter), Size=$($bootPartition.Size)."
 {{ACTIVE_BOOT_PARTITION}}
 if ($partitionStyle -eq 'MBR') { Write-FoundryUsbVerbose "BOOT partition marked active. PartitionNumber=$($bootPartition.PartitionNumber)." }
