@@ -4,4 +4,5 @@ public sealed record ConfirmationDialogRequest(
     string Title,
     string Message,
     string PrimaryButtonText,
-    string CancelButtonText);
+    string CancelButtonText,
+    bool IsPrimaryButtonAccent = false);

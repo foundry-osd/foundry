@@ -124,7 +124,7 @@ internal sealed class ApplicationUpdateService(
             pendingUpdateManager = updateManager;
 
             VelopackAsset targetRelease = updateInfo.TargetFullRelease;
-            string version = targetRelease.Version?.ToString() ?? "unknown";
+            string version = FormatDisplayVersion(targetRelease.Version?.ToString());
             string releaseNotes = ResolveReleaseNotes(targetRelease);
             string updateMessage = $"{FoundryApplicationInfo.AppName} {version} is available.";
 
@@ -309,6 +309,16 @@ internal sealed class ApplicationUpdateService(
         }
 
         return "No release notes were provided for this update.";
+    }
+
+    private static string FormatDisplayVersion(string? packageVersion)
+    {
+        if (string.IsNullOrWhiteSpace(packageVersion))
+        {
+            return "unknown";
+        }
+
+        return packageVersion.Trim().Replace("-build.", ".", StringComparison.OrdinalIgnoreCase);
     }
 
     private void ClearPendingUpdate()

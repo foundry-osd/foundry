@@ -17,7 +17,6 @@ namespace Foundry.ViewModels
         private readonly IAppDispatcher appDispatcher;
         private readonly ILogger logger;
         private ApplicationUpdateCheckResult? currentCheckResult;
-        private CancellationTokenSource? downloadProgressAnimationCts;
 
         [ObservableProperty]
         public partial string InstalledVersion { get; set; }
@@ -109,7 +108,6 @@ namespace Foundry.ViewModels
 
         public void Dispose()
         {
-            StopDownloadProgressAnimation();
             updateStateService.StateChanged -= OnUpdateStateChanged;
             localizationService.LanguageChanged -= OnLanguageChanged;
         }
@@ -148,7 +146,8 @@ namespace Foundry.ViewModels
                 localizationService.GetString("Update.ConfirmDownloadRestart.Title"),
                 localizationService.GetString("Update.ConfirmDownloadRestart.Message"),
                 localizationService.GetString("Update.ConfirmDownloadRestart.PrimaryButton"),
-                localizationService.GetString("Common.Cancel")));
+                localizationService.GetString("Common.Cancel"),
+                IsPrimaryButtonAccent: true));
         }
 
         public async Task DownloadAndRestartUpdateAsync()
@@ -157,7 +156,6 @@ namespace Foundry.ViewModels
             IsCheckButtonEnabled = false;
             IsInstallButtonVisible = false;
             DownloadStatus = localizationService.GetString("Update.Status.Downloading");
-            StopDownloadProgressAnimation();
             DownloadProgress = 0;
 
             try
@@ -170,11 +168,11 @@ namespace Foundry.ViewModels
 
                 ApplicationUpdateDownloadResult result = await applicationUpdateService.DownloadUpdateAsync(progress);
                 LoadingStatus = result.Message;
-                StopDownloadProgressAnimation();
 
                 if (result.Status == ApplicationUpdateStatus.ReadyToRestart)
                 {
                     DownloadProgress = 100;
+                    await Task.Delay(TimeSpan.FromMilliseconds(300));
                     applicationUpdateService.ApplyUpdateAndRestart();
                 }
                 else
@@ -184,7 +182,6 @@ namespace Foundry.ViewModels
             }
             finally
             {
-                StopDownloadProgressAnimation();
                 IsLoading = false;
                 IsCheckButtonEnabled = true;
             }
@@ -359,32 +356,7 @@ namespace Foundry.ViewModels
                 return;
             }
 
-            StopDownloadProgressAnimation();
-            downloadProgressAnimationCts = new CancellationTokenSource();
-            _ = AnimateDownloadProgressAsync(target, downloadProgressAnimationCts.Token);
-        }
-
-        private async Task AnimateDownloadProgressAsync(double target, CancellationToken cancellationToken)
-        {
-            try
-            {
-                while (!cancellationToken.IsCancellationRequested && DownloadProgress < target)
-                {
-                    double nextProgress = Math.Min(target, Math.Round(DownloadProgress + 0.1d, 1));
-                    await appDispatcher.EnqueueAsync(() => DownloadProgress = nextProgress);
-                    await Task.Delay(TimeSpan.FromMilliseconds(20), cancellationToken);
-                }
-            }
-            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-            {
-            }
-        }
-
-        private void StopDownloadProgressAnimation()
-        {
-            downloadProgressAnimationCts?.Cancel();
-            downloadProgressAnimationCts?.Dispose();
-            downloadProgressAnimationCts = null;
+            DownloadProgress = target;
         }
     }
 }
