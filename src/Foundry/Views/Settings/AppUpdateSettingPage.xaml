@@ -67,8 +67,7 @@
                                        Text="{x:Bind ViewModel.LastUpdateCheck, Mode=OneWay}" />
                         </Grid>
 
-                        <HyperlinkButton Padding="0"
-                                         x:Uid="AppUpdate_ReleaseNotesLink"
+                        <HyperlinkButton x:Uid="AppUpdate_ReleaseNotesLink"
                                          Click="ReleaseNotesLink_Click"
                                          Visibility="{x:Bind ViewModel.IsReleaseNotesVisible, Mode=OneWay}" />
                     </StackPanel>
@@ -79,8 +78,7 @@
                     <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                             x:Uid="AppUpdate_CheckButton"
                             Command="{x:Bind ViewModel.CheckForUpdateCommand}"
-                            IsEnabled="{x:Bind ViewModel.IsCheckButtonEnabled, Mode=OneWay}"
-                            Style="{ThemeResource AccentButtonStyle}" />
+                            IsEnabled="{x:Bind ViewModel.IsCheckButtonEnabled, Mode=OneWay}" />
                     <ProgressBar Width="160"
                                  Maximum="100"
                                  Value="{x:Bind ViewModel.DownloadProgress, Mode=OneWay}"
@@ -88,6 +86,7 @@
                     <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                             x:Uid="AppUpdate_DownloadRestartButton"
                             Command="{x:Bind ViewModel.DownloadAndRestartUpdateCommand}"
+                            Style="{ThemeResource AccentButtonStyle}"
                             Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
                 </StackPanel>
             </wct:SettingsCard>

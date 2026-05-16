@@ -634,6 +634,27 @@ namespace Foundry.Views
             jsonNavigationService?.NavigateTo(
                 typeof(AppUpdateSettingPage),
                 localizationService.GetString("SettingsPage_UpdateCard.Header"));
+            DispatcherQueue.TryEnqueue(ApplyUpdateSettingsBreadcrumb);
+        }
+
+        private void ApplyUpdateSettingsBreadcrumb()
+        {
+            if (NavFrame.CurrentSourcePageType != typeof(AppUpdateSettingPage))
+            {
+                return;
+            }
+
+            BreadCrumbNav.BreadCrumbs = new(
+            [
+                new BreadcrumbStep(
+                    localizationService.GetString("SettingsPage.PageTitle"),
+                    typeof(SettingsPage),
+                    null),
+                new BreadcrumbStep(
+                    localizationService.GetString("SettingsPage_UpdateCard.Header"),
+                    typeof(AppUpdateSettingPage),
+                    null)
+            ]);
         }
 
         private async void DocumentationFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
