@@ -249,6 +249,27 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
+    public void BuildPowerShellProvisioningScript_WhenCreatingPartitions_WaitsForVolumesBeforeFormatting()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("function Wait-FoundryUsbVolume", script, StringComparison.Ordinal);
+        Assert.Contains("Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter -VolumeName 'BOOT'", script, StringComparison.Ordinal);
+        Assert.Contains("Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter -VolumeName 'cache'", script, StringComparison.Ordinal);
+        Assert.True(
+            script.IndexOf("Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Format-Volume @bootFormatArguments", StringComparison.Ordinal));
+        Assert.True(
+            script.IndexOf("Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Format-Volume @cacheFormatArguments", StringComparison.Ordinal));
+    }
+
+    [Fact]
     public void BuildPowerShellProvisioningScript_WhenFormattingUsb_EmitsProgressMarkers()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(

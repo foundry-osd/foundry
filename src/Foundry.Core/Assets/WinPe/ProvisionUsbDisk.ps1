@@ -10,6 +10,23 @@ function Write-FoundryUsbVerbose([string]$Message) {
     Write-Output ("FOUNDRY_USB_VERBOSE|{0}" -f $Message)
 }
 
+function Wait-FoundryUsbVolume([char]$DriveLetter, [string]$VolumeName) {
+    $deadline = (Get-Date).AddSeconds(30)
+    do {
+        $volume = Get-Volume -DriveLetter $DriveLetter -ErrorAction SilentlyContinue
+        if ($null -ne $volume) {
+            Write-FoundryUsbVerbose "$VolumeName volume is available. DriveLetter=$DriveLetter, FileSystem=$($volume.FileSystem), Size=$($volume.Size)."
+            return
+        }
+
+        Start-Sleep -Milliseconds 500
+        Update-HostStorageCache -ErrorAction SilentlyContinue
+        Update-Disk -Number $diskNumber -ErrorAction SilentlyContinue
+    } while ((Get-Date) -lt $deadline)
+
+    throw "Timed out waiting for $VolumeName volume $DriveLetter`: to become available."
+}
+
 $diskNumber = {{DISK_NUMBER}}
 $partitionStyle = '{{PARTITION_STYLE}}'
 $fullFormat = {{FULL_FORMAT}}
@@ -67,6 +84,7 @@ $bootPartition = New-Partition -DiskNumber $diskNumber -Size 4096MB -DriveLetter
 Write-FoundryUsbVerbose "BOOT partition created. PartitionNumber=$($bootPartition.PartitionNumber), DriveLetter=$($bootPartition.DriveLetter), Size=$($bootPartition.Size)."
 {{ACTIVE_BOOT_PARTITION}}
 if ($partitionStyle -eq 'MBR') { Write-FoundryUsbVerbose "BOOT partition marked active. PartitionNumber=$($bootPartition.PartitionNumber)." }
+Wait-FoundryUsbVolume -DriveLetter $bootDriveLetter -VolumeName 'BOOT'
 
 Write-FoundryUsbProgress 44 'Formatting BOOT partition.'
 $bootFormatArguments = @{
@@ -84,6 +102,7 @@ Write-FoundryUsbVerbose "BOOT partition formatted. DriveLetter=$bootDriveLetter,
 Write-FoundryUsbProgress 49 'Creating cache partition.'
 $cachePartition = New-Partition -DiskNumber $diskNumber -UseMaximumSize -DriveLetter $cacheDriveLetter -ErrorAction Stop
 Write-FoundryUsbVerbose "Cache partition created. PartitionNumber=$($cachePartition.PartitionNumber), DriveLetter=$($cachePartition.DriveLetter), Size=$($cachePartition.Size)."
+Wait-FoundryUsbVolume -DriveLetter $cacheDriveLetter -VolumeName 'cache'
 
 Write-FoundryUsbProgress 53 'Formatting cache partition.'
 $cacheFormatArguments = @{
