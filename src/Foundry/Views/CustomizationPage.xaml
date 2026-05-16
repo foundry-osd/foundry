@@ -64,7 +64,7 @@
                                       Description="{x:Bind ViewModel.OobeSkipLicenseTermsDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8D7;" />
+                            <FontIcon Glyph="&#xEB95;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.SkipLicenseTerms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -83,7 +83,7 @@
                                       Description="{x:Bind ViewModel.OobeHidePrivacySetupDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE72E;" />
+                            <FontIcon Glyph="&#xE705;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.HidePrivacySetup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -91,7 +91,7 @@
                                       Description="{x:Bind ViewModel.OobeTailoredExperiencesDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE734;" />
+                            <FontIcon Glyph="&#xE728;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.AllowTailoredExperiences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -99,7 +99,7 @@
                                       Description="{x:Bind ViewModel.OobeAdvertisingIdDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE71B;" />
+                            <FontIcon Glyph="&#xE789;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.AllowAdvertisingId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
