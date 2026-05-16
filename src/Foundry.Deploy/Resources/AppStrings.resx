@@ -205,6 +205,7 @@ Continue?</value></data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Download operating system image</value></data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Apply operating system image</value></data>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configure target computer name</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configure OOBE settings</value></data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configure recovery environment</value></data>
   <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Download driver pack</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extract driver pack</value></data>

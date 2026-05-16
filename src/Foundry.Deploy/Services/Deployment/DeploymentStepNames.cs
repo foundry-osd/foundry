@@ -15,6 +15,7 @@ public static class DeploymentStepNames
     public const string ExtractDriverPack = "Extract driver pack";
     public const string ApplyOperatingSystemImage = "Apply operating system image";
     public const string ConfigureTargetComputerName = "Configure target computer name";
+    public const string ConfigureOobeSettings = "Configure OOBE settings";
     public const string ConfigureRecoveryEnvironment = "Configure recovery environment";
     public const string ApplyDriverPack = "Apply driver pack";
     public const string DownloadFirmwareUpdate = "Download firmware update";
@@ -36,6 +37,7 @@ public static class DeploymentStepNames
         DownloadOperatingSystemImage,
         ApplyOperatingSystemImage,
         ConfigureTargetComputerName,
+        ConfigureOobeSettings,
         ConfigureRecoveryEnvironment,
         DownloadDriverPack,
         ExtractDriverPack,

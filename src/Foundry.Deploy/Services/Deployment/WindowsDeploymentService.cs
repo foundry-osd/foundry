@@ -1,7 +1,9 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.System;
+using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Validation;
 using Microsoft.Extensions.Logging;
 
@@ -19,15 +21,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
     private const string WinReImageFileName = "winre.wim";
-    private const string UnattendNamespaceUri = "urn:schemas-microsoft-com:unattend";
-    private const string UnattendFileName = "unattend.xml";
-    private const string ShellSetupComponentName = "Microsoft-Windows-Shell-Setup";
-    private const string ShellSetupPublicKeyToken = "31bf3856ad364e35";
-    private const string ShellSetupLanguage = "neutral";
-    private const string ShellSetupVersionScope = "nonSxS";
-
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<WindowsDeploymentService> _logger;
+    private readonly UnattendDocumentService _unattendDocumentService;
+    private readonly OobePolicyRegistryWriter _oobePolicyRegistryWriter;
 
     /// <summary>
     /// Initializes a Windows deployment service.
@@ -38,6 +35,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     {
         _processRunner = processRunner;
         _logger = logger;
+        _unattendDocumentService = new UnattendDocumentService();
+        _oobePolicyRegistryWriter = new OobePolicyRegistryWriter(processRunner);
     }
 
     /// <inheritdoc />
@@ -301,45 +300,10 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             _logger.LogWarning("Processor architecture was not provided when configuring the offline computer name. Falling back to amd64.");
         }
 
-        string normalizedArchitecture = NormalizeUnattendProcessorArchitecture(processorArchitecture);
-        string pantherDirectory = Path.Combine(windowsPartitionRoot, "Windows", "Panther");
-        Directory.CreateDirectory(pantherDirectory);
-
-        string unattendPath = Path.Combine(pantherDirectory, UnattendFileName);
-        XNamespace unattendNamespace = UnattendNamespaceUri;
-        XDocument document = File.Exists(unattendPath)
-            ? XDocument.Load(unattendPath, LoadOptions.PreserveWhitespace)
-            : new XDocument(
-                new XDeclaration("1.0", "utf-8", "yes"),
-                new XElement(unattendNamespace + "unattend"));
-
         // The specialize pass is used so computer name and time zone are applied before OOBE starts.
-        XElement root = EnsureUnattendRoot(document, unattendNamespace);
-        XElement settings = root
-            .Elements(unattendNamespace + "settings")
-            .FirstOrDefault(element => string.Equals((string?)element.Attribute("pass"), "specialize", StringComparison.OrdinalIgnoreCase))
-            ?? new XElement(unattendNamespace + "settings", new XAttribute("pass", "specialize"));
-
-        if (settings.Parent is null)
-        {
-            root.Add(settings);
-        }
-
-        XElement component = settings
-            .Elements(unattendNamespace + "component")
-            .FirstOrDefault(element => string.Equals((string?)element.Attribute("name"), ShellSetupComponentName, StringComparison.OrdinalIgnoreCase))
-            ?? new XElement(unattendNamespace + "component");
-
-        if (component.Parent is null)
-        {
-            settings.Add(component);
-        }
-
-        component.SetAttributeValue("name", ShellSetupComponentName);
-        component.SetAttributeValue("processorArchitecture", normalizedArchitecture);
-        component.SetAttributeValue("publicKeyToken", ShellSetupPublicKeyToken);
-        component.SetAttributeValue("language", ShellSetupLanguage);
-        component.SetAttributeValue("versionScope", ShellSetupVersionScope);
+        XNamespace unattendNamespace = UnattendDocumentService.Namespace;
+        XDocument document = _unattendDocumentService.LoadOrCreate(windowsPartitionRoot);
+        XElement component = _unattendDocumentService.EnsureShellSetupComponent(document, "specialize", processorArchitecture);
 
         XElement computerNameElement = component.Element(unattendNamespace + "ComputerName")
             ?? new XElement(unattendNamespace + "ComputerName");
@@ -372,17 +336,63 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             timeZoneElement.Value = unattendTimeZoneId;
         }
 
-        document.Declaration ??= new XDeclaration("1.0", "utf-8", "yes");
-        document.Save(unattendPath);
+        _unattendDocumentService.Save(windowsPartitionRoot, document);
 
         _logger.LogInformation(
             "Offline computer name configured. ComputerName={ComputerName}, UnattendPath={UnattendPath}, ProcessorArchitecture={ProcessorArchitecture}, DefaultTimeZoneConfigured={DefaultTimeZoneConfigured}",
             computerName,
-            unattendPath,
-            normalizedArchitecture,
+            Path.Combine(windowsPartitionRoot, "Windows", "Panther", "unattend.xml"),
+            processorArchitecture,
             !string.IsNullOrWhiteSpace(unattendTimeZoneId));
 
         return Task.CompletedTask;
+    }
+
+    /// <inheritdoc />
+    public async Task ConfigureOfflineOobeAsync(
+        string windowsPartitionRoot,
+        DeployOobeSettings settings,
+        string processorArchitecture,
+        string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (string.IsNullOrWhiteSpace(windowsPartitionRoot))
+        {
+            throw new ArgumentException("Windows partition root is required.", nameof(windowsPartitionRoot));
+        }
+
+        Directory.CreateDirectory(workingDirectory);
+
+        if (!settings.IsEnabled)
+        {
+            _logger.LogInformation("OOBE customization is disabled.");
+            return;
+        }
+
+        XNamespace unattendNamespace = UnattendDocumentService.Namespace;
+        XDocument document = _unattendDocumentService.LoadOrCreate(windowsPartitionRoot);
+        XElement component = _unattendDocumentService.EnsureShellSetupComponent(document, "oobeSystem", processorArchitecture);
+        XElement oobeElement = component.Element(unattendNamespace + "OOBE") ?? new XElement(unattendNamespace + "OOBE");
+        if (oobeElement.Parent is null)
+        {
+            component.Add(oobeElement);
+        }
+
+        SetElementValue(oobeElement, unattendNamespace, "HideEULAPage", settings.SkipLicenseTerms ? "true" : "false");
+        _unattendDocumentService.Save(windowsPartitionRoot, document);
+
+        await _oobePolicyRegistryWriter
+            .ApplyAsync(windowsPartitionRoot, settings, workingDirectory, cancellationToken)
+            .ConfigureAwait(false);
+
+        _logger.LogInformation(
+            "Offline OOBE customization configured. WindowsPartitionRoot={WindowsPartitionRoot}, DiagnosticDataLevel={DiagnosticDataLevel}, LocationAccess={LocationAccess}",
+            windowsPartitionRoot,
+            settings.DiagnosticDataLevel,
+            settings.LocationAccess);
     }
 
     private static string? ResolveUnattendTimeZoneId(string? timeZoneId)
@@ -912,43 +922,15 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return path;
     }
 
-    private static XElement EnsureUnattendRoot(XDocument document, XNamespace unattendNamespace)
+    private static void SetElementValue(XElement parent, XNamespace elementNamespace, string elementName, string value)
     {
-        if (document.Root is null)
+        XElement element = parent.Element(elementNamespace + elementName) ?? new XElement(elementNamespace + elementName);
+        if (element.Parent is null)
         {
-            XElement root = new(unattendNamespace + "unattend");
-            document.Add(root);
-            return root;
+            parent.Add(element);
         }
 
-        if (document.Root.Name == unattendNamespace + "unattend")
-        {
-            return document.Root;
-        }
-
-        XNode[] existingNodes = document.Root.Nodes().ToArray();
-        XElement replacementRoot = new(unattendNamespace + "unattend");
-        foreach (XNode node in existingNodes)
-        {
-            replacementRoot.Add(node);
-        }
-
-        document.Root.ReplaceWith(replacementRoot);
-        return replacementRoot;
-    }
-
-    private static string NormalizeUnattendProcessorArchitecture(string value)
-    {
-        string normalized = value.Trim().ToLowerInvariant();
-        return normalized switch
-        {
-            "" => "amd64",
-            "amd64" => "amd64",
-            "x64" => "amd64",
-            "arm64" => "arm64",
-            "x86" => "x86",
-            _ => normalized
-        };
+        element.Value = value;
     }
 
     private static IReadOnlyList<ImageIndexDescriptor> ParseImageDescriptors(string output)
