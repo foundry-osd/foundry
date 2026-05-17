@@ -168,12 +168,9 @@ public sealed partial class CustomizationConfigurationViewModel
         try
         {
             selectedCategory.IsProfileSelected = shouldSelectCategory;
-            if (shouldSelectCategory)
+            foreach (AppxRemovalItemViewModel item in selectedCategory.Items)
             {
-                foreach (AppxRemovalItemViewModel item in selectedCategory.Items)
-                {
-                    item.IsSelected = true;
-                }
+                item.IsSelected = shouldSelectCategory;
             }
         }
         finally
