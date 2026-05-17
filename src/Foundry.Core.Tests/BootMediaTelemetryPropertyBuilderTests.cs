@@ -174,7 +174,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Fact]
-    public void Build_WhenAppxProfileWasClearedButPackagesRemain_ReportsCustomProfile()
+    public void Build_WhenAppxProfileNamesAreEmpty_InfersProfilesFromPackages()
     {
         var options = new MediaPreflightOptions();
         var document = new FoundryExpertConfigurationDocument
@@ -205,7 +205,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(8, result["customization_appx_removal_package_count"]);
-        Assert.Equal("custom", result["customization_appx_removal_profile"]);
+        Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);
     }
 
     [Fact]

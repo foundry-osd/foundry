@@ -179,9 +179,12 @@ public static class BootMediaTelemetryPropertyBuilder
         }
 
         var selectedPackages = selectedPackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        string[] selectedProfileNames = settings.ProfileNames is null
+        string[] suppliedProfileNames = settings.ProfileNames?
+            .Where(profileName => !string.IsNullOrWhiteSpace(profileName))
+            .ToArray() ?? [];
+        string[] selectedProfileNames = suppliedProfileNames.Length == 0
             ? InferAppxRemovalProfileNames(selectedPackages).ToArray()
-            : settings.ProfileNames
+            : suppliedProfileNames
                 .Where(profileName => !string.IsNullOrWhiteSpace(profileName))
                 .Select(profileName => profileName.Trim())
                 .Distinct(StringComparer.OrdinalIgnoreCase)

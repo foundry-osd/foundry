@@ -263,7 +263,12 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         IEnumerable<string>? profileNames,
         IReadOnlyCollection<string> packageNames)
     {
-        IEnumerable<string> sourceProfileNames = profileNames ?? InferAppxRemovalProfileNames(packageNames);
+        string[] suppliedProfileNames = profileNames?
+            .Where(profileName => !string.IsNullOrWhiteSpace(profileName))
+            .ToArray() ?? [];
+        IEnumerable<string> sourceProfileNames = suppliedProfileNames.Length == 0
+            ? InferAppxRemovalProfileNames(packageNames)
+            : suppliedProfileNames;
         HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
         return sourceProfileNames
             .Select(profileName => profileName.Trim())
