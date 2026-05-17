@@ -50,8 +50,20 @@ function Remove-ProvisionedAppxPackage {
     foreach ($provisionedPackage in $provisionedPackages) {
         $operationStartedAt = [DateTimeOffset]::Now
         try {
-            Write-FoundryLog "Removing provisioned AppX package: $($provisionedPackage.DisplayName) ($($provisionedPackage.PackageName))"
-            Remove-AppxProvisionedPackage -Online -PackageName $provisionedPackage.PackageName -ErrorAction Stop | Out-Null
+            $resolvedPackageName = [string]$provisionedPackage.PackageName
+            if ([string]::IsNullOrWhiteSpace($resolvedPackageName)) {
+                Write-FoundryLog "WARNING: Skipping provisioned AppX package '$($provisionedPackage.DisplayName)' because its package identity is empty."
+                continue
+            }
+
+            $removeParameters = @{
+                Online = $true
+                PackageName = $resolvedPackageName
+                ErrorAction = 'Stop'
+            }
+
+            Write-FoundryLog "Removing provisioned AppX package: $($provisionedPackage.DisplayName) ($resolvedPackageName)"
+            Remove-AppxProvisionedPackage @removeParameters | Out-Null
             $operationDuration = [DateTimeOffset]::Now - $operationStartedAt
             Write-FoundryLog "Removed provisioned AppX package '$($provisionedPackage.DisplayName)' after $($operationDuration.ToString('c'))."
         }

@@ -207,8 +207,9 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.EndsWith(Path.Combine("Scripts", "Remove-AppX.ps1"), stagedScriptPath);
         Assert.Contains("Remove-AppX.transcript.log", stagedScript);
         Assert.Contains("Get-AppxProvisionedPackage -Online", stagedScript);
-        Assert.Contains("Remove-AppxProvisionedPackage -Online", stagedScript);
+        Assert.Contains("Online = $true", stagedScript);
         Assert.Contains(".Split(',', [System.StringSplitOptions]::RemoveEmptyEntries)", stagedScript);
+        Assert.Contains("Remove-AppxProvisionedPackage @removeParameters", stagedScript);
         Assert.Contains("Write-FoundryLog", stagedScript);
         Assert.Contains("Microsoft.Copilot", runner);
         Assert.Contains("Microsoft.BingWeather", runner);
