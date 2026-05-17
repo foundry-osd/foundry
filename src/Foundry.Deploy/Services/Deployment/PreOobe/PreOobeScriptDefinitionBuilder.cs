@@ -54,7 +54,7 @@ public sealed class PreOobeScriptDefinitionBuilder
                 FileName = "Remove-AppX.ps1",
                 ResourceName = PreOobeScriptResources.RemoveAppx,
                 Priority = PreOobeScriptPriority.Customization,
-                Arguments = ["-PackageNames", .. packageNames]
+                Arguments = ["-PackageNames", string.Join(",", packageNames)]
             });
         }
 

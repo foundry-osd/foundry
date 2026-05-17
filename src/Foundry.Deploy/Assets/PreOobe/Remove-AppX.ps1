@@ -65,7 +65,12 @@ try {
     Start-FoundryTranscript
     Write-FoundryLog "Foundry AppX removal started."
 
-    $selectedPackageNames = @($PackageNames | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() } | Select-Object -Unique)
+    $selectedPackageNames = @($PackageNames |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        ForEach-Object { $_.Split(',', [System.StringSplitOptions]::RemoveEmptyEntries) } |
+        ForEach-Object { $_.Trim() } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        Select-Object -Unique)
     if ($selectedPackageNames.Count -eq 0) {
         Write-FoundryLog "No provisioned AppX packages were selected for removal."
         return
