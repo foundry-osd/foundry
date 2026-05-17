@@ -98,6 +98,7 @@ public sealed partial class CustomizationConfigurationViewModel
         IsAppxRemovalExpanded = settings.IsEnabled;
         HashSet<string> selectedPackageNames = settings.PackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
         bool hasPersistedSelection = selectedPackageNames.Count > 0;
+        bool shouldUseDefaultSelection = settings.IsEnabled && !hasPersistedSelection;
 
         isApplyingAppxSelection = true;
         try
@@ -106,7 +107,7 @@ public sealed partial class CustomizationConfigurationViewModel
             {
                 item.IsSelected = hasPersistedSelection
                     ? selectedPackageNames.Contains(item.PackageName)
-                    : item.DefaultSelected;
+                    : shouldUseDefaultSelection && item.DefaultSelected;
             }
 
             SelectedAppxRemovalProfile = ResolveCurrentAppxRemovalProfile();
@@ -152,7 +153,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RefreshAppxRemovalProfiles()
     {
-        string selectedValue = SelectedAppxRemovalProfile?.Value ?? CustomAppxRemovalProfile;
+        string selectedValue = SelectedAppxRemovalProfile?.Value ?? NoneAppxRemovalProfile;
 
         isApplyingAppxSelection = true;
         try
@@ -169,7 +170,7 @@ public sealed partial class CustomizationConfigurationViewModel
             AppxRemovalProfileOptions.Add(new(NoneAppxRemovalProfile, localizationService.GetString("Customization.AppxRemovalProfileNone")));
             AppxRemovalProfileOptions.Add(new(CustomAppxRemovalProfile, localizationService.GetString("Customization.AppxRemovalProfileCustom")));
             SelectedAppxRemovalProfile = AppxRemovalProfileOptions.FirstOrDefault(option => option.Value == selectedValue)
-                ?? AppxRemovalProfileOptions.First(option => option.Value == CustomAppxRemovalProfile);
+                ?? AppxRemovalProfileOptions.First(option => option.Value == NoneAppxRemovalProfile);
         }
         finally
         {
