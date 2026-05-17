@@ -8,7 +8,7 @@ public static class TelemetryDefaults
     /// <summary>
     /// Gets the current telemetry event contract version.
     /// </summary>
-    public const int SchemaVersion = 1;
+    public const int SchemaVersion = 2;
 
     /// <summary>
     /// Gets the PostHog EU ingestion host used by official Foundry telemetry.

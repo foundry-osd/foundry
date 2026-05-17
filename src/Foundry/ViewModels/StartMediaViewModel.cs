@@ -5,6 +5,7 @@ using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Services.Configuration;
@@ -1261,109 +1262,33 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             Constants.WinPeWorkspaceDirectoryPath,
             Constants.WinPeWorkspaceDirectoryPath));
 
-        var properties = new Dictionary<string, object?>
-            {
-                ["boot_media_target"] = target == FinalMediaTarget.Iso
-                    ? TelemetryBootMediaTargets.Iso
-                    : TelemetryBootMediaTargets.Usb,
-                ["success"] = success,
-                ["duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
-                ["failed_step_name"] = failedStepName,
-                ["boot_media_architecture"] = options.Architecture.ToString().ToLowerInvariant(),
-                ["winpe_language"] = NormalizeCultureName(options.WinPeLanguage).ToLowerInvariant(),
-                ["boot_image_source"] = options.BootImageSource.ToString().ToLowerInvariant(),
-                ["signature_mode"] = options.SignatureMode.ToString().ToLowerInvariant(),
-                ["usb_partition_style"] = target == FinalMediaTarget.Usb
-                    ? options.UsbPartitionStyle.ToString().ToLowerInvariant()
-                    : "none",
-                ["usb_format_mode"] = target == FinalMediaTarget.Usb
-                    ? options.UsbFormatMode.ToString().ToLowerInvariant()
-                    : "none",
-                ["include_dell_drivers"] = options.DriverVendors.Contains(WinPeVendorSelection.Dell),
-                ["include_hp_drivers"] = options.DriverVendors.Contains(WinPeVendorSelection.Hp),
-                ["custom_drivers_enabled"] = !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
-                ["network_configured"] = options.IsNetworkConfigurationReady,
-                ["connect_configured"] = options.IsConnectProvisioningReady,
-                ["deploy_configured"] = options.IsDeployConfigurationReady,
-                ["connect_runtime_payload_source"] = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
-                ["deploy_runtime_payload_source"] = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
-                ["autopilot_enabled"] = options.IsAutopilotEnabled
-            };
-        AddCustomizationTelemetryProperties(properties, expertDeployConfigurationStateService.Current.Customization);
+        string bootMediaTarget = target == FinalMediaTarget.Iso
+            ? TelemetryBootMediaTargets.Iso
+            : TelemetryBootMediaTargets.Usb;
+        IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
+            bootMediaTarget,
+            options,
+            expertDeployConfigurationStateService.Current,
+            success,
+            failedStepName,
+            duration,
+            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
+            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
 
         logger.Debug(
             "Tracking media telemetry event. Target={Target}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
             properties["boot_media_target"],
             success,
             failedStepName,
-            properties["duration_seconds"],
+            properties["boot_media_creation_duration_seconds"],
             properties["boot_media_architecture"],
-            properties["boot_image_source"],
-            properties["signature_mode"],
-            properties["connect_runtime_payload_source"],
-            properties["deploy_runtime_payload_source"]);
+            properties["boot_media_boot_image_source"],
+            properties["boot_media_signature_mode"],
+            properties["boot_media_connect_runtime_payload_source"],
+            properties["boot_media_deploy_runtime_payload_source"]);
 
         await telemetryService.TrackAsync(TelemetryEvents.OsdBootMediaFinished, properties, cancellationToken);
         logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["boot_media_target"], success);
-    }
-
-    private static void AddCustomizationTelemetryProperties(
-        IDictionary<string, object?> properties,
-        CustomizationSettings customization)
-    {
-        MachineNamingSettings machineNaming = customization.MachineNaming;
-        OobeSettings oobe = customization.Oobe;
-
-        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled;
-        properties["customization_machine_naming_enabled"] = machineNaming.IsEnabled;
-        properties["customization_machine_naming_mode"] = ResolveMachineNamingTelemetryMode(machineNaming);
-        properties["customization_machine_naming_prefix_configured"] =
-            machineNaming.IsEnabled && !string.IsNullOrWhiteSpace(machineNaming.Prefix);
-        properties["customization_oobe_enabled"] = oobe.IsEnabled;
-        properties["customization_oobe_skip_license_terms"] = oobe.IsEnabled && oobe.SkipLicenseTerms;
-        properties["customization_oobe_diagnostic_data_level"] = ToTelemetryValue(oobe.DiagnosticDataLevel);
-        properties["customization_oobe_hide_privacy_setup"] = oobe.IsEnabled && oobe.HidePrivacySetup;
-        properties["customization_oobe_tailored_experiences_enabled"] = oobe.IsEnabled && oobe.AllowTailoredExperiences;
-        properties["customization_oobe_advertising_id_enabled"] = oobe.IsEnabled && oobe.AllowAdvertisingId;
-        properties["customization_oobe_online_speech_recognition_enabled"] = oobe.IsEnabled && oobe.AllowOnlineSpeechRecognition;
-        properties["customization_oobe_inking_typing_diagnostics_enabled"] = oobe.IsEnabled && oobe.AllowInkingAndTypingDiagnostics;
-        properties["customization_oobe_location_access"] = ToTelemetryValue(oobe.LocationAccess);
-    }
-
-    private static string ResolveMachineNamingTelemetryMode(MachineNamingSettings settings)
-    {
-        if (!settings.IsEnabled)
-        {
-            return "disabled";
-        }
-
-        if (!settings.AutoGenerateName)
-        {
-            return "manual";
-        }
-
-        return settings.AllowManualSuffixEdit
-            ? "auto_generated_editable"
-            : "auto_generated_locked";
-    }
-
-    private static string ToTelemetryValue(OobeDiagnosticDataLevel value)
-    {
-        return value switch
-        {
-            OobeDiagnosticDataLevel.Optional => "optional",
-            OobeDiagnosticDataLevel.Off => "off",
-            _ => "required"
-        };
-    }
-
-    private static string ToTelemetryValue(OobeLocationAccessMode value)
-    {
-        return value switch
-        {
-            OobeLocationAccessMode.ForceOff => "force_off",
-            _ => "user_controlled"
-        };
     }
 
     private string BuildStatusText(MediaPreflightEvaluation evaluation)
