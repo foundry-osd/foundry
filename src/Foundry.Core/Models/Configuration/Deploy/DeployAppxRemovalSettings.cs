@@ -11,7 +11,7 @@ public sealed record DeployAppxRemovalSettings
     public bool IsEnabled { get; init; }
 
     /// <summary>
-    /// Gets AppX package display names passed to provisioned package removal.
+    /// Gets provisioned AppX package identifiers passed to package removal.
     /// </summary>
     public IReadOnlyList<string> PackageNames { get; init; } = [];
 }

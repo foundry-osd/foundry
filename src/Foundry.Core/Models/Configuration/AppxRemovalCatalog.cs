@@ -78,7 +78,7 @@ public static class AppxRemovalCatalog
     public static IReadOnlyList<AppxRemovalCatalogEntry> Entries => CatalogEntries;
 
     /// <summary>
-    /// Returns whether a package display name exists in the supported catalog.
+    /// Returns whether a provisioned AppX package identifier exists in the supported catalog.
     /// </summary>
     public static bool ContainsPackageName(string packageName)
     {
