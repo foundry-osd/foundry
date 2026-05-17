@@ -161,7 +161,7 @@
                                                     <CheckBox Click="OnAppxRemovalProfileClick"
                                                               Content="{x:Bind DisplayName, Mode=OneWay}"
                                                               IsChecked="{x:Bind IsProfileSelected, Mode=OneWay}"
-                                                              IsThreeState="True" />
+                                                              IsThreeState="False" />
                                                 </DataTemplate>
                                             </ItemsRepeater.ItemTemplate>
                                         </ItemsRepeater>

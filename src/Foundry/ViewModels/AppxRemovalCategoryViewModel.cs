@@ -14,5 +14,5 @@ public sealed partial class AppxRemovalCategoryViewModel : ObservableObject
     public ObservableCollection<AppxRemovalItemViewModel> Items { get; }
 
     [ObservableProperty]
-    public partial bool? IsProfileSelected { get; set; }
+    public partial bool IsProfileSelected { get; set; }
 }

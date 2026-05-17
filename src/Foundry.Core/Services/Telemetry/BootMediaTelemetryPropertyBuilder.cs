@@ -94,7 +94,7 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_oobe_location_access"] = ToTelemetryValue(oobe.LocationAccess);
         properties["customization_appx_removal_enabled"] = isAppxRemovalEnabled;
         properties["customization_appx_removal_package_count"] = isAppxRemovalEnabled ? selectedAppxPackages.Length : 0;
-        properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(selectedAppxPackages, isAppxRemovalEnabled);
+        properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(appxRemoval, selectedAppxPackages, isAppxRemovalEnabled);
     }
 
     private static void AddLocalizationTelemetryProperties(
@@ -171,7 +171,7 @@ public static class BootMediaTelemetryPropertyBuilder
             .ToArray();
     }
 
-    private static string ResolveAppxRemovalProfile(string[] selectedPackageNames, bool isEnabled)
+    private static string ResolveAppxRemovalProfile(AppxRemovalSettings settings, string[] selectedPackageNames, bool isEnabled)
     {
         if (!isEnabled)
         {
@@ -179,29 +179,37 @@ public static class BootMediaTelemetryPropertyBuilder
         }
 
         var selectedPackages = selectedPackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var selectedCategoryTokens = new List<string>();
-        int matchedPackageCount = 0;
-        foreach (IGrouping<string, AppxRemovalCatalogEntry> category in AppxRemovalCatalog.Entries.GroupBy(entry => entry.Category))
+        string[] selectedProfileNames = settings.ProfileNames is null
+            ? InferAppxRemovalProfileNames(selectedPackages).ToArray()
+            : settings.ProfileNames
+                .Where(profileName => !string.IsNullOrWhiteSpace(profileName))
+                .Select(profileName => profileName.Trim())
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+
+        if (selectedProfileNames.Length == 0)
         {
-            string[] categoryPackages = category
+            return "custom";
+        }
+
+        var selectedCategoryTokens = new List<string>(selectedProfileNames.Length);
+        HashSet<string> expectedPackages = new(StringComparer.OrdinalIgnoreCase);
+        foreach (string profileName in selectedProfileNames)
+        {
+            string[] profilePackages = AppxRemovalCatalog.Entries
+                .Where(entry => string.Equals(entry.Category, profileName, StringComparison.OrdinalIgnoreCase))
                 .Select(entry => entry.PackageName)
                 .ToArray();
-            int selectedCategoryPackageCount = categoryPackages.Count(selectedPackages.Contains);
-            if (selectedCategoryPackageCount == 0)
-            {
-                continue;
-            }
-
-            if (selectedCategoryPackageCount != categoryPackages.Length)
+            if (profilePackages.Length == 0)
             {
                 return "custom";
             }
 
-            matchedPackageCount += selectedCategoryPackageCount;
-            selectedCategoryTokens.Add(ToTelemetryToken(category.Key));
+            expectedPackages.UnionWith(profilePackages);
+            selectedCategoryTokens.Add(ToTelemetryToken(profileName));
         }
 
-        if (matchedPackageCount != selectedPackages.Count)
+        if (!selectedPackages.SetEquals(expectedPackages))
         {
             return "custom";
         }
@@ -217,6 +225,41 @@ public static class BootMediaTelemetryPropertyBuilder
         }
 
         return "custom";
+    }
+
+    private static IEnumerable<string> InferAppxRemovalProfileNames(HashSet<string> selectedPackages)
+    {
+        int matchedPackageCount = 0;
+        var profileNames = new List<string>();
+        foreach (IGrouping<string, AppxRemovalCatalogEntry> category in AppxRemovalCatalog.Entries.GroupBy(entry => entry.Category))
+        {
+            string[] categoryPackages = category
+                .Select(entry => entry.PackageName)
+                .ToArray();
+            int selectedCategoryPackageCount = categoryPackages.Count(selectedPackages.Contains);
+            if (selectedCategoryPackageCount == 0)
+            {
+                continue;
+            }
+
+            if (selectedCategoryPackageCount != categoryPackages.Length)
+            {
+                yield break;
+            }
+
+            matchedPackageCount += selectedCategoryPackageCount;
+            profileNames.Add(category.Key);
+        }
+
+        if (matchedPackageCount != selectedPackages.Count)
+        {
+            yield break;
+        }
+
+        foreach (string profileName in profileNames)
+        {
+            yield return profileName;
+        }
     }
 
     private static string ToTelemetryToken(string value)

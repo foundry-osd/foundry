@@ -48,7 +48,8 @@ public sealed class ExpertConfigurationServiceTests
                 AppxRemoval = new AppxRemovalSettings
                 {
                     IsEnabled = true,
-                    PackageNames = ["Microsoft.BingWeather", "Microsoft.Copilot"]
+                    PackageNames = ["Microsoft.BingWeather", "Microsoft.Copilot"],
+                    ProfileNames = ["Consumer / bloatware / onboarding"]
                 }
             },
             Telemetry = new TelemetrySettings
@@ -80,6 +81,7 @@ public sealed class ExpertConfigurationServiceTests
         Assert.Equal(OobeLocationAccessMode.ForceOff, loaded.Customization.Oobe.LocationAccess);
         Assert.True(loaded.Customization.AppxRemoval.IsEnabled);
         Assert.Equal(["Microsoft.BingWeather", "Microsoft.Copilot"], loaded.Customization.AppxRemoval.PackageNames);
+        Assert.Equal(["Consumer / bloatware / onboarding"], loaded.Customization.AppxRemoval.ProfileNames);
         Assert.False(loaded.Telemetry.IsEnabled);
         Assert.Equal("install-id", loaded.Telemetry.InstallId);
         Assert.Equal("project-token", loaded.Telemetry.ProjectToken);

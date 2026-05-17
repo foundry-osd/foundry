@@ -253,9 +253,38 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
             ? new AppxRemovalSettings
             {
                 IsEnabled = true,
-                PackageNames = packageNames
+                PackageNames = packageNames,
+                ProfileNames = NormalizeAppxRemovalProfileNames(settings.ProfileNames, packageNames)
             }
             : new AppxRemovalSettings();
+    }
+
+    private static string[] NormalizeAppxRemovalProfileNames(
+        IEnumerable<string>? profileNames,
+        IReadOnlyCollection<string> packageNames)
+    {
+        IEnumerable<string> sourceProfileNames = profileNames ?? InferAppxRemovalProfileNames(packageNames);
+        HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
+        return sourceProfileNames
+            .Select(profileName => profileName.Trim())
+            .Where(profileName =>
+                !string.IsNullOrWhiteSpace(profileName) &&
+                AppxRemovalCatalog.Entries.Any(entry => string.Equals(entry.Category, profileName, StringComparison.OrdinalIgnoreCase)) &&
+                seen.Add(profileName))
+            .OrderBy(profileName => profileName, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    private static IEnumerable<string> InferAppxRemovalProfileNames(IReadOnlyCollection<string> packageNames)
+    {
+        HashSet<string> selectedPackages = packageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        foreach (IGrouping<string, AppxRemovalCatalogEntry> category in AppxRemovalCatalog.Entries.GroupBy(entry => entry.Category))
+        {
+            if (category.All(entry => selectedPackages.Contains(entry.PackageName)))
+            {
+                yield return category.Key;
+            }
+        }
     }
 
     private static string[] NormalizeAppxRemovalPackageNames(IEnumerable<string> packageNames)

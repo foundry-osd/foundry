@@ -14,4 +14,9 @@ public sealed record AppxRemovalSettings
     /// Gets provisioned AppX package identifiers passed to package removal.
     /// </summary>
     public IReadOnlyList<string> PackageNames { get; init; } = [];
+
+    /// <summary>
+    /// Gets selected AppX removal profile category names used by the configuration UI.
+    /// </summary>
+    public IReadOnlyList<string>? ProfileNames { get; init; }
 }
