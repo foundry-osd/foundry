@@ -19,7 +19,7 @@ public sealed partial class CustomizationPage : Page
 
     private void OnAppxRemovalProfileClick(object sender, RoutedEventArgs e)
     {
-        if (sender is CheckBox { DataContext: AppxRemovalCategoryViewModel category })
+        if (sender is CheckBox { Tag: AppxRemovalCategoryViewModel category })
         {
             ViewModel.ToggleAppxRemovalProfile(category);
         }
