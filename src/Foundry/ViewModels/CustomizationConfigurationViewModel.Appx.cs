@@ -98,7 +98,6 @@ public sealed partial class CustomizationConfigurationViewModel
         IsAppxRemovalExpanded = settings.IsEnabled;
         HashSet<string> selectedPackageNames = settings.PackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
         bool hasPersistedSelection = selectedPackageNames.Count > 0;
-        bool shouldUseDefaultSelection = settings.IsEnabled && !hasPersistedSelection;
 
         isApplyingAppxSelection = true;
         try
@@ -107,7 +106,7 @@ public sealed partial class CustomizationConfigurationViewModel
             {
                 item.IsSelected = hasPersistedSelection
                     ? selectedPackageNames.Contains(item.PackageName)
-                    : shouldUseDefaultSelection && item.DefaultSelected;
+                    : false;
             }
 
             SelectedAppxRemovalProfile = ResolveCurrentAppxRemovalProfile();
@@ -128,7 +127,7 @@ public sealed partial class CustomizationConfigurationViewModel
             .Select(item => item.PackageName)
             .ToArray();
 
-        return IsAppxRemovalEnabled && selectedPackageNames.Length > 0
+        return IsAppxRemovalEnabled
             ? new AppxRemovalSettings
             {
                 IsEnabled = true,

@@ -249,7 +249,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     private static AppxRemovalSettings SanitizeAppxRemovalForPersistence(AppxRemovalSettings settings)
     {
         string[] packageNames = NormalizeAppxRemovalPackageNames(settings.PackageNames);
-        return settings.IsEnabled && packageNames.Length > 0
+        return settings.IsEnabled
             ? new AppxRemovalSettings
             {
                 IsEnabled = true,
