@@ -9,6 +9,33 @@ namespace Foundry.Deploy.Tests;
 public sealed class DriverPackSelectionViewModelTests
 {
     [Fact]
+    public void EffectiveSelectionKind_WhenDetectedHardwareIsVirtualMachine_DefaultsToNone()
+    {
+        var viewModel = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance),
+            new LocalizationService(),
+            "x64");
+        HardwareProfile hardware = new()
+        {
+            Manufacturer = "Microsoft Corporation",
+            Model = "Virtual Machine",
+            Product = "Virtual Machine",
+            IsVirtualMachine = true
+        };
+        OperatingSystemCatalogItem operatingSystem = new()
+        {
+            WindowsRelease = "11",
+            ReleaseId = "25H2",
+            Architecture = "x64"
+        };
+
+        viewModel.UpdateSelectionContext(hardware, operatingSystem, "x64");
+        viewModel.ApplyCatalog([]);
+
+        Assert.Equal(DriverPackSelectionKind.None, viewModel.EffectiveSelectionKind);
+    }
+
+    [Fact]
     public void ResolveEffectiveSelection_WhenLenovoPacksShareReleaseDate_SelectsNewestCompatibleRelease()
     {
         var viewModel = new DriverPackSelectionViewModel(
