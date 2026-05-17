@@ -8,13 +8,10 @@ public sealed partial class CustomizationConfigurationViewModel
 {
     private const string CustomAppxRemovalProfile = "custom";
     private const string NoneAppxRemovalProfile = "none";
-    private const string CategoryAppxRemovalProfilePrefix = "category:";
 
     private bool isApplyingAppxSelection;
 
     public ObservableCollection<AppxRemovalCategoryViewModel> AppxRemovalCategories { get; } = [];
-
-    public ObservableCollection<SelectionOption<string>> AppxRemovalProfileOptions { get; } = [];
 
     public bool IsAppxRemovalOptionsEnabled => IsAppxRemovalEnabled;
 
@@ -22,6 +19,8 @@ public sealed partial class CustomizationConfigurationViewModel
         "Customization.AppxRemovalSelectedCountFormat",
         AppxRemovalCategories.SelectMany(category => category.Items).Count(item => item.IsSelected),
         AppxRemovalCategories.SelectMany(category => category.Items).Count());
+
+    public string AppxRemovalProfileSummaryText => ResolveAppxRemovalProfileSummary();
 
     [ObservableProperty]
     public partial string AppxRemovalHeader { get; set; }
@@ -54,19 +53,16 @@ public sealed partial class CustomizationConfigurationViewModel
     [NotifyPropertyChangedFor(nameof(IsAppxRemovalOptionsEnabled))]
     public partial bool IsAppxRemovalEnabled { get; set; }
 
-    [ObservableProperty]
-    public partial SelectionOption<string>? SelectedAppxRemovalProfile { get; set; }
-
     [RelayCommand]
     private void SelectAllAppxRemoval()
     {
-        SetAllAppxSelections(true, CustomAppxRemovalProfile);
+        SetAllAppxSelections(true);
     }
 
     [RelayCommand]
     private void RemoveAllAppxRemoval()
     {
-        SetAllAppxSelections(false, NoneAppxRemovalProfile);
+        SetAllAppxSelections(false);
     }
 
     private void InitializeAppxRemovalCatalog()
@@ -88,6 +84,7 @@ public sealed partial class CustomizationConfigurationViewModel
                 item.PropertyChanged += OnAppxRemovalItemPropertyChanged;
             }
 
+            categoryViewModel.PropertyChanged += OnAppxRemovalCategoryPropertyChanged;
             AppxRemovalCategories.Add(categoryViewModel);
         }
     }
@@ -109,7 +106,7 @@ public sealed partial class CustomizationConfigurationViewModel
                     : false;
             }
 
-            SelectedAppxRemovalProfile = ResolveCurrentAppxRemovalProfile();
+            RefreshAppxRemovalProfileState();
         }
         finally
         {
@@ -117,6 +114,7 @@ public sealed partial class CustomizationConfigurationViewModel
         }
 
         OnPropertyChanged(nameof(AppxRemovalSelectedCountText));
+        OnPropertyChanged(nameof(AppxRemovalProfileSummaryText));
     }
 
     private AppxRemovalSettings BuildAppxRemovalSettings()
@@ -146,60 +144,24 @@ public sealed partial class CustomizationConfigurationViewModel
         AppxRemovalSelectAllText = localizationService.GetString("Customization.AppxRemovalSelectAll");
         AppxRemovalRemoveAllText = localizationService.GetString("Customization.AppxRemovalRemoveAll");
         AppxRemovalPackagesLabel = localizationService.GetString("Customization.AppxRemovalPackagesLabel");
-        RefreshAppxRemovalProfiles();
         OnPropertyChanged(nameof(AppxRemovalSelectedCountText));
+        OnPropertyChanged(nameof(AppxRemovalProfileSummaryText));
     }
 
-    private void RefreshAppxRemovalProfiles()
+    private void SetAllAppxSelections(bool isSelected)
     {
-        string selectedValue = SelectedAppxRemovalProfile?.Value ?? NoneAppxRemovalProfile;
-
-        isApplyingAppxSelection = true;
-        try
-        {
-            AppxRemovalProfileOptions.Clear();
-            foreach (string category in AppxRemovalCatalog.Entries
-                         .Select(entry => entry.Category)
-                         .Distinct(StringComparer.OrdinalIgnoreCase)
-                         .OrderBy(category => category, StringComparer.OrdinalIgnoreCase))
-            {
-                AppxRemovalProfileOptions.Add(new(CategoryAppxRemovalProfilePrefix + category, category));
-            }
-
-            AppxRemovalProfileOptions.Add(new(NoneAppxRemovalProfile, localizationService.GetString("Customization.AppxRemovalProfileNone")));
-            AppxRemovalProfileOptions.Add(new(CustomAppxRemovalProfile, localizationService.GetString("Customization.AppxRemovalProfileCustom")));
-            SelectedAppxRemovalProfile = AppxRemovalProfileOptions.FirstOrDefault(option => option.Value == selectedValue)
-                ?? AppxRemovalProfileOptions.First(option => option.Value == NoneAppxRemovalProfile);
-        }
-        finally
-        {
-            isApplyingAppxSelection = false;
-        }
+        SetAppxSelections(_ => isSelected);
     }
 
-    private void ApplyAppxRemovalProfile(string profile)
+    private void SetAppxCategorySelection(AppxRemovalCategoryViewModel selectedCategory, bool isSelected)
     {
-        if (profile.StartsWith(CategoryAppxRemovalProfilePrefix, StringComparison.OrdinalIgnoreCase))
-        {
-            string category = profile[CategoryAppxRemovalProfilePrefix.Length..];
-            SetAppxSelections(
-                item => string.Equals(item.Category, category, StringComparison.OrdinalIgnoreCase),
-                profile);
-            return;
-        }
-
-        if (string.Equals(profile, NoneAppxRemovalProfile, StringComparison.Ordinal))
-        {
-            SetAllAppxSelections(false, NoneAppxRemovalProfile);
-        }
+        SetAppxSelections(item =>
+            string.Equals(item.Category, selectedCategory.DisplayName, StringComparison.OrdinalIgnoreCase)
+                ? isSelected
+                : item.IsSelected);
     }
 
-    private void SetAllAppxSelections(bool isSelected, string selectedProfileValue)
-    {
-        SetAppxSelections(_ => isSelected, selectedProfileValue);
-    }
-
-    private void SetAppxSelections(Func<AppxRemovalItemViewModel, bool> selector, string selectedProfileValue)
+    private void SetAppxSelections(Func<AppxRemovalItemViewModel, bool> selector)
     {
         isApplyingAppxSelection = true;
         try
@@ -214,56 +176,70 @@ public sealed partial class CustomizationConfigurationViewModel
             isApplyingAppxSelection = false;
         }
 
-        SelectedAppxRemovalProfile = AppxRemovalProfileOptions.FirstOrDefault(option => option.Value == selectedProfileValue);
-        OnPropertyChanged(nameof(AppxRemovalSelectedCountText));
+        RefreshAppxRemovalProfileState();
         SaveState();
     }
 
-    private SelectionOption<string>? ResolveCurrentAppxRemovalProfile()
+    private void RefreshAppxRemovalProfileState()
     {
-        AppxRemovalItemViewModel[] selectedItems = AppxRemovalCategories
-            .SelectMany(category => category.Items)
-            .Where(item => item.IsSelected)
-            .ToArray();
-
-        if (selectedItems.Length == 0)
+        isApplyingAppxSelection = true;
+        try
         {
-            return AppxRemovalProfileOptions.FirstOrDefault(option => option.Value == NoneAppxRemovalProfile);
-        }
-
-        string[] selectedCategories = selectedItems
-            .Select(item => item.Category)
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-        if (selectedCategories.Length == 1)
-        {
-            string selectedCategory = selectedCategories[0];
-            string categoryProfile = CategoryAppxRemovalProfilePrefix + selectedCategory;
-            int categoryItemCount = AppxRemovalCategories
-                .SelectMany(category => category.Items)
-                .Count(item => string.Equals(item.Category, selectedCategory, StringComparison.OrdinalIgnoreCase));
-
-            if (selectedItems.Length == categoryItemCount)
+            foreach (AppxRemovalCategoryViewModel category in AppxRemovalCategories)
             {
-                return AppxRemovalProfileOptions.FirstOrDefault(option => option.Value == categoryProfile);
+                int selectedCount = category.Items.Count(item => item.IsSelected);
+                category.IsProfileSelected = selectedCount switch
+                {
+                    0 => false,
+                    var count when count == category.Items.Count => true,
+                    _ => null
+                };
             }
         }
+        finally
+        {
+            isApplyingAppxSelection = false;
+        }
 
-        return AppxRemovalProfileOptions.FirstOrDefault(option => option.Value == CustomAppxRemovalProfile);
+        OnPropertyChanged(nameof(AppxRemovalSelectedCountText));
+        OnPropertyChanged(nameof(AppxRemovalProfileSummaryText));
+    }
+
+    private string ResolveAppxRemovalProfileSummary()
+    {
+        AppxRemovalCategoryViewModel[] selectedProfiles = AppxRemovalCategories
+            .Where(category => category.Items.Count > 0 && category.Items.All(item => item.IsSelected))
+            .ToArray();
+
+        bool hasSelectedItems = AppxRemovalCategories
+            .SelectMany(category => category.Items)
+            .Any(item => item.IsSelected);
+        if (!hasSelectedItems)
+        {
+            return localizationService.GetString("Customization.AppxRemovalProfileNone");
+        }
+
+        bool hasPartialCategory = AppxRemovalCategories.Any(category =>
+        {
+            int selectedCount = category.Items.Count(item => item.IsSelected);
+            return selectedCount > 0 && selectedCount < category.Items.Count;
+        });
+        if (hasPartialCategory)
+        {
+            return localizationService.GetString("Customization.AppxRemovalProfileCustom");
+        }
+
+        return selectedProfiles.Length switch
+        {
+            1 => selectedProfiles[0].DisplayName,
+            _ => localizationService.FormatString("Customization.AppxRemovalProfilesSelectedFormat", selectedProfiles.Length)
+        };
     }
 
     partial void OnIsAppxRemovalEnabledChanged(bool value)
     {
         IsAppxRemovalExpanded = value;
         SaveState();
-    }
-
-    partial void OnSelectedAppxRemovalProfileChanged(SelectionOption<string>? value)
-    {
-        if (!isApplyingState && !isApplyingAppxSelection && value is not null)
-        {
-            ApplyAppxRemovalProfile(value.Value);
-        }
     }
 
     private void OnAppxRemovalItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -275,10 +251,31 @@ public sealed partial class CustomizationConfigurationViewModel
 
         if (!isApplyingState && !isApplyingAppxSelection)
         {
-            SelectedAppxRemovalProfile = AppxRemovalProfileOptions.FirstOrDefault(option => option.Value == CustomAppxRemovalProfile);
+            RefreshAppxRemovalProfileState();
             SaveState();
         }
+        else if (!isApplyingAppxSelection)
+        {
+            RefreshAppxRemovalProfileState();
+        }
+    }
 
-        OnPropertyChanged(nameof(AppxRemovalSelectedCountText));
+    private void OnAppxRemovalCategoryPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (!string.Equals(e.PropertyName, nameof(AppxRemovalCategoryViewModel.IsProfileSelected), StringComparison.Ordinal) ||
+            isApplyingState ||
+            isApplyingAppxSelection ||
+            sender is not AppxRemovalCategoryViewModel category)
+        {
+            return;
+        }
+
+        if (category.IsProfileSelected is bool isSelected)
+        {
+            SetAppxCategorySelection(category, isSelected);
+            return;
+        }
+
+        RefreshAppxRemovalProfileState();
     }
 }

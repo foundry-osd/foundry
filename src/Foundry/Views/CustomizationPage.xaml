@@ -149,10 +149,29 @@
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE8EF;" />
                         </wct:SettingsCard.HeaderIcon>
-                        <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
-                                  DisplayMemberPath="DisplayName"
-                                  ItemsSource="{x:Bind ViewModel.AppxRemovalProfileOptions, Mode=OneWay}"
-                                  SelectedItem="{x:Bind ViewModel.SelectedAppxRemovalProfile, Mode=TwoWay}" />
+                        <DropDownButton MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                        Content="{x:Bind ViewModel.AppxRemovalProfileSummaryText, Mode=OneWay}">
+                            <DropDownButton.Flyout>
+                                <Flyout Placement="BottomEdgeAlignedRight">
+                                    <StackPanel MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                                Spacing="{ThemeResource FoundrySpace12}">
+                                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.AppxRemovalCategories, Mode=OneWay}">
+                                            <ItemsRepeater.ItemTemplate>
+                                                <DataTemplate x:DataType="viewModels:AppxRemovalCategoryViewModel">
+                                                    <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                              IsChecked="{x:Bind IsProfileSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                              IsThreeState="True" />
+                                                </DataTemplate>
+                                            </ItemsRepeater.ItemTemplate>
+                                        </ItemsRepeater>
+                                        <Button HorizontalAlignment="Right"
+                                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                                Command="{x:Bind ViewModel.RemoveAllAppxRemovalCommand}"
+                                                Content="{x:Bind ViewModel.AppxRemovalRemoveAllText, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Flyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
                     </wct:SettingsCard>
                     <wct:SettingsCard Header="{x:Bind ViewModel.AppxRemovalPackagesLabel, Mode=OneWay}"
                                       Description="{x:Bind ViewModel.AppxRemovalSelectedCountText, Mode=OneWay}"

@@ -406,13 +406,16 @@
     <value>Profile</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
-    <value>Select a catalog category to preselect its packages.</value>
+    <value>Select one or more catalog categories to preselect packages.</value>
   </data>
   <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
     <value>None</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
     <value>Custom</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>{0} profiles selected</value>
   </data>
   <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
     <value>Select all</value>

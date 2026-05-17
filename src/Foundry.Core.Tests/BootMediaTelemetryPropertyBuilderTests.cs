@@ -174,6 +174,42 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Fact]
+    public void Build_WhenAppxSelectionMatchesMultipleCategories_ReportsMultipleProfile()
+    {
+        var options = new MediaPreflightOptions();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames = AppxRemovalCatalog.Entries
+                        .Where(entry =>
+                            entry.Category == "Gaming / Xbox" ||
+                            entry.Category == "Phone / cross-device")
+                        .Select(entry => entry.PackageName)
+                        .ToArray()
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            options,
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.True((bool)result["customization_appx_removal_enabled"]!);
+        Assert.Equal(10, result["customization_appx_removal_package_count"]);
+        Assert.Equal("multiple", result["customization_appx_removal_profile"]);
+    }
+
+    [Fact]
     public void Build_WhenPersonalWifiIsNotProvisioned_DoesNotReportPassphraseConfigured()
     {
         var options = new MediaPreflightOptions

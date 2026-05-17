@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace Foundry.ViewModels;
 
-public sealed class AppxRemovalCategoryViewModel
+public sealed partial class AppxRemovalCategoryViewModel : ObservableObject
 {
     public AppxRemovalCategoryViewModel(string displayName, IEnumerable<AppxRemovalItemViewModel> items)
     {
@@ -12,4 +12,7 @@ public sealed class AppxRemovalCategoryViewModel
 
     public string DisplayName { get; }
     public ObservableCollection<AppxRemovalItemViewModel> Items { get; }
+
+    [ObservableProperty]
+    public partial bool? IsProfileSelected { get; set; }
 }

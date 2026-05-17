@@ -179,16 +179,41 @@ public static class BootMediaTelemetryPropertyBuilder
         }
 
         var selectedPackages = selectedPackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var selectedCategoryTokens = new List<string>();
+        int matchedPackageCount = 0;
         foreach (IGrouping<string, AppxRemovalCatalogEntry> category in AppxRemovalCatalog.Entries.GroupBy(entry => entry.Category))
         {
             string[] categoryPackages = category
                 .Select(entry => entry.PackageName)
                 .ToArray();
-
-            if (selectedPackages.SetEquals(categoryPackages))
+            int selectedCategoryPackageCount = categoryPackages.Count(selectedPackages.Contains);
+            if (selectedCategoryPackageCount == 0)
             {
-                return ToTelemetryToken(category.Key);
+                continue;
             }
+
+            if (selectedCategoryPackageCount != categoryPackages.Length)
+            {
+                return "custom";
+            }
+
+            matchedPackageCount += selectedCategoryPackageCount;
+            selectedCategoryTokens.Add(ToTelemetryToken(category.Key));
+        }
+
+        if (matchedPackageCount != selectedPackages.Count)
+        {
+            return "custom";
+        }
+
+        if (selectedCategoryTokens.Count == 1)
+        {
+            return selectedCategoryTokens[0];
+        }
+
+        if (selectedCategoryTokens.Count > 1)
+        {
+            return "multiple";
         }
 
         return "custom";
