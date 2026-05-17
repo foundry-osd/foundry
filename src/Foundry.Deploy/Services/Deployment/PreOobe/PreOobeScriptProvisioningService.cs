@@ -14,6 +14,7 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     private const string RunnerFileName = "Invoke-FoundryPreOobe.ps1";
     private const string ManifestFileName = "pre-oobe-manifest.json";
     private const string RuntimePreOobeRoot = "%SystemRoot%\\Temp\\Foundry\\PreOobe";
+    private const string RuntimePreOobeLogRoot = "%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
 
     private readonly ISetupCompleteScriptService _setupCompleteScriptService;
@@ -70,7 +71,7 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         _setupCompleteScriptService.EnsureBlock(
             setupCompletePath,
             SetupCompleteMarkerKey,
-            $"powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"{RuntimePreOobeRoot}\\{RunnerFileName}\"");
+            BuildSetupCompleteLauncher());
 
         return new PreOobeScriptProvisioningResult
         {
@@ -182,6 +183,20 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         }
 
         return builder.ToString();
+    }
+
+    private static string BuildSetupCompleteLauncher()
+    {
+        return string.Join(
+            Environment.NewLine,
+            [
+                $"mkdir \"{RuntimePreOobeLogRoot}\" >nul 2>&1",
+                $"echo [%date% %time%] Starting Foundry pre-OOBE runner.>\"{RuntimePreOobeLogRoot}\\SetupComplete.log\"",
+                $"powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"{RuntimePreOobeRoot}\\{RunnerFileName}\" >>\"{RuntimePreOobeLogRoot}\\SetupComplete.log\" 2>&1",
+                "set \"FOUNDRY_PREOOBE_EXIT=%ERRORLEVEL%\"",
+                $"echo [%date% %time%] Foundry pre-OOBE runner exited with %FOUNDRY_PREOOBE_EXIT%.>>\"{RuntimePreOobeLogRoot}\\SetupComplete.log\"",
+                "if not \"%FOUNDRY_PREOOBE_EXIT%\"==\"0\" exit /b %FOUNDRY_PREOOBE_EXIT%"
+            ]);
     }
 
     private static string BuildManifest(IReadOnlyList<PreOobeScriptDefinition> orderedScripts)

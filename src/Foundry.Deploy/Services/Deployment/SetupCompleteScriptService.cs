@@ -43,8 +43,18 @@ public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
         }
 
         string existing = File.ReadAllText(setupCompletePath);
+        string pattern =
+            $@"(?im)^[ \t]*{Regex.Escape(beginMarker)}[ \t]*\r?\n" +
+            $@"[\s\S]*?" +
+            $@"^[ \t]*{Regex.Escape(endMarker)}[ \t]*(?:\r?\n)?";
         if (existing.Contains(beginMarker, StringComparison.OrdinalIgnoreCase))
         {
+            string updated = Regex.Replace(existing, pattern, snippet);
+            if (!string.Equals(existing, updated, StringComparison.Ordinal))
+            {
+                File.WriteAllText(setupCompletePath, updated, Encoding.ASCII);
+            }
+
             return setupCompletePath;
         }
 

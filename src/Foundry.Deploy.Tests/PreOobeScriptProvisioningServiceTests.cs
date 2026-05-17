@@ -244,8 +244,10 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         Assert.Contains("REM >>> FOUNDRY PRE-OOBE BEGIN", setupComplete);
         Assert.Contains(
-            "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\PreOobe\\Invoke-FoundryPreOobe.ps1\"",
+            "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\PreOobe\\Invoke-FoundryPreOobe.ps1\" >>\"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\\SetupComplete.log\" 2>&1",
             setupComplete);
+        Assert.Contains("mkdir \"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\" >nul 2>&1", setupComplete);
+        Assert.Contains("Foundry pre-OOBE runner exited with %FOUNDRY_PREOOBE_EXIT%", setupComplete);
         Assert.Contains("REM <<< FOUNDRY PRE-OOBE END", setupComplete);
     }
 
@@ -264,6 +266,35 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         string setupComplete = File.ReadAllText(result.SetupCompletePath);
 
+        Assert.Equal(1, CountOccurrences(setupComplete, "REM >>> FOUNDRY PRE-OOBE BEGIN"));
+    }
+
+    [Fact]
+    public void Provision_ReplacesExistingSetupCompleteLauncherBlock()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        string setupCompletePath = Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
+        Directory.CreateDirectory(Path.GetDirectoryName(setupCompletePath)!);
+        File.WriteAllText(
+            setupCompletePath,
+            string.Join(
+                Environment.NewLine,
+                [
+                    "@echo off",
+                    "REM >>> FOUNDRY PRE-OOBE BEGIN",
+                    "old-runner-command",
+                    "REM <<< FOUNDRY PRE-OOBE END"
+                ]));
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [CreateScript("driver-pack", "Install-DriverPack.ps1", PreOobeScriptPriority.DriverProvisioning)]);
+
+        string setupComplete = File.ReadAllText(result.SetupCompletePath);
+
+        Assert.DoesNotContain("old-runner-command", setupComplete);
+        Assert.Contains("SetupComplete.log", setupComplete);
         Assert.Equal(1, CountOccurrences(setupComplete, "REM >>> FOUNDRY PRE-OOBE BEGIN"));
     }
 
