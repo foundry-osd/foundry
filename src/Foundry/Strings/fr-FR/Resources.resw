@@ -393,6 +393,39 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Forcer la désactivation</value>
   </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>Suppression AppX provisionnée</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>Supprimer les applications Windows provisionnées sélectionnées avant l’OOBE.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>Supprimer les applications AppX provisionnées</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>Sélectionner une catégorie du catalogue pour présélectionner ses packages.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>Personnalisé</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>Tout sélectionner</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>Tout retirer</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>{0} package(s) sélectionné(s) sur {1}</value>
+  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Choisir l'architecture, la langue de l'image de démarrage et les pilotes à injecter dans cette image.</value>
   </data>

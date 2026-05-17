@@ -393,6 +393,39 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Force off</value>
   </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>Provisioned AppX removal</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>Remove selected provisioned Windows apps before OOBE.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>Remove provisioned AppX apps</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>Select a catalog category to preselect its packages.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>Remove all</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>{0} of {1} package(s) selected</value>
+  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Choose the architecture, boot image language, and drivers to inject into the boot image.</value>
   </data>

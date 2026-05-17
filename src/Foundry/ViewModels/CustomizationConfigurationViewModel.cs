@@ -23,6 +23,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         this.configurationStateService = configurationStateService;
         this.localizationService = localizationService;
 
+        InitializeAppxRemovalCatalog();
         RefreshLocalizedText();
         ApplyState(configurationStateService.Current.Customization);
 
@@ -130,6 +131,10 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
+        foreach (AppxRemovalItemViewModel item in AppxRemovalCategories.SelectMany(category => category.Items))
+        {
+            item.PropertyChanged -= OnAppxRemovalItemPropertyChanged;
+        }
     }
 
     partial void OnIsMachineNamingEnabledChanged(bool value)
@@ -176,6 +181,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             MachineNameAutoGenerate = settings.MachineNaming.AutoGenerateName;
             AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;
             ApplyOobeState(settings.Oobe);
+            ApplyAppxRemovalState(settings.AppxRemoval);
         }
         finally
         {
@@ -196,7 +202,8 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             configurationStateService.UpdateCustomization(new CustomizationSettings
             {
                 MachineNaming = BuildMachineNamingSettings(),
-                Oobe = BuildOobeSettings()
+                Oobe = BuildOobeSettings(),
+                AppxRemoval = BuildAppxRemovalSettings()
             });
         }
         finally
@@ -218,6 +225,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         MachineNamingAllowManualSuffixEditText = localizationService.GetString("Customization.MachineNamingAllowManualSuffixLabel");
         MachineNamingAllowManualSuffixEditDescription = localizationService.GetString("Customization.MachineNamingAllowManualSuffixDescription");
         RefreshOobeLocalizedText();
+        RefreshAppxRemovalLocalizedText();
         OnPropertyChanged(nameof(MachineNamePrefixValidationMessage));
         OnPropertyChanged(nameof(HasMachineNamePrefixValidationError));
         OnPropertyChanged(nameof(MachineNamePrefixValidationVisibility));
