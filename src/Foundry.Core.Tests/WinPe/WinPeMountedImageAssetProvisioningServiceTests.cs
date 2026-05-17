@@ -172,10 +172,11 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         string deployConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"));
         using JsonDocument document = JsonDocument.Parse(deployConfigurationJson);
         JsonElement root = document.RootElement;
-        Assert.Equal(3, root.GetProperty("schemaVersion").GetInt32());
+        Assert.Equal(4, root.GetProperty("schemaVersion").GetInt32());
         Assert.True(root.TryGetProperty("localization", out _));
         Assert.True(root.TryGetProperty("customization", out JsonElement customization));
         Assert.True(customization.TryGetProperty("oobe", out _));
+        Assert.True(customization.TryGetProperty("appxRemoval", out _));
         Assert.True(root.TryGetProperty("autopilot", out _));
     }
 
