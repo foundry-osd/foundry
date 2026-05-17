@@ -128,11 +128,7 @@ public sealed partial class CustomizationConfigurationViewModel
             ? new AppxRemovalSettings
             {
                 IsEnabled = true,
-                PackageNames = selectedPackageNames,
-                ProfileNames = AppxRemovalCategories
-                    .Where(category => category.IsProfileSelected)
-                    .Select(category => category.DisplayName)
-                    .ToArray()
+                PackageNames = selectedPackageNames
             }
             : new AppxRemovalSettings();
     }

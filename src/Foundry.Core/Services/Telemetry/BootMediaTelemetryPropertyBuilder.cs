@@ -94,7 +94,7 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_oobe_location_access"] = ToTelemetryValue(oobe.LocationAccess);
         properties["customization_appx_removal_enabled"] = isAppxRemovalEnabled;
         properties["customization_appx_removal_package_count"] = isAppxRemovalEnabled ? selectedAppxPackages.Length : 0;
-        properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(appxRemoval, selectedAppxPackages, isAppxRemovalEnabled);
+        properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(selectedAppxPackages, isAppxRemovalEnabled);
     }
 
     private static void AddLocalizationTelemetryProperties(
@@ -171,7 +171,7 @@ public static class BootMediaTelemetryPropertyBuilder
             .ToArray();
     }
 
-    private static string ResolveAppxRemovalProfile(AppxRemovalSettings settings, string[] selectedPackageNames, bool isEnabled)
+    private static string ResolveAppxRemovalProfile(string[] selectedPackageNames, bool isEnabled)
     {
         if (!isEnabled)
         {
@@ -179,55 +179,18 @@ public static class BootMediaTelemetryPropertyBuilder
         }
 
         var selectedPackages = selectedPackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        string[] suppliedProfileNames = settings.ProfileNames?
-            .Where(profileName => !string.IsNullOrWhiteSpace(profileName))
-            .ToArray() ?? [];
-        string[] selectedProfileNames = suppliedProfileNames.Length == 0
-            ? InferAppxRemovalProfileNames(selectedPackages).ToArray()
-            : suppliedProfileNames
-                .Where(profileName => !string.IsNullOrWhiteSpace(profileName))
-                .Select(profileName => profileName.Trim())
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToArray();
-
+        string[] selectedProfileNames = InferAppxRemovalProfileNames(selectedPackages).ToArray();
         if (selectedProfileNames.Length == 0)
         {
             return "custom";
         }
 
-        var selectedCategoryTokens = new List<string>(selectedProfileNames.Length);
-        HashSet<string> expectedPackages = new(StringComparer.OrdinalIgnoreCase);
-        foreach (string profileName in selectedProfileNames)
+        if (selectedProfileNames.Length == 1)
         {
-            string[] profilePackages = AppxRemovalCatalog.Entries
-                .Where(entry => string.Equals(entry.Category, profileName, StringComparison.OrdinalIgnoreCase))
-                .Select(entry => entry.PackageName)
-                .ToArray();
-            if (profilePackages.Length == 0)
-            {
-                return "custom";
-            }
-
-            expectedPackages.UnionWith(profilePackages);
-            selectedCategoryTokens.Add(ToTelemetryToken(profileName));
+            return ToTelemetryToken(selectedProfileNames[0]);
         }
 
-        if (!selectedPackages.SetEquals(expectedPackages))
-        {
-            return "custom";
-        }
-
-        if (selectedCategoryTokens.Count == 1)
-        {
-            return selectedCategoryTokens[0];
-        }
-
-        if (selectedCategoryTokens.Count > 1)
-        {
-            return "multiple";
-        }
-
-        return "custom";
+        return "multiple";
     }
 
     private static IEnumerable<string> InferAppxRemovalProfileNames(HashSet<string> selectedPackages)

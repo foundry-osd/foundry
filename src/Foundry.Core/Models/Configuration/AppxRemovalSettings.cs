@@ -15,8 +15,4 @@ public sealed record AppxRemovalSettings
     /// </summary>
     public IReadOnlyList<string> PackageNames { get; init; } = [];
 
-    /// <summary>
-    /// Gets selected AppX removal profile category names used by the configuration UI.
-    /// </summary>
-    public IReadOnlyList<string>? ProfileNames { get; init; }
 }
