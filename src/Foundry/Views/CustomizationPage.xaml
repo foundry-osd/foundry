@@ -147,7 +147,7 @@
                                       Description="{x:Bind ViewModel.AppxRemovalProfileDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAppxRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8EF;" />
+                            <FontIcon Glyph="&#xEC25;" />
                         </wct:SettingsCard.HeaderIcon>
                         <DropDownButton MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                         Content="{x:Bind ViewModel.AppxRemovalProfileSummaryText, Mode=OneWay}">

@@ -187,7 +187,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                     PackageNames = AppxRemovalCatalog.Entries
                         .Where(entry =>
                             entry.Category == "Gaming / Xbox" ||
-                            entry.Category == "Phone / cross-device")
+                            entry.Category == "Phone / Cross-Device")
                         .Select(entry => entry.PackageName)
                         .ToArray()
                 }
