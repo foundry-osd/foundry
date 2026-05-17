@@ -84,7 +84,6 @@ public sealed partial class CustomizationConfigurationViewModel
                 item.PropertyChanged += OnAppxRemovalItemPropertyChanged;
             }
 
-            categoryViewModel.PropertyChanged += OnAppxRemovalCategoryPropertyChanged;
             AppxRemovalCategories.Add(categoryViewModel);
         }
     }
@@ -151,6 +150,12 @@ public sealed partial class CustomizationConfigurationViewModel
     private void SetAllAppxSelections(bool isSelected)
     {
         SetAppxSelections(_ => isSelected);
+    }
+
+    public void ToggleAppxRemovalProfile(AppxRemovalCategoryViewModel selectedCategory)
+    {
+        bool shouldSelectCategory = selectedCategory.Items.Any(item => !item.IsSelected);
+        SetAppxCategorySelection(selectedCategory, shouldSelectCategory);
     }
 
     private void SetAppxCategorySelection(AppxRemovalCategoryViewModel selectedCategory, bool isSelected)
@@ -260,22 +265,4 @@ public sealed partial class CustomizationConfigurationViewModel
         }
     }
 
-    private void OnAppxRemovalCategoryPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (!string.Equals(e.PropertyName, nameof(AppxRemovalCategoryViewModel.IsProfileSelected), StringComparison.Ordinal) ||
-            isApplyingState ||
-            isApplyingAppxSelection ||
-            sender is not AppxRemovalCategoryViewModel category)
-        {
-            return;
-        }
-
-        if (category.IsProfileSelected is bool isSelected)
-        {
-            SetAppxCategorySelection(category, isSelected);
-            return;
-        }
-
-        RefreshAppxRemovalProfileState();
-    }
 }

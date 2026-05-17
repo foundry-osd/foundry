@@ -136,10 +136,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             item.PropertyChanged -= OnAppxRemovalItemPropertyChanged;
         }
 
-        foreach (AppxRemovalCategoryViewModel category in AppxRemovalCategories)
-        {
-            category.PropertyChanged -= OnAppxRemovalCategoryPropertyChanged;
-        }
     }
 
     partial void OnIsMachineNamingEnabledChanged(bool value)

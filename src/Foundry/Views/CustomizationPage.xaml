@@ -158,8 +158,9 @@
                                         <ItemsRepeater ItemsSource="{x:Bind ViewModel.AppxRemovalCategories, Mode=OneWay}">
                                             <ItemsRepeater.ItemTemplate>
                                                 <DataTemplate x:DataType="viewModels:AppxRemovalCategoryViewModel">
-                                                    <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
-                                                              IsChecked="{x:Bind IsProfileSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    <CheckBox Click="OnAppxRemovalProfileClick"
+                                                              Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                              IsChecked="{x:Bind IsProfileSelected, Mode=OneWay}"
                                                               IsThreeState="True" />
                                                 </DataTemplate>
                                             </ItemsRepeater.ItemTemplate>
