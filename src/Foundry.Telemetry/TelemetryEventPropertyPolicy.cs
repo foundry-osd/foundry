@@ -85,8 +85,6 @@ public static class TelemetryEventPropertyPolicy
             },
             [TelemetryEvents.ConnectSessionReady] = new(StringComparer.Ordinal)
             {
-                "boot_media_target",
-                "connect_runtime_payload_source",
                 "connect_network_connection_type",
                 "connect_network_layout_mode",
                 "connect_ethernet_available",
@@ -98,8 +96,6 @@ public static class TelemetryEventPropertyPolicy
             },
             [TelemetryEvents.DeploySessionFinished] = new(StringComparer.Ordinal)
             {
-                "boot_media_target",
-                "deploy_runtime_payload_source",
                 "deploy_session_success",
                 "deploy_session_cancelled",
                 "deploy_session_duration_seconds",

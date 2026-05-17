@@ -120,6 +120,8 @@ public sealed class TelemetryEventPropertyPolicyTests
     {
         Dictionary<string, object?> input = new()
         {
+            ["boot_media_target"] = "iso",
+            ["deploy_runtime_payload_source"] = "release",
             ["deploy_session_success"] = false,
             ["deploy_session_cancelled"] = false,
             ["deploy_session_duration_seconds"] = 30,
@@ -148,6 +150,8 @@ public sealed class TelemetryEventPropertyPolicyTests
 
         IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, input);
 
+        Assert.False(result.ContainsKey("boot_media_target"));
+        Assert.False(result.ContainsKey("deploy_runtime_payload_source"));
         Assert.Equal(false, result["deploy_session_success"]);
         Assert.Equal("ApplyOperatingSystemImage", result["deploy_session_failed_step_name"]);
         Assert.Equal("iso", result["deploy_session_mode"]);
@@ -167,6 +171,8 @@ public sealed class TelemetryEventPropertyPolicyTests
     {
         Dictionary<string, object?> input = new()
         {
+            ["boot_media_target"] = "usb",
+            ["connect_runtime_payload_source"] = "debug",
             ["connect_network_connection_type"] = "ethernet",
             ["connect_network_layout_mode"] = "ethernet_wifi",
             ["connect_ethernet_available"] = true,
@@ -180,6 +186,8 @@ public sealed class TelemetryEventPropertyPolicyTests
 
         IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.ConnectSessionReady, input);
 
+        Assert.False(result.ContainsKey("boot_media_target"));
+        Assert.False(result.ContainsKey("connect_runtime_payload_source"));
         Assert.Equal("ethernet", result["connect_network_connection_type"]);
         Assert.Equal("ethernet_wifi", result["connect_network_layout_mode"]);
         Assert.True((bool)result["connect_ethernet_available"]!);
