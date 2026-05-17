@@ -64,18 +64,18 @@ function Invoke-DismAppxProvisionedPackageRemoval {
     return $exitCode
 }
 
-function Remove-ProvisionedAppxPackage {
+function Remove-FoundryProvisionedAppxPackage {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$PackageName
+        [string]$CatalogPackageName
     )
 
     $provisionedPackages = @(Get-AppxProvisionedPackage -Online | Where-Object {
-        $_.DisplayName -eq $PackageName
+        $_.DisplayName -eq $CatalogPackageName
     })
 
     if ($provisionedPackages.Count -eq 0) {
-        Write-FoundryLog "Skipping missing provisioned AppX package: $PackageName"
+        Write-FoundryLog "Skipping missing provisioned AppX package: $CatalogPackageName"
         return
     }
 
@@ -119,8 +119,13 @@ try {
         return
     }
 
-    foreach ($PackageName in $selectedPackageNames) {
-        Remove-ProvisionedAppxPackage -PackageName $PackageName
+    foreach ($selectedPackageName in $selectedPackageNames) {
+        try {
+            Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)
+        }
+        catch {
+            Write-FoundryLog "WARNING: Unable to process selected provisioned AppX package '$selectedPackageName': $($_.Exception.Message)"
+        }
     }
 
     Write-FoundryLog "Foundry AppX removal completed."

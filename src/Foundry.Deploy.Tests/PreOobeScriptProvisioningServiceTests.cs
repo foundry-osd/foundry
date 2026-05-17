@@ -212,6 +212,7 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.Contains("'/NoRestart'", stagedScript);
         Assert.Contains(".Split(',', [System.StringSplitOptions]::RemoveEmptyEntries)", stagedScript);
         Assert.Contains("Invoke-DismAppxProvisionedPackageRemoval -PackageName $resolvedPackageName", stagedScript);
+        Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
         Assert.Contains("Write-FoundryLog", stagedScript);
         Assert.Contains("Microsoft.Copilot", runner);
         Assert.Contains("Microsoft.BingWeather", runner);
