@@ -32,6 +32,38 @@ function Write-FoundryLog {
     Write-Host ("[{0}] [+{1:c}] {2}" -f $now.ToString('yyyy-MM-ddTHH:mm:ss'), $elapsed, $Message)
 }
 
+function Invoke-DismAppxProvisionedPackageRemoval {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PackageName
+    )
+
+    $dismPath = Join-Path $env:SystemRoot 'System32\dism.exe'
+    if (-not (Test-Path -LiteralPath $dismPath)) {
+        $dismPath = 'dism.exe'
+    }
+
+    $dismArguments = @(
+        '/Online',
+        '/Remove-ProvisionedAppxPackage',
+        "/PackageName:$PackageName",
+        '/NoRestart'
+    )
+
+    Write-FoundryLog "Running DISM provisioned AppX removal for package identity: $PackageName"
+    $dismOutput = & $dismPath @dismArguments 2>&1
+    $exitCode = $LASTEXITCODE
+
+    foreach ($line in @($dismOutput)) {
+        $message = [string]$line
+        if (-not [string]::IsNullOrWhiteSpace($message)) {
+            Write-FoundryLog "DISM: $message"
+        }
+    }
+
+    return $exitCode
+}
+
 function Remove-ProvisionedAppxPackage {
     param(
         [Parameter(Mandatory = $true)]
@@ -56,14 +88,13 @@ function Remove-ProvisionedAppxPackage {
                 continue
             }
 
-            $removeParameters = @{
-                Online = $true
-                PackageName = $resolvedPackageName
-                ErrorAction = 'Stop'
+            Write-FoundryLog "Removing provisioned AppX package: $($provisionedPackage.DisplayName) ($resolvedPackageName)"
+            $exitCode = Invoke-DismAppxProvisionedPackageRemoval -PackageName $resolvedPackageName
+            if ($exitCode -ne 0) {
+                Write-FoundryLog "WARNING: DISM was unable to remove provisioned AppX package '$($provisionedPackage.DisplayName)' with exit code $exitCode."
+                continue
             }
 
-            Write-FoundryLog "Removing provisioned AppX package: $($provisionedPackage.DisplayName) ($resolvedPackageName)"
-            Remove-AppxProvisionedPackage @removeParameters | Out-Null
             $operationDuration = [DateTimeOffset]::Now - $operationStartedAt
             Write-FoundryLog "Removed provisioned AppX package '$($provisionedPackage.DisplayName)' after $($operationDuration.ToString('c'))."
         }
