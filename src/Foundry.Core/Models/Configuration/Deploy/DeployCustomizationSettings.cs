@@ -14,4 +14,9 @@ public sealed record DeployCustomizationSettings
     /// Gets Windows OOBE customization settings applied during deployment.
     /// </summary>
     public DeployOobeSettings Oobe { get; init; } = new();
+
+    /// <summary>
+    /// Gets provisioned AppX removal settings applied before OOBE.
+    /// </summary>
+    public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
 }

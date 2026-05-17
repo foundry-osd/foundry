@@ -14,4 +14,9 @@ public sealed record CustomizationSettings
     /// Gets Windows OOBE customization settings.
     /// </summary>
     public OobeSettings Oobe { get; init; } = new();
+
+    /// <summary>
+    /// Gets provisioned AppX removal settings.
+    /// </summary>
+    public AppxRemovalSettings AppxRemoval { get; init; } = new();
 }
