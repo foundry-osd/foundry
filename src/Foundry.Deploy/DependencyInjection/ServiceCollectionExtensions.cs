@@ -95,6 +95,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
+        services.AddSingleton<PreOobeScriptDefinitionBuilder>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
@@ -108,6 +109,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
         services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, StagePreOobeCustomizationStep>();
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
         services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();

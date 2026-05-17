@@ -81,6 +81,11 @@ public sealed class DeploymentLaunchPreparationServiceTests
             DiagnosticDataLevel = DeployOobeDiagnosticDataLevel.Off,
             LocationAccess = DeployOobeLocationAccessMode.ForceOff
         };
+        DeployAppxRemovalSettings appxRemoval = new()
+        {
+            IsEnabled = true,
+            PackageNames = ["Microsoft.Copilot", "Microsoft.BingWeather"]
+        };
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -91,7 +96,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 defaultTimeZoneId: " Romance Standard Time ",
                 isAutopilotEnabled: true,
                 selectedAutopilotProfile: autopilotProfile,
-                oobe: oobe));
+                oobe: oobe,
+                appxRemoval: appxRemoval));
 
         Assert.True(result.IsReadyToStart);
         Assert.Equal("LAB01", result.NormalizedComputerName);
@@ -102,6 +108,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Same(driverPack, result.Context?.DriverPack);
         Assert.Same(autopilotProfile, result.Context?.SelectedAutopilotProfile);
         Assert.Same(oobe, result.Context?.Oobe);
+        Assert.Same(appxRemoval, result.Context?.AppxRemoval);
     }
 
     [Fact]
@@ -143,6 +150,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         bool isAutopilotEnabled = false,
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
         DeployOobeSettings? oobe = null,
+        DeployAppxRemovalSettings? appxRemoval = null,
         bool isDryRun = false)
     {
         return new DeploymentLaunchRequest
@@ -169,6 +177,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             IsAutopilotEnabled = isAutopilotEnabled,
             SelectedAutopilotProfile = selectedAutopilotProfile,
             Oobe = oobe ?? new DeployOobeSettings(),
+            AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             IsDryRun = isDryRun
         };
     }

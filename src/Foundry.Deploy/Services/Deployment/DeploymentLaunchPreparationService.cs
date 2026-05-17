@@ -91,6 +91,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             IsAutopilotEnabled = request.IsAutopilotEnabled,
             SelectedAutopilotProfile = request.SelectedAutopilotProfile,
             Oobe = request.Oobe,
+            AppxRemoval = request.AppxRemoval,
             IsDryRun = request.IsDryRun
         };
 

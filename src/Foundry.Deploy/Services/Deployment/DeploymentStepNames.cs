@@ -17,6 +17,7 @@ public static class DeploymentStepNames
     public const string ConfigureTargetComputerName = "Configure target computer name";
     public const string ConfigureOobeSettings = "Configure OOBE settings";
     public const string ConfigureRecoveryEnvironment = "Configure recovery environment";
+    public const string StagePreOobeCustomization = "Stage pre-OOBE customization";
     public const string ApplyDriverPack = "Apply driver pack";
     public const string DownloadFirmwareUpdate = "Download firmware update";
     public const string ApplyFirmwareUpdate = "Apply firmware update";
@@ -41,6 +42,7 @@ public static class DeploymentStepNames
         ConfigureRecoveryEnvironment,
         DownloadDriverPack,
         ExtractDriverPack,
+        StagePreOobeCustomization,
         ApplyDriverPack,
         DownloadFirmwareUpdate,
         ApplyFirmwareUpdate,

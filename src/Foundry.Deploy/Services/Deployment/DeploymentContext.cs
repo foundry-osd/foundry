@@ -69,6 +69,11 @@ public sealed record DeploymentContext
     public DeployOobeSettings Oobe { get; init; } = new();
 
     /// <summary>
+    /// Gets provisioned AppX removal settings staged for pre-OOBE execution.
+    /// </summary>
+    public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
+
+    /// <summary>
     /// Gets a value indicating whether deployment runs against a temporary workspace instead of mutating a target disk.
     /// </summary>
     public bool IsDryRun { get; init; }

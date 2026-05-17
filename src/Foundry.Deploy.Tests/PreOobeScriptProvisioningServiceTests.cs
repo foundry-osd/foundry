@@ -177,6 +177,43 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_StagesAppxRemovalScriptWithSelectedPackages()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "remove-appx",
+                    FileName = "Remove-AppX.ps1",
+                    ResourceName = PreOobeScriptResources.RemoveAppx,
+                    Priority = PreOobeScriptPriority.Customization,
+                    Arguments =
+                    [
+                        "-PackageNames",
+                        "Microsoft.Copilot",
+                        "Microsoft.BingWeather"
+                    ]
+                }
+            ]);
+
+        string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
+        string stagedScript = File.ReadAllText(stagedScriptPath);
+        string runner = File.ReadAllText(result.RunnerPath);
+
+        Assert.EndsWith(Path.Combine("Scripts", "Remove-AppX.ps1"), stagedScriptPath);
+        Assert.Contains("Remove-AppX.transcript.log", stagedScript);
+        Assert.Contains("Get-AppxProvisionedPackage -Online", stagedScript);
+        Assert.Contains("Remove-AppxProvisionedPackage -Online", stagedScript);
+        Assert.Contains("Write-FoundryLog", stagedScript);
+        Assert.Contains("Microsoft.Copilot", runner);
+        Assert.Contains("Microsoft.BingWeather", runner);
+    }
+
+    [Fact]
     public void Provision_RunnerReliesOnScriptTranscriptsInsteadOfPerScriptRedirectLogs()
     {
         string windowsRoot = CreateWindowsRoot();

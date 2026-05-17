@@ -209,6 +209,7 @@ Continue?</value></data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configure recovery environment</value></data>
   <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Download driver pack</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extract driver pack</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE customization</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Apply driver pack</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Download firmware update</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Apply firmware update</value></data>
@@ -276,6 +277,11 @@ Continue?</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Recovery partition is unavailable.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Recovery environment configured.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Recovery environment configured (simulation).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>No pre-OOBE customization scripts are required.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Pre-OOBE customizations will be staged with the deferred driver pack.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Staging pre-OOBE customizations...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pre-OOBE customizations staged.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pre-OOBE customizations staged (simulation).</value></data>
   <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Driver pack disabled (None selected).</value></data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>No driver pack download required.</value></data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Downloading driver pack...</value></data>
