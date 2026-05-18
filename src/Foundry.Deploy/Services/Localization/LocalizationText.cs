@@ -6,7 +6,7 @@ namespace Foundry.Deploy.Services.Localization;
 public static class LocalizationText
 {
     public static readonly ResourceManager ResourceManager =
-        new("Foundry.Deploy.Resources.AppStrings", typeof(LocalizationText).Assembly);
+        new("Foundry.Deploy.Strings.Resources", typeof(LocalizationText).Assembly);
 
     public static string GetString(string key)
     {

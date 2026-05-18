@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <UseWPF>false</UseWPF>
+    <ApplicationIcon></ApplicationIcon>
+    <PackageIcon></PackageIcon>
+    <RuntimeIdentifiers></RuntimeIdentifiers>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Foundry.Localization\Foundry.Localization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Strings\en-US\Resources.resx" Link="Strings\Resources.resx" WithCulture="false">
+      <LogicalName>Foundry.Localization.Tests.Strings.Resources.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\fr-FR\Resources.resx" Link="Strings\Resources.fr-FR.resx" Culture="fr-FR">
+      <LogicalName>Foundry.Localization.Tests.Strings.Resources.fr-FR.resources</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

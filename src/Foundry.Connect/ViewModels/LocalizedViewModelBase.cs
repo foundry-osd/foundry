@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Connect.Services.Localization;
+using Foundry.Localization;
 
 namespace Foundry.Connect.ViewModels;
 
@@ -18,7 +19,7 @@ public abstract class LocalizedViewModelBase : ObservableObject, IDisposable
         _localizationService.LanguageChanged += OnLanguageChanged;
     }
 
-    public StringsWrapper Strings => _localizationService.Strings;
+    public LocalizedStrings Strings => _localizationService.Strings;
 
     protected ILocalizationService LocalizationService => _localizationService;
 

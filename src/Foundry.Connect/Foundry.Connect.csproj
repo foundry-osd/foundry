@@ -20,7 +20,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Foundry.Localization\Foundry.Localization.csproj" />
     <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Strings\en-US\Resources.resx" Link="Strings\Resources.resx" WithCulture="false">
+      <LogicalName>Foundry.Connect.Strings.Resources.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\fr-FR\Resources.resx" Link="Strings\Resources.fr-FR.resx" Culture="fr-FR">
+      <LogicalName>Foundry.Connect.Strings.Resources.fr-FR.resources</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
