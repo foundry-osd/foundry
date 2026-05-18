@@ -251,6 +251,31 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
+    public void BuildPowerShellProvisioningScript_WhenRecreatingUsb_ReleasesTargetDriveLettersBeforeClearingDisk()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            diskNumber: 7,
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick,
+            bootDriveLetter: 'S',
+            cacheDriveLetter: 'T');
+
+        Assert.Contains("function Clear-FoundryUsbDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("Clear-FoundryUsbDriveLetter -DriveLetter $bootDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("Clear-FoundryUsbDriveLetter -DriveLetter $cacheDriveLetter", script, StringComparison.Ordinal);
+        Assert.Contains("Remove-PartitionAccessPath", script, StringComparison.Ordinal);
+        Assert.True(
+            script.IndexOf("Clear-FoundryUsbDriveLetter -DriveLetter $bootDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Clear-Disk -Number $diskNumber", StringComparison.Ordinal));
+        Assert.True(
+            script.IndexOf("Clear-FoundryUsbDriveLetter -DriveLetter $cacheDriveLetter", StringComparison.Ordinal) <
+            script.IndexOf("Clear-Disk -Number $diskNumber", StringComparison.Ordinal));
+        Assert.True(
+            script.IndexOf("Clear-Disk -Number $diskNumber", StringComparison.Ordinal) <
+            script.IndexOf("$bootPartition = New-Partition @bootPartitionArguments", StringComparison.Ordinal));
+    }
+
+    [Fact]
     public void BuildPowerShellProvisioningScript_WhenCreatingPartitions_WaitsForVolumesBeforeFormatting()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(

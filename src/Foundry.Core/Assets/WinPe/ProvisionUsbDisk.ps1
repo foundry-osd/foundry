@@ -27,6 +27,19 @@ function Wait-FoundryUsbVolume([char]$DriveLetter, [string]$VolumeName) {
     throw "Timed out waiting for $VolumeName volume $DriveLetter`: to become available."
 }
 
+function Clear-FoundryUsbDriveLetter([char]$DriveLetter) {
+    $accessPath = ('{0}:\' -f $DriveLetter)
+    $partitions = @(
+        Get-Partition -DiskNumber $diskNumber -ErrorAction SilentlyContinue |
+            Where-Object { $_.DriveLetter -eq $DriveLetter }
+    )
+
+    foreach ($partition in $partitions) {
+        Write-FoundryUsbVerbose "Removing existing USB drive letter $DriveLetter`: from partition $($partition.PartitionNumber)."
+        Remove-PartitionAccessPath -DiskNumber $diskNumber -PartitionNumber $partition.PartitionNumber -AccessPath $accessPath -ErrorAction Stop
+    }
+}
+
 $diskNumber = {{DISK_NUMBER}}
 $partitionStyle = '{{PARTITION_STYLE}}'
 $fullFormat = {{FULL_FORMAT}}
@@ -42,6 +55,10 @@ Write-FoundryUsbVerbose "Disk opened. Number=$($disk.Number), FriendlyName=$($di
 Write-FoundryUsbProgress 23 'Preparing USB disk attributes.'
 if ($disk.IsOffline) { Set-Disk -Number $diskNumber -IsOffline $false -ErrorAction Stop }
 if ($disk.IsReadOnly) { Set-Disk -Number $diskNumber -IsReadOnly $false -ErrorAction Stop }
+Clear-FoundryUsbDriveLetter -DriveLetter $bootDriveLetter
+Clear-FoundryUsbDriveLetter -DriveLetter $cacheDriveLetter
+Update-HostStorageCache -ErrorAction SilentlyContinue
+Update-Disk -Number $diskNumber -ErrorAction SilentlyContinue
 Write-FoundryUsbVerbose 'USB disk attributes prepared.'
 
 Write-FoundryUsbProgress 26 'Clearing USB partition table.'
