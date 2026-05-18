@@ -6,7 +6,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class PreOobeScriptDefinitionBuilderTests
 {
     [Fact]
-    public void Build_WhenAppxRemovalIsEnabled_PassesPackageNamesAsSingleArgument()
+    public void Build_WhenAppxRemovalIsEnabled_StagesPackageCatalogDataFile()
     {
         var builder = new PreOobeScriptDefinitionBuilder();
 
@@ -22,8 +22,12 @@ public sealed class PreOobeScriptDefinitionBuilderTests
             });
 
         PreOobeScriptDefinition script = Assert.Single(scripts);
+        PreOobeScriptDataFile dataFile = Assert.Single(script.DataFiles);
 
         Assert.Equal("remove-appx", script.Id);
-        Assert.Equal(["-PackageNames", "Microsoft.BingWeather,Microsoft.Copilot"], script.Arguments);
+        Assert.Empty(script.Arguments);
+        Assert.Equal("Remove-AppX.packages.json", dataFile.FileName);
+        Assert.Contains("\"packageName\": \"Microsoft.BingWeather\"", dataFile.Content);
+        Assert.Contains("\"packageName\": \"Microsoft.Copilot\"", dataFile.Content);
     }
 }

@@ -33,4 +33,9 @@ public sealed record PreOobeScriptDefinition
     /// Gets the PowerShell arguments passed to the script by the generated runner.
     /// </summary>
     public IReadOnlyList<string> Arguments { get; init; } = [];
+
+    /// <summary>
+    /// Gets generated data files staged under the pre-OOBE data folder.
+    /// </summary>
+    public IReadOnlyList<PreOobeScriptDataFile> DataFiles { get; init; } = [];
 }

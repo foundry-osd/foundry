@@ -1,6 +1,5 @@
 param(
-    [Parameter(Mandatory = $true)]
-    [string[]]$PackageNames
+    [string]$PackageCatalogPath = (Join-Path $env:SystemRoot 'Temp\Foundry\PreOobe\Data\Remove-AppX.packages.json')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -30,6 +29,30 @@ function Write-FoundryLog {
     $now = [DateTimeOffset]::Now
     $elapsed = $now - $script:ScriptStartedAt
     Write-Host ("[{0}] [+{1:c}] {2}" -f $now.ToString('yyyy-MM-ddTHH:mm:ss'), $elapsed, $Message)
+}
+
+function Get-SelectedPackageNames {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$CatalogPath
+    )
+
+    if (-not (Test-Path -LiteralPath $CatalogPath)) {
+        throw "AppX package catalog was not found: $CatalogPath"
+    }
+
+    $catalogContent = Get-Content -Raw -LiteralPath $CatalogPath
+    if ([string]::IsNullOrWhiteSpace($catalogContent)) {
+        return @()
+    }
+
+    $catalogEntries = @($catalogContent | ConvertFrom-Json)
+    return @($catalogEntries |
+        Where-Object { $null -ne $_ -and -not [string]::IsNullOrWhiteSpace($_.packageName) } |
+        ForEach-Object { [string]$_.packageName } |
+        ForEach-Object { $_.Trim() } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        Select-Object -Unique)
 }
 
 function Invoke-DismAppxProvisionedPackageRemoval {
@@ -107,13 +130,9 @@ function Remove-FoundryProvisionedAppxPackage {
 try {
     Start-FoundryTranscript
     Write-FoundryLog "Foundry AppX removal started."
+    Write-FoundryLog "Reading AppX package catalog: $PackageCatalogPath"
 
-    $selectedPackageNames = @($PackageNames |
-        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
-        ForEach-Object { $_.Split(',', [System.StringSplitOptions]::RemoveEmptyEntries) } |
-        ForEach-Object { $_.Trim() } |
-        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
-        Select-Object -Unique)
+    $selectedPackageNames = @(Get-SelectedPackageNames -CatalogPath $PackageCatalogPath)
     if ($selectedPackageNames.Count -eq 0) {
         Write-FoundryLog "No provisioned AppX packages were selected for removal."
         return

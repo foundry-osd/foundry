@@ -56,14 +56,17 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
 
         string preOobeRoot = GetPreOobeRoot(targetWindowsPartitionRoot);
         string scriptsRoot = GetScriptsRoot(targetWindowsPartitionRoot);
+        string dataRoot = GetDataRoot(targetWindowsPartitionRoot);
         string runnerPath = Path.Combine(preOobeRoot, RunnerFileName);
         string manifestPath = Path.Combine(preOobeRoot, ManifestFileName);
         string setupCompletePath = GetSetupCompletePath(targetWindowsPartitionRoot);
 
         Directory.CreateDirectory(preOobeRoot);
         Directory.CreateDirectory(scriptsRoot);
+        Directory.CreateDirectory(dataRoot);
 
         string[] stagedScriptPaths = StageScripts(scriptsRoot, orderedScripts);
+        StageDataFiles(dataRoot, orderedScripts);
         File.WriteAllText(runnerPath, BuildRunner(orderedScripts), Utf8NoBom);
         File.WriteAllText(manifestPath, BuildManifest(orderedScripts), Utf8NoBom);
 
@@ -90,6 +93,11 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     private static string GetScriptsRoot(string targetWindowsPartitionRoot)
     {
         return Path.Combine(GetPreOobeRoot(targetWindowsPartitionRoot), "Scripts");
+    }
+
+    private static string GetDataRoot(string targetWindowsPartitionRoot)
+    {
+        return Path.Combine(GetPreOobeRoot(targetWindowsPartitionRoot), "Data");
     }
 
     private static string GetSetupCompletePath(string targetWindowsPartitionRoot)
@@ -124,7 +132,31 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
             Arguments = script.Arguments
                 .Where(argument => argument is not null)
                 .Select(argument => argument.Trim())
+                .ToArray(),
+            DataFiles = script.DataFiles
+                .Where(dataFile => dataFile is not null)
+                .Select(NormalizeDataFile)
                 .ToArray()
+        };
+    }
+
+    private static PreOobeScriptDataFile NormalizeDataFile(PreOobeScriptDataFile dataFile)
+    {
+        string fileName = dataFile.FileName.Trim();
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentException("Pre-OOBE data file name is required.", nameof(dataFile));
+        }
+
+        if (!string.Equals(fileName, Path.GetFileName(fileName), StringComparison.Ordinal))
+        {
+            throw new ArgumentException($"Pre-OOBE data file name '{dataFile.FileName}' must not contain a path.", nameof(dataFile));
+        }
+
+        return dataFile with
+        {
+            FileName = fileName,
+            Content = dataFile.Content
         };
     }
 
@@ -148,6 +180,15 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         }
 
         return stagedPaths.ToArray();
+    }
+
+    private static void StageDataFiles(string dataRoot, IReadOnlyList<PreOobeScriptDefinition> orderedScripts)
+    {
+        foreach (PreOobeScriptDataFile dataFile in orderedScripts.SelectMany(script => script.DataFiles))
+        {
+            string destinationPath = Path.Combine(dataRoot, dataFile.FileName);
+            File.WriteAllText(destinationPath, dataFile.Content, Utf8NoBom);
+        }
     }
 
     private static string BuildRunner(IReadOnlyList<PreOobeScriptDefinition> orderedScripts)
@@ -209,7 +250,8 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
                 id = script.Id,
                 fileName = script.FileName,
                 priority = (int)script.Priority,
-                arguments = script.Arguments
+                arguments = script.Arguments,
+                dataFiles = script.DataFiles.Select(dataFile => dataFile.FileName)
             })
         }, new JsonSerializerOptions
         {

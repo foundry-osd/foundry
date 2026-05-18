@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.DriverPacks;
+using System.Text.Json;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
@@ -8,6 +9,8 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 /// </summary>
 public sealed class PreOobeScriptDefinitionBuilder
 {
+    private const string RemoveAppxPackageCatalogFileName = "Remove-AppX.packages.json";
+
     /// <summary>
     /// Builds script definitions for selected AppX removal and optional deferred driver provisioning.
     /// </summary>
@@ -54,7 +57,14 @@ public sealed class PreOobeScriptDefinitionBuilder
                 FileName = "Remove-AppX.ps1",
                 ResourceName = PreOobeScriptResources.RemoveAppx,
                 Priority = PreOobeScriptPriority.Customization,
-                Arguments = ["-PackageNames", string.Join(",", packageNames)]
+                DataFiles =
+                [
+                    new PreOobeScriptDataFile
+                    {
+                        FileName = RemoveAppxPackageCatalogFileName,
+                        Content = BuildRemoveAppxPackageCatalog(packageNames)
+                    }
+                ]
             });
         }
 
@@ -70,5 +80,20 @@ public sealed class PreOobeScriptDefinitionBuilder
         }
 
         return scripts;
+    }
+
+    private static string BuildRemoveAppxPackageCatalog(IReadOnlyList<string> packageNames)
+    {
+        string json = JsonSerializer.Serialize(
+            packageNames.Select(packageName => new
+            {
+                packageName
+            }),
+            new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+        return json + Environment.NewLine;
     }
 }

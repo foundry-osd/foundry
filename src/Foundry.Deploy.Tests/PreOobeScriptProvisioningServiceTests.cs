@@ -191,11 +191,22 @@ public sealed class PreOobeScriptProvisioningServiceTests
                     FileName = "Remove-AppX.ps1",
                     ResourceName = PreOobeScriptResources.RemoveAppx,
                     Priority = PreOobeScriptPriority.Customization,
-                    Arguments =
+                    DataFiles =
                     [
-                        "-PackageNames",
-                        "Microsoft.Copilot",
-                        "Microsoft.BingWeather"
+                        new PreOobeScriptDataFile
+                        {
+                            FileName = "Remove-AppX.packages.json",
+                            Content = """
+                                [
+                                  {
+                                    "packageName": "Microsoft.Copilot"
+                                  },
+                                  {
+                                    "packageName": "Microsoft.BingWeather"
+                                  }
+                                ]
+                                """
+                        }
                     ]
                 }
             ]);
@@ -203,6 +214,7 @@ public sealed class PreOobeScriptProvisioningServiceTests
         string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
         string stagedScript = File.ReadAllText(stagedScriptPath);
         string runner = File.ReadAllText(result.RunnerPath);
+        string stagedCatalog = File.ReadAllText(Path.Combine(Path.GetDirectoryName(result.RunnerPath)!, "Data", "Remove-AppX.packages.json"));
 
         Assert.EndsWith(Path.Combine("Scripts", "Remove-AppX.ps1"), stagedScriptPath);
         Assert.Contains("Remove-AppX.transcript.log", stagedScript);
@@ -210,12 +222,15 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.Contains("'/Online'", stagedScript);
         Assert.Contains("'/Remove-ProvisionedAppxPackage'", stagedScript);
         Assert.Contains("'/NoRestart'", stagedScript);
-        Assert.Contains(".Split(',', [System.StringSplitOptions]::RemoveEmptyEntries)", stagedScript);
+        Assert.Contains("ConvertFrom-Json", stagedScript);
+        Assert.Contains("Remove-AppX.packages.json", stagedScript);
         Assert.Contains("Invoke-DismAppxProvisionedPackageRemoval -PackageName $resolvedPackageName", stagedScript);
         Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
         Assert.Contains("Write-FoundryLog", stagedScript);
-        Assert.Contains("Microsoft.Copilot", runner);
-        Assert.Contains("Microsoft.BingWeather", runner);
+        Assert.DoesNotContain("Microsoft.Copilot", runner);
+        Assert.DoesNotContain("Microsoft.BingWeather", runner);
+        Assert.Contains("Microsoft.Copilot", stagedCatalog);
+        Assert.Contains("Microsoft.BingWeather", stagedCatalog);
     }
 
     [Fact]
