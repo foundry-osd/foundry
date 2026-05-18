@@ -219,12 +219,12 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.EndsWith(Path.Combine("Scripts", "Remove-AppX.ps1"), stagedScriptPath);
         Assert.Contains("Remove-AppX.transcript.log", stagedScript);
         Assert.Contains("Get-AppxProvisionedPackage -Online", stagedScript);
-        Assert.Contains("'/Online'", stagedScript);
-        Assert.Contains("'/Remove-ProvisionedAppxPackage'", stagedScript);
-        Assert.Contains("'/NoRestart'", stagedScript);
+        Assert.Contains("Remove-AppxProvisionedPackage @removeArguments", stagedScript);
+        Assert.Contains("PackageName = $resolvedPackageName", stagedScript);
+        Assert.Contains("Online = $true", stagedScript);
         Assert.Contains("ConvertFrom-Json", stagedScript);
         Assert.Contains("Remove-AppX.packages.json", stagedScript);
-        Assert.Contains("Invoke-DismAppxProvisionedPackageRemoval -PackageName $resolvedPackageName", stagedScript);
+        Assert.DoesNotContain("dism.exe", stagedScript);
         Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
         Assert.Contains("Write-FoundryLog", stagedScript);
         Assert.DoesNotContain("Microsoft.Copilot", runner);

@@ -55,38 +55,6 @@ function Get-SelectedPackageNames {
         Select-Object -Unique)
 }
 
-function Invoke-DismAppxProvisionedPackageRemoval {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$PackageName
-    )
-
-    $dismPath = Join-Path $env:SystemRoot 'System32\dism.exe'
-    if (-not (Test-Path -LiteralPath $dismPath)) {
-        $dismPath = 'dism.exe'
-    }
-
-    $dismArguments = @(
-        '/Online',
-        '/Remove-ProvisionedAppxPackage',
-        "/PackageName:$PackageName",
-        '/NoRestart'
-    )
-
-    Write-FoundryLog "Running DISM provisioned AppX removal for package identity: $PackageName"
-    $dismOutput = & $dismPath @dismArguments 2>&1
-    $exitCode = $LASTEXITCODE
-
-    foreach ($line in @($dismOutput)) {
-        $message = [string]$line
-        if (-not [string]::IsNullOrWhiteSpace($message)) {
-            Write-FoundryLog "DISM: $message"
-        }
-    }
-
-    return $exitCode
-}
-
 function Remove-FoundryProvisionedAppxPackage {
     param(
         [Parameter(Mandatory = $true)]
@@ -112,11 +80,13 @@ function Remove-FoundryProvisionedAppxPackage {
             }
 
             Write-FoundryLog "Removing provisioned AppX package: $($provisionedPackage.DisplayName) ($resolvedPackageName)"
-            $exitCode = Invoke-DismAppxProvisionedPackageRemoval -PackageName $resolvedPackageName
-            if ($exitCode -ne 0) {
-                Write-FoundryLog "WARNING: DISM was unable to remove provisioned AppX package '$($provisionedPackage.DisplayName)' with exit code $exitCode."
-                continue
+            $removeArguments = @{
+                Online = $true
+                PackageName = $resolvedPackageName
+                ErrorAction = 'Stop'
             }
+
+            Remove-AppxProvisionedPackage @removeArguments | Out-Null
 
             $operationDuration = [DateTimeOffset]::Now - $operationStartedAt
             Write-FoundryLog "Removed provisioned AppX package '$($provisionedPackage.DisplayName)' after $($operationDuration.ToString('c'))."
