@@ -221,6 +221,11 @@ public sealed record DeploymentRuntimeState
     public DeployOobeSettings Oobe { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets provisioned AppX removal settings staged for pre-OOBE execution.
+    /// </summary>
+    public DeployAppxRemovalSettings AppxRemoval { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets the transient Foundry workspace on the target Windows partition.
     /// Finalization rebinds retained artifacts under Windows\Temp\Foundry and removes this root.
     /// </summary>

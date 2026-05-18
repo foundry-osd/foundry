@@ -44,6 +44,11 @@ public sealed class ExpertConfigurationServiceTests
                     AllowOnlineSpeechRecognition = false,
                     AllowInkingAndTypingDiagnostics = false,
                     LocationAccess = OobeLocationAccessMode.ForceOff
+                },
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames = ["Microsoft.BingWeather", "Microsoft.Copilot"]
                 }
             },
             Telemetry = new TelemetrySettings
@@ -73,6 +78,8 @@ public sealed class ExpertConfigurationServiceTests
         Assert.False(loaded.Customization.Oobe.AllowOnlineSpeechRecognition);
         Assert.False(loaded.Customization.Oobe.AllowInkingAndTypingDiagnostics);
         Assert.Equal(OobeLocationAccessMode.ForceOff, loaded.Customization.Oobe.LocationAccess);
+        Assert.True(loaded.Customization.AppxRemoval.IsEnabled);
+        Assert.Equal(["Microsoft.BingWeather", "Microsoft.Copilot"], loaded.Customization.AppxRemoval.PackageNames);
         Assert.False(loaded.Telemetry.IsEnabled);
         Assert.Equal("install-id", loaded.Telemetry.InstallId);
         Assert.Equal("project-token", loaded.Telemetry.ProjectToken);

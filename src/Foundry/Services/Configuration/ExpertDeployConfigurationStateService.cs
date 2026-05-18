@@ -234,7 +234,8 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
                 AutoGenerateName = settings.MachineNaming.IsEnabled && settings.MachineNaming.AutoGenerateName,
                 AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled || settings.MachineNaming.AllowManualSuffixEdit
             },
-            Oobe = SanitizeOobeForPersistence(settings.Oobe)
+            Oobe = SanitizeOobeForPersistence(settings.Oobe),
+            AppxRemoval = SanitizeAppxRemovalForPersistence(settings.AppxRemoval)
         };
     }
 
@@ -243,6 +244,38 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         return settings.IsEnabled
             ? settings
             : new OobeSettings();
+    }
+
+    private static AppxRemovalSettings SanitizeAppxRemovalForPersistence(AppxRemovalSettings settings)
+    {
+        string[] packageNames = NormalizeAppxRemovalPackageNames(settings.PackageNames);
+        return settings.IsEnabled
+            ? new AppxRemovalSettings
+            {
+                IsEnabled = true,
+                PackageNames = packageNames
+            }
+            : new AppxRemovalSettings();
+    }
+
+    private static string[] NormalizeAppxRemovalPackageNames(IEnumerable<string> packageNames)
+    {
+        HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
+        List<string> result = [];
+        foreach (string packageName in packageNames)
+        {
+            string trimmed = packageName.Trim();
+            if (string.IsNullOrWhiteSpace(trimmed) ||
+                !AppxRemovalCatalog.ContainsPackageName(trimmed) ||
+                !seen.Add(trimmed))
+            {
+                continue;
+            }
+
+            result.Add(trimmed);
+        }
+
+        return result.ToArray();
     }
 
     private NetworkMediaReadinessEvaluation EvaluateNetworkMediaReadiness()

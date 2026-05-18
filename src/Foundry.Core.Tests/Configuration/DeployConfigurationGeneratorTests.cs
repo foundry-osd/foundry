@@ -112,6 +112,56 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenAppxRemovalIsEnabled_PropagatesDistinctPackageNames()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames =
+                    [
+                        "Microsoft.Copilot",
+                        " ",
+                        "Microsoft.BingWeather",
+                        "Microsoft.Copilot"
+                    ]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.AppxRemoval.IsEnabled);
+        Assert.Equal(["Microsoft.Copilot", "Microsoft.BingWeather"], result.Customization.AppxRemoval.PackageNames);
+    }
+
+    [Fact]
+    public void Generate_WhenAppxRemovalIsDisabled_DoesNotPropagatePackageNames()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = false,
+                    PackageNames = ["Microsoft.Copilot"]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.AppxRemoval.IsEnabled);
+        Assert.Empty(result.Customization.AppxRemoval.PackageNames);
+    }
+
+    [Fact]
     public void Generate_CanonicalizesVisibleLanguagesAndDropsMissingDefaultOverride()
     {
         var generator = new DeployConfigurationGenerator();

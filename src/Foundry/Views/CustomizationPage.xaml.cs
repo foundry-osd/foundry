@@ -16,4 +16,12 @@ public sealed partial class CustomizationPage : Page
         Unloaded -= OnUnloaded;
         ViewModel.Dispose();
     }
+
+    private void OnAppxRemovalProfileClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is CheckBox { Tag: AppxRemovalCategoryViewModel category })
+        {
+            ViewModel.ToggleAppxRemovalProfile(category);
+        }
+    }
 }

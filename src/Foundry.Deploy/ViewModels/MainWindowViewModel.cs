@@ -281,6 +281,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
                 SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
                 Oobe = _wizardContext.Oobe,
+                AppxRemoval = _wizardContext.AppxRemoval,
                 IsDryRun = IsDebugSafeMode
             });
 

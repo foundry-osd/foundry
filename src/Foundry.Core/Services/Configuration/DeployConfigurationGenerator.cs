@@ -46,7 +46,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     AllowManualSuffixEdit = !document.Customization.MachineNaming.IsEnabled ||
                                             document.Customization.MachineNaming.AllowManualSuffixEdit
                 },
-                Oobe = MapOobeSettings(document.Customization.Oobe)
+                Oobe = MapOobeSettings(document.Customization.Oobe),
+                AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval)
             },
             Autopilot = new DeployAutopilotSettings
             {
@@ -129,5 +130,39 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         return value == OobeLocationAccessMode.ForceOff
             ? DeployOobeLocationAccessMode.ForceOff
             : DeployOobeLocationAccessMode.UserControlled;
+    }
+
+    private static DeployAppxRemovalSettings MapAppxRemovalSettings(AppxRemovalSettings settings)
+    {
+        string[] packageNames = CanonicalizePackageNames(settings.PackageNames);
+        return settings.IsEnabled && packageNames.Length > 0
+            ? new DeployAppxRemovalSettings
+            {
+                IsEnabled = true,
+                PackageNames = packageNames
+            }
+            : new DeployAppxRemovalSettings();
+    }
+
+    private static string[] CanonicalizePackageNames(IEnumerable<string> packageNames)
+    {
+        ArgumentNullException.ThrowIfNull(packageNames);
+
+        HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
+        List<string> result = [];
+        foreach (string packageName in packageNames)
+        {
+            string trimmed = packageName.Trim();
+            if (string.IsNullOrWhiteSpace(trimmed) ||
+                !AppxRemovalCatalog.ContainsPackageName(trimmed) ||
+                !seen.Add(trimmed))
+            {
+                continue;
+            }
+
+            result.Add(trimmed);
+        }
+
+        return result.ToArray();
     }
 }

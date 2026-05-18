@@ -47,6 +47,14 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                     AllowOnlineSpeechRecognition = false,
                     AllowInkingAndTypingDiagnostics = false,
                     LocationAccess = OobeLocationAccessMode.ForceOff
+                },
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames = AppxRemovalCatalog.Entries
+                        .Where(entry => entry.Category == "Gaming / Xbox")
+                        .Select(entry => entry.PackageName)
+                        .ToArray()
                 }
             },
             Localization = new LocalizationSettings
@@ -102,6 +110,9 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["autopilot_enabled"]!);
         Assert.True((bool)result["customization_any_enabled"]!);
         Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);
+        Assert.True((bool)result["customization_appx_removal_enabled"]!);
+        Assert.Equal(8, result["customization_appx_removal_package_count"]);
+        Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);
         Assert.True((bool)result["localization_any_enabled"]!);
         Assert.Equal(2, result["localization_visible_languages_count"]);
         Assert.True((bool)result["localization_default_language_configured"]!);
@@ -124,6 +135,78 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.False(result.ContainsKey("deploy_configured"));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("CorpWifi", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Romance Standard Time", StringComparison.OrdinalIgnoreCase));
+        Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Microsoft.Xbox", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public void Build_WhenAppxSelectionDoesNotMatchSingleCategory_ReportsCustomProfile()
+    {
+        var options = new MediaPreflightOptions();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames =
+                    [
+                        "Microsoft.Copilot",
+                        "Microsoft.GamingApp"
+                    ]
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            options,
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.True((bool)result["customization_appx_removal_enabled"]!);
+        Assert.Equal(2, result["customization_appx_removal_package_count"]);
+        Assert.Equal("custom", result["customization_appx_removal_profile"]);
+    }
+
+    [Fact]
+    public void Build_WhenAppxSelectionMatchesMultipleCategories_ReportsMultipleProfile()
+    {
+        var options = new MediaPreflightOptions();
+        var document = new FoundryExpertConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames = AppxRemovalCatalog.Entries
+                        .Where(entry =>
+                            entry.Category == "Gaming / Xbox" ||
+                            entry.Category == "Phone / Cross-Device")
+                        .Select(entry => entry.PackageName)
+                        .ToArray()
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            options,
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.True((bool)result["customization_appx_removal_enabled"]!);
+        Assert.Equal(10, result["customization_appx_removal_package_count"]);
+        Assert.Equal("multiple", result["customization_appx_removal_profile"]);
     }
 
     [Fact]

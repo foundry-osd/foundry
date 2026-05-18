@@ -209,6 +209,7 @@ Continuer ?</value></data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configuration de l’environnement de récupération</value></data>
   <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Téléchargement du pack de pilotes</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extraction du pack de pilotes</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Préparation des personnalisations pré-OOBE</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Application du pack de pilotes</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Téléchargement de la mise à jour firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Application de la mise à jour firmware</value></data>
@@ -276,6 +277,11 @@ Continuer ?</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>La partition de récupération est indisponible.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Environnement de récupération configuré.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Environnement de récupération configuré (simulation).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Aucun script de personnalisation pré-OOBE n’est requis.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Les personnalisations pré-OOBE seront préparées avec le pack de pilotes différé.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Préparation des personnalisations pré-OOBE...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Personnalisations pré-OOBE préparées.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Personnalisations pré-OOBE préparées (simulation).</value></data>
   <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Pack de pilotes désactivé (aucun sélectionné).</value></data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Aucun téléchargement de pack de pilotes requis.</value></data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Téléchargement du pack de pilotes...</value></data>

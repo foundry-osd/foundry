@@ -114,7 +114,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             IsAutopilotEnabled = context.IsAutopilotEnabled,
             SelectedAutopilotProfileFolderName = context.SelectedAutopilotProfile?.FolderName,
             SelectedAutopilotProfileDisplayName = context.SelectedAutopilotProfile?.DisplayName,
-            Oobe = context.Oobe
+            Oobe = context.Oobe,
+            AppxRemoval = context.AppxRemoval
         };
 
         DeploymentStepExecutionContext? executionContext = null;

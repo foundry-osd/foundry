@@ -10,7 +10,7 @@ public sealed record FoundryExpertConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Expert Deploy configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 5;
+    public const int CurrentSchemaVersion = 6;
 
     /// <summary>
     /// Gets the schema version of this configuration document.

@@ -57,6 +57,10 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["customization_oobe_online_speech_recognition_enabled"] = false,
             ["customization_oobe_inking_typing_diagnostics_enabled"] = false,
             ["customization_oobe_location_access"] = "force_off",
+            ["customization_appx_removal_enabled"] = true,
+            ["customization_appx_removal_package_count"] = 8,
+            ["customization_appx_removal_profile"] = "gaming_xbox",
+            ["customization_appx_removal_package_names"] = "Microsoft.XboxApp",
             ["ssid"] = "CorpWifi",
             ["iso_output_path"] = @"C:\Temp\Foundry.iso"
         };
@@ -111,6 +115,10 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False((bool)result["customization_oobe_online_speech_recognition_enabled"]!);
         Assert.False((bool)result["customization_oobe_inking_typing_diagnostics_enabled"]!);
         Assert.Equal("force_off", result["customization_oobe_location_access"]);
+        Assert.True((bool)result["customization_appx_removal_enabled"]!);
+        Assert.Equal(8, result["customization_appx_removal_package_count"]);
+        Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);
+        Assert.False(result.ContainsKey("customization_appx_removal_package_names"));
         Assert.False(result.ContainsKey("ssid"));
         Assert.False(result.ContainsKey("iso_output_path"));
     }

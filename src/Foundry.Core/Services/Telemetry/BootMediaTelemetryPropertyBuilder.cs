@@ -74,8 +74,11 @@ public static class BootMediaTelemetryPropertyBuilder
     {
         MachineNamingSettings machineNaming = customization.MachineNaming;
         OobeSettings oobe = customization.Oobe;
+        AppxRemovalSettings appxRemoval = customization.AppxRemoval;
+        string[] selectedAppxPackages = ResolveSelectedAppxPackages(appxRemoval);
+        bool isAppxRemovalEnabled = appxRemoval.IsEnabled && selectedAppxPackages.Length > 0;
 
-        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled;
+        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled || isAppxRemovalEnabled;
         properties["customization_machine_naming_enabled"] = machineNaming.IsEnabled;
         properties["customization_machine_naming_mode"] = ResolveMachineNamingTelemetryMode(machineNaming);
         properties["customization_machine_naming_prefix_configured"] =
@@ -89,6 +92,9 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_oobe_online_speech_recognition_enabled"] = oobe.IsEnabled && oobe.AllowOnlineSpeechRecognition;
         properties["customization_oobe_inking_typing_diagnostics_enabled"] = oobe.IsEnabled && oobe.AllowInkingAndTypingDiagnostics;
         properties["customization_oobe_location_access"] = ToTelemetryValue(oobe.LocationAccess);
+        properties["customization_appx_removal_enabled"] = isAppxRemovalEnabled;
+        properties["customization_appx_removal_package_count"] = isAppxRemovalEnabled ? selectedAppxPackages.Length : 0;
+        properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(selectedAppxPackages, isAppxRemovalEnabled);
     }
 
     private static void AddLocalizationTelemetryProperties(
@@ -148,6 +154,100 @@ public static class BootMediaTelemetryPropertyBuilder
         return settings.AllowManualSuffixEdit
             ? "auto_generated_editable"
             : "auto_generated_locked";
+    }
+
+    private static string[] ResolveSelectedAppxPackages(AppxRemovalSettings appxRemoval)
+    {
+        if (!appxRemoval.IsEnabled)
+        {
+            return [];
+        }
+
+        return appxRemoval.PackageNames
+            .Where(packageName => !string.IsNullOrWhiteSpace(packageName))
+            .Select(packageName => packageName.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(packageName => packageName, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    private static string ResolveAppxRemovalProfile(string[] selectedPackageNames, bool isEnabled)
+    {
+        if (!isEnabled)
+        {
+            return "none";
+        }
+
+        var selectedPackages = selectedPackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        string[] selectedProfileNames = InferAppxRemovalProfileNames(selectedPackages).ToArray();
+        if (selectedProfileNames.Length == 0)
+        {
+            return "custom";
+        }
+
+        if (selectedProfileNames.Length == 1)
+        {
+            return ToTelemetryToken(selectedProfileNames[0]);
+        }
+
+        return "multiple";
+    }
+
+    private static IEnumerable<string> InferAppxRemovalProfileNames(HashSet<string> selectedPackages)
+    {
+        int matchedPackageCount = 0;
+        var profileNames = new List<string>();
+        foreach (IGrouping<string, AppxRemovalCatalogEntry> category in AppxRemovalCatalog.Entries.GroupBy(entry => entry.Category))
+        {
+            string[] categoryPackages = category
+                .Select(entry => entry.PackageName)
+                .ToArray();
+            int selectedCategoryPackageCount = categoryPackages.Count(selectedPackages.Contains);
+            if (selectedCategoryPackageCount == 0)
+            {
+                continue;
+            }
+
+            if (selectedCategoryPackageCount != categoryPackages.Length)
+            {
+                yield break;
+            }
+
+            matchedPackageCount += selectedCategoryPackageCount;
+            profileNames.Add(category.Key);
+        }
+
+        if (matchedPackageCount != selectedPackages.Count)
+        {
+            yield break;
+        }
+
+        foreach (string profileName in profileNames)
+        {
+            yield return profileName;
+        }
+    }
+
+    private static string ToTelemetryToken(string value)
+    {
+        var builder = new System.Text.StringBuilder(value.Length);
+        bool previousWasSeparator = false;
+
+        foreach (char ch in value)
+        {
+            if (char.IsLetterOrDigit(ch))
+            {
+                builder.Append(char.ToLowerInvariant(ch));
+                previousWasSeparator = false;
+            }
+            else if (!previousWasSeparator && builder.Length > 0)
+            {
+                builder.Append('_');
+                previousWasSeparator = true;
+            }
+        }
+
+        return builder.ToString().Trim('_');
     }
 
     private static string ToTelemetryValue(OobeDiagnosticDataLevel value)

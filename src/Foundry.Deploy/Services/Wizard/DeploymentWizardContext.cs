@@ -35,6 +35,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public DriverPackSelectionViewModel DriverPackSelection { get; }
     public string? DefaultTimeZoneId { get; private set; }
     public DeployOobeSettings Oobe { get; private set; } = new();
+    public DeployAppxRemovalSettings AppxRemoval { get; private set; } = new();
 
     public event EventHandler? StateChanged;
     public event Action<string>? StatusMessageGenerated;
@@ -120,6 +121,7 @@ public sealed class DeploymentWizardContext : IDisposable
                 ? seedComputerName
                 : Preparation.TargetComputerName);
         Oobe = document.Customization.Oobe ?? new DeployOobeSettings();
+        AppxRemoval = document.Customization.AppxRemoval ?? new DeployAppxRemovalSettings();
         Preparation.ApplyAutopilotConfiguration(document.Autopilot ?? new DeployAutopilotSettings(), autopilotProfiles);
     }
 
