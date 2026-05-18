@@ -14,6 +14,7 @@ using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
+using Foundry.Localization;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
@@ -378,7 +379,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void RefreshSupportedCultures()
     {
         SupportedCultures.Clear();
-        foreach (SupportedCultureOption option in SupportedCultureCatalog.CreateOptions(CurrentCulture, key => Strings[key]))
+        foreach (SupportedCultureOption option in LocalizationService.CreateSupportedCultureOptions())
         {
             SupportedCultures.Add(option);
         }

@@ -1,7 +1,7 @@
 using System.Globalization;
-using Foundry.Core.Localization;
+using Foundry.Localization;
 
-namespace Foundry.Core.Tests.Localization;
+namespace Foundry.Localization.Tests;
 
 public sealed class SupportedCultureCatalogTests
 {

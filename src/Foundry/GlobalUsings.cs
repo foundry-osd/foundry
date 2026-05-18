@@ -2,6 +2,7 @@
 global using CommunityToolkit.Mvvm.Input;
 global using DevWinUI;
 global using Foundry.Common;
+global using Foundry.Localization;
 global using Foundry.ViewModels;
 global using Foundry.Views;
 global using Microsoft.Extensions.DependencyInjection;

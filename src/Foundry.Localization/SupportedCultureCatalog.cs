@@ -1,9 +1,15 @@
 using System.Globalization;
 
-namespace Foundry.Core.Localization;
+namespace Foundry.Localization;
 
+/// <summary>
+/// Defines the UI cultures supported by Foundry desktop applications.
+/// </summary>
 public static class SupportedCultureCatalog
 {
+    /// <summary>
+    /// Gets the default UI culture code used when no supported culture is selected.
+    /// </summary>
     public const string DefaultCultureCode = "en-US";
 
     private static readonly SupportedCultureDefinition[] Definitions =
@@ -12,6 +18,12 @@ public static class SupportedCultureCatalog
         new("fr-FR", "Language.French", 20)
     ];
 
+    /// <summary>
+    /// Creates language selection options using the provided localized display name resolver.
+    /// </summary>
+    /// <param name="currentCulture">Currently active UI culture.</param>
+    /// <param name="getString">Function that resolves display name resource keys.</param>
+    /// <returns>Supported cultures sorted for display with the current culture marked as selected.</returns>
     public static IReadOnlyList<SupportedCultureOption> CreateOptions(
         CultureInfo currentCulture,
         Func<string, string> getString)
@@ -30,6 +42,11 @@ public static class SupportedCultureCatalog
             .ToArray();
     }
 
+    /// <summary>
+    /// Returns a canonical supported culture code, or the default culture when the input is unsupported.
+    /// </summary>
+    /// <param name="cultureCode">Culture code to validate.</param>
+    /// <returns>A canonical supported culture code.</returns>
     public static string ValidateOrDefault(string? cultureCode)
     {
         if (string.IsNullOrWhiteSpace(cultureCode))
@@ -53,6 +70,11 @@ public static class SupportedCultureCatalog
         }
     }
 
+    /// <summary>
+    /// Selects the first supported culture that matches a preferred culture list.
+    /// </summary>
+    /// <param name="preferredCultureCodes">Preferred culture codes in priority order.</param>
+    /// <returns>The best supported culture code, or the default culture when no preference matches.</returns>
     public static string MatchPreferredCulture(IEnumerable<string?> preferredCultureCodes)
     {
         ArgumentNullException.ThrowIfNull(preferredCultureCodes);

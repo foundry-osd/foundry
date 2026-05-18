@@ -1,5 +1,5 @@
 using System.Globalization;
-using Foundry.Core.Localization;
+using Foundry.Localization;
 using Foundry.Services.Settings;
 using Microsoft.Windows.ApplicationModel.Resources;
 using Microsoft.Windows.Globalization;
