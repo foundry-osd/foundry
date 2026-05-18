@@ -86,7 +86,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{\"zones\":[]}",
                 FoundryConnectConfigurationJson = "{\"schemaVersion\":1}",
-                ExpertDeployConfigurationJson = "{\"schemaVersion\":2}",
+                DeployConfigurationJson = "{\"schemaVersion\":2}",
                 FoundryConnectAssetFiles =
                 [
                     new FoundryConnectProvisionedAssetFile

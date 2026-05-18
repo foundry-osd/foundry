@@ -1,3 +1,5 @@
+using Foundry.Core.Models.Configuration;
+
 namespace Foundry.Services.Settings;
 
 /// <summary>
@@ -14,6 +16,11 @@ public interface IAppSettingsService
     /// Gets a value indicating whether the settings file was missing during service initialization.
     /// </summary>
     bool IsFirstRun { get; }
+
+    /// <summary>
+    /// Gets boot media settings read from an older appsettings document during startup migration.
+    /// </summary>
+    GeneralSettings? MigratedGeneralSettings { get; }
 
     /// <summary>
     /// Persists the current settings document to disk.

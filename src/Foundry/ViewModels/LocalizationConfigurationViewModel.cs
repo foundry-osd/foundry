@@ -12,14 +12,14 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
 {
     private const string AutomaticSelectionValue = "";
 
-    private readonly IExpertDeployConfigurationStateService configurationStateService;
+    private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IApplicationLocalizationService localizationService;
     private bool isApplyingState = true;
     private bool isRefreshingOptions;
     private bool isSavingState;
 
     public LocalizationConfigurationViewModel(
-        IExpertDeployConfigurationStateService configurationStateService,
+        IFoundryConfigurationStateService configurationStateService,
         ILanguageRegistryService languageRegistryService,
         IApplicationLocalizationService localizationService)
     {

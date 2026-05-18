@@ -4,23 +4,23 @@ using Foundry.Telemetry;
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Owns the mutable expert deployment configuration assembled by the Foundry UI.
+/// Owns the mutable Foundry configuration assembled by the Foundry UI.
 /// </summary>
 /// <remarks>
 /// <see cref="Current"/> is always safe to persist. Volatile network secrets are kept outside the document and
 /// merged only when <see cref="GenerateConnectProvisioningBundle"/> creates the Connect payload.
 /// </remarks>
-public interface IExpertDeployConfigurationStateService
+public interface IFoundryConfigurationStateService
 {
     /// <summary>
-    /// Occurs after the expert deployment configuration changes.
+    /// Occurs after the Foundry configuration changes.
     /// </summary>
     event EventHandler? StateChanged;
 
     /// <summary>
-    /// Gets the current expert configuration document after removing values that must not be persisted.
+    /// Gets the current Foundry configuration document after removing values that must not be persisted.
     /// </summary>
-    FoundryExpertConfigurationDocument Current { get; }
+    FoundryConfigurationDocument Current { get; }
 
     /// <summary>
     /// Gets a value indicating whether network configuration can be emitted for Connect.
@@ -63,6 +63,12 @@ public interface IExpertDeployConfigurationStateService
     string? SelectedAutopilotProfileFolderName { get; }
 
     /// <summary>
+    /// Replaces the general boot media authoring configuration section.
+    /// </summary>
+    /// <param name="settings">New general settings.</param>
+    void UpdateGeneral(GeneralSettings settings);
+
+    /// <summary>
     /// Replaces the network configuration section and stores required secrets in volatile state.
     /// </summary>
     /// <param name="settings">New network settings.</param>
@@ -101,7 +107,7 @@ public interface IExpertDeployConfigurationStateService
     FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null);
 
     /// <summary>
-    /// Generates the Deploy configuration JSON for the current expert configuration.
+    /// Generates the Deploy configuration JSON for the current Foundry configuration.
     /// </summary>
     /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Deploy document.</param>
     /// <returns>Serialized Deploy configuration JSON.</returns>

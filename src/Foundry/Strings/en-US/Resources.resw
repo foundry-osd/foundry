@@ -553,7 +553,7 @@
     <value>Enable this only if the boot image should include Wi-Fi support and Wi-Fi profiles for WinPE startup.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personal Wi-Fi passphrases remain transient in the authoring app and are not persisted in expert configuration.</value>
+    <value>Personal Wi-Fi passphrases remain transient in the authoring app and are not persisted in Foundry configuration.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Enterprise behavior is driven by the profile template in this build. Runtime-entered 802.1X credentials are not provisioned here.</value>
@@ -984,10 +984,10 @@
   <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
     <value>Final ISO and USB output choices.</value>
   </data>
-  <data name="StartMedia.Readiness.ExpertConfiguration.Header" xml:space="preserve">
-    <value>Expert configuration</value>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Foundry configuration</value>
   </data>
-  <data name="StartMedia.Readiness.ExpertConfiguration.Description" xml:space="preserve">
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
     <value>Deployment settings used by Foundry in WinPE.</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">

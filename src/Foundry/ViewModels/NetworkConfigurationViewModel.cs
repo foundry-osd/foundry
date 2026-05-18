@@ -17,7 +17,7 @@ namespace Foundry.ViewModels;
 /// </remarks>
 public sealed partial class NetworkConfigurationViewModel : ObservableObject, IDisposable
 {
-    private readonly IExpertDeployConfigurationStateService configurationStateService;
+    private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IFilePickerService filePickerService;
     private readonly IApplicationLocalizationService localizationService;
@@ -25,7 +25,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private bool isSavingState;
 
     public NetworkConfigurationViewModel(
-        IExpertDeployConfigurationStateService configurationStateService,
+        IFoundryConfigurationStateService configurationStateService,
         INetworkSecretStateService networkSecretStateService,
         IFilePickerService filePickerService,
         IApplicationLocalizationService localizationService)

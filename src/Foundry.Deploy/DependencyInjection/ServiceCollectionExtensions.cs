@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
-        services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
+        services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
@@ -153,7 +153,7 @@ public static class ServiceCollectionExtensions
 
     private static TelemetrySettings LoadTelemetrySettings(IServiceProvider serviceProvider)
     {
-        return serviceProvider.GetRequiredService<IExpertDeployConfigurationService>()
+        return serviceProvider.GetRequiredService<IDeployConfigurationService>()
             .LoadOptional()
             .Document
             ?.Telemetry ?? new TelemetrySettings();

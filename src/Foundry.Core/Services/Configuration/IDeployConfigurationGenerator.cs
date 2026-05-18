@@ -4,16 +4,16 @@ using Foundry.Core.Models.Configuration.Deploy;
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
-/// Converts full Expert Deploy configuration into the reduced document consumed by Foundry.Deploy.
+/// Converts full Foundry configuration into the reduced document consumed by Foundry.Deploy.
 /// </summary>
 public interface IDeployConfigurationGenerator
 {
     /// <summary>
-    /// Generates the deployment runtime configuration from the user-authored Expert Deploy document.
+    /// Generates the deployment runtime configuration from the user-authored Foundry configuration document.
     /// </summary>
-    /// <param name="document">The Expert Deploy document.</param>
+    /// <param name="document">The Foundry configuration document.</param>
     /// <returns>The deployment runtime configuration.</returns>
-    FoundryDeployConfigurationDocument Generate(FoundryExpertConfigurationDocument document);
+    FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document);
 
     /// <summary>
     /// Serializes a deployment runtime configuration document to JSON.

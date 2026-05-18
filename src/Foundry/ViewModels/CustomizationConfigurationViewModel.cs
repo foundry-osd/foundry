@@ -7,17 +7,17 @@ using Microsoft.UI.Xaml;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Backs deployment customization settings that are generated into the Expert Deploy configuration.
+/// Backs deployment customization settings that are generated into the Foundry configuration.
 /// </summary>
 public sealed partial class CustomizationConfigurationViewModel : ObservableObject, IDisposable
 {
-    private readonly IExpertDeployConfigurationStateService configurationStateService;
+    private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IApplicationLocalizationService localizationService;
     private bool isApplyingState = true;
     private bool isSavingState;
 
     public CustomizationConfigurationViewModel(
-        IExpertDeployConfigurationStateService configurationStateService,
+        IFoundryConfigurationStateService configurationStateService,
         IApplicationLocalizationService localizationService)
     {
         this.configurationStateService = configurationStateService;

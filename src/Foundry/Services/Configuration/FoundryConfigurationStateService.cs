@@ -1,37 +1,42 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 using Serilog;
+using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
 
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Maintains the user-facing Expert Deploy configuration state and generates deploy/connect payloads from it.
+/// Maintains the user-facing Foundry configuration state and generates deploy/connect payloads from it.
 /// </summary>
 /// <remarks>
 /// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and are only merged
 /// when a provisioning bundle is generated.
 /// </remarks>
-internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfigurationStateService
+internal sealed class FoundryConfigurationStateService : IFoundryConfigurationStateService
 {
-    private readonly IExpertConfigurationService expertConfigurationService;
+    private readonly IFoundryConfigurationService foundryConfigurationService;
     private readonly IDeployConfigurationGenerator deployConfigurationGenerator;
     private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly INetworkSecretStateService networkSecretStateService;
+    private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
 
-    public ExpertDeployConfigurationStateService(
-        IExpertConfigurationService expertConfigurationService,
+    public FoundryConfigurationStateService(
+        IFoundryConfigurationService foundryConfigurationService,
         IDeployConfigurationGenerator deployConfigurationGenerator,
         IConnectConfigurationGenerator connectConfigurationGenerator,
         INetworkSecretStateService networkSecretStateService,
+        AppSettingsService appSettingsService,
         ILogger logger)
     {
-        this.expertConfigurationService = expertConfigurationService;
+        this.foundryConfigurationService = foundryConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
         this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.networkSecretStateService = networkSecretStateService;
-        this.logger = logger.ForContext<ExpertDeployConfigurationStateService>();
+        this.appSettingsService = appSettingsService;
+        this.logger = logger.ForContext<FoundryConfigurationStateService>();
         Current = SanitizeForPersistence(Load());
         Save();
     }
@@ -40,7 +45,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     public event EventHandler? StateChanged;
 
     /// <inheritdoc />
-    public FoundryExpertConfigurationDocument Current { get; private set; }
+    public FoundryConfigurationDocument Current { get; private set; }
 
     /// <inheritdoc />
     public bool IsNetworkConfigurationReady => EvaluateNetworkMediaReadiness().IsNetworkConfigurationReady;
@@ -57,7 +62,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
             }
             catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
             {
-                logger.Warning(ex, "Expert Deploy configuration is not ready.");
+                logger.Warning(ex, "Foundry configuration is not ready.");
                 return false;
             }
         }
@@ -84,6 +89,15 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     public string? SelectedAutopilotProfileFolderName => Current.Autopilot.IsEnabled
         ? GetSelectedAutopilotProfile()?.FolderName
         : null;
+
+    /// <inheritdoc />
+    public void UpdateGeneral(GeneralSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { General = SanitizeGeneralForPersistence(settings) };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
 
     /// <inheritdoc />
     public void UpdateLocalization(LocalizationSettings settings)
@@ -134,7 +148,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     /// <inheritdoc />
     public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null)
     {
-        FoundryExpertConfigurationDocument document = telemetryOverride is null
+        FoundryConfigurationDocument document = telemetryOverride is null
             ? Current
             : Current with { Telemetry = telemetryOverride };
 
@@ -144,7 +158,7 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
     /// <inheritdoc />
     public FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null)
     {
-        FoundryExpertConfigurationDocument document = Current with
+        FoundryConfigurationDocument document = Current with
         {
             Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network),
             Telemetry = telemetryOverride ?? Current.Telemetry
@@ -153,42 +167,63 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
         return connectConfigurationGenerator.CreateProvisioningBundle(document, stagingDirectoryPath);
     }
 
-    private FoundryExpertConfigurationDocument Load()
+    private FoundryConfigurationDocument Load()
     {
-        if (!File.Exists(Constants.ExpertDeployConfigurationStatePath))
+        if (!File.Exists(Constants.FoundryConfigurationStatePath))
         {
-            return new FoundryExpertConfigurationDocument();
+            return FoundryConfigurationMigration.ApplyLegacyGeneralSettings(
+                CreateDefaultDocument(),
+                appSettingsService.MigratedGeneralSettings);
         }
 
         try
         {
-            string json = File.ReadAllText(Constants.ExpertDeployConfigurationStatePath);
-            return expertConfigurationService.Deserialize(json);
+            string json = File.ReadAllText(Constants.FoundryConfigurationStatePath);
+            return foundryConfigurationService.Deserialize(json);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or ArgumentException)
         {
-            string backupPath = Constants.ExpertDeployConfigurationStatePath + ".invalid";
+            string backupPath = Constants.FoundryConfigurationStatePath + ".invalid";
             TryMoveInvalidState(backupPath, ex);
-            return new FoundryExpertConfigurationDocument();
+            return CreateDefaultDocument();
         }
+    }
+
+    private static FoundryConfigurationDocument CreateDefaultDocument()
+    {
+        return new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings
+            {
+                IsoOutputPath = Path.Combine(Constants.IsoWorkspaceDirectoryPath, "Foundry.iso")
+            }
+        };
     }
 
     private void Save()
     {
         Directory.CreateDirectory(Constants.ConfigurationWorkspaceDirectoryPath);
-        FoundryExpertConfigurationDocument document = SanitizeForPersistence(Current);
-        string json = expertConfigurationService.Serialize(document);
-        File.WriteAllText(Constants.ExpertDeployConfigurationStatePath, json);
+        FoundryConfigurationDocument document = SanitizeForPersistence(Current);
+        string json = foundryConfigurationService.Serialize(document);
+        File.WriteAllText(Constants.FoundryConfigurationStatePath, json);
     }
 
-    private static FoundryExpertConfigurationDocument SanitizeForPersistence(FoundryExpertConfigurationDocument document)
+    private static FoundryConfigurationDocument SanitizeForPersistence(FoundryConfigurationDocument document)
     {
         return document with
         {
+            General = SanitizeGeneralForPersistence(document.General),
             Network = NetworkConfigurationValidator.SanitizeForPersistence(document.Network),
             Customization = SanitizeCustomizationForPersistence(document.Customization),
             Autopilot = SanitizeAutopilotForPersistence(document.Autopilot)
         };
+    }
+
+    private static GeneralSettings SanitizeGeneralForPersistence(GeneralSettings settings)
+    {
+        return settings.Architecture == WinPeArchitecture.Arm64 && settings.UsbPartitionStyle == UsbPartitionStyle.Mbr
+            ? settings with { UsbPartitionStyle = UsbPartitionStyle.Gpt }
+            : settings;
     }
 
     private static AutopilotSettings SanitizeAutopilotForPersistence(AutopilotSettings settings)
@@ -303,19 +338,19 @@ internal sealed class ExpertDeployConfigurationStateService : IExpertDeployConfi
                 File.Delete(backupPath);
             }
 
-            File.Move(Constants.ExpertDeployConfigurationStatePath, backupPath);
+            File.Move(Constants.FoundryConfigurationStatePath, backupPath);
             logger.Warning(
                 originalException,
-                "Expert Deploy configuration state was invalid and defaults were restored. StatePath={StatePath}, BackupPath={BackupPath}",
-                Constants.ExpertDeployConfigurationStatePath,
+                "Foundry configuration state was invalid and defaults were restored. StatePath={StatePath}, BackupPath={BackupPath}",
+                Constants.FoundryConfigurationStatePath,
                 backupPath);
         }
         catch (Exception backupException) when (backupException is IOException or UnauthorizedAccessException)
         {
             logger.Error(
                 backupException,
-                "Failed to back up invalid Expert Deploy configuration state. StatePath={StatePath}, BackupPath={BackupPath}, OriginalError={OriginalError}",
-                Constants.ExpertDeployConfigurationStatePath,
+                "Failed to back up invalid Foundry configuration state. StatePath={StatePath}, BackupPath={BackupPath}, OriginalError={OriginalError}",
+                Constants.FoundryConfigurationStatePath,
                 backupPath,
                 originalException.Message);
             throw;

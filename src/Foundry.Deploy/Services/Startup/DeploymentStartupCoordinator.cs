@@ -14,7 +14,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
 {
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
 
-    private readonly IExpertDeployConfigurationService _expertDeployConfigurationService;
+    private readonly IDeployConfigurationService _deployConfigurationService;
     private readonly IAutopilotProfileCatalogService _autopilotProfileCatalogService;
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
@@ -23,7 +23,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     private readonly ILogger<DeploymentStartupCoordinator> _logger;
 
     public DeploymentStartupCoordinator(
-        IExpertDeployConfigurationService expertDeployConfigurationService,
+        IDeployConfigurationService deployConfigurationService,
         IAutopilotProfileCatalogService autopilotProfileCatalogService,
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
@@ -31,7 +31,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         IDeploymentCatalogLoadService deploymentCatalogLoadService,
         ILogger<DeploymentStartupCoordinator> logger)
     {
-        _expertDeployConfigurationService = expertDeployConfigurationService;
+        _deployConfigurationService = deployConfigurationService;
         _autopilotProfileCatalogService = autopilotProfileCatalogService;
         _hardwareProfileService = hardwareProfileService;
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
@@ -44,7 +44,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        ExpertDeployConfigurationLoadResult expertConfigLoadResult = _expertDeployConfigurationService.LoadOptional();
+        DeployConfigurationLoadResult deployConfigLoadResult = _deployConfigurationService.LoadOptional();
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles = _autopilotProfileCatalogService.LoadAvailableProfiles();
         string cacheRootPath = ResolveCacheRootPath(request.RuntimeContext, request.IsDebugSafeMode);
         string? startupStatusMessage = request.IsDebugSafeMode
@@ -62,7 +62,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         {
             CacheRootPath = cacheRootPath,
             StartupStatusMessage = startupStatusMessage,
-            ExpertConfigurationDocument = expertConfigLoadResult.Document,
+            DeployConfigurationDocument = deployConfigLoadResult.Document,
             AutopilotProfiles = autopilotProfiles,
             EffectiveComputerName = computerNameTask.Result,
             DetectedHardware = hardwareTask.Result.Profile,

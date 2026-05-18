@@ -5,12 +5,12 @@ using Foundry.Core.Models.Configuration.Deploy;
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
-/// Generates the reduced Foundry.Deploy runtime configuration from Expert Deploy settings.
+/// Generates the reduced Foundry.Deploy runtime configuration from Foundry configuration settings.
 /// </summary>
 public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 {
     /// <inheritdoc />
-    public FoundryDeployConfigurationDocument Generate(FoundryExpertConfigurationDocument document)
+    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
 

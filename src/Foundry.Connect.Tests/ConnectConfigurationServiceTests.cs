@@ -120,7 +120,7 @@ public sealed class ConnectConfigurationServiceTests
         using var tempDirectory = new TemporaryDirectory();
         string wiredProfilePath = CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />");
         string configurationJson = new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            new CoreConfiguration.FoundryExpertConfigurationDocument
+            new CoreConfiguration.FoundryConfigurationDocument
             {
                 Network = new CoreConfiguration.NetworkSettings
                 {
@@ -153,7 +153,7 @@ public sealed class ConnectConfigurationServiceTests
         using var tempDirectory = new TemporaryDirectory();
         Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
             new ConnectConfigurationGenerator().CreateProvisioningBundle(
-                new CoreConfiguration.FoundryExpertConfigurationDocument
+                new CoreConfiguration.FoundryConfigurationDocument
                 {
                     Network = new CoreConfiguration.NetworkSettings
                     {
@@ -191,7 +191,7 @@ public sealed class ConnectConfigurationServiceTests
         using var tempDirectory = new TemporaryDirectory();
         Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
             new ConnectConfigurationGenerator().CreateProvisioningBundle(
-                new CoreConfiguration.FoundryExpertConfigurationDocument
+                new CoreConfiguration.FoundryConfigurationDocument
                 {
                     Network = new CoreConfiguration.NetworkSettings
                     {
@@ -302,7 +302,7 @@ public sealed class ConnectConfigurationServiceTests
     private static Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle CreatePersonalWifiProvisioningBundle(string stagingDirectoryPath)
     {
         return new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            new CoreConfiguration.FoundryExpertConfigurationDocument
+            new CoreConfiguration.FoundryConfigurationDocument
             {
                 Network = new CoreConfiguration.NetworkSettings
                 {

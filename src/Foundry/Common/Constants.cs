@@ -45,7 +45,7 @@ namespace Foundry.Common
         public static readonly string WebView2UserDataDirectoryPath = Path.Combine(UserRootDirectoryPath, "WebView2");
         public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Foundry.log");
         public static readonly string AppSettingsPath = Path.Combine(SettingsDirectoryPath, "appsettings.json");
-        public static readonly string ExpertDeployConfigurationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "foundry.expert.config.json");
+        public static readonly string FoundryConfigurationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "foundry.config.json");
 
         public const string RepositoryUrl = "https://github.com/foundry-osd/foundry";
         public const string LatestReleaseUrl = RepositoryUrl + "/releases/latest";

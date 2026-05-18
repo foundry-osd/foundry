@@ -11,7 +11,7 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;
-    public string ExpertDeployConfigurationJson { get; init; } = string.Empty;
+    public string DeployConfigurationJson { get; init; } = string.Empty;
     public byte[]? MediaSecretsKey { get; init; }
     public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = [];
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = [];

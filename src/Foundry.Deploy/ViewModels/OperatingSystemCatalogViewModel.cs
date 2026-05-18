@@ -108,7 +108,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         RaiseStateChanged();
     }
 
-    public void ApplyExpertLocalization(IEnumerable<string> visibleLanguageCodes, string? defaultLanguageCodeOverride, bool forceSingleVisibleLanguageSelection)
+    public void ApplyDeployLocalization(IEnumerable<string> visibleLanguageCodes, string? defaultLanguageCodeOverride, bool forceSingleVisibleLanguageSelection)
     {
         ArgumentNullException.ThrowIfNull(visibleLanguageCodes);
 

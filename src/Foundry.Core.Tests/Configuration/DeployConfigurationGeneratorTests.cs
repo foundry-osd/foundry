@@ -11,7 +11,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenMachineNamingIsDisabled_ClearsPrefixAndKeepsManualSuffixEditable()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -46,7 +46,7 @@ public sealed class DeployConfigurationGeneratorTests
             RuntimePayloadSource = TelemetryRuntimePayloadSources.Release
         };
 
-        var result = generator.Generate(new FoundryExpertConfigurationDocument { Telemetry = telemetry });
+        var result = generator.Generate(new FoundryConfigurationDocument { Telemetry = telemetry });
 
         Assert.Same(telemetry, result.Telemetry);
     }
@@ -55,7 +55,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenOobeCustomizationIsEnabled_PropagatesOobeSettings()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -91,7 +91,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenOobeCustomizationIsDisabled_DoesNotEnableRuntimeOobeSettings()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -115,7 +115,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenAppxRemovalIsEnabled_PropagatesDistinctPackageNames()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -143,7 +143,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenAppxRemovalIsDisabled_DoesNotPropagatePackageNames()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -165,7 +165,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_CanonicalizesVisibleLanguagesAndDropsMissingDefaultOverride()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Localization = new LocalizationSettings
             {
@@ -188,7 +188,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Serialize_WhenDefaultTimeZoneIdIsSet_WritesCamelCaseProperty()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = generator.Generate(new FoundryExpertConfigurationDocument
+        var document = generator.Generate(new FoundryConfigurationDocument
         {
             Localization = new LocalizationSettings
             {
@@ -205,7 +205,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_ResolvesDefaultAutopilotProfileFolder()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {

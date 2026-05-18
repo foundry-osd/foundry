@@ -553,7 +553,7 @@
     <value>Activez ceci uniquement si l'image de boot doit inclure la prise en charge Wi-Fi et des profils Wi-Fi pour le démarrage WinPE.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Les phrases secrètes Wi-Fi personnelles restent transitoires dans l'application et ne sont pas persistées dans la configuration experte.</value>
+    <value>Les phrases secrètes Wi-Fi personnelles restent transitoires dans l'application et ne sont pas persistées dans la configuration Foundry.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Le comportement entreprise est piloté par le modèle de profil inclus dans cette version. Les informations d'identification 802.1X saisies à l'exécution ne sont pas provisionnées ici.</value>
@@ -984,10 +984,10 @@
   <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
     <value>Choix finaux pour la sortie ISO et USB.</value>
   </data>
-  <data name="StartMedia.Readiness.ExpertConfiguration.Header" xml:space="preserve">
-    <value>Configuration expert</value>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Configuration Foundry</value>
   </data>
-  <data name="StartMedia.Readiness.ExpertConfiguration.Description" xml:space="preserve">
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
     <value>Paramètres de déploiement utilisés par Foundry dans WinPE.</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">

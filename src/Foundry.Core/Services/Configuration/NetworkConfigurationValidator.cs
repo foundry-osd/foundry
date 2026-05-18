@@ -4,7 +4,7 @@ using Foundry.Core.Models.Configuration;
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
-/// Validates and normalizes Expert Deploy network settings before they are persisted or provisioned.
+/// Validates and normalizes Foundry network settings before they are persisted or provisioned.
 /// </summary>
 public static class NetworkConfigurationValidator
 {

@@ -3,12 +3,12 @@ using Foundry.Telemetry;
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Represents the complete user-authored Expert Deploy configuration persisted by the Foundry app.
+/// Represents the complete user-authored Foundry configuration persisted by the Foundry app.
 /// </summary>
-public sealed record FoundryExpertConfigurationDocument
+public sealed record FoundryConfigurationDocument
 {
     /// <summary>
-    /// Gets the current schema version for Expert Deploy configuration documents.
+    /// Gets the current schema version for Foundry configuration documents.
     /// </summary>
     public const int CurrentSchemaVersion = 6;
 

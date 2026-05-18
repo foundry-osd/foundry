@@ -8,7 +8,7 @@ public sealed record DeploymentStartupSnapshot
 {
     public required string CacheRootPath { get; init; }
     public required string? StartupStatusMessage { get; init; }
-    public required FoundryDeployConfigurationDocument? ExpertConfigurationDocument { get; init; }
+    public required FoundryDeployConfigurationDocument? DeployConfigurationDocument { get; init; }
     public required IReadOnlyList<AutopilotProfileCatalogItem> AutopilotProfiles { get; init; }
     public required string EffectiveComputerName { get; init; }
     public required HardwareProfile? DetectedHardware { get; init; }

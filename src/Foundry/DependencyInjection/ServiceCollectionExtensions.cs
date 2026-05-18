@@ -84,7 +84,7 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
-        services.AddSingleton<IExpertConfigurationService, ExpertConfigurationService>();
+        services.AddSingleton<IFoundryConfigurationService, FoundryConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
         services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
         services.AddSingleton<IAutopilotProfileImportService, AutopilotProfileImportService>();
@@ -93,7 +93,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAutopilotProfileSelectionDialogService, AutopilotProfileSelectionDialogService>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
-        services.AddSingleton<IExpertDeployConfigurationStateService, ExpertDeployConfigurationStateService>();
+        services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
         services.AddSingleton<IWinPeBuildService, WinPeBuildService>();

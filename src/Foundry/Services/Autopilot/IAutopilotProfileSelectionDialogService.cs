@@ -3,7 +3,7 @@ using Foundry.Core.Models.Configuration;
 namespace Foundry.Services.Autopilot;
 
 /// <summary>
-/// Shows the Autopilot profile selection dialog used by expert deployment configuration.
+/// Shows the Autopilot profile selection dialog used by Foundry configuration.
 /// </summary>
 public interface IAutopilotProfileSelectionDialogService
 {

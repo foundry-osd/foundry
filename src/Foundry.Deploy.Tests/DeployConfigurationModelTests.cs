@@ -4,7 +4,7 @@ using Foundry.Telemetry;
 
 namespace Foundry.Deploy.Tests;
 
-public sealed class ExpertDeployConfigurationModelTests
+public sealed class DeployConfigurationModelTests
 {
     [Fact]
     public void Deserialize_WhenLocalizationIncludesDefaultTimeZoneId_PreservesValue()
