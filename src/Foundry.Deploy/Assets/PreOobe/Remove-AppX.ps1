@@ -46,7 +46,7 @@ function Get-SelectedPackageNames {
         return @()
     }
 
-    $catalogEntries = @($catalogContent | ConvertFrom-Json)
+    $catalogEntries = $catalogContent | ConvertFrom-Json
     return @($catalogEntries |
         Where-Object { $null -ne $_ -and -not [string]::IsNullOrWhiteSpace($_.packageName) } |
         ForEach-Object { [string]$_.packageName } |
