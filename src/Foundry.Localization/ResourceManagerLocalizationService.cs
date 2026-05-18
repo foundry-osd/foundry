@@ -10,6 +10,7 @@ namespace Foundry.Localization;
 public class ResourceManagerLocalizationService : IResourceManagerLocalizationService, INotifyPropertyChanged
 {
     private readonly ResourceManager resourceManager;
+    private readonly SupportedCultureCatalog supportedCultures;
     private readonly LocalizedStrings strings;
     private CultureInfo currentCulture;
 
@@ -18,12 +19,18 @@ public class ResourceManagerLocalizationService : IResourceManagerLocalizationSe
     /// </summary>
     /// <param name="resourceManager">Resource manager that owns the app string resources.</param>
     /// <param name="currentCulture">Initial UI culture.</param>
-    public ResourceManagerLocalizationService(ResourceManager resourceManager, CultureInfo currentCulture)
+    /// <param name="supportedCultures">Configured UI cultures supported by the app.</param>
+    public ResourceManagerLocalizationService(
+        ResourceManager resourceManager,
+        CultureInfo currentCulture,
+        SupportedCultureCatalog supportedCultures)
     {
         ArgumentNullException.ThrowIfNull(resourceManager);
         ArgumentNullException.ThrowIfNull(currentCulture);
+        ArgumentNullException.ThrowIfNull(supportedCultures);
 
         this.resourceManager = resourceManager;
+        this.supportedCultures = supportedCultures;
         this.currentCulture = currentCulture;
         strings = new LocalizedStrings(resourceManager, currentCulture);
     }
@@ -90,6 +97,6 @@ public class ResourceManagerLocalizationService : IResourceManagerLocalizationSe
     /// <inheritdoc />
     public IReadOnlyList<SupportedCultureOption> CreateSupportedCultureOptions()
     {
-        return SupportedCultureCatalog.CreateOptions(CurrentCulture, GetString);
+        return supportedCultures.CreateOptions(CurrentCulture, GetString);
     }
 }

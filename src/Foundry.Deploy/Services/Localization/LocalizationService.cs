@@ -6,7 +6,7 @@ namespace Foundry.Deploy.Services.Localization;
 public sealed class LocalizationService : ResourceManagerLocalizationService, ILocalizationService
 {
     public LocalizationService()
-        : base(LocalizationText.ResourceManager, CultureInfo.CurrentUICulture)
+        : base(LocalizationText.ResourceManager, CultureInfo.CurrentUICulture, FoundrySupportedCultures.CreateCatalog())
     {
     }
 }

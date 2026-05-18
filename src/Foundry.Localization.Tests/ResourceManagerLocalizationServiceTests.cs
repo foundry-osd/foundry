@@ -84,21 +84,46 @@ public sealed class ResourceManagerLocalizationServiceTests
     [Fact]
     public void CreateSupportedCultureOptions_UsesCurrentCultureAndLocalizedDisplayNames()
     {
-        ResourceManagerLocalizationService service = CreateService("fr-FR");
+        SupportedCultureCatalog catalog = new(
+            "de-DE",
+            [
+                new SupportedCultureDefinition("de-DE", "Language.German", 10),
+                new SupportedCultureDefinition("es-ES", "Language.Spanish", 20),
+                new SupportedCultureDefinition("it-IT", "Language.Italian", 30)
+            ]);
+        ResourceManagerLocalizationService service = CreateService("it-IT", catalog);
 
         IReadOnlyList<SupportedCultureOption> options = service.CreateSupportedCultureOptions();
 
-        Assert.Equal("English", options.Single(option => option.Code == "en-US").DisplayName);
-        Assert.Equal("Francais", options.Single(option => option.Code == "fr-FR").DisplayName);
-        Assert.True(options.Single(option => option.Code == "fr-FR").IsSelected);
+        Assert.Equal(["de-DE", "es-ES", "it-IT"], options.Select(option => option.Code));
+        Assert.Equal("Language.Italian", options.Single(option => option.Code == "it-IT").DisplayName);
+        Assert.True(options.Single(option => option.Code == "it-IT").IsSelected);
     }
 
     private static ResourceManagerLocalizationService CreateService(string cultureName)
+    {
+        return CreateService(cultureName, CreateTestCatalog());
+    }
+
+    private static ResourceManagerLocalizationService CreateService(string cultureName, SupportedCultureCatalog catalog)
     {
         ResourceManager resourceManager = new(
             "Foundry.Localization.Tests.Strings.Resources",
             typeof(ResourceManagerLocalizationServiceTests).Assembly);
 
-        return new ResourceManagerLocalizationService(resourceManager, CultureInfo.GetCultureInfo(cultureName));
+        return new ResourceManagerLocalizationService(
+            resourceManager,
+            CultureInfo.GetCultureInfo(cultureName),
+            catalog);
+    }
+
+    private static SupportedCultureCatalog CreateTestCatalog()
+    {
+        return new SupportedCultureCatalog(
+            "en-US",
+            [
+                new SupportedCultureDefinition("en-US", "Language.English", 10),
+                new SupportedCultureDefinition("fr-FR", "Language.French", 20)
+            ]);
     }
 }

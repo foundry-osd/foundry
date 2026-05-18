@@ -3,20 +3,56 @@ using System.Globalization;
 namespace Foundry.Localization;
 
 /// <summary>
-/// Defines the UI cultures supported by Foundry desktop applications.
+/// Provides validation and display metadata for a configured set of UI cultures.
 /// </summary>
-public static class SupportedCultureCatalog
+public sealed class SupportedCultureCatalog
 {
-    /// <summary>
-    /// Gets the default UI culture code used when no supported culture is selected.
-    /// </summary>
-    public const string DefaultCultureCode = "en-US";
+    private readonly SupportedCultureDefinition[] definitions;
 
-    private static readonly SupportedCultureDefinition[] Definitions =
-    [
-        new("en-US", "Language.English", 10),
-        new("fr-FR", "Language.French", 20)
-    ];
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SupportedCultureCatalog" /> class.
+    /// </summary>
+    /// <param name="defaultCultureCode">Default culture code used when no configured culture matches.</param>
+    /// <param name="definitions">Cultures available to the application.</param>
+    public SupportedCultureCatalog(string defaultCultureCode, IEnumerable<SupportedCultureDefinition> definitions)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(defaultCultureCode);
+        ArgumentNullException.ThrowIfNull(definitions);
+
+        string canonicalDefaultCultureCode = Canonicalize(defaultCultureCode);
+        SupportedCultureDefinition[] orderedDefinitions = definitions
+            .OrderBy(definition => definition.SortOrder)
+            .ThenBy(definition => definition.Code, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (orderedDefinitions.Length == 0)
+        {
+            throw new ArgumentException("At least one supported culture is required.", nameof(definitions));
+        }
+
+        string? duplicateCode = orderedDefinitions
+            .GroupBy(definition => definition.Code, StringComparer.OrdinalIgnoreCase)
+            .FirstOrDefault(group => group.Count() > 1)
+            ?.Key;
+
+        if (duplicateCode is not null)
+        {
+            throw new ArgumentException($"Duplicate supported culture code '{duplicateCode}'.", nameof(definitions));
+        }
+
+        if (!orderedDefinitions.Any(definition => string.Equals(definition.Code, canonicalDefaultCultureCode, StringComparison.OrdinalIgnoreCase)))
+        {
+            throw new ArgumentException("The default culture must be included in the supported culture definitions.", nameof(defaultCultureCode));
+        }
+
+        DefaultCultureCode = canonicalDefaultCultureCode;
+        this.definitions = orderedDefinitions;
+    }
+
+    /// <summary>
+    /// Gets the default UI culture code used when no configured culture is selected.
+    /// </summary>
+    public string DefaultCultureCode { get; }
 
     /// <summary>
     /// Creates language selection options using the provided localized display name resolver.
@@ -24,7 +60,7 @@ public static class SupportedCultureCatalog
     /// <param name="currentCulture">Currently active UI culture.</param>
     /// <param name="getString">Function that resolves display name resource keys.</param>
     /// <returns>Supported cultures sorted for display with the current culture marked as selected.</returns>
-    public static IReadOnlyList<SupportedCultureOption> CreateOptions(
+    public IReadOnlyList<SupportedCultureOption> CreateOptions(
         CultureInfo currentCulture,
         Func<string, string> getString)
     {
@@ -32,11 +68,9 @@ public static class SupportedCultureCatalog
         ArgumentNullException.ThrowIfNull(getString);
 
         string selectedCode = NormalizeForComparison(currentCulture.Name);
-        return Definitions
-            .OrderBy(definition => definition.SortOrder)
-            .ThenBy(definition => definition.Code, StringComparer.OrdinalIgnoreCase)
+        return definitions
             .Select(definition => new SupportedCultureOption(
-                Canonicalize(definition.Code),
+                definition.Code,
                 getString(definition.ResourceKey),
                 NormalizeForComparison(definition.Code).Equals(selectedCode, StringComparison.OrdinalIgnoreCase)))
             .ToArray();
@@ -47,27 +81,10 @@ public static class SupportedCultureCatalog
     /// </summary>
     /// <param name="cultureCode">Culture code to validate.</param>
     /// <returns>A canonical supported culture code.</returns>
-    public static string ValidateOrDefault(string? cultureCode)
+    public string ValidateOrDefault(string? cultureCode)
     {
-        if (string.IsNullOrWhiteSpace(cultureCode))
-        {
-            return DefaultCultureCode;
-        }
-
-        try
-        {
-            string canonicalCode = Canonicalize(cultureCode);
-            return Definitions.Any(definition => string.Equals(
-                Canonicalize(definition.Code),
-                canonicalCode,
-                StringComparison.OrdinalIgnoreCase))
-                ? canonicalCode
-                : DefaultCultureCode;
-        }
-        catch (CultureNotFoundException)
-        {
-            return DefaultCultureCode;
-        }
+        string? supportedCultureCode = TryGetSupportedCultureCode(cultureCode);
+        return supportedCultureCode ?? DefaultCultureCode;
     }
 
     /// <summary>
@@ -75,7 +92,7 @@ public static class SupportedCultureCatalog
     /// </summary>
     /// <param name="preferredCultureCodes">Preferred culture codes in priority order.</param>
     /// <returns>The best supported culture code, or the default culture when no preference matches.</returns>
-    public static string MatchPreferredCulture(IEnumerable<string?> preferredCultureCodes)
+    public string MatchPreferredCulture(IEnumerable<string?> preferredCultureCodes)
     {
         ArgumentNullException.ThrowIfNull(preferredCultureCodes);
 
@@ -97,7 +114,7 @@ public static class SupportedCultureCatalog
         return DefaultCultureCode;
     }
 
-    private static string? TryGetSupportedCultureCode(string? cultureCode)
+    private string? TryGetSupportedCultureCode(string? cultureCode)
     {
         if (string.IsNullOrWhiteSpace(cultureCode))
         {
@@ -107,8 +124,8 @@ public static class SupportedCultureCatalog
         try
         {
             string canonicalCode = Canonicalize(cultureCode);
-            return Definitions
-                .Select(definition => Canonicalize(definition.Code))
+            return definitions
+                .Select(definition => definition.Code)
                 .FirstOrDefault(code => string.Equals(code, canonicalCode, StringComparison.OrdinalIgnoreCase));
         }
         catch (CultureNotFoundException)
@@ -117,7 +134,7 @@ public static class SupportedCultureCatalog
         }
     }
 
-    private static string? TryGetSupportedLanguageFamilyCode(string? cultureCode)
+    private string? TryGetSupportedLanguageFamilyCode(string? cultureCode)
     {
         if (string.IsNullOrWhiteSpace(cultureCode))
         {
@@ -127,8 +144,8 @@ public static class SupportedCultureCatalog
         try
         {
             string languageFamily = CultureInfo.GetCultureInfo(cultureCode.Trim().Replace('_', '-')).TwoLetterISOLanguageName;
-            return Definitions
-                .Select(definition => Canonicalize(definition.Code))
+            return definitions
+                .Select(definition => definition.Code)
                 .FirstOrDefault(code => CultureInfo.GetCultureInfo(code).TwoLetterISOLanguageName.Equals(
                     languageFamily,
                     StringComparison.OrdinalIgnoreCase));
@@ -148,6 +165,4 @@ public static class SupportedCultureCatalog
     {
         return cultureCode.Trim().Replace('_', '-').ToLowerInvariant();
     }
-
-    private sealed record SupportedCultureDefinition(string Code, string ResourceKey, int SortOrder);
 }
