@@ -6,7 +6,7 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record AppxRemovalCatalogEntry
 {
     /// <summary>
-    /// Gets the provisioned AppX package identifier matched against DISM DisplayName.
+    /// Gets the provisioned AppX package identifier matched against the provisioned package display name.
     /// </summary>
     public required string PackageName { get; init; }
 
