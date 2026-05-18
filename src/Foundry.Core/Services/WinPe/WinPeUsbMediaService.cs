@@ -603,6 +603,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             string verboseLine = line.StartsWith(UsbProvisioningVerbosePrefix, StringComparison.Ordinal)
                 ? line[UsbProvisioningVerbosePrefix.Length..]
                 : line;
+            if (verboseLine.Length > 0 && verboseLine[0] == '{')
+            {
+                return;
+            }
 
             progress.Report(new WinPeMediaProgress
             {

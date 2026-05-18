@@ -454,10 +454,13 @@ public sealed class WinPeUsbMediaServiceTests
     [Fact]
     public async Task ProvisionAndPopulateAsync_WhenPartitioningUsb_UsesPowerShellStorageProvisioning()
     {
-        string payload = """
-                         {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
-                         """;
-        var runner = new FakeRunner(payload);
+        string diskIdentity = """
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+                              """;
+        string provisioningResult = """
+                                    {"DiskNumber":9,"BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
+                                    """;
+        var runner = new FakeSequenceRunner(diskIdentity, provisioningResult, string.Empty);
         using TempWorkspace workspace = TempWorkspace.Create();
         var service = new WinPeUsbMediaService(runner);
 
@@ -481,6 +484,7 @@ public sealed class WinPeUsbMediaServiceTests
 
         Assert.DoesNotContain("diskpart.exe", runner.Executions.Select(execution => execution.FileName));
         Assert.Equal(2, runner.Executions.Count(execution => execution.FileName == "pwsh.exe"));
+        Assert.Contains(runner.Executions, execution => execution.FileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -527,7 +531,11 @@ public sealed class WinPeUsbMediaServiceTests
         string payload = """
                          {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
                          """;
-        var runner = new FakeOutputRunner(payload);
+        string provisioningResult = """
+                                    FOUNDRY_USB_PROGRESS|55|USB partitions formatted.
+                                    {"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                                    """;
+        var runner = new FakeOutputRunner(payload, provisioningResult);
         var progress = new RecordingProgress();
         using TempWorkspace workspace = TempWorkspace.Create();
         var service = new WinPeUsbMediaService(runner);
@@ -559,6 +567,7 @@ public sealed class WinPeUsbMediaServiceTests
             report => report.Percent == 44 &&
                       report.Status == "Formatting BOOT partition." &&
                       report.LogDetail == "BOOT partition formatted. DriveLetter=S, FileSystem=FAT32, Label=BOOT.");
+        Assert.DoesNotContain(progress.Reports, report => report.LogDetail?.StartsWith('{') == true);
     }
 
     private class FakeRunner(string output) : IWinPeProcessRunner
@@ -647,7 +656,7 @@ public sealed class WinPeUsbMediaServiceTests
         }
     }
 
-    private sealed class FakeOutputRunner(string output) : FakeRunner(output), IWinPeProcessOutputRunner
+    private sealed class FakeOutputRunner(string output, string provisioningOutput) : FakeRunner(output), IWinPeProcessOutputRunner
     {
         public Task<WinPeProcessExecution> RunWithOutputAsync(
             string fileName,
@@ -662,8 +671,18 @@ public sealed class WinPeUsbMediaServiceTests
             onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|44|Formatting BOOT partition.");
             onOutputData?.Invoke("FOUNDRY_USB_VERBOSE|BOOT partition formatted. DriveLetter=S, FileSystem=FAT32, Label=BOOT.");
             onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|53|Formatting cache partition.");
+            onOutputData?.Invoke("""{"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}""");
 
-            return RunAsync(fileName, arguments, workingDirectory, cancellationToken, environmentOverrides);
+            var execution = new WinPeProcessExecution
+            {
+                FileName = fileName,
+                Arguments = arguments,
+                WorkingDirectory = workingDirectory,
+                ExitCode = 0,
+                StandardOutput = provisioningOutput
+            };
+            Executions.Add(execution);
+            return Task.FromResult(execution);
         }
     }
 
