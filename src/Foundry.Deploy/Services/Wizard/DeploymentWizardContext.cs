@@ -46,10 +46,10 @@ public sealed class DeploymentWizardContext : IDisposable
 
         Preparation.CacheRootPath = startupSnapshot.CacheRootPath;
 
-        if (startupSnapshot.ExpertConfigurationDocument is not null)
+        if (startupSnapshot.DeployConfigurationDocument is not null)
         {
-            ApplyExpertConfiguration(
-                startupSnapshot.ExpertConfigurationDocument,
+            ApplyDeployConfiguration(
+                startupSnapshot.DeployConfigurationDocument,
                 startupSnapshot.EffectiveComputerName,
                 startupSnapshot.AutopilotProfiles);
         }
@@ -103,12 +103,12 @@ public sealed class DeploymentWizardContext : IDisposable
         _isDisposed = true;
     }
 
-    private void ApplyExpertConfiguration(
+    private void ApplyDeployConfiguration(
         FoundryDeployConfigurationDocument document,
         string seedComputerName,
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
-        OperatingSystemCatalog.ApplyExpertLocalization(
+        OperatingSystemCatalog.ApplyDeployLocalization(
             document.Localization.VisibleLanguageCodes,
             document.Localization.DefaultLanguageCodeOverride,
             document.Localization.ForceSingleVisibleLanguage);

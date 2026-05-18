@@ -17,7 +17,7 @@ public static class BootMediaTelemetryPropertyBuilder
     /// </summary>
     /// <param name="bootMediaTarget">Final media target value.</param>
     /// <param name="options">Resolved media creation options.</param>
-    /// <param name="document">Current expert configuration document.</param>
+    /// <param name="document">Current Foundry configuration document.</param>
     /// <param name="success">Whether media creation completed successfully.</param>
     /// <param name="failedStepName">Failed media creation step name, or <see langword="null"/> when successful.</param>
     /// <param name="duration">Total media creation duration.</param>
@@ -27,7 +27,7 @@ public static class BootMediaTelemetryPropertyBuilder
     public static IReadOnlyDictionary<string, object?> Build(
         string bootMediaTarget,
         MediaPreflightOptions options,
-        FoundryExpertConfigurationDocument document,
+        FoundryConfigurationDocument document,
         bool success,
         string? failedStepName,
         TimeSpan duration,

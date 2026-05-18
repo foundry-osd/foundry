@@ -17,7 +17,7 @@ namespace Foundry.ViewModels;
 /// </summary>
 public sealed partial class AutopilotConfigurationViewModel : ObservableObject, IDisposable
 {
-    private readonly IExpertDeployConfigurationStateService configurationStateService;
+    private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IAutopilotProfileImportService autopilotProfileImportService;
     private readonly IAutopilotTenantProfileService autopilotTenantProfileService;
     private readonly IAutopilotTenantDownloadDialogService tenantDownloadDialogService;
@@ -30,7 +30,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private bool isSavingState;
 
     public AutopilotConfigurationViewModel(
-        IExpertDeployConfigurationStateService configurationStateService,
+        IFoundryConfigurationStateService configurationStateService,
         IAutopilotProfileImportService autopilotProfileImportService,
         IAutopilotTenantProfileService autopilotTenantProfileService,
         IAutopilotTenantDownloadDialogService tenantDownloadDialogService,

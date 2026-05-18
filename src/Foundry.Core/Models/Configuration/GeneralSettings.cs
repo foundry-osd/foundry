@@ -3,7 +3,7 @@ using Foundry.Core.Services.WinPe;
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Stores user-authored media creation settings in the expert configuration document.
+/// Stores user-authored media creation settings in the Foundry configuration document.
 /// </summary>
 public sealed record GeneralSettings
 {

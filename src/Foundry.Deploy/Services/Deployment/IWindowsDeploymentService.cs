@@ -85,7 +85,7 @@ public interface IWindowsDeploymentService
     /// Writes Windows OOBE unattend and policy settings into an offline Windows installation.
     /// </summary>
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
-    /// <param name="settings">The OOBE customization settings generated from the Expert Deploy configuration.</param>
+    /// <param name="settings">The OOBE customization settings generated from the Foundry configuration.</param>
     /// <param name="processorArchitecture">Processor architecture used by unattend components.</param>
     /// <param name="workingDirectory">Directory used for temporary command output.</param>
     /// <param name="cancellationToken">Token that cancels OOBE configuration.</param>

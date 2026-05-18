@@ -3,21 +3,21 @@ using Foundry.Core.Models.Configuration;
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
-/// Serializes and deserializes Expert Deploy configuration documents.
+/// Serializes and deserializes Foundry configuration documents.
 /// </summary>
-public interface IExpertConfigurationService
+public interface IFoundryConfigurationService
 {
     /// <summary>
-    /// Serializes an Expert Deploy configuration document to JSON.
+    /// Serializes an Foundry configuration document to JSON.
     /// </summary>
     /// <param name="document">The document to serialize.</param>
     /// <returns>The JSON representation.</returns>
-    string Serialize(FoundryExpertConfigurationDocument document);
+    string Serialize(FoundryConfigurationDocument document);
 
     /// <summary>
-    /// Deserializes an Expert Deploy configuration document from JSON.
+    /// Deserializes an Foundry configuration document from JSON.
     /// </summary>
     /// <param name="json">The JSON document content.</param>
     /// <returns>The deserialized document, or a default document when the JSON literal is <c>null</c>.</returns>
-    FoundryExpertConfigurationDocument Deserialize(string json);
+    FoundryConfigurationDocument Deserialize(string json);
 }

@@ -101,15 +101,15 @@
                         </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>
 
-                    <wct:SettingsExpander x:Name="ReadinessExpertConfigurationCard"
-                                          IsExpanded="{x:Bind ViewModel.IsExpertConfigurationReadinessExpanded, Mode=TwoWay}">
+                    <wct:SettingsExpander x:Name="ReadinessFoundryConfigurationCard"
+                                          IsExpanded="{x:Bind ViewModel.IsFoundryConfigurationReadinessExpanded, Mode=TwoWay}">
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE713;" />
                         </wct:SettingsExpander.HeaderIcon>
                         <wct:SettingsExpander.ItemsHeader>
                             <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
                                 <ItemsControl ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                                              ItemsSource="{x:Bind ViewModel.ExpertConfigurationReadinessItems, Mode=OneWay}" />
+                                              ItemsSource="{x:Bind ViewModel.FoundryConfigurationReadinessItems, Mode=OneWay}" />
                             </Grid>
                         </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>

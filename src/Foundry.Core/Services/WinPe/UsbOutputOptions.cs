@@ -22,7 +22,7 @@ public sealed record UsbOutputOptions
     public string? CustomDriverDirectoryPath { get; init; }
     public string? FoundryConnectConfigurationJson { get; init; }
     public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = [];
-    public string? ExpertDeployConfigurationJson { get; init; }
+    public string? DeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = [];
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
     public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }

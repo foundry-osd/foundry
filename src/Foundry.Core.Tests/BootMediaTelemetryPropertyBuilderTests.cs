@@ -25,7 +25,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             IsAutopilotEnabled = true,
             AreRequiredSecretsReady = true
         };
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -142,7 +142,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     public void Build_WhenAppxSelectionDoesNotMatchSingleCategory_ReportsCustomProfile()
     {
         var options = new MediaPreflightOptions();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -177,7 +177,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     public void Build_WhenAppxSelectionMatchesMultipleCategories_ReportsMultipleProfile()
     {
         var options = new MediaPreflightOptions();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -216,7 +216,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         {
             AreRequiredSecretsReady = true
         };
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Network = new NetworkSettings
             {
@@ -247,7 +247,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     public void Build_WhenOptionalCertificatesArePresent_ReportsCertificatesConfigured()
     {
         var options = new MediaPreflightOptions();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Network = new NetworkSettings
             {

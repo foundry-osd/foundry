@@ -97,9 +97,9 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
 
-        string deployConfigurationJson = string.IsNullOrWhiteSpace(options.ExpertDeployConfigurationJson)
+        string deployConfigurationJson = string.IsNullOrWhiteSpace(options.DeployConfigurationJson)
             ? CreateFallbackDeployConfigurationJson()
-            : options.ExpertDeployConfigurationJson;
+            : options.DeployConfigurationJson;
 
         await File.WriteAllTextAsync(
             Path.Combine(foundryConfigPath, "foundry.deploy.config.json"),
