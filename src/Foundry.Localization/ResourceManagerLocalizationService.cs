@@ -31,8 +31,8 @@ public class ResourceManagerLocalizationService : IResourceManagerLocalizationSe
 
         this.resourceManager = resourceManager;
         this.supportedCultures = supportedCultures;
-        this.currentCulture = currentCulture;
-        strings = new LocalizedStrings(resourceManager, currentCulture);
+        this.currentCulture = ResolveSupportedCulture(currentCulture);
+        strings = new LocalizedStrings(resourceManager, this.currentCulture);
     }
 
     /// <inheritdoc />
@@ -70,13 +70,14 @@ public class ResourceManagerLocalizationService : IResourceManagerLocalizationSe
     {
         ArgumentNullException.ThrowIfNull(culture);
 
-        if (Equals(CurrentCulture, culture))
+        CultureInfo supportedCulture = ResolveSupportedCulture(culture);
+        if (Equals(CurrentCulture, supportedCulture))
         {
             return;
         }
 
         string oldLanguage = CurrentCulture.Name;
-        CurrentCulture = culture;
+        CurrentCulture = supportedCulture;
         LanguageChanged?.Invoke(this, new ApplicationLanguageChangedEventArgs(oldLanguage, CurrentCulture.Name));
     }
 
@@ -98,5 +99,11 @@ public class ResourceManagerLocalizationService : IResourceManagerLocalizationSe
     public IReadOnlyList<SupportedCultureOption> CreateSupportedCultureOptions()
     {
         return supportedCultures.CreateOptions(CurrentCulture, GetString);
+    }
+
+    private CultureInfo ResolveSupportedCulture(CultureInfo culture)
+    {
+        string cultureCode = supportedCultures.MatchPreferredCulture([culture.Name]);
+        return CultureInfo.GetCultureInfo(cultureCode);
     }
 }

@@ -1,5 +1,6 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.WinPe;
+using Foundry.Localization;
 
 namespace Foundry.Services.Settings;
 
@@ -63,7 +64,7 @@ public sealed class LocalizationSettings
     /// <summary>
     /// Gets or sets the culture code used by the application resource loader.
     /// </summary>
-    public string Language { get; set; } = "en-US";
+    public string Language { get; set; } = FoundrySupportedCultures.DefaultCultureCode;
 }
 
 /// <summary>

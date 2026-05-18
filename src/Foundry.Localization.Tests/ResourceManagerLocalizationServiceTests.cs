@@ -43,6 +43,37 @@ public sealed class ResourceManagerLocalizationServiceTests
     }
 
     [Fact]
+    public void Constructor_WhenInitialCultureMatchesSupportedLanguageFamily_UsesConfiguredCulture()
+    {
+        SupportedCultureCatalog catalog = new(
+            "en-US",
+            [
+                new SupportedCultureDefinition("en-US", "Language.English", 10),
+                new SupportedCultureDefinition("fr-FR", "Language.French", 20)
+            ]);
+
+        ResourceManagerLocalizationService service = CreateService("fr-CA", catalog);
+
+        Assert.Equal("fr-FR", service.CurrentCulture.Name);
+    }
+
+    [Fact]
+    public void SetCulture_WhenCultureMatchesSupportedLanguageFamily_AppliesConfiguredCulture()
+    {
+        ResourceManagerLocalizationService service = CreateService("en-US");
+        ApplicationLanguageChangedEventArgs? eventArgs = null;
+
+        service.LanguageChanged += (_, args) => eventArgs = args;
+
+        service.SetCulture(CultureInfo.GetCultureInfo("fr-CA"));
+
+        Assert.Equal("fr-FR", service.CurrentCulture.Name);
+        Assert.NotNull(eventArgs);
+        Assert.Equal("en-US", eventArgs.OldLanguage);
+        Assert.Equal("fr-FR", eventArgs.NewLanguage);
+    }
+
+    [Fact]
     public void SetCulture_WhenCultureDoesNotChange_DoesNotRaiseLanguageChanged()
     {
         ResourceManagerLocalizationService service = CreateService("en-US");
