@@ -43,12 +43,6 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         context.RuntimeState.TargetRecoveryPartitionLetter = layout.RecoveryPartitionLetter;
         context.RuntimeState.TargetFoundryRoot = Path.Combine(layout.WindowsPartitionRoot, "Foundry");
 
-        if (context.RuntimeState.Mode == DeploymentMode.Iso)
-        {
-            Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "Cache", "OperatingSystems"));
-            Directory.CreateDirectory(Path.Combine(context.RuntimeState.TargetFoundryRoot, "Cache", "DriverPacks"));
-        }
-
         context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Preparing target workspace...");
         await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 

@@ -337,7 +337,7 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
-    public void InitializeCachePartitionDirectories_CreatesUsbCacheLayoutWithoutLogs()
+    public void InitializeCachePartitionDirectories_CreatesOnlyMediaCreationCacheLayout()
     {
         using TempWorkspace workspace = TempWorkspace.Create();
 
@@ -347,8 +347,8 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Cache", "OperatingSystems")));
         Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Cache", "DriverPacks")));
         Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Cache", "Firmware")));
-        Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "State")));
-        Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Temp")));
+        Assert.False(Directory.Exists(Path.Combine(workspace.RootPath, "State")));
+        Assert.False(Directory.Exists(Path.Combine(workspace.RootPath, "Temp")));
         Assert.False(Directory.Exists(Path.Combine(workspace.RootPath, "Logs")));
     }
 
