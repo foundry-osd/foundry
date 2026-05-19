@@ -116,17 +116,8 @@ function Set-FoundryRegistryDwordValue {
         [int]$Value
     )
 
-    Invoke-FoundryRegExe -Arguments @('add', $Path, '/v', $Name, '/t', 'REG_DWORD', '/d', ([string]$Value), '/f')
-}
-
-function Test-FoundryRegistryKeyExists {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Path
-    )
-
-    & reg.exe query $Path *> $null
-    return $LASTEXITCODE -eq 0
+    New-Item -Path $Path -Force | Out-Null
+    New-ItemProperty -Path $Path -Name $Name -Value $Value -PropertyType DWord -Force | Out-Null
 }
 
 function Invoke-FoundryRegExe {
@@ -147,7 +138,7 @@ function Mount-FoundryDefaultUserHive {
         throw "Default user hive '$defaultUserHivePath' was not found."
     }
 
-    if (Test-FoundryRegistryKeyExists -Path 'HKU\FoundryDefaultUser') {
+    if (Test-Path -Path 'Registry::HKEY_USERS\FoundryDefaultUser') {
         Write-FoundryLog 'Default user hive is already mounted at HKU\FoundryDefaultUser.'
         return $false
     }
@@ -203,29 +194,29 @@ function Remove-FoundryProvisionedAppxPackage {
 }
 
 function Disable-FoundryCopilot {
-    Set-FoundryRegistryDwordValue -Path 'HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'HKU\FoundryDefaultUser\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowCopilotButton' -Value 0
-    Set-FoundryRegistryDwordValue -Path 'HKU\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowCopilotButton' -Value 0
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
 }
 
 function Disable-FoundryRecall {
-    Set-FoundryRegistryDwordValue -Path 'HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableAIDataAnalysis' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'AllowRecallEnablement' -Value 0
-    Set-FoundryRegistryDwordValue -Path 'HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'TurnOffSavingSnapshots' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'HKU\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableAIDataAnalysis' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableAIDataAnalysis' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'AllowRecallEnablement' -Value 0
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'TurnOffSavingSnapshots' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableAIDataAnalysis' -Value 1
 }
 
 function Disable-FoundryClickToDo {
-    Set-FoundryRegistryDwordValue -Path 'HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableClickToDo' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'HKU\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableClickToDo' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableClickToDo' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableClickToDo' -Value 1
 }
 
 function Disable-FoundryAiServiceAutoStart {
-    Set-FoundryRegistryDwordValue -Path 'HKLM\SYSTEM\CurrentControlSet\Services\WSAIFabricSvc' -Name 'Start' -Value 3
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WSAIFabricSvc' -Name 'Start' -Value 3
 }
 
 function Disable-FoundryEdgeAi {
-    $edgePolicyPath = 'HKLM\SOFTWARE\Policies\Microsoft\Edge'
+    $edgePolicyPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge'
     Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'CopilotCDPPageContext' -Value 0
     Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'CopilotPageContext' -Value 0
     Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'HubsSidebarEnabled' -Value 0
@@ -237,7 +228,7 @@ function Disable-FoundryEdgeAi {
 }
 
 function Disable-FoundryPaintAi {
-    $paintPolicyPath = 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Paint'
+    $paintPolicyPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Paint'
     Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableCocreator' -Value 1
     Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableGenerativeFill' -Value 1
     Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableImageCreator' -Value 1
@@ -246,7 +237,7 @@ function Disable-FoundryPaintAi {
 }
 
 function Disable-FoundryNotepadAi {
-    Set-FoundryRegistryDwordValue -Path 'HKLM\SOFTWARE\Policies\WindowsNotepad' -Name 'DisableAIFeatures' -Value 1
+    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WindowsNotepad' -Name 'DisableAIFeatures' -Value 1
 }
 
 Start-FoundryTranscript

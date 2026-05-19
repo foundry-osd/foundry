@@ -292,8 +292,7 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
         Assert.Contains("return $null -ne $property -and [bool]$property.Value", stagedScript);
         Assert.DoesNotContain("-isnot $null", stagedScript);
-        Assert.Contains("reg.exe query $Path", stagedScript);
-        Assert.Contains("'HKU\\FoundryDefaultUser\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced'", stagedScript);
+        Assert.Contains("Registry::HKEY_USERS\\FoundryDefaultUser", stagedScript);
         Assert.Contains("[GC]::WaitForPendingFinalizers()", stagedScript);
         Assert.Contains("Default user hive HKU\\FoundryDefaultUser could not be unloaded", stagedScript);
         Assert.Contains("Users\\Default\\NTUSER.DAT", stagedScript);
