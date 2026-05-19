@@ -32,7 +32,7 @@ public sealed class PreOobeScriptDefinitionBuilderTests
     }
 
     [Fact]
-    public void Build_WhenAiComponentRemovalIsEnabled_StagesSettingsDataFile()
+    public void Build_WhenAiComponentRemovalHasAppxOptions_StagesAppxPackageDataFile()
     {
         var builder = new PreOobeScriptDefinitionBuilder();
 
@@ -42,13 +42,7 @@ public sealed class PreOobeScriptDefinitionBuilderTests
             {
                 IsEnabled = true,
                 RemoveCopilot = true,
-                RemoveAiHub = true,
-                DisableRecall = true,
-                DisableClickToDo = true,
-                DisableAiServiceAutoStart = true,
-                DisableEdgeAi = true,
-                DisablePaintAi = true,
-                DisableNotepadAi = true
+                RemoveAiHub = true
             });
 
         PreOobeScriptDefinition script = Assert.Single(scripts);
@@ -62,18 +56,12 @@ public sealed class PreOobeScriptDefinitionBuilderTests
         Assert.Contains("\"appxPackages\":", dataFile.Content);
         Assert.Contains("\"packageName\": \"Microsoft.Copilot\"", dataFile.Content);
         Assert.Contains("\"packageName\": \"Microsoft.Windows.AIHub\"", dataFile.Content);
-        Assert.Contains("\"removeCopilot\": true", dataFile.Content);
-        Assert.Contains("\"removeAiHub\": true", dataFile.Content);
-        Assert.Contains("\"disableRecall\": true", dataFile.Content);
-        Assert.Contains("\"disableClickToDo\": true", dataFile.Content);
-        Assert.Contains("\"disableAiServiceAutoStart\": true", dataFile.Content);
-        Assert.Contains("\"disableEdgeAi\": true", dataFile.Content);
-        Assert.Contains("\"disablePaintAi\": true", dataFile.Content);
-        Assert.Contains("\"disableNotepadAi\": true", dataFile.Content);
+        Assert.DoesNotContain("disableRecall", dataFile.Content);
+        Assert.DoesNotContain("disableEdgeAi", dataFile.Content);
     }
 
     [Fact]
-    public void Build_WhenAiComponentRemovalHasNoSelectedOptions_DoesNotStageAiScript()
+    public void Build_WhenAiComponentRemovalHasOnlyRegistryOptions_DoesNotStageAiScript()
     {
         var builder = new PreOobeScriptDefinitionBuilder();
 
@@ -81,7 +69,10 @@ public sealed class PreOobeScriptDefinitionBuilderTests
             new DeployAppxRemovalSettings(),
             new DeployAiComponentRemovalSettings
             {
-                IsEnabled = true
+                IsEnabled = true,
+                DisableRecall = true,
+                DisableEdgeAi = true,
+                DisableNotepadAi = true
             });
 
         Assert.Empty(scripts);

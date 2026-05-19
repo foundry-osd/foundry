@@ -98,6 +98,20 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Writes Windows AI component policy settings into an offline Windows installation.
+    /// </summary>
+    /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
+    /// <param name="settings">The AI component removal settings generated from the Foundry configuration.</param>
+    /// <param name="workingDirectory">Directory used for temporary command output.</param>
+    /// <param name="cancellationToken">Token that cancels AI policy configuration.</param>
+    /// <returns>A task that completes after selected AI policy settings are written.</returns>
+    Task ConfigureOfflineAiComponentRemovalAsync(
+        string windowsPartitionRoot,
+        DeployAiComponentRemovalSettings settings,
+        string workingDirectory,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Copies and configures Windows RE on the recovery partition.
     /// </summary>
     /// <remarks>Requires winre.wim in the applied image and winrecfg.exe in the boot environment.</remarks>

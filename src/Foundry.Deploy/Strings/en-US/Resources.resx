@@ -265,6 +265,13 @@ Continue?</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Target Windows partition is unavailable.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Target computer name configured.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Target computer name configured (simulation).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline customization disabled.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Configuring offline customizations...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Writing first-run defaults...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Configuring AI component removal...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Writing offline AI policies...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline customization configured.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline customization configured (simulation).</value></data>
   <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE customization disabled.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Configuring OOBE settings...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Writing first-run privacy defaults...</value></data>

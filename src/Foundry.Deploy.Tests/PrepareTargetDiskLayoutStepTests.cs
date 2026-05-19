@@ -140,6 +140,15 @@ public sealed class PrepareTargetDiskLayoutStepTests
             throw new NotSupportedException();
         }
 
+        public Task ConfigureOfflineAiComponentRemovalAsync(
+            string windowsPartitionRoot,
+            DeployAiComponentRemovalSettings settings,
+            string workingDirectory,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotSupportedException();
+        }
+
         public Task ConfigureRecoveryEnvironmentAsync(
             string windowsPartitionRoot,
             string recoveryPartitionRoot,

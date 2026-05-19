@@ -53,19 +53,6 @@ function Get-FoundryAiComponentRemovalSettings {
     return Get-Content -Path $SettingsPath -Raw | ConvertFrom-Json
 }
 
-function Test-FoundrySettingEnabled {
-    param(
-        [Parameter(Mandatory = $true)]
-        [object]$Settings,
-
-        [Parameter(Mandatory = $true)]
-        [string]$Name
-    )
-
-    $property = $Settings.PSObject.Properties[$Name]
-    return $null -ne $property -and [bool]$property.Value
-}
-
 function Get-SelectedAiAppxPackageNames {
     param(
         [Parameter(Mandatory = $true)]
@@ -104,55 +91,6 @@ function Invoke-FoundryAction {
     }
 }
 
-function Set-FoundryRegistryDwordValue {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Path,
-
-        [Parameter(Mandatory = $true)]
-        [string]$Name,
-
-        [Parameter(Mandatory = $true)]
-        [int]$Value
-    )
-
-    New-Item -Path $Path -Force | Out-Null
-    New-ItemProperty -Path $Path -Name $Name -Value $Value -PropertyType DWord -Force | Out-Null
-}
-
-function Invoke-FoundryRegExe {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string[]]$Arguments
-    )
-
-    $process = Start-Process -FilePath 'reg.exe' -ArgumentList $Arguments -Wait -PassThru -NoNewWindow
-    if ($process.ExitCode -ne 0) {
-        throw "reg.exe $($Arguments -join ' ') failed with exit code $($process.ExitCode)."
-    }
-}
-
-function Mount-FoundryDefaultUserHive {
-    $defaultUserHivePath = Join-Path $env:SystemDrive 'Users\Default\NTUSER.DAT'
-    if (-not (Test-Path -Path $defaultUserHivePath)) {
-        throw "Default user hive '$defaultUserHivePath' was not found."
-    }
-
-    if (Test-Path -Path 'Registry::HKEY_USERS\FoundryDefaultUser') {
-        Write-FoundryLog 'Default user hive is already mounted at HKU\FoundryDefaultUser.'
-        return $false
-    }
-
-    Invoke-FoundryRegExe -Arguments @('load', 'HKU\FoundryDefaultUser', $defaultUserHivePath)
-    Write-FoundryLog "Mounted default user hive '$defaultUserHivePath' at HKU\FoundryDefaultUser."
-    return $true
-}
-
-function Dismount-FoundryDefaultUserHive {
-    Invoke-FoundryRegExe -Arguments @('unload', 'HKU\FoundryDefaultUser')
-    Write-FoundryLog 'Unmounted default user hive HKU\FoundryDefaultUser.'
-}
-
 function Remove-FoundryProvisionedAppxPackage {
     param(
         [Parameter(Mandatory = $true)]
@@ -180,109 +118,19 @@ function Remove-FoundryProvisionedAppxPackage {
     }
 }
 
-function Disable-FoundryCopilot {
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowCopilotButton' -Value 0
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
-}
-
-function Disable-FoundryRecall {
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableAIDataAnalysis' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'AllowRecallEnablement' -Value 0
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'TurnOffSavingSnapshots' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableAIDataAnalysis' -Value 1
-}
-
-function Disable-FoundryClickToDo {
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableClickToDo' -Value 1
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsAI' -Name 'DisableClickToDo' -Value 1
-}
-
-function Disable-FoundryAiServiceAutoStart {
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WSAIFabricSvc' -Name 'Start' -Value 3
-}
-
-function Disable-FoundryEdgeAi {
-    $edgePolicyPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge'
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'CopilotCDPPageContext' -Value 0
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'CopilotPageContext' -Value 0
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'HubsSidebarEnabled' -Value 0
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'EdgeEntraCopilotPageContext' -Value 0
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'EdgeHistoryAISearchEnabled' -Value 0
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'ComposeInlineEnabled' -Value 0
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'GenAILocalFoundationalModelSettings' -Value 1
-    Set-FoundryRegistryDwordValue -Path $edgePolicyPath -Name 'NewTabPageBingChatEnabled' -Value 0
-}
-
-function Disable-FoundryPaintAi {
-    $paintPolicyPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Paint'
-    Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableCocreator' -Value 1
-    Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableGenerativeFill' -Value 1
-    Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableImageCreator' -Value 1
-    Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableGenerativeErase' -Value 1
-    Set-FoundryRegistryDwordValue -Path $paintPolicyPath -Name 'DisableRemoveBackground' -Value 1
-}
-
-function Disable-FoundryNotepadAi {
-    Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WindowsNotepad' -Name 'DisableAIFeatures' -Value 1
-}
-
 Start-FoundryTranscript
 try {
     Write-FoundryLog "Loading AI component removal settings from '$SettingsPath'."
     $settings = Get-FoundryAiComponentRemovalSettings
-    $requiresDefaultUserHive = (Test-FoundrySettingEnabled -Settings $settings -Name 'removeCopilot') -or
-        (Test-FoundrySettingEnabled -Settings $settings -Name 'disableRecall') -or
-        (Test-FoundrySettingEnabled -Settings $settings -Name 'disableClickToDo')
-    $mountedDefaultUserHive = $false
 
-    try {
-        if ($requiresDefaultUserHive) {
-            $mountedDefaultUserHive = Mount-FoundryDefaultUserHive
-        }
-
-        $selectedAppxPackageNames = @(Get-SelectedAiAppxPackageNames -Settings $settings)
-        foreach ($selectedPackageName in $selectedAppxPackageNames) {
-            Invoke-FoundryAction -Name "Remove provisioned AppX package $selectedPackageName" -Action {
-                Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)
-            }
-        }
-
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'removeCopilot') {
-            Invoke-FoundryAction -Name 'Disable Microsoft Copilot policies' -Action { Disable-FoundryCopilot }
-        }
-
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'disableRecall') {
-            Invoke-FoundryAction -Name 'Disable Windows Recall' -Action { Disable-FoundryRecall }
-        }
-
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'disableClickToDo') {
-            Invoke-FoundryAction -Name 'Disable Click to Do' -Action { Disable-FoundryClickToDo }
-        }
-
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'disableAiServiceAutoStart') {
-            Invoke-FoundryAction -Name 'Disable Windows AI service autostart' -Action { Disable-FoundryAiServiceAutoStart }
-        }
-
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'disableEdgeAi') {
-            Invoke-FoundryAction -Name 'Disable Microsoft Edge AI features' -Action { Disable-FoundryEdgeAi }
-        }
-
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'disablePaintAi') {
-            Invoke-FoundryAction -Name 'Disable Paint AI features' -Action { Disable-FoundryPaintAi }
-        }
-
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'disableNotepadAi') {
-            Invoke-FoundryAction -Name 'Disable Notepad AI features' -Action { Disable-FoundryNotepadAi }
-        }
-    }
-    finally {
-        if ($mountedDefaultUserHive) {
-            Dismount-FoundryDefaultUserHive
+    $selectedAppxPackageNames = @(Get-SelectedAiAppxPackageNames -Settings $settings)
+    foreach ($selectedPackageName in $selectedAppxPackageNames) {
+        Invoke-FoundryAction -Name "Remove provisioned AppX package $selectedPackageName" -Action {
+            Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)
         }
     }
 
-    Write-FoundryLog 'AI component removal completed.'
+    Write-FoundryLog 'AI AppX package removal completed.'
 }
 finally {
     Stop-FoundryTranscript

@@ -16,7 +16,7 @@ public static class PreOobeScriptResources
     public const string RemoveAppx = "Foundry.Deploy.PreOobe.Remove-AppX.ps1";
 
     /// <summary>
-    /// Removes or disables selected Windows AI components before OOBE creates user profiles.
+    /// Removes selected AI provisioned AppX packages before OOBE creates user profiles.
     /// </summary>
     public const string RemoveAiComponents = "Foundry.Deploy.PreOobe.Remove-AiComponents.ps1";
 

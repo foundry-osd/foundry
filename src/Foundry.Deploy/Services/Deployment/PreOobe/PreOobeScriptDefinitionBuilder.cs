@@ -81,7 +81,7 @@ public sealed class PreOobeScriptDefinitionBuilder
             });
         }
 
-        if (aiComponentRemoval.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(aiComponentRemoval))
+        if (aiComponentRemoval.IsEnabled && HasAnyAiComponentRemovalAppxOptionEnabled(aiComponentRemoval))
         {
             scripts.Add(new PreOobeScriptDefinition
             {
@@ -135,14 +135,6 @@ public sealed class PreOobeScriptDefinitionBuilder
             new
             {
                 appxPackages = BuildRemoveAiComponentsAppxPackages(settings),
-                settings.RemoveCopilot,
-                settings.RemoveAiHub,
-                settings.DisableRecall,
-                settings.DisableClickToDo,
-                settings.DisableAiServiceAutoStart,
-                settings.DisableEdgeAi,
-                settings.DisablePaintAi,
-                settings.DisableNotepadAi
             },
             new JsonSerializerOptions
             {
@@ -169,15 +161,9 @@ public sealed class PreOobeScriptDefinitionBuilder
         return packages.ToArray();
     }
 
-    private static bool HasAnyAiComponentRemovalOptionEnabled(DeployAiComponentRemovalSettings settings)
+    private static bool HasAnyAiComponentRemovalAppxOptionEnabled(DeployAiComponentRemovalSettings settings)
     {
         return settings.RemoveCopilot ||
-            settings.RemoveAiHub ||
-            settings.DisableRecall ||
-            settings.DisableClickToDo ||
-            settings.DisableAiServiceAutoStart ||
-            settings.DisableEdgeAi ||
-            settings.DisablePaintAi ||
-            settings.DisableNotepadAi;
+            settings.RemoveAiHub;
     }
 }
