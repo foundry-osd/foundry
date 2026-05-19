@@ -147,7 +147,7 @@
                                       Description="{x:Bind ViewModel.AiComponentRemoveCopilotDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8D4;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.RemoveCopilot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -155,7 +155,7 @@
                                       Description="{x:Bind ViewModel.AiComponentRemoveAiHubDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE74C;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.RemoveAiHub, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -163,7 +163,7 @@
                                       Description="{x:Bind ViewModel.AiComponentDisableRecallDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE823;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.DisableRecall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -171,7 +171,7 @@
                                       Description="{x:Bind ViewModel.AiComponentDisableClickToDoDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8B0;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.DisableClickToDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -179,7 +179,7 @@
                                       Description="{x:Bind ViewModel.AiComponentDisableAiServiceAutoStartDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE945;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.DisableAiServiceAutoStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -187,7 +187,7 @@
                                       Description="{x:Bind ViewModel.AiComponentDisableEdgeAiDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE774;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.DisableEdgeAi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -195,7 +195,7 @@
                                       Description="{x:Bind ViewModel.AiComponentDisablePaintAiDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xEC87;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.DisablePaintAi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
@@ -203,7 +203,7 @@
                                       Description="{x:Bind ViewModel.AiComponentDisableNotepadAiDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE70B;" />
+                            <FontIcon Glyph="&#xF4A5;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.DisableNotepadAi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
