@@ -234,6 +234,42 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenLegacyAiPackagesAreSelectedForAppxRemoval_MigratesThemToAiComponentRemoval()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames =
+                    [
+                        "Microsoft.Copilot",
+                        "Microsoft.Windows.AIHub",
+                        "Microsoft.BingWeather"
+                    ]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.AppxRemoval.IsEnabled);
+        Assert.Equal(["Microsoft.BingWeather"], result.Customization.AppxRemoval.PackageNames);
+        Assert.True(result.Customization.AiComponentRemoval.IsEnabled);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveCopilot);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveAiHub);
+        Assert.False(result.Customization.AiComponentRemoval.DisableRecall);
+        Assert.False(result.Customization.AiComponentRemoval.DisableClickToDo);
+        Assert.False(result.Customization.AiComponentRemoval.DisableAiServiceAutoStart);
+        Assert.False(result.Customization.AiComponentRemoval.DisableEdgeAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisablePaintAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisableNotepadAi);
+    }
+
+    [Fact]
     public void Generate_CanonicalizesVisibleLanguagesAndDropsMissingDefaultOverride()
     {
         var generator = new DeployConfigurationGenerator();

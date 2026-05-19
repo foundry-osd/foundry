@@ -271,7 +271,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             },
             Oobe = SanitizeOobeForPersistence(settings.Oobe),
             AppxRemoval = SanitizeAppxRemovalForPersistence(settings.AppxRemoval),
-            AiComponentRemoval = SanitizeAiComponentRemovalForPersistence(settings.AiComponentRemoval)
+            AiComponentRemoval = SanitizeAiComponentRemovalForPersistence(
+                settings.AiComponentRemoval,
+                settings.AppxRemoval)
         };
     }
 
@@ -294,10 +296,29 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             : new AppxRemovalSettings();
     }
 
-    private static AiComponentRemovalSettings SanitizeAiComponentRemovalForPersistence(AiComponentRemovalSettings settings)
+    private static AiComponentRemovalSettings SanitizeAiComponentRemovalForPersistence(
+        AiComponentRemovalSettings settings,
+        AppxRemovalSettings legacyAppxRemoval)
     {
-        return settings.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(settings)
-            ? settings
+        bool removeCopilot = settings.IsEnabled && settings.RemoveCopilot ||
+            HasLegacyAppxRemovalPackage(legacyAppxRemoval, "Microsoft.Copilot");
+        bool removeAiHub = settings.IsEnabled && settings.RemoveAiHub ||
+            HasLegacyAppxRemovalPackage(legacyAppxRemoval, "Microsoft.Windows.AIHub");
+        var migratedSettings = new AiComponentRemovalSettings
+        {
+            IsEnabled = settings.IsEnabled || removeCopilot || removeAiHub,
+            RemoveCopilot = removeCopilot,
+            RemoveAiHub = removeAiHub,
+            DisableRecall = settings.IsEnabled && settings.DisableRecall,
+            DisableClickToDo = settings.IsEnabled && settings.DisableClickToDo,
+            DisableAiServiceAutoStart = settings.IsEnabled && settings.DisableAiServiceAutoStart,
+            DisableEdgeAi = settings.IsEnabled && settings.DisableEdgeAi,
+            DisablePaintAi = settings.IsEnabled && settings.DisablePaintAi,
+            DisableNotepadAi = settings.IsEnabled && settings.DisableNotepadAi
+        };
+
+        return migratedSettings.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(migratedSettings)
+            ? migratedSettings
             : new AiComponentRemovalSettings();
     }
 
@@ -311,6 +332,12 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             settings.DisableEdgeAi ||
             settings.DisablePaintAi ||
             settings.DisableNotepadAi;
+    }
+
+    private static bool HasLegacyAppxRemovalPackage(AppxRemovalSettings settings, string packageName)
+    {
+        return settings.IsEnabled &&
+            settings.PackageNames.Any(value => string.Equals(value.Trim(), packageName, StringComparison.OrdinalIgnoreCase));
     }
 
     private static string[] NormalizeAppxRemovalPackageNames(IEnumerable<string> packageNames)
