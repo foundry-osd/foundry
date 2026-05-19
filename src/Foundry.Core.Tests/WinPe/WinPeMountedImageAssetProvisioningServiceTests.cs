@@ -113,18 +113,19 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired", "Profiles")));
         Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json")));
         Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json")));
         Assert.Equal("debug", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.provisioning-source.txt")));
         Assert.Equal("release", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.provisioning-source.txt")));
         Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "iana-windows-timezones.json")));
         Assert.Equal("<WLANProfile />", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wifi", "Profiles", "profile.xml")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Certificates")));
         Assert.Equal("{\"profile\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json")));
     }
 
     [Fact]
-    public async Task ProvisionAsync_CreatesRuntimeLogAndTempDirectories()
+    public async Task ProvisionAsync_DoesNotCreateRuntimeOwnedLogTempOrNetworkDirectories()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -144,8 +145,9 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Logs")));
-        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Temp")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Logs")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Temp")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network")));
     }
 
     [Fact]
