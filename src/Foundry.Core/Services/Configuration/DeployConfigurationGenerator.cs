@@ -47,7 +47,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                                             document.Customization.MachineNaming.AllowManualSuffixEdit
                 },
                 Oobe = MapOobeSettings(document.Customization.Oobe),
-                AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval)
+                AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval),
+                AiComponentRemoval = MapAiComponentRemovalSettings(document.Customization.AiComponentRemoval)
             },
             Autopilot = new DeployAutopilotSettings
             {
@@ -142,6 +143,39 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 PackageNames = packageNames
             }
             : new DeployAppxRemovalSettings();
+    }
+
+    private static DeployAiComponentRemovalSettings MapAiComponentRemovalSettings(AiComponentRemovalSettings settings)
+    {
+        if (!settings.IsEnabled || !HasAnyAiComponentRemovalOptionEnabled(settings))
+        {
+            return new DeployAiComponentRemovalSettings();
+        }
+
+        return new DeployAiComponentRemovalSettings
+        {
+            IsEnabled = true,
+            RemoveCopilot = settings.RemoveCopilot,
+            RemoveAiHub = settings.RemoveAiHub,
+            DisableRecall = settings.DisableRecall,
+            DisableClickToDo = settings.DisableClickToDo,
+            DisableAiServiceAutoStart = settings.DisableAiServiceAutoStart,
+            DisableEdgeAi = settings.DisableEdgeAi,
+            DisablePaintAi = settings.DisablePaintAi,
+            DisableNotepadAi = settings.DisableNotepadAi
+        };
+    }
+
+    private static bool HasAnyAiComponentRemovalOptionEnabled(AiComponentRemovalSettings settings)
+    {
+        return settings.RemoveCopilot ||
+            settings.RemoveAiHub ||
+            settings.DisableRecall ||
+            settings.DisableClickToDo ||
+            settings.DisableAiServiceAutoStart ||
+            settings.DisableEdgeAi ||
+            settings.DisablePaintAi ||
+            settings.DisableNotepadAi;
     }
 
     private static string[] CanonicalizePackageNames(IEnumerable<string> packageNames)

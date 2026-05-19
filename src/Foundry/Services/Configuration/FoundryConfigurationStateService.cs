@@ -270,7 +270,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled || settings.MachineNaming.AllowManualSuffixEdit
             },
             Oobe = SanitizeOobeForPersistence(settings.Oobe),
-            AppxRemoval = SanitizeAppxRemovalForPersistence(settings.AppxRemoval)
+            AppxRemoval = SanitizeAppxRemovalForPersistence(settings.AppxRemoval),
+            AiComponentRemoval = SanitizeAiComponentRemovalForPersistence(settings.AiComponentRemoval)
         };
     }
 
@@ -291,6 +292,25 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 PackageNames = packageNames
             }
             : new AppxRemovalSettings();
+    }
+
+    private static AiComponentRemovalSettings SanitizeAiComponentRemovalForPersistence(AiComponentRemovalSettings settings)
+    {
+        return settings.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(settings)
+            ? settings
+            : new AiComponentRemovalSettings();
+    }
+
+    private static bool HasAnyAiComponentRemovalOptionEnabled(AiComponentRemovalSettings settings)
+    {
+        return settings.RemoveCopilot ||
+            settings.RemoveAiHub ||
+            settings.DisableRecall ||
+            settings.DisableClickToDo ||
+            settings.DisableAiServiceAutoStart ||
+            settings.DisableEdgeAi ||
+            settings.DisablePaintAi ||
+            settings.DisableNotepadAi;
     }
 
     private static string[] NormalizeAppxRemovalPackageNames(IEnumerable<string> packageNames)

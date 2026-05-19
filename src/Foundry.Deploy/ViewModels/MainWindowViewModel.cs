@@ -283,6 +283,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
                 Oobe = _wizardContext.Oobe,
                 AppxRemoval = _wizardContext.AppxRemoval,
+                AiComponentRemoval = _wizardContext.AiComponentRemoval,
                 IsDryRun = IsDebugSafeMode
             });
 

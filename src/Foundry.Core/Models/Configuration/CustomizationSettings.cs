@@ -19,4 +19,9 @@ public sealed record CustomizationSettings
     /// Gets provisioned AppX removal settings.
     /// </summary>
     public AppxRemovalSettings AppxRemoval { get; init; } = new();
+
+    /// <summary>
+    /// Gets Windows AI component removal settings.
+    /// </summary>
+    public AiComponentRemovalSettings AiComponentRemoval { get; init; } = new();
 }

@@ -124,10 +124,10 @@ public sealed class DeployConfigurationGeneratorTests
                     IsEnabled = true,
                     PackageNames =
                     [
-                        "Microsoft.Copilot",
+                        "Microsoft.BingNews",
                         " ",
                         "Microsoft.BingWeather",
-                        "Microsoft.Copilot"
+                        "Microsoft.BingNews"
                     ]
                 }
             }
@@ -136,7 +136,7 @@ public sealed class DeployConfigurationGeneratorTests
         var result = generator.Generate(document);
 
         Assert.True(result.Customization.AppxRemoval.IsEnabled);
-        Assert.Equal(["Microsoft.Copilot", "Microsoft.BingWeather"], result.Customization.AppxRemoval.PackageNames);
+        Assert.Equal(["Microsoft.BingNews", "Microsoft.BingWeather"], result.Customization.AppxRemoval.PackageNames);
     }
 
     [Fact]
@@ -150,7 +150,7 @@ public sealed class DeployConfigurationGeneratorTests
                 AppxRemoval = new AppxRemovalSettings
                 {
                     IsEnabled = false,
-                    PackageNames = ["Microsoft.Copilot"]
+                    PackageNames = ["Microsoft.BingNews"]
                 }
             }
         };
@@ -159,6 +159,78 @@ public sealed class DeployConfigurationGeneratorTests
 
         Assert.False(result.Customization.AppxRemoval.IsEnabled);
         Assert.Empty(result.Customization.AppxRemoval.PackageNames);
+    }
+
+    [Fact]
+    public void Generate_WhenAiComponentRemovalIsEnabled_PropagatesSelectedOptions()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AiComponentRemoval = new AiComponentRemovalSettings
+                {
+                    IsEnabled = true,
+                    RemoveCopilot = true,
+                    RemoveAiHub = true,
+                    DisableRecall = true,
+                    DisableClickToDo = true,
+                    DisableAiServiceAutoStart = true,
+                    DisableEdgeAi = true,
+                    DisablePaintAi = true,
+                    DisableNotepadAi = true
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.AiComponentRemoval.IsEnabled);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveCopilot);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveAiHub);
+        Assert.True(result.Customization.AiComponentRemoval.DisableRecall);
+        Assert.True(result.Customization.AiComponentRemoval.DisableClickToDo);
+        Assert.True(result.Customization.AiComponentRemoval.DisableAiServiceAutoStart);
+        Assert.True(result.Customization.AiComponentRemoval.DisableEdgeAi);
+        Assert.True(result.Customization.AiComponentRemoval.DisablePaintAi);
+        Assert.True(result.Customization.AiComponentRemoval.DisableNotepadAi);
+    }
+
+    [Fact]
+    public void Generate_WhenAiComponentRemovalIsDisabled_DoesNotPropagateOptions()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AiComponentRemoval = new AiComponentRemovalSettings
+                {
+                    IsEnabled = false,
+                    RemoveCopilot = true,
+                    RemoveAiHub = true,
+                    DisableRecall = true,
+                    DisableClickToDo = true,
+                    DisableAiServiceAutoStart = true,
+                    DisableEdgeAi = true,
+                    DisablePaintAi = true,
+                    DisableNotepadAi = true
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.AiComponentRemoval.IsEnabled);
+        Assert.False(result.Customization.AiComponentRemoval.RemoveCopilot);
+        Assert.False(result.Customization.AiComponentRemoval.RemoveAiHub);
+        Assert.False(result.Customization.AiComponentRemoval.DisableRecall);
+        Assert.False(result.Customization.AiComponentRemoval.DisableClickToDo);
+        Assert.False(result.Customization.AiComponentRemoval.DisableAiServiceAutoStart);
+        Assert.False(result.Customization.AiComponentRemoval.DisableEdgeAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisablePaintAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisableNotepadAi);
     }
 
     [Fact]

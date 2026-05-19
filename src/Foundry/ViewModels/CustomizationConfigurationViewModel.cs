@@ -182,6 +182,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             MachineNameAutoGenerate = settings.MachineNaming.AutoGenerateName;
             AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;
             ApplyOobeState(settings.Oobe);
+            ApplyAiComponentRemovalState(settings.AiComponentRemoval);
             ApplyAppxRemovalState(settings.AppxRemoval);
         }
         finally
@@ -204,6 +205,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             {
                 MachineNaming = BuildMachineNamingSettings(),
                 Oobe = BuildOobeSettings(),
+                AiComponentRemoval = BuildAiComponentRemovalSettings(),
                 AppxRemoval = BuildAppxRemovalSettings()
             });
         }
@@ -226,6 +228,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         MachineNamingAllowManualSuffixEditText = localizationService.GetString("Customization.MachineNamingAllowManualSuffixLabel");
         MachineNamingAllowManualSuffixEditDescription = localizationService.GetString("Customization.MachineNamingAllowManualSuffixDescription");
         RefreshOobeLocalizedText();
+        RefreshAiComponentRemovalLocalizedText();
         RefreshAppxRemovalLocalizedText();
         OnPropertyChanged(nameof(MachineNamePrefixValidationMessage));
         OnPropertyChanged(nameof(HasMachineNamePrefixValidationError));

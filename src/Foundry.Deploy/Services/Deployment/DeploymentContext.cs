@@ -74,6 +74,11 @@ public sealed record DeploymentContext
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
 
     /// <summary>
+    /// Gets Windows AI component removal settings staged for pre-OOBE execution.
+    /// </summary>
+    public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();
+
+    /// <summary>
     /// Gets a value indicating whether deployment runs against a temporary workspace instead of mutating a target disk.
     /// </summary>
     public bool IsDryRun { get; init; }

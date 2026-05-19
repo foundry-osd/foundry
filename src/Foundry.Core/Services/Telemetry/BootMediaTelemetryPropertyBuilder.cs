@@ -75,10 +75,13 @@ public static class BootMediaTelemetryPropertyBuilder
         MachineNamingSettings machineNaming = customization.MachineNaming;
         OobeSettings oobe = customization.Oobe;
         AppxRemovalSettings appxRemoval = customization.AppxRemoval;
+        AiComponentRemovalSettings aiComponentRemoval = customization.AiComponentRemoval;
         string[] selectedAppxPackages = ResolveSelectedAppxPackages(appxRemoval);
         bool isAppxRemovalEnabled = appxRemoval.IsEnabled && selectedAppxPackages.Length > 0;
+        int aiComponentRemovalOptionCount = CountEnabledAiComponentRemovalOptions(aiComponentRemoval);
+        bool isAiComponentRemovalEnabled = aiComponentRemoval.IsEnabled && aiComponentRemovalOptionCount > 0;
 
-        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled || isAppxRemovalEnabled;
+        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled || isAppxRemovalEnabled || isAiComponentRemovalEnabled;
         properties["customization_machine_naming_enabled"] = machineNaming.IsEnabled;
         properties["customization_machine_naming_mode"] = ResolveMachineNamingTelemetryMode(machineNaming);
         properties["customization_machine_naming_prefix_configured"] =
@@ -95,6 +98,16 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_appx_removal_enabled"] = isAppxRemovalEnabled;
         properties["customization_appx_removal_package_count"] = isAppxRemovalEnabled ? selectedAppxPackages.Length : 0;
         properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(selectedAppxPackages, isAppxRemovalEnabled);
+        properties["customization_ai_component_removal_enabled"] = isAiComponentRemovalEnabled;
+        properties["customization_ai_remove_copilot_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.RemoveCopilot;
+        properties["customization_ai_remove_ai_hub_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.RemoveAiHub;
+        properties["customization_ai_disable_recall_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.DisableRecall;
+        properties["customization_ai_disable_click_to_do_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.DisableClickToDo;
+        properties["customization_ai_disable_service_autostart_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.DisableAiServiceAutoStart;
+        properties["customization_ai_disable_edge_ai_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.DisableEdgeAi;
+        properties["customization_ai_disable_paint_ai_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.DisablePaintAi;
+        properties["customization_ai_disable_notepad_ai_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.DisableNotepadAi;
+        properties["customization_ai_component_removal_option_count"] = isAiComponentRemovalEnabled ? aiComponentRemovalOptionCount : 0;
     }
 
     private static void AddLocalizationTelemetryProperties(
@@ -169,6 +182,22 @@ public static class BootMediaTelemetryPropertyBuilder
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(packageName => packageName, StringComparer.OrdinalIgnoreCase)
             .ToArray();
+    }
+
+    private static int CountEnabledAiComponentRemovalOptions(AiComponentRemovalSettings settings)
+    {
+        int count = 0;
+
+        count += settings.RemoveCopilot ? 1 : 0;
+        count += settings.RemoveAiHub ? 1 : 0;
+        count += settings.DisableRecall ? 1 : 0;
+        count += settings.DisableClickToDo ? 1 : 0;
+        count += settings.DisableAiServiceAutoStart ? 1 : 0;
+        count += settings.DisableEdgeAi ? 1 : 0;
+        count += settings.DisablePaintAi ? 1 : 0;
+        count += settings.DisableNotepadAi ? 1 : 0;
+
+        return count;
     }
 
     private static string ResolveAppxRemovalProfile(string[] selectedPackageNames, bool isEnabled)

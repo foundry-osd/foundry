@@ -27,7 +27,9 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(context.RuntimeState.AppxRemoval);
+        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
+            context.RuntimeState.AppxRemoval,
+            context.RuntimeState.AiComponentRemoval);
         if (scripts.Count == 0)
         {
             return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
@@ -52,7 +54,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Pre-OOBE AppX removal staged for {context.RuntimeState.AppxRemoval.PackageNames.Count} package(s). SetupComplete hook: '{result.SetupCompletePath}'.",
+            $"Pre-OOBE customization staged with {scripts.Count} script(s). SetupComplete hook: '{result.SetupCompletePath}'.",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Pre-OOBE customizations staged.");
@@ -60,7 +62,9 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(context.RuntimeState.AppxRemoval);
+        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
+            context.RuntimeState.AppxRemoval,
+            context.RuntimeState.AiComponentRemoval);
         if (scripts.Count == 0)
         {
             await Task.Delay(80, cancellationToken).ConfigureAwait(false);
@@ -82,7 +86,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"[DRY-RUN] Simulated pre-OOBE AppX removal staging for {context.RuntimeState.AppxRemoval.PackageNames.Count} package(s).",
+            $"[DRY-RUN] Simulated pre-OOBE customization staging with {scripts.Count} script(s).",
             cancellationToken).ConfigureAwait(false);
         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
 
