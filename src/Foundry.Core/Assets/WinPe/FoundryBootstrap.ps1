@@ -20,6 +20,9 @@ $EmbeddedDeployProvisioningSourcePath = Join-Path $WinPeRoot 'Config\foundry.dep
 $SevenZipToolsPath = Join-Path $WinPeRoot 'Tools\7zip'
 $TimeZoneMapPath = Join-Path $WinPeRoot 'Config\iana-windows-timezones.json'
 $DefaultWinPeTimeZoneId = 'UTC'
+
+$script:ConsoleLineWritten = $false
+$script:ConsoleLastWasBlank = $true
 #endregion
 
 #region General Helpers
@@ -53,6 +56,122 @@ function Test-LogLevelEnabled {
     return (Get-LogLevelRank -LogLevel $MessageLevel) -ge (Get-LogLevelRank -LogLevel $MinimumLevel)
 }
 
+function Get-ConsoleLevelLabel {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [string]$Level
+    )
+
+    switch ($Level) {
+        'Debug' { return 'DEBUG' }
+        'Info' { return 'INFO' }
+        'Warning' { return 'WARN' }
+        'Error' { return 'ERROR' }
+        default { return $Level.ToUpperInvariant() }
+    }
+}
+
+function Get-ConsoleLevelColor {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [string]$Level
+    )
+
+    switch ($Level) {
+        'Debug' { return 'DarkGray' }
+        'Info' { return 'Gray' }
+        'Warning' { return 'Yellow' }
+        'Error' { return 'Red' }
+        default { return 'Gray' }
+    }
+}
+
+function Write-ConsoleBlankLine {
+    param()
+
+    try {
+        if ($script:ConsoleLineWritten -and -not $script:ConsoleLastWasBlank) {
+            Write-Host ''
+            $script:ConsoleLastWasBlank = $true
+        }
+    }
+    catch {
+        # Keep bootstrap resilient even if console output fails.
+    }
+}
+
+function Write-ConsoleLine {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Message,
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [string]$Level = 'Info',
+        [switch]$SpacingBefore
+    )
+
+    try {
+        if ($SpacingBefore) {
+            Write-ConsoleBlankLine
+        }
+
+        $label = Get-ConsoleLevelLabel -Level $Level
+        $color = Get-ConsoleLevelColor -Level $Level
+        $line = '[{0,-5}] {1}' -f $label, $Message
+
+        Write-Host $line -ForegroundColor $color
+        $script:ConsoleLineWritten = $true
+        $script:ConsoleLastWasBlank = $false
+    }
+    catch {
+        # Keep bootstrap resilient even if console output fails.
+    }
+}
+
+function Write-ConsoleSection {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Title
+    )
+
+    if (-not (Test-LogLevelEnabled -MessageLevel 'Info' -MinimumLevel $ConsoleLogLevel)) {
+        return
+    }
+
+    try {
+        Write-ConsoleBlankLine
+        Write-Host $Title -ForegroundColor Cyan
+        Write-Host ('-' * [Math]::Max(3, $Title.Length)) -ForegroundColor DarkCyan
+        $script:ConsoleLineWritten = $true
+        $script:ConsoleLastWasBlank = $false
+    }
+    catch {
+        # Keep bootstrap resilient even if console output fails.
+    }
+}
+
+function Write-ConsoleBanner {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Title
+    )
+
+    if (-not (Test-LogLevelEnabled -MessageLevel 'Info' -MinimumLevel $ConsoleLogLevel)) {
+        return
+    }
+
+    try {
+        Write-Host $Title -ForegroundColor Cyan
+        Write-Host ('=' * [Math]::Max(3, $Title.Length)) -ForegroundColor DarkCyan
+        $script:ConsoleLineWritten = $true
+        $script:ConsoleLastWasBlank = $false
+    }
+    catch {
+        # Keep bootstrap resilient even if console output fails.
+    }
+}
+
 function Write-Log {
     param(
         [Parameter(Mandatory = $true)]
@@ -84,29 +203,17 @@ function Write-Log {
     }
 
     if (Test-LogLevelEnabled -MessageLevel $Level -MinimumLevel $ConsoleLogLevel) {
-        try {
-            if ($ConsoleSpacingBefore) {
-                Write-Host ''
-            }
-
-            $displayMessage = if ([string]::IsNullOrWhiteSpace($ConsoleMessage)) {
-                $Message
-            }
-            else {
-                $ConsoleMessage
-            }
-
-            switch ($Level) {
-                'Debug' { $displayMessage = "[Debug] $displayMessage" }
-                'Warning' { $displayMessage = "Warning: $displayMessage" }
-                'Error' { $displayMessage = "Error: $displayMessage" }
-            }
-
-            Write-Host $displayMessage
+        $displayMessage = if ([string]::IsNullOrWhiteSpace($ConsoleMessage)) {
+            $Message
         }
-        catch {
-            # Keep bootstrap resilient even if console output fails.
+        else {
+            $ConsoleMessage
         }
+
+        Write-ConsoleLine `
+            -Message $displayMessage `
+            -Level $Level `
+            -SpacingBefore:$ConsoleSpacingBefore
     }
 }
 
@@ -756,7 +863,7 @@ function Resolve-WindowsTimeZoneId {
     }
 
     $convertedTimeZoneId = Convert-IanaTimeZoneIdToWindowsId -IanaTimeZoneId $normalizedCandidate
-    if (Test-WindowsTimeZoneId -TimeZoneId $convertedTimeZoneId) {
+    if (-not [string]::IsNullOrWhiteSpace($convertedTimeZoneId) -and (Test-WindowsTimeZoneId -TimeZoneId $convertedTimeZoneId)) {
         return $convertedTimeZoneId
     }
 
@@ -1432,6 +1539,57 @@ function Get-ArchiveOverrideSha256 {
     return $value.Trim()
 }
 
+function Resolve-ApplicationFallbackExecutable {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
+        [string]$ApplicationName,
+        [Parameter(Mandatory = $true)]
+        [string]$BootstrapRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$RuntimeCacheRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$RuntimeIdentifier,
+        [Parameter(Mandatory = $true)]
+        [string]$AssetName,
+        [Parameter(Mandatory = $true)]
+        [string]$DownloadPath,
+        [string]$EmbeddedArchivePath,
+        [Parameter(Mandatory = $true)]
+        [string]$EmbeddedFallbackReason
+    )
+
+    try {
+        return Resolve-CachedExecutable -RuntimeCacheRoot $RuntimeCacheRoot -ApplicationName $ApplicationName
+    }
+    catch {
+        if ([string]::IsNullOrWhiteSpace($EmbeddedArchivePath) -or -not (Test-Path -Path $EmbeddedArchivePath -PathType Leaf)) {
+            throw
+        }
+
+        Write-Log `
+            "Falling back to the embedded $ApplicationName archive $EmbeddedFallbackReason." `
+            -Level Warning `
+            -ConsoleMessage "Using embedded $ApplicationName archive as fallback."
+
+        $archiveSha256 = Get-FileSha256 -Path $EmbeddedArchivePath
+        $temporaryArchivePath = Copy-LocalArchiveToTemporaryPath `
+            -SourcePath $EmbeddedArchivePath `
+            -DestinationPath $DownloadPath
+
+        return Update-CacheFromArchiveFile `
+            -ArchivePath $temporaryArchivePath `
+            -BootstrapRoot $BootstrapRoot `
+            -RuntimeCacheRoot $RuntimeCacheRoot `
+            -ApplicationName $ApplicationName `
+            -RuntimeIdentifier $RuntimeIdentifier `
+            -AssetName $AssetName `
+            -Tag '' `
+            -Version '' `
+            -ArchiveSha256 $archiveSha256
+    }
+}
+
 function Resolve-ApplicationExecutable {
     param(
         [Parameter(Mandatory = $true)]
@@ -1467,24 +1625,37 @@ function Resolve-ApplicationExecutable {
 
     if (-not [string]::IsNullOrWhiteSpace($archiveOverride)) {
         if (-not [string]::IsNullOrWhiteSpace($releaseTagOverride)) {
-            Write-Log "$ApplicationName archive override is set; ignoring release tag override '$releaseTagOverride'." -Level Warning -ConsoleMessage "$ApplicationName archive override is set; release tag override ignored."
+            Write-Log `
+                "$ApplicationName archive override is set; ignoring release tag override '$releaseTagOverride'." `
+                -Level Warning `
+                -ConsoleMessage "$ApplicationName archive override is set; release tag override ignored."
         }
 
         if (Test-HttpUrl -Value $archiveOverride) {
-            Write-Log "Starting $ApplicationName override archive download from '$archiveOverride'." -ConsoleMessage "Downloading $ApplicationName override archive..." -ConsoleSpacingBefore
-            Save-WebFile `
-                -SourceUrl $archiveOverride `
-                -DestinationPath $downloadPath | Out-Null
+            Write-Log `
+                "Starting $ApplicationName override archive download from '$archiveOverride'." `
+                -ConsoleMessage "${ApplicationName}: downloading override archive..." `
+                -ConsoleSpacingBefore
+
+            Save-WebFile -SourceUrl $archiveOverride -DestinationPath $downloadPath | Out-Null
         }
         else {
-            Write-Log "Copying $ApplicationName override archive from '$archiveOverride'." -ConsoleMessage "Using local $ApplicationName override archive." -ConsoleSpacingBefore
+            Write-Log `
+                "Copying $ApplicationName override archive from '$archiveOverride'." `
+                -ConsoleMessage "${ApplicationName}: using local override archive." `
+                -ConsoleSpacingBefore
+
             Copy-LocalArchive -SourcePath $archiveOverride -DestinationPath $downloadPath
         }
 
         $archiveSha256 = Get-FileSha256 -Path $downloadPath
         Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $archiveOverrideSha256 -Context "$ApplicationName override archive"
 
-        Write-Log "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier' from override archive." -ConsoleMessage "Refreshing $ApplicationName cache..." -ConsoleSpacingBefore
+        Write-Log `
+            "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier' from override archive." `
+            -ConsoleMessage "${ApplicationName}: refreshing cache..." `
+            -ConsoleSpacingBefore
+
         $executable = Update-CacheFromArchiveFile `
             -ArchivePath $downloadPath `
             -BootstrapRoot $BootstrapRoot `
@@ -1508,29 +1679,20 @@ function Resolve-ApplicationExecutable {
             $release = Invoke-WithRetry -Action { Invoke-RestMethod -Uri $releaseApiUrl -Headers $Headers -Method Get }
         }
         catch {
-            Write-Log "Failed to resolve $ApplicationName release metadata: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." -Level Warning -ConsoleMessage "$ApplicationName release lookup failed. Falling back."
-            try {
-                $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
-            }
-            catch {
-                if ($hasEmbeddedArchiveFallback) {
-                    Write-Log "Falling back to the embedded $ApplicationName archive because no cached executable was available." -Level Warning -ConsoleMessage "Using embedded $ApplicationName archive as fallback."
-                    $archiveSha256 = Get-FileSha256 -Path $embeddedArchivePath
-                    $executable = Update-CacheFromArchiveFile `
-                        -ArchivePath (Copy-LocalArchiveToTemporaryPath -SourcePath $embeddedArchivePath -DestinationPath $downloadPath) `
-                        -BootstrapRoot $BootstrapRoot `
-                        -RuntimeCacheRoot $runtimeCacheRoot `
-                        -ApplicationName $ApplicationName `
-                        -RuntimeIdentifier $RuntimeIdentifier `
-                        -AssetName $assetName `
-                        -Tag '' `
-                        -Version '' `
-                        -ArchiveSha256 $archiveSha256
-                }
-                else {
-                    throw
-                }
-            }
+            Write-Log `
+                "Failed to resolve $ApplicationName release metadata: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." `
+                -Level Warning `
+                -ConsoleMessage "${ApplicationName}: release lookup failed. Falling back."
+
+            $executable = Resolve-ApplicationFallbackExecutable `
+                -ApplicationName $ApplicationName `
+                -BootstrapRoot $BootstrapRoot `
+                -RuntimeCacheRoot $runtimeCacheRoot `
+                -RuntimeIdentifier $RuntimeIdentifier `
+                -AssetName $assetName `
+                -DownloadPath $downloadPath `
+                -EmbeddedArchivePath $embeddedArchivePath `
+                -EmbeddedFallbackReason 'because no cached executable was available'
         }
 
         if ($null -eq $executable) {
@@ -1538,8 +1700,13 @@ function Resolve-ApplicationExecutable {
             $releaseTag = [string]$release.tag_name
             $releaseVersion = Get-ReleaseVersion -Tag $releaseTag
 
-            Write-Log "Using $ApplicationName release tag '$releaseTag' and asset '$($asset.name)'." -ConsoleMessage "$ApplicationName release: $releaseTag" -ConsoleSpacingBefore
-            Write-Log "Selected $ApplicationName asset '$($asset.name)' for runtime '$RuntimeIdentifier'." -ConsoleMessage "$ApplicationName asset: $($asset.name)"
+            Write-Log `
+                "Using $ApplicationName release tag '$releaseTag' and asset '$($asset.name)'." `
+                -ConsoleMessage "$ApplicationName release: $releaseTag" `
+                -ConsoleSpacingBefore
+            Write-Log `
+                "Selected $ApplicationName asset '$($asset.name)' for runtime '$RuntimeIdentifier'." `
+                -ConsoleMessage "$ApplicationName asset: $($asset.name)"
 
             if (Test-CacheCurrent `
                     -RuntimeCacheRoot $runtimeCacheRoot `
@@ -1548,29 +1715,47 @@ function Resolve-ApplicationExecutable {
                     -ReleaseTag $releaseTag `
                     -ReleaseVersion $releaseVersion `
                     -Asset $asset) {
-                Write-Log "The cached $ApplicationName content for '$RuntimeIdentifier' is already current." -ConsoleMessage "$ApplicationName cache is current."
+                Write-Log `
+                    "The cached $ApplicationName content for '$RuntimeIdentifier' is already current." `
+                    -ConsoleMessage "$ApplicationName cache is current."
+
                 $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
             }
             else {
                 try {
-                    Write-Log "Starting $ApplicationName release asset download from '$($asset.browser_download_url)'." -ConsoleMessage "Downloading $($asset.name)..." -ConsoleSpacingBefore
-                    Save-WebFile `
-                        -SourceUrl $asset.browser_download_url `
-                        -DestinationPath $downloadPath | Out-Null
+                    Write-Log `
+                        "Starting $ApplicationName release asset download from '$($asset.browser_download_url)'." `
+                        -ConsoleMessage "${ApplicationName}: downloading $($asset.name)..." `
+                        -ConsoleSpacingBefore
+
+                    Save-WebFile -SourceUrl $asset.browser_download_url -DestinationPath $downloadPath | Out-Null
 
                     $archiveSha256 = Get-FileSha256 -Path $downloadPath
                     $expectedSha256 = Get-ReleaseAssetSha256 -Asset $asset
                     if (-not [string]::IsNullOrWhiteSpace($expectedSha256)) {
-                        Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $expectedSha256 -Context "$ApplicationName release asset '$($asset.name)'"
+                        Assert-ExpectedSha256 `
+                            -ActualSha256 $archiveSha256 `
+                            -ExpectedSha256 $expectedSha256 `
+                            -Context "$ApplicationName release asset '$($asset.name)'"
                     }
                     elseif (-not [string]::IsNullOrWhiteSpace([string]$asset.digest)) {
-                        Write-Log "$ApplicationName release asset digest '$($asset.digest)' is not a supported SHA256 value. Continuing without digest validation." -Level Warning -ConsoleMessage "$ApplicationName digest format is unsupported. Continuing without digest validation."
+                        Write-Log `
+                            "$ApplicationName release asset digest '$($asset.digest)' is not a supported SHA256 value. Continuing without digest validation." `
+                            -Level Warning `
+                            -ConsoleMessage "$ApplicationName digest format is unsupported. Continuing without digest validation."
                     }
                     else {
-                        Write-Log "No $ApplicationName release asset digest was provided. Continuing without digest validation." -Level Warning -ConsoleMessage "No $ApplicationName release digest was provided. Continuing without digest validation."
+                        Write-Log `
+                            "No $ApplicationName release asset digest was provided. Continuing without digest validation." `
+                            -Level Warning `
+                            -ConsoleMessage "No $ApplicationName release digest was provided. Continuing without digest validation."
                     }
 
-                    Write-Log "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier'." -ConsoleMessage "Refreshing $ApplicationName cache..." -ConsoleSpacingBefore
+                    Write-Log `
+                        "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier'." `
+                        -ConsoleMessage "${ApplicationName}: refreshing cache..." `
+                        -ConsoleSpacingBefore
+
                     $executable = Update-CacheFromArchiveFile `
                         -ArchivePath $downloadPath `
                         -BootstrapRoot $BootstrapRoot `
@@ -1583,29 +1768,20 @@ function Resolve-ApplicationExecutable {
                         -ArchiveSha256 $archiveSha256
                 }
                 catch {
-                    Write-Log "Failed to refresh the $ApplicationName cache: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." -Level Warning -ConsoleMessage "$ApplicationName cache refresh failed. Falling back."
-                    try {
-                        $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
-                    }
-                    catch {
-                        if ($hasEmbeddedArchiveFallback) {
-                            Write-Log "Falling back to the embedded $ApplicationName archive because the cache could not be refreshed." -Level Warning -ConsoleMessage "Using embedded $ApplicationName archive as fallback."
-                            $archiveSha256 = Get-FileSha256 -Path $embeddedArchivePath
-                            $executable = Update-CacheFromArchiveFile `
-                                -ArchivePath (Copy-LocalArchiveToTemporaryPath -SourcePath $embeddedArchivePath -DestinationPath $downloadPath) `
-                                -BootstrapRoot $BootstrapRoot `
-                                -RuntimeCacheRoot $runtimeCacheRoot `
-                                -ApplicationName $ApplicationName `
-                                -RuntimeIdentifier $RuntimeIdentifier `
-                                -AssetName $assetName `
-                                -Tag '' `
-                                -Version '' `
-                                -ArchiveSha256 $archiveSha256
-                        }
-                        else {
-                            throw
-                        }
-                    }
+                    Write-Log `
+                        "Failed to refresh the $ApplicationName cache: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." `
+                        -Level Warning `
+                        -ConsoleMessage "$ApplicationName cache refresh failed. Falling back."
+
+                    $executable = Resolve-ApplicationFallbackExecutable `
+                        -ApplicationName $ApplicationName `
+                        -BootstrapRoot $BootstrapRoot `
+                        -RuntimeCacheRoot $runtimeCacheRoot `
+                        -RuntimeIdentifier $RuntimeIdentifier `
+                        -AssetName $assetName `
+                        -DownloadPath $downloadPath `
+                        -EmbeddedArchivePath $embeddedArchivePath `
+                        -EmbeddedFallbackReason 'because the cache could not be refreshed'
                 }
             }
         }
@@ -1620,7 +1796,7 @@ function Start-DeployExecutable {
         [System.IO.FileInfo]$Executable
     )
 
-    Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Launching Foundry.Deploy.exe...' -ConsoleSpacingBefore
+    Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Launching Foundry.Deploy...' -ConsoleSpacingBefore
     Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
 }
 
@@ -1676,6 +1852,10 @@ function Resolve-SingleExecutable {
 
 try {
     Ensure-Directory -Path $WinPeRoot
+    Write-ConsoleBanner -Title 'Foundry Bootstrap'
+    Write-Log 'Foundry bootstrap started.'
+
+    Write-ConsoleSection -Title 'Runtime'
 
     # USB cache media takes precedence; otherwise the ISO-backed runtime directory is used.
     $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
@@ -1690,17 +1870,19 @@ try {
 
     Ensure-Directory -Path $bootstrapRoot
 
-    Write-Log 'Foundry bootstrap started.'
-    Write-Log "Bootstrap root resolved to '$bootstrapRoot'." -ConsoleMessage "Runtime root: $bootstrapRoot" -ConsoleSpacingBefore
-    Write-Log "Deployment mode resolved to '$deploymentMode'." -ConsoleMessage "Mode: $deploymentMode"
+    Write-Log "Bootstrap root resolved to '$bootstrapRoot'." -ConsoleMessage "Runtime root: $bootstrapRoot"
+    Write-Log "Deployment mode resolved to '$deploymentMode'." -ConsoleMessage "Deployment mode: $deploymentMode"
 
     $env:FOUNDRY_DEPLOYMENT_MODE = $deploymentMode
     $runtimeIdentifier = Get-TargetRuntimeIdentifier
+    Write-Log "Runtime identifier resolved to '$runtimeIdentifier'." -ConsoleMessage "Runtime identifier: $runtimeIdentifier"
+
     $headers = @{
         'User-Agent' = 'FoundryBootstrap/1.0'
         'Accept'     = 'application/vnd.github+json'
     }
 
+    Write-ConsoleSection -Title 'Network services'
     [void](Ensure-ServiceRunning -ServiceName 'dot3svc' -FriendlyName 'Wired AutoConfig')
     Start-WinPeWirelessServiceIfSupported
 
@@ -1708,6 +1890,11 @@ try {
     $deployProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Deploy'
     $skipConnectReleaseLookup = $connectProvisioningSource -eq 'debug'
     $skipDeployReleaseLookup = $deployProvisioningSource -eq 'debug'
+
+    Write-Log "Foundry.Connect provisioning source is '$connectProvisioningSource'." -Level Debug
+    Write-Log "Foundry.Deploy provisioning source is '$deployProvisioningSource'." -Level Debug
+
+    Write-ConsoleSection -Title 'Foundry.Connect'
 
     $connectExecutable = $null
     if ($skipConnectReleaseLookup) {
@@ -1728,7 +1915,11 @@ try {
                 -SkipReleaseLookup
         }
         catch {
-            Write-Log "No cached Foundry.Connect runtime was available before launch: $($_.Exception.Message). Resolving release content now." -Level Warning -ConsoleMessage 'Foundry.Connect cache missing. Resolving release content.'
+            Write-Log `
+                "No cached Foundry.Connect runtime was available before launch: $($_.Exception.Message). Resolving release content now." `
+                -Level Warning `
+                -ConsoleMessage 'Foundry.Connect cache missing. Resolving release content.'
+
             $connectExecutable = Resolve-ApplicationExecutable `
                 -ApplicationName 'Foundry.Connect' `
                 -BootstrapRoot $bootstrapRoot `
@@ -1744,7 +1935,7 @@ try {
     if ($connectExitCode -ne 0) {
         switch ($connectExitCode) {
             20 {
-                throw "Foundry.Connect was closed by the operator. Bootstrap will not continue."
+                throw 'Foundry.Connect was closed by the operator. Bootstrap will not continue.'
             }
             default {
                 throw "Foundry.Connect exited with code $connectExitCode."
@@ -1752,15 +1943,23 @@ try {
         }
     }
 
-    Write-Log 'Foundry.Connect completed successfully.' -ConsoleMessage 'Foundry.Connect completed successfully.' -ConsoleSpacingBefore
+    Write-Log 'Foundry.Connect completed successfully.' -ConsoleMessage 'Foundry.Connect completed successfully.'
+
+    Write-ConsoleSection -Title 'System preparation'
     Sync-WinPeInternetDateTime -ThresholdMinutes 5
     Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
 
+    Write-ConsoleSection -Title 'Runtime cache'
+
     if ($skipConnectReleaseLookup) {
-        Write-Log 'Skipping Foundry.Connect cache verification because the provisioned runtime is debug.' -ConsoleMessage 'Foundry.Connect debug runtime detected. Skipping update check.'
+        Write-Log `
+            'Skipping Foundry.Connect cache verification because the provisioned runtime is debug.' `
+            -ConsoleMessage 'Foundry.Connect debug runtime detected. Skipping update check.'
     }
     elseif ($deploymentMode -ne 'Usb') {
-        Write-Log 'Skipping Foundry.Connect cache verification because the deployment mode is ISO.' -ConsoleMessage 'Foundry.Connect update check skipped in ISO mode.'
+        Write-Log `
+            'Skipping Foundry.Connect cache verification because the deployment mode is ISO.' `
+            -ConsoleMessage 'Foundry.Connect update check skipped in ISO mode.'
     }
     else {
         try {
@@ -1769,12 +1968,20 @@ try {
                 -BootstrapRoot $bootstrapRoot `
                 -RuntimeIdentifier $runtimeIdentifier `
                 -Headers $headers)
-            Write-Log 'Foundry.Connect cache verification completed.' -ConsoleMessage 'Foundry.Connect cache verification completed.'
+
+            Write-Log `
+                'Foundry.Connect cache verification completed.' `
+                -ConsoleMessage 'Foundry.Connect cache verification completed.'
         }
         catch {
-            Write-Log "Foundry.Connect cache verification failed: $($_.Exception.Message). Continuing with the cached bootstrap content." -Level Warning -ConsoleMessage 'Foundry.Connect cache verification failed. Continuing.'
+            Write-Log `
+                "Foundry.Connect cache verification failed: $($_.Exception.Message). Continuing with the cached bootstrap content." `
+                -Level Warning `
+                -ConsoleMessage 'Foundry.Connect cache verification failed. Continuing.'
         }
     }
+
+    Write-ConsoleSection -Title 'Foundry.Deploy'
 
     $deployExecutable = Resolve-ApplicationExecutable `
         -ApplicationName 'Foundry.Deploy' `
@@ -1784,10 +1991,12 @@ try {
         -SkipReleaseLookup:$skipDeployReleaseLookup
 
     Start-DeployExecutable -Executable $deployExecutable
-    Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.' -ConsoleSpacingBefore
+
+    Write-ConsoleSection -Title 'Completed'
+    Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.'
 }
 catch {
-    Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Error -ConsoleMessage 'Foundry bootstrap failed.'
+    Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Error -ConsoleMessage 'Foundry bootstrap failed.' -ConsoleSpacingBefore
     exit 1
 }
 #endregion
