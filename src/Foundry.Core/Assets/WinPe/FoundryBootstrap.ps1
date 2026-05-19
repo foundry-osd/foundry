@@ -1796,7 +1796,7 @@ function Start-DeployExecutable {
         [System.IO.FileInfo]$Executable
     )
 
-    Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Launching Foundry.Deploy...' -ConsoleSpacingBefore
+    Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Launching Foundry.Deploy...'
     Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
 }
 
@@ -1810,10 +1810,10 @@ function Invoke-ConnectExecutable {
     $argumentList = @()
     if (-not [string]::IsNullOrWhiteSpace($ConfigurationPath) -and (Test-Path -Path $ConfigurationPath -PathType Leaf)) {
         $argumentList = @('--config', $ConfigurationPath)
-        Write-Log "Launching '$($Executable.FullName)' with configuration '$ConfigurationPath'." -ConsoleMessage 'Launching Foundry.Connect...' -ConsoleSpacingBefore
+        Write-Log "Launching '$($Executable.FullName)' with configuration '$ConfigurationPath'." -ConsoleMessage 'Launching Foundry.Connect...'
     }
     else {
-        Write-Log "Launching '$($Executable.FullName)' without an external configuration file." -ConsoleMessage 'Launching Foundry.Connect...' -ConsoleSpacingBefore
+        Write-Log "Launching '$($Executable.FullName)' without an external configuration file." -ConsoleMessage 'Launching Foundry.Connect...'
     }
 
     $process = Start-Process `
@@ -1853,7 +1853,7 @@ function Resolve-SingleExecutable {
 try {
     Ensure-Directory -Path $WinPeRoot
     Write-ConsoleBanner -Title 'Foundry Bootstrap'
-    Write-Log 'Foundry bootstrap started.'
+    Write-Log 'Foundry bootstrap started.' -Level Debug
 
     Write-ConsoleSection -Title 'Runtime'
 
