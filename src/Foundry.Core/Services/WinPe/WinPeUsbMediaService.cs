@@ -334,8 +334,6 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "OperatingSystems"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "DriverPacks"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "Firmware"));
-        Directory.CreateDirectory(Path.Combine(cacheRootPath, "State"));
-        Directory.CreateDirectory(Path.Combine(cacheRootPath, "Temp"));
     }
 
     internal static WinPeRuntimePayloadProvisioningOptions CreateUsbRuntimePayloadOptions(
