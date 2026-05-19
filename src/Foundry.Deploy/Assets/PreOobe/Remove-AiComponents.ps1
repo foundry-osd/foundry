@@ -149,8 +149,21 @@ function Mount-FoundryDefaultUserHive {
 }
 
 function Dismount-FoundryDefaultUserHive {
-    Invoke-FoundryRegExe -Arguments @('unload', 'HKU\FoundryDefaultUser')
-    Write-FoundryLog 'Unmounted default user hive HKU\FoundryDefaultUser.'
+    for ($attempt = 1; $attempt -le 5; $attempt++) {
+        [GC]::Collect()
+        [GC]::WaitForPendingFinalizers()
+
+        $process = Start-Process -FilePath 'reg.exe' -ArgumentList @('unload', 'HKU\FoundryDefaultUser') -Wait -PassThru -NoNewWindow
+        if ($process.ExitCode -eq 0) {
+            Write-FoundryLog 'Unmounted default user hive HKU\FoundryDefaultUser.'
+            return
+        }
+
+        Write-Warning "Unable to unload default user hive HKU\FoundryDefaultUser on attempt $attempt. reg.exe exited with code $($process.ExitCode)."
+        Start-Sleep -Seconds 1
+    }
+
+    Write-Warning 'Default user hive HKU\FoundryDefaultUser could not be unloaded. Continuing because AI component removal actions already completed.'
 }
 
 function Remove-FoundryProvisionedAppxPackage {
