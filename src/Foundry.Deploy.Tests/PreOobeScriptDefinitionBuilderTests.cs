@@ -59,6 +59,9 @@ public sealed class PreOobeScriptDefinitionBuilderTests
         Assert.Equal(PreOobeScriptResources.RemoveAiComponents, script.ResourceName);
         Assert.Empty(script.Arguments);
         Assert.Equal("Remove-AiComponents.settings.json", dataFile.FileName);
+        Assert.Contains("\"appxPackages\":", dataFile.Content);
+        Assert.Contains("\"packageName\": \"Microsoft.Copilot\"", dataFile.Content);
+        Assert.Contains("\"packageName\": \"Microsoft.Windows.AIHub\"", dataFile.Content);
         Assert.Contains("\"removeCopilot\": true", dataFile.Content);
         Assert.Contains("\"removeAiHub\": true", dataFile.Content);
         Assert.Contains("\"disableRecall\": true", dataFile.Content);

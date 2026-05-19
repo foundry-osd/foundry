@@ -255,6 +255,14 @@ public sealed class PreOobeScriptProvisioningServiceTests
                             FileName = "Remove-AiComponents.settings.json",
                             Content = """
                                 {
+                                  "appxPackages": [
+                                    {
+                                      "packageName": "Microsoft.Copilot"
+                                    },
+                                    {
+                                      "packageName": "Microsoft.Windows.AIHub"
+                                    }
+                                  ],
                                   "removeCopilot": true,
                                   "removeAiHub": true,
                                   "disableRecall": true,
@@ -280,8 +288,10 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.Contains("Remove-AiComponents.settings.json", stagedScript);
         Assert.Contains("Get-AppxProvisionedPackage -Online", stagedScript);
         Assert.Contains("Remove-AppxProvisionedPackage @removeArguments", stagedScript);
-        Assert.Contains("Microsoft.Copilot", stagedScript);
-        Assert.Contains("Microsoft.Windows.AIHub", stagedScript);
+        Assert.Contains("Get-SelectedAiAppxPackageNames", stagedScript);
+        Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
+        Assert.Contains("return $null -ne $property -and [bool]$property.Value", stagedScript);
+        Assert.DoesNotContain("-isnot $null", stagedScript);
         Assert.Contains("Registry::HKEY_USERS\\FoundryDefaultUser", stagedScript);
         Assert.Contains("Users\\Default\\NTUSER.DAT", stagedScript);
         Assert.Contains("TurnOffWindowsCopilot", stagedScript);
@@ -293,6 +303,8 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.Contains("DisableAIFeatures", stagedScript);
         Assert.Contains("Write-FoundryLog", stagedScript);
         Assert.DoesNotContain("removeCopilot", runner);
+        Assert.Contains("\"packageName\": \"Microsoft.Copilot\"", stagedSettings);
+        Assert.Contains("\"packageName\": \"Microsoft.Windows.AIHub\"", stagedSettings);
         Assert.Contains("\"removeCopilot\": true", stagedSettings);
         Assert.Contains("\"disableNotepadAi\": true", stagedSettings);
     }

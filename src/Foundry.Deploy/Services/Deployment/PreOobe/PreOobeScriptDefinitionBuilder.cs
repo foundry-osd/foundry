@@ -134,6 +134,7 @@ public sealed class PreOobeScriptDefinitionBuilder
         string json = JsonSerializer.Serialize(
             new
             {
+                appxPackages = BuildRemoveAiComponentsAppxPackages(settings),
                 settings.RemoveCopilot,
                 settings.RemoveAiHub,
                 settings.DisableRecall,
@@ -150,6 +151,22 @@ public sealed class PreOobeScriptDefinitionBuilder
             });
 
         return json + Environment.NewLine;
+    }
+
+    private static object[] BuildRemoveAiComponentsAppxPackages(DeployAiComponentRemovalSettings settings)
+    {
+        var packages = new List<object>();
+        if (settings.RemoveCopilot)
+        {
+            packages.Add(new { packageName = "Microsoft.Copilot" });
+        }
+
+        if (settings.RemoveAiHub)
+        {
+            packages.Add(new { packageName = "Microsoft.Windows.AIHub" });
+        }
+
+        return packages.ToArray();
     }
 
     private static bool HasAnyAiComponentRemovalOptionEnabled(DeployAiComponentRemovalSettings settings)

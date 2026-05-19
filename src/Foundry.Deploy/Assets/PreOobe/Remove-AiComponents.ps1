@@ -63,7 +63,26 @@ function Test-FoundrySettingEnabled {
     )
 
     $property = $Settings.PSObject.Properties[$Name]
-    return $property -isnot $null -and [bool]$property.Value
+    return $null -ne $property -and [bool]$property.Value
+}
+
+function Get-SelectedAiAppxPackageNames {
+    param(
+        [Parameter(Mandatory = $true)]
+        [object]$Settings
+    )
+
+    $property = $Settings.PSObject.Properties['appxPackages']
+    if ($null -eq $property -or $null -eq $property.Value) {
+        return @()
+    }
+
+    return @($property.Value |
+        Where-Object { $null -ne $_ -and -not [string]::IsNullOrWhiteSpace($_.packageName) } |
+        ForEach-Object { [string]$_.packageName } |
+        ForEach-Object { $_.Trim() } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        Select-Object -Unique)
 }
 
 function Invoke-FoundryAction {
@@ -162,7 +181,6 @@ function Remove-FoundryProvisionedAppxPackage {
 }
 
 function Disable-FoundryCopilot {
-    Remove-FoundryProvisionedAppxPackage -CatalogPackageName 'Microsoft.Copilot'
     Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
     Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowCopilotButton' -Value 0
     Set-FoundryRegistryDwordValue -Path 'Registry::HKEY_USERS\FoundryDefaultUser\Software\Policies\Microsoft\Windows\WindowsCopilot' -Name 'TurnOffWindowsCopilot' -Value 1
@@ -223,12 +241,15 @@ try {
             $mountedDefaultUserHive = Mount-FoundryDefaultUserHive
         }
 
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'removeCopilot') {
-            Invoke-FoundryAction -Name 'Remove Microsoft Copilot' -Action { Disable-FoundryCopilot }
+        $selectedAppxPackageNames = @(Get-SelectedAiAppxPackageNames -Settings $settings)
+        foreach ($selectedPackageName in $selectedAppxPackageNames) {
+            Invoke-FoundryAction -Name "Remove provisioned AppX package $selectedPackageName" -Action {
+                Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)
+            }
         }
 
-        if (Test-FoundrySettingEnabled -Settings $settings -Name 'removeAiHub') {
-            Invoke-FoundryAction -Name 'Remove Copilot+ AI Hub' -Action { Remove-FoundryProvisionedAppxPackage -CatalogPackageName 'Microsoft.Windows.AIHub' }
+        if (Test-FoundrySettingEnabled -Settings $settings -Name 'removeCopilot') {
+            Invoke-FoundryAction -Name 'Disable Microsoft Copilot policies' -Action { Disable-FoundryCopilot }
         }
 
         if (Test-FoundrySettingEnabled -Settings $settings -Name 'disableRecall') {
