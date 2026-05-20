@@ -156,8 +156,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public Visibility HardwareHashCertificateWarningVisibility => IsHardwareHashCertificateExpired ? Visibility.Visible : Visibility.Collapsed;
     public string ManagedAppRegistrationName => AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName;
     public string TenantStatusText => HasTenantRegistration
-        ? localizationService.FormatString("Autopilot.HardwareHashTenantConnectedFormat", hardwareHashUploadSettings.Tenant.TenantId!)
+        ? localizationService.GetString("Autopilot.HardwareHashTenantConnected")
         : localizationService.GetString("Autopilot.HardwareHashTenantNotConnected");
+    public string TenantDetailsText => HasTenantRegistration
+        ? localizationService.FormatString("Autopilot.HardwareHashTenantDetailsFormat", hardwareHashUploadSettings.Tenant.TenantId!)
+        : string.Empty;
     public string AppRegistrationStatusText => string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId)
         ? localizationService.GetString("Autopilot.HardwareHashAppRegistrationMissing")
         : localizationService.FormatString("Autopilot.HardwareHashAppRegistrationFoundFormat", ManagedAppRegistrationName);
@@ -223,6 +226,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string TenantStatusLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantDetailsLabel { get; set; }
 
     [ObservableProperty]
     public partial string AppRegistrationLabel { get; set; }
@@ -765,6 +771,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         CreateCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashCreateCertificateButton");
         RetireCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashRetireCertificateButton");
         TenantStatusLabel = localizationService.GetString("Autopilot.HardwareHashTenantStatusLabel");
+        TenantDetailsLabel = localizationService.GetString("Autopilot.HardwareHashTenantDetailsLabel");
         AppRegistrationLabel = localizationService.GetString("Autopilot.HardwareHashAppRegistrationLabel");
         TenantOnboardingStatusLabel = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusLabel");
         CertificateStatusLabel = localizationService.GetString("Autopilot.HardwareHashCertificateStatusLabel");
@@ -828,6 +835,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void RefreshHardwareHashUploadState()
     {
         OnPropertyChanged(nameof(TenantStatusText));
+        OnPropertyChanged(nameof(TenantDetailsText));
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
         OnPropertyChanged(nameof(CertificateStatusText));

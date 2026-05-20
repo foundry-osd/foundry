@@ -318,8 +318,17 @@
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Non connecté</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
+    <value>Connecté</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantConnectedFormat" xml:space="preserve">
     <value>Connecté au tenant {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsLabel" xml:space="preserve">
+    <value>Détails du tenant</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsFormat" xml:space="preserve">
+    <value>ID du tenant : {0}</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
     <value>App registration</value>

@@ -149,6 +149,14 @@
                                    TextWrapping="WrapWholeWords" />
                     </wct:SettingsCard>
 
+                    <wct:SettingsCard Header="{x:Bind ViewModel.TenantDetailsLabel, Mode=OneWay}"
+                                      HorizontalContentAlignment="Stretch"
+                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                        <TextBlock HorizontalAlignment="Right"
+                                   Text="{x:Bind ViewModel.TenantDetailsText, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords" />
+                    </wct:SettingsCard>
+
                     <wct:SettingsCard Header="{x:Bind ViewModel.TenantOnboardingStatusLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
