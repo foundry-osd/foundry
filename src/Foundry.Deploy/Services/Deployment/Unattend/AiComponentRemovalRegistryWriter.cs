@@ -2,6 +2,7 @@ using System.IO;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.System;
 using Microsoft.Win32;
+using static Foundry.Deploy.Services.Deployment.Unattend.OfflineRegistryWriter;
 
 namespace Foundry.Deploy.Services.Deployment.Unattend;
 
@@ -15,7 +16,7 @@ internal sealed class AiComponentRemovalRegistryWriter
     private const string DefaultUserHiveMount = @"HKU\FoundryDefault";
     private const string SystemHiveKeyName = "FoundrySystem";
 
-    private readonly IProcessRunner _processRunner;
+    private readonly OfflineRegistryWriter _registryWriter;
 
     /// <summary>
     /// Initializes a registry writer that applies offline AI policy values with reg.exe.
@@ -23,7 +24,7 @@ internal sealed class AiComponentRemovalRegistryWriter
     /// <param name="processRunner">The process runner used to load hives and write values.</param>
     public AiComponentRemovalRegistryWriter(IProcessRunner processRunner)
     {
-        _processRunner = processRunner;
+        _registryWriter = new OfflineRegistryWriter(processRunner);
     }
 
     /// <summary>
@@ -53,47 +54,38 @@ internal sealed class AiComponentRemovalRegistryWriter
 
         if (RequiresSoftwareHive(settings))
         {
-            await LoadHiveAsync(SoftwareHiveMount, softwareHivePath, workingDirectory, cancellationToken).ConfigureAwait(false);
-            try
-            {
-                await ApplySoftwarePoliciesAsync(settings, workingDirectory, cancellationToken).ConfigureAwait(false);
-            }
-            finally
-            {
-                await UnloadHiveAsync(SoftwareHiveMount, workingDirectory, CancellationToken.None).ConfigureAwait(false);
-            }
+            await _registryWriter
+                .WithLoadedHiveAsync(
+                    SoftwareHiveMount,
+                    softwareHivePath,
+                    workingDirectory,
+                    (hive, token) => ApplySoftwarePoliciesAsync(hive, settings, token),
+                    cancellationToken)
+                .ConfigureAwait(false);
         }
 
         if (settings.DisableAiServiceAutoStart)
         {
-            await LoadHiveAsync(SystemHiveMount, systemHivePath, workingDirectory, cancellationToken).ConfigureAwait(false);
-            try
-            {
-                string controlSetName = ResolveCurrentControlSetName();
-                await AddDwordAsync(
-                    $@"{SystemHiveMount}\{controlSetName}\Services\WSAIFabricSvc",
-                    "Start",
-                    3,
+            await _registryWriter
+                .WithLoadedHiveAsync(
+                    SystemHiveMount,
+                    systemHivePath,
                     workingDirectory,
-                    cancellationToken).ConfigureAwait(false);
-            }
-            finally
-            {
-                await UnloadHiveAsync(SystemHiveMount, workingDirectory, CancellationToken.None).ConfigureAwait(false);
-            }
+                    ApplySystemPoliciesAsync,
+                    cancellationToken)
+                .ConfigureAwait(false);
         }
 
         if (RequiresDefaultUserHive(settings))
         {
-            await LoadHiveAsync(DefaultUserHiveMount, defaultUserHivePath, workingDirectory, cancellationToken).ConfigureAwait(false);
-            try
-            {
-                await ApplyDefaultUserPoliciesAsync(settings, workingDirectory, cancellationToken).ConfigureAwait(false);
-            }
-            finally
-            {
-                await UnloadHiveAsync(DefaultUserHiveMount, workingDirectory, CancellationToken.None).ConfigureAwait(false);
-            }
+            await _registryWriter
+                .WithLoadedHiveAsync(
+                    DefaultUserHiveMount,
+                    defaultUserHivePath,
+                    workingDirectory,
+                    (hive, token) => ApplyDefaultUserPoliciesAsync(hive, settings, token),
+                    cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 
@@ -126,75 +118,87 @@ internal sealed class AiComponentRemovalRegistryWriter
     }
 
     private async Task ApplySoftwarePoliciesAsync(
+        OfflineRegistryHive hive,
         DeployAiComponentRemovalSettings settings,
-        string workingDirectory,
         CancellationToken cancellationToken)
     {
         if (settings.RemoveCopilot)
         {
-            await AddDwordAsync($@"{SoftwareHiveMount}\Policies\Microsoft\Windows\WindowsCopilot", "TurnOffWindowsCopilot", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Policies\Microsoft\Windows\WindowsCopilot", "TurnOffWindowsCopilot", 1, cancellationToken).ConfigureAwait(false);
         }
 
         if (settings.DisableRecall)
         {
-            await AddDwordAsync($@"{SoftwareHiveMount}\Policies\Microsoft\Windows\WindowsAI", "DisableAIDataAnalysis", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync($@"{SoftwareHiveMount}\Policies\Microsoft\Windows\WindowsAI", "AllowRecallEnablement", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync($@"{SoftwareHiveMount}\Policies\Microsoft\Windows\WindowsAI", "TurnOffSavingSnapshots", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Policies\Microsoft\Windows\WindowsAI", "DisableAIDataAnalysis", 1, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Policies\Microsoft\Windows\WindowsAI", "AllowRecallEnablement", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Policies\Microsoft\Windows\WindowsAI", "TurnOffSavingSnapshots", 1, cancellationToken).ConfigureAwait(false);
         }
 
         if (settings.DisableClickToDo)
         {
-            await AddDwordAsync($@"{SoftwareHiveMount}\Policies\Microsoft\Windows\WindowsAI", "DisableClickToDo", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Policies\Microsoft\Windows\WindowsAI", "DisableClickToDo", 1, cancellationToken).ConfigureAwait(false);
         }
 
         if (settings.DisableEdgeAi)
         {
-            string edgePolicyPath = $@"{SoftwareHiveMount}\Policies\Microsoft\Edge";
-            await AddDwordAsync(edgePolicyPath, "CopilotCDPPageContext", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(edgePolicyPath, "CopilotPageContext", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(edgePolicyPath, "HubsSidebarEnabled", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(edgePolicyPath, "EdgeEntraCopilotPageContext", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(edgePolicyPath, "EdgeHistoryAISearchEnabled", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(edgePolicyPath, "ComposeInlineEnabled", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(edgePolicyPath, "GenAILocalFoundationalModelSettings", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(edgePolicyPath, "NewTabPageBingChatEnabled", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
+            const string edgePolicyPath = @"Policies\Microsoft\Edge";
+            await hive.AddDwordAsync(edgePolicyPath, "CopilotCDPPageContext", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(edgePolicyPath, "CopilotPageContext", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(edgePolicyPath, "HubsSidebarEnabled", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(edgePolicyPath, "EdgeEntraCopilotPageContext", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(edgePolicyPath, "EdgeHistoryAISearchEnabled", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(edgePolicyPath, "ComposeInlineEnabled", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(edgePolicyPath, "GenAILocalFoundationalModelSettings", 1, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(edgePolicyPath, "NewTabPageBingChatEnabled", 0, cancellationToken).ConfigureAwait(false);
         }
 
         if (settings.DisablePaintAi)
         {
-            string paintPolicyPath = $@"{SoftwareHiveMount}\Microsoft\Windows\CurrentVersion\Policies\Paint";
-            await AddDwordAsync(paintPolicyPath, "DisableCocreator", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(paintPolicyPath, "DisableGenerativeFill", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(paintPolicyPath, "DisableImageCreator", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(paintPolicyPath, "DisableGenerativeErase", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync(paintPolicyPath, "DisableRemoveBackground", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            const string paintPolicyPath = @"Microsoft\Windows\CurrentVersion\Policies\Paint";
+            await hive.AddDwordAsync(paintPolicyPath, "DisableCocreator", 1, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(paintPolicyPath, "DisableGenerativeFill", 1, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(paintPolicyPath, "DisableImageCreator", 1, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(paintPolicyPath, "DisableGenerativeErase", 1, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(paintPolicyPath, "DisableRemoveBackground", 1, cancellationToken).ConfigureAwait(false);
         }
 
         if (settings.DisableNotepadAi)
         {
-            await AddDwordAsync($@"{SoftwareHiveMount}\Policies\WindowsNotepad", "DisableAIFeatures", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Policies\WindowsNotepad", "DisableAIFeatures", 1, cancellationToken).ConfigureAwait(false);
         }
     }
 
+    private static Task ApplySystemPoliciesAsync(
+        OfflineRegistryHive hive,
+        CancellationToken cancellationToken)
+    {
+        string controlSetName = ResolveCurrentControlSetName();
+        return hive.AddDwordAsync(
+            $@"{controlSetName}\Services\WSAIFabricSvc",
+            "Start",
+            3,
+            cancellationToken);
+    }
+
     private async Task ApplyDefaultUserPoliciesAsync(
+        OfflineRegistryHive hive,
         DeployAiComponentRemovalSettings settings,
-        string workingDirectory,
         CancellationToken cancellationToken)
     {
         if (settings.RemoveCopilot)
         {
-            await AddDwordAsync($@"{DefaultUserHiveMount}\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowCopilotButton", 0, workingDirectory, cancellationToken).ConfigureAwait(false);
-            await AddDwordAsync($@"{DefaultUserHiveMount}\Software\Policies\Microsoft\Windows\WindowsCopilot", "TurnOffWindowsCopilot", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ShowCopilotButton", 0, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Software\Policies\Microsoft\Windows\WindowsCopilot", "TurnOffWindowsCopilot", 1, cancellationToken).ConfigureAwait(false);
         }
 
         if (settings.DisableRecall)
         {
-            await AddDwordAsync($@"{DefaultUserHiveMount}\Software\Policies\Microsoft\Windows\WindowsAI", "DisableAIDataAnalysis", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Software\Policies\Microsoft\Windows\WindowsAI", "DisableAIDataAnalysis", 1, cancellationToken).ConfigureAwait(false);
         }
 
         if (settings.DisableClickToDo)
         {
-            await AddDwordAsync($@"{DefaultUserHiveMount}\Software\Policies\Microsoft\Windows\WindowsAI", "DisableClickToDo", 1, workingDirectory, cancellationToken).ConfigureAwait(false);
+            await hive.AddDwordAsync(@"Software\Policies\Microsoft\Windows\WindowsAI", "DisableClickToDo", 1, cancellationToken).ConfigureAwait(false);
         }
     }
 
@@ -214,45 +218,5 @@ internal sealed class AiComponentRemovalRegistryWriter
         }
 
         return "ControlSet001";
-    }
-
-    private Task LoadHiveAsync(string mountName, string hivePath, string workingDirectory, CancellationToken cancellationToken)
-    {
-        return RunRequiredAsync("reg.exe", ["LOAD", mountName, hivePath], workingDirectory, cancellationToken);
-    }
-
-    private Task UnloadHiveAsync(string mountName, string workingDirectory, CancellationToken cancellationToken)
-    {
-        return RunRequiredAsync("reg.exe", ["UNLOAD", mountName], workingDirectory, cancellationToken);
-    }
-
-    private Task AddDwordAsync(
-        string keyPath,
-        string valueName,
-        int value,
-        string workingDirectory,
-        CancellationToken cancellationToken)
-    {
-        return RunRequiredAsync(
-            "reg.exe",
-            ["ADD", keyPath, "/v", valueName, "/t", "REG_DWORD", "/d", value.ToString(), "/f"],
-            workingDirectory,
-            cancellationToken);
-    }
-
-    private async Task RunRequiredAsync(
-        string fileName,
-        IEnumerable<string> arguments,
-        string workingDirectory,
-        CancellationToken cancellationToken)
-    {
-        ProcessExecutionResult result = await _processRunner
-            .RunAsync(fileName, arguments, workingDirectory, cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!result.IsSuccess)
-        {
-            throw new InvalidOperationException($"{fileName} failed with exit code {result.ExitCode}.{Environment.NewLine}{result.StandardError}");
-        }
     }
 }
