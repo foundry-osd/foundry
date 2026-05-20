@@ -24,4 +24,12 @@ public sealed partial class AutopilotPage : Page
             ViewModel.ReplaceSelectedProfiles(tableView.SelectedItems.OfType<AutopilotProfileEntryViewModel>());
         }
     }
+
+    private void CertificatesTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is WinUI.TableView.TableView tableView)
+        {
+            ViewModel.ReplaceSelectedCertificate(tableView.SelectedItems.OfType<AutopilotCertificateEntryViewModel>());
+        }
+    }
 }

@@ -160,14 +160,53 @@
                     <wct:SettingsCard Header="{x:Bind ViewModel.CertificateStatusLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
-                        <StackPanel HorizontalAlignment="Right"
-                                    Spacing="{ThemeResource FoundrySpace8}">
-                            <TextBlock Text="{x:Bind ViewModel.CertificateStatusText, Mode=OneWay}"
+                        <StackPanel Spacing="{ThemeResource FoundrySpace8}">
+                            <TextBlock HorizontalAlignment="Right"
+                                       Foreground="{x:Bind ViewModel.CertificateStatusForeground, Mode=OneWay}"
+                                       Text="{x:Bind ViewModel.CertificateStatusText, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords" />
                             <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                       HorizontalAlignment="Right"
                                        Text="{x:Bind ViewModel.CertificateExpiredWarningText, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords"
                                        Visibility="{x:Bind ViewModel.HardwareHashCertificateWarningVisibility, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind ViewModel.CertificatesEmptyText, Mode=OneWay}"
+                                       TextWrapping="Wrap"
+                                       Visibility="{x:Bind ViewModel.EmptyCertificatesVisibility, Mode=OneWay}" />
+                            <tv:TableView x:Name="CertificatesTable"
+                                          AutoGenerateColumns="False"
+                                          CanFilterColumns="False"
+                                          CanReorderColumns="False"
+                                          CanResizeColumns="False"
+                                          CanSortColumns="False"
+                                          CornerButtonMode="None"
+                                          HeadersVisibility="Columns"
+                                          IsReadOnly="True"
+                                          ItemsSource="{x:Bind ViewModel.Certificates, Mode=OneWay}"
+                                          MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                          SelectionChanged="CertificatesTable_SelectionChanged"
+                                          SelectionMode="Single"
+                                          SelectionUnit="Row"
+                                          ShowExportOptions="False"
+                                          Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
+                                <tv:TableView.Columns>
+                                    <tv:TableViewTextColumn Binding="{Binding Thumbprint}"
+                                                            Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn Binding="{Binding StartsOnDisplay}"
+                                                            Header="{x:Bind ViewModel.CertificateCreatedColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.CertificateExpiresColumnHeader, Mode=OneWay}">
+                                        <tv:TableViewTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Foreground="{Binding ValidityForeground}"
+                                                           Text="{Binding ExpiresOnDisplay}"
+                                                           TextTrimming="CharacterEllipsis" />
+                                            </DataTemplate>
+                                        </tv:TableViewTemplateColumn.CellTemplate>
+                                    </tv:TableViewTemplateColumn>
+                                    <tv:TableViewTextColumn Binding="{Binding KeyId}"
+                                                            Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
+                                </tv:TableView.Columns>
+                            </tv:TableView>
                             <StackPanel HorizontalAlignment="Right"
                                         Orientation="Horizontal"
                                         Spacing="{ThemeResource FoundryInlineControlSpacing}">

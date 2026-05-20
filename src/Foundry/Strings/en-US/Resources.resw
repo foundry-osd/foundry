@@ -306,6 +306,12 @@
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
     <value>Connecting tenant...</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>Sign in to Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>Complete sign-in in the browser to configure Autopilot hardware hash upload.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Tenant connection</value>
   </data>
@@ -384,6 +390,15 @@
   <data name="Autopilot.HardwareHashCertificateCreatedMessageFormat" xml:space="preserve">
     <value>The PFX was saved to {1}. Store this password now; Foundry will not show it again: {0}</value>
   </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>Store this password now. Foundry will not show it again.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>PFX file</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>PFX password</value>
+  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Certificate creation failed</value>
   </data>
@@ -391,10 +406,10 @@
     <value>Foundry could not create the app registration certificate. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Remove active certificate?</value>
+    <value>Remove selected certificate?</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry will remove only the selected active certificate from the managed app registration. Other app credentials will be preserved.</value>
+    <value>Foundry will remove only the selected certificate from the managed app registration. Other app credentials will be preserved.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Remove certificate</value>
@@ -403,13 +418,13 @@
     <value>Certificate removed</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetiredMessage" xml:space="preserve">
-    <value>The active certificate was removed from the managed app registration.</value>
+    <value>The selected certificate was removed from the managed app registration.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Certificate removal failed</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not remove the active app registration certificate. {0}</value>
+    <value>Foundry could not remove the selected app registration certificate. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateMissing" xml:space="preserve">
     <value>No active certificate is configured.</value>
@@ -425,6 +440,21 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateExpiredWarning" xml:space="preserve">
     <value>Regenerate the certificate and boot media before using hardware hash upload.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesEmpty" xml:space="preserve">
+    <value>No app registration certificate was discovered. Connect to the tenant or create a certificate.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>Thumbprint</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>Expiration</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>Certificate ID</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagLabel" xml:space="preserve">
     <value>Default group tag</value>

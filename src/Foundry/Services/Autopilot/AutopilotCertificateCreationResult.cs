@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Services.Autopilot;
 
@@ -21,4 +22,9 @@ public sealed record AutopilotCertificateCreationResult
     /// Gets the certificate metadata selected as active after creation.
     /// </summary>
     public AutopilotCertificateMetadata Certificate { get; init; } = new();
+
+    /// <summary>
+    /// Gets the app registration certificate credentials after creation.
+    /// </summary>
+    public IReadOnlyList<AutopilotGraphKeyCredential> Certificates { get; init; } = [];
 }

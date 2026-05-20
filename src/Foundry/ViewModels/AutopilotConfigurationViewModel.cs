@@ -9,6 +9,7 @@ using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 using Serilog;
 
 namespace Foundry.ViewModels;
@@ -23,6 +24,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private readonly IAutopilotTenantProfileService autopilotTenantProfileService;
     private readonly IAutopilotTenantOnboardingService autopilotTenantOnboardingService;
     private readonly IAutopilotTenantDownloadDialogService tenantDownloadDialogService;
+    private readonly IAutopilotCertificateDialogService certificateDialogService;
     private readonly IAutopilotProfileSelectionDialogService profileSelectionDialogService;
     private readonly IFilePickerService filePickerService;
     private readonly IDialogService dialogService;
@@ -40,6 +42,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         IAutopilotTenantProfileService autopilotTenantProfileService,
         IAutopilotTenantOnboardingService autopilotTenantOnboardingService,
         IAutopilotTenantDownloadDialogService tenantDownloadDialogService,
+        IAutopilotCertificateDialogService certificateDialogService,
         IAutopilotProfileSelectionDialogService profileSelectionDialogService,
         IFilePickerService filePickerService,
         IDialogService dialogService,
@@ -51,6 +54,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         this.autopilotTenantProfileService = autopilotTenantProfileService;
         this.autopilotTenantOnboardingService = autopilotTenantOnboardingService;
         this.tenantDownloadDialogService = tenantDownloadDialogService;
+        this.certificateDialogService = certificateDialogService;
         this.profileSelectionDialogService = profileSelectionDialogService;
         this.filePickerService = filePickerService;
         this.dialogService = dialogService;
@@ -79,6 +83,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public ObservableCollection<AutopilotProfileEntryViewModel> SelectedProfiles { get; } = [];
 
     /// <summary>
+    /// Gets app registration certificate credentials discovered from Microsoft Graph.
+    /// </summary>
+    public ObservableCollection<AutopilotCertificateEntryViewModel> Certificates { get; } = [];
+
+    /// <summary>
     /// Gets the fixed certificate validity options available for managed Autopilot app certificates.
     /// </summary>
     public ObservableCollection<CertificateValidityOptionViewModel> CertificateValidityOptions { get; } =
@@ -93,6 +102,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public bool HasProfiles => Profiles.Count > 0;
     public Visibility EmptyProfilesVisibility => HasProfiles ? Visibility.Collapsed : Visibility.Visible;
     public Visibility ProfilesVisibility => HasProfiles ? Visibility.Visible : Visibility.Collapsed;
+    public bool HasCertificates => Certificates.Count > 0;
+    public Visibility EmptyCertificatesVisibility => HasCertificates ? Visibility.Collapsed : Visibility.Visible;
+    public Visibility CertificatesVisibility => HasCertificates ? Visibility.Visible : Visibility.Collapsed;
     public bool IsBusy => IsImporting || IsDownloading || IsConnectingTenant;
     public Visibility BusyStatusVisibility => IsBusy ? Visibility.Visible : Visibility.Collapsed;
     public string BusyStatusText => IsImporting
@@ -150,6 +162,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         : localizationService.FormatString("Autopilot.HardwareHashAppRegistrationFoundFormat", ManagedAppRegistrationName);
     public string TenantOnboardingStatusText => CreateTenantOnboardingStatusText();
     public string CertificateStatusText => CreateCertificateStatusText();
+    public Brush CertificateStatusForeground => ResolveCertificateStatusBrush();
     public string DefaultGroupTagText => string.IsNullOrWhiteSpace(hardwareHashUploadSettings.DefaultGroupTag)
         ? localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNone")
         : hardwareHashUploadSettings.DefaultGroupTag!;
@@ -219,6 +232,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string CertificateExpiredWarningText { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificatesEmptyText { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificateThumbprintColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificateCreatedColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificateExpiresColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificateIdColumnHeader { get; set; }
 
     [ObservableProperty]
     public partial string DefaultGroupTagLabel { get; set; }
@@ -331,6 +359,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CreateCertificateCommand))]
     public partial CertificateValidityOptionViewModel? SelectedCertificateValidityOption { get; set; }
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(RetireActiveCertificateCommand))]
+    public partial AutopilotCertificateEntryViewModel? SelectedCertificate { get; set; }
 
     /// <summary>
     /// Releases subscriptions to localization, configuration state, and profile collections.
@@ -478,9 +510,19 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         try
         {
             logger.Information("Starting Autopilot hardware hash tenant onboarding.");
-            AutopilotTenantOnboardingResult result = await autopilotTenantOnboardingService.ConnectAsync(hardwareHashUploadSettings);
+            AutopilotTenantOnboardingResult? result = await tenantDownloadDialogService.RunAsync(
+                localizationService.GetString("Autopilot.HardwareHashTenantConnectionDialogTitle"),
+                localizationService.GetString("Autopilot.HardwareHashTenantConnectionDialogMessage"),
+                cancellationToken => autopilotTenantOnboardingService.ConnectAsync(hardwareHashUploadSettings, cancellationToken));
+            if (result is null)
+            {
+                logger.Information("Autopilot hardware hash tenant onboarding was canceled.");
+                return;
+            }
+
             hardwareHashUploadSettings = result.Settings;
             tenantOnboardingStatus = result.Status;
+            ReplaceCertificates(result.Certificates);
             RefreshHardwareHashUploadState();
             SaveState();
             logger.Information(
@@ -526,15 +568,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 outputPath,
                 SelectedCertificateValidityOption.Months);
             hardwareHashUploadSettings = result.Settings;
+            tenantOnboardingStatus = AutopilotTenantOnboardingStatus.Ready;
+            ReplaceCertificates(result.Certificates);
             RefreshHardwareHashUploadState();
             SaveState();
 
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                localizationService.GetString("Autopilot.HardwareHashCertificateCreatedTitle"),
-                localizationService.FormatString(
-                    "Autopilot.HardwareHashCertificateCreatedMessageFormat",
-                    result.GeneratedPassword,
-                    outputPath)));
+            await certificateDialogService.ShowCreatedAsync(outputPath, result.GeneratedPassword);
         }
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or IOException or UnauthorizedAccessException)
         {
@@ -565,8 +604,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         IsConnectingTenant = true;
         try
         {
-            hardwareHashUploadSettings = await autopilotTenantOnboardingService.RetireActiveCertificateAsync(hardwareHashUploadSettings);
-            tenantOnboardingStatus = AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
+            if (SelectedCertificate is null)
+            {
+                return;
+            }
+
+            AutopilotCertificateRemovalResult result = await autopilotTenantOnboardingService.RemoveCertificateAsync(
+                hardwareHashUploadSettings,
+                SelectedCertificate.KeyId);
+            hardwareHashUploadSettings = result.Settings;
+            if (hardwareHashUploadSettings.ActiveCertificate is null)
+            {
+                tenantOnboardingStatus = AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
+            }
+
+            ReplaceCertificates(result.Certificates);
             RefreshHardwareHashUploadState();
             SaveState();
 
@@ -613,6 +665,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 ? settings.ProvisioningMode
                 : AutopilotProvisioningMode.JsonProfile;
             hardwareHashUploadSettings = settings.HardwareHashUpload ?? new AutopilotHardwareHashUploadSettings();
+            ReplaceCertificates([]);
             ReplaceProfiles(
                 settings.Profiles.Select(AutopilotProfileEntryViewModel.FromSettings),
                 settings.DefaultProfileId);
@@ -712,6 +765,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         TenantOnboardingStatusLabel = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusLabel");
         CertificateStatusLabel = localizationService.GetString("Autopilot.HardwareHashCertificateStatusLabel");
         CertificateExpiredWarningText = localizationService.GetString("Autopilot.HardwareHashCertificateExpiredWarning");
+        CertificatesEmptyText = localizationService.GetString("Autopilot.HardwareHashCertificatesEmpty");
+        CertificateThumbprintColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateThumbprintColumn");
+        CertificateCreatedColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedColumn");
+        CertificateExpiresColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateExpiresColumn");
+        CertificateIdColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateIdColumn");
         DefaultGroupTagLabel = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagLabel");
         KnownGroupTagsLabel = localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsLabel");
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
@@ -769,11 +827,31 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
         OnPropertyChanged(nameof(CertificateStatusText));
+        OnPropertyChanged(nameof(CertificateStatusForeground));
         OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
         OnPropertyChanged(nameof(HardwareHashCertificateWarningVisibility));
         OnPropertyChanged(nameof(DefaultGroupTagText));
         OnPropertyChanged(nameof(KnownGroupTagsText));
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
+    }
+
+    private void ReplaceCertificates(IReadOnlyList<AutopilotGraphKeyCredential> credentials)
+    {
+        string? selectedKeyId = SelectedCertificate?.KeyId ?? hardwareHashUploadSettings.ActiveCertificate?.KeyId;
+        Certificates.Clear();
+        foreach (AutopilotCertificateEntryViewModel certificate in credentials
+                     .OrderBy(certificate => certificate.ExpiresOnUtc)
+                     .Select(AutopilotCertificateEntryViewModel.FromGraphCredential))
+        {
+            Certificates.Add(certificate);
+        }
+
+        SelectedCertificate = Certificates.FirstOrDefault(certificate =>
+                                  string.Equals(certificate.KeyId, selectedKeyId, StringComparison.OrdinalIgnoreCase))
+                              ?? Certificates.FirstOrDefault();
+        OnPropertyChanged(nameof(HasCertificates));
+        OnPropertyChanged(nameof(EmptyCertificatesVisibility));
+        OnPropertyChanged(nameof(CertificatesVisibility));
     }
 
     private string CreateCertificateStatusText()
@@ -792,6 +870,24 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return certificate.ExpiresOnUtc <= DateTimeOffset.UtcNow
             ? localizationService.FormatString("Autopilot.HardwareHashCertificateExpiredFormat", certificate.ExpiresOnUtc.Value.LocalDateTime)
             : localizationService.FormatString("Autopilot.HardwareHashCertificateValidFormat", certificate.ExpiresOnUtc.Value.LocalDateTime);
+    }
+
+    private Brush ResolveCertificateStatusBrush()
+    {
+        AutopilotCertificateMetadata? certificate = hardwareHashUploadSettings.ActiveCertificate;
+        if (certificate?.ExpiresOnUtc is not DateTimeOffset expiresOnUtc)
+        {
+            return (Brush)Application.Current.Resources["TextFillColorSecondaryBrush"];
+        }
+
+        if (expiresOnUtc <= DateTimeOffset.UtcNow)
+        {
+            return (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
+        }
+
+        return expiresOnUtc - DateTimeOffset.UtcNow <= TimeSpan.FromDays(30)
+            ? (Brush)Application.Current.Resources["SystemFillColorCautionBrush"]
+            : (Brush)Application.Current.Resources["SystemFillColorSuccessBrush"];
     }
 
     private string CreateTenantOnboardingStatusText()
@@ -850,6 +946,15 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
     }
 
+    /// <summary>
+    /// Replaces the selected certificate row after a XAML selection change.
+    /// </summary>
+    /// <param name="certificates">The selected certificate view models.</param>
+    public void ReplaceSelectedCertificate(IEnumerable<AutopilotCertificateEntryViewModel> certificates)
+    {
+        SelectedCertificate = certificates.FirstOrDefault();
+    }
+
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
         RefreshLocalizedText();
@@ -900,7 +1005,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                IsHardwareHashUploadMode &&
                !IsBusy &&
                !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId) &&
-               !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.ActiveCertificate?.KeyId);
+               SelectedCertificate is not null;
     }
 
     public sealed record CertificateValidityOptionViewModel(int Months, string DisplayName);

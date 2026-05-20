@@ -101,6 +101,8 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             cancellationToken).ConfigureAwait(false);
 
         string[] groupTags = await TryGetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
+        IReadOnlyList<AutopilotGraphKeyCredential> keyCredentials =
+            await GetApplicationKeyCredentialsAsync(accessToken, application.ObjectId, cancellationToken).ConfigureAwait(false);
         AutopilotTenantOnboardingSnapshot snapshot = new()
         {
             TenantId = tenantId,
@@ -109,7 +111,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             Applications = [application],
             ServicePrincipal = servicePrincipal,
             ActiveCertificate = currentSettings.ActiveCertificate,
-            KeyCredentials = await GetApplicationKeyCredentialsAsync(accessToken, application.ObjectId, cancellationToken).ConfigureAwait(false),
+            KeyCredentials = keyCredentials,
             CurrentTimeUtc = DateTimeOffset.UtcNow
         };
         AutopilotTenantOnboardingEvaluation evaluation = AutopilotTenantOnboardingEvaluator.Evaluate(snapshot);
@@ -130,6 +132,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
         {
             Settings = updatedSettings,
             Status = evaluation.Status,
+            Certificates = keyCredentials,
             Message = evaluation.Status == AutopilotTenantOnboardingStatus.Ready
                 ? "The managed app registration is ready."
                 : $"The managed app registration requires attention: {evaluation.Status}."
@@ -200,24 +203,35 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             ExpiresOnUtc = expiresOnUtc
         };
 
+        IReadOnlyList<AutopilotGraphKeyCredential> keyCredentials = await GetApplicationKeyCredentialsAsync(
+            accessToken,
+            currentSettings.Tenant.ApplicationObjectId,
+            cancellationToken).ConfigureAwait(false);
+
         return new AutopilotCertificateCreationResult
         {
             Settings = currentSettings with { ActiveCertificate = metadata },
             GeneratedPassword = password,
-            Certificate = metadata
+            Certificate = metadata,
+            Certificates = keyCredentials
         };
     }
 
     /// <inheritdoc />
-    public async Task<AutopilotHardwareHashUploadSettings> RetireActiveCertificateAsync(
+    public async Task<AutopilotCertificateRemovalResult> RemoveCertificateAsync(
         AutopilotHardwareHashUploadSettings currentSettings,
+        string certificateKeyId,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(currentSettings);
-        if (string.IsNullOrWhiteSpace(currentSettings.Tenant.ApplicationObjectId) ||
-            string.IsNullOrWhiteSpace(currentSettings.ActiveCertificate?.KeyId))
+        ArgumentException.ThrowIfNullOrWhiteSpace(certificateKeyId);
+
+        if (string.IsNullOrWhiteSpace(currentSettings.Tenant.ApplicationObjectId))
         {
-            return currentSettings with { ActiveCertificate = null };
+            return new AutopilotCertificateRemovalResult
+            {
+                Settings = currentSettings with { ActiveCertificate = null }
+            };
         }
 
         TokenCredential credential = CreateCredential();
@@ -225,9 +239,24 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
         await RemoveKeyCredentialAsync(
             accessToken,
             currentSettings.Tenant.ApplicationObjectId,
-            currentSettings.ActiveCertificate.KeyId,
+            certificateKeyId,
             cancellationToken).ConfigureAwait(false);
-        return currentSettings with { ActiveCertificate = null };
+        AutopilotHardwareHashUploadSettings updatedSettings = string.Equals(
+            currentSettings.ActiveCertificate?.KeyId,
+            certificateKeyId,
+            StringComparison.OrdinalIgnoreCase)
+            ? currentSettings with { ActiveCertificate = null }
+            : currentSettings;
+        IReadOnlyList<AutopilotGraphKeyCredential> keyCredentials = await GetApplicationKeyCredentialsAsync(
+            accessToken,
+            currentSettings.Tenant.ApplicationObjectId,
+            cancellationToken).ConfigureAwait(false);
+
+        return new AutopilotCertificateRemovalResult
+        {
+            Settings = updatedSettings,
+            Certificates = keyCredentials
+        };
     }
 
     private static TokenCredential CreateCredential()

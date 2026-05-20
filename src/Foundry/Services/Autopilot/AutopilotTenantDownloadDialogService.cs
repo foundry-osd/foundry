@@ -6,13 +6,43 @@ namespace Foundry.Services.Autopilot;
 public sealed class AutopilotTenantDownloadDialogService(
     IApplicationLocalizationService localizationService) : IAutopilotTenantDownloadDialogService
 {
+    public Task<TResult?> RunAsync<TResult>(
+        string title,
+        string message,
+        Func<CancellationToken, Task<TResult>> operationAsync)
+        where TResult : class
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(title);
+        ArgumentException.ThrowIfNullOrWhiteSpace(message);
+        ArgumentNullException.ThrowIfNull(operationAsync);
+
+        return RunWithDialogAsync(
+            title,
+            message,
+            localizationService.GetString("Autopilot.TenantDownloadDialogCancel"),
+            operationAsync);
+    }
+
     public async Task<IReadOnlyList<AutopilotProfileSettings>?> DownloadAsync(
         Func<CancellationToken, Task<IReadOnlyList<AutopilotProfileSettings>>> downloadProfilesAsync)
     {
         ArgumentNullException.ThrowIfNull(downloadProfilesAsync);
+        return await RunWithDialogAsync(
+            localizationService.GetString("Autopilot.TenantDownloadDialogTitle"),
+            localizationService.GetString("Autopilot.TenantDownloadDialogMessage"),
+            localizationService.GetString("Autopilot.TenantDownloadDialogCancel"),
+            downloadProfilesAsync).ConfigureAwait(false);
+    }
 
+    private static async Task<TResult?> RunWithDialogAsync<TResult>(
+        string title,
+        string message,
+        string cancelText,
+        Func<CancellationToken, Task<TResult>> operationAsync)
+        where TResult : class
+    {
         using var cancellationTokenSource = new CancellationTokenSource();
-        ContentDialog dialog = CreateDialog(cancellationTokenSource);
+        ContentDialog dialog = CreateDialog(title, message, cancelText, cancellationTokenSource);
         TaskCompletionSource dialogOpenedTask = new(TaskCreationOptions.RunContinuationsAsynchronously);
         dialog.Opened += OnDialogOpened;
         Task<ContentDialogResult> dialogTask = dialog.ShowAsync().AsTask();
@@ -22,24 +52,24 @@ public sealed class AutopilotTenantDownloadDialogService(
         if (completedBeforeOpenTask == dialogTask)
         {
             cancellationTokenSource.Cancel();
-            return null;
+            return default;
         }
 
-        Task<IReadOnlyList<AutopilotProfileSettings>> downloadTask = Task.Run(
-            () => downloadProfilesAsync(cancellationTokenSource.Token),
+        Task<TResult> operationTask = Task.Run(
+            () => operationAsync(cancellationTokenSource.Token),
             cancellationTokenSource.Token);
-        Task completedTask = await Task.WhenAny(downloadTask, dialogTask);
+        Task completedTask = await Task.WhenAny(operationTask, dialogTask);
         if (completedTask == dialogTask)
         {
             cancellationTokenSource.Cancel();
-            _ = ObserveDownloadTaskAsync(downloadTask);
-            return null;
+            _ = ObserveTaskAsync(operationTask);
+            return default;
         }
 
-        IReadOnlyList<AutopilotProfileSettings> profiles;
+        TResult result;
         try
         {
-            profiles = await downloadTask;
+            result = await operationTask;
         }
         catch
         {
@@ -48,7 +78,7 @@ public sealed class AutopilotTenantDownloadDialogService(
         }
 
         await CloseDialogAsync(dialog, dialogTask);
-        return profiles;
+        return result;
 
         void OnDialogOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
@@ -56,14 +86,14 @@ public sealed class AutopilotTenantDownloadDialogService(
         }
     }
 
-    private ContentDialog CreateDialog(CancellationTokenSource cancellationTokenSource)
+    private static ContentDialog CreateDialog(string title, string message, string cancelText, CancellationTokenSource cancellationTokenSource)
     {
         var dialog = new ContentDialog
         {
             XamlRoot = App.MainWindow.Content.XamlRoot,
-            Title = localizationService.GetString("Autopilot.TenantDownloadDialogTitle"),
-            Content = CreateDialogContent(),
-            CloseButtonText = localizationService.GetString("Autopilot.TenantDownloadDialogCancel"),
+            Title = title,
+            Content = CreateDialogContent(message),
+            CloseButtonText = cancelText,
             DefaultButton = ContentDialogButton.Close
         };
 
@@ -71,7 +101,7 @@ public sealed class AutopilotTenantDownloadDialogService(
         return dialog;
     }
 
-    private FrameworkElement CreateDialogContent()
+    private static FrameworkElement CreateDialogContent(string message)
     {
         return new StackPanel
         {
@@ -88,7 +118,7 @@ public sealed class AutopilotTenantDownloadDialogService(
                 },
                 new TextBlock
                 {
-                    Text = localizationService.GetString("Autopilot.TenantDownloadDialogMessage"),
+                    Text = message,
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Center
                 }
@@ -96,11 +126,11 @@ public sealed class AutopilotTenantDownloadDialogService(
         };
     }
 
-    private static async Task ObserveDownloadTaskAsync(Task<IReadOnlyList<AutopilotProfileSettings>> downloadTask)
+    private static async Task ObserveTaskAsync<TResult>(Task<TResult> task)
     {
         try
         {
-            await downloadTask.ConfigureAwait(false);
+            await task.ConfigureAwait(false);
         }
         catch
         {

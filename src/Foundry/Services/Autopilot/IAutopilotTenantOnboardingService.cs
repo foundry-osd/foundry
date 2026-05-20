@@ -33,12 +33,14 @@ public interface IAutopilotTenantOnboardingService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Removes only the configured active certificate credential from the managed app registration.
+    /// Removes the selected certificate credential from the managed app registration.
     /// </summary>
     /// <param name="currentSettings">Current persisted hardware hash upload settings.</param>
+    /// <param name="certificateKeyId">Microsoft Graph key credential identifier to remove.</param>
     /// <param name="cancellationToken">Token that cancels authentication and Graph requests.</param>
-    /// <returns>Updated settings with the active certificate cleared.</returns>
-    Task<AutopilotHardwareHashUploadSettings> RetireActiveCertificateAsync(
+    /// <returns>Updated settings and app registration certificate credentials.</returns>
+    Task<AutopilotCertificateRemovalResult> RemoveCertificateAsync(
         AutopilotHardwareHashUploadSettings currentSettings,
+        string certificateKeyId,
         CancellationToken cancellationToken = default);
 }

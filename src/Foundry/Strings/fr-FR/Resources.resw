@@ -306,6 +306,12 @@
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
     <value>Connexion au tenant...</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>Connexion à Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>Terminez la connexion dans le navigateur pour configurer l'upload du hardware hash Autopilot.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Connexion tenant</value>
   </data>
@@ -384,6 +390,15 @@
   <data name="Autopilot.HardwareHashCertificateCreatedMessageFormat" xml:space="preserve">
     <value>Le PFX a été enregistré ici : {1}. Stockez ce mot de passe maintenant ; Foundry ne l'affichera plus : {0}</value>
   </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>Stockez ce mot de passe maintenant. Foundry ne l'affichera plus.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>Fichier PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>Mot de passe PFX</value>
+  </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Échec de création du certificat</value>
   </data>
@@ -391,10 +406,10 @@
     <value>Foundry n'a pas pu créer le certificat de l'app registration. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Supprimer le certificat actif ?</value>
+    <value>Supprimer le certificat sélectionné ?</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry supprimera uniquement le certificat actif sélectionné dans l'app registration managée. Les autres identifiants de l'app seront conservés.</value>
+    <value>Foundry supprimera uniquement le certificat sélectionné dans l'app registration managée. Les autres identifiants de l'app seront conservés.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Supprimer le certificat</value>
@@ -403,13 +418,13 @@
     <value>Certificat supprimé</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetiredMessage" xml:space="preserve">
-    <value>Le certificat actif a été supprimé de l'app registration managée.</value>
+    <value>Le certificat sélectionné a été supprimé de l'app registration managée.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Échec de suppression du certificat</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry n'a pas pu supprimer le certificat actif de l'app registration. {0}</value>
+    <value>Foundry n'a pas pu supprimer le certificat sélectionné de l'app registration. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateMissing" xml:space="preserve">
     <value>Aucun certificat actif n'est configuré.</value>
@@ -425,6 +440,21 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateExpiredWarning" xml:space="preserve">
     <value>Regénérez le certificat et le média de démarrage avant d'utiliser l'upload du hardware hash.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesEmpty" xml:space="preserve">
+    <value>Aucun certificat d'app registration n'a été découvert. Connectez le tenant ou créez un certificat.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>Empreinte</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>Création</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>Expiration</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>ID du certificat</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagLabel" xml:space="preserve">
     <value>Group tag par défaut</value>
