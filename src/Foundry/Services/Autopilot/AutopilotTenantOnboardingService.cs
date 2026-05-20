@@ -27,7 +27,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
     private const string OrganizationRequestPath = "v1.0/organization?$select=id";
     private const string ApplicationSelect = "$select=id,appId,displayName,requiredResourceAccess,keyCredentials";
     private const string ServicePrincipalSelect = "$select=id,appId,accountEnabled";
-    private const string GroupTagRequestPath = "v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$select=groupTag";
+    private const string GroupTagRequestPath = "v1.0/deviceManagement/windowsAutopilotDeviceIdentities";
     private const int MaximumCertificateValidityMonths = 12;
 
     private static readonly string[] GraphScopes =

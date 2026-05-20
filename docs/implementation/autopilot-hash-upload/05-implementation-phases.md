@@ -102,10 +102,18 @@ Implementation progress:
 - [x] Clear stale persisted active certificate metadata when Microsoft Graph no longer returns the selected active certificate.
 - [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
 - [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
-- [x] Remove the selected certificate credential while preserving unrelated app credentials.
+- [x] Move certificate action buttons above the certificate table.
+- [x] Remove the redundant active certificate "valid until" text when the same expiration is already visible in the certificate table.
+- [x] Remove one or more selected certificate credentials while preserving unrelated app credentials.
 - [x] Use WinUI signal brushes for certificate validity: success when valid, caution when expiring within 30 days, and critical when expired.
 - [x] Show the generated PFX password in a selectable read-only field in the one-time certificate-created dialog.
 - [x] Enforce Graph application certificate validity limit by offering 1, 3, 6, and 12 months only, with 6 months selected by default.
+- [x] Add a dedicated boot media certificate row for selecting the local password-protected PFX and entering its password.
+- [x] Automatically fill the boot media certificate row in the current app session after Foundry creates a new certificate.
+- [x] Keep boot media PFX path, password, and validation result session-only and excluded from ProgramData serialization.
+- [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
+- [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
+- [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
 
 Automated tests:
 - [x] App registration discovery uses persisted application object ID before display name.
@@ -116,10 +124,10 @@ Automated tests:
 - [x] Adding a certificate preserves existing non-active `keyCredentials`.
 - [x] Replacing the active certificate removes only the previous active `keyId` and preserves unrelated credentials.
 - [x] Retiring a certificate removes only the persisted active `keyId`.
-- [ ] Created PFX material is not persisted in ProgramData, even with DPAPI.
+- [x] Created PFX material is not persisted in ProgramData, even with DPAPI.
 - [ ] After app restart, media generation requires the operator to select the PFX again and enter its password.
 - [x] PFX thumbprint mismatch blocks media generation.
-- [ ] Secret settings are never serialized into plain deploy config.
+- [x] Secret settings are never serialized into plain deploy config.
 - [x] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
 - [ ] Logs redact tokens, secrets, private key paths, certificate data, PFX bytes, and PFX password.
 - [x] Foundry OSD build passes after tenant onboarding UX refinements.
@@ -137,14 +145,24 @@ Manual checks:
 - [ ] Review logs after failed auth and successful auth.
 - [ ] Confirm least-privilege app registration can import devices.
 - [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
-- [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and known group tags become visible.
+- [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and available group tags become visible.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
 - [ ] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
 - [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
 - [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
 - [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
+- [ ] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
+- [ ] Select a mismatched PFX and confirm the boot media certificate row shows a thumbprint mismatch.
+- [ ] Navigate away from the Autopilot page and back; confirm the tenant remains connected and tenant-dependent rows remain visible.
+- [ ] Restart Foundry OSD and confirm the tenant connection returns to the disconnected prompt.
+- [ ] In hardware hash mode with no selected boot media PFX, confirm the Start page shows the missing PFX blocker instead of the JSON profile blocker.
+- [ ] In hardware hash mode with a mismatched PFX, confirm the Start page shows the thumbprint mismatch blocker.
 - [ ] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
-- [ ] Select a certificate row and remove it; confirm only the selected credential is removed from Entra and the table refreshes.
+- [ ] Confirm the certificate action buttons are shown above the certificate table.
+- [ ] Confirm the redundant active certificate "valid until" text is not shown when the same expiration is already visible in the certificate table.
+- [ ] Confirm the remove certificate action is disabled when no certificate row is selected.
+- [ ] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
+- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear under `Available group tags`.
 
 ### Phase 3: Autopilot Page UX
 PR title: `feat(autopilot): add hardware hash upload UX`
@@ -166,7 +184,7 @@ Implementation progress:
 - [x] Add active certificate lifecycle controls: create, remove selected certificate, expired state, missing state, and repair/adoption state.
 - [x] Add certificate validity selection with a default of 6 months and options for 1, 3, 6, and 12 months.
 - [x] Add one-time private key/PFX content dialog after certificate creation with selectable password text.
-- [ ] Add password-protected PFX and PFX password input near the active certificate status for boot image generation.
+- [x] Add password-protected PFX and PFX password input near the active certificate status for boot image generation.
 - [x] Add tenant-discovered Autopilot group tag list and default group tag selection.
 - [x] Enforce mutual exclusivity between JSON profile and hash upload modes.
 - [x] Carry the selected mode into the current Foundry Deploy target page so hardware hash mode does not require a JSON profile.
@@ -182,9 +200,9 @@ Automated tests:
 - [x] Deploy launch preparation accepts hardware hash mode without a selected JSON profile.
 - [x] Current Deploy Autopilot staging step skips JSON profile staging in hardware hash mode.
 - [x] Live hardware hash mode fails before deployment confirmation until the runtime implementation exists.
-- [ ] Hardware hash media generation is not ready when the connected app certificate is expired.
-- [ ] Hardware hash media generation requires a password-protected PFX whose leaf certificate thumbprint matches the active certificate.
-- [ ] Creating a certificate exposes the private key/PFX material once and never persists the raw PFX, password, or decrypted private key.
+- [x] Hardware hash media generation is not ready when the connected app certificate is expired.
+- [x] Hardware hash media generation requires a password-protected PFX whose leaf certificate thumbprint matches the active certificate.
+- [x] Creating a certificate exposes the private key/PFX material once and never persists the raw PFX, password, or decrypted private key.
 - [ ] Busy state still blocks JSON profile import/download/remove commands.
 
 Manual checks:
@@ -196,6 +214,8 @@ Manual checks:
 - [ ] Connect to a tenant with an existing managed app registration and confirm Foundry OSD reuses it.
 - [ ] Connect to a tenant where an app with the same display name exists but no persisted Foundry app ID exists, and confirm Foundry OSD enters repair/adoption state.
 - [ ] Create a certificate, verify the private key/PFX material and password are shown once, close the dialog, and confirm they cannot be shown again.
+- [ ] Confirm the boot media certificate row shows the generated PFX path and password as ready in the same app session.
+- [ ] Restart Foundry OSD and confirm the boot media certificate row requires selecting the PFX and entering the password again.
 - [ ] Add an extra non-active certificate credential to the app and confirm Foundry OSD warns but does not delete or block on it.
 - [ ] Expire or simulate an expired certificate and confirm the OSD page clearly requires regenerating the certificate before boot image creation.
 

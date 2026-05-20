@@ -93,6 +93,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAutopilotTenantDownloadDialogService, AutopilotTenantDownloadDialogService>();
         services.AddSingleton<IAutopilotCertificateDialogService, AutopilotCertificateDialogService>();
         services.AddSingleton<IAutopilotProfileSelectionDialogService, AutopilotProfileSelectionDialogService>();
+        services.AddSingleton<IAutopilotHardwareHashSessionState, AutopilotHardwareHashSessionState>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();

@@ -464,6 +464,13 @@ public sealed class DeployConfigurationGeneratorTests
                 DisplayName = "Foundry OSD Autopilot Registration",
                 ExpiresOnUtc = expiration
             },
+            BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+            {
+                PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
+                PfxPassword = "correct-password",
+                ValidatedThumbprint = "ABCDEF123456",
+                ValidatedExpiresOnUtc = expiration
+            },
             KnownGroupTags = ["Sales", "Engineering"],
             DefaultGroupTag = "Sales"
         };

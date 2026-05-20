@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Services.Media;
@@ -42,6 +43,12 @@ public sealed record MediaPreflightOptions
     /// Gets a value indicating whether the selected Autopilot provisioning mode is valid.
     /// </summary>
     public bool IsAutopilotConfigurationReady { get; init; } = true;
+
+    /// <summary>
+    /// Gets the detailed Autopilot validation code for the selected provisioning mode.
+    /// </summary>
+    public AutopilotConfigurationValidationCode AutopilotConfigurationValidationCode { get; init; } =
+        AutopilotConfigurationValidationCode.Ready;
 
     /// <summary>
     /// Gets the selected Autopilot provisioning mode.

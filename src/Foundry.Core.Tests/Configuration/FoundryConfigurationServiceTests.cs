@@ -160,6 +160,13 @@ public sealed class FoundryConfigurationServiceTests
                         Thumbprint = "ABCDEF123456",
                         DisplayName = "Foundry OSD Autopilot Registration",
                         ExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                    },
+                    BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                    {
+                        PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
+                        PfxPassword = "PfxPassword-DoNotLeak",
+                        ValidatedThumbprint = "ABCDEF123456",
+                        ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
                     }
                 }
             }
@@ -172,6 +179,8 @@ public sealed class FoundryConfigurationServiceTests
         Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("privateKey", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("accessToken", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
+        Assert.DoesNotContain(@"E:\Secrets", json, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

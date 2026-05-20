@@ -423,6 +423,9 @@
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
     <value>Foundry will remove only the selected certificate from the managed app registration. Other app credentials will be preserved.</value>
   </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
+    <value>Foundry will remove only the {0} selected certificates from the managed app registration. Other app credentials will be preserved.</value>
+  </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Remove certificate</value>
   </data>
@@ -430,7 +433,7 @@
     <value>Certificate removed</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetiredMessage" xml:space="preserve">
-    <value>The selected certificate was removed from the managed app registration.</value>
+    <value>The selected certificate credentials were removed from the managed app registration.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Certificate removal failed</value>
@@ -465,6 +468,48 @@
   <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
     <value>Certificate ID</value>
   </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
+    <value>Boot media certificate</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
+    <value>PFX file</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
+    <value>PFX password</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
+    <value>Select PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
+    <value>Select Autopilot certificate PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
+    <value>Create or select an active app registration certificate first.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
+    <value>The active certificate is expired. Regenerate the certificate before creating boot media.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
+    <value>Select the matching password-protected PFX before creating boot media.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
+    <value>The selected PFX file no longer exists.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
+    <value>Enter the PFX password.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>The PFX certificate thumbprint does not match the active app registration certificate.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
+    <value>The selected PFX does not contain private key material.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
+    <value>The selected PFX could not be opened with the provided password.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
+    <value>Certificate ready for boot media generation.</value>
+  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagLabel" xml:space="preserve">
     <value>Default group tag</value>
   </data>
@@ -472,7 +517,7 @@
     <value>No default group tag selected.</value>
   </data>
   <data name="Autopilot.HardwareHashKnownGroupTagsLabel" xml:space="preserve">
-    <value>Known group tags</value>
+    <value>Available group tags</value>
   </data>
   <data name="Autopilot.HardwareHashKnownGroupTagsNone" xml:space="preserve">
     <value>No group tags discovered.</value>
@@ -1349,6 +1394,57 @@
   </data>
   <data name="StartMedia.Autopilot.NotReady" xml:space="preserve">
     <value>Enabled; default profile missing</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
+    <value>Autopilot uses an unsupported provisioning mode.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
+    <value>Autopilot JSON profile mode is enabled but no valid default profile is selected.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but settings are missing.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the tenant connection is missing. Connect to the tenant from Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the app registration is not configured. Connect to the tenant from Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the app client ID is missing. Reconnect to the tenant from Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the app service principal is missing or not ready.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but no active app registration certificate is configured.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the active certificate thumbprint is missing.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the active certificate expiration is missing.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the active certificate is expired. Regenerate the certificate and recreate boot media.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but no boot media PFX is selected.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the boot media PFX password is missing.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the boot media PFX has not been validated.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the selected PFX does not match the active certificate.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the boot media PFX expiration could not be validated.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
+    <value>Hardware hash upload is enabled but the selected boot media PFX is expired.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK or WinPE Add-on is not ready.</value>

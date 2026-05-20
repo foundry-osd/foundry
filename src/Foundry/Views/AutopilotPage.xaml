@@ -172,12 +172,30 @@
                             <TextBlock HorizontalAlignment="Right"
                                        Foreground="{x:Bind ViewModel.CertificateStatusForeground, Mode=OneWay}"
                                        Text="{x:Bind ViewModel.CertificateStatusText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
+                                       TextWrapping="WrapWholeWords"
+                                       Visibility="{x:Bind ViewModel.CertificateStatusVisibility, Mode=OneWay}" />
                             <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                        HorizontalAlignment="Right"
                                        Text="{x:Bind ViewModel.CertificateExpiredWarningText, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords"
                                        Visibility="{x:Bind ViewModel.HardwareHashCertificateWarningVisibility, Mode=OneWay}" />
+                            <StackPanel HorizontalAlignment="Right"
+                                        Orientation="Horizontal"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                          DisplayMemberPath="DisplayName"
+                                          Header="{x:Bind ViewModel.CertificateValidityLabel, Mode=OneWay}"
+                                          ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
+                                          SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
+                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        VerticalAlignment="Bottom"
+                                        Command="{x:Bind ViewModel.CreateCertificateCommand}"
+                                        Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
+                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        VerticalAlignment="Bottom"
+                                        Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
+                                        Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
+                            </StackPanel>
                             <tv:TableView x:Name="CertificatesTable"
                                           AutoGenerateColumns="False"
                                           CanFilterColumns="False"
@@ -190,7 +208,7 @@
                                           ItemsSource="{x:Bind ViewModel.Certificates, Mode=OneWay}"
                                           MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                                           SelectionChanged="CertificatesTable_SelectionChanged"
-                                          SelectionMode="Single"
+                                          SelectionMode="Multiple"
                                           SelectionUnit="Row"
                                           ShowExportOptions="False"
                                           Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
@@ -212,23 +230,37 @@
                                                             Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
                                 </tv:TableView.Columns>
                             </tv:TableView>
-                            <StackPanel HorizontalAlignment="Right"
-                                        Orientation="Horizontal"
-                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                          DisplayMemberPath="DisplayName"
-                                          Header="{x:Bind ViewModel.CertificateValidityLabel, Mode=OneWay}"
-                                          ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
-                                          SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
-                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard Header="{x:Bind ViewModel.BootMediaCertificateLabel, Mode=OneWay}"
+                                      HorizontalContentAlignment="Stretch"
+                                      Visibility="{x:Bind ViewModel.BootMediaCertificateVisibility, Mode=OneWay}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace8}">
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                         Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}"
+                                         IsReadOnly="True"
+                                         Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
+                                <Button Grid.Column="1"
+                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
                                         VerticalAlignment="Bottom"
-                                        Command="{x:Bind ViewModel.CreateCertificateCommand}"
-                                        Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
-                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                        VerticalAlignment="Bottom"
-                                        Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
-                                        Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
-                            </StackPanel>
+                                        Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}"
+                                        Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
+                            </Grid>
+                            <PasswordBox x:Name="BootMediaCertificatePasswordBox"
+                                         MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                         Header="{x:Bind ViewModel.BootMediaCertificatePasswordLabel, Mode=OneWay}"
+                                         Loaded="BootMediaCertificatePasswordBox_OnLoaded"
+                                         PasswordChanged="BootMediaCertificatePasswordBox_OnPasswordChanged" />
+                            <TextBlock Foreground="{x:Bind ViewModel.BootMediaCertificateStatusForeground, Mode=OneWay}"
+                                       Text="{x:Bind ViewModel.BootMediaCertificateStatusText, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
                         </StackPanel>
                     </wct:SettingsCard>
 
