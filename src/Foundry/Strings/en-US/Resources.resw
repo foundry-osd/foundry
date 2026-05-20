@@ -393,6 +393,63 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Force off</value>
   </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>AI component removal</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>Remove or disable selected Windows AI components before OOBE.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>Remove AI components</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>Remove Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>Remove the Copilot AppX package and turn off Windows Copilot policy.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>Remove Copilot+ AI Hub</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>Remove the Windows AI Hub provisioned AppX package when present.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>Disable Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>Set Windows AI policies that prevent Recall enablement and snapshot saving.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>Disable Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>Set Windows AI policies that turn off Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>Prevent Windows AI service autostart</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>Set WSAIFabricSvc to manual startup instead of automatic startup.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>Disable Microsoft Edge AI features</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>Set Edge policies that disable Copilot, sidebar, compose, and AI search features.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>Disable Paint AI features</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>Set Paint policies that disable Cocreator, generative editing, image creator, and background removal.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>Disable Notepad AI features</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>Set the Notepad policy that disables AI features.</value>
+  </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
     <value>Provisioned AppX removal</value>
   </data>

@@ -199,7 +199,7 @@ public sealed class PreOobeScriptProvisioningServiceTests
                             Content = """
                                 [
                                   {
-                                    "packageName": "Microsoft.Copilot"
+                                    "packageName": "Microsoft.BingNews"
                                   },
                                   {
                                     "packageName": "Microsoft.BingWeather"
@@ -227,10 +227,78 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.DoesNotContain("dism.exe", stagedScript);
         Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
         Assert.Contains("Write-FoundryLog", stagedScript);
-        Assert.DoesNotContain("Microsoft.Copilot", runner);
+        Assert.DoesNotContain("Microsoft.BingNews", runner);
         Assert.DoesNotContain("Microsoft.BingWeather", runner);
-        Assert.Contains("Microsoft.Copilot", stagedCatalog);
+        Assert.Contains("Microsoft.BingNews", stagedCatalog);
         Assert.Contains("Microsoft.BingWeather", stagedCatalog);
+    }
+
+    [Fact]
+    public void Provision_StagesAiComponentRemovalScriptWithSettings()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "remove-ai-components",
+                    FileName = "Remove-AiComponents.ps1",
+                    ResourceName = PreOobeScriptResources.RemoveAiComponents,
+                    Priority = PreOobeScriptPriority.Customization,
+                    DataFiles =
+                    [
+                        new PreOobeScriptDataFile
+                        {
+                            FileName = "Remove-AiComponents.settings.json",
+                            Content = """
+                                {
+                                  "appxPackages": [
+                                    {
+                                      "packageName": "Microsoft.Copilot"
+                                    },
+                                    {
+                                      "packageName": "Microsoft.Windows.AIHub"
+                                    }
+                                  ]
+                                }
+                                """
+                        }
+                    ]
+                }
+            ]);
+
+        string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
+        string stagedScript = File.ReadAllText(stagedScriptPath);
+        string runner = File.ReadAllText(result.RunnerPath);
+        string stagedSettings = File.ReadAllText(Path.Combine(Path.GetDirectoryName(result.RunnerPath)!, "Data", "Remove-AiComponents.settings.json"));
+
+        Assert.EndsWith(Path.Combine("Scripts", "Remove-AiComponents.ps1"), stagedScriptPath);
+        Assert.Contains("Remove-AiComponents.transcript.log", stagedScript);
+        Assert.Contains("Remove-AiComponents.settings.json", stagedScript);
+        Assert.Contains("Get-AppxProvisionedPackage -Online", stagedScript);
+        Assert.Contains("Remove-AppxProvisionedPackage @removeArguments", stagedScript);
+        Assert.Contains("Get-SelectedAiAppxPackageNames", stagedScript);
+        Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
+        Assert.DoesNotContain("-isnot $null", stagedScript);
+        Assert.DoesNotContain("Registry::", stagedScript);
+        Assert.DoesNotContain("reg.exe", stagedScript);
+        Assert.DoesNotContain("Users\\Default\\NTUSER.DAT", stagedScript);
+        Assert.DoesNotContain("TurnOffWindowsCopilot", stagedScript);
+        Assert.DoesNotContain("DisableAIDataAnalysis", stagedScript);
+        Assert.DoesNotContain("DisableClickToDo", stagedScript);
+        Assert.DoesNotContain("WSAIFabricSvc", stagedScript);
+        Assert.DoesNotContain("CopilotCDPPageContext", stagedScript);
+        Assert.DoesNotContain("DisableCocreator", stagedScript);
+        Assert.DoesNotContain("DisableAIFeatures", stagedScript);
+        Assert.Contains("Write-FoundryLog", stagedScript);
+        Assert.DoesNotContain("removeCopilot", runner);
+        Assert.Contains("\"packageName\": \"Microsoft.Copilot\"", stagedSettings);
+        Assert.Contains("\"packageName\": \"Microsoft.Windows.AIHub\"", stagedSettings);
+        Assert.DoesNotContain("removeCopilot", stagedSettings);
+        Assert.DoesNotContain("disableNotepadAi", stagedSettings);
     }
 
     [Fact]

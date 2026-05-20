@@ -265,6 +265,13 @@ Continuer ?</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>La partition Windows cible est indisponible.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nom de l’ordinateur cible configuré.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nom de l’ordinateur cible configuré (simulation).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personnalisation hors ligne désactivée.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Configuration des personnalisations hors ligne...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Écriture des valeurs du premier démarrage...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Configuration de la suppression des composants IA...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Écriture des stratégies IA hors ligne...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Personnalisation hors ligne configurée.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Personnalisation hors ligne configurée (simulation).</value></data>
   <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>Personnalisation OOBE désactivée.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Configuration des paramètres OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Écriture des valeurs de confidentialité du premier démarrage...</value></data>

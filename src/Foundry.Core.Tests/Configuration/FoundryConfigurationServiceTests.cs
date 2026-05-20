@@ -48,7 +48,19 @@ public sealed class FoundryConfigurationServiceTests
                 AppxRemoval = new AppxRemovalSettings
                 {
                     IsEnabled = true,
-                    PackageNames = ["Microsoft.BingWeather", "Microsoft.Copilot"]
+                    PackageNames = ["Microsoft.BingWeather", "Microsoft.GamingApp"]
+                },
+                AiComponentRemoval = new AiComponentRemovalSettings
+                {
+                    IsEnabled = true,
+                    RemoveCopilot = true,
+                    RemoveAiHub = true,
+                    DisableRecall = true,
+                    DisableClickToDo = true,
+                    DisableAiServiceAutoStart = true,
+                    DisableEdgeAi = true,
+                    DisablePaintAi = true,
+                    DisableNotepadAi = true
                 }
             },
             Telemetry = new TelemetrySettings
@@ -79,7 +91,16 @@ public sealed class FoundryConfigurationServiceTests
         Assert.False(loaded.Customization.Oobe.AllowInkingAndTypingDiagnostics);
         Assert.Equal(OobeLocationAccessMode.ForceOff, loaded.Customization.Oobe.LocationAccess);
         Assert.True(loaded.Customization.AppxRemoval.IsEnabled);
-        Assert.Equal(["Microsoft.BingWeather", "Microsoft.Copilot"], loaded.Customization.AppxRemoval.PackageNames);
+        Assert.Equal(["Microsoft.BingWeather", "Microsoft.GamingApp"], loaded.Customization.AppxRemoval.PackageNames);
+        Assert.True(loaded.Customization.AiComponentRemoval.IsEnabled);
+        Assert.True(loaded.Customization.AiComponentRemoval.RemoveCopilot);
+        Assert.True(loaded.Customization.AiComponentRemoval.RemoveAiHub);
+        Assert.True(loaded.Customization.AiComponentRemoval.DisableRecall);
+        Assert.True(loaded.Customization.AiComponentRemoval.DisableClickToDo);
+        Assert.True(loaded.Customization.AiComponentRemoval.DisableAiServiceAutoStart);
+        Assert.True(loaded.Customization.AiComponentRemoval.DisableEdgeAi);
+        Assert.True(loaded.Customization.AiComponentRemoval.DisablePaintAi);
+        Assert.True(loaded.Customization.AiComponentRemoval.DisableNotepadAi);
         Assert.False(loaded.Telemetry.IsEnabled);
         Assert.Equal("install-id", loaded.Telemetry.InstallId);
         Assert.Equal("project-token", loaded.Telemetry.ProjectToken);

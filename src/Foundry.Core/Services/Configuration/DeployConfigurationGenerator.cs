@@ -47,7 +47,10 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                                             document.Customization.MachineNaming.AllowManualSuffixEdit
                 },
                 Oobe = MapOobeSettings(document.Customization.Oobe),
-                AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval)
+                AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval),
+                AiComponentRemoval = MapAiComponentRemovalSettings(
+                    document.Customization.AiComponentRemoval,
+                    document.Customization.AppxRemoval)
             },
             Autopilot = new DeployAutopilotSettings
             {
@@ -142,6 +145,65 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 PackageNames = packageNames
             }
             : new DeployAppxRemovalSettings();
+    }
+
+    private static DeployAiComponentRemovalSettings MapAiComponentRemovalSettings(
+        AiComponentRemovalSettings settings,
+        AppxRemovalSettings legacyAppxRemoval)
+    {
+        bool removeCopilot = settings.IsEnabled && settings.RemoveCopilot ||
+            HasLegacyAppxRemovalPackage(legacyAppxRemoval, "Microsoft.Copilot");
+        bool removeAiHub = settings.IsEnabled && settings.RemoveAiHub ||
+            HasLegacyAppxRemovalPackage(legacyAppxRemoval, "Microsoft.Windows.AIHub");
+        bool isEnabled = settings.IsEnabled || removeCopilot || removeAiHub;
+        var effectiveSettings = new AiComponentRemovalSettings
+        {
+            IsEnabled = isEnabled,
+            RemoveCopilot = removeCopilot,
+            RemoveAiHub = removeAiHub,
+            DisableRecall = settings.IsEnabled && settings.DisableRecall,
+            DisableClickToDo = settings.IsEnabled && settings.DisableClickToDo,
+            DisableAiServiceAutoStart = settings.IsEnabled && settings.DisableAiServiceAutoStart,
+            DisableEdgeAi = settings.IsEnabled && settings.DisableEdgeAi,
+            DisablePaintAi = settings.IsEnabled && settings.DisablePaintAi,
+            DisableNotepadAi = settings.IsEnabled && settings.DisableNotepadAi
+        };
+
+        if (!effectiveSettings.IsEnabled || !HasAnyAiComponentRemovalOptionEnabled(effectiveSettings))
+        {
+            return new DeployAiComponentRemovalSettings();
+        }
+
+        return new DeployAiComponentRemovalSettings
+        {
+            IsEnabled = true,
+            RemoveCopilot = effectiveSettings.RemoveCopilot,
+            RemoveAiHub = effectiveSettings.RemoveAiHub,
+            DisableRecall = effectiveSettings.DisableRecall,
+            DisableClickToDo = effectiveSettings.DisableClickToDo,
+            DisableAiServiceAutoStart = effectiveSettings.DisableAiServiceAutoStart,
+            DisableEdgeAi = effectiveSettings.DisableEdgeAi,
+            DisablePaintAi = effectiveSettings.DisablePaintAi,
+            DisableNotepadAi = effectiveSettings.DisableNotepadAi
+        };
+    }
+
+    private static bool HasAnyAiComponentRemovalOptionEnabled(AiComponentRemovalSettings settings)
+    {
+        return settings.RemoveCopilot ||
+            settings.RemoveAiHub ||
+            settings.DisableRecall ||
+            settings.DisableClickToDo ||
+            settings.DisableAiServiceAutoStart ||
+            settings.DisableEdgeAi ||
+            settings.DisablePaintAi ||
+            settings.DisableNotepadAi;
+    }
+
+    private static bool HasLegacyAppxRemovalPackage(AppxRemovalSettings settings, string packageName)
+    {
+        return settings.IsEnabled &&
+            settings.PackageNames.Any(value => string.Equals(value.Trim(), packageName, StringComparison.OrdinalIgnoreCase));
     }
 
     private static string[] CanonicalizePackageNames(IEnumerable<string> packageNames)

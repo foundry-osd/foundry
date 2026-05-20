@@ -10,7 +10,7 @@ public sealed record FoundryConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Foundry configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 6;
+    public const int CurrentSchemaVersion = 7;
 
     /// <summary>
     /// Gets the schema version of this configuration document.

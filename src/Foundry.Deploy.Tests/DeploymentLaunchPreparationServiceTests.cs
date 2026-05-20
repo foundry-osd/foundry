@@ -84,7 +84,13 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DeployAppxRemovalSettings appxRemoval = new()
         {
             IsEnabled = true,
-            PackageNames = ["Microsoft.Copilot", "Microsoft.BingWeather"]
+            PackageNames = ["Microsoft.BingNews", "Microsoft.BingWeather"]
+        };
+        DeployAiComponentRemovalSettings aiComponentRemoval = new()
+        {
+            IsEnabled = true,
+            RemoveCopilot = true,
+            DisableRecall = true
         };
 
         DeploymentLaunchPreparationResult result = service.Prepare(
@@ -97,7 +103,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 isAutopilotEnabled: true,
                 selectedAutopilotProfile: autopilotProfile,
                 oobe: oobe,
-                appxRemoval: appxRemoval));
+                appxRemoval: appxRemoval,
+                aiComponentRemoval: aiComponentRemoval));
 
         Assert.True(result.IsReadyToStart);
         Assert.Equal("LAB01", result.NormalizedComputerName);
@@ -109,6 +116,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Same(autopilotProfile, result.Context?.SelectedAutopilotProfile);
         Assert.Same(oobe, result.Context?.Oobe);
         Assert.Same(appxRemoval, result.Context?.AppxRemoval);
+        Assert.Same(aiComponentRemoval, result.Context?.AiComponentRemoval);
     }
 
     [Fact]
@@ -151,6 +159,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
+        DeployAiComponentRemovalSettings? aiComponentRemoval = null,
         bool isDryRun = false)
     {
         return new DeploymentLaunchRequest
@@ -178,6 +187,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             SelectedAutopilotProfile = selectedAutopilotProfile,
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
+            AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),
             IsDryRun = isDryRun
         };
     }

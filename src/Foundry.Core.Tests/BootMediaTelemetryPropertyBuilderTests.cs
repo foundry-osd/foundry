@@ -55,6 +55,18 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                         .Where(entry => entry.Category == "Gaming / Xbox")
                         .Select(entry => entry.PackageName)
                         .ToArray()
+                },
+                AiComponentRemoval = new AiComponentRemovalSettings
+                {
+                    IsEnabled = true,
+                    RemoveCopilot = true,
+                    RemoveAiHub = true,
+                    DisableRecall = true,
+                    DisableClickToDo = true,
+                    DisableAiServiceAutoStart = true,
+                    DisableEdgeAi = true,
+                    DisablePaintAi = true,
+                    DisableNotepadAi = true
                 }
             },
             Localization = new LocalizationSettings
@@ -113,6 +125,16 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(8, result["customization_appx_removal_package_count"]);
         Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);
+        Assert.True((bool)result["customization_ai_component_removal_enabled"]!);
+        Assert.True((bool)result["customization_ai_remove_copilot_enabled"]!);
+        Assert.True((bool)result["customization_ai_remove_ai_hub_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_recall_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_click_to_do_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_service_autostart_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_edge_ai_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_paint_ai_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_notepad_ai_enabled"]!);
+        Assert.Equal(8, result["customization_ai_component_removal_option_count"]);
         Assert.True((bool)result["localization_any_enabled"]!);
         Assert.Equal(2, result["localization_visible_languages_count"]);
         Assert.True((bool)result["localization_default_language_configured"]!);
@@ -151,7 +173,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                     IsEnabled = true,
                     PackageNames =
                     [
-                        "Microsoft.Copilot",
+                        "Microsoft.BingWeather",
                         "Microsoft.GamingApp"
                     ]
                 }
@@ -171,6 +193,51 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(2, result["customization_appx_removal_package_count"]);
         Assert.Equal("custom", result["customization_appx_removal_profile"]);
+    }
+
+    [Fact]
+    public void Build_WhenAiComponentRemovalIsDisabled_DoesNotReportChildOptions()
+    {
+        var options = new MediaPreflightOptions();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AiComponentRemoval = new AiComponentRemovalSettings
+                {
+                    IsEnabled = false,
+                    RemoveCopilot = true,
+                    RemoveAiHub = true,
+                    DisableRecall = true,
+                    DisableClickToDo = true,
+                    DisableAiServiceAutoStart = true,
+                    DisableEdgeAi = true,
+                    DisablePaintAi = true,
+                    DisableNotepadAi = true
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            options,
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.False((bool)result["customization_ai_component_removal_enabled"]!);
+        Assert.False((bool)result["customization_ai_remove_copilot_enabled"]!);
+        Assert.False((bool)result["customization_ai_remove_ai_hub_enabled"]!);
+        Assert.False((bool)result["customization_ai_disable_recall_enabled"]!);
+        Assert.False((bool)result["customization_ai_disable_click_to_do_enabled"]!);
+        Assert.False((bool)result["customization_ai_disable_service_autostart_enabled"]!);
+        Assert.False((bool)result["customization_ai_disable_edge_ai_enabled"]!);
+        Assert.False((bool)result["customization_ai_disable_paint_ai_enabled"]!);
+        Assert.False((bool)result["customization_ai_disable_notepad_ai_enabled"]!);
+        Assert.Equal(0, result["customization_ai_component_removal_option_count"]);
     }
 
     [Fact]

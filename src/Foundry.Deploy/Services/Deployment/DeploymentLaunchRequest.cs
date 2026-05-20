@@ -18,5 +18,6 @@ public sealed record DeploymentLaunchRequest
     public required AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
     public DeployOobeSettings Oobe { get; init; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
+    public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();
     public required bool IsDryRun { get; init; }
 }

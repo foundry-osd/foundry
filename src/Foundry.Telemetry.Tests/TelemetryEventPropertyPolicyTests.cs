@@ -61,6 +61,16 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["customization_appx_removal_package_count"] = 8,
             ["customization_appx_removal_profile"] = "gaming_xbox",
             ["customization_appx_removal_package_names"] = "Microsoft.XboxApp",
+            ["customization_ai_component_removal_enabled"] = true,
+            ["customization_ai_remove_copilot_enabled"] = true,
+            ["customization_ai_remove_ai_hub_enabled"] = true,
+            ["customization_ai_disable_recall_enabled"] = true,
+            ["customization_ai_disable_click_to_do_enabled"] = true,
+            ["customization_ai_disable_service_autostart_enabled"] = true,
+            ["customization_ai_disable_edge_ai_enabled"] = true,
+            ["customization_ai_disable_paint_ai_enabled"] = true,
+            ["customization_ai_disable_notepad_ai_enabled"] = true,
+            ["customization_ai_component_removal_option_count"] = 8,
             ["ssid"] = "CorpWifi",
             ["iso_output_path"] = @"C:\Temp\Foundry.iso"
         };
@@ -118,6 +128,16 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(8, result["customization_appx_removal_package_count"]);
         Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);
+        Assert.True((bool)result["customization_ai_component_removal_enabled"]!);
+        Assert.True((bool)result["customization_ai_remove_copilot_enabled"]!);
+        Assert.True((bool)result["customization_ai_remove_ai_hub_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_recall_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_click_to_do_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_service_autostart_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_edge_ai_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_paint_ai_enabled"]!);
+        Assert.True((bool)result["customization_ai_disable_notepad_ai_enabled"]!);
+        Assert.Equal(8, result["customization_ai_component_removal_option_count"]);
         Assert.False(result.ContainsKey("customization_appx_removal_package_names"));
         Assert.False(result.ContainsKey("ssid"));
         Assert.False(result.ContainsKey("iso_output_path"));

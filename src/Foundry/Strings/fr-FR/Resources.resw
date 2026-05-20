@@ -393,6 +393,63 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Forcer la désactivation</value>
   </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>Suppression des composants IA</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>Supprimer ou désactiver les composants IA Windows sélectionnés avant l’OOBE.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>Supprimer les composants IA</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>Supprimer Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>Supprimer le package AppX Copilot et désactiver la stratégie Windows Copilot.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>Supprimer Copilot+ AI Hub</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>Supprimer le package AppX provisionné Windows AI Hub lorsqu’il est présent.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>Désactiver Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>Définir les stratégies Windows AI qui empêchent l’activation de Recall et l’enregistrement d’instantanés.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>Désactiver Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>Définir les stratégies Windows AI qui désactivent Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>Empêcher le démarrage automatique du service IA Windows</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>Définir WSAIFabricSvc en démarrage manuel au lieu du démarrage automatique.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>Désactiver les fonctionnalités IA de Microsoft Edge</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>Définir les stratégies Edge qui désactivent Copilot, la barre latérale, la composition et la recherche IA.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>Désactiver les fonctionnalités IA de Paint</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>Définir les stratégies Paint qui désactivent Cocreator, l’édition générative, le créateur d’images et la suppression d’arrière-plan.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>Désactiver les fonctionnalités IA du Bloc-notes</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>Définir la stratégie Bloc-notes qui désactive les fonctionnalités IA.</value>
+  </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
     <value>Suppression AppX provisionnée</value>
   </data>

@@ -116,12 +116,71 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Empty(processRunner.Calls);
     }
 
+    [Fact]
+    public async Task ConfigureOfflineAiComponentRemovalAsync_WhenEnabled_WritesOfflinePolicies()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureOfflineAiComponentRemovalAsync(
+            windowsRoot,
+            new DeployAiComponentRemovalSettings
+            {
+                IsEnabled = true,
+                RemoveCopilot = true,
+                RemoveAiHub = true,
+                DisableRecall = true,
+                DisableClickToDo = true,
+                DisableAiServiceAutoStart = true,
+                DisableEdgeAi = true,
+                DisablePaintAi = true,
+                DisableNotepadAi = true
+            },
+            workingDirectory);
+
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"LOAD HKLM\FoundrySoftware", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"LOAD HKLM\FoundrySystem", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"LOAD HKU\FoundryDefault", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"WindowsCopilot", StringComparison.Ordinal) && call.Contains("TurnOffWindowsCopilot", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"WindowsAI", StringComparison.Ordinal) && call.Contains("DisableAIDataAnalysis", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"WindowsAI", StringComparison.Ordinal) && call.Contains("DisableClickToDo", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"ControlSet001\Services\WSAIFabricSvc", StringComparison.Ordinal) && call.Contains("Start", StringComparison.Ordinal) && call.Contains("/d 3", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"Policies\Microsoft\Edge", StringComparison.Ordinal) && call.Contains("CopilotPageContext", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"Policies\Paint", StringComparison.Ordinal) && call.Contains("DisableCocreator", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"Policies\WindowsNotepad", StringComparison.Ordinal) && call.Contains("DisableAIFeatures", StringComparison.Ordinal) && call.Contains("/d 1", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"FoundryDefault\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", StringComparison.Ordinal) && call.Contains("ShowCopilotButton", StringComparison.Ordinal) && call.Contains("/d 0", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"UNLOAD HKLM\FoundrySoftware", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"UNLOAD HKLM\FoundrySystem", StringComparison.Ordinal));
+        Assert.Contains(processRunner.Calls, call => call.Contains(@"UNLOAD HKU\FoundryDefault", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineAiComponentRemovalAsync_WhenDisabled_DoesNotWritePolicies()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureOfflineAiComponentRemovalAsync(
+            windowsRoot,
+            new DeployAiComponentRemovalSettings(),
+            workingDirectory);
+
+        Assert.Empty(processRunner.Calls);
+    }
+
     private static string CreateWindowsRoot(TemporaryWorkspace workspace)
     {
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
         Directory.CreateDirectory(Path.Combine(windowsRoot, "Windows", "System32", "config"));
         Directory.CreateDirectory(Path.Combine(windowsRoot, "Users", "Default"));
         File.WriteAllText(Path.Combine(windowsRoot, "Windows", "System32", "config", "SOFTWARE"), string.Empty);
+        File.WriteAllText(Path.Combine(windowsRoot, "Windows", "System32", "config", "SYSTEM"), string.Empty);
         File.WriteAllText(Path.Combine(windowsRoot, "Users", "Default", "NTUSER.DAT"), string.Empty);
         return windowsRoot;
     }

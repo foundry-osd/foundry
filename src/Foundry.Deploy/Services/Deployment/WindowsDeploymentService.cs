@@ -25,6 +25,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private readonly ILogger<WindowsDeploymentService> _logger;
     private readonly UnattendDocumentService _unattendDocumentService;
     private readonly OobePolicyRegistryWriter _oobePolicyRegistryWriter;
+    private readonly AiComponentRemovalRegistryWriter _aiComponentRemovalRegistryWriter;
 
     /// <summary>
     /// Initializes a Windows deployment service.
@@ -37,6 +38,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger = logger;
         _unattendDocumentService = new UnattendDocumentService();
         _oobePolicyRegistryWriter = new OobePolicyRegistryWriter(processRunner);
+        _aiComponentRemovalRegistryWriter = new AiComponentRemovalRegistryWriter(processRunner);
     }
 
     /// <inheritdoc />
@@ -399,6 +401,56 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             windowsPartitionRoot,
             settings.DiagnosticDataLevel,
             settings.LocationAccess);
+    }
+
+    /// <inheritdoc />
+    public async Task ConfigureOfflineAiComponentRemovalAsync(
+        string windowsPartitionRoot,
+        DeployAiComponentRemovalSettings settings,
+        string workingDirectory,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (string.IsNullOrWhiteSpace(windowsPartitionRoot))
+        {
+            throw new ArgumentException("Windows partition root is required.", nameof(windowsPartitionRoot));
+        }
+
+        Directory.CreateDirectory(workingDirectory);
+
+        if (!settings.IsEnabled || !HasAnyAiPolicyOptionEnabled(settings))
+        {
+            _logger.LogInformation("AI policy customization is disabled.");
+            return;
+        }
+
+        await _aiComponentRemovalRegistryWriter
+            .ApplyAsync(windowsPartitionRoot, settings, workingDirectory, cancellationToken)
+            .ConfigureAwait(false);
+
+        _logger.LogInformation(
+            "Offline AI policy customization configured. WindowsPartitionRoot={WindowsPartitionRoot}, RemoveCopilot={RemoveCopilot}, DisableRecall={DisableRecall}, DisableClickToDo={DisableClickToDo}, DisableAiServiceAutoStart={DisableAiServiceAutoStart}, DisableEdgeAi={DisableEdgeAi}, DisablePaintAi={DisablePaintAi}, DisableNotepadAi={DisableNotepadAi}",
+            windowsPartitionRoot,
+            settings.RemoveCopilot,
+            settings.DisableRecall,
+            settings.DisableClickToDo,
+            settings.DisableAiServiceAutoStart,
+            settings.DisableEdgeAi,
+            settings.DisablePaintAi,
+            settings.DisableNotepadAi);
+    }
+
+    private static bool HasAnyAiPolicyOptionEnabled(DeployAiComponentRemovalSettings settings)
+    {
+        return settings.RemoveCopilot ||
+            settings.DisableRecall ||
+            settings.DisableClickToDo ||
+            settings.DisableAiServiceAutoStart ||
+            settings.DisableEdgeAi ||
+            settings.DisablePaintAi ||
+            settings.DisableNotepadAi;
     }
 
     private static string? ResolveUnattendTimeZoneId(string? timeZoneId)

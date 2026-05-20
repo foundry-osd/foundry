@@ -19,4 +19,9 @@ public sealed record DeployCustomizationSettings
     /// Gets provisioned AppX removal settings applied before OOBE.
     /// </summary>
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
+
+    /// <summary>
+    /// Gets Windows AI component removal settings applied before OOBE.
+    /// </summary>
+    public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();
 }

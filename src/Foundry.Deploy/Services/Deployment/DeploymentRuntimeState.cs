@@ -226,6 +226,11 @@ public sealed record DeploymentRuntimeState
     public DeployAppxRemovalSettings AppxRemoval { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets Windows AI component removal settings staged for pre-OOBE execution.
+    /// </summary>
+    public DeployAiComponentRemovalSettings AiComponentRemoval { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets the transient Foundry workspace on the target Windows partition.
     /// Finalization rebinds retained artifacts under Windows\Temp\Foundry and removes this root.
     /// </summary>

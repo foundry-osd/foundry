@@ -177,6 +177,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         context.EmitCurrentStepIndeterminate("Applying driver pack...", "Updating SetupComplete hook...");
         IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
             context.RuntimeState.AppxRemoval,
+            context.RuntimeState.AiComponentRemoval,
             new PreOobeDriverPackScriptSettings
             {
                 CommandKind = executionPlan.DeferredCommandKind,
@@ -268,6 +269,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         context.RuntimeState.PreOobeScriptPaths = _preOobeScriptDefinitionBuilder
             .Build(
                 context.RuntimeState.AppxRemoval,
+                context.RuntimeState.AiComponentRemoval,
                 new PreOobeDriverPackScriptSettings
                 {
                     CommandKind = DeferredDriverPackageCommandKind.LenovoExecutable,
