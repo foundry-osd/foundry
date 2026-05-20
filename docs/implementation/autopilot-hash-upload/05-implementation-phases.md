@@ -71,7 +71,7 @@ Implementation progress:
 - [x] Implementation checklist complete.
 - [ ] Automated tests complete.
 - [ ] Manual checks complete or explicitly deferred.
-- [ ] PR opened with the planned title.
+- [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
