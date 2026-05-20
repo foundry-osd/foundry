@@ -59,15 +59,17 @@ public sealed class AutopilotConfigurationValidatorTests
     }
 
     [Theory]
-    [InlineData("", "application-object-id", "client-id", "certificate-key-id", "ABCDEF123456")]
-    [InlineData("tenant-id", "", "client-id", "certificate-key-id", "ABCDEF123456")]
-    [InlineData("tenant-id", "application-object-id", "", "certificate-key-id", "ABCDEF123456")]
-    [InlineData("tenant-id", "application-object-id", "client-id", "", "ABCDEF123456")]
-    [InlineData("tenant-id", "application-object-id", "client-id", "certificate-key-id", "")]
+    [InlineData("", "application-object-id", "client-id", "service-principal-object-id", "certificate-key-id", "ABCDEF123456")]
+    [InlineData("tenant-id", "", "client-id", "service-principal-object-id", "certificate-key-id", "ABCDEF123456")]
+    [InlineData("tenant-id", "application-object-id", "", "service-principal-object-id", "certificate-key-id", "ABCDEF123456")]
+    [InlineData("tenant-id", "application-object-id", "client-id", "", "certificate-key-id", "ABCDEF123456")]
+    [InlineData("tenant-id", "application-object-id", "client-id", "service-principal-object-id", "", "ABCDEF123456")]
+    [InlineData("tenant-id", "application-object-id", "client-id", "service-principal-object-id", "certificate-key-id", "")]
     public void IsReady_WhenHardwareHashModeHasMissingRequiredMetadata_ReturnsFalse(
         string tenantId,
         string applicationObjectId,
         string clientId,
+        string servicePrincipalObjectId,
         string keyId,
         string thumbprint)
     {
@@ -80,6 +82,7 @@ public sealed class AutopilotConfigurationValidatorTests
                 tenantId,
                 applicationObjectId,
                 clientId,
+                servicePrincipalObjectId,
                 keyId,
                 thumbprint)
         };
@@ -173,6 +176,7 @@ public sealed class AutopilotConfigurationValidatorTests
         string tenantId = "tenant-id",
         string applicationObjectId = "application-object-id",
         string clientId = "client-id",
+        string servicePrincipalObjectId = "service-principal-object-id",
         string keyId = "certificate-key-id",
         string thumbprint = "ABCDEF123456")
     {
@@ -183,7 +187,7 @@ public sealed class AutopilotConfigurationValidatorTests
                 TenantId = tenantId,
                 ApplicationObjectId = applicationObjectId,
                 ClientId = clientId,
-                ServicePrincipalObjectId = "service-principal-object-id"
+                ServicePrincipalObjectId = servicePrincipalObjectId
             },
             ActiveCertificate = new AutopilotCertificateMetadata
             {

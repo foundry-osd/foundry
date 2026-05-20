@@ -245,6 +245,33 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
+    public async Task ProvisionAsync_WhenDeployConfigurationHasEncryptedSecret_WritesSecretKeyUnderConfigSecrets()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                DeployConfigurationJson = CreateDeployConfigurationWithEncryptedSecret(),
+                MediaSecretsKey = secretKey
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
+    }
+
+    [Fact]
     public async Task ProvisionAsync_WhenMediaSecretKeyHasNoEncryptedSecret_ReturnsFailure()
     {
         using TempMountedImage image = TempMountedImage.Create();
@@ -408,6 +435,27 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
               "http://www.msftconnecttest.com/connecttest.txt"
             ],
             "timeoutSeconds": 5
+          }
+        }
+        """;
+    }
+
+    private static string CreateDeployConfigurationWithEncryptedSecret()
+    {
+        return """
+        {
+          "schemaVersion": 1,
+          "autopilot": {
+            "hardwareHashUpload": {
+              "pfxSecret": {
+                "kind": "encrypted",
+                "algorithm": "aes-gcm-v1",
+                "keyId": "media",
+                "nonce": "AAAAAAAAAAAAAAAA",
+                "tag": "AAAAAAAAAAAAAAAAAAAAAA",
+                "ciphertext": "AAAAAAAA"
+              }
+            }
           }
         }
         """;

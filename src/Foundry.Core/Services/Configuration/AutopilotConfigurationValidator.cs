@@ -79,6 +79,7 @@ public static class AutopilotConfigurationValidator
         return !string.IsNullOrWhiteSpace(settings.Tenant.TenantId) &&
                !string.IsNullOrWhiteSpace(settings.Tenant.ApplicationObjectId) &&
                !string.IsNullOrWhiteSpace(settings.Tenant.ClientId) &&
+               !string.IsNullOrWhiteSpace(settings.Tenant.ServicePrincipalObjectId) &&
                !string.IsNullOrWhiteSpace(settings.ActiveCertificate?.KeyId) &&
                !string.IsNullOrWhiteSpace(settings.ActiveCertificate.Thumbprint) &&
                settings.ActiveCertificate.ExpiresOnUtc is { } expiresOnUtc &&

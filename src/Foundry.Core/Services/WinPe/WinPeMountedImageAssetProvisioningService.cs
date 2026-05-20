@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Services.WinPe;
@@ -106,6 +107,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         await WriteMediaSecretsKeyAsync(
             foundryConfigPath,
             connectConfigurationJson,
+            deployConfigurationJson,
             options.MediaSecretsKey,
             cancellationToken).ConfigureAwait(false);
 
@@ -134,15 +136,17 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private static async Task WriteMediaSecretsKeyAsync(
         string foundryConfigPath,
         string connectConfigurationJson,
+        string deployConfigurationJson,
         byte[]? mediaSecretsKey,
         CancellationToken cancellationToken)
     {
-        bool hasEncryptedSecrets = HasEncryptedSecrets(connectConfigurationJson);
+        bool hasEncryptedSecrets = MediaSecretEnvelopeProtector.HasEncryptedSecrets(connectConfigurationJson) ||
+                                   MediaSecretEnvelopeProtector.HasEncryptedSecrets(deployConfigurationJson);
         if (mediaSecretsKey is null || mediaSecretsKey.Length == 0)
         {
             if (hasEncryptedSecrets)
             {
-                throw new ArgumentException("Foundry Connect encrypted secrets require a media secret key.");
+                throw new ArgumentException("Foundry encrypted media secrets require a media secret key.");
             }
 
             return;
@@ -150,7 +154,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
         if (!hasEncryptedSecrets)
         {
-            throw new ArgumentException("A media secret key must not be provisioned without encrypted Foundry Connect secrets.");
+            throw new ArgumentException("A media secret key must not be provisioned without encrypted Foundry media secrets.");
         }
 
         if (mediaSecretsKey.Length != 32)
@@ -164,67 +168,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             Path.Combine(secretsPath, "media-secrets.key"),
             mediaSecretsKey,
             cancellationToken).ConfigureAwait(false);
-    }
-
-    private static bool HasEncryptedSecrets(string connectConfigurationJson)
-    {
-        using JsonDocument document = JsonDocument.Parse(connectConfigurationJson);
-        return HasEncryptedSecrets(document.RootElement);
-    }
-
-    private static bool HasEncryptedSecrets(JsonElement element)
-    {
-        if (element.ValueKind == JsonValueKind.Object)
-        {
-            if (IsEncryptedSecretEnvelope(element))
-            {
-                return true;
-            }
-
-            foreach (JsonProperty property in element.EnumerateObject())
-            {
-                if (HasEncryptedSecrets(property.Value))
-                {
-                    return true;
-                }
-            }
-        }
-        else if (element.ValueKind == JsonValueKind.Array)
-        {
-            foreach (JsonElement item in element.EnumerateArray())
-            {
-                if (HasEncryptedSecrets(item))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private static bool IsEncryptedSecretEnvelope(JsonElement element)
-    {
-        return HasStringProperty(element, "kind", "encrypted") &&
-               HasStringProperty(element, "algorithm", "aes-gcm-v1") &&
-               HasStringProperty(element, "keyId", "media") &&
-               HasNonEmptyStringProperty(element, "nonce") &&
-               HasNonEmptyStringProperty(element, "tag") &&
-               HasNonEmptyStringProperty(element, "ciphertext");
-    }
-
-    private static bool HasStringProperty(JsonElement element, string propertyName, string expectedValue)
-    {
-        return element.TryGetProperty(propertyName, out JsonElement property) &&
-               property.ValueKind == JsonValueKind.String &&
-               string.Equals(property.GetString(), expectedValue, StringComparison.Ordinal);
-    }
-
-    private static bool HasNonEmptyStringProperty(JsonElement element, string propertyName)
-    {
-        return element.TryGetProperty(propertyName, out JsonElement property) &&
-               property.ValueKind == JsonValueKind.String &&
-               !string.IsNullOrWhiteSpace(property.GetString());
     }
 
     private static void CopyConnectAssetFiles(

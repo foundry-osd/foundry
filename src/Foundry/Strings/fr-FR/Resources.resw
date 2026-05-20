@@ -303,6 +303,9 @@
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Se connecter au tenant</value>
   </data>
+  <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
+    <value>Connexion au tenant...</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Connexion tenant</value>
   </data>
@@ -321,8 +324,92 @@
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
     <value>{0} est configurée.</value>
   </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
+    <value>État de l'onboarding</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotChecked" xml:space="preserve">
+    <value>Connectez le tenant pour vérifier les permissions, le consentement, le service principal et le certificat.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
+    <value>Prêt. Les permissions, le consentement admin, le service principal et le certificat actif sont valides.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusAppMissing" xml:space="preserve">
+    <value>L'app registration managée est introuvable.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusAdoptionRequired" xml:space="preserve">
+    <value>Une app registration managée existante a été trouvée et doit être adoptée avant la génération du média.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusPermissionMissing" xml:space="preserve">
+    <value>L'app registration managée n'a pas les permissions Microsoft Graph applicatives requises.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusConsentMissing" xml:space="preserve">
+    <value>Le consentement admin est manquant pour les permissions Microsoft Graph applicatives requises.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusServicePrincipalUnavailable" xml:space="preserve">
+    <value>Le service principal de l'app managée est manquant ou désactivé.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusCertificateMissing" xml:space="preserve">
+    <value>Aucun certificat actif n'est sélectionné. Créez un certificat avant de générer le média de démarrage.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusCertificateNotFound" xml:space="preserve">
+    <value>Le certificat actif sélectionné n'existe plus dans l'app registration managée.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusCertificateExpired" xml:space="preserve">
+    <value>Le certificat actif est expiré. Regénérez le certificat et le média de démarrage.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusMultipleCertificates" xml:space="preserve">
+    <value>Plusieurs certificats Foundry existent et aucun certificat actif ne peut être sélectionné depuis les métadonnées persistées.</value>
+  </data>
   <data name="Autopilot.HardwareHashCertificateStatusLabel" xml:space="preserve">
     <value>Certificat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidityLabel" xml:space="preserve">
+    <value>Validité</value>
+  </data>
+  <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
+    <value>Créer le certificat</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
+    <value>Supprimer le certificat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
+    <value>Enregistrer le PFX Autopilot</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
+    <value>Certificat PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
+    <value>Certificat créé</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedMessageFormat" xml:space="preserve">
+    <value>Le PFX a été enregistré ici : {1}. Stockez ce mot de passe maintenant ; Foundry ne l'affichera plus : {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
+    <value>Échec de création du certificat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
+    <value>Foundry n'a pas pu créer le certificat de l'app registration. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
+    <value>Supprimer le certificat actif ?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
+    <value>Foundry supprimera uniquement le certificat actif sélectionné dans l'app registration managée. Les autres identifiants de l'app seront conservés.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
+    <value>Supprimer le certificat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetiredTitle" xml:space="preserve">
+    <value>Certificat supprimé</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetiredMessage" xml:space="preserve">
+    <value>Le certificat actif a été supprimé de l'app registration managée.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
+    <value>Échec de suppression du certificat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
+    <value>Foundry n'a pas pu supprimer le certificat actif de l'app registration. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateMissing" xml:space="preserve">
     <value>Aucun certificat actif n'est configuré.</value>
@@ -351,11 +438,17 @@
   <data name="Autopilot.HardwareHashKnownGroupTagsNone" xml:space="preserve">
     <value>Aucun group tag découvert.</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingUnavailableTitle" xml:space="preserve">
-    <value>Onboarding tenant</value>
+  <data name="Autopilot.HardwareHashOnboardingCompletedTitle" xml:space="preserve">
+    <value>Onboarding tenant terminé</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingUnavailableMessage" xml:space="preserve">
-    <value>L'onboarding tenant et la création de certificat seront implémentés dans la prochaine phase de sécurité.</value>
+  <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
+    <value>L'onboarding tenant demande une action</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
+    <value>Échec de l'onboarding tenant</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
+    <value>Foundry n'a pas pu configurer l'app registration Autopilot. {0}</value>
   </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Personnalisation</value>

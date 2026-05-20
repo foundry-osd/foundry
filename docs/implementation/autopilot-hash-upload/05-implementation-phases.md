@@ -67,48 +67,49 @@ Manual checks:
 PR title: `feat(autopilot): add secure tenant upload onboarding`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Implementation checklist complete.
 - [ ] Automated tests complete.
 - [ ] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
-- [ ] Define tenant/app registration guidance for the OSD onboarding UX and Phase 8 documentation.
-- [ ] Implement managed app registration discovery/creation with display name `Foundry OSD Autopilot Registration`.
-- [ ] Persist tenant ID, application object ID, client ID, service principal object ID, active certificate `keyId`, active certificate thumbprint, and certificate expiration.
-- [ ] Implement required Graph permission checks and admin consent status checks.
-- [ ] Implement service principal presence/enabled checks.
-- [ ] Implement active certificate lifecycle management against Microsoft Graph `keyCredentials`.
-- [ ] Merge new certificate credentials with the existing `keyCredentials` collection and never prune unknown credentials automatically.
-- [ ] Implement repair/adoption state for existing display-name matches, missing active certificate credentials, and multiple Foundry-looking credentials without a persisted active certificate.
-- [ ] Accept only password-protected PFX material for media generation.
-- [ ] Require a PFX output path during certificate creation.
-- [ ] Keep created PFX bytes and password in memory only for the current app session.
-- [ ] Do not implement a ProgramData PFX vault or "remember this PFX" option.
-- [ ] Validate the PFX leaf certificate thumbprint against the configured active certificate thumbprint.
-- [ ] Define certificate app-only auth as the only supported WinPE Graph authentication path for code, XML documentation comments, and Phase 8 documentation.
-- [ ] Define generated media containing encrypted certificate private key material as tenant-sensitive for code warnings, UI copy, and Phase 8 documentation.
-- [ ] Generalize the existing Foundry Connect AES-GCM media secret envelope for Autopilot secrets.
-- [ ] Define device code flow, client secrets, and brokered upload as unsupported WinPE authentication modes.
-- [ ] Define unsupported secret embedding patterns and add test coverage for them.
-- [ ] Add audit-safe logging rules.
-- [ ] Add XML documentation comments to new public tenant onboarding, certificate, and secret-protection APIs.
+- [x] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
+- [x] Define tenant/app registration guidance for the OSD onboarding UX and Phase 8 documentation.
+- [x] Implement managed app registration discovery/creation with display name `Foundry OSD Autopilot Registration`.
+- [x] Persist tenant ID, application object ID, client ID, service principal object ID, active certificate `keyId`, active certificate thumbprint, and certificate expiration.
+- [x] Implement required Graph permission checks and admin consent status checks.
+- [x] Implement service principal presence/enabled checks.
+- [x] Implement active certificate lifecycle management against Microsoft Graph `keyCredentials`.
+- [x] Merge new certificate credentials with the existing `keyCredentials` collection and never prune unknown credentials automatically.
+- [x] Implement repair/adoption state for existing display-name matches, missing active certificate credentials, and multiple Foundry-looking credentials without a persisted active certificate.
+- [x] Accept only password-protected PFX material for media generation.
+- [x] Require a PFX output path during certificate creation.
+- [x] Keep created PFX bytes and password in memory only for the current app session.
+- [x] Do not implement a ProgramData PFX vault or "remember this PFX" option.
+- [x] Validate the PFX leaf certificate thumbprint against the configured active certificate thumbprint.
+- [x] Define certificate app-only auth as the only supported WinPE Graph authentication path for code, XML documentation comments, and Phase 8 documentation.
+- [x] Define generated media containing encrypted certificate private key material as tenant-sensitive for code warnings, UI copy, and Phase 8 documentation.
+- [x] Generalize the existing Foundry Connect AES-GCM media secret envelope for Autopilot secrets.
+- [x] Define device code flow, client secrets, and brokered upload as unsupported WinPE authentication modes.
+- [x] Define unsupported secret embedding patterns and add test coverage for them.
+- [x] Add audit-safe logging rules.
+- [x] Add XML documentation comments to new public tenant onboarding, certificate, and secret-protection APIs.
 
 Automated tests:
-- [ ] App registration discovery uses persisted application object ID before display name.
-- [ ] Same display name without persisted object ID enters repair/adoption state.
-- [ ] Required permission missing maps to `PermissionMissing`.
-- [ ] Admin consent missing maps to `ConsentMissing`.
-- [ ] Disabled or missing service principal maps to `ServicePrincipalUnavailable`.
-- [ ] Adding a certificate preserves existing non-active `keyCredentials`.
-- [ ] Retiring a certificate removes only the persisted active `keyId`.
+- [x] App registration discovery uses persisted application object ID before display name.
+- [x] Same display name without persisted object ID enters repair/adoption state.
+- [x] Required permission missing maps to `PermissionMissing`.
+- [x] Admin consent missing maps to `ConsentMissing`.
+- [x] Disabled or missing service principal maps to `ServicePrincipalUnavailable`.
+- [x] Adding a certificate preserves existing non-active `keyCredentials`.
+- [x] Replacing the active certificate removes only the previous active `keyId` and preserves unrelated credentials.
+- [x] Retiring a certificate removes only the persisted active `keyId`.
 - [ ] Created PFX material is not persisted in ProgramData, even with DPAPI.
 - [ ] After app restart, media generation requires the operator to select the PFX again and enter its password.
-- [ ] PFX thumbprint mismatch blocks media generation.
+- [x] PFX thumbprint mismatch blocks media generation.
 - [ ] Secret settings are never serialized into plain deploy config.
-- [ ] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
+- [x] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
 - [ ] Logs redact tokens, secrets, private key paths, certificate data, PFX bytes, and PFX password.
 
 Manual checks:
@@ -116,7 +117,7 @@ Manual checks:
 - [ ] Confirm the app registration name is `Foundry OSD Autopilot Registration`.
 - [ ] Confirm required API permissions and admin consent status are visible in Foundry OSD.
 - [ ] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
-- [ ] Replace the active certificate and confirm the old credential is retained until the operator explicitly retires it.
+- [ ] Replace the active certificate and confirm the previous active credential is removed while unrelated credentials are preserved.
 - [ ] Create a certificate, choose a PFX output path, and confirm the PFX exists only at the selected path.
 - [ ] Restart Foundry OSD and confirm it requires selecting the PFX again before media generation.
 - [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
