@@ -69,7 +69,7 @@ PR title: `feat(autopilot): add secure tenant upload onboarding`
 Implementation progress:
 - [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
 - [x] Implementation checklist complete.
-- [ ] Automated tests complete.
+- [x] Automated tests complete.
 - [ ] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
@@ -95,6 +95,14 @@ Implementation progress:
 - [x] Define unsupported secret embedding patterns and add test coverage for them.
 - [x] Add audit-safe logging rules.
 - [x] Add XML documentation comments to new public tenant onboarding, certificate, and secret-protection APIs.
+- [x] Reuse the JSON profile tenant download modal sign-in pattern for hardware hash tenant onboarding.
+- [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but app registration, certificate, group tag, and tenant detail rows stay hidden until a successful current-session tenant connection.
+- [x] Show connected tenant details in a dedicated row instead of embedding the tenant ID in the connection row.
+- [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
+- [x] Remove the selected certificate credential while preserving unrelated app credentials.
+- [x] Use WinUI signal brushes for certificate validity: success when valid, caution when expiring within 30 days, and critical when expired.
+- [x] Show the generated PFX password in a selectable read-only field in the one-time certificate-created dialog.
+- [x] Enforce Graph application certificate validity limit by offering 1, 3, 6, and 12 months only, with 6 months selected by default.
 
 Automated tests:
 - [x] App registration discovery uses persisted application object ID before display name.
@@ -111,6 +119,8 @@ Automated tests:
 - [ ] Secret settings are never serialized into plain deploy config.
 - [x] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
 - [ ] Logs redact tokens, secrets, private key paths, certificate data, PFX bytes, and PFX password.
+- [x] Foundry OSD build passes after tenant onboarding UX refinements.
+- [x] Autopilot targeted tests pass after tenant onboarding UX refinements.
 
 Manual checks:
 - [ ] Create the managed app registration in a clean test tenant.
@@ -123,6 +133,12 @@ Manual checks:
 - [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
 - [ ] Review logs after failed auth and successful auth.
 - [ ] Confirm least-privilege app registration can import devices.
+- [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection` plus `Connect tenant` is shown before current-session sign-in.
+- [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and known group tags become visible.
+- [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
+- [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
+- [ ] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
+- [ ] Select a certificate row and remove it; confirm only the selected credential is removed from Entra and the table refreshes.
 
 ### Phase 3: Autopilot Page UX
 PR title: `feat(autopilot): add hardware hash upload UX`
@@ -141,9 +157,9 @@ Implementation progress:
 - [x] Add hardware hash upload expander.
 - [x] Add tenant connection state, connect action, and connected tenant summary.
 - [x] Add managed app registration creation/reuse status for `Foundry OSD Autopilot Registration`.
-- [ ] Add active certificate lifecycle controls: create, retire, replace, expired state, missing state, and repair/adoption state.
-- [ ] Add certificate validity selection with a default of 12 months.
-- [ ] Add one-time private key/PFX content dialog after certificate creation.
+- [x] Add active certificate lifecycle controls: create, remove selected certificate, expired state, missing state, and repair/adoption state.
+- [x] Add certificate validity selection with a default of 6 months and options for 1, 3, 6, and 12 months.
+- [x] Add one-time private key/PFX content dialog after certificate creation with selectable password text.
 - [ ] Add password-protected PFX and PFX password input near the active certificate status for boot image generation.
 - [x] Add tenant-discovered Autopilot group tag list and default group tag selection.
 - [x] Enforce mutual exclusivity between JSON profile and hash upload modes.

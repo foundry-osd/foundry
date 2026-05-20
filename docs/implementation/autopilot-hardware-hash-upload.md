@@ -39,7 +39,7 @@ Use this table as the cross-phase implementation status board. Detailed task, au
 | --- | --- | --- | --- | --- | --- | --- |
 | 0 Foundation | [x] | [x] | [x] | [x] | [ ] | [ ] |
 | 1 Configuration model | [x] | [x] | [x] | [x] | [x] | [ ] |
-| 2 Security and tenant onboarding | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 2 Security and tenant onboarding | [x] | [x] | [x] | [ ] | [x] | [ ] |
 | 3 Autopilot page UX | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 4 Media build and WinPE assets | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 5 Foundry Deploy runtime branching | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |

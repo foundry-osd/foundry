@@ -49,6 +49,9 @@ UX rules:
 
 Foundry OSD tenant onboarding UX:
 - The hardware hash expander first asks the user to connect to the tenant.
+- Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row and the connect action.
+- After successful current-session tenant connection, show tenant-dependent rows: tenant details, app registration status, onboarding status, certificates, default group tag, and known group tags.
+- The tenant connection row shows only the connection state and action. Tenant ID and other tenant metadata appear in a separate tenant details row after connection.
 - After sign-in, Foundry OSD searches for the managed app registration.
 - The planned app registration display name is `Foundry OSD Autopilot Registration`.
 - If the app registration does not exist, Foundry OSD creates it with the required Microsoft Graph application permissions.
@@ -57,7 +60,9 @@ Foundry OSD tenant onboarding UX:
 - Foundry OSD must persist tenant ID, application object ID, application/client ID, service principal object ID, active certificate key ID, active certificate thumbprint, and active certificate expiration.
 - The app registration may contain multiple certificate credentials. Foundry tracks exactly one active Foundry certificate by `keyId` and leaf certificate thumbprint.
 - Foundry must not assume exclusive ownership of the app registration and must not automatically delete, replace, or prune non-active certificate credentials.
-- Extra certificate credentials on the app are tolerated and shown as a warning or informational state, not as a blocking error.
+- Extra certificate credentials on the app are tolerated and shown in a selectable certificate table, not as a blocking error.
+- The certificate table should show thumbprint, creation date, expiration date, and Graph certificate ID. Selecting a row enables removal for that selected certificate only.
+- Certificate validity text should use WinUI signal brushes: success for valid certificates, caution for certificates expiring within 30 days, and critical for expired certificates.
 - If no active certificate exists, show a create certificate action.
 - If an active certificate exists, show:
   - display name
@@ -69,16 +74,16 @@ Foundry OSD tenant onboarding UX:
   - retire active certificate action
   - replace active certificate action
 - Certificate creation requires selecting a validity duration from a fixed list.
-- The default certificate validity is 12 months.
-- Certificate validity options should be fixed, for example:
+- The default certificate validity is 6 months.
+- Certificate validity options are fixed:
+  - 1 month
   - 3 months
   - 6 months
   - 12 months
-  - 24 months
 - Certificate creation produces a password-protected PFX only. PEM keys, unprotected private keys, and client secrets are not supported.
 - Certificate creation requires the operator to choose a PFX output path.
-- Certificate creation should let the operator generate a strong PFX password or enter a custom PFX password.
-- When Foundry OSD creates a certificate, it writes the PFX to the selected output path and shows the generated password once if Foundry generated it.
+- Certificate creation generates a strong PFX password.
+- When Foundry OSD creates a certificate, it writes the PFX to the selected output path and shows the generated password once in a selectable, read-only field.
 - The content dialog must clearly state that the PFX and PFX password must be stored by the operator outside Foundry.
 - Foundry OSD must not persist the raw PFX, PFX password, decrypted private key, exported private key material, or a DPAPI-encrypted local PFX vault in ProgramData.
 - Foundry OSD may keep the PFX bytes and password in memory for the current app session only, so the operator can create the boot image immediately after certificate creation without selecting the same PFX again.
