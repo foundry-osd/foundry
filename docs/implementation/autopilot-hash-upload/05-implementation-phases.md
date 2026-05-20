@@ -98,7 +98,10 @@ Implementation progress:
 - [x] Reuse the JSON profile tenant download modal sign-in pattern for hardware hash tenant onboarding.
 - [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but app registration, certificate, group tag, and tenant detail rows stay hidden until a successful current-session tenant connection.
 - [x] Show connected tenant details in a dedicated row instead of embedding the tenant ID in the connection row.
+- [x] Replace the connect action with a disconnect action after successful current-session tenant connection.
+- [x] Clear stale persisted active certificate metadata when Microsoft Graph no longer returns the selected active certificate.
 - [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
+- [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
 - [x] Remove the selected certificate credential while preserving unrelated app credentials.
 - [x] Use WinUI signal brushes for certificate validity: success when valid, caution when expiring within 30 days, and critical when expired.
 - [x] Show the generated PFX password in a selectable read-only field in the one-time certificate-created dialog.
@@ -136,6 +139,9 @@ Manual checks:
 - [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
 - [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and known group tags become visible.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
+- [ ] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
+- [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
+- [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
 - [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
 - [ ] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
 - [ ] Select a certificate row and remove it; confirm only the selected credential is removed from Entra and the table refreshes.

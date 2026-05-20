@@ -137,7 +137,7 @@
                                        Text="{x:Bind ViewModel.TenantStatusText, Mode=OneWay}" />
                             <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                                     Command="{x:Bind ViewModel.ConnectTenantCommand}"
-                                    Content="{x:Bind ViewModel.ConnectTenantButtonText, Mode=OneWay}" />
+                                    Content="{x:Bind ViewModel.TenantConnectionButtonText, Mode=OneWay}" />
                         </StackPanel>
                     </wct:SettingsCard>
 
@@ -178,9 +178,6 @@
                                        Text="{x:Bind ViewModel.CertificateExpiredWarningText, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords"
                                        Visibility="{x:Bind ViewModel.HardwareHashCertificateWarningVisibility, Mode=OneWay}" />
-                            <TextBlock Text="{x:Bind ViewModel.CertificatesEmptyText, Mode=OneWay}"
-                                       TextWrapping="Wrap"
-                                       Visibility="{x:Bind ViewModel.EmptyCertificatesVisibility, Mode=OneWay}" />
                             <tv:TableView x:Name="CertificatesTable"
                                           AutoGenerateColumns="False"
                                           CanFilterColumns="False"

@@ -115,6 +115,13 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             CurrentTimeUtc = DateTimeOffset.UtcNow
         };
         AutopilotTenantOnboardingEvaluation evaluation = AutopilotTenantOnboardingEvaluator.Evaluate(snapshot);
+        AutopilotCertificateMetadata? activeCertificate = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
+            ? null
+            : currentSettings.ActiveCertificate;
+        AutopilotTenantOnboardingStatus status = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
+            ? AutopilotTenantOnboardingStatus.ActiveCertificateMissing
+            : evaluation.Status;
+
         AutopilotHardwareHashUploadSettings updatedSettings = currentSettings with
         {
             Tenant = new AutopilotTenantRegistrationSettings
@@ -124,6 +131,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
                 ClientId = application.ClientId,
                 ServicePrincipalObjectId = servicePrincipal.ObjectId
             },
+            ActiveCertificate = activeCertificate,
             KnownGroupTags = groupTags,
             DefaultGroupTag = ResolveDefaultGroupTag(currentSettings.DefaultGroupTag, groupTags)
         };
@@ -131,11 +139,11 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
         return new AutopilotTenantOnboardingResult
         {
             Settings = updatedSettings,
-            Status = evaluation.Status,
+            Status = status,
             Certificates = keyCredentials,
-            Message = evaluation.Status == AutopilotTenantOnboardingStatus.Ready
+            Message = status == AutopilotTenantOnboardingStatus.Ready
                 ? "The managed app registration is ready."
-                : $"The managed app registration requires attention: {evaluation.Status}."
+                : $"The managed app registration requires attention: {status}."
         };
     }
 

@@ -52,6 +52,7 @@ Foundry OSD tenant onboarding UX:
 - Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row with `Not connected` and the connect action.
 - After successful current-session tenant connection, show tenant-dependent rows: tenant details, app registration status, onboarding status, certificates, default group tag, and known group tags.
 - The tenant connection row shows only the connection state and action. Tenant ID and other tenant metadata appear in a separate tenant details row after connection.
+- After a successful current-session connection, the connection action changes to a disconnect action that clears only the current UI session state. Persisted tenant configuration remains stored.
 - After sign-in, Foundry OSD searches for the managed app registration.
 - The planned app registration display name is `Foundry OSD Autopilot Registration`.
 - If the app registration does not exist, Foundry OSD creates it with the required Microsoft Graph application permissions.
@@ -62,6 +63,7 @@ Foundry OSD tenant onboarding UX:
 - Foundry must not assume exclusive ownership of the app registration and must not automatically delete, replace, or prune non-active certificate credentials.
 - Extra certificate credentials on the app are tolerated and shown in a selectable certificate table, not as a blocking error.
 - The certificate table should show thumbprint, creation date, expiration date, and Graph certificate ID. Selecting a row enables removal for that selected certificate only.
+- If Graph returns no certificate credentials, do not show a warning message in the certificate table area; the create certificate action is enough.
 - Certificate validity text should use WinUI signal brushes: success for valid certificates, caution for certificates expiring within 30 days, and critical for expired certificates.
 - If no active certificate exists, show a create certificate action.
 - If an active certificate exists, show:

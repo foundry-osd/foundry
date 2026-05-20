@@ -303,6 +303,9 @@
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Connect tenant</value>
   </data>
+  <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
+    <value>Disconnect tenant</value>
+  </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
     <value>Connecting tenant...</value>
   </data>
@@ -449,9 +452,6 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateExpiredWarning" xml:space="preserve">
     <value>Regenerate the certificate and boot media before using hardware hash upload.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificatesEmpty" xml:space="preserve">
-    <value>No app registration certificate was discovered. Connect to the tenant or create a certificate.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Thumbprint</value>

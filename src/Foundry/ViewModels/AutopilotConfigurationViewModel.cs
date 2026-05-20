@@ -103,7 +103,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public Visibility EmptyProfilesVisibility => HasProfiles ? Visibility.Collapsed : Visibility.Visible;
     public Visibility ProfilesVisibility => HasProfiles ? Visibility.Visible : Visibility.Collapsed;
     public bool HasCertificates => Certificates.Count > 0;
-    public Visibility EmptyCertificatesVisibility => HasCertificates ? Visibility.Collapsed : Visibility.Visible;
     public Visibility CertificatesVisibility => HasCertificates ? Visibility.Visible : Visibility.Collapsed;
     public Visibility ConnectedTenantDetailsVisibility => HasConnectedTenantInCurrentSession ? Visibility.Visible : Visibility.Collapsed;
     public bool IsBusy => IsImporting || IsDownloading || IsConnectingTenant;
@@ -158,6 +157,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public string TenantStatusText => HasConnectedTenantInCurrentSession && HasTenantRegistration
         ? localizationService.GetString("Autopilot.HardwareHashTenantConnected")
         : localizationService.GetString("Autopilot.HardwareHashTenantNotConnected");
+    public string TenantConnectionButtonText => HasConnectedTenantInCurrentSession
+        ? DisconnectTenantButtonText
+        : ConnectTenantButtonText;
     public string TenantDetailsText => HasTenantRegistration
         ? localizationService.FormatString("Autopilot.HardwareHashTenantDetailsFormat", hardwareHashUploadSettings.Tenant.TenantId!)
         : string.Empty;
@@ -213,6 +215,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string ConnectTenantButtonText { get; set; }
 
     [ObservableProperty]
+    public partial string DisconnectTenantButtonText { get; set; }
+
+    [ObservableProperty]
     public partial string ConnectingTenantStatusText { get; set; }
 
     [ObservableProperty]
@@ -241,9 +246,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string CertificateExpiredWarningText { get; set; }
-
-    [ObservableProperty]
-    public partial string CertificatesEmptyText { get; set; }
 
     [ObservableProperty]
     public partial string CertificateThumbprintColumnHeader { get; set; }
@@ -515,6 +517,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [RelayCommand(CanExecute = nameof(CanConnectTenant))]
     private async Task ConnectTenantAsync()
     {
+        if (HasConnectedTenantInCurrentSession)
+        {
+            DisconnectTenantSession();
+            return;
+        }
+
         IsConnectingTenant = true;
         try
         {
@@ -540,9 +548,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 result.Status,
                 result.Settings.Tenant.TenantId,
                 result.Settings.Tenant.ApplicationObjectId);
-            await dialogService.ShowMessageAsync(new DialogRequest(
-                GetTenantOnboardingDialogTitle(result.Status),
-                result.Message));
+            if (ShouldShowTenantOnboardingResultDialog(result.Status))
+            {
+                await dialogService.ShowMessageAsync(new DialogRequest(
+                    GetTenantOnboardingDialogTitle(result.Status),
+                    result.Message));
+            }
         }
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
@@ -766,6 +777,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         HardwareHashDescription = localizationService.GetString("Autopilot.HardwareHashDescription");
         HardwareHashEnableText = localizationService.GetString("Autopilot.HardwareHashEnableLabel");
         ConnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashConnectTenantButton");
+        DisconnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashDisconnectTenantButton");
         ConnectingTenantStatusText = localizationService.GetString("Autopilot.HardwareHashConnectingTenantStatus");
         CertificateValidityLabel = localizationService.GetString("Autopilot.HardwareHashCertificateValidityLabel");
         CreateCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashCreateCertificateButton");
@@ -776,7 +788,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         TenantOnboardingStatusLabel = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusLabel");
         CertificateStatusLabel = localizationService.GetString("Autopilot.HardwareHashCertificateStatusLabel");
         CertificateExpiredWarningText = localizationService.GetString("Autopilot.HardwareHashCertificateExpiredWarning");
-        CertificatesEmptyText = localizationService.GetString("Autopilot.HardwareHashCertificatesEmpty");
         CertificateThumbprintColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateThumbprintColumn");
         CertificateCreatedColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedColumn");
         CertificateExpiresColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateExpiresColumn");
@@ -801,6 +812,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ProfileImportedColumnHeader = localizationService.GetString("Autopilot.ColumnImported");
         ProfileFolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
         OnPropertyChanged(nameof(BusyStatusText));
+        OnPropertyChanged(nameof(TenantConnectionButtonText));
         RefreshHardwareHashUploadState();
     }
 
@@ -835,6 +847,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void RefreshHardwareHashUploadState()
     {
         OnPropertyChanged(nameof(TenantStatusText));
+        OnPropertyChanged(nameof(TenantConnectionButtonText));
         OnPropertyChanged(nameof(TenantDetailsText));
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
@@ -846,6 +859,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(KnownGroupTagsText));
         OnPropertyChanged(nameof(ConnectedTenantDetailsVisibility));
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
+    }
+
+    private void DisconnectTenantSession()
+    {
+        HasConnectedTenantInCurrentSession = false;
+        tenantOnboardingStatus = null;
+        ReplaceCertificates([]);
+        RefreshHardwareHashUploadState();
     }
 
     private void ReplaceCertificates(IReadOnlyList<AutopilotGraphKeyCredential> credentials)
@@ -863,7 +884,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                                   string.Equals(certificate.KeyId, selectedKeyId, StringComparison.OrdinalIgnoreCase))
                               ?? Certificates.FirstOrDefault();
         OnPropertyChanged(nameof(HasCertificates));
-        OnPropertyChanged(nameof(EmptyCertificatesVisibility));
         OnPropertyChanged(nameof(CertificatesVisibility));
     }
 
@@ -926,6 +946,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return status == AutopilotTenantOnboardingStatus.Ready
             ? localizationService.GetString("Autopilot.HardwareHashOnboardingCompletedTitle")
             : localizationService.GetString("Autopilot.HardwareHashOnboardingRequiresAttentionTitle");
+    }
+
+    private static bool ShouldShowTenantOnboardingResultDialog(AutopilotTenantOnboardingStatus status)
+    {
+        return status != AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
     }
 
     private void RefreshProfileState()
