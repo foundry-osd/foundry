@@ -133,7 +133,7 @@ Manual checks:
 - [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
 - [ ] Review logs after failed auth and successful auth.
 - [ ] Confirm least-privilege app registration can import devices.
-- [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection` plus `Connect tenant` is shown before current-session sign-in.
+- [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
 - [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and known group tags become visible.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
 - [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.

@@ -49,7 +49,7 @@ UX rules:
 
 Foundry OSD tenant onboarding UX:
 - The hardware hash expander first asks the user to connect to the tenant.
-- Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row and the connect action.
+- Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row with `Not connected` and the connect action.
 - After successful current-session tenant connection, show tenant-dependent rows: tenant details, app registration status, onboarding status, certificates, default group tag, and known group tags.
 - The tenant connection row shows only the connection state and action. Tenant ID and other tenant metadata appear in a separate tenant details row after connection.
 - After sign-in, Foundry OSD searches for the managed app registration.

@@ -155,7 +155,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public Visibility HardwareHashSettingsVisibility => IsHardwareHashUploadMode ? Visibility.Visible : Visibility.Collapsed;
     public Visibility HardwareHashCertificateWarningVisibility => IsHardwareHashCertificateExpired ? Visibility.Visible : Visibility.Collapsed;
     public string ManagedAppRegistrationName => AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName;
-    public string TenantStatusText => HasTenantRegistration
+    public string TenantStatusText => HasConnectedTenantInCurrentSession && HasTenantRegistration
         ? localizationService.GetString("Autopilot.HardwareHashTenantConnected")
         : localizationService.GetString("Autopilot.HardwareHashTenantNotConnected");
     public string TenantDetailsText => HasTenantRegistration
