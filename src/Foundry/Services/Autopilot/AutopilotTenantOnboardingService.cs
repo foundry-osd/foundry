@@ -28,6 +28,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
     private const string ApplicationSelect = "$select=id,appId,displayName,requiredResourceAccess,keyCredentials";
     private const string ServicePrincipalSelect = "$select=id,appId,accountEnabled";
     private const string GroupTagRequestPath = "v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$select=groupTag";
+    private const int MaximumCertificateValidityMonths = 12;
 
     private static readonly string[] GraphScopes =
     [
@@ -150,10 +151,18 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             throw new InvalidOperationException("The managed app registration must be connected before creating a certificate.");
         }
 
+        if (validityMonths is <= 0 or > MaximumCertificateValidityMonths)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(validityMonths),
+                validityMonths,
+                $"Microsoft Graph application certificate credentials cannot exceed {MaximumCertificateValidityMonths} months.");
+        }
+
         TokenCredential credential = CreateCredential();
         string accessToken = await AcquireAccessTokenAsync(credential, cancellationToken).ConfigureAwait(false);
         DateTimeOffset startsOnUtc = DateTimeOffset.UtcNow.AddMinutes(-5);
-        DateTimeOffset expiresOnUtc = DateTimeOffset.UtcNow.AddMonths(validityMonths);
+        DateTimeOffset expiresOnUtc = startsOnUtc.AddMonths(validityMonths);
         string keyId = Guid.NewGuid().ToString("D");
         string password = GeneratePfxPassword();
 
@@ -762,7 +771,10 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
         HttpResponseMessage response = await GraphHttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
-            string message = $"Microsoft Graph request failed for '{method} {requestPath}' with status code {(int)response.StatusCode}.";
+            string? graphError = await TryReadGraphErrorAsync(response, cancellationToken).ConfigureAwait(false);
+            string message = string.IsNullOrWhiteSpace(graphError)
+                ? $"Microsoft Graph request failed for '{method} {requestPath}' with status code {(int)response.StatusCode}."
+                : $"Microsoft Graph request failed for '{method} {requestPath}' with status code {(int)response.StatusCode}: {graphError}.";
             throw new HttpRequestException(message, null, response.StatusCode);
         }
 
@@ -878,18 +890,64 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
     {
         string certificateRawData = Convert.ToBase64String(certificate.RawData);
         string customKeyIdentifier = Convert.ToBase64String(certificate.GetCertHash());
-        return $$"""
+        using var stream = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(stream))
+        {
+            writer.WriteStartObject();
+            writer.WriteString("customKeyIdentifier", customKeyIdentifier);
+            writer.WriteString("displayName", AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName);
+            writer.WriteString("endDateTime", FormatGraphUtcDateTime(expiresOnUtc));
+            writer.WriteString("key", certificateRawData);
+            writer.WriteString("keyId", keyId);
+            writer.WriteString("startDateTime", FormatGraphUtcDateTime(startsOnUtc));
+            writer.WriteString("type", "AsymmetricX509Cert");
+            writer.WriteString("usage", "Verify");
+            writer.WriteEndObject();
+        }
+
+        return Encoding.UTF8.GetString(stream.ToArray());
+    }
+
+    private static string FormatGraphUtcDateTime(DateTimeOffset value)
+    {
+        return value.UtcDateTime.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", CultureInfo.InvariantCulture);
+    }
+
+    private static async Task<string?> TryReadGraphErrorAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+    {
+        string responseBody = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+        if (string.IsNullOrWhiteSpace(responseBody))
+        {
+            return null;
+        }
+
+        try
+        {
+            using JsonDocument document = JsonDocument.Parse(responseBody);
+            if (document.RootElement.TryGetProperty("error", out JsonElement error))
             {
-              "customKeyIdentifier": "{{customKeyIdentifier}}",
-              "displayName": "{{AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName}}",
-              "endDateTime": "{{expiresOnUtc.UtcDateTime.ToString("O", CultureInfo.InvariantCulture)}}",
-              "key": "{{certificateRawData}}",
-              "keyId": "{{keyId}}",
-              "startDateTime": "{{startsOnUtc.UtcDateTime.ToString("O", CultureInfo.InvariantCulture)}}",
-              "type": "AsymmetricX509Cert",
-              "usage": "Verify"
+                string? code = error.TryGetProperty("code", out JsonElement codeElement)
+                    ? codeElement.GetString()
+                    : null;
+                string? message = error.TryGetProperty("message", out JsonElement messageElement)
+                    ? messageElement.GetString()
+                    : null;
+
+                return string.Join(
+                    ": ",
+                    new[] { code, message }
+                        .Where(value => !string.IsNullOrWhiteSpace(value))
+                        .Select(value => value!.Trim()));
             }
-            """;
+        }
+        catch (JsonException)
+        {
+            return responseBody.Length <= 500
+                ? responseBody
+                : responseBody[..500];
+        }
+
+        return null;
     }
 
     private static string GeneratePfxPassword()

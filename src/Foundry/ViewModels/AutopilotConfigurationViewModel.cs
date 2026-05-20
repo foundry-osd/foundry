@@ -85,8 +85,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [
         new(3, "3 months"),
         new(6, "6 months"),
-        new(12, "12 months"),
-        new(24, "24 months")
+        new(12, "12 months")
     ];
 
     public bool IsAutopilotSectionEnabled => IsAutopilotEnabled;
