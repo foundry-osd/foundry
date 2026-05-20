@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
@@ -10,7 +11,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenMachineNamingIsDisabled_ClearsPrefixAndKeepsManualSuffixEditable()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
             {
@@ -45,16 +46,234 @@ public sealed class DeployConfigurationGeneratorTests
             RuntimePayloadSource = TelemetryRuntimePayloadSources.Release
         };
 
-        var result = generator.Generate(new FoundryExpertConfigurationDocument { Telemetry = telemetry });
+        var result = generator.Generate(new FoundryConfigurationDocument { Telemetry = telemetry });
 
         Assert.Same(telemetry, result.Telemetry);
+    }
+
+    [Fact]
+    public void Generate_WhenOobeCustomizationIsEnabled_PropagatesOobeSettings()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    SkipLicenseTerms = true,
+                    DiagnosticDataLevel = OobeDiagnosticDataLevel.Off,
+                    HidePrivacySetup = true,
+                    AllowTailoredExperiences = false,
+                    AllowAdvertisingId = false,
+                    AllowOnlineSpeechRecognition = false,
+                    AllowInkingAndTypingDiagnostics = false,
+                    LocationAccess = OobeLocationAccessMode.ForceOff
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.Oobe.IsEnabled);
+        Assert.True(result.Customization.Oobe.SkipLicenseTerms);
+        Assert.Equal(DeployOobeDiagnosticDataLevel.Off, result.Customization.Oobe.DiagnosticDataLevel);
+        Assert.True(result.Customization.Oobe.HidePrivacySetup);
+        Assert.False(result.Customization.Oobe.AllowTailoredExperiences);
+        Assert.False(result.Customization.Oobe.AllowAdvertisingId);
+        Assert.False(result.Customization.Oobe.AllowOnlineSpeechRecognition);
+        Assert.False(result.Customization.Oobe.AllowInkingAndTypingDiagnostics);
+        Assert.Equal(DeployOobeLocationAccessMode.ForceOff, result.Customization.Oobe.LocationAccess);
+    }
+
+    [Fact]
+    public void Generate_WhenOobeCustomizationIsDisabled_DoesNotEnableRuntimeOobeSettings()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = false,
+                    DiagnosticDataLevel = OobeDiagnosticDataLevel.Optional,
+                    LocationAccess = OobeLocationAccessMode.ForceOff
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.Oobe.IsEnabled);
+        Assert.Equal(DeployOobeDiagnosticDataLevel.Required, result.Customization.Oobe.DiagnosticDataLevel);
+        Assert.Equal(DeployOobeLocationAccessMode.UserControlled, result.Customization.Oobe.LocationAccess);
+    }
+
+    [Fact]
+    public void Generate_WhenAppxRemovalIsEnabled_PropagatesDistinctPackageNames()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames =
+                    [
+                        "Microsoft.BingNews",
+                        " ",
+                        "Microsoft.BingWeather",
+                        "Microsoft.BingNews"
+                    ]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.AppxRemoval.IsEnabled);
+        Assert.Equal(["Microsoft.BingNews", "Microsoft.BingWeather"], result.Customization.AppxRemoval.PackageNames);
+    }
+
+    [Fact]
+    public void Generate_WhenAppxRemovalIsDisabled_DoesNotPropagatePackageNames()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = false,
+                    PackageNames = ["Microsoft.BingNews"]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.AppxRemoval.IsEnabled);
+        Assert.Empty(result.Customization.AppxRemoval.PackageNames);
+    }
+
+    [Fact]
+    public void Generate_WhenAiComponentRemovalIsEnabled_PropagatesSelectedOptions()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AiComponentRemoval = new AiComponentRemovalSettings
+                {
+                    IsEnabled = true,
+                    RemoveCopilot = true,
+                    RemoveAiHub = true,
+                    DisableRecall = true,
+                    DisableClickToDo = true,
+                    DisableAiServiceAutoStart = true,
+                    DisableEdgeAi = true,
+                    DisablePaintAi = true,
+                    DisableNotepadAi = true
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.AiComponentRemoval.IsEnabled);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveCopilot);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveAiHub);
+        Assert.True(result.Customization.AiComponentRemoval.DisableRecall);
+        Assert.True(result.Customization.AiComponentRemoval.DisableClickToDo);
+        Assert.True(result.Customization.AiComponentRemoval.DisableAiServiceAutoStart);
+        Assert.True(result.Customization.AiComponentRemoval.DisableEdgeAi);
+        Assert.True(result.Customization.AiComponentRemoval.DisablePaintAi);
+        Assert.True(result.Customization.AiComponentRemoval.DisableNotepadAi);
+    }
+
+    [Fact]
+    public void Generate_WhenAiComponentRemovalIsDisabled_DoesNotPropagateOptions()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AiComponentRemoval = new AiComponentRemovalSettings
+                {
+                    IsEnabled = false,
+                    RemoveCopilot = true,
+                    RemoveAiHub = true,
+                    DisableRecall = true,
+                    DisableClickToDo = true,
+                    DisableAiServiceAutoStart = true,
+                    DisableEdgeAi = true,
+                    DisablePaintAi = true,
+                    DisableNotepadAi = true
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.AiComponentRemoval.IsEnabled);
+        Assert.False(result.Customization.AiComponentRemoval.RemoveCopilot);
+        Assert.False(result.Customization.AiComponentRemoval.RemoveAiHub);
+        Assert.False(result.Customization.AiComponentRemoval.DisableRecall);
+        Assert.False(result.Customization.AiComponentRemoval.DisableClickToDo);
+        Assert.False(result.Customization.AiComponentRemoval.DisableAiServiceAutoStart);
+        Assert.False(result.Customization.AiComponentRemoval.DisableEdgeAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisablePaintAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisableNotepadAi);
+    }
+
+    [Fact]
+    public void Generate_WhenLegacyAiPackagesAreSelectedForAppxRemoval_MigratesThemToAiComponentRemoval()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                AppxRemoval = new AppxRemovalSettings
+                {
+                    IsEnabled = true,
+                    PackageNames =
+                    [
+                        "Microsoft.Copilot",
+                        "Microsoft.Windows.AIHub",
+                        "Microsoft.BingWeather"
+                    ]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.AppxRemoval.IsEnabled);
+        Assert.Equal(["Microsoft.BingWeather"], result.Customization.AppxRemoval.PackageNames);
+        Assert.True(result.Customization.AiComponentRemoval.IsEnabled);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveCopilot);
+        Assert.True(result.Customization.AiComponentRemoval.RemoveAiHub);
+        Assert.False(result.Customization.AiComponentRemoval.DisableRecall);
+        Assert.False(result.Customization.AiComponentRemoval.DisableClickToDo);
+        Assert.False(result.Customization.AiComponentRemoval.DisableAiServiceAutoStart);
+        Assert.False(result.Customization.AiComponentRemoval.DisableEdgeAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisablePaintAi);
+        Assert.False(result.Customization.AiComponentRemoval.DisableNotepadAi);
     }
 
     [Fact]
     public void Generate_CanonicalizesVisibleLanguagesAndDropsMissingDefaultOverride()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Localization = new LocalizationSettings
             {
@@ -77,7 +296,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Serialize_WhenDefaultTimeZoneIdIsSet_WritesCamelCaseProperty()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = generator.Generate(new FoundryExpertConfigurationDocument
+        var document = generator.Generate(new FoundryConfigurationDocument
         {
             Localization = new LocalizationSettings
             {
@@ -94,7 +313,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_ResolvesDefaultAutopilotProfileFolder()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {
@@ -118,7 +337,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenJsonProfileModeHasNoSelectedProfile_ThrowsInvalidOperationException()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {
@@ -136,7 +355,7 @@ public sealed class DeployConfigurationGeneratorTests
     {
         var generator = new DeployConfigurationGenerator();
         DateTimeOffset expiration = DateTimeOffset.UtcNow.AddMonths(6);
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {
@@ -163,7 +382,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenHardwareHashCertificateIsExpired_ThrowsInvalidOperationException()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {
@@ -181,7 +400,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenAutopilotIsDisabledWithNullHardwareHashSettings_DoesNotThrow()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {
@@ -201,7 +420,7 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenProvisioningModeIsUnsupported_ThrowsInvalidOperationException()
     {
         var generator = new DeployConfigurationGenerator();
-        var document = new FoundryExpertConfigurationDocument
+        var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {

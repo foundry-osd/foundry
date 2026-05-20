@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
-        services.AddSingleton<IExpertDeployConfigurationService, ExpertDeployConfigurationService>();
+        services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
@@ -95,6 +95,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
+        services.AddSingleton<PreOobeScriptDefinitionBuilder>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
@@ -104,9 +105,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, DownloadOperatingSystemImageStep>();
         services.AddSingleton<IDeploymentStep, ApplyOperatingSystemImageStep>();
         services.AddSingleton<IDeploymentStep, ConfigureTargetComputerNameStep>();
+        services.AddSingleton<IDeploymentStep, ConfigureOobeSettingsStep>();
         services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
         services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, StagePreOobeCustomizationStep>();
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
         services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
@@ -150,7 +153,7 @@ public static class ServiceCollectionExtensions
 
     private static TelemetrySettings LoadTelemetrySettings(IServiceProvider serviceProvider)
     {
-        return serviceProvider.GetRequiredService<IExpertDeployConfigurationService>()
+        return serviceProvider.GetRequiredService<IDeployConfigurationService>()
             .LoadOptional()
             .Document
             ?.Telemetry ?? new TelemetrySettings();

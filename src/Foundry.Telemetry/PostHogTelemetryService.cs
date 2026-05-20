@@ -125,11 +125,9 @@ public sealed class PostHogTelemetryService : ITelemetryService
             ["app"] = context.App,
             ["app_version"] = context.AppVersion,
             ["build_configuration"] = context.BuildConfiguration,
-            ["runtime"] = context.Runtime,
-            ["runtime_payload_source"] = context.RuntimePayloadSource,
-            ["boot_media_target"] = context.BootMediaTarget,
-            ["runtime_architecture"] = context.RuntimeArchitecture,
-            ["locale"] = context.Locale,
+            ["app_runtime"] = context.Runtime,
+            ["app_runtime_architecture"] = context.RuntimeArchitecture,
+            ["app_locale"] = context.Locale,
             ["session_id"] = context.SessionId,
             ["$process_person_profile"] = false,
             ["$geoip_disable"] = false
@@ -143,7 +141,23 @@ public sealed class PostHogTelemetryService : ITelemetryService
             }
         }
 
+        AddEventContext(eventName, finalProperties);
+
         return finalProperties;
+    }
+
+    private void AddEventContext(string eventName, IDictionary<string, object> finalProperties)
+    {
+        if (eventName == TelemetryEvents.ConnectSessionReady)
+        {
+            finalProperties["boot_media_target"] = context.BootMediaTarget;
+            finalProperties["connect_runtime_payload_source"] = context.RuntimePayloadSource;
+        }
+        else if (eventName == TelemetryEvents.DeploySessionFinished)
+        {
+            finalProperties["boot_media_target"] = context.BootMediaTarget;
+            finalProperties["deploy_runtime_payload_source"] = context.RuntimePayloadSource;
+        }
     }
 
     private sealed record PostHogCapturePayload(

@@ -86,7 +86,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{\"zones\":[]}",
                 FoundryConnectConfigurationJson = "{\"schemaVersion\":1}",
-                ExpertDeployConfigurationJson = "{\"schemaVersion\":2}",
+                DeployConfigurationJson = "{\"schemaVersion\":2}",
                 FoundryConnectAssetFiles =
                 [
                     new FoundryConnectProvisionedAssetFile
@@ -113,18 +113,19 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired", "Profiles")));
         Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json")));
         Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json")));
         Assert.Equal("debug", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.provisioning-source.txt")));
         Assert.Equal("release", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.provisioning-source.txt")));
         Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "iana-windows-timezones.json")));
         Assert.Equal("<WLANProfile />", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wifi", "Profiles", "profile.xml")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Certificates")));
         Assert.Equal("{\"profile\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json")));
     }
 
     [Fact]
-    public async Task ProvisionAsync_CreatesRuntimeLogAndTempDirectories()
+    public async Task ProvisionAsync_DoesNotCreateRuntimeOwnedLogTempOrNetworkDirectories()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -144,8 +145,9 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Logs")));
-        Assert.True(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Temp")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Logs")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Temp")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network")));
     }
 
     [Fact]
@@ -170,13 +172,17 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         string deployConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"));
-        Assert.Contains(
-            $"\"schemaVersion\": {Foundry.Core.Models.Configuration.Deploy.FoundryDeployConfigurationDocument.CurrentSchemaVersion}",
-            deployConfigurationJson,
-            StringComparison.Ordinal);
-        Assert.Contains("\"localization\":", deployConfigurationJson, StringComparison.Ordinal);
-        Assert.Contains("\"customization\":", deployConfigurationJson, StringComparison.Ordinal);
-        Assert.Contains("\"autopilot\":", deployConfigurationJson, StringComparison.Ordinal);
+        using JsonDocument document = JsonDocument.Parse(deployConfigurationJson);
+        JsonElement root = document.RootElement;
+        Assert.Equal(
+            Foundry.Core.Models.Configuration.Deploy.FoundryDeployConfigurationDocument.CurrentSchemaVersion,
+            root.GetProperty("schemaVersion").GetInt32());
+        Assert.True(root.TryGetProperty("localization", out _));
+        Assert.True(root.TryGetProperty("customization", out JsonElement customization));
+        Assert.True(customization.TryGetProperty("oobe", out _));
+        Assert.True(customization.TryGetProperty("appxRemoval", out _));
+        Assert.True(customization.TryGetProperty("aiComponentRemoval", out _));
+        Assert.True(root.TryGetProperty("autopilot", out _));
     }
 
     [Fact]

@@ -34,6 +34,9 @@ public sealed class DeploymentWizardContext : IDisposable
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
     public string? DefaultTimeZoneId { get; private set; }
+    public DeployOobeSettings Oobe { get; private set; } = new();
+    public DeployAppxRemovalSettings AppxRemoval { get; private set; } = new();
+    public DeployAiComponentRemovalSettings AiComponentRemoval { get; private set; } = new();
 
     public event EventHandler? StateChanged;
     public event Action<string>? StatusMessageGenerated;
@@ -44,10 +47,10 @@ public sealed class DeploymentWizardContext : IDisposable
 
         Preparation.CacheRootPath = startupSnapshot.CacheRootPath;
 
-        if (startupSnapshot.ExpertConfigurationDocument is not null)
+        if (startupSnapshot.DeployConfigurationDocument is not null)
         {
-            ApplyExpertConfiguration(
-                startupSnapshot.ExpertConfigurationDocument,
+            ApplyDeployConfiguration(
+                startupSnapshot.DeployConfigurationDocument,
                 startupSnapshot.EffectiveComputerName,
                 startupSnapshot.AutopilotProfiles);
         }
@@ -101,12 +104,12 @@ public sealed class DeploymentWizardContext : IDisposable
         _isDisposed = true;
     }
 
-    private void ApplyExpertConfiguration(
+    private void ApplyDeployConfiguration(
         FoundryDeployConfigurationDocument document,
         string seedComputerName,
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
-        OperatingSystemCatalog.ApplyExpertLocalization(
+        OperatingSystemCatalog.ApplyDeployLocalization(
             document.Localization.VisibleLanguageCodes,
             document.Localization.DefaultLanguageCodeOverride,
             document.Localization.ForceSingleVisibleLanguage);
@@ -118,6 +121,9 @@ public sealed class DeploymentWizardContext : IDisposable
             string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
                 ? seedComputerName
                 : Preparation.TargetComputerName);
+        Oobe = document.Customization.Oobe ?? new DeployOobeSettings();
+        AppxRemoval = document.Customization.AppxRemoval ?? new DeployAppxRemovalSettings();
+        AiComponentRemoval = document.Customization.AiComponentRemoval ?? new DeployAiComponentRemovalSettings();
         Preparation.ApplyAutopilotConfiguration(document.Autopilot ?? new DeployAutopilotSettings(), autopilotProfiles);
     }
 

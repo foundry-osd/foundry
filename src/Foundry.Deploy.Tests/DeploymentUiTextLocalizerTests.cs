@@ -36,6 +36,23 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Driver pack source payload is unavailable for deferred staging.", "La charge utile source du pack de pilotes est indisponible pour la préparation différée.")]
     [InlineData("Microsoft Update Catalog did not produce a driver payload.", "Microsoft Update Catalog n’a produit aucune charge utile de pilote.")]
     [InlineData("Deferred driver pack staging was requested without a supported deferred command.", "La préparation différée du pack de pilotes a été demandée sans commande différée prise en charge.")]
+    [InlineData("Offline customization disabled.", "Personnalisation hors ligne désactivée.")]
+    [InlineData("Configuring offline customizations...", "Configuration des personnalisations hors ligne...")]
+    [InlineData("Writing first-run defaults...", "Écriture des valeurs du premier démarrage...")]
+    [InlineData("Configuring AI component removal...", "Configuration de la suppression des composants IA...")]
+    [InlineData("Writing offline AI policies...", "Écriture des stratégies IA hors ligne...")]
+    [InlineData("Offline customization configured.", "Personnalisation hors ligne configurée.")]
+    [InlineData("Offline customization configured (simulation).", "Personnalisation hors ligne configurée (simulation).")]
+    [InlineData("Configuring OOBE settings...", "Configuration des paramètres OOBE...")]
+    [InlineData("Writing first-run privacy defaults...", "Écriture des valeurs de confidentialité du premier démarrage...")]
+    [InlineData("OOBE customization disabled.", "Personnalisation OOBE désactivée.")]
+    [InlineData("OOBE settings configured.", "Paramètres OOBE configurés.")]
+    [InlineData("OOBE settings configured (simulation).", "Paramètres OOBE configurés (simulation).")]
+    [InlineData("Staging pre-OOBE customizations...", "Préparation des personnalisations pré-OOBE...")]
+    [InlineData("No pre-OOBE customization scripts are required.", "Aucun script de personnalisation pré-OOBE n’est requis.")]
+    [InlineData("Pre-OOBE customizations staged.", "Personnalisations pré-OOBE préparées.")]
+    [InlineData("Pre-OOBE customizations staged (simulation).", "Personnalisations pré-OOBE préparées (simulation).")]
+    [InlineData("Pre-OOBE customizations will be staged with the deferred driver pack.", "Les personnalisations pré-OOBE seront préparées avec le pack de pilotes différé.")]
     [InlineData("Downloading Driver pack...", "Téléchargement du pack de pilotes...")]
     [InlineData("System reboot", "Redémarrage système")]
     [InlineData("Required reboot executable 'wpeutil.exe' was not found.", "L’exécutable de redémarrage requis 'wpeutil.exe' est introuvable.")]
@@ -45,6 +62,15 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
 
         Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeMessage(input));
+    }
+
+    [Fact]
+    public void LocalizeStepName_TranslatesOobeStepName()
+    {
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+
+        Assert.Equal("Configuration des paramètres OOBE", DeploymentUiTextLocalizer.LocalizeStepName("Configure OOBE settings"));
     }
 
     [Theory]

@@ -46,13 +46,15 @@ public sealed class MainWindowViewModelTelemetryTests
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetry.Events);
         Assert.Equal(TelemetryEvents.ConnectSessionReady, telemetryEvent.Name);
-        Assert.True((bool)telemetryEvent.Properties["success"]!);
-        Assert.Equal("ethernet", telemetryEvent.Properties["connection_type"]);
-        Assert.Equal("ethernet_wifi", telemetryEvent.Properties["layout_mode"]);
-        Assert.Equal("none", telemetryEvent.Properties["wifi_security"]);
-        Assert.Equal("none", telemetryEvent.Properties["wifi_source"]);
-        Assert.True((bool)telemetryEvent.Properties["wifi_provisioned"]!);
-        Assert.True((bool)telemetryEvent.Properties["wired_dot1x_enabled"]!);
+        Assert.Equal("ethernet", telemetryEvent.Properties["connect_network_connection_type"]);
+        Assert.Equal("ethernet_wifi", telemetryEvent.Properties["connect_network_layout_mode"]);
+        Assert.True((bool)telemetryEvent.Properties["connect_ethernet_available"]!);
+        Assert.True((bool)telemetryEvent.Properties["connect_wifi_available"]!);
+        Assert.Equal("none", telemetryEvent.Properties["connect_wifi_security_type"]);
+        Assert.Equal("none", telemetryEvent.Properties["connect_wifi_source"]);
+        Assert.True((bool)telemetryEvent.Properties["connect_wifi_provisioned"]!);
+        Assert.True((bool)telemetryEvent.Properties["connect_wired_dot1x_enabled"]!);
+        Assert.False(telemetryEvent.Properties.ContainsKey("success"));
         Assert.Equal(FoundryConnectExitCode.Success, lifetime.ExitCode);
         Assert.True(telemetry.CallsCompletedBeforeExit);
     }

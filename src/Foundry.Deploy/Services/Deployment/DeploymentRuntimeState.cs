@@ -1,4 +1,5 @@
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.DriverPacks;
 
@@ -213,6 +214,21 @@ public sealed record DeploymentRuntimeState
     /// Gets or sets the offline path to the staged Autopilot configuration file.
     /// </summary>
     public string? StagedAutopilotConfigurationPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets Windows OOBE customization settings applied to the offline installation.
+    /// </summary>
+    public DeployOobeSettings Oobe { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets provisioned AppX removal settings staged for pre-OOBE execution.
+    /// </summary>
+    public DeployAppxRemovalSettings AppxRemoval { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets Windows AI component removal settings staged for pre-OOBE execution.
+    /// </summary>
+    public DeployAiComponentRemovalSettings AiComponentRemoval { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the transient Foundry workspace on the target Windows partition.

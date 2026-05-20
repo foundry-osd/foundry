@@ -90,6 +90,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             ApplyFirmwareUpdates = request.ApplyFirmwareUpdates,
             IsAutopilotEnabled = request.IsAutopilotEnabled,
             SelectedAutopilotProfile = request.SelectedAutopilotProfile,
+            Oobe = request.Oobe,
+            AppxRemoval = request.AppxRemoval,
+            AiComponentRemoval = request.AiComponentRemoval,
             IsDryRun = request.IsDryRun
         };
 

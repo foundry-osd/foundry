@@ -83,14 +83,16 @@ public sealed class DeploymentOrchestratorTests
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         Assert.Equal(TelemetryEvents.DeploySessionFinished, telemetryEvent.Name);
-        Assert.False((bool)telemetryEvent.Properties["success"]!);
-        Assert.False((bool)telemetryEvent.Properties["cancelled"]!);
-        Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, telemetryEvent.Properties["failed_step_name"]);
-        Assert.Equal("windows_11", telemetryEvent.Properties["os_product"]);
-        Assert.Equal("dell", telemetryEvent.Properties["driver_pack_vendor"]);
-        Assert.Equal("latitude 5450", telemetryEvent.Properties["driver_pack_model"]);
-        Assert.True((bool)telemetryEvent.Properties["firmware_updates_enabled"]!);
-        Assert.True((bool)telemetryEvent.Properties["autopilot_enabled"]!);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
+        Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, telemetryEvent.Properties["deploy_session_failed_step_name"]);
+        Assert.Equal("windows_11", telemetryEvent.Properties["deploy_os_product"]);
+        Assert.Equal("dell", telemetryEvent.Properties["deploy_driver_pack_vendor"]);
+        Assert.Equal("latitude 5450", telemetryEvent.Properties["deploy_driver_pack_model"]);
+        Assert.True((bool)telemetryEvent.Properties["deploy_firmware_updates_enabled"]!);
+        Assert.True((bool)telemetryEvent.Properties["deploy_autopilot_enabled"]!);
+        Assert.False(telemetryEvent.Properties.ContainsKey("success"));
+        Assert.False(telemetryEvent.Properties.ContainsKey("autopilot_enabled"));
     }
 
     private static IDeploymentStep[] CreateSteps(string targetWindowsRoot)

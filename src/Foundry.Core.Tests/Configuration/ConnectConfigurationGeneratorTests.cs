@@ -14,7 +14,7 @@ public sealed class ConnectConfigurationGeneratorTests
         var generator = new ConnectConfigurationGenerator();
 
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
-            new FoundryExpertConfigurationDocument(),
+            new FoundryConfigurationDocument(),
             tempDirectory.Path);
 
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
@@ -48,7 +48,7 @@ public sealed class ConnectConfigurationGeneratorTests
         };
 
         FoundryConnectConfigurationDocument result = generator.Generate(
-            new FoundryExpertConfigurationDocument { Telemetry = telemetry },
+            new FoundryConfigurationDocument { Telemetry = telemetry },
             tempDirectory.Path);
 
         Assert.Same(telemetry, result.Telemetry);
@@ -79,7 +79,7 @@ public sealed class ConnectConfigurationGeneratorTests
         var generator = new ConnectConfigurationGenerator();
 
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
-            new FoundryExpertConfigurationDocument
+            new FoundryConfigurationDocument
             {
                 Network = new NetworkSettings
                 {
@@ -125,7 +125,7 @@ public sealed class ConnectConfigurationGeneratorTests
         var generator = new ConnectConfigurationGenerator();
 
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
-            new FoundryExpertConfigurationDocument
+            new FoundryConfigurationDocument
             {
                 Network = new NetworkSettings
                 {
@@ -166,7 +166,7 @@ public sealed class ConnectConfigurationGeneratorTests
         var generator = new ConnectConfigurationGenerator();
 
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
-            new FoundryExpertConfigurationDocument
+            new FoundryConfigurationDocument
             {
                 Network = new NetworkSettings
                 {

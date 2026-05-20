@@ -4,6 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:Foundry.ViewModels"
       xmlns:wct="using:CommunityToolkit.WinUI.Controls"
       mc:Ignorable="d">
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
@@ -47,6 +48,253 @@
                                       Description="{x:Bind ViewModel.MachineNamingAllowManualSuffixEditDescription, Mode=OneWay}"
                                       IsEnabled="{x:Bind ViewModel.IsMachineNamingOptionsEnabled, Mode=OneWay}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.AllowManualSuffixEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
+
+            <wct:SettingsExpander Header="{x:Bind ViewModel.OobeHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.OobeDescription, Mode=OneWay}"
+                                  IsExpanded="{x:Bind ViewModel.IsOobeExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xF133;" />
+                </wct:SettingsExpander.HeaderIcon>
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.OobeEnableText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsOobeEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <wct:SettingsExpander.Items>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeSkipLicenseTermsLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeSkipLicenseTermsDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xEB95;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.SkipLicenseTerms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeDiagnosticDataLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeDiagnosticDataDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE9D9;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.OobeDiagnosticDataOptions, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedOobeDiagnosticData, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeHidePrivacySetupLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeHidePrivacySetupDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE705;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.HidePrivacySetup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeTailoredExperiencesLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeTailoredExperiencesDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE728;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowTailoredExperiences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeAdvertisingIdLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeAdvertisingIdDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE789;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowAdvertisingId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeOnlineSpeechRecognitionLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeOnlineSpeechRecognitionDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE720;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowOnlineSpeechRecognition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeInkingAndTypingDiagnosticsLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeInkingAndTypingDiagnosticsDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xED5F;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AllowInkingAndTypingDiagnostics, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.OobeLocationAccessLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.OobeLocationAccessDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE707;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.OobeLocationAccessOptions, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedOobeLocationAccess, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
+
+            <wct:SettingsExpander Header="{x:Bind ViewModel.AiComponentRemovalHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.AiComponentRemovalDescription, Mode=OneWay}"
+                                  IsExpanded="{x:Bind ViewModel.IsAiComponentRemovalExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xF4A5;" />
+                </wct:SettingsExpander.HeaderIcon>
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.AiComponentRemovalEnableText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsAiComponentRemovalEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <wct:SettingsExpander.Items>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentRemoveCopilotLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentRemoveCopilotDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8D4;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.RemoveCopilot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentRemoveAiHubLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentRemoveAiHubDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE74C;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.RemoveAiHub, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentDisableRecallLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentDisableRecallDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE823;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.DisableRecall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentDisableClickToDoLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentDisableClickToDoDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B0;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.DisableClickToDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentDisableAiServiceAutoStartLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentDisableAiServiceAutoStartDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE945;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.DisableAiServiceAutoStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentDisableEdgeAiLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentDisableEdgeAiDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE774;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.DisableEdgeAi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentDisablePaintAiLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentDisablePaintAiDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xEC87;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.DisablePaintAi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AiComponentDisableNotepadAiLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AiComponentDisableNotepadAiDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE70B;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.DisableNotepadAi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
+
+            <wct:SettingsExpander Header="{x:Bind ViewModel.AppxRemovalHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.AppxRemovalDescription, Mode=OneWay}"
+                                  IsExpanded="{x:Bind ViewModel.IsAppxRemovalExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xE7B8;" />
+                </wct:SettingsExpander.HeaderIcon>
+                <ToggleSwitch AutomationProperties.Name="{x:Bind ViewModel.AppxRemovalEnableText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.IsAppxRemovalEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <wct:SettingsExpander.Items>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AppxRemovalProfileLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AppxRemovalProfileDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAppxRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xEC25;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <DropDownButton MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                        Content="{x:Bind ViewModel.AppxRemovalProfileSummaryText, Mode=OneWay}">
+                            <DropDownButton.Flyout>
+                                <Flyout Placement="BottomEdgeAlignedRight">
+                                    <StackPanel MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                                Spacing="{ThemeResource FoundrySpace12}">
+                                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.AppxRemovalCategories, Mode=OneWay}">
+                                            <ItemsRepeater.ItemTemplate>
+                                                <DataTemplate x:DataType="viewModels:AppxRemovalCategoryViewModel">
+                                                    <CheckBox Click="OnAppxRemovalProfileClick"
+                                                              Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                              IsChecked="{x:Bind IsProfileSelected, Mode=OneWay}"
+                                                              IsThreeState="False"
+                                                              Tag="{x:Bind}" />
+                                                </DataTemplate>
+                                            </ItemsRepeater.ItemTemplate>
+                                        </ItemsRepeater>
+                                        <Button HorizontalAlignment="Right"
+                                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                                Command="{x:Bind ViewModel.RemoveAllAppxRemovalCommand}"
+                                                Content="{x:Bind ViewModel.AppxRemovalRemoveAllText, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Flyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                    </wct:SettingsCard>
+                    <wct:SettingsCard Header="{x:Bind ViewModel.AppxRemovalPackagesLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AppxRemovalSelectedCountText, Mode=OneWay}"
+                                      HorizontalContentAlignment="Stretch"
+                                      IsEnabled="{x:Bind ViewModel.IsAppxRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B7;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                            <StackPanel HorizontalAlignment="Right"
+                                        Orientation="Horizontal"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                        Command="{x:Bind ViewModel.SelectAllAppxRemovalCommand}"
+                                        Content="{x:Bind ViewModel.AppxRemovalSelectAllText, Mode=OneWay}" />
+                                <Button MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                        Command="{x:Bind ViewModel.RemoveAllAppxRemovalCommand}"
+                                        Content="{x:Bind ViewModel.AppxRemovalRemoveAllText, Mode=OneWay}" />
+                            </StackPanel>
+                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.AppxRemovalCategories, Mode=OneWay}">
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="viewModels:AppxRemovalCategoryViewModel">
+                                        <StackPanel Margin="0,0,0,16"
+                                                    Spacing="{ThemeResource FoundrySpace8}">
+                                            <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                       Text="{x:Bind DisplayName, Mode=OneWay}" />
+                                            <ItemsRepeater ItemsSource="{x:Bind Items, Mode=OneWay}">
+                                                <ItemsRepeater.Layout>
+                                                    <UniformGridLayout MaximumRowsOrColumns="3"
+                                                                       MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                                       MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
+                                                                       MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                                                </ItemsRepeater.Layout>
+                                                <ItemsRepeater.ItemTemplate>
+                                                    <DataTemplate x:DataType="viewModels:AppxRemovalItemViewModel">
+                                                        <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                                  IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    </DataTemplate>
+                                                </ItemsRepeater.ItemTemplate>
+                                            </ItemsRepeater>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </StackPanel>
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>

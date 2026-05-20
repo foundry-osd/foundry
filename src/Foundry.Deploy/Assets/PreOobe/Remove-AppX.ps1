@@ -1,0 +1,124 @@
+param(
+    [string]$PackageCatalogPath = (Join-Path $env:SystemRoot 'Temp\Foundry\PreOobe\Data\Remove-AppX.packages.json')
+)
+
+$ErrorActionPreference = 'Stop'
+$LogDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\Logs\PreOobe'
+$TranscriptPath = Join-Path $LogDirectory 'Remove-AppX.transcript.log'
+$TranscriptStarted = $false
+$ScriptStartedAt = [DateTimeOffset]::Now
+
+function Start-FoundryTranscript {
+    New-Item -Path $LogDirectory -ItemType Directory -Force | Out-Null
+    Start-Transcript -Path $TranscriptPath -Force | Out-Null
+    $script:TranscriptStarted = $true
+}
+
+function Stop-FoundryTranscript {
+    if ($script:TranscriptStarted) {
+        Stop-Transcript | Out-Null
+    }
+}
+
+function Write-FoundryLog {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Message
+    )
+
+    $now = [DateTimeOffset]::Now
+    $elapsed = $now - $script:ScriptStartedAt
+    Write-Host ("[{0}] [+{1:c}] {2}" -f $now.ToString('yyyy-MM-ddTHH:mm:ss'), $elapsed, $Message)
+}
+
+function Get-SelectedPackageNames {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$CatalogPath
+    )
+
+    if (-not (Test-Path -LiteralPath $CatalogPath)) {
+        throw "AppX package catalog was not found: $CatalogPath"
+    }
+
+    $catalogContent = Get-Content -Raw -LiteralPath $CatalogPath
+    if ([string]::IsNullOrWhiteSpace($catalogContent)) {
+        return @()
+    }
+
+    $catalogEntries = $catalogContent | ConvertFrom-Json
+    return @($catalogEntries |
+        Where-Object { $null -ne $_ -and -not [string]::IsNullOrWhiteSpace($_.packageName) } |
+        ForEach-Object { [string]$_.packageName } |
+        ForEach-Object { $_.Trim() } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        Select-Object -Unique)
+}
+
+function Remove-FoundryProvisionedAppxPackage {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$CatalogPackageName
+    )
+
+    $provisionedPackages = @(Get-AppxProvisionedPackage -Online | Where-Object {
+        $_.DisplayName -eq $CatalogPackageName
+    })
+
+    if ($provisionedPackages.Count -eq 0) {
+        Write-FoundryLog "Skipping missing provisioned AppX package: $CatalogPackageName"
+        return
+    }
+
+    foreach ($provisionedPackage in $provisionedPackages) {
+        $operationStartedAt = [DateTimeOffset]::Now
+        try {
+            $resolvedPackageName = [string]$provisionedPackage.PackageName
+            if ([string]::IsNullOrWhiteSpace($resolvedPackageName)) {
+                Write-FoundryLog "WARNING: Skipping provisioned AppX package '$($provisionedPackage.DisplayName)' because its package identity is empty."
+                continue
+            }
+
+            Write-FoundryLog "Removing provisioned AppX package: $($provisionedPackage.DisplayName) ($resolvedPackageName)"
+            $removeArguments = @{
+                Online = $true
+                PackageName = $resolvedPackageName
+                ErrorAction = 'Stop'
+            }
+
+            Remove-AppxProvisionedPackage @removeArguments | Out-Null
+
+            $operationDuration = [DateTimeOffset]::Now - $operationStartedAt
+            Write-FoundryLog "Removed provisioned AppX package '$($provisionedPackage.DisplayName)' after $($operationDuration.ToString('c'))."
+        }
+        catch {
+            Write-FoundryLog "WARNING: Unable to remove provisioned AppX package '$($provisionedPackage.DisplayName)': $($_.Exception.Message)"
+        }
+    }
+}
+
+try {
+    Start-FoundryTranscript
+    Write-FoundryLog "Foundry AppX removal started."
+    Write-FoundryLog "Reading AppX package catalog: $PackageCatalogPath"
+
+    $selectedPackageNames = @(Get-SelectedPackageNames -CatalogPath $PackageCatalogPath)
+    if ($selectedPackageNames.Count -eq 0) {
+        Write-FoundryLog "No provisioned AppX packages were selected for removal."
+        return
+    }
+
+    foreach ($selectedPackageName in $selectedPackageNames) {
+        try {
+            Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)
+        }
+        catch {
+            Write-FoundryLog "WARNING: Unable to process selected provisioned AppX package '$selectedPackageName': $($_.Exception.Message)"
+        }
+    }
+
+    Write-FoundryLog "Foundry AppX removal completed."
+}
+finally {
+    Stop-FoundryTranscript
+}

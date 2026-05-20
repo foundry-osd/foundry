@@ -7,8 +7,8 @@ namespace Foundry.Telemetry;
 /// <param name="AppVersion">Application version reported by the running binary.</param>
 /// <param name="BuildConfiguration">Compile-time build configuration of the running binary.</param>
 /// <param name="Runtime">Runtime environment category.</param>
-/// <param name="RuntimePayloadSource">Source of the Connect or Deploy runtime payload.</param>
-/// <param name="BootMediaTarget">Boot media target or explicit WinPE runtime mode.</param>
+/// <param name="RuntimePayloadSource">Source of the generated runtime payload, used by event-specific telemetry when relevant.</param>
+/// <param name="BootMediaTarget">Boot media target or explicit WinPE runtime mode, used by event-specific telemetry when relevant.</param>
 /// <param name="RuntimeArchitecture">Application or runtime architecture.</param>
 /// <param name="Locale">Current UI or runtime culture.</param>
 /// <param name="SessionId">Random per-process identifier for grouping events from one run.</param>

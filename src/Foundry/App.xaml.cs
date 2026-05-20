@@ -1,8 +1,10 @@
 using Foundry.DependencyInjection;
+using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
 using Foundry.Services.Startup;
 using Foundry.Telemetry;
+using Microsoft.UI.Xaml;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
@@ -74,6 +76,7 @@ namespace Foundry
         {
             Host = FoundryHost.Create();
             SetDeveloperModeEnabled(Host.Services.GetRequiredService<IAppSettingsService>().Current.Diagnostics.DeveloperMode);
+            _ = Host.Services.GetRequiredService<IFoundryConfigurationStateService>();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
             RegisterWinUiExceptionHandler();
 
@@ -95,7 +98,7 @@ namespace Foundry
                 MainWindow.Title = MainWindow.AppWindow.Title = ProcessInfoHelper.ProductNameAndVersion;
                 MainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
 
-                ThemeService.Initialize(MainWindow);
+                InitializeThemeService();
 
                 MainWindow.Activate();
 
@@ -162,6 +165,36 @@ namespace Foundry
             AppLogger.Debug("Foundry daily-active telemetry event queued.");
         }
 
+        private void InitializeThemeService()
+        {
+            IAppSettingsService settingsService = GetService<IAppSettingsService>();
+            ElementTheme elementTheme = ParseEnum(settingsService.Current.Appearance.ElementTheme, ElementTheme.Default);
+            BackdropType backdropType = ParseEnum(settingsService.Current.Appearance.BackdropType, BackdropType.Mica);
+
+            ThemeService
+                .ConfigureAutoSave(false, Constants.AppSettingsPath)
+                .ConfigureElementTheme(elementTheme)
+                .ConfigureBackdrop(backdropType)
+                .Initialize(MainWindow);
+
+            ThemeService.ThemeChanged += OnThemeChanged;
+            ThemeService.BackdropChanged += OnBackdropChanged;
+        }
+
+        private static void OnThemeChanged(object? sender, ElementTheme theme)
+        {
+            IAppSettingsService settingsService = GetService<IAppSettingsService>();
+            settingsService.Current.Appearance.ElementTheme = theme.ToString();
+            settingsService.Save();
+        }
+
+        private static void OnBackdropChanged(object? sender, BackdropType backdropType)
+        {
+            IAppSettingsService settingsService = GetService<IAppSettingsService>();
+            settingsService.Current.Appearance.BackdropType = backdropType.ToString();
+            settingsService.Save();
+        }
+
         private void RegisterWinUiExceptionHandler()
         {
             UnhandledException += OnWinUiUnhandledException;
@@ -184,8 +217,16 @@ namespace Foundry
             AppLogger.Debug("Flushing Foundry telemetry events.");
             GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();
             AppLogger.Debug("Foundry telemetry flush completed.");
+            ThemeService.ThemeChanged -= OnThemeChanged;
+            ThemeService.BackdropChanged -= OnBackdropChanged;
             Host.Dispose();
             Log.CloseAndFlush();
+        }
+
+        private static T ParseEnum<T>(string? value, T fallback)
+            where T : struct, Enum
+        {
+            return Enum.TryParse(value, ignoreCase: true, out T result) ? result : fallback;
         }
     }
 }

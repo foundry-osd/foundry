@@ -8,7 +8,7 @@ public sealed class StageAutopilotConfigurationStep : DeploymentStepBase
 {
     private const string TargetConfigurationRelativePath = @"Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json";
 
-    public override int Order => 16;
+    public override int Order => 18;
 
     public override string Name => DeploymentStepNames.StageAutopilotConfiguration;
 

@@ -177,6 +177,131 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_StagesAppxRemovalScriptWithSelectedPackages()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "remove-appx",
+                    FileName = "Remove-AppX.ps1",
+                    ResourceName = PreOobeScriptResources.RemoveAppx,
+                    Priority = PreOobeScriptPriority.Customization,
+                    DataFiles =
+                    [
+                        new PreOobeScriptDataFile
+                        {
+                            FileName = "Remove-AppX.packages.json",
+                            Content = """
+                                [
+                                  {
+                                    "packageName": "Microsoft.BingNews"
+                                  },
+                                  {
+                                    "packageName": "Microsoft.BingWeather"
+                                  }
+                                ]
+                                """
+                        }
+                    ]
+                }
+            ]);
+
+        string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
+        string stagedScript = File.ReadAllText(stagedScriptPath);
+        string runner = File.ReadAllText(result.RunnerPath);
+        string stagedCatalog = File.ReadAllText(Path.Combine(Path.GetDirectoryName(result.RunnerPath)!, "Data", "Remove-AppX.packages.json"));
+
+        Assert.EndsWith(Path.Combine("Scripts", "Remove-AppX.ps1"), stagedScriptPath);
+        Assert.Contains("Remove-AppX.transcript.log", stagedScript);
+        Assert.Contains("Get-AppxProvisionedPackage -Online", stagedScript);
+        Assert.Contains("Remove-AppxProvisionedPackage @removeArguments", stagedScript);
+        Assert.Contains("PackageName = $resolvedPackageName", stagedScript);
+        Assert.Contains("Online = $true", stagedScript);
+        Assert.Contains("ConvertFrom-Json", stagedScript);
+        Assert.Contains("Remove-AppX.packages.json", stagedScript);
+        Assert.DoesNotContain("dism.exe", stagedScript);
+        Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
+        Assert.Contains("Write-FoundryLog", stagedScript);
+        Assert.DoesNotContain("Microsoft.BingNews", runner);
+        Assert.DoesNotContain("Microsoft.BingWeather", runner);
+        Assert.Contains("Microsoft.BingNews", stagedCatalog);
+        Assert.Contains("Microsoft.BingWeather", stagedCatalog);
+    }
+
+    [Fact]
+    public void Provision_StagesAiComponentRemovalScriptWithSettings()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "remove-ai-components",
+                    FileName = "Remove-AiComponents.ps1",
+                    ResourceName = PreOobeScriptResources.RemoveAiComponents,
+                    Priority = PreOobeScriptPriority.Customization,
+                    DataFiles =
+                    [
+                        new PreOobeScriptDataFile
+                        {
+                            FileName = "Remove-AiComponents.settings.json",
+                            Content = """
+                                {
+                                  "appxPackages": [
+                                    {
+                                      "packageName": "Microsoft.Copilot"
+                                    },
+                                    {
+                                      "packageName": "Microsoft.Windows.AIHub"
+                                    }
+                                  ]
+                                }
+                                """
+                        }
+                    ]
+                }
+            ]);
+
+        string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
+        string stagedScript = File.ReadAllText(stagedScriptPath);
+        string runner = File.ReadAllText(result.RunnerPath);
+        string stagedSettings = File.ReadAllText(Path.Combine(Path.GetDirectoryName(result.RunnerPath)!, "Data", "Remove-AiComponents.settings.json"));
+
+        Assert.EndsWith(Path.Combine("Scripts", "Remove-AiComponents.ps1"), stagedScriptPath);
+        Assert.Contains("Remove-AiComponents.transcript.log", stagedScript);
+        Assert.Contains("Remove-AiComponents.settings.json", stagedScript);
+        Assert.Contains("Get-AppxProvisionedPackage -Online", stagedScript);
+        Assert.Contains("Remove-AppxProvisionedPackage @removeArguments", stagedScript);
+        Assert.Contains("Get-SelectedAiAppxPackageNames", stagedScript);
+        Assert.Contains("Remove-FoundryProvisionedAppxPackage -CatalogPackageName ([string]$selectedPackageName)", stagedScript);
+        Assert.DoesNotContain("-isnot $null", stagedScript);
+        Assert.DoesNotContain("Registry::", stagedScript);
+        Assert.DoesNotContain("reg.exe", stagedScript);
+        Assert.DoesNotContain("Users\\Default\\NTUSER.DAT", stagedScript);
+        Assert.DoesNotContain("TurnOffWindowsCopilot", stagedScript);
+        Assert.DoesNotContain("DisableAIDataAnalysis", stagedScript);
+        Assert.DoesNotContain("DisableClickToDo", stagedScript);
+        Assert.DoesNotContain("WSAIFabricSvc", stagedScript);
+        Assert.DoesNotContain("CopilotCDPPageContext", stagedScript);
+        Assert.DoesNotContain("DisableCocreator", stagedScript);
+        Assert.DoesNotContain("DisableAIFeatures", stagedScript);
+        Assert.Contains("Write-FoundryLog", stagedScript);
+        Assert.DoesNotContain("removeCopilot", runner);
+        Assert.Contains("\"packageName\": \"Microsoft.Copilot\"", stagedSettings);
+        Assert.Contains("\"packageName\": \"Microsoft.Windows.AIHub\"", stagedSettings);
+        Assert.DoesNotContain("removeCopilot", stagedSettings);
+        Assert.DoesNotContain("disableNotepadAi", stagedSettings);
+    }
+
+    [Fact]
     public void Provision_RunnerReliesOnScriptTranscriptsInsteadOfPerScriptRedirectLogs()
     {
         string windowsRoot = CreateWindowsRoot();
@@ -207,8 +332,10 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         Assert.Contains("REM >>> FOUNDRY PRE-OOBE BEGIN", setupComplete);
         Assert.Contains(
-            "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\PreOobe\\Invoke-FoundryPreOobe.ps1\"",
+            "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\PreOobe\\Invoke-FoundryPreOobe.ps1\" >>\"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\\SetupComplete.log\" 2>&1",
             setupComplete);
+        Assert.Contains("mkdir \"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\" >nul 2>&1", setupComplete);
+        Assert.Contains("Foundry pre-OOBE runner exited with %FOUNDRY_PREOOBE_EXIT%", setupComplete);
         Assert.Contains("REM <<< FOUNDRY PRE-OOBE END", setupComplete);
     }
 
@@ -227,6 +354,35 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         string setupComplete = File.ReadAllText(result.SetupCompletePath);
 
+        Assert.Equal(1, CountOccurrences(setupComplete, "REM >>> FOUNDRY PRE-OOBE BEGIN"));
+    }
+
+    [Fact]
+    public void Provision_ReplacesExistingSetupCompleteLauncherBlock()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        string setupCompletePath = Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
+        Directory.CreateDirectory(Path.GetDirectoryName(setupCompletePath)!);
+        File.WriteAllText(
+            setupCompletePath,
+            string.Join(
+                Environment.NewLine,
+                [
+                    "@echo off",
+                    "REM >>> FOUNDRY PRE-OOBE BEGIN",
+                    "old-runner-command",
+                    "REM <<< FOUNDRY PRE-OOBE END"
+                ]));
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [CreateScript("driver-pack", "Install-DriverPack.ps1", PreOobeScriptPriority.DriverProvisioning)]);
+
+        string setupComplete = File.ReadAllText(result.SetupCompletePath);
+
+        Assert.DoesNotContain("old-runner-command", setupComplete);
+        Assert.Contains("SetupComplete.log", setupComplete);
         Assert.Equal(1, CountOccurrences(setupComplete, "REM >>> FOUNDRY PRE-OOBE BEGIN"));
     }
 

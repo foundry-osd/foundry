@@ -7,7 +7,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class OperatingSystemCatalogViewModelTests
 {
     [Fact]
-    public void ApplyExpertLocalization_UsesCanonicalLanguageCodesForFiltersAndSelection()
+    public void ApplyDeployLocalization_UsesCanonicalLanguageCodesForFiltersAndSelection()
     {
         var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
         viewModel.ApplyCatalog(
@@ -19,7 +19,7 @@ public sealed class OperatingSystemCatalogViewModelTests
         Assert.Contains("en-US", viewModel.LanguageFilters);
         Assert.Contains("fr-FR", viewModel.LanguageFilters);
 
-        viewModel.ApplyExpertLocalization([" fr_FR "], "FR-fr", forceSingleVisibleLanguageSelection: true);
+        viewModel.ApplyDeployLocalization([" fr_FR "], "FR-fr", forceSingleVisibleLanguageSelection: true);
 
         Assert.Equal(["fr-FR"], viewModel.LanguageFilters);
         Assert.Equal("fr-FR", viewModel.SelectedLanguageCode);

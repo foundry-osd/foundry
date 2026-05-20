@@ -33,8 +33,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
             Directory.CreateDirectory(system32Path);
             Directory.CreateDirectory(foundryConfigPath);
-            Directory.CreateDirectory(Path.Combine(foundryRootPath, "Logs"));
-            Directory.CreateDirectory(Path.Combine(foundryRootPath, "Temp"));
 
             await File.WriteAllTextAsync(
                 Path.Combine(system32Path, BootstrapFileName),
@@ -85,8 +83,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         WinPeMountedImageAssetProvisioningOptions options,
         CancellationToken cancellationToken)
     {
-        CreateNetworkAssetDirectories(foundryConfigPath);
-
         string connectConfigurationJson = string.IsNullOrWhiteSpace(options.FoundryConnectConfigurationJson)
             ? CreateFallbackFoundryConnectConfigurationJson()
             : options.FoundryConnectConfigurationJson;
@@ -97,9 +93,9 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
 
-        string deployConfigurationJson = string.IsNullOrWhiteSpace(options.ExpertDeployConfigurationJson)
+        string deployConfigurationJson = string.IsNullOrWhiteSpace(options.DeployConfigurationJson)
             ? CreateFallbackDeployConfigurationJson()
-            : options.ExpertDeployConfigurationJson;
+            : options.DeployConfigurationJson;
 
         await File.WriteAllTextAsync(
             Path.Combine(foundryConfigPath, "foundry.deploy.config.json"),
@@ -133,16 +129,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
         CopyConnectAssetFiles(mountedImagePath, options.FoundryConnectAssetFiles);
         await WriteAutopilotProfilesAsync(foundryConfigPath, options.AutopilotProfiles, cancellationToken).ConfigureAwait(false);
-    }
-
-    private static void CreateNetworkAssetDirectories(string foundryConfigPath)
-    {
-        string networkRoot = Path.Combine(foundryConfigPath, "Network");
-        Directory.CreateDirectory(Path.Combine(networkRoot, "Wired", "Profiles"));
-        Directory.CreateDirectory(Path.Combine(networkRoot, "Wifi", "Profiles"));
-        Directory.CreateDirectory(Path.Combine(networkRoot, "Certificates"));
-        Directory.CreateDirectory(Path.Combine(networkRoot, "Certificates", "Wired"));
-        Directory.CreateDirectory(Path.Combine(networkRoot, "Certificates", "Wifi"));
     }
 
     private static async Task WriteMediaSecretsKeyAsync(

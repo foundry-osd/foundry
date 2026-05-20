@@ -11,6 +11,16 @@ public static class PreOobeScriptResources
     public const string InstallDriverPack = "Foundry.Deploy.PreOobe.Install-DriverPack.ps1";
 
     /// <summary>
+    /// Removes selected provisioned AppX packages before OOBE creates user profiles.
+    /// </summary>
+    public const string RemoveAppx = "Foundry.Deploy.PreOobe.Remove-AppX.ps1";
+
+    /// <summary>
+    /// Removes selected AI provisioned AppX packages before OOBE creates user profiles.
+    /// </summary>
+    public const string RemoveAiComponents = "Foundry.Deploy.PreOobe.Remove-AiComponents.ps1";
+
+    /// <summary>
     /// Removes temporary folders left by pre-OOBE provisioning scripts.
     /// </summary>
     public const string CleanupPreOobe = "Foundry.Deploy.PreOobe.Cleanup-PreOobe.ps1";

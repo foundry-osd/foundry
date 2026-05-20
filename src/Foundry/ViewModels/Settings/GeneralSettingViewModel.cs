@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using Foundry.Core.Localization;
+using Foundry.Localization;
 using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;

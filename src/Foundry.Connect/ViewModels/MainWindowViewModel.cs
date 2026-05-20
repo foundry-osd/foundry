@@ -14,6 +14,7 @@ using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
+using Foundry.Localization;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
@@ -378,7 +379,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void RefreshSupportedCultures()
     {
         SupportedCultures.Clear();
-        foreach (SupportedCultureOption option in SupportedCultureCatalog.CreateOptions(CurrentCulture, key => Strings[key]))
+        foreach (SupportedCultureOption option in LocalizationService.CreateSupportedCultureOptions())
         {
             SupportedCultures.Add(option);
         }
@@ -598,19 +599,20 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         string wifiSource = ResolveWifiSource(snapshot, connectionType);
         var properties = new Dictionary<string, object?>
             {
-                ["success"] = true,
-                ["connection_type"] = connectionType,
-                ["layout_mode"] = NetworkTelemetryClassifier.ClassifyLayout(snapshot.LayoutMode),
-                ["wifi_security"] = wifiSecurity,
-                ["wifi_source"] = wifiSource,
-                ["wired_dot1x_enabled"] = _configuration.Dot1x.IsEnabled,
-                ["wifi_provisioned"] = HasProvisionedWifiProfile
+                ["connect_network_connection_type"] = connectionType,
+                ["connect_network_layout_mode"] = NetworkTelemetryClassifier.ClassifyLayout(snapshot.LayoutMode),
+                ["connect_ethernet_available"] = snapshot.HasEthernetAdapter,
+                ["connect_wifi_available"] = snapshot.HasWirelessAdapter && snapshot.IsWifiRuntimeAvailable,
+                ["connect_wifi_security_type"] = wifiSecurity,
+                ["connect_wifi_source"] = wifiSource,
+                ["connect_wired_dot1x_enabled"] = _configuration.Dot1x.IsEnabled,
+                ["connect_wifi_provisioned"] = HasProvisionedWifiProfile
             };
 
         _logger.LogDebug(
             "Tracking Connect session-ready telemetry event. ConnectionType={ConnectionType}, LayoutMode={LayoutMode}, WifiSecurity={WifiSecurity}, WifiSource={WifiSource}, WiredDot1xEnabled={WiredDot1xEnabled}, WifiProvisioned={WifiProvisioned}.",
             connectionType,
-            properties["layout_mode"],
+            properties["connect_network_layout_mode"],
             wifiSecurity,
             wifiSource,
             _configuration.Dot1x.IsEnabled,

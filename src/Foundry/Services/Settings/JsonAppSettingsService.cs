@@ -1,5 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.WinPe;
 using Serilog;
 
 namespace Foundry.Services.Settings;
@@ -22,7 +24,8 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
     {
         this.logger = logger.ForContext<JsonAppSettingsService>();
         IsFirstRun = !File.Exists(Constants.AppSettingsPath);
-        Current = Load();
+        Current = Load(out GeneralSettings? migratedGeneralSettings);
+        MigratedGeneralSettings = migratedGeneralSettings;
         EnsureTelemetryInstallId(Current);
         Save();
     }
@@ -32,6 +35,9 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
 
     /// <inheritdoc />
     public bool IsFirstRun { get; }
+
+    /// <inheritdoc />
+    public GeneralSettings? MigratedGeneralSettings { get; }
 
     /// <inheritdoc />
     public void Save()
@@ -49,8 +55,9 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
         }
     }
 
-    private FoundryAppSettings Load()
+    private FoundryAppSettings Load(out GeneralSettings? migratedGeneralSettings)
     {
+        migratedGeneralSettings = null;
         if (!File.Exists(Constants.AppSettingsPath))
         {
             return new FoundryAppSettings();
@@ -59,7 +66,10 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
         try
         {
             string json = File.ReadAllText(Constants.AppSettingsPath);
-            return JsonSerializer.Deserialize(json, FoundryAppSettingsJsonContext.Default.FoundryAppSettings) ?? new FoundryAppSettings();
+            migratedGeneralSettings = LegacyAppSettingsMediaMigration.TryReadGeneralSettings(json);
+            FoundryAppSettings settings = JsonSerializer.Deserialize(json, FoundryAppSettingsJsonContext.Default.FoundryAppSettings) ?? new FoundryAppSettings();
+            ApplyLegacyAppearanceSettings(settings, json);
+            return settings;
         }
         catch (Exception ex)
         {
@@ -104,4 +114,55 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
     [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase, WriteIndented = true)]
     [JsonSerializable(typeof(FoundryAppSettings))]
     private sealed partial class FoundryAppSettingsJsonContext : JsonSerializerContext;
+
+    private static class LegacyAppSettingsMediaMigration
+    {
+        public static GeneralSettings? TryReadGeneralSettings(string json)
+        {
+            try
+            {
+                LegacyFoundryAppSettings? document = JsonSerializer.Deserialize(
+                    json,
+                    FoundryLegacyAppSettingsJsonContext.Default.LegacyFoundryAppSettings);
+
+                return document?.Media?.ToGeneralSettings();
+            }
+            catch (JsonException)
+            {
+                return null;
+            }
+        }
+    }
+
+    private static void ApplyLegacyAppearanceSettings(FoundryAppSettings settings, string json)
+    {
+        using JsonDocument document = JsonDocument.Parse(json);
+        if (document.RootElement.ValueKind != JsonValueKind.Object ||
+            !document.RootElement.TryGetProperty("appearance", out JsonElement appearance) ||
+            appearance.ValueKind != JsonValueKind.Object ||
+            appearance.TryGetProperty("elementTheme", out _))
+        {
+            return;
+        }
+
+        if (appearance.TryGetProperty("theme", out JsonElement legacyTheme) &&
+            legacyTheme.ValueKind == JsonValueKind.String)
+        {
+            settings.Appearance.ElementTheme = legacyTheme.GetString()?.Trim().ToLowerInvariant() switch
+            {
+                "light" => "Light",
+                "dark" => "Dark",
+                _ => "Default"
+            };
+        }
+    }
+
+    private sealed class LegacyFoundryAppSettings
+    {
+        public LegacyMediaSettings? Media { get; set; }
+    }
+
+    [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+    [JsonSerializable(typeof(LegacyFoundryAppSettings))]
+    private sealed partial class FoundryLegacyAppSettingsJsonContext : JsonSerializerContext;
 }

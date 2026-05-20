@@ -5,6 +5,7 @@ using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Services.Configuration;
@@ -31,7 +32,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly IFilePickerService filePickerService;
-    private readonly IExpertDeployConfigurationStateService expertDeployConfigurationStateService;
+    private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly ITelemetryService telemetryService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
@@ -56,7 +57,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
         IFilePickerService filePickerService,
-        IExpertDeployConfigurationStateService expertDeployConfigurationStateService,
+        IFoundryConfigurationStateService foundryConfigurationStateService,
         ITelemetryService telemetryService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
@@ -74,7 +75,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
         this.filePickerService = filePickerService;
-        this.expertDeployConfigurationStateService = expertDeployConfigurationStateService;
+        this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.telemetryService = telemetryService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
@@ -91,16 +92,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         PartitionStyles = [];
         FormatModes = [];
 
-        IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
-        SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
-        UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
+        GeneralSettings general = foundryConfigurationStateService.Current.General;
+        IsoOutputPath = general.IsoOutputPath ?? string.Empty;
+        SelectedArchitecture = SelectOption(Architectures, general.Architecture);
+        UseCa2023Signature = general.UseCa2023;
         RebuildPartitionStyles();
-        IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
-        IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
-        CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
+        IncludeDellDrivers = general.IncludeDellDrivers;
+        IncludeHpDrivers = general.IncludeHpDrivers;
+        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
 
         adkService.StatusChanged += OnAdkStatusChanged;
-        expertDeployConfigurationStateService.StateChanged += OnExpertDeployConfigurationStateChanged;
+        foundryConfigurationStateService.StateChanged += OnFoundryConfigurationStateChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
 
         isLoadingConfiguration = false;
@@ -139,9 +141,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public ObservableCollection<StartReadinessItemViewModel> MediaOutputReadinessItems { get; } = [];
 
     /// <summary>
-    /// Gets readiness items that describe expert configuration blockers.
+    /// Gets readiness items that describe configuration blockers.
     /// </summary>
-    public ObservableCollection<StartReadinessItemViewModel> ExpertConfigurationReadinessItems { get; } = [];
+    public ObservableCollection<StartReadinessItemViewModel> FoundryConfigurationReadinessItems { get; } = [];
 
     [ObservableProperty]
     public partial string PageTitle { get; set; } = string.Empty;
@@ -216,13 +218,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial bool IsMediaOutputReadinessExpanded { get; set; }
 
     [ObservableProperty]
-    public partial bool IsExpertConfigurationReadinessExpanded { get; set; }
+    public partial bool IsFoundryConfigurationReadinessExpanded { get; set; }
 
     /// <inheritdoc />
     public void Dispose()
     {
         adkService.StatusChanged -= OnAdkStatusChanged;
-        expertDeployConfigurationStateService.StateChanged -= OnExpertDeployConfigurationStateChanged;
+        foundryConfigurationStateService.StateChanged -= OnFoundryConfigurationStateChanged;
         localizationService.LanguageChanged -= OnLanguageChanged;
     }
 
@@ -637,14 +639,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 artifact.BootWimPath);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
-            FoundryConnectProvisioningBundle connectBundle = expertDeployConfigurationStateService.GenerateConnectProvisioningBundle(
+            FoundryConnectProvisioningBundle connectBundle = foundryConfigurationStateService.GenerateConnectProvisioningBundle(
                 Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"),
                 connectTelemetrySettings);
             logger.Debug(
                 "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, HasMediaSecretsKey={HasMediaSecretsKey}, AutopilotProfileCount={AutopilotProfileCount}",
                 connectBundle.AssetFiles.Count,
                 connectBundle.MediaSecretsKey is { Length: > 0 },
-                options.IsAutopilotEnabled ? expertDeployConfigurationStateService.Current.Autopilot.Profiles.Count : 0);
+                options.IsAutopilotEnabled ? foundryConfigurationStateService.Current.Autopilot.Profiles.Count : 0);
 
             WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
             {
@@ -716,11 +718,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
-            ExpertDeployConfigurationJson = expertDeployConfigurationStateService.GenerateDeployConfigurationJson(deployTelemetrySettings),
+            DeployConfigurationJson = foundryConfigurationStateService.GenerateDeployConfigurationJson(deployTelemetrySettings),
             MediaSecretsKey = connectBundle.MediaSecretsKey,
             FoundryConnectAssetFiles = connectBundle.AssetFiles,
             AutopilotProfiles = options.IsAutopilotEnabled
-                ? expertDeployConfigurationStateService.Current.Autopilot.Profiles
+                ? foundryConfigurationStateService.Current.Autopilot.Profiles
                 : [],
             ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
             DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy)
@@ -1073,8 +1075,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        appSettingsService.Current.Media.IsoOutputPath = value;
-        appSettingsService.Save();
+        UpdateGeneral(foundryConfigurationStateService.Current.General with { IsoOutputPath = value });
         RefreshEvaluation();
     }
 
@@ -1091,8 +1092,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        appSettingsService.Current.Media.UsbPartitionStyle = value.Value.ToString();
-        appSettingsService.Save();
+        UpdateGeneral(foundryConfigurationStateService.Current.General with { UsbPartitionStyle = value.Value });
         RefreshEvaluation(loadConfigurationFromSettings: false);
     }
 
@@ -1103,8 +1103,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        appSettingsService.Current.Media.UsbFormatMode = value.Value.ToString();
-        appSettingsService.Save();
+        UpdateGeneral(foundryConfigurationStateService.Current.General with { UsbFormatMode = value.Value });
         RefreshEvaluation();
     }
 
@@ -1116,11 +1115,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
     }
 
-    private void OnExpertDeployConfigurationStateChanged(object? sender, EventArgs e)
+    private void OnFoundryConfigurationStateChanged(object? sender, EventArgs e)
     {
         if (!appDispatcher.TryEnqueue(() => RefreshEvaluation()))
         {
-            logger.Warning("Failed to enqueue Start page Expert Deploy configuration refresh.");
+            logger.Warning("Failed to enqueue Start page Foundry configuration refresh.");
         }
     }
 
@@ -1161,7 +1160,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
         }
 
-        WinPeLanguage = NormalizeCultureName(appSettingsService.Current.Media.WinPeLanguage);
+        WinPeLanguage = NormalizeCultureName(foundryConfigurationStateService.Current.General.WinPeLanguage);
         availableWinPeLanguages = GetAvailableWinPeLanguages();
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
@@ -1181,14 +1180,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void LoadConfigurationFromSettings()
     {
-        IsoOutputPath = appSettingsService.Current.Media.IsoOutputPath;
-        SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
-        UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
+        GeneralSettings general = foundryConfigurationStateService.Current.General;
+        IsoOutputPath = general.IsoOutputPath ?? string.Empty;
+        SelectedArchitecture = SelectOption(Architectures, general.Architecture);
+        UseCa2023Signature = general.UseCa2023;
         RebuildPartitionStyles();
-        SelectedFormatMode = SelectOption(FormatModes, ParseEnum(appSettingsService.Current.Media.UsbFormatMode, UsbFormatMode.Quick));
-        IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
-        IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
-        CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
+        SelectedFormatMode = SelectOption(FormatModes, general.UsbFormatMode);
+        IncludeDellDrivers = general.IncludeDellDrivers;
+        IncludeHpDrivers = general.IncludeHpDrivers;
+        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
     }
 
     private MediaPreflightOptions CreatePreflightOptions()
@@ -1207,14 +1207,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return new MediaPreflightOptions
         {
             IsAdkReady = adkService.CurrentStatus.CanCreateMedia,
-            IsNetworkConfigurationReady = expertDeployConfigurationStateService.IsNetworkConfigurationReady,
-            IsDeployConfigurationReady = expertDeployConfigurationStateService.IsDeployConfigurationReady,
-            IsConnectProvisioningReady = expertDeployConfigurationStateService.IsConnectProvisioningReady,
-            AreRequiredSecretsReady = expertDeployConfigurationStateService.AreRequiredSecretsReady,
-            IsAutopilotEnabled = expertDeployConfigurationStateService.IsAutopilotEnabled,
-            IsAutopilotConfigurationReady = expertDeployConfigurationStateService.IsAutopilotConfigurationReady,
-            AutopilotProfileDisplayName = expertDeployConfigurationStateService.SelectedAutopilotProfileDisplayName,
-            AutopilotProfileFolderName = expertDeployConfigurationStateService.SelectedAutopilotProfileFolderName,
+            IsNetworkConfigurationReady = foundryConfigurationStateService.IsNetworkConfigurationReady,
+            IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady,
+            IsConnectProvisioningReady = foundryConfigurationStateService.IsConnectProvisioningReady,
+            AreRequiredSecretsReady = foundryConfigurationStateService.AreRequiredSecretsReady,
+            IsAutopilotEnabled = foundryConfigurationStateService.IsAutopilotEnabled,
+            IsAutopilotConfigurationReady = foundryConfigurationStateService.IsAutopilotConfigurationReady,
+            AutopilotProfileDisplayName = foundryConfigurationStateService.SelectedAutopilotProfileDisplayName,
+            AutopilotProfileFolderName = foundryConfigurationStateService.SelectedAutopilotProfileFolderName,
             IsFinalExecutionEnabled = true,
             IsoOutputPath = IsoOutputPath,
             Architecture = SelectedArchitecture?.Value ?? WinPeArchitecture.X64,
@@ -1230,9 +1230,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         };
     }
 
+    private void UpdateGeneral(GeneralSettings settings)
+    {
+        foundryConfigurationStateService.UpdateGeneral(settings);
+    }
+
     private void SynchronizeRuntimeTelemetrySettings()
     {
-        expertDeployConfigurationStateService.UpdateTelemetry(CreateRuntimeTelemetrySettings(TelemetryRuntimePayloadSources.None));
+        foundryConfigurationStateService.UpdateTelemetry(CreateRuntimeTelemetrySettings(TelemetryRuntimePayloadSources.None));
     }
 
     private TelemetrySettings CreateRuntimeTelemetrySettings(string runtimePayloadSource)
@@ -1261,46 +1266,30 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             Constants.WinPeWorkspaceDirectoryPath,
             Constants.WinPeWorkspaceDirectoryPath));
 
-        var properties = new Dictionary<string, object?>
-            {
-                ["boot_media_target"] = target == FinalMediaTarget.Iso
-                    ? TelemetryBootMediaTargets.Iso
-                    : TelemetryBootMediaTargets.Usb,
-                ["success"] = success,
-                ["duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
-                ["failed_step_name"] = failedStepName,
-                ["boot_media_architecture"] = options.Architecture.ToString().ToLowerInvariant(),
-                ["winpe_language"] = NormalizeCultureName(options.WinPeLanguage).ToLowerInvariant(),
-                ["boot_image_source"] = options.BootImageSource.ToString().ToLowerInvariant(),
-                ["signature_mode"] = options.SignatureMode.ToString().ToLowerInvariant(),
-                ["usb_partition_style"] = target == FinalMediaTarget.Usb
-                    ? options.UsbPartitionStyle.ToString().ToLowerInvariant()
-                    : "none",
-                ["usb_format_mode"] = target == FinalMediaTarget.Usb
-                    ? options.UsbFormatMode.ToString().ToLowerInvariant()
-                    : "none",
-                ["include_dell_drivers"] = options.DriverVendors.Contains(WinPeVendorSelection.Dell),
-                ["include_hp_drivers"] = options.DriverVendors.Contains(WinPeVendorSelection.Hp),
-                ["custom_drivers_enabled"] = !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
-                ["network_configured"] = options.IsNetworkConfigurationReady,
-                ["connect_configured"] = options.IsConnectProvisioningReady,
-                ["deploy_configured"] = options.IsDeployConfigurationReady,
-                ["connect_runtime_payload_source"] = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
-                ["deploy_runtime_payload_source"] = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
-                ["autopilot_enabled"] = options.IsAutopilotEnabled
-            };
+        string bootMediaTarget = target == FinalMediaTarget.Iso
+            ? TelemetryBootMediaTargets.Iso
+            : TelemetryBootMediaTargets.Usb;
+        IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
+            bootMediaTarget,
+            options,
+            foundryConfigurationStateService.Current,
+            success,
+            failedStepName,
+            duration,
+            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
+            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
 
         logger.Debug(
             "Tracking media telemetry event. Target={Target}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
             properties["boot_media_target"],
             success,
             failedStepName,
-            properties["duration_seconds"],
+            properties["boot_media_creation_duration_seconds"],
             properties["boot_media_architecture"],
-            properties["boot_image_source"],
-            properties["signature_mode"],
-            properties["connect_runtime_payload_source"],
-            properties["deploy_runtime_payload_source"]);
+            properties["boot_media_boot_image_source"],
+            properties["boot_media_signature_mode"],
+            properties["boot_media_connect_runtime_payload_source"],
+            properties["boot_media_deploy_runtime_payload_source"]);
 
         await telemetryService.TrackAsync(TelemetryEvents.OsdBootMediaFinished, properties, cancellationToken);
         logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["boot_media_target"], success);
@@ -1370,8 +1359,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 BuildUsbLayoutReadinessItem(options, evaluation)
             ]);
 
-        IsExpertConfigurationReadinessExpanded = ReplaceReadinessItems(
-            ExpertConfigurationReadinessItems,
+        IsFoundryConfigurationReadinessExpanded = ReplaceReadinessItems(
+            FoundryConfigurationReadinessItems,
             [
                 BuildNetworkReadinessItem(options),
                 BuildDeployConfigurationReadinessItem(options),
@@ -1728,7 +1717,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private void RebuildFormatModes()
     {
         UsbFormatMode selectedValue = SelectedFormatMode?.Value
-            ?? ParseEnum(appSettingsService.Current.Media.UsbFormatMode, UsbFormatMode.Quick);
+            ?? foundryConfigurationStateService.Current.General.UsbFormatMode;
 
         FormatModes.Clear();
         FormatModes.Add(new(UsbFormatMode.Quick, localizationService.GetString("StartMedia.FormatMode.Quick")));
@@ -1740,7 +1729,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         UsbPartitionStyle selectedValue = SelectedArchitecture?.Value == WinPeArchitecture.Arm64
             ? UsbPartitionStyle.Gpt
-            : SelectedPartitionStyle?.Value ?? ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt);
+            : SelectedPartitionStyle?.Value ?? foundryConfigurationStateService.Current.General.UsbPartitionStyle;
 
         PartitionStyles.Clear();
         PartitionStyles.Add(new(UsbPartitionStyle.Gpt, "GPT"));
@@ -1909,7 +1898,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private WinPeBootImageSource ResolveBootImageSource()
     {
-        NetworkSettings network = expertDeployConfigurationStateService.Current.Network;
+        NetworkSettings network = foundryConfigurationStateService.Current.Network;
         return network.WifiProvisioned || network.Wifi.IsEnabled
             ? WinPeBootImageSource.WinReWifi
             : WinPeBootImageSource.WinPe;

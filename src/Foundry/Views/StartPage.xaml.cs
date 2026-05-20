@@ -30,8 +30,8 @@ public sealed partial class StartPage : Page
         ReadinessPrerequisitesCard.Description = localizationService.GetString("StartMedia.Readiness.Prerequisites.Description");
         ReadinessMediaOutputCard.Header = localizationService.GetString("StartMedia.Readiness.MediaOutput.Header");
         ReadinessMediaOutputCard.Description = localizationService.GetString("StartMedia.Readiness.MediaOutput.Description");
-        ReadinessExpertConfigurationCard.Header = localizationService.GetString("StartMedia.Readiness.ExpertConfiguration.Header");
-        ReadinessExpertConfigurationCard.Description = localizationService.GetString("StartMedia.Readiness.ExpertConfiguration.Description");
+        ReadinessFoundryConfigurationCard.Header = localizationService.GetString("StartMedia.Readiness.FoundryConfiguration.Header");
+        ReadinessFoundryConfigurationCard.Description = localizationService.GetString("StartMedia.Readiness.FoundryConfiguration.Description");
 
         IsoPathCard.Header = localizationService.GetString("StartMedia.IsoPath.Header");
         IsoPathCard.Description = localizationService.GetString("StartMedia.IsoPath.Description");

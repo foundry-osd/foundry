@@ -23,17 +23,12 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
-        string targetFoundryRoot = context.EnsureTargetFoundryRoot();
-        string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
-        Directory.CreateDirectory(workingDirectory);
-
         context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...");
         await _windowsDeploymentService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetComputerName,
                 context.Request.OperatingSystem.Architecture,
-                workingDirectory,
                 context.Request.DefaultTimeZoneId,
                 cancellationToken)
             .ConfigureAwait(false);
@@ -53,17 +48,12 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
-        string targetFoundryRoot = context.EnsureTargetFoundryRoot();
-        string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
-        Directory.CreateDirectory(workingDirectory);
-
         context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...");
         await _windowsDeploymentService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetComputerName,
                 context.Request.OperatingSystem.Architecture,
-                workingDirectory,
                 context.Request.DefaultTimeZoneId,
                 cancellationToken)
             .ConfigureAwait(false);

@@ -321,6 +321,171 @@
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Le préfixe doit utiliser 1 à 15 caractères parmi A-Z, a-z, 0-9 ou -.</value>
   </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>Expérience de première configuration</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>Configurer les écrans de première exécution Windows 11 et les valeurs de confidentialité par défaut.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>Personnaliser l’OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>Ignorer les termes de licence</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>Ignore la page des termes du contrat de licence logiciel Microsoft pendant l’OOBE.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>Données de diagnostic</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>Sélectionne le niveau de données de diagnostic Windows configuré avant la première connexion. Désactivé est uniquement respecté par les éditions Windows prises en charge ; les éditions non prises en charge reviennent à Obligatoire.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>Obligatoire</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>Facultatif</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>Masquer la configuration de confidentialité</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>Empêche Windows d’afficher la page des choix de confidentialité pendant la première connexion.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>Expériences personnalisées</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>Autorise Windows à utiliser les données de diagnostic pour personnaliser les conseils, publicités et recommandations.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>Identifiant publicitaire</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>Autorise les applications à utiliser l’identifiant publicitaire Windows entre applications.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>Reconnaissance vocale en ligne</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>Autorise les services Microsoft de reconnaissance vocale basés sur le cloud.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>Diagnostics de saisie manuscrite et clavier</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>Autorise la collecte facultative des données de diagnostic de saisie manuscrite et clavier.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>Accès à la localisation</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>Contrôle si Windows et les applications peuvent utiliser les services de localisation.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>Contrôlé par l’utilisateur</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>Forcer la désactivation</value>
+  </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>Suppression des composants IA</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>Supprimer ou désactiver les composants IA Windows sélectionnés avant l’OOBE.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>Supprimer les composants IA</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>Supprimer Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>Supprimer le package AppX Copilot et désactiver la stratégie Windows Copilot.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>Supprimer Copilot+ AI Hub</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>Supprimer le package AppX provisionné Windows AI Hub lorsqu’il est présent.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>Désactiver Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>Définir les stratégies Windows AI qui empêchent l’activation de Recall et l’enregistrement d’instantanés.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>Désactiver Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>Définir les stratégies Windows AI qui désactivent Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>Empêcher le démarrage automatique du service IA Windows</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>Définir WSAIFabricSvc en démarrage manuel au lieu du démarrage automatique.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>Désactiver les fonctionnalités IA de Microsoft Edge</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>Définir les stratégies Edge qui désactivent Copilot, la barre latérale, la composition et la recherche IA.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>Désactiver les fonctionnalités IA de Paint</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>Définir les stratégies Paint qui désactivent Cocreator, l’édition générative, le créateur d’images et la suppression d’arrière-plan.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>Désactiver les fonctionnalités IA du Bloc-notes</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>Définir la stratégie Bloc-notes qui désactive les fonctionnalités IA.</value>
+  </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>Suppression AppX provisionnée</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>Supprimer les applications Windows provisionnées sélectionnées avant l’OOBE.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>Supprimer les applications AppX provisionnées</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>Sélectionner une ou plusieurs catégories du catalogue pour présélectionner les packages.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>Personnalisé</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>{0} profils sélectionnés</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>Tout sélectionner</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>Tout retirer</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>{0} package(s) sélectionné(s) sur {1}</value>
+  </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Choisir l'architecture, la langue de l'image de démarrage et les pilotes à injecter dans cette image.</value>
   </data>
@@ -445,7 +610,7 @@
     <value>Activez ceci uniquement si l'image de boot doit inclure la prise en charge Wi-Fi et des profils Wi-Fi pour le démarrage WinPE.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Les phrases secrètes Wi-Fi personnelles restent transitoires dans l'application et ne sont pas persistées dans la configuration experte.</value>
+    <value>Les phrases secrètes Wi-Fi personnelles restent transitoires dans l'application et ne sont pas persistées dans la configuration Foundry.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Le comportement entreprise est piloté par le modèle de profil inclus dans cette version. Les informations d'identification 802.1X saisies à l'exécution ne sont pas provisionnées ici.</value>
@@ -876,10 +1041,10 @@
   <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
     <value>Choix finaux pour la sortie ISO et USB.</value>
   </data>
-  <data name="StartMedia.Readiness.ExpertConfiguration.Header" xml:space="preserve">
-    <value>Configuration expert</value>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Configuration Foundry</value>
   </data>
-  <data name="StartMedia.Readiness.ExpertConfiguration.Description" xml:space="preserve">
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
     <value>Paramètres de déploiement utilisés par Foundry dans WinPE.</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">

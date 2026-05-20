@@ -1,4 +1,4 @@
-using Foundry.Core.Localization;
+using Foundry.Localization;
 
 namespace Foundry.Services.Localization;
 

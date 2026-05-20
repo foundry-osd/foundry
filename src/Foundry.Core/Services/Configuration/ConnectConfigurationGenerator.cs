@@ -16,14 +16,14 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     private const string WifiCertificateFolder = @"Network\Certificates\Wifi";
 
     /// <inheritdoc />
-    public FoundryConnectConfigurationDocument Generate(FoundryExpertConfigurationDocument document, string stagingDirectoryPath)
+    public FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath)
     {
         return CreateProvisioningBundle(document, stagingDirectoryPath).Configuration;
     }
 
     /// <inheritdoc />
     public FoundryConnectProvisioningBundle CreateProvisioningBundle(
-        FoundryExpertConfigurationDocument document,
+        FoundryConfigurationDocument document,
         string stagingDirectoryPath)
     {
         ArgumentNullException.ThrowIfNull(document);

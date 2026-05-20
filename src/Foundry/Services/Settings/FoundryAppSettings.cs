@@ -1,3 +1,7 @@
+using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.WinPe;
+using Foundry.Localization;
+
 namespace Foundry.Services.Settings;
 
 /// <summary>
@@ -21,11 +25,6 @@ public sealed class FoundryAppSettings
     public LocalizationSettings Localization { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets media creation defaults.
-    /// </summary>
-    public MediaSettings Media { get; set; } = new();
-
-    /// <summary>
     /// Gets or sets application update preferences and check history.
     /// </summary>
     public UpdateSettings Updates { get; set; } = new();
@@ -47,9 +46,14 @@ public sealed class FoundryAppSettings
 public sealed class AppearanceSettings
 {
     /// <summary>
-    /// Gets or sets the theme identifier, such as <c>system</c>, <c>light</c>, or <c>dark</c>.
+    /// Gets or sets the WinUI element theme name.
     /// </summary>
-    public string Theme { get; set; } = "system";
+    public string ElementTheme { get; set; } = "Default";
+
+    /// <summary>
+    /// Gets or sets the shell backdrop type name.
+    /// </summary>
+    public string BackdropType { get; set; } = "Mica";
 }
 
 /// <summary>
@@ -60,13 +64,13 @@ public sealed class LocalizationSettings
     /// <summary>
     /// Gets or sets the culture code used by the application resource loader.
     /// </summary>
-    public string Language { get; set; } = "en-US";
+    public string Language { get; set; } = FoundrySupportedCultures.DefaultCultureCode;
 }
 
 /// <summary>
-/// Stores defaults used when creating WinPE boot media.
+/// Stores legacy WinPE boot media defaults read only during app settings migration.
 /// </summary>
-public sealed class MediaSettings
+public sealed class LegacyMediaSettings
 {
     /// <summary>
     /// Gets or sets the default ISO output path.
@@ -112,6 +116,28 @@ public sealed class MediaSettings
     /// Gets or sets the optional WinPE language code applied to generated media.
     /// </summary>
     public string WinPeLanguage { get; set; } = string.Empty;
+
+    public GeneralSettings ToGeneralSettings()
+    {
+        return new GeneralSettings
+        {
+            IsoOutputPath = IsoOutputPath,
+            Architecture = ParseEnum(Architecture, WinPeArchitecture.X64),
+            WinPeLanguage = WinPeLanguage,
+            UseCa2023 = UseCa2023Signature,
+            UsbPartitionStyle = ParseEnum(this.UsbPartitionStyle, Core.Services.WinPe.UsbPartitionStyle.Gpt),
+            UsbFormatMode = ParseEnum(this.UsbFormatMode, Core.Services.WinPe.UsbFormatMode.Quick),
+            IncludeDellDrivers = IncludeDellDrivers,
+            IncludeHpDrivers = IncludeHpDrivers,
+            CustomDriverDirectoryPath = CustomDriverDirectoryPath
+        };
+    }
+
+    private static T ParseEnum<T>(string? value, T fallback)
+        where T : struct, Enum
+    {
+        return Enum.TryParse(value, ignoreCase: true, out T result) ? result : fallback;
+    }
 }
 
 /// <summary>

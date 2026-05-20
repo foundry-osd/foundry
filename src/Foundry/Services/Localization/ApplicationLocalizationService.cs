@@ -1,5 +1,5 @@
 using System.Globalization;
-using Foundry.Core.Localization;
+using Foundry.Localization;
 using Foundry.Services.Settings;
 using Microsoft.Windows.ApplicationModel.Resources;
 using Microsoft.Windows.Globalization;
@@ -15,10 +15,13 @@ internal sealed class ApplicationLocalizationService(
     IAppSettingsService appSettingsService,
     ILogger logger) : IApplicationLocalizationService
 {
+    private static readonly SupportedCultureCatalog DefaultSupportedCultures = FoundrySupportedCultures.CreateCatalog();
+
     private readonly ILogger logger = logger.ForContext<ApplicationLocalizationService>();
+    private readonly SupportedCultureCatalog supportedCultures = DefaultSupportedCultures;
     private ResourceManager? resourceManager;
     private ResourceContext? resourceContext;
-    private string currentLanguage = SupportedCultureCatalog.DefaultCultureCode;
+    private string currentLanguage = DefaultSupportedCultures.DefaultCultureCode;
 
     /// <inheritdoc />
     public string CurrentLanguage => currentLanguage;
@@ -33,8 +36,8 @@ internal sealed class ApplicationLocalizationService(
 
         string configuredLanguage = appSettingsService.Current.Localization.Language;
         string validatedLanguage = appSettingsService.IsFirstRun
-            ? SupportedCultureCatalog.MatchPreferredCulture(GetPreferredLanguageCodes())
-            : SupportedCultureCatalog.ValidateOrDefault(configuredLanguage);
+            ? supportedCultures.MatchPreferredCulture(GetPreferredLanguageCodes())
+            : supportedCultures.ValidateOrDefault(configuredLanguage);
 
         if (!string.Equals(configuredLanguage, validatedLanguage, StringComparison.OrdinalIgnoreCase))
         {
@@ -64,7 +67,7 @@ internal sealed class ApplicationLocalizationService(
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        string validatedLanguage = SupportedCultureCatalog.ValidateOrDefault(languageCode);
+        string validatedLanguage = supportedCultures.ValidateOrDefault(languageCode);
         if (!string.Equals(languageCode, validatedLanguage, StringComparison.OrdinalIgnoreCase))
         {
             logger.Warning(
@@ -153,7 +156,7 @@ internal sealed class ApplicationLocalizationService(
     public IReadOnlyList<SupportedCultureOption> CreateSupportedLanguageOptions()
     {
         CultureInfo currentCulture = CultureInfo.GetCultureInfo(currentLanguage);
-        return SupportedCultureCatalog.CreateOptions(currentCulture, GetString);
+        return supportedCultures.CreateOptions(currentCulture, GetString);
     }
 
     private void ApplyLanguage(string languageCode)

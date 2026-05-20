@@ -7,14 +7,14 @@ namespace Foundry.ViewModels;
 public sealed partial class SettingsPageViewModel : ObservableObject
 {
     private readonly IAppSettingsService appSettingsService;
-    private readonly IExpertDeployConfigurationStateService expertDeployConfigurationStateService;
+    private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
 
     public SettingsPageViewModel(
         IAppSettingsService appSettingsService,
-        IExpertDeployConfigurationStateService expertDeployConfigurationStateService)
+        IFoundryConfigurationStateService foundryConfigurationStateService)
     {
         this.appSettingsService = appSettingsService;
-        this.expertDeployConfigurationStateService = expertDeployConfigurationStateService;
+        this.foundryConfigurationStateService = foundryConfigurationStateService;
         IsTelemetryEnabled = appSettingsService.Current.Telemetry.IsEnabled;
     }
 
@@ -25,7 +25,7 @@ public sealed partial class SettingsPageViewModel : ObservableObject
     {
         appSettingsService.Current.Telemetry.IsEnabled = value;
         appSettingsService.Save();
-        expertDeployConfigurationStateService.UpdateTelemetry(CreateTelemetrySettings());
+        foundryConfigurationStateService.UpdateTelemetry(CreateTelemetrySettings());
     }
 
     private TelemetrySettings CreateTelemetrySettings()

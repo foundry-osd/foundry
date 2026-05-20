@@ -453,7 +453,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
         if (_detectedHardware?.IsVirtualMachine == true)
         {
-            return options.FirstOrDefault(option => option.Kind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+            return options.FirstOrDefault(option => option.Kind == DriverPackSelectionKind.None)
                    ?? options[0];
         }
 

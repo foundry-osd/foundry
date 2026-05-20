@@ -1,11 +1,12 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
+using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
-using Foundry.Services.Settings;
 using Microsoft.UI.Xaml;
 using Serilog;
 
@@ -16,7 +17,7 @@ namespace Foundry.ViewModels;
 /// </summary>
 public sealed partial class GeneralConfigurationViewModel : ObservableObject
 {
-    private readonly IAppSettingsService appSettingsService;
+    private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IAdkService adkService;
     private readonly IWinPeLanguageDiscoveryService winPeLanguageDiscoveryService;
     private readonly IFilePickerService filePickerService;
@@ -25,14 +26,14 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     private bool isInitializing = true;
 
     public GeneralConfigurationViewModel(
-        IAppSettingsService appSettingsService,
+        IFoundryConfigurationStateService configurationStateService,
         IAdkService adkService,
         IWinPeLanguageDiscoveryService winPeLanguageDiscoveryService,
         IFilePickerService filePickerService,
         IApplicationLocalizationService localizationService,
         ILogger logger)
     {
-        this.appSettingsService = appSettingsService;
+        this.configurationStateService = configurationStateService;
         this.adkService = adkService;
         this.winPeLanguageDiscoveryService = winPeLanguageDiscoveryService;
         this.filePickerService = filePickerService;
@@ -45,11 +46,12 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             new(WinPeArchitecture.Arm64, "arm64")
         ];
 
-        SelectedArchitecture = SelectOption(Architectures, ParseEnum(appSettingsService.Current.Media.Architecture, WinPeArchitecture.X64));
-        UseCa2023Signature = appSettingsService.Current.Media.UseCa2023Signature;
-        IncludeDellDrivers = appSettingsService.Current.Media.IncludeDellDrivers;
-        IncludeHpDrivers = appSettingsService.Current.Media.IncludeHpDrivers;
-        CustomDriverDirectoryPath = appSettingsService.Current.Media.CustomDriverDirectoryPath ?? string.Empty;
+        GeneralSettings general = configurationStateService.Current.General;
+        SelectedArchitecture = SelectOption(Architectures, general.Architecture);
+        UseCa2023Signature = general.UseCa2023;
+        IncludeDellDrivers = general.IncludeDellDrivers;
+        IncludeHpDrivers = general.IncludeHpDrivers;
+        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
         WinPeLanguageUnavailableDescription = string.Empty;
         isInitializing = false;
     }
@@ -162,7 +164,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         }
 
         List<string> languages = result.Value.Select(NormalizeCultureName).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
-        string selected = SelectWinPeLanguage(languages, appSettingsService.Current.Media.WinPeLanguage, localizationService.CurrentLanguage);
+        string selected = SelectWinPeLanguage(languages, configurationStateService.Current.General.WinPeLanguage, localizationService.CurrentLanguage);
         foreach (string language in languages)
         {
             AvailableWinPeLanguages.Add(language);
@@ -171,8 +173,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         HasWinPeLanguages = true;
         WinPeLanguageUnavailableDescription = string.Empty;
         SelectedWinPeLanguage = selected;
-        appSettingsService.Current.Media.WinPeLanguage = selected;
-        appSettingsService.Save();
+        Save(configurationStateService.Current.General with { WinPeLanguage = selected });
     }
 
     /// <summary>
@@ -186,9 +187,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        appSettingsService.Current.Media.WinPeLanguage = NormalizeCultureName(selectedLanguage);
-        appSettingsService.Save();
-        SelectedWinPeLanguage = appSettingsService.Current.Media.WinPeLanguage;
+        string normalizedLanguage = NormalizeCultureName(selectedLanguage);
+        Save(configurationStateService.Current.General with { WinPeLanguage = normalizedLanguage });
+        SelectedWinPeLanguage = normalizedLanguage;
     }
 
     partial void OnSelectedArchitectureChanged(SelectionOption<WinPeArchitecture>? value)
@@ -198,10 +199,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        appSettingsService.Current.Media.Architecture = value.Value.ToString();
-        EnsureUsbPartitionStyleAllowedForArchitecture(value.Value);
-
-        Save();
+        GeneralSettings general = EnsureUsbPartitionStyleAllowedForArchitecture(
+            configurationStateService.Current.General with { Architecture = value.Value });
+        Save(general);
         RefreshWinPeLanguages();
     }
 
@@ -212,8 +212,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        appSettingsService.Current.Media.UseCa2023Signature = value;
-        Save();
+        Save(configurationStateService.Current.General with { UseCa2023 = value });
     }
 
     partial void OnIncludeDellDriversChanged(bool value)
@@ -223,8 +222,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        appSettingsService.Current.Media.IncludeDellDrivers = value;
-        Save();
+        Save(configurationStateService.Current.General with { IncludeDellDrivers = value });
     }
 
     partial void OnIncludeHpDriversChanged(bool value)
@@ -234,8 +232,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        appSettingsService.Current.Media.IncludeHpDrivers = value;
-        Save();
+        Save(configurationStateService.Current.General with { IncludeHpDrivers = value });
     }
 
     partial void OnCustomDriverDirectoryPathChanged(string value)
@@ -245,27 +242,25 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
             return;
         }
 
-        appSettingsService.Current.Media.CustomDriverDirectoryPath = string.IsNullOrWhiteSpace(value) ? null : value;
-        Save();
+        Save(configurationStateService.Current.General with
+        {
+            CustomDriverDirectoryPath = string.IsNullOrWhiteSpace(value) ? null : value
+        });
     }
 
-    private void Save()
+    private void Save(GeneralSettings settings)
     {
-        appSettingsService.Save();
+        configurationStateService.UpdateGeneral(settings);
     }
 
-    private void EnsureUsbPartitionStyleAllowedForArchitecture(WinPeArchitecture architecture)
+    private static GeneralSettings EnsureUsbPartitionStyleAllowedForArchitecture(GeneralSettings settings)
     {
-        if (architecture != WinPeArchitecture.Arm64)
+        if (settings.Architecture != WinPeArchitecture.Arm64 || settings.UsbPartitionStyle != UsbPartitionStyle.Mbr)
         {
-            return;
+            return settings;
         }
 
-        if (ParseEnum(appSettingsService.Current.Media.UsbPartitionStyle, UsbPartitionStyle.Gpt) == UsbPartitionStyle.Mbr)
-        {
-            // ARM64 boot media must remain GPT-compatible, so changing the architecture also repairs the persisted USB style.
-            appSettingsService.Current.Media.UsbPartitionStyle = UsbPartitionStyle.Gpt.ToString();
-        }
+        return settings with { UsbPartitionStyle = UsbPartitionStyle.Gpt };
     }
 
     private static string SelectWinPeLanguage(IReadOnlyList<string> languages, string? preferredLanguage, string currentLanguage)
@@ -299,12 +294,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         {
             return language;
         }
-    }
-
-    private static T ParseEnum<T>(string? value, T fallback)
-        where T : struct, Enum
-    {
-        return Enum.TryParse(value, ignoreCase: true, out T result) ? result : fallback;
     }
 
     private static SelectionOption<T>? SelectOption<T>(IEnumerable<SelectionOption<T>> options, T value)

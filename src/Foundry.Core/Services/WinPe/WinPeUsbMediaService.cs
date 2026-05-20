@@ -161,31 +161,11 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(safetyValidation.Error!);
         }
 
-        char bootDriveLetter = FindAvailableDriveLetter('\0');
-        if (bootDriveLetter == '\0')
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(
-                WinPeErrorCodes.UsbProvisioningFailed,
-                "No free drive letter is available for the BOOT partition.",
-                "Free at least two drive letters between D: and Z: and retry.");
-        }
-
-        char cacheDriveLetter = FindAvailableDriveLetter(bootDriveLetter);
-        if (cacheDriveLetter == '\0')
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(
-                WinPeErrorCodes.UsbProvisioningFailed,
-                "No free drive letter is available for the cache partition.",
-                "Free at least one drive letter between D: and Z: and retry.");
-        }
-
         ReportProgress(options.Progress, 20, "Partitioning and formatting USB target.");
-        WinPeResult provisioningResult = await ProvisionDiskAsync(
+        WinPeResult<WinPeUsbProvisionResult> provisioningResult = await ProvisionDiskAsync(
             diskNumber,
             options.PartitionStyle,
             options.FormatMode,
-            bootDriveLetter,
-            cacheDriveLetter,
             tools,
             artifact.WorkingDirectoryPath,
             options.Progress,
@@ -195,8 +175,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(provisioningResult.Error!);
         }
 
-        string bootRootPath = $"{bootDriveLetter}:\\";
-        string cacheRootPath = $"{cacheDriveLetter}:\\";
+        WinPeUsbProvisionResult provisionedUsb = provisioningResult.Value!;
+        string bootRootPath = $"{provisionedUsb.BootDriveLetter}\\";
+        string cacheRootPath = $"{provisionedUsb.CacheDriveLetter}\\";
         ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
         WinPeResult copyResult = await CopyMediaAsync(
             artifact.MediaDirectoryPath,
@@ -249,11 +230,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         ReportProgress(options.Progress, 100, "USB media completed.");
-        return WinPeResult<WinPeUsbProvisionResult>.Success(new WinPeUsbProvisionResult
-        {
-            BootDriveLetter = $"{bootDriveLetter}:",
-            CacheDriveLetter = $"{cacheDriveLetter}:"
-        });
+        return WinPeResult<WinPeUsbProvisionResult>.Success(provisionedUsb);
     }
 
     internal static WinPeResult ValidateDiskSafety(UsbOutputOptions options, WinPeUsbDiskIdentity disk)
@@ -338,22 +315,16 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     internal static string BuildPowerShellProvisioningScript(
         int diskNumber,
         UsbPartitionStyle partitionStyle,
-        UsbFormatMode formatMode,
-        char bootDriveLetter,
-        char cacheDriveLetter)
+        UsbFormatMode formatMode)
     {
         string template = WinPeEmbeddedAssetService.ReadEmbeddedText(WinPeEmbeddedAssetService.UsbProvisioningScriptResourceName);
         string partitionStyleText = partitionStyle == UsbPartitionStyle.Gpt ? "GPT" : "MBR";
         string fullFormatValue = formatMode == UsbFormatMode.Complete ? "$true" : "$false";
-        char normalizedBootDriveLetter = char.ToUpperInvariant(bootDriveLetter);
-        char normalizedCacheDriveLetter = char.ToUpperInvariant(cacheDriveLetter);
 
         return template
             .Replace("{{DISK_NUMBER}}", diskNumber.ToString())
             .Replace("{{PARTITION_STYLE}}", partitionStyleText)
             .Replace("{{FULL_FORMAT}}", fullFormatValue)
-            .Replace("{{BOOT_DRIVE_LETTER}}", normalizedBootDriveLetter.ToString())
-            .Replace("{{CACHE_DRIVE_LETTER}}", normalizedCacheDriveLetter.ToString())
             .ReplaceLineEndings(Environment.NewLine);
     }
 
@@ -363,8 +334,6 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "OperatingSystems"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "DriverPacks"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "Firmware"));
-        Directory.CreateDirectory(Path.Combine(cacheRootPath, "State"));
-        Directory.CreateDirectory(Path.Combine(cacheRootPath, "Temp"));
     }
 
     internal static WinPeRuntimePayloadProvisioningOptions CreateUsbRuntimePayloadOptions(
@@ -463,12 +432,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         return WinPeResult.Success();
     }
 
-    private async Task<WinPeResult> ProvisionDiskAsync(
+    private async Task<WinPeResult<WinPeUsbProvisionResult>> ProvisionDiskAsync(
         int diskNumber,
         UsbPartitionStyle partitionStyle,
         UsbFormatMode formatMode,
-        char bootDriveLetter,
-        char cacheDriveLetter,
         WinPeToolPaths tools,
         string workingDirectoryPath,
         IProgress<WinPeMediaProgress>? progress,
@@ -477,9 +444,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string script = BuildPowerShellProvisioningScript(
             diskNumber,
             partitionStyle,
-            formatMode,
-            bootDriveLetter,
-            cacheDriveLetter);
+            formatMode);
 
         Directory.CreateDirectory(workingDirectoryPath);
         string encodedScript = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
@@ -501,17 +466,68 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         if (execution.IsSuccess)
         {
-            return WinPeResult.Success();
+            return ParseUsbProvisionResult(execution);
         }
 
         string diagnostic = $"{execution.ToDiagnosticText()}{Environment.NewLine}" +
                             $"PartitionStyle: {partitionStyle}{Environment.NewLine}" +
                             "PowerShellProvisioningScript:" + Environment.NewLine +
                             script;
-        return WinPeResult.Failure(
+        return WinPeResult<WinPeUsbProvisionResult>.Failure(
             WinPeErrorCodes.UsbProvisioningFailed,
             "Failed to partition and format the USB disk.",
             diagnostic);
+    }
+
+    private static WinPeResult<WinPeUsbProvisionResult> ParseUsbProvisionResult(WinPeProcessExecution execution)
+    {
+        string[] lines = execution.StandardOutput.Split(
+            [Environment.NewLine, "\n"],
+            StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        foreach (string line in lines.Reverse())
+        {
+            if (!line.StartsWith('{'))
+            {
+                continue;
+            }
+
+            try
+            {
+                WinPeUsbProvisionResult? result = JsonSerializer.Deserialize<WinPeUsbProvisionResult>(
+                    line,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (result is null)
+                {
+                    break;
+                }
+
+                string bootDriveLetter = NormalizeDriveLetter(result.BootDriveLetter);
+                string cacheDriveLetter = NormalizeDriveLetter(result.CacheDriveLetter);
+                if (string.IsNullOrWhiteSpace(bootDriveLetter) || string.IsNullOrWhiteSpace(cacheDriveLetter))
+                {
+                    break;
+                }
+
+                return WinPeResult<WinPeUsbProvisionResult>.Success(result with
+                {
+                    BootDriveLetter = bootDriveLetter,
+                    CacheDriveLetter = cacheDriveLetter
+                });
+            }
+            catch (JsonException ex)
+            {
+                return WinPeResult<WinPeUsbProvisionResult>.Failure(
+                    WinPeErrorCodes.UsbProvisioningFailed,
+                    "Failed to parse USB provisioning result.",
+                    ex.Message);
+            }
+        }
+
+        return WinPeResult<WinPeUsbProvisionResult>.Failure(
+            WinPeErrorCodes.UsbProvisioningFailed,
+            "USB provisioning did not return assigned drive letters.",
+            execution.ToDiagnosticText());
     }
 
     private async Task<WinPeResult> CopyMediaAsync(
@@ -585,6 +601,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             string verboseLine = line.StartsWith(UsbProvisioningVerbosePrefix, StringComparison.Ordinal)
                 ? line[UsbProvisioningVerbosePrefix.Length..]
                 : line;
+            if (verboseLine.Length > 0 && verboseLine[0] == '{')
+            {
+                return;
+            }
 
             progress.Report(new WinPeMediaProgress
             {
@@ -645,28 +665,6 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 "Failed to parse target USB disk details.",
                 ex.Message);
         }
-    }
-
-    private static char FindAvailableDriveLetter(char excludedLetter)
-    {
-        HashSet<char> usedLetters = DriveInfo.GetDrives()
-            .Select(drive => char.ToUpperInvariant(drive.Name[0]))
-            .ToHashSet();
-
-        for (char letter = 'D'; letter <= 'Z'; letter++)
-        {
-            if (letter == char.ToUpperInvariant(excludedLetter))
-            {
-                continue;
-            }
-
-            if (!usedLetters.Contains(letter))
-            {
-                return letter;
-            }
-        }
-
-        return '\0';
     }
 
     private async Task<WinPeResult<string>> RunPowerShellAsync(
@@ -832,5 +830,23 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     private static bool ContainsIgnoreCase(string source, string expectedFragment)
     {
         return source.IndexOf(expectedFragment, StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
+    private static string NormalizeDriveLetter(string value)
+    {
+        string normalizedValue = value.Trim();
+        if (normalizedValue.Length == 1 && char.IsLetter(normalizedValue[0]))
+        {
+            return $"{char.ToUpperInvariant(normalizedValue[0])}:";
+        }
+
+        if (normalizedValue.Length == 2 &&
+            char.IsLetter(normalizedValue[0]) &&
+            normalizedValue[1] == ':')
+        {
+            return $"{char.ToUpperInvariant(normalizedValue[0])}:";
+        }
+
+        return string.Empty;
     }
 }

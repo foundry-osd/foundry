@@ -1,4 +1,4 @@
-using Foundry.Core.Localization;
+using Foundry.Localization;
 using Foundry.Services.Localization;
 using Serilog;
 

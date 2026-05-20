@@ -14,6 +14,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
 
     private readonly IWindowsDeploymentService _windowsDeploymentService;
     private readonly IPreOobeScriptProvisioningService _preOobeScriptProvisioningService;
+    private readonly PreOobeScriptDefinitionBuilder _preOobeScriptDefinitionBuilder;
     private readonly IDriverPackStrategyResolver _driverPackStrategyResolver;
 
     /// <summary>
@@ -22,15 +23,17 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
     public ApplyDriverPackStep(
         IWindowsDeploymentService windowsDeploymentService,
         IPreOobeScriptProvisioningService preOobeScriptProvisioningService,
+        PreOobeScriptDefinitionBuilder preOobeScriptDefinitionBuilder,
         IDriverPackStrategyResolver driverPackStrategyResolver)
     {
         _windowsDeploymentService = windowsDeploymentService;
         _preOobeScriptProvisioningService = preOobeScriptProvisioningService;
+        _preOobeScriptDefinitionBuilder = preOobeScriptDefinitionBuilder;
         _driverPackStrategyResolver = driverPackStrategyResolver;
     }
 
     /// <inheritdoc />
-    public override int Order => 12;
+    public override int Order => 14;
 
     /// <inheritdoc />
     public override string Name => DeploymentStepNames.ApplyDriverPack;
@@ -172,33 +175,17 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             .ConfigureAwait(false);
 
         context.EmitCurrentStepIndeterminate("Applying driver pack...", "Updating SetupComplete hook...");
+        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
+            context.RuntimeState.AppxRemoval,
+            context.RuntimeState.AiComponentRemoval,
+            new PreOobeDriverPackScriptSettings
+            {
+                CommandKind = executionPlan.DeferredCommandKind,
+                RuntimePackagePath = runtimePackagePath
+            });
         PreOobeScriptProvisioningResult preOobeResult = _preOobeScriptProvisioningService.Provision(
             context.RuntimeState.TargetWindowsPartitionRoot,
-            [
-                // Drivers run in the first pre-OOBE bucket so later customization scripts can rely on the driver baseline.
-                new PreOobeScriptDefinition
-                {
-                    Id = "driver-pack",
-                    FileName = "Install-DriverPack.ps1",
-                    ResourceName = PreOobeScriptResources.InstallDriverPack,
-                    Priority = PreOobeScriptPriority.DriverProvisioning,
-                    Arguments =
-                    [
-                        "-CommandKind",
-                        executionPlan.DeferredCommandKind.ToString(),
-                        "-PackagePath",
-                        runtimePackagePath
-                    ]
-                },
-                // Cleanup is a separate late pre-OOBE script so driver installation remains focused on installation only.
-                new PreOobeScriptDefinition
-                {
-                    Id = "cleanup",
-                    FileName = "Cleanup-PreOobe.ps1",
-                    ResourceName = PreOobeScriptResources.CleanupPreOobe,
-                    Priority = PreOobeScriptPriority.Cleanup
-                }
-            ]);
+            scripts);
 
         context.RuntimeState.DeferredDriverPackagePath = targetPackagePath;
         context.RuntimeState.DriverPackSetupCompleteHookPath = preOobeResult.SetupCompletePath;
@@ -235,7 +222,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Driver pack applied (simulation).");
     }
 
-    private static async Task<DeploymentStepResult> SimulateDeferredApplyAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    private async Task<DeploymentStepResult> SimulateDeferredApplyAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         string sourcePath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
         if (!File.Exists(sourcePath))
@@ -279,25 +266,24 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             "Foundry",
             "PreOobe",
             "pre-oobe-manifest.json");
-        context.RuntimeState.PreOobeScriptPaths =
-        [
-            Path.Combine(
+        context.RuntimeState.PreOobeScriptPaths = _preOobeScriptDefinitionBuilder
+            .Build(
+                context.RuntimeState.AppxRemoval,
+                context.RuntimeState.AiComponentRemoval,
+                new PreOobeDriverPackScriptSettings
+                {
+                    CommandKind = DeferredDriverPackageCommandKind.LenovoExecutable,
+                    RuntimePackagePath = "%SystemRoot%\\Temp\\Foundry\\DriverPack\\Packages\\dry-run.exe"
+                })
+            .Select(script => Path.Combine(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 "Windows",
                 "Temp",
                 "Foundry",
                 "PreOobe",
                 "Scripts",
-                "Install-DriverPack.ps1"),
-            Path.Combine(
-                context.RuntimeState.TargetWindowsPartitionRoot,
-                "Windows",
-                "Temp",
-                "Foundry",
-                "PreOobe",
-                "Scripts",
-                "Cleanup-PreOobe.ps1")
-        ];
+                script.FileName))
+            .ToArray();
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Warning,

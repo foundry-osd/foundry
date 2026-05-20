@@ -18,6 +18,7 @@ using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
+using Foundry.Localization;
 using Foundry.Deploy.Validation;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
@@ -166,7 +167,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void RefreshSupportedCultures()
     {
         SupportedCultures.Clear();
-        foreach (SupportedCultureOption option in SupportedCultureCatalog.CreateOptions(CurrentCulture, key => Strings[key]))
+        foreach (SupportedCultureOption option in LocalizationService.CreateSupportedCultureOptions())
         {
             SupportedCultures.Add(option);
         }
@@ -280,6 +281,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
                 IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
                 SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
+                Oobe = _wizardContext.Oobe,
+                AppxRemoval = _wizardContext.AppxRemoval,
+                AiComponentRemoval = _wizardContext.AiComponentRemoval,
                 IsDryRun = IsDebugSafeMode
             });
 
