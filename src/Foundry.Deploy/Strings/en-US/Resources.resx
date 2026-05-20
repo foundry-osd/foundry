@@ -30,6 +30,10 @@
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Refresh Catalogs</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Refresh Target Disks</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open Log File</value></data>
+  <data name="Tools.DebugAutopilotMode" xml:space="preserve"><value>Debug Autopilot Mode</value></data>
+  <data name="Tools.DebugAutopilotMode.None" xml:space="preserve"><value>No Autopilot</value></data>
+  <data name="Tools.DebugAutopilotMode.JsonProfile" xml:space="preserve"><value>JSON profile</value></data>
+  <data name="Tools.DebugAutopilotMode.HardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
   <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>DEBUG SAFE MODE ACTIVE: all deployment actions are simulated; no disk/image write is performed.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating System Catalog</value></data>

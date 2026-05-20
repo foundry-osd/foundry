@@ -5,6 +5,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Localization;
+using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Validation;
 using Microsoft.Extensions.Logging;
@@ -354,6 +355,46 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         RaiseStateChanged();
     }
 
+    /// <summary>
+    /// Applies an in-memory Autopilot mode override for debug safe mode without changing the persisted deployment configuration.
+    /// </summary>
+    /// <param name="mode">Debug Autopilot mode to apply.</param>
+    public void ApplyDebugAutopilotMode(DebugAutopilotMode mode)
+    {
+        switch (mode)
+        {
+            case DebugAutopilotMode.None:
+                IsAutopilotEnabled = false;
+                AutopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile;
+                SelectedAutopilotProfile = null;
+                break;
+            case DebugAutopilotMode.JsonProfile:
+                EnsureDebugAutopilotProfile();
+                AutopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile;
+                SelectedAutopilotProfile = AutopilotProfiles.First();
+                IsAutopilotEnabled = true;
+                break;
+            case DebugAutopilotMode.HardwareHashUpload:
+                AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload;
+                AutopilotHardwareHashUpload = new DeployAutopilotHardwareHashUploadSettings
+                {
+                    TenantId = "debug-tenant-id",
+                    ClientId = "debug-client-id",
+                    ActiveCertificateKeyId = "debug-certificate-key-id",
+                    ActiveCertificateThumbprint = "DEBUGTHUMBPRINT",
+                    ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
+                    DefaultGroupTag = "Debug"
+                };
+                SelectedAutopilotProfile = null;
+                IsAutopilotEnabled = true;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mode), mode, "Unsupported debug Autopilot mode.");
+        }
+
+        RaiseStateChanged();
+    }
+
     partial void OnAutopilotProvisioningModeChanged(AutopilotProvisioningMode value)
     {
         OnPropertyChanged(nameof(IsJsonProfileMode));
@@ -529,6 +570,25 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         }
 
         return null;
+    }
+
+    private void EnsureDebugAutopilotProfile()
+    {
+        if (AutopilotProfiles.Count > 0)
+        {
+            return;
+        }
+
+        AutopilotProfiles.Add(new AutopilotProfileCatalogItem
+        {
+            FolderName = "DebugAutopilotProfile",
+            DisplayName = "Debug Autopilot Profile",
+            ConfigurationFilePath = @"X:\Foundry\Debug\Autopilot\AutopilotConfigurationFile.json"
+        });
+        OnPropertyChanged(nameof(HasAutopilotProfiles));
+        OnPropertyChanged(nameof(IsAutopilotSectionVisible));
+        OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
+        OnPropertyChanged(nameof(AutopilotProfileHint));
     }
 
     private void RaiseStateChanged()

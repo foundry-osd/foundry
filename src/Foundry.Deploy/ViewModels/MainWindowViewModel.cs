@@ -40,6 +40,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
     private readonly DeploymentWizardContext _wizardContext;
+    private DebugAutopilotMode _debugAutopilotMode = DebugAutopilotMode.None;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
@@ -62,6 +63,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ShowDebugProgressPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugSuccessPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
     private bool isDeploymentRunning;
 
     public DeploymentPreparationViewModel Preparation { get; }
@@ -86,6 +88,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryAutopilotEnabledText => Preparation.IsAutopilotEnabled ? GetString("Common.Yes") : GetString("Common.No");
     public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
+    public bool IsDebugAutopilotNoneMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.None;
+    public bool IsDebugAutopilotJsonProfileMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.JsonProfile;
+    public bool IsDebugAutopilotHardwareHashUploadMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.HardwareHashUpload;
 
     public MainWindowViewModel(
         ILocalizationService localizationService,
@@ -200,6 +205,26 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void ShowAbout()
     {
         _applicationShellService.ShowAbout();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
+    private void SetDebugAutopilotMode(DebugAutopilotMode mode)
+    {
+        if (!IsDebugSafeMode)
+        {
+            return;
+        }
+
+        _debugAutopilotMode = mode;
+        Preparation.ApplyDebugAutopilotMode(mode);
+        OnPropertyChanged(nameof(IsDebugAutopilotNoneMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotJsonProfileMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadMode));
+        OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
+        OnPropertyChanged(nameof(SummaryAutopilotModeText));
+        OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+        NextWizardStepCommand.NotifyCanExecuteChanged();
+        StartDeploymentCommand.NotifyCanExecuteChanged();
     }
 
     [RelayCommand(CanExecute = nameof(CanRefreshCatalogs))]
@@ -393,6 +418,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private bool CanShowDebugPages()
+    {
+        return IsDebugSafeMode && !IsDeploymentRunning;
+    }
+
+    private bool CanUseDebugTools()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
     }
