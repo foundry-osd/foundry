@@ -215,3 +215,9 @@ Validation rules:
 - `GroupTag` must not contain commas and should stay ASCII-safe for CSV compatibility.
 
 Deploy media generation should add encrypted `CertificatePfxSecret` and `CertificatePfxPasswordSecret` only to the generated WinPE deploy configuration for the current media build. These secret envelopes are not persisted in the normal Foundry OSD settings stored under ProgramData, and Foundry OSD does not maintain a local encrypted PFX vault.
+
+Phase 2 UX refinements:
+- The default group tag is selected from a ComboBox populated from tenant-discovered Autopilot device group tags.
+- Available group tags are displayed as a one-column table for scanability.
+- Current-session PFX path, password, and successful validation state are retained while navigating between pages, but are still cleared on app restart.
+- The Start page must show the exact hardware hash media generation blocker when the PFX path, password, thumbprint, expiration, or active certificate is invalid.

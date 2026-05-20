@@ -221,6 +221,7 @@
                                         <tv:TableViewTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Foreground="{Binding ValidityForeground}"
+                                                           Margin="12,0,12,0"
                                                            Text="{Binding ExpiresOnDisplay}"
                                                            TextTrimming="CharacterEllipsis" />
                                             </DataTemplate>
@@ -267,17 +268,43 @@
                     <wct:SettingsCard Header="{x:Bind ViewModel.DefaultGroupTagLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <TextBlock HorizontalAlignment="Right"
-                                   Text="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
+                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                  HorizontalAlignment="Right"
+                                  DisplayMemberPath="GroupTag"
+                                  ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
+                                  PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.KnownGroupTagsLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <TextBlock HorizontalAlignment="Right"
-                                   Text="{x:Bind ViewModel.KnownGroupTagsText, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
+                        <StackPanel HorizontalAlignment="Right">
+                            <tv:TableView AutoGenerateColumns="False"
+                                          CanFilterColumns="False"
+                                          CanReorderColumns="False"
+                                          CanResizeColumns="False"
+                                          CanSortColumns="False"
+                                          CornerButtonMode="None"
+                                          HeadersVisibility="Columns"
+                                          IsReadOnly="True"
+                                          ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
+                                          MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                          MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                          SelectionMode="None"
+                                          SelectionUnit="Row"
+                                          ShowExportOptions="False"
+                                          Visibility="{x:Bind ViewModel.AvailableGroupTagsVisibility, Mode=OneWay}">
+                                <tv:TableView.Columns>
+                                    <tv:TableViewTextColumn Binding="{Binding GroupTag}"
+                                                            Header="{x:Bind ViewModel.AvailableGroupTagColumnHeader, Mode=OneWay}" />
+                                </tv:TableView.Columns>
+                            </tv:TableView>
+                            <TextBlock HorizontalAlignment="Right"
+                                       Text="{x:Bind ViewModel.KnownGroupTagsText, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords"
+                                       Visibility="{x:Bind ViewModel.EmptyAvailableGroupTagsVisibility, Mode=OneWay}" />
+                        </StackPanel>
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>

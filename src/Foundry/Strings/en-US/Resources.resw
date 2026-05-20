@@ -519,6 +519,9 @@
   <data name="Autopilot.HardwareHashKnownGroupTagsLabel" xml:space="preserve">
     <value>Available group tags</value>
   </data>
+  <data name="Autopilot.HardwareHashAvailableGroupTagColumn" xml:space="preserve">
+    <value>Group tag</value>
+  </data>
   <data name="Autopilot.HardwareHashKnownGroupTagsNone" xml:space="preserve">
     <value>No group tags discovered.</value>
   </data>

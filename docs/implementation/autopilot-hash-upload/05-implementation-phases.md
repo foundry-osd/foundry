@@ -106,14 +106,18 @@ Implementation progress:
 - [x] Remove the redundant active certificate "valid until" text when the same expiration is already visible in the certificate table.
 - [x] Remove one or more selected certificate credentials while preserving unrelated app credentials.
 - [x] Use WinUI signal brushes for certificate validity: success when valid, caution when expiring within 30 days, and critical when expired.
+- [x] Add padding to the certificate expiration table cell so the validity text aligns with the other columns.
 - [x] Show the generated PFX password in a selectable read-only field in the one-time certificate-created dialog.
 - [x] Enforce Graph application certificate validity limit by offering 1, 3, 6, and 12 months only, with 6 months selected by default.
 - [x] Add a dedicated boot media certificate row for selecting the local password-protected PFX and entering its password.
 - [x] Automatically fill the boot media certificate row in the current app session after Foundry creates a new certificate.
 - [x] Keep boot media PFX path, password, and validation result session-only and excluded from ProgramData serialization.
+- [x] Preserve the boot media certificate ready message across Autopilot page navigation when the current-session PFX is still validated.
 - [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
+- [x] Select the default group tag from a ComboBox populated by discovered tenant group tags.
+- [x] Display available tenant group tags as a one-column table.
 
 Automated tests:
 - [x] App registration discovery uses persisted application object ID before display name.
@@ -160,9 +164,12 @@ Manual checks:
 - [ ] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
 - [ ] Confirm the certificate action buttons are shown above the certificate table.
 - [ ] Confirm the redundant active certificate "valid until" text is not shown when the same expiration is already visible in the certificate table.
+- [ ] Confirm the certificate expiration column text has the same left padding as the other certificate columns.
 - [ ] Confirm the remove certificate action is disabled when no certificate row is selected.
 - [ ] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
-- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear under `Available group tags`.
+- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear under `Available group tags` as a one-column table.
+- [ ] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration.
+- [ ] Create a certificate, navigate away from Autopilot and back, and confirm the boot media certificate row still shows `Certificate ready for boot media generation.`
 
 ### Phase 3: Autopilot Page UX
 PR title: `feat(autopilot): add hardware hash upload UX`
