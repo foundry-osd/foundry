@@ -65,7 +65,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         Profiles.CollectionChanged += OnProfilesCollectionChanged;
         SelectedProfiles.CollectionChanged += OnSelectedProfilesCollectionChanged;
         isApplyingState = false;
-        SelectedCertificateValidityOption = CertificateValidityOptions.First(option => option.Months == 12);
+        SelectedCertificateValidityOption = CertificateValidityOptions.First(option => option.Months == 6);
     }
 
     /// <summary>
@@ -83,6 +83,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// </summary>
     public ObservableCollection<CertificateValidityOptionViewModel> CertificateValidityOptions { get; } =
     [
+        new(1, "1 month"),
         new(3, "3 months"),
         new(6, "6 months"),
         new(12, "12 months")
