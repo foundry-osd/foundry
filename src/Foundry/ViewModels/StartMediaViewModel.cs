@@ -1213,6 +1213,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AreRequiredSecretsReady = foundryConfigurationStateService.AreRequiredSecretsReady,
             IsAutopilotEnabled = foundryConfigurationStateService.IsAutopilotEnabled,
             IsAutopilotConfigurationReady = foundryConfigurationStateService.IsAutopilotConfigurationReady,
+            AutopilotProvisioningMode = foundryConfigurationStateService.AutopilotProvisioningMode,
             AutopilotProfileDisplayName = foundryConfigurationStateService.SelectedAutopilotProfileDisplayName,
             AutopilotProfileFolderName = foundryConfigurationStateService.SelectedAutopilotProfileFolderName,
             IsFinalExecutionEnabled = true,
@@ -1783,6 +1784,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         if (!options.IsAutopilotConfigurationReady)
         {
             return localizationService.GetString("StartMedia.Autopilot.NotReady");
+        }
+
+        if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            return localizationService.GetString("StartMedia.Autopilot.HardwareHashUpload");
         }
 
         return string.Format(

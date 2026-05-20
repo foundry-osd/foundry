@@ -30,6 +30,10 @@
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Actualiser les catalogues</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Actualiser les disques cibles</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ouvrir le fichier journal</value></data>
+  <data name="Tools.DebugAutopilotMode" xml:space="preserve"><value>Mode Autopilot debug</value></data>
+  <data name="Tools.DebugAutopilotMode.None" xml:space="preserve"><value>Pas d'Autopilot</value></data>
+  <data name="Tools.DebugAutopilotMode.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Tools.DebugAutopilotMode.HardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
   <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>MODE DEBUG SÉCURISÉ ACTIF : toutes les actions de déploiement sont simulées, aucune écriture disque/image n’est effectuée.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cible</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Catalogue système</value></data>
@@ -49,6 +53,13 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profils disponibles : {0}</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Autopilot est activé, mais aucun profil intégré n'a été trouvé.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Méthode de provisionnement : profil JSON</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Méthode de provisionnement : upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyFormat" xml:space="preserve"><value>Certificat valide jusqu'au {0:g}. Group tag par défaut : {1}.</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiredFormat" xml:space="preserve"><value>Le certificat intégré a expiré le {0:g}.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredAction" xml:space="preserve"><value>Régénérez le certificat et l'image de boot. Le déploiement peut continuer, mais l'upload du hash Autopilot sera ignoré.</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotConfigured" xml:space="preserve"><value>Les métadonnées d'upload du hardware hash ne sont pas configurées dans ce média de boot.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>
@@ -96,6 +107,7 @@
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pack de pilotes sélectionné</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Méthode Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Summary.SectionTarget" xml:space="preserve"><value>Cible</value></data>
   <data name="Summary.SectionSystem" xml:space="preserve"><value>Système</value></data>

@@ -30,6 +30,10 @@
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Refresh Catalogs</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Refresh Target Disks</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open Log File</value></data>
+  <data name="Tools.DebugAutopilotMode" xml:space="preserve"><value>Debug Autopilot Mode</value></data>
+  <data name="Tools.DebugAutopilotMode.None" xml:space="preserve"><value>No Autopilot</value></data>
+  <data name="Tools.DebugAutopilotMode.JsonProfile" xml:space="preserve"><value>JSON profile</value></data>
+  <data name="Tools.DebugAutopilotMode.HardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
   <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>DEBUG SAFE MODE ACTIVE: all deployment actions are simulated; no disk/image write is performed.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating System Catalog</value></data>
@@ -49,6 +53,13 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profiles available: {0}</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Autopilot is enabled, but no embedded profiles were found.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Provisioning method: JSON profile</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Provisioning method: Hardware hash upload</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyFormat" xml:space="preserve"><value>Certificate valid until {0:g}. Default group tag: {1}.</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiredFormat" xml:space="preserve"><value>The embedded certificate expired on {0:g}.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredAction" xml:space="preserve"><value>Regenerate the certificate and boot image. Deployment can continue, but Autopilot hash upload will be skipped.</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotConfigured" xml:space="preserve"><value>Hardware hash upload metadata is not configured in this boot media.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detecting hardware...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Hardware detection failed.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardware detection failed: {0}</value></data>
@@ -96,6 +107,7 @@
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Selected Driver Pack</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Method</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
   <data name="Summary.SectionTarget" xml:space="preserve"><value>Target</value></data>
   <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>

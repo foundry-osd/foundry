@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
@@ -17,6 +18,11 @@ public sealed class StageAutopilotConfigurationStep : DeploymentStepBase
         if (!context.Request.IsAutopilotEnabled)
         {
             return DeploymentStepResult.Skipped("Autopilot is disabled.");
+        }
+
+        if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            return DeploymentStepResult.Failed("Autopilot hardware hash upload is not available until the deployment runtime phase is implemented.");
         }
 
         if (context.Request.SelectedAutopilotProfile is null)
@@ -64,6 +70,40 @@ public sealed class StageAutopilotConfigurationStep : DeploymentStepBase
         {
             await Task.Delay(80, cancellationToken).ConfigureAwait(false);
             return DeploymentStepResult.Skipped("Autopilot is disabled.");
+        }
+
+        if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            string hashUploadTargetFoundryRoot = context.EnsureTargetFoundryRoot();
+            string hashUploadAutopilotRoot = Path.Combine(hashUploadTargetFoundryRoot, "Autopilot");
+            Directory.CreateDirectory(hashUploadAutopilotRoot);
+
+            string hashUploadManifestPath = Path.Combine(hashUploadAutopilotRoot, "autopilot-hash-upload.dryrun.json");
+            string hashUploadManifest = JsonSerializer.Serialize(new
+            {
+                createdAtUtc = DateTimeOffset.UtcNow,
+                mode = "dry-run",
+                provisioningMode = "hardwareHashUpload",
+                tenantId = context.Request.AutopilotHardwareHashUpload.TenantId,
+                clientId = context.Request.AutopilotHardwareHashUpload.ClientId,
+                activeCertificateThumbprint = context.Request.AutopilotHardwareHashUpload.ActiveCertificateThumbprint,
+                activeCertificateExpiresOnUtc = context.Request.AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc,
+                defaultGroupTag = context.Request.AutopilotHardwareHashUpload.DefaultGroupTag
+            }, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            context.EmitCurrentStepIndeterminate("Preparing Autopilot hardware hash upload...", "Writing dry-run Autopilot hash manifest...");
+            await File.WriteAllTextAsync(hashUploadManifestPath, hashUploadManifest, cancellationToken).ConfigureAwait(false);
+            context.RuntimeState.StagedAutopilotConfigurationPath = hashUploadManifestPath;
+
+            await context.AppendLogAsync(
+                DeploymentLogLevel.Info,
+                $"[DRY-RUN] Autopilot hardware hash upload simulated: {hashUploadManifestPath}",
+                cancellationToken).ConfigureAwait(false);
+
+            return DeploymentStepResult.Succeeded("Autopilot hardware hash upload prepared (simulation).");
         }
 
         if (context.Request.SelectedAutopilotProfile is null)
