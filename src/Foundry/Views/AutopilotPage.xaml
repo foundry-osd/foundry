@@ -143,7 +143,7 @@
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.AppRegistrationLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
-                                      Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
+                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <TextBlock HorizontalAlignment="Right"
                                    Text="{x:Bind ViewModel.AppRegistrationStatusText, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
@@ -151,7 +151,7 @@
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.TenantOnboardingStatusLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
-                                      Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
+                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <TextBlock HorizontalAlignment="Right"
                                    Text="{x:Bind ViewModel.TenantOnboardingStatusText, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
@@ -159,7 +159,7 @@
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.CertificateStatusLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
-                                      Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
+                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundrySpace8}">
                             <TextBlock HorizontalAlignment="Right"
                                        Foreground="{x:Bind ViewModel.CertificateStatusForeground, Mode=OneWay}"
@@ -229,7 +229,7 @@
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.DefaultGroupTagLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
-                                      Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
+                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <TextBlock HorizontalAlignment="Right"
                                    Text="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
@@ -237,7 +237,7 @@
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.KnownGroupTagsLabel, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
-                                      Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
+                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <TextBlock HorizontalAlignment="Right"
                                    Text="{x:Bind ViewModel.KnownGroupTagsText, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />

@@ -105,6 +105,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public bool HasCertificates => Certificates.Count > 0;
     public Visibility EmptyCertificatesVisibility => HasCertificates ? Visibility.Collapsed : Visibility.Visible;
     public Visibility CertificatesVisibility => HasCertificates ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility ConnectedTenantDetailsVisibility => HasConnectedTenantInCurrentSession ? Visibility.Visible : Visibility.Collapsed;
     public bool IsBusy => IsImporting || IsDownloading || IsConnectingTenant;
     public Visibility BusyStatusVisibility => IsBusy ? Visibility.Visible : Visibility.Collapsed;
     public string BusyStatusText => IsImporting
@@ -172,6 +173,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private bool HasTenantRegistration => !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.TenantId) &&
                                           !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ClientId);
+
+    private bool HasConnectedTenantInCurrentSession { get; set; }
 
     [ObservableProperty]
     public partial string PageTitle { get; set; }
@@ -522,6 +525,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
             hardwareHashUploadSettings = result.Settings;
             tenantOnboardingStatus = result.Status;
+            HasConnectedTenantInCurrentSession = true;
             ReplaceCertificates(result.Certificates);
             RefreshHardwareHashUploadState();
             SaveState();
@@ -832,6 +836,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(HardwareHashCertificateWarningVisibility));
         OnPropertyChanged(nameof(DefaultGroupTagText));
         OnPropertyChanged(nameof(KnownGroupTagsText));
+        OnPropertyChanged(nameof(ConnectedTenantDetailsVisibility));
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
     }
 
@@ -996,6 +1001,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                IsHardwareHashUploadMode &&
                !IsBusy &&
                SelectedCertificateValidityOption is not null &&
+               HasConnectedTenantInCurrentSession &&
                !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId);
     }
 
@@ -1004,6 +1010,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return IsAutopilotEnabled &&
                IsHardwareHashUploadMode &&
                !IsBusy &&
+               HasConnectedTenantInCurrentSession &&
                !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId) &&
                SelectedCertificate is not null;
     }
