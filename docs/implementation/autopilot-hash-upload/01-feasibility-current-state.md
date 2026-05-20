@@ -15,7 +15,6 @@ Implementation agents must follow the repository instructions in [AGENTS.md](../
 - The final implementation should support available WinPE networking, including Ethernet and Wi-Fi, and should avoid destructive cleanup of existing Intune, Autopilot, or Entra records.
 - Hash capture and upload should run near the end of the OS deployment workflow, after the Windows image is applied and the target Windows `System32` directory is available.
 
-
 ## Feasibility Constraints
 WinPE capture is useful because it lets an operator register a device before the installed OS reaches OOBE. The tradeoff is that Microsoft documents the normal Autopilot hash capture path around a full Windows environment, OOBE diagnostics, Audit Mode, or OEM/reseller registration.
 
@@ -55,7 +54,7 @@ Current data flow:
 
 ```text
 Foundry app
-  -> ExpertDeployConfigurationStateService
+  -> FoundryConfigurationStateService
   -> DeployConfigurationGenerator
   -> StartMediaViewModel
   -> WinPeWorkspacePreparationService
@@ -92,5 +91,3 @@ Current assumptions to break carefully:
 - `StageAutopilotConfigurationStep` has a profile-staging name and should become the late, mode-aware Autopilot provisioning boundary.
 - Media readiness only checks whether a selected profile exists when Autopilot is enabled.
 - Deploy summary and telemetry only track `autopilot_enabled`, not the provisioning method.
-
-

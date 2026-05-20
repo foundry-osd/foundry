@@ -93,5 +93,3 @@ Manual physical validation matrix:
 - Release notes:
   - Mark as x64 and ARM64 with Ethernet and Wi-Fi upload guidance.
   - Mention unsupported or risky self-deploying/pre-provisioning status.
-
-

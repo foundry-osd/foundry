@@ -127,5 +127,3 @@ Graph request rules:
 - For application certificate management, merge the existing `keyCredentials` collection with the new certificate credential instead of replacing the collection with only Foundry's credential.
 - Remove only the active Foundry-managed certificate credential identified by the persisted `keyId`, and never remove unknown or non-active certificate credentials automatically.
 - Treat any certificate, tenant, token, permission, consent, Conditional Access, Intune availability, or Graph connectivity failure as a non-blocking Autopilot skip in Foundry Deploy, not as a deployment failure.
-
-

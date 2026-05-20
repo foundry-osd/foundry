@@ -73,4 +73,3 @@ Expected PR description structure:
 - Microsoft Learn: [WinPE optional components reference](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-add-packages--optional-components-reference?view=windows-11)
 - Local artifact: `C:\Users\mchav\Downloads\foundry-autopilot-hash-winpe-en.md`
 - Local artifact: `C:\Users\mchav\Downloads\HashUpload_WinPE.ps1`
-

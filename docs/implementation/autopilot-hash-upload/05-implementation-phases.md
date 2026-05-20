@@ -46,7 +46,7 @@ Implementation progress:
 - [x] Add tenant app registration identity, service principal identity, known group tags, and default group tag settings.
 - [x] Update schema version handling if needed.
 - [x] Keep old configurations backward compatible as JSON profile mode.
-- [x] Update sanitization in `ExpertDeployConfigurationStateService`.
+- [x] Update sanitization in `FoundryConfigurationStateService`.
 - [x] Update `DeployConfigurationGenerator`.
 - [x] Add XML documentation comments to new public configuration records, enums, and service contracts when they clarify the behavior.
 
@@ -384,5 +384,3 @@ Manual checks:
 - [ ] Follow the docs on a clean ARM64 test device.
 - [ ] Confirm fallback to OOBE/full OS instructions are clear.
 - [ ] Build or preview the Docusaurus docs with the command discovered from the docs package scripts if Docusaurus files are changed.
-
-
