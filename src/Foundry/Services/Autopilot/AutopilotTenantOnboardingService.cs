@@ -99,7 +99,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             requiredRole,
             cancellationToken).ConfigureAwait(false);
 
-        string[] groupTags = await GetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
+        string[] groupTags = await TryGetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
         AutopilotTenantOnboardingSnapshot snapshot = new()
         {
             TenantId = tenantId,
@@ -662,6 +662,21 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             $"v1.0/applications/{applicationObjectId}",
             body,
             cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<string[]> TryGetGroupTagsAsync(string accessToken, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await GetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
+        }
+        catch (HttpRequestException ex)
+        {
+            logger.Warning(
+                "Autopilot group tag discovery failed and will be skipped. StatusCode={StatusCode}",
+                ex.StatusCode);
+            return [];
+        }
     }
 
     private static async Task<string[]> GetGroupTagsAsync(string accessToken, CancellationToken cancellationToken)
