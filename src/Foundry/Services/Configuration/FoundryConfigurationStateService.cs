@@ -81,6 +81,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public bool IsAutopilotConfigurationReady => AutopilotConfigurationValidator.IsReady(Current.Autopilot, DateTimeOffset.UtcNow);
 
     /// <inheritdoc />
+    public AutopilotProvisioningMode AutopilotProvisioningMode => Current.Autopilot.ProvisioningMode;
+
+    /// <inheritdoc />
     public string? SelectedAutopilotProfileDisplayName => Current.Autopilot.IsEnabled &&
                                                           Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
         ? GetSelectedAutopilotProfile()?.DisplayName

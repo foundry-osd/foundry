@@ -59,9 +59,19 @@ public sealed record DeploymentContext
     public bool IsAutopilotEnabled { get; init; }
 
     /// <summary>
+    /// Gets the selected Autopilot provisioning mode.
+    /// </summary>
+    public AutopilotProvisioningMode AutopilotProvisioningMode { get; init; } = AutopilotProvisioningMode.JsonProfile;
+
+    /// <summary>
     /// Gets the selected Autopilot profile staged into the offline Windows image.
     /// </summary>
     public AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
+
+    /// <summary>
+    /// Gets non-secret metadata for hardware hash upload mode.
+    /// </summary>
+    public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
 
     /// <summary>
     /// Gets Windows OOBE customization settings applied to the offline installation.

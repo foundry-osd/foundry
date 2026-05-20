@@ -53,6 +53,11 @@ public interface IFoundryConfigurationStateService
     bool IsAutopilotConfigurationReady { get; }
 
     /// <summary>
+    /// Gets the selected Autopilot provisioning mode.
+    /// </summary>
+    AutopilotProvisioningMode AutopilotProvisioningMode { get; }
+
+    /// <summary>
     /// Gets the selected Autopilot profile display name when a single profile is selected.
     /// </summary>
     string? SelectedAutopilotProfileDisplayName { get; }

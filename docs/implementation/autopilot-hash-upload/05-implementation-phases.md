@@ -124,36 +124,41 @@ Manual checks:
 - [ ] Confirm least-privilege app registration can import devices.
 
 ### Phase 3: Autopilot Page UX
-PR title: `feat(autopilot): add provisioning method selection`
+PR title: `feat(autopilot): add hardware hash upload UX`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
 - [ ] Implementation checklist complete.
 - [ ] Automated tests complete.
 - [ ] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Replace single Autopilot action section with two settings expanders.
-- [ ] Keep global Autopilot toggle.
-- [ ] Move existing import/download/remove/default profile/table UI into JSON profile expander.
-- [ ] Add hardware hash upload expander.
-- [ ] Add tenant connection state, connect action, and connected tenant summary.
-- [ ] Add managed app registration creation/reuse status for `Foundry OSD Autopilot Registration`.
+- [x] Replace single Autopilot action section with two settings expanders.
+- [x] Keep global Autopilot toggle.
+- [x] Move existing import/download/remove/default profile/table UI into JSON profile expander.
+- [x] Add hardware hash upload expander.
+- [x] Add tenant connection state, connect action, and connected tenant summary.
+- [x] Add managed app registration creation/reuse status for `Foundry OSD Autopilot Registration`.
 - [ ] Add active certificate lifecycle controls: create, retire, replace, expired state, missing state, and repair/adoption state.
 - [ ] Add certificate validity selection with a default of 12 months.
 - [ ] Add one-time private key/PFX content dialog after certificate creation.
 - [ ] Add password-protected PFX and PFX password input near the active certificate status for boot image generation.
-- [ ] Add tenant-discovered Autopilot group tag list and default group tag selection.
-- [ ] Enforce mutual exclusivity between JSON profile and hash upload modes.
-- [ ] Add localized strings in English and French resources.
-- [ ] Update readiness messages to include selected mode.
+- [x] Add tenant-discovered Autopilot group tag list and default group tag selection.
+- [x] Enforce mutual exclusivity between JSON profile and hash upload modes.
+- [x] Carry the selected mode into the current Foundry Deploy target page so hardware hash mode does not require a JSON profile.
+- [x] Block live hardware hash deployments until the deployment runtime phase exists, instead of silently skipping Autopilot.
+- [x] Add localized strings in English and French resources.
+- [x] Update readiness messages to include selected mode.
 - [ ] Add XML documentation comments to new public view-model members or UI service contracts when the behavior is not obvious.
 
 Automated tests:
-- [ ] View model mode changes save state.
-- [ ] Selecting JSON mode disables hash upload readiness requirements.
-- [ ] Selecting hash upload mode disables JSON profile selection requirements.
+- [x] View model mode changes save state.
+- [x] Selecting JSON mode preserves hash upload metadata.
+- [x] Selecting hash upload mode preserves hash upload metadata and does not require a selected JSON profile in the OSD UI.
+- [x] Deploy launch preparation accepts hardware hash mode without a selected JSON profile.
+- [x] Current Deploy Autopilot staging step skips JSON profile staging in hardware hash mode.
+- [x] Live hardware hash mode fails before deployment confirmation until the runtime implementation exists.
 - [ ] Hardware hash media generation is not ready when the connected app certificate is expired.
 - [ ] Hardware hash media generation requires a password-protected PFX whose leaf certificate thumbprint matches the active certificate.
 - [ ] Creating a certificate exposes the private key/PFX material once and never persists the raw PFX, password, or decrypted private key.

@@ -73,6 +73,61 @@ public sealed class DeploymentPreparationViewModelTests
     }
 
     [Fact]
+    public void ApplyAutopilotConfiguration_WhenHardwareHashModeIsEnabled_DoesNotRequireJsonProfile()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        AutopilotProfileCatalogItem profile = CreateProfile("json", "JSON Profile");
+        DeployAutopilotHardwareHashUploadSettings hardwareHashUpload = new()
+        {
+            TenantId = "tenant-id",
+            ClientId = "client-id",
+            ActiveCertificateThumbprint = "ABCDEF123456",
+            ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
+            DefaultGroupTag = "Sales"
+        };
+
+        viewModel.ApplyAutopilotConfiguration(
+            new DeployAutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                DefaultProfileFolderName = "json",
+                HardwareHashUpload = hardwareHashUpload
+            },
+            [profile]);
+
+        Assert.True(viewModel.IsAutopilotEnabled);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, viewModel.AutopilotProvisioningMode);
+        Assert.True(viewModel.IsHardwareHashUploadControlsVisible);
+        Assert.False(viewModel.IsJsonProfileControlsVisible);
+        Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
+        Assert.Null(viewModel.SelectedAutopilotProfile);
+        Assert.Same(hardwareHashUpload, viewModel.AutopilotHardwareHashUpload);
+        Assert.Contains("Sales", viewModel.AutopilotHardwareHashStatusText);
+    }
+
+    [Fact]
+    public void ApplyAutopilotConfiguration_WhenHardwareHashCertificateExpired_SurfacesExpiredState()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyAutopilotConfiguration(
+            new DeployAutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = new DeployAutopilotHardwareHashUploadSettings
+                {
+                    ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddDays(-1)
+                }
+            },
+            []);
+
+        Assert.True(viewModel.IsHardwareHashCertificateExpired);
+        Assert.NotEqual(string.Empty, viewModel.AutopilotHardwareHashStatusText);
+    }
+
+    [Fact]
     public void IsAutopilotProfileSelectionEnabled_FollowsAutopilotToggle()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();

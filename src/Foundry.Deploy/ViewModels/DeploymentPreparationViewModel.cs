@@ -69,6 +69,12 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private bool isAutopilotEnabled;
 
     [ObservableProperty]
+    private AutopilotProvisioningMode autopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile;
+
+    [ObservableProperty]
+    private DeployAutopilotHardwareHashUploadSettings autopilotHardwareHashUpload = new();
+
+    [ObservableProperty]
     private AutopilotProfileCatalogItem? selectedAutopilotProfile;
 
     [ObservableProperty]
@@ -84,16 +90,29 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
     public bool HasAutopilotProfiles => AutopilotProfiles.Count > 0;
     public bool IsAutopilotSectionVisible => IsAutopilotEnabled || HasAutopilotProfiles;
-    public bool IsAutopilotProfileSelectionEnabled => IsAutopilotEnabled && HasAutopilotProfiles;
+    public bool IsJsonProfileMode => AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile;
+    public bool IsHardwareHashUploadMode => AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+    public bool IsJsonProfileControlsVisible => IsAutopilotEnabled && IsJsonProfileMode;
+    public bool IsHardwareHashUploadControlsVisible => IsAutopilotEnabled && IsHardwareHashUploadMode;
+    public bool IsAutopilotProfileSelectionEnabled => IsJsonProfileControlsVisible && HasAutopilotProfiles;
+    public bool IsHardwareHashCertificateExpired =>
+        AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc is DateTimeOffset expiresOn &&
+        expiresOn <= DateTimeOffset.UtcNow;
     public string TargetDiskSelectionHint => !string.IsNullOrWhiteSpace(SelectedTargetDisk?.SelectionWarning)
         ? SelectedTargetDisk.SelectionWarning
         : GetString("Preparation.TargetDiskHint");
     public string AutopilotProfileHint =>
-        HasAutopilotProfiles
+        !IsJsonProfileMode
+            ? string.Empty
+            : HasAutopilotProfiles
             ? Format("Preparation.AutopilotProfilesAvailableFormat", AutopilotProfiles.Count)
             : IsAutopilotEnabled
                 ? GetString("Preparation.AutopilotProfilesMissing")
             : string.Empty;
+    public string AutopilotModeText => IsHardwareHashUploadMode
+        ? GetString("Preparation.AutopilotModeHardwareHashUpload")
+        : GetString("Preparation.AutopilotModeJsonProfile");
+    public string AutopilotHardwareHashStatusText => CreateHardwareHashStatusText();
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
@@ -197,7 +216,9 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         OnPropertyChanged(nameof(AutopilotProfileHint));
 
-        SelectedAutopilotProfile = settings.IsEnabled
+        AutopilotProvisioningMode = settings.ProvisioningMode;
+        AutopilotHardwareHashUpload = settings.HardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings();
+        SelectedAutopilotProfile = settings.IsEnabled && settings.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
             ? ResolveDefaultAutopilotProfile(settings.DefaultProfileFolderName)
             : null;
         IsAutopilotEnabled = settings.IsEnabled;
@@ -326,8 +347,30 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     partial void OnIsAutopilotEnabledChanged(bool value)
     {
         OnPropertyChanged(nameof(IsAutopilotSectionVisible));
+        OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
+        OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         OnPropertyChanged(nameof(AutopilotProfileHint));
+        RaiseStateChanged();
+    }
+
+    partial void OnAutopilotProvisioningModeChanged(AutopilotProvisioningMode value)
+    {
+        OnPropertyChanged(nameof(IsJsonProfileMode));
+        OnPropertyChanged(nameof(IsHardwareHashUploadMode));
+        OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
+        OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
+        OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
+        OnPropertyChanged(nameof(AutopilotProfileHint));
+        OnPropertyChanged(nameof(AutopilotModeText));
+        OnPropertyChanged(nameof(AutopilotHardwareHashStatusText));
+        RaiseStateChanged();
+    }
+
+    partial void OnAutopilotHardwareHashUploadChanged(DeployAutopilotHardwareHashUploadSettings value)
+    {
+        OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
+        OnPropertyChanged(nameof(AutopilotHardwareHashStatusText));
         RaiseStateChanged();
     }
 
@@ -519,6 +562,8 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
             TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(TargetComputerName);
             OnPropertyChanged(nameof(AutopilotProfileHint));
+            OnPropertyChanged(nameof(AutopilotModeText));
+            OnPropertyChanged(nameof(AutopilotHardwareHashStatusText));
             OnPropertyChanged(nameof(TargetDiskSelectionHint));
             OnPropertyChanged(nameof(TargetDisks));
             OnPropertyChanged(nameof(SelectedTargetDisk));
@@ -540,6 +585,34 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private string Format(string key, params object[] args)
     {
         return string.Format(LocalizationService.CurrentCulture, GetString(key), args);
+    }
+
+    private string CreateHardwareHashStatusText()
+    {
+        if (!IsHardwareHashUploadMode)
+        {
+            return string.Empty;
+        }
+
+        if (IsHardwareHashCertificateExpired)
+        {
+            return Format(
+                "Preparation.AutopilotHardwareHashCertificateExpiredFormat",
+                AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc!.Value.LocalDateTime);
+        }
+
+        if (AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc is DateTimeOffset expiresOn)
+        {
+            string groupTag = string.IsNullOrWhiteSpace(AutopilotHardwareHashUpload.DefaultGroupTag)
+                ? GetString("Common.None")
+                : AutopilotHardwareHashUpload.DefaultGroupTag!;
+            return Format(
+                "Preparation.AutopilotHardwareHashReadyFormat",
+                expiresOn.LocalDateTime,
+                groupTag);
+        }
+
+        return GetString("Preparation.AutopilotHardwareHashNotConfigured");
     }
 
     private bool CanRefreshTargetDisks()

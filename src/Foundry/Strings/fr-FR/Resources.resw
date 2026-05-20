@@ -282,6 +282,81 @@
   <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
     <value>{0} profil(s) sélectionné(s) sur {1}</value>
   </data>
+  <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
+    <value>Provisionnement par profil JSON</value>
+  </data>
+  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
+    <value>Ajoute un profil Autopilot hors ligne dans l'image Windows appliquée.</value>
+  </data>
+  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
+    <value>Utiliser le provisionnement par profil JSON</value>
+  </data>
+  <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
+    <value>Upload du hardware hash</value>
+  </data>
+  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
+    <value>Upload le hardware hash de l'appareil vers Intune depuis Foundry Deploy dans WinPE.</value>
+  </data>
+  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
+    <value>Utiliser l'upload du hardware hash</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
+    <value>Se connecter au tenant</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
+    <value>Connexion tenant</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
+    <value>Non connecté</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectedFormat" xml:space="preserve">
+    <value>Connecté au tenant {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
+    <value>App registration</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Foundry OSD Autopilot Registration n'est pas configurée.</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
+    <value>{0} est configurée.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateStatusLabel" xml:space="preserve">
+    <value>Certificat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateMissing" xml:space="preserve">
+    <value>Aucun certificat actif n'est configuré.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpirationMissing" xml:space="preserve">
+    <value>L'expiration du certificat actif est manquante.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateValidFormat" xml:space="preserve">
+    <value>Valide jusqu'au {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiredFormat" xml:space="preserve">
+    <value>Expiré le {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiredWarning" xml:space="preserve">
+    <value>Regénérez le certificat et le média de démarrage avant d'utiliser l'upload du hardware hash.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagLabel" xml:space="preserve">
+    <value>Group tag par défaut</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
+    <value>Aucun group tag par défaut sélectionné.</value>
+  </data>
+  <data name="Autopilot.HardwareHashKnownGroupTagsLabel" xml:space="preserve">
+    <value>Group tags connus</value>
+  </data>
+  <data name="Autopilot.HardwareHashKnownGroupTagsNone" xml:space="preserve">
+    <value>Aucun group tag découvert.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingUnavailableTitle" xml:space="preserve">
+    <value>Onboarding tenant</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingUnavailableMessage" xml:space="preserve">
+    <value>L'onboarding tenant et la création de certificat seront implémentés dans la prochaine phase de sécurité.</value>
+  </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Personnalisation</value>
   </data>
@@ -1136,6 +1211,9 @@
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
     <value>Activé : {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Activé : upload du hardware hash</value>
   </data>
   <data name="StartMedia.Autopilot.NotReady" xml:space="preserve">
     <value>Activé ; profil par défaut manquant</value>

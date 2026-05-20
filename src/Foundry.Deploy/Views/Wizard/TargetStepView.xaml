@@ -135,7 +135,15 @@
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.AutopilotEnable], ElementName=ViewRoot}" />
                                 </CheckBox>
 
-                                <StackPanel IsEnabled="{Binding IsAutopilotEnabled}">
+                                <TextBlock
+                                    Margin="0,0,0,8"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{Binding AutopilotModeText}" />
+
+                                <StackPanel
+                                    IsEnabled="{Binding IsAutopilotEnabled}"
+                                    Visibility="{Binding IsJsonProfileControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
                                         Style="{StaticResource BodyTextBlockStyle}"
@@ -151,6 +159,25 @@
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{Binding AutopilotProfileHint}" />
+                                </StackPanel>
+
+                                <StackPanel Visibility="{Binding IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <TextBlock
+                                        Margin="0,0,0,4"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashUpload], ElementName=ViewRoot}" />
+                                    <TextBlock
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding AutopilotHardwareHashStatusText}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Foreground="#FFC42B1C"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashExpiredAction], ElementName=ViewRoot}"
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding IsHardwareHashCertificateExpired, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>

@@ -120,6 +120,62 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
+    public void Prepare_WhenHardwareHashUploadModeHasNoJsonProfile_ReturnsDeploymentContext()
+    {
+        var shell = new FakeApplicationShellService { ConfirmationResult = true };
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+                selectedAutopilotProfile: null,
+                isDryRun: true));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, result.Context?.AutopilotProvisioningMode);
+        Assert.Null(result.Context?.SelectedAutopilotProfile);
+    }
+
+    [Fact]
+    public void Prepare_WhenLiveHardwareHashUploadModeIsSelected_FailsBeforeConfirmation()
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+                selectedAutopilotProfile: null,
+                isDryRun: false));
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Contains("hardware hash upload is not available", result.StatusMessage, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(0, shell.ConfirmationCallCount);
+    }
+
+    [Fact]
+    public void Prepare_WhenJsonProfileModeHasNoProfile_FailsValidation()
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.JsonProfile,
+                selectedAutopilotProfile: null));
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Equal("Select an Autopilot profile or disable Autopilot before starting deployment.", result.StatusMessage);
+        Assert.Equal(0, shell.ConfirmationCallCount);
+    }
+
+    [Fact]
     public void Prepare_WhenConfirmationIsShown_UsesLocalizedWarningText()
     {
         CultureInfo originalCulture = CultureInfo.CurrentCulture;
@@ -156,6 +212,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DriverPackSelectionKind driverPackSelectionKind = DriverPackSelectionKind.None,
         DriverPackCatalogItem? selectedDriverPack = null,
         bool isAutopilotEnabled = false,
+        AutopilotProvisioningMode autopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
@@ -184,6 +241,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             SelectedDriverPack = selectedDriverPack,
             ApplyFirmwareUpdates = false,
             IsAutopilotEnabled = isAutopilotEnabled,
+            AutopilotProvisioningMode = autopilotProvisioningMode,
             SelectedAutopilotProfile = selectedAutopilotProfile,
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),

@@ -28,6 +28,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private readonly ILogger logger;
     private bool isApplyingState = true;
     private bool isSavingState;
+    private AutopilotProvisioningMode provisioningMode = AutopilotProvisioningMode.JsonProfile;
+    private AutopilotHardwareHashUploadSettings hardwareHashUploadSettings = new();
 
     public AutopilotConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
@@ -81,6 +83,62 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         : IsDownloading
             ? DownloadingStatusText
             : string.Empty;
+    public bool UseJsonProfileProvisioning
+    {
+        get => provisioningMode == AutopilotProvisioningMode.JsonProfile;
+        set
+        {
+            if (value)
+            {
+                SetProvisioningMode(AutopilotProvisioningMode.JsonProfile);
+            }
+            else if (UseJsonProfileProvisioning && !UseHardwareHashUploadProvisioning)
+            {
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool UseHardwareHashUploadProvisioning
+    {
+        get => provisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+        set
+        {
+            if (value)
+            {
+                SetProvisioningMode(AutopilotProvisioningMode.HardwareHashUpload);
+            }
+            else if (UseHardwareHashUploadProvisioning && !UseJsonProfileProvisioning)
+            {
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool IsJsonProfileMode => provisioningMode == AutopilotProvisioningMode.JsonProfile;
+    public bool IsHardwareHashUploadMode => provisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+    public bool IsHardwareHashCertificateExpired => hardwareHashUploadSettings.ActiveCertificate?.ExpiresOnUtc is DateTimeOffset expiresOnUtc &&
+                                                    expiresOnUtc <= DateTimeOffset.UtcNow;
+    public Visibility JsonProfileSettingsVisibility => IsJsonProfileMode ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility HardwareHashSettingsVisibility => IsHardwareHashUploadMode ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility HardwareHashCertificateWarningVisibility => IsHardwareHashCertificateExpired ? Visibility.Visible : Visibility.Collapsed;
+    public string ManagedAppRegistrationName => AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName;
+    public string TenantStatusText => HasTenantRegistration
+        ? localizationService.FormatString("Autopilot.HardwareHashTenantConnectedFormat", hardwareHashUploadSettings.Tenant.TenantId!)
+        : localizationService.GetString("Autopilot.HardwareHashTenantNotConnected");
+    public string AppRegistrationStatusText => string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId)
+        ? localizationService.GetString("Autopilot.HardwareHashAppRegistrationMissing")
+        : localizationService.FormatString("Autopilot.HardwareHashAppRegistrationFoundFormat", ManagedAppRegistrationName);
+    public string CertificateStatusText => CreateCertificateStatusText();
+    public string DefaultGroupTagText => string.IsNullOrWhiteSpace(hardwareHashUploadSettings.DefaultGroupTag)
+        ? localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNone")
+        : hardwareHashUploadSettings.DefaultGroupTag!;
+    public string KnownGroupTagsText => hardwareHashUploadSettings.KnownGroupTags.Count == 0
+        ? localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsNone")
+        : string.Join(", ", hardwareHashUploadSettings.KnownGroupTags);
+
+    private bool HasTenantRegistration => !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.TenantId) &&
+                                          !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ClientId);
 
     [ObservableProperty]
     public partial string PageTitle { get; set; }
@@ -93,6 +151,51 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string EnableAutopilotText { get; set; }
+
+    [ObservableProperty]
+    public partial string JsonProfileHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string JsonProfileDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string JsonProfileEnableText { get; set; }
+
+    [ObservableProperty]
+    public partial string HardwareHashHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string HardwareHashDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string HardwareHashEnableText { get; set; }
+
+    [ObservableProperty]
+    public partial string ConnectTenantButtonText { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantStatusLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string AppRegistrationLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificateStatusLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificateExpiredWarningText { get; set; }
+
+    [ObservableProperty]
+    public partial string DefaultGroupTagLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string KnownGroupTagsLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string HardwareHashOnboardingUnavailableTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string HardwareHashOnboardingUnavailableMessage { get; set; }
 
     [ObservableProperty]
     public partial string ImportButtonText { get; set; }
@@ -147,9 +250,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsAutopilotSectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(JsonProfileSettingsVisibility))]
+    [NotifyPropertyChangedFor(nameof(HardwareHashSettingsVisibility))]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ConnectTenantCommand))]
     public partial bool IsAutopilotEnabled { get; set; }
 
     [ObservableProperty]
@@ -162,6 +268,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyPropertyChangedFor(nameof(IsBusy))]
     [NotifyPropertyChangedFor(nameof(BusyStatusText))]
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
+    [NotifyCanExecuteChangedFor(nameof(ConnectTenantCommand))]
     public partial bool IsImporting { get; set; }
 
     [ObservableProperty]
@@ -171,6 +278,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [NotifyPropertyChangedFor(nameof(IsBusy))]
     [NotifyPropertyChangedFor(nameof(BusyStatusText))]
     [NotifyPropertyChangedFor(nameof(BusyStatusVisibility))]
+    [NotifyCanExecuteChangedFor(nameof(ConnectTenantCommand))]
     public partial bool IsDownloading { get; set; }
 
     /// <summary>
@@ -312,8 +420,20 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         SaveState();
     }
 
+    [RelayCommand(CanExecute = nameof(CanConnectTenant))]
+    private async Task ConnectTenantAsync()
+    {
+        await dialogService.ShowMessageAsync(new DialogRequest(
+            HardwareHashOnboardingUnavailableTitle,
+            HardwareHashOnboardingUnavailableMessage));
+    }
+
     partial void OnIsAutopilotEnabledChanged(bool value)
     {
+        ImportProfileCommand.NotifyCanExecuteChanged();
+        DownloadProfilesCommand.NotifyCanExecuteChanged();
+        RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
+        ConnectTenantCommand.NotifyCanExecuteChanged();
         SaveState();
     }
 
@@ -328,9 +448,15 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         try
         {
             IsAutopilotEnabled = settings.IsEnabled;
+            provisioningMode = Enum.IsDefined(settings.ProvisioningMode)
+                ? settings.ProvisioningMode
+                : AutopilotProvisioningMode.JsonProfile;
+            hardwareHashUploadSettings = settings.HardwareHashUpload ?? new AutopilotHardwareHashUploadSettings();
             ReplaceProfiles(
                 settings.Profiles.Select(AutopilotProfileEntryViewModel.FromSettings),
                 settings.DefaultProfileId);
+            RefreshProvisioningModeState();
+            RefreshHardwareHashUploadState();
         }
         finally
         {
@@ -391,8 +517,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             configurationStateService.UpdateAutopilot(new AutopilotSettings
             {
                 IsEnabled = IsAutopilotEnabled,
+                ProvisioningMode = provisioningMode,
                 DefaultProfileId = SelectedDefaultProfile?.Id,
-                Profiles = Profiles.Select(profile => profile.ToSettings()).ToArray()
+                Profiles = Profiles.Select(profile => profile.ToSettings()).ToArray(),
+                HardwareHashUpload = hardwareHashUploadSettings
             });
         }
         finally
@@ -407,6 +535,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         AutopilotHeader = localizationService.GetString("Autopilot.Header");
         AutopilotDescription = localizationService.GetString("Autopilot.Description");
         EnableAutopilotText = localizationService.GetString("Autopilot.EnableLabel");
+        JsonProfileHeader = localizationService.GetString("Autopilot.JsonProfileHeader");
+        JsonProfileDescription = localizationService.GetString("Autopilot.JsonProfileDescription");
+        JsonProfileEnableText = localizationService.GetString("Autopilot.JsonProfileEnableLabel");
+        HardwareHashHeader = localizationService.GetString("Autopilot.HardwareHashHeader");
+        HardwareHashDescription = localizationService.GetString("Autopilot.HardwareHashDescription");
+        HardwareHashEnableText = localizationService.GetString("Autopilot.HardwareHashEnableLabel");
+        ConnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashConnectTenantButton");
+        TenantStatusLabel = localizationService.GetString("Autopilot.HardwareHashTenantStatusLabel");
+        AppRegistrationLabel = localizationService.GetString("Autopilot.HardwareHashAppRegistrationLabel");
+        CertificateStatusLabel = localizationService.GetString("Autopilot.HardwareHashCertificateStatusLabel");
+        CertificateExpiredWarningText = localizationService.GetString("Autopilot.HardwareHashCertificateExpiredWarning");
+        DefaultGroupTagLabel = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagLabel");
+        KnownGroupTagsLabel = localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsLabel");
+        HardwareHashOnboardingUnavailableTitle = localizationService.GetString("Autopilot.HardwareHashOnboardingUnavailableTitle");
+        HardwareHashOnboardingUnavailableMessage = localizationService.GetString("Autopilot.HardwareHashOnboardingUnavailableMessage");
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
         DownloadButtonText = localizationService.GetString("Autopilot.DownloadButton");
         RemoveButtonText = localizationService.GetString("Autopilot.RemoveButton");
@@ -425,6 +568,62 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ProfileImportedColumnHeader = localizationService.GetString("Autopilot.ColumnImported");
         ProfileFolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
         OnPropertyChanged(nameof(BusyStatusText));
+        RefreshHardwareHashUploadState();
+    }
+
+    private void SetProvisioningMode(AutopilotProvisioningMode mode)
+    {
+        if (provisioningMode == mode)
+        {
+            return;
+        }
+
+        provisioningMode = mode;
+        RefreshProvisioningModeState();
+        SaveState();
+    }
+
+    private void RefreshProvisioningModeState()
+    {
+        OnPropertyChanged(nameof(UseJsonProfileProvisioning));
+        OnPropertyChanged(nameof(UseHardwareHashUploadProvisioning));
+        OnPropertyChanged(nameof(IsJsonProfileMode));
+        OnPropertyChanged(nameof(IsHardwareHashUploadMode));
+        OnPropertyChanged(nameof(JsonProfileSettingsVisibility));
+        OnPropertyChanged(nameof(HardwareHashSettingsVisibility));
+        ImportProfileCommand.NotifyCanExecuteChanged();
+        DownloadProfilesCommand.NotifyCanExecuteChanged();
+        RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
+        ConnectTenantCommand.NotifyCanExecuteChanged();
+    }
+
+    private void RefreshHardwareHashUploadState()
+    {
+        OnPropertyChanged(nameof(TenantStatusText));
+        OnPropertyChanged(nameof(AppRegistrationStatusText));
+        OnPropertyChanged(nameof(CertificateStatusText));
+        OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
+        OnPropertyChanged(nameof(HardwareHashCertificateWarningVisibility));
+        OnPropertyChanged(nameof(DefaultGroupTagText));
+        OnPropertyChanged(nameof(KnownGroupTagsText));
+    }
+
+    private string CreateCertificateStatusText()
+    {
+        AutopilotCertificateMetadata? certificate = hardwareHashUploadSettings.ActiveCertificate;
+        if (certificate is null)
+        {
+            return localizationService.GetString("Autopilot.HardwareHashCertificateMissing");
+        }
+
+        if (certificate.ExpiresOnUtc is null)
+        {
+            return localizationService.GetString("Autopilot.HardwareHashCertificateExpirationMissing");
+        }
+
+        return certificate.ExpiresOnUtc <= DateTimeOffset.UtcNow
+            ? localizationService.FormatString("Autopilot.HardwareHashCertificateExpiredFormat", certificate.ExpiresOnUtc.Value.LocalDateTime)
+            : localizationService.FormatString("Autopilot.HardwareHashCertificateValidFormat", certificate.ExpiresOnUtc.Value.LocalDateTime);
     }
 
     private void RefreshProfileState()
@@ -475,16 +674,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private bool CanImportProfile()
     {
-        return IsAutopilotEnabled && !IsImporting && !IsDownloading;
+        return IsAutopilotEnabled && IsJsonProfileMode && !IsImporting && !IsDownloading;
     }
 
     private bool CanDownloadProfiles()
     {
-        return IsAutopilotEnabled && !IsImporting && !IsDownloading;
+        return IsAutopilotEnabled && IsJsonProfileMode && !IsImporting && !IsDownloading;
     }
 
     private bool CanRemoveSelectedProfiles()
     {
-        return IsAutopilotEnabled && !IsImporting && !IsDownloading && SelectedProfiles.Count > 0;
+        return IsAutopilotEnabled && IsJsonProfileMode && !IsImporting && !IsDownloading && SelectedProfiles.Count > 0;
+    }
+
+    private bool CanConnectTenant()
+    {
+        return IsAutopilotEnabled && IsHardwareHashUploadMode && !IsBusy;
     }
 }
