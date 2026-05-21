@@ -1208,16 +1208,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private string CreateBootMediaCertificateStatusText()
     {
-        if (hardwareHashUploadSettings.ActiveCertificate is null)
-        {
-            return localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateActiveMissing");
-        }
-
-        if (IsHardwareHashCertificateExpired)
-        {
-            return localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateActiveExpired");
-        }
-
         if (string.IsNullOrWhiteSpace(hardwareHashUploadSettings.BootMediaCertificate.PfxPath))
         {
             return localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxMissing");
@@ -1226,6 +1216,23 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         if (isBootMediaCertificateFileMissing)
         {
             return localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateFileMissing");
+        }
+
+        if (bootMediaCertificateValidationCode == AutopilotPfxValidationCode.PasswordRequired)
+        {
+            return localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordMissing");
+        }
+
+        if (hardwareHashUploadSettings.ActiveCertificate is null)
+        {
+            return bootMediaCertificateValidationCode == AutopilotPfxValidationCode.ThumbprintMismatch
+                ? localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch")
+                : localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateActiveMissing");
+        }
+
+        if (IsHardwareHashCertificateExpired)
+        {
+            return localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateActiveExpired");
         }
 
         if (IsBootMediaCertificateReady)
@@ -1254,6 +1261,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
         if (IsHardwareHashCertificateExpired ||
             isBootMediaCertificateFileMissing ||
+            (hardwareHashUploadSettings.ActiveCertificate is null &&
+             !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.BootMediaCertificate.PfxPath) &&
+             bootMediaCertificateValidationCode != AutopilotPfxValidationCode.PasswordRequired) ||
             bootMediaCertificateValidationCode is AutopilotPfxValidationCode.InvalidPfx
                 or AutopilotPfxValidationCode.PrivateKeyMissing
                 or AutopilotPfxValidationCode.ThumbprintMismatch)
