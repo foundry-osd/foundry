@@ -655,7 +655,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             if (ShouldShowTenantOnboardingResultDialog(result.Status))
             {
                 await dialogService.ShowMessageAsync(new DialogRequest(
-                    GetTenantOnboardingDialogTitle(result.Status),
+                    GetTenantOnboardingDialogTitle(),
                     result.Message));
             }
         }
@@ -753,11 +753,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 return;
             }
 
-            if (hardwareHashUploadSettings.ActiveCertificate is null)
-            {
-                tenantOnboardingStatus = AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
-                hardwareHashSessionState.TenantOnboardingStatus = tenantOnboardingStatus;
-            }
+            tenantOnboardingStatus = ResolveTenantReadinessAfterCertificateChange(result.Certificates);
+            hardwareHashSessionState.TenantOnboardingStatus = tenantOnboardingStatus;
 
             ReplaceCertificates(result.Certificates);
             ClearBootMediaCertificateIfActiveCertificateChanged();
@@ -1323,16 +1320,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             : (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
     }
 
-    private string GetTenantOnboardingDialogTitle(AutopilotTenantOnboardingStatus status)
+    private string GetTenantOnboardingDialogTitle()
     {
-        return status == AutopilotTenantOnboardingStatus.Ready
-            ? localizationService.GetString("Autopilot.HardwareHashOnboardingCompletedTitle")
-            : localizationService.GetString("Autopilot.HardwareHashOnboardingRequiresAttentionTitle");
+        return localizationService.GetString("Autopilot.HardwareHashOnboardingRequiresAttentionTitle");
     }
 
     private static bool ShouldShowTenantOnboardingResultDialog(AutopilotTenantOnboardingStatus status)
     {
-        return status is not AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
+        return status is not (AutopilotTenantOnboardingStatus.Ready or AutopilotTenantOnboardingStatus.ActiveCertificateMissing);
     }
 
     private void RefreshProfileState()
@@ -1420,6 +1415,28 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return certificate.ExpiresOnUtc <= DateTimeOffset.UtcNow
             ? AutopilotTenantOnboardingStatus.ActiveCertificateExpired
             : AutopilotTenantOnboardingStatus.Ready;
+    }
+
+    private AutopilotTenantOnboardingStatus ResolveTenantReadinessAfterCertificateChange(
+        IReadOnlyList<AutopilotGraphKeyCredential> credentials)
+    {
+        if (tenantOnboardingStatus is AutopilotTenantOnboardingStatus.PermissionMissing
+            or AutopilotTenantOnboardingStatus.ConsentMissing
+            or AutopilotTenantOnboardingStatus.ServicePrincipalUnavailable
+            or AutopilotTenantOnboardingStatus.AppRegistrationMissing
+            or AutopilotTenantOnboardingStatus.AdoptionRequired)
+        {
+            return tenantOnboardingStatus.Value;
+        }
+
+        return credentials.Any(credential =>
+            string.Equals(
+                credential.DisplayName,
+                AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName,
+                StringComparison.OrdinalIgnoreCase) &&
+            credential.ExpiresOnUtc > DateTimeOffset.UtcNow)
+            ? AutopilotTenantOnboardingStatus.Ready
+            : AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
     }
 
     private static AutopilotCertificateMetadata CreateCertificateMetadata(AutopilotCertificateEntryViewModel certificate)

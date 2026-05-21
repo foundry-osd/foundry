@@ -513,9 +513,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
     <value>None</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingCompletedTitle" xml:space="preserve">
-    <value>Onboarding tenant terminé</value>
-  </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>L'onboarding tenant demande une action</value>
   </data>

@@ -105,12 +105,11 @@ public sealed class AutopilotTenantOnboardingService(
                 CurrentTimeUtc = DateTimeOffset.UtcNow
             };
             AutopilotTenantOnboardingEvaluation evaluation = AutopilotTenantOnboardingEvaluator.Evaluate(snapshot);
-            AutopilotCertificateMetadata? activeCertificate = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
-                ? null
-                : currentSettings.ActiveCertificate;
-            AutopilotTenantOnboardingStatus status = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
-                ? AutopilotTenantOnboardingStatus.ActiveCertificateMissing
-                : evaluation.Status;
+            AutopilotCertificateMetadata? activeCertificate = IsPersistedActiveCertificateResolved(
+                currentSettings.ActiveCertificate,
+                evaluation.ActiveCertificateCredential)
+                ? currentSettings.ActiveCertificate
+                : null;
 
             AutopilotHardwareHashUploadSettings updatedSettings = currentSettings with
             {
@@ -129,11 +128,11 @@ public sealed class AutopilotTenantOnboardingService(
             return new AutopilotTenantOnboardingResult
             {
                 Settings = updatedSettings,
-                Status = status,
+                Status = evaluation.Status,
                 Certificates = keyCredentials,
-                Message = status == AutopilotTenantOnboardingStatus.Ready
+                Message = evaluation.Status == AutopilotTenantOnboardingStatus.Ready
                     ? "The managed app registration is ready."
-                    : $"The managed app registration requires attention: {status}."
+                    : $"The managed app registration requires attention: {evaluation.Status}."
             };
         }
         catch
@@ -259,6 +258,25 @@ public sealed class AutopilotTenantOnboardingService(
             Settings = updatedSettings,
             Certificates = keyCredentials
         };
+    }
+
+    private static bool IsPersistedActiveCertificateResolved(
+        AutopilotCertificateMetadata? activeCertificate,
+        AutopilotGraphKeyCredential? resolvedCredential)
+    {
+        return activeCertificate is not null &&
+               resolvedCredential is not null &&
+               string.Equals(activeCertificate.KeyId, resolvedCredential.KeyId, StringComparison.OrdinalIgnoreCase) &&
+               string.Equals(
+                   NormalizeThumbprint(activeCertificate.Thumbprint),
+                   NormalizeThumbprint(resolvedCredential.Thumbprint),
+                   StringComparison.Ordinal);
+    }
+
+    private static string? NormalizeThumbprint(string? thumbprint)
+    {
+        string? normalized = thumbprint?.Replace(" ", string.Empty, StringComparison.Ordinal).Trim();
+        return string.IsNullOrWhiteSpace(normalized) ? null : normalized.ToUpperInvariant();
     }
 
     private static async Task<string> GetTenantIdAsync(string accessToken, CancellationToken cancellationToken)

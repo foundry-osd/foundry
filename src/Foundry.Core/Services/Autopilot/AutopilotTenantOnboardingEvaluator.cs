@@ -52,16 +52,21 @@ public static class AutopilotTenantOnboardingEvaluator
                 snapshot.ServicePrincipal);
         }
 
+        AutopilotGraphKeyCredential[] validManagedCredentials = snapshot.KeyCredentials
+            .Where(credential =>
+                string.Equals(credential.DisplayName, snapshot.ManagedAppDisplayName, StringComparison.OrdinalIgnoreCase) &&
+                credential.ExpiresOnUtc > snapshot.CurrentTimeUtc)
+            .OrderBy(credential => credential.ExpiresOnUtc)
+            .ToArray();
         AutopilotCertificateMetadata? activeCertificate = snapshot.ActiveCertificate;
         if (activeCertificate is null)
         {
-            int foundryCredentialCount = snapshot.KeyCredentials.Count(credential =>
-                string.Equals(credential.DisplayName, snapshot.ManagedAppDisplayName, StringComparison.OrdinalIgnoreCase));
-            return foundryCredentialCount > 0
+            return validManagedCredentials.Length > 0
                 ? AutopilotTenantOnboardingEvaluation.FromStatus(
                     AutopilotTenantOnboardingStatus.Ready,
                     application,
-                    snapshot.ServicePrincipal)
+                    snapshot.ServicePrincipal,
+                    validManagedCredentials[0])
                 : AutopilotTenantOnboardingEvaluation.FromStatus(
                     AutopilotTenantOnboardingStatus.ActiveCertificateMissing,
                     application,
@@ -73,18 +78,30 @@ public static class AutopilotTenantOnboardingEvaluator
             string.Equals(NormalizeThumbprint(credential.Thumbprint), NormalizeThumbprint(activeCertificate.Thumbprint), StringComparison.Ordinal));
         if (graphCredential is null)
         {
-            return AutopilotTenantOnboardingEvaluation.FromStatus(
-                AutopilotTenantOnboardingStatus.ActiveCertificateNotFound,
-                application,
-                snapshot.ServicePrincipal);
+            return validManagedCredentials.Length > 0
+                ? AutopilotTenantOnboardingEvaluation.FromStatus(
+                    AutopilotTenantOnboardingStatus.Ready,
+                    application,
+                    snapshot.ServicePrincipal,
+                    validManagedCredentials[0])
+                : AutopilotTenantOnboardingEvaluation.FromStatus(
+                    AutopilotTenantOnboardingStatus.ActiveCertificateNotFound,
+                    application,
+                    snapshot.ServicePrincipal);
         }
 
         if (graphCredential.ExpiresOnUtc <= snapshot.CurrentTimeUtc)
         {
-            return AutopilotTenantOnboardingEvaluation.FromStatus(
-                AutopilotTenantOnboardingStatus.ActiveCertificateExpired,
-                application,
-                snapshot.ServicePrincipal);
+            return validManagedCredentials.Length > 0
+                ? AutopilotTenantOnboardingEvaluation.FromStatus(
+                    AutopilotTenantOnboardingStatus.Ready,
+                    application,
+                    snapshot.ServicePrincipal,
+                    validManagedCredentials[0])
+                : AutopilotTenantOnboardingEvaluation.FromStatus(
+                    AutopilotTenantOnboardingStatus.ActiveCertificateExpired,
+                    application,
+                    snapshot.ServicePrincipal);
         }
 
         return AutopilotTenantOnboardingEvaluation.FromStatus(

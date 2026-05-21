@@ -132,6 +132,8 @@ Implementation progress:
 - [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
 - [x] Show onboarding status as compact `Ready` or `Not ready` text with WinUI signal color.
 - [x] Show tenant connection state as `Connected` in success color or `Not connected` in critical color.
+- [x] Suppress the tenant onboarding success content dialog; successful connection is shown inline through the readiness table.
+- [x] Keep tenant readiness `Ready` when at least one valid Foundry-managed app certificate remains after removing other selected certificates.
 - [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
@@ -204,6 +206,8 @@ Manual checks:
 - [ ] Confirm the certificate expiration column text has the same left padding as the other certificate columns.
 - [ ] Confirm the remove certificate action is disabled when no certificate row is selected.
 - [ ] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
+- [ ] Create multiple certificates, remove a subset, and confirm tenant readiness stays `Ready` while at least one valid certificate remains.
+- [ ] Connect to a ready tenant and confirm no success content dialog is shown.
 - [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear in the `Default group tag` ComboBox without a duplicate available group tag table.
 - [ ] Confirm the optional group tag area is one compact `Default group tag` row.
 - [ ] Confirm the default group tag ComboBox selects `None` by default.

@@ -49,7 +49,7 @@ OSD setup permission guidance:
 Supported WinPE authentication:
 - Microsoft Graph authentication inside WinPE must use certificate-based app-only auth only.
 - The certificate private key material is injected into the generated boot image as an encrypted media secret.
-- The injected certificate format is a password-protected PFX whose leaf certificate thumbprint matches the active certificate configured on the managed app registration.
+- The injected certificate format is a password-protected PFX whose leaf certificate thumbprint matches a non-expired certificate credential on the managed app registration.
 - Device code flow, client secrets, and brokered upload are not supported WinPE authentication modes for this feature.
 
 Private keys, client secrets, and tenant-wide destructive permissions must not be silently embedded into generated media.
@@ -63,7 +63,7 @@ Secret handling rules:
 - Do not log authorization headers, refresh tokens, client secrets, private keys, certificate raw data, or Graph request bodies containing hardware hashes unless explicitly redacted.
 - Store embedded certificate private key material with the same envelope concept used by Foundry Connect personal Wi-Fi secrets.
 - Accept only password-protected PFX input for media generation.
-- Reject unprotected PFX files, PEM private keys, and PFX files whose leaf certificate thumbprint does not match the active certificate thumbprint.
+- Reject unprotected PFX files, PEM private keys, and PFX files whose leaf certificate thumbprint does not match a non-expired managed app certificate credential.
 - Require explicit user confirmation before embedding certificate private key material and document that the generated media becomes tenant-sensitive.
 - Do not add a "remember this PFX" option or store a DPAPI-encrypted copy in ProgramData.
 - Keep operator-provided PFX bytes and PFX password in memory only for the current app session, then clear them when media generation finishes or the app closes.

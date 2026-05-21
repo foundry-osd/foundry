@@ -73,13 +73,23 @@ public sealed class AutopilotTenantOnboardingEvaluatorTests
     }
 
     [Fact]
-    public void Evaluate_WhenActiveCertificateIsMissingFromGraph_ReturnsActiveCertificateNotFound()
+    public void Evaluate_WhenActiveCertificateIsMissingFromGraphAndAnotherValidCredentialExists_ReturnsReady()
     {
         AutopilotTenantOnboardingEvaluation result = AutopilotTenantOnboardingEvaluator.Evaluate(CreateSnapshot(
             keyCredentials:
             [
                 CreateKeyCredential("other-key-id", "OTHER", Now.AddMonths(12))
             ]));
+
+        Assert.Equal(AutopilotTenantOnboardingStatus.Ready, result.Status);
+        Assert.Equal("other-key-id", result.ActiveCertificateCredential?.KeyId);
+    }
+
+    [Fact]
+    public void Evaluate_WhenActiveCertificateIsMissingFromGraphAndNoValidCredentialExists_ReturnsActiveCertificateNotFound()
+    {
+        AutopilotTenantOnboardingEvaluation result = AutopilotTenantOnboardingEvaluator.Evaluate(CreateSnapshot(
+            keyCredentials: []));
 
         Assert.Equal(AutopilotTenantOnboardingStatus.ActiveCertificateNotFound, result.Status);
     }
@@ -97,6 +107,21 @@ public sealed class AutopilotTenantOnboardingEvaluatorTests
             ]));
 
         Assert.Equal(AutopilotTenantOnboardingStatus.Ready, result.Status);
+        Assert.Equal("key-1", result.ActiveCertificateCredential?.KeyId);
+    }
+
+    [Fact]
+    public void Evaluate_WhenPersistedActiveCertificateIsExpiredButAnotherValidCredentialExists_ReturnsReady()
+    {
+        AutopilotTenantOnboardingEvaluation result = AutopilotTenantOnboardingEvaluator.Evaluate(CreateSnapshot(
+            keyCredentials:
+            [
+                CreateKeyCredential("active-key-id", "ABCDEF123456", Now.AddDays(-1)),
+                CreateKeyCredential("other-key-id", "OTHER", Now.AddMonths(12))
+            ]));
+
+        Assert.Equal(AutopilotTenantOnboardingStatus.Ready, result.Status);
+        Assert.Equal("other-key-id", result.ActiveCertificateCredential?.KeyId);
     }
 
     [Fact]
