@@ -96,6 +96,9 @@ Implementation progress:
 - [x] Add audit-safe logging rules.
 - [x] Add XML documentation comments to new public tenant onboarding, certificate, and secret-protection APIs.
 - [x] Reuse the JSON profile tenant download modal sign-in pattern for hardware hash tenant onboarding.
+- [x] Route JSON profile download and hardware hash tenant onboarding through one shared tenant operation dialog service.
+- [x] Remove the obsolete JSON-specific tenant download dialog wrapper API.
+- [x] Make tenant operation cancellation return control to the Autopilot page so the connect action can be retried.
 - [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but app registration, certificate, group tag, and tenant detail rows stay hidden until a successful current-session tenant connection.
 - [x] Show connected tenant details in a dedicated row instead of embedding the tenant ID in the connection row.
 - [x] Display tenant details as a table with tenant ID and client ID.
@@ -153,6 +156,8 @@ Manual checks:
 - [ ] Review logs after failed auth and successful auth.
 - [ ] Confirm least-privilege app registration can import devices.
 - [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
+- [ ] Click `Connect tenant`, cancel the tenant sign-in dialog, and confirm the Autopilot page remains responsive and `Connect tenant` can be clicked again.
+- [ ] Click JSON profile `Download from tenant`, cancel the tenant sign-in dialog, and confirm the JSON profile actions remain responsive.
 - [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and available group tags become visible.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
 - [ ] Confirm tenant details show tenant ID and client ID in a table after connecting.

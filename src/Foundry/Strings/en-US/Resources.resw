@@ -255,9 +255,6 @@
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
     <value>Complete sign-in in the browser to download Autopilot profiles.</value>
   </data>
-  <data name="Autopilot.TenantDownloadDialogCancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
     <value>No Autopilot profiles found</value>
   </data>
@@ -356,9 +353,6 @@
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
     <value>Client ID</value>
-  </data>
-  <data name="Autopilot.HardwareHashTenantDetailsFormat" xml:space="preserve">
-    <value>Tenant ID: {0}</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
     <value>App registration</value>

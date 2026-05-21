@@ -1,11 +1,14 @@
-using Foundry.Core.Models.Configuration;
 using Foundry.Services.Localization;
 
 namespace Foundry.Services.Autopilot;
 
-public sealed class AutopilotTenantDownloadDialogService(
-    IApplicationLocalizationService localizationService) : IAutopilotTenantDownloadDialogService
+/// <summary>
+/// Coordinates shared Microsoft Graph tenant operation progress and cancellation dialogs.
+/// </summary>
+public sealed class AutopilotTenantOperationDialogService(
+    IApplicationLocalizationService localizationService) : IAutopilotTenantOperationDialogService
 {
+    /// <inheritdoc />
     public Task<TResult?> RunAsync<TResult>(
         string title,
         string message,
@@ -19,19 +22,8 @@ public sealed class AutopilotTenantDownloadDialogService(
         return RunWithDialogAsync(
             title,
             message,
-            localizationService.GetString("Autopilot.TenantDownloadDialogCancel"),
+            localizationService.GetString("Common.Cancel"),
             operationAsync);
-    }
-
-    public async Task<IReadOnlyList<AutopilotProfileSettings>?> DownloadAsync(
-        Func<CancellationToken, Task<IReadOnlyList<AutopilotProfileSettings>>> downloadProfilesAsync)
-    {
-        ArgumentNullException.ThrowIfNull(downloadProfilesAsync);
-        return await RunWithDialogAsync(
-            localizationService.GetString("Autopilot.TenantDownloadDialogTitle"),
-            localizationService.GetString("Autopilot.TenantDownloadDialogMessage"),
-            localizationService.GetString("Autopilot.TenantDownloadDialogCancel"),
-            downloadProfilesAsync).ConfigureAwait(false);
     }
 
     private static async Task<TResult?> RunWithDialogAsync<TResult>(
@@ -44,45 +36,65 @@ public sealed class AutopilotTenantDownloadDialogService(
         using var cancellationTokenSource = new CancellationTokenSource();
         ContentDialog dialog = CreateDialog(title, message, cancelText, cancellationTokenSource);
         TaskCompletionSource dialogOpenedTask = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        TaskCompletionSource dialogCanceledTask = new(TaskCreationOptions.RunContinuationsAsynchronously);
         dialog.Opened += OnDialogOpened;
-        Task<ContentDialogResult> dialogTask = dialog.ShowAsync().AsTask();
+        dialog.Closing += OnDialogClosing;
 
-        Task completedBeforeOpenTask = await Task.WhenAny(dialogOpenedTask.Task, dialogTask);
-        dialog.Opened -= OnDialogOpened;
-        if (completedBeforeOpenTask == dialogTask)
-        {
-            cancellationTokenSource.Cancel();
-            return default;
-        }
-
-        Task<TResult> operationTask = Task.Run(
-            () => operationAsync(cancellationTokenSource.Token),
-            cancellationTokenSource.Token);
-        Task completedTask = await Task.WhenAny(operationTask, dialogTask);
-        if (completedTask == dialogTask)
-        {
-            cancellationTokenSource.Cancel();
-            _ = ObserveTaskAsync(operationTask);
-            return default;
-        }
-
-        TResult result;
         try
         {
-            result = await operationTask;
-        }
-        catch
-        {
-            await CloseDialogAsync(dialog, dialogTask);
-            throw;
-        }
+            Task<ContentDialogResult> dialogTask = dialog.ShowAsync().AsTask();
+            Task completedBeforeOpenTask = await Task.WhenAny(dialogOpenedTask.Task, dialogCanceledTask.Task, dialogTask);
+            if (completedBeforeOpenTask != dialogOpenedTask.Task)
+            {
+                cancellationTokenSource.Cancel();
+                await ObserveDialogTaskAsync(dialogTask);
+                return default;
+            }
 
-        await CloseDialogAsync(dialog, dialogTask);
-        return result;
+            Task<TResult> operationTask = Task.Run(
+                () => operationAsync(cancellationTokenSource.Token),
+                cancellationTokenSource.Token);
+            Task completedTask = await Task.WhenAny(operationTask, dialogCanceledTask.Task, dialogTask);
+            if (completedTask != operationTask)
+            {
+                cancellationTokenSource.Cancel();
+                _ = ObserveTaskAsync(operationTask);
+                await CloseDialogWithoutBlockingAsync(dialog, dialogTask);
+                return default;
+            }
+
+            try
+            {
+                TResult result = await operationTask;
+                await CloseDialogWithoutBlockingAsync(dialog, dialogTask);
+                return result;
+            }
+            catch (OperationCanceledException) when (cancellationTokenSource.IsCancellationRequested)
+            {
+                await CloseDialogWithoutBlockingAsync(dialog, dialogTask);
+                return default;
+            }
+            catch
+            {
+                await CloseDialogWithoutBlockingAsync(dialog, dialogTask);
+                throw;
+            }
+        }
+        finally
+        {
+            dialog.Opened -= OnDialogOpened;
+            dialog.Closing -= OnDialogClosing;
+        }
 
         void OnDialogOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
             dialogOpenedTask.TrySetResult();
+        }
+
+        void OnDialogClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            cancellationTokenSource.Cancel();
+            dialogCanceledTask.TrySetResult();
         }
     }
 
@@ -138,13 +150,25 @@ public sealed class AutopilotTenantDownloadDialogService(
         }
     }
 
-    private static async Task CloseDialogAsync(ContentDialog dialog, Task<ContentDialogResult> dialogTask)
+    private static async Task ObserveDialogTaskAsync(Task<ContentDialogResult> dialogTask)
+    {
+        try
+        {
+            await dialogTask;
+        }
+        catch
+        {
+            // Dialog teardown after cancellation should not keep the tenant operation alive.
+        }
+    }
+
+    private static async Task CloseDialogWithoutBlockingAsync(ContentDialog dialog, Task<ContentDialogResult> dialogTask)
     {
         if (!dialogTask.IsCompleted)
         {
             dialog.Hide();
         }
 
-        await dialogTask;
+        await Task.WhenAny(dialogTask, Task.Delay(TimeSpan.FromSeconds(2)));
     }
 }

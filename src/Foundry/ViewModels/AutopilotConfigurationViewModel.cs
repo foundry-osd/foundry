@@ -23,7 +23,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private readonly IAutopilotProfileImportService autopilotProfileImportService;
     private readonly IAutopilotTenantProfileService autopilotTenantProfileService;
     private readonly IAutopilotTenantOnboardingService autopilotTenantOnboardingService;
-    private readonly IAutopilotTenantDownloadDialogService tenantDownloadDialogService;
+    private readonly IAutopilotTenantOperationDialogService tenantOperationDialogService;
     private readonly IAutopilotCertificateDialogService certificateDialogService;
     private readonly IAutopilotProfileSelectionDialogService profileSelectionDialogService;
     private readonly IAutopilotHardwareHashSessionState hardwareHashSessionState;
@@ -44,7 +44,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         IAutopilotProfileImportService autopilotProfileImportService,
         IAutopilotTenantProfileService autopilotTenantProfileService,
         IAutopilotTenantOnboardingService autopilotTenantOnboardingService,
-        IAutopilotTenantDownloadDialogService tenantDownloadDialogService,
+        IAutopilotTenantOperationDialogService tenantOperationDialogService,
         IAutopilotCertificateDialogService certificateDialogService,
         IAutopilotProfileSelectionDialogService profileSelectionDialogService,
         IAutopilotHardwareHashSessionState hardwareHashSessionState,
@@ -57,7 +57,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         this.autopilotProfileImportService = autopilotProfileImportService;
         this.autopilotTenantProfileService = autopilotTenantProfileService;
         this.autopilotTenantOnboardingService = autopilotTenantOnboardingService;
-        this.tenantDownloadDialogService = tenantDownloadDialogService;
+        this.tenantOperationDialogService = tenantOperationDialogService;
         this.certificateDialogService = certificateDialogService;
         this.profileSelectionDialogService = profileSelectionDialogService;
         this.hardwareHashSessionState = hardwareHashSessionState;
@@ -204,9 +204,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public string TenantConnectionButtonText => HasConnectedTenantInCurrentSession
         ? DisconnectTenantButtonText
         : ConnectTenantButtonText;
-    public string TenantDetailsText => HasTenantRegistration
-        ? localizationService.FormatString("Autopilot.HardwareHashTenantDetailsFormat", hardwareHashUploadSettings.Tenant.TenantId!)
-        : string.Empty;
     public string AppRegistrationStatusText => string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId)
         ? localizationService.GetString("Autopilot.HardwareHashAppRegistrationMissing")
         : localizationService.FormatString("Autopilot.HardwareHashAppRegistrationFoundFormat", ManagedAppRegistrationName);
@@ -541,8 +538,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         try
         {
             logger.Information("Starting Autopilot profile download from tenant.");
-            IReadOnlyList<AutopilotProfileSettings>? availableProfiles =
-                await tenantDownloadDialogService.DownloadAsync(autopilotTenantProfileService.DownloadFromTenantAsync);
+            IReadOnlyList<AutopilotProfileSettings>? availableProfiles = await tenantOperationDialogService.RunAsync(
+                localizationService.GetString("Autopilot.TenantDownloadDialogTitle"),
+                localizationService.GetString("Autopilot.TenantDownloadDialogMessage"),
+                autopilotTenantProfileService.DownloadFromTenantAsync);
             if (availableProfiles is null)
             {
                 logger.Information("Autopilot tenant download was canceled.");
@@ -643,11 +642,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             return;
         }
 
-        IsConnectingTenant = true;
+            IsConnectingTenant = true;
         try
         {
             logger.Information("Starting Autopilot hardware hash tenant onboarding.");
-            AutopilotTenantOnboardingResult? result = await tenantDownloadDialogService.RunAsync(
+            AutopilotTenantOnboardingResult? result = await tenantOperationDialogService.RunAsync(
                 localizationService.GetString("Autopilot.HardwareHashTenantConnectionDialogTitle"),
                 localizationService.GetString("Autopilot.HardwareHashTenantConnectionDialogMessage"),
                 cancellationToken => autopilotTenantOnboardingService.ConnectAsync(hardwareHashUploadSettings, cancellationToken));
@@ -1056,7 +1055,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         RefreshTenantDetails();
         OnPropertyChanged(nameof(TenantStatusText));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
-        OnPropertyChanged(nameof(TenantDetailsText));
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
         OnPropertyChanged(nameof(CertificateStatusText));

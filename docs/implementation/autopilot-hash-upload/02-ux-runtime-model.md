@@ -218,6 +218,8 @@ Deploy media generation should add encrypted `CertificatePfxSecret` and `Certifi
 
 Phase 2 UX refinements:
 - Settings cards include concise descriptions for row-level intent.
+- JSON profile download and hardware hash tenant onboarding use the same tenant operation dialog runner for Microsoft Graph sign-in, progress, and cancellation.
+- Canceling the tenant operation dialog returns control to the Autopilot page without leaving the connect/download action disabled.
 - Tenant details are displayed as a table with tenant ID and client ID.
 - The default group tag is optional and selected from a ComboBox populated with `None` plus tenant-discovered Autopilot device group tags.
 - `None` is the default selection because hardware hash upload does not require a group tag.
