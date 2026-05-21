@@ -89,6 +89,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
         services.AddSingleton<IAutopilotProfileImportService, AutopilotProfileImportService>();
         services.AddSingleton<IAutopilotTenantProfileService, AutopilotTenantProfileService>();
+        services.AddSingleton<IAutopilotHardwareHashGraphSessionService, AutopilotHardwareHashGraphSessionService>();
         services.AddSingleton<IAutopilotTenantOnboardingService, AutopilotTenantOnboardingService>();
         services.AddSingleton<IAutopilotTenantOperationDialogService, AutopilotTenantOperationDialogService>();
         services.AddSingleton<IAutopilotCertificateDialogService, AutopilotCertificateDialogService>();

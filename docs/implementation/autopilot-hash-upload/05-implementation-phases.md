@@ -99,6 +99,8 @@ Implementation progress:
 - [x] Route JSON profile download and hardware hash tenant onboarding through one shared tenant operation dialog service.
 - [x] Remove the obsolete JSON-specific tenant download dialog wrapper API.
 - [x] Make tenant operation cancellation return control to the Autopilot page so the connect action can be retried.
+- [x] Reuse the current-session hardware hash Microsoft Graph credential for certificate creation and removal instead of reopening interactive sign-in.
+- [x] Clear the current-session hardware hash Microsoft Graph credential when the operator disconnects the tenant.
 - [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but app registration, certificate, group tag, and tenant detail rows stay hidden until a successful current-session tenant connection.
 - [x] Show connected tenant details in a dedicated row instead of embedding the tenant ID in the connection row.
 - [x] Display tenant details as a table with tenant ID and client ID.
@@ -120,6 +122,8 @@ Implementation progress:
 - [x] Keep boot media PFX path, password, and validation result session-only and excluded from ProgramData serialization.
 - [x] Preserve the boot media certificate ready message across Autopilot page navigation when the current-session PFX is still validated.
 - [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
+- [x] Show onboarding status as compact `Ready` or `Not ready` text with WinUI signal color.
+- [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
 - [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
@@ -159,9 +163,11 @@ Manual checks:
 - [ ] Click `Connect tenant`, cancel the tenant sign-in dialog, and confirm the Autopilot page remains responsive and `Connect tenant` can be clicked again.
 - [ ] Click JSON profile `Download from tenant`, cancel the tenant sign-in dialog, and confirm the JSON profile actions remain responsive.
 - [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and available group tags become visible.
+- [ ] After connecting once, create and remove certificates and confirm the browser sign-in prompt does not reopen during the same app session.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
 - [ ] Confirm tenant details show tenant ID and client ID in a table after connecting.
 - [ ] Confirm each Autopilot settings card has a concise description.
+- [ ] Confirm `Onboarding status` displays only `Ready` in success color or `Not ready` in critical color.
 - [ ] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
 - [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
 - [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.

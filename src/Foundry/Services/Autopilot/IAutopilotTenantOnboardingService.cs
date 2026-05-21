@@ -12,7 +12,7 @@ public interface IAutopilotTenantOnboardingService
     /// Connects to Microsoft Graph, creates or reuses the managed app registration, and returns the updated settings.
     /// </summary>
     /// <param name="currentSettings">Current persisted hardware hash upload settings.</param>
-    /// <param name="cancellationToken">Token that cancels authentication and Graph requests.</param>
+    /// <param name="cancellationToken">Token that cancels Graph requests.</param>
     /// <returns>The tenant onboarding result and sanitized settings to persist.</returns>
     Task<AutopilotTenantOnboardingResult> ConnectAsync(
         AutopilotHardwareHashUploadSettings currentSettings,
@@ -24,7 +24,7 @@ public interface IAutopilotTenantOnboardingService
     /// <param name="currentSettings">Current persisted hardware hash upload settings.</param>
     /// <param name="pfxOutputPath">Operator-selected PFX output path.</param>
     /// <param name="validityMonths">Certificate validity duration in months.</param>
-    /// <param name="cancellationToken">Token that cancels authentication and Graph requests.</param>
+    /// <param name="cancellationToken">Token that cancels Graph requests.</param>
     /// <returns>The certificate creation result and updated persistent settings.</returns>
     Task<AutopilotCertificateCreationResult> CreateCertificateAsync(
         AutopilotHardwareHashUploadSettings currentSettings,

@@ -372,38 +372,11 @@
   <data name="Autopilot.HardwareHashOnboardingStatusDescription" xml:space="preserve">
     <value>Readiness state for permissions, consent, service principal, and certificate configuration.</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusNotChecked" xml:space="preserve">
-    <value>Connect to the tenant to check permissions, consent, service principal, and certificate state.</value>
-  </data>
   <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
-    <value>Ready. Permissions, admin consent, service principal, and active certificate are valid.</value>
+    <value>Ready</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusAppMissing" xml:space="preserve">
-    <value>The managed app registration was not found.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusAdoptionRequired" xml:space="preserve">
-    <value>An existing managed app registration was found and must be adopted before media generation.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusPermissionMissing" xml:space="preserve">
-    <value>The managed app registration is missing required Microsoft Graph application permissions.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusConsentMissing" xml:space="preserve">
-    <value>Admin consent is missing for the required Microsoft Graph application permissions.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusServicePrincipalUnavailable" xml:space="preserve">
-    <value>The managed app service principal is missing or disabled.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusCertificateMissing" xml:space="preserve">
-    <value>No active certificate is selected. Create a certificate before generating boot media.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusCertificateNotFound" xml:space="preserve">
-    <value>The selected active certificate no longer exists on the managed app registration.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusCertificateExpired" xml:space="preserve">
-    <value>The active certificate is expired. Regenerate the certificate and boot media.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusMultipleCertificates" xml:space="preserve">
-    <value>Multiple Foundry certificates exist and no active certificate can be selected from persisted metadata.</value>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>Not ready</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateStatusLabel" xml:space="preserve">
     <value>Certificate</value>

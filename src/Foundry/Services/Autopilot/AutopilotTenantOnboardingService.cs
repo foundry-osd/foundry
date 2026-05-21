@@ -5,8 +5,6 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
-using Azure.Core;
-using Azure.Identity;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Serilog;
@@ -16,13 +14,10 @@ namespace Foundry.Services.Autopilot;
 /// <summary>
 /// Performs interactive Microsoft Graph tenant onboarding for Autopilot hardware hash upload.
 /// </summary>
-public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilotTenantOnboardingService
+public sealed class AutopilotTenantOnboardingService(
+    IAutopilotHardwareHashGraphSessionService graphSessionService,
+    ILogger logger) : IAutopilotTenantOnboardingService
 {
-    private const string DefaultClientId = "83eb3a92-030d-49b7-881b-32a1eb3e110a";
-    private const string ClientIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID";
-    private const string TenantIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_TENANT_ID";
-    private const string DefaultTenantId = "common";
-    private const string DefaultRedirectUri = "http://localhost";
     private const string GraphAppId = "00000003-0000-0000-c000-000000000000";
     private const string OrganizationRequestPath = "v1.0/organization?$select=id";
     private const string ApplicationSelect = "$select=id,appId,displayName,requiredResourceAccess,keyCredentials";
@@ -30,18 +25,12 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
     private const string GroupTagRequestPath = "v1.0/deviceManagement/windowsAutopilotDeviceIdentities";
     private const int MaximumCertificateValidityMonths = 12;
 
-    private static readonly string[] GraphScopes =
-    [
-        "Application.ReadWrite.All",
-        "AppRoleAssignment.ReadWrite.All",
-        "DeviceManagementServiceConfig.Read.All"
-    ];
-
     private static readonly HttpClient GraphHttpClient = new()
     {
         BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
     };
 
+    private readonly IAutopilotHardwareHashGraphSessionService graphSessionService = graphSessionService;
     private readonly ILogger logger = logger.ForContext<AutopilotTenantOnboardingService>();
 
     /// <inheritdoc />
@@ -51,100 +40,107 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
     {
         ArgumentNullException.ThrowIfNull(currentSettings);
 
-        TokenCredential credential = CreateCredential();
-        string accessToken = await AcquireAccessTokenAsync(credential, cancellationToken).ConfigureAwait(false);
-        string tenantId = await GetTenantIdAsync(accessToken, cancellationToken).ConfigureAwait(false);
-        GraphAppRole requiredRole = await GetGraphAppRoleAsync(
-            accessToken,
-            AutopilotGraphPermissionCatalog.DeviceManagementServiceConfigReadWriteAll,
-            cancellationToken).ConfigureAwait(false);
-
-        AutopilotGraphApplication? application = await FindApplicationAsync(
-            accessToken,
-            currentSettings.Tenant.ApplicationObjectId,
-            requiredRole,
-            cancellationToken).ConfigureAwait(false);
-        application ??= await FindApplicationByDisplayNameAsync(accessToken, requiredRole, cancellationToken).ConfigureAwait(false);
-
-        if (application is null)
+        string accessToken = await graphSessionService.ConnectAsync(cancellationToken).ConfigureAwait(false);
+        try
         {
-            application = await CreateApplicationAsync(accessToken, requiredRole, cancellationToken).ConfigureAwait(false);
-            logger.Information("Created managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
-        }
-        else if (string.IsNullOrWhiteSpace(currentSettings.Tenant.ApplicationObjectId) &&
-                 string.Equals(application.DisplayName, AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName, StringComparison.OrdinalIgnoreCase))
-        {
-            logger.Information("Adopted existing managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
-        }
+            string tenantId = await GetTenantIdAsync(accessToken, cancellationToken).ConfigureAwait(false);
+            GraphAppRole requiredRole = await GetGraphAppRoleAsync(
+                accessToken,
+                AutopilotGraphPermissionCatalog.DeviceManagementServiceConfigReadWriteAll,
+                cancellationToken).ConfigureAwait(false);
 
-        application = await EnsureRequiredApplicationPermissionAsync(
-            accessToken,
-            application,
-            requiredRole,
-            cancellationToken).ConfigureAwait(false);
+            AutopilotGraphApplication? application = await FindApplicationAsync(
+                accessToken,
+                currentSettings.Tenant.ApplicationObjectId,
+                requiredRole,
+                cancellationToken).ConfigureAwait(false);
+            application ??= await FindApplicationByDisplayNameAsync(accessToken, requiredRole, cancellationToken).ConfigureAwait(false);
 
-        AutopilotGraphServicePrincipal? servicePrincipal = await FindServicePrincipalAsync(
-            accessToken,
-            application.ClientId,
-            requiredRole,
-            cancellationToken).ConfigureAwait(false);
-        servicePrincipal ??= await CreateServicePrincipalAsync(
-            accessToken,
-            application.ClientId,
-            requiredRole,
-            cancellationToken).ConfigureAwait(false);
+            if (application is null)
+            {
+                application = await CreateApplicationAsync(accessToken, requiredRole, cancellationToken).ConfigureAwait(false);
+                logger.Information("Created managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
+            }
+            else if (string.IsNullOrWhiteSpace(currentSettings.Tenant.ApplicationObjectId) &&
+                     string.Equals(application.DisplayName, AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName, StringComparison.OrdinalIgnoreCase))
+            {
+                logger.Information("Adopted existing managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
+            }
 
-        servicePrincipal = await EnsureAdminConsentAsync(
-            accessToken,
-            servicePrincipal,
-            requiredRole,
-            cancellationToken).ConfigureAwait(false);
+            application = await EnsureRequiredApplicationPermissionAsync(
+                accessToken,
+                application,
+                requiredRole,
+                cancellationToken).ConfigureAwait(false);
 
-        string[] groupTags = await TryGetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
-        IReadOnlyList<AutopilotGraphKeyCredential> keyCredentials =
-            await GetApplicationKeyCredentialsAsync(accessToken, application.ObjectId, cancellationToken).ConfigureAwait(false);
-        AutopilotTenantOnboardingSnapshot snapshot = new()
-        {
-            TenantId = tenantId,
-            PersistedApplicationObjectId = application.ObjectId,
-            ManagedAppDisplayName = AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName,
-            Applications = [application],
-            ServicePrincipal = servicePrincipal,
-            ActiveCertificate = currentSettings.ActiveCertificate,
-            KeyCredentials = keyCredentials,
-            CurrentTimeUtc = DateTimeOffset.UtcNow
-        };
-        AutopilotTenantOnboardingEvaluation evaluation = AutopilotTenantOnboardingEvaluator.Evaluate(snapshot);
-        AutopilotCertificateMetadata? activeCertificate = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
-            ? null
-            : currentSettings.ActiveCertificate;
-        AutopilotTenantOnboardingStatus status = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
-            ? AutopilotTenantOnboardingStatus.ActiveCertificateMissing
-            : evaluation.Status;
+            AutopilotGraphServicePrincipal? servicePrincipal = await FindServicePrincipalAsync(
+                accessToken,
+                application.ClientId,
+                requiredRole,
+                cancellationToken).ConfigureAwait(false);
+            servicePrincipal ??= await CreateServicePrincipalAsync(
+                accessToken,
+                application.ClientId,
+                requiredRole,
+                cancellationToken).ConfigureAwait(false);
 
-        AutopilotHardwareHashUploadSettings updatedSettings = currentSettings with
-        {
-            Tenant = new AutopilotTenantRegistrationSettings
+            servicePrincipal = await EnsureAdminConsentAsync(
+                accessToken,
+                servicePrincipal,
+                requiredRole,
+                cancellationToken).ConfigureAwait(false);
+
+            string[] groupTags = await TryGetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
+            IReadOnlyList<AutopilotGraphKeyCredential> keyCredentials =
+                await GetApplicationKeyCredentialsAsync(accessToken, application.ObjectId, cancellationToken).ConfigureAwait(false);
+            AutopilotTenantOnboardingSnapshot snapshot = new()
             {
                 TenantId = tenantId,
-                ApplicationObjectId = application.ObjectId,
-                ClientId = application.ClientId,
-                ServicePrincipalObjectId = servicePrincipal.ObjectId
-            },
-            ActiveCertificate = activeCertificate,
-            KnownGroupTags = groupTags,
-            DefaultGroupTag = ResolveDefaultGroupTag(currentSettings.DefaultGroupTag, groupTags)
-        };
+                PersistedApplicationObjectId = application.ObjectId,
+                ManagedAppDisplayName = AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName,
+                Applications = [application],
+                ServicePrincipal = servicePrincipal,
+                ActiveCertificate = currentSettings.ActiveCertificate,
+                KeyCredentials = keyCredentials,
+                CurrentTimeUtc = DateTimeOffset.UtcNow
+            };
+            AutopilotTenantOnboardingEvaluation evaluation = AutopilotTenantOnboardingEvaluator.Evaluate(snapshot);
+            AutopilotCertificateMetadata? activeCertificate = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
+                ? null
+                : currentSettings.ActiveCertificate;
+            AutopilotTenantOnboardingStatus status = evaluation.Status == AutopilotTenantOnboardingStatus.ActiveCertificateNotFound
+                ? AutopilotTenantOnboardingStatus.ActiveCertificateMissing
+                : evaluation.Status;
 
-        return new AutopilotTenantOnboardingResult
+            AutopilotHardwareHashUploadSettings updatedSettings = currentSettings with
+            {
+                Tenant = new AutopilotTenantRegistrationSettings
+                {
+                    TenantId = tenantId,
+                    ApplicationObjectId = application.ObjectId,
+                    ClientId = application.ClientId,
+                    ServicePrincipalObjectId = servicePrincipal.ObjectId
+                },
+                ActiveCertificate = activeCertificate,
+                KnownGroupTags = groupTags,
+                DefaultGroupTag = ResolveDefaultGroupTag(currentSettings.DefaultGroupTag, groupTags)
+            };
+
+            return new AutopilotTenantOnboardingResult
+            {
+                Settings = updatedSettings,
+                Status = status,
+                Certificates = keyCredentials,
+                Message = status == AutopilotTenantOnboardingStatus.Ready
+                    ? "The managed app registration is ready."
+                    : $"The managed app registration requires attention: {status}."
+            };
+        }
+        catch
         {
-            Settings = updatedSettings,
-            Status = status,
-            Certificates = keyCredentials,
-            Message = status == AutopilotTenantOnboardingStatus.Ready
-                ? "The managed app registration is ready."
-                : $"The managed app registration requires attention: {status}."
-        };
+            graphSessionService.Disconnect();
+            throw;
+        }
     }
 
     /// <inheritdoc />
@@ -170,8 +166,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
                 $"Microsoft Graph application certificate credentials cannot exceed {MaximumCertificateValidityMonths} months.");
         }
 
-        TokenCredential credential = CreateCredential();
-        string accessToken = await AcquireAccessTokenAsync(credential, cancellationToken).ConfigureAwait(false);
+        string accessToken = await graphSessionService.GetAccessTokenAsync(cancellationToken).ConfigureAwait(false);
         DateTimeOffset startsOnUtc = DateTimeOffset.UtcNow.AddMinutes(-5);
         DateTimeOffset expiresOnUtc = startsOnUtc.AddMonths(validityMonths);
         string keyId = Guid.NewGuid().ToString("D");
@@ -242,8 +237,7 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             };
         }
 
-        TokenCredential credential = CreateCredential();
-        string accessToken = await AcquireAccessTokenAsync(credential, cancellationToken).ConfigureAwait(false);
+        string accessToken = await graphSessionService.GetAccessTokenAsync(cancellationToken).ConfigureAwait(false);
         await RemoveKeyCredentialAsync(
             accessToken,
             currentSettings.Tenant.ApplicationObjectId,
@@ -265,31 +259,6 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
             Settings = updatedSettings,
             Certificates = keyCredentials
         };
-    }
-
-    private static TokenCredential CreateCredential()
-    {
-        string clientId = Environment.GetEnvironmentVariable(ClientIdEnvironmentVariableName)?.Trim()
-            ?? DefaultClientId;
-        string? tenantId = Environment.GetEnvironmentVariable(TenantIdEnvironmentVariableName);
-
-        return new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions
-        {
-            ClientId = clientId,
-            TenantId = string.IsNullOrWhiteSpace(tenantId) ? DefaultTenantId : tenantId.Trim(),
-            RedirectUri = new Uri(DefaultRedirectUri, UriKind.Absolute),
-            TokenCachePersistenceOptions = new TokenCachePersistenceOptions
-            {
-                Name = "FoundryAutopilotGraph"
-            }
-        });
-    }
-
-    private static async Task<string> AcquireAccessTokenAsync(TokenCredential credential, CancellationToken cancellationToken)
-    {
-        AccessToken accessToken = await credential.GetTokenAsync(new TokenRequestContext(GraphScopes), cancellationToken)
-            .ConfigureAwait(false);
-        return accessToken.Token;
     }
 
     private static async Task<string> GetTenantIdAsync(string accessToken, CancellationToken cancellationToken)

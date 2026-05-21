@@ -185,6 +185,7 @@
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <TextBlock HorizontalAlignment="Right"
+                                   Foreground="{x:Bind ViewModel.TenantOnboardingStatusForeground, Mode=OneWay}"
                                    Text="{x:Bind ViewModel.TenantOnboardingStatusText, Mode=OneWay}"
                                    TextWrapping="WrapWholeWords" />
                     </wct:SettingsCard>

@@ -51,6 +51,7 @@ Foundry OSD tenant onboarding UX:
 - The hardware hash expander first asks the user to connect to the tenant.
 - Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row with `Not connected` and the connect action.
 - A successful tenant connection is retained for the current app session across page navigation. Foundry OSD should require a new tenant sign-in only after the app process restarts or after the operator clicks `Disconnect tenant`.
+- Certificate creation and certificate removal must reuse the current app-session Microsoft Graph credential created by `Connect tenant`. They must not start their own interactive sign-in flow during the same app session.
 - After successful current-session tenant connection, show tenant-dependent rows: tenant details, app registration status, onboarding status, certificates, default group tag, and available group tags.
 - The tenant connection row shows only the connection state and action. Tenant ID and other tenant metadata appear in a separate tenant details row after connection.
 - After a successful current-session connection, the connection action changes to a disconnect action that clears only the current UI session state. Persisted tenant configuration remains stored.
@@ -111,6 +112,7 @@ Foundry OSD tenant onboarding UX:
   - admin consent missing
   - service principal disabled or missing
   - ready for media build
+- The onboarding status row should show only `Ready` or `Not ready` with WinUI signal color: success for ready and critical for not ready. Detailed reasons remain available through the connection result dialogs and Start page readiness blockers.
 - Foundry OSD must block hardware hash media generation until the managed app exists, required permissions are present, admin consent is granted, the service principal is usable, the active certificate is unexpired, and the supplied PFX matches the active certificate.
 - The Start page must show the precise Autopilot readiness blocker instead of a generic default-profile message. Expected hardware hash blockers include missing tenant/app metadata, missing active certificate, expired active certificate, missing PFX, missing PFX password, unvalidated PFX, thumbprint mismatch, and expired boot media PFX.
 - When connected to the tenant, Foundry OSD should list existing Autopilot group tags discovered from `GET /v1.0/deviceManagement/windowsAutopilotDeviceIdentities`, extracting `groupTag` client-side from the unfiltered response and paging through `@odata.nextLink`. The UI label is "Available group tags".
@@ -220,6 +222,7 @@ Phase 2 UX refinements:
 - Settings cards include concise descriptions for row-level intent.
 - JSON profile download and hardware hash tenant onboarding use the same tenant operation dialog runner for Microsoft Graph sign-in, progress, and cancellation.
 - Canceling the tenant operation dialog returns control to the Autopilot page without leaving the connect/download action disabled.
+- Hardware hash certificate management uses a shared current-session Graph credential, so create/remove certificate actions do not reopen the browser sign-in after a successful tenant connection.
 - Tenant details are displayed as a table with tenant ID and client ID.
 - The default group tag is optional and selected from a ComboBox populated with `None` plus tenant-discovered Autopilot device group tags.
 - `None` is the default selection because hardware hash upload does not require a group tag.
@@ -227,3 +230,4 @@ Phase 2 UX refinements:
 - Certificate validity remains selectable, but the inline `Validity` label is hidden to reduce duplicate text in the certificate row.
 - Current-session PFX path, password, and successful validation state are retained while navigating between pages, but are still cleared on app restart.
 - The Start page must show the exact hardware hash media generation blocker when the PFX path, password, thumbprint, expiration, or active certificate is invalid.
+- The onboarding status row is intentionally compact: `Ready` or `Not ready`, with signal color, while detailed remediation stays in dialogs and readiness blockers.

@@ -23,6 +23,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private readonly IAutopilotProfileImportService autopilotProfileImportService;
     private readonly IAutopilotTenantProfileService autopilotTenantProfileService;
     private readonly IAutopilotTenantOnboardingService autopilotTenantOnboardingService;
+    private readonly IAutopilotHardwareHashGraphSessionService hardwareHashGraphSessionService;
     private readonly IAutopilotTenantOperationDialogService tenantOperationDialogService;
     private readonly IAutopilotCertificateDialogService certificateDialogService;
     private readonly IAutopilotProfileSelectionDialogService profileSelectionDialogService;
@@ -44,6 +45,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         IAutopilotProfileImportService autopilotProfileImportService,
         IAutopilotTenantProfileService autopilotTenantProfileService,
         IAutopilotTenantOnboardingService autopilotTenantOnboardingService,
+        IAutopilotHardwareHashGraphSessionService hardwareHashGraphSessionService,
         IAutopilotTenantOperationDialogService tenantOperationDialogService,
         IAutopilotCertificateDialogService certificateDialogService,
         IAutopilotProfileSelectionDialogService profileSelectionDialogService,
@@ -57,6 +59,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         this.autopilotProfileImportService = autopilotProfileImportService;
         this.autopilotTenantProfileService = autopilotTenantProfileService;
         this.autopilotTenantOnboardingService = autopilotTenantOnboardingService;
+        this.hardwareHashGraphSessionService = hardwareHashGraphSessionService;
         this.tenantOperationDialogService = tenantOperationDialogService;
         this.certificateDialogService = certificateDialogService;
         this.profileSelectionDialogService = profileSelectionDialogService;
@@ -208,6 +211,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ? localizationService.GetString("Autopilot.HardwareHashAppRegistrationMissing")
         : localizationService.FormatString("Autopilot.HardwareHashAppRegistrationFoundFormat", ManagedAppRegistrationName);
     public string TenantOnboardingStatusText => CreateTenantOnboardingStatusText();
+    public Brush TenantOnboardingStatusForeground => ResolveTenantOnboardingStatusBrush();
     public string CertificateStatusText => CreateCertificateStatusText();
     public Visibility CertificateStatusVisibility => string.IsNullOrWhiteSpace(CertificateStatusText) ? Visibility.Collapsed : Visibility.Visible;
     public Brush CertificateStatusForeground => ResolveCertificateStatusBrush();
@@ -642,7 +646,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             return;
         }
 
-            IsConnectingTenant = true;
+        IsConnectingTenant = true;
         try
         {
             logger.Information("Starting Autopilot hardware hash tenant onboarding.");
@@ -1057,6 +1061,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(TenantConnectionButtonText));
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
+        OnPropertyChanged(nameof(TenantOnboardingStatusForeground));
         OnPropertyChanged(nameof(CertificateStatusText));
         OnPropertyChanged(nameof(CertificateStatusVisibility));
         OnPropertyChanged(nameof(CertificateStatusForeground));
@@ -1096,6 +1101,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private void DisconnectTenantSession()
     {
+        hardwareHashGraphSessionService.Disconnect();
         HasConnectedTenantInCurrentSession = false;
         tenantOnboardingStatus = null;
         ReplaceCertificates([]);
@@ -1321,20 +1327,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private string CreateTenantOnboardingStatusText()
     {
-        return tenantOnboardingStatus switch
-        {
-            AutopilotTenantOnboardingStatus.Ready => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusReady"),
-            AutopilotTenantOnboardingStatus.AppRegistrationMissing => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusAppMissing"),
-            AutopilotTenantOnboardingStatus.AdoptionRequired => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusAdoptionRequired"),
-            AutopilotTenantOnboardingStatus.PermissionMissing => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusPermissionMissing"),
-            AutopilotTenantOnboardingStatus.ConsentMissing => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusConsentMissing"),
-            AutopilotTenantOnboardingStatus.ServicePrincipalUnavailable => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusServicePrincipalUnavailable"),
-            AutopilotTenantOnboardingStatus.ActiveCertificateMissing => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusCertificateMissing"),
-            AutopilotTenantOnboardingStatus.ActiveCertificateNotFound => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusCertificateNotFound"),
-            AutopilotTenantOnboardingStatus.ActiveCertificateExpired => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusCertificateExpired"),
-            AutopilotTenantOnboardingStatus.MultipleFoundryCertificatesNeedSelection => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusMultipleCertificates"),
-            _ => localizationService.GetString("Autopilot.HardwareHashOnboardingStatusNotChecked")
-        };
+        return tenantOnboardingStatus == AutopilotTenantOnboardingStatus.Ready
+            ? localizationService.GetString("Autopilot.HardwareHashOnboardingStatusReady")
+            : localizationService.GetString("Autopilot.HardwareHashOnboardingStatusNotReady");
+    }
+
+    private Brush ResolveTenantOnboardingStatusBrush()
+    {
+        return tenantOnboardingStatus == AutopilotTenantOnboardingStatus.Ready
+            ? (Brush)Application.Current.Resources["SystemFillColorSuccessBrush"]
+            : (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
     }
 
     private string GetTenantOnboardingDialogTitle(AutopilotTenantOnboardingStatus status)

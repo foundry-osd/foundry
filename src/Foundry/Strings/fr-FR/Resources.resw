@@ -372,38 +372,11 @@
   <data name="Autopilot.HardwareHashOnboardingStatusDescription" xml:space="preserve">
     <value>État de préparation des permissions, du consentement, du service principal et du certificat.</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusNotChecked" xml:space="preserve">
-    <value>Connectez le tenant pour vérifier les permissions, le consentement, le service principal et le certificat.</value>
-  </data>
   <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
-    <value>Prêt. Les permissions, le consentement admin, le service principal et le certificat actif sont valides.</value>
+    <value>Prêt</value>
   </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusAppMissing" xml:space="preserve">
-    <value>L'app registration managée est introuvable.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusAdoptionRequired" xml:space="preserve">
-    <value>Une app registration managée existante a été trouvée et doit être adoptée avant la génération du média.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusPermissionMissing" xml:space="preserve">
-    <value>L'app registration managée n'a pas les permissions Microsoft Graph applicatives requises.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusConsentMissing" xml:space="preserve">
-    <value>Le consentement admin est manquant pour les permissions Microsoft Graph applicatives requises.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusServicePrincipalUnavailable" xml:space="preserve">
-    <value>Le service principal de l'app managée est manquant ou désactivé.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusCertificateMissing" xml:space="preserve">
-    <value>Aucun certificat actif n'est sélectionné. Créez un certificat avant de générer le média de démarrage.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusCertificateNotFound" xml:space="preserve">
-    <value>Le certificat actif sélectionné n'existe plus dans l'app registration managée.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusCertificateExpired" xml:space="preserve">
-    <value>Le certificat actif est expiré. Regénérez le certificat et le média de démarrage.</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusMultipleCertificates" xml:space="preserve">
-    <value>Plusieurs certificats Foundry existent et aucun certificat actif ne peut être sélectionné depuis les métadonnées persistées.</value>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>Non prêt</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateStatusLabel" xml:space="preserve">
     <value>Certificat</value>
