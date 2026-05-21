@@ -342,6 +342,12 @@
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
     <value>Tenant, app registration, and readiness information for hardware hash upload.</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
+    <value>Value</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Tenant ID</value>
   </data>

@@ -106,7 +106,7 @@ Implementation progress:
 - [x] Include `User.Read` in the hardware hash onboarding token scopes so Graph organization discovery can read the signed-in tenant ID.
 - [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but tenant readiness, certificate, and group tag rows stay hidden until a successful current-session tenant connection.
 - [x] Show tenant readiness in one dedicated row instead of embedding tenant and readiness details in separate rows.
-- [x] Display managed app registration state, tenant ID, client ID, and readiness status in a compact key/value layout.
+- [x] Display managed app registration state, tenant ID, client ID, and readiness status in a compact read-only table.
 - [x] Add descriptions to Autopilot settings cards so users understand each configuration row.
 - [x] Replace the connect action with a disconnect action after successful current-session tenant connection.
 - [x] Clear stale persisted active certificate metadata when Microsoft Graph no longer returns the selected active certificate.
@@ -131,6 +131,7 @@ Implementation progress:
 - [x] Refresh only boot media certificate status while typing the PFX password so tenant readiness details do not rebind on every keystroke.
 - [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
 - [x] Show onboarding status as compact `Ready` or `Not ready` text with WinUI signal color.
+- [x] Show tenant connection state as `Connected` in success color or `Not connected` in critical color.
 - [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
@@ -177,9 +178,10 @@ Manual checks:
 - [ ] Connect to the tenant and confirm tenant readiness, certificate actions, provisioned certificates, boot media certificate, and default group tag selection become visible.
 - [ ] After connecting once, create and remove certificates and confirm the browser sign-in prompt does not reopen during the same app session.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant readiness row.
-- [ ] Confirm tenant readiness shows managed app registration state, tenant ID, client ID, and readiness status in one row after connecting.
+- [ ] Confirm tenant readiness shows managed app registration state, tenant ID, client ID, and readiness status in a compact table after connecting.
 - [ ] Confirm each Autopilot settings card has a concise description.
 - [ ] Confirm tenant readiness displays status as only `Ready` in success color or `Not ready` in critical color.
+- [ ] Confirm tenant connection displays `Connected` in success color or `Not connected` in critical color.
 - [ ] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
 - [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
 - [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.

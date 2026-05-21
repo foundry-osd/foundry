@@ -113,12 +113,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     ];
 
     /// <summary>
-    /// Gets tenant-discovered Autopilot group tags available for the default deployment selection.
-    /// </summary>
-    /// <summary>
     /// Gets default group tag choices, including the optional None choice.
     /// </summary>
     public ObservableCollection<AutopilotGroupTagEntryViewModel> DefaultGroupTagOptions { get; } = [];
+
+    /// <summary>
+    /// Gets tenant readiness information displayed after a successful tenant connection.
+    /// </summary>
+    public ObservableCollection<AutopilotTenantReadinessEntryViewModel> TenantReadinessEntries { get; } = [];
 
     public bool IsAutopilotSectionEnabled => IsAutopilotEnabled;
     public bool HasProfiles => Profiles.Count > 0;
@@ -194,6 +196,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public string TenantStatusText => HasConnectedTenantInCurrentSession && HasTenantRegistration
         ? localizationService.GetString("Autopilot.HardwareHashTenantConnected")
         : localizationService.GetString("Autopilot.HardwareHashTenantNotConnected");
+    public Brush TenantStatusForeground => HasConnectedTenantInCurrentSession && HasTenantRegistration
+        ? (Brush)Application.Current.Resources["SystemFillColorSuccessBrush"]
+        : (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
     public string TenantConnectionButtonText => HasConnectedTenantInCurrentSession
         ? DisconnectTenantButtonText
         : ConnectTenantButtonText;
@@ -281,6 +286,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string TenantReadinessDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantReadinessNameColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantReadinessValueColumnHeader { get; set; }
 
     [ObservableProperty]
     public partial string TenantDetailsTenantIdLabel { get; set; }
@@ -944,6 +955,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         TenantStatusDescription = localizationService.GetString("Autopilot.HardwareHashTenantStatusDescription");
         TenantReadinessLabel = localizationService.GetString("Autopilot.HardwareHashTenantReadinessLabel");
         TenantReadinessDescription = localizationService.GetString("Autopilot.HardwareHashTenantReadinessDescription");
+        TenantReadinessNameColumnHeader = localizationService.GetString("Autopilot.HardwareHashTenantReadinessNameColumn");
+        TenantReadinessValueColumnHeader = localizationService.GetString("Autopilot.HardwareHashTenantReadinessValueColumn");
         TenantDetailsTenantIdLabel = localizationService.GetString("Autopilot.HardwareHashTenantDetailsTenantId");
         TenantDetailsClientIdLabel = localizationService.GetString("Autopilot.HardwareHashTenantDetailsClientId");
         AppRegistrationLabel = localizationService.GetString("Autopilot.HardwareHashAppRegistrationLabel");
@@ -984,6 +997,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ProfileFolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
         OnPropertyChanged(nameof(BusyStatusText));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
+        OnPropertyChanged(nameof(TenantStatusForeground));
         RefreshHardwareHashUploadState();
     }
 
@@ -1018,12 +1032,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void RefreshHardwareHashUploadState()
     {
         OnPropertyChanged(nameof(TenantStatusText));
+        OnPropertyChanged(nameof(TenantStatusForeground));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantIdText));
         OnPropertyChanged(nameof(ClientIdText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusForeground));
+        RefreshTenantReadinessEntries();
         OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
         OnPropertyChanged(nameof(EmptyCertificatesVisibility));
         OnPropertyChanged(nameof(DefaultGroupTagText));
@@ -1045,6 +1061,32 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(BootMediaCertificateStatusForeground));
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
         SelectBootMediaCertificatePfxCommand.NotifyCanExecuteChanged();
+    }
+
+    private void RefreshTenantReadinessEntries()
+    {
+        TenantReadinessEntries.Clear();
+        if (!HasTenantRegistration)
+        {
+            return;
+        }
+
+        TenantReadinessEntries.Add(new AutopilotTenantReadinessEntryViewModel(
+            AppRegistrationLabel,
+            AppRegistrationStatusText,
+            null));
+        TenantReadinessEntries.Add(new AutopilotTenantReadinessEntryViewModel(
+            TenantDetailsTenantIdLabel,
+            TenantIdText,
+            null));
+        TenantReadinessEntries.Add(new AutopilotTenantReadinessEntryViewModel(
+            TenantDetailsClientIdLabel,
+            ClientIdText,
+            null));
+        TenantReadinessEntries.Add(new AutopilotTenantReadinessEntryViewModel(
+            TenantOnboardingStatusLabel,
+            TenantOnboardingStatusText,
+            TenantOnboardingStatusForeground));
     }
 
     private void DisconnectTenantSession()

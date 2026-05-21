@@ -138,6 +138,7 @@
                                     Orientation="Horizontal"
                                     Spacing="{ThemeResource FoundryInlineControlSpacing}">
                             <TextBlock VerticalAlignment="Center"
+                                       Foreground="{x:Bind ViewModel.TenantStatusForeground, Mode=OneWay}"
                                        Text="{x:Bind ViewModel.TenantStatusText, Mode=OneWay}" />
                             <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
                                     Command="{x:Bind ViewModel.ConnectTenantCommand}"
@@ -149,52 +150,36 @@
                                       Description="{x:Bind ViewModel.TenantReadinessDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <Grid MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                              HorizontalAlignment="Right"
-                              ColumnSpacing="{ThemeResource FoundrySpace12}"
-                              RowSpacing="{ThemeResource FoundrySpace8}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Text="{x:Bind ViewModel.AppRegistrationLabel, Mode=OneWay}" />
-                            <TextBlock Grid.Column="1"
-                                       HorizontalAlignment="Right"
-                                       Text="{x:Bind ViewModel.AppRegistrationStatusText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
-
-                            <TextBlock Grid.Row="1"
-                                       Text="{x:Bind ViewModel.TenantDetailsTenantIdLabel, Mode=OneWay}" />
-                            <TextBlock Grid.Row="1"
-                                       Grid.Column="1"
-                                       HorizontalAlignment="Right"
-                                       Text="{x:Bind ViewModel.TenantIdText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
-
-                            <TextBlock Grid.Row="2"
-                                       Text="{x:Bind ViewModel.TenantDetailsClientIdLabel, Mode=OneWay}" />
-                            <TextBlock Grid.Row="2"
-                                       Grid.Column="1"
-                                       HorizontalAlignment="Right"
-                                       Text="{x:Bind ViewModel.ClientIdText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
-
-                            <TextBlock Grid.Row="3"
-                                       Text="{x:Bind ViewModel.TenantOnboardingStatusLabel, Mode=OneWay}" />
-                            <TextBlock Grid.Row="3"
-                                       Grid.Column="1"
-                                       HorizontalAlignment="Right"
-                                       Foreground="{x:Bind ViewModel.TenantOnboardingStatusForeground, Mode=OneWay}"
-                                       Text="{x:Bind ViewModel.TenantOnboardingStatusText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
-                        </Grid>
+                        <tv:TableView AutoGenerateColumns="False"
+                                      CanFilterColumns="False"
+                                      CanReorderColumns="False"
+                                      CanResizeColumns="False"
+                                      CanSortColumns="False"
+                                      CornerButtonMode="None"
+                                      HeadersVisibility="Columns"
+                                      HorizontalAlignment="Right"
+                                      IsReadOnly="True"
+                                      ItemsSource="{x:Bind ViewModel.TenantReadinessEntries, Mode=OneWay}"
+                                      MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                      MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                      SelectionMode="None"
+                                      SelectionUnit="Row"
+                                      ShowExportOptions="False">
+                            <tv:TableView.Columns>
+                                <tv:TableViewTextColumn Binding="{Binding Name}"
+                                                        Header="{x:Bind ViewModel.TenantReadinessNameColumnHeader, Mode=OneWay}" />
+                                <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.TenantReadinessValueColumnHeader, Mode=OneWay}">
+                                    <tv:TableViewTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Foreground="{Binding ValueForeground}"
+                                                       Margin="12,0,12,0"
+                                                       Text="{Binding Value}"
+                                                       TextTrimming="CharacterEllipsis" />
+                                        </DataTemplate>
+                                    </tv:TableViewTemplateColumn.CellTemplate>
+                                </tv:TableViewTemplateColumn>
+                            </tv:TableView.Columns>
+                        </tv:TableView>
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.CertificateActionsLabel, Mode=OneWay}"
