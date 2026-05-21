@@ -85,7 +85,7 @@ public sealed class AutopilotTenantOnboardingEvaluatorTests
     }
 
     [Fact]
-    public void Evaluate_WhenMultipleFoundryCredentialsExistWithoutPersistedActiveCertificate_ReturnsSelectionRequired()
+    public void Evaluate_WhenFoundryCredentialsExistWithoutPersistedActiveCertificate_ReturnsReady()
     {
         AutopilotTenantOnboardingEvaluation result = AutopilotTenantOnboardingEvaluator.Evaluate(CreateSnapshot(
             activeCertificate: null,
@@ -96,7 +96,7 @@ public sealed class AutopilotTenantOnboardingEvaluatorTests
                 CreateKeyCredential("key-2", "BBB", Now.AddMonths(12))
             ]));
 
-        Assert.Equal(AutopilotTenantOnboardingStatus.MultipleFoundryCertificatesNeedSelection, result.Status);
+        Assert.Equal(AutopilotTenantOnboardingStatus.Ready, result.Status);
     }
 
     [Fact]

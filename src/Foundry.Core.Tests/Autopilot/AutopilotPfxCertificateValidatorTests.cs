@@ -23,6 +23,21 @@ public sealed class AutopilotPfxCertificateValidatorTests
     }
 
     [Fact]
+    public void Validate_WhenExpectedThumbprintIsNotProvided_ReturnsCertificateMetadata()
+    {
+        using X509Certificate2 certificate = CreateCertificate();
+        byte[] pfxBytes = certificate.Export(X509ContentType.Pfx, "correct-password");
+
+        AutopilotPfxValidationResult result = AutopilotPfxCertificateValidator.Validate(
+            pfxBytes,
+            "correct-password");
+
+        Assert.True(result.IsValid);
+        Assert.Equal(certificate.Thumbprint, result.Thumbprint);
+        Assert.Equal(certificate.NotAfter.ToUniversalTime(), result.ExpiresOnUtc?.UtcDateTime);
+    }
+
+    [Fact]
     public void Validate_WhenPasswordIsEmpty_ReturnsPasswordRequired()
     {
         using X509Certificate2 certificate = CreateCertificate();

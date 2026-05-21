@@ -352,9 +352,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string BootMediaCertificateDescription { get; set; }
 
     [ObservableProperty]
-    public partial string BootMediaCertificateTenantCertificateLabel { get; set; }
-
-    [ObservableProperty]
     public partial string BootMediaCertificatePfxPathLabel { get; set; }
 
     [ObservableProperty]
@@ -494,10 +491,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RetireActiveCertificateCommand))]
     public partial AutopilotCertificateEntryViewModel? SelectedCertificate { get; set; }
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SelectBootMediaCertificatePfxCommand))]
-    public partial AutopilotCertificateEntryViewModel? SelectedBootMediaCertificate { get; set; }
 
     [ObservableProperty]
     public partial AutopilotGroupTagEntryViewModel? SelectedDefaultGroupTag { get; set; }
@@ -1002,7 +995,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         CertificateIdColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateIdColumn");
         BootMediaCertificateLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateLabel");
         BootMediaCertificateDescription = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateDescription");
-        BootMediaCertificateTenantCertificateLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateTenantCertificateLabel");
         BootMediaCertificatePfxPathLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxPathLabel");
         BootMediaCertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");
         SelectBootMediaCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateSelectButton");
@@ -1170,12 +1162,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
 
         SelectedCertificate = null;
-        SelectedBootMediaCertificate = Certificates.FirstOrDefault(certificate =>
-            string.Equals(certificate.KeyId, hardwareHashUploadSettings.ActiveCertificate?.KeyId, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(
-                NormalizeThumbprint(certificate.Thumbprint),
-                NormalizeThumbprint(hardwareHashUploadSettings.ActiveCertificate?.Thumbprint),
-                StringComparison.OrdinalIgnoreCase));
         hardwareHashSessionState.Certificates = credentials;
         OnPropertyChanged(nameof(HasCertificates));
         OnPropertyChanged(nameof(CertificatesVisibility));
@@ -1187,7 +1173,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         AutopilotCertificateMetadata? certificate = hardwareHashUploadSettings.ActiveCertificate;
         if (certificate is null)
         {
-            return localizationService.GetString("Autopilot.HardwareHashCertificateMissing");
+            return HasCertificates
+                ? string.Empty
+                : localizationService.GetString("Autopilot.HardwareHashCertificateMissing");
         }
 
         if (certificate.ExpiresOnUtc is null)
@@ -1295,26 +1283,46 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 {
                     AutopilotPfxValidationResult validation = AutopilotPfxCertificateValidator.Validate(
                         File.ReadAllBytes(normalizedPath),
-                        password,
-                        hardwareHashUploadSettings.ActiveCertificate?.Thumbprint);
+                        password);
                     bootMediaCertificateValidationCode = validation.Code;
                     if (validation.IsValid)
                     {
-                        bootMediaCertificate = bootMediaCertificate with
+                        AutopilotCertificateEntryViewModel? matchingCertificate = FindTenantCertificateByThumbprint(validation.Thumbprint);
+                        if (matchingCertificate is null)
                         {
-                            ValidatedThumbprint = validation.Thumbprint,
-                            ValidatedExpiresOnUtc = validation.ExpiresOnUtc
-                        };
+                            bootMediaCertificateValidationCode = AutopilotPfxValidationCode.ThumbprintMismatch;
+                            hardwareHashUploadSettings = hardwareHashUploadSettings with { ActiveCertificate = null };
+                        }
+                        else
+                        {
+                            hardwareHashUploadSettings = hardwareHashUploadSettings with
+                            {
+                                ActiveCertificate = CreateCertificateMetadata(matchingCertificate)
+                            };
+                            tenantOnboardingStatus = ResolveCertificateSelectionStatus(matchingCertificate);
+                            hardwareHashSessionState.TenantOnboardingStatus = tenantOnboardingStatus;
+                            bootMediaCertificate = bootMediaCertificate with
+                            {
+                                ValidatedThumbprint = validation.Thumbprint,
+                                ValidatedExpiresOnUtc = validation.ExpiresOnUtc
+                            };
+                        }
+                    }
+                    else
+                    {
+                        hardwareHashUploadSettings = hardwareHashUploadSettings with { ActiveCertificate = null };
                     }
                 }
                 catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
                 {
                     bootMediaCertificateValidationCode = AutopilotPfxValidationCode.InvalidPfx;
+                    hardwareHashUploadSettings = hardwareHashUploadSettings with { ActiveCertificate = null };
                 }
             }
             else
             {
                 isBootMediaCertificateFileMissing = true;
+                hardwareHashUploadSettings = hardwareHashUploadSettings with { ActiveCertificate = null };
             }
         }
 
@@ -1372,8 +1380,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private static bool ShouldShowTenantOnboardingResultDialog(AutopilotTenantOnboardingStatus status)
     {
-        return status is not AutopilotTenantOnboardingStatus.ActiveCertificateMissing
-            and not AutopilotTenantOnboardingStatus.MultipleFoundryCertificatesNeedSelection;
+        return status is not AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
     }
 
     private void RefreshProfileState()
@@ -1411,24 +1418,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             DefaultGroupTag = value?.GroupTag
         };
         OnPropertyChanged(nameof(DefaultGroupTagText));
-        SaveState();
-    }
-
-    partial void OnSelectedBootMediaCertificateChanged(AutopilotCertificateEntryViewModel? value)
-    {
-        if (isApplyingState)
-        {
-            return;
-        }
-
-        hardwareHashUploadSettings = hardwareHashUploadSettings with
-        {
-            ActiveCertificate = value is null ? null : CreateCertificateMetadata(value)
-        };
-        tenantOnboardingStatus = ResolveCertificateSelectionStatus(value);
-        hardwareHashSessionState.TenantOnboardingStatus = tenantOnboardingStatus;
-        ClearBootMediaCertificateIfActiveCertificateChanged();
-        RefreshHardwareHashUploadState();
         SaveState();
     }
 
@@ -1492,6 +1481,21 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         };
     }
 
+    private AutopilotCertificateEntryViewModel? FindTenantCertificateByThumbprint(string? thumbprint)
+    {
+        string? normalizedThumbprint = NormalizeThumbprint(thumbprint);
+        if (string.IsNullOrWhiteSpace(normalizedThumbprint))
+        {
+            return null;
+        }
+
+        return Certificates.FirstOrDefault(certificate =>
+            string.Equals(
+                NormalizeThumbprint(certificate.Thumbprint),
+                normalizedThumbprint,
+                StringComparison.OrdinalIgnoreCase));
+    }
+
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
         RefreshLocalizedText();
@@ -1553,8 +1557,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                IsHardwareHashUploadMode &&
                !IsBusy &&
                HasConnectedTenantInCurrentSession &&
-               hardwareHashUploadSettings.ActiveCertificate is not null &&
-               !IsHardwareHashCertificateExpired;
+               HasCertificates;
     }
 
     private static string? NormalizeThumbprint(string? thumbprint)

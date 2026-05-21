@@ -57,9 +57,9 @@ public static class AutopilotTenantOnboardingEvaluator
         {
             int foundryCredentialCount = snapshot.KeyCredentials.Count(credential =>
                 string.Equals(credential.DisplayName, snapshot.ManagedAppDisplayName, StringComparison.OrdinalIgnoreCase));
-            return foundryCredentialCount > 1
+            return foundryCredentialCount > 0
                 ? AutopilotTenantOnboardingEvaluation.FromStatus(
-                    AutopilotTenantOnboardingStatus.MultipleFoundryCertificatesNeedSelection,
+                    AutopilotTenantOnboardingStatus.Ready,
                     application,
                     snapshot.ServicePrincipal)
                 : AutopilotTenantOnboardingEvaluation.FromStatus(
@@ -217,10 +217,7 @@ public enum AutopilotTenantOnboardingStatus
     ActiveCertificateNotFound,
 
     /// <summary>The selected active certificate is expired.</summary>
-    ActiveCertificateExpired,
-
-    /// <summary>Multiple Foundry-looking certificates exist and no persisted active certificate resolves ownership.</summary>
-    MultipleFoundryCertificatesNeedSelection
+    ActiveCertificateExpired
 }
 
 /// <summary>

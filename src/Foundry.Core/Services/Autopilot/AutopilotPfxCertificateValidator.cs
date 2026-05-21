@@ -9,16 +9,33 @@ namespace Foundry.Core.Services.Autopilot;
 public static class AutopilotPfxCertificateValidator
 {
     /// <summary>
-    /// Validates that a password-protected PFX contains private key material for the configured active certificate.
+    /// Validates that a password-protected PFX contains private key material and returns its certificate metadata.
     /// </summary>
     /// <param name="pfxBytes">PFX bytes provided by the operator.</param>
     /// <param name="password">PFX password provided by the operator.</param>
-    /// <param name="expectedThumbprint">Thumbprint of the active certificate configured on the managed app registration.</param>
     /// <returns>Validation result describing whether the PFX can be embedded into generated media.</returns>
-    public static AutopilotPfxValidationResult Validate(
+    public static AutopilotPfxValidationResult Validate(byte[] pfxBytes, string? password)
+    {
+        return Validate(pfxBytes, password, expectedThumbprint: null, requireExpectedThumbprint: false);
+    }
+
+    /// <summary>
+    /// Validates that a password-protected PFX contains private key material for the configured certificate.
+    /// </summary>
+    /// <param name="pfxBytes">PFX bytes provided by the operator.</param>
+    /// <param name="password">PFX password provided by the operator.</param>
+    /// <param name="expectedThumbprint">Thumbprint of the certificate configured on the managed app registration.</param>
+    /// <returns>Validation result describing whether the PFX can be embedded into generated media.</returns>
+    public static AutopilotPfxValidationResult Validate(byte[] pfxBytes, string? password, string? expectedThumbprint)
+    {
+        return Validate(pfxBytes, password, expectedThumbprint, requireExpectedThumbprint: true);
+    }
+
+    private static AutopilotPfxValidationResult Validate(
         byte[] pfxBytes,
         string? password,
-        string? expectedThumbprint)
+        string? expectedThumbprint,
+        bool requireExpectedThumbprint)
     {
         ArgumentNullException.ThrowIfNull(pfxBytes);
 
@@ -33,7 +50,7 @@ public static class AutopilotPfxCertificateValidator
         }
 
         string? normalizedExpectedThumbprint = NormalizeThumbprint(expectedThumbprint);
-        if (string.IsNullOrWhiteSpace(normalizedExpectedThumbprint))
+        if (requireExpectedThumbprint && string.IsNullOrWhiteSpace(normalizedExpectedThumbprint))
         {
             return AutopilotPfxValidationResult.Failure(AutopilotPfxValidationCode.ExpectedThumbprintRequired);
         }
@@ -45,7 +62,8 @@ public static class AutopilotPfxCertificateValidator
                 password,
                 X509KeyStorageFlags.EphemeralKeySet);
             string actualThumbprint = NormalizeThumbprint(certificate.Thumbprint)!;
-            if (!string.Equals(actualThumbprint, normalizedExpectedThumbprint, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(normalizedExpectedThumbprint) &&
+                !string.Equals(actualThumbprint, normalizedExpectedThumbprint, StringComparison.OrdinalIgnoreCase))
             {
                 return AutopilotPfxValidationResult.Failure(AutopilotPfxValidationCode.ThumbprintMismatch, actualThumbprint);
             }

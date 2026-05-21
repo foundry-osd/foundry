@@ -477,9 +477,6 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
     <value>PFX protégé par mot de passe copié dans le média de démarrage pour l'upload du hardware hash.</value>
   </data>
-  <data name="Autopilot.HardwareHashBootMediaCertificateTenantCertificateLabel" xml:space="preserve">
-    <value>Certificat</value>
-  </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
     <value>Fichier PFX</value>
   </data>
@@ -493,7 +490,7 @@
     <value>Sélectionner le PFX du certificat Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Sélectionnez d'abord un certificat dans l'app registration.</value>
+    <value>Sélectionnez un PFX qui correspond à un certificat de l'app registration.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
     <value>Le certificat sélectionné est expiré. Créez ou sélectionnez un certificat valide avant de créer le média de démarrage.</value>
@@ -1438,7 +1435,7 @@
     <value>L'upload du hardware hash est activé mais le service principal de l'app est manquant ou pas prêt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais aucun certificat d'app registration n'est sélectionné pour le média de démarrage.</value>
+    <value>L'upload du hardware hash est activé mais le PFX sélectionné ne correspond à aucun certificat de l'app registration.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
     <value>L'upload du hardware hash est activé mais l'empreinte du certificat sélectionné est manquante.</value>

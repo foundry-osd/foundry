@@ -113,7 +113,7 @@ Implementation progress:
 - [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
 - [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
 - [x] Allow multiple app registration certificates to coexist in the tenant instead of replacing the previously selected certificate during creation.
-- [x] Add a boot media certificate selector so the operator chooses which tenant certificate the selected PFX must match.
+- [x] Resolve the boot media certificate automatically by matching the selected PFX thumbprint against tenant app registration certificates.
 - [x] Move certificate action buttons above the certificate table.
 - [x] Remove the visible certificate validity field label while keeping the validity duration selector.
 - [x] Remove the redundant active certificate "valid until" text when the same expiration is already visible in the certificate table.
@@ -143,7 +143,8 @@ Automated tests:
 - [x] Admin consent missing maps to `ConsentMissing`.
 - [x] Disabled or missing service principal maps to `ServicePrincipalUnavailable`.
 - [x] Adding a certificate preserves existing non-active `keyCredentials`.
-- [x] Replacing the active certificate removes only the previous active `keyId` and preserves unrelated credentials.
+- [x] App registrations with existing Foundry certificate credentials are tenant-ready without requiring a manual active certificate selection.
+- [x] PFX validation can read certificate metadata without a preselected expected thumbprint.
 - [x] Retiring a certificate removes only the persisted active `keyId`.
 - [x] Created PFX material is not persisted in ProgramData, even with DPAPI.
 - [ ] After app restart, media generation requires the operator to select the PFX again and enter its password.
@@ -160,7 +161,7 @@ Manual checks:
 - [ ] Confirm `Connect tenant` creates an Enterprise application for the official `Foundry OSD` bootstrap client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` in the target tenant.
 - [ ] Confirm required API permissions and admin consent status are visible in Foundry OSD.
 - [ ] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
-- [ ] Replace the active certificate and confirm the previous active credential is removed while unrelated credentials are preserved.
+- [ ] Create multiple Foundry certificates and confirm new certificate creation does not remove existing certificates.
 - [ ] Create a certificate, choose a PFX output path, and confirm the PFX exists only at the selected path.
 - [ ] Restart Foundry OSD and confirm it requires selecting the PFX again before media generation.
 - [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
@@ -181,7 +182,7 @@ Manual checks:
 - [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
 - [ ] Create a second certificate and confirm the previous certificate remains present in the tenant certificate table.
 - [ ] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
-- [ ] Select each tenant certificate from the boot media certificate selector and confirm only the matching PFX/password combination reaches the ready state.
+- [ ] Select each generated PFX with its password and confirm Foundry automatically resolves the matching tenant certificate before reaching the ready state.
 - [ ] Select a mismatched PFX and confirm the boot media certificate row shows a thumbprint mismatch.
 - [ ] Navigate away from the Autopilot page and back; confirm the tenant remains connected and tenant-dependent rows remain visible.
 - [ ] Restart Foundry OSD and confirm the tenant connection returns to the disconnected prompt.

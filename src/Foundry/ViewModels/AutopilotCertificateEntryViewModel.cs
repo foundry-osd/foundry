@@ -19,8 +19,6 @@ public sealed record AutopilotCertificateEntryViewModel(
 
     public string ExpiresOnDisplay => ExpiresOnUtc.ToLocalTime().ToString("g", CultureInfo.CurrentCulture);
 
-    public string SelectionDisplayName => $"{Thumbprint} - {ExpiresOnDisplay}";
-
     public Brush ValidityForeground => (Brush)Application.Current.Resources[ResolveValidityBrushKey()];
 
     public static AutopilotCertificateEntryViewModel FromGraphCredential(AutopilotGraphKeyCredential credential)

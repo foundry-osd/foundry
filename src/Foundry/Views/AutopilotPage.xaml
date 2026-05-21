@@ -265,11 +265,6 @@
                                       Visibility="{x:Bind ViewModel.BootMediaCertificateVisibility, Mode=OneWay}">
                         <StackPanel HorizontalAlignment="Right"
                                     Spacing="{ThemeResource FoundrySpace8}">
-                            <ComboBox MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                                      DisplayMemberPath="SelectionDisplayName"
-                                      Header="{x:Bind ViewModel.BootMediaCertificateTenantCertificateLabel, Mode=OneWay}"
-                                      ItemsSource="{x:Bind ViewModel.Certificates, Mode=OneWay}"
-                                      SelectedItem="{x:Bind ViewModel.SelectedBootMediaCertificate, Mode=TwoWay}" />
                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
