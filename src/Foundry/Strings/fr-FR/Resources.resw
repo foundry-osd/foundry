@@ -336,17 +336,11 @@
   <data name="Autopilot.HardwareHashTenantConnectedFormat" xml:space="preserve">
     <value>Connecté au tenant {0}</value>
   </data>
-  <data name="Autopilot.HardwareHashTenantDetailsLabel" xml:space="preserve">
-    <value>Détails du tenant</value>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>État du tenant</value>
   </data>
-  <data name="Autopilot.HardwareHashTenantDetailsDescription" xml:space="preserve">
-    <value>Identifiants du tenant et de l'application utilisés par le média de démarrage généré.</value>
-  </data>
-  <data name="Autopilot.HardwareHashTenantDetailsNameColumn" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="Autopilot.HardwareHashTenantDetailsValueColumn" xml:space="preserve">
-    <value>Valeur</value>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>Informations du tenant, de l'app registration et de l'état de préparation pour l'upload du hardware hash.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>ID du tenant</value>
@@ -355,10 +349,7 @@
     <value>ID client</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
-    <value>App registration</value>
-  </data>
-  <data name="Autopilot.HardwareHashAppRegistrationDescription" xml:space="preserve">
-    <value>App registration Entra managée utilisée par Foundry Deploy dans WinPE.</value>
+    <value>App registration managée</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
     <value>Foundry OSD Autopilot Registration n'est pas configurée.</value>
@@ -367,10 +358,7 @@
     <value>{0} est configurée.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
-    <value>État de l'onboarding</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusDescription" xml:space="preserve">
-    <value>État de préparation des permissions, du consentement, du service principal et du certificat.</value>
+    <value>État</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
     <value>Prêt</value>

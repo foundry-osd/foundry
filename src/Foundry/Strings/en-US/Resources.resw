@@ -336,17 +336,11 @@
   <data name="Autopilot.HardwareHashTenantConnectedFormat" xml:space="preserve">
     <value>Connected to tenant {0}</value>
   </data>
-  <data name="Autopilot.HardwareHashTenantDetailsLabel" xml:space="preserve">
-    <value>Tenant details</value>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>Tenant readiness</value>
   </data>
-  <data name="Autopilot.HardwareHashTenantDetailsDescription" xml:space="preserve">
-    <value>Tenant and application identifiers used by generated boot media.</value>
-  </data>
-  <data name="Autopilot.HardwareHashTenantDetailsNameColumn" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Autopilot.HardwareHashTenantDetailsValueColumn" xml:space="preserve">
-    <value>Value</value>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>Tenant, app registration, and readiness information for hardware hash upload.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
     <value>Tenant ID</value>
@@ -355,10 +349,7 @@
     <value>Client ID</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
-    <value>App registration</value>
-  </data>
-  <data name="Autopilot.HardwareHashAppRegistrationDescription" xml:space="preserve">
-    <value>Managed Entra app registration used by Foundry Deploy in WinPE.</value>
+    <value>Managed app registration</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
     <value>Foundry OSD Autopilot Registration is not configured.</value>
@@ -367,10 +358,7 @@
     <value>{0} is configured.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
-    <value>Onboarding status</value>
-  </data>
-  <data name="Autopilot.HardwareHashOnboardingStatusDescription" xml:space="preserve">
-    <value>Readiness state for permissions, consent, service principal, and certificate configuration.</value>
+    <value>Status</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
     <value>Ready</value>
