@@ -302,25 +302,6 @@ public static class AutopilotAppRegistrationCertificateCollection
     }
 
     /// <summary>
-    /// Replaces the persisted active certificate credential while preserving unrelated credentials.
-    /// </summary>
-    public static IReadOnlyList<AutopilotGraphKeyCredential> ReplaceActiveCertificate(
-        IReadOnlyList<AutopilotGraphKeyCredential> currentCredentials,
-        AutopilotGraphKeyCredential credential,
-        string? activeKeyIdToReplace)
-    {
-        ArgumentNullException.ThrowIfNull(currentCredentials);
-        ArgumentNullException.ThrowIfNull(credential);
-        return currentCredentials
-            .Where(existing =>
-                !string.Equals(existing.KeyId, credential.KeyId, StringComparison.OrdinalIgnoreCase) &&
-                (string.IsNullOrWhiteSpace(activeKeyIdToReplace) ||
-                 !string.Equals(existing.KeyId, activeKeyIdToReplace, StringComparison.OrdinalIgnoreCase)))
-            .Concat([credential])
-            .ToArray();
-    }
-
-    /// <summary>
     /// Removes only the persisted active certificate credential.
     /// </summary>
     public static IReadOnlyList<AutopilotGraphKeyCredential> RetireActiveCertificate(

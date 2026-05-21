@@ -477,6 +477,9 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
     <value>Password-protected PFX copied into boot media for hardware hash upload.</value>
   </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateTenantCertificateLabel" xml:space="preserve">
+    <value>Certificate</value>
+  </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
     <value>PFX file</value>
   </data>
@@ -490,10 +493,10 @@
     <value>Select Autopilot certificate PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Create or select an active app registration certificate first.</value>
+    <value>Select an app registration certificate first.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>The active certificate is expired. Regenerate the certificate before creating boot media.</value>
+    <value>The selected certificate is expired. Create or select a valid certificate before creating boot media.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
     <value>Select the matching password-protected PFX before creating boot media.</value>
@@ -505,7 +508,7 @@
     <value>Enter the PFX password.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>The PFX certificate thumbprint does not match the active app registration certificate.</value>
+    <value>The PFX certificate thumbprint does not match the selected app registration certificate.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>The selected PFX does not contain private key material.</value>
@@ -1435,16 +1438,16 @@
     <value>Hardware hash upload is enabled but the app service principal is missing or not ready.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but no active app registration certificate is configured.</value>
+    <value>Hardware hash upload is enabled but no app registration certificate is selected for boot media.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the active certificate thumbprint is missing.</value>
+    <value>Hardware hash upload is enabled but the selected certificate thumbprint is missing.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the active certificate expiration is missing.</value>
+    <value>Hardware hash upload is enabled but the selected certificate expiration is missing.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the active certificate is expired. Regenerate the certificate and recreate boot media.</value>
+    <value>Hardware hash upload is enabled but the selected certificate is expired. Select a valid certificate before creating boot media.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
     <value>Hardware hash upload is enabled but no boot media PFX is selected.</value>

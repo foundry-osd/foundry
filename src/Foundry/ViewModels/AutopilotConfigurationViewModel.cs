@@ -186,7 +186,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public Visibility HardwareHashSettingsVisibility => IsHardwareHashUploadMode ? Visibility.Visible : Visibility.Collapsed;
     public Visibility HardwareHashCertificateWarningVisibility => IsHardwareHashCertificateExpired ? Visibility.Visible : Visibility.Collapsed;
     public Visibility BootMediaCertificateVisibility => HasConnectedTenantInCurrentSession &&
-                                                        hardwareHashUploadSettings.ActiveCertificate is not null
+                                                        HasCertificates
         ? Visibility.Visible
         : Visibility.Collapsed;
     public string BootMediaCertificatePfxPath => hardwareHashUploadSettings.BootMediaCertificate.PfxPath ?? string.Empty;
@@ -352,6 +352,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string BootMediaCertificateDescription { get; set; }
 
     [ObservableProperty]
+    public partial string BootMediaCertificateTenantCertificateLabel { get; set; }
+
+    [ObservableProperty]
     public partial string BootMediaCertificatePfxPathLabel { get; set; }
 
     [ObservableProperty]
@@ -491,6 +494,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RetireActiveCertificateCommand))]
     public partial AutopilotCertificateEntryViewModel? SelectedCertificate { get; set; }
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SelectBootMediaCertificatePfxCommand))]
+    public partial AutopilotCertificateEntryViewModel? SelectedBootMediaCertificate { get; set; }
 
     [ObservableProperty]
     public partial AutopilotGroupTagEntryViewModel? SelectedDefaultGroupTag { get; set; }
@@ -995,6 +1002,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         CertificateIdColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateIdColumn");
         BootMediaCertificateLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateLabel");
         BootMediaCertificateDescription = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateDescription");
+        BootMediaCertificateTenantCertificateLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateTenantCertificateLabel");
         BootMediaCertificatePfxPathLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxPathLabel");
         BootMediaCertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");
         SelectBootMediaCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateSelectButton");
@@ -1089,6 +1097,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(BootMediaCertificateStatusText));
         OnPropertyChanged(nameof(BootMediaCertificateStatusForeground));
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
+        SelectBootMediaCertificatePfxCommand.NotifyCanExecuteChanged();
     }
 
     private void RefreshTenantDetails()
@@ -1161,9 +1170,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
 
         SelectedCertificate = null;
+        SelectedBootMediaCertificate = Certificates.FirstOrDefault(certificate =>
+            string.Equals(certificate.KeyId, hardwareHashUploadSettings.ActiveCertificate?.KeyId, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(
+                NormalizeThumbprint(certificate.Thumbprint),
+                NormalizeThumbprint(hardwareHashUploadSettings.ActiveCertificate?.Thumbprint),
+                StringComparison.OrdinalIgnoreCase));
         hardwareHashSessionState.Certificates = credentials;
         OnPropertyChanged(nameof(HasCertificates));
         OnPropertyChanged(nameof(CertificatesVisibility));
+        OnPropertyChanged(nameof(BootMediaCertificateVisibility));
     }
 
     private string CreateCertificateStatusText()
@@ -1356,7 +1372,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private static bool ShouldShowTenantOnboardingResultDialog(AutopilotTenantOnboardingStatus status)
     {
-        return status != AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
+        return status is not AutopilotTenantOnboardingStatus.ActiveCertificateMissing
+            and not AutopilotTenantOnboardingStatus.MultipleFoundryCertificatesNeedSelection;
     }
 
     private void RefreshProfileState()
@@ -1397,6 +1414,24 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         SaveState();
     }
 
+    partial void OnSelectedBootMediaCertificateChanged(AutopilotCertificateEntryViewModel? value)
+    {
+        if (isApplyingState)
+        {
+            return;
+        }
+
+        hardwareHashUploadSettings = hardwareHashUploadSettings with
+        {
+            ActiveCertificate = value is null ? null : CreateCertificateMetadata(value)
+        };
+        tenantOnboardingStatus = ResolveCertificateSelectionStatus(value);
+        hardwareHashSessionState.TenantOnboardingStatus = tenantOnboardingStatus;
+        ClearBootMediaCertificateIfActiveCertificateChanged();
+        RefreshHardwareHashUploadState();
+        SaveState();
+    }
+
     /// <summary>
     /// Replaces the selected profile rows after a XAML selection change.
     /// </summary>
@@ -1423,6 +1458,38 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
 
         SelectedCertificate = SelectedCertificates.FirstOrDefault();
+    }
+
+    private AutopilotTenantOnboardingStatus? ResolveCertificateSelectionStatus(AutopilotCertificateEntryViewModel? certificate)
+    {
+        if (tenantOnboardingStatus is AutopilotTenantOnboardingStatus.PermissionMissing
+            or AutopilotTenantOnboardingStatus.ConsentMissing
+            or AutopilotTenantOnboardingStatus.ServicePrincipalUnavailable
+            or AutopilotTenantOnboardingStatus.AppRegistrationMissing
+            or AutopilotTenantOnboardingStatus.AdoptionRequired)
+        {
+            return tenantOnboardingStatus;
+        }
+
+        if (certificate is null)
+        {
+            return AutopilotTenantOnboardingStatus.ActiveCertificateMissing;
+        }
+
+        return certificate.ExpiresOnUtc <= DateTimeOffset.UtcNow
+            ? AutopilotTenantOnboardingStatus.ActiveCertificateExpired
+            : AutopilotTenantOnboardingStatus.Ready;
+    }
+
+    private static AutopilotCertificateMetadata CreateCertificateMetadata(AutopilotCertificateEntryViewModel certificate)
+    {
+        return new AutopilotCertificateMetadata
+        {
+            KeyId = certificate.KeyId,
+            Thumbprint = certificate.Thumbprint,
+            DisplayName = AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName,
+            ExpiresOnUtc = certificate.ExpiresOnUtc
+        };
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)

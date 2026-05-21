@@ -124,19 +124,6 @@ public sealed class AutopilotTenantOnboardingEvaluatorTests
         Assert.Equal("other-key-id", result[0].KeyId);
     }
 
-    [Fact]
-    public void ReplaceActiveCertificate_RemovesPreviousActiveCertificateAndPreservesOtherCredentials()
-    {
-        AutopilotGraphKeyCredential previousActive = CreateKeyCredential("active-key-id", "AAA", Now.AddMonths(12));
-        AutopilotGraphKeyCredential other = CreateKeyCredential("other-key-id", "BBB", Now.AddMonths(24));
-        AutopilotGraphKeyCredential replacement = CreateKeyCredential("replacement-key-id", "CCC", Now.AddMonths(24));
-
-        IReadOnlyList<AutopilotGraphKeyCredential> result =
-            AutopilotAppRegistrationCertificateCollection.ReplaceActiveCertificate([previousActive, other], replacement, "active-key-id");
-
-        Assert.Equal(["other-key-id", "replacement-key-id"], result.Select(credential => credential.KeyId));
-    }
-
     private static AutopilotTenantOnboardingSnapshot CreateSnapshot(
         string? persistedApplicationObjectId = "persisted-object-id",
         IReadOnlyList<AutopilotGraphApplication>? applications = null,

@@ -112,6 +112,8 @@ Implementation progress:
 - [x] Clear stale persisted active certificate metadata when Microsoft Graph no longer returns the selected active certificate.
 - [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
 - [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
+- [x] Allow multiple app registration certificates to coexist in the tenant instead of replacing the previously selected certificate during creation.
+- [x] Add a boot media certificate selector so the operator chooses which tenant certificate the selected PFX must match.
 - [x] Move certificate action buttons above the certificate table.
 - [x] Remove the visible certificate validity field label while keeping the validity duration selector.
 - [x] Remove the redundant active certificate "valid until" text when the same expiration is already visible in the certificate table.
@@ -177,7 +179,9 @@ Manual checks:
 - [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
 - [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
 - [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
+- [ ] Create a second certificate and confirm the previous certificate remains present in the tenant certificate table.
 - [ ] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
+- [ ] Select each tenant certificate from the boot media certificate selector and confirm only the matching PFX/password combination reaches the ready state.
 - [ ] Select a mismatched PFX and confirm the boot media certificate row shows a thumbprint mismatch.
 - [ ] Navigate away from the Autopilot page and back; confirm the tenant remains connected and tenant-dependent rows remain visible.
 - [ ] Restart Foundry OSD and confirm the tenant connection returns to the disconnected prompt.

@@ -191,11 +191,11 @@ public sealed class AutopilotTenantOnboardingService(
         }
 
         string newCredentialJson = CreateKeyCredentialJson(keyId, certificate, startsOnUtc, expiresOnUtc);
-        await ReplaceActiveKeyCredentialAsync(
+        await AddKeyCredentialAsync(
             accessToken,
             currentSettings.Tenant.ApplicationObjectId,
+            keyId,
             newCredentialJson,
-            currentSettings.ActiveCertificate?.KeyId,
             cancellationToken).ConfigureAwait(false);
 
         var metadata = new AutopilotCertificateMetadata
@@ -602,11 +602,11 @@ public sealed class AutopilotTenantOnboardingService(
         return ParseKeyCredentials(document.RootElement);
     }
 
-    private static async Task ReplaceActiveKeyCredentialAsync(
+    private static async Task AddKeyCredentialAsync(
         string accessToken,
         string applicationObjectId,
+        string newKeyId,
         string newCredentialJson,
-        string? activeKeyIdToReplace,
         CancellationToken cancellationToken)
     {
         using JsonDocument document = await SendGraphRequestAsync(
@@ -620,9 +620,8 @@ public sealed class AutopilotTenantOnboardingService(
             ? string.Join(
                 ",",
                 keyCredentials.EnumerateArray().Where(credential =>
-                    string.IsNullOrWhiteSpace(activeKeyIdToReplace) ||
                     !credential.TryGetProperty("keyId", out JsonElement existingKeyId) ||
-                    !string.Equals(existingKeyId.GetString(), activeKeyIdToReplace, StringComparison.OrdinalIgnoreCase))
+                    !string.Equals(existingKeyId.GetString(), newKeyId, StringComparison.OrdinalIgnoreCase))
                     .Select(credential => credential.GetRawText()))
             : string.Empty;
         string separator = string.IsNullOrWhiteSpace(existingCredentialsJson) ? string.Empty : ",";
