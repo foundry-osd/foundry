@@ -237,40 +237,47 @@ Status note:
 
 Implementation progress:
 - [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
+- [x] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Render only the selected Autopilot provisioning mode from the OSD-generated deploy configuration.
-- [ ] Keep JSON profile mode UI unchanged except for wording that makes the selected mode explicit.
-- [ ] In hardware hash mode, do not show JSON profile selection or JSON staging controls.
-- [ ] In hardware hash mode, show a compact Autopilot hardware hash section on the Computer Target page.
-- [ ] Show tenant/app registration summary needed for operator confidence: tenant ID, client ID, certificate thumbprint, certificate expiration, and default group tag.
-- [ ] If the certificate is valid, show Autopilot hardware hash as available but not executed until the runtime phases are implemented.
-- [ ] If the certificate is expired, show a clear non-blocking message telling the operator to regenerate the certificate and recreate the boot image; continue OS deployment without Autopilot.
-- [ ] Add two mutually exclusive group tag choices for hardware hash mode:
+- [x] Render only the selected Autopilot provisioning mode from the OSD-generated deploy configuration.
+- [x] Keep JSON profile mode UI unchanged except for wording that makes the selected mode explicit.
+- [x] In hardware hash mode, do not show JSON profile selection or JSON staging controls.
+- [x] In hardware hash mode, show a compact Autopilot hardware hash section on the Computer Target page.
+- [x] Show tenant/app registration summary needed for operator confidence: tenant ID, client ID, certificate thumbprint, certificate expiration, and default group tag.
+- [x] If the certificate is valid, show Autopilot hardware hash as available but not executed until the runtime phases are implemented.
+- [x] If the certificate is expired, show a clear non-blocking message telling the operator to regenerate the certificate and recreate the boot image; continue OS deployment without Autopilot.
+- [x] Add two mutually exclusive group tag choices for hardware hash mode:
   - use the default group tag from Foundry OSD, including `None`
   - enter a custom group tag for this deployment
-- [ ] Disable or hide group tag controls when certificate authentication cannot be attempted.
-- [ ] Add a pre-runtime warning that hardware hash upload is not yet implemented until Phase 5+ lands, without blocking JSON mode.
-- [ ] Update deployment launch preparation UI so hash mode no longer reports a missing JSON profile blocker.
-- [ ] Add localized strings in English and French resources.
-- [ ] Add XML documentation comments to new public Deploy view-model members or UI service contracts when the behavior is not obvious.
+- [x] Disable or hide group tag controls when certificate authentication cannot be attempted.
+- [x] Add a pre-runtime warning that hardware hash upload is not yet implemented until Phase 5+ lands, without blocking JSON mode.
+- [x] Update deployment launch preparation UI so hash mode no longer reports a missing JSON profile blocker.
+- [x] Carry the effective default/custom hardware hash group tag into the deployment launch request and summary.
+- [x] Make the current live runtime boundary skip hardware hash upload instead of failing the OS deployment before Phase 5+.
+- [x] Add localized strings in English and French resources.
+- [x] Add XML documentation comments to new public Deploy view-model members or UI service contracts when the behavior is not obvious.
 
 Automated tests:
-- [ ] Deploy target page renders JSON profile controls in JSON mode.
-- [ ] Deploy target page renders hardware hash controls in hash mode.
-- [ ] Deploy target page hides JSON profile controls in hash mode.
-- [ ] Hash mode does not require a selected JSON profile in launch preparation.
-- [ ] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
-- [ ] Default group tag selection initializes from the OSD-generated configuration.
-- [ ] Custom group tag entry overrides the default group tag for the current deployment request.
-- [ ] `None` group tag remains a valid selection and serializes as no group tag.
-- [ ] Live hardware hash mode displays the pre-runtime unavailable/skipped state until Phase 5+ implements execution.
+- [x] Deploy target view model exposes JSON profile controls in JSON mode.
+- [x] Deploy target view model exposes hardware hash controls in hash mode.
+- [x] Deploy target view model hides JSON profile controls in hash mode.
+- [x] Hash mode does not require a selected JSON profile in launch preparation.
+- [x] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
+- [x] Missing hardware hash certificate key ID keeps hash mode not ready and hides group tag controls.
+- [x] Default group tag selection initializes from the OSD-generated configuration.
+- [x] Custom group tag entry overrides the default group tag for the current deployment request.
+- [x] `None` group tag remains a valid selection and serializes as no group tag.
+- [x] Summary state exposes the effective group tag for hash mode.
+- [x] Live hardware hash mode reports the pre-runtime skipped state until Phase 5+ implements execution.
+- [x] `dotnet test .\src\Foundry.Deploy.Tests\Foundry.Deploy.Tests.csproj` passed: 153 tests, 0 failures.
 
 Manual checks:
+Deferred to operator validation before squash because the checks require the Foundry Deploy UI in WinPE/debug mode.
+
 - [ ] In JSON mode, confirm Foundry Deploy shows only JSON/profile Autopilot controls.
 - [ ] In hardware hash mode, confirm Foundry Deploy shows only hardware hash Autopilot controls.
 - [ ] Confirm the Computer Target page shows tenant ID, client ID, certificate thumbprint, certificate expiration, and selected/default group tag in hash mode.

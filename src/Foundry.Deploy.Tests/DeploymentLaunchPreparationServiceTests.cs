@@ -139,10 +139,18 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
-    public void Prepare_WhenLiveHardwareHashUploadModeIsSelected_FailsBeforeConfirmation()
+    public void Prepare_WhenLiveHardwareHashUploadModeIsSelected_DoesNotRequireJsonProfile()
     {
-        var shell = new FakeApplicationShellService();
+        var shell = new FakeApplicationShellService { ConfirmationResult = true };
         var service = new DeploymentLaunchPreparationService(shell);
+        DeployAutopilotHardwareHashUploadSettings hardwareHashUpload = new()
+        {
+            TenantId = "tenant-id",
+            ClientId = "client-id",
+            ActiveCertificateThumbprint = "ABCDEF123456",
+            ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
+            DefaultGroupTag = "Sales"
+        };
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -150,11 +158,14 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 isAutopilotEnabled: true,
                 autopilotProvisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
                 selectedAutopilotProfile: null,
+                autopilotHardwareHashUpload: hardwareHashUpload,
                 isDryRun: false));
 
-        Assert.False(result.IsReadyToStart);
-        Assert.Contains("hardware hash upload is not available", result.StatusMessage, StringComparison.OrdinalIgnoreCase);
-        Assert.Equal(0, shell.ConfirmationCallCount);
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, result.Context?.AutopilotProvisioningMode);
+        Assert.Null(result.Context?.SelectedAutopilotProfile);
+        Assert.Same(hardwareHashUpload, result.Context?.AutopilotHardwareHashUpload);
+        Assert.Equal(1, shell.ConfirmationCallCount);
     }
 
     [Fact]
@@ -214,6 +225,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         bool isAutopilotEnabled = false,
         AutopilotProvisioningMode autopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
+        DeployAutopilotHardwareHashUploadSettings? autopilotHardwareHashUpload = null,
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
         DeployAiComponentRemovalSettings? aiComponentRemoval = null,
@@ -243,6 +255,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             IsAutopilotEnabled = isAutopilotEnabled,
             AutopilotProvisioningMode = autopilotProvisioningMode,
             SelectedAutopilotProfile = selectedAutopilotProfile,
+            AutopilotHardwareHashUpload = autopilotHardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings(),
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),

@@ -11,7 +11,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class StageAutopilotConfigurationStepTests
 {
     [Fact]
-    public async Task ExecuteAsync_WhenLiveHardwareHashModeBypassesLaunchGuard_FailsClearly()
+    public async Task ExecuteAsync_WhenLiveHardwareHashModeRunsBeforeRuntimeImplementation_SkipsWithoutFailingDeployment()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         StageAutopilotConfigurationStep step = new();
@@ -22,8 +22,28 @@ public sealed class StageAutopilotConfigurationStepTests
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
-        Assert.Equal(DeploymentStepState.Failed, result.State);
-        Assert.Contains("hardware hash upload is not available", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Contains("runtime phase is implemented", result.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenLiveHardwareHashCertificateIsExpired_SkipsUpload()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        StageAutopilotConfigurationStep step = new();
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+            hardwareHashUpload: new DeployAutopilotHardwareHashUploadSettings
+            {
+                ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddDays(-1)
+            });
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Contains("expired", result.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

@@ -49,17 +49,26 @@
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Target Disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Select a target disk. Non-eligible disks are blocked.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware: Microsoft Update Catalog update enabled.</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot: Enable offline profile staging.</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot: Enable the selected provisioning method.</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profiles available: {0}</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Autopilot is enabled, but no embedded profiles were found.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Provisioning method: JSON profile</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Provisioning method: Hardware hash upload</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyFormat" xml:space="preserve"><value>Certificate valid until {0:g}. Default group tag: {1}.</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiredFormat" xml:space="preserve"><value>The embedded certificate expired on {0:g}.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredAction" xml:space="preserve"><value>Regenerate the certificate and boot image. Deployment can continue, but Autopilot hash upload will be skipped.</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotConfigured" xml:space="preserve"><value>Hardware hash upload metadata is not configured in this boot media.</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantReadiness" xml:space="preserve"><value>Tenant readiness</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadinessStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Tenant ID</value></data>
+  <data name="Preparation.AutopilotHardwareHashClientId" xml:space="preserve"><value>Client ID</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Certificate thumbprint</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Certificate expiration</value></data>
+  <data name="Preparation.AutopilotHardwareHashDefaultGroupTag" xml:space="preserve"><value>Default group tag</value></data>
+  <data name="Preparation.AutopilotHardwareHashRuntimePending" xml:space="preserve"><value>Hardware hash upload is configured, but this build will skip the upload until the runtime upload step is implemented.</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Group tag for this deployment</value></data>
+  <data name="Preparation.AutopilotHardwareHashUseDefaultGroupTagFormat" xml:space="preserve"><value>Use default group tag: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUseCustomGroupTag" xml:space="preserve"><value>Use a custom group tag</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>The group tag is optional. Leave the effective value as None to upload the device without a group tag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detecting hardware...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Hardware detection failed.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardware detection failed: {0}</value></data>
@@ -109,6 +118,7 @@
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Method</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot Group Tag</value></data>
   <data name="Summary.SectionTarget" xml:space="preserve"><value>Target</value></data>
   <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
   <data name="Summary.SectionDeployment" xml:space="preserve"><value>Deployment Options</value></data>
@@ -138,6 +148,8 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Common.No" xml:space="preserve"><value>No</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Enabled</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Disabled</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Ready</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Not ready</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Networking</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Start time</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Elapsed time</value></data>

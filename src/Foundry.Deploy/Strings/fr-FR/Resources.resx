@@ -49,17 +49,26 @@
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware : activer les mises à jour via Microsoft Update Catalog.</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer la préparation hors ligne du profil.</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer la méthode de provisionnement sélectionnée.</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profils disponibles : {0}</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Autopilot est activé, mais aucun profil intégré n'a été trouvé.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Méthode de provisionnement : profil JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Méthode de provisionnement : upload du hardware hash</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyFormat" xml:space="preserve"><value>Certificat valide jusqu'au {0:g}. Group tag par défaut : {1}.</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiredFormat" xml:space="preserve"><value>Le certificat intégré a expiré le {0:g}.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredAction" xml:space="preserve"><value>Régénérez le certificat et l'image de boot. Le déploiement peut continuer, mais l'upload du hash Autopilot sera ignoré.</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotConfigured" xml:space="preserve"><value>Les métadonnées d'upload du hardware hash ne sont pas configurées dans ce média de boot.</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantReadiness" xml:space="preserve"><value>État du tenant</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadinessStatus" xml:space="preserve"><value>Statut</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID du tenant</value></data>
+  <data name="Preparation.AutopilotHardwareHashClientId" xml:space="preserve"><value>ID client</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Empreinte du certificat</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expiration du certificat</value></data>
+  <data name="Preparation.AutopilotHardwareHashDefaultGroupTag" xml:space="preserve"><value>Group tag par défaut</value></data>
+  <data name="Preparation.AutopilotHardwareHashRuntimePending" xml:space="preserve"><value>L'upload du hardware hash est configuré, mais cette version ignorera l'upload tant que l'étape runtime n'est pas implémentée.</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Group tag pour ce déploiement</value></data>
+  <data name="Preparation.AutopilotHardwareHashUseDefaultGroupTagFormat" xml:space="preserve"><value>Utiliser le group tag par défaut : {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUseCustomGroupTag" xml:space="preserve"><value>Utiliser un group tag personnalisé</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Le group tag est optionnel. Laissez la valeur effective sur Aucun pour uploader l'appareil sans group tag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>
@@ -109,6 +118,7 @@
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Méthode Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Group tag Autopilot</value></data>
   <data name="Summary.SectionTarget" xml:space="preserve"><value>Cible</value></data>
   <data name="Summary.SectionSystem" xml:space="preserve"><value>Système</value></data>
   <data name="Summary.SectionDeployment" xml:space="preserve"><value>Options de déploiement</value></data>
@@ -138,6 +148,8 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Common.No" xml:space="preserve"><value>Non</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Activé</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Désactivé</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Prêt</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Non prêt</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Réseau</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Heure de début</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Temps écoulé</value></data>

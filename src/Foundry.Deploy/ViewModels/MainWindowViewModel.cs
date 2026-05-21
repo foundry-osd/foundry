@@ -88,6 +88,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryAutopilotEnabledText => Preparation.IsAutopilotEnabled ? GetString("Common.Yes") : GetString("Common.No");
     public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
+    public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
     public bool IsDebugAutopilotNoneMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.None;
     public bool IsDebugAutopilotJsonProfileMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.JsonProfile;
     public bool IsDebugAutopilotHardwareHashUploadMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.HardwareHashUpload;
@@ -309,7 +310,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
                 AutopilotProvisioningMode = Preparation.AutopilotProvisioningMode,
                 SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
-                AutopilotHardwareHashUpload = Preparation.AutopilotHardwareHashUpload,
+                AutopilotHardwareHashUpload = Preparation.CreateAutopilotHardwareHashUploadForLaunch(),
                 Oobe = _wizardContext.Oobe,
                 AppxRemoval = _wizardContext.AppxRemoval,
                 AiComponentRemoval = _wizardContext.AiComponentRemoval,
@@ -395,6 +396,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
         OnPropertyChanged(nameof(SummaryAutopilotModeText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+        OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -544,6 +546,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
             OnPropertyChanged(nameof(SummaryAutopilotModeText));
             OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+            OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         });
     }
 

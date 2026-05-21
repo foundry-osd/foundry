@@ -22,7 +22,13 @@ public sealed class StageAutopilotConfigurationStep : DeploymentStepBase
 
         if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
         {
-            return DeploymentStepResult.Failed("Autopilot hardware hash upload is not available until the deployment runtime phase is implemented.");
+            if (context.Request.AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc is DateTimeOffset expiresOn &&
+                expiresOn <= DateTimeOffset.UtcNow)
+            {
+                return DeploymentStepResult.Skipped("Autopilot hardware hash upload skipped because the embedded certificate is expired.");
+            }
+
+            return DeploymentStepResult.Skipped("Autopilot hardware hash upload skipped until the deployment runtime phase is implemented.");
         }
 
         if (context.Request.SelectedAutopilotProfile is null)
