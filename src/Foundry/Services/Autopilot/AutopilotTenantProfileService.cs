@@ -15,11 +15,6 @@ namespace Foundry.Services.Autopilot;
 /// </summary>
 public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTenantProfileService
 {
-    private const string DefaultClientId = "83eb3a92-030d-49b7-881b-32a1eb3e110a";
-    private const string ClientIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID";
-    private const string TenantIdEnvironmentVariableName = "FOUNDRY_AUTOPILOT_GRAPH_TENANT_ID";
-    private const string DefaultTenantId = "common";
-    private const string DefaultRedirectUri = "http://localhost";
     private const string OrganizationRequestPath = "v1.0/organization?$select=id,verifiedDomains";
     private const string AutopilotProfilesRequestPath = "beta/deviceManagement/windowsAutopilotDeploymentProfiles";
     private const string TenantDownloadSource = "Tenant download";
@@ -133,19 +128,19 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
 
     private static TokenCredential CreateCredential()
     {
-        string clientId = Environment.GetEnvironmentVariable(ClientIdEnvironmentVariableName)?.Trim()
-            ?? DefaultClientId;
-        string? tenantId = Environment.GetEnvironmentVariable(TenantIdEnvironmentVariableName);
+        string clientId = Environment.GetEnvironmentVariable(AutopilotGraphAuthenticationDefaults.ClientIdEnvironmentVariableName)?.Trim()
+            ?? AutopilotGraphAuthenticationDefaults.FoundryBootstrapClientId;
+        string? tenantId = Environment.GetEnvironmentVariable(AutopilotGraphAuthenticationDefaults.TenantIdEnvironmentVariableName);
 
         return new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions
         {
             ClientId = clientId,
-            TenantId = string.IsNullOrWhiteSpace(tenantId) ? DefaultTenantId : tenantId.Trim(),
-            RedirectUri = new Uri(DefaultRedirectUri, UriKind.Absolute),
+            TenantId = string.IsNullOrWhiteSpace(tenantId) ? AutopilotGraphAuthenticationDefaults.DefaultTenantId : tenantId.Trim(),
+            RedirectUri = new Uri(AutopilotGraphAuthenticationDefaults.RedirectUri, UriKind.Absolute),
             TokenCachePersistenceOptions = new TokenCachePersistenceOptions
             {
                 // Keep Graph auth reusable for Foundry without sharing a token cache name with unrelated tools.
-                Name = "FoundryAutopilotGraph"
+                Name = AutopilotGraphAuthenticationDefaults.TokenCacheName
             }
         });
     }

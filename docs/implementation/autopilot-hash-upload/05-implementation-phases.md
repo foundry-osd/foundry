@@ -76,6 +76,8 @@ Implementation progress:
 
 - [x] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
 - [x] Define tenant/app registration guidance for the OSD onboarding UX and Phase 8 documentation.
+- [x] Document the two-app model: official Foundry bootstrap public client for interactive OSD sign-in, tenant-local managed app for WinPE certificate auth.
+- [x] Keep the official Foundry bootstrap public client ID fixed for official builds and overrideable only for private builds or forks.
 - [x] Implement managed app registration discovery/creation with display name `Foundry OSD Autopilot Registration`.
 - [x] Persist tenant ID, application object ID, client ID, service principal object ID, active certificate `keyId`, active certificate thumbprint, and certificate expiration.
 - [x] Implement required Graph permission checks and admin consent status checks.
@@ -151,6 +153,7 @@ Automated tests:
 Manual checks:
 - [ ] Create the managed app registration in a clean test tenant.
 - [ ] Confirm the app registration name is `Foundry OSD Autopilot Registration`.
+- [ ] Confirm `Connect tenant` creates an Enterprise application for the official `Foundry` bootstrap client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` in the target tenant.
 - [ ] Confirm required API permissions and admin consent status are visible in Foundry OSD.
 - [ ] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
 - [ ] Replace the active certificate and confirm the previous active credential is removed while unrelated credentials are preserved.

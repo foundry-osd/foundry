@@ -49,6 +49,7 @@ UX rules:
 
 Foundry OSD tenant onboarding UX:
 - The hardware hash expander first asks the user to connect to the tenant.
+- `Connect tenant` uses the official Foundry multi-tenant public client app as the interactive sign-in bootstrap. This app has client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` and is separate from the tenant-local app used by generated WinPE media.
 - Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row with `Not connected` and the connect action.
 - A successful tenant connection is retained for the current app session across page navigation. Foundry OSD should require a new tenant sign-in only after the app process restarts or after the operator clicks `Disconnect tenant`.
 - Certificate creation and certificate removal must reuse the current app-session Microsoft Graph credential created by `Connect tenant`. They must not start their own interactive sign-in flow during the same app session.
@@ -57,6 +58,7 @@ Foundry OSD tenant onboarding UX:
 - After a successful current-session connection, the connection action changes to a disconnect action that clears only the current UI session state. Persisted tenant configuration remains stored.
 - After sign-in, Foundry OSD searches for the managed app registration.
 - The planned app registration display name is `Foundry OSD Autopilot Registration`.
+- This managed app registration is tenant-local and is the only application identity used by Foundry Deploy in WinPE for certificate-based Graph authentication.
 - If the app registration does not exist, Foundry OSD creates it with the required Microsoft Graph application permissions.
 - If the app registration exists and matches the persisted application object ID, Foundry OSD reuses it.
 - If an app registration with the same display name exists but Foundry has no persisted application object ID, Foundry OSD must enter a repair/adoption state instead of silently taking ownership.
