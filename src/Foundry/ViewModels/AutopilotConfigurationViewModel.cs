@@ -842,7 +842,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
 
         SetBootMediaCertificateInput(hardwareHashUploadSettings.BootMediaCertificate.PfxPath, password);
-        RefreshHardwareHashUploadState();
+        RefreshBootMediaCertificateState();
         SaveState();
     }
 
@@ -1081,6 +1081,14 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
         SelectBootMediaCertificatePfxCommand.NotifyCanExecuteChanged();
+    }
+
+    private void RefreshBootMediaCertificateState()
+    {
+        OnPropertyChanged(nameof(BootMediaCertificatePfxPath));
+        OnPropertyChanged(nameof(BootMediaCertificateStatusText));
+        OnPropertyChanged(nameof(BootMediaCertificateStatusForeground));
+        OnPropertyChanged(nameof(IsBootMediaCertificateReady));
     }
 
     private void RefreshTenantDetails()

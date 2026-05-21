@@ -124,6 +124,7 @@ Implementation progress:
 - [x] Automatically fill the boot media certificate row in the current app session after Foundry creates a new certificate.
 - [x] Keep boot media PFX path, password, and validation result session-only and excluded from ProgramData serialization.
 - [x] Preserve the boot media certificate ready message across Autopilot page navigation when the current-session PFX is still validated.
+- [x] Refresh only boot media certificate status while typing the PFX password so tenant detail tables do not rebind on every keystroke.
 - [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
 - [x] Show onboarding status as compact `Ready` or `Not ready` text with WinUI signal color.
 - [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
