@@ -114,6 +114,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// </summary>
     public ObservableCollection<AutopilotGroupTagEntryViewModel> AvailableGroupTags { get; } = [];
 
+    /// <summary>
+    /// Gets default group tag choices, including the optional None choice.
+    /// </summary>
+    public ObservableCollection<AutopilotGroupTagEntryViewModel> DefaultGroupTagOptions { get; } = [];
+
     public bool IsAutopilotSectionEnabled => IsAutopilotEnabled;
     public bool HasProfiles => Profiles.Count > 0;
     public Visibility EmptyProfilesVisibility => HasProfiles ? Visibility.Collapsed : Visibility.Visible;
@@ -312,6 +317,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string DefaultGroupTagLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string DefaultGroupTagNoneOptionText { get; set; }
 
     [ObservableProperty]
     public partial string KnownGroupTagsLabel { get; set; }
@@ -925,6 +933,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         BootMediaCertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");
         SelectBootMediaCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateSelectButton");
         DefaultGroupTagLabel = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagLabel");
+        DefaultGroupTagNoneOptionText = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNoneOption");
         KnownGroupTagsLabel = localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsLabel");
         AvailableGroupTagColumnHeader = localizationService.GetString("Autopilot.HardwareHashAvailableGroupTagColumn");
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
@@ -990,6 +999,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
         OnPropertyChanged(nameof(HardwareHashCertificateWarningVisibility));
         OnPropertyChanged(nameof(DefaultGroupTagText));
+        OnPropertyChanged(nameof(DefaultGroupTagOptions));
         OnPropertyChanged(nameof(KnownGroupTagsText));
         OnPropertyChanged(nameof(HasAvailableGroupTags));
         OnPropertyChanged(nameof(AvailableGroupTagsVisibility));
@@ -1025,14 +1035,18 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             .ToArray();
 
         AvailableGroupTags.Clear();
+        DefaultGroupTagOptions.Clear();
+        DefaultGroupTagOptions.Add(new AutopilotGroupTagEntryViewModel(DefaultGroupTagNoneOptionText, null));
         foreach (string groupTag in orderedGroupTags)
         {
-            AvailableGroupTags.Add(new AutopilotGroupTagEntryViewModel(groupTag));
+            AutopilotGroupTagEntryViewModel groupTagEntry = new(groupTag, groupTag);
+            AvailableGroupTags.Add(groupTagEntry);
+            DefaultGroupTagOptions.Add(groupTagEntry);
         }
 
-        AutopilotGroupTagEntryViewModel? selectedGroupTag = AvailableGroupTags.FirstOrDefault(groupTag =>
+        AutopilotGroupTagEntryViewModel? selectedGroupTag = DefaultGroupTagOptions.FirstOrDefault(groupTag =>
                                                        string.Equals(groupTag.GroupTag, preferredDefaultGroupTag, StringComparison.OrdinalIgnoreCase))
-                                                   ?? AvailableGroupTags.FirstOrDefault();
+                                                   ?? DefaultGroupTagOptions.First();
         SelectedDefaultGroupTag = selectedGroupTag;
         hardwareHashUploadSettings = hardwareHashUploadSettings with
         {

@@ -516,6 +516,9 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>No default group tag selected.</value>
   </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="Autopilot.HardwareHashKnownGroupTagsLabel" xml:space="preserve">
     <value>Available group tags</value>
   </data>

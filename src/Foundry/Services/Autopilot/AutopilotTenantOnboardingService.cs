@@ -911,12 +911,13 @@ public sealed class AutopilotTenantOnboardingService(ILogger logger) : IAutopilo
 
     private static string? ResolveDefaultGroupTag(string? currentDefaultGroupTag, string[] groupTags)
     {
-        if (!string.IsNullOrWhiteSpace(currentDefaultGroupTag))
+        if (!string.IsNullOrWhiteSpace(currentDefaultGroupTag) &&
+            groupTags.Contains(currentDefaultGroupTag.Trim(), StringComparer.OrdinalIgnoreCase))
         {
             return currentDefaultGroupTag.Trim();
         }
 
-        return groupTags.FirstOrDefault();
+        return null;
     }
 
     private static string CreateKeyCredentialJson(

@@ -270,8 +270,8 @@
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
                                   HorizontalAlignment="Right"
-                                  DisplayMemberPath="GroupTag"
-                                  ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
                                   PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
                                   SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
                     </wct:SettingsCard>
@@ -290,13 +290,13 @@
                                           IsReadOnly="True"
                                           ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
                                           MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                                          MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                          HorizontalAlignment="Right"
                                           SelectionMode="None"
                                           SelectionUnit="Row"
                                           ShowExportOptions="False"
                                           Visibility="{x:Bind ViewModel.AvailableGroupTagsVisibility, Mode=OneWay}">
                                 <tv:TableView.Columns>
-                                    <tv:TableViewTextColumn Binding="{Binding GroupTag}"
+                                    <tv:TableViewTextColumn Binding="{Binding DisplayName}"
                                                             Header="{x:Bind ViewModel.AvailableGroupTagColumnHeader, Mode=OneWay}" />
                                 </tv:TableView.Columns>
                             </tv:TableView>

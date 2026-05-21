@@ -116,8 +116,9 @@ Implementation progress:
 - [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
-- [x] Select the default group tag from a ComboBox populated by discovered tenant group tags.
-- [x] Display available tenant group tags as a one-column table.
+- [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
+- [x] Keep `None` selected by default because hardware hash upload does not require a group tag.
+- [x] Display available tenant group tags as a one-column table without a trailing empty column.
 
 Automated tests:
 - [x] App registration discovery uses persisted application object ID before display name.
@@ -167,8 +168,9 @@ Manual checks:
 - [ ] Confirm the certificate expiration column text has the same left padding as the other certificate columns.
 - [ ] Confirm the remove certificate action is disabled when no certificate row is selected.
 - [ ] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
-- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear under `Available group tags` as a one-column table.
-- [ ] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration.
+- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear under `Available group tags` as a one-column table without an empty trailing column.
+- [ ] Confirm the default group tag ComboBox selects `None` by default.
+- [ ] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration, then select `None` and confirm the setting is cleared.
 - [ ] Create a certificate, navigate away from Autopilot and back, and confirm the boot media certificate row still shows `Certificate ready for boot media generation.`
 
 ### Phase 3: Autopilot Page UX
