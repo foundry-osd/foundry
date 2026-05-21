@@ -296,9 +296,14 @@
                                       Description="{x:Bind ViewModel.GroupTagDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <StackPanel HorizontalAlignment="Right"
-                                    Spacing="{ThemeResource FoundrySpace12}">
-                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <Grid HorizontalAlignment="Right"
+                              ColumnSpacing="{ThemeResource FoundrySpace12}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}"
+                                  VerticalAlignment="Top">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
@@ -307,12 +312,14 @@
                                            Text="{x:Bind ViewModel.DefaultGroupTagLabel, Mode=OneWay}" />
                                 <ComboBox Grid.Column="1"
                                           MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                          DisplayMemberPath="DisplayName"
-                                          ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
-                                          PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
-                                          SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
+                                           DisplayMemberPath="DisplayName"
+                                           ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
+                                           PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
+                                           SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
                             </Grid>
-                            <StackPanel HorizontalAlignment="Right"
+                            <StackPanel Grid.Column="1"
+                                        Width="{ThemeResource FoundryMediumInputMinWidth}"
+                                        VerticalAlignment="Top"
                                         Spacing="{ThemeResource FoundrySpace8}">
                                 <TextBlock Text="{x:Bind ViewModel.KnownGroupTagsLabel, Mode=OneWay}" />
                                 <tv:TableView AutoGenerateColumns="False"
@@ -324,7 +331,7 @@
                                               HeadersVisibility="Columns"
                                               IsReadOnly="True"
                                               ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
-                                              MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                              MaxHeight="120"
                                               SelectionMode="None"
                                               SelectionUnit="Row"
                                               ShowExportOptions="False"
@@ -339,7 +346,7 @@
                                            TextWrapping="WrapWholeWords"
                                            Visibility="{x:Bind ViewModel.EmptyAvailableGroupTagsVisibility, Mode=OneWay}" />
                             </StackPanel>
-                        </StackPanel>
+                        </Grid>
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
