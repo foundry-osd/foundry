@@ -14,7 +14,8 @@ public sealed class AutopilotHardwareHashGraphSessionService : IAutopilotHardwar
     [
         "Application.ReadWrite.All",
         "AppRoleAssignment.ReadWrite.All",
-        "DeviceManagementServiceConfig.Read.All"
+        "DeviceManagementServiceConfig.Read.All",
+        "User.Read"
     ];
 
     private TokenCredential? credential;

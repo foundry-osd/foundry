@@ -103,6 +103,7 @@ Implementation progress:
 - [x] Make tenant operation cancellation return control to the Autopilot page so the connect action can be retried.
 - [x] Reuse the current-session hardware hash Microsoft Graph credential for certificate creation and removal instead of reopening interactive sign-in.
 - [x] Clear the current-session hardware hash Microsoft Graph credential when the operator disconnects the tenant.
+- [x] Include `User.Read` in the hardware hash onboarding token scopes so Graph organization discovery can read the signed-in tenant ID.
 - [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but app registration, certificate, group tag, and tenant detail rows stay hidden until a successful current-session tenant connection.
 - [x] Show connected tenant details in a dedicated row instead of embedding the tenant ID in the connection row.
 - [x] Display tenant details as a table with tenant ID and client ID.

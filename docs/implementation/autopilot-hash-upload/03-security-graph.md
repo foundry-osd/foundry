@@ -42,6 +42,7 @@ OSD setup permission guidance:
 - `Application.ReadWrite.All` is needed when Foundry OSD creates or updates the managed app registration, including required resource access and certificate credentials.
 - `AppRoleAssignment.ReadWrite.All` is needed if Foundry OSD grants the Microsoft Graph application role to the managed service principal instead of only detecting that admin consent is missing.
 - `DeviceManagementServiceConfig.Read.All` is needed when Foundry OSD discovers existing Windows Autopilot device identities or group tags for the setup UX. `DeviceManagementServiceConfig.ReadWrite.All` is needed only for the WinPE app-only import workflow and any setup-time validation that writes to Intune.
+- `User.Read` is needed in the interactive OSD token because the onboarding flow discovers the signed-in tenant through Microsoft Graph organization metadata before configuring the tenant-local app registration.
 - If the signed-in operator does not have enough rights to grant consent, Foundry OSD should show a consent-required state and block hash-upload media generation until the tenant admin completes consent.
 - These setup rights belong to the signed-in OSD operator session only. They are not stored, exported, or embedded in generated media.
 
