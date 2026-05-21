@@ -29,12 +29,15 @@ Hardware hash upload:
 - Method toggle or radio selection: "Capture and upload hardware hash".
 - Default state: tenant connection prompt.
 - Connected state:
-  - Tenant identity summary.
+  - Tenant readiness summary.
   - Foundry-managed app registration status.
-  - Active certificate status.
-  - Certificate expiration state.
-  - Password-protected PFX input for media generation.
-  - Autopilot group tag default selection.
+  - Tenant ID.
+  - Client ID.
+  - Readiness status.
+  - Certificate actions.
+  - Provisioned certificates table.
+  - Boot media certificate PFX selection and password.
+  - Optional default group tag selection.
 - Optional assigned user UPN field.
 - No user-facing wait option. Foundry Deploy always waits for import/device visibility with the default countdown and timeout behavior.
 - No profile assignment wait in the final implementation.
@@ -53,8 +56,8 @@ Foundry OSD tenant onboarding UX:
 - Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row with `Not connected` and the connect action.
 - A successful tenant connection is retained for the current app session across page navigation. Foundry OSD should require a new tenant sign-in only after the app process restarts or after the operator clicks `Disconnect tenant`.
 - Certificate creation and certificate removal must reuse the current app-session Microsoft Graph credential created by `Connect tenant`. They must not start their own interactive sign-in flow during the same app session.
-- After successful current-session tenant connection, show tenant-dependent rows: tenant details, app registration status, onboarding status, certificates, default group tag, and available group tags.
-- The tenant connection row shows only the connection state and action. Tenant ID and other tenant metadata appear in a separate tenant details row after connection.
+- After successful current-session tenant connection, show tenant-dependent rows: tenant readiness, certificate actions, provisioned certificates, boot media certificate, and optional default group tag.
+- The tenant connection row shows only the connection state and action. Tenant ID, client ID, app registration state, and readiness status appear together in the tenant readiness row after connection.
 - After a successful current-session connection, the connection action changes to a disconnect action that clears only the current UI session state. Persisted tenant configuration remains stored.
 - After sign-in, Foundry OSD searches for the managed app registration.
 - The planned app registration display name is `Foundry OSD Autopilot Registration`.
@@ -107,7 +110,8 @@ Foundry OSD tenant onboarding UX:
 - The onboarding status row should show only `Ready` or `Not ready` with WinUI signal color: success for ready and critical for not ready. A successful tenant connection should not show a success content dialog; the inline readiness row is enough. Detailed failure reasons remain available through attention/failure dialogs and Start page readiness blockers.
 - Foundry OSD must block hardware hash media generation until the managed app exists, required permissions are present, admin consent is granted, the service principal is usable, at least one non-expired app registration certificate is provisioned, and the supplied PFX matches a provisioned certificate.
 - The Start page must show the precise Autopilot readiness blocker instead of a generic default-profile message. Expected hardware hash blockers include missing tenant/app metadata, missing provisioned certificate, expired selected certificate, missing PFX, missing PFX password, unvalidated PFX, thumbprint mismatch, and expired boot media PFX.
-- When connected to the tenant, Foundry OSD should list existing Autopilot group tags discovered from `GET /v1.0/deviceManagement/windowsAutopilotDeviceIdentities`, extracting `groupTag` client-side from the unfiltered response and paging through `@odata.nextLink`. The UI label is "Available group tags".
+- When connected to the tenant, Foundry OSD should discover existing Autopilot group tags from `GET /v1.0/deviceManagement/windowsAutopilotDeviceIdentities`, extracting `groupTag` client-side from the unfiltered response and paging through `@odata.nextLink`.
+- The optional OSD group tag UX is a single `Default group tag` row with a ComboBox containing `None` plus discovered tenant group tags. `None` is selected by default because a group tag is optional for hardware hash upload.
 
 Foundry Deploy UX:
 - Foundry Deploy should render only the selected Autopilot provisioning mode from Foundry OSD.

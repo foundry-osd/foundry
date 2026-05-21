@@ -74,6 +74,10 @@ Implementation progress:
 - [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
+Scope note:
+- Phase 2 went beyond the original security-only scope and pulled forward most of the OSD hardware hash UX planned for Phase 3.
+- Future phases must not reimplement tenant connection, tenant readiness, certificate management, boot media PFX validation, default group tag discovery/selection, or Start page hardware hash readiness blockers unless a later review explicitly changes the UX.
+
 - [x] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
 - [x] Define tenant/app registration guidance for the OSD onboarding UX and Phase 8 documentation.
 - [x] Document the two-app model: official Foundry bootstrap public client for interactive OSD sign-in, tenant-local managed app for WinPE certificate auth.
@@ -221,10 +225,14 @@ Manual checks:
 ### Phase 3: Autopilot Page UX
 PR title: `feat(autopilot): add hardware hash upload UX`
 
+Status note:
+- Most Phase 3 UX work was completed ahead of schedule during Phase 2 in `feature/autopilot-hash-upload-security`.
+- Phase 3 should be treated as a short validation/cleanup phase after Phase 2 is merged, focused on remaining manual checks, XML documentation audit, and any small UX issues found during review.
+
 Implementation progress:
 - [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
 - [ ] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
@@ -245,7 +253,7 @@ Implementation progress:
 - [x] Block live hardware hash deployments until the deployment runtime phase exists, instead of silently skipping Autopilot.
 - [x] Add localized strings in English and French resources.
 - [x] Update readiness messages to include selected mode.
-- [ ] Add XML documentation comments to new public view-model members or UI service contracts when the behavior is not obvious.
+- [ ] Audit XML documentation comments on new public view-model members and UI service contracts after Phase 2 is merged.
 
 Automated tests:
 - [x] View model mode changes save state.
