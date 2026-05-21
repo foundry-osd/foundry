@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Import and select offline Autopilot profiles for deployment media.</value>
+    <value>Choose the Autopilot provisioning method for deployment media: JSON profile staging or WinPE hardware hash upload.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Enable Autopilot</value>
@@ -400,19 +400,22 @@
     <value>PFX certificate</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
-    <value>Certificate created</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateCreatedMessageFormat" xml:space="preserve">
-    <value>The PFX was saved to {1}. Store this password now; Foundry will not show it again: {0}</value>
+    <value>Certificate ready</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Store this password now. Foundry will not show it again.</value>
+    <value>Save this PFX file and password now in a secure location. Foundry does not store the password and cannot show it again after this dialog closes. You will need both values to generate boot media for hardware hash upload.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
     <value>PFX file</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
     <value>PFX password</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>Copy password</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>Password copied.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Certificate creation failed</value>

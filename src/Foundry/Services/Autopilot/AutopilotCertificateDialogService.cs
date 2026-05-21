@@ -1,4 +1,5 @@
 using Foundry.Services.Localization;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace Foundry.Services.Autopilot;
 
@@ -54,13 +55,61 @@ public sealed class AutopilotCertificateDialogService(
                     Style = (Style)Microsoft.UI.Xaml.Application.Current.Resources["BodyStrongTextBlockStyle"],
                     Margin = new Thickness(0, 8, 0, 0)
                 },
-                new Microsoft.UI.Xaml.Controls.TextBox
+                CreatePasswordRow(password)
+            }
+        };
+    }
+
+    private FrameworkElement CreatePasswordRow(string password)
+    {
+        var copiedTextBlock = new TextBlock
+        {
+            Text = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedPasswordCopied"),
+            Foreground = (Microsoft.UI.Xaml.Media.Brush)Microsoft.UI.Xaml.Application.Current.Resources["SystemFillColorSuccessBrush"],
+            Visibility = Visibility.Collapsed
+        };
+
+        var copyButton = new Button
+        {
+            Content = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedCopyPasswordButton"),
+            MinWidth = 128
+        };
+        Grid.SetColumn(copyButton, 1);
+
+        copyButton.Click += (_, _) =>
+        {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(password);
+            Clipboard.SetContent(dataPackage);
+            copiedTextBlock.Visibility = Visibility.Visible;
+        };
+
+        return new StackPanel
+        {
+            Spacing = 8,
+            Children =
+            {
+                new Grid
                 {
-                    Text = password,
-                    IsReadOnly = true,
-                    TextWrapping = TextWrapping.NoWrap,
-                    FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Consolas")
-                }
+                    ColumnSpacing = 8,
+                    ColumnDefinitions =
+                    {
+                        new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                        new ColumnDefinition { Width = GridLength.Auto }
+                    },
+                    Children =
+                    {
+                        new Microsoft.UI.Xaml.Controls.TextBox
+                        {
+                            Text = password,
+                            IsReadOnly = true,
+                            TextWrapping = TextWrapping.NoWrap,
+                            FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Consolas")
+                        },
+                        copyButton
+                    }
+                },
+                copiedTextBlock
             }
         };
     }

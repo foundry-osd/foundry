@@ -123,6 +123,8 @@ Implementation progress:
 - [x] Use WinUI signal brushes for certificate validity: success when valid, caution when expiring within 30 days, and critical when expired.
 - [x] Add padding to the certificate expiration table cell so the validity text aligns with the other columns.
 - [x] Show the generated PFX password in a selectable read-only field in the one-time certificate-created dialog.
+- [x] Make the certificate-created dialog explicitly tell the operator to save both the PFX file and generated password before closing it.
+- [x] Add a copy-to-clipboard action for the generated PFX password in the one-time certificate-created dialog.
 - [x] Enforce Graph application certificate validity limit by offering 1, 3, 6, and 12 months only, with 6 months selected by default.
 - [x] Add a dedicated boot media certificate row for selecting the local password-protected PFX and entering its password.
 - [x] Automatically fill the boot media certificate row in the current app session after Foundry creates a new certificate.
@@ -189,6 +191,8 @@ Manual checks:
 - [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
 - [ ] Connect to an app registration with no certificate credentials and confirm the provisioned certificates row shows the empty-state message.
 - [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
+- [ ] Create a certificate and confirm the content dialog clearly tells the operator to save both the PFX file and PFX password before closing it.
+- [ ] Click `Copy password` in the certificate-created dialog and confirm the generated PFX password is copied to the clipboard.
 - [ ] Create a second certificate and confirm the previous certificate remains present in the tenant certificate table.
 - [ ] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
 - [ ] Select each generated PFX with its password and confirm Foundry automatically resolves the matching tenant certificate before reaching the ready state.

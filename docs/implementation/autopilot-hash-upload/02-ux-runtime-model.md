@@ -83,7 +83,8 @@ Foundry OSD tenant onboarding UX:
 - Certificate creation requires the operator to choose a PFX output path.
 - Certificate creation generates a strong PFX password.
 - When Foundry OSD creates a certificate, it writes the PFX to the selected output path and shows the generated password once in a selectable, read-only field.
-- The content dialog must clearly state that the PFX and PFX password must be stored by the operator outside Foundry.
+- The content dialog must clearly state that the operator must save both the PFX file and PFX password in a secure location before closing the dialog.
+- The content dialog must provide a copy-to-clipboard action for the generated PFX password because Foundry cannot show it again after the dialog closes.
 - Foundry OSD must not persist the raw PFX, PFX password, decrypted private key, exported private key material, or a DPAPI-encrypted local PFX vault in ProgramData.
 - Foundry OSD may keep the PFX bytes and password in memory for the current app session only, so the operator can create the boot image immediately after certificate creation without selecting the same PFX again.
 - On later application launches, the user must sign in again before Foundry OSD can inspect or manage the tenant app registration.

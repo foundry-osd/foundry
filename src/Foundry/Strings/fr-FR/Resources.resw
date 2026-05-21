@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Importer et sélectionner des profils Autopilot hors ligne pour le média de déploiement.</value>
+    <value>Choisir la méthode de provisionnement Autopilot pour le média de déploiement : profil JSON ou upload du hardware hash depuis WinPE.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Activer Autopilot</value>
@@ -400,19 +400,22 @@
     <value>Certificat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
-    <value>Certificat créé</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateCreatedMessageFormat" xml:space="preserve">
-    <value>Le PFX a été enregistré ici : {1}. Stockez ce mot de passe maintenant ; Foundry ne l'affichera plus : {0}</value>
+    <value>Certificat prêt</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Stockez ce mot de passe maintenant. Foundry ne l'affichera plus.</value>
+    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry ne stocke pas le mot de passe et ne pourra plus l'afficher après la fermeture de cette fenêtre. Ces deux éléments seront nécessaires pour générer le média de boot avec upload du hardware hash.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
     <value>Fichier PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
     <value>Mot de passe PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>Copier le mot de passe</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>Mot de passe copié.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
     <value>Échec de création du certificat</value>
