@@ -35,6 +35,7 @@
                               IsOn="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <wct:SettingsExpander.Items>
                     <wct:SettingsCard Header="{x:Bind ViewModel.ActionsHeader, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.ActionsDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
                         <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -71,6 +72,7 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.DefaultProfileDescription, Mode=OneWay}"
                                       Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
                         <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                   DisplayMemberPath="DisplayName"
@@ -79,6 +81,7 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.ProfilesDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
@@ -128,6 +131,7 @@
                               IsOn="{x:Bind ViewModel.UseHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <wct:SettingsExpander.Items>
                     <wct:SettingsCard Header="{x:Bind ViewModel.TenantStatusLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.TenantStatusDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
                         <StackPanel HorizontalAlignment="Right"
@@ -142,6 +146,7 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.AppRegistrationLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.AppRegistrationDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <TextBlock HorizontalAlignment="Right"
@@ -150,14 +155,33 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.TenantDetailsLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.TenantDetailsDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <TextBlock HorizontalAlignment="Right"
-                                   Text="{x:Bind ViewModel.TenantDetailsText, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
+                        <tv:TableView AutoGenerateColumns="False"
+                                      CanFilterColumns="False"
+                                      CanReorderColumns="False"
+                                      CanResizeColumns="False"
+                                      CanSortColumns="False"
+                                      CornerButtonMode="None"
+                                      HeadersVisibility="Columns"
+                                      HorizontalAlignment="Right"
+                                      IsReadOnly="True"
+                                      ItemsSource="{x:Bind ViewModel.TenantDetails, Mode=OneWay}"
+                                      SelectionMode="None"
+                                      SelectionUnit="Row"
+                                      ShowExportOptions="False">
+                            <tv:TableView.Columns>
+                                <tv:TableViewTextColumn Binding="{Binding Name}"
+                                                        Header="{x:Bind ViewModel.TenantDetailsNameColumnHeader, Mode=OneWay}" />
+                                <tv:TableViewTextColumn Binding="{Binding Value}"
+                                                        Header="{x:Bind ViewModel.TenantDetailsValueColumnHeader, Mode=OneWay}" />
+                            </tv:TableView.Columns>
+                        </tv:TableView>
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.TenantOnboardingStatusLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.TenantOnboardingStatusDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <TextBlock HorizontalAlignment="Right"
@@ -166,6 +190,7 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.CertificateStatusLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.CertificateStatusDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundrySpace8}">
@@ -184,7 +209,6 @@
                                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
                                           DisplayMemberPath="DisplayName"
-                                          Header="{x:Bind ViewModel.CertificateValidityLabel, Mode=OneWay}"
                                           ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
                                           SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
                                 <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
@@ -235,6 +259,7 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.BootMediaCertificateLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.BootMediaCertificateDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.BootMediaCertificateVisibility, Mode=OneWay}">
                         <StackPanel HorizontalAlignment="Right"
@@ -266,6 +291,7 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.DefaultGroupTagLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.DefaultGroupTagDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
@@ -277,6 +303,7 @@
                     </wct:SettingsCard>
 
                     <wct:SettingsCard Header="{x:Bind ViewModel.KnownGroupTagsLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.KnownGroupTagsDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <StackPanel HorizontalAlignment="Right">

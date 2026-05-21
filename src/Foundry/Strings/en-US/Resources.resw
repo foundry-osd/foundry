@@ -186,6 +186,9 @@
   <data name="Autopilot.ActionsHeader" xml:space="preserve">
     <value>Profile actions</value>
   </data>
+  <data name="Autopilot.ActionsDescription" xml:space="preserve">
+    <value>Import local JSON profiles or download them from Intune.</value>
+  </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
     <value>Importing Autopilot profile...</value>
   </data>
@@ -213,8 +216,14 @@
   <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
     <value>Default profile</value>
   </data>
+  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
+    <value>Profile staged by default in the applied Windows image.</value>
+  </data>
   <data name="Autopilot.ProfilesLabel" xml:space="preserve">
     <value>Imported profiles</value>
+  </data>
+  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
+    <value>Offline Autopilot profiles available for JSON profile provisioning.</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
     <value>No Autopilot profiles imported.</value>
@@ -318,6 +327,9 @@
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Tenant connection</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
+    <value>Connect to Microsoft Graph for this app session to manage hash upload settings.</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Not connected</value>
   </data>
@@ -330,11 +342,29 @@
   <data name="Autopilot.HardwareHashTenantDetailsLabel" xml:space="preserve">
     <value>Tenant details</value>
   </data>
+  <data name="Autopilot.HardwareHashTenantDetailsDescription" xml:space="preserve">
+    <value>Tenant and application identifiers used by generated boot media.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsValueColumn" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
+    <value>Tenant ID</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
+    <value>Client ID</value>
+  </data>
   <data name="Autopilot.HardwareHashTenantDetailsFormat" xml:space="preserve">
     <value>Tenant ID: {0}</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
     <value>App registration</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationDescription" xml:space="preserve">
+    <value>Managed Entra app registration used by Foundry Deploy in WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
     <value>Foundry OSD Autopilot Registration is not configured.</value>
@@ -344,6 +374,9 @@
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
     <value>Onboarding status</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusDescription" xml:space="preserve">
+    <value>Readiness state for permissions, consent, service principal, and certificate configuration.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusNotChecked" xml:space="preserve">
     <value>Connect to the tenant to check permissions, consent, service principal, and certificate state.</value>
@@ -380,6 +413,9 @@
   </data>
   <data name="Autopilot.HardwareHashCertificateStatusLabel" xml:space="preserve">
     <value>Certificate</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateStatusDescription" xml:space="preserve">
+    <value>App registration certificates trusted for WinPE Graph authentication.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateValidityLabel" xml:space="preserve">
     <value>Validity</value>
@@ -471,6 +507,9 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
     <value>Boot media certificate</value>
   </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
+    <value>Password-protected PFX copied into boot media for hardware hash upload.</value>
+  </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
     <value>PFX file</value>
   </data>
@@ -513,6 +552,9 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagLabel" xml:space="preserve">
     <value>Default group tag</value>
   </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagDescription" xml:space="preserve">
+    <value>Optional group tag preselected in Foundry Deploy during hardware hash upload.</value>
+  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>No default group tag selected.</value>
   </data>
@@ -521,6 +563,9 @@
   </data>
   <data name="Autopilot.HardwareHashKnownGroupTagsLabel" xml:space="preserve">
     <value>Available group tags</value>
+  </data>
+  <data name="Autopilot.HardwareHashKnownGroupTagsDescription" xml:space="preserve">
+    <value>Group tags discovered from existing Windows Autopilot device identities.</value>
   </data>
   <data name="Autopilot.HardwareHashAvailableGroupTagColumn" xml:space="preserve">
     <value>Group tag</value>

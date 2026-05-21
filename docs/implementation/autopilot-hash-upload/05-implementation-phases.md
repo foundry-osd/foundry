@@ -98,11 +98,14 @@ Implementation progress:
 - [x] Reuse the JSON profile tenant download modal sign-in pattern for hardware hash tenant onboarding.
 - [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but app registration, certificate, group tag, and tenant detail rows stay hidden until a successful current-session tenant connection.
 - [x] Show connected tenant details in a dedicated row instead of embedding the tenant ID in the connection row.
+- [x] Display tenant details as a table with tenant ID and client ID.
+- [x] Add descriptions to Autopilot settings cards so users understand each configuration row.
 - [x] Replace the connect action with a disconnect action after successful current-session tenant connection.
 - [x] Clear stale persisted active certificate metadata when Microsoft Graph no longer returns the selected active certificate.
 - [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
 - [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
 - [x] Move certificate action buttons above the certificate table.
+- [x] Remove the visible certificate validity field label while keeping the validity duration selector.
 - [x] Remove the redundant active certificate "valid until" text when the same expiration is already visible in the certificate table.
 - [x] Remove one or more selected certificate credentials while preserving unrelated app credentials.
 - [x] Use WinUI signal brushes for certificate validity: success when valid, caution when expiring within 30 days, and critical when expired.
@@ -152,6 +155,8 @@ Manual checks:
 - [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
 - [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and available group tags become visible.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
+- [ ] Confirm tenant details show tenant ID and client ID in a table after connecting.
+- [ ] Confirm each Autopilot settings card has a concise description.
 - [ ] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
 - [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
 - [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
@@ -163,6 +168,7 @@ Manual checks:
 - [ ] In hardware hash mode with no selected boot media PFX, confirm the Start page shows the missing PFX blocker instead of the JSON profile blocker.
 - [ ] In hardware hash mode with a mismatched PFX, confirm the Start page shows the thumbprint mismatch blocker.
 - [ ] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
+- [ ] Confirm the certificate validity duration selector no longer shows a visible `Validity` label.
 - [ ] Confirm the certificate action buttons are shown above the certificate table.
 - [ ] Confirm the redundant active certificate "valid until" text is not shown when the same expiration is already visible in the certificate table.
 - [ ] Confirm the certificate expiration column text has the same left padding as the other certificate columns.

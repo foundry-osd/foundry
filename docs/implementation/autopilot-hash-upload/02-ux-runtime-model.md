@@ -217,8 +217,11 @@ Validation rules:
 Deploy media generation should add encrypted `CertificatePfxSecret` and `CertificatePfxPasswordSecret` only to the generated WinPE deploy configuration for the current media build. These secret envelopes are not persisted in the normal Foundry OSD settings stored under ProgramData, and Foundry OSD does not maintain a local encrypted PFX vault.
 
 Phase 2 UX refinements:
+- Settings cards include concise descriptions for row-level intent.
+- Tenant details are displayed as a table with tenant ID and client ID.
 - The default group tag is optional and selected from a ComboBox populated with `None` plus tenant-discovered Autopilot device group tags.
 - `None` is the default selection because hardware hash upload does not require a group tag.
 - Available group tags are displayed as a one-column table for scanability.
+- Certificate validity remains selectable, but the inline `Validity` label is hidden to reduce duplicate text in the certificate row.
 - Current-session PFX path, password, and successful validation state are retained while navigating between pages, but are still cleared on app restart.
 - The Start page must show the exact hardware hash media generation blocker when the PFX path, password, thumbprint, expiration, or active certificate is invalid.

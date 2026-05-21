@@ -119,6 +119,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// </summary>
     public ObservableCollection<AutopilotGroupTagEntryViewModel> DefaultGroupTagOptions { get; } = [];
 
+    /// <summary>
+    /// Gets tenant metadata displayed after a successful tenant connection.
+    /// </summary>
+    public ObservableCollection<AutopilotTenantDetailEntryViewModel> TenantDetails { get; } = [];
+
     public bool IsAutopilotSectionEnabled => IsAutopilotEnabled;
     public bool HasProfiles => Profiles.Count > 0;
     public Visibility EmptyProfilesVisibility => HasProfiles ? Visibility.Collapsed : Visibility.Visible;
@@ -247,6 +252,15 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string JsonProfileEnableText { get; set; }
 
     [ObservableProperty]
+    public partial string ActionsDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string DefaultProfileDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string ProfilesDescription { get; set; }
+
+    [ObservableProperty]
     public partial string HardwareHashHeader { get; set; }
 
     [ObservableProperty]
@@ -277,16 +291,43 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string TenantStatusLabel { get; set; }
 
     [ObservableProperty]
+    public partial string TenantStatusDescription { get; set; }
+
+    [ObservableProperty]
     public partial string TenantDetailsLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantDetailsDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantDetailsNameColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantDetailsValueColumnHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantDetailsTenantIdLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string TenantDetailsClientIdLabel { get; set; }
 
     [ObservableProperty]
     public partial string AppRegistrationLabel { get; set; }
 
     [ObservableProperty]
+    public partial string AppRegistrationDescription { get; set; }
+
+    [ObservableProperty]
     public partial string TenantOnboardingStatusLabel { get; set; }
 
     [ObservableProperty]
+    public partial string TenantOnboardingStatusDescription { get; set; }
+
+    [ObservableProperty]
     public partial string CertificateStatusLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string CertificateStatusDescription { get; set; }
 
     [ObservableProperty]
     public partial string CertificateExpiredWarningText { get; set; }
@@ -307,6 +348,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string BootMediaCertificateLabel { get; set; }
 
     [ObservableProperty]
+    public partial string BootMediaCertificateDescription { get; set; }
+
+    [ObservableProperty]
     public partial string BootMediaCertificatePfxPathLabel { get; set; }
 
     [ObservableProperty]
@@ -319,10 +363,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string DefaultGroupTagLabel { get; set; }
 
     [ObservableProperty]
+    public partial string DefaultGroupTagDescription { get; set; }
+
+    [ObservableProperty]
     public partial string DefaultGroupTagNoneOptionText { get; set; }
 
     [ObservableProperty]
     public partial string KnownGroupTagsLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string KnownGroupTagsDescription { get; set; }
 
     [ObservableProperty]
     public partial string AvailableGroupTagColumnHeader { get; set; }
@@ -909,6 +959,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         JsonProfileHeader = localizationService.GetString("Autopilot.JsonProfileHeader");
         JsonProfileDescription = localizationService.GetString("Autopilot.JsonProfileDescription");
         JsonProfileEnableText = localizationService.GetString("Autopilot.JsonProfileEnableLabel");
+        ActionsDescription = localizationService.GetString("Autopilot.ActionsDescription");
+        DefaultProfileDescription = localizationService.GetString("Autopilot.DefaultProfileDescription");
+        ProfilesDescription = localizationService.GetString("Autopilot.ProfilesDescription");
         HardwareHashHeader = localizationService.GetString("Autopilot.HardwareHashHeader");
         HardwareHashDescription = localizationService.GetString("Autopilot.HardwareHashDescription");
         HardwareHashEnableText = localizationService.GetString("Autopilot.HardwareHashEnableLabel");
@@ -919,22 +972,34 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         CreateCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashCreateCertificateButton");
         RetireCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashRetireCertificateButton");
         TenantStatusLabel = localizationService.GetString("Autopilot.HardwareHashTenantStatusLabel");
+        TenantStatusDescription = localizationService.GetString("Autopilot.HardwareHashTenantStatusDescription");
         TenantDetailsLabel = localizationService.GetString("Autopilot.HardwareHashTenantDetailsLabel");
+        TenantDetailsDescription = localizationService.GetString("Autopilot.HardwareHashTenantDetailsDescription");
+        TenantDetailsNameColumnHeader = localizationService.GetString("Autopilot.HardwareHashTenantDetailsNameColumn");
+        TenantDetailsValueColumnHeader = localizationService.GetString("Autopilot.HardwareHashTenantDetailsValueColumn");
+        TenantDetailsTenantIdLabel = localizationService.GetString("Autopilot.HardwareHashTenantDetailsTenantId");
+        TenantDetailsClientIdLabel = localizationService.GetString("Autopilot.HardwareHashTenantDetailsClientId");
         AppRegistrationLabel = localizationService.GetString("Autopilot.HardwareHashAppRegistrationLabel");
+        AppRegistrationDescription = localizationService.GetString("Autopilot.HardwareHashAppRegistrationDescription");
         TenantOnboardingStatusLabel = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusLabel");
+        TenantOnboardingStatusDescription = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusDescription");
         CertificateStatusLabel = localizationService.GetString("Autopilot.HardwareHashCertificateStatusLabel");
+        CertificateStatusDescription = localizationService.GetString("Autopilot.HardwareHashCertificateStatusDescription");
         CertificateExpiredWarningText = localizationService.GetString("Autopilot.HardwareHashCertificateExpiredWarning");
         CertificateThumbprintColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateThumbprintColumn");
         CertificateCreatedColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedColumn");
         CertificateExpiresColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateExpiresColumn");
         CertificateIdColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateIdColumn");
         BootMediaCertificateLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateLabel");
+        BootMediaCertificateDescription = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateDescription");
         BootMediaCertificatePfxPathLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxPathLabel");
         BootMediaCertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");
         SelectBootMediaCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateSelectButton");
         DefaultGroupTagLabel = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagLabel");
+        DefaultGroupTagDescription = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagDescription");
         DefaultGroupTagNoneOptionText = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNoneOption");
         KnownGroupTagsLabel = localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsLabel");
+        KnownGroupTagsDescription = localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsDescription");
         AvailableGroupTagColumnHeader = localizationService.GetString("Autopilot.HardwareHashAvailableGroupTagColumn");
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
         DownloadButtonText = localizationService.GetString("Autopilot.DownloadButton");
@@ -988,6 +1053,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private void RefreshHardwareHashUploadState()
     {
+        RefreshTenantDetails();
         OnPropertyChanged(nameof(TenantStatusText));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
         OnPropertyChanged(nameof(TenantDetailsText));
@@ -1012,6 +1078,22 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
         SelectBootMediaCertificatePfxCommand.NotifyCanExecuteChanged();
+    }
+
+    private void RefreshTenantDetails()
+    {
+        TenantDetails.Clear();
+        if (!HasTenantRegistration)
+        {
+            return;
+        }
+
+        TenantDetails.Add(new AutopilotTenantDetailEntryViewModel(
+            TenantDetailsTenantIdLabel,
+            hardwareHashUploadSettings.Tenant.TenantId!));
+        TenantDetails.Add(new AutopilotTenantDetailEntryViewModel(
+            TenantDetailsClientIdLabel,
+            hardwareHashUploadSettings.Tenant.ClientId!));
     }
 
     private void DisconnectTenantSession()
