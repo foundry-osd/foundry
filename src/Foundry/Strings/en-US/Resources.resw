@@ -508,28 +508,16 @@
     <value>Certificate ready for boot media generation.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
-    <value>Group tag</value>
+    <value>Default group tag</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Optional Autopilot group tag discovery and default selection.</value>
-  </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagLabel" xml:space="preserve">
-    <value>Default group tag</value>
+    <value>Optional group tag preselected in Foundry Deploy during hardware hash upload.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>No default group tag selected.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
     <value>None</value>
-  </data>
-  <data name="Autopilot.HardwareHashKnownGroupTagsLabel" xml:space="preserve">
-    <value>Available group tags</value>
-  </data>
-  <data name="Autopilot.HardwareHashAvailableGroupTagColumn" xml:space="preserve">
-    <value>Group tag</value>
-  </data>
-  <data name="Autopilot.HardwareHashKnownGroupTagsNone" xml:space="preserve">
-    <value>No group tags discovered. Group tag assignment is optional.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingCompletedTitle" xml:space="preserve">
     <value>Tenant onboarding complete</value>

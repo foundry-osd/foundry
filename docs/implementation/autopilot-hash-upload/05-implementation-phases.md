@@ -136,8 +136,8 @@ Implementation progress:
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
 - [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
 - [x] Keep `None` selected by default because hardware hash upload does not require a group tag.
-- [x] Display available tenant group tags as a one-column table without a trailing empty column.
-- [x] Group default group tag selection and available group tag discovery into one optional `Group tag` row.
+- [x] Populate the default group tag ComboBox from discovered tenant group tags without displaying a duplicate available group tag table.
+- [x] Present the optional group tag configuration as one compact `Default group tag` row.
 - [x] Remove obsolete certificate validity/status UI resources after moving readiness to onboarding status, certificate table colors, and boot media PFX validation.
 
 Automated tests:
@@ -174,7 +174,7 @@ Manual checks:
 - [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
 - [ ] Click `Connect tenant`, cancel the tenant sign-in dialog, and confirm the Autopilot page remains responsive and `Connect tenant` can be clicked again.
 - [ ] Click JSON profile `Download from tenant`, cancel the tenant sign-in dialog, and confirm the JSON profile actions remain responsive.
-- [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, default group tag, and available group tags become visible.
+- [ ] Connect to the tenant and confirm app registration, tenant details, onboarding status, certificate table, and default group tag selection become visible.
 - [ ] After connecting once, create and remove certificates and confirm the browser sign-in prompt does not reopen during the same app session.
 - [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant details row.
 - [ ] Confirm tenant details show tenant ID and client ID in a table after connecting.
@@ -202,8 +202,8 @@ Manual checks:
 - [ ] Confirm the certificate expiration column text has the same left padding as the other certificate columns.
 - [ ] Confirm the remove certificate action is disabled when no certificate row is selected.
 - [ ] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
-- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear under `Available group tags` as a one-column table without an empty trailing column.
-- [ ] Confirm `Default group tag` and `Available group tags` are grouped inside the same optional `Group tag` row.
+- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear in the `Default group tag` ComboBox without a duplicate available group tag table.
+- [ ] Confirm the optional group tag area is one compact `Default group tag` row.
 - [ ] Confirm the default group tag ComboBox selects `None` by default.
 - [ ] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration, then select `None` and confirm the setting is cleared.
 - [ ] Create a certificate, navigate away from Autopilot and back, and confirm the boot media certificate row still shows `Certificate ready for boot media generation.`

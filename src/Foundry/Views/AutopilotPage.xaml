@@ -296,57 +296,12 @@
                                       Description="{x:Bind ViewModel.GroupTagDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <Grid HorizontalAlignment="Right"
-                              ColumnSpacing="{ThemeResource FoundrySpace12}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}"
-                                  VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center"
-                                           Text="{x:Bind ViewModel.DefaultGroupTagLabel, Mode=OneWay}" />
-                                <ComboBox Grid.Column="1"
-                                          MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                           DisplayMemberPath="DisplayName"
-                                           ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
-                                           PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
-                                           SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
-                            </Grid>
-                            <StackPanel Grid.Column="1"
-                                        Width="{ThemeResource FoundryMediumInputMinWidth}"
-                                        VerticalAlignment="Top"
-                                        Spacing="{ThemeResource FoundrySpace8}">
-                                <TextBlock Text="{x:Bind ViewModel.KnownGroupTagsLabel, Mode=OneWay}" />
-                                <tv:TableView AutoGenerateColumns="False"
-                                              CanFilterColumns="False"
-                                              CanReorderColumns="False"
-                                              CanResizeColumns="False"
-                                              CanSortColumns="False"
-                                              CornerButtonMode="None"
-                                              HeadersVisibility="Columns"
-                                              IsReadOnly="True"
-                                              ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
-                                              MaxHeight="120"
-                                              SelectionMode="None"
-                                              SelectionUnit="Row"
-                                              ShowExportOptions="False"
-                                              Visibility="{x:Bind ViewModel.AvailableGroupTagsVisibility, Mode=OneWay}">
-                                    <tv:TableView.Columns>
-                                        <tv:TableViewTextColumn Binding="{Binding DisplayName}"
-                                                                Header="{x:Bind ViewModel.AvailableGroupTagColumnHeader, Mode=OneWay}" />
-                                    </tv:TableView.Columns>
-                                </tv:TableView>
-                                <TextBlock HorizontalAlignment="Right"
-                                           Text="{x:Bind ViewModel.KnownGroupTagsText, Mode=OneWay}"
-                                           TextWrapping="WrapWholeWords"
-                                           Visibility="{x:Bind ViewModel.EmptyAvailableGroupTagsVisibility, Mode=OneWay}" />
-                            </StackPanel>
-                        </Grid>
+                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                  HorizontalAlignment="Right"
+                                  DisplayMemberPath="DisplayName"
+                                  ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
+                                  PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
+                                  SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
