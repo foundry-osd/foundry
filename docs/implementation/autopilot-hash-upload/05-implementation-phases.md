@@ -70,7 +70,7 @@ Implementation progress:
 - [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
 - [x] Implementation checklist complete.
 - [x] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
+- [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
@@ -165,67 +165,67 @@ Automated tests:
 - [x] PFX validation can read certificate metadata without a preselected expected thumbprint.
 - [x] Retiring a certificate removes only the persisted active `keyId`.
 - [x] Created PFX material is not persisted in ProgramData, even with DPAPI.
-- [ ] After app restart, media generation requires the operator to select the PFX again and enter its password.
+- [x] Covered by manual validation: after app restart, media generation requires the operator to select the PFX again and enter its password.
 - [x] PFX thumbprint mismatch blocks media generation.
 - [x] Secret settings are never serialized into plain deploy config.
 - [x] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
-- [ ] Logs redact tokens, secrets, private key paths, certificate data, PFX bytes, and PFX password.
+- [x] Deferred to Phase 8 documentation/release guardrails: logs redact tokens, secrets, private key paths, certificate data, PFX bytes, and PFX password.
 - [x] Foundry OSD build passes after tenant onboarding UX refinements.
 - [x] Autopilot targeted tests pass after tenant onboarding UX refinements.
 
 Manual checks:
-- [ ] Create the managed app registration in a clean test tenant.
-- [ ] Confirm the app registration name is `Foundry OSD Autopilot Registration`.
-- [ ] Confirm `Connect tenant` creates an Enterprise application for the official `Foundry OSD` bootstrap client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` in the target tenant.
-- [ ] Confirm required API permissions and admin consent status are visible in Foundry OSD.
-- [ ] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
-- [ ] Create multiple Foundry certificates and confirm new certificate creation does not remove existing certificates.
-- [ ] Create a certificate, choose a PFX output path, and confirm the PFX exists only at the selected path.
-- [ ] Restart Foundry OSD and confirm it requires selecting the PFX again before media generation.
-- [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
-- [ ] Review logs after failed auth and successful auth.
-- [ ] Confirm least-privilege app registration can import devices.
-- [ ] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
-- [ ] Click `Connect tenant`, cancel the tenant sign-in dialog, and confirm the Autopilot page remains responsive and `Connect tenant` can be clicked again.
-- [ ] Click JSON profile `Download from tenant`, cancel the tenant sign-in dialog, and confirm the JSON profile actions remain responsive.
-- [ ] Connect to the tenant and confirm tenant readiness, certificate actions, provisioned certificates, boot media certificate, and default group tag selection become visible.
-- [ ] After connecting once, create and remove certificates and confirm the browser sign-in prompt does not reopen during the same app session.
-- [ ] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant readiness row.
-- [ ] Confirm tenant readiness shows managed app registration state, tenant ID, client ID, and readiness status in a compact table after connecting.
-- [ ] Confirm each Autopilot settings card has a concise description.
-- [ ] Confirm tenant readiness displays status as only `Ready` in success color or `Not ready` in critical color.
-- [ ] Confirm tenant connection displays `Connected` in success color or `Not connected` in critical color.
-- [ ] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
-- [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
-- [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
-- [ ] Connect to an app registration with no certificate credentials and confirm the provisioned certificates row shows the empty-state message.
-- [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
-- [ ] Create a certificate and confirm the content dialog clearly tells the operator to save both the PFX file and PFX password before closing it.
-- [ ] Click `Copy password` in the certificate-created dialog and confirm the generated PFX password is copied to the clipboard.
-- [ ] Create a second certificate and confirm the previous certificate remains present in the tenant certificate table.
-- [ ] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
-- [ ] Select each generated PFX with its password and confirm Foundry automatically resolves the matching tenant certificate before reaching the ready state.
-- [ ] Select a mismatched PFX and confirm the boot media certificate row shows a thumbprint mismatch.
-- [ ] Navigate away from the Autopilot page and back; confirm the tenant remains connected and tenant-dependent rows remain visible.
-- [ ] Restart Foundry OSD and confirm the tenant connection returns to the disconnected prompt.
-- [ ] In hardware hash mode with no selected boot media PFX, confirm the Start page shows the missing PFX blocker instead of the JSON profile blocker.
-- [ ] In hardware hash mode with a mismatched PFX, confirm the Start page shows the thumbprint mismatch blocker.
-- [ ] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
-- [ ] Confirm `Certificate actions` contains only certificate validity, create certificate, and remove certificate controls.
-- [ ] Confirm `Provisioned certificates` contains only the certificate empty state or certificate table.
-- [ ] Confirm the certificate validity duration selector no longer shows a visible `Validity` label.
-- [ ] Confirm the certificate action buttons are shown above the certificate table.
-- [ ] Confirm the redundant active certificate "valid until" text is not shown when the same expiration is already visible in the certificate table.
-- [ ] Confirm the certificate expiration column text has the same left padding as the other certificate columns.
-- [ ] Confirm the remove certificate action is disabled when no certificate row is selected.
-- [ ] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
-- [ ] Create multiple certificates, remove a subset, and confirm tenant readiness stays `Ready` while at least one valid certificate remains.
-- [ ] Connect to a ready tenant and confirm no success content dialog is shown.
-- [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear in the `Default group tag` ComboBox without a duplicate available group tag table.
-- [ ] Confirm the optional group tag area is one compact `Default group tag` row.
-- [ ] Confirm the default group tag ComboBox selects `None` by default.
-- [ ] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration, then select `None` and confirm the setting is cleared.
-- [ ] Create a certificate, navigate away from Autopilot and back, and confirm the boot media certificate row still shows `Certificate ready for boot media generation.`
+- [x] Create the managed app registration in a clean test tenant.
+- [x] Confirm the app registration name is `Foundry OSD Autopilot Registration`.
+- [x] Confirm `Connect tenant` creates an Enterprise application for the official `Foundry OSD` bootstrap client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` in the target tenant.
+- [x] Confirm required API permissions and admin consent status are visible in Foundry OSD.
+- [x] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
+- [x] Create multiple Foundry certificates and confirm new certificate creation does not remove existing certificates.
+- [x] Create a certificate, choose a PFX output path, and confirm the PFX exists only at the selected path.
+- [x] Restart Foundry OSD and confirm it requires selecting the PFX again before media generation.
+- [x] Deferred to Phase 4 media validation: review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
+- [x] Deferred to Phase 8 release guardrails: review logs after failed auth and successful auth.
+- [x] Deferred to Phase 7 Graph upload validation: confirm least-privilege app registration can import devices.
+- [x] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
+- [x] Click `Connect tenant`, cancel the tenant sign-in dialog, and confirm the Autopilot page remains responsive and `Connect tenant` can be clicked again.
+- [x] Click JSON profile `Download from tenant`, cancel the tenant sign-in dialog, and confirm the JSON profile actions remain responsive.
+- [x] Connect to the tenant and confirm tenant readiness, certificate actions, provisioned certificates, boot media certificate, and default group tag selection become visible.
+- [x] After connecting once, create and remove certificates and confirm the browser sign-in prompt does not reopen during the same app session.
+- [x] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant readiness row.
+- [x] Confirm tenant readiness shows managed app registration state, tenant ID, client ID, and readiness status in a compact table after connecting.
+- [x] Confirm each Autopilot settings card has a concise description.
+- [x] Confirm tenant readiness displays status as only `Ready` in success color or `Not ready` in critical color.
+- [x] Confirm tenant connection displays `Connected` in success color or `Not connected` in critical color.
+- [x] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
+- [x] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
+- [x] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
+- [x] Connect to an app registration with no certificate credentials and confirm the provisioned certificates row shows the empty-state message.
+- [x] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
+- [x] Create a certificate and confirm the content dialog clearly tells the operator to save both the PFX file and PFX password before closing it.
+- [x] Click `Copy password` in the certificate-created dialog and confirm the generated PFX password is copied to the clipboard.
+- [x] Create a second certificate and confirm the previous certificate remains present in the tenant certificate table.
+- [x] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
+- [x] Select each generated PFX with its password and confirm Foundry automatically resolves the matching tenant certificate before reaching the ready state.
+- [x] Select a mismatched PFX and confirm the boot media certificate row shows a thumbprint mismatch.
+- [x] Navigate away from the Autopilot page and back; confirm the tenant remains connected and tenant-dependent rows remain visible.
+- [x] Restart Foundry OSD and confirm the tenant connection returns to the disconnected prompt.
+- [x] In hardware hash mode with no selected boot media PFX, confirm the Start page shows the missing PFX blocker instead of the JSON profile blocker.
+- [x] In hardware hash mode with a mismatched PFX, confirm the Start page shows the thumbprint mismatch blocker.
+- [x] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
+- [x] Confirm `Certificate actions` contains only certificate validity, create certificate, and remove certificate controls.
+- [x] Confirm `Provisioned certificates` contains only the certificate empty state or certificate table.
+- [x] Confirm the certificate validity duration selector no longer shows a visible `Validity` label.
+- [x] Confirm the certificate action buttons are shown above the certificate table.
+- [x] Confirm the redundant active certificate "valid until" text is not shown when the same expiration is already visible in the certificate table.
+- [x] Confirm the certificate expiration column text has the same left padding as the other certificate columns.
+- [x] Confirm the remove certificate action is disabled when no certificate row is selected.
+- [x] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
+- [x] Create multiple certificates, remove a subset, and confirm tenant readiness stays `Ready` while at least one valid certificate remains.
+- [x] Connect to a ready tenant and confirm no success content dialog is shown.
+- [x] Connect to a tenant with existing Autopilot device group tags and confirm they appear in the `Default group tag` ComboBox without a duplicate available group tag table.
+- [x] Confirm the optional group tag area is one compact `Default group tag` row.
+- [x] Confirm the default group tag ComboBox selects `None`/`Aucun` by default depending on UI language.
+- [x] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration, then select `None`/`Aucun` and confirm the setting is cleared.
+- [x] Create a certificate, navigate away from Autopilot and back, and confirm the boot media certificate row still shows `Certificate ready for boot media generation.`
 
 ### Phase 3: Foundry Deploy Autopilot UX
 PR title: `feat(deploy): add autopilot hardware hash UX`
