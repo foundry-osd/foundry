@@ -1,5 +1,7 @@
 namespace Foundry.Core.Models.Configuration;
 
+using System.Text.Json.Serialization;
+
 /// <summary>
 /// Stores persistent metadata for WinPE Autopilot hardware hash upload without private key material.
 /// </summary>
@@ -29,4 +31,36 @@ public sealed record AutopilotHardwareHashUploadSettings
     /// Gets the default Autopilot group tag selected during media generation.
     /// </summary>
     public string? DefaultGroupTag { get; init; }
+
+    /// <summary>
+    /// Gets session-only PFX input used for the current boot media generation.
+    /// </summary>
+    [JsonIgnore]
+    public AutopilotBootMediaCertificateSettings BootMediaCertificate { get; init; } = new();
+}
+
+/// <summary>
+/// Stores session-only Autopilot certificate material selected for boot media generation.
+/// </summary>
+public sealed record AutopilotBootMediaCertificateSettings
+{
+    /// <summary>
+    /// Gets the operator-selected password-protected PFX path.
+    /// </summary>
+    public string? PfxPath { get; init; }
+
+    /// <summary>
+    /// Gets the PFX password for the current app session only.
+    /// </summary>
+    public string? PfxPassword { get; init; }
+
+    /// <summary>
+    /// Gets the validated PFX leaf certificate thumbprint.
+    /// </summary>
+    public string? ValidatedThumbprint { get; init; }
+
+    /// <summary>
+    /// Gets the validated PFX leaf certificate expiration.
+    /// </summary>
+    public DateTimeOffset? ValidatedExpiresOnUtc { get; init; }
 }

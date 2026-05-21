@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
@@ -1204,6 +1205,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             vendors.Add(WinPeVendorSelection.Hp);
         }
 
+        AutopilotConfigurationValidationResult autopilotValidation = foundryConfigurationStateService.AutopilotConfigurationValidation;
+
         return new MediaPreflightOptions
         {
             IsAdkReady = adkService.CurrentStatus.CanCreateMedia,
@@ -1212,7 +1215,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IsConnectProvisioningReady = foundryConfigurationStateService.IsConnectProvisioningReady,
             AreRequiredSecretsReady = foundryConfigurationStateService.AreRequiredSecretsReady,
             IsAutopilotEnabled = foundryConfigurationStateService.IsAutopilotEnabled,
-            IsAutopilotConfigurationReady = foundryConfigurationStateService.IsAutopilotConfigurationReady,
+            IsAutopilotConfigurationReady = autopilotValidation.IsReady,
+            AutopilotConfigurationValidationCode = autopilotValidation.Code,
             AutopilotProvisioningMode = foundryConfigurationStateService.AutopilotProvisioningMode,
             AutopilotProfileDisplayName = foundryConfigurationStateService.SelectedAutopilotProfileDisplayName,
             AutopilotProfileFolderName = foundryConfigurationStateService.SelectedAutopilotProfileFolderName,
@@ -1526,7 +1530,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsAutopilotConfigurationReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
             options.IsAutopilotConfigurationReady
                 ? FormatAutopilot(options)
-                : GetBlockingReasonText(MediaPreflightBlockingReason.AutopilotConfigurationNotReady),
+                : GetAutopilotValidationText(options.AutopilotConfigurationValidationCode),
             options.IsAutopilotConfigurationReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Autopilot);
     }
 
@@ -1783,7 +1787,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         if (!options.IsAutopilotConfigurationReady)
         {
-            return localizationService.GetString("StartMedia.Autopilot.NotReady");
+            return GetAutopilotValidationText(options.AutopilotConfigurationValidationCode);
         }
 
         if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
@@ -1795,6 +1799,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             localizationService.GetString("StartMedia.Autopilot.ProfileFormat"),
             FormatValue(options.AutopilotProfileDisplayName),
             FormatValue(options.AutopilotProfileFolderName));
+    }
+
+    private string GetAutopilotValidationText(AutopilotConfigurationValidationCode code)
+    {
+        string key = $"StartMedia.Autopilot.Validation.{code}";
+        string value = localizationService.GetString(key);
+        return string.Equals(value, key, StringComparison.Ordinal)
+            ? GetBlockingReasonText(MediaPreflightBlockingReason.AutopilotConfigurationNotReady)
+            : value;
     }
 
     private static string FormatValue(string? value)

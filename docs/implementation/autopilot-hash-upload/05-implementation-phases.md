@@ -67,64 +67,173 @@ Manual checks:
 PR title: `feat(autopilot): add secure tenant upload onboarding`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
-- [ ] PR opened with the planned title.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
+- [x] Manual checks complete or explicitly deferred.
+- [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
-- [ ] Define tenant/app registration guidance for the OSD onboarding UX and Phase 8 documentation.
-- [ ] Implement managed app registration discovery/creation with display name `Foundry OSD Autopilot Registration`.
-- [ ] Persist tenant ID, application object ID, client ID, service principal object ID, active certificate `keyId`, active certificate thumbprint, and certificate expiration.
-- [ ] Implement required Graph permission checks and admin consent status checks.
-- [ ] Implement service principal presence/enabled checks.
-- [ ] Implement active certificate lifecycle management against Microsoft Graph `keyCredentials`.
-- [ ] Merge new certificate credentials with the existing `keyCredentials` collection and never prune unknown credentials automatically.
-- [ ] Implement repair/adoption state for existing display-name matches, missing active certificate credentials, and multiple Foundry-looking credentials without a persisted active certificate.
-- [ ] Accept only password-protected PFX material for media generation.
-- [ ] Require a PFX output path during certificate creation.
-- [ ] Keep created PFX bytes and password in memory only for the current app session.
-- [ ] Do not implement a ProgramData PFX vault or "remember this PFX" option.
-- [ ] Validate the PFX leaf certificate thumbprint against the configured active certificate thumbprint.
-- [ ] Define certificate app-only auth as the only supported WinPE Graph authentication path for code, XML documentation comments, and Phase 8 documentation.
-- [ ] Define generated media containing encrypted certificate private key material as tenant-sensitive for code warnings, UI copy, and Phase 8 documentation.
-- [ ] Generalize the existing Foundry Connect AES-GCM media secret envelope for Autopilot secrets.
-- [ ] Define device code flow, client secrets, and brokered upload as unsupported WinPE authentication modes.
-- [ ] Define unsupported secret embedding patterns and add test coverage for them.
-- [ ] Add audit-safe logging rules.
-- [ ] Add XML documentation comments to new public tenant onboarding, certificate, and secret-protection APIs.
+Scope note:
+- Phase 2 went beyond the original security-only scope and pulled forward most of the OSD hardware hash UX planned for Phase 3.
+- Future phases must not reimplement tenant connection, tenant readiness, certificate management, boot media PFX validation, default group tag discovery/selection, or Start page hardware hash readiness blockers unless a later review explicitly changes the UX.
+
+- [x] Define the permission matrix for the implementation model; user-facing documentation is handled in Phase 8.
+- [x] Define tenant/app registration guidance for the OSD onboarding UX and Phase 8 documentation.
+- [x] Document the two-app model: official Foundry bootstrap public client for interactive OSD sign-in, tenant-local managed app for WinPE certificate auth.
+- [x] Keep the official Foundry bootstrap public client ID fixed for official builds and overrideable only for private builds or forks.
+- [x] Implement managed app registration discovery/creation with display name `Foundry OSD Autopilot Registration`.
+- [x] Persist tenant ID, application object ID, client ID, service principal object ID, active certificate `keyId`, active certificate thumbprint, and certificate expiration.
+- [x] Implement required Graph permission checks and admin consent status checks.
+- [x] Implement service principal presence/enabled checks.
+- [x] Implement active certificate lifecycle management against Microsoft Graph `keyCredentials`.
+- [x] Merge new certificate credentials with the existing `keyCredentials` collection and never prune unknown credentials automatically.
+- [x] Implement repair/adoption state for existing display-name matches, missing active certificate credentials, and multiple Foundry-looking credentials without a persisted active certificate.
+- [x] Accept only password-protected PFX material for media generation.
+- [x] Require a PFX output path during certificate creation.
+- [x] Keep created PFX bytes and password in memory only for the current app session.
+- [x] Do not implement a ProgramData PFX vault or "remember this PFX" option.
+- [x] Validate the PFX leaf certificate thumbprint against the configured active certificate thumbprint.
+- [x] Define certificate app-only auth as the only supported WinPE Graph authentication path for code, XML documentation comments, and Phase 8 documentation.
+- [x] Define generated media containing encrypted certificate private key material as tenant-sensitive for code warnings, UI copy, and Phase 8 documentation.
+- [x] Generalize the existing Foundry Connect AES-GCM media secret envelope for Autopilot secrets.
+- [x] Define device code flow, client secrets, and brokered upload as unsupported WinPE authentication modes.
+- [x] Define unsupported secret embedding patterns and add test coverage for them.
+- [x] Add audit-safe logging rules.
+- [x] Add XML documentation comments to new public tenant onboarding, certificate, and secret-protection APIs.
+- [x] Reuse the JSON profile tenant download modal sign-in pattern for hardware hash tenant onboarding.
+- [x] Route JSON profile download and hardware hash tenant onboarding through one shared tenant operation dialog service.
+- [x] Remove the obsolete JSON-specific tenant download dialog wrapper API.
+- [x] Make tenant operation cancellation return control to the Autopilot page so the connect action can be retried.
+- [x] Reuse the current-session hardware hash Microsoft Graph credential for certificate creation and removal instead of reopening interactive sign-in.
+- [x] Clear the current-session hardware hash Microsoft Graph credential when the operator disconnects the tenant.
+- [x] Keep interactive Microsoft Graph authentication session-only by disabling persistent MSAL token cache storage for OSD tenant operations.
+- [x] Include `User.Read` in the hardware hash onboarding token scopes so Graph organization discovery can read the signed-in tenant ID.
+- [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but tenant readiness, certificate, and group tag rows stay hidden until a successful current-session tenant connection.
+- [x] Show tenant readiness in one dedicated row instead of embedding tenant and readiness details in separate rows.
+- [x] Display managed app registration state, tenant ID, client ID, and readiness status in a compact read-only table.
+- [x] Add descriptions to Autopilot settings cards so users understand each configuration row.
+- [x] Replace the connect action with a disconnect action after successful current-session tenant connection.
+- [x] Clear stale persisted active certificate metadata when Microsoft Graph no longer returns the selected active certificate.
+- [x] Split certificate management into a certificate action row and a provisioned certificates table row.
+- [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
+- [x] Show an empty-state message in the provisioned certificates table row when the tenant app registration has no certificate credentials.
+- [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
+- [x] Allow multiple app registration certificates to coexist in the tenant instead of replacing the previously selected certificate during creation.
+- [x] Filter the provisioned certificate table to Foundry-managed certificate credentials so unrelated app registration credentials are not shown or removable from Foundry.
+- [x] Delete the generated local PFX file if Graph certificate upload fails during certificate creation.
+- [x] Resolve the boot media certificate automatically by matching the selected PFX thumbprint against tenant app registration certificates.
+- [x] Move certificate action buttons above the certificate table.
+- [x] Remove the visible certificate validity field label while keeping the validity duration selector.
+- [x] Remove the redundant active certificate "valid until" text when the same expiration is already visible in the certificate table.
+- [x] Remove one or more selected certificate credentials while preserving unrelated app credentials.
+- [x] Use WinUI signal brushes for certificate validity: success when valid, caution when expiring within 30 days, and critical when expired.
+- [x] Add padding to the certificate expiration table cell so the validity text aligns with the other columns.
+- [x] Show the generated PFX password in a selectable read-only field in the one-time certificate-created dialog.
+- [x] Make the certificate-created dialog explicitly tell the operator to save both the PFX file and generated password before closing it.
+- [x] Add a copy-to-clipboard action for the generated PFX password in the one-time certificate-created dialog.
+- [x] Enforce Graph application certificate validity limit by offering 1, 3, 6, and 12 months only, with 6 months selected by default.
+- [x] Add a dedicated boot media certificate row for selecting the local password-protected PFX and entering its password.
+- [x] Automatically fill the boot media certificate row in the current app session after Foundry creates a new certificate.
+- [x] Keep boot media PFX path, password, and validation result session-only and excluded from ProgramData serialization.
+- [x] Preserve the boot media certificate ready message across Autopilot page navigation when the current-session PFX is still validated.
+- [x] Refresh only boot media certificate status while typing the PFX password so tenant readiness details do not rebind on every keystroke.
+- [x] Prioritize boot media PFX-specific readiness messages over generic active certificate metadata blockers on the Autopilot page and Start page.
+- [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
+- [x] Show onboarding status as compact `Ready` or `Not ready` text with WinUI signal color.
+- [x] Show tenant connection state as `Connected` in success color or `Not connected` in critical color.
+- [x] Suppress the tenant onboarding success content dialog; successful connection is shown inline through the readiness table.
+- [x] Keep tenant readiness `Ready` when at least one valid Foundry-managed app certificate remains after removing other selected certificates.
+- [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
+- [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
+- [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
+- [x] Preserve the previously saved default group tag if group tag discovery fails during tenant connection.
+- [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
+- [x] Keep `None` selected by default because hardware hash upload does not require a group tag.
+- [x] Populate the default group tag ComboBox from discovered tenant group tags without displaying a duplicate available group tag table.
+- [x] Present the optional group tag configuration as one compact `Default group tag` row.
+- [x] Remove obsolete certificate validity/status UI resources after moving readiness to onboarding status, certificate table colors, and boot media PFX validation.
 
 Automated tests:
-- [ ] App registration discovery uses persisted application object ID before display name.
-- [ ] Same display name without persisted object ID enters repair/adoption state.
-- [ ] Required permission missing maps to `PermissionMissing`.
-- [ ] Admin consent missing maps to `ConsentMissing`.
-- [ ] Disabled or missing service principal maps to `ServicePrincipalUnavailable`.
-- [ ] Adding a certificate preserves existing non-active `keyCredentials`.
-- [ ] Retiring a certificate removes only the persisted active `keyId`.
-- [ ] Created PFX material is not persisted in ProgramData, even with DPAPI.
-- [ ] After app restart, media generation requires the operator to select the PFX again and enter its password.
-- [ ] PFX thumbprint mismatch blocks media generation.
-- [ ] Secret settings are never serialized into plain deploy config.
-- [ ] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
-- [ ] Logs redact tokens, secrets, private key paths, certificate data, PFX bytes, and PFX password.
+- [x] App registration discovery uses persisted application object ID before display name.
+- [x] Same display name without persisted object ID enters repair/adoption state.
+- [x] Required permission missing maps to `PermissionMissing`.
+- [x] Admin consent missing maps to `ConsentMissing`.
+- [x] Disabled or missing service principal maps to `ServicePrincipalUnavailable`.
+- [x] Adding a certificate preserves existing non-active `keyCredentials`.
+- [x] App registrations with existing Foundry certificate credentials are tenant-ready without requiring a manual active certificate selection.
+- [x] PFX validation can read certificate metadata without a preselected expected thumbprint.
+- [x] Retiring a certificate removes only the persisted active `keyId`.
+- [x] Created PFX material is not persisted in ProgramData, even with DPAPI.
+- [x] Covered by manual validation: after app restart, media generation requires the operator to select the PFX again and enter its password.
+- [x] PFX thumbprint mismatch blocks media generation.
+- [x] Secret settings are never serialized into plain deploy config.
+- [x] Tampered encrypted certificate envelopes fail without leaking ciphertext, private key material, or certificate password data.
+- [x] Deferred to Phase 8 documentation/release guardrails: logs redact tokens, secrets, private key paths, certificate data, PFX bytes, and PFX password.
+- [x] Foundry OSD build passes after tenant onboarding UX refinements.
+- [x] Autopilot targeted tests pass after tenant onboarding UX refinements.
 
 Manual checks:
-- [ ] Create the managed app registration in a clean test tenant.
-- [ ] Confirm the app registration name is `Foundry OSD Autopilot Registration`.
-- [ ] Confirm required API permissions and admin consent status are visible in Foundry OSD.
-- [ ] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
-- [ ] Replace the active certificate and confirm the old credential is retained until the operator explicitly retires it.
-- [ ] Create a certificate, choose a PFX output path, and confirm the PFX exists only at the selected path.
-- [ ] Restart Foundry OSD and confirm it requires selecting the PFX again before media generation.
-- [ ] Review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
-- [ ] Review logs after failed auth and successful auth.
-- [ ] Confirm least-privilege app registration can import devices.
+- [x] Create the managed app registration in a clean test tenant.
+- [x] Confirm the app registration name is `Foundry OSD Autopilot Registration`.
+- [x] Confirm `Connect tenant` creates an Enterprise application for the official `Foundry OSD` bootstrap client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` in the target tenant.
+- [x] Confirm required API permissions and admin consent status are visible in Foundry OSD.
+- [x] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
+- [x] Create multiple Foundry certificates and confirm new certificate creation does not remove existing certificates.
+- [x] Create a certificate, choose a PFX output path, and confirm the PFX exists only at the selected path.
+- [x] Restart Foundry OSD and confirm it requires selecting the PFX again before media generation.
+- [x] Deferred to Phase 4 media validation: review generated media contents and confirm certificate private key material is envelope-encrypted, not plaintext.
+- [x] Deferred to Phase 8 release guardrails: review logs after failed auth and successful auth.
+- [x] Deferred to Phase 7 Graph upload validation: confirm least-privilege app registration can import devices.
+- [x] Start Foundry OSD with persisted tenant metadata and confirm only `Tenant connection`, `Not connected`, and `Connect tenant` are shown before current-session sign-in.
+- [x] Click `Connect tenant`, cancel the tenant sign-in dialog, and confirm the Autopilot page remains responsive and `Connect tenant` can be clicked again.
+- [x] Click JSON profile `Download from tenant`, cancel the tenant sign-in dialog, and confirm the JSON profile actions remain responsive.
+- [x] Connect to the tenant and confirm tenant readiness, certificate actions, provisioned certificates, boot media certificate, and default group tag selection become visible.
+- [x] After connecting once, create and remove certificates and confirm the browser sign-in prompt does not reopen during the same app session.
+- [x] Confirm `Tenant connection` shows only `Connected` or `Not connected`, and the tenant ID appears only in the dedicated tenant readiness row.
+- [x] Confirm tenant readiness shows managed app registration state, tenant ID, client ID, and readiness status in a compact table after connecting.
+- [x] Confirm each Autopilot settings card has a concise description.
+- [x] Confirm tenant readiness displays status as only `Ready` in success color or `Not ready` in critical color.
+- [x] Confirm tenant connection displays `Connected` in success color or `Not connected` in critical color.
+- [x] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
+- [x] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
+- [x] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
+- [x] Connect to an app registration with no certificate credentials and confirm the provisioned certificates row shows the empty-state message.
+- [x] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
+- [x] Create a certificate and confirm the content dialog clearly tells the operator to save both the PFX file and PFX password before closing it.
+- [x] Click `Copy password` in the certificate-created dialog and confirm the generated PFX password is copied to the clipboard.
+- [x] Create a second certificate and confirm the previous certificate remains present in the tenant certificate table.
+- [x] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
+- [x] Select each generated PFX with its password and confirm Foundry automatically resolves the matching tenant certificate before reaching the ready state.
+- [x] Select a mismatched PFX and confirm the boot media certificate row shows a thumbprint mismatch.
+- [x] Navigate away from the Autopilot page and back; confirm the tenant remains connected and tenant-dependent rows remain visible.
+- [x] Restart Foundry OSD and confirm the tenant connection returns to the disconnected prompt.
+- [x] In hardware hash mode with no selected boot media PFX, confirm the Start page shows the missing PFX blocker instead of the JSON profile blocker.
+- [x] In hardware hash mode with a mismatched PFX, confirm the Start page shows the thumbprint mismatch blocker.
+- [x] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
+- [x] Confirm `Certificate actions` contains only certificate validity, create certificate, and remove certificate controls.
+- [x] Confirm `Provisioned certificates` contains only the certificate empty state or certificate table.
+- [x] Confirm the certificate validity duration selector no longer shows a visible `Validity` label.
+- [x] Confirm the certificate action buttons are shown above the certificate table.
+- [x] Confirm the redundant active certificate "valid until" text is not shown when the same expiration is already visible in the certificate table.
+- [x] Confirm the certificate expiration column text has the same left padding as the other certificate columns.
+- [x] Confirm the remove certificate action is disabled when no certificate row is selected.
+- [x] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
+- [x] Create multiple certificates, remove a subset, and confirm tenant readiness stays `Ready` while at least one valid certificate remains.
+- [x] Connect to a ready tenant and confirm no success content dialog is shown.
+- [x] Connect to a tenant with existing Autopilot device group tags and confirm they appear in the `Default group tag` ComboBox without a duplicate available group tag table.
+- [x] Confirm the optional group tag area is one compact `Default group tag` row.
+- [x] Confirm the default group tag ComboBox selects `None`/`Aucun` by default depending on UI language.
+- [x] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration, then select `None`/`Aucun` and confirm the setting is cleared.
+- [x] Create a certificate, navigate away from Autopilot and back, and confirm the boot media certificate row still shows `Certificate ready for boot media generation.`
 
-### Phase 3: Autopilot Page UX
-PR title: `feat(autopilot): add hardware hash upload UX`
+### Phase 3: Foundry Deploy Autopilot UX
+PR title: `feat(deploy): add autopilot hardware hash UX`
+
+Status note:
+- Most Phase 3 UX work was completed ahead of schedule during Phase 2 in `feature/autopilot-hash-upload-security`.
+- Phase 3 now focuses on Foundry Deploy Autopilot UX only. Foundry OSD Autopilot UX should be treated as already implemented unless a later review explicitly changes it.
+- Runtime execution still belongs to Phase 5 and later phases. Phase 3 must not implement OA3Tool execution, Graph certificate authentication, hash import, or device visibility polling.
 
 Implementation progress:
 - [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
@@ -134,47 +243,42 @@ Implementation progress:
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [x] Replace single Autopilot action section with two settings expanders.
-- [x] Keep global Autopilot toggle.
-- [x] Move existing import/download/remove/default profile/table UI into JSON profile expander.
-- [x] Add hardware hash upload expander.
-- [x] Add tenant connection state, connect action, and connected tenant summary.
-- [x] Add managed app registration creation/reuse status for `Foundry OSD Autopilot Registration`.
-- [ ] Add active certificate lifecycle controls: create, retire, replace, expired state, missing state, and repair/adoption state.
-- [ ] Add certificate validity selection with a default of 12 months.
-- [ ] Add one-time private key/PFX content dialog after certificate creation.
-- [ ] Add password-protected PFX and PFX password input near the active certificate status for boot image generation.
-- [x] Add tenant-discovered Autopilot group tag list and default group tag selection.
-- [x] Enforce mutual exclusivity between JSON profile and hash upload modes.
-- [x] Carry the selected mode into the current Foundry Deploy target page so hardware hash mode does not require a JSON profile.
-- [x] Block live hardware hash deployments until the deployment runtime phase exists, instead of silently skipping Autopilot.
-- [x] Add localized strings in English and French resources.
-- [x] Update readiness messages to include selected mode.
-- [ ] Add XML documentation comments to new public view-model members or UI service contracts when the behavior is not obvious.
+- [ ] Render only the selected Autopilot provisioning mode from the OSD-generated deploy configuration.
+- [ ] Keep JSON profile mode UI unchanged except for wording that makes the selected mode explicit.
+- [ ] In hardware hash mode, do not show JSON profile selection or JSON staging controls.
+- [ ] In hardware hash mode, show a compact Autopilot hardware hash section on the Computer Target page.
+- [ ] Show tenant/app registration summary needed for operator confidence: tenant ID, client ID, certificate thumbprint, certificate expiration, and default group tag.
+- [ ] If the certificate is valid, show Autopilot hardware hash as available but not executed until the runtime phases are implemented.
+- [ ] If the certificate is expired, show a clear non-blocking message telling the operator to regenerate the certificate and recreate the boot image; continue OS deployment without Autopilot.
+- [ ] Add two mutually exclusive group tag choices for hardware hash mode:
+  - use the default group tag from Foundry OSD, including `None`
+  - enter a custom group tag for this deployment
+- [ ] Disable or hide group tag controls when certificate authentication cannot be attempted.
+- [ ] Add a pre-runtime warning that hardware hash upload is not yet implemented until Phase 5+ lands, without blocking JSON mode.
+- [ ] Update deployment launch preparation UI so hash mode no longer reports a missing JSON profile blocker.
+- [ ] Add localized strings in English and French resources.
+- [ ] Add XML documentation comments to new public Deploy view-model members or UI service contracts when the behavior is not obvious.
 
 Automated tests:
-- [x] View model mode changes save state.
-- [x] Selecting JSON mode preserves hash upload metadata.
-- [x] Selecting hash upload mode preserves hash upload metadata and does not require a selected JSON profile in the OSD UI.
-- [x] Deploy launch preparation accepts hardware hash mode without a selected JSON profile.
-- [x] Current Deploy Autopilot staging step skips JSON profile staging in hardware hash mode.
-- [x] Live hardware hash mode fails before deployment confirmation until the runtime implementation exists.
-- [ ] Hardware hash media generation is not ready when the connected app certificate is expired.
-- [ ] Hardware hash media generation requires a password-protected PFX whose leaf certificate thumbprint matches the active certificate.
-- [ ] Creating a certificate exposes the private key/PFX material once and never persists the raw PFX, password, or decrypted private key.
-- [ ] Busy state still blocks JSON profile import/download/remove commands.
+- [ ] Deploy target page renders JSON profile controls in JSON mode.
+- [ ] Deploy target page renders hardware hash controls in hash mode.
+- [ ] Deploy target page hides JSON profile controls in hash mode.
+- [ ] Hash mode does not require a selected JSON profile in launch preparation.
+- [ ] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
+- [ ] Default group tag selection initializes from the OSD-generated configuration.
+- [ ] Custom group tag entry overrides the default group tag for the current deployment request.
+- [ ] `None` group tag remains a valid selection and serializes as no group tag.
+- [ ] Live hardware hash mode displays the pre-runtime unavailable/skipped state until Phase 5+ implements execution.
 
 Manual checks:
-- [ ] Autopilot disabled: both expanders are unavailable or collapsed according to final UX decision.
-- [ ] Autopilot enabled: both expanders are visible.
-- [ ] Activating one method deactivates the other.
-- [ ] JSON profile import and tenant download still work.
-- [ ] Connect to a tenant with no app registration and confirm Foundry OSD creates `Foundry OSD Autopilot Registration`.
-- [ ] Connect to a tenant with an existing managed app registration and confirm Foundry OSD reuses it.
-- [ ] Connect to a tenant where an app with the same display name exists but no persisted Foundry app ID exists, and confirm Foundry OSD enters repair/adoption state.
-- [ ] Create a certificate, verify the private key/PFX material and password are shown once, close the dialog, and confirm they cannot be shown again.
-- [ ] Add an extra non-active certificate credential to the app and confirm Foundry OSD warns but does not delete or block on it.
-- [ ] Expire or simulate an expired certificate and confirm the OSD page clearly requires regenerating the certificate before boot image creation.
+- [ ] In JSON mode, confirm Foundry Deploy shows only JSON/profile Autopilot controls.
+- [ ] In hardware hash mode, confirm Foundry Deploy shows only hardware hash Autopilot controls.
+- [ ] Confirm the Computer Target page shows tenant ID, client ID, certificate thumbprint, certificate expiration, and selected/default group tag in hash mode.
+- [ ] In hash mode with a valid certificate, confirm the operator can choose the default group tag or enter a custom group tag.
+- [ ] In hash mode with `None`, confirm no group tag is sent in the deployment request.
+- [ ] In hash mode with an expired certificate, confirm Deploy shows the regeneration/recreate media message, hides group tag controls, and still allows OS deployment.
+- [ ] Confirm hash mode does not show a missing JSON profile blocker.
+- [ ] Confirm JSON mode behavior and text did not regress.
 
 ### Phase 4: Media Build And WinPE Assets
 PR title: `feat(winpe): stage autopilot hash capture assets`
@@ -227,7 +331,7 @@ Implementation progress:
 
 - [ ] Load Autopilot provisioning mode from deploy config.
 - [ ] Expose mode in startup snapshot, preparation view model, launch request, deployment context, and runtime state.
-- [ ] Expose hardware hash group tag selection mode in the Computer Target page.
+- [ ] Consume the hardware hash group tag choice captured by the Phase 3 Computer Target UX.
 - [ ] Update `DeploymentLaunchPreparationService` validation:
   - JSON mode requires selected profile.
   - Hash upload mode requires valid upload settings.
@@ -255,8 +359,8 @@ Manual checks:
 - [ ] Deploy dry-run in JSON mode.
 - [ ] Deploy dry-run in hash upload mode.
 - [ ] Confirm summary page displays the selected Autopilot method.
-- [ ] In hash mode, confirm Computer Target shows only hardware hash controls.
-- [ ] In JSON mode, confirm Computer Target shows only JSON profile controls.
+- [ ] In hash mode, confirm the group tag selected on Computer Target flows into the runtime launch request.
+- [ ] In JSON mode, confirm no hardware hash group tag state is carried into the runtime launch request.
 - [ ] In hash mode with expired certificate, confirm Deploy shows the regeneration/recreate media message and still allows OS deployment.
 - [ ] Confirm logs contain mode, hash capture diagnostics path, and upload state.
 

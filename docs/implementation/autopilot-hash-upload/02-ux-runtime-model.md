@@ -29,12 +29,15 @@ Hardware hash upload:
 - Method toggle or radio selection: "Capture and upload hardware hash".
 - Default state: tenant connection prompt.
 - Connected state:
-  - Tenant identity summary.
+  - Tenant readiness summary.
   - Foundry-managed app registration status.
-  - Active certificate status.
-  - Certificate expiration state.
-  - Password-protected PFX input for media generation.
-  - Autopilot group tag default selection.
+  - Tenant ID.
+  - Client ID.
+  - Readiness status.
+  - Certificate actions.
+  - Provisioned certificates table.
+  - Boot media certificate PFX selection and password.
+  - Optional default group tag selection.
 - Optional assigned user UPN field.
 - No user-facing wait option. Foundry Deploy always waits for import/device visibility with the default countdown and timeout behavior.
 - No profile assignment wait in the final implementation.
@@ -49,47 +52,54 @@ UX rules:
 
 Foundry OSD tenant onboarding UX:
 - The hardware hash expander first asks the user to connect to the tenant.
+- `Connect tenant` uses the official Foundry multi-tenant public client app as the interactive sign-in bootstrap. This app has client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` and is separate from the tenant-local app used by generated WinPE media.
+- Persisted tenant metadata must not be displayed as fresh tenant state on application startup. Until the current app session successfully connects to Microsoft Graph, show only the tenant connection row with `Not connected` and the connect action.
+- A successful tenant connection is retained for the current app session across page navigation. Foundry OSD should require a new tenant sign-in only after the app process restarts or after the operator clicks `Disconnect tenant`.
+- Certificate creation and certificate removal must reuse the current app-session Microsoft Graph credential created by `Connect tenant`. They must not start their own interactive sign-in flow during the same app session.
+- After successful current-session tenant connection, show tenant-dependent rows: tenant readiness, certificate actions, provisioned certificates, boot media certificate, and optional default group tag.
+- The tenant connection row shows only the connection state and action. Tenant ID, client ID, app registration state, and readiness status appear together in the tenant readiness row after connection.
+- After a successful current-session connection, the connection action changes to a disconnect action that clears only the current UI session state. Persisted tenant configuration remains stored.
 - After sign-in, Foundry OSD searches for the managed app registration.
 - The planned app registration display name is `Foundry OSD Autopilot Registration`.
+- This managed app registration is tenant-local and is the only application identity used by Foundry Deploy in WinPE for certificate-based Graph authentication.
 - If the app registration does not exist, Foundry OSD creates it with the required Microsoft Graph application permissions.
 - If the app registration exists and matches the persisted application object ID, Foundry OSD reuses it.
 - If an app registration with the same display name exists but Foundry has no persisted application object ID, Foundry OSD must enter a repair/adoption state instead of silently taking ownership.
-- Foundry OSD must persist tenant ID, application object ID, application/client ID, service principal object ID, active certificate key ID, active certificate thumbprint, and active certificate expiration.
-- The app registration may contain multiple certificate credentials. Foundry tracks exactly one active Foundry certificate by `keyId` and leaf certificate thumbprint.
+- Foundry OSD must persist tenant ID, application object ID, application/client ID, service principal object ID, and the certificate metadata resolved from the selected boot media PFX.
+- The app registration may contain multiple certificate credentials. Tenant readiness is based on at least one valid Foundry-managed app certificate credential being present, not on a single persisted active certificate.
 - Foundry must not assume exclusive ownership of the app registration and must not automatically delete, replace, or prune non-active certificate credentials.
-- Extra certificate credentials on the app are tolerated and shown as a warning or informational state, not as a blocking error.
-- If no active certificate exists, show a create certificate action.
-- If an active certificate exists, show:
-  - display name
-  - thumbprint
-  - Graph `keyId`
-  - start date
-  - expiration date
-  - expired/valid status
-  - retire active certificate action
-  - replace active certificate action
+- Extra certificate credentials on the app are tolerated and shown in a selectable certificate table, not as a blocking error.
+- The certificate action buttons should be above the certificate table.
+- The certificate table should show thumbprint, creation date, expiration date, and Graph certificate ID. It supports multi-row selection, and removal is enabled only when at least one certificate row is selected.
+- Certificate removal must remove only the selected Graph `keyId` credentials and preserve every unselected app credential.
+- The certificate row should not show a separate "valid until" message when the same expiration is already visible in the table.
+- If Graph returns no certificate credentials, do not show a warning message in the certificate table area; the create certificate action is enough.
+- Certificate validity text should use WinUI signal brushes: success for valid certificates, caution for certificates expiring within 30 days, and critical for expired certificates.
 - Certificate creation requires selecting a validity duration from a fixed list.
-- The default certificate validity is 12 months.
-- Certificate validity options should be fixed, for example:
+- The default certificate validity is 6 months.
+- Certificate validity options are fixed:
+  - 1 month
   - 3 months
   - 6 months
   - 12 months
-  - 24 months
 - Certificate creation produces a password-protected PFX only. PEM keys, unprotected private keys, and client secrets are not supported.
 - Certificate creation requires the operator to choose a PFX output path.
-- Certificate creation should let the operator generate a strong PFX password or enter a custom PFX password.
-- When Foundry OSD creates a certificate, it writes the PFX to the selected output path and shows the generated password once if Foundry generated it.
-- The content dialog must clearly state that the PFX and PFX password must be stored by the operator outside Foundry.
+- Certificate creation generates a strong PFX password.
+- When Foundry OSD creates a certificate, it writes the PFX to the selected output path and shows the generated password once in a selectable, read-only field.
+- The content dialog must clearly state that the operator must save both the PFX file and PFX password in a secure location before closing the dialog.
+- The content dialog must provide a copy-to-clipboard action for the generated PFX password because Foundry cannot show it again after the dialog closes.
 - Foundry OSD must not persist the raw PFX, PFX password, decrypted private key, exported private key material, or a DPAPI-encrypted local PFX vault in ProgramData.
 - Foundry OSD may keep the PFX bytes and password in memory for the current app session only, so the operator can create the boot image immediately after certificate creation without selecting the same PFX again.
 - On later application launches, the user must sign in again before Foundry OSD can inspect or manage the tenant app registration.
-- After Foundry OSD restarts, before media generation, the Autopilot page requires selecting the password-protected PFX again and entering its password for the currently active certificate.
-- The PFX input should be visually close to the active certificate status so the operator understands which certificate it belongs to.
-- Foundry OSD must validate that the supplied PFX leaf certificate thumbprint matches the active certificate thumbprint before media generation.
+- After Foundry OSD restarts, before media generation, the Autopilot page requires selecting the password-protected PFX again and entering its password. The PFX leaf certificate thumbprint must match one of the non-expired app registration certificate credentials.
+- The PFX input is a dedicated "Boot media certificate" row directly after the tenant certificate table. The certificate table represents credentials present in Entra; the boot media certificate row represents the local private key material selected for the generated media.
+- The boot media certificate row contains a read-only PFX path field, a PFX file picker, a password box, and validation status.
+- When Foundry OSD creates a certificate, the current app session automatically uses the generated PFX path and password for the boot media certificate row.
+- Foundry OSD must validate that the supplied PFX leaf certificate thumbprint matches a non-expired certificate credential currently provisioned on the managed app registration before media generation.
+- Foundry OSD must keep the selected PFX path, PFX password, and validation result in memory only for the current app session and must not serialize them to ProgramData.
 - If the certificate is expired, Foundry OSD must show the expired status and require regenerating the certificate before the boot image can be built for hardware hash upload.
-- If the active certificate is missing from Graph, expired, or no longer matches the persisted `keyId` and thumbprint, Foundry OSD must show a repair state before allowing hash-upload media generation.
-- Replacing or retiring the active certificate must warn that previously generated boot images using the old certificate may no longer authenticate once that credential is removed from the app registration.
-- If multiple Foundry-looking certificates exist but no active certificate is persisted, Foundry OSD must require the operator to choose one active certificate by thumbprint and validate a matching password-protected PFX, or replace them with a new active certificate.
+- If the selected boot media PFX certificate is missing from Graph, expired, or no longer matches any provisioned certificate credential, Foundry OSD must show a repair state before allowing hash-upload media generation.
+- Removing certificates must not show a success dialog. The refreshed certificate table and readiness state are the confirmation.
 - App registration permission and consent state must be explicit:
   - app registration missing
   - app registration created
@@ -97,8 +107,11 @@ Foundry OSD tenant onboarding UX:
   - admin consent missing
   - service principal disabled or missing
   - ready for media build
-- Foundry OSD must block hardware hash media generation until the managed app exists, required permissions are present, admin consent is granted, the service principal is usable, the active certificate is unexpired, and the supplied PFX matches the active certificate.
-- When connected to the tenant, Foundry OSD should list existing Autopilot group tags discovered from Intune and let the user choose the default group tag passed to Foundry Deploy.
+- The onboarding status row should show only `Ready` or `Not ready` with WinUI signal color: success for ready and critical for not ready. A successful tenant connection should not show a success content dialog; the inline readiness row is enough. Detailed failure reasons remain available through attention/failure dialogs and Start page readiness blockers.
+- Foundry OSD must block hardware hash media generation until the managed app exists, required permissions are present, admin consent is granted, the service principal is usable, at least one non-expired app registration certificate is provisioned, and the supplied PFX matches a provisioned certificate.
+- The Start page must show the precise Autopilot readiness blocker instead of a generic default-profile message. Expected hardware hash blockers include missing tenant/app metadata, missing provisioned certificate, expired selected certificate, missing PFX, missing PFX password, unvalidated PFX, thumbprint mismatch, and expired boot media PFX.
+- When connected to the tenant, Foundry OSD should discover existing Autopilot group tags from `GET /v1.0/deviceManagement/windowsAutopilotDeviceIdentities`, extracting `groupTag` client-side from the unfiltered response and paging through `@odata.nextLink`.
+- The optional OSD group tag UX is a single `Default group tag` row with a ComboBox containing `None` plus discovered tenant group tags. `None` is selected by default because a group tag is optional for hardware hash upload.
 
 Foundry Deploy UX:
 - Foundry Deploy should render only the selected Autopilot provisioning mode from Foundry OSD.
@@ -200,3 +213,17 @@ Validation rules:
 - `GroupTag` must not contain commas and should stay ASCII-safe for CSV compatibility.
 
 Deploy media generation should add encrypted `CertificatePfxSecret` and `CertificatePfxPasswordSecret` only to the generated WinPE deploy configuration for the current media build. These secret envelopes are not persisted in the normal Foundry OSD settings stored under ProgramData, and Foundry OSD does not maintain a local encrypted PFX vault.
+
+Phase 2 UX refinements:
+- Settings cards include concise descriptions for row-level intent.
+- JSON profile download and hardware hash tenant onboarding use the same tenant operation dialog runner for Microsoft Graph sign-in, progress, and cancellation.
+- Canceling the tenant operation dialog returns control to the Autopilot page without leaving the connect/download action disabled.
+- Hardware hash certificate management uses a shared current-session Graph credential, so create/remove certificate actions do not reopen the browser sign-in after a successful tenant connection.
+- Tenant details are displayed as a table with tenant ID and client ID.
+- The default group tag is optional and selected from a ComboBox populated with `None` plus tenant-discovered Autopilot device group tags.
+- `None` is the default selection because hardware hash upload does not require a group tag.
+- Available group tags are displayed as a one-column table for scanability.
+- Certificate validity remains selectable, but the inline `Validity` label is hidden to reduce duplicate text in the certificate row.
+- Current-session PFX path, password, and successful validation state are retained while navigating between pages, but are still cleared on app restart.
+- The Start page must show the exact hardware hash media generation blocker when the PFX path, password, thumbprint, expiration, or active certificate is invalid.
+- The onboarding status row is intentionally compact: `Ready` or `Not ready`, with signal color, while detailed remediation stays in dialogs and readiness blockers.

@@ -11,6 +11,10 @@ Recommended direction:
 - Use direct Microsoft Graph REST calls through C# service abstractions.
 - Invoke OA3Tool through the existing C# process execution patterns, not through PowerShell.
 - Split OSD interactive onboarding permissions from WinPE app-only upload permissions.
+- Use the official Foundry multi-tenant public client app only as the OSD interactive sign-in bootstrap:
+  - Display name: `Foundry OSD`
+  - Client ID: `83eb3a92-030d-49b7-881b-32a1eb3e110a`
+  - Environment override for private builds or forks: `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID`
 - Use least-privilege WinPE app-only upload permissions:
   - `DeviceManagementServiceConfig.ReadWrite.All` for import and polling.
 - Defer destructive permissions:
@@ -25,6 +29,12 @@ Permission split:
 | Foundry OSD tenant onboarding | Interactive signed-in admin user | Create/reuse app registration, add Graph application permissions, grant or verify admin consent, add/retire app certificate credentials, read Autopilot group tags. | No |
 | Foundry Deploy in WinPE | App-only certificate credential from generated media | Import the captured hardware hash and poll import/device visibility. | Yes, as encrypted PFX envelope plus media secret key |
 
+Two-app model:
+- `Foundry OSD` is the official Foundry-owned multi-tenant public client. It is used only to obtain delegated Microsoft Graph tokens for interactive OSD admin setup.
+- `Foundry OSD Autopilot Registration` is the tenant-local app registration created or reused by Foundry OSD. It is the only app identity embedded into generated WinPE media through tenant ID, client ID, and certificate-based app-only authentication.
+- The `Foundry OSD` bootstrap app client ID is not a secret and must not be replaced in official builds. Private forks can override it through `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID`.
+- WinPE must never authenticate with the `Foundry OSD` bootstrap public client. WinPE uses only the tenant-local managed app and its certificate credential.
+
 The interactive OSD user may need broad Entra application management rights during setup, but those delegated/session permissions are not embedded into the boot image. The boot image receives only the managed app identity and certificate material needed for Autopilot import.
 
 OSD setup permission guidance:
@@ -32,13 +42,14 @@ OSD setup permission guidance:
 - `Application.ReadWrite.All` is needed when Foundry OSD creates or updates the managed app registration, including required resource access and certificate credentials.
 - `AppRoleAssignment.ReadWrite.All` is needed if Foundry OSD grants the Microsoft Graph application role to the managed service principal instead of only detecting that admin consent is missing.
 - `DeviceManagementServiceConfig.Read.All` is needed when Foundry OSD discovers existing Windows Autopilot device identities or group tags for the setup UX. `DeviceManagementServiceConfig.ReadWrite.All` is needed only for the WinPE app-only import workflow and any setup-time validation that writes to Intune.
+- `User.Read` is needed in the interactive OSD token because the onboarding flow discovers the signed-in tenant through Microsoft Graph organization metadata before configuring the tenant-local app registration.
 - If the signed-in operator does not have enough rights to grant consent, Foundry OSD should show a consent-required state and block hash-upload media generation until the tenant admin completes consent.
 - These setup rights belong to the signed-in OSD operator session only. They are not stored, exported, or embedded in generated media.
 
 Supported WinPE authentication:
 - Microsoft Graph authentication inside WinPE must use certificate-based app-only auth only.
 - The certificate private key material is injected into the generated boot image as an encrypted media secret.
-- The injected certificate format is a password-protected PFX whose leaf certificate thumbprint matches the active certificate configured on the managed app registration.
+- The injected certificate format is a password-protected PFX whose leaf certificate thumbprint matches a non-expired certificate credential on the managed app registration.
 - Device code flow, client secrets, and brokered upload are not supported WinPE authentication modes for this feature.
 
 Private keys, client secrets, and tenant-wide destructive permissions must not be silently embedded into generated media.
@@ -52,7 +63,7 @@ Secret handling rules:
 - Do not log authorization headers, refresh tokens, client secrets, private keys, certificate raw data, or Graph request bodies containing hardware hashes unless explicitly redacted.
 - Store embedded certificate private key material with the same envelope concept used by Foundry Connect personal Wi-Fi secrets.
 - Accept only password-protected PFX input for media generation.
-- Reject unprotected PFX files, PEM private keys, and PFX files whose leaf certificate thumbprint does not match the active certificate thumbprint.
+- Reject unprotected PFX files, PEM private keys, and PFX files whose leaf certificate thumbprint does not match a non-expired managed app certificate credential.
 - Require explicit user confirmation before embedding certificate private key material and document that the generated media becomes tenant-sensitive.
 - Do not add a "remember this PFX" option or store a DPAPI-encrypted copy in ProgramData.
 - Keep operator-provided PFX bytes and PFX password in memory only for the current app session, then clear them when media generation finishes or the app closes.

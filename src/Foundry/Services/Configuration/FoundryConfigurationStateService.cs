@@ -1,6 +1,7 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
+using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
 using Serilog;
 using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
@@ -20,6 +21,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly IDeployConfigurationGenerator deployConfigurationGenerator;
     private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly INetworkSecretStateService networkSecretStateService;
+    private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
 
@@ -28,6 +30,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IDeployConfigurationGenerator deployConfigurationGenerator,
         IConnectConfigurationGenerator connectConfigurationGenerator,
         INetworkSecretStateService networkSecretStateService,
+        IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger)
     {
@@ -35,6 +38,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.deployConfigurationGenerator = deployConfigurationGenerator;
         this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.networkSecretStateService = networkSecretStateService;
+        this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
         Current = SanitizeForPersistence(Load());
@@ -78,7 +82,11 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public bool IsAutopilotEnabled => Current.Autopilot.IsEnabled;
 
     /// <inheritdoc />
-    public bool IsAutopilotConfigurationReady => AutopilotConfigurationValidator.IsReady(Current.Autopilot, DateTimeOffset.UtcNow);
+    public bool IsAutopilotConfigurationReady => AutopilotConfigurationValidation.IsReady;
+
+    /// <inheritdoc />
+    public AutopilotConfigurationValidationResult AutopilotConfigurationValidation =>
+        AutopilotConfigurationValidator.Evaluate(CreateAutopilotSettingsForValidation(Current.Autopilot), DateTimeOffset.UtcNow);
 
     /// <inheritdoc />
     public AutopilotProvisioningMode AutopilotProvisioningMode => Current.Autopilot.ProvisioningMode;
@@ -153,9 +161,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     /// <inheritdoc />
     public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null)
     {
-        FoundryConfigurationDocument document = telemetryOverride is null
-            ? Current
-            : Current with { Telemetry = telemetryOverride };
+        FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
 
         return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document));
     }
@@ -192,6 +198,26 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             TryMoveInvalidState(backupPath, ex);
             return CreateDefaultDocument();
         }
+    }
+
+    private FoundryConfigurationDocument CreateDocumentForDeployGeneration(TelemetrySettings? telemetryOverride)
+    {
+        return Current with
+        {
+            Autopilot = CreateAutopilotSettingsForValidation(Current.Autopilot),
+            Telemetry = telemetryOverride ?? Current.Telemetry
+        };
+    }
+
+    private AutopilotSettings CreateAutopilotSettingsForValidation(AutopilotSettings settings)
+    {
+        return settings with
+        {
+            HardwareHashUpload = settings.HardwareHashUpload with
+            {
+                BootMediaCertificate = autopilotHardwareHashSessionState.BootMediaCertificate
+            }
+        };
     }
 
     private static FoundryConfigurationDocument CreateDefaultDocument()

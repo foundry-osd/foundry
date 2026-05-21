@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
 namespace Foundry.Services.Configuration;
@@ -51,6 +52,11 @@ public interface IFoundryConfigurationStateService
     /// Gets a value indicating whether the selected Autopilot profiles are valid for output.
     /// </summary>
     bool IsAutopilotConfigurationReady { get; }
+
+    /// <summary>
+    /// Gets the detailed Autopilot readiness status for the selected provisioning mode.
+    /// </summary>
+    AutopilotConfigurationValidationResult AutopilotConfigurationValidation { get; }
 
     /// <summary>
     /// Gets the selected Autopilot provisioning mode.
