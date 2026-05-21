@@ -110,7 +110,9 @@ Implementation progress:
 - [x] Add descriptions to Autopilot settings cards so users understand each configuration row.
 - [x] Replace the connect action with a disconnect action after successful current-session tenant connection.
 - [x] Clear stale persisted active certificate metadata when Microsoft Graph no longer returns the selected active certificate.
+- [x] Split certificate management into a certificate action row and a provisioned certificates table row.
 - [x] List app registration certificate credentials in a selectable table with thumbprint, creation date, expiration date, and Graph certificate ID.
+- [x] Show an empty-state message in the provisioned certificates table row when the tenant app registration has no certificate credentials.
 - [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
 - [x] Allow multiple app registration certificates to coexist in the tenant instead of replacing the previously selected certificate during creation.
 - [x] Resolve the boot media certificate automatically by matching the selected PFX thumbprint against tenant app registration certificates.
@@ -135,6 +137,8 @@ Implementation progress:
 - [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
 - [x] Keep `None` selected by default because hardware hash upload does not require a group tag.
 - [x] Display available tenant group tags as a one-column table without a trailing empty column.
+- [x] Group default group tag selection and available group tag discovery into one optional `Group tag` row.
+- [x] Remove obsolete certificate validity/status UI resources after moving readiness to onboarding status, certificate table colors, and boot media PFX validation.
 
 Automated tests:
 - [x] App registration discovery uses persisted application object ID before display name.
@@ -179,6 +183,7 @@ Manual checks:
 - [ ] After connecting, confirm the action changes to `Disconnect tenant` and disconnecting hides tenant-dependent rows without deleting persisted configuration.
 - [ ] Connect to a tenant where the persisted active certificate no longer exists in Graph and confirm Foundry clears stale active certificate metadata instead of showing a valid expiration.
 - [ ] Connect to an app registration with no certificate credentials and confirm no empty-certificate warning text is displayed.
+- [ ] Connect to an app registration with no certificate credentials and confirm the provisioned certificates row shows the empty-state message.
 - [ ] Create a certificate and confirm the generated PFX password is selectable/copyable in the content dialog.
 - [ ] Create a second certificate and confirm the previous certificate remains present in the tenant certificate table.
 - [ ] Confirm the boot media certificate row is automatically filled after certificate creation and returns to empty after app restart.
@@ -189,6 +194,8 @@ Manual checks:
 - [ ] In hardware hash mode with no selected boot media PFX, confirm the Start page shows the missing PFX blocker instead of the JSON profile blocker.
 - [ ] In hardware hash mode with a mismatched PFX, confirm the Start page shows the thumbprint mismatch blocker.
 - [ ] Confirm the certificate table shows thumbprint, creation date, expiration date, and certificate ID with the expected validity color.
+- [ ] Confirm `Certificate actions` contains only certificate validity, create certificate, and remove certificate controls.
+- [ ] Confirm `Provisioned certificates` contains only the certificate empty state or certificate table.
 - [ ] Confirm the certificate validity duration selector no longer shows a visible `Validity` label.
 - [ ] Confirm the certificate action buttons are shown above the certificate table.
 - [ ] Confirm the redundant active certificate "valid until" text is not shown when the same expiration is already visible in the certificate table.
@@ -196,6 +203,7 @@ Manual checks:
 - [ ] Confirm the remove certificate action is disabled when no certificate row is selected.
 - [ ] Select one or more certificate rows and remove them; confirm only the selected credentials are removed from Entra and the table refreshes.
 - [ ] Connect to a tenant with existing Autopilot device group tags and confirm they appear under `Available group tags` as a one-column table without an empty trailing column.
+- [ ] Confirm `Default group tag` and `Available group tags` are grouped inside the same optional `Group tag` row.
 - [ ] Confirm the default group tag ComboBox selects `None` by default.
 - [ ] Select a default group tag from the ComboBox and confirm it is saved in the Foundry configuration, then select `None` and confirm the setting is cleared.
 - [ ] Create a certificate, navigate away from Autopilot and back, and confirm the boot media certificate row still shows `Certificate ready for boot media generation.`

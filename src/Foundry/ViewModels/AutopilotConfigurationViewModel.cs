@@ -133,6 +133,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public Visibility ProfilesVisibility => HasProfiles ? Visibility.Visible : Visibility.Collapsed;
     public bool HasCertificates => Certificates.Count > 0;
     public Visibility CertificatesVisibility => HasCertificates ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility EmptyCertificatesVisibility => HasCertificates ? Visibility.Collapsed : Visibility.Visible;
     public bool HasAvailableGroupTags => AvailableGroupTags.Count > 0;
     public Visibility AvailableGroupTagsVisibility => HasAvailableGroupTags ? Visibility.Visible : Visibility.Collapsed;
     public Visibility EmptyAvailableGroupTagsVisibility => HasAvailableGroupTags ? Visibility.Collapsed : Visibility.Visible;
@@ -184,7 +185,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                                                     expiresOnUtc <= DateTimeOffset.UtcNow;
     public Visibility JsonProfileSettingsVisibility => IsJsonProfileMode ? Visibility.Visible : Visibility.Collapsed;
     public Visibility HardwareHashSettingsVisibility => IsHardwareHashUploadMode ? Visibility.Visible : Visibility.Collapsed;
-    public Visibility HardwareHashCertificateWarningVisibility => IsHardwareHashCertificateExpired ? Visibility.Visible : Visibility.Collapsed;
     public Visibility BootMediaCertificateVisibility => HasConnectedTenantInCurrentSession &&
                                                         HasCertificates
         ? Visibility.Visible
@@ -212,9 +212,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         : localizationService.FormatString("Autopilot.HardwareHashAppRegistrationFoundFormat", ManagedAppRegistrationName);
     public string TenantOnboardingStatusText => CreateTenantOnboardingStatusText();
     public Brush TenantOnboardingStatusForeground => ResolveTenantOnboardingStatusBrush();
-    public string CertificateStatusText => CreateCertificateStatusText();
-    public Visibility CertificateStatusVisibility => string.IsNullOrWhiteSpace(CertificateStatusText) ? Visibility.Collapsed : Visibility.Visible;
-    public Brush CertificateStatusForeground => ResolveCertificateStatusBrush();
     public string DefaultGroupTagText => string.IsNullOrWhiteSpace(hardwareHashUploadSettings.DefaultGroupTag)
         ? localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNone")
         : hardwareHashUploadSettings.DefaultGroupTag!;
@@ -280,9 +277,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string ConnectingTenantStatusText { get; set; }
 
     [ObservableProperty]
-    public partial string CertificateValidityLabel { get; set; }
-
-    [ObservableProperty]
     public partial string CreateCertificateButtonText { get; set; }
 
     [ObservableProperty]
@@ -325,13 +319,19 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string TenantOnboardingStatusDescription { get; set; }
 
     [ObservableProperty]
-    public partial string CertificateStatusLabel { get; set; }
+    public partial string CertificateActionsLabel { get; set; }
 
     [ObservableProperty]
-    public partial string CertificateStatusDescription { get; set; }
+    public partial string CertificateActionsDescription { get; set; }
 
     [ObservableProperty]
-    public partial string CertificateExpiredWarningText { get; set; }
+    public partial string ProvisionedCertificatesLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string ProvisionedCertificatesDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string EmptyCertificatesText { get; set; }
 
     [ObservableProperty]
     public partial string CertificateThumbprintColumnHeader { get; set; }
@@ -361,19 +361,19 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string SelectBootMediaCertificateButtonText { get; set; }
 
     [ObservableProperty]
-    public partial string DefaultGroupTagLabel { get; set; }
+    public partial string GroupTagLabel { get; set; }
 
     [ObservableProperty]
-    public partial string DefaultGroupTagDescription { get; set; }
+    public partial string GroupTagDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string DefaultGroupTagLabel { get; set; }
 
     [ObservableProperty]
     public partial string DefaultGroupTagNoneOptionText { get; set; }
 
     [ObservableProperty]
     public partial string KnownGroupTagsLabel { get; set; }
-
-    [ObservableProperty]
-    public partial string KnownGroupTagsDescription { get; set; }
 
     [ObservableProperty]
     public partial string AvailableGroupTagColumnHeader { get; set; }
@@ -971,7 +971,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ConnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashConnectTenantButton");
         DisconnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashDisconnectTenantButton");
         ConnectingTenantStatusText = localizationService.GetString("Autopilot.HardwareHashConnectingTenantStatus");
-        CertificateValidityLabel = localizationService.GetString("Autopilot.HardwareHashCertificateValidityLabel");
         CreateCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashCreateCertificateButton");
         RetireCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashRetireCertificateButton");
         TenantStatusLabel = localizationService.GetString("Autopilot.HardwareHashTenantStatusLabel");
@@ -986,9 +985,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         AppRegistrationDescription = localizationService.GetString("Autopilot.HardwareHashAppRegistrationDescription");
         TenantOnboardingStatusLabel = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusLabel");
         TenantOnboardingStatusDescription = localizationService.GetString("Autopilot.HardwareHashOnboardingStatusDescription");
-        CertificateStatusLabel = localizationService.GetString("Autopilot.HardwareHashCertificateStatusLabel");
-        CertificateStatusDescription = localizationService.GetString("Autopilot.HardwareHashCertificateStatusDescription");
-        CertificateExpiredWarningText = localizationService.GetString("Autopilot.HardwareHashCertificateExpiredWarning");
+        CertificateActionsLabel = localizationService.GetString("Autopilot.HardwareHashCertificateActionsLabel");
+        CertificateActionsDescription = localizationService.GetString("Autopilot.HardwareHashCertificateActionsDescription");
+        ProvisionedCertificatesLabel = localizationService.GetString("Autopilot.HardwareHashProvisionedCertificatesLabel");
+        ProvisionedCertificatesDescription = localizationService.GetString("Autopilot.HardwareHashProvisionedCertificatesDescription");
+        EmptyCertificatesText = localizationService.GetString("Autopilot.HardwareHashCertificatesNone");
         CertificateThumbprintColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateThumbprintColumn");
         CertificateCreatedColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedColumn");
         CertificateExpiresColumnHeader = localizationService.GetString("Autopilot.HardwareHashCertificateExpiresColumn");
@@ -998,11 +999,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         BootMediaCertificatePfxPathLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxPathLabel");
         BootMediaCertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");
         SelectBootMediaCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateSelectButton");
+        GroupTagLabel = localizationService.GetString("Autopilot.HardwareHashGroupTagLabel");
+        GroupTagDescription = localizationService.GetString("Autopilot.HardwareHashGroupTagDescription");
         DefaultGroupTagLabel = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagLabel");
-        DefaultGroupTagDescription = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagDescription");
         DefaultGroupTagNoneOptionText = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNoneOption");
         KnownGroupTagsLabel = localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsLabel");
-        KnownGroupTagsDescription = localizationService.GetString("Autopilot.HardwareHashKnownGroupTagsDescription");
         AvailableGroupTagColumnHeader = localizationService.GetString("Autopilot.HardwareHashAvailableGroupTagColumn");
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
         DownloadButtonText = localizationService.GetString("Autopilot.DownloadButton");
@@ -1062,11 +1063,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
         OnPropertyChanged(nameof(TenantOnboardingStatusForeground));
-        OnPropertyChanged(nameof(CertificateStatusText));
-        OnPropertyChanged(nameof(CertificateStatusVisibility));
-        OnPropertyChanged(nameof(CertificateStatusForeground));
         OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
-        OnPropertyChanged(nameof(HardwareHashCertificateWarningVisibility));
+        OnPropertyChanged(nameof(EmptyCertificatesVisibility));
         OnPropertyChanged(nameof(DefaultGroupTagText));
         OnPropertyChanged(nameof(DefaultGroupTagOptions));
         OnPropertyChanged(nameof(KnownGroupTagsText));
@@ -1165,45 +1163,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         hardwareHashSessionState.Certificates = credentials;
         OnPropertyChanged(nameof(HasCertificates));
         OnPropertyChanged(nameof(CertificatesVisibility));
+        OnPropertyChanged(nameof(EmptyCertificatesVisibility));
         OnPropertyChanged(nameof(BootMediaCertificateVisibility));
-    }
-
-    private string CreateCertificateStatusText()
-    {
-        AutopilotCertificateMetadata? certificate = hardwareHashUploadSettings.ActiveCertificate;
-        if (certificate is null)
-        {
-            return HasCertificates
-                ? string.Empty
-                : localizationService.GetString("Autopilot.HardwareHashCertificateMissing");
-        }
-
-        if (certificate.ExpiresOnUtc is null)
-        {
-            return localizationService.GetString("Autopilot.HardwareHashCertificateExpirationMissing");
-        }
-
-        return certificate.ExpiresOnUtc <= DateTimeOffset.UtcNow
-            ? localizationService.FormatString("Autopilot.HardwareHashCertificateExpiredFormat", certificate.ExpiresOnUtc.Value.LocalDateTime)
-            : string.Empty;
-    }
-
-    private Brush ResolveCertificateStatusBrush()
-    {
-        AutopilotCertificateMetadata? certificate = hardwareHashUploadSettings.ActiveCertificate;
-        if (certificate?.ExpiresOnUtc is not DateTimeOffset expiresOnUtc)
-        {
-            return (Brush)Application.Current.Resources["TextFillColorSecondaryBrush"];
-        }
-
-        if (expiresOnUtc <= DateTimeOffset.UtcNow)
-        {
-            return (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
-        }
-
-        return expiresOnUtc - DateTimeOffset.UtcNow <= TimeSpan.FromDays(30)
-            ? (Brush)Application.Current.Resources["SystemFillColorCautionBrush"]
-            : (Brush)Application.Current.Resources["SystemFillColorSuccessBrush"];
     }
 
     private string CreateBootMediaCertificateStatusText()

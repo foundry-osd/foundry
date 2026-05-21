@@ -190,37 +190,38 @@
                                    TextWrapping="WrapWholeWords" />
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard Header="{x:Bind ViewModel.CertificateStatusLabel, Mode=OneWay}"
-                                      Description="{x:Bind ViewModel.CertificateStatusDescription, Mode=OneWay}"
+                    <wct:SettingsCard Header="{x:Bind ViewModel.CertificateActionsLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.CertificateActionsDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySpace8}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                      DisplayMemberPath="DisplayName"
+                                      ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
+                                      SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
+                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    VerticalAlignment="Bottom"
+                                    Command="{x:Bind ViewModel.CreateCertificateCommand}"
+                                    Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
+                            <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    VerticalAlignment="Bottom"
+                                    Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
+                                    Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}"
+                                      HorizontalContentAlignment="Stretch"
+                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace8}">
                             <TextBlock HorizontalAlignment="Right"
-                                       Foreground="{x:Bind ViewModel.CertificateStatusForeground, Mode=OneWay}"
-                                       Text="{x:Bind ViewModel.CertificateStatusText, Mode=OneWay}"
+                                       Text="{x:Bind ViewModel.EmptyCertificatesText, Mode=OneWay}"
                                        TextWrapping="WrapWholeWords"
-                                       Visibility="{x:Bind ViewModel.CertificateStatusVisibility, Mode=OneWay}" />
-                            <TextBlock Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                       HorizontalAlignment="Right"
-                                       Text="{x:Bind ViewModel.CertificateExpiredWarningText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords"
-                                       Visibility="{x:Bind ViewModel.HardwareHashCertificateWarningVisibility, Mode=OneWay}" />
-                            <StackPanel HorizontalAlignment="Right"
-                                        Orientation="Horizontal"
-                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                          DisplayMemberPath="DisplayName"
-                                          ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
-                                          SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
-                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                        VerticalAlignment="Bottom"
-                                        Command="{x:Bind ViewModel.CreateCertificateCommand}"
-                                        Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
-                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                        VerticalAlignment="Bottom"
-                                        Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
-                                        Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
-                            </StackPanel>
+                                       Visibility="{x:Bind ViewModel.EmptyCertificatesVisibility, Mode=OneWay}" />
                             <tv:TableView x:Name="CertificatesTable"
                                           AutoGenerateColumns="False"
                                           CanFilterColumns="False"
@@ -291,47 +292,53 @@
                         </StackPanel>
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard Header="{x:Bind ViewModel.DefaultGroupTagLabel, Mode=OneWay}"
-                                      Description="{x:Bind ViewModel.DefaultGroupTagDescription, Mode=OneWay}"
+                    <wct:SettingsCard Header="{x:Bind ViewModel.GroupTagLabel, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.GroupTagDescription, Mode=OneWay}"
                                       HorizontalContentAlignment="Stretch"
                                       Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                  HorizontalAlignment="Right"
-                                  DisplayMemberPath="DisplayName"
-                                  ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
-                                  PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
-                                  SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
-                    </wct:SettingsCard>
-
-                    <wct:SettingsCard Header="{x:Bind ViewModel.KnownGroupTagsLabel, Mode=OneWay}"
-                                      Description="{x:Bind ViewModel.KnownGroupTagsDescription, Mode=OneWay}"
-                                      HorizontalContentAlignment="Stretch"
-                                      Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                        <StackPanel HorizontalAlignment="Right">
-                            <tv:TableView AutoGenerateColumns="False"
-                                          CanFilterColumns="False"
-                                          CanReorderColumns="False"
-                                          CanResizeColumns="False"
-                                          CanSortColumns="False"
-                                          CornerButtonMode="None"
-                                          HeadersVisibility="Columns"
-                                          IsReadOnly="True"
-                                          ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
-                                          MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                                          HorizontalAlignment="Right"
-                                          SelectionMode="None"
-                                          SelectionUnit="Row"
-                                          ShowExportOptions="False"
-                                          Visibility="{x:Bind ViewModel.AvailableGroupTagsVisibility, Mode=OneWay}">
-                                <tv:TableView.Columns>
-                                    <tv:TableViewTextColumn Binding="{Binding DisplayName}"
-                                                            Header="{x:Bind ViewModel.AvailableGroupTagColumnHeader, Mode=OneWay}" />
-                                </tv:TableView.Columns>
-                            </tv:TableView>
-                            <TextBlock HorizontalAlignment="Right"
-                                       Text="{x:Bind ViewModel.KnownGroupTagsText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords"
-                                       Visibility="{x:Bind ViewModel.EmptyAvailableGroupTagsVisibility, Mode=OneWay}" />
+                        <StackPanel HorizontalAlignment="Right"
+                                    Spacing="{ThemeResource FoundrySpace12}">
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center"
+                                           Text="{x:Bind ViewModel.DefaultGroupTagLabel, Mode=OneWay}" />
+                                <ComboBox Grid.Column="1"
+                                          MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                          DisplayMemberPath="DisplayName"
+                                          ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
+                                          PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
+                                          SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
+                            </Grid>
+                            <StackPanel HorizontalAlignment="Right"
+                                        Spacing="{ThemeResource FoundrySpace8}">
+                                <TextBlock Text="{x:Bind ViewModel.KnownGroupTagsLabel, Mode=OneWay}" />
+                                <tv:TableView AutoGenerateColumns="False"
+                                              CanFilterColumns="False"
+                                              CanReorderColumns="False"
+                                              CanResizeColumns="False"
+                                              CanSortColumns="False"
+                                              CornerButtonMode="None"
+                                              HeadersVisibility="Columns"
+                                              IsReadOnly="True"
+                                              ItemsSource="{x:Bind ViewModel.AvailableGroupTags, Mode=OneWay}"
+                                              MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                              SelectionMode="None"
+                                              SelectionUnit="Row"
+                                              ShowExportOptions="False"
+                                              Visibility="{x:Bind ViewModel.AvailableGroupTagsVisibility, Mode=OneWay}">
+                                    <tv:TableView.Columns>
+                                        <tv:TableViewTextColumn Binding="{Binding DisplayName}"
+                                                                Header="{x:Bind ViewModel.AvailableGroupTagColumnHeader, Mode=OneWay}" />
+                                    </tv:TableView.Columns>
+                                </tv:TableView>
+                                <TextBlock HorizontalAlignment="Right"
+                                           Text="{x:Bind ViewModel.KnownGroupTagsText, Mode=OneWay}"
+                                           TextWrapping="WrapWholeWords"
+                                           Visibility="{x:Bind ViewModel.EmptyAvailableGroupTagsVisibility, Mode=OneWay}" />
+                            </StackPanel>
                         </StackPanel>
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>

@@ -378,14 +378,20 @@
   <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
     <value>Not ready</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateStatusLabel" xml:space="preserve">
-    <value>Certificate</value>
+  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
+    <value>Certificate actions</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateStatusDescription" xml:space="preserve">
+  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
+    <value>Create or remove app registration certificate credentials.</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
+    <value>Provisioned certificates</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
     <value>App registration certificates trusted for WinPE Graph authentication.</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateValidityLabel" xml:space="preserve">
-    <value>Validity</value>
+  <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
+    <value>No certificates are provisioned.</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Create certificate</value>
@@ -444,21 +450,6 @@
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
     <value>Foundry could not remove the selected app registration certificate. {0}</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateMissing" xml:space="preserve">
-    <value>No active certificate is configured.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateExpirationMissing" xml:space="preserve">
-    <value>The active certificate expiration is missing.</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateValidFormat" xml:space="preserve">
-    <value>Valid until {0}</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateExpiredFormat" xml:space="preserve">
-    <value>Expired on {0}</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateExpiredWarning" xml:space="preserve">
-    <value>Regenerate the certificate and boot media before using hardware hash upload.</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Thumbprint</value>
   </data>
@@ -516,11 +507,14 @@
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
     <value>Certificate ready for boot media generation.</value>
   </data>
+  <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
+    <value>Group tag</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
+    <value>Optional Autopilot group tag discovery and default selection.</value>
+  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagLabel" xml:space="preserve">
     <value>Default group tag</value>
-  </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagDescription" xml:space="preserve">
-    <value>Optional group tag preselected in Foundry Deploy during hardware hash upload.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>No default group tag selected.</value>
@@ -531,14 +525,11 @@
   <data name="Autopilot.HardwareHashKnownGroupTagsLabel" xml:space="preserve">
     <value>Available group tags</value>
   </data>
-  <data name="Autopilot.HardwareHashKnownGroupTagsDescription" xml:space="preserve">
-    <value>Group tags discovered from existing Windows Autopilot device identities.</value>
-  </data>
   <data name="Autopilot.HardwareHashAvailableGroupTagColumn" xml:space="preserve">
     <value>Group tag</value>
   </data>
   <data name="Autopilot.HardwareHashKnownGroupTagsNone" xml:space="preserve">
-    <value>No group tags discovered.</value>
+    <value>No group tags discovered. Group tag assignment is optional.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingCompletedTitle" xml:space="preserve">
     <value>Tenant onboarding complete</value>
