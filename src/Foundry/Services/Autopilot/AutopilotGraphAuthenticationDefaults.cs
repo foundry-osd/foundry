@@ -23,5 +23,4 @@ internal static class AutopilotGraphAuthenticationDefaults
 
     public const string DefaultTenantId = "common";
     public const string RedirectUri = "http://localhost";
-    public const string TokenCacheName = "FoundryAutopilotGraph";
 }

@@ -109,6 +109,12 @@ public static class AutopilotConfigurationValidator
             return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.HardwareHashServicePrincipalMissing);
         }
 
+        AutopilotConfigurationValidationResult bootMediaResult = EvaluateBootMediaCertificate(settings, currentTimeUtc);
+        if (!bootMediaResult.IsReady)
+        {
+            return bootMediaResult;
+        }
+
         if (string.IsNullOrWhiteSpace(settings.ActiveCertificate?.KeyId))
         {
             return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.HardwareHashActiveCertificateMissing);
@@ -129,7 +135,7 @@ public static class AutopilotConfigurationValidator
             return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.HardwareHashActiveCertificateExpired);
         }
 
-        return EvaluateBootMediaCertificate(settings, currentTimeUtc);
+        return AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready);
     }
 
     private static AutopilotConfigurationValidationResult EvaluateBootMediaCertificate(

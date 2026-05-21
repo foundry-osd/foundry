@@ -333,9 +333,6 @@
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
     <value>Connected</value>
   </data>
-  <data name="Autopilot.HardwareHashTenantConnectedFormat" xml:space="preserve">
-    <value>Connected to tenant {0}</value>
-  </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
     <value>Tenant readiness</value>
   </data>
@@ -435,12 +432,6 @@
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Remove certificate</value>
   </data>
-  <data name="Autopilot.HardwareHashCertificateRetiredTitle" xml:space="preserve">
-    <value>Certificate removed</value>
-  </data>
-  <data name="Autopilot.HardwareHashCertificateRetiredMessage" xml:space="preserve">
-    <value>The selected certificate credentials were removed from the managed app registration.</value>
-  </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
     <value>Certificate removal failed</value>
   </data>
@@ -524,6 +515,30 @@
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
     <value>Foundry could not configure the Autopilot app registration. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
+    <value>The managed app registration could not be found. Reconnect to let Foundry create or adopt it.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
+    <value>An existing app registration with the Foundry name was found. Reconnect to adopt it into the Foundry configuration.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
+    <value>The managed app registration is missing the required Microsoft Graph application permission. Reconnect with an account that can update app registrations.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
+    <value>The managed service principal is missing admin consent for the required Microsoft Graph permission. Grant admin consent and reconnect.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
+    <value>The managed service principal is missing or disabled. Reconnect with an account that can create or manage enterprise applications.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
+    <value>The previously selected certificate no longer exists in the managed app registration. Select a valid PFX that matches a provisioned certificate.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
+    <value>The selected certificate is expired. Create a new certificate, save its PFX and password, then select it for boot media.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
+    <value>The managed app registration is not ready. Review tenant readiness and reconnect.</value>
   </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Customization</value>
@@ -1382,9 +1397,6 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Enabled: hardware hash upload</value>
-  </data>
-  <data name="StartMedia.Autopilot.NotReady" xml:space="preserve">
-    <value>Enabled; default profile missing</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot uses an unsupported provisioning mode.</value>

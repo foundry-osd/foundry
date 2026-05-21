@@ -90,7 +90,8 @@ public sealed class AutopilotTenantOnboardingService(
                 requiredRole,
                 cancellationToken).ConfigureAwait(false);
 
-            string[] groupTags = await TryGetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
+            string[]? discoveredGroupTags = await TryGetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
+            string[] groupTags = discoveredGroupTags ?? NormalizeGroupTags(currentSettings.KnownGroupTags);
             IReadOnlyList<AutopilotGraphKeyCredential> keyCredentials =
                 await GetApplicationKeyCredentialsAsync(accessToken, application.ObjectId, cancellationToken).ConfigureAwait(false);
             AutopilotTenantOnboardingSnapshot snapshot = new()
@@ -122,17 +123,16 @@ public sealed class AutopilotTenantOnboardingService(
                 },
                 ActiveCertificate = activeCertificate,
                 KnownGroupTags = groupTags,
-                DefaultGroupTag = ResolveDefaultGroupTag(currentSettings.DefaultGroupTag, groupTags)
+                DefaultGroupTag = discoveredGroupTags is null
+                    ? currentSettings.DefaultGroupTag
+                    : ResolveDefaultGroupTag(currentSettings.DefaultGroupTag, groupTags)
             };
 
             return new AutopilotTenantOnboardingResult
             {
                 Settings = updatedSettings,
                 Status = evaluation.Status,
-                Certificates = keyCredentials,
-                Message = evaluation.Status == AutopilotTenantOnboardingStatus.Ready
-                    ? "The managed app registration is ready."
-                    : $"The managed app registration requires attention: {evaluation.Status}."
+                Certificates = keyCredentials
             };
         }
         catch
@@ -190,12 +190,20 @@ public sealed class AutopilotTenantOnboardingService(
         }
 
         string newCredentialJson = CreateKeyCredentialJson(keyId, certificate, startsOnUtc, expiresOnUtc);
-        await AddKeyCredentialAsync(
-            accessToken,
-            currentSettings.Tenant.ApplicationObjectId,
-            keyId,
-            newCredentialJson,
-            cancellationToken).ConfigureAwait(false);
+        try
+        {
+            await AddKeyCredentialAsync(
+                accessToken,
+                currentSettings.Tenant.ApplicationObjectId,
+                keyId,
+                newCredentialJson,
+                cancellationToken).ConfigureAwait(false);
+        }
+        catch
+        {
+            DeletePfxOutputAfterFailedGraphUpload(pfxOutputPath);
+            throw;
+        }
 
         var metadata = new AutopilotCertificateMetadata
         {
@@ -696,7 +704,7 @@ public sealed class AutopilotTenantOnboardingService(
             cancellationToken).ConfigureAwait(false);
     }
 
-    private async Task<string[]> TryGetGroupTagsAsync(string accessToken, CancellationToken cancellationToken)
+    private async Task<string[]?> TryGetGroupTagsAsync(string accessToken, CancellationToken cancellationToken)
     {
         try
         {
@@ -707,7 +715,7 @@ public sealed class AutopilotTenantOnboardingService(
             logger.Warning(
                 "Autopilot group tag discovery failed and will be skipped. StatusCode={StatusCode}",
                 ex.StatusCode);
-            return [];
+            return null;
         }
     }
 
@@ -904,6 +912,31 @@ public sealed class AutopilotTenantOnboardingService(
         }
 
         return null;
+    }
+
+    private static string[] NormalizeGroupTags(IReadOnlyList<string> groupTags)
+    {
+        return groupTags
+            .Where(groupTag => !string.IsNullOrWhiteSpace(groupTag))
+            .Select(groupTag => groupTag.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(groupTag => groupTag, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    private void DeletePfxOutputAfterFailedGraphUpload(string pfxOutputPath)
+    {
+        try
+        {
+            if (File.Exists(pfxOutputPath))
+            {
+                File.Delete(pfxOutputPath);
+            }
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            logger.Warning(ex, "Failed to remove generated PFX after Graph certificate upload failed.");
+        }
     }
 
     private static string CreateKeyCredentialJson(

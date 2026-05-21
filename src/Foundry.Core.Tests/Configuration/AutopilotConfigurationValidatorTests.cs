@@ -110,13 +110,47 @@ public sealed class AutopilotConfigurationValidatorTests
         {
             IsEnabled = true,
             ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
-            HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddTicks(-1))
+            HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddTicks(-1)) with
+            {
+                BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                {
+                    PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
+                    PfxPassword = "correct-password",
+                    ValidatedThumbprint = "ABCDEF123456",
+                    ValidatedExpiresOnUtc = EvaluationTimeUtc.AddMonths(6)
+                }
+            }
         };
 
         AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
 
         Assert.False(result.IsReady);
         Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashActiveCertificateExpired, result.Code);
+    }
+
+    [Fact]
+    public void Evaluate_WhenHardwareHashBootMediaCertificateIsExpired_ReturnsBootMediaCertificateExpired()
+    {
+        var settings = new AutopilotSettings
+        {
+            IsEnabled = true,
+            ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+            HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddMonths(6)) with
+            {
+                BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                {
+                    PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
+                    PfxPassword = "correct-password",
+                    ValidatedThumbprint = "ABCDEF123456",
+                    ValidatedExpiresOnUtc = EvaluationTimeUtc.AddTicks(-1)
+                }
+            }
+        };
+
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+
+        Assert.False(result.IsReady);
+        Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashBootMediaCertificateExpired, result.Code);
     }
 
     [Fact]
@@ -144,6 +178,26 @@ public sealed class AutopilotConfigurationValidatorTests
             ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
             HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddMonths(6)) with
             {
+                BootMediaCertificate = new AutopilotBootMediaCertificateSettings()
+            }
+        };
+
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+
+        Assert.False(result.IsReady);
+        Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashBootMediaPfxMissing, result.Code);
+    }
+
+    [Fact]
+    public void Evaluate_WhenHardwareHashHasNoActiveCertificateOrPfx_ReturnsPfxMissing()
+    {
+        var settings = new AutopilotSettings
+        {
+            IsEnabled = true,
+            ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+            HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddMonths(6)) with
+            {
+                ActiveCertificate = null,
                 BootMediaCertificate = new AutopilotBootMediaCertificateSettings()
             }
         };

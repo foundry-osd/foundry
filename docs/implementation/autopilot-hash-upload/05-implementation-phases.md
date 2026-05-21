@@ -107,6 +107,7 @@ Scope note:
 - [x] Make tenant operation cancellation return control to the Autopilot page so the connect action can be retried.
 - [x] Reuse the current-session hardware hash Microsoft Graph credential for certificate creation and removal instead of reopening interactive sign-in.
 - [x] Clear the current-session hardware hash Microsoft Graph credential when the operator disconnects the tenant.
+- [x] Keep interactive Microsoft Graph authentication session-only by disabling persistent MSAL token cache storage for OSD tenant operations.
 - [x] Include `User.Read` in the hardware hash onboarding token scopes so Graph organization discovery can read the signed-in tenant ID.
 - [x] Keep tenant-dependent OSD UI session-gated: persisted tenant metadata stays stored, but tenant readiness, certificate, and group tag rows stay hidden until a successful current-session tenant connection.
 - [x] Show tenant readiness in one dedicated row instead of embedding tenant and readiness details in separate rows.
@@ -119,6 +120,8 @@ Scope note:
 - [x] Show an empty-state message in the provisioned certificates table row when the tenant app registration has no certificate credentials.
 - [x] Do not display an empty-certificate warning when the app registration has no certificate credentials.
 - [x] Allow multiple app registration certificates to coexist in the tenant instead of replacing the previously selected certificate during creation.
+- [x] Filter the provisioned certificate table to Foundry-managed certificate credentials so unrelated app registration credentials are not shown or removable from Foundry.
+- [x] Delete the generated local PFX file if Graph certificate upload fails during certificate creation.
 - [x] Resolve the boot media certificate automatically by matching the selected PFX thumbprint against tenant app registration certificates.
 - [x] Move certificate action buttons above the certificate table.
 - [x] Remove the visible certificate validity field label while keeping the validity duration selector.
@@ -135,6 +138,7 @@ Scope note:
 - [x] Keep boot media PFX path, password, and validation result session-only and excluded from ProgramData serialization.
 - [x] Preserve the boot media certificate ready message across Autopilot page navigation when the current-session PFX is still validated.
 - [x] Refresh only boot media certificate status while typing the PFX password so tenant readiness details do not rebind on every keystroke.
+- [x] Prioritize boot media PFX-specific readiness messages over generic active certificate metadata blockers on the Autopilot page and Start page.
 - [x] Preserve current-session tenant connection, certificate table, onboarding status, and boot media PFX state across page navigation without persisting them across app restart.
 - [x] Show onboarding status as compact `Ready` or `Not ready` text with WinUI signal color.
 - [x] Show tenant connection state as `Connected` in success color or `Not connected` in critical color.
@@ -143,6 +147,7 @@ Scope note:
 - [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
+- [x] Preserve the previously saved default group tag if group tag discovery fails during tenant connection.
 - [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
 - [x] Keep `None` selected by default because hardware hash upload does not require a group tag.
 - [x] Populate the default group tag ComboBox from discovered tenant group tags without displaying a duplicate available group tag table.

@@ -22,9 +22,4 @@ public sealed record AutopilotTenantOnboardingResult
     /// Gets the app registration certificate credentials discovered from Microsoft Graph.
     /// </summary>
     public IReadOnlyList<AutopilotGraphKeyCredential> Certificates { get; init; } = [];
-
-    /// <summary>
-    /// Gets a non-sensitive status message suitable for logs and UI.
-    /// </summary>
-    public string Message { get; init; } = string.Empty;
 }

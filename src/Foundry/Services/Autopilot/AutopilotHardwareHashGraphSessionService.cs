@@ -74,11 +74,7 @@ public sealed class AutopilotHardwareHashGraphSessionService : IAutopilotHardwar
         {
             ClientId = clientId,
             TenantId = string.IsNullOrWhiteSpace(tenantId) ? AutopilotGraphAuthenticationDefaults.DefaultTenantId : tenantId.Trim(),
-            RedirectUri = new Uri(AutopilotGraphAuthenticationDefaults.RedirectUri, UriKind.Absolute),
-            TokenCachePersistenceOptions = new TokenCachePersistenceOptions
-            {
-                Name = AutopilotGraphAuthenticationDefaults.TokenCacheName
-            }
+            RedirectUri = new Uri(AutopilotGraphAuthenticationDefaults.RedirectUri, UriKind.Absolute)
         });
     }
 }

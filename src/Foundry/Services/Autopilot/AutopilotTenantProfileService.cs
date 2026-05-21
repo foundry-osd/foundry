@@ -136,12 +136,7 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
         {
             ClientId = clientId,
             TenantId = string.IsNullOrWhiteSpace(tenantId) ? AutopilotGraphAuthenticationDefaults.DefaultTenantId : tenantId.Trim(),
-            RedirectUri = new Uri(AutopilotGraphAuthenticationDefaults.RedirectUri, UriKind.Absolute),
-            TokenCachePersistenceOptions = new TokenCachePersistenceOptions
-            {
-                // Keep Graph auth reusable for Foundry without sharing a token cache name with unrelated tools.
-                Name = AutopilotGraphAuthenticationDefaults.TokenCacheName
-            }
+            RedirectUri = new Uri(AutopilotGraphAuthenticationDefaults.RedirectUri, UriKind.Absolute)
         });
     }
 
