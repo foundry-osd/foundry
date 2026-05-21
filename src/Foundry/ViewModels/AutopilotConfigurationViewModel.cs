@@ -970,7 +970,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         SelectBootMediaCertificateButtonText = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificateSelectButton");
         GroupTagLabel = localizationService.GetString("Autopilot.HardwareHashGroupTagLabel");
         GroupTagDescription = localizationService.GetString("Autopilot.HardwareHashGroupTagDescription");
-        DefaultGroupTagNoneOptionText = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNoneOption");
+        DefaultGroupTagNoneOptionText = localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNoSelection");
         ImportButtonText = localizationService.GetString("Autopilot.ImportButton");
         DownloadButtonText = localizationService.GetString("Autopilot.DownloadButton");
         RemoveButtonText = localizationService.GetString("Autopilot.RemoveButton");

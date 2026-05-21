@@ -507,6 +507,9 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
     <value>Tenant onboarding requires attention</value>
   </data>
