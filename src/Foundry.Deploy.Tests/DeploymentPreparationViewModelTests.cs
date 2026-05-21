@@ -201,7 +201,10 @@ public sealed class DeploymentPreparationViewModelTests
     [Theory]
     [InlineData(DebugAutopilotMode.None, false, AutopilotProvisioningMode.JsonProfile)]
     [InlineData(DebugAutopilotMode.JsonProfile, true, AutopilotProvisioningMode.JsonProfile)]
-    [InlineData(DebugAutopilotMode.HardwareHashUpload, true, AutopilotProvisioningMode.HardwareHashUpload)]
+    [InlineData(DebugAutopilotMode.HardwareHashUploadValidCertificate, true, AutopilotProvisioningMode.HardwareHashUpload)]
+    [InlineData(DebugAutopilotMode.HardwareHashUploadExpiredCertificate, true, AutopilotProvisioningMode.HardwareHashUpload)]
+    [InlineData(DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata, true, AutopilotProvisioningMode.HardwareHashUpload)]
+    [InlineData(DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag, true, AutopilotProvisioningMode.HardwareHashUpload)]
     public void ApplyDebugAutopilotMode_OverridesAutopilotState(DebugAutopilotMode mode, bool expectedEnabled, AutopilotProvisioningMode expectedMode)
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
@@ -211,7 +214,54 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.Equal(expectedEnabled, viewModel.IsAutopilotEnabled);
         Assert.Equal(expectedMode, viewModel.AutopilotProvisioningMode);
         Assert.Equal(mode == DebugAutopilotMode.JsonProfile, viewModel.SelectedAutopilotProfile is not null);
-        Assert.Equal(mode == DebugAutopilotMode.HardwareHashUpload, viewModel.IsHardwareHashUploadControlsVisible);
+        Assert.Equal(expectedEnabled && expectedMode == AutopilotProvisioningMode.HardwareHashUpload, viewModel.IsHardwareHashUploadControlsVisible);
+    }
+
+    [Fact]
+    public void ApplyDebugAutopilotMode_WhenHardwareHashCertificateIsValid_ConfiguresUsableUpload()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadValidCertificate);
+
+        Assert.True(viewModel.IsHardwareHashCertificateUsable);
+        Assert.False(viewModel.IsHardwareHashCertificateExpired);
+        Assert.Equal("Debug", viewModel.CreateAutopilotHardwareHashUploadForLaunch().DefaultGroupTag);
+    }
+
+    [Fact]
+    public void ApplyDebugAutopilotMode_WhenHardwareHashCertificateIsExpired_MarksCertificateUnusable()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadExpiredCertificate);
+
+        Assert.True(viewModel.HasHardwareHashUploadMetadata);
+        Assert.True(viewModel.IsHardwareHashCertificateExpired);
+        Assert.False(viewModel.IsHardwareHashCertificateUsable);
+    }
+
+    [Fact]
+    public void ApplyDebugAutopilotMode_WhenHardwareHashMetadataIsMissing_MarksCertificateUnusable()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata);
+
+        Assert.False(viewModel.HasHardwareHashUploadMetadata);
+        Assert.False(viewModel.IsHardwareHashCertificateUsable);
+    }
+
+    [Fact]
+    public void ApplyDebugAutopilotMode_WhenHardwareHashDefaultGroupTagIsMissing_LaunchesWithoutGroupTag()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag);
+
+        Assert.True(viewModel.IsHardwareHashCertificateUsable);
+        Assert.Null(viewModel.CreateAutopilotHardwareHashUploadForLaunch().DefaultGroupTag);
+        Assert.False(string.IsNullOrWhiteSpace(viewModel.EffectiveHardwareHashGroupTagText));
     }
 
     [Fact]

@@ -89,9 +89,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
     public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
-    public bool IsDebugAutopilotNoneMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.None;
-    public bool IsDebugAutopilotJsonProfileMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.JsonProfile;
-    public bool IsDebugAutopilotHardwareHashUploadMode => IsDebugSafeMode && _debugAutopilotMode == DebugAutopilotMode.HardwareHashUpload;
+    public bool IsDebugAutopilotNoneMode => IsDebugAutopilotMode(DebugAutopilotMode.None);
+    public bool IsDebugAutopilotJsonProfileMode => IsDebugAutopilotMode(DebugAutopilotMode.JsonProfile);
+    public bool IsDebugAutopilotHardwareHashUploadValidCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadValidCertificate);
+    public bool IsDebugAutopilotHardwareHashUploadExpiredCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadExpiredCertificate);
+    public bool IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata);
+    public bool IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag);
 
     public MainWindowViewModel(
         ILocalizationService localizationService,
@@ -218,12 +221,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _debugAutopilotMode = mode;
         Preparation.ApplyDebugAutopilotMode(mode);
-        OnPropertyChanged(nameof(IsDebugAutopilotNoneMode));
-        OnPropertyChanged(nameof(IsDebugAutopilotJsonProfileMode));
-        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadMode));
+        RaiseDebugAutopilotModePropertiesChanged();
         OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
         OnPropertyChanged(nameof(SummaryAutopilotModeText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+        OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -427,6 +429,21 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool CanUseDebugTools()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
+    }
+
+    private bool IsDebugAutopilotMode(DebugAutopilotMode mode)
+    {
+        return IsDebugSafeMode && _debugAutopilotMode == mode;
+    }
+
+    private void RaiseDebugAutopilotModePropertiesChanged()
+    {
+        OnPropertyChanged(nameof(IsDebugAutopilotNoneMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotJsonProfileMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadValidCertificateMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadExpiredCertificateMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode));
     }
 
     private bool CanRefreshCatalogs()

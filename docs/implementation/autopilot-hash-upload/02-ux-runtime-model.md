@@ -117,6 +117,7 @@ Foundry Deploy UX:
 - Foundry Deploy should render only the selected Autopilot provisioning mode from Foundry OSD.
 - JSON mode shows only the JSON/profile controls.
 - Hardware hash mode shows only hardware hash upload controls.
+- Debug-safe Foundry Deploy runs should expose a top-level Debug menu with Autopilot scenario presets and deployment page previews. This menu must stay hidden outside debug-safe runs.
 - Hardware hash mode should attempt certificate-based Graph authentication automatically during startup/loading, before the Computer Target page becomes actionable.
 - The Computer Target page should expose two mutually exclusive group tag choices:
   - select the default/existing group tag supplied by Foundry OSD

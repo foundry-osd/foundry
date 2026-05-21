@@ -14,6 +14,10 @@ namespace Foundry.Deploy.ViewModels;
 
 public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelBase
 {
+    private const string DebugAutopilotProfileFolderName = "DebugAutopilotProfile";
+    private const string DebugAutopilotProfileDisplayName = "Debug Autopilot Profile";
+    private const string DebugAutopilotGroupTag = "Debug";
+
     private readonly ITargetDiskService _targetDiskService;
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
@@ -431,31 +435,58 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
                 UseCustomHardwareHashGroupTag = false;
                 CustomHardwareHashGroupTag = string.Empty;
                 AutopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile;
-                SelectedAutopilotProfile = AutopilotProfiles.First();
+                SelectedAutopilotProfile = AutopilotProfiles.First(profile =>
+                    profile.FolderName.Equals(DebugAutopilotProfileFolderName, StringComparison.OrdinalIgnoreCase));
                 IsAutopilotEnabled = true;
                 break;
-            case DebugAutopilotMode.HardwareHashUpload:
-                AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload;
-                AutopilotHardwareHashUpload = new DeployAutopilotHardwareHashUploadSettings
-                {
-                    TenantId = "debug-tenant-id",
-                    ClientId = "debug-client-id",
-                    ActiveCertificateKeyId = "debug-certificate-key-id",
-                    ActiveCertificateThumbprint = "DEBUGTHUMBPRINT",
-                    ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
-                    DefaultGroupTag = "Debug"
-                };
-                UseDefaultHardwareHashGroupTag = true;
-                UseCustomHardwareHashGroupTag = false;
-                CustomHardwareHashGroupTag = string.Empty;
-                SelectedAutopilotProfile = null;
-                IsAutopilotEnabled = true;
+            case DebugAutopilotMode.HardwareHashUploadValidCertificate:
+                ApplyDebugHardwareHashUpload(
+                    certificateExpiresOnUtc: DateTimeOffset.UtcNow.AddMonths(1),
+                    defaultGroupTag: DebugAutopilotGroupTag,
+                    includeCompleteCertificateMetadata: true);
+                break;
+            case DebugAutopilotMode.HardwareHashUploadExpiredCertificate:
+                ApplyDebugHardwareHashUpload(
+                    certificateExpiresOnUtc: DateTimeOffset.UtcNow.AddDays(-1),
+                    defaultGroupTag: DebugAutopilotGroupTag,
+                    includeCompleteCertificateMetadata: true);
+                break;
+            case DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata:
+                ApplyDebugHardwareHashUpload(
+                    certificateExpiresOnUtc: DateTimeOffset.UtcNow.AddMonths(1),
+                    defaultGroupTag: DebugAutopilotGroupTag,
+                    includeCompleteCertificateMetadata: false);
+                break;
+            case DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag:
+                ApplyDebugHardwareHashUpload(
+                    certificateExpiresOnUtc: DateTimeOffset.UtcNow.AddMonths(1),
+                    defaultGroupTag: null,
+                    includeCompleteCertificateMetadata: true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(mode), mode, "Unsupported debug Autopilot mode.");
         }
 
         RaiseStateChanged();
+    }
+
+    private void ApplyDebugHardwareHashUpload(DateTimeOffset certificateExpiresOnUtc, string? defaultGroupTag, bool includeCompleteCertificateMetadata)
+    {
+        AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload;
+        AutopilotHardwareHashUpload = new DeployAutopilotHardwareHashUploadSettings
+        {
+            TenantId = "debug-tenant-id",
+            ClientId = "debug-client-id",
+            ActiveCertificateKeyId = includeCompleteCertificateMetadata ? "debug-certificate-key-id" : null,
+            ActiveCertificateThumbprint = includeCompleteCertificateMetadata ? "DEBUGTHUMBPRINT" : null,
+            ActiveCertificateExpiresOnUtc = includeCompleteCertificateMetadata ? certificateExpiresOnUtc : null,
+            DefaultGroupTag = defaultGroupTag
+        };
+        UseDefaultHardwareHashGroupTag = true;
+        UseCustomHardwareHashGroupTag = false;
+        CustomHardwareHashGroupTag = string.Empty;
+        SelectedAutopilotProfile = null;
+        IsAutopilotEnabled = true;
     }
 
     partial void OnAutopilotProvisioningModeChanged(AutopilotProvisioningMode value)
@@ -670,15 +701,16 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     private void EnsureDebugAutopilotProfile()
     {
-        if (AutopilotProfiles.Count > 0)
+        if (AutopilotProfiles.Any(profile =>
+                profile.FolderName.Equals(DebugAutopilotProfileFolderName, StringComparison.OrdinalIgnoreCase)))
         {
             return;
         }
 
         AutopilotProfiles.Add(new AutopilotProfileCatalogItem
         {
-            FolderName = "DebugAutopilotProfile",
-            DisplayName = "Debug Autopilot Profile",
+            FolderName = DebugAutopilotProfileFolderName,
+            DisplayName = DebugAutopilotProfileDisplayName,
             ConfigurationFilePath = @"X:\Foundry\Debug\Autopilot\AutopilotConfigurationFile.json"
         });
         OnPropertyChanged(nameof(HasAutopilotProfiles));

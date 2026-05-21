@@ -21,6 +21,7 @@
   <data name="Menu.Theme" xml:space="preserve"><value>_Theme</value></data>
   <data name="Menu.Language" xml:space="preserve"><value>_Language</value></data>
   <data name="Menu.Tools" xml:space="preserve"><value>_Tools</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
   <data name="Menu.About" xml:space="preserve"><value>_About</value></data>
   <data name="Theme.System" xml:space="preserve"><value>System</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Light</value></data>
@@ -30,10 +31,6 @@
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Refresh Catalogs</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Refresh Target Disks</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open Log File</value></data>
-  <data name="Tools.DebugAutopilotMode" xml:space="preserve"><value>Debug Autopilot Mode</value></data>
-  <data name="Tools.DebugAutopilotMode.None" xml:space="preserve"><value>No Autopilot</value></data>
-  <data name="Tools.DebugAutopilotMode.JsonProfile" xml:space="preserve"><value>JSON profile</value></data>
-  <data name="Tools.DebugAutopilotMode.HardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
   <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>DEBUG SAFE MODE ACTIVE: all deployment actions are simulated; no disk/image write is performed.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating System Catalog</value></data>
@@ -122,9 +119,18 @@
   <data name="Summary.SectionTarget" xml:space="preserve"><value>Target</value></data>
   <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
   <data name="Summary.SectionDeployment" xml:space="preserve"><value>Deployment Options</value></data>
-  <data name="Debug.ProgressButton" xml:space="preserve"><value>DBG: Progress</value></data>
-  <data name="Debug.SuccessButton" xml:space="preserve"><value>DBG: Success</value></data>
-  <data name="Debug.ErrorButton" xml:space="preserve"><value>DBG: Error</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>No Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profile</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Valid certificate</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Expired certificate</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Missing certificate metadata</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>No default group tag</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Deployment pages</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Progress page</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Success page</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Error page</value></data>
   <data name="Debug.ProgressPage" xml:space="preserve"><value>DBG preview: progress page.</value></data>
   <data name="Debug.SuccessPage" xml:space="preserve"><value>DBG preview: success page.</value></data>
   <data name="Debug.ErrorPage" xml:space="preserve"><value>DBG preview: error page.</value></data>

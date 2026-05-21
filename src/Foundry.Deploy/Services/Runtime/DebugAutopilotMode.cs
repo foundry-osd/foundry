@@ -1,7 +1,7 @@
 namespace Foundry.Deploy.Services.Runtime;
 
 /// <summary>
-/// Selects the in-memory Autopilot mode used by Foundry.Deploy debug safe mode.
+/// Selects the in-memory Autopilot scenario used by Foundry.Deploy debug safe mode.
 /// </summary>
 public enum DebugAutopilotMode
 {
@@ -16,7 +16,22 @@ public enum DebugAutopilotMode
     JsonProfile,
 
     /// <summary>
-    /// Simulates hardware hash upload provisioning during the debug deployment run.
+    /// Simulates hardware hash upload provisioning with a valid certificate.
     /// </summary>
-    HardwareHashUpload
+    HardwareHashUploadValidCertificate,
+
+    /// <summary>
+    /// Simulates hardware hash upload provisioning with an expired certificate.
+    /// </summary>
+    HardwareHashUploadExpiredCertificate,
+
+    /// <summary>
+    /// Simulates hardware hash upload provisioning with incomplete certificate metadata.
+    /// </summary>
+    HardwareHashUploadMissingCertificateMetadata,
+
+    /// <summary>
+    /// Simulates hardware hash upload provisioning without a default group tag.
+    /// </summary>
+    HardwareHashUploadNoDefaultGroupTag
 }

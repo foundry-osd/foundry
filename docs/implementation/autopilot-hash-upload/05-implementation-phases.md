@@ -258,6 +258,9 @@ Implementation progress:
 - [x] Update deployment launch preparation UI so hash mode no longer reports a missing JSON profile blocker.
 - [x] Carry the effective default/custom hardware hash group tag into the deployment launch request and summary.
 - [x] Make the current live runtime boundary skip hardware hash upload instead of failing the OS deployment before Phase 5+.
+- [x] Move Deploy preview shortcuts for progress, success, and error pages into a debug-only top-level menu.
+- [x] Add debug-only Autopilot presets for no Autopilot, JSON profile, valid hardware hash certificate, expired hardware hash certificate, missing hardware hash certificate metadata, and hardware hash without a default group tag.
+- [x] Remove obsolete wizard footer debug buttons now that debug commands are centralized under the Debug menu.
 - [x] Add localized strings in English and French resources.
 - [x] Add XML documentation comments to new public Deploy view-model members or UI service contracts when the behavior is not obvious.
 
@@ -273,7 +276,8 @@ Automated tests:
 - [x] `None` group tag remains a valid selection and serializes as no group tag.
 - [x] Summary state exposes the effective group tag for hash mode.
 - [x] Live hardware hash mode reports the pre-runtime skipped state until Phase 5+ implements execution.
-- [x] `dotnet test .\src\Foundry.Deploy.Tests\Foundry.Deploy.Tests.csproj` passed: 153 tests, 0 failures.
+- [x] Debug Autopilot presets produce the expected launch preparation and certificate readiness states.
+- [x] `dotnet test .\src\Foundry.Deploy.Tests\Foundry.Deploy.Tests.csproj` passed: 161 tests, 0 failures.
 
 Manual checks:
 Deferred to operator validation before squash because the checks require the Foundry Deploy UI in WinPE/debug mode.
@@ -286,6 +290,16 @@ Deferred to operator validation before squash because the checks require the Fou
 - [ ] In hash mode with an expired certificate, confirm Deploy shows the regeneration/recreate media message, hides group tag controls, and still allows OS deployment.
 - [ ] Confirm hash mode does not show a missing JSON profile blocker.
 - [ ] Confirm JSON mode behavior and text did not regress.
+- [ ] In a Visual Studio/debug-safe run, confirm the top-level Debug menu is visible.
+- [ ] In a non-debug run, confirm the top-level Debug menu is hidden.
+- [ ] Confirm Debug > Autopilot > No Autopilot disables Autopilot controls and blockers.
+- [ ] Confirm Debug > Autopilot > JSON profile shows the JSON/profile Autopilot controls.
+- [ ] Confirm Debug > Autopilot > Hardware hash upload > Valid certificate shows hash mode as ready.
+- [ ] Confirm Debug > Autopilot > Hardware hash upload > Expired certificate shows the expired-certificate non-blocking state.
+- [ ] Confirm Debug > Autopilot > Hardware hash upload > Missing certificate metadata shows hash mode as not ready.
+- [ ] Confirm Debug > Autopilot > Hardware hash upload > No default group tag keeps hash mode ready with no default group tag.
+- [ ] Confirm Debug > Deployment pages opens the progress, success, and error preview pages.
+- [ ] Confirm the wizard footer no longer shows debug preview buttons.
 
 ### Phase 4: Media Build And WinPE Assets
 PR title: `feat(winpe): stage autopilot hash capture assets`
