@@ -153,7 +153,7 @@ Automated tests:
 Manual checks:
 - [ ] Create the managed app registration in a clean test tenant.
 - [ ] Confirm the app registration name is `Foundry OSD Autopilot Registration`.
-- [ ] Confirm `Connect tenant` creates an Enterprise application for the official `Foundry` bootstrap client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` in the target tenant.
+- [ ] Confirm `Connect tenant` creates an Enterprise application for the official `Foundry OSD` bootstrap client ID `83eb3a92-030d-49b7-881b-32a1eb3e110a` in the target tenant.
 - [ ] Confirm required API permissions and admin consent status are visible in Foundry OSD.
 - [ ] Add a second certificate credential outside Foundry and confirm Foundry leaves it untouched.
 - [ ] Replace the active certificate and confirm the previous active credential is removed while unrelated credentials are preserved.

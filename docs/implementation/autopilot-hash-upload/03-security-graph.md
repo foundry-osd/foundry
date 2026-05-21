@@ -12,7 +12,7 @@ Recommended direction:
 - Invoke OA3Tool through the existing C# process execution patterns, not through PowerShell.
 - Split OSD interactive onboarding permissions from WinPE app-only upload permissions.
 - Use the official Foundry multi-tenant public client app only as the OSD interactive sign-in bootstrap:
-  - Display name: `Foundry`
+  - Display name: `Foundry OSD`
   - Client ID: `83eb3a92-030d-49b7-881b-32a1eb3e110a`
   - Environment override for private builds or forks: `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID`
 - Use least-privilege WinPE app-only upload permissions:
@@ -30,10 +30,10 @@ Permission split:
 | Foundry Deploy in WinPE | App-only certificate credential from generated media | Import the captured hardware hash and poll import/device visibility. | Yes, as encrypted PFX envelope plus media secret key |
 
 Two-app model:
-- `Foundry` is the official Foundry-owned multi-tenant public client. It is used only to obtain delegated Microsoft Graph tokens for interactive OSD admin setup.
+- `Foundry OSD` is the official Foundry-owned multi-tenant public client. It is used only to obtain delegated Microsoft Graph tokens for interactive OSD admin setup.
 - `Foundry OSD Autopilot Registration` is the tenant-local app registration created or reused by Foundry OSD. It is the only app identity embedded into generated WinPE media through tenant ID, client ID, and certificate-based app-only authentication.
-- The `Foundry` bootstrap app client ID is not a secret and must not be replaced in official builds. Private forks can override it through `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID`.
-- WinPE must never authenticate with the `Foundry` bootstrap public client. WinPE uses only the tenant-local managed app and its certificate credential.
+- The `Foundry OSD` bootstrap app client ID is not a secret and must not be replaced in official builds. Private forks can override it through `FOUNDRY_AUTOPILOT_GRAPH_CLIENT_ID`.
+- WinPE must never authenticate with the `Foundry OSD` bootstrap public client. WinPE uses only the tenant-local managed app and its certificate credential.
 
 The interactive OSD user may need broad Entra application management rights during setup, but those delegated/session permissions are not embedded into the boot image. The boot image receives only the managed app identity and certificate material needed for Autopilot import.
 
