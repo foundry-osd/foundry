@@ -326,12 +326,6 @@ public static partial class DeploymentUiTextLocalizer
             return LocalizationText.Format("StepProgress.DownloadedBytesFormat", match.Groups["size"].Value);
         }
 
-        match = ProfilesAvailableRegex().Match(value);
-        if (match.Success)
-        {
-            return LocalizationText.Format("Preparation.AutopilotProfilesAvailableFormat", int.Parse(match.Groups["count"].Value));
-        }
-
         match = TargetDisksLoadedRegex().Match(value);
         if (match.Success)
         {
@@ -408,9 +402,6 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Catalogs loaded: (?<os>\d+) OS entries, (?<drivers>\d+) driver packs\.$")]
     private static partial Regex CatalogLoadedRegex();
-
-    [GeneratedRegex(@"^Profiles available: (?<count>\d+)$")]
-    private static partial Regex ProfilesAvailableRegex();
 
     [GeneratedRegex(@"^Target disks loaded: (?<count>\d+) detected\.$")]
     private static partial Regex TargetDisksLoadedRegex();

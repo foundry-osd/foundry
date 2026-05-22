@@ -115,13 +115,19 @@ Foundry OSD tenant onboarding UX:
 
 Foundry Deploy UX:
 - Foundry Deploy should render only the selected Autopilot provisioning mode from Foundry OSD.
-- JSON mode shows only the JSON/profile controls.
-- Hardware hash mode shows only hardware hash upload controls.
+- When Autopilot is disabled, the Computer Target page shows only the provisioning method embedded in the media.
+- JSON mode shows only the JSON/profile controls needed to select the embedded profile. Profile counts and unrelated hardware hash state stay hidden.
+- Hardware hash mode shows an operator-focused status instead of tenant diagnostics:
+  - upload readiness status
+  - one actionable readiness or skip message
+  - optional group tag controls only when upload can be attempted
+- Tenant ID, client ID, certificate thumbprint, and certificate expiration are not shown in the normal Computer Target card. Those details belong in generated media metadata, logs, debug presets, or future troubleshooting surfaces.
 - Debug-safe Foundry Deploy runs should expose a top-level Debug menu with Autopilot scenario presets and deployment page previews. This menu must stay hidden outside debug-safe runs.
 - Hardware hash mode should attempt certificate-based Graph authentication automatically during startup/loading, before the Computer Target page becomes actionable.
-- The Computer Target page should expose two mutually exclusive group tag choices:
-  - select the default/existing group tag supplied by Foundry OSD
-  - enter a custom group tag when the desired value does not exist
+- The Computer Target page should expose two mutually exclusive group tag choices only when hash upload can be attempted:
+  - use the default group tag supplied by Foundry OSD, including `None`
+  - enter a custom group tag for this deployment
+- If the media has no default group tag, the custom group tag text box is the only visible group tag input.
 - If the certificate is expired in Foundry Deploy:
   - do not block the OS deployment
   - hide the group tag selection and custom group tag textbox

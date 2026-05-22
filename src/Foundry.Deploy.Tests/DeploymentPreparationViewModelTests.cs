@@ -22,8 +22,10 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.HasAutopilotProfiles);
         Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.False(viewModel.IsAutopilotEnabled);
+        Assert.True(viewModel.IsAutopilotDisabledSummaryVisible);
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
+        Assert.Contains("JSON", viewModel.AutopilotDisabledSummaryText, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -71,6 +73,7 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
         Assert.NotEqual(string.Empty, viewModel.AutopilotProfileHint);
+        Assert.True(viewModel.HasAutopilotProfileHint);
     }
 
     [Fact]
@@ -107,7 +110,8 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.Same(hardwareHashUpload, viewModel.AutopilotHardwareHashUpload);
         Assert.True(viewModel.IsHardwareHashCertificateUsable);
         Assert.True(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashReadinessText));
+        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
+        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
         Assert.Contains("Sales", viewModel.UseDefaultHardwareHashGroupTagText);
     }
 
@@ -131,7 +135,8 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashCertificateExpired);
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashReadinessText));
+        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
+        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
     }
 
     [Fact]
@@ -151,7 +156,7 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.HasHardwareHashUploadMetadata);
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.False(viewModel.IsHardwareHashPreRuntimeWarningVisible);
+        Assert.True(viewModel.IsHardwareHashMissingMetadataWarningVisible);
     }
 
     [Fact]
@@ -182,6 +187,7 @@ public sealed class DeploymentPreparationViewModelTests
 
         Assert.Equal("Kiosk", result.DefaultGroupTag);
         Assert.False(viewModel.UseDefaultHardwareHashGroupTag);
+        Assert.True(viewModel.IsHardwareHashCustomGroupTagTextBoxVisible);
     }
 
     [Fact]
@@ -196,6 +202,8 @@ public sealed class DeploymentPreparationViewModelTests
 
         Assert.Null(result.DefaultGroupTag);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.EffectiveHardwareHashGroupTagText));
+        Assert.False(viewModel.IsDefaultHardwareHashGroupTagOptionVisible);
+        Assert.True(viewModel.IsHardwareHashCustomGroupTagTextBoxVisible);
     }
 
     [Theory]
@@ -262,6 +270,8 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashCertificateUsable);
         Assert.Null(viewModel.CreateAutopilotHardwareHashUploadForLaunch().DefaultGroupTag);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.EffectiveHardwareHashGroupTagText));
+        Assert.False(viewModel.IsDefaultHardwareHashGroupTagOptionVisible);
+        Assert.True(viewModel.IsHardwareHashCustomGroupTagTextBoxVisible);
     }
 
     [Fact]
