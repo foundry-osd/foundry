@@ -117,8 +117,21 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             ActiveCertificateKeyId = settings.ActiveCertificate?.KeyId,
             ActiveCertificateThumbprint = settings.ActiveCertificate?.Thumbprint,
             ActiveCertificateExpiresOnUtc = settings.ActiveCertificate?.ExpiresOnUtc,
-            DefaultGroupTag = settings.DefaultGroupTag
+            DefaultGroupTag = settings.DefaultGroupTag,
+            KnownGroupTags = CanonicalizeGroupTags(settings.KnownGroupTags)
         };
+    }
+
+    private static string[] CanonicalizeGroupTags(IEnumerable<string> groupTags)
+    {
+        ArgumentNullException.ThrowIfNull(groupTags);
+
+        return groupTags
+            .Select(groupTag => groupTag.Trim())
+            .Where(groupTag => !string.IsNullOrWhiteSpace(groupTag))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Order(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
     }
 
     private static DeployOobeSettings MapOobeSettings(OobeSettings settings)

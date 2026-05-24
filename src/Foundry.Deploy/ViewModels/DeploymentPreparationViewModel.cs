@@ -12,6 +12,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
 
+/// <summary>
+/// Represents one selectable hardware hash upload group tag option.
+/// </summary>
+/// <param name="DisplayName">Localized display name shown to the operator.</param>
+/// <param name="GroupTag">The group tag value to upload, or null when no group tag should be used.</param>
+public sealed record HardwareHashGroupTagOption(string DisplayName, string? GroupTag);
+
 public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelBase
 {
     private const string DebugAutopilotProfileFolderName = "DebugAutopilotProfile";
@@ -80,13 +87,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private DeployAutopilotHardwareHashUploadSettings autopilotHardwareHashUpload = new();
 
     [ObservableProperty]
-    private bool useDefaultHardwareHashGroupTag = true;
-
-    [ObservableProperty]
-    private bool useCustomHardwareHashGroupTag;
-
-    [ObservableProperty]
-    private string customHardwareHashGroupTag = string.Empty;
+    private HardwareHashGroupTagOption? selectedHardwareHashGroupTag;
 
     [ObservableProperty]
     private AutopilotProfileCatalogItem? selectedAutopilotProfile;
@@ -100,6 +101,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
     public ObservableCollection<AutopilotProfileCatalogItem> AutopilotProfiles { get; } = [];
+    public ObservableCollection<HardwareHashGroupTagOption> HardwareHashGroupTagOptions { get; } = [];
 
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
     public bool HasAutopilotProfiles => AutopilotProfiles.Count > 0;
@@ -122,10 +124,12 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool IsHardwareHashCertificateUsable => HasHardwareHashUploadMetadata && !IsHardwareHashCertificateExpired;
     public bool IsHardwareHashGroupTagControlsVisible => IsHardwareHashUploadControlsVisible && IsHardwareHashCertificateUsable;
     public bool IsHardwareHashMissingMetadataWarningVisible => IsHardwareHashUploadControlsVisible && !HasHardwareHashUploadMetadata;
-    public bool HasHardwareHashDefaultGroupTag => !string.IsNullOrWhiteSpace(AutopilotHardwareHashUpload.DefaultGroupTag);
-    public bool IsDefaultHardwareHashGroupTagOptionVisible => IsHardwareHashGroupTagControlsVisible && HasHardwareHashDefaultGroupTag;
-    public bool IsHardwareHashCustomGroupTagTextBoxVisible => IsHardwareHashGroupTagControlsVisible && (UseCustomHardwareHashGroupTag || !HasHardwareHashDefaultGroupTag);
-    public bool IsHardwareHashCustomGroupTagEnabled => IsHardwareHashGroupTagControlsVisible && (UseCustomHardwareHashGroupTag || !HasHardwareHashDefaultGroupTag);
+    public string AutopilotHardwareHashTenantIdText => NormalizeMetadataValue(AutopilotHardwareHashUpload.TenantId);
+    public string AutopilotHardwareHashCertificateThumbprintText => NormalizeMetadataValue(AutopilotHardwareHashUpload.ActiveCertificateThumbprint);
+    public string AutopilotHardwareHashCertificateExpirationText =>
+        AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc is DateTimeOffset expiresOn
+            ? expiresOn.ToLocalTime().ToString("g", LocalizationService.CurrentCulture)
+            : GetString("Common.Unavailable");
     public string TargetDiskSelectionHint => !string.IsNullOrWhiteSpace(SelectedTargetDisk?.SelectionWarning)
         ? SelectedTargetDisk.SelectionWarning
         : GetString("Preparation.TargetDiskHint");
@@ -175,12 +179,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         }
     }
 
-    public string AutopilotHardwareHashDefaultGroupTagText => string.IsNullOrWhiteSpace(AutopilotHardwareHashUpload.DefaultGroupTag)
-        ? GetString("Common.None")
-        : AutopilotHardwareHashUpload.DefaultGroupTag!;
-    public string UseDefaultHardwareHashGroupTagText => Format(
-        "Preparation.AutopilotHardwareHashUseDefaultGroupTagFormat",
-        AutopilotHardwareHashDefaultGroupTagText);
     public string EffectiveHardwareHashGroupTagText => string.IsNullOrWhiteSpace(ResolveEffectiveHardwareHashGroupTag())
         ? GetString("Common.None")
         : ResolveEffectiveHardwareHashGroupTag()!;
@@ -307,9 +305,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
         AutopilotProvisioningMode = settings.ProvisioningMode;
         AutopilotHardwareHashUpload = settings.HardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings();
-        UseDefaultHardwareHashGroupTag = true;
-        UseCustomHardwareHashGroupTag = false;
-        CustomHardwareHashGroupTag = string.Empty;
         SelectedAutopilotProfile = settings.IsEnabled && settings.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
             ? ResolveDefaultAutopilotProfile(settings.DefaultProfileFolderName)
             : null;
@@ -464,9 +459,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
                 break;
             case DebugAutopilotMode.JsonProfile:
                 EnsureDebugAutopilotProfile();
-                UseDefaultHardwareHashGroupTag = true;
-                UseCustomHardwareHashGroupTag = false;
-                CustomHardwareHashGroupTag = string.Empty;
                 AutopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile;
                 SelectedAutopilotProfile = AutopilotProfiles.First(profile =>
                     profile.FolderName.Equals(DebugAutopilotProfileFolderName, StringComparison.OrdinalIgnoreCase));
@@ -513,11 +505,9 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             ActiveCertificateKeyId = includeCompleteCertificateMetadata ? "debug-certificate-key-id" : null,
             ActiveCertificateThumbprint = includeCompleteCertificateMetadata ? "DEBUGTHUMBPRINT" : null,
             ActiveCertificateExpiresOnUtc = includeCompleteCertificateMetadata ? certificateExpiresOnUtc : null,
-            DefaultGroupTag = defaultGroupTag
+            DefaultGroupTag = defaultGroupTag,
+            KnownGroupTags = [DebugAutopilotGroupTag, "Kiosk"]
         };
-        UseDefaultHardwareHashGroupTag = true;
-        UseCustomHardwareHashGroupTag = false;
-        CustomHardwareHashGroupTag = string.Empty;
         SelectedAutopilotProfile = null;
         IsAutopilotEnabled = true;
     }
@@ -540,41 +530,13 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     partial void OnAutopilotHardwareHashUploadChanged(DeployAutopilotHardwareHashUploadSettings value)
     {
+        SelectedHardwareHashGroupTag = null;
+        RefreshHardwareHashGroupTagOptions();
         RaiseHardwareHashPropertiesChanged();
         RaiseStateChanged();
     }
 
-    partial void OnUseDefaultHardwareHashGroupTagChanged(bool value)
-    {
-        if (value && UseCustomHardwareHashGroupTag)
-        {
-            UseCustomHardwareHashGroupTag = false;
-        }
-
-        OnPropertyChanged(nameof(IsHardwareHashCustomGroupTagEnabled));
-        OnPropertyChanged(nameof(IsHardwareHashCustomGroupTagTextBoxVisible));
-        OnPropertyChanged(nameof(EffectiveHardwareHashGroupTagText));
-        RaiseStateChanged();
-    }
-
-    partial void OnUseCustomHardwareHashGroupTagChanged(bool value)
-    {
-        if (value && UseDefaultHardwareHashGroupTag)
-        {
-            UseDefaultHardwareHashGroupTag = false;
-        }
-        else if (!value && !UseDefaultHardwareHashGroupTag)
-        {
-            UseDefaultHardwareHashGroupTag = true;
-        }
-
-        OnPropertyChanged(nameof(IsHardwareHashCustomGroupTagEnabled));
-        OnPropertyChanged(nameof(IsHardwareHashCustomGroupTagTextBoxVisible));
-        OnPropertyChanged(nameof(EffectiveHardwareHashGroupTagText));
-        RaiseStateChanged();
-    }
-
-    partial void OnCustomHardwareHashGroupTagChanged(string value)
+    partial void OnSelectedHardwareHashGroupTagChanged(HardwareHashGroupTagOption? value)
     {
         OnPropertyChanged(nameof(EffectiveHardwareHashGroupTagText));
         RaiseStateChanged();
@@ -792,6 +754,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             OnPropertyChanged(nameof(HasAutopilotProfileHint));
             OnPropertyChanged(nameof(AutopilotModeText));
             OnPropertyChanged(nameof(AutopilotDisabledSummaryText));
+            RefreshHardwareHashGroupTagOptions();
             RaiseHardwareHashPropertiesChanged();
             OnPropertyChanged(nameof(TargetDiskSelectionHint));
             OnPropertyChanged(nameof(TargetDisks));
@@ -818,13 +781,43 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     private string? ResolveEffectiveHardwareHashGroupTag()
     {
-        string? groupTag = UseCustomHardwareHashGroupTag || !HasHardwareHashDefaultGroupTag
-            ? CustomHardwareHashGroupTag
+        return string.IsNullOrWhiteSpace(SelectedHardwareHashGroupTag?.GroupTag)
+            ? null
+            : SelectedHardwareHashGroupTag.GroupTag.Trim();
+    }
+
+    private void RefreshHardwareHashGroupTagOptions()
+    {
+        string? preferredGroupTag = SelectedHardwareHashGroupTag is not null
+            ? SelectedHardwareHashGroupTag.GroupTag
             : AutopilotHardwareHashUpload.DefaultGroupTag;
 
-        return string.IsNullOrWhiteSpace(groupTag)
-            ? null
-            : groupTag.Trim();
+        HardwareHashGroupTagOptions.Clear();
+        HardwareHashGroupTagOptions.Add(new HardwareHashGroupTagOption(GetString("Common.None"), null));
+
+        foreach (string groupTag in AutopilotHardwareHashUpload.KnownGroupTags
+                     .Select(static value => value.Trim())
+                     .Where(static value => !string.IsNullOrWhiteSpace(value))
+                     .Distinct(StringComparer.OrdinalIgnoreCase)
+                     .Order(StringComparer.OrdinalIgnoreCase))
+        {
+            HardwareHashGroupTagOptions.Add(new HardwareHashGroupTagOption(groupTag, groupTag));
+        }
+
+        SelectedHardwareHashGroupTag = HardwareHashGroupTagOptions.FirstOrDefault(option =>
+            !string.IsNullOrWhiteSpace(option.GroupTag) &&
+            string.Equals(option.GroupTag, preferredGroupTag, StringComparison.OrdinalIgnoreCase))
+            ?? HardwareHashGroupTagOptions[0];
+
+        OnPropertyChanged(nameof(HardwareHashGroupTagOptions));
+        OnPropertyChanged(nameof(EffectiveHardwareHashGroupTagText));
+    }
+
+    private string NormalizeMetadataValue(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value)
+            ? GetString("Common.Unavailable")
+            : value.Trim();
     }
 
     private void RaiseHardwareHashPropertiesChanged()
@@ -834,14 +827,11 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(IsHardwareHashCertificateUsable));
         OnPropertyChanged(nameof(IsHardwareHashGroupTagControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashMissingMetadataWarningVisible));
-        OnPropertyChanged(nameof(HasHardwareHashDefaultGroupTag));
-        OnPropertyChanged(nameof(IsDefaultHardwareHashGroupTagOptionVisible));
-        OnPropertyChanged(nameof(IsHardwareHashCustomGroupTagTextBoxVisible));
-        OnPropertyChanged(nameof(IsHardwareHashCustomGroupTagEnabled));
+        OnPropertyChanged(nameof(AutopilotHardwareHashTenantIdText));
+        OnPropertyChanged(nameof(AutopilotHardwareHashCertificateThumbprintText));
+        OnPropertyChanged(nameof(AutopilotHardwareHashCertificateExpirationText));
         OnPropertyChanged(nameof(AutopilotHardwareHashUploadStatusText));
         OnPropertyChanged(nameof(AutopilotHardwareHashUploadMessage));
-        OnPropertyChanged(nameof(AutopilotHardwareHashDefaultGroupTagText));
-        OnPropertyChanged(nameof(UseDefaultHardwareHashGroupTagText));
         OnPropertyChanged(nameof(EffectiveHardwareHashGroupTagText));
     }
 

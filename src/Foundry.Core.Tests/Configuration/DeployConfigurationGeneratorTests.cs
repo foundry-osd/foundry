@@ -376,6 +376,7 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal("ABCDEF123456", result.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
         Assert.Equal(expiration, result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
         Assert.Equal("Sales", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
+        Assert.Equal(["Engineering", "Sales"], result.Autopilot.HardwareHashUpload.KnownGroupTags);
     }
 
     [Fact]

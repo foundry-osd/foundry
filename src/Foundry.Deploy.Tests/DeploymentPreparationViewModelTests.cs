@@ -88,7 +88,8 @@ public sealed class DeploymentPreparationViewModelTests
             ActiveCertificateKeyId = "certificate-key-id",
             ActiveCertificateThumbprint = "ABCDEF123456",
             ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
-            DefaultGroupTag = "Sales"
+            DefaultGroupTag = "Sales",
+            KnownGroupTags = ["Kiosk", "Sales"]
         };
 
         viewModel.ApplyAutopilotConfiguration(
@@ -112,7 +113,9 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashGroupTagControlsVisible);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
         Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
-        Assert.Contains("Sales", viewModel.UseDefaultHardwareHashGroupTagText);
+        Assert.Equal("tenant-id", viewModel.AutopilotHardwareHashTenantIdText);
+        Assert.Equal("ABCDEF123456", viewModel.AutopilotHardwareHashCertificateThumbprintText);
+        Assert.Equal("Sales", viewModel.SelectedHardwareHashGroupTag?.GroupTag);
     }
 
     [Fact]
@@ -160,7 +163,7 @@ public sealed class DeploymentPreparationViewModelTests
     }
 
     [Fact]
-    public void CreateAutopilotHardwareHashUploadForLaunch_WhenDefaultGroupTagIsUsed_ReturnsDefaultGroupTag()
+    public void CreateAutopilotHardwareHashUploadForLaunch_WhenDefaultGroupTagExists_SelectsDefaultGroupTag()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
         viewModel.ApplyAutopilotConfiguration(
@@ -173,21 +176,18 @@ public sealed class DeploymentPreparationViewModelTests
     }
 
     [Fact]
-    public void CreateAutopilotHardwareHashUploadForLaunch_WhenCustomGroupTagIsUsed_ReturnsTrimmedCustomGroupTag()
+    public void CreateAutopilotHardwareHashUploadForLaunch_WhenDifferentKnownGroupTagIsSelected_ReturnsSelectedGroupTag()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
         viewModel.ApplyAutopilotConfiguration(
             CreateHardwareHashSettings(defaultGroupTag: "Sales"),
             []);
 
-        viewModel.UseCustomHardwareHashGroupTag = true;
-        viewModel.CustomHardwareHashGroupTag = " Kiosk ";
+        viewModel.SelectedHardwareHashGroupTag = viewModel.HardwareHashGroupTagOptions.Single(option => option.GroupTag == "Kiosk");
 
         DeployAutopilotHardwareHashUploadSettings result = viewModel.CreateAutopilotHardwareHashUploadForLaunch();
 
         Assert.Equal("Kiosk", result.DefaultGroupTag);
-        Assert.False(viewModel.UseDefaultHardwareHashGroupTag);
-        Assert.True(viewModel.IsHardwareHashCustomGroupTagTextBoxVisible);
     }
 
     [Fact]
@@ -202,8 +202,27 @@ public sealed class DeploymentPreparationViewModelTests
 
         Assert.Null(result.DefaultGroupTag);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.EffectiveHardwareHashGroupTagText));
-        Assert.False(viewModel.IsDefaultHardwareHashGroupTagOptionVisible);
-        Assert.True(viewModel.IsHardwareHashCustomGroupTagTextBoxVisible);
+        Assert.Null(viewModel.SelectedHardwareHashGroupTag?.GroupTag);
+    }
+
+    [Fact]
+    public void CreateAutopilotHardwareHashUploadForLaunch_WhenDefaultGroupTagIsMissingFromKnownTags_ReturnsNullGroupTag()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        DeployAutopilotSettings settings = CreateHardwareHashSettings(defaultGroupTag: "Sales") with
+        {
+            HardwareHashUpload = CreateHardwareHashSettings(defaultGroupTag: "Sales").HardwareHashUpload! with
+            {
+                KnownGroupTags = ["Kiosk"]
+            }
+        };
+
+        viewModel.ApplyAutopilotConfiguration(settings, []);
+
+        DeployAutopilotHardwareHashUploadSettings result = viewModel.CreateAutopilotHardwareHashUploadForLaunch();
+
+        Assert.Null(result.DefaultGroupTag);
+        Assert.Null(viewModel.SelectedHardwareHashGroupTag?.GroupTag);
     }
 
     [Theory]
@@ -235,6 +254,7 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashCertificateExpired);
         Assert.Equal("Debug", viewModel.CreateAutopilotHardwareHashUploadForLaunch().DefaultGroupTag);
+        Assert.Contains(viewModel.HardwareHashGroupTagOptions, option => option.GroupTag == "Kiosk");
     }
 
     [Fact]
@@ -270,8 +290,7 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashCertificateUsable);
         Assert.Null(viewModel.CreateAutopilotHardwareHashUploadForLaunch().DefaultGroupTag);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.EffectiveHardwareHashGroupTagText));
-        Assert.False(viewModel.IsDefaultHardwareHashGroupTagOptionVisible);
-        Assert.True(viewModel.IsHardwareHashCustomGroupTagTextBoxVisible);
+        Assert.Null(viewModel.SelectedHardwareHashGroupTag?.GroupTag);
     }
 
     [Fact]
@@ -328,7 +347,8 @@ public sealed class DeploymentPreparationViewModelTests
                 ActiveCertificateKeyId = "certificate-key-id",
                 ActiveCertificateThumbprint = "ABCDEF123456",
                 ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
-                DefaultGroupTag = defaultGroupTag
+                DefaultGroupTag = defaultGroupTag,
+                KnownGroupTags = ["Kiosk", "Sales"]
             }
         };
     }

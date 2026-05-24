@@ -60,10 +60,11 @@
   <data name="Preparation.AutopilotHardwareHashReadyMessage" xml:space="preserve"><value>L'upload s'exécutera automatiquement pendant le déploiement.</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>L'upload Autopilot n'est pas disponible sur ce média. Le déploiement peut continuer, mais l'upload sera ignoré.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Le certificat Autopilot a expiré. Le déploiement peut continuer, mais l'upload sera ignoré.</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID du tenant</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Empreinte du certificat</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expiration du certificat</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Group tag</value></data>
-  <data name="Preparation.AutopilotHardwareHashUseDefaultGroupTagFormat" xml:space="preserve"><value>Utiliser la valeur du média ({0})</value></data>
-  <data name="Preparation.AutopilotHardwareHashUseCustomGroupTag" xml:space="preserve"><value>Saisir un group tag personnalisé</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Le group tag est optionnel. Laissez-le vide pour uploader sans group tag.</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Le group tag est optionnel. Sélectionnez Aucun pour uploader sans group tag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>

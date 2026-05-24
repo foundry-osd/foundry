@@ -184,8 +184,64 @@
                                         </TextBlock.Style>
                                     </TextBlock>
 
+                                    <Grid Margin="0,12,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            FontWeight="SemiBold"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashTenantId], ElementName=ViewRoot}" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding AutopilotHardwareHashTenantIdText}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Margin="0,6,0,0"
+                                            FontWeight="SemiBold"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashCertificateThumbprint], ElementName=ViewRoot}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Margin="0,6,0,0"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding AutopilotHardwareHashCertificateThumbprintText}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Margin="0,6,0,0"
+                                            FontWeight="SemiBold"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashCertificateExpiration], ElementName=ViewRoot}" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            Margin="0,6,0,0"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding AutopilotHardwareHashCertificateExpirationText}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </Grid>
+
                                     <TextBlock
-                                        Margin="0,4,0,0"
+                                        Margin="0,12,0,0"
                                         Text="{Binding AutopilotHardwareHashUploadMessage}"
                                         TextWrapping="Wrap">
                                         <TextBlock.Style>
@@ -207,23 +263,11 @@
                                             Margin="0,0,0,8"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashGroupTagChoice], ElementName=ViewRoot}" />
-                                        <RadioButton
-                                            GroupName="HardwareHashGroupTag"
-                                            IsChecked="{Binding UseDefaultHardwareHashGroupTag}"
-                                            Content="{Binding UseDefaultHardwareHashGroupTagText}"
-                                            Visibility="{Binding IsDefaultHardwareHashGroupTagOptionVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <RadioButton
-                                            Margin="0,8,0,0"
-                                            GroupName="HardwareHashGroupTag"
-                                            IsChecked="{Binding UseCustomHardwareHashGroupTag}"
-                                            Content="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashUseCustomGroupTag], ElementName=ViewRoot}"
-                                            Visibility="{Binding IsDefaultHardwareHashGroupTagOptionVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        <TextBox
-                                            Margin="0,8,0,0"
+                                        <ComboBox
                                             HorizontalAlignment="Stretch"
-                                            IsEnabled="{Binding IsHardwareHashCustomGroupTagEnabled}"
-                                            Text="{Binding CustomHardwareHashGroupTag, UpdateSourceTrigger=PropertyChanged}"
-                                            Visibility="{Binding IsHardwareHashCustomGroupTagTextBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            DisplayMemberPath="DisplayName"
+                                            ItemsSource="{Binding HardwareHashGroupTagOptions}"
+                                            SelectedItem="{Binding SelectedHardwareHashGroupTag}" />
                                         <TextBlock
                                             Margin="0,4,0,0"
                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"

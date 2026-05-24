@@ -101,7 +101,8 @@ public sealed class DeployConfigurationModelTests
                   "activeCertificateKeyId": "certificate-key-id",
                   "activeCertificateThumbprint": "ABCDEF123456",
                   "activeCertificateExpiresOnUtc": "2026-12-01T00:00:00+00:00",
-                  "defaultGroupTag": "Sales"
+                  "defaultGroupTag": "Sales",
+                  "knownGroupTags": ["Sales", "Kiosk"]
                 }
               }
             }
@@ -123,5 +124,6 @@ public sealed class DeployConfigurationModelTests
         Assert.Equal("ABCDEF123456", document.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
         Assert.Equal(DateTimeOffset.Parse("2026-12-01T00:00:00+00:00"), document.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
         Assert.Equal("Sales", document.Autopilot.HardwareHashUpload.DefaultGroupTag);
+        Assert.Equal(["Sales", "Kiosk"], document.Autopilot.HardwareHashUpload.KnownGroupTags);
     }
 }
