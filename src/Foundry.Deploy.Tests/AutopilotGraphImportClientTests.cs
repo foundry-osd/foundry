@@ -549,6 +549,13 @@ public sealed class AutopilotGraphImportClientTests
             }
             """);
         handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id", "serialNumber": "SER123", "groupTag": "B" }
+              ]
+            }
+            """);
 
         AutopilotGraphImportClient client = CreateClient(handler);
 
@@ -571,6 +578,9 @@ public sealed class AutopilotGraphImportClientTests
         Assert.Equal(
             "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities/device-id/updateDeviceProperties",
             handler.Requests[2].PathAndQuery);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
+            handler.Requests[3].PathAndQuery);
         Assert.Contains(handler.Requests, request =>
             request.PathAndQuery == "/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities/import");
 
@@ -606,6 +616,13 @@ public sealed class AutopilotGraphImportClientTests
             }
             """);
         handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id", "serialNumber": "SER123", "groupTag": "" }
+              ]
+            }
+            """);
 
         AutopilotGraphImportClient client = CreateClient(handler);
 
@@ -624,6 +641,69 @@ public sealed class AutopilotGraphImportClientTests
 
         using JsonDocument body = JsonDocument.Parse(handler.Requests[2].Body!);
         Assert.Equal(string.Empty, body.RootElement.GetProperty("groupTag").GetString());
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
+            handler.Requests[3].PathAndQuery);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenExistingDeviceGroupTagUpdateIsNotConfirmed_ReturnsTimedOut()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": {
+                    "deviceImportStatus": "error",
+                    "deviceErrorCode": 806,
+                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
+                  }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id", "serialNumber": "SER123", "groupTag": "A" }
+              ]
+            }
+            """);
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id", "serialNumber": "SER123", "groupTag": "A" }
+              ]
+            }
+            """);
+
+        AutopilotGraphImportClient client = CreateClient(
+            handler,
+            new AutopilotGraphImportClientOptions
+            {
+                RetryDelay = TimeSpan.Zero,
+                PollInterval = TimeSpan.Zero,
+                VisibilityTimeout = TimeSpan.Zero
+            });
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                "B",
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
+        Assert.Equal("AutopilotGroupTagUpdateTimedOut", result.FailureCode);
+        Assert.Equal("device-id", result.AutopilotDeviceId);
     }
 
     [Fact]

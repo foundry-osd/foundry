@@ -41,7 +41,7 @@ public enum AutopilotHardwareHashUploadState
     UploadFailed,
 
     /// <summary>
-    /// Graph import succeeded but device visibility polling reached the timeout.
+    /// Graph import succeeded but a required Autopilot confirmation wait reached the timeout.
     /// </summary>
     UploadTimedOut,
 

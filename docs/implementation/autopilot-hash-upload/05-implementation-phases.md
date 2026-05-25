@@ -466,6 +466,7 @@ Implementation progress:
 - [x] Implement polling for import completion.
 - [x] Implement polling until the uploaded serial number appears in Windows Autopilot devices.
 - [x] When the serial already exists in Windows Autopilot devices, reconcile its group tag with the Deploy selection by calling `updateDeviceProperties`.
+- [x] After `updateDeviceProperties`, wait until the existing Windows Autopilot device reflects the selected group tag before completing the Autopilot step, with the same non-blocking timeout behavior as device visibility.
 - [x] Discover current tenant group tags in Foundry Deploy at startup from the unfiltered Windows Autopilot devices endpoint and follow `@odata.nextLink`.
 - [x] Keep generated media free of a staged known-group-tags list; embed only the OSD default group tag preference.
 - [x] Select the embedded default group tag only when it still exists in the live Deploy-discovered group tags; otherwise select `None`.
@@ -486,8 +487,9 @@ Automated tests:
 - [x] Treats duplicate import errors, `ImportFailed`, and `ImportTimedOut` as Autopilot warnings/failures that do not stop OS deployment.
 - [x] Handles `complete`.
 - [x] Handles imported identity completion followed by Windows Autopilot device visibility.
-- [x] Updates an already-visible Windows Autopilot device from the existing group tag to the Deploy-selected group tag.
-- [x] Clears an already-visible Windows Autopilot device group tag when Deploy selection is `None`.
+- [x] Updates an already-visible Windows Autopilot device from the existing group tag to the Deploy-selected group tag, then waits until Graph reflects the new tag.
+- [x] Clears an already-visible Windows Autopilot device group tag when Deploy selection is `None`, then waits until Graph reflects the cleared tag.
+- [x] Times out without failing OS deployment when an existing device group tag update is not confirmed before the wait deadline.
 - [x] Lists live Windows Autopilot group tags from paged Graph device responses.
 - [x] Handles Windows Autopilot device visibility timeout as an automatic warning/non-blocking continuation to the next deployment step.
 - [x] Handles `error` with device error code/name.
@@ -500,8 +502,8 @@ Manual checks are deferred until a physical WinPE run against a test Intune tena
 Manual checks:
 - [ ] Import one test device into a test tenant.
 - [ ] Confirm Group Tag appears in Intune.
-- [ ] Run the same device a second time with a different group tag and confirm the existing Windows Autopilot device group tag is updated.
-- [ ] Run the same device a second time with `None` selected and confirm the existing Windows Autopilot device group tag is cleared.
+- [ ] Run the same device a second time with a different group tag and confirm Deploy waits until the existing Windows Autopilot device group tag is updated.
+- [ ] Run the same device a second time with `None` selected and confirm Deploy waits until the existing Windows Autopilot device group tag is cleared.
 - [ ] Generate media with a default group tag, remove that group tag from the tenant before booting Deploy, and confirm Deploy selects `None`.
 - [ ] Generate media with a default group tag that still exists in the tenant, boot Deploy, and confirm Deploy selects that group tag after startup discovery.
 - [ ] Confirm deployment waits until the device appears in Windows Autopilot devices.
