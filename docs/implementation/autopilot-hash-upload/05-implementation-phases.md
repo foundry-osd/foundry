@@ -358,40 +358,44 @@ Validated from x64 boot.wim extracts under `E:\Test\JSON` and `E:\Test\HASH`. AR
 PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
+- [x] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Load Autopilot provisioning mode from deploy config.
-- [ ] Expose mode in startup snapshot, preparation view model, launch request, deployment context, and runtime state.
-- [ ] Consume the hardware hash group tag choice captured by the Phase 3 Computer Target UX.
-- [ ] Update `DeploymentLaunchPreparationService` validation:
+- [x] Load Autopilot provisioning mode from deploy config.
+- [x] Expose mode in startup snapshot, preparation view model, launch request, deployment context, and runtime state.
+- [x] Consume the hardware hash group tag choice captured by the Phase 3 Computer Target UX.
+- [x] Update `DeploymentLaunchPreparationService` validation:
   - JSON mode requires selected profile.
-  - Hash upload mode requires valid upload settings.
-- [ ] Rename or replace `StageAutopilotConfigurationStep` with a mode-aware `ProvisionAutopilotStep`.
-- [ ] Update `DeploymentStepNames.All`, dependency injection registration, and sequence validation tests together when the Autopilot step is renamed or replaced.
-- [ ] Keep the Autopilot provisioning step after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
-- [ ] JSON mode copies `AutopilotConfigurationFile.json` from the mode-aware Autopilot provisioning step.
-- [ ] Hash upload mode skips JSON staging and runs the hash capture/upload workflow from the same late Autopilot provisioning step.
-- [ ] Update deployment summary, logs, and telemetry with mode, planned hash-upload status, and retained diagnostics path.
-- [ ] Add runtime status states for hash upload warnings, skipped states, and later Graph import outcomes without requiring a live Graph call in this phase.
-- [ ] Persist sanitized Autopilot diagnostics under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash`.
-- [ ] Add XML documentation comments to new public deployment runtime contracts and step classes.
+  - Hash upload mode keeps deployment start available; unusable or expired upload settings are represented as non-blocking runtime skip states.
+- [x] Rename or replace `StageAutopilotConfigurationStep` with a mode-aware `ProvisionAutopilotStep`.
+- [x] Update `DeploymentStepNames.All`, dependency injection registration, and sequence validation tests together when the Autopilot step is renamed or replaced.
+- [x] Keep the Autopilot provisioning step after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
+- [x] JSON mode copies `AutopilotConfigurationFile.json` from the mode-aware Autopilot provisioning step.
+- [x] Hash upload mode skips JSON staging and records planned hash capture/upload status from the same late Autopilot provisioning step.
+- [x] Update deployment summary, logs, and telemetry with mode, planned hash-upload status, and retained diagnostics path.
+- [x] Add runtime status states for hash upload warnings, skipped states, and later Graph import outcomes without requiring a live Graph call in this phase.
+- [x] Persist sanitized Autopilot diagnostics under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash`.
+- [x] Add XML documentation comments to new public deployment runtime contracts and step classes.
 
 Automated tests:
-- [ ] JSON mode still stages the profile to `Windows\Provisioning\Autopilot`.
-- [ ] Hash upload mode skips JSON staging.
-- [ ] Dry run creates a hash-mode manifest without touching Graph.
-- [ ] Autopilot provisioning step is ordered after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
-- [ ] Hash upload mode runs only after the applied Windows root and target Windows `System32` are available.
-- [ ] Launch preparation rejects incomplete hash upload settings.
-- [ ] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
-- [ ] Runtime state can represent a skipped Autopilot hash upload without failing the deployment state machine.
+- [x] JSON mode still stages the profile to `Windows\Provisioning\Autopilot`.
+- [x] Hash upload mode skips JSON staging.
+- [x] Dry run creates a hash-mode manifest without touching Graph.
+- [x] Autopilot provisioning step is ordered after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
+- [x] Hash upload mode records diagnostics only after the target Windows root is available. Target Windows `System32` validation remains in Phase 6 with `PCPKsp.dll` copy.
+- [x] Launch preparation keeps deployment start available for expired hash upload settings; incomplete settings become runtime skip diagnostics.
+- [x] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
+- [x] Runtime state can represent a skipped Autopilot hash upload without failing the deployment state machine.
+- [x] Deploy-side configuration deserializes encrypted PFX and PFX password envelopes for later Graph auth phases.
+- [x] `dotnet test .\src\Foundry.Deploy.Tests\Foundry.Deploy.Tests.csproj --configuration Debug /p:Platform=x64 --no-restore --verbosity minimal` passed: 165 tests, 0 failures.
 
 Manual checks:
+Manual UI/runtime validation remains deferred to an operator run with generated media.
+
 - [ ] Deploy dry-run in JSON mode.
 - [ ] Deploy dry-run in hash upload mode.
 - [ ] Confirm summary page displays the selected Autopilot method.

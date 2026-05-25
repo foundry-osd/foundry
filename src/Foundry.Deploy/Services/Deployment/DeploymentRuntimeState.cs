@@ -201,6 +201,11 @@ public sealed record DeploymentRuntimeState
     public bool IsAutopilotEnabled { get; set; }
 
     /// <summary>
+    /// Gets or sets the selected Autopilot provisioning mode for runtime diagnostics and deployment summaries.
+    /// </summary>
+    public AutopilotProvisioningMode AutopilotProvisioningMode { get; set; } = AutopilotProvisioningMode.JsonProfile;
+
+    /// <summary>
     /// Gets or sets the selected Autopilot profile folder name.
     /// </summary>
     public string? SelectedAutopilotProfileFolderName { get; set; }
@@ -214,6 +219,26 @@ public sealed record DeploymentRuntimeState
     /// Gets or sets the offline path to the staged Autopilot configuration file.
     /// </summary>
     public string? StagedAutopilotConfigurationPath { get; set; }
+
+    /// <summary>
+    /// Gets or sets the effective hardware hash upload group tag selected for this deployment.
+    /// </summary>
+    public string? AutopilotHardwareHashGroupTag { get; set; }
+
+    /// <summary>
+    /// Gets or sets the current hardware hash upload state without storing secrets or raw Graph payloads.
+    /// </summary>
+    public AutopilotHardwareHashUploadState AutopilotHardwareHashUploadState { get; set; } = AutopilotHardwareHashUploadState.NotPlanned;
+
+    /// <summary>
+    /// Gets or sets the sanitized hardware hash upload status message retained in runtime state.
+    /// </summary>
+    public string? AutopilotHardwareHashUploadMessage { get; set; }
+
+    /// <summary>
+    /// Gets or sets the diagnostics directory retained under the target Windows Temp\Foundry tree.
+    /// </summary>
+    public string? AutopilotHardwareHashDiagnosticsPath { get; set; }
 
     /// <summary>
     /// Gets or sets Windows OOBE customization settings applied to the offline installation.

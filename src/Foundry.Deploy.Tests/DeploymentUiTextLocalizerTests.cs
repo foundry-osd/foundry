@@ -65,12 +65,12 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     }
 
     [Fact]
-    public void LocalizeStepName_TranslatesOobeStepName()
+    public void LocalizeStepName_TranslatesProvisionAutopilotStepName()
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
 
-        Assert.Equal("Configuration des paramètres OOBE", DeploymentUiTextLocalizer.LocalizeStepName("Configure OOBE settings"));
+        Assert.Equal("Préparation d’Autopilot", DeploymentUiTextLocalizer.LocalizeStepName("Provision Autopilot"));
     }
 
     [Theory]

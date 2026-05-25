@@ -243,7 +243,7 @@ Continue?</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Download firmware update</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Apply firmware update</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Seal recovery partition</value></data>
-  <data name="Step.StageAutopilotConfiguration" xml:space="preserve"><value>Stage Autopilot configuration</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provision Autopilot</value></data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalize deployment and write logs</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Gathering deployment variables...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Collecting deployment context...</value></data>
