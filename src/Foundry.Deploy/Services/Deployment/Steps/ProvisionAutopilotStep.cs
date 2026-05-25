@@ -17,10 +17,14 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     private const string WinPeWindowsFolderName = "Windows";
 
     private readonly IAutopilotHardwareHashCaptureService _hardwareHashCaptureService;
+    private readonly IAutopilotHardwareHashUploadService _hardwareHashUploadService;
 
-    public ProvisionAutopilotStep(IAutopilotHardwareHashCaptureService hardwareHashCaptureService)
+    public ProvisionAutopilotStep(
+        IAutopilotHardwareHashCaptureService hardwareHashCaptureService,
+        IAutopilotHardwareHashUploadService hardwareHashUploadService)
     {
         _hardwareHashCaptureService = hardwareHashCaptureService;
+        _hardwareHashUploadService = hardwareHashUploadService;
     }
 
     public override int Order => 18;
@@ -202,19 +206,42 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return DeploymentStepResult.Failed(failureMessage);
         }
 
-        string capturedMessage = "Autopilot hardware hash captured. Graph upload will run in a later phase.";
+        context.EmitCurrentStepIndeterminate("Uploading Autopilot hardware hash...", "Preparing Microsoft Graph import...");
+        AutopilotHardwareHashUploadResult uploadResult = await _hardwareHashUploadService.UploadAsync(
+            new AutopilotHardwareHashUploadRequest
+            {
+                Settings = settings,
+                Identity = captureResult.Identity!,
+                WorkspaceRootPath = context.RuntimeState.WorkspaceRoot,
+                DiagnosticsRootPath = diagnosticsPath
+            },
+            new Progress<AutopilotHardwareHashUploadProgress>(progress =>
+            {
+                context.EmitCurrentStep(
+                    DeploymentStepState.Running,
+                    progress.Message,
+                    stepSubProgressPercent: null,
+                    stepSubProgressIndeterminate: progress.IsIndeterminate,
+                    stepSubProgressLabel: progress.Detail);
+            }),
+            cancellationToken).ConfigureAwait(false);
+
         await WriteHardwareHashStatusAsync(
             context,
-            AutopilotHardwareHashUploadState.HashCaptured,
-            capturedMessage,
+            uploadResult.State,
+            uploadResult.Message,
             cancellationToken,
-            failureCode: null,
-            captureResult).ConfigureAwait(false);
+            uploadResult.FailureCode,
+            captureResult,
+            uploadResult).ConfigureAwait(false);
         await context.AppendLogAsync(
-            DeploymentLogLevel.Info,
-            $"Autopilot hardware hash captured. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTag='{FormatGroupTagForLog(context.RuntimeState.AutopilotHardwareHashGroupTag)}'.",
+            uploadResult.IsCompleted ? DeploymentLogLevel.Info : DeploymentLogLevel.Warning,
+            $"Autopilot hardware hash upload state '{uploadResult.State}'. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTag='{FormatGroupTagForLog(context.RuntimeState.AutopilotHardwareHashGroupTag)}'.",
             cancellationToken).ConfigureAwait(false);
-        return DeploymentStepResult.Succeeded("Autopilot hardware hash captured.");
+
+        return uploadResult.IsCompleted
+            ? DeploymentStepResult.Succeeded(uploadResult.Message)
+            : DeploymentStepResult.Skipped(uploadResult.Message);
     }
 
     private static async Task<DeploymentStepResult> WriteDryRunHardwareHashManifestAsync(
@@ -265,7 +292,8 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         string message,
         CancellationToken cancellationToken,
         string? failureCode = null,
-        AutopilotHardwareHashCaptureResult? captureResult = null)
+        AutopilotHardwareHashCaptureResult? captureResult = null,
+        AutopilotHardwareHashUploadResult? uploadResult = null)
     {
         string diagnosticsPath = ResolveHardwareHashDiagnosticsPath(context);
         Directory.CreateDirectory(diagnosticsPath);
@@ -286,6 +314,10 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             oa3XmlPath = captureResult?.Oa3XmlPath,
             oa3LogPath = captureResult?.Oa3LogPath,
             autopilotHwidCsvPath = captureResult?.CsvPath,
+            autopilotUploadResultPath = uploadResult?.ArtifactPath,
+            importId = uploadResult?.ImportId,
+            importedIdentityId = uploadResult?.ImportedIdentityId,
+            autopilotDeviceId = uploadResult?.AutopilotDeviceId,
             tenantId = context.Request.AutopilotHardwareHashUpload.TenantId,
             clientId = context.Request.AutopilotHardwareHashUpload.ClientId,
             activeCertificateThumbprint = context.Request.AutopilotHardwareHashUpload.ActiveCertificateThumbprint,

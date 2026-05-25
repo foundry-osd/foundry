@@ -452,41 +452,43 @@ Manual runtime validation remains deferred to physical x64 and ARM64 media runs.
 PR title: `feat(autopilot): import hardware hashes with Graph`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
+- [x] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Add a minimal Graph Autopilot import client.
-- [ ] Add certificate-based credential creation from decrypted in-memory certificate material.
-- [ ] Reject any non-certificate authentication mode in WinPE.
-- [ ] Implement import request.
-- [ ] Implement polling for import completion.
-- [ ] Implement polling until the uploaded serial number appears in Windows Autopilot devices.
-- [ ] Add a 10-minute default timeout for Windows Autopilot device visibility polling.
-- [ ] Map Graph errors to operator-readable messages.
-- [ ] Add retry/backoff for transient HTTP failures.
-- [ ] Treat certificate, tenant, token, consent, permission, Conditional Access, Intune availability, Graph connectivity, `ImportFailed`, duplicate import, and `ImportTimedOut` states as non-blocking Autopilot failures that continue OS deployment.
-- [ ] Keep destructive cleanup out of the final hash upload workflow.
-- [ ] Sanitize `AutopilotUploadResult.json` before retaining it in `Windows\Temp\Foundry`.
-- [ ] Add XML documentation comments to new public Graph client, import polling, and retry-policy APIs.
+- [x] Add a minimal Graph Autopilot import client.
+- [x] Add certificate-based credential creation from decrypted in-memory certificate material.
+- [x] Reject any non-certificate authentication mode in WinPE.
+- [x] Implement import request.
+- [x] Implement polling for import completion.
+- [x] Implement polling until the uploaded serial number appears in Windows Autopilot devices.
+- [x] Add a 10-minute default timeout for Windows Autopilot device visibility polling.
+- [x] Map Graph errors to operator-readable messages.
+- [x] Add retry/backoff for transient HTTP failures.
+- [x] Treat certificate, tenant, token, consent, permission, Conditional Access, Intune availability, Graph connectivity, `ImportFailed`, duplicate import, and `ImportTimedOut` states as non-blocking Autopilot failures that continue OS deployment.
+- [x] Keep destructive cleanup out of the final hash upload workflow.
+- [x] Sanitize `AutopilotUploadResult.json` before retaining it in `Windows\Temp\Foundry`.
+- [x] Add XML documentation comments to new public Graph client, import polling, and retry-policy APIs.
 
 Automated tests:
-- [ ] Serializes import payload correctly.
-- [ ] Sends hardware identifier in the expected Graph format.
-- [ ] Decrypts PFX material in memory and does not write a decrypted PFX, PFX password, or private key to disk.
-- [ ] Fails clearly when tenant ID, client ID, certificate thumbprint, or encrypted certificate material is missing.
-- [ ] Treats certificate, tenant, token, permission, consent, Conditional Access, Intune availability, and Graph connectivity failures as skipped Autopilot, not failed deployment.
-- [ ] Treats duplicate import errors, `ImportFailed`, and `ImportTimedOut` as Autopilot warnings/failures that do not stop OS deployment.
-- [ ] Handles `complete`.
-- [ ] Handles imported identity completion followed by Windows Autopilot device visibility.
-- [ ] Handles Windows Autopilot device visibility timeout as an automatic warning/non-blocking continuation to the next deployment step.
-- [ ] Handles `error` with device error code/name.
-- [ ] Times out with a clear message.
-- [ ] Retries transient failures only.
-- [ ] Sanitized upload result omits access tokens, authorization headers, raw request bodies, raw response bodies, PFX bytes, passwords, private key material, and full certificate data.
+- [x] Serializes import payload correctly.
+- [x] Sends hardware identifier in the expected Graph format.
+- [x] Decrypts PFX material in memory and does not write a decrypted PFX, PFX password, or private key to disk.
+- [x] Fails clearly when tenant ID, client ID, certificate thumbprint, or encrypted certificate material is missing.
+- [x] Treats certificate, tenant, token, permission, consent, Conditional Access, Intune availability, and Graph connectivity failures as skipped Autopilot, not failed deployment.
+- [x] Treats duplicate import errors, `ImportFailed`, and `ImportTimedOut` as Autopilot warnings/failures that do not stop OS deployment.
+- [x] Handles `complete`.
+- [x] Handles imported identity completion followed by Windows Autopilot device visibility.
+- [x] Handles Windows Autopilot device visibility timeout as an automatic warning/non-blocking continuation to the next deployment step.
+- [x] Handles `error` with device error code/name.
+- [x] Times out with a clear message.
+- [x] Retries transient failures only.
+- [x] Sanitized upload result omits access tokens, authorization headers, raw request bodies, raw response bodies, PFX bytes, passwords, private key material, and full certificate data.
+
+Manual checks are deferred until a physical WinPE run against a test Intune tenant is available. The automated Phase 7 coverage validates Graph payload shape, retry behavior, import/device polling states, non-blocking deployment continuation, certificate assertion creation, media secret decryption, and sanitized retained result output.
 
 Manual checks:
 - [ ] Import one test device into a test tenant.
