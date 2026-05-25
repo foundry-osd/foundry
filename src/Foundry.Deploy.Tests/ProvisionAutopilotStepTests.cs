@@ -138,6 +138,52 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_WhenHardwareHashCaptureReportIsIncomplete_ContinuesDeployment()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep(
+            captureService: new FakeAutopilotHardwareHashCaptureService(
+                AutopilotHardwareHashCaptureResult.Failed(
+                    AutopilotHardwareHashCaptureFailureCode.SerialMissing,
+                    "OA3 report does not contain a serial number.")),
+            uploadService: new FakeAutopilotHardwareHashUploadService(
+                AutopilotHardwareHashUploadResult.Completed("Graph should not be called.")));
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+            hardwareHashUpload: CreateCompleteHardwareHashSettings());
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Equal(AutopilotHardwareHashUploadState.CaptureFailed, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Contains("serial number", result.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenHardwareHashCaptureCannotLoadPcpKsp_FailsDeployment()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep(
+            captureService: new FakeAutopilotHardwareHashCaptureService(
+                AutopilotHardwareHashCaptureResult.Failed(
+                    AutopilotHardwareHashCaptureFailureCode.SupportLibraryLoadFailed,
+                    "Failed to load PCPKsp.dll")));
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+            hardwareHashUpload: CreateCompleteHardwareHashSettings());
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal(AutopilotHardwareHashUploadState.CaptureFailed, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Contains("PCPKsp", result.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenLiveHardwareHashModeRunsBeforeTargetWindowsRootExists_FailsBeforePlanningUpload()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
@@ -308,12 +354,18 @@ public sealed class ProvisionAutopilotStepTests
         }
     }
 
-    private sealed class FakeAutopilotHardwareHashCaptureService : IAutopilotHardwareHashCaptureService
+    private sealed class FakeAutopilotHardwareHashCaptureService(
+        AutopilotHardwareHashCaptureResult? result = null) : IAutopilotHardwareHashCaptureService
     {
         public Task<AutopilotHardwareHashCaptureResult> CaptureAsync(
             AutopilotHardwareHashCaptureRequest request,
             CancellationToken cancellationToken = default)
         {
+            if (result is not null)
+            {
+                return Task.FromResult(result);
+            }
+
             Directory.CreateDirectory(request.DiagnosticsRootPath);
             string oa3XmlPath = Path.Combine(request.DiagnosticsRootPath, "OA3.xml");
             string oa3LogPath = Path.Combine(request.DiagnosticsRootPath, "OA3.log");

@@ -21,6 +21,34 @@ public sealed class Oa3XmlParserTests
     }
 
     [Fact]
+    public void Parse_WhenSerialNumberIsOnlyInTraceReport_ReturnsSerialNumberAndHardwareHash()
+    {
+        AutopilotHardwareHashParseResult result = AutopilotOa3XmlParser.Parse(
+            """
+            <Key>
+              <ProductKeyState>6</ProductKeyState>
+              <HardwareHash>HASHVALUE</HardwareHash>
+            </Key>
+            """,
+            """
+            <HardwareVerificationData>
+              <Hardware>
+                <SMBIOS>
+                  <System>
+                    <p name="Manufacturer">VMware, Inc.</p>
+                    <p name="SerialNumber">SER123</p>
+                  </System>
+                </SMBIOS>
+              </Hardware>
+            </HardwareVerificationData>
+            """);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal("SER123", result.Identity?.SerialNumber);
+        Assert.Equal("HASHVALUE", result.Identity?.HardwareHash);
+    }
+
+    [Fact]
     public void Parse_WhenHardwareHashIsMissing_ReturnsHashMissingFailure()
     {
         AutopilotHardwareHashParseResult result = AutopilotOa3XmlParser.Parse("""

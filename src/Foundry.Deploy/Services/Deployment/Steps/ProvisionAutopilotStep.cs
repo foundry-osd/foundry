@@ -197,13 +197,16 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         if (!captureResult.IsSuccess)
         {
             string failureMessage = $"Autopilot hardware hash capture failed: {captureResult.Message}";
+            DeploymentStepResult stepResult = IsBlockingHardwareHashCaptureFailure(captureResult.FailureCode)
+                ? DeploymentStepResult.Failed(failureMessage)
+                : DeploymentStepResult.Skipped(failureMessage);
             await WriteHardwareHashStatusAsync(
                 context,
                 AutopilotHardwareHashUploadState.CaptureFailed,
                 failureMessage,
                 cancellationToken,
                 captureResult.FailureCode.ToString()).ConfigureAwait(false);
-            return DeploymentStepResult.Failed(failureMessage);
+            return stepResult;
         }
 
         context.EmitCurrentStepIndeterminate("Uploading Autopilot hardware hash...", "Preparing Microsoft Graph import...");
@@ -372,6 +375,13 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         return string.IsNullOrWhiteSpace(groupTag)
             ? null
             : groupTag.Trim();
+    }
+
+    private static bool IsBlockingHardwareHashCaptureFailure(AutopilotHardwareHashCaptureFailureCode failureCode)
+    {
+        return failureCode is AutopilotHardwareHashCaptureFailureCode.SupportLibraryMissing
+            or AutopilotHardwareHashCaptureFailureCode.SupportLibraryCopyFailed
+            or AutopilotHardwareHashCaptureFailureCode.SupportLibraryLoadFailed;
     }
 
     private static string FormatGroupTagForLog(string? groupTag)
