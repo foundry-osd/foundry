@@ -33,7 +33,7 @@ public static partial class DeploymentUiTextLocalizer
             "Download firmware update" => LocalizationText.GetString("Step.DownloadFirmwareUpdate"),
             "Apply firmware update" => LocalizationText.GetString("Step.ApplyFirmwareUpdate"),
             "Seal recovery partition" => LocalizationText.GetString("Step.SealRecoveryPartition"),
-            "Stage Autopilot configuration" => LocalizationText.GetString("Step.StageAutopilotConfiguration"),
+            "Provision Autopilot" => LocalizationText.GetString("Step.ProvisionAutopilot"),
             "Finalize deployment and write logs" => LocalizationText.GetString("Step.FinalizeDeploymentAndWriteLogs"),
             _ => LocalizeMessage(value)
         };

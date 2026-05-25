@@ -5,32 +5,45 @@ using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using System.Text.Json;
 
 namespace Foundry.Deploy.Tests;
 
-public sealed class StageAutopilotConfigurationStepTests
+public sealed class ProvisionAutopilotStepTests
 {
     [Fact]
-    public async Task ExecuteAsync_WhenLiveHardwareHashModeRunsBeforeRuntimeImplementation_SkipsWithoutFailingDeployment()
+    public async Task ExecuteAsync_WhenLiveJsonMode_StagesAutopilotProfile()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        StageAutopilotConfigurationStep step = new();
+        string sourceConfigurationPath = Path.Combine(workspace.RootPath, "AutopilotConfigurationFile.json");
+        await File.WriteAllTextAsync(sourceConfigurationPath, """{"profile":true}""");
+        ProvisionAutopilotStep step = new();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
-            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload);
+            provisioningMode: AutopilotProvisioningMode.JsonProfile,
+            selectedProfile: new AutopilotProfileCatalogItem
+            {
+                FolderName = "Corporate",
+                DisplayName = "Corporate",
+                ConfigurationFilePath = sourceConfigurationPath
+            });
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
-        Assert.Equal(DeploymentStepState.Skipped, result.State);
-        Assert.Contains("runtime phase is implemented", result.Message, StringComparison.OrdinalIgnoreCase);
+        string expectedPath = Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot", "AutopilotConfigurationFile.json");
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.True(File.Exists(expectedPath));
+        Assert.Equal(expectedPath, context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.Equal(AutopilotProvisioningMode.JsonProfile, context.RuntimeState.AutopilotProvisioningMode);
+        Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
     }
 
     [Fact]
     public async Task ExecuteAsync_WhenLiveHardwareHashCertificateIsExpired_SkipsUpload()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        StageAutopilotConfigurationStep step = new();
+        ProvisionAutopilotStep step = new();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
@@ -44,13 +57,67 @@ public sealed class StageAutopilotConfigurationStepTests
 
         Assert.Equal(DeploymentStepState.Skipped, result.State);
         Assert.Contains("expired", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(AutopilotHardwareHashUploadState.SkippedCertificateExpired, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.True(Directory.Exists(context.RuntimeState.AutopilotHardwareHashDiagnosticsPath));
+        Assert.Contains(
+            "autopilot-hash-upload-status.json",
+            Directory.EnumerateFiles(context.RuntimeState.AutopilotHardwareHashDiagnosticsPath)
+                .Select(Path.GetFileName));
     }
 
     [Fact]
-    public async Task ExecuteAsync_WhenDryRunHardwareHashMode_WritesHashManifest()
+    public async Task ExecuteAsync_WhenLiveHardwareHashModeIsConfigured_RecordsPlannedUploadWithoutJsonStaging()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        StageAutopilotConfigurationStep step = new();
+        ProvisionAutopilotStep step = new();
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+            hardwareHashUpload: new DeployAutopilotHardwareHashUploadSettings
+            {
+                TenantId = "tenant-id",
+                ClientId = "client-id",
+                ActiveCertificateKeyId = "key-id",
+                ActiveCertificateThumbprint = "ABCDEF123456",
+                ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
+                DefaultGroupTag = "Sales"
+            });
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(AutopilotHardwareHashUploadState.PendingHashCapture, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Equal("Sales", context.RuntimeState.AutopilotHardwareHashGroupTag);
+        Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
+        Assert.True(File.Exists(Path.Combine(context.RuntimeState.AutopilotHardwareHashDiagnosticsPath!, "autopilot-hash-upload-status.json")));
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenLiveHardwareHashModeRunsBeforeTargetWindowsRootExists_FailsBeforePlanningUpload()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = new();
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+            hardwareHashUpload: CreateCompleteHardwareHashSettings());
+        context.RuntimeState.TargetWindowsPartitionRoot = null;
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Contains("Target Windows partition", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(AutopilotHardwareHashUploadState.Planned, context.RuntimeState.AutopilotHardwareHashUploadState);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenDryRunHardwareHashMode_WritesSanitizedHashManifest()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = new();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: true,
@@ -59,6 +126,7 @@ public sealed class StageAutopilotConfigurationStepTests
             {
                 TenantId = "tenant-id",
                 ClientId = "client-id",
+                ActiveCertificateKeyId = "key-id",
                 ActiveCertificateThumbprint = "ABCDEF123456",
                 ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
                 DefaultGroupTag = "Sales"
@@ -69,15 +137,31 @@ public sealed class StageAutopilotConfigurationStepTests
         string manifestPath = Path.Combine(workspace.TargetFoundryRootPath, "Autopilot", "autopilot-hash-upload.dryrun.json");
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.True(File.Exists(manifestPath));
-        Assert.Equal(manifestPath, context.RuntimeState.StagedAutopilotConfigurationPath);
-        Assert.Contains("hardwareHashUpload", await File.ReadAllTextAsync(manifestPath));
+        Assert.Equal(AutopilotHardwareHashUploadState.DryRunPrepared, context.RuntimeState.AutopilotHardwareHashUploadState);
+        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(manifestPath));
+        Assert.Equal("hardwareHashUpload", manifest.RootElement.GetProperty("provisioningMode").GetString());
+        Assert.False(manifest.RootElement.TryGetProperty("certificatePfxSecret", out _));
+        Assert.False(manifest.RootElement.TryGetProperty("certificatePfxPasswordSecret", out _));
+    }
+
+    private static DeployAutopilotHardwareHashUploadSettings CreateCompleteHardwareHashSettings()
+    {
+        return new DeployAutopilotHardwareHashUploadSettings
+        {
+            TenantId = "tenant-id",
+            ClientId = "client-id",
+            ActiveCertificateKeyId = "key-id",
+            ActiveCertificateThumbprint = "ABCDEF123456",
+            ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1)
+        };
     }
 
     private static DeploymentStepExecutionContext CreateContext(
         TempDeploymentWorkspace workspace,
         bool isDryRun,
         AutopilotProvisioningMode provisioningMode,
-        DeployAutopilotHardwareHashUploadSettings? hardwareHashUpload = null)
+        DeployAutopilotHardwareHashUploadSettings? hardwareHashUpload = null,
+        AutopilotProfileCatalogItem? selectedProfile = null)
     {
         DeploymentContext request = new()
         {
@@ -90,18 +174,20 @@ public sealed class StageAutopilotConfigurationStepTests
             DriverPackSelectionKind = DriverPackSelectionKind.None,
             IsAutopilotEnabled = true,
             AutopilotProvisioningMode = provisioningMode,
+            SelectedAutopilotProfile = selectedProfile,
             AutopilotHardwareHashUpload = hardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings()
         };
         DeploymentRuntimeState runtimeState = new()
         {
             WorkspaceRoot = workspace.RootPath,
+            TargetWindowsPartitionRoot = workspace.TargetWindowsRootPath,
             TargetFoundryRoot = workspace.TargetFoundryRootPath
         };
 
         return new DeploymentStepExecutionContext(
             request,
             runtimeState,
-            [DeploymentStepNames.StageAutopilotConfiguration],
+            [DeploymentStepNames.ProvisionAutopilot],
             new FakeOperationProgressService(),
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
@@ -174,11 +260,14 @@ public sealed class StageAutopilotConfigurationStepTests
         private TempDeploymentWorkspace(string rootPath)
         {
             RootPath = rootPath;
+            TargetWindowsRootPath = Path.Combine(rootPath, "TargetWindows");
             TargetFoundryRootPath = Path.Combine(rootPath, "TargetFoundry");
+            Directory.CreateDirectory(TargetWindowsRootPath);
             Directory.CreateDirectory(TargetFoundryRootPath);
         }
 
         public string RootPath { get; }
+        public string TargetWindowsRootPath { get; }
         public string TargetFoundryRootPath { get; }
 
         public static TempDeploymentWorkspace Create()

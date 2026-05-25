@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
@@ -112,8 +113,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             DriverPackUrl = context.DriverPack?.DownloadUrl,
             ApplyFirmwareUpdates = context.ApplyFirmwareUpdates,
             IsAutopilotEnabled = context.IsAutopilotEnabled,
+            AutopilotProvisioningMode = context.AutopilotProvisioningMode,
             SelectedAutopilotProfileFolderName = context.SelectedAutopilotProfile?.FolderName,
             SelectedAutopilotProfileDisplayName = context.SelectedAutopilotProfile?.DisplayName,
+            AutopilotHardwareHashGroupTag = context.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
+                ? NormalizeOptionalString(context.AutopilotHardwareHashUpload.DefaultGroupTag)
+                : null,
+            AutopilotHardwareHashUploadState = context.IsAutopilotEnabled && context.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
+                ? AutopilotHardwareHashUploadState.Planned
+                : AutopilotHardwareHashUploadState.NotPlanned,
             Oobe = context.Oobe,
             AppxRemoval = context.AppxRemoval,
             AiComponentRemoval = context.AiComponentRemoval
@@ -282,7 +290,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 ["deploy_driver_pack_vendor"] = NormalizeTelemetryString(context.DriverPack?.Manufacturer, "none"),
                 ["deploy_driver_pack_model"] = ResolveDriverPackCatalogModel(context.DriverPack),
                 ["deploy_firmware_updates_enabled"] = context.ApplyFirmwareUpdates,
-                ["deploy_autopilot_enabled"] = context.IsAutopilotEnabled
+                ["deploy_autopilot_enabled"] = context.IsAutopilotEnabled,
+                ["deploy_autopilot_provisioning_mode"] = NormalizeTelemetryString(ResolveAutopilotProvisioningMode(context)),
+                ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),
+                ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag)
             };
 
         _logger.LogDebug(
@@ -317,6 +328,27 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return string.IsNullOrWhiteSpace(operatingSystem.WindowsRelease)
             ? "windows"
             : $"windows_{NormalizeTelemetryString(operatingSystem.WindowsRelease)}";
+    }
+
+    private static string ResolveAutopilotProvisioningMode(DeploymentContext context)
+    {
+        if (!context.IsAutopilotEnabled)
+        {
+            return "disabled";
+        }
+
+        return context.AutopilotProvisioningMode switch
+        {
+            AutopilotProvisioningMode.HardwareHashUpload => "hardware_hash_upload",
+            _ => "json_profile"
+        };
+    }
+
+    private static string? NormalizeOptionalString(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value)
+            ? null
+            : value.Trim();
     }
 
     private static string NormalizeTelemetryString(string? value, string fallback = "unknown")

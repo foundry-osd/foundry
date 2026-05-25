@@ -114,7 +114,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
-        services.AddSingleton<IDeploymentStep, StageAutopilotConfigurationStep>();
+        services.AddSingleton<IDeploymentStep, ProvisionAutopilotStep>();
         services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();
         services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
 

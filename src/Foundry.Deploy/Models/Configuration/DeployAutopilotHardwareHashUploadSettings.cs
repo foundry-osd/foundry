@@ -39,4 +39,14 @@ public sealed record DeployAutopilotHardwareHashUploadSettings
     /// Gets the group tags discovered when the deployment media was generated.
     /// </summary>
     public IReadOnlyList<string> KnownGroupTags { get; init; } = [];
+
+    /// <summary>
+    /// Gets the encrypted PFX bytes injected into generated media for certificate-based Graph authentication.
+    /// </summary>
+    public SecretEnvelope? CertificatePfxSecret { get; init; }
+
+    /// <summary>
+    /// Gets the encrypted PFX password injected into generated media for certificate-based Graph authentication.
+    /// </summary>
+    public SecretEnvelope? CertificatePfxPasswordSecret { get; init; }
 }

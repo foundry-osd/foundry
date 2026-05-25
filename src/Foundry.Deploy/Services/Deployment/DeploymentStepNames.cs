@@ -22,7 +22,7 @@ public static class DeploymentStepNames
     public const string DownloadFirmwareUpdate = "Download firmware update";
     public const string ApplyFirmwareUpdate = "Apply firmware update";
     public const string SealRecoveryPartition = "Seal recovery partition";
-    public const string StageAutopilotConfiguration = "Stage Autopilot configuration";
+    public const string ProvisionAutopilot = "Provision Autopilot";
     public const string FinalizeDeploymentAndWriteLogs = "Finalize deployment and write logs";
 
     /// <summary>
@@ -47,7 +47,7 @@ public static class DeploymentStepNames
         DownloadFirmwareUpdate,
         ApplyFirmwareUpdate,
         SealRecoveryPartition,
-        StageAutopilotConfiguration,
+        ProvisionAutopilot,
         FinalizeDeploymentAndWriteLogs
     ];
 }
