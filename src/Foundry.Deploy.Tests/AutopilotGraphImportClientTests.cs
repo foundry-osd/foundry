@@ -192,9 +192,8 @@ public sealed class AutopilotGraphImportClientTests
             new AutopilotGraphImportClientOptions
             {
                 RetryDelay = TimeSpan.Zero,
-                ImportPollInterval = TimeSpan.Zero,
-                DeviceVisibilityPollInterval = TimeSpan.Zero,
-                DeviceVisibilityTimeout = TimeSpan.Zero
+                PollInterval = TimeSpan.Zero,
+                VisibilityTimeout = TimeSpan.Zero
             });
         List<AutopilotHardwareHashUploadProgress> progressReports = [];
 
@@ -206,7 +205,7 @@ public sealed class AutopilotGraphImportClientTests
                 null,
                 null,
                 "import-123"),
-            new Progress<AutopilotHardwareHashUploadProgress>(progressReports.Add),
+            new CapturingAutopilotUploadProgress(progressReports),
             CancellationToken.None);
 
         Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
@@ -220,18 +219,6 @@ public sealed class AutopilotGraphImportClientTests
     public async Task ImportHardwareHashAsync_WhenDeviceAppearsBeforeImportCompletion_Completes()
     {
         var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "pending" }
-                }
-              ]
-            }
-            """);
         handler.EnqueueJson(HttpStatusCode.OK, """
             {
               "value": [
@@ -279,9 +266,17 @@ public sealed class AutopilotGraphImportClientTests
             options ?? new AutopilotGraphImportClientOptions
             {
                 RetryDelay = TimeSpan.Zero,
-                ImportPollInterval = TimeSpan.Zero,
-                DeviceVisibilityPollInterval = TimeSpan.Zero
+                PollInterval = TimeSpan.Zero
             });
+    }
+
+    private sealed class CapturingAutopilotUploadProgress(List<AutopilotHardwareHashUploadProgress> reports)
+        : IProgress<AutopilotHardwareHashUploadProgress>
+    {
+        public void Report(AutopilotHardwareHashUploadProgress value)
+        {
+            reports.Add(value);
+        }
     }
 
     private sealed class QueuedGraphHandler : HttpMessageHandler

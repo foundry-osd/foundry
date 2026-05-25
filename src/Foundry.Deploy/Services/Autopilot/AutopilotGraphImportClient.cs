@@ -47,7 +47,7 @@ public sealed class AutopilotGraphImportClient(
             "Submitting import request to Microsoft Graph..."));
         ImportedWindowsAutopilotDeviceIdentity importedIdentity = await ImportAsync(request, cancellationToken)
             .ConfigureAwait(false);
-        AutopilotImportWaitResult waitResult = await WaitForImportCompletionOrDeviceVisibilityAsync(
+        AutopilotImportWaitResult waitResult = await WaitForAutopilotDeviceReadinessAsync(
             request,
             importedIdentity,
             progress,
@@ -76,35 +76,12 @@ public sealed class AutopilotGraphImportClient(
                 importedIdentity.Id);
         }
 
-        if (!string.Equals(importStatus, "complete", StringComparison.OrdinalIgnoreCase))
-        {
-            return AutopilotHardwareHashUploadResult.Failed(
-                AutopilotHardwareHashUploadState.UploadTimedOut,
-                "Autopilot hardware hash import did not complete before the timeout.",
-                "ImportTimedOut",
-                request.ImportId,
-                importedIdentity.Id);
-        }
-
-        WindowsAutopilotDeviceIdentity? autopilotDevice = await WaitForAutopilotDeviceVisibilityAsync(
-            request,
-            progress,
-            cancellationToken).ConfigureAwait(false);
-        if (autopilotDevice is null)
-        {
-            return AutopilotHardwareHashUploadResult.Failed(
-                AutopilotHardwareHashUploadState.UploadTimedOut,
-                "Imported Autopilot device did not appear in Windows Autopilot devices before the visibility timeout.",
-                "AutopilotDeviceTimedOut",
-                request.ImportId,
-                importedIdentity.Id);
-        }
-
-        return AutopilotHardwareHashUploadResult.Completed(
-            "Autopilot hardware hash imported and visible in Windows Autopilot devices.",
+        return AutopilotHardwareHashUploadResult.Failed(
+            AutopilotHardwareHashUploadState.UploadTimedOut,
+            "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.",
+            "AutopilotDeviceTimedOut",
             request.ImportId,
-            importedIdentity.Id,
-            autopilotDevice.Id);
+            importedIdentity.Id);
     }
 
     private async Task<ImportedWindowsAutopilotDeviceIdentity> ImportAsync(
@@ -134,20 +111,20 @@ public sealed class AutopilotGraphImportClient(
             ?? throw new InvalidOperationException("Microsoft Graph did not return an imported Autopilot device identity.");
     }
 
-    private async Task<AutopilotImportWaitResult> WaitForImportCompletionOrDeviceVisibilityAsync(
+    private async Task<AutopilotImportWaitResult> WaitForAutopilotDeviceReadinessAsync(
         AutopilotGraphImportRequest request,
         ImportedWindowsAutopilotDeviceIdentity importedIdentity,
         IProgress<AutopilotHardwareHashUploadProgress>? progress,
         CancellationToken cancellationToken)
     {
-        if (IsTerminalImportStatus(importedIdentity.State?.DeviceImportStatus))
+        DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.VisibilityTimeout);
+        while (true)
         {
-            return new AutopilotImportWaitResult(importedIdentity, null);
-        }
+            if (IsImportError(importedIdentity.State?.DeviceImportStatus))
+            {
+                return new AutopilotImportWaitResult(importedIdentity, null);
+            }
 
-        DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.ImportTimeout);
-        while (DateTimeOffset.UtcNow <= deadline)
-        {
             TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
             if (remaining < TimeSpan.Zero)
             {
@@ -155,20 +132,8 @@ public sealed class AutopilotGraphImportClient(
             }
 
             progress?.Report(new AutopilotHardwareHashUploadProgress(
-                "Waiting for Autopilot import...",
-                $"Waiting for Microsoft Graph import completion ({FormatRemaining(remaining)} remaining)..."));
-            ImportedWindowsAutopilotDeviceIdentity? current = await GetImportedIdentityAsync(request, cancellationToken)
-                .ConfigureAwait(false);
-            if (current is not null)
-            {
-                importedIdentity = current;
-            }
-
-            if (IsTerminalImportStatus(importedIdentity.State?.DeviceImportStatus))
-            {
-                return new AutopilotImportWaitResult(importedIdentity, null);
-            }
-
+                "Waiting for Autopilot device visibility...",
+                $"Checking Windows Autopilot devices ({FormatRemaining(remaining)} remaining)..."));
             WindowsAutopilotDeviceIdentity? visibleDevice = await FindAutopilotDeviceAsync(request, cancellationToken)
                 .ConfigureAwait(false);
             if (visibleDevice is not null)
@@ -176,10 +141,34 @@ public sealed class AutopilotGraphImportClient(
                 return new AutopilotImportWaitResult(importedIdentity, visibleDevice);
             }
 
-            await DelayAsync(options.ImportPollInterval, cancellationToken).ConfigureAwait(false);
-        }
+            if (DateTimeOffset.UtcNow >= deadline)
+            {
+                return new AutopilotImportWaitResult(importedIdentity, null);
+            }
 
-        return new AutopilotImportWaitResult(importedIdentity, null);
+            if (!IsImportComplete(importedIdentity.State?.DeviceImportStatus))
+            {
+                ImportedWindowsAutopilotDeviceIdentity? current = await GetImportedIdentityAsync(request, cancellationToken)
+                    .ConfigureAwait(false);
+                if (current is not null)
+                {
+                    importedIdentity = current;
+                }
+
+                if (IsImportError(importedIdentity.State?.DeviceImportStatus))
+                {
+                    return new AutopilotImportWaitResult(importedIdentity, null);
+                }
+            }
+
+            TimeSpan delay = deadline - DateTimeOffset.UtcNow;
+            if (delay > options.PollInterval)
+            {
+                delay = options.PollInterval;
+            }
+
+            await DelayAsync(delay, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     private async Task<ImportedWindowsAutopilotDeviceIdentity?> GetImportedIdentityAsync(
@@ -200,40 +189,6 @@ public sealed class AutopilotGraphImportClient(
         return response?.Value?.FirstOrDefault(identity =>
             string.Equals(identity.ImportId, request.ImportId, StringComparison.OrdinalIgnoreCase) ||
             string.Equals(identity.SerialNumber, request.SerialNumber, StringComparison.OrdinalIgnoreCase));
-    }
-
-    private async Task<WindowsAutopilotDeviceIdentity?> WaitForAutopilotDeviceVisibilityAsync(
-        AutopilotGraphImportRequest request,
-        IProgress<AutopilotHardwareHashUploadProgress>? progress,
-        CancellationToken cancellationToken)
-    {
-        DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.DeviceVisibilityTimeout);
-        do
-        {
-            TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
-            if (remaining < TimeSpan.Zero)
-            {
-                remaining = TimeSpan.Zero;
-            }
-
-            progress?.Report(new AutopilotHardwareHashUploadProgress(
-                "Waiting for Autopilot device visibility...",
-                $"Waiting for device to appear in Windows Autopilot devices ({FormatRemaining(remaining)} remaining)..."));
-            WindowsAutopilotDeviceIdentity? device = await FindAutopilotDeviceAsync(request, cancellationToken)
-                .ConfigureAwait(false);
-            if (device is not null)
-            {
-                return device;
-            }
-
-            if (DateTimeOffset.UtcNow > deadline)
-            {
-                return null;
-            }
-
-            await DelayAsync(options.DeviceVisibilityPollInterval, cancellationToken).ConfigureAwait(false);
-        }
-        while (true);
     }
 
     private async Task<WindowsAutopilotDeviceIdentity?> FindAutopilotDeviceAsync(
@@ -307,17 +262,22 @@ public sealed class AutopilotGraphImportClient(
             : Task.Delay(delay, cancellationToken);
     }
 
-    private static bool IsTerminalImportStatus(string? status)
+    private static bool IsImportError(string? status)
     {
-        return string.Equals(status, "complete", StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(status, "error", StringComparison.OrdinalIgnoreCase);
+        return string.Equals(status, "error", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsImportComplete(string? status)
+    {
+        return string.Equals(status, "complete", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string FormatRemaining(TimeSpan remaining)
     {
-        return remaining.TotalMinutes >= 1
-            ? $"{Math.Ceiling(remaining.TotalMinutes):0} minutes"
-            : $"{Math.Ceiling(remaining.TotalSeconds):0} seconds";
+        double seconds = Math.Ceiling(remaining.TotalSeconds);
+        return seconds == 1
+            ? "1 second"
+            : $"{seconds:0} seconds";
     }
 
     private static string EscapeODataFilter(string filter)
@@ -382,10 +342,8 @@ public sealed record AutopilotGraphImportClientOptions
 {
     public int RetryCount { get; init; } = HttpRetryPolicy.DefaultRetryCount;
     public TimeSpan RetryDelay { get; init; } = HttpRetryPolicy.DefaultRetryDelay;
-    public TimeSpan ImportPollInterval { get; init; } = TimeSpan.FromSeconds(10);
-    public TimeSpan ImportTimeout { get; init; } = TimeSpan.FromMinutes(10);
-    public TimeSpan DeviceVisibilityPollInterval { get; init; } = TimeSpan.FromSeconds(10);
-    public TimeSpan DeviceVisibilityTimeout { get; init; } = TimeSpan.FromMinutes(10);
+    public TimeSpan PollInterval { get; init; } = TimeSpan.FromSeconds(10);
+    public TimeSpan VisibilityTimeout { get; init; } = TimeSpan.FromMinutes(10);
 }
 
 public sealed record AutopilotGraphImportRequest(

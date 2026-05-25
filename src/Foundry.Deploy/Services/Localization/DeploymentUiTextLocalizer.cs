@@ -218,7 +218,6 @@ public static partial class DeploymentUiTextLocalizer
             "Uploading Autopilot hardware hash..." => LocalizationText.GetString("StepMessage.UploadingAutopilotHardwareHash"),
             "Preparing Microsoft Graph import..." => LocalizationText.GetString("StepMessage.PreparingMicrosoftGraphImport"),
             "Submitting import request to Microsoft Graph..." => LocalizationText.GetString("StepMessage.SubmittingMicrosoftGraphImport"),
-            "Waiting for Autopilot import..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotImport"),
             "Waiting for Autopilot device visibility..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotDeviceVisibility"),
             "Preparing Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.PreparingAutopilotHardwareHashUpload"),
             "Writing dry-run Autopilot hash manifest..." => LocalizationText.GetString("StepMessage.WritingDryRunAutopilotHashManifest"),
@@ -313,19 +312,11 @@ public static partial class DeploymentUiTextLocalizer
             return localized;
         }
 
-        match = WaitingGraphImportCompletionRegex().Match(value);
+        match = CheckingWindowsAutopilotDevicesRegex().Match(value);
         if (match.Success)
         {
             return LocalizationText.Format(
-                "StepMessage.WaitingMicrosoftGraphImportCompletionFormat",
-                LocalizeRemainingDuration(match.Groups["remaining"].Value));
-        }
-
-        match = WaitingAutopilotDeviceVisibilityRegex().Match(value);
-        if (match.Success)
-        {
-            return LocalizationText.Format(
-                "StepMessage.WaitingAutopilotDeviceVisibilityFormat",
+                "StepMessage.CheckingWindowsAutopilotDevicesFormat",
                 LocalizeRemainingDuration(match.Groups["remaining"].Value));
         }
 
@@ -477,11 +468,8 @@ public static partial class DeploymentUiTextLocalizer
     [GeneratedRegex(@"^(?<value>\d+) (?<unit>minutes|minute|seconds|second)$")]
     private static partial Regex RemainingDurationRegex();
 
-    [GeneratedRegex(@"^Waiting for Microsoft Graph import completion \((?<remaining>.+) remaining\)\.\.\.$")]
-    private static partial Regex WaitingGraphImportCompletionRegex();
-
-    [GeneratedRegex(@"^Waiting for device to appear in Windows Autopilot devices \((?<remaining>.+) remaining\)\.\.\.$")]
-    private static partial Regex WaitingAutopilotDeviceVisibilityRegex();
+    [GeneratedRegex(@"^Checking Windows Autopilot devices \((?<remaining>.+) remaining\)\.\.\.$")]
+    private static partial Regex CheckingWindowsAutopilotDevicesRegex();
 
     [GeneratedRegex(@"^wpeutil\.exe failed with exit code (?<code>\d+)\. (?<diagnostic>.+)$")]
     private static partial Regex WpeUtilFailureRegex();

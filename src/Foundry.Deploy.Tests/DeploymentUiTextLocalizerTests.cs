@@ -59,7 +59,6 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Uploading Autopilot hardware hash...", "Upload du hardware hash Autopilot...")]
     [InlineData("Preparing Microsoft Graph import...", "Préparation de l’import Microsoft Graph...")]
     [InlineData("Submitting import request to Microsoft Graph...", "Envoi de la demande d’import à Microsoft Graph...")]
-    [InlineData("Waiting for Autopilot import...", "Attente de l’import Autopilot...")]
     [InlineData("Waiting for Autopilot device visibility...", "Attente de la visibilité de l’appareil Autopilot...")]
     [InlineData("Preparing Autopilot hardware hash upload...", "Préparation de l’upload du hardware hash Autopilot...")]
     [InlineData("Writing dry-run Autopilot hash manifest...", "Écriture du manifeste de simulation de l’upload du hardware hash Autopilot...")]
@@ -86,8 +85,8 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Target disk 3 is no longer present.", "Le disque cible 3 n’est plus présent.")]
     [InlineData("Target disk 3 is blocked: Blocked: system disk", "Le disque cible 3 est bloqué : Bloqué : disque système")]
     [InlineData("12.5 MB downloaded", "12.5 MB téléchargés")]
-    [InlineData("Waiting for Microsoft Graph import completion (10 minutes remaining)...", "Attente de la fin de l’import Microsoft Graph (10 minutes restantes)...")]
-    [InlineData("Waiting for device to appear in Windows Autopilot devices (42 seconds remaining)...", "Attente de l’apparition de l’appareil dans Windows Autopilot devices (42 secondes restantes)...")]
+    [InlineData("Checking Windows Autopilot devices (1 second remaining)...", "Vérification des appareils Windows Autopilot (temps restant : 1 seconde)...")]
+    [InlineData("Checking Windows Autopilot devices (600 seconds remaining)...", "Vérification des appareils Windows Autopilot (temps restant : 600 secondes)...")]
     public void LocalizeMessage_TranslatesDynamicDeploymentRuntimeMessages(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
