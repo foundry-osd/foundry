@@ -112,7 +112,8 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashCertificateUsable);
         Assert.True(viewModel.IsHardwareHashGroupTagControlsVisible);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
+        Assert.False(viewModel.IsHardwareHashUploadMessageVisible);
+        Assert.True(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
         Assert.Equal("tenant-id", viewModel.AutopilotHardwareHashTenantIdText);
         Assert.Equal("ABCDEF123456", viewModel.AutopilotHardwareHashCertificateThumbprintText);
         Assert.Equal("Sales", viewModel.SelectedHardwareHashGroupTag?.GroupTag);
@@ -139,6 +140,7 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
+        Assert.True(viewModel.IsHardwareHashUploadMessageVisible);
         Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
     }
 
@@ -159,7 +161,7 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.HasHardwareHashUploadMetadata);
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.True(viewModel.IsHardwareHashMissingMetadataWarningVisible);
+        Assert.True(viewModel.IsHardwareHashUploadMessageVisible);
     }
 
     [Fact]

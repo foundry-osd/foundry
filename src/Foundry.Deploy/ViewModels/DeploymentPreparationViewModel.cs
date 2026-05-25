@@ -123,7 +123,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         expiresOn <= DateTimeOffset.UtcNow;
     public bool IsHardwareHashCertificateUsable => HasHardwareHashUploadMetadata && !IsHardwareHashCertificateExpired;
     public bool IsHardwareHashGroupTagControlsVisible => IsHardwareHashUploadControlsVisible && IsHardwareHashCertificateUsable;
-    public bool IsHardwareHashMissingMetadataWarningVisible => IsHardwareHashUploadControlsVisible && !HasHardwareHashUploadMetadata;
+    public bool IsHardwareHashUploadMessageVisible => IsHardwareHashUploadControlsVisible && !IsHardwareHashCertificateUsable;
     public string AutopilotHardwareHashTenantIdText => NormalizeMetadataValue(AutopilotHardwareHashUpload.TenantId);
     public string AutopilotHardwareHashCertificateThumbprintText => NormalizeMetadataValue(AutopilotHardwareHashUpload.ActiveCertificateThumbprint);
     public string AutopilotHardwareHashCertificateExpirationText =>
@@ -167,7 +167,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         {
             if (IsHardwareHashCertificateUsable)
             {
-                return GetString("Preparation.AutopilotHardwareHashReadyMessage");
+                return string.Empty;
             }
 
             if (IsHardwareHashCertificateExpired)
@@ -826,7 +826,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
         OnPropertyChanged(nameof(IsHardwareHashCertificateUsable));
         OnPropertyChanged(nameof(IsHardwareHashGroupTagControlsVisible));
-        OnPropertyChanged(nameof(IsHardwareHashMissingMetadataWarningVisible));
+        OnPropertyChanged(nameof(IsHardwareHashUploadMessageVisible));
         OnPropertyChanged(nameof(AutopilotHardwareHashTenantIdText));
         OnPropertyChanged(nameof(AutopilotHardwareHashCertificateThumbprintText));
         OnPropertyChanged(nameof(AutopilotHardwareHashCertificateExpirationText));
