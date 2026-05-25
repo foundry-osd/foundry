@@ -21,11 +21,6 @@ public enum AutopilotHardwareHashUploadState
     DryRunPrepared,
 
     /// <summary>
-    /// OA3Tool captured the hardware hash and retained local diagnostics; Graph upload is not yet complete.
-    /// </summary>
-    HashCaptured,
-
-    /// <summary>
     /// Hardware hash upload was skipped because the media certificate is expired.
     /// </summary>
     SkippedCertificateExpired,

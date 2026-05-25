@@ -38,7 +38,6 @@ public sealed record AutopilotHardwareHashUploadResult
     public string? ArtifactPath { get; init; }
 
     public bool IsCompleted => State == AutopilotHardwareHashUploadState.Completed;
-    public bool IsTimedOut => State == AutopilotHardwareHashUploadState.UploadTimedOut;
 
     public static AutopilotHardwareHashUploadResult Completed(
         string message,
