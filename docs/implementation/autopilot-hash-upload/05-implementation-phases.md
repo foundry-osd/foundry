@@ -362,7 +362,7 @@ Implementation progress:
 - [x] Implementation checklist complete.
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
-- [ ] PR opened with the planned title.
+- [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Load Autopilot provisioning mode from deploy config.
