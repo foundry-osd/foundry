@@ -219,6 +219,9 @@ public static partial class DeploymentUiTextLocalizer
             "Preparing Microsoft Graph import..." => LocalizationText.GetString("StepMessage.PreparingMicrosoftGraphImport"),
             "Submitting import request to Microsoft Graph..." => LocalizationText.GetString("StepMessage.SubmittingMicrosoftGraphImport"),
             "Waiting for Autopilot device visibility..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotDeviceVisibility"),
+            "Updating existing Autopilot device..." => LocalizationText.GetString("StepMessage.UpdatingExistingAutopilotDevice"),
+            "Updating Windows Autopilot group tag in Microsoft Graph..." => LocalizationText.GetString("StepMessage.UpdatingWindowsAutopilotGroupTag"),
+            "Waiting for Autopilot group tag update..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotGroupTagUpdate"),
             "Preparing Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.PreparingAutopilotHardwareHashUpload"),
             "Decrypting media certificate..." => LocalizationText.GetString("StepMessage.DecryptingMediaCertificate"),
             "Authenticating Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.AuthenticatingAutopilotHardwareHashUpload"),
@@ -230,6 +233,7 @@ public static partial class DeploymentUiTextLocalizer
             "Autopilot hardware hash upload skipped because media metadata is incomplete." => LocalizationText.GetString("StepResult.AutopilotHashUploadSkippedMissingMetadata"),
             "Autopilot hardware hash imported and visible in Windows Autopilot devices." => LocalizationText.GetString("StepResult.AutopilotHardwareHashImportedVisible"),
             "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout." => LocalizationText.GetString("StepResult.AutopilotDeviceVisibilityTimedOut"),
+            "Windows Autopilot device group tag update was not confirmed before the timeout." => LocalizationText.GetString("StepResult.AutopilotGroupTagUpdateTimedOut"),
             "Autopilot hardware hash upload prepared for dry run." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedDryRun"),
             "Autopilot hardware hash upload prepared (simulation)." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedSimulation"),
             "Autopilot profile staged." => LocalizationText.GetString("StepResult.AutopilotProfileStaged"),
@@ -348,6 +352,14 @@ public static partial class DeploymentUiTextLocalizer
         {
             return LocalizationText.Format(
                 "StepMessage.CheckingWindowsAutopilotDevicesFormat",
+                LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
+        }
+
+        match = CheckingWindowsAutopilotGroupTagRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepMessage.CheckingWindowsAutopilotGroupTagFormat",
                 LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
         }
 
@@ -509,6 +521,9 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Checking Windows Autopilot devices \((?<remaining>.+) remaining\)\.\.\.$")]
     private static partial Regex CheckingWindowsAutopilotDevicesRegex();
+
+    [GeneratedRegex(@"^Checking Windows Autopilot group tag \((?<remaining>.+) remaining\)\.\.\.$")]
+    private static partial Regex CheckingWindowsAutopilotGroupTagRegex();
 
     [GeneratedRegex(@"^wpeutil\.exe failed with exit code (?<code>\d+)\. (?<diagnostic>.+)$")]
     private static partial Regex WpeUtilFailureRegex();

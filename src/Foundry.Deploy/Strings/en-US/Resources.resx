@@ -385,6 +385,10 @@ Continue?</value></data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Submitting import request to Microsoft Graph...</value></data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Waiting for Autopilot device visibility...</value></data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Checking Windows Autopilot devices ({0})...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Updating existing Autopilot device...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Updating Windows Autopilot group tag in Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Waiting for Autopilot group tag update...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Checking Windows Autopilot group tag ({0})...</value></data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Preparing Autopilot hardware hash upload...</value></data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Decrypting media certificate...</value></data>
   <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Authenticating Autopilot hardware hash upload...</value></data>
@@ -396,6 +400,7 @@ Continue?</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot hardware hash upload skipped because media metadata is incomplete.</value></data>
   <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot hardware hash imported and visible in Windows Autopilot devices.</value></data>
   <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot device group tag update was not confirmed before the timeout.</value></data>
   <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot hardware hash upload prepared for dry run.</value></data>
   <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot hardware hash upload prepared (simulation).</value></data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Selected Autopilot profile file was not found: {0}</value></data>
