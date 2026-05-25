@@ -325,7 +325,7 @@ Implementation progress:
 - [x] Add `WinPE-SecureStartup` to the default required optional components for all generated WinPE media.
 - [x] Locate and stage architecture-specific `oa3tool.exe` from the ADK for x64 and ARM64.
 - [x] Add hash capture templates under a Foundry-owned WinPE path.
-- [x] Add hash upload runtime configuration under `X:\Foundry\Config`.
+- [x] Add the hash upload OA3 runtime workspace under `X:\Foundry\Runtime\AutopilotHash`.
 - [x] Write encrypted Autopilot PFX and PFX password envelopes plus the media secret key through the shared media secret provisioning path.
 - [x] Keep current profile JSON staging unchanged in JSON profile mode.
 - [x] Do not stage JSON profile folders in hash upload mode unless the user also keeps profiles for another purpose.
