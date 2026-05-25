@@ -85,8 +85,8 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Target disk 3 is no longer present.", "Le disque cible 3 n’est plus présent.")]
     [InlineData("Target disk 3 is blocked: Blocked: system disk", "Le disque cible 3 est bloqué : Bloqué : disque système")]
     [InlineData("12.5 MB downloaded", "12.5 MB téléchargés")]
-    [InlineData("Checking Windows Autopilot devices (1 second remaining)...", "Vérification des appareils Windows Autopilot (temps restant : 1 seconde)...")]
-    [InlineData("Checking Windows Autopilot devices (600 seconds remaining)...", "Vérification des appareils Windows Autopilot (temps restant : 600 secondes)...")]
+    [InlineData("Checking Windows Autopilot devices (1 second remaining)...", "Vérification des appareils Windows Autopilot (1s)...")]
+    [InlineData("Checking Windows Autopilot devices (600 seconds remaining)...", "Vérification des appareils Windows Autopilot (600s)...")]
     public void LocalizeMessage_TranslatesDynamicDeploymentRuntimeMessages(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");

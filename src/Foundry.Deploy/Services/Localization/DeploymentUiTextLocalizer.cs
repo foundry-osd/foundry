@@ -317,7 +317,7 @@ public static partial class DeploymentUiTextLocalizer
         {
             return LocalizationText.Format(
                 "StepMessage.CheckingWindowsAutopilotDevicesFormat",
-                LocalizeRemainingDuration(match.Groups["remaining"].Value));
+                LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
         }
 
         if (value.StartsWith("Debug preview: DISM apply failed because the target partition is read-only.", StringComparison.Ordinal))
@@ -424,6 +424,14 @@ public static partial class DeploymentUiTextLocalizer
         return string.IsNullOrWhiteSpace(key)
             ? value
             : LocalizationText.Format(key, match.Groups["value"].Value);
+    }
+
+    private static string LocalizeCompactRemainingDuration(string value)
+    {
+        Match match = RemainingDurationRegex().Match(value);
+        return match.Success
+            ? $"{match.Groups["value"].Value}s"
+            : value;
     }
 
     private static bool TryLocalizeSingleSuffix(string value, string prefix, string key, out string localized)

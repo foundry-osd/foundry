@@ -384,7 +384,7 @@ Continue?</value></data>
   <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Preparing Microsoft Graph import...</value></data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Submitting import request to Microsoft Graph...</value></data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Waiting for Autopilot device visibility...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Checking Windows Autopilot devices ({0} remaining)...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Checking Windows Autopilot devices ({0})...</value></data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Preparing Autopilot hardware hash upload...</value></data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Writing dry-run Autopilot hash manifest...</value></data>
   <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minute</value></data>
