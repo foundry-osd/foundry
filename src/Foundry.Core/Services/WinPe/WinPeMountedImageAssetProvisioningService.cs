@@ -11,6 +11,14 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 {
     private const string BootstrapFileName = "FoundryBootstrap.ps1";
     private const string BootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
+    private const string Oa3CfgTemplate = """
+        ; Foundry.Deploy rewrites this file with deployment-specific paths before running OA3Tool.
+        ; The template is staged so generated media has the expected Autopilot hash workspace.
+        """;
+    private const string Oa3InputTemplate = """
+        <?xml version="1.0" encoding="utf-8"?>
+        <Key />
+        """;
     private static readonly UTF8Encoding Utf8NoBom = new(false);
 
     public async Task<WinPeResult> ProvisionAsync(
@@ -130,7 +138,17 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             cancellationToken).ConfigureAwait(false);
 
         CopyConnectAssetFiles(mountedImagePath, options.FoundryConnectAssetFiles);
-        await WriteAutopilotProfilesAsync(foundryConfigPath, options.AutopilotProfiles, cancellationToken).ConfigureAwait(false);
+        if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            await WriteAutopilotHardwareHashAssetsAsync(
+                mountedImagePath,
+                options,
+                cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            await WriteAutopilotProfilesAsync(foundryConfigPath, options.AutopilotProfiles, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     private static async Task WriteMediaSecretsKeyAsync(
@@ -219,6 +237,34 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         File.Copy(sourceExecutablePath, Path.Combine(destinationRuntimePath, "7za.exe"), overwrite: true);
         File.Copy(sourceLicensePath, Path.Combine(destinationToolsRootPath, "License.txt"), overwrite: true);
         File.Copy(sourceReadmePath, Path.Combine(destinationToolsRootPath, "readme.txt"), overwrite: true);
+    }
+
+    private static async Task WriteAutopilotHardwareHashAssetsAsync(
+        string mountedImagePath,
+        WinPeMountedImageAssetProvisioningOptions options,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(options.Oa3ToolSourcePath) || !File.Exists(options.Oa3ToolSourcePath))
+        {
+            throw new IOException($"OA3Tool source file was not found: '{options.Oa3ToolSourcePath}'.");
+        }
+
+        string oa3ToolsPath = Path.Combine(mountedImagePath, "Foundry", "Tools", "OA3");
+        Directory.CreateDirectory(oa3ToolsPath);
+        File.Copy(options.Oa3ToolSourcePath, Path.Combine(oa3ToolsPath, "oa3tool.exe"), overwrite: true);
+
+        string runtimePath = Path.Combine(mountedImagePath, "Foundry", "Runtime", "AutopilotHash");
+        Directory.CreateDirectory(runtimePath);
+        await File.WriteAllTextAsync(
+            Path.Combine(runtimePath, "OA3.cfg"),
+            Oa3CfgTemplate,
+            Utf8NoBom,
+            cancellationToken).ConfigureAwait(false);
+        await File.WriteAllTextAsync(
+            Path.Combine(runtimePath, "input.xml"),
+            Oa3InputTemplate,
+            Utf8NoBom,
+            cancellationToken).ConfigureAwait(false);
     }
 
     private static async Task WriteAutopilotProfilesAsync(
@@ -342,6 +388,23 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 WinPeErrorCodes.ValidationFailed,
                 "Provisioning source value is invalid.",
                 $"Connect: '{options.ConnectProvisioningSource}', Deploy: '{options.DeployProvisioningSource}'.");
+        }
+
+        if (!Enum.IsDefined(options.AutopilotProvisioningMode))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "Autopilot provisioning mode value is invalid.",
+                $"Value: '{options.AutopilotProvisioningMode}'.");
+        }
+
+        if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
+            (string.IsNullOrWhiteSpace(options.Oa3ToolSourcePath) || !File.Exists(options.Oa3ToolSourcePath)))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ToolNotFound,
+                "OA3Tool source path is required for Autopilot hardware hash upload media.",
+                $"Expected file: '{options.Oa3ToolSourcePath}'.");
         }
 
         return null;

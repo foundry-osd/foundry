@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Autopilot;
@@ -61,7 +62,11 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         {
             try
             {
-                _ = GenerateDeployConfigurationJson();
+                byte[]? mediaSecretsKey = Current.Autopilot.IsEnabled &&
+                                          Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
+                    ? MediaSecretEnvelopeProtector.GenerateMediaKey()
+                    : null;
+                _ = GenerateDeployConfigurationJson(mediaSecretsKey: mediaSecretsKey);
                 return true;
             }
             catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
@@ -159,11 +164,11 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null)
+    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? mediaSecretsKey = null)
     {
         FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
 
-        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document));
+        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document, mediaSecretsKey));
     }
 
     /// <inheritdoc />
