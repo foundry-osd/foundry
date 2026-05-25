@@ -417,6 +417,71 @@ public sealed class AutopilotGraphImportClientTests
     }
 
     [Fact]
+    public async Task ImportHardwareHashAsync_WhenImportStatusListIsPaged_FollowsNextLink()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "initial-imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "pending" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "@odata.nextLink": "https://graph.microsoft.com/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities?$skiptoken=page-2",
+              "value": []
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "complete" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id", "serialNumber": "SER123" }
+              ]
+            }
+            """);
+
+        AutopilotGraphImportClient client = CreateClient(handler);
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                null,
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
+        Assert.Equal("device-id", result.AutopilotDeviceId);
+        Assert.Contains(handler.Requests, request =>
+            request.PathAndQuery.StartsWith(
+                "/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities?$filter=",
+                StringComparison.Ordinal));
+        Assert.Contains(handler.Requests, request =>
+            request.PathAndQuery == "/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities?$skiptoken=page-2");
+    }
+
+    [Fact]
     public async Task ImportHardwareHashAsync_WhenDeviceAppearsBeforeImportCompletion_Completes()
     {
         var handler = new QueuedGraphHandler();

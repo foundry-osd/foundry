@@ -206,19 +206,30 @@ public sealed class AutopilotGraphImportClient(
         CancellationToken cancellationToken)
     {
         string filter = EscapeODataFilter($"importId eq '{EscapeODataString(request.ImportId)}'");
-        string path = $"{ImportedIdentitiesPath}?$filter={filter}";
-        GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>? response =
-            await SendGraphAsync<object, GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>>(
-                HttpMethod.Get,
-                path,
-                request.AccessToken,
-                body: null,
-                "Autopilot import status polling",
-                cancellationToken).ConfigureAwait(false);
+        string? path = $"{ImportedIdentitiesPath}?$filter={filter}";
+        while (!string.IsNullOrWhiteSpace(path))
+        {
+            GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>? response =
+                await SendGraphAsync<object, GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>>(
+                    HttpMethod.Get,
+                    path,
+                    request.AccessToken,
+                    body: null,
+                    "Autopilot import status polling",
+                    cancellationToken).ConfigureAwait(false);
 
-        return response?.Value?.FirstOrDefault(identity =>
-            string.Equals(identity.ImportId, request.ImportId, StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(identity.SerialNumber, request.SerialNumber, StringComparison.OrdinalIgnoreCase));
+            ImportedWindowsAutopilotDeviceIdentity? identity = response?.Value?.FirstOrDefault(candidate =>
+                string.Equals(candidate.ImportId, request.ImportId, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(candidate.SerialNumber, request.SerialNumber, StringComparison.OrdinalIgnoreCase));
+            if (identity is not null)
+            {
+                return identity;
+            }
+
+            path = response?.NextLink;
+        }
+
+        return null;
     }
 
     private async Task<WindowsAutopilotDeviceIdentity?> FindAutopilotDeviceAsync(
