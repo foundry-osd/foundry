@@ -70,7 +70,9 @@ public sealed class ProvisionAutopilotStepTests
     public async Task ExecuteAsync_WhenLiveHardwareHashModeIsConfigured_RecordsPlannedUploadWithoutJsonStaging()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        ProvisionAutopilotStep step = CreateStep();
+        var uploadService = new FakeAutopilotHardwareHashUploadService(
+            AutopilotHardwareHashUploadResult.Completed("Device imported."));
+        ProvisionAutopilotStep step = CreateStep(uploadService: uploadService);
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
@@ -88,11 +90,51 @@ public sealed class ProvisionAutopilotStepTests
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.Equal(AutopilotHardwareHashUploadState.HashCaptured, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Equal(AutopilotHardwareHashUploadState.Completed, context.RuntimeState.AutopilotHardwareHashUploadState);
         Assert.Equal("Sales", context.RuntimeState.AutopilotHardwareHashGroupTag);
         Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
         Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
         Assert.True(File.Exists(Path.Combine(context.RuntimeState.AutopilotHardwareHashDiagnosticsPath!, "autopilot-hash-upload-status.json")));
+        Assert.Single(uploadService.Requests);
+        Assert.Equal("SER123", uploadService.Requests[0].Identity.SerialNumber);
+        Assert.Equal("HASHVALUE", uploadService.Requests[0].Identity.HardwareHash);
+        Assert.Equal("Sales", uploadService.Requests[0].Identity.GroupTag);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenGraphUploadFailsAfterCapture_ContinuesDeployment()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep(
+            uploadService: new FakeAutopilotHardwareHashUploadService(
+                AutopilotHardwareHashUploadResult.Failed(
+                    AutopilotHardwareHashUploadState.UploadFailed,
+                    "Autopilot hardware hash upload failed: consent is missing.",
+                    "ConsentMissing")));
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+            hardwareHashUpload: new DeployAutopilotHardwareHashUploadSettings
+            {
+                TenantId = "tenant-id",
+                ClientId = "client-id",
+                ActiveCertificateKeyId = "key-id",
+                ActiveCertificateThumbprint = "ABCDEF123456",
+                ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1)
+            });
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.NotEqual(DeploymentStepState.Failed, result.State);
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Contains("consent", result.Message, StringComparison.OrdinalIgnoreCase);
+
+        string statusPath = Path.Combine(context.RuntimeState.AutopilotHardwareHashDiagnosticsPath!, "autopilot-hash-upload-status.json");
+        using JsonDocument status = JsonDocument.Parse(await File.ReadAllTextAsync(statusPath));
+        Assert.Equal("UploadFailed", status.RootElement.GetProperty("uploadState").GetString());
+        Assert.Equal("ConsentMissing", status.RootElement.GetProperty("failureCode").GetString());
     }
 
     [Fact]
@@ -157,9 +199,14 @@ public sealed class ProvisionAutopilotStepTests
         };
     }
 
-    private static ProvisionAutopilotStep CreateStep()
+    private static ProvisionAutopilotStep CreateStep(
+        IAutopilotHardwareHashCaptureService? captureService = null,
+        IAutopilotHardwareHashUploadService? uploadService = null)
     {
-        return new ProvisionAutopilotStep(new FakeAutopilotHardwareHashCaptureService());
+        return new ProvisionAutopilotStep(
+            captureService ?? new FakeAutopilotHardwareHashCaptureService(),
+            uploadService ?? new FakeAutopilotHardwareHashUploadService(
+                AutopilotHardwareHashUploadResult.Completed("Device imported.")));
     }
 
     private static DeploymentStepExecutionContext CreateContext(
@@ -276,6 +323,20 @@ public sealed class ProvisionAutopilotStepTests
             File.WriteAllText(csvPath, "csv");
             AutopilotHardwareHashDeviceIdentity identity = new("SER123", "HASHVALUE", request.GroupTag);
             return Task.FromResult(AutopilotHardwareHashCaptureResult.Succeeded(identity, oa3XmlPath, oa3LogPath, csvPath));
+        }
+    }
+
+    private sealed class FakeAutopilotHardwareHashUploadService(AutopilotHardwareHashUploadResult result) : IAutopilotHardwareHashUploadService
+    {
+        public List<AutopilotHardwareHashUploadRequest> Requests { get; } = [];
+
+        public Task<AutopilotHardwareHashUploadResult> UploadAsync(
+            AutopilotHardwareHashUploadRequest request,
+            IProgress<AutopilotHardwareHashUploadProgress>? progress = null,
+            CancellationToken cancellationToken = default)
+        {
+            Requests.Add(request);
+            return Task.FromResult(result);
         }
     }
 
