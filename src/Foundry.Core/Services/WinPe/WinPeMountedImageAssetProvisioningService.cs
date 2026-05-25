@@ -12,12 +12,24 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private const string BootstrapFileName = "FoundryBootstrap.ps1";
     private const string BootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
     private const string Oa3CfgTemplate = """
-        ; Foundry.Deploy rewrites this file with deployment-specific paths before running OA3Tool.
-        ; The template is staged so generated media has the expected Autopilot hash workspace.
+        <?xml version="1.0" encoding="utf-8"?>
+        <OA3>
+          <FileBased>
+            <InputKeyXMLFile>input.xml</InputKeyXMLFile>
+          </FileBased>
+          <OutputData>
+            <AssembledBinaryFile>OA3.bin</AssembledBinaryFile>
+            <ReportedXMLFile>OA3.xml</ReportedXMLFile>
+          </OutputData>
+        </OA3>
         """;
     private const string Oa3InputTemplate = """
         <?xml version="1.0" encoding="utf-8"?>
-        <Key />
+        <Key>
+          <ProductKey>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</ProductKey>
+          <ProductKeyID>0000000000000</ProductKeyID>
+          <ProductKeyState>0</ProductKeyState>
+        </Key>
         """;
     private static readonly UTF8Encoding Utf8NoBom = new(false);
 

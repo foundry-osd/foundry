@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using System.Xml.Linq;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
@@ -21,17 +22,6 @@ public sealed class AutopilotHardwareHashCaptureService(
     private const string Oa3LogFileName = "OA3.log";
     private const string CsvFileName = "AutopilotHWID.csv";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
-
-    private static readonly string Oa3ConfigContent = """
-        [OA3Tool]
-        InputXML=input.xml
-        OutputXML=OA3.xml
-        """;
-
-    private static readonly string Oa3InputContent = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <Key />
-        """;
 
     /// <inheritdoc />
     public async Task<AutopilotHardwareHashCaptureResult> CaptureAsync(
@@ -140,14 +130,37 @@ public sealed class AutopilotHardwareHashCaptureService(
 
     private static async Task WriteOa3InputsAsync(string runtimeHashRoot, CancellationToken cancellationToken)
     {
+        string inputPath = Path.Combine(runtimeHashRoot, Oa3InputFileName);
+        string assembledBinaryPath = Path.Combine(runtimeHashRoot, "OA3.bin");
+        string reportedXmlPath = Path.Combine(runtimeHashRoot, Oa3XmlFileName);
+
+        var config = new XDocument(
+            new XElement(
+                "OA3",
+                new XElement(
+                    "FileBased",
+                    new XElement("InputKeyXMLFile", inputPath)),
+                new XElement(
+                    "OutputData",
+                    new XElement("AssembledBinaryFile", assembledBinaryPath),
+                    new XElement("ReportedXMLFile", reportedXmlPath))));
+
+        var input = new XDocument(
+            new XDeclaration("1.0", "utf-8", null),
+            new XElement(
+                "Key",
+                new XElement("ProductKey", "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"),
+                new XElement("ProductKeyID", "0000000000000"),
+                new XElement("ProductKeyState", "0")));
+
         await File.WriteAllTextAsync(
             Path.Combine(runtimeHashRoot, Oa3ConfigFileName),
-            Oa3ConfigContent,
+            config.ToString(),
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
         await File.WriteAllTextAsync(
-            Path.Combine(runtimeHashRoot, Oa3InputFileName),
-            Oa3InputContent,
+            inputPath,
+            input.ToString(),
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
     }

@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -30,6 +31,40 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
         Assert.True(File.Exists(Path.Combine(workspace.DiagnosticsRootPath, "OA3.xml")));
         Assert.True(File.Exists(Path.Combine(workspace.DiagnosticsRootPath, "OA3.log")));
         Assert.True(File.Exists(Path.Combine(workspace.DiagnosticsRootPath, "AutopilotHWID.csv")));
+    }
+
+    [Fact]
+    public async Task CaptureAsync_WritesFileBasedOa3ConfigurationWithExpectedPaths()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        var processRunner = new RecordingProcessRunner(workspace);
+        var service = CreateService(processRunner);
+
+        AutopilotHardwareHashCaptureResult result = await service.CaptureAsync(
+            workspace.CreateRequest(groupTag: null),
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess);
+
+        string configPath = Path.Combine(workspace.RuntimeHashRootPath, "OA3.cfg");
+        XDocument config = XDocument.Load(configPath);
+        Assert.Equal("OA3", config.Root?.Name.LocalName);
+        Assert.Equal(
+            Path.Combine(workspace.RuntimeHashRootPath, "input.xml"),
+            config.Root?.Element("FileBased")?.Element("InputKeyXMLFile")?.Value);
+        Assert.Equal(
+            Path.Combine(workspace.RuntimeHashRootPath, "OA3.bin"),
+            config.Root?.Element("OutputData")?.Element("AssembledBinaryFile")?.Value);
+        Assert.Equal(
+            Path.Combine(workspace.RuntimeHashRootPath, "OA3.xml"),
+            config.Root?.Element("OutputData")?.Element("ReportedXMLFile")?.Value);
+
+        XDocument input = XDocument.Load(Path.Combine(workspace.RuntimeHashRootPath, "input.xml"));
+        Assert.Equal("XXXXX-XXXXX-XXXXX-XXXXX-XXXXX", input.Root?.Element("ProductKey")?.Value);
+        Assert.Equal("0000000000000", input.Root?.Element("ProductKeyID")?.Value);
+        Assert.Equal("0", input.Root?.Element("ProductKeyState")?.Value);
     }
 
     [Fact]
