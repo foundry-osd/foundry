@@ -345,14 +345,14 @@ Automated tests:
 - [x] `dotnet build .\src\Foundry\Foundry.csproj --configuration Debug /p:Platform=x64 --no-restore --verbosity minimal` passed: 0 warnings, 0 errors.
 
 Manual checks:
-Deferred to an operator media validation pass with ADK, test tenant credentials, and generated boot media.
+Validated from x64 boot.wim extracts under `E:\Test\JSON` and `E:\Test\HASH`. ARM64 media generation remains deferred until ARM64 ADK/media validation is available.
 
-- [ ] Build x64 ISO in JSON profile mode and confirm existing profile files are present.
-- [ ] Build x64 ISO in hash upload mode and confirm OA3/hash assets are present.
+- [x] Build x64 ISO in JSON profile mode and confirm existing profile files are present.
+- [x] Build x64 ISO in hash upload mode and confirm OA3/hash assets are present.
 - [ ] Build ARM64 ISO in JSON profile mode and confirm existing profile files are present.
 - [ ] Build ARM64 ISO in hash upload mode and confirm OA3/hash assets are present.
-- [ ] Confirm `WinPE-SecureStartup` is present in the mounted image package list.
-- [ ] Confirm no plaintext PFX, PFX password, private key, token, or client secret is written to media.
+- [x] Confirm `WinPE-SecureStartup` is present in the mounted image package list.
+- [x] Confirm no plaintext PFX, PFX password, private key, token, or client secret is written to Foundry-authored media payloads.
 
 ### Phase 5: Foundry Deploy Runtime Branching
 PR title: `feat(deploy): branch autopilot runtime by provisioning mode`
