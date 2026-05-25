@@ -60,7 +60,8 @@ public sealed record AutopilotHardwareHashUploadResult
         string message,
         string? failureCode = null,
         string? importId = null,
-        string? importedIdentityId = null)
+        string? importedIdentityId = null,
+        string? autopilotDeviceId = null)
     {
         return new AutopilotHardwareHashUploadResult
         {
@@ -68,7 +69,8 @@ public sealed record AutopilotHardwareHashUploadResult
             Message = message,
             FailureCode = failureCode,
             ImportId = importId,
-            ImportedIdentityId = importedIdentityId
+            ImportedIdentityId = importedIdentityId,
+            AutopilotDeviceId = autopilotDeviceId
         };
     }
 }

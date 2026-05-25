@@ -91,7 +91,7 @@ public sealed class AutopilotTenantOnboardingService(
                 cancellationToken).ConfigureAwait(false);
 
             string[]? discoveredGroupTags = await TryGetGroupTagsAsync(accessToken, cancellationToken).ConfigureAwait(false);
-            string[] groupTags = discoveredGroupTags ?? NormalizeGroupTags(currentSettings.KnownGroupTags);
+            string[] groupTags = discoveredGroupTags ?? [];
             IReadOnlyList<AutopilotGraphKeyCredential> keyCredentials =
                 await GetApplicationKeyCredentialsAsync(accessToken, application.ObjectId, cancellationToken).ConfigureAwait(false);
             AutopilotTenantOnboardingSnapshot snapshot = new()
@@ -123,9 +123,7 @@ public sealed class AutopilotTenantOnboardingService(
                 },
                 ActiveCertificate = activeCertificate,
                 KnownGroupTags = groupTags,
-                DefaultGroupTag = discoveredGroupTags is null
-                    ? currentSettings.DefaultGroupTag
-                    : ResolveDefaultGroupTag(currentSettings.DefaultGroupTag, groupTags)
+                DefaultGroupTag = ResolveDefaultGroupTag(currentSettings.DefaultGroupTag, groupTags)
             };
 
             return new AutopilotTenantOnboardingResult

@@ -213,6 +213,29 @@ public static partial class DeploymentUiTextLocalizer
             "Staging Autopilot profile..." => LocalizationText.GetString("StepMessage.StagingAutopilotProfile"),
             "Copying AutopilotConfigurationFile.json..." => LocalizationText.GetString("StepMessage.CopyingAutopilotConfiguration"),
             "Writing dry-run Autopilot manifest..." => LocalizationText.GetString("StepMessage.WritingDryRunAutopilotManifest"),
+            "Capturing Autopilot hardware hash..." => LocalizationText.GetString("StepMessage.CapturingAutopilotHardwareHash"),
+            "Running OA3Tool..." => LocalizationText.GetString("StepMessage.RunningOa3Tool"),
+            "Uploading Autopilot hardware hash..." => LocalizationText.GetString("StepMessage.UploadingAutopilotHardwareHash"),
+            "Preparing Microsoft Graph import..." => LocalizationText.GetString("StepMessage.PreparingMicrosoftGraphImport"),
+            "Submitting import request to Microsoft Graph..." => LocalizationText.GetString("StepMessage.SubmittingMicrosoftGraphImport"),
+            "Waiting for Autopilot device visibility..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotDeviceVisibility"),
+            "Updating existing Autopilot device..." => LocalizationText.GetString("StepMessage.UpdatingExistingAutopilotDevice"),
+            "Updating Windows Autopilot group tag in Microsoft Graph..." => LocalizationText.GetString("StepMessage.UpdatingWindowsAutopilotGroupTag"),
+            "Waiting for Autopilot group tag update..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotGroupTagUpdate"),
+            "Preparing Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.PreparingAutopilotHardwareHashUpload"),
+            "Decrypting media certificate..." => LocalizationText.GetString("StepMessage.DecryptingMediaCertificate"),
+            "Authenticating Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.AuthenticatingAutopilotHardwareHashUpload"),
+            "Requesting Microsoft Graph token..." => LocalizationText.GetString("StepMessage.RequestingMicrosoftGraphToken"),
+            "Importing hardware hash into Microsoft Graph..." => LocalizationText.GetString("StepMessage.ImportingHardwareHashIntoMicrosoftGraph"),
+            "Writing dry-run Autopilot hash manifest..." => LocalizationText.GetString("StepMessage.WritingDryRunAutopilotHashManifest"),
+            "Target Windows partition is unavailable for Autopilot hardware hash upload." => LocalizationText.GetString("StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload"),
+            "Autopilot hardware hash upload skipped because the embedded certificate is expired." => LocalizationText.GetString("StepResult.AutopilotHashUploadSkippedExpiredCertificate"),
+            "Autopilot hardware hash upload skipped because media metadata is incomplete." => LocalizationText.GetString("StepResult.AutopilotHashUploadSkippedMissingMetadata"),
+            "Autopilot hardware hash imported and visible in Windows Autopilot devices." => LocalizationText.GetString("StepResult.AutopilotHardwareHashImportedVisible"),
+            "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout." => LocalizationText.GetString("StepResult.AutopilotDeviceVisibilityTimedOut"),
+            "Windows Autopilot device group tag update was not confirmed before the timeout." => LocalizationText.GetString("StepResult.AutopilotGroupTagUpdateTimedOut"),
+            "Autopilot hardware hash upload prepared for dry run." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedDryRun"),
+            "Autopilot hardware hash upload prepared (simulation)." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedSimulation"),
             "Autopilot profile staged." => LocalizationText.GetString("StepResult.AutopilotProfileStaged"),
             "Autopilot profile staged (simulation)." => LocalizationText.GetString("StepResult.AutopilotProfileStagedSimulation"),
             "Rebooting now..." => LocalizationText.GetString("Status.RebootingNow"),
@@ -304,6 +327,42 @@ public static partial class DeploymentUiTextLocalizer
             return localized;
         }
 
+        if (TryLocalizeSingleSuffix(value, "Selected Autopilot profile file was not found: ", "StepResult.SelectedAutopilotProfileFileMissingFormat", out localized))
+        {
+            return localized;
+        }
+
+        if (TryLocalizeSingleSuffix(value, "Autopilot hardware hash capture failed: ", "StepResult.AutopilotHashCaptureFailedFormat", out localized))
+        {
+            return localized;
+        }
+
+        if (TryLocalizeSingleSuffix(value, "Autopilot hardware hash import failed: ", "StepResult.AutopilotHashImportFailedFormat", out localized))
+        {
+            return localized;
+        }
+
+        if (TryLocalizeSingleSuffix(value, "Autopilot hardware hash upload skipped: ", "StepResult.AutopilotHashUploadSkippedFormat", out localized))
+        {
+            return localized;
+        }
+
+        match = CheckingWindowsAutopilotDevicesRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepMessage.CheckingWindowsAutopilotDevicesFormat",
+                LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
+        }
+
+        match = CheckingWindowsAutopilotGroupTagRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepMessage.CheckingWindowsAutopilotGroupTagFormat",
+                LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
+        }
+
         if (value.StartsWith("Debug preview: DISM apply failed because the target partition is read-only.", StringComparison.Ordinal))
         {
             return LocalizationText.GetString("Debug.ErrorPreviewMessage");
@@ -388,6 +447,36 @@ public static partial class DeploymentUiTextLocalizer
             : value;
     }
 
+    private static string LocalizeRemainingDuration(string value)
+    {
+        Match match = RemainingDurationRegex().Match(value);
+        if (!match.Success)
+        {
+            return value;
+        }
+
+        string key = match.Groups["unit"].Value switch
+        {
+            "minute" => "Duration.MinuteFormat",
+            "minutes" => "Duration.MinutesFormat",
+            "second" => "Duration.SecondFormat",
+            "seconds" => "Duration.SecondsFormat",
+            _ => string.Empty
+        };
+
+        return string.IsNullOrWhiteSpace(key)
+            ? value
+            : LocalizationText.Format(key, match.Groups["value"].Value);
+    }
+
+    private static string LocalizeCompactRemainingDuration(string value)
+    {
+        Match match = RemainingDurationRegex().Match(value);
+        return match.Success
+            ? $"{match.Groups["value"].Value}s"
+            : value;
+    }
+
     private static bool TryLocalizeSingleSuffix(string value, string prefix, string key, out string localized)
     {
         if (value.StartsWith(prefix, StringComparison.Ordinal))
@@ -426,6 +515,15 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Starting (?<step>.+)\.\.\.$")]
     private static partial Regex StartingStepSubProgressRegex();
+
+    [GeneratedRegex(@"^(?<value>\d+) (?<unit>minutes|minute|seconds|second)$")]
+    private static partial Regex RemainingDurationRegex();
+
+    [GeneratedRegex(@"^Checking Windows Autopilot devices \((?<remaining>.+) remaining\)\.\.\.$")]
+    private static partial Regex CheckingWindowsAutopilotDevicesRegex();
+
+    [GeneratedRegex(@"^Checking Windows Autopilot group tag \((?<remaining>.+) remaining\)\.\.\.$")]
+    private static partial Regex CheckingWindowsAutopilotGroupTagRegex();
 
     [GeneratedRegex(@"^wpeutil\.exe failed with exit code (?<code>\d+)\. (?<diagnostic>.+)$")]
     private static partial Regex WpeUtilFailureRegex();

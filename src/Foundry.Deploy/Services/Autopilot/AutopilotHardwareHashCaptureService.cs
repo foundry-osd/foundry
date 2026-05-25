@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using System.Xml.Linq;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
@@ -21,17 +22,6 @@ public sealed class AutopilotHardwareHashCaptureService(
     private const string Oa3LogFileName = "OA3.log";
     private const string CsvFileName = "AutopilotHWID.csv";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
-
-    private static readonly string Oa3ConfigContent = """
-        [OA3Tool]
-        InputXML=input.xml
-        OutputXML=OA3.xml
-        """;
-
-    private static readonly string Oa3InputContent = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <Key />
-        """;
 
     /// <inheritdoc />
     public async Task<AutopilotHardwareHashCaptureResult> CaptureAsync(
@@ -92,23 +82,30 @@ public sealed class AutopilotHardwareHashCaptureService(
 
         if (!execution.IsSuccess)
         {
+            await RetainDiagnosticsAsync(runtimeHashRoot, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
             return AutopilotHardwareHashCaptureResult.Failed(
                 ResolveToolFailureCode(execution),
                 BuildProcessFailureMessage(execution));
         }
 
         string oa3XmlPath = Path.Combine(runtimeHashRoot, Oa3XmlFileName);
+        string oa3LogPath = Path.Combine(runtimeHashRoot, Oa3LogFileName);
         if (!File.Exists(oa3XmlPath))
         {
+            await RetainDiagnosticsAsync(runtimeHashRoot, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
             return AutopilotHardwareHashCaptureResult.Failed(
                 AutopilotHardwareHashCaptureFailureCode.ReportMissing,
                 "OA3Tool did not create OA3.xml.");
         }
 
         string oa3Xml = await File.ReadAllTextAsync(oa3XmlPath, cancellationToken).ConfigureAwait(false);
-        AutopilotHardwareHashParseResult parseResult = AutopilotOa3XmlParser.Parse(oa3Xml);
+        string? oa3LogXml = File.Exists(oa3LogPath)
+            ? await File.ReadAllTextAsync(oa3LogPath, cancellationToken).ConfigureAwait(false)
+            : null;
+        AutopilotHardwareHashParseResult parseResult = AutopilotOa3XmlParser.Parse(oa3Xml, oa3LogXml);
         if (!parseResult.IsSuccess || parseResult.Identity is null)
         {
+            await RetainDiagnosticsAsync(runtimeHashRoot, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
             return AutopilotHardwareHashCaptureResult.Failed(parseResult.FailureCode, parseResult.Message);
         }
 
@@ -120,10 +117,7 @@ public sealed class AutopilotHardwareHashCaptureService(
         await AutopilotHardwareHashCsvWriter.WriteAsync(csvPath, identity, cancellationToken).ConfigureAwait(false);
 
         string retainedOa3XmlPath = await CopyIfExistsAsync(oa3XmlPath, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
-        string? retainedOa3LogPath = await CopyOptionalAsync(
-            Path.Combine(runtimeHashRoot, Oa3LogFileName),
-            request.DiagnosticsRootPath,
-            cancellationToken).ConfigureAwait(false);
+        string? retainedOa3LogPath = await CopyOptionalAsync(oa3LogPath, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
         string retainedCsvPath = await CopyIfExistsAsync(csvPath, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
 
         logger.LogInformation(
@@ -140,14 +134,37 @@ public sealed class AutopilotHardwareHashCaptureService(
 
     private static async Task WriteOa3InputsAsync(string runtimeHashRoot, CancellationToken cancellationToken)
     {
+        string inputPath = Path.Combine(runtimeHashRoot, Oa3InputFileName);
+        string assembledBinaryPath = Path.Combine(runtimeHashRoot, "OA3.bin");
+        string reportedXmlPath = Path.Combine(runtimeHashRoot, Oa3XmlFileName);
+
+        var config = new XDocument(
+            new XElement(
+                "OA3",
+                new XElement(
+                    "FileBased",
+                    new XElement("InputKeyXMLFile", inputPath)),
+                new XElement(
+                    "OutputData",
+                    new XElement("AssembledBinaryFile", assembledBinaryPath),
+                    new XElement("ReportedXMLFile", reportedXmlPath))));
+
+        var input = new XDocument(
+            new XDeclaration("1.0", "utf-8", null),
+            new XElement(
+                "Key",
+                new XElement("ProductKey", "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"),
+                new XElement("ProductKeyID", "0000000000000"),
+                new XElement("ProductKeyState", "0")));
+
         await File.WriteAllTextAsync(
             Path.Combine(runtimeHashRoot, Oa3ConfigFileName),
-            Oa3ConfigContent,
+            config.ToString(),
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
         await File.WriteAllTextAsync(
-            Path.Combine(runtimeHashRoot, Oa3InputFileName),
-            Oa3InputContent,
+            inputPath,
+            input.ToString(),
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
     }
@@ -177,6 +194,18 @@ public sealed class AutopilotHardwareHashCaptureService(
         await using FileStream destination = File.Create(destinationPath);
         await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
         return destinationPath;
+    }
+
+    private static async Task RetainDiagnosticsAsync(
+        string runtimeHashRoot,
+        string diagnosticsRootPath,
+        CancellationToken cancellationToken)
+    {
+        await CopyOptionalAsync(Path.Combine(runtimeHashRoot, Oa3ConfigFileName), diagnosticsRootPath, cancellationToken).ConfigureAwait(false);
+        await CopyOptionalAsync(Path.Combine(runtimeHashRoot, Oa3InputFileName), diagnosticsRootPath, cancellationToken).ConfigureAwait(false);
+        await CopyOptionalAsync(Path.Combine(runtimeHashRoot, Oa3XmlFileName), diagnosticsRootPath, cancellationToken).ConfigureAwait(false);
+        await CopyOptionalAsync(Path.Combine(runtimeHashRoot, Oa3LogFileName), diagnosticsRootPath, cancellationToken).ConfigureAwait(false);
+        await CopyOptionalAsync(Path.Combine(runtimeHashRoot, CsvFileName), diagnosticsRootPath, cancellationToken).ConfigureAwait(false);
     }
 
     private static string BuildProcessFailureMessage(ProcessExecutionResult execution)

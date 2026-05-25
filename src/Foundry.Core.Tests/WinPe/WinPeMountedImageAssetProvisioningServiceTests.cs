@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.WinPe;
 
@@ -201,8 +202,12 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Equal("oa3", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3", "oa3tool.exe")));
-        Assert.True(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "OA3.cfg")));
-        Assert.True(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "input.xml")));
+        string oa3ConfigPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "OA3.cfg");
+        string oa3InputPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "input.xml");
+        Assert.True(File.Exists(oa3ConfigPath));
+        Assert.True(File.Exists(oa3InputPath));
+        Assert.Equal("OA3", XDocument.Load(oa3ConfigPath).Root?.Name.LocalName);
+        Assert.Equal("Key", XDocument.Load(oa3InputPath).Root?.Name.LocalName);
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot")));
         Assert.False(File.Exists(Path.Combine(image.System32Path, "PCPKsp.dll")));
     }

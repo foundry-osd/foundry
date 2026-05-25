@@ -99,7 +99,7 @@
                                 <Style BasedOn="{StaticResource SectionCardBorderStyle}" TargetType="Border">
                                     <Setter Property="Margin" Value="0" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding HasAutopilotProfiles}" Value="False">
+                                        <DataTrigger Binding="{Binding IsAutopilotSectionVisible}" Value="False">
                                             <Setter Property="Grid.RowSpan" Value="3" />
                                         </DataTrigger>
                                     </Style.Triggers>

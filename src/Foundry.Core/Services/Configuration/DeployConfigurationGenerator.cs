@@ -171,23 +171,16 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             ActiveCertificateKeyId = settings.ActiveCertificate?.KeyId,
             ActiveCertificateThumbprint = settings.ActiveCertificate?.Thumbprint,
             ActiveCertificateExpiresOnUtc = settings.ActiveCertificate?.ExpiresOnUtc,
-            DefaultGroupTag = settings.DefaultGroupTag,
-            KnownGroupTags = CanonicalizeGroupTags(settings.KnownGroupTags),
+            DefaultGroupTag = NormalizeOptionalGroupTag(settings.DefaultGroupTag),
             CertificatePfxSecret = pfxSecret,
             CertificatePfxPasswordSecret = pfxPasswordSecret
         };
     }
 
-    private static string[] CanonicalizeGroupTags(IEnumerable<string> groupTags)
+    private static string? NormalizeOptionalGroupTag(string? groupTag)
     {
-        ArgumentNullException.ThrowIfNull(groupTags);
-
-        return groupTags
-            .Select(groupTag => groupTag.Trim())
-            .Where(groupTag => !string.IsNullOrWhiteSpace(groupTag))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .Order(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
+        string? trimmed = groupTag?.Trim();
+        return string.IsNullOrWhiteSpace(trimmed) ? null : trimmed;
     }
 
     private static DeployOobeSettings MapOobeSettings(OobeSettings settings)
