@@ -110,6 +110,7 @@ public static class ServiceCollectionExtensions
                     BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
                 },
                 sp.GetRequiredService<ILogger<AutopilotGraphImportClient>>()));
+        services.AddSingleton<IAutopilotGroupTagDiscoveryService, AutopilotGroupTagDiscoveryService>();
         services.AddSingleton<IAutopilotHardwareHashUploadService, AutopilotHardwareHashUploadService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();

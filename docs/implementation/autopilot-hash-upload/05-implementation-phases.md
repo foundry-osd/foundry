@@ -147,7 +147,7 @@ Scope note:
 - [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
-- [x] Clear tenant group tag options if group tag discovery fails during tenant connection so stale tags are not embedded into generated media.
+- [x] Clear tenant group tag options if group tag discovery fails during tenant connection so stale tags are not offered as the OSD default.
 - [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
 - [x] Keep `None` selected by default because hardware hash upload does not require a group tag.
 - [x] Populate the default group tag ComboBox from discovered tenant group tags without displaying a duplicate available group tag table.
@@ -252,9 +252,9 @@ Implementation progress:
 - [x] Show tenant ID, certificate thumbprint, and certificate expiration in hardware hash mode for ready, expired, and missing metadata scenarios.
 - [x] If the certificate is valid, show a ready status and a single message that upload will run automatically during deployment.
 - [x] If the certificate is expired, show a clear non-blocking message telling the operator to regenerate the certificate and recreate the boot image; continue OS deployment without Autopilot.
-- [x] Carry tenant-discovered known group tags into Deploy runtime configuration.
-- [x] Add one group tag ComboBox for hardware hash mode, populated by `None` plus embedded known group tags.
-- [x] Select the OSD default group tag when it still exists in known group tags; otherwise select `None`.
+- [x] Carry only the OSD default group tag preference into generated Deploy configuration.
+- [x] Add one group tag ComboBox for hardware hash mode, populated by `None` plus group tags discovered by Deploy at startup.
+- [x] Select the OSD default group tag when it still exists in Deploy-discovered group tags; otherwise select `None`.
 - [x] Disable or hide group tag controls when certificate authentication cannot be attempted.
 - [x] Keep runtime execution details out of the target selection UI; Phase 5 owns execution progress and upload results.
 - [x] Update deployment launch preparation UI so hash mode no longer reports a missing JSON profile blocker.
@@ -276,10 +276,10 @@ Automated tests:
 - [x] Valid hardware hash mode exposes a ready upload status and operator-facing upload message.
 - [x] Expired certificate state hides hardware hash group tag controls and leaves deployment start available.
 - [x] Missing hardware hash certificate key ID keeps hash mode not ready and hides group tag controls.
-- [x] Default group tag selection initializes from the OSD-generated configuration when the group tag still exists in known group tags.
+- [x] Default group tag selection initializes from the OSD-generated default when the group tag still exists in live Deploy-discovered group tags.
 - [x] Hash mode without a default group tag selects `None`.
-- [x] A selected known group tag overrides the OSD default group tag for the current deployment request.
-- [x] If the OSD default group tag no longer exists in known group tags, `None` is selected.
+- [x] A selected live-discovered group tag overrides the OSD default group tag for the current deployment request.
+- [x] If the OSD default group tag no longer exists in Deploy-discovered group tags, `None` is selected.
 - [x] `None` group tag remains a valid selection and serializes as no group tag.
 - [x] Summary state exposes the effective group tag for hash mode.
 - [x] Debug Autopilot presets produce the expected launch preparation and certificate readiness states.
@@ -291,9 +291,9 @@ Completed through Visual Studio/debug-safe validation before squash. Non-debug m
 - [x] In disabled Autopilot mode, confirm the Computer Target page shows only the configured media mode summary and no provisioning controls.
 - [x] In JSON mode, confirm Foundry Deploy shows only profile selection and no profile count or hash metadata.
 - [x] In hardware hash ready mode, confirm Foundry Deploy shows upload status, tenant ID, certificate thumbprint, certificate expiration, one actionable message, and the group tag ComboBox.
-- [x] In hash mode with a valid certificate, confirm the group tag ComboBox contains `None` plus embedded known group tags.
-- [x] In hash mode with an OSD default group tag that exists in known group tags, confirm that group tag is selected by default.
-- [x] In hash mode with an OSD default group tag that no longer exists in known group tags, confirm `None` is selected.
+- [x] In hash mode with a valid certificate, confirm the group tag ComboBox contains `None` plus live tenant group tags discovered by Deploy.
+- [x] In hash mode with an OSD default group tag that exists in Deploy-discovered group tags, confirm that group tag is selected by default.
+- [x] In hash mode with an OSD default group tag that no longer exists in Deploy-discovered group tags, confirm `None` is selected.
 - [x] In hash mode with `None`, confirm no group tag is sent in the deployment request.
 - [x] In hash mode with an expired certificate, confirm Deploy shows tenant ID, certificate thumbprint, certificate expiration, the regeneration/recreate media message, hides the group tag ComboBox, and still allows OS deployment.
 - [x] In hash mode with missing certificate metadata, confirm Deploy shows tenant ID, unavailable certificate fields, the not-ready message, hides the group tag ComboBox, and still allows OS deployment.
@@ -465,6 +465,9 @@ Implementation progress:
 - [x] Implement import request.
 - [x] Implement polling for import completion.
 - [x] Implement polling until the uploaded serial number appears in Windows Autopilot devices.
+- [x] Discover current tenant group tags in Foundry Deploy at startup from the unfiltered Windows Autopilot devices endpoint and follow `@odata.nextLink`.
+- [x] Keep generated media free of a staged known-group-tags list; embed only the OSD default group tag preference.
+- [x] Select the embedded default group tag only when it still exists in the live Deploy-discovered group tags; otherwise select `None`.
 - [x] Add a 10-minute default timeout for Windows Autopilot device visibility polling.
 - [x] Map Graph errors to operator-readable messages.
 - [x] Add retry/backoff for transient HTTP failures.
@@ -482,6 +485,7 @@ Automated tests:
 - [x] Treats duplicate import errors, `ImportFailed`, and `ImportTimedOut` as Autopilot warnings/failures that do not stop OS deployment.
 - [x] Handles `complete`.
 - [x] Handles imported identity completion followed by Windows Autopilot device visibility.
+- [x] Lists live Windows Autopilot group tags from paged Graph device responses.
 - [x] Handles Windows Autopilot device visibility timeout as an automatic warning/non-blocking continuation to the next deployment step.
 - [x] Handles `error` with device error code/name.
 - [x] Times out with a clear message.
@@ -493,6 +497,8 @@ Manual checks are deferred until a physical WinPE run against a test Intune tena
 Manual checks:
 - [ ] Import one test device into a test tenant.
 - [ ] Confirm Group Tag appears in Intune.
+- [ ] Generate media with a default group tag, remove that group tag from the tenant before booting Deploy, and confirm Deploy selects `None`.
+- [ ] Generate media with a default group tag that still exists in the tenant, boot Deploy, and confirm Deploy selects that group tag after startup discovery.
 - [ ] Confirm deployment waits until the device appears in Windows Autopilot devices.
 - [ ] Confirm the wait shows an indeterminate sub-progress indicator and countdown.
 - [ ] Confirm a 10-minute visibility timeout automatically continues OS deployment and records a warning.

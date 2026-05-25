@@ -125,10 +125,12 @@ Foundry Deploy UX:
   - one actionable readiness or skip message
   - one optional group tag ComboBox only when upload can be attempted
 - Debug-safe Foundry Deploy runs should expose a top-level Debug menu with Autopilot scenario presets and deployment page previews. This menu must stay hidden outside debug-safe runs.
-- Hardware hash mode should attempt certificate-based Graph authentication automatically during startup/loading, before the Computer Target page becomes actionable.
+- Hardware hash mode should attempt certificate-based Graph authentication automatically during startup/loading to discover current tenant group tags before the Computer Target page becomes actionable.
 - The Computer Target page should expose one group tag ComboBox only when hash upload can be attempted.
-- The group tag ComboBox contains `None` plus the tenant-discovered group tags embedded into the media by Foundry OSD.
-- If the OSD default group tag still exists in the embedded known group tags, select it by default; otherwise select `None`.
+- The generated media embeds only the OSD-selected default group tag preference, not the tenant group tag list.
+- Foundry Deploy discovers current tenant group tags from `GET /v1.0/deviceManagement/windowsAutopilotDeviceIdentities`, extracts `groupTag` client-side from the unfiltered response, and follows `@odata.nextLink`.
+- The group tag ComboBox contains `None` plus the group tags discovered by Foundry Deploy at startup.
+- If the embedded OSD default group tag still exists in the live tenant group tags discovered by Deploy, select it by default; otherwise select `None`.
 - If the certificate is expired in Foundry Deploy:
   - do not block the OS deployment
   - keep tenant ID, certificate thumbprint, and certificate expiration visible for troubleshooting
@@ -173,7 +175,7 @@ Deploy runtime configuration should receive only the reduced settings needed by 
 - `IsEnabled`
 - `ProvisioningMode`
 - selected JSON profile folder name when in JSON mode
-- hash upload configuration when in hash mode, including tenant ID, client ID, active certificate metadata, OSD default group tag, and known group tags
+- hash upload configuration when in hash mode, including tenant ID, client ID, active certificate metadata, OSD default group tag, and encrypted media-only certificate material
 
 Existing persisted configurations must continue to behave as JSON profile mode.
 

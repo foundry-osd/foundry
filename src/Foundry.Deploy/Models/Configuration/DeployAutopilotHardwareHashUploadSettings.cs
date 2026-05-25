@@ -36,7 +36,7 @@ public sealed record DeployAutopilotHardwareHashUploadSettings
     public string? DefaultGroupTag { get; init; }
 
     /// <summary>
-    /// Gets the group tags discovered when the deployment media was generated.
+    /// Gets group tags discovered by Foundry.Deploy at runtime.
     /// </summary>
     public IReadOnlyList<string> KnownGroupTags { get; init; } = [];
 

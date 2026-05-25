@@ -231,7 +231,7 @@ public sealed class AutopilotGraphImportClientTests
               ]
             }
             """);
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 100; i++)
         {
             handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
         }
@@ -517,6 +517,41 @@ public sealed class AutopilotGraphImportClientTests
         Assert.Equal(
             "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
             handler.Requests[^1].PathAndQuery);
+    }
+
+    [Fact]
+    public async Task ListGroupTagsAsync_ReadsPagedAutopilotDevicesAndReturnsDistinctTags()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "@odata.nextLink": "https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
+              "value": [
+                { "id": "device-1", "serialNumber": "SER1", "groupTag": " KIOSK " },
+                { "id": "device-2", "serialNumber": "SER2", "groupTag": "" }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-3", "serialNumber": "SER3", "groupTag": "HAADJ" },
+                { "id": "device-4", "serialNumber": "SER4", "groupTag": "kiosk" }
+              ]
+            }
+            """);
+
+        AutopilotGraphImportClient client = CreateClient(handler);
+
+        IReadOnlyList<string> groupTags = await client.ListGroupTagsAsync("access-token", CancellationToken.None);
+
+        Assert.Equal(["HAADJ", "KIOSK"], groupTags);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
+            handler.Requests[0].PathAndQuery);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
+            handler.Requests[1].PathAndQuery);
     }
 
     private static AutopilotGraphImportClient CreateClient(

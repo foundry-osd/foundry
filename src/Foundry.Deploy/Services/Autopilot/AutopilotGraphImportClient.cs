@@ -35,6 +35,48 @@ public sealed class AutopilotGraphImportClient(
         return ImportHardwareHashAsync(request, progress: null, cancellationToken);
     }
 
+    /// <summary>
+    /// Lists distinct group tags currently visible on Windows Autopilot devices.
+    /// </summary>
+    public async Task<IReadOnlyList<string>> ListGroupTagsAsync(
+        string accessToken,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(accessToken);
+
+        List<string> groupTags = [];
+        string? path = WindowsAutopilotDevicesPath;
+        while (!string.IsNullOrWhiteSpace(path))
+        {
+            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
+                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
+                    HttpMethod.Get,
+                    path,
+                    accessToken,
+                    body: null,
+                    "Windows Autopilot group tag discovery",
+                    cancellationToken).ConfigureAwait(false);
+
+            if (response?.Value is not null)
+            {
+                foreach (string? groupTag in response.Value.Select(static device => device.GroupTag?.Trim()))
+                {
+                    if (!string.IsNullOrWhiteSpace(groupTag))
+                    {
+                        groupTags.Add(groupTag);
+                    }
+                }
+            }
+
+            path = response?.NextLink;
+        }
+
+        return groupTags
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Order(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
     public async Task<AutopilotHardwareHashUploadResult> ImportHardwareHashAsync(
         AutopilotGraphImportRequest request,
         IProgress<AutopilotHardwareHashUploadProgress>? progress = null,
@@ -470,6 +512,7 @@ internal sealed record WindowsAutopilotDeviceIdentity
 {
     public string? Id { get; init; }
     public string? SerialNumber { get; init; }
+    public string? GroupTag { get; init; }
 }
 
 internal sealed record AutopilotImportWaitResult(

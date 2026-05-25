@@ -377,11 +377,13 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal("ABCDEF123456", result.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
         Assert.Equal(expiration, result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
         Assert.Equal("Sales", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
-        Assert.Equal(["Engineering", "Sales"], result.Autopilot.HardwareHashUpload.KnownGroupTags);
+
+        string json = generator.Serialize(result);
+        Assert.DoesNotContain("knownGroupTags", json, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
-    public void Generate_WhenHardwareHashDefaultGroupTagIsNotKnown_ClearsDefaultGroupTag()
+    public void Generate_WhenHardwareHashDefaultGroupTagIsNotKnown_PreservesDefaultGroupTag()
     {
         var generator = new DeployConfigurationGenerator();
         var document = new FoundryConfigurationDocument
@@ -400,8 +402,7 @@ public sealed class DeployConfigurationGeneratorTests
 
         var result = generator.Generate(document);
 
-        Assert.Null(result.Autopilot.HardwareHashUpload.DefaultGroupTag);
-        Assert.Empty(result.Autopilot.HardwareHashUpload.KnownGroupTags);
+        Assert.Equal("KIOSK", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
     }
 
     [Fact]

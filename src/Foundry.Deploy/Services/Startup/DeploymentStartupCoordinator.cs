@@ -1,4 +1,7 @@
 using System.IO;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
@@ -20,6 +23,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
+    private readonly IAutopilotGroupTagDiscoveryService _autopilotGroupTagDiscoveryService;
     private readonly ILogger<DeploymentStartupCoordinator> _logger;
 
     public DeploymentStartupCoordinator(
@@ -29,6 +33,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         ITargetDiskService targetDiskService,
         IDeploymentCatalogLoadService deploymentCatalogLoadService,
+        IAutopilotGroupTagDiscoveryService autopilotGroupTagDiscoveryService,
         ILogger<DeploymentStartupCoordinator> logger)
     {
         _deployConfigurationService = deployConfigurationService;
@@ -37,6 +42,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _targetDiskService = targetDiskService;
         _deploymentCatalogLoadService = deploymentCatalogLoadService;
+        _autopilotGroupTagDiscoveryService = autopilotGroupTagDiscoveryService;
         _logger = logger;
     }
 
@@ -47,6 +53,9 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         DeployConfigurationLoadResult deployConfigLoadResult = _deployConfigurationService.LoadOptional();
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles = _autopilotProfileCatalogService.LoadAvailableProfiles();
         string cacheRootPath = ResolveCacheRootPath(request.RuntimeContext, request.IsDebugSafeMode);
+        FoundryDeployConfigurationDocument? deployConfigurationDocument = deployConfigLoadResult.Document is null
+            ? null
+            : await RefreshAutopilotGroupTagsAsync(deployConfigLoadResult.Document, cacheRootPath).ConfigureAwait(false);
         string? startupStatusMessage = request.IsDebugSafeMode
             ? "Debug Safe Mode enabled: deployment actions are simulated."
             : null;
@@ -62,7 +71,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         {
             CacheRootPath = cacheRootPath,
             StartupStatusMessage = startupStatusMessage,
-            DeployConfigurationDocument = deployConfigLoadResult.Document,
+            DeployConfigurationDocument = deployConfigurationDocument,
             AutopilotProfiles = autopilotProfiles,
             EffectiveComputerName = computerNameTask.Result,
             DetectedHardware = hardwareTask.Result.Profile,
@@ -134,6 +143,84 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         }
 
         return WinPeTransientRuntimeRoot;
+    }
+
+    private async Task<FoundryDeployConfigurationDocument> RefreshAutopilotGroupTagsAsync(
+        FoundryDeployConfigurationDocument document,
+        string cacheRootPath)
+    {
+        DeployAutopilotHardwareHashUploadSettings hardwareHashUpload = document.Autopilot.HardwareHashUpload;
+        if (!CanDiscoverHardwareHashGroupTags(document.Autopilot, hardwareHashUpload))
+        {
+            return WithRuntimeGroupTags(document, []);
+        }
+
+        try
+        {
+            string workspaceRootPath = ResolveWorkspaceRootPath(cacheRootPath);
+            IReadOnlyList<string> groupTags = await _autopilotGroupTagDiscoveryService
+                .DiscoverAsync(hardwareHashUpload, workspaceRootPath)
+                .ConfigureAwait(false);
+            _logger.LogInformation("Discovered {GroupTagCount} Autopilot group tag(s) at Deploy startup.", groupTags.Count);
+            return WithRuntimeGroupTags(document, groupTags);
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or ArgumentException or FileNotFoundException or CryptographicException or HttpRequestException or JsonException)
+        {
+            _logger.LogWarning(ex, "Autopilot group tag discovery failed. Deploy will default to no group tag.");
+            return WithRuntimeGroupTags(document, []);
+        }
+    }
+
+    private static bool CanDiscoverHardwareHashGroupTags(
+        DeployAutopilotSettings autopilot,
+        DeployAutopilotHardwareHashUploadSettings hardwareHashUpload)
+    {
+        return autopilot.IsEnabled &&
+               autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
+               !string.IsNullOrWhiteSpace(hardwareHashUpload.TenantId) &&
+               !string.IsNullOrWhiteSpace(hardwareHashUpload.ClientId) &&
+               !string.IsNullOrWhiteSpace(hardwareHashUpload.ActiveCertificateThumbprint) &&
+               hardwareHashUpload.CertificatePfxSecret is not null &&
+               hardwareHashUpload.CertificatePfxPasswordSecret is not null &&
+               hardwareHashUpload.ActiveCertificateExpiresOnUtc is DateTimeOffset expiresOnUtc &&
+               expiresOnUtc > DateTimeOffset.UtcNow;
+    }
+
+    private static string ResolveWorkspaceRootPath(string cacheRootPath)
+    {
+        const string winPeWorkspaceRoot = @"X:\Foundry";
+        if (Directory.Exists(winPeWorkspaceRoot))
+        {
+            return winPeWorkspaceRoot;
+        }
+
+        if (Directory.Exists(cacheRootPath))
+        {
+            DirectoryInfo cacheRoot = new(cacheRootPath);
+            if (string.Equals(cacheRoot.Name, "Runtime", StringComparison.OrdinalIgnoreCase) &&
+                cacheRoot.Parent is not null)
+            {
+                return cacheRoot.Parent.FullName;
+            }
+        }
+
+        return cacheRootPath;
+    }
+
+    private static FoundryDeployConfigurationDocument WithRuntimeGroupTags(
+        FoundryDeployConfigurationDocument document,
+        IReadOnlyList<string> groupTags)
+    {
+        return document with
+        {
+            Autopilot = document.Autopilot with
+            {
+                HardwareHashUpload = document.Autopilot.HardwareHashUpload with
+                {
+                    KnownGroupTags = groupTags
+                }
+            }
+        };
     }
 
     private sealed record HardwareLoadResult(HardwareProfile? Profile, string? ErrorMessage);
