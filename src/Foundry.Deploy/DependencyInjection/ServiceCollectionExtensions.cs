@@ -97,6 +97,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
         services.AddSingleton<PreOobeScriptDefinitionBuilder>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
+        services.AddSingleton<IAutopilotHardwareHashCaptureService, AutopilotHardwareHashCaptureService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
         services.AddSingleton<IDeploymentStep, ValidateTargetConfigurationStep>();

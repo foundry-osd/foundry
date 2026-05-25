@@ -408,34 +408,38 @@ Manual UI/runtime validation remains deferred to an operator run with generated 
 PR title: `feat(deploy): capture autopilot hardware hash in WinPE`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
+- [x] Manual checks complete or explicitly deferred.
 - [ ] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Add a C# service that runs OA3Tool with controlled working directory paths.
-- [ ] Add a C# service that copies `PCPKsp.dll` from `<target Windows>\Windows\System32` to `X:\Windows\System32`.
-- [ ] Validate source and destination architecture assumptions for x64 and ARM64.
-- [ ] Generate `OA3.cfg` and dummy input XML internally.
-- [ ] Validate `OA3.xml` exists.
-- [ ] Extract serial number and hardware hash.
-- [ ] Write a local CSV artifact for troubleshooting.
-- [ ] Preserve OA3 logs in Foundry deployment logs.
-- [ ] Return structured failure codes for missing tool, `PCPKsp.dll` copy/load failure, empty hash, invalid XML, missing serial, and OA3 exit failure.
-- [ ] Add XML documentation comments to new public hash capture, OA3Tool, parser, and artifact writer APIs.
+- [x] Add a C# service that runs OA3Tool with controlled working directory paths.
+- [x] Add a C# service that copies `PCPKsp.dll` from `<target Windows>\Windows\System32` to `X:\Windows\System32`.
+- [x] Validate source and destination architecture assumptions for x64 and ARM64.
+- [x] Generate `OA3.cfg` and dummy input XML internally.
+- [x] Validate `OA3.xml` exists.
+- [x] Extract serial number and hardware hash.
+- [x] Write a local CSV artifact for troubleshooting.
+- [x] Preserve OA3 logs in Foundry deployment logs.
+- [x] Return structured failure codes for missing tool, `PCPKsp.dll` copy/load failure, empty hash, invalid XML, missing serial, and OA3 exit failure.
+- [x] Add XML documentation comments to new public hash capture, OA3Tool, parser, and artifact writer APIs.
 
 Automated tests:
-- [ ] Resolves the applied Windows `System32` source path.
-- [ ] Copies `PCPKsp.dll` to `X:\Windows\System32` before OA3Tool execution.
-- [ ] Parses valid `OA3.xml`.
-- [ ] Rejects missing `HardwareHash`.
-- [ ] Rejects invalid XML.
-- [ ] Generates CSV without quotes, extra columns, or Unicode encoding.
-- [ ] Sanitizes commas from group tag and serial number.
+- [x] Resolves the applied Windows `System32` source path.
+- [x] Copies `PCPKsp.dll` to `X:\Windows\System32` before OA3Tool execution.
+- [x] Parses valid `OA3.xml`.
+- [x] Rejects missing `HardwareHash`.
+- [x] Rejects invalid XML.
+- [x] Generates CSV without quotes, extra columns, or Unicode encoding.
+- [x] Sanitizes commas from group tag and serial number.
+- [x] `dotnet test .\src\Foundry.Deploy.Tests\Foundry.Deploy.Tests.csproj --configuration Debug /p:Platform=x64 --no-restore --verbosity minimal` passed: 176 tests, 0 failures.
+- [x] `dotnet build .\src\Foundry.Deploy\Foundry.Deploy.csproj --configuration Debug /p:Platform=x64 --no-restore --verbosity minimal` passed: 0 warnings, 0 errors.
 
 Manual checks:
+Manual runtime validation remains deferred to physical x64 and ARM64 media runs. Graph import validation remains Phase 7.
+
 - [ ] Run on one x64 physical test device with Ethernet.
 - [ ] Run on one x64 physical test device with Wi-Fi.
 - [ ] Run on one ARM64 physical test device with Ethernet.
