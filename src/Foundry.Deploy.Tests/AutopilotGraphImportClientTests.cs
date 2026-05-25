@@ -216,6 +216,55 @@ public sealed class AutopilotGraphImportClientTests
     }
 
     [Fact]
+    public async Task ImportHardwareHashAsync_WhenImportIsCompleteButDeviceIsAbsent_KeepsPollingUntilTimeout()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "complete" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+
+        AutopilotGraphImportClient client = CreateClient(
+            handler,
+            new AutopilotGraphImportClientOptions
+            {
+                RetryDelay = TimeSpan.Zero,
+                PollInterval = TimeSpan.FromMilliseconds(20),
+                VisibilityTimeout = TimeSpan.FromMilliseconds(70)
+            });
+
+        DateTimeOffset startedAt = DateTimeOffset.UtcNow;
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                null,
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
+        Assert.True(DateTimeOffset.UtcNow - startedAt >= TimeSpan.FromMilliseconds(60));
+        Assert.True(handler.Requests.Count(request =>
+            request.PathAndQuery.StartsWith(
+                "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
+                StringComparison.Ordinal)) >= 3);
+    }
+
+    [Fact]
     public async Task ImportHardwareHashAsync_WhenDeviceAppearsBeforeImportCompletion_Completes()
     {
         var handler = new QueuedGraphHandler();

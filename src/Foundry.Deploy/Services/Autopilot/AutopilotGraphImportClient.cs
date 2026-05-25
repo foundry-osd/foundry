@@ -118,10 +118,22 @@ public sealed class AutopilotGraphImportClient(
         CancellationToken cancellationToken)
     {
         DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.VisibilityTimeout);
+        logger.LogInformation(
+            "Waiting up to {Timeout} for Windows Autopilot device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}.",
+            options.VisibilityTimeout,
+            request.SerialNumber,
+            request.ImportId);
         while (true)
         {
             if (IsImportError(importedIdentity.State?.DeviceImportStatus))
             {
+                logger.LogWarning(
+                    "Autopilot import entered error state before device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
+                    request.SerialNumber,
+                    request.ImportId,
+                    importedIdentity.Id,
+                    importedIdentity.State?.DeviceErrorCode,
+                    importedIdentity.State?.DeviceErrorName);
                 return new AutopilotImportWaitResult(importedIdentity, null);
             }
 
@@ -138,11 +150,22 @@ public sealed class AutopilotGraphImportClient(
                 .ConfigureAwait(false);
             if (visibleDevice is not null)
             {
+                logger.LogInformation(
+                    "Windows Autopilot device became visible. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
+                    request.SerialNumber,
+                    request.ImportId,
+                    visibleDevice.Id);
                 return new AutopilotImportWaitResult(importedIdentity, visibleDevice);
             }
 
             if (DateTimeOffset.UtcNow >= deadline)
             {
+                logger.LogWarning(
+                    "Windows Autopilot device visibility timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ImportStatus={ImportStatus}.",
+                    request.SerialNumber,
+                    request.ImportId,
+                    importedIdentity.Id,
+                    importedIdentity.State?.DeviceImportStatus);
                 return new AutopilotImportWaitResult(importedIdentity, null);
             }
 
@@ -157,6 +180,13 @@ public sealed class AutopilotGraphImportClient(
 
                 if (IsImportError(importedIdentity.State?.DeviceImportStatus))
                 {
+                    logger.LogWarning(
+                        "Autopilot import entered error state during device visibility wait. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
+                        request.SerialNumber,
+                        request.ImportId,
+                        importedIdentity.Id,
+                        importedIdentity.State?.DeviceErrorCode,
+                        importedIdentity.State?.DeviceErrorName);
                     return new AutopilotImportWaitResult(importedIdentity, null);
                 }
             }
