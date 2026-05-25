@@ -147,7 +147,7 @@ Scope note:
 - [x] Remove obsolete verbose onboarding status resource strings after moving detailed remediation to dialogs and readiness blockers.
 - [x] Add detailed Autopilot validation codes and Start page messages for hardware hash media generation blockers.
 - [x] Discover available group tags from the unfiltered `deviceManagement/windowsAutopilotDeviceIdentities` Graph endpoint and extract `groupTag` client-side.
-- [x] Preserve the previously saved default group tag if group tag discovery fails during tenant connection.
+- [x] Clear tenant group tag options if group tag discovery fails during tenant connection so stale tags are not embedded into generated media.
 - [x] Select the optional default group tag from a ComboBox populated by `None` and discovered tenant group tags.
 - [x] Keep `None` selected by default because hardware hash upload does not require a group tag.
 - [x] Populate the default group tag ComboBox from discovered tenant group tags without displaying a duplicate available group tag table.
