@@ -512,7 +512,7 @@ Implementation progress:
 - [x] Manual checks complete or explicitly deferred.
 - [x] Foundry PR opened with the planned title: https://github.com/foundry-osd/foundry/pull/193.
 - [x] Docusaurus PR opened with the planned title: https://github.com/foundry-osd/foundry-osd.github.io/pull/19.
-- [ ] Foundry and Docusaurus PRs merged.
+- [x] Foundry and Docusaurus PRs merged.
 
 - [x] Add user documentation for hardware hash upload from WinPE.
 - [x] Update the Docusaurus documentation if the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes.
