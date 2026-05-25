@@ -241,7 +241,7 @@ Implementation progress:
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
-- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+- [x] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Render only the selected Autopilot provisioning mode from the OSD-generated deploy configuration.
 - [x] In disabled Autopilot mode, show only the media provisioning mode summary and no provisioning controls.
@@ -320,7 +320,7 @@ Implementation progress:
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
-- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+- [x] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Add `WinPE-SecureStartup` to the default required optional components for all generated WinPE media.
 - [x] Locate and stage architecture-specific `oa3tool.exe` from the ADK for x64 and ARM64.
@@ -363,7 +363,7 @@ Implementation progress:
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
-- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+- [x] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Load Autopilot provisioning mode from deploy config.
 - [x] Expose mode in startup snapshot, preparation view model, launch request, deployment context, and runtime state.
@@ -413,7 +413,7 @@ Implementation progress:
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
-- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+- [x] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Add a C# service that runs OA3Tool with controlled working directory paths.
 - [x] Add a C# service that copies `PCPKsp.dll` from `<target Windows>\Windows\System32` to `X:\Windows\System32`.
@@ -457,7 +457,7 @@ Implementation progress:
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
-- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+- [x] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Add a minimal Graph Autopilot import client.
 - [x] Add certificate-based credential creation from decrypted in-memory certificate material.
@@ -505,37 +505,37 @@ Manual checks:
 PR title: `docs(autopilot): document WinPE hardware hash upload`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Docusaurus worktree and branch created.
-- [ ] Implementation checklist complete.
-- [ ] Documentation build or preview complete.
-- [ ] Manual checks complete or explicitly deferred.
-- [ ] Foundry PR opened with the planned title.
-- [ ] Docusaurus PR opened with the planned title.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Docusaurus worktree and branch created.
+- [x] Implementation checklist complete.
+- [x] Documentation build or preview complete.
+- [x] Manual checks complete or explicitly deferred.
+- [x] Foundry PR opened with the planned title: https://github.com/foundry-osd/foundry/pull/193.
+- [x] Docusaurus PR opened with the planned title: https://github.com/foundry-osd/foundry-osd.github.io/pull/19.
 - [ ] Foundry and Docusaurus PRs merged.
 
-- [ ] Add user documentation for hardware hash upload from WinPE.
-- [ ] Update the Docusaurus documentation if the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes.
-- [ ] Use the Docusaurus repository at `E:\Github\Foundry Project\foundry-osd.github.io`.
-- [ ] Create a dedicated Docusaurus worktree before editing docs.
-- [ ] Create the Docusaurus branch `docs/autopilot-hash-upload` from the current documentation base branch.
-- [ ] Use the Docusaurus PR title `docs(autopilot): document WinPE hardware hash upload`.
-- [ ] Locate the Docusaurus documentation source inside that repository by searching for `docusaurus.config.*` or the docs package root before editing docs.
-- [ ] Mark WinPE hash capture as best-effort and not the Microsoft-standard method.
-- [ ] Document x64 and ARM64 scope.
-- [ ] Document that Foundry copies `PCPKsp.dll` from the applied OS to `X:\Windows\System32` late in deployment.
-- [ ] Document network requirements for Ethernet and Wi-Fi.
-- [ ] Document retained troubleshooting artifacts under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash` and the operator cleanup process after diagnostics are no longer needed.
-- [ ] Document unsupported or risky scenarios:
+- [x] Add user documentation for hardware hash upload from WinPE.
+- [x] Update the Docusaurus documentation if the implemented behavior affects user-facing OSD, Deploy, WinPE requirements, setup, troubleshooting, permissions, or release notes.
+- [x] Use the Docusaurus repository at `E:\Github\Foundry Project\foundry-osd.github.io`.
+- [x] Create a dedicated Docusaurus worktree before editing docs.
+- [x] Create the Docusaurus branch `docs/autopilot-hash-upload` from the current documentation base branch.
+- [x] Use the Docusaurus PR title `docs(autopilot): document WinPE hardware hash upload`.
+- [x] Locate the Docusaurus documentation source inside that repository by searching for `docusaurus.config.*` or the docs package root before editing docs.
+- [x] Mark WinPE hash capture as best-effort and not the Microsoft-standard method.
+- [x] Document x64 and ARM64 scope.
+- [x] Document that Foundry copies `PCPKsp.dll` from the applied OS to `X:\Windows\System32` late in deployment.
+- [x] Document network requirements for Ethernet and Wi-Fi.
+- [x] Document retained troubleshooting artifacts under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash` and the operator cleanup process after diagnostics are no longer needed.
+- [x] Document unsupported or risky scenarios:
   - self-deploying mode
   - pre-provisioning
   - missing TPM visibility
-- [ ] Update screenshots after UI implementation.
-- [ ] Update Docusaurus navigation/sidebar entries if a new Autopilot hardware hash page is added.
+- [x] Update screenshots after UI implementation. Existing screenshots remain unchanged for Phase 8 because this phase adds operator guidance, not new UI assets.
+- [x] Update Docusaurus navigation/sidebar entries if a new Autopilot hardware hash page is added.
 
 Manual checks:
-- [ ] Follow the docs on a clean test tenant.
-- [ ] Follow the docs on a clean x64 test device.
-- [ ] Follow the docs on a clean ARM64 test device.
-- [ ] Confirm fallback to OOBE/full OS instructions are clear.
-- [ ] Build or preview the Docusaurus docs with the command discovered from the docs package scripts if Docusaurus files are changed.
+- [ ] Follow the docs on a clean test tenant. Deferred to physical tenant validation before production rollout.
+- [ ] Follow the docs on a clean x64 test device. Deferred to physical media validation before production rollout.
+- [ ] Follow the docs on a clean ARM64 test device. Deferred until ARM64 validation hardware/media is available.
+- [x] Confirm fallback to OOBE/full OS instructions are clear.
+- [x] Build or preview the Docusaurus docs with the command discovered from the docs package scripts if Docusaurus files are changed: `npm run typecheck` and `npm run build` passed.
