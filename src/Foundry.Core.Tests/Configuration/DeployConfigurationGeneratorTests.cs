@@ -381,6 +381,30 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenHardwareHashDefaultGroupTagIsNotKnown_ClearsDefaultGroupTag()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(6)) with
+                {
+                    KnownGroupTags = [],
+                    DefaultGroupTag = "KIOSK"
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.Null(result.Autopilot.HardwareHashUpload.DefaultGroupTag);
+        Assert.Empty(result.Autopilot.HardwareHashUpload.KnownGroupTags);
+    }
+
+    [Fact]
     public void Generate_WhenHardwareHashModeHasMediaKey_EmbedsEncryptedPfxSecrets()
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-deploy-config-{Guid.NewGuid():N}");

@@ -216,12 +216,23 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private AutopilotSettings CreateAutopilotSettingsForValidation(AutopilotSettings settings)
     {
+        AutopilotHardwareHashUploadSettings hardwareHashUpload = settings.HardwareHashUpload with
+        {
+            BootMediaCertificate = autopilotHardwareHashSessionState.BootMediaCertificate
+        };
+        if (settings.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
+            !autopilotHardwareHashSessionState.HasConnectedTenant)
+        {
+            hardwareHashUpload = hardwareHashUpload with
+            {
+                KnownGroupTags = [],
+                DefaultGroupTag = null
+            };
+        }
+
         return settings with
         {
-            HardwareHashUpload = settings.HardwareHashUpload with
-            {
-                BootMediaCertificate = autopilotHardwareHashSessionState.BootMediaCertificate
-            }
+            HardwareHashUpload = hardwareHashUpload
         };
     }
 
@@ -304,6 +315,13 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             .OrderBy(groupTag => groupTag, StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
+        string? defaultGroupTag = NormalizeOptional(settings.DefaultGroupTag);
+        if (!string.IsNullOrWhiteSpace(defaultGroupTag) &&
+            !knownGroupTags.Contains(defaultGroupTag, StringComparer.OrdinalIgnoreCase))
+        {
+            defaultGroupTag = null;
+        }
+
         return settings with
         {
             Tenant = new AutopilotTenantRegistrationSettings
@@ -322,7 +340,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                     DisplayName = NormalizeOptional(settings.ActiveCertificate.DisplayName)
                 },
             KnownGroupTags = knownGroupTags,
-            DefaultGroupTag = NormalizeOptional(settings.DefaultGroupTag)
+            DefaultGroupTag = defaultGroupTag
         };
     }
 

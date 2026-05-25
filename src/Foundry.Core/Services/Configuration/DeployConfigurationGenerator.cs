@@ -164,6 +164,9 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 mediaSecretsKey);
         }
 
+        string[] knownGroupTags = CanonicalizeGroupTags(settings.KnownGroupTags);
+        string? defaultGroupTag = NormalizeKnownGroupTag(settings.DefaultGroupTag, knownGroupTags);
+
         return new DeployAutopilotHardwareHashUploadSettings
         {
             TenantId = settings.Tenant.TenantId,
@@ -171,8 +174,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             ActiveCertificateKeyId = settings.ActiveCertificate?.KeyId,
             ActiveCertificateThumbprint = settings.ActiveCertificate?.Thumbprint,
             ActiveCertificateExpiresOnUtc = settings.ActiveCertificate?.ExpiresOnUtc,
-            DefaultGroupTag = settings.DefaultGroupTag,
-            KnownGroupTags = CanonicalizeGroupTags(settings.KnownGroupTags),
+            DefaultGroupTag = defaultGroupTag,
+            KnownGroupTags = knownGroupTags,
             CertificatePfxSecret = pfxSecret,
             CertificatePfxPasswordSecret = pfxPasswordSecret
         };
@@ -188,6 +191,19 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .Order(StringComparer.OrdinalIgnoreCase)
             .ToArray();
+    }
+
+    private static string? NormalizeKnownGroupTag(string? groupTag, IReadOnlyCollection<string> knownGroupTags)
+    {
+        string? trimmed = groupTag?.Trim();
+        if (string.IsNullOrWhiteSpace(trimmed))
+        {
+            return null;
+        }
+
+        return knownGroupTags.Contains(trimmed, StringComparer.OrdinalIgnoreCase)
+            ? trimmed
+            : null;
     }
 
     private static DeployOobeSettings MapOobeSettings(OobeSettings settings)
