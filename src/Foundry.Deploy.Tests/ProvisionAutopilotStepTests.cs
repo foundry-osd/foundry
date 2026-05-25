@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Hardware;
@@ -17,7 +18,7 @@ public sealed class ProvisionAutopilotStepTests
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         string sourceConfigurationPath = Path.Combine(workspace.RootPath, "AutopilotConfigurationFile.json");
         await File.WriteAllTextAsync(sourceConfigurationPath, """{"profile":true}""");
-        ProvisionAutopilotStep step = new();
+        ProvisionAutopilotStep step = CreateStep();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
@@ -43,7 +44,7 @@ public sealed class ProvisionAutopilotStepTests
     public async Task ExecuteAsync_WhenLiveHardwareHashCertificateIsExpired_SkipsUpload()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        ProvisionAutopilotStep step = new();
+        ProvisionAutopilotStep step = CreateStep();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
@@ -69,7 +70,7 @@ public sealed class ProvisionAutopilotStepTests
     public async Task ExecuteAsync_WhenLiveHardwareHashModeIsConfigured_RecordsPlannedUploadWithoutJsonStaging()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        ProvisionAutopilotStep step = new();
+        ProvisionAutopilotStep step = CreateStep();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
@@ -87,7 +88,7 @@ public sealed class ProvisionAutopilotStepTests
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.Equal(AutopilotHardwareHashUploadState.PendingHashCapture, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Equal(AutopilotHardwareHashUploadState.HashCaptured, context.RuntimeState.AutopilotHardwareHashUploadState);
         Assert.Equal("Sales", context.RuntimeState.AutopilotHardwareHashGroupTag);
         Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
         Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
@@ -98,7 +99,7 @@ public sealed class ProvisionAutopilotStepTests
     public async Task ExecuteAsync_WhenLiveHardwareHashModeRunsBeforeTargetWindowsRootExists_FailsBeforePlanningUpload()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        ProvisionAutopilotStep step = new();
+        ProvisionAutopilotStep step = CreateStep();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
@@ -117,7 +118,7 @@ public sealed class ProvisionAutopilotStepTests
     public async Task ExecuteAsync_WhenDryRunHardwareHashMode_WritesSanitizedHashManifest()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        ProvisionAutopilotStep step = new();
+        ProvisionAutopilotStep step = CreateStep();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: true,
@@ -154,6 +155,11 @@ public sealed class ProvisionAutopilotStepTests
             ActiveCertificateThumbprint = "ABCDEF123456",
             ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1)
         };
+    }
+
+    private static ProvisionAutopilotStep CreateStep()
+    {
+        return new ProvisionAutopilotStep(new FakeAutopilotHardwareHashCaptureService());
     }
 
     private static DeploymentStepExecutionContext CreateContext(
@@ -252,6 +258,24 @@ public sealed class ProvisionAutopilotStepTests
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
         {
             return Task.FromResult<int?>(null);
+        }
+    }
+
+    private sealed class FakeAutopilotHardwareHashCaptureService : IAutopilotHardwareHashCaptureService
+    {
+        public Task<AutopilotHardwareHashCaptureResult> CaptureAsync(
+            AutopilotHardwareHashCaptureRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            Directory.CreateDirectory(request.DiagnosticsRootPath);
+            string oa3XmlPath = Path.Combine(request.DiagnosticsRootPath, "OA3.xml");
+            string oa3LogPath = Path.Combine(request.DiagnosticsRootPath, "OA3.log");
+            string csvPath = Path.Combine(request.DiagnosticsRootPath, "AutopilotHWID.csv");
+            File.WriteAllText(oa3XmlPath, "<Key />");
+            File.WriteAllText(oa3LogPath, "oa3");
+            File.WriteAllText(csvPath, "csv");
+            AutopilotHardwareHashDeviceIdentity identity = new("SER123", "HASHVALUE", request.GroupTag);
+            return Task.FromResult(AutopilotHardwareHashCaptureResult.Succeeded(identity, oa3XmlPath, oa3LogPath, csvPath));
         }
     }
 

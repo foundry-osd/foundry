@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text.Json;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
@@ -13,6 +14,14 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     private const string TargetConfigurationRelativePath = @"Windows\Provisioning\Autopilot\AutopilotConfigurationFile.json";
     private const string HardwareHashDiagnosticsFolderName = "AutopilotHash";
     private const string HardwareHashStatusFileName = "autopilot-hash-upload-status.json";
+    private const string WinPeWindowsFolderName = "Windows";
+
+    private readonly IAutopilotHardwareHashCaptureService _hardwareHashCaptureService;
+
+    public ProvisionAutopilotStep(IAutopilotHardwareHashCaptureService hardwareHashCaptureService)
+    {
+        _hardwareHashCaptureService = hardwareHashCaptureService;
+    }
 
     public override int Order => 18;
 
@@ -123,7 +132,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Autopilot profile staged (simulation).");
     }
 
-    private static async Task<DeploymentStepResult> PrepareHardwareHashUploadAsync(
+    private async Task<DeploymentStepResult> PrepareHardwareHashUploadAsync(
         DeploymentStepExecutionContext context,
         bool dryRun,
         CancellationToken cancellationToken)
@@ -166,17 +175,46 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return await WriteDryRunHardwareHashManifestAsync(context, cancellationToken).ConfigureAwait(false);
         }
 
-        const string plannedMessage = "Autopilot hardware hash upload will run after hash capture support is available.";
+        string diagnosticsPath = ResolveHardwareHashDiagnosticsPath(context);
+        context.EmitCurrentStepIndeterminate("Capturing Autopilot hardware hash...", "Running OA3Tool...");
+        AutopilotHardwareHashCaptureResult captureResult = await _hardwareHashCaptureService
+            .CaptureAsync(
+                new AutopilotHardwareHashCaptureRequest
+                {
+                    TargetWindowsRootPath = context.RuntimeState.TargetWindowsPartitionRoot!,
+                    WinPeWindowsRootPath = ResolveWinPeWindowsRoot(context.RuntimeState.WorkspaceRoot),
+                    WorkspaceRootPath = context.RuntimeState.WorkspaceRoot,
+                    DiagnosticsRootPath = diagnosticsPath,
+                    GroupTag = context.RuntimeState.AutopilotHardwareHashGroupTag
+                },
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!captureResult.IsSuccess)
+        {
+            string failureMessage = $"Autopilot hardware hash capture failed: {captureResult.Message}";
+            await WriteHardwareHashStatusAsync(
+                context,
+                AutopilotHardwareHashUploadState.CaptureFailed,
+                failureMessage,
+                cancellationToken,
+                captureResult.FailureCode.ToString()).ConfigureAwait(false);
+            return DeploymentStepResult.Failed(failureMessage);
+        }
+
+        string capturedMessage = "Autopilot hardware hash captured. Graph upload will run in a later phase.";
         await WriteHardwareHashStatusAsync(
             context,
-            AutopilotHardwareHashUploadState.PendingHashCapture,
-            plannedMessage,
-            cancellationToken).ConfigureAwait(false);
+            AutopilotHardwareHashUploadState.HashCaptured,
+            capturedMessage,
+            cancellationToken,
+            failureCode: null,
+            captureResult).ConfigureAwait(false);
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Autopilot hardware hash upload planned. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTag='{FormatGroupTagForLog(context.RuntimeState.AutopilotHardwareHashGroupTag)}'.",
+            $"Autopilot hardware hash captured. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTag='{FormatGroupTagForLog(context.RuntimeState.AutopilotHardwareHashGroupTag)}'.",
             cancellationToken).ConfigureAwait(false);
-        return DeploymentStepResult.Succeeded("Autopilot hardware hash upload planned.");
+        return DeploymentStepResult.Succeeded("Autopilot hardware hash captured.");
     }
 
     private static async Task<DeploymentStepResult> WriteDryRunHardwareHashManifestAsync(
@@ -225,7 +263,9 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         DeploymentStepExecutionContext context,
         AutopilotHardwareHashUploadState state,
         string message,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        string? failureCode = null,
+        AutopilotHardwareHashCaptureResult? captureResult = null)
     {
         string diagnosticsPath = ResolveHardwareHashDiagnosticsPath(context);
         Directory.CreateDirectory(diagnosticsPath);
@@ -240,7 +280,12 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             provisioningMode = "hardwareHashUpload",
             uploadState = state.ToString(),
             message,
+            failureCode,
             groupTag = context.RuntimeState.AutopilotHardwareHashGroupTag,
+            serialNumber = captureResult?.Identity?.SerialNumber,
+            oa3XmlPath = captureResult?.Oa3XmlPath,
+            oa3LogPath = captureResult?.Oa3LogPath,
+            autopilotHwidCsvPath = captureResult?.CsvPath,
             tenantId = context.Request.AutopilotHardwareHashUpload.TenantId,
             clientId = context.Request.AutopilotHardwareHashUpload.ClientId,
             activeCertificateThumbprint = context.Request.AutopilotHardwareHashUpload.ActiveCertificateThumbprint,
@@ -270,6 +315,15 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         }
 
         return Path.Combine(context.EnsureTargetFoundryRoot(), "Logs", HardwareHashDiagnosticsFolderName);
+    }
+
+    private static string ResolveWinPeWindowsRoot(string workspaceRoot)
+    {
+        string fullWorkspaceRoot = Path.GetFullPath(workspaceRoot);
+        string? driveRoot = Path.GetPathRoot(fullWorkspaceRoot);
+        return string.IsNullOrWhiteSpace(driveRoot)
+            ? Path.Combine(fullWorkspaceRoot, "..", WinPeWindowsFolderName)
+            : Path.Combine(driveRoot, WinPeWindowsFolderName);
     }
 
     private static bool HasRequiredHardwareHashMetadata(DeployAutopilotHardwareHashUploadSettings settings)

@@ -21,9 +21,9 @@ public enum AutopilotHardwareHashUploadState
     DryRunPrepared,
 
     /// <summary>
-    /// Runtime branching reached the hash path and later hash capture support must continue the workflow.
+    /// OA3Tool captured the hardware hash and retained local diagnostics; Graph upload is not yet complete.
     /// </summary>
-    PendingHashCapture,
+    HashCaptured,
 
     /// <summary>
     /// Hardware hash upload was skipped because the media certificate is expired.
