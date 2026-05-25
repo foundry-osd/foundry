@@ -144,8 +144,8 @@ public sealed class AutopilotGraphImportClientTests
                   "importId": "import-123",
                   "state": {
                     "deviceImportStatus": "error",
-                    "deviceErrorCode": 806,
-                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
+                    "deviceErrorCode": 400,
+                    "deviceErrorName": "InvalidHardwareIdentifier"
                   }
                 }
               ]
@@ -166,8 +166,8 @@ public sealed class AutopilotGraphImportClientTests
             CancellationToken.None);
 
         Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, result.State);
-        Assert.Contains("ZtdDeviceAlreadyAssigned", result.Message, StringComparison.Ordinal);
-        Assert.Equal("806", result.FailureCode);
+        Assert.Contains("InvalidHardwareIdentifier", result.Message, StringComparison.Ordinal);
+        Assert.Equal("400", result.FailureCode);
     }
 
     [Fact]
@@ -232,7 +232,7 @@ public sealed class AutopilotGraphImportClientTests
               ]
             }
             """);
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 500; i++)
         {
             handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
         }
@@ -644,6 +644,98 @@ public sealed class AutopilotGraphImportClientTests
         Assert.Equal(
             "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
             handler.Requests[3].PathAndQuery);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenImportReportsExistingDevice_WaitsForVisibleDeviceUntilTimeout()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": {
+                    "deviceImportStatus": "error",
+                    "deviceErrorCode": 806,
+                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
+                  }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+
+        AutopilotGraphImportClient client = CreateClient(
+            handler,
+            new AutopilotGraphImportClientOptions
+            {
+                RetryDelay = TimeSpan.Zero,
+                PollInterval = TimeSpan.Zero,
+                VisibilityTimeout = TimeSpan.Zero
+            });
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                null,
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
+        Assert.Equal("AutopilotDeviceTimedOut", result.FailureCode);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenMultipleAutopilotDevicesMatchSerial_DoesNotUpdateGroupTag()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": {
+                    "deviceImportStatus": "error",
+                    "deviceErrorCode": 806,
+                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
+                  }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id-1", "serialNumber": "SER123", "groupTag": "A" },
+                { "id": "device-id-2", "serialNumber": "SER123", "groupTag": "B" }
+              ]
+            }
+            """);
+
+        AutopilotGraphImportClient client = CreateClient(handler);
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                "C",
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, result.State);
+        Assert.Equal("AutopilotDeviceAmbiguous", result.FailureCode);
+        Assert.DoesNotContain(handler.Requests, request =>
+            request.PathAndQuery.Contains("updateDeviceProperties", StringComparison.Ordinal));
     }
 
     [Fact]

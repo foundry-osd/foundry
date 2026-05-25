@@ -430,6 +430,8 @@ Automated tests:
 - [x] Resolves the applied Windows `System32` source path.
 - [x] Copies `PCPKsp.dll` to `X:\Windows\System32` before OA3Tool execution.
 - [x] Parses valid `OA3.xml`.
+- [x] Returns a blocking support-library copy failure when `PCPKsp.dll` cannot be copied into `X:\Windows\System32`.
+- [x] Returns a missing-report failure when OA3Tool exits successfully without producing `OA3.xml`.
 - [x] Rejects missing `HardwareHash`.
 - [x] Rejects invalid XML.
 - [x] Generates CSV without quotes, extra columns, or Unicode encoding.
@@ -490,24 +492,26 @@ Automated tests:
 - [x] Updates an already-visible Windows Autopilot device from the existing group tag to the Deploy-selected group tag, then waits until Graph reflects the new tag.
 - [x] Clears an already-visible Windows Autopilot device group tag when Deploy selection is `None`, then waits until Graph reflects the cleared tag.
 - [x] Times out without failing OS deployment when an existing device group tag update is not confirmed before the wait deadline.
+- [x] Keeps waiting for visible-device reconciliation when Graph returns an already-assigned duplicate import error before the Windows Autopilot device list catches up.
+- [x] Does not update a group tag when multiple Windows Autopilot device records match the captured serial number.
 - [x] Lists live Windows Autopilot group tags from paged Graph device responses.
 - [x] Handles Windows Autopilot device visibility timeout as an automatic warning/non-blocking continuation to the next deployment step.
 - [x] Handles `error` with device error code/name.
 - [x] Times out with a clear message.
 - [x] Retries transient failures only.
-- [x] Sanitized upload result omits access tokens, authorization headers, raw request bodies, raw response bodies, PFX bytes, passwords, private key material, and full certificate data.
+- [x] Sanitized upload result omits access tokens, authorization headers, raw request bodies, raw response bodies, PFX bytes, passwords, private key material, full certificate data, tenant ID, and client ID.
 
-Manual checks are deferred until a physical WinPE run against a test Intune tenant is available. The automated Phase 7 coverage validates Graph payload shape, retry behavior, import/device polling states, non-blocking deployment continuation, certificate assertion creation, media secret decryption, and sanitized retained result output.
+Manual checks are partially validated from the operator VM end-to-end run. Physical x64 and ARM64 WinPE validation remains required before broad rollout. The automated Phase 7 coverage validates Graph payload shape, retry behavior, import/device polling states, non-blocking deployment continuation, certificate assertion creation, media secret decryption, and sanitized retained result output.
 
 Manual checks:
-- [ ] Import one test device into a test tenant.
-- [ ] Confirm Group Tag appears in Intune.
-- [ ] Run the same device a second time with a different group tag and confirm Deploy waits until the existing Windows Autopilot device group tag is updated.
+- [x] Import one test VM into a test tenant.
+- [x] Confirm Group Tag appears in Intune.
+- [x] Run the same VM a second time with a different group tag and confirm Deploy waits until the existing Windows Autopilot device group tag is updated.
 - [ ] Run the same device a second time with `None` selected and confirm Deploy waits until the existing Windows Autopilot device group tag is cleared.
-- [ ] Generate media with a default group tag, remove that group tag from the tenant before booting Deploy, and confirm Deploy selects `None`.
+- [x] Generate media with a default group tag, remove that group tag from the tenant before booting Deploy, and confirm Deploy selects `None`.
 - [ ] Generate media with a default group tag that still exists in the tenant, boot Deploy, and confirm Deploy selects that group tag after startup discovery.
-- [ ] Confirm deployment waits until the device appears in Windows Autopilot devices.
-- [ ] Confirm the wait shows an indeterminate sub-progress indicator and countdown.
+- [x] Confirm deployment waits until the device appears in Windows Autopilot devices.
+- [x] Confirm the wait shows an indeterminate sub-progress indicator and one-second countdown.
 - [ ] Confirm a 10-minute visibility timeout automatically continues OS deployment and records a warning.
 - [ ] Confirm assignment sync behavior is documented, even if not waited on by the final implementation.
 - [ ] Confirm duplicate device behavior is clear to the operator.

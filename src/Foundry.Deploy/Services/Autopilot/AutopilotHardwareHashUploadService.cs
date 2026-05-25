@@ -32,7 +32,7 @@ public sealed class AutopilotHardwareHashUploadService(
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-        Directory.CreateDirectory(request.DiagnosticsRootPath);
+        AutopilotDiagnosticsDirectory.CreateRestricted(request.DiagnosticsRootPath);
 
         AutopilotHardwareHashUploadResult result;
         try
@@ -175,8 +175,6 @@ public sealed class AutopilotHardwareHashUploadService(
             result.AutopilotDeviceId,
             request.Identity.SerialNumber,
             request.Identity.GroupTag,
-            tenantId = request.Settings.TenantId,
-            clientId = request.Settings.ClientId,
             activeCertificateThumbprint = request.Settings.ActiveCertificateThumbprint,
             activeCertificateExpiresOnUtc = request.Settings.ActiveCertificateExpiresOnUtc
         }, new JsonSerializerOptions(JsonSerializerDefaults.Web)

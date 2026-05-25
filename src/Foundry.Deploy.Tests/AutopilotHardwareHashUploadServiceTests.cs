@@ -53,6 +53,8 @@ public sealed class AutopilotHardwareHashUploadServiceTests
             Assert.DoesNotContain("pfx", json, StringComparison.OrdinalIgnoreCase);
             Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
             Assert.DoesNotContain("private", json, StringComparison.OrdinalIgnoreCase);
+            Assert.DoesNotContain("tenant-id", json, StringComparison.Ordinal);
+            Assert.DoesNotContain("client-id", json, StringComparison.Ordinal);
             Assert.Contains("SER123", json, StringComparison.Ordinal);
         }
         finally
@@ -108,6 +110,8 @@ public sealed class AutopilotHardwareHashUploadServiceTests
             Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);
             Assert.DoesNotContain(pfxPassword, json, StringComparison.Ordinal);
             Assert.DoesNotContain(certificate.ExportCertificatePem(), json, StringComparison.Ordinal);
+            Assert.DoesNotContain("tenant-id", json, StringComparison.Ordinal);
+            Assert.DoesNotContain("client-id", json, StringComparison.Ordinal);
         }
         finally
         {

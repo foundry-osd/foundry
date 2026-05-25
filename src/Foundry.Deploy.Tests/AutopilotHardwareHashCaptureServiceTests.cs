@@ -85,6 +85,25 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
     }
 
     [Fact]
+    public async Task CaptureAsync_WhenPcpKspCopyFails_ReturnsSupportLibraryCopyFailure()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        workspace.CreateWinPePcpKspDirectory();
+        var processRunner = new RecordingProcessRunner(workspace);
+        var service = CreateService(processRunner);
+
+        AutopilotHardwareHashCaptureResult result = await service.CaptureAsync(
+            workspace.CreateRequest(groupTag: null),
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(AutopilotHardwareHashCaptureFailureCode.SupportLibraryCopyFailed, result.FailureCode);
+        Assert.False(processRunner.WasCalled);
+    }
+
+    [Fact]
     public async Task CaptureAsync_WhenOa3ToolIsMissing_ReturnsToolMissingFailure()
     {
         using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
@@ -145,6 +164,29 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
     }
 
     [Fact]
+    public async Task CaptureAsync_WhenOa3ToolSucceedsWithoutReport_ReturnsReportMissingFailure()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        var processRunner = new RecordingProcessRunner(workspace)
+        {
+            WriteOa3Xml = false
+        };
+        var service = CreateService(processRunner);
+
+        AutopilotHardwareHashCaptureResult result = await service.CaptureAsync(
+            workspace.CreateRequest(groupTag: null),
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(AutopilotHardwareHashCaptureFailureCode.ReportMissing, result.FailureCode);
+        Assert.True(File.Exists(Path.Combine(workspace.DiagnosticsRootPath, "OA3.cfg")));
+        Assert.True(File.Exists(Path.Combine(workspace.DiagnosticsRootPath, "input.xml")));
+        Assert.True(File.Exists(Path.Combine(workspace.DiagnosticsRootPath, "OA3.log")));
+    }
+
+    [Fact]
     public async Task CaptureAsync_WhenReportCannotBeParsed_RetainsOa3Diagnostics()
     {
         using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
@@ -200,6 +242,7 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
               </Hardware>
             </HardwareVerificationData>
             """;
+        public bool WriteOa3Xml { get; init; } = true;
 
         public Task<ProcessExecutionResult> RunAsync(
             string fileName,
@@ -234,7 +277,11 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
 
             if (ExitCode == 0)
             {
-                File.WriteAllText(Path.Combine(workingDirectory, "OA3.xml"), Oa3XmlContent);
+                if (WriteOa3Xml)
+                {
+                    File.WriteAllText(Path.Combine(workingDirectory, "OA3.xml"), Oa3XmlContent);
+                }
+
                 File.WriteAllText(Path.Combine(workingDirectory, "OA3.log"), Oa3LogContent);
             }
 
@@ -287,6 +334,11 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
         public void WriteOa3Tool()
         {
             File.WriteAllText(Path.Combine(WorkspaceRootPath, "Tools", "OA3", "oa3tool.exe"), "oa3");
+        }
+
+        public void CreateWinPePcpKspDirectory()
+        {
+            Directory.CreateDirectory(Path.Combine(WinPeWindowsRootPath, "System32", "PCPKsp.dll"));
         }
 
         public AutopilotHardwareHashCaptureRequest CreateRequest(string? groupTag)

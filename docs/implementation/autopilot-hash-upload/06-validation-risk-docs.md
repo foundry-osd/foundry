@@ -113,10 +113,14 @@ Release guardrails now documented for operators:
 - Upload failures, expired certificate metadata, Graph errors, duplicate import errors, and Windows Autopilot device visibility timeouts do not fail the Windows deployment.
 - Local hash capture prerequisites can block only the Autopilot upload workflow because Foundry cannot produce a valid hash without them.
 - Retained diagnostics stay under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash` and must remain sanitized.
+- Retained diagnostics are created in a restricted directory where Windows ACL hardening is available.
 - Self-deploying mode, pre-provisioning, and unvalidated TPM visibility from WinPE remain unsupported or risky scenarios.
 - Destructive duplicate-device cleanup is intentionally out of scope for the final workflow.
 
 Manual validation still required before broad production rollout:
+- Connect a clean tenant from Foundry OSD and confirm managed app registration creation, required permission state, and admin consent state.
+- Adopt an existing Foundry-managed tenant app registration and confirm certificate discovery, replacement, and retirement behavior.
+- Rebuild media after selecting the boot-media PFX and confirm app restart requires selecting the PFX again.
 - Follow the published docs in a clean test tenant.
 - Validate one clean x64 physical device with Ethernet.
 - Validate one clean x64 physical device with Wi-Fi when Wi-Fi media is in scope.

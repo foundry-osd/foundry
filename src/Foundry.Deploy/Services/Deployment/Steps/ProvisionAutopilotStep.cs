@@ -299,7 +299,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         AutopilotHardwareHashUploadResult? uploadResult = null)
     {
         string diagnosticsPath = ResolveHardwareHashDiagnosticsPath(context);
-        Directory.CreateDirectory(diagnosticsPath);
+        AutopilotDiagnosticsDirectory.CreateRestricted(diagnosticsPath);
         context.RuntimeState.AutopilotHardwareHashUploadState = state;
         context.RuntimeState.AutopilotHardwareHashUploadMessage = message;
         context.RuntimeState.AutopilotHardwareHashDiagnosticsPath = diagnosticsPath;
@@ -321,8 +321,6 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             importId = uploadResult?.ImportId,
             importedIdentityId = uploadResult?.ImportedIdentityId,
             autopilotDeviceId = uploadResult?.AutopilotDeviceId,
-            tenantId = context.Request.AutopilotHardwareHashUpload.TenantId,
-            clientId = context.Request.AutopilotHardwareHashUpload.ClientId,
             activeCertificateThumbprint = context.Request.AutopilotHardwareHashUpload.ActiveCertificateThumbprint,
             activeCertificateExpiresOnUtc = context.Request.AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc
         }, new JsonSerializerOptions

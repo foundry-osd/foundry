@@ -230,18 +230,28 @@ public sealed class AutopilotGraphImportClient(
             progress?.Report(new AutopilotHardwareHashUploadProgress(
                 "Waiting for Autopilot device visibility...",
                 $"Checking Windows Autopilot devices ({FormatRemaining(remaining)} remaining)..."));
-            WindowsAutopilotDeviceIdentity? visibleDevice = await FindAutopilotDeviceAsync(request, cancellationToken)
+            AutopilotDeviceLookupResult visibleDeviceLookup = await FindAutopilotDeviceAsync(request, cancellationToken)
                 .ConfigureAwait(false);
-            if (visibleDevice is not null)
+            if (visibleDeviceLookup.FailureState is not null)
+            {
+                return new AutopilotImportWaitResult(
+                    importedIdentity,
+                    null,
+                    visibleDeviceLookup.FailureState,
+                    visibleDeviceLookup.FailureMessage,
+                    visibleDeviceLookup.FailureCode);
+            }
+
+            if (visibleDeviceLookup.Device is not null)
             {
                 logger.LogInformation(
                     "Windows Autopilot device became visible. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
                     request.SerialNumber,
                     request.ImportId,
-                    visibleDevice.Id);
+                    visibleDeviceLookup.Device.Id);
                 WindowsAutopilotDeviceIdentity? reconciledDevice = await ReconcileAutopilotDeviceGroupTagAsync(
                     request,
-                    visibleDevice,
+                    visibleDeviceLookup.Device,
                     progress,
                     cancellationToken)
                     .ConfigureAwait(false);
@@ -249,7 +259,7 @@ public sealed class AutopilotGraphImportClient(
                 {
                     return new AutopilotImportWaitResult(
                         importedIdentity,
-                        visibleDevice,
+                        visibleDeviceLookup.Device,
                         AutopilotHardwareHashUploadState.UploadTimedOut,
                         "Windows Autopilot device group tag update was not confirmed before the timeout.",
                         "AutopilotGroupTagUpdateTimedOut");
@@ -258,7 +268,8 @@ public sealed class AutopilotGraphImportClient(
                 return new AutopilotImportWaitResult(importedIdentity, reconciledDevice);
             }
 
-            if (IsImportError(importedIdentity.State?.DeviceImportStatus))
+            bool importError = IsImportError(importedIdentity.State?.DeviceImportStatus);
+            if (importError && !ShouldContinueVisibilityWaitAfterImportError(importedIdentity.State))
             {
                 logger.LogWarning(
                     "Autopilot import entered error state before device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
@@ -278,10 +289,15 @@ public sealed class AutopilotGraphImportClient(
                     request.ImportId,
                     importedIdentity.Id,
                     importedIdentity.State?.DeviceImportStatus);
-                return new AutopilotImportWaitResult(importedIdentity, null);
+                return new AutopilotImportWaitResult(
+                    importedIdentity,
+                    null,
+                    AutopilotHardwareHashUploadState.UploadTimedOut,
+                    "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.",
+                    "AutopilotDeviceTimedOut");
             }
 
-            if (!IsImportComplete(importedIdentity.State?.DeviceImportStatus))
+            if (!importError && !IsImportComplete(importedIdentity.State?.DeviceImportStatus))
             {
                 ImportedWindowsAutopilotDeviceIdentity? current = await GetImportedIdentityAsync(request, cancellationToken)
                     .ConfigureAwait(false);
@@ -331,16 +347,26 @@ public sealed class AutopilotGraphImportClient(
             progress?.Report(new AutopilotHardwareHashUploadProgress(
                 "Waiting for Autopilot group tag update...",
                 $"Checking Windows Autopilot group tag ({FormatRemaining(remaining)} remaining)..."));
-            WindowsAutopilotDeviceIdentity? device = await FindAutopilotDeviceAsync(request, cancellationToken)
+            AutopilotDeviceLookupResult deviceLookup = await FindAutopilotDeviceAsync(request, cancellationToken)
                 .ConfigureAwait(false);
-            if (device is not null && !ShouldUpdateGroupTag(device.GroupTag, request.GroupTag))
+            if (deviceLookup.FailureState is not null)
+            {
+                logger.LogWarning(
+                    "Windows Autopilot group tag update could not be verified because device lookup failed. SerialNumber={SerialNumber}, ImportId={ImportId}, FailureCode={FailureCode}.",
+                    request.SerialNumber,
+                    request.ImportId,
+                    deviceLookup.FailureCode);
+                return null;
+            }
+
+            if (deviceLookup.Device is not null && !ShouldUpdateGroupTag(deviceLookup.Device.GroupTag, request.GroupTag))
             {
                 logger.LogInformation(
                     "Windows Autopilot group tag update confirmed. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
                     request.SerialNumber,
                     request.ImportId,
-                    device.Id);
-                return device;
+                    deviceLookup.Device.Id);
+                return deviceLookup.Device;
             }
 
             if (DateTimeOffset.UtcNow >= deadline)
@@ -400,10 +426,11 @@ public sealed class AutopilotGraphImportClient(
         return null;
     }
 
-    private async Task<WindowsAutopilotDeviceIdentity?> FindAutopilotDeviceAsync(
+    private async Task<AutopilotDeviceLookupResult> FindAutopilotDeviceAsync(
         AutopilotGraphImportRequest request,
         CancellationToken cancellationToken)
     {
+        List<WindowsAutopilotDeviceIdentity> matches = [];
         string? path = WindowsAutopilotDevicesPath;
         while (!string.IsNullOrWhiteSpace(path))
         {
@@ -416,24 +443,37 @@ public sealed class AutopilotGraphImportClient(
                     "Windows Autopilot device visibility scan",
                     cancellationToken).ConfigureAwait(false);
 
-            WindowsAutopilotDeviceIdentity? device = FindDeviceBySerialNumber(response, request.SerialNumber);
-            if (device is not null)
-            {
-                return device;
-            }
+            matches.AddRange(FindDevicesBySerialNumber(response, request.SerialNumber));
 
             path = response?.NextLink;
         }
 
-        return null;
+        if (matches.Count == 0)
+        {
+            return new AutopilotDeviceLookupResult(null);
+        }
+
+        if (matches.Count == 1)
+        {
+            return new AutopilotDeviceLookupResult(matches[0]);
+        }
+
+        logger.LogWarning(
+            "Multiple Windows Autopilot devices matched the captured serial number. SerialNumber={SerialNumber}, MatchCount={MatchCount}.",
+            request.SerialNumber,
+            matches.Count);
+        return AutopilotDeviceLookupResult.Failed(
+            AutopilotHardwareHashUploadState.UploadFailed,
+            "Multiple Windows Autopilot devices matched the captured serial number; group tag reconciliation was skipped to avoid updating the wrong device.",
+            "AutopilotDeviceAmbiguous");
     }
 
-    private static WindowsAutopilotDeviceIdentity? FindDeviceBySerialNumber(
+    private static IEnumerable<WindowsAutopilotDeviceIdentity> FindDevicesBySerialNumber(
         GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response,
         string serialNumber)
     {
-        return response?.Value?.FirstOrDefault(device =>
-            string.Equals(device.SerialNumber, serialNumber, StringComparison.OrdinalIgnoreCase));
+        return response?.Value?.Where(device =>
+            string.Equals(device.SerialNumber, serialNumber, StringComparison.OrdinalIgnoreCase)) ?? [];
     }
 
     private async Task<TResponse?> SendGraphAsync<TBody, TResponse>(
@@ -565,6 +605,13 @@ public sealed class AutopilotGraphImportClient(
     private static bool IsImportComplete(string? status)
     {
         return string.Equals(status, "complete", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool ShouldContinueVisibilityWaitAfterImportError(ImportedWindowsAutopilotDeviceIdentityState? state)
+    {
+        string errorName = state?.DeviceErrorName ?? string.Empty;
+        return errorName.Contains("AlreadyAssigned", StringComparison.OrdinalIgnoreCase) ||
+               errorName.Contains("AlreadyExists", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool ShouldUpdateGroupTag(string? currentGroupTag, string? requestedGroupTag)
@@ -708,6 +755,21 @@ internal sealed record AutopilotImportWaitResult(
     AutopilotHardwareHashUploadState? FailureState = null,
     string? FailureMessage = null,
     string? FailureCode = null);
+
+internal sealed record AutopilotDeviceLookupResult(
+    WindowsAutopilotDeviceIdentity? Device,
+    AutopilotHardwareHashUploadState? FailureState = null,
+    string? FailureMessage = null,
+    string? FailureCode = null)
+{
+    public static AutopilotDeviceLookupResult Failed(
+        AutopilotHardwareHashUploadState state,
+        string message,
+        string failureCode)
+    {
+        return new AutopilotDeviceLookupResult(null, state, message, failureCode);
+    }
+}
 
 internal static class AutopilotGraphJson
 {

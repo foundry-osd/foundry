@@ -36,7 +36,7 @@ public sealed class AutopilotHardwareHashCaptureService(
         string destinationPcpKspPath = Path.Combine(request.WinPeWindowsRootPath, "System32", PcpKspFileName);
 
         Directory.CreateDirectory(runtimeHashRoot);
-        Directory.CreateDirectory(request.DiagnosticsRootPath);
+        AutopilotDiagnosticsDirectory.CreateRestricted(request.DiagnosticsRootPath);
 
         if (!File.Exists(oa3ToolPath))
         {
@@ -188,7 +188,7 @@ public sealed class AutopilotHardwareHashCaptureService(
             return null;
         }
 
-        Directory.CreateDirectory(destinationDirectory);
+        AutopilotDiagnosticsDirectory.CreateRestricted(destinationDirectory);
         string destinationPath = Path.Combine(destinationDirectory, Path.GetFileName(sourcePath));
         await using FileStream source = File.OpenRead(sourcePath);
         await using FileStream destination = File.Create(destinationPath);
