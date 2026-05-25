@@ -378,6 +378,21 @@ Continuer ?</value></data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Préparation du profil Autopilot...</value></data>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Copie de AutopilotConfigurationFile.json...</value></data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Écriture du manifeste Autopilot de simulation...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Capture du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Exécution de OA3Tool...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Upload du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Préparation de l’import Microsoft Graph...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Envoi de la demande d’import à Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotImport" xml:space="preserve"><value>Attente de l’import Autopilot...</value></data>
+  <data name="StepMessage.WaitingMicrosoftGraphImportCompletionFormat" xml:space="preserve"><value>Attente de la fin de l’import Microsoft Graph ({0} restantes)...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Attente de la visibilité de l’appareil Autopilot...</value></data>
+  <data name="StepMessage.WaitingAutopilotDeviceVisibilityFormat" xml:space="preserve"><value>Attente de l’apparition de l’appareil dans Windows Autopilot devices ({0} restantes)...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Préparation de l’upload du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Écriture du manifeste de simulation de l’upload du hardware hash Autopilot...</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minute</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutes</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} secondes</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot préparé.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Profil Autopilot préparé (simulation).</value></data>
 </root>

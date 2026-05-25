@@ -47,8 +47,21 @@ public sealed class AutopilotGraphImportClient(
             "Submitting import request to Microsoft Graph..."));
         ImportedWindowsAutopilotDeviceIdentity importedIdentity = await ImportAsync(request, cancellationToken)
             .ConfigureAwait(false);
-        importedIdentity = await WaitForImportCompletionAsync(request, importedIdentity, progress, cancellationToken)
+        AutopilotImportWaitResult waitResult = await WaitForImportCompletionOrDeviceVisibilityAsync(
+            request,
+            importedIdentity,
+            progress,
+            cancellationToken)
             .ConfigureAwait(false);
+        importedIdentity = waitResult.ImportedIdentity;
+        if (waitResult.AutopilotDevice is not null)
+        {
+            return AutopilotHardwareHashUploadResult.Completed(
+                "Autopilot hardware hash imported and visible in Windows Autopilot devices.",
+                request.ImportId,
+                importedIdentity.Id,
+                waitResult.AutopilotDevice.Id);
+        }
 
         string importStatus = importedIdentity.State?.DeviceImportStatus ?? "unknown";
         if (string.Equals(importStatus, "error", StringComparison.OrdinalIgnoreCase))
@@ -121,7 +134,7 @@ public sealed class AutopilotGraphImportClient(
             ?? throw new InvalidOperationException("Microsoft Graph did not return an imported Autopilot device identity.");
     }
 
-    private async Task<ImportedWindowsAutopilotDeviceIdentity> WaitForImportCompletionAsync(
+    private async Task<AutopilotImportWaitResult> WaitForImportCompletionOrDeviceVisibilityAsync(
         AutopilotGraphImportRequest request,
         ImportedWindowsAutopilotDeviceIdentity importedIdentity,
         IProgress<AutopilotHardwareHashUploadProgress>? progress,
@@ -129,16 +142,21 @@ public sealed class AutopilotGraphImportClient(
     {
         if (IsTerminalImportStatus(importedIdentity.State?.DeviceImportStatus))
         {
-            return importedIdentity;
+            return new AutopilotImportWaitResult(importedIdentity, null);
         }
 
         DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.ImportTimeout);
         while (DateTimeOffset.UtcNow <= deadline)
         {
+            TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
+            if (remaining < TimeSpan.Zero)
+            {
+                remaining = TimeSpan.Zero;
+            }
+
             progress?.Report(new AutopilotHardwareHashUploadProgress(
                 "Waiting for Autopilot import...",
-                "Waiting for Microsoft Graph import completion..."));
-            await DelayAsync(options.ImportPollInterval, cancellationToken).ConfigureAwait(false);
+                $"Waiting for Microsoft Graph import completion ({FormatRemaining(remaining)} remaining)..."));
             ImportedWindowsAutopilotDeviceIdentity? current = await GetImportedIdentityAsync(request, cancellationToken)
                 .ConfigureAwait(false);
             if (current is not null)
@@ -148,11 +166,20 @@ public sealed class AutopilotGraphImportClient(
 
             if (IsTerminalImportStatus(importedIdentity.State?.DeviceImportStatus))
             {
-                return importedIdentity;
+                return new AutopilotImportWaitResult(importedIdentity, null);
             }
+
+            WindowsAutopilotDeviceIdentity? visibleDevice = await FindAutopilotDeviceAsync(request, cancellationToken)
+                .ConfigureAwait(false);
+            if (visibleDevice is not null)
+            {
+                return new AutopilotImportWaitResult(importedIdentity, visibleDevice);
+            }
+
+            await DelayAsync(options.ImportPollInterval, cancellationToken).ConfigureAwait(false);
         }
 
-        return importedIdentity;
+        return new AutopilotImportWaitResult(importedIdentity, null);
     }
 
     private async Task<ImportedWindowsAutopilotDeviceIdentity?> GetImportedIdentityAsync(
@@ -397,6 +424,10 @@ internal sealed record WindowsAutopilotDeviceIdentity
     public string? Id { get; init; }
     public string? SerialNumber { get; init; }
 }
+
+internal sealed record AutopilotImportWaitResult(
+    ImportedWindowsAutopilotDeviceIdentity ImportedIdentity,
+    WindowsAutopilotDeviceIdentity? AutopilotDevice);
 
 internal static class AutopilotGraphJson
 {

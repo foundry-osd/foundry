@@ -213,6 +213,15 @@ public static partial class DeploymentUiTextLocalizer
             "Staging Autopilot profile..." => LocalizationText.GetString("StepMessage.StagingAutopilotProfile"),
             "Copying AutopilotConfigurationFile.json..." => LocalizationText.GetString("StepMessage.CopyingAutopilotConfiguration"),
             "Writing dry-run Autopilot manifest..." => LocalizationText.GetString("StepMessage.WritingDryRunAutopilotManifest"),
+            "Capturing Autopilot hardware hash..." => LocalizationText.GetString("StepMessage.CapturingAutopilotHardwareHash"),
+            "Running OA3Tool..." => LocalizationText.GetString("StepMessage.RunningOa3Tool"),
+            "Uploading Autopilot hardware hash..." => LocalizationText.GetString("StepMessage.UploadingAutopilotHardwareHash"),
+            "Preparing Microsoft Graph import..." => LocalizationText.GetString("StepMessage.PreparingMicrosoftGraphImport"),
+            "Submitting import request to Microsoft Graph..." => LocalizationText.GetString("StepMessage.SubmittingMicrosoftGraphImport"),
+            "Waiting for Autopilot import..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotImport"),
+            "Waiting for Autopilot device visibility..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotDeviceVisibility"),
+            "Preparing Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.PreparingAutopilotHardwareHashUpload"),
+            "Writing dry-run Autopilot hash manifest..." => LocalizationText.GetString("StepMessage.WritingDryRunAutopilotHashManifest"),
             "Autopilot profile staged." => LocalizationText.GetString("StepResult.AutopilotProfileStaged"),
             "Autopilot profile staged (simulation)." => LocalizationText.GetString("StepResult.AutopilotProfileStagedSimulation"),
             "Rebooting now..." => LocalizationText.GetString("Status.RebootingNow"),
@@ -304,6 +313,22 @@ public static partial class DeploymentUiTextLocalizer
             return localized;
         }
 
+        match = WaitingGraphImportCompletionRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepMessage.WaitingMicrosoftGraphImportCompletionFormat",
+                LocalizeRemainingDuration(match.Groups["remaining"].Value));
+        }
+
+        match = WaitingAutopilotDeviceVisibilityRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepMessage.WaitingAutopilotDeviceVisibilityFormat",
+                LocalizeRemainingDuration(match.Groups["remaining"].Value));
+        }
+
         if (value.StartsWith("Debug preview: DISM apply failed because the target partition is read-only.", StringComparison.Ordinal))
         {
             return LocalizationText.GetString("Debug.ErrorPreviewMessage");
@@ -388,6 +413,28 @@ public static partial class DeploymentUiTextLocalizer
             : value;
     }
 
+    private static string LocalizeRemainingDuration(string value)
+    {
+        Match match = RemainingDurationRegex().Match(value);
+        if (!match.Success)
+        {
+            return value;
+        }
+
+        string key = match.Groups["unit"].Value switch
+        {
+            "minute" => "Duration.MinuteFormat",
+            "minutes" => "Duration.MinutesFormat",
+            "second" => "Duration.SecondFormat",
+            "seconds" => "Duration.SecondsFormat",
+            _ => string.Empty
+        };
+
+        return string.IsNullOrWhiteSpace(key)
+            ? value
+            : LocalizationText.Format(key, match.Groups["value"].Value);
+    }
+
     private static bool TryLocalizeSingleSuffix(string value, string prefix, string key, out string localized)
     {
         if (value.StartsWith(prefix, StringComparison.Ordinal))
@@ -426,6 +473,15 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Starting (?<step>.+)\.\.\.$")]
     private static partial Regex StartingStepSubProgressRegex();
+
+    [GeneratedRegex(@"^(?<value>\d+) (?<unit>minutes|minute|seconds|second)$")]
+    private static partial Regex RemainingDurationRegex();
+
+    [GeneratedRegex(@"^Waiting for Microsoft Graph import completion \((?<remaining>.+) remaining\)\.\.\.$")]
+    private static partial Regex WaitingGraphImportCompletionRegex();
+
+    [GeneratedRegex(@"^Waiting for device to appear in Windows Autopilot devices \((?<remaining>.+) remaining\)\.\.\.$")]
+    private static partial Regex WaitingAutopilotDeviceVisibilityRegex();
 
     [GeneratedRegex(@"^wpeutil\.exe failed with exit code (?<code>\d+)\. (?<diagnostic>.+)$")]
     private static partial Regex WpeUtilFailureRegex();

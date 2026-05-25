@@ -216,6 +216,56 @@ public sealed class AutopilotGraphImportClientTests
             progress.Detail?.Contains("remaining", StringComparison.OrdinalIgnoreCase) == true);
     }
 
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenDeviceAppearsBeforeImportCompletion_Completes()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "pending" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "pending" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            { "value": [ { "id": "device-id", "serialNumber": "SER123" } ] }
+            """);
+        AutopilotGraphImportClient client = CreateClient(handler);
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                null,
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
+        Assert.Equal("device-id", result.AutopilotDeviceId);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$filter=serialNumber%20eq%20%27SER123%27",
+            handler.Requests[^1].PathAndQuery);
+    }
+
     private static AutopilotGraphImportClient CreateClient(
         QueuedGraphHandler handler,
         AutopilotGraphImportClientOptions? options = null)
