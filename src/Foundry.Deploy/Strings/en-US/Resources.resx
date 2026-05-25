@@ -53,7 +53,7 @@
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Available on this media: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Autopilot upload status</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardware hash upload status</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Ready for hardware hash upload</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Not ready for hardware hash upload</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certificate expired</value></data>
@@ -124,7 +124,7 @@
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Valid certificate</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Expired certificate</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Missing certificate metadata</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Missing certificate info</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>No default group tag</value></data>
   <data name="Debug.DeploymentPages" xml:space="preserve"><value>Deployment pages</value></data>
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Progress page</value></data>

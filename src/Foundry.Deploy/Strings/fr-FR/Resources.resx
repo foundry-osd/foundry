@@ -53,7 +53,7 @@
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponible sur ce média : {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État de l'upload Autopilot</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État de l'upload du hardware hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Prêt pour l'upload du hardware hash</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Pas prêt pour l'upload du hardware hash</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certificat expiré</value></data>
@@ -124,7 +124,7 @@
   <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Certificat valide</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Certificat expiré</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Métadonnées de certificat manquantes</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Infos du certificat manquantes</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Sans group tag par défaut</value></data>
   <data name="Debug.DeploymentPages" xml:space="preserve"><value>Pages de déploiement</value></data>
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Page de progression</value></data>

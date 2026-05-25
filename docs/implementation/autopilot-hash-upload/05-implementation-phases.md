@@ -248,7 +248,7 @@ Implementation progress:
 - [x] Keep JSON profile mode focused on profile selection only.
 - [x] Hide JSON profile counts and other non-actionable metadata from the Computer Target page.
 - [x] In hardware hash mode, do not show JSON profile selection or JSON staging controls.
-- [x] In hardware hash mode, show a compact operator-facing Autopilot upload status on the Computer Target page.
+- [x] In hardware hash mode, show a compact operator-facing hardware hash upload status on the Computer Target page.
 - [x] Show tenant ID, certificate thumbprint, and certificate expiration in hardware hash mode for ready, expired, and missing metadata scenarios.
 - [x] If the certificate is valid, show a ready status and a single message that upload will run automatically during deployment.
 - [x] If the certificate is expired, show a clear non-blocking message telling the operator to regenerate the certificate and recreate the boot image; continue OS deployment without Autopilot.
@@ -306,7 +306,7 @@ Deferred to operator validation before squash because the checks require the Fou
 - [ ] Confirm Debug > Autopilot > JSON profile shows the JSON/profile Autopilot controls.
 - [ ] Confirm Debug > Autopilot > Hardware hash upload > Valid certificate shows hash mode as ready.
 - [ ] Confirm Debug > Autopilot > Hardware hash upload > Expired certificate shows the expired-certificate non-blocking state.
-- [ ] Confirm Debug > Autopilot > Hardware hash upload > Missing certificate metadata shows hash mode as not ready.
+- [ ] Confirm Debug > Autopilot > Hardware hash upload > Missing certificate info shows hash mode as not ready.
 - [ ] Confirm Debug > Autopilot > Hardware hash upload > No default group tag keeps hash mode ready and selects `None`/`Aucun`.
 - [ ] Confirm Debug > Deployment pages opens the progress, success, and error preview pages.
 - [ ] Confirm the wizard footer no longer shows debug preview buttons.
