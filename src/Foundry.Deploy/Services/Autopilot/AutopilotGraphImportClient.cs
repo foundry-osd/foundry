@@ -197,7 +197,7 @@ public sealed class AutopilotGraphImportClient(
                 delay = options.PollInterval;
             }
 
-            await DelayAsync(delay, cancellationToken).ConfigureAwait(false);
+            await DelayWithProgressAsync(deadline, delay, progress, cancellationToken).ConfigureAwait(false);
         }
     }
 
@@ -292,6 +292,36 @@ public sealed class AutopilotGraphImportClient(
             : Task.Delay(delay, cancellationToken);
     }
 
+    private async Task DelayWithProgressAsync(
+        DateTimeOffset deadline,
+        TimeSpan delay,
+        IProgress<AutopilotHardwareHashUploadProgress>? progress,
+        CancellationToken cancellationToken)
+    {
+        TimeSpan remainingDelay = delay;
+        TimeSpan progressInterval = options.ProgressInterval > TimeSpan.Zero
+            ? options.ProgressInterval
+            : TimeSpan.FromSeconds(1);
+        while (remainingDelay > TimeSpan.Zero)
+        {
+            TimeSpan currentDelay = remainingDelay > progressInterval
+                ? progressInterval
+                : remainingDelay;
+            await DelayAsync(currentDelay, cancellationToken).ConfigureAwait(false);
+            remainingDelay -= currentDelay;
+
+            TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
+            if (remaining < TimeSpan.Zero)
+            {
+                remaining = TimeSpan.Zero;
+            }
+
+            progress?.Report(new AutopilotHardwareHashUploadProgress(
+                "Waiting for Autopilot device visibility...",
+                $"Checking Windows Autopilot devices ({FormatRemaining(remaining)} remaining)..."));
+        }
+    }
+
     private static bool IsImportError(string? status)
     {
         return string.Equals(status, "error", StringComparison.OrdinalIgnoreCase);
@@ -373,6 +403,7 @@ public sealed record AutopilotGraphImportClientOptions
     public int RetryCount { get; init; } = HttpRetryPolicy.DefaultRetryCount;
     public TimeSpan RetryDelay { get; init; } = HttpRetryPolicy.DefaultRetryDelay;
     public TimeSpan PollInterval { get; init; } = TimeSpan.FromSeconds(10);
+    public TimeSpan ProgressInterval { get; init; } = TimeSpan.FromSeconds(1);
     public TimeSpan VisibilityTimeout { get; init; } = TimeSpan.FromMinutes(10);
 }
 

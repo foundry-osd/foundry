@@ -235,6 +235,8 @@ public sealed class AutopilotGraphImportClientTests
         handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
         handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
         handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
 
         AutopilotGraphImportClient client = CreateClient(
             handler,
@@ -262,6 +264,59 @@ public sealed class AutopilotGraphImportClientTests
             request.PathAndQuery.StartsWith(
                 "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
                 StringComparison.Ordinal)) >= 3);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenWaitingForDeviceVisibility_UpdatesProgressMoreOftenThanGraphPolling()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "complete" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+
+        AutopilotGraphImportClient client = CreateClient(
+            handler,
+            new AutopilotGraphImportClientOptions
+            {
+                RetryDelay = TimeSpan.Zero,
+                PollInterval = TimeSpan.FromMilliseconds(300),
+                VisibilityTimeout = TimeSpan.FromMilliseconds(280),
+                ProgressInterval = TimeSpan.FromMilliseconds(50)
+            });
+        List<AutopilotHardwareHashUploadProgress> progressReports = [];
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                null,
+                null,
+                "import-123"),
+            new CapturingAutopilotUploadProgress(progressReports),
+            CancellationToken.None);
+
+        int visibilityPolls = handler.Requests.Count(request =>
+            request.PathAndQuery.StartsWith(
+                "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
+                StringComparison.Ordinal));
+        int countdownReports = progressReports.Count(progress =>
+            progress.Detail?.StartsWith("Checking Windows Autopilot devices", StringComparison.Ordinal) == true);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
+        Assert.Equal(2, visibilityPolls);
+        Assert.True(countdownReports > visibilityPolls);
     }
 
     [Fact]
