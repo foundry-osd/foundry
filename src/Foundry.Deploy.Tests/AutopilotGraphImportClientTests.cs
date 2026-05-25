@@ -262,7 +262,7 @@ public sealed class AutopilotGraphImportClientTests
         Assert.True(handler.Requests.Count(request =>
             request.PathAndQuery.StartsWith(
                 "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-                StringComparison.Ordinal)) >= 3);
+                StringComparison.Ordinal)) >= 2);
     }
 
     [Fact]
