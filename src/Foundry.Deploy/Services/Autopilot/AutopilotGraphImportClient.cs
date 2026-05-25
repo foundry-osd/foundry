@@ -153,6 +153,46 @@ public sealed class AutopilotGraphImportClient(
             ?? throw new InvalidOperationException("Microsoft Graph did not return an imported Autopilot device identity.");
     }
 
+    private async Task ReconcileAutopilotDeviceGroupTagAsync(
+        AutopilotGraphImportRequest request,
+        WindowsAutopilotDeviceIdentity existingDevice,
+        IProgress<AutopilotHardwareHashUploadProgress>? progress,
+        CancellationToken cancellationToken)
+    {
+        if (ShouldUpdateGroupTag(existingDevice.GroupTag, request.GroupTag))
+        {
+            if (string.IsNullOrWhiteSpace(existingDevice.Id))
+            {
+                throw new InvalidOperationException("Microsoft Graph returned an existing Autopilot device without an ID.");
+            }
+
+            progress?.Report(new AutopilotHardwareHashUploadProgress(
+                "Updating existing Autopilot device...",
+                "Updating Windows Autopilot group tag in Microsoft Graph..."));
+            await UpdateAutopilotDevicePropertiesAsync(
+                request.AccessToken,
+                existingDevice.Id,
+                request.GroupTag,
+                cancellationToken).ConfigureAwait(false);
+        }
+    }
+
+    private async Task UpdateAutopilotDevicePropertiesAsync(
+        string accessToken,
+        string autopilotDeviceId,
+        string? groupTag,
+        CancellationToken cancellationToken)
+    {
+        string path = $"{WindowsAutopilotDevicesPath}/{Uri.EscapeDataString(autopilotDeviceId)}/updateDeviceProperties";
+        await SendGraphNoContentAsync(
+            HttpMethod.Post,
+            path,
+            accessToken,
+            new UpdateDevicePropertiesRequest(NormalizeGroupTagForGraph(groupTag)),
+            "Windows Autopilot device property update",
+            cancellationToken).ConfigureAwait(false);
+    }
+
     private async Task<AutopilotImportWaitResult> WaitForAutopilotDeviceReadinessAsync(
         AutopilotGraphImportRequest request,
         ImportedWindowsAutopilotDeviceIdentity importedIdentity,
@@ -167,18 +207,6 @@ public sealed class AutopilotGraphImportClient(
             request.ImportId);
         while (true)
         {
-            if (IsImportError(importedIdentity.State?.DeviceImportStatus))
-            {
-                logger.LogWarning(
-                    "Autopilot import entered error state before device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
-                    request.SerialNumber,
-                    request.ImportId,
-                    importedIdentity.Id,
-                    importedIdentity.State?.DeviceErrorCode,
-                    importedIdentity.State?.DeviceErrorName);
-                return new AutopilotImportWaitResult(importedIdentity, null);
-            }
-
             TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
             if (remaining < TimeSpan.Zero)
             {
@@ -197,7 +225,21 @@ public sealed class AutopilotGraphImportClient(
                     request.SerialNumber,
                     request.ImportId,
                     visibleDevice.Id);
+                await ReconcileAutopilotDeviceGroupTagAsync(request, visibleDevice, progress, cancellationToken)
+                    .ConfigureAwait(false);
                 return new AutopilotImportWaitResult(importedIdentity, visibleDevice);
+            }
+
+            if (IsImportError(importedIdentity.State?.DeviceImportStatus))
+            {
+                logger.LogWarning(
+                    "Autopilot import entered error state before device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
+                    request.SerialNumber,
+                    request.ImportId,
+                    importedIdentity.Id,
+                    importedIdentity.State?.DeviceErrorCode,
+                    importedIdentity.State?.DeviceErrorName);
+                return new AutopilotImportWaitResult(importedIdentity, null);
             }
 
             if (DateTimeOffset.UtcNow >= deadline)
@@ -220,17 +262,6 @@ public sealed class AutopilotGraphImportClient(
                     importedIdentity = current;
                 }
 
-                if (IsImportError(importedIdentity.State?.DeviceImportStatus))
-                {
-                    logger.LogWarning(
-                        "Autopilot import entered error state during device visibility wait. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
-                        request.SerialNumber,
-                        request.ImportId,
-                        importedIdentity.Id,
-                        importedIdentity.State?.DeviceErrorCode,
-                        importedIdentity.State?.DeviceErrorName);
-                    return new AutopilotImportWaitResult(importedIdentity, null);
-                }
             }
 
             TimeSpan delay = deadline - DateTimeOffset.UtcNow;
@@ -355,6 +386,45 @@ public sealed class AutopilotGraphImportClient(
             options.RetryDelay).ConfigureAwait(false);
     }
 
+    private async Task SendGraphNoContentAsync<TBody>(
+        HttpMethod method,
+        string path,
+        string accessToken,
+        TBody? body,
+        string operationName,
+        CancellationToken cancellationToken)
+        where TBody : class
+    {
+        await HttpRetryPolicy.ExecuteAsync(
+            async ct =>
+            {
+                using var request = new HttpRequestMessage(method, path);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                if (body is not null)
+                {
+                    request.Content = JsonContent.Create(body, options: AutopilotGraphJson.Options);
+                }
+
+                using HttpResponseMessage response = await httpClient.SendAsync(request, ct).ConfigureAwait(false);
+                if (!response.IsSuccessStatusCode)
+                {
+                    string graphError = await ReadGraphErrorAsync(response, ct).ConfigureAwait(false);
+                    throw new HttpRequestException(
+                        string.IsNullOrWhiteSpace(graphError)
+                            ? $"Microsoft Graph request failed with status code {(int)response.StatusCode}."
+                            : $"Microsoft Graph request failed with status code {(int)response.StatusCode}: {graphError}.",
+                        null,
+                        response.StatusCode);
+                }
+            },
+            logger,
+            operationName,
+            cancellationToken,
+            options.RetryCount,
+            options.RetryDelay).ConfigureAwait(false);
+    }
+
     private Task DelayAsync(TimeSpan delay, CancellationToken cancellationToken)
     {
         return delay <= TimeSpan.Zero
@@ -400,6 +470,26 @@ public sealed class AutopilotGraphImportClient(
     private static bool IsImportComplete(string? status)
     {
         return string.Equals(status, "complete", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool ShouldUpdateGroupTag(string? currentGroupTag, string? requestedGroupTag)
+    {
+        return !string.Equals(
+            NormalizeGroupTagForComparison(currentGroupTag),
+            NormalizeGroupTagForComparison(requestedGroupTag),
+            StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string NormalizeGroupTagForComparison(string? groupTag)
+    {
+        return string.IsNullOrWhiteSpace(groupTag)
+            ? string.Empty
+            : groupTag.Trim();
+    }
+
+    private static string NormalizeGroupTagForGraph(string? groupTag)
+    {
+        return NormalizeGroupTagForComparison(groupTag);
     }
 
     private static string FormatRemaining(TimeSpan remaining)
@@ -463,6 +553,8 @@ public sealed class AutopilotGraphImportClient(
         string? GroupTag,
         string? AssignedUserPrincipalName,
         string ImportId);
+
+    private sealed record UpdateDevicePropertiesRequest(string GroupTag);
 }
 
 /// <summary>
