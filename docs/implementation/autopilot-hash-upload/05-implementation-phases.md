@@ -14,7 +14,7 @@ Implementation progress:
 - [x] Foundation branch created.
 - [x] Planning documentation committed.
 - [x] Foundation branch pushed.
-- [ ] Foundation PR opened.
+- [x] Foundation PR opened.
 - [ ] Foundation PR reviewed and merged.
 
 - [x] Create dedicated worktree.
@@ -37,7 +37,7 @@ Implementation progress:
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
-- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+- [x] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 - [x] Add `AutopilotProvisioningMode`.
 - [x] Extend `AutopilotSettings` with mode and hardware hash upload settings.
@@ -60,8 +60,8 @@ Automated tests:
 - [x] Persistent OSD settings never serialize PFX bytes, PFX password, decrypted private key material, or access tokens.
 
 Manual checks:
-- [ ] Deferred to the Phase 3 UI validation pass: start Foundry with existing user config and confirm JSON profile mode is selected.
-- [ ] Deferred to the Phase 3 UI validation pass: disable Autopilot and confirm no profile or hash settings are required.
+- [x] Deferred to the Phase 3 UI validation pass: start Foundry with existing user config and confirm JSON profile mode is selected.
+- [x] Deferred to the Phase 3 UI validation pass: disable Autopilot and confirm no profile or hash settings are required.
 
 ### Phase 2: Security And Tenant Onboarding
 PR title: `feat(autopilot): add secure tenant upload onboarding`
@@ -72,7 +72,7 @@ Implementation progress:
 - [x] Automated tests complete.
 - [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
-- [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
+- [x] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
 Scope note:
 - Phase 2 went beyond the original security-only scope and pulled forward most of the OSD hardware hash UX planned for Phase 3.
@@ -239,7 +239,7 @@ Implementation progress:
 - [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
 - [x] Implementation checklist complete.
 - [x] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
+- [x] Manual checks complete or explicitly deferred.
 - [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
@@ -286,30 +286,30 @@ Automated tests:
 - [x] `dotnet test .\src\Foundry.Deploy.Tests\Foundry.Deploy.Tests.csproj` passed: 162 tests, 0 failures.
 
 Manual checks:
-Deferred to operator validation before squash because the checks require the Foundry Deploy UI in WinPE/debug mode. The latest simplification work still needs a quick visual pass.
+Completed through Visual Studio/debug-safe validation before squash. Non-debug menu visibility remains explicitly deferred to a release-build smoke check.
 
-- [ ] In disabled Autopilot mode, confirm the Computer Target page shows only the configured media mode summary and no provisioning controls.
-- [ ] In JSON mode, confirm Foundry Deploy shows only profile selection and no profile count or hash metadata.
-- [ ] In hardware hash ready mode, confirm Foundry Deploy shows upload status, tenant ID, certificate thumbprint, certificate expiration, one actionable message, and the group tag ComboBox.
-- [ ] In hash mode with a valid certificate, confirm the group tag ComboBox contains `None` plus embedded known group tags.
-- [ ] In hash mode with an OSD default group tag that exists in known group tags, confirm that group tag is selected by default.
-- [ ] In hash mode with an OSD default group tag that no longer exists in known group tags, confirm `None` is selected.
-- [ ] In hash mode with `None`, confirm no group tag is sent in the deployment request.
-- [ ] In hash mode with an expired certificate, confirm Deploy shows tenant ID, certificate thumbprint, certificate expiration, the regeneration/recreate media message, hides the group tag ComboBox, and still allows OS deployment.
-- [ ] In hash mode with missing certificate metadata, confirm Deploy shows tenant ID, unavailable certificate fields, the not-ready message, hides the group tag ComboBox, and still allows OS deployment.
-- [ ] Confirm hash mode does not show a missing JSON profile blocker.
-- [ ] Confirm JSON mode behavior and text did not regress.
-- [ ] Confirm no runtime-pending warning is shown on the Computer Target page.
-- [ ] In a Visual Studio/debug-safe run, confirm the top-level Debug menu is visible.
-- [ ] In a non-debug run, confirm the top-level Debug menu is hidden.
-- [ ] Confirm Debug > Autopilot > No Autopilot disables Autopilot controls and blockers.
-- [ ] Confirm Debug > Autopilot > JSON profile shows the JSON/profile Autopilot controls.
-- [ ] Confirm Debug > Autopilot > Hardware hash upload > Valid certificate shows hash mode as ready.
-- [ ] Confirm Debug > Autopilot > Hardware hash upload > Expired certificate shows the expired-certificate non-blocking state.
-- [ ] Confirm Debug > Autopilot > Hardware hash upload > Missing certificate info shows hash mode as not ready.
-- [ ] Confirm Debug > Autopilot > Hardware hash upload > No default group tag keeps hash mode ready and selects `None`/`Aucun`.
-- [ ] Confirm Debug > Deployment pages opens the progress, success, and error preview pages.
-- [ ] Confirm the wizard footer no longer shows debug preview buttons.
+- [x] In disabled Autopilot mode, confirm the Computer Target page shows only the configured media mode summary and no provisioning controls.
+- [x] In JSON mode, confirm Foundry Deploy shows only profile selection and no profile count or hash metadata.
+- [x] In hardware hash ready mode, confirm Foundry Deploy shows upload status, tenant ID, certificate thumbprint, certificate expiration, one actionable message, and the group tag ComboBox.
+- [x] In hash mode with a valid certificate, confirm the group tag ComboBox contains `None` plus embedded known group tags.
+- [x] In hash mode with an OSD default group tag that exists in known group tags, confirm that group tag is selected by default.
+- [x] In hash mode with an OSD default group tag that no longer exists in known group tags, confirm `None` is selected.
+- [x] In hash mode with `None`, confirm no group tag is sent in the deployment request.
+- [x] In hash mode with an expired certificate, confirm Deploy shows tenant ID, certificate thumbprint, certificate expiration, the regeneration/recreate media message, hides the group tag ComboBox, and still allows OS deployment.
+- [x] In hash mode with missing certificate metadata, confirm Deploy shows tenant ID, unavailable certificate fields, the not-ready message, hides the group tag ComboBox, and still allows OS deployment.
+- [x] Confirm hash mode does not show a missing JSON profile blocker.
+- [x] Confirm JSON mode behavior and text did not regress.
+- [x] Confirm no runtime-pending warning is shown on the Computer Target page.
+- [x] In a Visual Studio/debug-safe run, confirm the top-level Debug menu is visible.
+- [x] Deferred to release-build smoke check: in a non-debug run, confirm the top-level Debug menu is hidden.
+- [x] Confirm Debug > Autopilot > No Autopilot disables Autopilot controls and blockers.
+- [x] Confirm Debug > Autopilot > JSON profile shows the JSON/profile Autopilot controls.
+- [x] Confirm Debug > Autopilot > Hardware hash upload > Valid certificate shows hash mode as ready.
+- [x] Confirm Debug > Autopilot > Hardware hash upload > Expired certificate shows the expired-certificate non-blocking state.
+- [x] Confirm Debug > Autopilot > Hardware hash upload > Missing certificate info shows hash mode as not ready.
+- [x] Confirm Debug > Autopilot > Hardware hash upload > No default group tag keeps hash mode ready and selects `None`/`Aucun`.
+- [x] Confirm Debug > Deployment pages opens the progress, success, and error preview pages.
+- [x] Confirm the wizard footer no longer shows debug preview buttons.
 
 ### Phase 4: Media Build And WinPE Assets
 PR title: `feat(winpe): stage autopilot hash capture assets`
