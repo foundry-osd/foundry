@@ -225,37 +225,7 @@ public sealed class AutopilotGraphImportClient(
         AutopilotGraphImportRequest request,
         CancellationToken cancellationToken)
     {
-        string filter = EscapeODataFilter($"serialNumber eq '{EscapeODataString(request.SerialNumber)}'");
-        string path = $"{WindowsAutopilotDevicesPath}?$filter={filter}";
-        try
-        {
-            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
-                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
-                    HttpMethod.Get,
-                    path,
-                    request.AccessToken,
-                    body: null,
-                    "Windows Autopilot device visibility polling",
-                    cancellationToken).ConfigureAwait(false);
-
-            return FindDeviceBySerialNumber(response, request.SerialNumber);
-        }
-        catch (HttpRequestException exception) when (exception.StatusCode == HttpStatusCode.BadRequest)
-        {
-            logger.LogWarning(
-                exception,
-                "Windows Autopilot device serial filter was rejected. Falling back to paged device visibility scan. SerialNumber={SerialNumber}, ImportId={ImportId}.",
-                request.SerialNumber,
-                request.ImportId);
-            return await FindAutopilotDeviceByPagedListAsync(request, cancellationToken).ConfigureAwait(false);
-        }
-    }
-
-    private async Task<WindowsAutopilotDeviceIdentity?> FindAutopilotDeviceByPagedListAsync(
-        AutopilotGraphImportRequest request,
-        CancellationToken cancellationToken)
-    {
-        string? path = $"{WindowsAutopilotDevicesPath}?$select=id,serialNumber";
+        string? path = WindowsAutopilotDevicesPath;
         while (!string.IsNullOrWhiteSpace(path))
         {
             GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =

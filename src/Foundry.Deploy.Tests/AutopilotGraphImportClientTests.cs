@@ -231,12 +231,10 @@ public sealed class AutopilotGraphImportClientTests
               ]
             }
             """);
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        for (int i = 0; i < 20; i++)
+        {
+            handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        }
 
         AutopilotGraphImportClient client = CreateClient(
             handler,
@@ -320,7 +318,7 @@ public sealed class AutopilotGraphImportClientTests
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenFilteredDeviceVisibilityQueryIsRejected_FallsBackToUnfilteredDeviceList()
+    public async Task ImportHardwareHashAsync_WhenCheckingDeviceVisibility_UsesUnfilteredDeviceList()
     {
         var handler = new QueuedGraphHandler();
         handler.EnqueueJson(HttpStatusCode.OK, """
@@ -333,14 +331,6 @@ public sealed class AutopilotGraphImportClientTests
                   "state": { "deviceImportStatus": "complete" }
                 }
               ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.BadRequest, """
-            {
-              "error": {
-                "code": "BadRequest",
-                "message": "The serial number filter was rejected."
-              }
             }
             """);
         handler.EnqueueJson(HttpStatusCode.OK, """
@@ -369,11 +359,61 @@ public sealed class AutopilotGraphImportClientTests
         Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
         Assert.Equal("device-id", result.AutopilotDeviceId);
         Assert.Contains(handler.Requests, request =>
-            request.PathAndQuery.StartsWith(
-                "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$filter=",
-                StringComparison.Ordinal));
-        Assert.Contains(handler.Requests, request =>
-            request.PathAndQuery == "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$select=id,serialNumber");
+            request.PathAndQuery == "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities");
+        Assert.DoesNotContain(handler.Requests, request =>
+            request.PathAndQuery.Contains("$filter", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenDeviceVisibilityListIsPaged_FollowsNextLink()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "complete" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "@odata.nextLink": "https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
+              "value": []
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id", "serialNumber": "SER123" }
+              ]
+            }
+            """);
+
+        AutopilotGraphImportClient client = CreateClient(handler);
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "SER123",
+                "aGFyZHdhcmVIYXNo",
+                null,
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
+        Assert.Equal("device-id", result.AutopilotDeviceId);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
+            handler.Requests[^2].PathAndQuery);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
+            handler.Requests[^1].PathAndQuery);
     }
 
     [Fact]
@@ -410,7 +450,7 @@ public sealed class AutopilotGraphImportClientTests
         Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
         Assert.Equal("device-id", result.AutopilotDeviceId);
         Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$filter=serialNumber%20eq%20%27SER123%27",
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
             handler.Requests[^1].PathAndQuery);
     }
 
