@@ -61,7 +61,18 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Submitting import request to Microsoft Graph...", "Envoi de la demande d’import à Microsoft Graph...")]
     [InlineData("Waiting for Autopilot device visibility...", "Attente de la visibilité de l’appareil Autopilot...")]
     [InlineData("Preparing Autopilot hardware hash upload...", "Préparation de l’upload du hardware hash Autopilot...")]
+    [InlineData("Decrypting media certificate...", "Déchiffrement du certificat du média...")]
+    [InlineData("Authenticating Autopilot hardware hash upload...", "Authentification de l’upload du hardware hash Autopilot...")]
+    [InlineData("Requesting Microsoft Graph token...", "Demande du jeton Microsoft Graph...")]
+    [InlineData("Importing hardware hash into Microsoft Graph...", "Import du hardware hash dans Microsoft Graph...")]
     [InlineData("Writing dry-run Autopilot hash manifest...", "Écriture du manifeste de simulation de l’upload du hardware hash Autopilot...")]
+    [InlineData("Target Windows partition is unavailable for Autopilot hardware hash upload.", "La partition Windows cible est indisponible pour l’upload du hardware hash Autopilot.")]
+    [InlineData("Autopilot hardware hash upload skipped because the embedded certificate is expired.", "Upload du hardware hash Autopilot ignoré car le certificat intégré est expiré.")]
+    [InlineData("Autopilot hardware hash upload skipped because media metadata is incomplete.", "Upload du hardware hash Autopilot ignoré car les métadonnées du média sont incomplètes.")]
+    [InlineData("Autopilot hardware hash imported and visible in Windows Autopilot devices.", "Hardware hash Autopilot importé et visible dans les appareils Windows Autopilot.")]
+    [InlineData("Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.", "L’appareil Autopilot importé n’est pas apparu dans les appareils Windows Autopilot avant le timeout.")]
+    [InlineData("Autopilot hardware hash upload prepared for dry run.", "Upload du hardware hash Autopilot préparé pour la simulation.")]
+    [InlineData("Autopilot hardware hash upload prepared (simulation).", "Upload du hardware hash Autopilot préparé (simulation).")]
     [InlineData("System reboot", "Redémarrage système")]
     [InlineData("Required reboot executable 'wpeutil.exe' was not found.", "L’exécutable de redémarrage requis 'wpeutil.exe' est introuvable.")]
     public void LocalizeMessage_TranslatesDeploymentRuntimeMessages(string input, string expected)
@@ -87,6 +98,10 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("12.5 MB downloaded", "12.5 MB téléchargés")]
     [InlineData("Checking Windows Autopilot devices (1 second remaining)...", "Vérification des appareils Windows Autopilot (1s)...")]
     [InlineData("Checking Windows Autopilot devices (600 seconds remaining)...", "Vérification des appareils Windows Autopilot (600s)...")]
+    [InlineData("Selected Autopilot profile file was not found: 'X:\\profile.json'.", "Le fichier du profil Autopilot sélectionné est introuvable : 'X:\\profile.json'.")]
+    [InlineData("Autopilot hardware hash capture failed: OA3 report does not contain a serial number.", "La capture du hardware hash Autopilot a échoué : OA3 report does not contain a serial number.")]
+    [InlineData("Autopilot hardware hash import failed: ZtdDeviceAlreadyAssigned.", "L’import du hardware hash Autopilot a échoué : ZtdDeviceAlreadyAssigned.")]
+    [InlineData("Autopilot hardware hash upload skipped: Permission denied.", "Upload du hardware hash Autopilot ignoré : Permission denied.")]
     public void LocalizeMessage_TranslatesDynamicDeploymentRuntimeMessages(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");

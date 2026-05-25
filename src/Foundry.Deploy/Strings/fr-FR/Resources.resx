@@ -386,7 +386,22 @@ Continuer ?</value></data>
   <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Attente de la visibilité de l’appareil Autopilot...</value></data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Vérification des appareils Windows Autopilot ({0})...</value></data>
   <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Préparation de l’upload du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Déchiffrement du certificat du média...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Authentification de l’upload du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Demande du jeton Microsoft Graph...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Import du hardware hash dans Microsoft Graph...</value></data>
   <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Écriture du manifeste de simulation de l’upload du hardware hash Autopilot...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>La partition Windows cible est indisponible pour l’upload du hardware hash Autopilot.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Upload du hardware hash Autopilot ignoré car le certificat intégré est expiré.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Upload du hardware hash Autopilot ignoré car les métadonnées du média sont incomplètes.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Hardware hash Autopilot importé et visible dans les appareils Windows Autopilot.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>L’appareil Autopilot importé n’est pas apparu dans les appareils Windows Autopilot avant le timeout.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Upload du hardware hash Autopilot préparé pour la simulation.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Upload du hardware hash Autopilot préparé (simulation).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Le fichier du profil Autopilot sélectionné est introuvable : {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>La capture du hardware hash Autopilot a échoué : {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>L’import du hardware hash Autopilot a échoué : {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Upload du hardware hash Autopilot ignoré : {0}</value></data>
   <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minute</value></data>
   <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutes</value></data>
   <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>

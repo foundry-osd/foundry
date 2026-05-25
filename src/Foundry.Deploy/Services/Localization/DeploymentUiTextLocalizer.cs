@@ -220,7 +220,18 @@ public static partial class DeploymentUiTextLocalizer
             "Submitting import request to Microsoft Graph..." => LocalizationText.GetString("StepMessage.SubmittingMicrosoftGraphImport"),
             "Waiting for Autopilot device visibility..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotDeviceVisibility"),
             "Preparing Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.PreparingAutopilotHardwareHashUpload"),
+            "Decrypting media certificate..." => LocalizationText.GetString("StepMessage.DecryptingMediaCertificate"),
+            "Authenticating Autopilot hardware hash upload..." => LocalizationText.GetString("StepMessage.AuthenticatingAutopilotHardwareHashUpload"),
+            "Requesting Microsoft Graph token..." => LocalizationText.GetString("StepMessage.RequestingMicrosoftGraphToken"),
+            "Importing hardware hash into Microsoft Graph..." => LocalizationText.GetString("StepMessage.ImportingHardwareHashIntoMicrosoftGraph"),
             "Writing dry-run Autopilot hash manifest..." => LocalizationText.GetString("StepMessage.WritingDryRunAutopilotHashManifest"),
+            "Target Windows partition is unavailable for Autopilot hardware hash upload." => LocalizationText.GetString("StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload"),
+            "Autopilot hardware hash upload skipped because the embedded certificate is expired." => LocalizationText.GetString("StepResult.AutopilotHashUploadSkippedExpiredCertificate"),
+            "Autopilot hardware hash upload skipped because media metadata is incomplete." => LocalizationText.GetString("StepResult.AutopilotHashUploadSkippedMissingMetadata"),
+            "Autopilot hardware hash imported and visible in Windows Autopilot devices." => LocalizationText.GetString("StepResult.AutopilotHardwareHashImportedVisible"),
+            "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout." => LocalizationText.GetString("StepResult.AutopilotDeviceVisibilityTimedOut"),
+            "Autopilot hardware hash upload prepared for dry run." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedDryRun"),
+            "Autopilot hardware hash upload prepared (simulation)." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedSimulation"),
             "Autopilot profile staged." => LocalizationText.GetString("StepResult.AutopilotProfileStaged"),
             "Autopilot profile staged (simulation)." => LocalizationText.GetString("StepResult.AutopilotProfileStagedSimulation"),
             "Rebooting now..." => LocalizationText.GetString("Status.RebootingNow"),
@@ -308,6 +319,26 @@ public static partial class DeploymentUiTextLocalizer
         }
 
         if (TryLocalizeSingleSuffix(value, "Reboot command failed: ", "Status.RebootCommandFailedFormat", out localized))
+        {
+            return localized;
+        }
+
+        if (TryLocalizeSingleSuffix(value, "Selected Autopilot profile file was not found: ", "StepResult.SelectedAutopilotProfileFileMissingFormat", out localized))
+        {
+            return localized;
+        }
+
+        if (TryLocalizeSingleSuffix(value, "Autopilot hardware hash capture failed: ", "StepResult.AutopilotHashCaptureFailedFormat", out localized))
+        {
+            return localized;
+        }
+
+        if (TryLocalizeSingleSuffix(value, "Autopilot hardware hash import failed: ", "StepResult.AutopilotHashImportFailedFormat", out localized))
+        {
+            return localized;
+        }
+
+        if (TryLocalizeSingleSuffix(value, "Autopilot hardware hash upload skipped: ", "StepResult.AutopilotHashUploadSkippedFormat", out localized))
         {
             return localized;
         }
