@@ -315,39 +315,44 @@ Completed through Visual Studio/debug-safe validation before squash. Non-debug m
 PR title: `feat(winpe): stage autopilot hash capture assets`
 
 Implementation progress:
-- [ ] Phase branch created from `feature/autopilot-hash-upload-foundation`.
-- [ ] Implementation checklist complete.
-- [ ] Automated tests complete.
-- [ ] Manual checks complete or explicitly deferred.
-- [ ] PR opened with the planned title.
+- [x] Phase branch created from `feature/autopilot-hash-upload-foundation`.
+- [x] Implementation checklist complete.
+- [x] Automated tests complete.
+- [x] Manual checks complete or explicitly deferred.
+- [x] PR opened with the planned title.
 - [ ] PR merged back into `feature/autopilot-hash-upload-foundation`.
 
-- [ ] Add `WinPE-SecureStartup` to the default required optional components for all generated WinPE media.
-- [ ] Locate and stage architecture-specific `oa3tool.exe` from the ADK for x64 and ARM64.
-- [ ] Add hash capture templates under a Foundry-owned WinPE path.
-- [ ] Add hash upload runtime configuration under `X:\Foundry\Config`.
-- [ ] Write encrypted Autopilot PFX and PFX password envelopes plus the media secret key through the shared media secret provisioning path.
-- [ ] Keep current profile JSON staging unchanged in JSON profile mode.
-- [ ] Do not stage JSON profile folders in hash upload mode unless the user also keeps profiles for another purpose.
-- [ ] Do not stage `PCPKsp.dll` during media build.
-- [ ] Add XML documentation comments to new public media asset provisioning APIs and secret envelope APIs.
+- [x] Add `WinPE-SecureStartup` to the default required optional components for all generated WinPE media.
+- [x] Locate and stage architecture-specific `oa3tool.exe` from the ADK for x64 and ARM64.
+- [x] Add hash capture templates under a Foundry-owned WinPE path.
+- [x] Add the hash upload OA3 runtime workspace under `X:\Foundry\Runtime\AutopilotHash`.
+- [x] Write encrypted Autopilot PFX and PFX password envelopes plus the media secret key through the shared media secret provisioning path.
+- [x] Keep current profile JSON staging unchanged in JSON profile mode.
+- [x] Do not stage JSON profile folders in hash upload mode unless the user also keeps profiles for another purpose.
+- [x] Do not stage `PCPKsp.dll` during media build.
+- [x] Add XML documentation comments to new public media asset provisioning APIs and secret envelope APIs.
 
 Automated tests:
-- [ ] Media asset provisioning writes JSON profile assets only in JSON mode.
-- [ ] Media asset provisioning writes hash upload assets only in hash mode.
-- [ ] Missing `oa3tool.exe` produces a clear validation error.
-- [ ] ADK asset resolution chooses the expected path for x64 and ARM64 media.
-- [ ] Encrypted Autopilot secrets require a media secret key.
-- [ ] A media secret key is rejected when no encrypted media secrets exist.
-- [ ] `WinPE-SecureStartup` missing or not applicable is surfaced clearly during media preparation.
+- [x] Media asset provisioning writes JSON profile assets only in JSON mode.
+- [x] Media asset provisioning writes hash upload assets only in hash mode.
+- [x] Missing `oa3tool.exe` produces a clear validation error.
+- [x] ADK asset resolution chooses the expected path for x64 and ARM64 media.
+- [x] Encrypted Autopilot secrets require a media secret key.
+- [x] A media secret key is rejected when no encrypted media secrets exist.
+- [x] `WinPE-SecureStartup` is included in the default optional component list and existing DISM optional component failure handling surfaces package failures.
+- [x] `dotnet test .\src\Foundry.Core.Tests\Foundry.Core.Tests.csproj --configuration Debug /p:Platform=x64 --no-restore --verbosity minimal` passed: 246 tests, 0 failures.
+- [x] `dotnet test .\src\Foundry.Deploy.Tests\Foundry.Deploy.Tests.csproj --configuration Debug /p:Platform=x64 --verbosity minimal` passed: 162 tests, 0 failures.
+- [x] `dotnet build .\src\Foundry\Foundry.csproj --configuration Debug /p:Platform=x64 --no-restore --verbosity minimal` passed: 0 warnings, 0 errors.
 
 Manual checks:
-- [ ] Build x64 ISO in JSON profile mode and confirm existing profile files are present.
-- [ ] Build x64 ISO in hash upload mode and confirm OA3/hash assets are present.
+Validated from x64 boot.wim extracts under `E:\Test\JSON` and `E:\Test\HASH`. ARM64 media generation remains deferred until ARM64 ADK/media validation is available.
+
+- [x] Build x64 ISO in JSON profile mode and confirm existing profile files are present.
+- [x] Build x64 ISO in hash upload mode and confirm OA3/hash assets are present.
 - [ ] Build ARM64 ISO in JSON profile mode and confirm existing profile files are present.
 - [ ] Build ARM64 ISO in hash upload mode and confirm OA3/hash assets are present.
-- [ ] Confirm `WinPE-SecureStartup` is present in the mounted image package list.
-- [ ] Confirm no plaintext PFX, PFX password, private key, token, or client secret is written to media.
+- [x] Confirm `WinPE-SecureStartup` is present in the mounted image package list.
+- [x] Confirm no plaintext PFX, PFX password, private key, token, or client secret is written to Foundry-authored media payloads.
 
 ### Phase 5: Foundry Deploy Runtime Branching
 PR title: `feat(deploy): branch autopilot runtime by provisioning mode`

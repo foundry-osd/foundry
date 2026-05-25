@@ -121,6 +121,7 @@ public interface IFoundryConfigurationStateService
     /// Generates the Deploy configuration JSON for the current Foundry configuration.
     /// </summary>
     /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Deploy document.</param>
+    /// <param name="mediaSecretsKey">Optional media secret key used for boot-media-only Deploy secrets.</param>
     /// <returns>Serialized Deploy configuration JSON.</returns>
-    string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null);
+    string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? mediaSecretsKey = null);
 }

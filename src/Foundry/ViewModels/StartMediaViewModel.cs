@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
@@ -673,7 +674,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     DriverVendors = options.DriverVendors,
                     CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                     WinPeLanguage = options.WinPeLanguage,
-                    AssetProvisioning = CreateAssetProvisioningOptions(options, connectBundle, runtimePayloadProvisioning, deployTelemetrySettings),
+                    AssetProvisioning = CreateAssetProvisioningOptions(options, tools, connectBundle, runtimePayloadProvisioning, deployTelemetrySettings),
                     RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
                     WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                     Progress = workspacePreparationProgress,
@@ -708,10 +709,27 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private WinPeMountedImageAssetProvisioningOptions CreateAssetProvisioningOptions(
         MediaPreflightOptions options,
+        WinPeToolPaths tools,
         FoundryConnectProvisioningBundle connectBundle,
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
         TelemetrySettings deployTelemetrySettings)
     {
+        bool isHardwareHashMode = options.IsAutopilotEnabled &&
+                                  options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+        byte[]? mediaSecretsKey = connectBundle.MediaSecretsKey;
+        if (isHardwareHashMode && mediaSecretsKey is null)
+        {
+            mediaSecretsKey = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        }
+
+        string? oa3ToolSourcePath = null;
+        if (isHardwareHashMode)
+        {
+            WinPeResult<string> oa3ToolResult = WinPeOa3ToolResolver.Resolve(tools.KitsRootPath, options.Architecture);
+            EnsureSuccess(oa3ToolResult);
+            oa3ToolSourcePath = oa3ToolResult.Value;
+        }
+
         return new WinPeMountedImageAssetProvisioningOptions
         {
             BootstrapScriptContent = embeddedAssetService.GetBootstrapScriptContent(),
@@ -719,10 +737,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
-            DeployConfigurationJson = foundryConfigurationStateService.GenerateDeployConfigurationJson(deployTelemetrySettings),
-            MediaSecretsKey = connectBundle.MediaSecretsKey,
+            DeployConfigurationJson = foundryConfigurationStateService.GenerateDeployConfigurationJson(deployTelemetrySettings, mediaSecretsKey),
+            MediaSecretsKey = mediaSecretsKey,
             FoundryConnectAssetFiles = connectBundle.AssetFiles,
-            AutopilotProfiles = options.IsAutopilotEnabled
+            AutopilotProvisioningMode = isHardwareHashMode
+                ? AutopilotProvisioningMode.HardwareHashUpload
+                : AutopilotProvisioningMode.JsonProfile,
+            Oa3ToolSourcePath = oa3ToolSourcePath,
+            AutopilotProfiles = options.IsAutopilotEnabled && options.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile
                 ? foundryConfigurationStateService.Current.Autopilot.Profiles
                 : [],
             ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),

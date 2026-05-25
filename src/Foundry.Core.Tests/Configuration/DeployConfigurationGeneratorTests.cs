@@ -1,5 +1,6 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
@@ -377,6 +378,94 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal(expiration, result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
         Assert.Equal("Sales", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
         Assert.Equal(["Engineering", "Sales"], result.Autopilot.HardwareHashUpload.KnownGroupTags);
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashModeHasMediaKey_EmbedsEncryptedPfxSecrets()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-deploy-config-{Guid.NewGuid():N}");
+        string pfxPath = Path.Combine(root, "certificate.pfx");
+        byte[] pfxBytes = [1, 2, 3, 4, 5];
+        byte[] mediaKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
+        Directory.CreateDirectory(root);
+        File.WriteAllBytes(pfxPath, pfxBytes);
+
+        try
+        {
+            var generator = new DeployConfigurationGenerator();
+            var document = new FoundryConfigurationDocument
+            {
+                Autopilot = new AutopilotSettings
+                {
+                    IsEnabled = true,
+                    ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                    HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(6)) with
+                    {
+                        BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                        {
+                            PfxPath = pfxPath,
+                            PfxPassword = "PfxPassword-DoNotLeak",
+                            ValidatedThumbprint = "ABCDEF123456",
+                            ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                        }
+                    }
+                }
+            };
+
+            FoundryDeployConfigurationDocument result = generator.Generate(document, mediaKey);
+
+            Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
+            Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
+            Assert.Equal(pfxBytes, MediaSecretEnvelopeProtector.DecryptBytes(result.Autopilot.HardwareHashUpload.CertificatePfxSecret!, mediaKey));
+            Assert.Equal("PfxPassword-DoNotLeak", MediaSecretEnvelopeProtector.DecryptString(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret!, mediaKey));
+
+            string json = generator.Serialize(result);
+            Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);
+            Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashModeNeedsSecretsWithInvalidMediaKey_ThrowsInvalidOperationException()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-deploy-config-{Guid.NewGuid():N}");
+        string pfxPath = Path.Combine(root, "certificate.pfx");
+        Directory.CreateDirectory(root);
+        File.WriteAllBytes(pfxPath, [1, 2, 3]);
+
+        try
+        {
+            var generator = new DeployConfigurationGenerator();
+            var document = new FoundryConfigurationDocument
+            {
+                Autopilot = new AutopilotSettings
+                {
+                    IsEnabled = true,
+                    ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                    HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(6)) with
+                    {
+                        BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                        {
+                            PfxPath = pfxPath,
+                            PfxPassword = "password",
+                            ValidatedThumbprint = "ABCDEF123456",
+                            ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                        }
+                    }
+                }
+            };
+
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document, []));
+            Assert.Contains("media secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
     }
 
     [Fact]
