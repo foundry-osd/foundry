@@ -93,3 +93,34 @@ Manual physical validation matrix:
 - Release notes:
   - Mark as x64 and ARM64 with Ethernet and Wi-Fi upload guidance.
   - Mention unsupported or risky self-deploying/pre-provisioning status.
+
+## Phase 8 Release Guardrail Status
+Phase 8 adds operator-facing Docusaurus documentation and updates the internal implementation plan. It does not change runtime code.
+
+Documentation validation commands:
+
+```powershell
+npm run typecheck
+npm run build
+```
+
+Release guardrails now documented for operators:
+- Hardware hash upload from WinPE is a Foundry-assisted best-effort workflow, not the Microsoft-standard Autopilot registration path.
+- Generated media is tenant-sensitive because the boot image contains encrypted certificate material and the media secret key needed to decrypt it in WinPE.
+- WinPE Microsoft Graph authentication uses certificate-based app-only authentication only.
+- The required Microsoft Graph application permission is `DeviceManagementServiceConfig.ReadWrite.All`.
+- `PCPKsp.dll` is copied from the applied Windows image into `X:\Windows\System32` late in deployment before OA3Tool capture.
+- Upload failures, expired certificate metadata, Graph errors, duplicate import errors, and Windows Autopilot device visibility timeouts do not fail the Windows deployment.
+- Local hash capture prerequisites can block only the Autopilot upload workflow because Foundry cannot produce a valid hash without them.
+- Retained diagnostics stay under `<target Windows>\Windows\Temp\Foundry\Logs\AutopilotHash` and must remain sanitized.
+- Self-deploying mode, pre-provisioning, and unvalidated TPM visibility from WinPE remain unsupported or risky scenarios.
+- Destructive duplicate-device cleanup is intentionally out of scope for the final workflow.
+
+Manual validation still required before broad production rollout:
+- Follow the published docs in a clean test tenant.
+- Validate one clean x64 physical device with Ethernet.
+- Validate one clean x64 physical device with Wi-Fi when Wi-Fi media is in scope.
+- Validate one clean ARM64 physical device with Ethernet.
+- Validate one clean ARM64 physical device with Wi-Fi when ARM64 media is in scope.
+- Confirm duplicate-device behavior is clear and does not delete existing Autopilot records.
+- Confirm retained diagnostics are present and do not contain tokens, authorization headers, PFX bytes, PFX passwords, decrypted private key material, encrypted secret blobs, media secret keys, or raw Graph payloads.
