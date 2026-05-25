@@ -21,6 +21,7 @@
   <data name="Menu.Theme" xml:space="preserve"><value>_Thème</value></data>
   <data name="Menu.Language" xml:space="preserve"><value>_Langue</value></data>
   <data name="Menu.Tools" xml:space="preserve"><value>_Outils</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
   <data name="Menu.About" xml:space="preserve"><value>_À propos</value></data>
   <data name="Theme.System" xml:space="preserve"><value>Système</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Clair</value></data>
@@ -30,10 +31,6 @@
   <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Actualiser les catalogues</value></data>
   <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Actualiser les disques cibles</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ouvrir le fichier journal</value></data>
-  <data name="Tools.DebugAutopilotMode" xml:space="preserve"><value>Mode Autopilot debug</value></data>
-  <data name="Tools.DebugAutopilotMode.None" xml:space="preserve"><value>Pas d'Autopilot</value></data>
-  <data name="Tools.DebugAutopilotMode.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
-  <data name="Tools.DebugAutopilotMode.HardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
   <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>MODE DEBUG SÉCURISÉ ACTIF : toutes les actions de déploiement sont simulées, aucune écriture disque/image n’est effectuée.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cible</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Catalogue système</value></data>
@@ -49,17 +46,25 @@
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware : activer les mises à jour via Microsoft Update Catalog.</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer la préparation hors ligne du profil.</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
-  <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profils disponibles : {0}</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Autopilot est activé, mais aucun profil intégré n'a été trouvé.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Méthode de provisionnement : profil JSON</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Méthode de provisionnement : upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Activer Autopilot pour ce déploiement</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot intégré n'a été trouvé sur ce média.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponible sur ce média : {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyFormat" xml:space="preserve"><value>Certificat valide jusqu'au {0:g}. Group tag par défaut : {1}.</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiredFormat" xml:space="preserve"><value>Le certificat intégré a expiré le {0:g}.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredAction" xml:space="preserve"><value>Régénérez le certificat et l'image de boot. Le déploiement peut continuer, mais l'upload du hash Autopilot sera ignoré.</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotConfigured" xml:space="preserve"><value>Les métadonnées d'upload du hardware hash ne sont pas configurées dans ce média de boot.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État de l'upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Prêt pour l'upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Pas prêt pour l'upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certificat expiré</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyMessage" xml:space="preserve"><value>L'upload s'exécutera automatiquement pendant le déploiement.</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>L'upload Autopilot n'est pas disponible sur ce média. Le déploiement peut continuer, mais l'upload sera ignoré.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Le certificat Autopilot a expiré. Le déploiement peut continuer, mais l'upload sera ignoré.</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID du tenant</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Empreinte du certificat</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expiration du certificat</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Group tag</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Le group tag est optionnel. Sélectionnez Aucun pour uploader sans group tag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>
@@ -109,12 +114,22 @@
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Méthode Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Group tag Autopilot</value></data>
   <data name="Summary.SectionTarget" xml:space="preserve"><value>Cible</value></data>
   <data name="Summary.SectionSystem" xml:space="preserve"><value>Système</value></data>
   <data name="Summary.SectionDeployment" xml:space="preserve"><value>Options de déploiement</value></data>
-  <data name="Debug.ProgressButton" xml:space="preserve"><value>DBG: Progrès</value></data>
-  <data name="Debug.SuccessButton" xml:space="preserve"><value>DBG: Succès</value></data>
-  <data name="Debug.ErrorButton" xml:space="preserve"><value>DBG: Erreur</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Pas d'Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Certificat valide</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Certificat expiré</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Infos du certificat manquantes</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Sans group tag par défaut</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Pages de déploiement</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Page de progression</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Page de succès</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Page d'erreur</value></data>
   <data name="Debug.ProgressPage" xml:space="preserve"><value>Aperçu DBG : page de progression.</value></data>
   <data name="Debug.SuccessPage" xml:space="preserve"><value>Aperçu DBG : page de succès.</value></data>
   <data name="Debug.ErrorPage" xml:space="preserve"><value>Aperçu DBG : page d’erreur.</value></data>
@@ -138,6 +153,8 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Common.No" xml:space="preserve"><value>Non</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Activé</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Désactivé</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Prêt</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Non prêt</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Réseau</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Heure de début</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Temps écoulé</value></data>

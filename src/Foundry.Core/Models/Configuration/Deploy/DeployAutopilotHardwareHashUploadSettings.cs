@@ -34,4 +34,9 @@ public sealed record DeployAutopilotHardwareHashUploadSettings
     /// Gets the default group tag offered by Foundry.Deploy for hardware hash upload.
     /// </summary>
     public string? DefaultGroupTag { get; init; }
+
+    /// <summary>
+    /// Gets the group tags discovered when the deployment media was generated.
+    /// </summary>
+    public IReadOnlyList<string> KnownGroupTags { get; init; } = [];
 }

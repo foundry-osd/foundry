@@ -75,15 +75,6 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
                 normalizedComputerName);
         }
 
-        if (request.IsAutopilotEnabled &&
-            request.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
-            !request.IsDryRun)
-        {
-            return DeploymentLaunchPreparationResult.Failure(
-                "Autopilot hardware hash upload is not available until the deployment runtime phase is implemented.",
-                normalizedComputerName);
-        }
-
         if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem))
         {
             return DeploymentLaunchPreparationResult.Failure("Deployment cancelled by user.", normalizedComputerName);

@@ -115,15 +115,24 @@ Foundry OSD tenant onboarding UX:
 
 Foundry Deploy UX:
 - Foundry Deploy should render only the selected Autopilot provisioning mode from Foundry OSD.
-- JSON mode shows only the JSON/profile controls.
-- Hardware hash mode shows only hardware hash upload controls.
+- When Autopilot is disabled, the Computer Target page shows only the provisioning method embedded in the media.
+- JSON mode shows only the JSON/profile controls needed to select the embedded profile. Profile counts and unrelated hardware hash state stay hidden.
+- Hardware hash mode shows a compact operator-focused upload card:
+  - upload readiness status
+  - tenant ID
+  - active certificate thumbprint
+  - active certificate expiration
+  - one actionable readiness or skip message
+  - one optional group tag ComboBox only when upload can be attempted
+- Debug-safe Foundry Deploy runs should expose a top-level Debug menu with Autopilot scenario presets and deployment page previews. This menu must stay hidden outside debug-safe runs.
 - Hardware hash mode should attempt certificate-based Graph authentication automatically during startup/loading, before the Computer Target page becomes actionable.
-- The Computer Target page should expose two mutually exclusive group tag choices:
-  - select the default/existing group tag supplied by Foundry OSD
-  - enter a custom group tag when the desired value does not exist
+- The Computer Target page should expose one group tag ComboBox only when hash upload can be attempted.
+- The group tag ComboBox contains `None` plus the tenant-discovered group tags embedded into the media by Foundry OSD.
+- If the OSD default group tag still exists in the embedded known group tags, select it by default; otherwise select `None`.
 - If the certificate is expired in Foundry Deploy:
   - do not block the OS deployment
-  - hide the group tag selection and custom group tag textbox
+  - keep tenant ID, certificate thumbprint, and certificate expiration visible for troubleshooting
+  - hide the group tag ComboBox
   - show a clear message that Graph connection cannot be established because the certificate is expired
   - tell the user to regenerate the certificate and recreate the boot image
   - skip Autopilot hash upload for that deployment run
@@ -164,7 +173,7 @@ Deploy runtime configuration should receive only the reduced settings needed by 
 - `IsEnabled`
 - `ProvisioningMode`
 - selected JSON profile folder name when in JSON mode
-- hash upload configuration when in hash mode
+- hash upload configuration when in hash mode, including tenant ID, client ID, active certificate metadata, OSD default group tag, and known group tags
 
 Existing persisted configurations must continue to behave as JSON profile mode.
 
@@ -222,7 +231,7 @@ Phase 2 UX refinements:
 - Tenant details are displayed as a table with tenant ID and client ID.
 - The default group tag is optional and selected from a ComboBox populated with `None` plus tenant-discovered Autopilot device group tags.
 - `None` is the default selection because hardware hash upload does not require a group tag.
-- Available group tags are displayed as a one-column table for scanability.
+- Available group tags are not shown in a separate table; the ComboBox is the single group tag selection surface.
 - Certificate validity remains selectable, but the inline `Validity` label is hidden to reduce duplicate text in the certificate row.
 - Current-session PFX path, password, and successful validation state are retained while navigating between pages, but are still cleared on app restart.
 - The Start page must show the exact hardware hash media generation blocker when the PFX path, password, thumbprint, expiration, or active certificate is invalid.

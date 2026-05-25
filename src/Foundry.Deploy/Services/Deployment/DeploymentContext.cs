@@ -54,7 +54,7 @@ public sealed record DeploymentContext
     public bool ApplyFirmwareUpdates { get; init; } = true;
 
     /// <summary>
-    /// Gets a value indicating whether an Autopilot profile should be staged for OOBE.
+    /// Gets a value indicating whether the selected Autopilot provisioning method should run.
     /// </summary>
     public bool IsAutopilotEnabled { get; init; }
 
@@ -64,12 +64,12 @@ public sealed record DeploymentContext
     public AutopilotProvisioningMode AutopilotProvisioningMode { get; init; } = AutopilotProvisioningMode.JsonProfile;
 
     /// <summary>
-    /// Gets the selected Autopilot profile staged into the offline Windows image.
+    /// Gets the selected Autopilot profile staged into the offline Windows image when JSON profile mode is selected.
     /// </summary>
     public AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
 
     /// <summary>
-    /// Gets non-secret metadata for hardware hash upload mode.
+    /// Gets non-secret metadata for hardware hash upload mode, including the effective group tag override.
     /// </summary>
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
 

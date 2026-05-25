@@ -72,26 +72,52 @@
                         Header="{Binding Strings[Tools.RefreshTargetDisks]}"
                         IsEnabled="{Binding Session.IsStartupReady}" />
                     <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="{Binding Strings[Tools.OpenLogFile]}" />
-                    <Separator Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <MenuItem Header="{Binding Strings[Tools.DebugAutopilotMode]}" Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                </MenuItem>
+                <MenuItem Header="{Binding Strings[Menu.Debug]}" Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <MenuItem Header="{Binding Strings[Debug.Autopilot]}">
                         <MenuItem
                             Command="{Binding SetDebugAutopilotModeCommand}"
                             CommandParameter="{x:Static runtime:DebugAutopilotMode.None}"
-                            Header="{Binding Strings[Tools.DebugAutopilotMode.None]}"
+                            Header="{Binding Strings[Debug.Autopilot.NoAutopilot]}"
                             IsCheckable="True"
                             IsChecked="{Binding IsDebugAutopilotNoneMode, Mode=OneWay}" />
                         <MenuItem
                             Command="{Binding SetDebugAutopilotModeCommand}"
                             CommandParameter="{x:Static runtime:DebugAutopilotMode.JsonProfile}"
-                            Header="{Binding Strings[Tools.DebugAutopilotMode.JsonProfile]}"
+                            Header="{Binding Strings[Debug.Autopilot.JsonProfile]}"
                             IsCheckable="True"
                             IsChecked="{Binding IsDebugAutopilotJsonProfileMode, Mode=OneWay}" />
-                        <MenuItem
-                            Command="{Binding SetDebugAutopilotModeCommand}"
-                            CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUpload}"
-                            Header="{Binding Strings[Tools.DebugAutopilotMode.HardwareHashUpload]}"
-                            IsCheckable="True"
-                            IsChecked="{Binding IsDebugAutopilotHardwareHashUploadMode, Mode=OneWay}" />
+                        <MenuItem Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload]}">
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadValidCertificate}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.ValidCertificate]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadValidCertificateMode, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadExpiredCertificate}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.ExpiredCertificate]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadExpiredCertificateMode, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode, Mode=OneWay}" />
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="{Binding Strings[Debug.DeploymentPages]}">
+                        <MenuItem Command="{Binding ShowDebugProgressPageCommand}" Header="{Binding Strings[Debug.ProgressPageCommand]}" />
+                        <MenuItem Command="{Binding ShowDebugSuccessPageCommand}" Header="{Binding Strings[Debug.SuccessPageCommand]}" />
+                        <MenuItem Command="{Binding ShowDebugErrorPageCommand}" Header="{Binding Strings[Debug.ErrorPageCommand]}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[Menu.About]}" />

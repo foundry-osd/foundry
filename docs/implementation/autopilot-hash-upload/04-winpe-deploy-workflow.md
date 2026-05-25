@@ -108,7 +108,7 @@ Foundry.Deploy owns:
 - Deployment wizard behavior.
 - Hardware hash Computer Target mode display.
 - Certificate expiration detection and non-blocking Autopilot skip.
-- Runtime group tag selection or custom group tag input.
+- Runtime group tag selection from the media-provisioned known group tag list.
 - Late mode-aware Autopilot deployment step after `SealRecoveryPartition` and before `FinalizeDeploymentAndWriteLogs`.
 - `PCPKsp.dll` copy from the applied Windows image to `X:\Windows\System32`.
 - OA3Tool execution through C# process orchestration.
