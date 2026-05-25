@@ -227,17 +227,64 @@ public sealed class AutopilotGraphImportClient(
     {
         string filter = EscapeODataFilter($"serialNumber eq '{EscapeODataString(request.SerialNumber)}'");
         string path = $"{WindowsAutopilotDevicesPath}?$filter={filter}";
-        GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
-            await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
-                HttpMethod.Get,
-                path,
-                request.AccessToken,
-                body: null,
-                "Windows Autopilot device visibility polling",
-                cancellationToken).ConfigureAwait(false);
+        try
+        {
+            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
+                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
+                    HttpMethod.Get,
+                    path,
+                    request.AccessToken,
+                    body: null,
+                    "Windows Autopilot device visibility polling",
+                    cancellationToken).ConfigureAwait(false);
 
+            return FindDeviceBySerialNumber(response, request.SerialNumber);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == HttpStatusCode.BadRequest)
+        {
+            logger.LogWarning(
+                exception,
+                "Windows Autopilot device serial filter was rejected. Falling back to paged device visibility scan. SerialNumber={SerialNumber}, ImportId={ImportId}.",
+                request.SerialNumber,
+                request.ImportId);
+            return await FindAutopilotDeviceByPagedListAsync(request, cancellationToken).ConfigureAwait(false);
+        }
+    }
+
+    private async Task<WindowsAutopilotDeviceIdentity?> FindAutopilotDeviceByPagedListAsync(
+        AutopilotGraphImportRequest request,
+        CancellationToken cancellationToken)
+    {
+        string? path = $"{WindowsAutopilotDevicesPath}?$select=id,serialNumber";
+        while (!string.IsNullOrWhiteSpace(path))
+        {
+            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
+                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
+                    HttpMethod.Get,
+                    path,
+                    request.AccessToken,
+                    body: null,
+                    "Windows Autopilot device visibility scan",
+                    cancellationToken).ConfigureAwait(false);
+
+            WindowsAutopilotDeviceIdentity? device = FindDeviceBySerialNumber(response, request.SerialNumber);
+            if (device is not null)
+            {
+                return device;
+            }
+
+            path = response?.NextLink;
+        }
+
+        return null;
+    }
+
+    private static WindowsAutopilotDeviceIdentity? FindDeviceBySerialNumber(
+        GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response,
+        string serialNumber)
+    {
         return response?.Value?.FirstOrDefault(device =>
-            string.Equals(device.SerialNumber, request.SerialNumber, StringComparison.OrdinalIgnoreCase));
+            string.Equals(device.SerialNumber, serialNumber, StringComparison.OrdinalIgnoreCase));
     }
 
     private async Task<TResponse?> SendGraphAsync<TBody, TResponse>(

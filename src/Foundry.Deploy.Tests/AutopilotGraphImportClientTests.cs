@@ -320,6 +320,63 @@ public sealed class AutopilotGraphImportClientTests
     }
 
     [Fact]
+    public async Task ImportHardwareHashAsync_WhenFilteredDeviceVisibilityQueryIsRejected_FallsBackToUnfilteredDeviceList()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "VMware-56 4d a9 71 fa ed 42 8b-e2 4c 5e e8 f9 e9 72 04",
+                  "importId": "import-123",
+                  "state": { "deviceImportStatus": "complete" }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.BadRequest, """
+            {
+              "error": {
+                "code": "BadRequest",
+                "message": "The serial number filter was rejected."
+              }
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "device-id",
+                  "serialNumber": "VMware-56 4d a9 71 fa ed 42 8b-e2 4c 5e e8 f9 e9 72 04"
+                }
+              ]
+            }
+            """);
+
+        AutopilotGraphImportClient client = CreateClient(handler);
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest(
+                "access-token",
+                "VMware-56 4d a9 71 fa ed 42 8b-e2 4c 5e e8 f9 e9 72 04",
+                "aGFyZHdhcmVIYXNo",
+                null,
+                null,
+                "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
+        Assert.Equal("device-id", result.AutopilotDeviceId);
+        Assert.Contains(handler.Requests, request =>
+            request.PathAndQuery.StartsWith(
+                "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$filter=",
+                StringComparison.Ordinal));
+        Assert.Contains(handler.Requests, request =>
+            request.PathAndQuery == "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$select=id,serialNumber");
+    }
+
+    [Fact]
     public async Task ImportHardwareHashAsync_WhenDeviceAppearsBeforeImportCompletion_Completes()
     {
         var handler = new QueuedGraphHandler();
