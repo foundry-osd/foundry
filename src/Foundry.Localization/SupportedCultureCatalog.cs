@@ -7,6 +7,68 @@ namespace Foundry.Localization;
 /// </summary>
 public sealed class SupportedCultureCatalog
 {
+    private static readonly HashSet<string> LatinAmericanSpanishRegions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "AR",
+        "BO",
+        "CL",
+        "CO",
+        "CR",
+        "CU",
+        "DO",
+        "EC",
+        "GT",
+        "HN",
+        "MX",
+        "NI",
+        "PA",
+        "PE",
+        "PR",
+        "PY",
+        "SV",
+        "US",
+        "UY",
+        "VE",
+        "419"
+    };
+
+    private static readonly IReadOnlyDictionary<string, string> LanguageFamilyFallbacks = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        ["ar"] = "ar-SA",
+        ["bg"] = "bg-BG",
+        ["cs"] = "cs-CZ",
+        ["da"] = "da-DK",
+        ["de"] = "de-DE",
+        ["el"] = "el-GR",
+        ["en"] = "en-US",
+        ["es"] = "es-ES",
+        ["et"] = "et-EE",
+        ["fi"] = "fi-FI",
+        ["fr"] = "fr-FR",
+        ["he"] = "he-IL",
+        ["hr"] = "hr-HR",
+        ["hu"] = "hu-HU",
+        ["it"] = "it-IT",
+        ["ja"] = "ja-JP",
+        ["ko"] = "ko-KR",
+        ["lt"] = "lt-LT",
+        ["lv"] = "lv-LV",
+        ["nb"] = "nb-NO",
+        ["nl"] = "nl-NL",
+        ["pl"] = "pl-PL",
+        ["pt"] = "pt-PT",
+        ["ro"] = "ro-RO",
+        ["ru"] = "ru-RU",
+        ["sk"] = "sk-SK",
+        ["sl"] = "sl-SI",
+        ["sr"] = "sr-Latn-RS",
+        ["sv"] = "sv-SE",
+        ["th"] = "th-TH",
+        ["tr"] = "tr-TR",
+        ["uk"] = "uk-UA",
+        ["zh"] = "zh-CN"
+    };
+
     private readonly SupportedCultureDefinition[] definitions;
 
     /// <summary>
@@ -104,10 +166,10 @@ public sealed class SupportedCultureCatalog
                 return directMatch;
             }
 
-            string? languageFamilyMatch = TryGetSupportedLanguageFamilyCode(cultureCode);
-            if (languageFamilyMatch is not null)
+            string? fallbackMatch = TryGetSupportedFallbackCultureCode(cultureCode);
+            if (fallbackMatch is not null)
             {
-                return languageFamilyMatch;
+                return fallbackMatch;
             }
         }
 
@@ -134,25 +196,91 @@ public sealed class SupportedCultureCatalog
         }
     }
 
-    private string? TryGetSupportedLanguageFamilyCode(string? cultureCode)
+    private string? TryGetSupportedFallbackCultureCode(string? cultureCode)
     {
         if (string.IsNullOrWhiteSpace(cultureCode))
         {
             return null;
         }
 
+        string normalizedCode = cultureCode.Trim().Replace('_', '-');
+        string? regionalFallback = TryGetRegionalFallbackCode(normalizedCode);
+        if (regionalFallback is not null)
+        {
+            string? supportedRegionalFallback = TryGetSupportedCultureCode(regionalFallback);
+            if (supportedRegionalFallback is not null)
+            {
+                return supportedRegionalFallback;
+            }
+        }
+
+        string? languageFamily = TryGetLanguageFamily(normalizedCode);
+        if (languageFamily is not null
+            && LanguageFamilyFallbacks.TryGetValue(languageFamily, out string? fallbackCode))
+        {
+            return TryGetSupportedCultureCode(fallbackCode);
+        }
+
+        return null;
+    }
+
+    private static string? TryGetRegionalFallbackCode(string normalizedCode)
+    {
+        string lowerCode = normalizedCode.ToLowerInvariant();
+        string[] parts = normalizedCode.Split('-', StringSplitOptions.RemoveEmptyEntries);
+        string language = parts.Length > 0 ? parts[0] : string.Empty;
+        string? region = parts.Length > 1 ? parts[^1] : null;
+
+        if (lowerCode.Equals("no", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.StartsWith("no-", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.StartsWith("nn-", StringComparison.OrdinalIgnoreCase))
+        {
+            return "nb-NO";
+        }
+
+        if (lowerCode.Equals("zh-hant", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.StartsWith("zh-hant-", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.Equals("zh-tw", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.Equals("zh-hk", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.Equals("zh-mo", StringComparison.OrdinalIgnoreCase))
+        {
+            return "zh-TW";
+        }
+
+        if (lowerCode.Equals("zh-hans", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.StartsWith("zh-hans-", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.Equals("zh-cn", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.Equals("zh-sg", StringComparison.OrdinalIgnoreCase))
+        {
+            return "zh-CN";
+        }
+
+        if (lowerCode.Equals("sr", StringComparison.OrdinalIgnoreCase)
+            || lowerCode.StartsWith("sr-", StringComparison.OrdinalIgnoreCase))
+        {
+            return "sr-Latn-RS";
+        }
+
+        if (language.Equals("es", StringComparison.OrdinalIgnoreCase)
+            && region is not null
+            && LatinAmericanSpanishRegions.Contains(region))
+        {
+            return "es-MX";
+        }
+
+        return null;
+    }
+
+    private static string? TryGetLanguageFamily(string normalizedCode)
+    {
         try
         {
-            string languageFamily = CultureInfo.GetCultureInfo(cultureCode.Trim().Replace('_', '-')).TwoLetterISOLanguageName;
-            return definitions
-                .Select(definition => definition.Code)
-                .FirstOrDefault(code => CultureInfo.GetCultureInfo(code).TwoLetterISOLanguageName.Equals(
-                    languageFamily,
-                    StringComparison.OrdinalIgnoreCase));
+            return CultureInfo.GetCultureInfo(normalizedCode).TwoLetterISOLanguageName;
         }
         catch (CultureNotFoundException)
         {
-            return null;
+            string language = normalizedCode.Split('-', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? string.Empty;
+            return string.IsNullOrWhiteSpace(language) ? null : language;
         }
     }
 
