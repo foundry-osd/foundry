@@ -24,6 +24,8 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["boot_media_drivers_custom_enabled"] = true,
             ["boot_media_connect_runtime_payload_source"] = "release",
             ["boot_media_deploy_runtime_payload_source"] = "release",
+            ["autopilot_enabled"] = true,
+            ["autopilot_provisioning_mode"] = "hardware_hash_upload",
             ["network_configured"] = true,
             ["connect_configured"] = true,
             ["deploy_configured"] = true,
@@ -92,6 +94,8 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["boot_media_drivers_custom_enabled"]!);
         Assert.Equal("release", result["boot_media_connect_runtime_payload_source"]);
         Assert.Equal("release", result["boot_media_deploy_runtime_payload_source"]);
+        Assert.True((bool)result["autopilot_enabled"]!);
+        Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
         Assert.False(result.ContainsKey("network_configured"));
         Assert.False(result.ContainsKey("connect_configured"));
         Assert.False(result.ContainsKey("deploy_configured"));
@@ -170,9 +174,17 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["deploy_driver_pack_model"] = "latitude 5450",
             ["deploy_firmware_updates_enabled"] = true,
             ["deploy_autopilot_enabled"] = true,
+            ["deploy_autopilot_provisioning_mode"] = "hardware_hash_upload",
+            ["deploy_autopilot_hash_upload_state"] = "completed",
+            ["deploy_autopilot_hash_group_tag_selected"] = true,
             ["operating_system_url"] = "https://example.invalid/os.wim",
             ["driver_pack_url"] = "https://example.invalid/driver.cab",
             ["target_computer_name"] = "PC-001",
+            ["tenant_id"] = "tenant-id",
+            ["certificate_thumbprint"] = "ABCDEF",
+            ["serial_number"] = "SERIAL",
+            ["hardware_hash"] = "HASH",
+            ["group_tag"] = "KIOSK",
             ["exception"] = @"C:\Temp\failure.log"
         };
 
@@ -188,9 +200,17 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("latitude 5450", result["deploy_driver_pack_model"]);
         Assert.True((bool)result["deploy_firmware_updates_enabled"]!);
         Assert.True((bool)result["deploy_autopilot_enabled"]!);
+        Assert.Equal("hardware_hash_upload", result["deploy_autopilot_provisioning_mode"]);
+        Assert.Equal("completed", result["deploy_autopilot_hash_upload_state"]);
+        Assert.True((bool)result["deploy_autopilot_hash_group_tag_selected"]!);
         Assert.False(result.ContainsKey("operating_system_url"));
         Assert.False(result.ContainsKey("driver_pack_url"));
         Assert.False(result.ContainsKey("target_computer_name"));
+        Assert.False(result.ContainsKey("tenant_id"));
+        Assert.False(result.ContainsKey("certificate_thumbprint"));
+        Assert.False(result.ContainsKey("serial_number"));
+        Assert.False(result.ContainsKey("hardware_hash"));
+        Assert.False(result.ContainsKey("group_tag"));
         Assert.False(result.ContainsKey("exception"));
     }
 
