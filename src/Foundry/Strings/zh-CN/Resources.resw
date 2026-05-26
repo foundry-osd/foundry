@@ -961,10 +961,10 @@
     <value>选择启动架构和启动签名模式。</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>主成分分析2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
-    <value>主成分分析 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE启动语言</value>
@@ -1498,10 +1498,10 @@
     <value>此版本中未启用媒体创建。</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>主成分分析2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
-    <value>主成分分析 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>标准WinPE</value>
@@ -1519,16 +1519,16 @@
     <value>乙</value>
   </data>
   <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
-    <value>知识库</value>
+    <value>KB</value>
   </data>
   <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
     <value>MB</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
-    <value>国标</value>
+    <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>结核病</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>更新</value>

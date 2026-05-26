@@ -961,10 +961,10 @@
     <value>Atlasiet sāknēšanas arhitektūru un sāknēšanas paraksta režīmu.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>PCA 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
-    <value>PCA 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE sāknēšanas valoda</value>
@@ -1498,10 +1498,10 @@
     <value>Šajā būvniecībā nav iespējota multivides izveide.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>PCA 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
-    <value>PCA 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>Standarta WinPE</value>

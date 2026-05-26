@@ -1528,7 +1528,7 @@
     <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>ΤΒ</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Ενημέρωση</value>

@@ -208,7 +208,7 @@
     <value>Autopilot profilleri kaldırılsın mı?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Seçilen {0} profilleri kaldırılsın mı?</value>
+    <value>Seçilen {0} Autopilot profilleri kaldırılsın mı?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
     <value>Profilleri kaldır</value>
@@ -1519,16 +1519,16 @@
     <value>B</value>
   </data>
   <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
-    <value>bilgi bankası</value>
+    <value>KB</value>
   </data>
   <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
     <value>MB</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
-    <value>Büyük Britanya</value>
+    <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>verem</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Güncelleme</value>

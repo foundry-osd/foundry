@@ -1162,7 +1162,7 @@
     <value>USB Ziel wird validiert.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Überprüfung der Zielsicherheit.</value>
+    <value>Überprüfung der USB-Zielsicherheit.</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>Partitionierung und Formatierung des USB Ziels.</value>

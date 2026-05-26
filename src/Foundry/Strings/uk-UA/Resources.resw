@@ -1483,7 +1483,7 @@
     <value>Ціль USB не вибрано.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Вибрана ціль USB замала. Використовуйте клавішу USB розміром не менше 16 ГБ.</value>
+    <value>Вибрана ціль USB замала. Використовуйте клавішу USB розміром не менше 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>Носії ARM64 вимагають стилю розділу GPT.</value>
@@ -1528,7 +1528,7 @@
     <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>туберкульоз</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>оновлення</value>

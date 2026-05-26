@@ -961,7 +961,7 @@
     <value>Pasirinkite įkrovos architektūrą ir įkrovos parašo režimą.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>PCA 2011 m</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
     <value>PCA 2023</value>
@@ -1498,7 +1498,7 @@
     <value>Šiame versijoje medijos kūrimas neįjungtas.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>PCA 2011 m</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>

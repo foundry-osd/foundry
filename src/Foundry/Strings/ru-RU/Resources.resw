@@ -961,10 +961,10 @@
     <value>Выберите архитектуру загрузки и режим подписи загрузки.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>ПКА 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
-    <value>СПС 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE язык загрузки</value>
@@ -1483,7 +1483,7 @@
     <value>Цель USB не выбрана.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Выбранная цель USB слишком мала. Используйте ключ USB размером не менее 16 ГБ.</value>
+    <value>Выбранная цель USB слишком мала. Используйте ключ USB размером не менее 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>Для носителя ARM64 требуется стиль раздела GPT.</value>
@@ -1498,10 +1498,10 @@
     <value>Создание мультимедиа в этой сборке не включено.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>ПКА 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
-    <value>СПС 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>Стандартный WinPE</value>
@@ -1519,16 +1519,16 @@
     <value>Б</value>
   </data>
   <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
-    <value>КБ</value>
+    <value>KB</value>
   </data>
   <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
-    <value>МБ</value>
+    <value>MB</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
-    <value>ГБ</value>
+    <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>туберкулез</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Обновить</value>

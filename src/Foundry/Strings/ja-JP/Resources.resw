@@ -961,7 +961,7 @@
     <value>ブート アーキテクチャとブート署名モードを選択します。</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>PCA2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
     <value>PCA 2023</value>
@@ -1498,7 +1498,7 @@
     <value>このビルドではメディアの作成は有効になっていません。</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>PCA2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
     <value>PCA 2023</value>
@@ -1528,7 +1528,7 @@
     <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>結核</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>アップデート</value>

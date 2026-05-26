@@ -1483,7 +1483,7 @@
     <value>USB-kohdetta ei ole valittu.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valittu USB-kohde on liian pieni. Käytä USB-näppäintä, jonka koko on vähintään 16 Gt.</value>
+    <value>Valittu USB-kohde on liian pieni. Käytä USB-näppäintä, jonka koko on vähintään 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>ARM64-media vaatii GPT-osion tyylin.</value>

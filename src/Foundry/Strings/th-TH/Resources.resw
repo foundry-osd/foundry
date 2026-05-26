@@ -961,10 +961,10 @@
     <value>เลือกสถาปัตยกรรมการบูตและโหมดลายเซ็นการบูต</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>พีซีเอ 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
-    <value>พีซีเอ 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE ภาษาสำหรับบูต</value>
@@ -1498,10 +1498,10 @@
     <value>ไม่ได้เปิดใช้งานการสร้างสื่อในรุ่นนี้</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>พีซีเอ 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
-    <value>พีซีเอ 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>มาตรฐาน WinPE</value>
@@ -1519,16 +1519,16 @@
     <value>บี</value>
   </data>
   <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
-    <value>เคบี</value>
+    <value>KB</value>
   </data>
   <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
-    <value>เอ็มบี</value>
+    <value>MB</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
-    <value>กิกะไบต์</value>
+    <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>วัณโรค</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>อัปเดต</value>

@@ -1150,7 +1150,7 @@
     <value>Priprema ISO radnog prostora.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Pokretanje MakeVinPEMedia za ISO.</value>
+    <value>Pokretanje MakeWinPEMedia za ISO.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
     <value>Finaliziranje ISO izlaza.</value>

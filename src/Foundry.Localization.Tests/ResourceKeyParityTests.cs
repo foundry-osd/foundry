@@ -5,6 +5,31 @@ namespace Foundry.Localization.Tests;
 
 public sealed class ResourceKeyParityTests
 {
+    private static readonly string[] ProtectedTechnicalTokens =
+    [
+        "MakeWinPEMedia",
+        "wpeutil.exe",
+        "Windows ADK",
+        "Windows PE",
+        "PCA 2011",
+        "PCA 2023",
+        "802.1X",
+        ".inf",
+        "Autopilot",
+        "Intune",
+        "Graph",
+        "JSON",
+        "WinPE",
+        "ADK",
+        "ISO",
+        "USB",
+        "Wi-Fi",
+        "KB",
+        "MB",
+        "GB",
+        "TB"
+    ];
+
     private static readonly string[] AdkCultures =
     [
         "ar-SA",
@@ -185,9 +210,28 @@ public sealed class ResourceKeyParityTests
 
     private static string[] ExtractTechnicalTokens(string value)
     {
-        return Regex
-            .Matches(value, @"802\.1X|\.inf|wpeutil\.exe")
-            .Select(match => match.Value)
+        return ProtectedTechnicalTokens
+            .Select(token => new
+            {
+                Token = token,
+                Count = CountOccurrences(value, token)
+            })
+            .Where(item => item.Count > 0)
+            .SelectMany(item => Enumerable.Repeat(item.Token, item.Count))
             .ToArray();
+    }
+
+    private static int CountOccurrences(string value, string token)
+    {
+        int count = 0;
+        int index = 0;
+
+        while ((index = value.IndexOf(token, index, StringComparison.Ordinal)) >= 0)
+        {
+            count++;
+            index += token.Length;
+        }
+
+        return count;
     }
 }

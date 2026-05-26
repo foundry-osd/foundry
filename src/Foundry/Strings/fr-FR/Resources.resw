@@ -1483,7 +1483,7 @@
     <value>Aucune cible USB n'est sélectionnée.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 16 Go.</value>
+    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d&apos;au moins 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>Le média ARM64 exige le style de partition GPT.</value>
@@ -1519,16 +1519,16 @@
     <value>o</value>
   </data>
   <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
-    <value>Ko</value>
+    <value>KB</value>
   </data>
   <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
-    <value>Mo</value>
+    <value>MB</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
-    <value>Go</value>
+    <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>To</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Mise à jour</value>

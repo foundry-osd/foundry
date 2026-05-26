@@ -961,10 +961,10 @@
     <value>Sélectionnez l'architecture de démarrage et le mode de signature de démarrage.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>APC 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
-    <value>APC 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE langue de démarrage</value>
@@ -1483,7 +1483,7 @@
     <value>Aucune cible USB n'est sélectionnée.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 16 Go.</value>
+    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d&apos;au moins 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>Le support ARM64 nécessite le style de partition GPT.</value>
@@ -1498,10 +1498,10 @@
     <value>La création de médias n'est pas activée dans cette version.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>APC 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
-    <value>APC 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>Norme WinPE</value>
@@ -1519,16 +1519,16 @@
     <value>B</value>
   </data>
   <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
-    <value>Ko</value>
+    <value>KB</value>
   </data>
   <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
-    <value>Mo</value>
+    <value>MB</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
-    <value>FR</value>
+    <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>tuberculose</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Mise à jour</value>

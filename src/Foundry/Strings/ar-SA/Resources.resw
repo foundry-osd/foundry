@@ -961,10 +961,10 @@
     <value>حدد بنية التمهيد ووضع توقيع التمهيد.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
-    <value>محكمة التحكيم الدائمة 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
-    <value>بي سي ايه 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
     <value>WinPE لغة التمهيد</value>
@@ -1483,7 +1483,7 @@
     <value>لم يتم تحديد هدف USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>الهدف USB المحدد صغير جدًا. استخدم مفتاح USB بسعة 16 جيجابايت على الأقل.</value>
+    <value>الهدف USB المحدد صغير جدًا. استخدم مفتاح USB بسعة 16 GB على الأقل.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>تتطلب وسائط ARM64 نمط القسم GPT.</value>
@@ -1498,10 +1498,10 @@
     <value>لم يتم تمكين إنشاء الوسائط في هذا الإصدار.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
-    <value>محكمة التحكيم الدائمة 2011</value>
+    <value>PCA 2011</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
-    <value>بي سي ايه 2023</value>
+    <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>قياسي WinPE</value>
@@ -1519,16 +1519,16 @@
     <value>ب</value>
   </data>
   <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
-    <value>كيلو بايت</value>
+    <value>KB</value>
   </data>
   <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
-    <value>ميغابايت</value>
+    <value>MB</value>
   </data>
   <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
-    <value>غيغابايت</value>
+    <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>السل</value>
+    <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>تحديث</value>
@@ -1867,7 +1867,7 @@
     <value>إزالة الوظيفة الإضافية Windows PE الموجودة</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
-    <value>إزالة Windows الموجودة ADK</value>
+    <value>إزالة Windows ADK الموجودة</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
     <value>تثبيت Windows ADK أدوات النشر</value>
