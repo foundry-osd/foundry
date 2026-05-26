@@ -19,291 +19,405 @@
     <value>Foundry Connect</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>About Foundry Connect</value>
+    <value>เกี่ยวกับ Foundry Connect</value>
   </data>
   <data name="About.DescriptionLine1" xml:space="preserve">
-    <value>Foundry Connect validates network readiness in WinPE before Foundry deployment continues.</value>
+    <value>Foundry Connect ตรวจสอบความพร้อมของเครือข่ายใน WinPE ก่อนที่การใช้งาน Foundry จะดำเนินต่อไป</value>
   </data>
   <data name="About.DescriptionLine2" xml:space="preserve">
-    <value>This software is provided as is. Confirm network access before continuing deployment.</value>
+    <value>ซอฟต์แวร์นี้มีให้ตามที่เป็นอยู่ ยืนยันการเข้าถึงเครือข่ายก่อนที่จะปรับใช้ต่อไป</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project. Licensed under the MIT License.</value>
+    <value>ลิขสิทธิ์ (c) 2026 Foundry Project ได้รับอนุญาตภายใต้ใบอนุญาต MIT</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>ธีม</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Language</value>
+    <value>ภาษา</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Tools</value>
+    <value>เครื่องมือ</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>ดีบัก</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>About</value>
+    <value>เกี่ยวกับ</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>System</value>
+    <value>ระบบ</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Light</value>
+    <value>เบา</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>มืด</value>
   </data>
   <data name="Language.English" xml:space="preserve">
-    <value>English</value>
+    <value>อังกฤษ</value>
   </data>
   <data name="Language.French" xml:space="preserve">
-    <value>French</value>
+    <value>ฝรั่งเศส</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
-    <value>Refresh status</value>
+    <value>รีเฟรชสถานะ</value>
   </data>
   <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Use detected layout</value>
+    <value>ใช้เค้าโครงที่ตรวจพบ</value>
   </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Show Ethernet only</value>
+    <value>แสดง Ethernet เท่านั้น</value>
   </data>
   <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Show Ethernet + Wi-Fi</value>
+    <value>แสดง Ethernet + Wi-Fi</value>
   </data>
   <data name="Action.Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>ดำเนินการต่อ</value>
   </data>
   <data name="Action.Connect" xml:space="preserve">
-    <value>Connect</value>
+    <value>เชื่อมต่อ</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
+    <value>ตัดการเชื่อมต่อ</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>เวอร์ชัน: {0}</value>
   </data>
   <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Configuration: {0}</value>
+    <value>การกำหนดค่า: {0}</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Configuration: built-in defaults</value>
+    <value>การกำหนดค่า: ค่าเริ่มต้นในตัว</value>
   </data>
   <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Refreshes every {0} seconds</value>
+    <value>รีเฟรชทุกๆ {0} วินาที</value>
   </data>
   <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Last updated: pending</value>
+    <value>อัปเดตล่าสุด: รอดำเนินการ</value>
   </data>
   <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Last updated: {0:HH:mm:ss}</value>
+    <value>อัปเดตล่าสุด: {0:HH:mm:ss}</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>Unavailable</value>
+    <value>ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Common.Connected" xml:space="preserve">
-    <value>Connected</value>
+    <value>เชื่อมต่อแล้ว</value>
   </data>
   <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Waiting for network</value>
+    <value>กำลังรอเครือข่าย</value>
   </data>
   <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Internet access has not been validated yet.</value>
+    <value>การเข้าถึงอินเทอร์เน็ตยังไม่ได้รับการตรวจสอบ</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
-    <value>Network ready</value>
+    <value>เครือข่ายพร้อม</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internet access has been validated. You can continue now.</value>
+    <value>การเข้าถึงอินเทอร์เน็ตได้รับการตรวจสอบแล้ว คุณสามารถดำเนินการต่อได้ทันที</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Network refresh failed</value>
+    <value>การรีเฟรชเครือข่ายล้มเหลว</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
-    <value>Continuing automatically in {0}s</value>
+    <value>ต่อเนื่องอัตโนมัติใน {0}s</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
-    <value>Adapter</value>
+    <value>อะแดปเตอร์</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Gateway</value>
+    <value>เกตเวย์</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>No Ethernet adapter detected.</value>
+    <value>ไม่พบอะแดปเตอร์ Ethernet</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>No active link</value>
+    <value>ไม่มีลิงก์ที่ใช้งานอยู่</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
-    <value>Waiting for network configuration</value>
+    <value>กำลังรอการกำหนดค่าเครือข่าย</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Check the cable connection</value>
+    <value>ตรวจสอบการเชื่อมต่อสายเคเบิล</value>
   </data>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Waiting for DHCP or static network configuration</value>
+    <value>กำลังรอ DHCP หรือการกำหนดค่าเครือข่ายแบบคงที่</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP lease detected</value>
+    <value>ตรวจพบการเช่า DHCP</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
-    <value>Static network configuration detected</value>
+    <value>ตรวจพบการกำหนดค่าเครือข่ายแบบคงที่</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
-    <value>Refresh Wi-Fi networks</value>
+    <value>รีเฟรชเครือข่าย Wi-Fi</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
-    <value>Show or hide Wi-Fi password</value>
+    <value>แสดงหรือซ่อนรหัสผ่าน Wi-Fi</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Provisioned Wi-Fi</value>
+    <value>จัดสรร Wi-Fi</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profile</value>
+    <value>โปรไฟล์</value>
   </data>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Authentication</value>
+    <value>การรับรองความถูกต้อง</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
-    <value>This network requires a provisioned Wi-Fi profile.</value>
+    <value>เครือข่ายนี้ต้องการโปรไฟล์ Wi-Fi ที่จัดเตรียมไว้</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
-    <value>No Wi-Fi networks are currently visible.</value>
+    <value>ขณะนี้ไม่มีเครือข่าย Wi-Fi ให้เห็น</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>No provisioned Wi-Fi profile is available in this boot image.</value>
+    <value>ไม่มีโปรไฟล์ Wi-Fi ที่จัดเตรียมไว้ในอิมเมจสำหรับบูตนี้</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi support is not available in this boot environment.</value>
+    <value>การสนับสนุน Wi-Fi ไม่พร้อมใช้งานในสภาพแวดล้อมการบูตนี้</value>
   </data>
   <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>No Wi-Fi adapter is currently detected.</value>
+    <value>ไม่พบอะแดปเตอร์ Wi-Fi ในขณะนี้</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>No Wi-Fi adapter is available.</value>
+    <value>ไม่มีอะแดปเตอร์ Wi-Fi</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Enterprise profile</value>
+    <value>โปรไฟล์องค์กร</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
-    <value>Unnamed provisioned profile</value>
+    <value>โปรไฟล์ที่จัดสรรไม่มีชื่อ</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Boot image settings</value>
+    <value>การตั้งค่าอิมเมจสำหรับบูต</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificate included in boot image</value>
+    <value>{0} · ใบรับรองรวมอยู่ในอิมเมจสำหรับบูต</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
-    <value>Configured security</value>
+    <value>ความปลอดภัยที่กำหนดค่าไว้</value>
   </data>
   <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi unavailable</value>
+    <value>Wi-Fi ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>No Wi-Fi adapter available</value>
+    <value>ไม่มีอะแดปเตอร์ Wi-Fi</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
-    <value>Another Wi-Fi network is active</value>
+    <value>เครือข่าย Wi-Fi อื่นเปิดใช้งานอยู่</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
-    <value>Ready to connect</value>
+    <value>พร้อมเชื่อมต่อ</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Provisioned Wi-Fi · {0}</value>
+    <value>จัดสรรแล้ว Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
-    <value>This Wi-Fi network is not supported in this build.</value>
+    <value>เครือข่าย Wi-Fi นี้ไม่ได้รับการสนับสนุนในรุ่นนี้</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
-    <value>Unable to connect. Check the password or network settings and try again.</value>
+    <value>ไม่สามารถเชื่อมต่อได้ ตรวจสอบรหัสผ่านหรือการตั้งค่าเครือข่ายแล้วลองอีกครั้ง</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
-    <value>The provisioned Wi-Fi profile is not available.</value>
+    <value>โปรไฟล์ Wi-Fi ที่จัดเตรียมไว้ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
-    <value>Unable to connect the provisioned Wi-Fi profile. Try again.</value>
+    <value>ไม่สามารถเชื่อมต่อโปรไฟล์ Wi-Fi ที่จัดสรรไว้ได้ ลองอีกครั้ง</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
-    <value>Unable to disconnect the provisioned Wi-Fi profile. Try again.</value>
+    <value>ไม่สามารถยกเลิกการเชื่อมต่อโปรไฟล์ Wi-Fi ที่จัดสรรไว้ได้ ลองอีกครั้ง</value>
   </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
-    <value>Unable to disconnect. Try again.</value>
+    <value>ไม่สามารถตัดการเชื่อมต่อได้ ลองอีกครั้ง</value>
   </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
-    <value>Unable to apply the provisioned network settings.</value>
+    <value>ไม่สามารถใช้การตั้งค่าเครือข่ายที่จัดเตรียมไว้ได้</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
-    <value>Unable to complete the Wi-Fi action. Try again.</value>
+    <value>ไม่สามารถดำเนินการ Wi-Fi ให้เสร็จสิ้นได้ ลองอีกครั้ง</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Hidden network</value>
+    <value>เครือข่ายที่ซ่อนอยู่</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Open</value>
+    <value>เปิด</value>
   </data>
   <data name="Wifi.SecurityWep" xml:space="preserve">
     <value>WEP</value>
   </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
-    <value>WPA Personal</value>
+    <value>WPA ส่วนตัว</value>
   </data>
   <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA None</value>
+    <value>WPA ไม่มี</value>
   </data>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
-    <value>WPA Enterprise</value>
+    <value>WPA เอ็นเตอร์ไพรส์</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
-    <value>Vendor-specific</value>
+    <value>เฉพาะผู้ขาย</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
-    <value>WPA2/WPA3 Personal</value>
+    <value>WPA2/WPA3 ส่วนบุคคล</value>
   </data>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
-    <value>WPA2 Personal</value>
+    <value>WPA2 ส่วนบุคคล</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
-    <value>WPA3 Personal</value>
+    <value>WPA3 ส่วนบุคคล</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personal</value>
+    <value>ส่วนตัว</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
-    <value>WPA3 Enterprise</value>
+    <value>องค์กร WPA3</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bit</value>
+    <value>WPA3 องค์กร 192 บิต</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
+    <value>องค์กร WPA2/WPA3</value>
   </data>
   <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
-    <value>WPA2 Enterprise</value>
+    <value>องค์กร WPA2</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
-    <value>Enterprise</value>
+    <value>องค์กร</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (machine)</value>
+    <value>{0} (เครื่อง)</value>
   </data>
   <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (machine or user)</value>
+    <value>{0} (เครื่องหรือผู้ใช้)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>อาหรับ (ซาอุดีอาระเบีย)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>บัลแกเรีย (บัลแกเรีย)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>เช็ก (เช็กเกีย)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>เดนมาร์ก (เดนมาร์ก)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>เยอรมัน (เยอรมนี)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>กรีก (กรีซ)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>อังกฤษ (สหราชอาณาจักร)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>อังกฤษ (สหรัฐอเมริกา)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>สเปน (สเปน)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>สเปน (เม็กซิโก)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>เอสโตเนีย (เอสโตเนีย)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>ฟินแลนด์ (ฟินแลนด์)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>ฝรั่งเศส (แคนาดา)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>ฝรั่งเศส (ฝรั่งเศส)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>ฮีบรู (อิสราเอล)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>โครเอเชีย (โครเอเชีย)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>ฮังการี (ฮังการี)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>อิตาลี (อิตาลี)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>ญี่ปุ่น (ญี่ปุ่น)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>เกาหลี (เกาหลี)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>ลิทัวเนีย (ลิทัวเนีย)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>ลัตเวีย (ลัตเวีย)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>บ็อกมาลนอร์เวย์ (นอร์เวย์)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>ดัตช์ (เนเธอร์แลนด์)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>โปแลนด์ (โปแลนด์)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>โปรตุเกส (บราซิล)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>โปรตุเกส (โปรตุเกส)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>โรมาเนีย (โรมาเนีย)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>รัสเซีย (รัสเซีย)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>สโลวัก (สโลวาเกีย)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>สโลวีเนีย (สโลวีเนีย)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>ละตินเซอร์เบีย (เซอร์เบีย)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>สวีเดน (สวีเดน)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>ไทย (ประเทศไทย)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>ตุรกี (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ยูเครน (ยูเครน)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>จีนตัวย่อ (จีน)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>จีนดั้งเดิม (ไต้หวัน)</value>
   </data>
 </root>

@@ -19,67 +19,67 @@
     <value>Foundry Connect</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>About Foundry Connect</value>
+    <value>À propos de Foundry Connect</value>
   </data>
   <data name="About.DescriptionLine1" xml:space="preserve">
-    <value>Foundry Connect validates network readiness in WinPE before Foundry deployment continues.</value>
+    <value>Foundry Connect valide la préparation du réseau dans WinPE avant la poursuite du déploiement de Foundry.</value>
   </data>
   <data name="About.DescriptionLine2" xml:space="preserve">
-    <value>This software is provided as is. Confirm network access before continuing deployment.</value>
+    <value>Ce logiciel est fourni tel quel. Confirmez l’accès au réseau avant de poursuivre le déploiement.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project. Licensed under the MIT License.</value>
+    <value>Copyright (c) 2026 Foundry Project. Sous licence MIT.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Thème</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Langue</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Tools</value>
+    <value>Outils</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Débogage</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>About</value>
+    <value>À propos</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>System</value>
+    <value>Système</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Lumière</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Sombre</value>
   </data>
   <data name="Language.English" xml:space="preserve">
-    <value>English</value>
+    <value>Anglais</value>
   </data>
   <data name="Language.French" xml:space="preserve">
-    <value>French</value>
+    <value>Français</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
-    <value>Refresh status</value>
+    <value>Actualiser l'état</value>
   </data>
   <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Use detected layout</value>
+    <value>Utiliser la mise en page détectée</value>
   </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Show Ethernet only</value>
+    <value>Afficher Ethernet uniquement</value>
   </data>
   <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Show Ethernet + Wi-Fi</value>
+    <value>Afficher Ethernet + Wi-Fi</value>
   </data>
   <data name="Action.Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continuer</value>
   </data>
   <data name="Action.Connect" xml:space="preserve">
-    <value>Connect</value>
+    <value>Se connecter</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
+    <value>Déconnecter</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Version: {0}</value>
@@ -88,222 +88,336 @@
     <value>Configuration: {0}</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Configuration: built-in defaults</value>
+    <value>Configuration: paramètres par défaut intégrés</value>
   </data>
   <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Refreshes every {0} seconds</value>
+    <value>Actualisation toutes les {0} secondes</value>
   </data>
   <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Last updated: pending</value>
+    <value>Dernière mise à jour: en attente</value>
   </data>
   <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Last updated: {0:HH:mm:ss}</value>
+    <value>Dernière mise à jour: {0:HH:mm:ss}</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>Unavailable</value>
+    <value>Indisponible</value>
   </data>
   <data name="Common.Connected" xml:space="preserve">
-    <value>Connected</value>
+    <value>Connecté</value>
   </data>
   <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Waiting for network</value>
+    <value>En attente du réseau</value>
   </data>
   <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Internet access has not been validated yet.</value>
+    <value>L'accès Internet n'a pas encore été validé.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
-    <value>Network ready</value>
+    <value>Prêt pour le réseau</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internet access has been validated. You can continue now.</value>
+    <value>L'accès à Internet a été validé. Vous pouvez continuer maintenant.</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Network refresh failed</value>
+    <value>Échec de l'actualisation du réseau</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
-    <value>Continuing automatically in {0}s</value>
+    <value>Poursuite automatique dans {0}s</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
-    <value>Adapter</value>
+    <value>Adaptateur</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Gateway</value>
+    <value>Passerelle</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>No Ethernet adapter detected.</value>
+    <value>Aucun adaptateur Ethernet détecté.</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>No active link</value>
+    <value>Aucun lien actif</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
-    <value>Waiting for network configuration</value>
+    <value>En attente de configuration réseau</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Check the cable connection</value>
+    <value>Vérifiez la connexion du câble</value>
   </data>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Waiting for DHCP or static network configuration</value>
+    <value>En attente de DHCP ou d'une configuration réseau statique</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP lease detected</value>
+    <value>DHCP bail détecté</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
-    <value>Static network configuration detected</value>
+    <value>Configuration réseau statique détectée</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
-    <value>Refresh Wi-Fi networks</value>
+    <value>Actualiser les réseaux Wi-Fi</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
-    <value>Show or hide Wi-Fi password</value>
+    <value>Afficher ou masquer le mot de passe Wi-Fi</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Provisioned Wi-Fi</value>
+    <value>Wi-Fi provisionné</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profile</value>
+    <value>Profil</value>
   </data>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Authentification</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
-    <value>This network requires a provisioned Wi-Fi profile.</value>
+    <value>Ce réseau nécessite un profil Wi-Fi provisionné.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
-    <value>No Wi-Fi networks are currently visible.</value>
+    <value>Aucun réseau Wi-Fi n'est actuellement visible.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>No provisioned Wi-Fi profile is available in this boot image.</value>
+    <value>Aucun profil Wi-Fi provisionné n'est disponible dans cette image de démarrage.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi support is not available in this boot environment.</value>
+    <value>La prise en charge de Wi-Fi n'est pas disponible dans cet environnement de démarrage.</value>
   </data>
   <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>No Wi-Fi adapter is currently detected.</value>
+    <value>Aucun adaptateur Wi-Fi n'est actuellement détecté.</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>No Wi-Fi adapter is available.</value>
+    <value>Aucun adaptateur Wi-Fi n'est disponible.</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Enterprise profile</value>
+    <value>Profil d'entreprise</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
-    <value>Unnamed provisioned profile</value>
+    <value>Profil provisionné sans nom</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Boot image settings</value>
+    <value>Paramètres de l'image de démarrage</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificate included in boot image</value>
+    <value>{0} · Certificat inclus dans l'image de démarrage</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
-    <value>Configured security</value>
+    <value>Sécurité configurée</value>
   </data>
   <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi unavailable</value>
+    <value>Wi-Fi indisponible</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>No Wi-Fi adapter available</value>
+    <value>Aucun adaptateur Wi-Fi disponible</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
-    <value>Another Wi-Fi network is active</value>
+    <value>Un autre réseau Wi-Fi est actif</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
-    <value>Ready to connect</value>
+    <value>Prêt à vous connecter</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Provisioned Wi-Fi · {0}</value>
+    <value>Provisionné Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
-    <value>This Wi-Fi network is not supported in this build.</value>
+    <value>Ce réseau Wi-Fi n'est pas pris en charge dans cette version.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
-    <value>Unable to connect. Check the password or network settings and try again.</value>
+    <value>Impossible de se connecter. Vérifiez le mot de passe ou les paramètres réseau et réessayez.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
-    <value>The provisioned Wi-Fi profile is not available.</value>
+    <value>Le profil Wi-Fi provisionné n'est pas disponible.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
-    <value>Unable to connect the provisioned Wi-Fi profile. Try again.</value>
+    <value>Impossible de connecter le profil Wi-Fi provisionné. Essayer à nouveau.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
-    <value>Unable to disconnect the provisioned Wi-Fi profile. Try again.</value>
+    <value>Impossible de déconnecter le profil Wi-Fi provisionné. Essayer à nouveau.</value>
   </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
-    <value>Unable to disconnect. Try again.</value>
+    <value>Impossible de se déconnecter. Essayer à nouveau.</value>
   </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
-    <value>Unable to apply the provisioned network settings.</value>
+    <value>Impossible d'appliquer les paramètres réseau provisionnés.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
-    <value>Unable to complete the Wi-Fi action. Try again.</value>
+    <value>Impossible de terminer l'action Wi-Fi. Essayer à nouveau.</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Hidden network</value>
+    <value>Réseau caché</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Open</value>
+    <value>Ouvert</value>
   </data>
   <data name="Wifi.SecurityWep" xml:space="preserve">
     <value>WEP</value>
   </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
-    <value>WPA Personal</value>
+    <value>WPA Personnel</value>
   </data>
   <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA None</value>
+    <value>WPA Aucun</value>
   </data>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
-    <value>WPA Enterprise</value>
+    <value>WPA Entreprise</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
-    <value>Vendor-specific</value>
+    <value>Spécifique au fournisseur</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
-    <value>WPA2/WPA3 Personal</value>
+    <value>WPA2/WPA3 Personnel</value>
   </data>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
-    <value>WPA2 Personal</value>
+    <value>WPA2 Personnel</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
-    <value>WPA3 Personal</value>
+    <value>WPA3 Personnel</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personal</value>
+    <value>Personnel</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
-    <value>WPA3 Enterprise</value>
+    <value>WPA3 Entreprise</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bit</value>
+    <value>WPA3 Entreprise 192 bits</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
+    <value>WPA2/WPA3 Entreprise</value>
   </data>
   <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
-    <value>WPA2 Enterprise</value>
+    <value>WPA2 Entreprise</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
-    <value>Enterprise</value>
+    <value>Entreprise</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (machine)</value>
+    <value>{0} (appareil)</value>
   </data>
   <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (machine or user)</value>
+    <value>{0} (machine ou utilisateur)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arabe (Arabie Saoudite)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgare (Bulgarie)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Tchèque (Tchéquie)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Danois (Danemark)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Allemand (Allemagne)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Grec (Grèce)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Anglais (Royaume-Uni)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Anglais (États-Unis)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Espagnol (Espagne)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Espagnol (Mexique)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estonien (Estonie)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finnois (Finlande)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Français (Canada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Français (France)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Hébreu (Israël)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Croate (Croatie)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Hongrois (Hongrie)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Italien (Italie)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japonais (Japon)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Coréen (Corée)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Lituanien (Lituanie)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Letton (Lettonie)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Bokmal norvégien (Norvège)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Néerlandais (Pays-Bas)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Polonais (Pologne)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugais (Brésil)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugais (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Roumain (Roumanie)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Russe (Russie)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovaque (Slovaquie)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovène (Slovénie)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Latin serbe (Serbie)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Suédois (Suède)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Thaï (Thaïlande)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Turc (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukrainien (Ukraine)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Chinois simplifié (Chine)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Chinois traditionnel (Taïwan)</value>
   </data>
 </root>

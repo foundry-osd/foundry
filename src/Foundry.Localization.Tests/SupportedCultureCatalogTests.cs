@@ -104,6 +104,59 @@ public sealed class SupportedCultureCatalogTests
     }
 
     [Fact]
+    public void FoundrySupportedCultures_IncludesAllAdkCultures()
+    {
+        SupportedCultureCatalog catalog = FoundrySupportedCultures.CreateCatalog();
+
+        IReadOnlyList<SupportedCultureOption> options = catalog.CreateOptions(
+            CultureInfo.GetCultureInfo(FoundrySupportedCultures.DefaultCultureCode),
+            key => key);
+
+        Assert.Equal(
+            [
+                "ar-SA",
+                "bg-BG",
+                "cs-CZ",
+                "da-DK",
+                "de-DE",
+                "el-GR",
+                "en-GB",
+                "en-US",
+                "es-ES",
+                "es-MX",
+                "et-EE",
+                "fi-FI",
+                "fr-CA",
+                "fr-FR",
+                "he-IL",
+                "hr-HR",
+                "hu-HU",
+                "it-IT",
+                "ja-JP",
+                "ko-KR",
+                "lt-LT",
+                "lv-LV",
+                "nb-NO",
+                "nl-NL",
+                "pl-PL",
+                "pt-BR",
+                "pt-PT",
+                "ro-RO",
+                "ru-RU",
+                "sk-SK",
+                "sl-SI",
+                "sr-Latn-RS",
+                "sv-SE",
+                "th-TH",
+                "tr-TR",
+                "uk-UA",
+                "zh-CN",
+                "zh-TW"
+            ],
+            options.Select(option => option.Code));
+    }
+
+    [Fact]
     public void Constructor_WhenDefaultCultureIsNotConfigured_Throws()
     {
         ArgumentException exception = Assert.Throws<ArgumentException>(() => new SupportedCultureCatalog(

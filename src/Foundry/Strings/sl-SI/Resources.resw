@@ -13,154 +13,154 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>About</value>
+    <value>O tem</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
-    <value>Created and maintained by Mickaël CHAVE.</value>
+    <value>Ustvaril in vzdržuje Mickaël CHAVE.</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
-    <value>Contributors</value>
+    <value>Sodelujoči</value>
   </data>
   <data name="AboutDialog.ContributorsError" xml:space="preserve">
-    <value>Contributors could not be loaded from GitHub.</value>
+    <value>Sodelujočih ni bilo mogoče naložiti iz GitHub.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Loading contributors...</value>
+    <value>Nalaganje sodelavcev...</value>
   </data>
   <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
-    <value>Contributions: {0}</value>
+    <value>Prispevki: {0}</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry OSD is a modern app for authoring Windows deployment media powered by WinPE.</value>
+    <value>Foundry OSD je sodobna aplikacija za avtorstvo medijev za uvajanje Windows, ki jih poganja WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project.</value>
+    <value>Avtorske pravice (c) 2026 Foundry Project.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
-    <value>Foundry source code is distributed under the MIT License.</value>
+    <value>Izvorna koda Foundry se distribuira pod licenco MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
     <value>Foundry OSD</value>
   </data>
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
-    <value>License</value>
+    <value>Licenca</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
-    <value>Licenses</value>
+    <value>Licence</value>
   </data>
   <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Open</value>
+    <value>Odpri</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
-    <value>Profile</value>
+    <value>Profil</value>
   </data>
   <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
-    <value>Open release notes in browser</value>
+    <value>Odprite opombe ob izdaji v brskalniku</value>
   </data>
   <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
-    <value>Release notes could not be loaded in the embedded browser.</value>
+    <value>Opomb ob izdaji ni bilo mogoče naložiti v vdelani brskalnik.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Loading release notes...</value>
+    <value>Nalaganje opomb ob izdaji...</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Opombe ob izdaji</value>
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
-    <value>Repository</value>
+    <value>Repozitorij</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD includes 7-Zip Extra tooling for media creation support.</value>
+    <value>Foundry OSD vključuje dodatno orodje 7-Zip Extra za podporo pri ustvarjanju medijev.</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
     <value>7-Zip Extra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
-    <value>Windows deployment media authoring</value>
+    <value>Windows avtorstvo medijev za uvajanje</value>
   </data>
   <data name="AboutDialog.SupportLink" xml:space="preserve">
-    <value>Support</value>
+    <value>Podpora</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Third-party package licenses are tracked through the project repository and dependency manifests.</value>
+    <value>Licence paketov tretjih oseb se spremljajo prek repozitorija projekta in manifestov odvisnosti.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Third-party dependencies</value>
+    <value>Odvisnosti tretjih oseb</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>About Foundry OSD</value>
+    <value>O Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
-    <value>Useful links</value>
+    <value>Uporabne povezave</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
-    <value>Check for updates</value>
+    <value>Preverite posodobitve</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Update and restart</value>
+    <value>Posodobite in znova zaženite</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Opombe ob izdaji</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
-    <value>Update source</value>
+    <value>Posodobi vir</value>
   </data>
   <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
-    <value>Release lane: {0}</value>
+    <value>Sprosti pas: {0}</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
-    <value>Stable releases</value>
+    <value>Stabilne izdaje</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
-    <value>Beta releases</value>
+    <value>Beta izdaje</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
-    <value>Preview releases</value>
+    <value>Predogled izdaj</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
-    <value>Web update feed</value>
+    <value>Spletni vir posodobitev</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Zapri</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Prekliči</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Onemogočen</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Omogočeno</value>
   </data>
   <data name="Common.Browse" xml:space="preserve">
-    <value>Browse</value>
+    <value>Prebrskaj</value>
   </data>
   <data name="Common.Refresh" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Osveži</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Enable developer diagnostics and open the Foundry log folder.</value>
+    <value>Omogočite razvijalsko diagnostiko in odprite mapo dnevnika Foundry.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>Diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
-    <value>Change the application language without restarting Foundry OSD.</value>
+    <value>Spremenite jezik aplikacije brez ponovnega zagona Foundry OSD.</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
-    <value>Language</value>
+    <value>Jezik</value>
   </data>
   <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Automatically launch Foundry OSD when you log in to Windows.</value>
+    <value>Samodejno zaženi Foundry OSD, ko se prijaviš v Windows.</value>
   </data>
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Run at startup</value>
+    <value>Zaženi ob zagonu</value>
   </data>
   <data name="Language.English" xml:space="preserve">
-    <value>English</value>
+    <value>angleščina</value>
   </data>
   <data name="Language.French" xml:space="preserve">
-    <value>French</value>
+    <value>francosko</value>
   </data>
   <data name="AutopilotPage_Title.Text" xml:space="preserve">
     <value>Autopilot</value>
@@ -169,685 +169,685 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Choose the Autopilot provisioning method for deployment media: JSON profile staging or WinPE hardware hash upload.</value>
+    <value>Izberite način zagotavljanja Autopilot za razmestitveni medij: JSON uprizarjanje profila ali WinPE nalaganje zgoščene opreme strojne opreme.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Enable Autopilot</value>
+    <value>Omogoči Autopilot</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
-    <value>Import profile</value>
+    <value>Uvozi profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Download from tenant</value>
+    <value>Prenos iz najemnika</value>
   </data>
   <data name="Autopilot.RemoveButton" xml:space="preserve">
-    <value>Remove selected</value>
+    <value>Odstrani izbrano</value>
   </data>
   <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profile actions</value>
+    <value>Dejanja profila</value>
   </data>
   <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Import local JSON profiles or download them from Intune.</value>
+    <value>Uvozite lokalne profile JSON ali jih prenesite iz Intune.</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importing Autopilot profile...</value>
+    <value>Uvažanje profila Autopilot...</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Downloading Autopilot profiles...</value>
+    <value>Prenašanje profilov Autopilot...</value>
   </data>
   <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
-    <value>Remove Autopilot profile?</value>
+    <value>Odstraniti profil Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Remove "{0}" from the imported Autopilot profiles?</value>
+    <value>Ali želite odstraniti "{0}" iz uvoženih profilov Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
-    <value>Remove profile</value>
+    <value>Odstrani profil</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
-    <value>Remove Autopilot profiles?</value>
+    <value>Odstraniti profile Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Remove {0} selected Autopilot profiles?</value>
+    <value>Odstraniti {0} izbrane Autopilot profile?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
-    <value>Remove profiles</value>
+    <value>Odstrani profile</value>
   </data>
   <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Default profile</value>
+    <value>Privzeti profil</value>
   </data>
   <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profile staged by default in the applied Windows image.</value>
+    <value>Profil je privzeto postavljen na uporabljeni sliki Windows.</value>
   </data>
   <data name="Autopilot.ProfilesLabel" xml:space="preserve">
-    <value>Imported profiles</value>
+    <value>Uvoženi profili</value>
   </data>
   <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot profiles available for JSON profile provisioning.</value>
+    <value>Profili Autopilot brez povezave so na voljo za zagotavljanje profila JSON.</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
-    <value>No Autopilot profiles imported.</value>
+    <value>Uvožen ni noben profil Autopilot.</value>
   </data>
   <data name="Autopilot.ColumnName" xml:space="preserve">
-    <value>Name</value>
+    <value>Ime</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
-    <value>Source</value>
+    <value>Vir</value>
   </data>
   <data name="Autopilot.ColumnImported" xml:space="preserve">
-    <value>Imported</value>
+    <value>Uvoženo</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
-    <value>Folder</value>
+    <value>Mapa</value>
   </data>
   <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
-    <value>Import Autopilot profile JSON</value>
+    <value>Uvozi Autopilot profil JSON</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
-    <value>Autopilot import failed</value>
+    <value>Autopilot uvoz ni uspel</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>{0}</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>Sign in to Microsoft Graph</value>
+    <value>Prijavite se v Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
-    <value>Complete sign-in in the browser to download Autopilot profiles.</value>
+    <value>Za prenos profilov Autopilot se vpišite v brskalnik.</value>
   </data>
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
-    <value>No Autopilot profiles found</value>
+    <value>Najden ni noben profil Autopilot</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>No Autopilot profiles were returned by the tenant.</value>
+    <value>Najemnik ni vrnil nobenega profila Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
-    <value>Autopilot download failed</value>
+    <value>Autopilot prenos ni uspel</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profile download failed: {0}</value>
+    <value>Prenos profila Autopilot ni uspel: {0}</value>
   </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
-    <value>Select Autopilot profiles</value>
+    <value>Izberite profile Autopilot</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Choose which tenant profiles should be imported into Foundry.</value>
+    <value>Izberite, katere profile najemnikov želite uvoziti v Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
-    <value>Select all</value>
+    <value>Izberite vse</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Clear</value>
+    <value>jasno</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>Import</value>
+    <value>Uvozi</value>
   </data>
   <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Prekliči</value>
   </data>
   <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
-    <value>Selected profiles: {0} of {1}</value>
+    <value>Izbrani profili: {0} od {1}</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
-    <value>JSON profile provisioning</value>
+    <value>Omogočanje profila JSON</value>
   </data>
   <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Stage an offline Autopilot profile in the applied Windows image.</value>
+    <value>Uprizorite profil Autopilot brez povezave v uporabljeni sliki Windows.</value>
   </data>
   <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Use JSON profile provisioning</value>
+    <value>Uporabite oskrbo profila JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Hardware hash upload</value>
+    <value>Nalaganje hash strojne opreme</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Upload the device hardware hash to Intune from Foundry Deploy in WinPE.</value>
+    <value>Prenesite zgoščeno opremo naprave v Intune iz Foundry Deploy v WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Use hardware hash upload</value>
+    <value>Uporabi nalaganje zgoščene opreme strojne opreme</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Connect tenant</value>
+    <value>Povežite najemnika</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Disconnect tenant</value>
+    <value>Odklopite najemnika</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Connecting tenant...</value>
+    <value>Povezovanje najemnika...</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>Sign in to Microsoft Graph</value>
+    <value>Prijavite se v Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Complete sign-in in the browser to configure Autopilot hardware hash upload.</value>
+    <value>Dokončajte prijavo v brskalnik, da konfigurirate nalaganje zgoščene vrednosti strojne opreme Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Tenant connection</value>
+    <value>Priključek najemnika</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Connect to Microsoft Graph for this app session to manage hash upload settings.</value>
+    <value>Povežite se z Microsoft Graph za to sejo aplikacije za upravljanje nastavitev zgoščenega nalaganja.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
-    <value>Not connected</value>
+    <value>Ni povezano</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
-    <value>Connected</value>
+    <value>Povezan</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Tenant readiness</value>
+    <value>Pripravljenost najemnika</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Tenant, app registration, and readiness information for hardware hash upload.</value>
+    <value>Informacije o najemniku, registraciji aplikacije in pripravljenosti za nalaganje zgoščene vrednosti strojne opreme.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
-    <value>Name</value>
+    <value>Ime</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>Value</value>
+    <value>Vrednost</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Tenant ID</value>
+    <value>ID najemnika</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>Client ID</value>
+    <value>ID stranke</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
-    <value>Managed app registration</value>
+    <value>Upravljana registracija aplikacije</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Foundry OSD Autopilot Registration is not configured.</value>
+    <value>Foundry OSD Autopilot Registracija ni nastavljena.</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
-    <value>{0} is configured.</value>
+    <value>{0} je konfiguriran.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
-    <value>Status</value>
+    <value>Stanje</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
-    <value>Ready</value>
+    <value>pripravljena</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
-    <value>Not ready</value>
+    <value>Ni pripravljen</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Certificate actions</value>
+    <value>Dejanja potrdila</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Create or remove app registration certificate credentials.</value>
+    <value>Ustvarite ali odstranite poverilnice potrdila o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
-    <value>Provisioned certificates</value>
+    <value>Zagotovljena potrdila</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
-    <value>App registration certificates trusted for WinPE Graph authentication.</value>
+    <value>Potrdila o registraciji aplikacije so zaupanja vredna za preverjanje pristnosti WinPE Graph.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
-    <value>No certificates are provisioned.</value>
+    <value>Certifikati niso na voljo.</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
-    <value>Create certificate</value>
+    <value>Ustvari potrdilo</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
-    <value>Remove certificate</value>
+    <value>Odstrani potrdilo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Save Autopilot certificate PFX</value>
+    <value>Shranite Autopilot potrdilo PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>PFX certificate</value>
+    <value>PFX potrdilo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
-    <value>Certificate ready</value>
+    <value>Certifikat pripravljen</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Save this PFX file and password now in a secure location. Foundry does not store the password and cannot show it again after this dialog closes. You will need both values to generate boot media for hardware hash upload.</value>
+    <value>Shranite to datoteko PFX in geslo zdaj na varno mesto. Foundry ne shrani gesla in ga ne more več prikazati, ko se to pogovorno okno zapre. Za ustvarjanje zagonskega medija za nalaganje zgoščene vrednosti strojne opreme boste potrebovali obe vrednosti.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>PFX file</value>
+    <value>datoteko PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFX password</value>
+    <value>PFX geslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
-    <value>Copy password</value>
+    <value>Kopiraj geslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
-    <value>Password copied.</value>
+    <value>Geslo kopirano.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
-    <value>Certificate creation failed</value>
+    <value>Ustvarjanje potrdila ni uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not create the app registration certificate. {0}</value>
+    <value>Foundry ni mogel ustvariti potrdila o registraciji aplikacije. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Remove selected certificate?</value>
+    <value>Odstraniti izbrano potrdilo?</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry will remove only the selected certificate from the managed app registration. Other app credentials will be preserved.</value>
+    <value>Foundry bo iz registracije upravljane aplikacije odstranil samo izbrano potrdilo. Druge poverilnice aplikacije bodo ohranjene.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry will remove only the {0} selected certificates from the managed app registration. Other app credentials will be preserved.</value>
+    <value>Foundry bo odstranil samo {0} izbrana potrdila iz registracije upravljane aplikacije. Druge poverilnice aplikacije bodo ohranjene.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
-    <value>Remove certificate</value>
+    <value>Odstrani potrdilo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
-    <value>Certificate removal failed</value>
+    <value>Odstranitev potrdila ni uspela</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not remove the selected app registration certificate. {0}</value>
+    <value>Foundry ni mogel odstraniti izbranega potrdila o registraciji aplikacije. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Thumbprint</value>
+    <value>Odtis palca</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
-    <value>Created</value>
+    <value>Ustvarjeno</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
-    <value>Expiration</value>
+    <value>Iztek</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
-    <value>Certificate ID</value>
+    <value>ID potrdila</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
-    <value>Boot media certificate</value>
+    <value>Potrdilo zagonskega medija</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Password-protected PFX copied into boot media for hardware hash upload.</value>
+    <value>PFX, zaščiten z geslom, kopiran v zagonski medij za nalaganje zgoščene vrednosti strojne opreme.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>PFX file</value>
+    <value>datoteko PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFX password</value>
+    <value>PFX geslo</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>Select PFX</value>
+    <value>Izberite PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Select Autopilot certificate PFX</value>
+    <value>Izberite Autopilot certifikat PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Select a PFX that matches an app registration certificate.</value>
+    <value>Izberite PFX, ki se ujema s potrdilom o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>The selected certificate has expired. Create or select a valid certificate before creating boot media.</value>
+    <value>Izbrani certifikat je potekel. Ustvarite ali izberite veljavno potrdilo, preden ustvarite zagonski medij.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
-    <value>Select the matching password-protected PFX before creating boot media.</value>
+    <value>Preden ustvarite zagonski medij, izberite ustrezni PFX, zaščiten z geslom.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
-    <value>The selected PFX file no longer exists.</value>
+    <value>Izbrana datoteka PFX ne obstaja več.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>Enter the PFX password.</value>
+    <value>Vnesite geslo PFX.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>The PFX certificate thumbprint does not match the selected app registration certificate.</value>
+    <value>Odtis potrdila PFX se ne ujema z izbranim potrdilom o registraciji aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
-    <value>The selected PFX does not contain private key material.</value>
+    <value>Izbrani PFX ne vsebuje gradiva zasebnega ključa.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
-    <value>The selected PFX could not be opened with the provided password.</value>
+    <value>Izbranega PFX-ja ni bilo mogoče odpreti s podanim geslom.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
-    <value>Certificate ready for boot media generation.</value>
+    <value>Potrdilo pripravljeno za ustvarjanje zagonskega medija.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
-    <value>Default group tag</value>
+    <value>Privzeta oznaka skupine</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Optional group tag preselected in Foundry Deploy during hardware hash upload.</value>
+    <value>Izbirna oznaka skupine, predhodno izbrana v Foundry Deploy med nalaganjem zgoščene vrednosti strojne opreme.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
-    <value>No default group tag selected.</value>
+    <value>Izbrana ni nobena privzeta oznaka skupine.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>None</value>
+    <value>Noben</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
-    <value>None</value>
+    <value>Noben</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Tenant onboarding requires attention</value>
+    <value>Vključevanje najemnika zahteva pozornost</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Tenant onboarding failed</value>
+    <value>Vključevanje najemnika ni uspelo</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not configure the Autopilot app registration. {0}</value>
+    <value>Foundry ni mogel konfigurirati registracije aplikacije Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
-    <value>The managed app registration could not be found. Reconnect to let Foundry create or adopt it.</value>
+    <value>Registracije upravljane aplikacije ni bilo mogoče najti. Znova se povežite, da ga Foundry ustvari ali sprejme.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
-    <value>An existing app registration with the Foundry name was found. Reconnect to adopt it into the Foundry configuration.</value>
+    <value>Najdena je bila obstoječa registracija aplikacije z imenom Foundry. Znova se povežite, da ga prilagodite konfiguraciji Foundry.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
-    <value>The managed app registration is missing the required Microsoft Graph application permission. Reconnect with an account that can update app registrations.</value>
+    <value>V registraciji upravljane aplikacije manjka zahtevano dovoljenje za aplikacijo Microsoft Graph. Znova se povežite z računom, ki lahko posodobi registracije aplikacij.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>The managed service principal is missing admin consent for the required Microsoft Graph permission. Grant admin consent and reconnect.</value>
+    <value>Glavni upravljani storitvi nima soglasja skrbnika za zahtevano dovoljenje Microsoft Graph. Podeli soglasje skrbnika in se znova poveži.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>The managed service principal is missing or disabled. Reconnect with an account that can create or manage enterprise applications.</value>
+    <value>Voditelj upravljane storitve manjka ali je onemogočen. Ponovno se povežite z računom, ki lahko ustvarja ali upravlja poslovne aplikacije.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>The previously selected certificate no longer exists in the managed app registration. Select a valid PFX that matches a provisioned certificate.</value>
+    <value>Prej izbrano potrdilo ne obstaja več v registraciji upravljane aplikacije. Izberite veljaven PFX, ki se ujema s pripravljenim potrdilom.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>The selected certificate has expired. Create a new certificate, save its PFX and password, then select it for boot media.</value>
+    <value>Izbrani certifikat je potekel. Ustvarite novo potrdilo, shranite njegov PFX in geslo ter ga izberite za zagonski medij.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>The managed app registration is not ready. Review tenant readiness and reconnect.</value>
+    <value>Registracija upravljane aplikacije ni pripravljena. Preglejte pripravljenost najemnika in se znova povežite.</value>
   </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Customization</value>
+    <value>Prilagajanje</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
-    <value>Foundry could not open the documentation in your browser. Use this URL instead.</value>
+    <value>Foundry ni mogel odpreti dokumentacije v vašem brskalniku. Namesto tega uporabite URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
-    <value>Documentation could not be opened</value>
+    <value>Dokumentacije ni bilo mogoče odpreti</value>
   </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Computer name</value>
+    <value>Ime računalnika</value>
   </data>
   <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Control how the deployed computer name is generated in WinPE.</value>
+    <value>Nadzirajte, kako se ime nameščenega računalnika ustvari v WinPE.</value>
   </data>
   <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Enable machine naming rules</value>
+    <value>Omogoči pravila za poimenovanje stroja</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
-    <value>Computer name prefix</value>
+    <value>Predpona imena računalnika</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>Prefix applied before the generated or editable deployment suffix.</value>
+    <value>Predpona, uporabljena pred ustvarjeno ali urejano umestitveno pripono.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
-    <value>Auto-generate computer name suffix</value>
+    <value>Samodejno ustvari pripono imena računalnika</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
-    <value>Generate the suffix automatically during deployment.</value>
+    <value>Samodejno ustvari pripono med uvajanjem.</value>
   </data>
   <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
-    <value>Allow suffix edit during deployment</value>
+    <value>Dovoli urejanje pripone med uvajanjem</value>
   </data>
   <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
-    <value>Allow the deployment operator to edit the suffix after the prefix.</value>
+    <value>Dovolite operaterju razmestitve, da uredi pripono za predpono.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix must use 1 to 15 characters from A-Z, a-z, 0-9, or -.</value>
+    <value>Predpona mora vsebovati od 1 do 15 znakov od A-Z, a-z, 0-9 ali -.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Out-of-box experience</value>
+    <value>Izkušnja zunaj škatle</value>
   </data>
   <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Configure Windows 11 first-run screens and privacy defaults.</value>
+    <value>Konfigurirajte Windows 11 zaslonov za prvi zagon in privzete nastavitve zasebnosti.</value>
   </data>
   <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Customize OOBE</value>
+    <value>Prilagodi OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Preskoči licenčne pogoje</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
-    <value>Skips the Microsoft Software License Terms page during OOBE.</value>
+    <value>Preskoči Microsoft stran z licenčnimi pogoji programske opreme med OOBE.</value>
   </data>
   <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
-    <value>Diagnostic data</value>
+    <value>Diagnostični podatki</value>
   </data>
   <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
-    <value>Selects the Windows diagnostic data level configured before first sign-in. Off is only honored by supported Windows editions; unsupported editions fall back to Required.</value>
+    <value>Izbere raven diagnostičnih podatkov Windows, konfigurirano pred prvo prijavo. Izklop je upoštevan samo pri podprtih izdajah Windows; nepodprte izdaje se vrnejo na Zahtevano.</value>
   </data>
   <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
-    <value>Required</value>
+    <value>Obvezno</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
-    <value>Optional</value>
+    <value>Neobvezno</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
-    <value>Off</value>
+    <value>Izključeno</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
-    <value>Hide privacy setup</value>
+    <value>Skrij nastavitev zasebnosti</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
-    <value>Prevents Windows from showing the privacy choices page during first sign-in.</value>
+    <value>Prepreči, da bi Windows prikazal stran z možnostmi zasebnosti med prvo prijavo.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
-    <value>Tailored experiences</value>
+    <value>Prilagojene izkušnje</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
-    <value>Allows Windows to use diagnostic data for personalized tips, ads, and recommendations.</value>
+    <value>Omogoča Windows uporabo diagnostičnih podatkov za prilagojene nasvete, oglase in priporočila.</value>
   </data>
   <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
-    <value>Advertising ID</value>
+    <value>Oglaševalski ID</value>
   </data>
   <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
-    <value>Allows apps to use the Windows advertising ID across apps.</value>
+    <value>Omogoča aplikacijam uporabo oglaševalskega ID-ja Windows v različnih aplikacijah.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
-    <value>Online speech recognition</value>
+    <value>Spletno prepoznavanje govora</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
-    <value>Allows Microsoft cloud-based speech recognition services.</value>
+    <value>Omogoča Microsoft storitve prepoznavanja govora v oblaku.</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
-    <value>Inking and typing diagnostics</value>
+    <value>Diagnostika črnila in tipkanja</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
-    <value>Allows optional inking and typing diagnostic data collection.</value>
+    <value>Omogoča neobvezno zbiranje diagnostičnih podatkov o pisanju in tipkanju.</value>
   </data>
   <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
-    <value>Location access</value>
+    <value>Dostop do lokacije</value>
   </data>
   <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
-    <value>Controls whether Windows and apps can use location services.</value>
+    <value>Nadzira, ali lahko Windows in aplikacije uporabljajo lokacijske storitve.</value>
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
-    <value>User controlled</value>
+    <value>Uporabniški nadzor</value>
   </data>
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
-    <value>Force off</value>
+    <value>Izklop na silo</value>
   </data>
   <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI component removal</value>
+    <value>Odstranitev komponente AI</value>
   </data>
   <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Remove or disable selected Windows AI components before OOBE.</value>
+    <value>Odstranite ali onemogočite izbrane komponente umetne inteligence Windows pred OOBE.</value>
   </data>
   <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Remove AI components</value>
+    <value>Odstranite komponente AI</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
-    <value>Remove Microsoft Copilot</value>
+    <value>Odstrani Microsoft Copilot</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
-    <value>Remove the Copilot app package and turn off Windows Copilot policy.</value>
+    <value>Odstranite paket aplikacije Copilot in izklopite pravilnik Windows Copilot.</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
-    <value>Remove Copilot+ AI Hub</value>
+    <value>Odstranite Copilot+ AI Hub</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
-    <value>Remove the provisioned Windows AI Hub app package when present.</value>
+    <value>Odstranite omogočen paket aplikacije Windows AI Hub, ko je prisoten.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall</value>
+    <value>Onemogoči Windows Recall</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
-    <value>Set Windows AI policies that prevent Recall enablement and snapshot saving.</value>
+    <value>Nastavite pravilnike Windows AI, ki preprečujejo omogočanje Recall in shranjevanje posnetkov.</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
-    <value>Disable Click to Do</value>
+    <value>Onemogoči Click to Do</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
-    <value>Set Windows AI policies that turn off Click to Do.</value>
+    <value>Nastavite politike Windows AI, ki izklopijo Click to Do.</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
-    <value>Prevent Windows AI service autostart</value>
+    <value>Prepreči samodejni zagon storitve Windows AI</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
-    <value>Set WSAIFabricSvc to manual startup instead of automatic startup.</value>
+    <value>Nastavite WSAIFabricSvc na ročni zagon namesto na samodejni zagon.</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
-    <value>Disable Microsoft Edge AI features</value>
+    <value>Onemogoči Microsoft Edge funkcije AI</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
-    <value>Set Edge policies that disable Copilot, sidebar, compose, and AI search features.</value>
+    <value>Nastavite Edge pravilnike, ki onemogočijo Copilot, stransko vrstico, sestavljanje sporočil in funkcije iskanja z umetno inteligenco.</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
-    <value>Disable Paint AI features</value>
+    <value>Onemogoči funkcije umetne inteligence Paint</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
-    <value>Set Paint policies that disable Cocreator, generative editing, image creator, and background removal.</value>
+    <value>Nastavite Paint pravilnike, ki onemogočijo Cocreator, generativno urejanje, ustvarjanje slik in odstranjevanje ozadja.</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
-    <value>Disable Notepad AI features</value>
+    <value>Onemogoči funkcije umetne inteligence Notepad</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
-    <value>Set the Notepad policy that disables AI features.</value>
+    <value>Nastavite pravilnik Notepad, ki onemogoči funkcije AI.</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Provisioned app removal</value>
+    <value>Odstranitev omogočene aplikacije</value>
   </data>
   <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Remove selected provisioned Windows apps before OOBE.</value>
+    <value>Odstranite izbrane omogočene Windows aplikacije pred OOBE.</value>
   </data>
   <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Remove provisioned Windows apps</value>
+    <value>Odstranite omogočene Windows aplikacije</value>
   </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
-    <value>Profile</value>
+    <value>Profil</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
-    <value>Select one or more catalog categories to preselect packages.</value>
+    <value>Izberite eno ali več kategorij kataloga, da vnaprej izberete pakete.</value>
   </data>
   <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
-    <value>None</value>
+    <value>Noben</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Po meri</value>
   </data>
   <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
-    <value>Selected profiles: {0}</value>
+    <value>Izbrani profili: {0}</value>
   </data>
   <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
-    <value>Select all</value>
+    <value>Izberite vse</value>
   </data>
   <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
-    <value>Remove all</value>
+    <value>Odstrani vse</value>
   </data>
   <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
-    <value>Packages</value>
+    <value>Paketi</value>
   </data>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
-    <value>Selected packages: {0} of {1}</value>
+    <value>Izbrani paketi: {0} od {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Choose the architecture, boot image language, and drivers to inject into the boot image.</value>
+    <value>Izberite arhitekturo, jezik zagonske slike in gonilnike, ki jih želite vstaviti v zagonsko sliko.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
-    <value>Configure media</value>
+    <value>Konfigurirajte medije</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Review Windows ADK and Windows PE Add-on readiness.</value>
+    <value>Preglejte pripravljenost dodatkov Windows ADK in Windows PE.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
-    <value>Open ADK</value>
+    <value>Odpri ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Open Foundry OSD documentation in your browser.</value>
+    <value>V brskalniku odprite dokumentacijo Foundry OSD.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
-    <value>Open documentation</value>
+    <value>Odprta dokumentacija</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Review the final media summary and create ISO or USB media.</value>
+    <value>Preglejte končni medijski povzetek in ustvarite ISO ali USB medij.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
-    <value>Review and start</value>
+    <value>Pregled in začetek</value>
   </data>
   <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
-    <value>Installed version</value>
+    <value>Nameščena različica</value>
   </data>
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
-    <value>Windows PE Add-on</value>
+    <value>Windows PE Dodatek</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Build Windows deployment media with a modern desktop workflow powered by WinPE.</value>
+    <value>Zgradite medije za uvajanje Windows s sodobnim potekom dela na namizju, ki ga poganja WinPE.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>General</value>
+    <value>Splošno</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Next step</value>
+    <value>Naslednji korak</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Review final output targets on the Start page after Windows ADK and Windows PE Add-on readiness is confirmed.</value>
+    <value>Preglejte končne izhodne cilje na začetni strani po potrditvi pripravljenosti dodatka Windows ADK in Windows PE.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>Review and start</value>
+    <value>Pregled in začetek</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
-    <value>Install Windows ADK and the Windows PE Add-on before selecting the WinPE boot language.</value>
+    <value>Namestite Windows ADK in Windows PE dodatek, preden izberete zagonski jezik WinPE.</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
-    <value>No WinPE language packs were detected for the selected architecture.</value>
+    <value>Za izbrano arhitekturo ni bil zaznan noben jezikovni paket WinPE.</value>
   </data>
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>Localization</value>
+    <value>Lokalizacija</value>
   </data>
   <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>Visible deployment languages</value>
+    <value>Vidni jeziki uvajanja</value>
   </data>
   <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>Default deployment language</value>
+    <value>Privzeti jezik uvajanja</value>
   </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
-    <value>Deployment time zone</value>
+    <value>Časovni pas uvedbe</value>
   </data>
   <data name="Localization.AutomaticOption" xml:space="preserve">
-    <value>Automatic</value>
+    <value>Samodejno</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Network</value>
+    <value>Omrežje</value>
   </data>
   <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Configure wired 802.1X</value>
+    <value>Konfigurirajte žično 802.1X</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Trusted root CA certificate file</value>
+    <value>Datoteka potrdila zaupanja vrednega korenskega CA</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Select 802.1X certificate</value>
+    <value>Izberite potrdilo 802.1X</value>
   </data>
   <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Provision Wi-Fi support in the boot image</value>
+    <value>Podpora za Wi-Fi v zagonski sliki</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
-    <value>Pre-provision a Wi-Fi profile</value>
+    <value>Vnaprej omogočite profil Wi-Fi</value>
   </data>
   <data name="Wifi.SsidLabel" xml:space="preserve">
     <value>SSID</value>
   </data>
   <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
-    <value>Security type</value>
+    <value>Vrsta varnosti</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
-    <value>Passphrase</value>
+    <value>Geslo</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Open</value>
+    <value>Odpri</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
-    <value>OWE (Opportunistic Wireless Encryption)</value>
+    <value>OWE (oportunistično brezžično šifriranje)</value>
   </data>
   <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
-    <value>WPA2/WPA3 Personal</value>
+    <value>WPA2/WPA3 osebno</value>
   </data>
   <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
     <value>WPA2/WPA3 Enterprise</value>
@@ -862,103 +862,103 @@
     <value>Ethernet</value>
   </data>
   <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Standard Ethernet connectivity is available by default. Configure this section only if your wired network requires 802.1X enterprise authentication.</value>
+    <value>Standardna Ethernet povezljivost je privzeto na voljo. Ta razdelek konfigurirajte samo, če vaše žično omrežje zahteva preverjanje pristnosti podjetja 802.1X.</value>
   </data>
   <data name="Network.WifiSectionTitle" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Enable this only if the boot image should include Wi-Fi support and Wi-Fi profiles for WinPE startup.</value>
+    <value>Omogočite to samo, če mora zagonska slika vključevati Wi-Fi podporo in Wi-Fi profile za WinPE zagon.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personal Wi-Fi passphrases remain transient in the authoring app and are not persisted in Foundry configuration.</value>
+    <value>Osebna gesla Wi-Fi ostanejo začasna v aplikaciji za avtoring in se ne ohranijo v konfiguraciji Foundry.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>Enterprise behavior is driven by the profile template in this build. 802.1X credentials entered during deployment are not provisioned here.</value>
+    <value>Vedenje podjetja je odvisno od predloge profila v tej zgradbi. Poverilnice 802.1X, vnesene med uvajanjem, tukaj niso omogočene.</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
-    <value>Advanced enterprise Wi-Fi</value>
+    <value>Napredno podjetje Wi-Fi</value>
   </data>
   <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
-    <value>Provision an enterprise Wi-Fi profile template</value>
+    <value>Zagotavljanje predloge profila podjetja Wi-Fi</value>
   </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
-    <value>Profile template file</value>
+    <value>Datoteka predloge profila</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
-    <value>Select a network profile template</value>
+    <value>Izberite predlogo omrežnega profila</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Import a trusted root CA certificate</value>
+    <value>Uvozite zaupanja vredno korensko potrdilo CA</value>
   </data>
   <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Trusted root CA certificate file</value>
+    <value>Datoteka potrdila zaupanja vrednega korenskega CA</value>
   </data>
   <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Select the Wi-Fi certificate</value>
+    <value>Izberite potrdilo Wi-Fi</value>
   </data>
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
-    <value>Wi-Fi configuration requires Wi-Fi support to be provisioned in the boot image.</value>
+    <value>Konfiguracija Wi-Fi zahteva, da je podpora za Wi-Fi omogočena v zagonski sliki.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
-    <value>Wired 802.1X requires a wired profile template.</value>
+    <value>Žični 802.1X zahteva predlogo žičnega profila.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
-    <value>Wired 802.1X profile template file was not found.</value>
+    <value>Datoteke s predlogo profila žičnega 802.1X ni bilo mogoče najti.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X requires a trusted root CA certificate file when certificate trust is enabled.</value>
+    <value>Wired 802.1X zahteva datoteko zaupanja vrednega korenskega potrdila CA, ko je omogočeno zaupanje potrdila.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Wired 802.1X trusted root CA certificate file was not found.</value>
+    <value>Datoteke s potrdilom zaupanja vrednega korenskega potrdila ožičenih 802.1X ni bilo mogoče najti.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
-    <value>Wi-Fi configuration requires an SSID.</value>
+    <value>Wi-Fi konfiguracija zahteva SSID.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
-    <value>Unsupported Wi-Fi security type '{0}'.</value>
+    <value>Nepodprta varnostna vrsta Wi-Fi '{0}'.</value>
   </data>
   <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
-    <value>Personal Wi-Fi requires an 8 to 63 character passphrase.</value>
+    <value>Osebni Wi-Fi zahteva geslo z 8 do 63 znaki.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requires a profile template.</value>
+    <value>Podjetje Wi-Fi zahteva predlogo profila.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi profile template file was not found.</value>
+    <value>Datoteke predloge profila podjetja Wi-Fi ni bilo mogoče najti.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
-    <value>Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.</value>
+    <value>Predloga profila podjetja Wi-Fi mora vsebovati podprto vrednost za preverjanje pristnosti podjetja.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
-    <value>Selected enterprise Wi-Fi security type does not match the profile template authentication ({0}).</value>
+    <value>Izbrana vrsta varnosti podjetja Wi-Fi se ne ujema s preverjanjem pristnosti predloge profila ({0}).</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requires a trusted root CA certificate file when certificate trust is enabled.</value>
+    <value>Podjetje Wi-Fi zahteva datoteko zaupanja vrednega korenskega potrdila CA, ko je omogočeno zaupanje potrdila.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi trusted root CA certificate file was not found.</value>
+    <value>Datoteke s potrdilom zaupanja vrednega korenskega CA podjetja Wi-Fi ni bilo mogoče najti.</value>
   </data>
   <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operation in progress</value>
+    <value>Operacija v teku</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operation complete</value>
+    <value>Operacija končana</value>
   </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
-    <value>Start</value>
+    <value>Začetek</value>
   </data>
   <data name="StartMedia.IsoPath.Header" xml:space="preserve">
-    <value>ISO output</value>
+    <value>ISO izhod</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
-    <value>Choose where the generated Foundry ISO will be written.</value>
+    <value>Izberite, kje bo zapisan ustvarjeni Foundry ISO.</value>
   </data>
   <data name="StartMedia.Architecture.Header" xml:space="preserve">
-    <value>Architecture and signature</value>
+    <value>Arhitektura in podpis</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
-    <value>Select the boot architecture and boot signature mode.</value>
+    <value>Izberite zagonsko arhitekturo in način zagonskega podpisa.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -967,28 +967,28 @@
     <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
-    <value>WinPE boot language</value>
+    <value>WinPE zagonski jezik</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>Language used by the WinPE boot environment.</value>
+    <value>Jezik, ki ga uporablja zagonsko okolje WinPE.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB target</value>
+    <value>USB cilj</value>
   </data>
   <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB layout</value>
+    <value>USB postavitev</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partition scheme used when preparing the selected USB target.</value>
+    <value>Razdelitvena shema, uporabljena pri pripravi izbranega cilja USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
-    <value>Format behavior used before copying the final USB media.</value>
+    <value>Obnašanje formata, uporabljeno pred kopiranjem končnega medija USB.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Driver options</value>
+    <value>Možnosti voznika</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Select optional vendor drivers and a custom driver folder.</value>
+    <value>Izberite izbirne gonilnike proizvajalca in mapo gonilnikov po meri.</value>
   </data>
   <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
     <value>Dell</value>
@@ -997,505 +997,505 @@
     <value>HP</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Custom driver folder</value>
+    <value>Mapa gonilnika po meri</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Optional folder containing additional .inf drivers.</value>
+    <value>Izbirna mapa z dodatnimi gonilniki .inf.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
-    <value>Create media</value>
+    <value>Ustvari medije</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Create ISO or USB media after all readiness checks pass.</value>
+    <value>Ustvarite medije ISO ali USB, potem ko so uspešno opravljeni vsi pregledi pripravljenosti.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>Create ISO</value>
+    <value>Ustvari ISO</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>Create USB</value>
+    <value>Ustvari USB</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Quick format</value>
+    <value>Hitra oblika</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Full format</value>
+    <value>Polna oblika</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>Media creation is not enabled in this build.</value>
+    <value>Ustvarjanje medijev ni omogočeno v tej zgradbi.</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
-    <value>Media creation is available when all readiness checks pass.</value>
+    <value>Ustvarjanje medijev je na voljo, ko so opravljeni vsi pregledi pripravljenosti.</value>
   </data>
   <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
-    <value>ISO creation is blocked</value>
+    <value>Ustvarjanje ISO je blokirano</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
-    <value>USB creation is blocked</value>
+    <value>Ustvarjanje USB je blokirano</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Format USB target</value>
+    <value>Oblikujte cilj USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>This will erase disk {0}: {1} ({2}). Continue only if this is the intended USB drive.</value>
+    <value>To bo izbrisalo disk {0}: {1} ({2}). Nadaljujte le, če je to predvideni pogon USB.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
-    <value>Format and create USB</value>
+    <value>Oblikuj in ustvari USB</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Creating WinPE workspace.</value>
+    <value>Ustvarjanje WinPE delovnega prostora.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Preparing WinPE workspace.</value>
+    <value>Priprava WinPE delovnega prostora.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Resolving driver packages.</value>
+    <value>Reševanje paketov gonilnikov.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Customizing the boot image.</value>
+    <value>Prilagajanje zagonske slike.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluating boot signature policy.</value>
+    <value>Ocenjevanje pravilnika o zagonskem podpisu.</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Preparing boot image customization.</value>
+    <value>Priprava prilagajanja zagonske slike.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Mounting boot image.</value>
+    <value>Namestitev zagonske slike.</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Injecting drivers into the boot image.</value>
+    <value>Vstavljanje gonilnikov v zagonsko sliko.</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Applying language and optional components.</value>
+    <value>Uporaba jezika in izbirnih komponent.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Provisioning Foundry boot assets.</value>
+    <value>Omogočanje zagonskih sredstev Foundry.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Adding Foundry deployment components.</value>
+    <value>Dodajanje komponent za uvajanje Foundry.</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Committing boot image changes.</value>
+    <value>Izvajanje sprememb zagonske slike.</value>
   </data>
   <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Boot image customization completed.</value>
+    <value>Prilagajanje zagonske slike je končano.</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Cleaning WinPE workspace.</value>
+    <value>Čiščenje WinPE delovnega prostora.</value>
   </data>
   <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Creating ISO media.</value>
+    <value>Ustvarjanje medija ISO.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Creating USB media.</value>
+    <value>Ustvarjanje medija USB.</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Final media creation completed.</value>
+    <value>Ustvarjanje končnega medija je končano.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Final media creation failed.</value>
+    <value>Ustvarjanje končnega medija ni uspelo.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Downloading content.</value>
+    <value>Prenašanje vsebine.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Resolving WinRE source catalog.</value>
+    <value>Razrešitev izvornega kataloga WinRE.</value>
   </data>
   <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Selected WinRE source package.</value>
+    <value>Izbrani izvorni paket WinRE.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Preparing WinRE source package.</value>
+    <value>Priprava izvornega paketa WinRE.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Validating cached WinRE source package.</value>
+    <value>Preverjanje predpomnjenega izvornega paketa WinRE.</value>
   </data>
   <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Using cached WinRE source package.</value>
+    <value>Uporaba predpomnjenega izvornega paketa WinRE.</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Downloading WinRE source package.</value>
+    <value>Prenašanje izvornega paketa WinRE.</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Downloading driver package</value>
+    <value>Prenos paketa gonilnikov</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Downloading {0} deployment components.</value>
+    <value>Prenašanje komponent za uvajanje {0}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Validating WinRE source package.</value>
+    <value>Preverjanje izvornega paketa WinRE.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Resolving WinRE image index.</value>
+    <value>Razreševanje indeksa slik WinRE.</value>
   </data>
   <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Exporting Windows image for WinRE extraction.</value>
+    <value>Izvažanje slike Windows za ekstrakcijo WinRE.</value>
   </data>
   <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Mounting WinRE source image.</value>
+    <value>Namestitev izvorne slike WinRE.</value>
   </data>
   <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Staging WinRE Wi-Fi dependencies.</value>
+    <value>Uprizarjanje odvisnosti WinRE Wi-Fi.</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Replacing boot image with WinRE.</value>
+    <value>Zamenjava zagonske slike z WinRE.</value>
   </data>
   <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>WinRE Wi-Fi boot image is ready.</value>
+    <value>WinRE Wi-Fi zagonska slika je pripravljena.</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Preparing ISO output path.</value>
+    <value>Priprava ISO izhodne poti.</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Preparing ISO workspace.</value>
+    <value>Priprava ISO delovnega prostora.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Running MakeWinPEMedia for ISO.</value>
+    <value>Zagon MakeWinPEMedia za ISO.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finalizing ISO output.</value>
+    <value>Zaključevanje izpisa ISO.</value>
   </data>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO media completed.</value>
+    <value>ISO mediji končani.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Validating USB target.</value>
+    <value>Preverjanje cilja USB.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Checking USB target safety.</value>
+    <value>Preverjanje varnosti cilja USB.</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partitioning and formatting USB target.</value>
+    <value>Particioniranje in oblikovanje cilja USB.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Opening USB disk.</value>
+    <value>Odpiranje USB diska.</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Preparing USB disk attributes.</value>
+    <value>Priprava atributov diska USB.</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Clearing USB partition table.</value>
+    <value>Čiščenje particijske tabele USB.</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Initializing USB partition table.</value>
+    <value>Inicializacija USB particijske tabele.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Creating BOOT partition.</value>
+    <value>Ustvarjanje zagonske particije.</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formatting BOOT partition.</value>
+    <value>Formatiranje zagonske particije.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Creating cache partition.</value>
+    <value>Ustvarjanje particije predpomnilnika.</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatting cache partition.</value>
+    <value>Formatiranje particije predpomnilnika.</value>
   </data>
   <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partitions formatted.</value>
+    <value>USB particije formatirane.</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Copying WinPE media to USB.</value>
+    <value>Kopiranje medija WinPE v USB.</value>
   </data>
   <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Configuring USB boot files.</value>
+    <value>Konfiguriranje zagonskih datotek USB.</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Verifying USB boot media.</value>
+    <value>Preverjanje USB zagonskega medija.</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Preparing USB cache partition.</value>
+    <value>Priprava particije predpomnilnika USB.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Adding Foundry components to USB media.</value>
+    <value>Dodajanje komponent Foundry v medije USB.</value>
   </data>
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB media completed.</value>
+    <value>USB mediji končani.</value>
   </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Exporting Windows image with DISM.</value>
+    <value>Izvažanje Windows slike z DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Resolving WinRE image index with DISM.</value>
+    <value>Razreševanje indeksa slik WinRE z DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Mounting image with DISM.</value>
+    <value>Namestitev slike z DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Injecting drivers with DISM.</value>
+    <value>Vstavljanje gonilnikov z DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Applying language pack with DISM.</value>
+    <value>Uporaba jezikovnega paketa z DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Applying optional components with DISM.</value>
+    <value>Uporaba neobveznih komponent z DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Applying international settings with DISM.</value>
+    <value>Uporaba mednarodnih nastavitev z DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Committing image changes with DISM.</value>
+    <value>Izvajanje sprememb slike z DISM.</value>
   </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>The ISO media was created successfully.</value>
+    <value>Medij ISO je bil uspešno ustvarjen.</value>
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB media was created successfully. Boot volume: {0}. Cache volume: {1}.</value>
+    <value>Medij USB je bil uspešno ustvarjen. Glasnost zagona: {0}. Prostornina predpomnilnika: {1}.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
-    <value>Select ISO output path</value>
+    <value>Izberite ISO izhodno pot</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO image</value>
+    <value>ISO slika</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
-    <value>Select custom driver folder</value>
+    <value>Izberite mapo gonilnika po meri</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB targets can be refreshed after ADK readiness is complete.</value>
+    <value>USB cilje je mogoče osvežiti, ko je ADK pripravljenost končana.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB target refresh failed.</value>
+    <value>Osvežitev cilja USB ni uspela.</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scanning USB targets.</value>
+    <value>Skeniranje ciljev USB.</value>
   </data>
   <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
-    <value>USB targets have not been scanned yet.</value>
+    <value>Cilji USB še niso bili skenirani.</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
-    <value>No USB drives were found.</value>
+    <value>Najden ni bil noben pogon USB.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
-    <value>USB drives found: {0}</value>
+    <value>Najdeni pogoni USB: {0}</value>
   </data>
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Items needing attention:</value>
+    <value>Elementi, ki zahtevajo pozornost:</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
-    <value>Ready to create ISO and USB media</value>
+    <value>Pripravljen za ustvarjanje medijev ISO in USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
-    <value>Ready to create ISO media</value>
+    <value>Pripravljen za ustvarjanje medijev ISO</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
-    <value>Ready to create USB media</value>
+    <value>Pripravljen za ustvarjanje medijev USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>Readiness items needing action: {0}</value>
+    <value>Elementi pripravljenosti, ki jih je treba ukrepati: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
-    <value>Review media output warnings</value>
+    <value>Preglejte opozorila o medijskem izpisu</value>
   </data>
   <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
-    <value>Prerequisites</value>
+    <value>Predpogoji</value>
   </data>
   <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
-    <value>Checks that must be valid before Foundry can build media.</value>
+    <value>Preverjanja, ki morajo biti veljavna, preden lahko Foundry gradi medije.</value>
   </data>
   <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
-    <value>Media output</value>
+    <value>Medijski izhod</value>
   </data>
   <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
-    <value>Final ISO and USB output choices.</value>
+    <value>Končne izbire izhoda ISO in USB.</value>
   </data>
   <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
-    <value>Foundry configuration</value>
+    <value>Foundry konfiguracija</value>
   </data>
   <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
-    <value>Deployment settings used by Foundry in WinPE.</value>
+    <value>Nastavitve uvajanja, ki jih uporablja Foundry v WinPE.</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>pripravljena</value>
   </data>
   <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Opozorilo</value>
   </data>
   <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
-    <value>Blocked</value>
+    <value>blokiran</value>
   </data>
   <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
-    <value>Not configured</value>
+    <value>Ni nastavljeno</value>
   </data>
   <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
-    <value>Loading</value>
+    <value>Nalaganje</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Review</value>
+    <value>Pregled</value>
   </data>
   <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
-    <value>Windows ADK and the Windows PE Add-on are ready.</value>
+    <value>Windows ADK in Windows PE dodatek sta pripravljena.</value>
   </data>
   <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
-    <value>Driver options are valid.</value>
+    <value>Možnosti gonilnika so veljavne.</value>
   </data>
   <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
     <value>{0}; {1}</value>
   </data>
   <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
-    <value>Network configuration can be provisioned.</value>
+    <value>Konfiguracijo omrežja je mogoče zagotoviti.</value>
   </data>
   <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
-    <value>Deploy configuration can be generated.</value>
+    <value>Ustvarite lahko konfiguracijo razmestitve.</value>
   </data>
   <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
-    <value>Connect provisioning bundle can be generated.</value>
+    <value>Ustvarite lahko sveženj za zagotavljanje povezave.</value>
   </data>
   <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
-    <value>Required media secrets are available.</value>
+    <value>Na voljo so zahtevane medijske skrivnosti.</value>
   </data>
   <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
-    <value>Autopilot is disabled and does not block media creation.</value>
+    <value>Autopilot je onemogočen in ne blokira ustvarjanja medijev.</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
-    <value>WinPE boot language</value>
+    <value>WinPE zagonski jezik</value>
   </data>
   <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Boot image source</value>
+    <value>Vir zagonske slike</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
-    <value>Architecture</value>
+    <value>Arhitektura</value>
   </data>
   <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO output path</value>
+    <value>ISO izhodna pot</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB target</value>
+    <value>USB cilj</value>
   </data>
   <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Signature mode</value>
+    <value>Način podpisa</value>
   </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
-    <value>USB partition style</value>
+    <value>USB slog particije</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
-    <value>USB format mode</value>
+    <value>način zapisa USB</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Drivers</value>
+    <value>Vozniki</value>
   </data>
   <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Network configuration</value>
+    <value>Konfiguracija omrežja</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Deploy configuration</value>
+    <value>Razmesti konfiguracijo</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Connect provisioning</value>
+    <value>Oskrba povezave</value>
   </data>
   <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Media secrets</value>
+    <value>Medijske skrivnosti</value>
   </data>
   <data name="StartMedia.Field.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
-    <value>Enabled: {0} ({1})</value>
+    <value>Omogočeno: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Enabled: hardware hash upload</value>
+    <value>Omogočeno: nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
-    <value>Autopilot uses an unsupported provisioning mode.</value>
+    <value>Autopilot uporablja nepodprt način zagotavljanja.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
-    <value>Autopilot JSON profile mode is enabled but no valid default profile is selected.</value>
+    <value>Način profila Autopilot JSON je omogočen, vendar ni izbran veljaven privzeti profil.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but settings are missing.</value>
+    <value>Nalaganje razpršitve strojne opreme je omogočeno, vendar manjkajo nastavitve.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the tenant connection is missing. Connect to the tenant from Autopilot.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar najemniška povezava manjka. Povežite se z najemnikom iz Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the app registration is not configured. Connect to the tenant from Autopilot.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar registracija aplikacije ni konfigurirana. Povežite se z najemnikom iz Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the app client ID is missing. Reconnect to the tenant from Autopilot.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar manjka ID odjemalca aplikacije. Znova se povežite z najemnikom iz Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the app service principal is missing or not ready.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar principal storitve aplikacije manjka ali ni pripravljen.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected PFX does not match an app registration certificate.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar se izbrani PFX ne ujema s potrdilom o registraciji aplikacije.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate thumbprint is missing.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar izbrani odtis potrdila manjka.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate expiration is missing.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar izbrani potek veljavnosti potrdila manjka.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate has expired. Select a valid certificate before creating boot media.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar je izbrano potrdilo poteklo. Pred ustvarjanjem zagonskega medija izberite veljavno potrdilo.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but no boot media PFX is selected.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar ni izbran noben zagonski medij PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the boot media PFX password is missing.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar manjka geslo PFX zagonskega medija.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the boot media PFX has not been validated.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar zagonski medij PFX ni bil preverjen.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected PFX does not match the active certificate.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar se izbrani PFX ne ujema z aktivnim potrdilom.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the boot media PFX expiration could not be validated.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar veljavnosti PFX zagonskega medija ni bilo mogoče preveriti.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected boot media PFX has expired.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar je izbrani zagonski medij PFX potekel.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
-    <value>ADK or WinPE Add-on is not ready.</value>
+    <value>Dodatek ADK ali WinPE ni pripravljen.</value>
   </data>
   <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
-    <value>ISO output path must end with .iso.</value>
+    <value>ISO izhodna pot se mora končati z.iso.</value>
   </data>
   <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
-    <value>WinPE boot language is not selected.</value>
+    <value>WinPE zagonski jezik ni izbran.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
-    <value>Selected WinPE boot language is not available for the selected architecture.</value>
+    <value>Izbrani WinPE zagonski jezik ni na voljo za izbrano arhitekturo.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
-    <value>Network configuration is not ready.</value>
+    <value>Omrežna konfiguracija ni pripravljena.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
-    <value>Deploy configuration generation is not ready.</value>
+    <value>Generacija konfiguracije razmestitve ni pripravljena.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
-    <value>Connect provisioning is not ready.</value>
+    <value>Omogočanje povezave ni pripravljeno.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
-    <value>Required media secrets are not ready.</value>
+    <value>Zahtevane medijske skrivnosti niso pripravljene.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot is enabled but no valid default profile is selected.</value>
+    <value>Autopilot je omogočen, vendar ni izbran veljaven privzeti profil.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>No USB target is selected.</value>
+    <value>Izbran ni noben cilj USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>The selected USB target is too small. Use a USB key of at least 16 GB.</value>
+    <value>Izbrani cilj USB je premajhen. Uporabite tipko USB z vsaj 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
-    <value>ARM64 media requires GPT partition style.</value>
+    <value>Mediji ARM64 zahtevajo slog particije GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
-    <value>Custom driver folder does not exist.</value>
+    <value>Mapa gonilnika po meri ne obstaja.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
-    <value>Custom driver folder does not contain .inf files.</value>
+    <value>Mapa gonilnika po meri ne vsebuje datotek .inf.</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
-    <value>Media creation is not enabled in this build.</value>
+    <value>Ustvarjanje medijev ni omogočeno v tej zgradbi.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -1504,10 +1504,10 @@
     <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
+    <value>Standardno WinPE</value>
   </data>
   <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi image</value>
+    <value>Slika WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
     <value>Dell</value>
@@ -1531,19 +1531,19 @@
     <value>TB</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
-    <value>Update</value>
+    <value>posodobitev</value>
   </data>
   <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>New</value>
+    <value>Novo</value>
   </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
-    <value>Product and version information.</value>
+    <value>Informacije o izdelku in različici.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>About</value>
+    <value>O tem</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
-    <value>ADK readiness and installation.</value>
+    <value>ADK pripravljenost in namestitev.</value>
   </data>
   <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
     <value>Windows ADK</value>
@@ -1552,7 +1552,7 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot profile configuration.</value>
+    <value>Autopilot konfiguracija profila.</value>
   </data>
   <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
     <value>Autopilot</value>
@@ -1561,37 +1561,37 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Deployment customization options.</value>
+    <value>Možnosti prilagajanja uvajanja.</value>
   </data>
   <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Customization</value>
+    <value>Prilagajanje</value>
   </data>
   <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Customization</value>
+    <value>Prilagajanje</value>
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
-    <value>Foundry documentation and project links.</value>
+    <value>Foundry dokumentacija in povezave do projekta.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Dokumentacija</value>
   </data>
   <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Expert</value>
+    <value>Strokovnjak</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
-    <value>Standard configuration workflow.</value>
+    <value>Standardni konfiguracijski potek dela.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
-    <value>Standard configuration</value>
+    <value>Standardna konfiguracija</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>General</value>
+    <value>Splošno</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>General</value>
+    <value>Splošno</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD home</value>
+    <value>Foundry OSD domov</value>
   </data>
   <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
     <value>Foundry OSD</value>
@@ -1600,94 +1600,94 @@
     <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Home</value>
+    <value>domov</value>
   </data>
   <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE language and localization settings.</value>
+    <value>WinPE nastavitve jezika in lokalizacije.</value>
   </data>
   <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>Localization</value>
+    <value>Lokalizacija</value>
   </data>
   <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>Localization</value>
+    <value>Lokalizacija</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Network and connectivity configuration.</value>
+    <value>Konfiguracija omrežja in povezljivosti.</value>
   </data>
   <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Network</value>
+    <value>Omrežje</value>
   </data>
   <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Network</value>
+    <value>Omrežje</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
-    <value>Review and start media creation.</value>
+    <value>Preglejte in začnite ustvarjati medije.</value>
   </data>
   <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>Start</value>
+    <value>Začetek</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Start</value>
+    <value>Začetek</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>Settings</value>
+    <value>nastavitve</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
-    <value>Manage startup, language, diagnostics, and application behavior.</value>
+    <value>Upravljajte zagon, jezik, diagnostiko in vedenje aplikacij.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>General</value>
+    <value>Splošno</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. No names, secrets, SSIDs, IP addresses, file paths, disk identifiers, computer names, Autopilot profile names, or hardware identifiers are sent.</value>
+    <value>Pošljite anonimno telemetrijo uporabe, da pomagate izboljšati Foundry. Ne pošiljajo se imena, skrivnosti, SSID-ji, naslovi IP, poti datotek, identifikatorji diskov, imena računalnikov, imena profilov Autopilot ali identifikatorji strojne opreme.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
-    <value>Enable telemetry</value>
+    <value>Omogoči telemetrijo</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>Change theme, backdrop, and accent color preferences.</value>
+    <value>Spremenite nastavitve teme, ozadja in barv poudarkov.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Videz</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>Check for Foundry OSD updates and review release notes.</value>
+    <value>Preverite posodobitve Foundry OSD in preglejte opombe ob izdaji.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
-    <value>Update app</value>
+    <value>Posodobi aplikacijo</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
-    <value>Open Windows color settings to change the accent color.</value>
+    <value>Odprite nastavitve barv Windows, da spremenite barvo poudarka.</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
-    <value>Accent color</value>
+    <value>Poudarjena barva</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Open</value>
+    <value>Odpri</value>
   </data>
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
-    <value>Acrylic</value>
+    <value>Akril</value>
   </data>
   <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>Acrylic Thin</value>
+    <value>Akrilna tanka</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>Select the application theme.</value>
+    <value>Izberite temo aplikacije.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>App theme</value>
+    <value>Tema aplikacije</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>Temno</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>System</value>
+    <value>Sistem</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>Svetloba</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
-    <value>Choose the backdrop material used behind the app.</value>
+    <value>Izberite material za ozadje, ki se uporablja za aplikacijo.</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
     <value>Material</value>
@@ -1699,195 +1699,309 @@
     <value>Mica</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD will download the update and restart to apply it.</value>
+    <value>Foundry OSD bo prenesel posodobitev in znova zagnal, da jo uporabi.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Update and restart</value>
+    <value>Posodobite in znova zaženite</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Update Foundry OSD</value>
+    <value>Posodobi Foundry OSD</value>
   </data>
   <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Downloading the update. Foundry OSD will restart when it is ready.</value>
+    <value>Prenašanje posodobitve. Foundry OSD se bo znova zagnal, ko bo pripravljen.</value>
   </data>
   <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Download progress</value>
+    <value>Napredek prenosa</value>
   </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Downloading update</value>
+    <value>Prenašanje posodobitve</value>
   </data>
   <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Version {0}</value>
+    <value>Različica {0}</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
-    <value>Not checked</value>
+    <value>Ni preverjeno</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
-    <value>New</value>
+    <value>Novo</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
-    <value>Available version</value>
+    <value>Razpoložljiva različica</value>
   </data>
   <data name="Update.Field.InstalledVersion" xml:space="preserve">
-    <value>Installed version</value>
+    <value>Nameščena različica</value>
   </data>
   <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
-    <value>Last checked</value>
+    <value>Nazadnje preverjeno</value>
   </data>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
-    <value>Latest version</value>
+    <value>Najnovejša različica</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>foundry-osd/foundry</value>
+    <value>livarna-osd/livarna</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
-    <value>Checking for updates</value>
+    <value>Preverjanje posodobitev</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Update check failed: {0}</value>
+    <value>Preverjanje posodobitve ni uspelo: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
-    <value>Foundry OSD is up to date.</value>
+    <value>Foundry OSD je posodobljen.</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
-    <value>Up to date</value>
+    <value>Ažurno</value>
   </data>
   <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>Na voljo je posodobitev</value>
   </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
-    <value>Foundry OSD {0} is available</value>
+    <value>Foundry OSD {0} je na voljo</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
-    <value>Update check skipped because Foundry OSD is not running from a Velopack installation.</value>
+    <value>Preverjanje posodobitve je bilo preskočeno, ker se Foundry OSD ne izvaja iz namestitve Velopack.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>pripravljena</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
-    <value>Update check failed</value>
+    <value>Preverjanje posodobitve ni uspelo</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
-    <value>Update check skipped</value>
+    <value>Preverjanje posodobitve je bilo preskočeno</value>
   </data>
   <data name="Update.Status.SkippedInDebug" xml:space="preserve">
-    <value>Update check skipped because a debugger is attached.</value>
+    <value>Preverjanje posodobitve je bilo preskočeno, ker je priložen razhroščevalnik.</value>
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
-    <value>A Foundry OSD update is available.</value>
+    <value>Na voljo je posodobitev Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Update when you are ready. Foundry OSD will restart to finish applying it.</value>
+    <value>Posodobite, ko boste pripravljeni. Foundry OSD se bo znova zagnal, da ga dokonča.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
-    <value>Foundry OSD {0} is available.</value>
+    <value>Foundry OSD {0} je na voljo.</value>
   </data>
   <data name="Adk.PageTitle" xml:space="preserve">
     <value>Windows ADK</value>
   </data>
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
-    <value>ADK is ready</value>
+    <value>ADK je pripravljen</value>
   </data>
   <data name="Adk.Status.ReadyDescription" xml:space="preserve">
-    <value>Foundry OSD can create ISO and USB media.</value>
+    <value>Foundry OSD lahko ustvari ISO in USB medije.</value>
   </data>
   <data name="Adk.Status.MissingTitle" xml:space="preserve">
-    <value>ADK is not installed</value>
+    <value>ADK ni nameščen</value>
   </data>
   <data name="Adk.Status.MissingDescription" xml:space="preserve">
-    <value>Install the Windows ADK Deployment Tools and the Windows PE Add-on before configuring media creation.</value>
+    <value>Namestite Windows ADK orodja za uvajanje in Windows PE dodatek, preden konfigurirate ustvarjanje medijev.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
-    <value>ADK version is unsupported</value>
+    <value>Različica ADK ni podprta</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Upgrade the Windows ADK to a supported 10.1.26100 build.</value>
+    <value>Nadgradite Windows ADK na podprto različico 10.1.26100.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
-    <value>Windows PE Add-on is missing</value>
+    <value>Windows PE Manjka dodatek</value>
   </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
-    <value>Install the Windows PE Add-on for the installed Windows ADK.</value>
+    <value>Namestite dodatek Windows PE za nameščen Windows ADK.</value>
   </data>
   <data name="Adk.SetupAction.Title" xml:space="preserve">
-    <value>ADK setup</value>
+    <value>ADK nastavitev</value>
   </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
-    <value>Install or upgrade the Windows ADK Deployment Tools and Windows PE Add-on required for media creation.</value>
+    <value>Namestite ali nadgradite Windows ADK orodja za uvajanje in Windows PE dodatek, potreben za ustvarjanje medijev.</value>
   </data>
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
-    <value>Readiness details</value>
+    <value>Podrobnosti o pripravljenosti</value>
   </data>
   <data name="Adk.Version.InstalledTitle" xml:space="preserve">
-    <value>Installed version</value>
+    <value>Nameščena različica</value>
   </data>
   <data name="Adk.Version.NotDetected" xml:space="preserve">
-    <value>Version not detected</value>
+    <value>Različica ni zaznana</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
-    <value>Required version policy</value>
+    <value>Politika zahtevane različice</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch.</value>
+    <value>Zahteva Windows ADK 10.1.26100.2454+ z najnovejšim servisnim popravkom ADK.</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
-    <value>Windows PE Add-on</value>
+    <value>Windows PE Dodatek</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Add-on installed</value>
+    <value>Windows PE Nameščen dodatek</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Add-on missing</value>
+    <value>Windows PE Manjka dodatek</value>
   </data>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
-    <value>Media creation capability</value>
+    <value>Sposobnost ustvarjanja medijev</value>
   </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
-    <value>ISO and USB creation are available.</value>
+    <value>Na voljo je ustvarjanje ISO in USB.</value>
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
-    <value>ISO and USB creation remain blocked.</value>
+    <value>Ustvarjanje ISO in USB ostane blokirano.</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Installing Windows ADK</value>
+    <value>Namestitev Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Upgrading Windows ADK</value>
+    <value>Nadgradnja Windows ADK</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
-    <value>Downloading ADK installer</value>
+    <value>Prenašanje namestitvenega programa ADK</value>
   </data>
   <data name="Adk.Operation.Downloaded" xml:space="preserve">
-    <value>ADK installer downloaded</value>
+    <value>ADK namestitveni program je prenesen</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
-    <value>Using cached ADK installer</value>
+    <value>Uporaba predpomnjenega namestitvenega programa ADK</value>
   </data>
   <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
-    <value>Removing existing Windows PE Add-on</value>
+    <value>Odstranjevanje obstoječega dodatka Windows PE</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
-    <value>Removing existing Windows ADK</value>
+    <value>Odstranjevanje obstoječega Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
-    <value>Installing Windows ADK Deployment Tools</value>
+    <value>Nameščanje Windows ADK orodij za uvajanje</value>
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
-    <value>Installing Windows PE Add-on</value>
+    <value>Namestitev dodatka Windows PE</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
-    <value>Verifying ADK installation</value>
+    <value>Preverjanje namestitve ADK</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operation completed</value>
+    <value>ADK operacija končana</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operation failed</value>
+    <value>ADK operacija ni uspela</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Install Windows ADK and Windows PE Add-on</value>
+    <value>Namestite dodatka Windows ADK in Windows PE</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Upgrade Windows ADK and Windows PE Add-on</value>
+    <value>Nadgradite dodatka Windows ADK in Windows PE</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabščina (Saudova Arabija)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bolgarščina (Bolgarija)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>češčina (Češka)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>danščina (Danska)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>nemščina (Nemčija)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>grščina (Grčija)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angleščina (Združeno kraljestvo)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angleščina (Združene države)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>španščina (Španija)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>španščina (Mehika)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estonščina (Estonija)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finščina (Finska)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francoščina (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francoščina (Francija)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrejščina (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>hrvaščina (Hrvaška)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>madžarščina (Madžarska)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italijanščina (Italija)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japonščina (Japonska)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korejščina (Koreja)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litovščina (Litva)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>latvijščina (Latvija)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norveški bokmal (Norveška)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>nizozemščina (Nizozemska)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poljščina (Poljska)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalščina (Brazilija)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalščina (Portugalska)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>romunščina (Romunija)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ruski (Rusija)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovaščina (Slovaška)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovenščina (Slovenija)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>srbska latinica (Srbija)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švedščina (Švedska)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>tajščina (Tajska)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turščina (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrajinščina (Ukrajina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>poenostavljena kitajščina (Kitajska)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradicionalna kitajščina (Tajvan)</value>
   </data>
 </root>

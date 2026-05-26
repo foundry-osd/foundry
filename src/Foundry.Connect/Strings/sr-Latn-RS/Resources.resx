@@ -19,109 +19,109 @@
     <value>Foundry Connect</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>About Foundry Connect</value>
+    <value>O Foundry Connect</value>
   </data>
   <data name="About.DescriptionLine1" xml:space="preserve">
-    <value>Foundry Connect validates network readiness in WinPE before Foundry deployment continues.</value>
+    <value>Foundry Connect potvrđuje spremnost mreže u WinPE pre nego što se Foundry nastavi primena.</value>
   </data>
   <data name="About.DescriptionLine2" xml:space="preserve">
-    <value>This software is provided as is. Confirm network access before continuing deployment.</value>
+    <value>Ovaj softver je obezbeđen takav kakav jeste. Potvrdite pristup mreži pre nego što nastavite sa primenom.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project. Licensed under the MIT License.</value>
+    <value>Autorsko pravo (c) 2026 Foundry Project. Licencirano pod MIT licencom.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Tema</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Jezik</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Tools</value>
+    <value>Alati</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Otklanjanje grešaka</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="Theme.System" xml:space="preserve">
-    <value>System</value>
+    <value>Sistem</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Svetlost</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
   <data name="Language.English" xml:space="preserve">
-    <value>English</value>
+    <value>engleski</value>
   </data>
   <data name="Language.French" xml:space="preserve">
-    <value>French</value>
+    <value>francuski</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
-    <value>Refresh status</value>
+    <value>Osveži status</value>
   </data>
   <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Use detected layout</value>
+    <value>Koristite otkriveni raspored</value>
   </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Show Ethernet only</value>
+    <value>Prikaži samo Ethernet</value>
   </data>
   <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Show Ethernet + Wi-Fi</value>
+    <value>Prikaži Ethernet + Wi-Fi</value>
   </data>
   <data name="Action.Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Nastavi</value>
   </data>
   <data name="Action.Connect" xml:space="preserve">
-    <value>Connect</value>
+    <value>Povežite se</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
+    <value>Prekini vezu</value>
   </data>
   <data name="Common.VersionFormat" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>Verzija: {0}</value>
   </data>
   <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Configuration: {0}</value>
+    <value>Konfiguracija: {0}</value>
   </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Configuration: built-in defaults</value>
+    <value>Konfiguracija: ugrađene podrazumevane vrednosti</value>
   </data>
   <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Refreshes every {0} seconds</value>
+    <value>Osvežava se svake {0} sekunde</value>
   </data>
   <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Last updated: pending</value>
+    <value>Poslednje ažurirano: na čekanju</value>
   </data>
   <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Last updated: {0:HH:mm:ss}</value>
+    <value>Poslednje ažurirano: {0:HH:mm:ss}</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
-    <value>Unavailable</value>
+    <value>Nedostupno</value>
   </data>
   <data name="Common.Connected" xml:space="preserve">
-    <value>Connected</value>
+    <value>Povezano</value>
   </data>
   <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Waiting for network</value>
+    <value>Čeka se mreža</value>
   </data>
   <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Internet access has not been validated yet.</value>
+    <value>Pristup internetu još nije potvrđen.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
-    <value>Network ready</value>
+    <value>Mreža spremna</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internet access has been validated. You can continue now.</value>
+    <value>Pristup internetu je potvrđen. Sada možete nastaviti.</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Network refresh failed</value>
+    <value>Osvežavanje mreže nije uspelo</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
-    <value>Continuing automatically in {0}s</value>
+    <value>Nastavlja se automatski u {0}s</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
@@ -133,177 +133,291 @@
     <value>IPv4</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Gateway</value>
+    <value>Gatevai</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>No Ethernet adapter detected.</value>
+    <value>Nije otkriven Ethernet adapter.</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
-    <value>No active link</value>
+    <value>Nema aktivne veze</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
-    <value>Waiting for network configuration</value>
+    <value>Čeka se konfiguracija mreže</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Check the cable connection</value>
+    <value>Proverite vezu kabla</value>
   </data>
   <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Waiting for DHCP or static network configuration</value>
+    <value>Čeka se DHCP ili statička mrežna konfiguracija</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP lease detected</value>
+    <value>DHCP otkriven zakup</value>
   </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
-    <value>Static network configuration detected</value>
+    <value>Otkrivena je statična mrežna konfiguracija</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
-    <value>Refresh Wi-Fi networks</value>
+    <value>Osvežite Wi-Fi mreže</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
-    <value>Show or hide Wi-Fi password</value>
+    <value>Prikaži ili sakrij lozinku Wi-Fi</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Provisioned Wi-Fi</value>
+    <value>Obezbeđeno Wi-Fi</value>
   </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profile</value>
+    <value>Profil</value>
   </data>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentifikacija</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
-    <value>This network requires a provisioned Wi-Fi profile.</value>
+    <value>Ova mreža zahteva obezbeđeni Wi-Fi profil.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
-    <value>No Wi-Fi networks are currently visible.</value>
+    <value>Trenutno nije vidljiva mreža Wi-Fi.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>No provisioned Wi-Fi profile is available in this boot image.</value>
+    <value>Nijedan obezbeđeni Wi-Fi profil nije dostupan na ovoj slici za pokretanje.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi support is not available in this boot environment.</value>
+    <value>Wi-Fi podrška nije dostupna u ovom okruženju za pokretanje.</value>
   </data>
   <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>No Wi-Fi adapter is currently detected.</value>
+    <value>Trenutno nije otkriven Wi-Fi adapter.</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>No Wi-Fi adapter is available.</value>
+    <value>Nije dostupan Wi-Fi adapter.</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Enterprise profile</value>
+    <value>Profil preduzeća</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
-    <value>Unnamed provisioned profile</value>
+    <value>Neimenovani obezbeđeni profil</value>
   </data>
   <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Boot image settings</value>
+    <value>Pokrenite podešavanja slike</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificate included in boot image</value>
+    <value>{0} · Sertifikat uključen u sliku za pokretanje</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
-    <value>Configured security</value>
+    <value>Konfigurisana bezbednost</value>
   </data>
   <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi unavailable</value>
+    <value>Wi-Fi nedostupan</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>No Wi-Fi adapter available</value>
+    <value>Nije dostupan Wi-Fi adapter</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
-    <value>Another Wi-Fi network is active</value>
+    <value>Druga Wi-Fi mreža je aktivna</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
-    <value>Ready to connect</value>
+    <value>Spremni za povezivanje</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Provisioned Wi-Fi · {0}</value>
+    <value>Obezbeđeno Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
-    <value>This Wi-Fi network is not supported in this build.</value>
+    <value>Ova Wi-Fi mreža nije podržana u ovoj verziji.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
-    <value>Unable to connect. Check the password or network settings and try again.</value>
+    <value>Nije moguće povezati se. Proverite lozinku ili mrežna podešavanja i pokušajte ponovo.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
-    <value>The provisioned Wi-Fi profile is not available.</value>
+    <value>Obezbeđeni profil Wi-Fi nije dostupan.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
-    <value>Unable to connect the provisioned Wi-Fi profile. Try again.</value>
+    <value>Nije moguće povezati obezbeđeni Wi-Fi profil. Pokušajte ponovo.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
-    <value>Unable to disconnect the provisioned Wi-Fi profile. Try again.</value>
+    <value>Nije moguće prekinuti vezu sa obezbeđenim Wi-Fi profilom. Pokušajte ponovo.</value>
   </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
-    <value>Unable to disconnect. Try again.</value>
+    <value>Nije moguće prekinuti vezu. Pokušajte ponovo.</value>
   </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
-    <value>Unable to apply the provisioned network settings.</value>
+    <value>Nije moguće primeniti obezbeđena podešavanja mreže.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
-    <value>Unable to complete the Wi-Fi action. Try again.</value>
+    <value>Nije moguće dovršiti radnju Wi-Fi. Pokušajte ponovo.</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Hidden network</value>
+    <value>Skrivena mreža</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
-    <value>Open</value>
+    <value>Otvori</value>
   </data>
   <data name="Wifi.SecurityWep" xml:space="preserve">
-    <value>WEP</value>
+    <value>VEP</value>
   </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
-    <value>WPA Personal</value>
+    <value>WPA Lično</value>
   </data>
   <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA None</value>
+    <value>WPA Nema</value>
   </data>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Enterprise</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
-    <value>Vendor-specific</value>
+    <value>Specifičan dobavljač</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
-    <value>WPA2/WPA3 Personal</value>
+    <value>VPA2/VPA3 Personal</value>
   </data>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
-    <value>WPA2 Personal</value>
+    <value>VPA2 Personal</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
-    <value>WPA3 Personal</value>
+    <value>VPA3 Personal</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personal</value>
+    <value>Lično</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
-    <value>WPA3 Enterprise</value>
+    <value>VPA3 Enterprise</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bit</value>
+    <value>VPA3 Enterprise 192-bit</value>
   </data>
   <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
+    <value>VPA2/VPA3 Enterprise</value>
   </data>
   <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
-    <value>WPA2 Enterprise</value>
+    <value>VPA2 Enterprise</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Enterprise</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (machine)</value>
+    <value>{0} (mašina)</value>
   </data>
   <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (machine or user)</value>
+    <value>{0} (mašina ili korisnik)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arapski (Saudijska Arabija)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bugarski (Bugarska)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>češki (Češka)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>danski (Danska)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>nemački (Nemačka)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>grčki (Grčka)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>engleski (Ujedinjeno Kraljevstvo)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>engleski (Sjedinjene Američke Države)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>španski (Španija)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>španski (Meksiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estonski (Estonija)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finski (Finska)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francuski (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francuski (Francuska)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrejski (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>hrvatski (Hrvatska)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>mađarski (mađarska)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italijanski (Italija)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japanski (Japan)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korejski (Koreja)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litvanski (Litvanija)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>letonski (Letonija)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norveški bokmal (Norveška)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holandski (Holandija)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poljski (Poljska)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalski (Brazil)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalski (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumunski (Rumunija)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ruski (Rusija)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovački (Slovačka)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovenački (Slovenija)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>srpska latinica (Srbija)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švedski (Švedska)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>tajlandski (Tajland)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turski (Turkiie)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrajinski (Ukrajina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>kineski pojednostavljeni (Kina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradicionalni kineski (Tajvan)</value>
   </data>
 </root>

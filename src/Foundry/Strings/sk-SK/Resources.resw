@@ -13,154 +13,154 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDialog.AboutSection" xml:space="preserve">
-    <value>About</value>
+    <value>O</value>
   </data>
   <data name="AboutDialog.AuthorsText" xml:space="preserve">
-    <value>Created and maintained by Mickaël CHAVE.</value>
+    <value>Vytvoril a spravuje Mickaël CHAVE.</value>
   </data>
   <data name="AboutDialog.ContributorsSection" xml:space="preserve">
-    <value>Contributors</value>
+    <value>Prispievatelia</value>
   </data>
   <data name="AboutDialog.ContributorsError" xml:space="preserve">
-    <value>Contributors could not be loaded from GitHub.</value>
+    <value>Prispievateľov nebolo možné načítať z GitHubu.</value>
   </data>
   <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
-    <value>Loading contributors...</value>
+    <value>Načítavajú sa prispievatelia...</value>
   </data>
   <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
-    <value>Contributions: {0}</value>
+    <value>Príspevky: {0}</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry OSD is a modern app for authoring Windows deployment media powered by WinPE.</value>
+    <value>Foundry OSD je moderná aplikácia na vytváranie nasadzovacích médií Windows poháňaná WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
     <value>Copyright (c) 2026 Foundry Project.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
-    <value>Foundry source code is distributed under the MIT License.</value>
+    <value>Zdrojový kód Foundry je distribuovaný pod licenciou MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
     <value>Foundry OSD</value>
   </data>
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
-    <value>License</value>
+    <value>Licencia</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
-    <value>Licenses</value>
+    <value>Licencie</value>
   </data>
   <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Open</value>
+    <value>Otvorte</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
-    <value>Profile</value>
+    <value>Profil</value>
   </data>
   <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
-    <value>Open release notes in browser</value>
+    <value>Otvorte poznámky k vydaniu v prehliadači</value>
   </data>
   <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
-    <value>Release notes could not be loaded in the embedded browser.</value>
+    <value>Poznámky k vydaniu sa nepodarilo načítať do vstavaného prehliadača.</value>
   </data>
   <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
-    <value>Loading release notes...</value>
+    <value>Načítavajú sa poznámky k vydaniu...</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Poznámky k vydaniu</value>
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
-    <value>Repository</value>
+    <value>Úložisko</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD includes 7-Zip Extra tooling for media creation support.</value>
+    <value>Foundry OSD obsahuje 7-Zip Extra nástroje na podporu tvorby médií.</value>
   </data>
   <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
     <value>7-Zip Extra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
-    <value>Windows deployment media authoring</value>
+    <value>Windows vytváranie médií nasadenia</value>
   </data>
   <data name="AboutDialog.SupportLink" xml:space="preserve">
-    <value>Support</value>
+    <value>Podpora</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Third-party package licenses are tracked through the project repository and dependency manifests.</value>
+    <value>Licencie balíkov tretích strán sa sledujú prostredníctvom archívu projektu a manifestov závislostí.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Third-party dependencies</value>
+    <value>Závislosti tretích strán</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
-    <value>About Foundry OSD</value>
+    <value>O Foundry OSD</value>
   </data>
   <data name="AboutDialog.UsefulLinks" xml:space="preserve">
-    <value>Useful links</value>
+    <value>Užitočné odkazy</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
-    <value>Check for updates</value>
+    <value>Skontrolujte aktualizácie</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Update and restart</value>
+    <value>Aktualizujte a reštartujte</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Poznámky k vydaniu</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
-    <value>Update source</value>
+    <value>Aktualizovať zdroj</value>
   </data>
   <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
-    <value>Release lane: {0}</value>
+    <value>Uvoľňovacia dráha: {0}</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
-    <value>Stable releases</value>
+    <value>Stabilné vydania</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
-    <value>Beta releases</value>
+    <value>Vychádza beta</value>
   </data>
   <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
-    <value>Preview releases</value>
+    <value>Ukážkové vydania</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
-    <value>Web update feed</value>
+    <value>Informačný kanál webovej aktualizácie</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Zavrieť</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Zrušiť</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Zakázané</value>
   </data>
   <data name="Common.Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Povolené</value>
   </data>
   <data name="Common.Browse" xml:space="preserve">
-    <value>Browse</value>
+    <value>Prehľadávať</value>
   </data>
   <data name="Common.Refresh" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Obnoviť</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Enable developer diagnostics and open the Foundry log folder.</value>
+    <value>Povoľte diagnostiku vývojára a otvorte priečinok denníka Foundry.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>Diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
-    <value>Change the application language without restarting Foundry OSD.</value>
+    <value>Zmeňte jazyk aplikácie bez reštartovania Foundry OSD.</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
-    <value>Language</value>
+    <value>Jazyk</value>
   </data>
   <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
-    <value>Automatically launch Foundry OSD when you log in to Windows.</value>
+    <value>Automaticky spustiť Foundry OSD, keď sa prihlásite do Windows.</value>
   </data>
   <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
-    <value>Run at startup</value>
+    <value>Spustiť pri štarte</value>
   </data>
   <data name="Language.English" xml:space="preserve">
-    <value>English</value>
+    <value>angličtina</value>
   </data>
   <data name="Language.French" xml:space="preserve">
-    <value>French</value>
+    <value>francúzsky</value>
   </data>
   <data name="AutopilotPage_Title.Text" xml:space="preserve">
     <value>Autopilot</value>
@@ -169,685 +169,685 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Choose the Autopilot provisioning method for deployment media: JSON profile staging or WinPE hardware hash upload.</value>
+    <value>Vyberte spôsob poskytovania Autopilot pre médiá nasadenia: JSON profilovanie alebo WinPE nahranie hardvérového hashu.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Enable Autopilot</value>
+    <value>Povoliť Autopilot</value>
   </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
-    <value>Import profile</value>
+    <value>Importovať profil</value>
   </data>
   <data name="Autopilot.DownloadButton" xml:space="preserve">
-    <value>Download from tenant</value>
+    <value>Stiahnuť od nájomcu</value>
   </data>
   <data name="Autopilot.RemoveButton" xml:space="preserve">
-    <value>Remove selected</value>
+    <value>Odstrániť vybraté</value>
   </data>
   <data name="Autopilot.ActionsHeader" xml:space="preserve">
-    <value>Profile actions</value>
+    <value>Akcie profilu</value>
   </data>
   <data name="Autopilot.ActionsDescription" xml:space="preserve">
-    <value>Import local JSON profiles or download them from Intune.</value>
+    <value>Importujte lokálne profily JSON alebo si ich stiahnite z Intune.</value>
   </data>
   <data name="Autopilot.ImportingStatus" xml:space="preserve">
-    <value>Importing Autopilot profile...</value>
+    <value>Importuje sa profil Autopilot...</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
-    <value>Downloading Autopilot profiles...</value>
+    <value>Sťahujú sa profily Autopilot...</value>
   </data>
   <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
-    <value>Remove Autopilot profile?</value>
+    <value>Odstrániť profil Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
-    <value>Remove "{0}" from the imported Autopilot profiles?</value>
+    <value>Odstrániť "{0}" z importovaných profilov Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
-    <value>Remove profile</value>
+    <value>Odstrániť profil</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
-    <value>Remove Autopilot profiles?</value>
+    <value>Chcete odstrániť profily Autopilot?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
-    <value>Remove {0} selected Autopilot profiles?</value>
+    <value>Odstrániť {0} vybraté Autopilot profily?</value>
   </data>
   <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
-    <value>Remove profiles</value>
+    <value>Odstráňte profily</value>
   </data>
   <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
-    <value>Default profile</value>
+    <value>Predvolený profil</value>
   </data>
   <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
-    <value>Profile staged by default in the applied Windows image.</value>
+    <value>Profil je predvolene vytvorený v použitom obrázku Windows.</value>
   </data>
   <data name="Autopilot.ProfilesLabel" xml:space="preserve">
-    <value>Imported profiles</value>
+    <value>Importované profily</value>
   </data>
   <data name="Autopilot.ProfilesDescription" xml:space="preserve">
-    <value>Offline Autopilot profiles available for JSON profile provisioning.</value>
+    <value>Offline profily Autopilot sú k dispozícii na poskytovanie profilu JSON.</value>
   </data>
   <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
-    <value>No Autopilot profiles imported.</value>
+    <value>Neimportovali sa žiadne profily Autopilot.</value>
   </data>
   <data name="Autopilot.ColumnName" xml:space="preserve">
-    <value>Name</value>
+    <value>Meno</value>
   </data>
   <data name="Autopilot.ColumnSource" xml:space="preserve">
-    <value>Source</value>
+    <value>Zdroj</value>
   </data>
   <data name="Autopilot.ColumnImported" xml:space="preserve">
-    <value>Imported</value>
+    <value>Importované</value>
   </data>
   <data name="Autopilot.ColumnFolder" xml:space="preserve">
-    <value>Folder</value>
+    <value>Priečinok</value>
   </data>
   <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
-    <value>Import Autopilot profile JSON</value>
+    <value>Importovať profil Autopilot JSON</value>
   </data>
   <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
-    <value>Autopilot import failed</value>
+    <value>Import Autopilot zlyhal</value>
   </data>
   <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
     <value>{0}</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
-    <value>Sign in to Microsoft Graph</value>
+    <value>Prihláste sa do Microsoft Graph</value>
   </data>
   <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
-    <value>Complete sign-in in the browser to download Autopilot profiles.</value>
+    <value>Ak chcete stiahnuť profily Autopilot, dokončite prihlásenie v prehliadači.</value>
   </data>
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
-    <value>No Autopilot profiles found</value>
+    <value>Nenašli sa žiadne profily Autopilot</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>No Autopilot profiles were returned by the tenant.</value>
+    <value>Nájomca nevrátil žiadne profily Autopilot.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
-    <value>Autopilot download failed</value>
+    <value>Sťahovanie Autopilot zlyhalo</value>
   </data>
   <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
-    <value>Autopilot profile download failed: {0}</value>
+    <value>Sťahovanie profilu Autopilot zlyhalo: {0}</value>
   </data>
   <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
-    <value>Select Autopilot profiles</value>
+    <value>Vyberte profily Autopilot</value>
   </data>
   <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
-    <value>Choose which tenant profiles should be imported into Foundry.</value>
+    <value>Vyberte, ktoré profily nájomníkov sa majú importovať do Foundry.</value>
   </data>
   <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
-    <value>Select all</value>
+    <value>Vybrať všetko</value>
   </data>
   <data name="Autopilot.TenantPickerClear" xml:space="preserve">
-    <value>Clear</value>
+    <value>Jasné</value>
   </data>
   <data name="Autopilot.TenantPickerImport" xml:space="preserve">
-    <value>Import</value>
+    <value>Importovať</value>
   </data>
   <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Zrušiť</value>
   </data>
   <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
-    <value>Selected profiles: {0} of {1}</value>
+    <value>Vybrané profily: {0} z {1}</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
-    <value>JSON profile provisioning</value>
+    <value>JSON poskytovanie profilu</value>
   </data>
   <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Stage an offline Autopilot profile in the applied Windows image.</value>
+    <value>Vytvorte offline profil Autopilot v použitom obrázku Windows.</value>
   </data>
   <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Use JSON profile provisioning</value>
+    <value>Použite poskytovanie profilu JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Hardware hash upload</value>
+    <value>Nahranie hardvérového hashu</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Upload the device hardware hash to Intune from Foundry Deploy in WinPE.</value>
+    <value>Nahrajte hardvérový hash zariadenia do Intune z Foundry Deploy v WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Use hardware hash upload</value>
+    <value>Použite nahrávanie hardvérového hash</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
-    <value>Connect tenant</value>
+    <value>Pripojte nájomcu</value>
   </data>
   <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
-    <value>Disconnect tenant</value>
+    <value>Odpojiť nájomcu</value>
   </data>
   <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
-    <value>Connecting tenant...</value>
+    <value>Pripája sa nájomník...</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
-    <value>Sign in to Microsoft Graph</value>
+    <value>Prihláste sa do Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Complete sign-in in the browser to configure Autopilot hardware hash upload.</value>
+    <value>Ak chcete nakonfigurovať nahrávanie hardvérového hashu Autopilot, dokončite prihlásenie v prehliadači.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
-    <value>Tenant connection</value>
+    <value>Pripojenie nájomníka</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Connect to Microsoft Graph for this app session to manage hash upload settings.</value>
+    <value>Ak chcete spravovať nastavenia nahrávania hash, pripojte sa k Microsoft Graph pre túto reláciu aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
-    <value>Not connected</value>
+    <value>Nepripojené</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
-    <value>Connected</value>
+    <value>Pripojené</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
-    <value>Tenant readiness</value>
+    <value>Pripravenosť nájomcu</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Tenant, app registration, and readiness information for hardware hash upload.</value>
+    <value>Informácie o nájomníkovi, registrácii aplikácie a pripravenosti na nahrávanie hardvérového hash.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
-    <value>Name</value>
+    <value>Meno</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
-    <value>Value</value>
+    <value>Hodnota</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
-    <value>Tenant ID</value>
+    <value>ID nájomcu</value>
   </data>
   <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
-    <value>Client ID</value>
+    <value>ID klienta</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
-    <value>Managed app registration</value>
+    <value>Riadená registrácia aplikácie</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Foundry OSD Autopilot Registration is not configured.</value>
+    <value>Foundry OSD Autopilot Registrácia nie je nakonfigurovaná.</value>
   </data>
   <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
-    <value>{0} is configured.</value>
+    <value>{0} je nakonfigurované.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
-    <value>Status</value>
+    <value>Stav</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
-    <value>Ready</value>
+    <value>Pripravený</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
-    <value>Not ready</value>
+    <value>Nie som pripravený</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
-    <value>Certificate actions</value>
+    <value>Akcie certifikátu</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Create or remove app registration certificate credentials.</value>
+    <value>Vytvorte alebo odstráňte poverenia certifikátu registrácie aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
-    <value>Provisioned certificates</value>
+    <value>Poskytované certifikáty</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
-    <value>App registration certificates trusted for WinPE Graph authentication.</value>
+    <value>Certifikáty registrácie aplikácií sú dôveryhodné pre overenie WinPE Graph.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
-    <value>No certificates are provisioned.</value>
+    <value>Nie sú poskytované žiadne certifikáty.</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
-    <value>Create certificate</value>
+    <value>Vytvorte certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
-    <value>Remove certificate</value>
+    <value>Odstrániť certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
-    <value>Save Autopilot certificate PFX</value>
+    <value>Uložiť Autopilot certifikát PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
-    <value>PFX certificate</value>
+    <value>PFX certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
-    <value>Certificate ready</value>
+    <value>Certifikát pripravený</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Save this PFX file and password now in a secure location. Foundry does not store the password and cannot show it again after this dialog closes. You will need both values to generate boot media for hardware hash upload.</value>
+    <value>Uložte tento súbor PFX a heslo na bezpečnom mieste. Foundry neukladá heslo a nemôže ho znova zobraziť po zatvorení tohto dialógového okna. Na vygenerovanie zavádzacieho média na nahrávanie hardvérového hash budete potrebovať obe hodnoty.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
-    <value>PFX file</value>
+    <value>súbor PFX</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
-    <value>PFX password</value>
+    <value>PFX heslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
-    <value>Copy password</value>
+    <value>Skopírujte heslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
-    <value>Password copied.</value>
+    <value>Heslo bolo skopírované.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
-    <value>Certificate creation failed</value>
+    <value>Vytvorenie certifikátu zlyhalo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not create the app registration certificate. {0}</value>
+    <value>Foundry nemohol vytvoriť certifikát registrácie aplikácie. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
-    <value>Remove selected certificate?</value>
+    <value>Odstrániť vybratý certifikát?</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry will remove only the selected certificate from the managed app registration. Other app credentials will be preserved.</value>
+    <value>Foundry odstráni z registrácie spravovanej aplikácie iba vybratý certifikát. Ostatné poverenia aplikácie zostanú zachované.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry will remove only the {0} selected certificates from the managed app registration. Other app credentials will be preserved.</value>
+    <value>Foundry odstráni iba {0} vybrané certifikáty z registrácie spravovanej aplikácie. Ostatné poverenia aplikácie zostanú zachované.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
-    <value>Remove certificate</value>
+    <value>Odstrániť certifikát</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
-    <value>Certificate removal failed</value>
+    <value>Odstránenie certifikátu zlyhalo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not remove the selected app registration certificate. {0}</value>
+    <value>Foundry sa nepodarilo odstrániť vybratý certifikát registrácie aplikácie. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
-    <value>Thumbprint</value>
+    <value>Odtlačok palca</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
-    <value>Created</value>
+    <value>Vytvorené</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
-    <value>Expiration</value>
+    <value>Vypršanie platnosti</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
-    <value>Certificate ID</value>
+    <value>ID certifikátu</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
-    <value>Boot media certificate</value>
+    <value>Certifikát zavádzacieho média</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>Password-protected PFX copied into boot media for hardware hash upload.</value>
+    <value>Heslom chránené PFX skopírované do zavádzacieho média na nahranie hardvérového hash.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
-    <value>PFX file</value>
+    <value>súbor PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
-    <value>PFX password</value>
+    <value>PFX heslo</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
-    <value>Select PFX</value>
+    <value>Vyberte PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
-    <value>Select Autopilot certificate PFX</value>
+    <value>Vyberte Autopilot certifikát PFX</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Select a PFX that matches an app registration certificate.</value>
+    <value>Vyberte PFX, ktorý sa zhoduje s certifikátom registrácie aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>The selected certificate has expired. Create or select a valid certificate before creating boot media.</value>
+    <value>Platnosť vybratého certifikátu vypršala. Pred vytvorením zavádzacieho média vytvorte alebo vyberte platný certifikát.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
-    <value>Select the matching password-protected PFX before creating boot media.</value>
+    <value>Pred vytvorením zavádzacieho média vyberte zodpovedajúci PFX chránený heslom.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
-    <value>The selected PFX file no longer exists.</value>
+    <value>Vybraný súbor PFX už neexistuje.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
-    <value>Enter the PFX password.</value>
+    <value>Zadajte heslo PFX.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>The PFX certificate thumbprint does not match the selected app registration certificate.</value>
+    <value>Odtlačok certifikátu PFX sa nezhoduje s vybratým certifikátom registrácie aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
-    <value>The selected PFX does not contain private key material.</value>
+    <value>Vybraný PFX neobsahuje materiál súkromného kľúča.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
-    <value>The selected PFX could not be opened with the provided password.</value>
+    <value>Vybraný PFX nebolo možné otvoriť pomocou poskytnutého hesla.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
-    <value>Certificate ready for boot media generation.</value>
+    <value>Certifikát pripravený na vygenerovanie zavádzacieho média.</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
-    <value>Default group tag</value>
+    <value>Predvolená značka skupiny</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Optional group tag preselected in Foundry Deploy during hardware hash upload.</value>
+    <value>Voliteľná značka skupiny predvolená v Foundry Deploy počas nahrávania hardvérového hash.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
-    <value>No default group tag selected.</value>
+    <value>Nie je vybratá žiadna predvolená značka skupiny.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>None</value>
+    <value>žiadne</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
-    <value>None</value>
+    <value>žiadne</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>Tenant onboarding requires attention</value>
+    <value>Nájomca si vyžaduje pozornosť</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Tenant onboarding failed</value>
+    <value>Registrácia nájomníka zlyhala</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry could not configure the Autopilot app registration. {0}</value>
+    <value>Foundry nemohla nakonfigurovať registráciu aplikácie Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
-    <value>The managed app registration could not be found. Reconnect to let Foundry create or adopt it.</value>
+    <value>Registráciu spravovanej aplikácie sa nepodarilo nájsť. Znova sa pripojte, aby ho Foundry vytvoril alebo prijal.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
-    <value>An existing app registration with the Foundry name was found. Reconnect to adopt it into the Foundry configuration.</value>
+    <value>Našla sa existujúca registrácia aplikácie s názvom Foundry. Znova pripojte, aby ste ho prijali do konfigurácie Foundry.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
-    <value>The managed app registration is missing the required Microsoft Graph application permission. Reconnect with an account that can update app registrations.</value>
+    <value>Registrácii spravovanej aplikácie chýba požadované oprávnenie aplikácie Microsoft Graph. Znova sa pripojte k účtu, ktorý môže aktualizovať registrácie aplikácií.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>The managed service principal is missing admin consent for the required Microsoft Graph permission. Grant admin consent and reconnect.</value>
+    <value>Principál spravovanej služby nemá súhlas správcu pre požadované povolenie Microsoft Graph. Udeľte súhlas správcu a znova sa pripojte.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>The managed service principal is missing or disabled. Reconnect with an account that can create or manage enterprise applications.</value>
+    <value>Principál riadenej služby chýba alebo je zakázaný. Znova sa pripojte k účtu, ktorý môže vytvárať alebo spravovať podnikové aplikácie.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>The previously selected certificate no longer exists in the managed app registration. Select a valid PFX that matches a provisioned certificate.</value>
+    <value>Predtým vybratý certifikát už v registrácii spravovanej aplikácie neexistuje. Vyberte platný PFX, ktorý sa zhoduje s poskytnutým certifikátom.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>The selected certificate has expired. Create a new certificate, save its PFX and password, then select it for boot media.</value>
+    <value>Platnosť vybratého certifikátu vypršala. Vytvorte nový certifikát, uložte jeho PFX a heslo a potom ho vyberte ako zavádzacie médium.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>The managed app registration is not ready. Review tenant readiness and reconnect.</value>
+    <value>Registrácia spravovanej aplikácie nie je pripravená. Skontrolujte pripravenosť nájomcu a znova sa pripojte.</value>
   </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Customization</value>
+    <value>Prispôsobenie</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
-    <value>Foundry could not open the documentation in your browser. Use this URL instead.</value>
+    <value>Foundry nemohol otvoriť dokumentáciu vo vašom prehliadači. Namiesto toho použite toto URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
-    <value>Documentation could not be opened</value>
+    <value>Dokumentáciu nebolo možné otvoriť</value>
   </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Computer name</value>
+    <value>Názov počítača</value>
   </data>
   <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Control how the deployed computer name is generated in WinPE.</value>
+    <value>Ovládajte spôsob generovania názvu nasadeného počítača v WinPE.</value>
   </data>
   <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Enable machine naming rules</value>
+    <value>Povoliť pravidlá pomenovávania stroja</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
-    <value>Computer name prefix</value>
+    <value>Predpona názvu počítača</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>Prefix applied before the generated or editable deployment suffix.</value>
+    <value>Predpona použitá pred vygenerovanou alebo upraviteľnou príponou nasadenia.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
-    <value>Auto-generate computer name suffix</value>
+    <value>Automaticky vygenerovať príponu názvu počítača</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
-    <value>Generate the suffix automatically during deployment.</value>
+    <value>Generujte príponu automaticky počas nasadenia.</value>
   </data>
   <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
-    <value>Allow suffix edit during deployment</value>
+    <value>Povoliť úpravu prípon počas nasadenia</value>
   </data>
   <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
-    <value>Allow the deployment operator to edit the suffix after the prefix.</value>
+    <value>Umožnite operátorovi nasadenia upraviť príponu za predponou.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix must use 1 to 15 characters from A-Z, a-z, 0-9, or -.</value>
+    <value>Prefix musí obsahovať 1 až 15 znakov od A-Z, a-z, 0-9 alebo -.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Out-of-box experience</value>
+    <value>Skúsenosti mimo krabice</value>
   </data>
   <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Configure Windows 11 first-run screens and privacy defaults.</value>
+    <value>Nakonfigurujte Windows 11 obrazoviek prvého spustenia a predvolené nastavenia ochrany osobných údajov.</value>
   </data>
   <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Customize OOBE</value>
+    <value>Prispôsobiť OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Preskočiť licenčné podmienky</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
-    <value>Skips the Microsoft Software License Terms page during OOBE.</value>
+    <value>Počas OOBE preskočí stránku Microsoft Software License Terms.</value>
   </data>
   <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
-    <value>Diagnostic data</value>
+    <value>Diagnostické údaje</value>
   </data>
   <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
-    <value>Selects the Windows diagnostic data level configured before first sign-in. Off is only honored by supported Windows editions; unsupported editions fall back to Required.</value>
+    <value>Vyberie úroveň diagnostických údajov Windows nakonfigurovanú pred prvým prihlásením. Off je podporované iba podporovanými Windows edíciami; nepodporované edície sa vrátia späť na Povinné.</value>
   </data>
   <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
-    <value>Required</value>
+    <value>Povinné</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
-    <value>Optional</value>
+    <value>Voliteľné</value>
   </data>
   <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
-    <value>Hide privacy setup</value>
+    <value>Skryť nastavenie ochrany osobných údajov</value>
   </data>
   <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
-    <value>Prevents Windows from showing the privacy choices page during first sign-in.</value>
+    <value>Zabráni Windows v zobrazení stránky s voľbami ochrany osobných údajov pri prvom prihlásení.</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
-    <value>Tailored experiences</value>
+    <value>Zážitky na mieru</value>
   </data>
   <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
-    <value>Allows Windows to use diagnostic data for personalized tips, ads, and recommendations.</value>
+    <value>Umožňuje Windows používať diagnostické údaje na prispôsobené tipy, reklamy a odporúčania.</value>
   </data>
   <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
-    <value>Advertising ID</value>
+    <value>Reklamné ID</value>
   </data>
   <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
-    <value>Allows apps to use the Windows advertising ID across apps.</value>
+    <value>Umožňuje aplikáciám používať reklamné ID Windows vo všetkých aplikáciách.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
-    <value>Online speech recognition</value>
+    <value>Online rozpoznávanie reči</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
-    <value>Allows Microsoft cloud-based speech recognition services.</value>
+    <value>Umožňuje cloudové služby rozpoznávania reči Microsoft.</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
-    <value>Inking and typing diagnostics</value>
+    <value>Diagnostika písania a písania</value>
   </data>
   <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
-    <value>Allows optional inking and typing diagnostic data collection.</value>
+    <value>Umožňuje voliteľné zhromažďovanie diagnostických údajov pomocou písania a písania.</value>
   </data>
   <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
-    <value>Location access</value>
+    <value>Prístup k polohe</value>
   </data>
   <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
-    <value>Controls whether Windows and apps can use location services.</value>
+    <value>Určuje, či Windows a aplikácie môžu používať služby určovania polohy.</value>
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
-    <value>User controlled</value>
+    <value>Ovládané používateľom</value>
   </data>
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
-    <value>Force off</value>
+    <value>Silou vypnúť</value>
   </data>
   <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI component removal</value>
+    <value>Odstránenie komponentov AI</value>
   </data>
   <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Remove or disable selected Windows AI components before OOBE.</value>
+    <value>Odstráňte alebo deaktivujte vybrané komponenty Windows AI pred OOBE.</value>
   </data>
   <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Remove AI components</value>
+    <value>Odstráňte komponenty AI</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
-    <value>Remove Microsoft Copilot</value>
+    <value>Odstrániť Microsoft Copilot</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
-    <value>Remove the Copilot app package and turn off Windows Copilot policy.</value>
+    <value>Odstráňte balík aplikácie Copilot a vypnite politiku Windows Copilot.</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
-    <value>Remove Copilot+ AI Hub</value>
+    <value>Odstráňte Copilot+ AI Hub</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
-    <value>Remove the provisioned Windows AI Hub app package when present.</value>
+    <value>Odstráňte poskytnutý balík aplikácie Windows AI Hub, ak je k dispozícii.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall</value>
+    <value>Zakázať Windows Recall</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
-    <value>Set Windows AI policies that prevent Recall enablement and snapshot saving.</value>
+    <value>Nastavte pravidlá Windows AI, ktoré zabraňujú aktivácii Recall a ukladaniu snímok.</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
-    <value>Disable Click to Do</value>
+    <value>Zakázať Click to Do</value>
   </data>
   <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
-    <value>Set Windows AI policies that turn off Click to Do.</value>
+    <value>Nastavte pravidlá Windows AI, ktoré vypnú Click to Do.</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
-    <value>Prevent Windows AI service autostart</value>
+    <value>Zabrániť automatickému spusteniu služby Windows AI</value>
   </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
-    <value>Set WSAIFabricSvc to manual startup instead of automatic startup.</value>
+    <value>Nastavte WSAIFabricSvc na manuálne spustenie namiesto automatického spustenia.</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
-    <value>Disable Microsoft Edge AI features</value>
+    <value>Zakázať funkcie Microsoft Edge AI</value>
   </data>
   <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
-    <value>Set Edge policies that disable Copilot, sidebar, compose, and AI search features.</value>
+    <value>Nastavte zásady Edge, ktoré deaktivujú funkcie Copilot, bočný panel, písanie a vyhľadávanie AI.</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
-    <value>Disable Paint AI features</value>
+    <value>Vypnite funkcie Paint AI</value>
   </data>
   <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
-    <value>Set Paint policies that disable Cocreator, generative editing, image creator, and background removal.</value>
+    <value>Nastavte zásady Paint, ktoré deaktivujú Cocreator, generatívne úpravy, vytváranie obrázkov a odstránenie pozadia.</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
-    <value>Disable Notepad AI features</value>
+    <value>Vypnite funkcie Notepad AI</value>
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
-    <value>Set the Notepad policy that disables AI features.</value>
+    <value>Nastavte zásadu Notepad, ktorá zakáže funkcie AI.</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Provisioned app removal</value>
+    <value>Odstránenie poskytovanej aplikácie</value>
   </data>
   <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Remove selected provisioned Windows apps before OOBE.</value>
+    <value>Odstráňte vybraté zabezpečené aplikácie Windows pred OOBE.</value>
   </data>
   <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Remove provisioned Windows apps</value>
+    <value>Odstráňte poskytnuté aplikácie Windows</value>
   </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
-    <value>Profile</value>
+    <value>Profil</value>
   </data>
   <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
-    <value>Select one or more catalog categories to preselect packages.</value>
+    <value>Vyberte jednu alebo viac kategórií katalógu na predvýber balíkov.</value>
   </data>
   <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
-    <value>None</value>
+    <value>žiadne</value>
   </data>
   <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Vlastné</value>
   </data>
   <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
-    <value>Selected profiles: {0}</value>
+    <value>Vybrané profily: {0}</value>
   </data>
   <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
-    <value>Select all</value>
+    <value>Vybrať všetko</value>
   </data>
   <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
-    <value>Remove all</value>
+    <value>Odstráňte všetky</value>
   </data>
   <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
-    <value>Packages</value>
+    <value>Balíčky</value>
   </data>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
-    <value>Selected packages: {0} of {1}</value>
+    <value>Vybrané balíčky: {0} z {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Choose the architecture, boot image language, and drivers to inject into the boot image.</value>
+    <value>Vyberte architektúru, jazyk zavádzacieho obrazu a ovládače, ktoré sa majú vložiť do zavádzacieho obrazu.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
-    <value>Configure media</value>
+    <value>Nakonfigurujte médiá</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Review Windows ADK and Windows PE Add-on readiness.</value>
+    <value>Skontrolujte pripravenosť doplnkov Windows ADK a Windows PE.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
-    <value>Open ADK</value>
+    <value>Otvoriť ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Open Foundry OSD documentation in your browser.</value>
+    <value>Vo svojom prehliadači otvorte dokumentáciu Foundry OSD.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
-    <value>Open documentation</value>
+    <value>Otvorte dokumentáciu</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Review the final media summary and create ISO or USB media.</value>
+    <value>Skontrolujte konečný súhrn médií a vytvorte médiá ISO alebo USB.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
-    <value>Review and start</value>
+    <value>Skontrolujte a začnite</value>
   </data>
   <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
-    <value>Installed version</value>
+    <value>Nainštalovaná verzia</value>
   </data>
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
-    <value>Windows PE Add-on</value>
+    <value>Doplnok Windows PE</value>
   </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
-    <value>Build Windows deployment media with a modern desktop workflow powered by WinPE.</value>
+    <value>Vytvorte nasadzovacie médium Windows s moderným pracovným postupom na pracovnej ploche, ktorý využíva WinPE.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>General</value>
+    <value>generál</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Next step</value>
+    <value>Ďalší krok</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Review final output targets on the Start page after Windows ADK and Windows PE Add-on readiness is confirmed.</value>
+    <value>Po potvrdení pripravenosti doplnku Windows ADK a Windows PE skontrolujte konečné výstupné ciele na úvodnej stránke.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
-    <value>Review and start</value>
+    <value>Skontrolujte a začnite</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
-    <value>Install Windows ADK and the Windows PE Add-on before selecting the WinPE boot language.</value>
+    <value>Pred výberom spúšťacieho jazyka WinPE nainštalujte Windows ADK a doplnok Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
-    <value>No WinPE language packs were detected for the selected architecture.</value>
+    <value>Pre zvolenú architektúru neboli zistené žiadne jazykové balíky WinPE.</value>
   </data>
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>Localization</value>
+    <value>Lokalizácia</value>
   </data>
   <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>Visible deployment languages</value>
+    <value>Viditeľné jazyky nasadenia</value>
   </data>
   <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>Default deployment language</value>
+    <value>Predvolený jazyk nasadenia</value>
   </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
-    <value>Deployment time zone</value>
+    <value>Časové pásmo nasadenia</value>
   </data>
   <data name="Localization.AutomaticOption" xml:space="preserve">
-    <value>Automatic</value>
+    <value>Automaticky</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Network</value>
+    <value>sieť</value>
   </data>
   <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Configure wired 802.1X</value>
+    <value>Nakonfigurujte káblové 802.1X</value>
   </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Trusted root CA certificate file</value>
+    <value>Súbor certifikátu dôveryhodnej koreňovej CA</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Select 802.1X certificate</value>
+    <value>Vyberte certifikát 802.1X</value>
   </data>
   <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Provision Wi-Fi support in the boot image</value>
+    <value>Podpora poskytovania Wi-Fi v zavádzacom obraze</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
-    <value>Pre-provision a Wi-Fi profile</value>
+    <value>Predbežne si vytvorte profil Wi-Fi</value>
   </data>
   <data name="Wifi.SsidLabel" xml:space="preserve">
     <value>SSID</value>
   </data>
   <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
-    <value>Security type</value>
+    <value>Typ zabezpečenia</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
-    <value>Passphrase</value>
+    <value>Prístupová fráza</value>
   </data>
   <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
-    <value>Open</value>
+    <value>Otvorte</value>
   </data>
   <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
-    <value>OWE (Opportunistic Wireless Encryption)</value>
+    <value>OWE (oportunistické bezdrôtové šifrovanie)</value>
   </data>
   <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
-    <value>WPA2/WPA3 Personal</value>
+    <value>Osobné WPA2/WPA3</value>
   </data>
   <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
     <value>WPA2/WPA3 Enterprise</value>
@@ -862,103 +862,103 @@
     <value>Ethernet</value>
   </data>
   <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Standard Ethernet connectivity is available by default. Configure this section only if your wired network requires 802.1X enterprise authentication.</value>
+    <value>Štandardne je k dispozícii štandardné pripojenie Ethernet. Túto časť nakonfigurujte len vtedy, ak vaša káblová sieť vyžaduje podnikové overenie 802.1X.</value>
   </data>
   <data name="Network.WifiSectionTitle" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Enable this only if the boot image should include Wi-Fi support and Wi-Fi profiles for WinPE startup.</value>
+    <value>Povoľte to iba vtedy, ak by mal zavádzací obraz obsahovať podporu Wi-Fi a profily Wi-Fi pre spustenie WinPE.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Personal Wi-Fi passphrases remain transient in the authoring app and are not persisted in Foundry configuration.</value>
+    <value>Osobné prístupové frázy Wi-Fi zostávajú v aplikácii na tvorbu obsahu prechodné a nezostávajú zachované v konfigurácii Foundry.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>Enterprise behavior is driven by the profile template in this build. 802.1X credentials entered during deployment are not provisioned here.</value>
+    <value>Správanie podniku je riadené šablónou profilu v tejto zostave. Poverenia 802.1X zadané počas nasadenia tu nie sú poskytované.</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
-    <value>Advanced enterprise Wi-Fi</value>
+    <value>Pokročilý podnik Wi-Fi</value>
   </data>
   <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
-    <value>Provision an enterprise Wi-Fi profile template</value>
+    <value>Poskytnutie podnikovej šablóny profilu Wi-Fi</value>
   </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
-    <value>Profile template file</value>
+    <value>Súbor šablóny profilu</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
-    <value>Select a network profile template</value>
+    <value>Vyberte šablónu sieťového profilu</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Import a trusted root CA certificate</value>
+    <value>Importujte dôveryhodný certifikát koreňovej CA</value>
   </data>
   <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Trusted root CA certificate file</value>
+    <value>Súbor certifikátu dôveryhodnej koreňovej CA</value>
   </data>
   <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Select the Wi-Fi certificate</value>
+    <value>Vyberte certifikát Wi-Fi</value>
   </data>
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
-    <value>Wi-Fi configuration requires Wi-Fi support to be provisioned in the boot image.</value>
+    <value>Konfigurácia Wi-Fi vyžaduje, aby bola v zavádzacom obraze poskytnutá podpora Wi-Fi.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
-    <value>Wired 802.1X requires a wired profile template.</value>
+    <value>Wired 802.1X vyžaduje šablónu káblového profilu.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
-    <value>Wired 802.1X profile template file was not found.</value>
+    <value>Súbor šablóny profilu káblového pripojenia 802.1X sa nenašiel.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X requires a trusted root CA certificate file when certificate trust is enabled.</value>
+    <value>Wired 802.1X vyžaduje súbor certifikátu dôveryhodnej koreňovej CA, keď je povolená dôveryhodnosť certifikátu.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Wired 802.1X trusted root CA certificate file was not found.</value>
+    <value>Súbor certifikátu dôveryhodnej koreňovej CA pre káblové pripojenie 802.1X sa nenašiel.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
-    <value>Wi-Fi configuration requires an SSID.</value>
+    <value>Konfigurácia Wi-Fi vyžaduje SSID.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
-    <value>Unsupported Wi-Fi security type '{0}'.</value>
+    <value>Nepodporovaný typ zabezpečenia Wi-Fi '{0}'.</value>
   </data>
   <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
-    <value>Personal Wi-Fi requires an 8 to 63 character passphrase.</value>
+    <value>Osobné Wi-Fi vyžaduje 8 až 63 znakovú prístupovú frázu.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requires a profile template.</value>
+    <value>Enterprise Wi-Fi vyžaduje šablónu profilu.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi profile template file was not found.</value>
+    <value>Súbor šablóny profilu Enterprise Wi-Fi sa nenašiel.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
-    <value>Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.</value>
+    <value>Šablóna profilu Enterprise Wi-Fi musí obsahovať podporovanú hodnotu podnikovej autentifikácie.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
-    <value>Selected enterprise Wi-Fi security type does not match the profile template authentication ({0}).</value>
+    <value>Vybratý podnikový typ zabezpečenia Wi-Fi sa nezhoduje s overením šablóny profilu ({0}).</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requires a trusted root CA certificate file when certificate trust is enabled.</value>
+    <value>Podnik Wi-Fi vyžaduje súbor certifikátu dôveryhodnej koreňovej CA, keď je povolená dôveryhodnosť certifikátu.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi trusted root CA certificate file was not found.</value>
+    <value>Súbor dôveryhodného koreňového certifikátu CA podniku Wi-Fi sa nenašiel.</value>
   </data>
   <data name="Shell.OperationRunning" xml:space="preserve">
-    <value>Operation in progress</value>
+    <value>Prebieha operácia</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
-    <value>Operation complete</value>
+    <value>Operácia dokončená</value>
   </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
-    <value>Start</value>
+    <value>Štart</value>
   </data>
   <data name="StartMedia.IsoPath.Header" xml:space="preserve">
-    <value>ISO output</value>
+    <value>ISO výstup</value>
   </data>
   <data name="StartMedia.IsoPath.Description" xml:space="preserve">
-    <value>Choose where the generated Foundry ISO will be written.</value>
+    <value>Vyberte, kam sa zapíše vygenerované Foundry ISO.</value>
   </data>
   <data name="StartMedia.Architecture.Header" xml:space="preserve">
-    <value>Architecture and signature</value>
+    <value>Architektúra a podpis</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
-    <value>Select the boot architecture and boot signature mode.</value>
+    <value>Vyberte architektúru zavádzania a režim podpisu zavádzania.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -967,28 +967,28 @@
     <value>PCA 2023</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
-    <value>WinPE boot language</value>
+    <value>WinPE zavádzací jazyk</value>
   </data>
   <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
-    <value>Language used by the WinPE boot environment.</value>
+    <value>Jazyk používaný zavádzacím prostredím WinPE.</value>
   </data>
   <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
-    <value>USB target</value>
+    <value>USB cieľ</value>
   </data>
   <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB layout</value>
+    <value>rozloženie USB</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
-    <value>Partition scheme used when preparing the selected USB target.</value>
+    <value>Schéma rozdelenia použitá pri príprave zvoleného cieľa USB.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
-    <value>Format behavior used before copying the final USB media.</value>
+    <value>Správanie formátu použité pred kopírovaním posledného média USB.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Driver options</value>
+    <value>Možnosti ovládača</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Select optional vendor drivers and a custom driver folder.</value>
+    <value>Vyberte voliteľné ovládače dodávateľa a vlastný priečinok ovládačov.</value>
   </data>
   <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
     <value>Dell</value>
@@ -997,448 +997,448 @@
     <value>HP</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Custom driver folder</value>
+    <value>Vlastný priečinok ovládača</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Optional folder containing additional .inf drivers.</value>
+    <value>Voliteľný priečinok obsahujúci ďalšie ovládače .inf.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
-    <value>Create media</value>
+    <value>Vytvorte médiá</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Create ISO or USB media after all readiness checks pass.</value>
+    <value>Po dokončení všetkých kontrol pripravenosti vytvorte médium ISO alebo USB.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
-    <value>Create ISO</value>
+    <value>Vytvoriť ISO</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
-    <value>Create USB</value>
+    <value>Vytvoriť USB</value>
   </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
-    <value>Quick format</value>
+    <value>Rýchly formát</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
-    <value>Full format</value>
+    <value>Plný formát</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>Media creation is not enabled in this build.</value>
+    <value>Vytváranie médií nie je v tejto zostave povolené.</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
-    <value>Media creation is available when all readiness checks pass.</value>
+    <value>Vytváranie médií je k dispozícii, keď prejdú všetky kontroly pripravenosti.</value>
   </data>
   <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
-    <value>ISO creation is blocked</value>
+    <value>Vytváranie ISO je zablokované</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
-    <value>USB creation is blocked</value>
+    <value>Vytváranie USB je zablokované</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
-    <value>Format USB target</value>
+    <value>Formátovať cieľ USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>This will erase disk {0}: {1} ({2}). Continue only if this is the intended USB drive.</value>
+    <value>Týmto sa vymaže disk {0}: {1} ({2}). Pokračujte, iba ak ide o zamýšľanú jednotku USB.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
-    <value>Format and create USB</value>
+    <value>Naformátujte a vytvorte USB</value>
   </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
-    <value>Creating WinPE workspace.</value>
+    <value>Vytvorenie pracovného priestoru WinPE.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
-    <value>Preparing WinPE workspace.</value>
+    <value>Príprava pracovného priestoru WinPE.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
-    <value>Resolving driver packages.</value>
+    <value>Riešenie balíkov ovládačov.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
-    <value>Customizing the boot image.</value>
+    <value>Prispôsobenie bootovacieho obrazu.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
-    <value>Evaluating boot signature policy.</value>
+    <value>Hodnotenie politiky zavádzania podpisov.</value>
   </data>
   <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
-    <value>Preparing boot image customization.</value>
+    <value>Príprava prispôsobenia zavádzacieho obrazu.</value>
   </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
-    <value>Mounting boot image.</value>
+    <value>Pripája sa zavádzací obraz.</value>
   </data>
   <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
-    <value>Injecting drivers into the boot image.</value>
+    <value>Vloženie ovládačov do bootovacieho obrazu.</value>
   </data>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
-    <value>Applying language and optional components.</value>
+    <value>Použitie jazyka a voliteľných komponentov.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
-    <value>Provisioning Foundry boot assets.</value>
+    <value>Poskytovanie spúšťacích aktív Foundry.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Adding Foundry deployment components.</value>
+    <value>Pridanie komponentov nasadenia Foundry.</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
-    <value>Committing boot image changes.</value>
+    <value>Potvrdenie zmien bootovacieho obrazu.</value>
   </data>
   <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
-    <value>Boot image customization completed.</value>
+    <value>Prispôsobenie zavádzacieho obrazu je dokončené.</value>
   </data>
   <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
-    <value>Cleaning WinPE workspace.</value>
+    <value>Čistenie pracovného priestoru WinPE.</value>
   </data>
   <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
-    <value>Creating ISO media.</value>
+    <value>Vytváranie médií ISO.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
-    <value>Creating USB media.</value>
+    <value>Vytváranie médií USB.</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
-    <value>Final media creation completed.</value>
+    <value>Finálne vytváranie médií dokončené.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
-    <value>Final media creation failed.</value>
+    <value>Konečné vytvorenie média zlyhalo.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Downloading content.</value>
+    <value>Sťahovanie obsahu.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Resolving WinRE source catalog.</value>
+    <value>Riešenie zdrojového katalógu WinRE.</value>
   </data>
   <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Selected WinRE source package.</value>
+    <value>Vybraný zdrojový balík WinRE.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Preparing WinRE source package.</value>
+    <value>Príprava zdrojového balíka WinRE.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Validating cached WinRE source package.</value>
+    <value>Overuje sa zdrojový balík WinRE uložený vo vyrovnávacej pamäti.</value>
   </data>
   <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Using cached WinRE source package.</value>
+    <value>Použitie zdrojového balíka WinRE uloženého vo vyrovnávacej pamäti.</value>
   </data>
   <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Downloading WinRE source package.</value>
+    <value>Sťahovanie zdrojového balíka WinRE.</value>
   </data>
   <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
-    <value>Downloading driver package</value>
+    <value>Sťahuje sa balík ovládačov</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Downloading {0} deployment components.</value>
+    <value>Sťahovanie komponentov nasadenia {0}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Validating WinRE source package.</value>
+    <value>Overuje sa zdrojový balík WinRE.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Resolving WinRE image index.</value>
+    <value>Riešenie indexu obrázkov WinRE.</value>
   </data>
   <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Exporting Windows image for WinRE extraction.</value>
+    <value>Exportuje sa obrázok Windows na extrakciu WinRE.</value>
   </data>
   <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Mounting WinRE source image.</value>
+    <value>Pripája sa zdrojový obraz WinRE.</value>
   </data>
   <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Staging WinRE Wi-Fi dependencies.</value>
+    <value>Príprava závislostí WinRE Wi-Fi.</value>
   </data>
   <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
-    <value>Replacing boot image with WinRE.</value>
+    <value>Nahradenie bootovacieho obrazu WinRE.</value>
   </data>
   <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>WinRE Wi-Fi boot image is ready.</value>
+    <value>Spúšťací obraz WinRE Wi-Fi je pripravený.</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
-    <value>Preparing ISO output path.</value>
+    <value>Príprava výstupnej cesty ISO.</value>
   </data>
   <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
-    <value>Preparing ISO workspace.</value>
+    <value>Príprava pracovného priestoru ISO.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
-    <value>Running MakeWinPEMedia for ISO.</value>
+    <value>Spustenie MakeWinPEMedia pre ISO.</value>
   </data>
   <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
-    <value>Finalizing ISO output.</value>
+    <value>Dokončuje sa výstup ISO.</value>
   </data>
   <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
-    <value>ISO media completed.</value>
+    <value>Médium ISO dokončené.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
-    <value>Validating USB target.</value>
+    <value>Overuje sa cieľ USB.</value>
   </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
-    <value>Checking USB target safety.</value>
+    <value>Kontrola cieľovej bezpečnosti USB.</value>
   </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
-    <value>Partitioning and formatting USB target.</value>
+    <value>Rozdelenie a formátovanie cieľa USB.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
-    <value>Opening USB disk.</value>
+    <value>Otváranie disku USB.</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
-    <value>Preparing USB disk attributes.</value>
+    <value>Príprava atribútov disku USB.</value>
   </data>
   <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
-    <value>Clearing USB partition table.</value>
+    <value>Vymazanie tabuľky oddielov USB.</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
-    <value>Initializing USB partition table.</value>
+    <value>Inicializuje sa tabuľka oddielov USB.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
-    <value>Creating BOOT partition.</value>
+    <value>Vytvára sa BOOT oddiel.</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
-    <value>Formatting BOOT partition.</value>
+    <value>Formátovanie BOOT oddielu.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
-    <value>Creating cache partition.</value>
+    <value>Vytvorenie oddielu vyrovnávacej pamäte.</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
-    <value>Formatting cache partition.</value>
+    <value>Formátovanie oddielu vyrovnávacej pamäte.</value>
   </data>
   <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
-    <value>USB partitions formatted.</value>
+    <value>USB oddiely naformátované.</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
-    <value>Copying WinPE media to USB.</value>
+    <value>Kopírovanie média WinPE do USB.</value>
   </data>
   <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Configuring USB boot files.</value>
+    <value>Konfigurácia spúšťacích súborov USB.</value>
   </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
-    <value>Verifying USB boot media.</value>
+    <value>Overenie zavádzacieho média USB.</value>
   </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
-    <value>Preparing USB cache partition.</value>
+    <value>Pripravuje sa oddiel vyrovnávacej pamäte USB.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Adding Foundry components to USB media.</value>
+    <value>Pridanie komponentov Foundry do média USB.</value>
   </data>
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
-    <value>USB media completed.</value>
+    <value>Médium USB dokončené.</value>
   </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
-    <value>Exporting Windows image with DISM.</value>
+    <value>Exportuje sa obrázok Windows pomocou DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Resolving WinRE image index with DISM.</value>
+    <value>Vyriešenie indexu obrázkov WinRE pomocou DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
-    <value>Mounting image with DISM.</value>
+    <value>Pripája sa obrázok pomocou DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
-    <value>Injecting drivers with DISM.</value>
+    <value>Vloženie ovládačov s DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
-    <value>Applying language pack with DISM.</value>
+    <value>Použitie jazykového balíka s DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
-    <value>Applying optional components with DISM.</value>
+    <value>Použitie voliteľných komponentov s DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
-    <value>Applying international settings with DISM.</value>
+    <value>Použitie medzinárodných nastavení pomocou DISM.</value>
   </data>
   <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
-    <value>Committing image changes with DISM.</value>
+    <value>Potvrdenie zmien obrázka pomocou DISM.</value>
   </data>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
-    <value>The ISO media was created successfully.</value>
+    <value>Médium ISO bolo úspešne vytvorené.</value>
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
-    <value>USB media was created successfully. Boot volume: {0}. Cache volume: {1}.</value>
+    <value>Médium USB bolo úspešne vytvorené. Spúšťacia hlasitosť: {0}. Objem vyrovnávacej pamäte: {1}.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
-    <value>Select ISO output path</value>
+    <value>Vyberte výstupnú cestu ISO</value>
   </data>
   <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
-    <value>ISO image</value>
+    <value>Obrázok ISO</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
-    <value>Select custom driver folder</value>
+    <value>Vyberte priečinok vlastného ovládača</value>
   </data>
   <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
-    <value>USB targets can be refreshed after ADK readiness is complete.</value>
+    <value>Ciele USB možno obnoviť po dokončení pripravenosti ADK.</value>
   </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
-    <value>USB target refresh failed.</value>
+    <value>Obnovenie cieľa USB zlyhalo.</value>
   </data>
   <data name="StartMedia.Usb.Loading" xml:space="preserve">
-    <value>Scanning USB targets.</value>
+    <value>Skenovanie cieľov USB.</value>
   </data>
   <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
-    <value>USB targets have not been scanned yet.</value>
+    <value>Ciele USB ešte neboli skontrolované.</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
-    <value>No USB drives were found.</value>
+    <value>Nenašli sa žiadne jednotky USB.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
-    <value>USB drives found: {0}</value>
+    <value>Nájdené disky USB: {0}</value>
   </data>
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Items needing attention:</value>
+    <value>Položky vyžadujúce pozornosť:</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
-    <value>Ready to create ISO and USB media</value>
+    <value>Pripravené na vytvorenie médií ISO a USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
-    <value>Ready to create ISO media</value>
+    <value>Pripravené na vytvorenie média ISO</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
-    <value>Ready to create USB media</value>
+    <value>Pripravené na vytvorenie média USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>Readiness items needing action: {0}</value>
+    <value>Položky pripravenosti vyžadujúce akciu: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
-    <value>Review media output warnings</value>
+    <value>Skontrolujte varovania mediálneho výstupu</value>
   </data>
   <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
-    <value>Prerequisites</value>
+    <value>Predpoklady</value>
   </data>
   <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
-    <value>Checks that must be valid before Foundry can build media.</value>
+    <value>Kontroly, ktoré musia byť platné, aby Foundry mohol vytvárať médiá.</value>
   </data>
   <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
-    <value>Media output</value>
+    <value>Výstup médií</value>
   </data>
   <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
-    <value>Final ISO and USB output choices.</value>
+    <value>Konečné možnosti výstupu ISO a USB.</value>
   </data>
   <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
-    <value>Foundry configuration</value>
+    <value>Foundry konfigurácia</value>
   </data>
   <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
-    <value>Deployment settings used by Foundry in WinPE.</value>
+    <value>Nastavenia nasadenia používané Foundry v WinPE.</value>
   </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>Pripravený</value>
   </data>
   <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Upozornenie</value>
   </data>
   <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
-    <value>Blocked</value>
+    <value>Zablokované</value>
   </data>
   <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
-    <value>Not configured</value>
+    <value>Nie je nakonfigurované</value>
   </data>
   <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
-    <value>Loading</value>
+    <value>Načítava sa</value>
   </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
-    <value>Review</value>
+    <value>recenzia</value>
   </data>
   <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
-    <value>Windows ADK and the Windows PE Add-on are ready.</value>
+    <value>Windows ADK a doplnok Windows PE sú pripravené.</value>
   </data>
   <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
-    <value>Driver options are valid.</value>
+    <value>Možnosti ovládača sú platné.</value>
   </data>
   <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
     <value>{0}; {1}</value>
   </data>
   <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
-    <value>Network configuration can be provisioned.</value>
+    <value>Je možné zabezpečiť konfiguráciu siete.</value>
   </data>
   <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
-    <value>Deploy configuration can be generated.</value>
+    <value>Je možné vygenerovať konfiguráciu nasadenia.</value>
   </data>
   <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
-    <value>Connect provisioning bundle can be generated.</value>
+    <value>Je možné vygenerovať balík poskytovania pripojenia.</value>
   </data>
   <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
-    <value>Required media secrets are available.</value>
+    <value>Požadované tajomstvá médií sú k dispozícii.</value>
   </data>
   <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
-    <value>Autopilot is disabled and does not block media creation.</value>
+    <value>Autopilot je zakázané a neblokuje vytváranie médií.</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
   </data>
   <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
-    <value>WinPE boot language</value>
+    <value>WinPE zavádzací jazyk</value>
   </data>
   <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
-    <value>Boot image source</value>
+    <value>Spúšťací zdroj obrazu</value>
   </data>
   <data name="StartMedia.Field.Architecture" xml:space="preserve">
-    <value>Architecture</value>
+    <value>Architektúra</value>
   </data>
   <data name="StartMedia.Field.IsoPath" xml:space="preserve">
-    <value>ISO output path</value>
+    <value>výstupná cesta ISO</value>
   </data>
   <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
-    <value>USB target</value>
+    <value>USB cieľ</value>
   </data>
   <data name="StartMedia.Field.Signature" xml:space="preserve">
-    <value>Signature mode</value>
+    <value>Režim podpisu</value>
   </data>
   <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
-    <value>USB partition style</value>
+    <value>USB štýl oddielu</value>
   </data>
   <data name="StartMedia.Field.FormatMode" xml:space="preserve">
-    <value>USB format mode</value>
+    <value>Režim formátu USB</value>
   </data>
   <data name="StartMedia.Field.Drivers" xml:space="preserve">
-    <value>Drivers</value>
+    <value>Vodiči</value>
   </data>
   <data name="StartMedia.Field.Network" xml:space="preserve">
-    <value>Network configuration</value>
+    <value>Konfigurácia siete</value>
   </data>
   <data name="StartMedia.Field.Deploy" xml:space="preserve">
-    <value>Deploy configuration</value>
+    <value>Nasadenie konfigurácie</value>
   </data>
   <data name="StartMedia.Field.Connect" xml:space="preserve">
-    <value>Connect provisioning</value>
+    <value>Pripojiť poskytovanie</value>
   </data>
   <data name="StartMedia.Field.Secrets" xml:space="preserve">
-    <value>Media secrets</value>
+    <value>Mediálne tajomstvá</value>
   </data>
   <data name="StartMedia.Field.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
   <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
-    <value>Enabled: {0} ({1})</value>
+    <value>Povolené: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Enabled: hardware hash upload</value>
+    <value>Povolené: nahrávanie hardvérového hash</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
-    <value>Autopilot uses an unsupported provisioning mode.</value>
+    <value>Autopilot používa nepodporovaný režim poskytovania.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
-    <value>Autopilot JSON profile mode is enabled but no valid default profile is selected.</value>
+    <value>Režim profilu Autopilot JSON je povolený, ale nie je vybratý žiadny platný predvolený profil.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but settings are missing.</value>
+    <value>Hardvérové ​​nahrávanie hash je povolené, ale chýbajú nastavenia.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the tenant connection is missing. Connect to the tenant from Autopilot.</value>
+    <value>Nahrávanie hardvérového hash je povolené, ale pripojenie nájomníka chýba. Pripojte sa k nájomcovi z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the app registration is not configured. Connect to the tenant from Autopilot.</value>
+    <value>Nahrávanie hardvérového hash je povolené, ale registrácia aplikácie nie je nakonfigurovaná. Pripojte sa k nájomcovi z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the app client ID is missing. Reconnect to the tenant from Autopilot.</value>
+    <value>Nahrávanie hardvérového hash je povolené, ale chýba ID klienta aplikácie. Znovu sa pripojte k nájomcovi z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the app service principal is missing or not ready.</value>
+    <value>Nahrávanie hardvérového hash je povolené, ale principál služby aplikácie chýba alebo nie je pripravený.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected PFX does not match an app registration certificate.</value>
+    <value>Nahrávanie hardvérového hash je povolené, ale vybraný PFX nezodpovedá registračnému certifikátu aplikácie.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
     <value>Hardware hash upload is enabled but the selected certificate thumbprint is missing.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate expiration is missing.</value>
+    <value>Nahrávanie hardvérového hash je povolené, ale chýba vybratý certifikát.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate has expired. Select a valid certificate before creating boot media.</value>
+    <value>Nahrávanie hardvérového hash je povolené, ale platnosť vybratého certifikátu vypršala. Pred vytvorením zavádzacieho média vyberte platný certifikát.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
     <value>Hardware hash upload is enabled but no boot media PFX is selected.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the boot media PFX password is missing.</value>
+    <value>Odovzdávanie hardvérového hash je povolené, ale chýba heslo PFX zavádzacieho média.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
     <value>Hardware hash upload is enabled but the boot media PFX has not been validated.</value>
@@ -1447,55 +1447,55 @@
     <value>Hardware hash upload is enabled but the selected PFX does not match the active certificate.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the boot media PFX expiration could not be validated.</value>
+    <value>Odovzdávanie hardvérového hash je povolené, ale nebolo možné overiť platnosť spúšťacieho média PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
     <value>Hardware hash upload is enabled but the selected boot media PFX has expired.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
-    <value>ADK or WinPE Add-on is not ready.</value>
+    <value>Doplnok ADK alebo WinPE nie je pripravený.</value>
   </data>
   <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
-    <value>ISO output path must end with .iso.</value>
+    <value>Výstupná cesta ISO musí končiť príponou.iso.</value>
   </data>
   <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
-    <value>WinPE boot language is not selected.</value>
+    <value>WinPE jazyk zavádzania nie je vybratý.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
     <value>Selected WinPE boot language is not available for the selected architecture.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
-    <value>Network configuration is not ready.</value>
+    <value>Konfigurácia siete nie je pripravená.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
-    <value>Deploy configuration generation is not ready.</value>
+    <value>Generovanie konfigurácie nasadenia nie je pripravené.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
-    <value>Connect provisioning is not ready.</value>
+    <value>Poskytovanie pripojenia nie je pripravené.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
-    <value>Required media secrets are not ready.</value>
+    <value>Požadované tajomstvá médií nie sú pripravené.</value>
   </data>
   <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
-    <value>Autopilot is enabled but no valid default profile is selected.</value>
+    <value>Autopilot je povolený, ale nie je vybratý žiadny platný predvolený profil.</value>
   </data>
   <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
-    <value>No USB target is selected.</value>
+    <value>Nie je vybratý žiadny cieľ USB.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>The selected USB target is too small. Use a USB key of at least 16 GB.</value>
+    <value>Vybratý cieľ USB je príliš malý. Použite kľúč USB s veľkosťou aspoň 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
-    <value>ARM64 media requires GPT partition style.</value>
+    <value>Médiá ARM64 vyžadujú štýl oddielu GPT.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
-    <value>Custom driver folder does not exist.</value>
+    <value>Vlastný priečinok ovládača neexistuje.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
     <value>Custom driver folder does not contain .inf files.</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
-    <value>Media creation is not enabled in this build.</value>
+    <value>Vytváranie médií nie je v tejto zostave povolené.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -1504,10 +1504,10 @@
     <value>PCA 2023</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
-    <value>Standard WinPE</value>
+    <value>Štandardné WinPE</value>
   </data>
   <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi image</value>
+    <value>WinRE Wi-Fi obrázok</value>
   </data>
   <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
     <value>Dell</value>
@@ -1528,22 +1528,22 @@
     <value>GB</value>
   </data>
   <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
-    <value>TB</value>
+    <value>TBC</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
-    <value>Update</value>
+    <value>Aktualizovať</value>
   </data>
   <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>New</value>
+    <value>Nové</value>
   </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
-    <value>Product and version information.</value>
+    <value>Informácie o produkte a verzii.</value>
   </data>
   <data name="Nav_AboutKey.Title" xml:space="preserve">
-    <value>About</value>
+    <value>O</value>
   </data>
   <data name="Nav_AdkKey.Description" xml:space="preserve">
-    <value>ADK readiness and installation.</value>
+    <value>ADK pripravenosť a inštalácia.</value>
   </data>
   <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
     <value>Windows ADK</value>
@@ -1552,7 +1552,7 @@
     <value>ADK</value>
   </data>
   <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot profile configuration.</value>
+    <value>konfigurácia profilu Autopilot.</value>
   </data>
   <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
     <value>Autopilot</value>
@@ -1561,37 +1561,37 @@
     <value>Autopilot</value>
   </data>
   <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Deployment customization options.</value>
+    <value>Možnosti prispôsobenia nasadenia.</value>
   </data>
   <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Customization</value>
+    <value>Prispôsobenie</value>
   </data>
   <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Customization</value>
+    <value>Prispôsobenie</value>
   </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
-    <value>Foundry documentation and project links.</value>
+    <value>Foundry dokumentácia a odkazy na projekty.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Dokumentácia</value>
   </data>
   <data name="Nav_ExpertSection.Title" xml:space="preserve">
     <value>Expert</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
-    <value>Standard configuration workflow.</value>
+    <value>Štandardný pracovný postup konfigurácie.</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
-    <value>Standard configuration</value>
+    <value>Štandardná konfigurácia</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>General</value>
+    <value>generál</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>General</value>
+    <value>generál</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
-    <value>Foundry OSD home</value>
+    <value>Foundry OSD domov</value>
   </data>
   <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
     <value>Foundry OSD</value>
@@ -1600,294 +1600,408 @@
     <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
-    <value>Home</value>
+    <value>Domov</value>
   </data>
   <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE language and localization settings.</value>
+    <value>WinPE nastavenia jazyka a lokalizácie.</value>
   </data>
   <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>Localization</value>
+    <value>Lokalizácia</value>
   </data>
   <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>Localization</value>
+    <value>Lokalizácia</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Network and connectivity configuration.</value>
+    <value>Konfigurácia siete a konektivity.</value>
   </data>
   <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Network</value>
+    <value>sieť</value>
   </data>
   <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Network</value>
+    <value>sieť</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
-    <value>Review and start media creation.</value>
+    <value>Skontrolujte a začnite vytvárať médiá.</value>
   </data>
   <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>Start</value>
+    <value>Štart</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Start</value>
+    <value>Štart</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavenia</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
     <value>Manage startup, language, diagnostics, and application behavior.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>General</value>
+    <value>generál</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Send anonymous usage telemetry to help improve Foundry. No names, secrets, SSIDs, IP addresses, file paths, disk identifiers, computer names, Autopilot profile names, or hardware identifiers are sent.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
-    <value>Enable telemetry</value>
+    <value>Povoliť telemetriu</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
     <value>Change theme, backdrop, and accent color preferences.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Vzhľad</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
     <value>Check for Foundry OSD updates and review release notes.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
-    <value>Update app</value>
+    <value>Aktualizovať aplikáciu</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
     <value>Open Windows color settings to change the accent color.</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
-    <value>Accent color</value>
+    <value>Farba akcentu</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
-    <value>Open</value>
+    <value>Otvorte</value>
   </data>
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
-    <value>Acrylic</value>
+    <value>Akryl</value>
   </data>
   <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>Acrylic Thin</value>
+    <value>Tenký akryl</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
-    <value>Select the application theme.</value>
+    <value>Vyberte tému aplikácie.</value>
   </data>
   <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
-    <value>App theme</value>
+    <value>Téma aplikácie</value>
   </data>
   <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tmavý</value>
   </data>
   <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
-    <value>System</value>
+    <value>Systém</value>
   </data>
   <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>Svetlo</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
-    <value>Choose the backdrop material used behind the app.</value>
+    <value>Vyberte materiál pozadia použitý za aplikáciou.</value>
   </data>
   <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
-    <value>Material</value>
+    <value>Materiál</value>
   </data>
   <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
     <value>Mica Alt</value>
   </data>
   <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
-    <value>Mica</value>
+    <value>Sľuda</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD will download the update and restart to apply it.</value>
+    <value>Foundry OSD stiahne aktualizáciu a reštartuje ju, aby ju použil.</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Update and restart</value>
+    <value>Aktualizujte a reštartujte</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Update Foundry OSD</value>
+    <value>Aktualizovať Foundry OSD</value>
   </data>
   <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Downloading the update. Foundry OSD will restart when it is ready.</value>
+    <value>Sťahovanie aktualizácie. Foundry OSD sa reštartuje, keď bude pripravený.</value>
   </data>
   <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Download progress</value>
+    <value>Priebeh sťahovania</value>
   </data>
   <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Downloading update</value>
+    <value>Sťahuje sa aktualizácia</value>
   </data>
   <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Version {0}</value>
+    <value>Verzia {0}</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
-    <value>Not checked</value>
+    <value>Nekontrolované</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
-    <value>New</value>
+    <value>Nové</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
-    <value>Available version</value>
+    <value>Dostupná verzia</value>
   </data>
   <data name="Update.Field.InstalledVersion" xml:space="preserve">
-    <value>Installed version</value>
+    <value>Nainštalovaná verzia</value>
   </data>
   <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
-    <value>Last checked</value>
+    <value>Posledná kontrola</value>
   </data>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
-    <value>Latest version</value>
+    <value>Najnovšia verzia</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>foundry-osd/foundry</value>
+    <value>zlieváreň-osd/zlieváreň</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
-    <value>Checking for updates</value>
+    <value>Kontrolujú sa aktualizácie</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
-    <value>Update check failed: {0}</value>
+    <value>Kontrola aktualizácie zlyhala: {0}</value>
   </data>
   <data name="Update.Status.NoUpdate" xml:space="preserve">
-    <value>Foundry OSD is up to date.</value>
+    <value>Foundry OSD je aktuálne.</value>
   </data>
   <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
-    <value>Up to date</value>
+    <value>Aktuálne</value>
   </data>
   <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>K dispozícii je aktualizácia</value>
   </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
-    <value>Foundry OSD {0} is available</value>
+    <value>Foundry OSD {0} je k dispozícii</value>
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
-    <value>Update check skipped because Foundry OSD is not running from a Velopack installation.</value>
+    <value>Kontrola aktualizácie bola preskočená, pretože Foundry OSD nie je spustený z inštalácie Velopack.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>Pripravený</value>
   </data>
   <data name="Update.StatusTitle.Failed" xml:space="preserve">
-    <value>Update check failed</value>
+    <value>Kontrola aktualizácie zlyhala</value>
   </data>
   <data name="Update.StatusTitle.Skipped" xml:space="preserve">
-    <value>Update check skipped</value>
+    <value>Kontrola aktualizácie bola preskočená</value>
   </data>
   <data name="Update.Status.SkippedInDebug" xml:space="preserve">
-    <value>Update check skipped because a debugger is attached.</value>
+    <value>Kontrola aktualizácie bola preskočená, pretože je pripojený debugger.</value>
   </data>
   <data name="Update.Status.UpdateAvailable" xml:space="preserve">
-    <value>A Foundry OSD update is available.</value>
+    <value>K dispozícii je aktualizácia Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Update when you are ready. Foundry OSD will restart to finish applying it.</value>
+    <value>Aktualizujte, keď budete pripravení. Foundry OSD sa reštartuje, aby sa dokončila aplikácia.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
-    <value>Foundry OSD {0} is available.</value>
+    <value>Foundry OSD {0} je k dispozícii.</value>
   </data>
   <data name="Adk.PageTitle" xml:space="preserve">
     <value>Windows ADK</value>
   </data>
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
-    <value>ADK is ready</value>
+    <value>ADK je pripravený</value>
   </data>
   <data name="Adk.Status.ReadyDescription" xml:space="preserve">
-    <value>Foundry OSD can create ISO and USB media.</value>
+    <value>Foundry OSD môže vytvárať médiá ISO a USB.</value>
   </data>
   <data name="Adk.Status.MissingTitle" xml:space="preserve">
-    <value>ADK is not installed</value>
+    <value>ADK nie je nainštalovaný</value>
   </data>
   <data name="Adk.Status.MissingDescription" xml:space="preserve">
-    <value>Install the Windows ADK Deployment Tools and the Windows PE Add-on before configuring media creation.</value>
+    <value>Pred konfiguráciou vytvárania médií nainštalujte Windows ADK Deployment Tools a doplnok Windows PE.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
-    <value>ADK version is unsupported</value>
+    <value>Verzia ADK nie je podporovaná</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Upgrade the Windows ADK to a supported 10.1.26100 build.</value>
+    <value>Inovujte Windows ADK na podporovanú zostavu 10.1.26100.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
-    <value>Windows PE Add-on is missing</value>
+    <value>Windows PE Doplnok chýba</value>
   </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
-    <value>Install the Windows PE Add-on for the installed Windows ADK.</value>
+    <value>Nainštalujte doplnok Windows PE pre nainštalovaný Windows ADK.</value>
   </data>
   <data name="Adk.SetupAction.Title" xml:space="preserve">
-    <value>ADK setup</value>
+    <value>Nastavenie ADK</value>
   </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
-    <value>Install or upgrade the Windows ADK Deployment Tools and Windows PE Add-on required for media creation.</value>
+    <value>Nainštalujte alebo aktualizujte nástroje na nasadenie Windows ADK a doplnok Windows PE potrebný na vytváranie médií.</value>
   </data>
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
-    <value>Readiness details</value>
+    <value>Podrobnosti o pripravenosti</value>
   </data>
   <data name="Adk.Version.InstalledTitle" xml:space="preserve">
-    <value>Installed version</value>
+    <value>Nainštalovaná verzia</value>
   </data>
   <data name="Adk.Version.NotDetected" xml:space="preserve">
-    <value>Version not detected</value>
+    <value>Verzia nebola zistená</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
-    <value>Required version policy</value>
+    <value>Politika požadovanej verzie</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch.</value>
+    <value>Vyžaduje Windows ADK 10.1.26100.2454+ s najnovšou servisnou záplatou ADK.</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
-    <value>Windows PE Add-on</value>
+    <value>Doplnok Windows PE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
-    <value>Windows PE Add-on installed</value>
+    <value>Windows PE Doplnok nainštalovaný</value>
   </data>
   <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
-    <value>Windows PE Add-on missing</value>
+    <value>Windows PE Chýba doplnok</value>
   </data>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
-    <value>Media creation capability</value>
+    <value>Schopnosť vytvárať médiá</value>
   </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
-    <value>ISO and USB creation are available.</value>
+    <value>K dispozícii je vytváranie ISO a USB.</value>
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
-    <value>ISO and USB creation remain blocked.</value>
+    <value>Vytváranie ISO a USB zostáva zablokované.</value>
   </data>
   <data name="Adk.Operation.InstallStarted" xml:space="preserve">
-    <value>Installing Windows ADK</value>
+    <value>Inštalácia Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Upgrading Windows ADK</value>
+    <value>Inovácia Windows ADK</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
-    <value>Downloading ADK installer</value>
+    <value>Sťahovanie inštalačného programu ADK</value>
   </data>
   <data name="Adk.Operation.Downloaded" xml:space="preserve">
-    <value>ADK installer downloaded</value>
+    <value>Bol stiahnutý inštalačný program ADK</value>
   </data>
   <data name="Adk.Operation.DownloadCached" xml:space="preserve">
-    <value>Using cached ADK installer</value>
+    <value>Použitie inštalačného programu ADK uloženého vo vyrovnávacej pamäti</value>
   </data>
   <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
-    <value>Removing existing Windows PE Add-on</value>
+    <value>Odstránenie existujúceho doplnku Windows PE</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
-    <value>Removing existing Windows ADK</value>
+    <value>Odstránenie existujúceho Windows ADK</value>
   </data>
   <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
-    <value>Installing Windows ADK Deployment Tools</value>
+    <value>Inštalácia Windows ADK Deployment Tools</value>
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
-    <value>Installing Windows PE Add-on</value>
+    <value>Inštalácia doplnku Windows PE</value>
   </data>
   <data name="Adk.Operation.Verifying" xml:space="preserve">
-    <value>Verifying ADK installation</value>
+    <value>Overenie inštalácie ADK</value>
   </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
-    <value>ADK operation completed</value>
+    <value>ADK operácia dokončená</value>
   </data>
   <data name="Adk.Operation.Failed" xml:space="preserve">
-    <value>ADK operation failed</value>
+    <value>Operácia ADK zlyhala</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Install Windows ADK and Windows PE Add-on</value>
+    <value>Nainštalujte doplnok Windows ADK a Windows PE</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Upgrade Windows ADK and Windows PE Add-on</value>
+    <value>Inovujte doplnok Windows ADK a Windows PE</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabčina (Saudská Arábia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulharčina (Bulharsko)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>čeština (Česko)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dánčina (Dánsko)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>nemčina (Nemecko)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>gréčtina (Grécko)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angličtina (Spojené kráľovstvo)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angličtina (Spojené štáty americké)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>španielčina (Španielsko)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>španielčina (Mexiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estónčina (Estónsko)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>fínčina (Fínsko)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francúzština (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francúzština (Francúzsko)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrejčina (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>chorvátčina (Chorvátsko)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>maďarčina (Maďarsko)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>taliančina (Taliansko)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japončina (Japonsko)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>kórejčina (Kórea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litovčina (Litva)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lotyština (Lotyšsko)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>nórsky bokmal (Nórsko)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holandčina (Holandsko)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poľština (Poľsko)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalčina (Brazília)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalčina (Portugalsko)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumunčina (Rumunsko)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ruština (Rusko)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovenčina (Slovensko)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovinčina (Slovinsko)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>srbská latinčina (Srbsko)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švédčina (Švédsko)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thajčina (Thajsko)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turečtina (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrajinčina (Ukrajina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Zjednodušená čínština (Čína)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradičná čínština (Taiwan)</value>
   </data>
 </root>

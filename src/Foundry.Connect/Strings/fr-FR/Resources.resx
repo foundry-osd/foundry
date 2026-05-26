@@ -306,4 +306,118 @@
   <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
     <value>{0} (poste ou utilisateur)</value>
   </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arabe (Arabie Saoudite)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgare (Bulgarie)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Tchèque (Tchéquie)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Danois (Danemark)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Allemand (Allemagne)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Grec (Grèce)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Anglais (Royaume-Uni)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Anglais (États-Unis)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Espagnol (Espagne)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Espagnol (Mexique)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estonien (Estonie)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finnois (Finlande)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Français (Canada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Français (France)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Hébreu (Israël)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Croate (Croatie)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Hongrois (Hongrie)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Italien (Italie)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japonais (Japon)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Coréen (Corée)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Lituanien (Lituanie)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Letton (Lettonie)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Bokmal norvégien (Norvège)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Néerlandais (Pays-Bas)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Polonais (Pologne)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugais (Brésil)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugais (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Roumain (Roumanie)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Russe (Russie)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovaque (Slovaquie)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovène (Slovénie)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Latin serbe (Serbie)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Suédois (Suède)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Thaï (Thaïlande)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Turc (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukrainien (Ukraine)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Chinois simplifié (Chine)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Chinois traditionnel (Taïwan)</value>
+  </data>
 </root>

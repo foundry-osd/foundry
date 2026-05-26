@@ -14,404 +14,518 @@
   </resheader>
   <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
   <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>About Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy is the WinPE deployment experience for Foundry.</value></data>
-  <data name="About.DescriptionLine2" xml:space="preserve"><value>This software is provided as is. Review your deployment settings before use.</value></data>
-  <data name="About.Footer" xml:space="preserve"><value>Copyright (c) 2026 Foundry Project. Licensed under the MIT License.</value></data>
-  <data name="Menu.Theme" xml:space="preserve"><value>_Theme</value></data>
-  <data name="Menu.Language" xml:space="preserve"><value>_Language</value></data>
-  <data name="Menu.Tools" xml:space="preserve"><value>_Tools</value></data>
+  <data name="About.Title" xml:space="preserve"><value>Körülbelül Foundry Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Az Foundry Deploy az WinPE telepítési élmény a Foundry számára.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Ezt a szoftvert úgy szállítjuk, ahogy van. Használat előtt tekintse át a telepítési beállításokat.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Copyright (c) 2026 Foundry Project. Licenc az MIT licenc alatt.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Téma</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Nyelv</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Eszközök</value></data>
   <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
-  <data name="Menu.About" xml:space="preserve"><value>_About</value></data>
-  <data name="Theme.System" xml:space="preserve"><value>System</value></data>
-  <data name="Theme.Light" xml:space="preserve"><value>Light</value></data>
-  <data name="Theme.Dark" xml:space="preserve"><value>Dark</value></data>
-  <data name="Language.English" xml:space="preserve"><value>English</value></data>
-  <data name="Language.French" xml:space="preserve"><value>French</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Refresh catalogs</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Refresh target disks</value></data>
-  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open log file</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simulation mode is active: deployment actions are simulated and no disk or image writes are performed.</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating system</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver pack</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Summary</value></data>
-  <data name="Preparation.ComputerName" xml:space="preserve"><value>Computer name</value></data>
-  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 characters. A-Z, a-z, 0-9, and hyphen only.</value></data>
-  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Computer name must contain 1 to 15 valid characters (letters, numbers, or hyphen).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Target machine</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destination disk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Deployment options</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_Körülbelül</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>Rendszer</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Fény</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Sötét</value></data>
+  <data name="Language.English" xml:space="preserve"><value>angolul</value></data>
+  <data name="Language.French" xml:space="preserve"><value>francia</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Katalógusok frissítése</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Frissítse a céllemezeket</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Nyissa meg a naplófájlt</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>A szimulációs mód aktív: a telepítési műveletek szimulálva vannak, és nem történik lemez- vagy képírás.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cél</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operációs rendszer</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver csomag</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Összegzés</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Számítógép neve</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 karakter. Csak A-Z, a-z, 0-9 és kötőjel.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>A számítógép nevének 1–15 érvényes karaktert (betűket, számokat vagy kötőjelet) kell tartalmaznia.</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Célgép</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Cél lemez</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Telepítési lehetőségek</value></data>
   <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Target disk</value></data>
-  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Select a target disk. Non-eligible disks are blocked.</value></data>
-  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Apply firmware updates</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Enable Autopilot for this deployment</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profile</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>No embedded Autopilot profiles were found on this media.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profile</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Available on this media: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardware hash upload status</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Ready to upload hardware hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Not ready to upload hardware hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Upload certificate has expired</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hardware hash upload is unavailable on this media because required certificate information is missing. Deployment can continue, but upload will be skipped.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>The Autopilot certificate has expired. Deployment can continue, but upload will be skipped.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Details</value></data>
-  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Tenant ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Certificate thumbprint</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Certificate expiration</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Group tag</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>The group tag is optional. Select None to upload without a group tag.</value></data>
-  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detecting hardware...</value></data>
-  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Hardware detection failed.</value></data>
-  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardware detection failed: {0}</value></data>
-  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Power: {2} | Firmware: {3}</value></data>
-  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Battery</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Céllemez</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Válasszon ki egy céllemezt. A nem megfelelő lemezek blokkolva vannak.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Alkalmazzon firmware-frissítéseket</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Engedélyezze a Autopilot alkalmazást ehhez a telepítéshez</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Ezen az adathordozón nem található beágyazott Autopilot profil.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hardveres hash feltöltés</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Elérhető ezen a médián: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardveres hash feltöltés</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardver hash feltöltési állapota</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Készen áll a hardveres hash feltöltésére</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nem áll készen a hardveres hash feltöltésére</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>A feltöltési tanúsítvány lejárt</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>A hardveres hash-feltöltés nem érhető el ezen az adathordozón, mert hiányoznak a szükséges tanúsítványinformációk. A telepítés folytatódhat, de a feltöltés kimarad.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>A Autopilot tanúsítvány lejárt. A telepítés folytatódhat, de a feltöltés kimarad.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Részletek</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Bérlői azonosító</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Tanúsítvány ujjlenyomata</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Tanúsítvány lejárata</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Csoportcímke</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>A csoportcímke nem kötelező. Válassza a Nincs lehetőséget a csoportcímke nélküli feltöltéshez.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Hardver észlelése...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>A hardverészlelés nem sikerült.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>A hardverészlelés nem sikerült: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Teljesítmény: {2} | Firmware: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Akkumulátor</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Loading target disks...</value></data>
-  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Target disk discovery failed: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>No disks detected.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Target disks loaded: {0} detected.</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
-  <data name="Catalog.Language" xml:space="preserve"><value>Language</value></data>
-  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>License channel</value></data>
-  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edition (Target)</value></data>
-  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architecture: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Loading catalogs...</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogs loaded: {0} operating system entries, {1} driver packs.</value></data>
-  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalog load failed: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Retail</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volume</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Home</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Home N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Home Single Language</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Education</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Education N</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Céllemezek betöltése...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>A céllemez felderítése nem sikerült: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nem észlelhető lemez.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Betöltött céllemezek: {0} észlelve.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Verzió</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Nyelv</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licenc csatorna</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>kiadás (cél)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Építészet: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Katalógusok betöltése...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Betöltött katalógusok: {0} operációs rendszer bejegyzések, {1} illesztőprogram-csomagok.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>A katalógus betöltése sikertelen: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Kiskereskedelem</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>kötet</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Otthon</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Otthon N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Kezdőlap Egynyelvű</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Oktatás</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Oktatás N</value></data>
   <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
   <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
   <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Enterprise</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Enterprise N</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Vállalkozás N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
-  <data name="DriverPack.Source" xml:space="preserve"><value>Driver source</value></data>
-  <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
-  <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Illesztőprogram forrása</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Verzió</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM driver pack</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM illesztőprogram csomag</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
-  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: no matching model or version</value></data>
-  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} models)</value></data>
-  <data name="Summary.Title" xml:space="preserve"><value>Deployment summary</value></data>
-  <data name="Summary.TargetDisk" xml:space="preserve"><value>Target disk</value></data>
-  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>No disk selected</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Summary.NoSelection" xml:space="preserve"><value>No selection</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Selected driver pack</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: nincs megfelelő modell vagy verzió</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modellek)</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Telepítési összefoglaló</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Céllemez</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nincs lemez kiválasztva</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Nincs kiválasztás</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Kiválasztott illesztőprogram-csomag</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Method</value></data>
-  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
-  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot group tag</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Target</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Deployment options</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Módszer</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot csoportcímke</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cél</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Rendszer</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Telepítési lehetőségek</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>No Autopilot</value></data>
-  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profile</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardware hash upload</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Valid certificate</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Expired certificate</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Missing certificate info</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>No default group tag</value></data>
-  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Deployment pages</value></data>
-  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Progress page</value></data>
-  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Success page</value></data>
-  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Error page</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Debug preview: progress page.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Debug preview: success page.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Debug preview: error page.</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Debug preview: DISM apply failed because the target partition is read-only.
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nem Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardveres hash feltöltés</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Érvényes tanúsítvány</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Lejárt tanúsítvány</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Hiányzó tanúsítvány információ</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Nincs alapértelmezett csoportcímke</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Bevezetési oldalak</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Haladás oldal</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Siker oldal</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Hiba oldal</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Hibakeresési előnézet: folyamatoldal.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Hibakeresési előnézet: sikeroldal.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Hibakeresési előnézet: hibaoldal.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Hibakeresési előnézet: DISM alkalmazás sikertelen, mert a célpartíció írásvédett.
 
 ErrorCode=0x80070005
-Details: Access denied while mounting image to target path.
-Action: Verify disk attributes and retry deployment.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Refresh</value></data>
-  <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
-  <data name="Common.Previous" xml:space="preserve"><value>Previous</value></data>
-  <data name="Common.Next" xml:space="preserve"><value>Next</value></data>
-  <data name="Common.Deploy" xml:space="preserve"><value>Deploy</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Open log</value></data>
+Részletek: A hozzáférés megtagadva a kép célútvonalhoz való csatlakoztatása közben.
+Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a központi telepítéssel.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Frissítés</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Verzió: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Előző</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Következő</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Telepítés</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Napló megnyitása</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
-  <data name="Common.Unavailable" xml:space="preserve"><value>Unavailable</value></data>
-  <data name="Common.None" xml:space="preserve"><value>None</value></data>
-  <data name="Common.Unknown" xml:space="preserve"><value>Unknown</value></data>
-  <data name="Common.Detected" xml:space="preserve"><value>Detected</value></data>
-  <data name="Common.Yes" xml:space="preserve"><value>Yes</value></data>
-  <data name="Common.No" xml:space="preserve"><value>No</value></data>
-  <data name="Common.Enabled" xml:space="preserve"><value>Enabled</value></data>
-  <data name="Common.Disabled" xml:space="preserve"><value>Disabled</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Ready</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Not ready</value></data>
-  <data name="Progress.Networking" xml:space="preserve"><value>Networking</value></data>
-  <data name="Progress.StartTime" xml:space="preserve"><value>Start time</value></data>
-  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Elapsed time</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Deployment completed successfully.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>This computer will reboot soon. Countdown: {0}s</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>Reboot</value></data>
-  <data name="Error.Title" xml:space="preserve"><value>Deployment failed</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Failed step</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Error message</value></data>
-  <data name="Splash.Welcome" xml:space="preserve"><value>Welcome</value></data>
-  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initializing components...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Start</value></data>
-  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
-  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value> | {0}</value></data>
-  <data name="Disk.UnknownSize" xml:space="preserve"><value>Unknown size</value></data>
-  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Blocked: system disk</value></data>
-  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Blocked: boot disk</value></data>
-  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blocked: read-only</value></data>
-  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blocked: offline</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG VIRTUAL TARGET</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Selected disk blocked: {0}</value></data>
-  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Target disk {0} is no longer present.</value></data>
-  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Target disk {0} is blocked: {1}</value></data>
-  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Confirm disk erase</value></data>
-  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>This will erase all data on the selected disk and install the selected operating system.
+  <data name="Common.Unavailable" xml:space="preserve"><value>Nem elérhető</value></data>
+  <data name="Common.None" xml:space="preserve"><value>Egyik sem</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Ismeretlen</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Észlelve</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>Igen</value></data>
+  <data name="Common.No" xml:space="preserve"><value>Nem</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Engedélyezve</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Letiltva</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Kész</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Nincs kész</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>Hálózatépítés</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Kezdési idő</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Eltelt idő</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>A telepítés sikeresen befejeződött.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ez a számítógép hamarosan újraindul. Visszaszámlálás: {0}s</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Indítsa újra</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>A telepítés nem sikerült</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Sikertelen lépés</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Hibaüzenet</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Üdvözöljük</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Összetevők inicializálása...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Indítsa el</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Lemez {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Ismeretlen méret</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Blokkolt: rendszerlemez</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Blokkolt: rendszerindító lemez</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Letiltva: csak olvasható</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Letiltva: offline</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>HIBAHIBA VIRTUÁLIS CÉL</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>A kiválasztott lemez blokkolva: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>A {0} céllemez már nincs jelen.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>A {0} céllemez le van tiltva: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Erősítse meg a lemez törlését</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Ezzel törli az összes adatot a kiválasztott lemezen, és telepíti a kiválasztott operációs rendszert.
 
-Disk: {0}
-Model: {1}
-Bus: {2}
-Size: {3}
+Lemez: {0}
+Modell: {1}
+Busz: {2}
+Méret: {3}
 
-Operating system: {4}
+Operációs rendszer: {4}
 
-Continue with deployment?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Select an operating system.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Enter a valid computer name.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Select a target disk.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Select a valid OEM model or version before starting deployment.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Select an Autopilot profile or disable Autopilot before starting deployment.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Deployment cancelled by user.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Deployment preparation completed.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Ready</value></data>
-  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Waiting for deployment...</value></data>
-  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Waiting for progress...</value></data>
-  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Preparing deployment...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Deployment started.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Deployment completed.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Deployment workflow completed.</value></data>
-  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Deployment cancelled.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Deployment failed.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Deployment failed: {0}</value></data>
-  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Another operation is already running.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Debug safe mode enabled: deployment actions are simulated.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Starting deployment workflow.</value></data>
-  <data name="Status.StartingStep" xml:space="preserve"><value>Starting step...</value></data>
-  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Starting {0}.</value></data>
-  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Starting {0}...</value></data>
-  <data name="Status.StepCompleted" xml:space="preserve"><value>Step completed.</value></data>
-  <data name="Status.StepFailed" xml:space="preserve"><value>Step failed.</value></data>
-  <data name="Status.StepSkipped" xml:space="preserve"><value>Step skipped.</value></data>
-  <data name="Status.InProgress" xml:space="preserve"><value>In progress...</value></data>
-  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Step: ? of ?</value></data>
-  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Step: {0} of {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Rebooting now...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Reboot command failed.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Reboot command failed: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Unable to open log file: {0}</value></data>
-  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe failed with exit code {0}. {1}</value></data>
-  <data name="Status.SystemReboot" xml:space="preserve"><value>System reboot</value></data>
-  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Required reboot executable 'wpeutil.exe' was not found.</value></data>
-  <data name="Status.UnknownStep" xml:space="preserve"><value>Unknown step</value></data>
-  <data name="Status.NoErrorDetails" xml:space="preserve"><value>No error details were provided.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Gather deployment variables</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialize deployment workspace</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validate target configuration</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Check deployment cache</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Prepare target disk layout</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Download operating system image</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Apply operating system image</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configure target computer name</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configure OOBE settings</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configure recovery environment</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Download driver pack</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extract driver pack</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE customization</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Apply driver pack</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Download firmware update</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Apply firmware update</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Seal recovery partition</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provision Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalize deployment and write logs</value></data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Gathering deployment variables...</value></data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Collecting deployment context...</value></data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Deployment variables gathered.</value></data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Deployment variables gathered (simulation).</value></data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Initializing deployment workspace...</value></data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Creating workspace folders...</value></data>
-  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Finalizing deployment...</value></data>
-  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Cleaning temporary workspace...</value></data>
-  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Writing deployment summary...</value></data>
-  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Writing completion logs...</value></data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Workspace initialized.</value></data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Workspace initialized (simulation).</value></data>
-  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Validating target configuration...</value></data>
-  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Revalidating target disk...</value></data>
-  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Detecting hardware profile...</value></data>
-  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Operating system URL is missing.</value></data>
-  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Target disk number is required.</value></data>
-  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Target configuration validated.</value></data>
-  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Target configuration validated (simulation).</value></data>
-  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Checking deployment cache...</value></data>
-  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Resolving cache location...</value></data>
-  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Checking cache disk conflict...</value></data>
-  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Cache strategy resolved.</value></data>
-  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Cache strategy resolved (simulation).</value></data>
-  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Preparing target disk layout...</value></data>
-  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Partitioning target disk...</value></data>
-  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Preparing target workspace...</value></data>
-  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Creating simulated partitions...</value></data>
-  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Target disk layout prepared.</value></data>
-  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Target disk layout prepared (simulation).</value></data>
-  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Target disk layout was not prepared.</value></data>
-  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Downloading operating system image...</value></data>
-  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Checking cache...</value></data>
-  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Operating system image ready (simulation).</value></data>
-  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Operating system image was not downloaded.</value></data>
-  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Operating system image downloaded.</value></data>
-  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Operating system image resolved from cache.</value></data>
-  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Applying operating system image...</value></data>
-  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Inspecting image...</value></data>
-  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Applying image...</value></data>
-  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Configuring boot...</value></data>
-  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Verifying image...</value></data>
-  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Operating system image applied.</value></data>
-  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Operating system image applied (simulation).</value></data>
-  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Configuring target computer name...</value></data>
-  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Writing offline computer name...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Target Windows partition is unavailable.</value></data>
-  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Target computer name configured.</value></data>
-  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Target computer name configured (simulation).</value></data>
-  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline customization disabled.</value></data>
-  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Configuring offline customizations...</value></data>
-  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Writing first-run defaults...</value></data>
-  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Configuring AI component removal...</value></data>
-  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Writing offline AI policies...</value></data>
-  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline customization configured.</value></data>
-  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline customization configured (simulation).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE customization disabled.</value></data>
-  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Configuring OOBE settings...</value></data>
-  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Writing first-run privacy defaults...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE customization configured.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE settings configured.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE customization simulated.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE settings configured (simulation).</value></data>
-  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Configuring recovery environment...</value></data>
-  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Preparing Windows Recovery Environment...</value></data>
-  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Recovery partition is unavailable.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Recovery environment configured.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Recovery environment configured (simulation).</value></data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>No pre-OOBE customization scripts are required.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Pre-OOBE customizations will be staged with the first-boot driver pack.</value></data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Staging pre-OOBE customizations...</value></data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pre-OOBE customizations staged.</value></data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pre-OOBE customizations staged (simulation).</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Driver pack disabled (None selected).</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>No driver pack download required.</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Downloading driver pack...</value></data>
-  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Preparing download...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>OEM driver pack mode selected but no driver pack was provided.</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Driver pack downloaded.</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Driver pack downloaded (simulation).</value></data>
-  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Driver pack resolved from cache.</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Extracting driver pack...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Driver pack was not downloaded.</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Driver pack extracted.</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Driver pack extracted (simulation).</value></data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Driver pack prepared for first-boot installation.</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>No driver pack operation is required.</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Unsupported driver pack install mode.</value></data>
-  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>No extracted INF driver content is available.</value></data>
-  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Driver pack source content is unavailable for first-boot staging.</value></data>
-  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog did not produce driver content.</value></data>
-  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>First-boot driver pack staging was requested without a supported command.</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Applying driver pack...</value></data>
-  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Applying Windows drivers...</value></data>
-  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Mounting WinRE...</value></data>
-  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Applying WinRE drivers...</value></data>
-  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Unmounting WinRE...</value></data>
-  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Staging package...</value></data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Updating first-boot setup script...</value></data>
+Folytatja a telepítést?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Válasszon ki egy operációs rendszert.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Adjon meg egy érvényes számítógépnevet.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Válasszon ki egy céllemezt.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>A telepítés megkezdése előtt válasszon egy érvényes OEM-modellt vagy -verziót.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>A telepítés megkezdése előtt válasszon Autopilot profilt, vagy tiltsa le az Autopilot profilt.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>A telepítést a felhasználó megszakította.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>A telepítés előkészítése befejeződött.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Kész</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Várakozás a telepítésre...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Várjuk a fejleményeket...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Telepítés előkészítése...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Megkezdődött a telepítés.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>A telepítés befejeződött.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>A telepítési munkafolyamat befejeződött.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>A telepítés megszakadt.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>A telepítés nem sikerült.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>A telepítés sikertelen: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Egy másik művelet már fut.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Hibakeresés csökkentett mód engedélyezve: a telepítési műveletek szimulálva vannak.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>A telepítési munkafolyamat indítása.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Kezdő lépés...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Kezdve: {0}.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Kezdés: {0}...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Lépés befejezve.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>A lépés nem sikerült.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Lépés kimaradt.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>Folyamatban...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>lépés:? a?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Lépés: {0}/{1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Újraindítás most...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Az újraindítási parancs nem sikerült.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Az újraindítási parancs sikertelen: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nem lehet megnyitni a naplófájlt: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe nem sikerült a {0} kilépési kóddal. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Rendszer újraindítás</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>A szükséges újraindítási végrehajtható "wpeutil.exe" nem található.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Ismeretlen lépés</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>A hiba részleteit nem közölték.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Gyűjtsd össze a telepítési változókat</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializálja a telepítési munkaterületet</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Érvényesítse a célkonfigurációt</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Ellenőrizze a telepítési gyorsítótárat</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Készítse elő a céllemez elrendezését</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Töltse le az operációs rendszer képét</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Alkalmazza az operációs rendszer képét</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurálja a célszámítógép nevét</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurálja a OOBE beállításokat</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurálja a helyreállítási környezetet</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Töltse le az illesztőprogram-csomagot</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag kibontása</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE testreszabás</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag alkalmazása</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware frissítés letöltése</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Alkalmazza a firmware frissítést</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Tömítse le a helyreállítási partíciót</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Ellátás Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Fejezze be a telepítést és írjon naplókat</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Telepítési változók gyűjtése...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Telepítési kontextus gyűjtése...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>A telepítési változók összegyűjtve.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>A telepítési változók összegyűjtése (szimuláció).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Telepítési munkaterület inicializálása...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Munkaterületi mappák létrehozása...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>A telepítés befejezése...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Ideiglenes munkaterület takarítása...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Telepítési összefoglaló írása...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Befejezési naplók írása...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Munkaterület inicializálva.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Munkaterület inicializálva (szimuláció).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Célkonfiguráció ellenőrzése...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Céllemez újraellenőrzése...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Hardverprofil észlelése...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>A URL operációs rendszer hiányzik.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Meg kell adni a céllemez számát.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>A célkonfiguráció érvényesítve.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>A célkonfiguráció érvényesítve (szimuláció).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Telepítési gyorsítótár ellenőrzése...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>A gyorsítótár helyének feloldása...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>A gyorsítótár lemezütközésének ellenőrzése...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>A gyorsítótár-stratégia megoldva.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>A gyorsítótár-stratégia megoldva (szimuláció).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Céllemez-elrendezés előkészítése...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Céllemez particionálása...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Cél munkaterület előkészítése...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Szimulált partíciók létrehozása...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>A céllemez elrendezése elkészült.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Céllemez elrendezés előkészítve (szimuláció).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>A céllemez elrendezése nem készült el.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Az operációs rendszer képének letöltése...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Gyorsítótár ellenőrzése...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Az operációs rendszer képe készen áll (szimuláció).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Az operációs rendszer képe nem lett letöltve.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Az operációs rendszer képe letöltve.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Az operációs rendszer képfájlja feloldva a gyorsítótárból.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Az operációs rendszer képének alkalmazása...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Kép vizsgálata...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Kép alkalmazása...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Rendszerindítás konfigurálása...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Kép ellenőrzése...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Az operációs rendszer képe alkalmazva.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Alkalmazott operációs rendszer kép (szimuláció).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Célszámítógép nevének konfigurálása...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Offline számítógépnév írása...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>A Windows célpartíció nem érhető el.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>A célszámítógép neve konfigurálva.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>A célszámítógép neve konfigurálva (szimuláció).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Az offline testreszabás letiltva.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Offline testreszabások konfigurálása...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Első futtatási alapértelmezett értékek írása...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>AI-komponens eltávolításának konfigurálása...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Offline AI-irányelvek írása...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline testreszabás konfigurálva.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline testreszabás konfigurálva (szimuláció).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE testreszabás letiltva.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE beállítások konfigurálása...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Első futtatású adatvédelmi alapértelmezések írása...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE testreszabás konfigurálva.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE beállítások konfigurálva.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE testreszabás szimulálva.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE beállítások konfigurálva (szimuláció).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Helyreállítási környezet konfigurálása...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows helyreállítási környezet előkészítése...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>A helyreállítási partíció nem érhető el.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Helyreállítási környezet konfigurálva.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Helyreállítási környezet konfigurálva (szimuláció).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nincs szükség előzetes OOBE testreszabási szkriptekre.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Az OOBE előtti testreszabások az első rendszerindítási illesztőprogram-csomaggal lesznek végrehajtva.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Az OOBE előtti testreszabások ütemezése...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Az OOBE előtti testreszabások megtörténtek.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Az OOBE előtti testreszabások szakaszban (szimuláció).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Illesztőprogram-csomag letiltva (Nincs kiválasztva).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Nincs szükség illesztőprogram-csomag letöltésére.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag letöltése...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Letöltés előkészítése...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>OEM illesztőprogram-csomag mód kiválasztva, de nem biztosított illesztőprogram-csomag.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Illesztőprogram-csomag letöltve.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Illesztőprogram-csomag letöltve (szimuláció).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Az illesztőprogram-csomag gyorsítótárból megoldva.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag kibontása...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Az illesztőprogram-csomag nem lett letöltve.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Driver csomag kicsomagolva.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Illesztőprogram-csomag kivonva (szimuláció).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Az illesztőprogram-csomag az első rendszerindítási telepítéshez előkészítve.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Nincs szükség illesztőprogram-csomag műveletre.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Nem támogatott illesztőprogram-csomag telepítési mód.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Nem érhető el kivont INF illesztőprogram-tartalom.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Az illesztőprogram-csomag forrástartalma nem érhető el az első rendszerindításkor.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog nem hozott létre illesztőprogram-tartalmat.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Az első rendszerindítási illesztőprogram-csomag szakaszolását támogatott parancs nélkül kérték.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag alkalmazása...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Windows illesztőprogramok alkalmazása...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>WinRE felszerelése...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>WinRE illesztőprogramok alkalmazása...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>WinRE leválasztása...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Üzembe helyezési csomag...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Az első rendszerindítási beállítási szkript frissítése...</value></data>
   <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
-  <data name="StepProgress.Downloading" xml:space="preserve"><value>Downloading</value></data>
-  <data name="StepProgress.Extracting" xml:space="preserve"><value>Extracting</value></data>
-  <data name="StepProgress.Applying" xml:space="preserve"><value>Applying</value></data>
-  <data name="StepProgress.Staging" xml:space="preserve"><value>Staging</value></data>
-  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} downloaded</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Driver pack applied.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Driver pack staged for first boot.</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Driver pack applied (simulation).</value></data>
-  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Downloading firmware update...</value></data>
-  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Preparing Microsoft Update Catalog lookup...</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Firmware updates are disabled.</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Firmware updates are disabled for virtual machines.</value></data>
-  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Firmware updates are skipped while the device is running on battery power.</value></data>
-  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>System firmware hardware identifier is unavailable.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Firmware update downloaded.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Firmware update downloaded (simulation).</value></data>
-  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>No extracted firmware content is available.</value></data>
-  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>The extracted firmware content does not contain any INF files.</value></data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Applying firmware update...</value></data>
-  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Injecting firmware content into offline Windows...</value></data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Firmware update applied.</value></data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Firmware update applied (simulation).</value></data>
-  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Sealing recovery partition...</value></data>
-  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Removing recovery drive letter...</value></data>
-  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Recovery partition sealed.</value></data>
-  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Recovery partition sealed (simulation).</value></data>
-  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot is disabled.</value></data>
-  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot is enabled but no profile was selected.</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Target Windows partition is unavailable for Autopilot staging.</value></data>
-  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Failed to resolve the target Autopilot directory.</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Staging Autopilot profile...</value></data>
-  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Copying AutopilotConfigurationFile.json...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Writing simulated Autopilot manifest...</value></data>
-  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Capturing Autopilot hardware hash...</value></data>
-  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Running OA3Tool...</value></data>
-  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Uploading Autopilot hardware hash...</value></data>
-  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Preparing Microsoft Graph import...</value></data>
-  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Submitting import request to Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Waiting for Autopilot device visibility...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Checking Windows Autopilot devices ({0} remaining)...</value></data>
-  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Updating existing Autopilot device...</value></data>
-  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Updating Windows Autopilot group tag in Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Waiting for Autopilot group tag update...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Checking Windows Autopilot group tag ({0} remaining)...</value></data>
-  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Preparing Autopilot hardware hash upload...</value></data>
-  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Decrypting media certificate...</value></data>
-  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Authenticating Autopilot hardware hash upload...</value></data>
-  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Requesting Microsoft Graph token...</value></data>
-  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Importing hardware hash into Microsoft Graph...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Writing simulated Autopilot hash manifest...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Target Windows partition is unavailable for Autopilot hardware hash upload.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot hardware hash upload skipped because the embedded certificate has expired.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot hardware hash upload skipped because required media certificate information is incomplete.</value></data>
-  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot hardware hash imported and visible in Windows Autopilot devices.</value></data>
-  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.</value></data>
-  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot device group tag update was not confirmed before the timeout.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot hardware hash upload prepared for simulation.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot hardware hash upload prepared (simulation).</value></data>
-  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Selected Autopilot profile file was not found: {0}</value></data>
-  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hardware hash capture failed: {0}</value></data>
-  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot hardware hash import failed: {0}</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot hardware hash upload skipped: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minute</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutes</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} second</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} seconds</value></data>
-  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profile staged.</value></data>
-  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profile staged (simulation).</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Letöltés</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Kivonás</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Jelentkezés</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Színreállítás</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} letöltve</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Illesztőprogram-csomag alkalmazva.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Driver csomag előkészítve az első rendszerindításhoz.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Illesztőprogram-csomag alkalmazva (szimuláció).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Firmware frissítés letöltése...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Microsoft Update Catalog keresés előkészítése...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>A firmware frissítések le vannak tiltva.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>A firmware-frissítések le vannak tiltva a virtuális gépeken.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>A firmware-frissítések kimaradnak, ha az eszköz akkumulátorról működik.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>A rendszer firmware hardver azonosítója nem érhető el.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Firmware frissítés letöltve.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Firmware frissítés letöltve (szimuláció).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Nem érhető el kivont firmware-tartalom.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>A kicsomagolt firmware-tartalom nem tartalmaz INF fájlokat.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Firmware frissítés alkalmazása...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Firmware-tartalom beszúrása az offline Windows-ba...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Firmware frissítés alkalmazva.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Firmware frissítés alkalmazva (szimuláció).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>A helyreállítási partíció lezárása...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Helyreállítási meghajtó betűjelének eltávolítása...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>A helyreállítási partíció lezárva.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Helyreállítási partíció lezárva (szimuláció).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot le van tiltva.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>A Autopilot engedélyezve van, de nem lett kiválasztva profil.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>A Windows célpartíció nem érhető el Autopilot szakaszoláshoz.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Nem sikerült feloldani a Autopilot célkönyvtárat.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Autopilot profil rendezése...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>AutopilotConfigurationFile.json másolása...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Szimulált Autopilot jegyzék írása...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Autopilot hardveres hash rögzítése...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>OA3Tool fut...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Autopilot hardveres hash feltöltése...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Microsoft Graph importálás előkészítése...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Importálási kérelem benyújtása a Microsoft Graph címre...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Várakozás az Autopilot eszköz láthatóságára...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Windows Autopilot eszközök ellenőrzése ({0} maradt)...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Meglévő Autopilot eszköz frissítése...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Windows Autopilot csoportcímke frissítése a Microsoft Graph-ban...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Várakozás a Autopilot csoportcímke frissítésére...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Windows Autopilot csoportcímke ellenőrzése ({0} maradt)...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autopilot hardveres hash feltöltés előkészítése...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Médiatanúsítvány visszafejtése...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autopilot hardveres hash feltöltés hitelesítése...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Microsoft Graph token kérése...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Hardveres hash importálása a Microsoft Graph mappába...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Szimulált Autopilot hash manifest írása...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>A Windows célpartíció nem érhető el Autopilot hardveres hash feltöltéshez.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot hardveres hash feltöltés kimaradt, mert a beágyazott tanúsítvány lejárt.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot hardveres hash feltöltés kimaradt, mert a szükséges médiatanúsítvány-információk hiányosak.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot hardveres hash importálva és látható az Windows Autopilot eszközökön.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Az importált Autopilot eszköz nem jelent meg az Windows Autopilot eszközök között az időtúllépés előtt.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Az Windows Autopilot eszközcsoportcímke frissítését nem erősítették meg az időtúllépés előtt.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot hardveres hash feltöltés előkészítve a szimulációhoz.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot hardveres hash feltöltés előkészítve (szimuláció).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>A kiválasztott Autopilot profilfájl nem található: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hardveres hash rögzítés sikertelen: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot hardveres hash import nem sikerült: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot hardveres hash feltöltés kihagyva: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} perc</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} perc</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} második</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} másodperc</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil beállítva.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil fokozatos (szimuláció).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arab (Szaúd-Arábia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bolgár (Bulgária)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>cseh (cseh)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dán (Dánia)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>német (Németország)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>görög (Görögország)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angol (Egyesült Királyság)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angol (Egyesült Államok)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>spanyol (Spanyolország)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spanyol (Mexikó)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>észt (Észtország)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finn (Finnország)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francia (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francia (Franciaország)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>héber (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>horvát (Horvátország)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>magyar (Magyarország)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>olasz (Olaszország)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japán (Japán)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>koreai (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litván (Litvánia)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lett (Lettország)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norvég bokmal (Norvégia)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holland (Hollandia)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>lengyel (Lengyelország)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugál (Brazília)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugál (Portugália)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>román (Románia)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>orosz (Oroszország)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>szlovák (Szlovákia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>szlovén (Szlovénia)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>szerb latin (Szerbia)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>svéd (Svédország)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thai (Thaiföld)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>török (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrán (Ukrajna)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Egyszerűsített kínai (Kína)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>hagyományos kínai (Tajvan)</value>
+  </data>
 </root>
