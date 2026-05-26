@@ -1,4 +1,5 @@
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
@@ -10,6 +11,19 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentOrchestratorTests
 {
+    [Fact]
+    public void DeploymentStepNames_All_OrdersAutopilotProvisioningAfterRecoverySeal()
+    {
+        List<string> steps = DeploymentStepNames.All.ToList();
+        int sealIndex = steps.IndexOf(DeploymentStepNames.SealRecoveryPartition);
+        int autopilotIndex = steps.IndexOf(DeploymentStepNames.ProvisionAutopilot);
+        int finalizeIndex = steps.IndexOf(DeploymentStepNames.FinalizeDeploymentAndWriteLogs);
+
+        Assert.True(sealIndex >= 0);
+        Assert.Equal(sealIndex + 1, autopilotIndex);
+        Assert.Equal(autopilotIndex + 1, finalizeIndex);
+    }
+
     [Fact]
     public async Task RunAsync_WhenDeploymentFailsAfterTargetLayout_ReturnsActualReboundLogPath()
     {
@@ -78,7 +92,12 @@ public sealed class DeploymentOrchestratorTests
                 ModelNames = ["Latitude 5450"]
             },
             ApplyFirmwareUpdates = true,
-            IsAutopilotEnabled = true
+            IsAutopilotEnabled = true,
+            AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+            AutopilotHardwareHashUpload = new DeployAutopilotHardwareHashUploadSettings
+            {
+                DefaultGroupTag = "Sales"
+            }
         });
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
@@ -91,6 +110,9 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("latitude 5450", telemetryEvent.Properties["deploy_driver_pack_model"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_firmware_updates_enabled"]!);
         Assert.True((bool)telemetryEvent.Properties["deploy_autopilot_enabled"]!);
+        Assert.Equal("hardware_hash_upload", telemetryEvent.Properties["deploy_autopilot_provisioning_mode"]);
+        Assert.Equal("planned", telemetryEvent.Properties["deploy_autopilot_hash_upload_state"]);
+        Assert.True((bool)telemetryEvent.Properties["deploy_autopilot_hash_group_tag_selected"]!);
         Assert.False(telemetryEvent.Properties.ContainsKey("success"));
         Assert.False(telemetryEvent.Properties.ContainsKey("autopilot_enabled"));
     }

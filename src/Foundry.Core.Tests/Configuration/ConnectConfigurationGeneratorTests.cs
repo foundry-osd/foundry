@@ -25,6 +25,8 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.True(root.TryGetProperty("wifi", out _));
         Assert.True(root.TryGetProperty("internetProbe", out JsonElement internetProbe));
         Assert.False(capabilities.GetProperty("wifiProvisioned").GetBoolean());
+        Assert.Equal(JsonValueKind.Number, root.GetProperty("dot1x").GetProperty("authenticationMode").ValueKind);
+        Assert.Equal(JsonValueKind.Number, root.GetProperty("wifi").GetProperty("enterpriseAuthenticationMode").ValueKind);
         Assert.Equal(5, internetProbe.GetProperty("timeoutSeconds").GetInt32());
         Assert.NotEmpty(internetProbe.GetProperty("probeUris").EnumerateArray());
         Assert.Empty(bundle.AssetFiles);

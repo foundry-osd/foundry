@@ -15,7 +15,9 @@ public sealed record DeploymentLaunchRequest
     public required DriverPackCatalogItem? SelectedDriverPack { get; init; }
     public required bool ApplyFirmwareUpdates { get; init; }
     public required bool IsAutopilotEnabled { get; init; }
+    public required AutopilotProvisioningMode AutopilotProvisioningMode { get; init; }
     public required AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
+    public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
     public DeployOobeSettings Oobe { get; init; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();

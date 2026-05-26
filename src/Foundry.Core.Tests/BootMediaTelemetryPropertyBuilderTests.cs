@@ -23,6 +23,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             DriverVendors = [WinPeVendorSelection.Dell],
             CustomDriverDirectoryPath = @"C:\Drivers",
             IsAutopilotEnabled = true,
+            AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
             AreRequiredSecretsReady = true
         };
         var document = new FoundryConfigurationDocument
@@ -120,6 +121,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(TelemetryRuntimePayloadSources.Release, result["boot_media_connect_runtime_payload_source"]);
         Assert.Equal(TelemetryRuntimePayloadSources.Debug, result["boot_media_deploy_runtime_payload_source"]);
         Assert.True((bool)result["autopilot_enabled"]!);
+        Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
         Assert.True((bool)result["customization_any_enabled"]!);
         Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
@@ -158,6 +160,29 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("CorpWifi", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Romance Standard Time", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Microsoft.Xbox", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public void Build_WhenAutopilotIsDisabled_ReportsDisabledProvisioningMode()
+    {
+        var options = new MediaPreflightOptions
+        {
+            IsAutopilotEnabled = false,
+            AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            options,
+            new FoundryConfigurationDocument(),
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.False((bool)result["autopilot_enabled"]!);
+        Assert.Equal("disabled", result["autopilot_provisioning_mode"]);
     }
 
     [Fact]

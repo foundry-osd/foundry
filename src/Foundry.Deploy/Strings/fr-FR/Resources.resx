@@ -21,6 +21,7 @@
   <data name="Menu.Theme" xml:space="preserve"><value>_Thème</value></data>
   <data name="Menu.Language" xml:space="preserve"><value>_Langue</value></data>
   <data name="Menu.Tools" xml:space="preserve"><value>_Outils</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
   <data name="Menu.About" xml:space="preserve"><value>_À propos</value></data>
   <data name="Theme.System" xml:space="preserve"><value>Système</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Clair</value></data>
@@ -45,10 +46,25 @@
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware : activer les mises à jour via Microsoft Update Catalog.</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Autopilot : activer la préparation hors ligne du profil.</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
-  <data name="Preparation.AutopilotProfilesAvailableFormat" xml:space="preserve"><value>Profils disponibles : {0}</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Autopilot est activé, mais aucun profil intégré n'a été trouvé.</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Activer Autopilot pour ce déploiement</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot intégré n'a été trouvé sur ce média.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponible sur ce média : {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État de l'upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Prêt pour l'upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Pas prêt pour l'upload du hardware hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certificat expiré</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>L'upload Autopilot n'est pas disponible sur ce média. Le déploiement peut continuer, mais l'upload sera ignoré.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Le certificat Autopilot a expiré. Le déploiement peut continuer, mais l'upload sera ignoré.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Détails</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID du tenant</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Empreinte du certificat</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expiration du certificat</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Group tag</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Le group tag est optionnel. Sélectionnez Aucun pour uploader sans group tag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>
@@ -96,13 +112,24 @@
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pack de pilotes sélectionné</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Méthode Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Group tag Autopilot</value></data>
   <data name="Summary.SectionTarget" xml:space="preserve"><value>Cible</value></data>
   <data name="Summary.SectionSystem" xml:space="preserve"><value>Système</value></data>
   <data name="Summary.SectionDeployment" xml:space="preserve"><value>Options de déploiement</value></data>
-  <data name="Debug.ProgressButton" xml:space="preserve"><value>DBG: Progrès</value></data>
-  <data name="Debug.SuccessButton" xml:space="preserve"><value>DBG: Succès</value></data>
-  <data name="Debug.ErrorButton" xml:space="preserve"><value>DBG: Erreur</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Pas d'Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Upload du hardware hash</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Certificat valide</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Certificat expiré</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Infos du certificat manquantes</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Sans group tag par défaut</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Pages de déploiement</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Page de progression</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Page de succès</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Page d'erreur</value></data>
   <data name="Debug.ProgressPage" xml:space="preserve"><value>Aperçu DBG : page de progression.</value></data>
   <data name="Debug.SuccessPage" xml:space="preserve"><value>Aperçu DBG : page de succès.</value></data>
   <data name="Debug.ErrorPage" xml:space="preserve"><value>Aperçu DBG : page d’erreur.</value></data>
@@ -126,6 +153,8 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Common.No" xml:space="preserve"><value>Non</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Activé</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Désactivé</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Prêt</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Non prêt</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Réseau</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Heure de début</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Temps écoulé</value></data>
@@ -214,7 +243,7 @@ Continuer ?</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Téléchargement de la mise à jour firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Application de la mise à jour firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Masquage de la partition de récupération</value></data>
-  <data name="Step.StageAutopilotConfiguration" xml:space="preserve"><value>Préparation de la configuration Autopilot</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Préparation d’Autopilot</value></data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalisation du déploiement et écriture des journaux</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Collecte des variables de déploiement...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Collecte du contexte de déploiement...</value></data>
@@ -349,6 +378,39 @@ Continuer ?</value></data>
   <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Préparation du profil Autopilot...</value></data>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Copie de AutopilotConfigurationFile.json...</value></data>
   <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Écriture du manifeste Autopilot de simulation...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Capture du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Exécution de OA3Tool...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Upload du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Préparation de l’import Microsoft Graph...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Envoi de la demande d’import à Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Attente de la visibilité de l’appareil Autopilot...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Vérification des appareils Windows Autopilot ({0})...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Mise à jour de l’appareil Autopilot existant...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Mise à jour du group tag Windows Autopilot dans Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Attente de la mise à jour du group tag Autopilot...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Vérification du group tag Windows Autopilot ({0})...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Préparation de l’upload du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Déchiffrement du certificat du média...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Authentification de l’upload du hardware hash Autopilot...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Demande du jeton Microsoft Graph...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Import du hardware hash dans Microsoft Graph...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Écriture du manifeste de simulation de l’upload du hardware hash Autopilot...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>La partition Windows cible est indisponible pour l’upload du hardware hash Autopilot.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Upload du hardware hash Autopilot ignoré car le certificat intégré est expiré.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Upload du hardware hash Autopilot ignoré car les métadonnées du média sont incomplètes.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Hardware hash Autopilot importé et visible dans les appareils Windows Autopilot.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>L’appareil Autopilot importé n’est pas apparu dans les appareils Windows Autopilot avant le timeout.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>La mise à jour du group tag de l’appareil Windows Autopilot n’a pas été confirmée avant le timeout.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Upload du hardware hash Autopilot préparé pour la simulation.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Upload du hardware hash Autopilot préparé (simulation).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Le fichier du profil Autopilot sélectionné est introuvable : {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>La capture du hardware hash Autopilot a échoué : {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>L’import du hardware hash Autopilot a échoué : {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Upload du hardware hash Autopilot ignoré : {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minute</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutes</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} secondes</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot préparé.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Profil Autopilot préparé (simulation).</value></data>
 </root>

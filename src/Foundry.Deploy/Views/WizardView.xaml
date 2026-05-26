@@ -175,32 +175,9 @@
         <Grid Grid.Row="3" Margin="0,12,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <StackPanel
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                Orientation="Horizontal"
-                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button
-                    Width="140"
-                    Margin="0,0,8,0"
-                    Command="{Binding ShowDebugProgressPageCommand}"
-                    Content="{Binding Strings[Debug.ProgressButton]}" />
-                <Button
-                    Width="140"
-                    Margin="0,0,8,0"
-                    Command="{Binding ShowDebugSuccessPageCommand}"
-                    Content="{Binding Strings[Debug.SuccessButton]}" />
-                <Button
-                    Width="140"
-                    Command="{Binding ShowDebugErrorPageCommand}"
-                    Content="{Binding Strings[Debug.ErrorButton]}" />
-            </StackPanel>
-
-            <StackPanel
-                Grid.Column="1"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
                 <Button

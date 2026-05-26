@@ -24,6 +24,15 @@ public static class TelemetryEventPropertyPolicy
         "target_computer_name",
         "autopilot_profile_name",
         "autopilot_profile_folder",
+        "tenant_id",
+        "client_id",
+        "certificate_thumbprint",
+        "certificate_key_id",
+        "group_tag",
+        "serial_number",
+        "hardware_hash",
+        "autopilot_device_id",
+        "import_id",
         "username",
         "domain",
         "email",
@@ -52,6 +61,7 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_connect_runtime_payload_source",
                 "boot_media_deploy_runtime_payload_source",
                 "autopilot_enabled",
+                "autopilot_provisioning_mode",
                 "customization_any_enabled",
                 "customization_machine_naming_enabled",
                 "customization_machine_naming_mode",
@@ -128,7 +138,10 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_driver_pack_vendor",
                 "deploy_driver_pack_model",
                 "deploy_firmware_updates_enabled",
-                "deploy_autopilot_enabled"
+                "deploy_autopilot_enabled",
+                "deploy_autopilot_provisioning_mode",
+                "deploy_autopilot_hash_upload_state",
+                "deploy_autopilot_hash_group_tag_selected"
             }
         };
 

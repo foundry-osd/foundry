@@ -1,4 +1,5 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
 namespace Foundry.Services.Configuration;
@@ -43,7 +44,7 @@ public interface IFoundryConfigurationStateService
     bool AreRequiredSecretsReady { get; }
 
     /// <summary>
-    /// Gets a value indicating whether Autopilot staging is enabled.
+    /// Gets a value indicating whether Autopilot provisioning is enabled.
     /// </summary>
     bool IsAutopilotEnabled { get; }
 
@@ -51,6 +52,16 @@ public interface IFoundryConfigurationStateService
     /// Gets a value indicating whether the selected Autopilot profiles are valid for output.
     /// </summary>
     bool IsAutopilotConfigurationReady { get; }
+
+    /// <summary>
+    /// Gets the detailed Autopilot readiness status for the selected provisioning mode.
+    /// </summary>
+    AutopilotConfigurationValidationResult AutopilotConfigurationValidation { get; }
+
+    /// <summary>
+    /// Gets the selected Autopilot provisioning mode.
+    /// </summary>
+    AutopilotProvisioningMode AutopilotProvisioningMode { get; }
 
     /// <summary>
     /// Gets the selected Autopilot profile display name when a single profile is selected.
@@ -110,6 +121,7 @@ public interface IFoundryConfigurationStateService
     /// Generates the Deploy configuration JSON for the current Foundry configuration.
     /// </summary>
     /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Deploy document.</param>
+    /// <param name="mediaSecretsKey">Optional media secret key used for boot-media-only Deploy secrets.</param>
     /// <returns>Serialized Deploy configuration JSON.</returns>
-    string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null);
+    string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? mediaSecretsKey = null);
 }

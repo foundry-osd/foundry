@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.WinPe;
 
@@ -125,6 +126,119 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
+    public async Task ProvisionAsync_WhenJsonProfileMode_WritesAutopilotProfileAssetsOnly()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                AutopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
+                AutopilotProfiles =
+                [
+                    new AutopilotProfileSettings
+                    {
+                        Id = "profile-1",
+                        DisplayName = "Profile 1",
+                        FolderName = "Profile1",
+                        Source = "test",
+                        ImportedAtUtc = DateTimeOffset.UnixEpoch,
+                        JsonContent = "{\"profile\":1}"
+                    }
+                ]
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.True(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3")));
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenHardwareHashMode_WritesHashAssetsOnly()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        string oa3SourcePath = Path.Combine(image.RootPath, "oa3tool.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        File.WriteAllText(oa3SourcePath, "oa3");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                Oa3ToolSourcePath = oa3SourcePath,
+                AutopilotProfiles =
+                [
+                    new AutopilotProfileSettings
+                    {
+                        Id = "profile-1",
+                        DisplayName = "Profile 1",
+                        FolderName = "Profile1",
+                        Source = "test",
+                        ImportedAtUtc = DateTimeOffset.UnixEpoch,
+                        JsonContent = "{\"profile\":1}"
+                    }
+                ]
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal("oa3", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3", "oa3tool.exe")));
+        string oa3ConfigPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "OA3.cfg");
+        string oa3InputPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "input.xml");
+        Assert.True(File.Exists(oa3ConfigPath));
+        Assert.True(File.Exists(oa3InputPath));
+        Assert.Equal("OA3", XDocument.Load(oa3ConfigPath).Root?.Name.LocalName);
+        Assert.Equal("Key", XDocument.Load(oa3InputPath).Root?.Name.LocalName);
+        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot")));
+        Assert.False(File.Exists(Path.Combine(image.System32Path, "PCPKsp.dll")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenHardwareHashModeHasMissingOa3Tool_ReturnsFailure()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                Oa3ToolSourcePath = Path.Combine(image.RootPath, "missing", "oa3tool.exe")
+            },
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("OA3Tool", result.Error?.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task ProvisionAsync_DoesNotCreateRuntimeOwnedLogTempOrNetworkDirectories()
     {
         using TempMountedImage image = TempMountedImage.Create();
@@ -236,6 +350,33 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret(),
+                MediaSecretsKey = secretKey
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenDeployConfigurationHasEncryptedSecret_WritesSecretKeyUnderConfigSecrets()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                DeployConfigurationJson = CreateDeployConfigurationWithEncryptedSecret(),
                 MediaSecretsKey = secretKey
             },
             CancellationToken.None);
@@ -408,6 +549,27 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
               "http://www.msftconnecttest.com/connecttest.txt"
             ],
             "timeoutSeconds": 5
+          }
+        }
+        """;
+    }
+
+    private static string CreateDeployConfigurationWithEncryptedSecret()
+    {
+        return """
+        {
+          "schemaVersion": 1,
+          "autopilot": {
+            "hardwareHashUpload": {
+              "pfxSecret": {
+                "kind": "encrypted",
+                "algorithm": "aes-gcm-v1",
+                "keyId": "media",
+                "nonce": "AAAAAAAAAAAAAAAA",
+                "tag": "AAAAAAAAAAAAAAAAAAAAAA",
+                "ciphertext": "AAAAAAAA"
+              }
+            }
           }
         }
         """;

@@ -97,6 +97,21 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
         services.AddSingleton<PreOobeScriptDefinitionBuilder>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
+        services.AddSingleton<IAutopilotHardwareHashCaptureService, AutopilotHardwareHashCaptureService>();
+        services.AddSingleton<IMediaSecretKeyReader, MediaSecretKeyReader>();
+        services.AddSingleton<IAutopilotGraphTokenService>(sp =>
+            new AutopilotGraphTokenService(
+                new HttpClient(),
+                sp.GetRequiredService<ILogger<AutopilotGraphTokenService>>()));
+        services.AddSingleton(sp =>
+            new AutopilotGraphImportClient(
+                new HttpClient
+                {
+                    BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
+                },
+                sp.GetRequiredService<ILogger<AutopilotGraphImportClient>>()));
+        services.AddSingleton<IAutopilotGroupTagDiscoveryService, AutopilotGroupTagDiscoveryService>();
+        services.AddSingleton<IAutopilotHardwareHashUploadService, AutopilotHardwareHashUploadService>();
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
         services.AddSingleton<IDeploymentStep, ValidateTargetConfigurationStep>();
@@ -114,7 +129,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
-        services.AddSingleton<IDeploymentStep, StageAutopilotConfigurationStep>();
+        services.AddSingleton<IDeploymentStep, ProvisionAutopilotStep>();
         services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();
         services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
 

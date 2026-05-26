@@ -12,7 +12,12 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         "WinPE-DismCmdlets",
         "WinPE-StorageWMI",
         "WinPE-Dot3Svc",
-        "WinPE-EnhancedStorage"
+        "WinPE-EnhancedStorage",
+        "WinPE-SecureStartup"
+    ];
+    private static readonly string[] BlockingOptionalComponents =
+    [
+        "WinPE-SecureStartup"
     ];
 
     private readonly IWinPeProcessRunner _processRunner;
@@ -107,6 +112,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             workingDirectoryPath,
             "Failed to add the selected WinPE language pack.",
             "Applying language pack with DISM.",
+            allowNonBlockingPackageFailure: false,
             dismProgress,
             cancellationToken).ConfigureAwait(false);
 
@@ -118,6 +124,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         int neutralComponentsFound = 0;
         foreach (string component in RequiredOptionalComponents)
         {
+            bool isBlockingComponent = BlockingOptionalComponents.Contains(component, StringComparer.OrdinalIgnoreCase);
             string neutralPackagePath = Path.Combine(optionalComponentsRoot, $"{component}.cab");
             if (File.Exists(neutralPackagePath))
             {
@@ -129,6 +136,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     workingDirectoryPath,
                     $"Failed to add the '{component}' WinPE optional component.",
                     "Applying optional components with DISM.",
+                    allowNonBlockingPackageFailure: !isBlockingComponent,
                     dismProgress,
                     cancellationToken).ConfigureAwait(false);
 
@@ -136,6 +144,13 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 {
                     return neutralResult;
                 }
+            }
+            else if (isBlockingComponent)
+            {
+                return WinPeResult.Failure(
+                    WinPeErrorCodes.ToolNotFound,
+                    $"The required '{component}' WinPE optional component was not found.",
+                    $"Expected path: '{neutralPackagePath}'.");
             }
 
             string localizedPackagePath = Path.Combine(optionalComponentsRoot, normalizedLocale, $"{component}_{normalizedLocale}.cab");
@@ -148,6 +163,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     workingDirectoryPath,
                     $"Failed to add the localized '{component}' WinPE optional component.",
                     "Applying optional components with DISM.",
+                    allowNonBlockingPackageFailure: !isBlockingComponent,
                     dismProgress,
                     cancellationToken).ConfigureAwait(false);
 
@@ -173,6 +189,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string workingDirectoryPath,
         string failureMessage,
         string progressStatus,
+        bool allowNonBlockingPackageFailure,
         IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
@@ -185,7 +202,9 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             dismProgress,
             cancellationToken).ConfigureAwait(false);
 
-        if (execution.IsSuccess || IsIgnorablePackageFailure(execution))
+        if (execution.IsSuccess ||
+            IsAlreadyInstalledPackageFailure(execution) ||
+            allowNonBlockingPackageFailure && IsNonBlockingPackageFailure(execution))
         {
             return WinPeResult.Success();
         }
@@ -313,12 +332,17 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             "WinPE_OCs");
     }
 
-    private static bool IsIgnorablePackageFailure(WinPeProcessExecution execution)
+    private static bool IsAlreadyInstalledPackageFailure(WinPeProcessExecution execution)
+    {
+        string diagnostic = $"{execution.StandardOutput}{Environment.NewLine}{execution.StandardError}";
+        return diagnostic.Contains("already installed", StringComparison.OrdinalIgnoreCase) ||
+               diagnostic.Contains("already exists", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsNonBlockingPackageFailure(WinPeProcessExecution execution)
     {
         string diagnostic = $"{execution.StandardOutput}{Environment.NewLine}{execution.StandardError}";
         return diagnostic.Contains("0x800f081e", StringComparison.OrdinalIgnoreCase) ||
-               diagnostic.Contains("not applicable", StringComparison.OrdinalIgnoreCase) ||
-               diagnostic.Contains("already installed", StringComparison.OrdinalIgnoreCase) ||
-               diagnostic.Contains("already exists", StringComparison.OrdinalIgnoreCase);
+               diagnostic.Contains("not applicable", StringComparison.OrdinalIgnoreCase);
     }
 }

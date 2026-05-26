@@ -1,6 +1,8 @@
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
+using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
 using Serilog;
 using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
@@ -20,6 +22,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly IDeployConfigurationGenerator deployConfigurationGenerator;
     private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly INetworkSecretStateService networkSecretStateService;
+    private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
 
@@ -28,6 +31,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IDeployConfigurationGenerator deployConfigurationGenerator,
         IConnectConfigurationGenerator connectConfigurationGenerator,
         INetworkSecretStateService networkSecretStateService,
+        IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger)
     {
@@ -35,6 +39,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.deployConfigurationGenerator = deployConfigurationGenerator;
         this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.networkSecretStateService = networkSecretStateService;
+        this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
         Current = SanitizeForPersistence(Load());
@@ -57,7 +62,11 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         {
             try
             {
-                _ = GenerateDeployConfigurationJson();
+                byte[]? mediaSecretsKey = Current.Autopilot.IsEnabled &&
+                                          Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
+                    ? MediaSecretEnvelopeProtector.GenerateMediaKey()
+                    : null;
+                _ = GenerateDeployConfigurationJson(mediaSecretsKey: mediaSecretsKey);
                 return true;
             }
             catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
@@ -78,15 +87,24 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public bool IsAutopilotEnabled => Current.Autopilot.IsEnabled;
 
     /// <inheritdoc />
-    public bool IsAutopilotConfigurationReady => !Current.Autopilot.IsEnabled || GetSelectedAutopilotProfile() is not null;
+    public bool IsAutopilotConfigurationReady => AutopilotConfigurationValidation.IsReady;
 
     /// <inheritdoc />
-    public string? SelectedAutopilotProfileDisplayName => Current.Autopilot.IsEnabled
+    public AutopilotConfigurationValidationResult AutopilotConfigurationValidation =>
+        AutopilotConfigurationValidator.Evaluate(CreateAutopilotSettingsForValidation(Current.Autopilot), DateTimeOffset.UtcNow);
+
+    /// <inheritdoc />
+    public AutopilotProvisioningMode AutopilotProvisioningMode => Current.Autopilot.ProvisioningMode;
+
+    /// <inheritdoc />
+    public string? SelectedAutopilotProfileDisplayName => Current.Autopilot.IsEnabled &&
+                                                          Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
         ? GetSelectedAutopilotProfile()?.DisplayName
         : null;
 
     /// <inheritdoc />
-    public string? SelectedAutopilotProfileFolderName => Current.Autopilot.IsEnabled
+    public string? SelectedAutopilotProfileFolderName => Current.Autopilot.IsEnabled &&
+                                                         Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
         ? GetSelectedAutopilotProfile()?.FolderName
         : null;
 
@@ -146,13 +164,11 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null)
+    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? mediaSecretsKey = null)
     {
-        FoundryConfigurationDocument document = telemetryOverride is null
-            ? Current
-            : Current with { Telemetry = telemetryOverride };
+        FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
 
-        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document));
+        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document, mediaSecretsKey));
     }
 
     /// <inheritdoc />
@@ -187,6 +203,37 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             TryMoveInvalidState(backupPath, ex);
             return CreateDefaultDocument();
         }
+    }
+
+    private FoundryConfigurationDocument CreateDocumentForDeployGeneration(TelemetrySettings? telemetryOverride)
+    {
+        return Current with
+        {
+            Autopilot = CreateAutopilotSettingsForValidation(Current.Autopilot),
+            Telemetry = telemetryOverride ?? Current.Telemetry
+        };
+    }
+
+    private AutopilotSettings CreateAutopilotSettingsForValidation(AutopilotSettings settings)
+    {
+        AutopilotHardwareHashUploadSettings hardwareHashUpload = settings.HardwareHashUpload with
+        {
+            BootMediaCertificate = autopilotHardwareHashSessionState.BootMediaCertificate
+        };
+        if (settings.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
+            !autopilotHardwareHashSessionState.HasConnectedTenant)
+        {
+            hardwareHashUpload = hardwareHashUpload with
+            {
+                KnownGroupTags = [],
+                DefaultGroupTag = null
+            };
+        }
+
+        return settings with
+        {
+            HardwareHashUpload = hardwareHashUpload
+        };
     }
 
     private static FoundryConfigurationDocument CreateDefaultDocument()
@@ -248,7 +295,52 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         return settings with
         {
             DefaultProfileId = defaultProfileId,
-            Profiles = profiles
+            Profiles = profiles,
+            HardwareHashUpload = SanitizeHardwareHashUploadSettings(settings.HardwareHashUpload)
+        };
+    }
+
+    private static AutopilotHardwareHashUploadSettings SanitizeHardwareHashUploadSettings(
+        AutopilotHardwareHashUploadSettings? settings)
+    {
+        if (settings?.Tenant is null)
+        {
+            return new AutopilotHardwareHashUploadSettings();
+        }
+
+        string[] knownGroupTags = (settings.KnownGroupTags ?? [])
+            .Select(groupTag => groupTag.Trim())
+            .Where(groupTag => !string.IsNullOrWhiteSpace(groupTag))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(groupTag => groupTag, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        string? defaultGroupTag = NormalizeOptional(settings.DefaultGroupTag);
+        if (!string.IsNullOrWhiteSpace(defaultGroupTag) &&
+            !knownGroupTags.Contains(defaultGroupTag, StringComparer.OrdinalIgnoreCase))
+        {
+            defaultGroupTag = null;
+        }
+
+        return settings with
+        {
+            Tenant = new AutopilotTenantRegistrationSettings
+            {
+                TenantId = NormalizeOptional(settings.Tenant.TenantId),
+                ApplicationObjectId = NormalizeOptional(settings.Tenant.ApplicationObjectId),
+                ClientId = NormalizeOptional(settings.Tenant.ClientId),
+                ServicePrincipalObjectId = NormalizeOptional(settings.Tenant.ServicePrincipalObjectId)
+            },
+            ActiveCertificate = settings.ActiveCertificate is null
+                ? null
+                : settings.ActiveCertificate with
+                {
+                    KeyId = NormalizeOptional(settings.ActiveCertificate.KeyId),
+                    Thumbprint = NormalizeOptional(settings.ActiveCertificate.Thumbprint)?.ToUpperInvariant(),
+                    DisplayName = NormalizeOptional(settings.ActiveCertificate.DisplayName)
+                },
+            KnownGroupTags = knownGroupTags,
+            DefaultGroupTag = defaultGroupTag
         };
     }
 
@@ -275,6 +367,12 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 settings.AiComponentRemoval,
                 settings.AppxRemoval)
         };
+    }
+
+    private static string? NormalizeOptional(string? value)
+    {
+        string? trimmed = value?.Trim();
+        return string.IsNullOrWhiteSpace(trimmed) ? null : trimmed;
     }
 
     private static OobeSettings SanitizeOobeForPersistence(OobeSettings settings)

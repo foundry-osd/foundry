@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Services.WinPe;
@@ -10,6 +11,26 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 {
     private const string BootstrapFileName = "FoundryBootstrap.ps1";
     private const string BootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
+    private const string Oa3CfgTemplate = """
+        <?xml version="1.0" encoding="utf-8"?>
+        <OA3>
+          <FileBased>
+            <InputKeyXMLFile>input.xml</InputKeyXMLFile>
+          </FileBased>
+          <OutputData>
+            <AssembledBinaryFile>OA3.bin</AssembledBinaryFile>
+            <ReportedXMLFile>OA3.xml</ReportedXMLFile>
+          </OutputData>
+        </OA3>
+        """;
+    private const string Oa3InputTemplate = """
+        <?xml version="1.0" encoding="utf-8"?>
+        <Key>
+          <ProductKey>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</ProductKey>
+          <ProductKeyID>0000000000000</ProductKeyID>
+          <ProductKeyState>0</ProductKeyState>
+        </Key>
+        """;
     private static readonly UTF8Encoding Utf8NoBom = new(false);
 
     public async Task<WinPeResult> ProvisionAsync(
@@ -106,6 +127,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         await WriteMediaSecretsKeyAsync(
             foundryConfigPath,
             connectConfigurationJson,
+            deployConfigurationJson,
             options.MediaSecretsKey,
             cancellationToken).ConfigureAwait(false);
 
@@ -128,21 +150,33 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             cancellationToken).ConfigureAwait(false);
 
         CopyConnectAssetFiles(mountedImagePath, options.FoundryConnectAssetFiles);
-        await WriteAutopilotProfilesAsync(foundryConfigPath, options.AutopilotProfiles, cancellationToken).ConfigureAwait(false);
+        if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            await WriteAutopilotHardwareHashAssetsAsync(
+                mountedImagePath,
+                options,
+                cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            await WriteAutopilotProfilesAsync(foundryConfigPath, options.AutopilotProfiles, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     private static async Task WriteMediaSecretsKeyAsync(
         string foundryConfigPath,
         string connectConfigurationJson,
+        string deployConfigurationJson,
         byte[]? mediaSecretsKey,
         CancellationToken cancellationToken)
     {
-        bool hasEncryptedSecrets = HasEncryptedSecrets(connectConfigurationJson);
+        bool hasEncryptedSecrets = MediaSecretEnvelopeProtector.HasEncryptedSecrets(connectConfigurationJson) ||
+                                   MediaSecretEnvelopeProtector.HasEncryptedSecrets(deployConfigurationJson);
         if (mediaSecretsKey is null || mediaSecretsKey.Length == 0)
         {
             if (hasEncryptedSecrets)
             {
-                throw new ArgumentException("Foundry Connect encrypted secrets require a media secret key.");
+                throw new ArgumentException("Foundry encrypted media secrets require a media secret key.");
             }
 
             return;
@@ -150,7 +184,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
         if (!hasEncryptedSecrets)
         {
-            throw new ArgumentException("A media secret key must not be provisioned without encrypted Foundry Connect secrets.");
+            throw new ArgumentException("A media secret key must not be provisioned without encrypted Foundry media secrets.");
         }
 
         if (mediaSecretsKey.Length != 32)
@@ -164,67 +198,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             Path.Combine(secretsPath, "media-secrets.key"),
             mediaSecretsKey,
             cancellationToken).ConfigureAwait(false);
-    }
-
-    private static bool HasEncryptedSecrets(string connectConfigurationJson)
-    {
-        using JsonDocument document = JsonDocument.Parse(connectConfigurationJson);
-        return HasEncryptedSecrets(document.RootElement);
-    }
-
-    private static bool HasEncryptedSecrets(JsonElement element)
-    {
-        if (element.ValueKind == JsonValueKind.Object)
-        {
-            if (IsEncryptedSecretEnvelope(element))
-            {
-                return true;
-            }
-
-            foreach (JsonProperty property in element.EnumerateObject())
-            {
-                if (HasEncryptedSecrets(property.Value))
-                {
-                    return true;
-                }
-            }
-        }
-        else if (element.ValueKind == JsonValueKind.Array)
-        {
-            foreach (JsonElement item in element.EnumerateArray())
-            {
-                if (HasEncryptedSecrets(item))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private static bool IsEncryptedSecretEnvelope(JsonElement element)
-    {
-        return HasStringProperty(element, "kind", "encrypted") &&
-               HasStringProperty(element, "algorithm", "aes-gcm-v1") &&
-               HasStringProperty(element, "keyId", "media") &&
-               HasNonEmptyStringProperty(element, "nonce") &&
-               HasNonEmptyStringProperty(element, "tag") &&
-               HasNonEmptyStringProperty(element, "ciphertext");
-    }
-
-    private static bool HasStringProperty(JsonElement element, string propertyName, string expectedValue)
-    {
-        return element.TryGetProperty(propertyName, out JsonElement property) &&
-               property.ValueKind == JsonValueKind.String &&
-               string.Equals(property.GetString(), expectedValue, StringComparison.Ordinal);
-    }
-
-    private static bool HasNonEmptyStringProperty(JsonElement element, string propertyName)
-    {
-        return element.TryGetProperty(propertyName, out JsonElement property) &&
-               property.ValueKind == JsonValueKind.String &&
-               !string.IsNullOrWhiteSpace(property.GetString());
     }
 
     private static void CopyConnectAssetFiles(
@@ -276,6 +249,34 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         File.Copy(sourceExecutablePath, Path.Combine(destinationRuntimePath, "7za.exe"), overwrite: true);
         File.Copy(sourceLicensePath, Path.Combine(destinationToolsRootPath, "License.txt"), overwrite: true);
         File.Copy(sourceReadmePath, Path.Combine(destinationToolsRootPath, "readme.txt"), overwrite: true);
+    }
+
+    private static async Task WriteAutopilotHardwareHashAssetsAsync(
+        string mountedImagePath,
+        WinPeMountedImageAssetProvisioningOptions options,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(options.Oa3ToolSourcePath) || !File.Exists(options.Oa3ToolSourcePath))
+        {
+            throw new IOException($"OA3Tool source file was not found: '{options.Oa3ToolSourcePath}'.");
+        }
+
+        string oa3ToolsPath = Path.Combine(mountedImagePath, "Foundry", "Tools", "OA3");
+        Directory.CreateDirectory(oa3ToolsPath);
+        File.Copy(options.Oa3ToolSourcePath, Path.Combine(oa3ToolsPath, "oa3tool.exe"), overwrite: true);
+
+        string runtimePath = Path.Combine(mountedImagePath, "Foundry", "Runtime", "AutopilotHash");
+        Directory.CreateDirectory(runtimePath);
+        await File.WriteAllTextAsync(
+            Path.Combine(runtimePath, "OA3.cfg"),
+            Oa3CfgTemplate,
+            Utf8NoBom,
+            cancellationToken).ConfigureAwait(false);
+        await File.WriteAllTextAsync(
+            Path.Combine(runtimePath, "input.xml"),
+            Oa3InputTemplate,
+            Utf8NoBom,
+            cancellationToken).ConfigureAwait(false);
     }
 
     private static async Task WriteAutopilotProfilesAsync(
@@ -399,6 +400,23 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 WinPeErrorCodes.ValidationFailed,
                 "Provisioning source value is invalid.",
                 $"Connect: '{options.ConnectProvisioningSource}', Deploy: '{options.DeployProvisioningSource}'.");
+        }
+
+        if (!Enum.IsDefined(options.AutopilotProvisioningMode))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "Autopilot provisioning mode value is invalid.",
+                $"Value: '{options.AutopilotProvisioningMode}'.");
+        }
+
+        if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
+            (string.IsNullOrWhiteSpace(options.Oa3ToolSourcePath) || !File.Exists(options.Oa3ToolSourcePath)))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ToolNotFound,
+                "OA3Tool source path is required for Autopilot hardware hash upload media.",
+                $"Expected file: '{options.Oa3ToolSourcePath}'.");
         }
 
         return null;

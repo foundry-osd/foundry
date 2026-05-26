@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Operations;
@@ -39,6 +40,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
     private readonly DeploymentWizardContext _wizardContext;
+    private DebugAutopilotMode _debugAutopilotMode = DebugAutopilotMode.None;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
@@ -61,6 +63,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ShowDebugProgressPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugSuccessPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
     private bool isDeploymentRunning;
 
     public DeploymentPreparationViewModel Preparation { get; }
@@ -83,7 +86,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         : new Converters.OperatingSystemSummaryConverter().Convert(SelectedOperatingSystem, typeof(string), string.Empty, LocalizationService.CurrentCulture)?.ToString() ?? GetString("Summary.NoSelection");
     public string SummaryFirmwareText => Preparation.ApplyFirmwareUpdates ? GetString("Common.Enabled") : GetString("Common.Disabled");
     public string SummaryAutopilotEnabledText => Preparation.IsAutopilotEnabled ? GetString("Common.Yes") : GetString("Common.No");
+    public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
+    public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
+    public bool IsDebugAutopilotNoneMode => IsDebugAutopilotMode(DebugAutopilotMode.None);
+    public bool IsDebugAutopilotJsonProfileMode => IsDebugAutopilotMode(DebugAutopilotMode.JsonProfile);
+    public bool IsDebugAutopilotHardwareHashUploadValidCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadValidCertificate);
+    public bool IsDebugAutopilotHardwareHashUploadExpiredCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadExpiredCertificate);
+    public bool IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata);
+    public bool IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag);
 
     public MainWindowViewModel(
         ILocalizationService localizationService,
@@ -200,6 +211,25 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _applicationShellService.ShowAbout();
     }
 
+    [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
+    private void SetDebugAutopilotMode(DebugAutopilotMode mode)
+    {
+        if (!IsDebugSafeMode)
+        {
+            return;
+        }
+
+        _debugAutopilotMode = mode;
+        Preparation.ApplyDebugAutopilotMode(mode);
+        RaiseDebugAutopilotModePropertiesChanged();
+        OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
+        OnPropertyChanged(nameof(SummaryAutopilotModeText));
+        OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+        OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
+        NextWizardStepCommand.NotifyCanExecuteChanged();
+        StartDeploymentCommand.NotifyCanExecuteChanged();
+    }
+
     [RelayCommand(CanExecute = nameof(CanRefreshCatalogs))]
     private async Task RefreshCatalogsAsync()
     {
@@ -280,7 +310,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 SelectedDriverPack = effectiveDriverPack,
                 ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
                 IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
+                AutopilotProvisioningMode = Preparation.AutopilotProvisioningMode,
                 SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
+                AutopilotHardwareHashUpload = Preparation.CreateAutopilotHardwareHashUploadForLaunch(),
                 Oobe = _wizardContext.Oobe,
                 AppxRemoval = _wizardContext.AppxRemoval,
                 AiComponentRemoval = _wizardContext.AiComponentRemoval,
@@ -364,7 +396,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryOperatingSystemText));
         OnPropertyChanged(nameof(SummaryFirmwareText));
         OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
+        OnPropertyChanged(nameof(SummaryAutopilotModeText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+        OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -390,6 +424,26 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool CanShowDebugPages()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
+    }
+
+    private bool CanUseDebugTools()
+    {
+        return IsDebugSafeMode && !IsDeploymentRunning;
+    }
+
+    private bool IsDebugAutopilotMode(DebugAutopilotMode mode)
+    {
+        return IsDebugSafeMode && _debugAutopilotMode == mode;
+    }
+
+    private void RaiseDebugAutopilotModePropertiesChanged()
+    {
+        OnPropertyChanged(nameof(IsDebugAutopilotNoneMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotJsonProfileMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadValidCertificateMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadExpiredCertificateMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode));
+        OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode));
     }
 
     private bool CanRefreshCatalogs()
@@ -436,7 +490,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             HasTargetDiskSelection = Preparation.SelectedTargetDisk is not null,
             IsSelectedTargetDiskSelectable = Preparation.SelectedTargetDisk?.IsSelectable ?? false,
             HasValidDriverPackSelection = HasValidDriverPackSelection(),
-            HasValidAutopilotSelection = !Preparation.IsAutopilotEnabled || Preparation.SelectedAutopilotProfile is not null,
+            HasValidAutopilotSelection =
+                !Preparation.IsAutopilotEnabled ||
+                Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload ||
+                Preparation.SelectedAutopilotProfile is not null,
             IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && OperatingSystemCatalog.IsReadyForNavigation()
         };
     }
@@ -504,7 +561,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryOperatingSystemText));
             OnPropertyChanged(nameof(SummaryFirmwareText));
             OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
+            OnPropertyChanged(nameof(SummaryAutopilotModeText));
             OnPropertyChanged(nameof(SummaryAutopilotProfileText));
+            OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         });
     }
 

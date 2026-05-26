@@ -1,4 +1,5 @@
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Validation;
@@ -65,7 +66,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
                 normalizedComputerName);
         }
 
-        if (request.IsAutopilotEnabled && request.SelectedAutopilotProfile is null)
+        if (request.IsAutopilotEnabled &&
+            request.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile &&
+            request.SelectedAutopilotProfile is null)
         {
             return DeploymentLaunchPreparationResult.Failure(
                 "Select an Autopilot profile or disable Autopilot before starting deployment.",
@@ -89,7 +92,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             DriverPack = request.SelectedDriverPack,
             ApplyFirmwareUpdates = request.ApplyFirmwareUpdates,
             IsAutopilotEnabled = request.IsAutopilotEnabled,
+            AutopilotProvisioningMode = request.AutopilotProvisioningMode,
             SelectedAutopilotProfile = request.SelectedAutopilotProfile,
+            AutopilotHardwareHashUpload = request.AutopilotHardwareHashUpload,
             Oobe = request.Oobe,
             AppxRemoval = request.AppxRemoval,
             AiComponentRemoval = request.AiComponentRemoval,

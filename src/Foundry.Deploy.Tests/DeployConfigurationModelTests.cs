@@ -61,4 +61,89 @@ public sealed class DeployConfigurationModelTests
         Assert.Equal("project-token", document.Telemetry.ProjectToken);
         Assert.Equal(TelemetryRuntimePayloadSources.Release, document.Telemetry.RuntimePayloadSource);
     }
+
+    [Fact]
+    public void Deserialize_WhenAutopilotProvisioningModeIsMissing_DefaultsToJsonProfile()
+    {
+        const string json = """
+            {
+              "schemaVersion": 2,
+              "autopilot": {
+                "isEnabled": true
+              }
+            }
+            """;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, options);
+
+        Assert.NotNull(document);
+        Assert.Equal(AutopilotProvisioningMode.JsonProfile, document.Autopilot.ProvisioningMode);
+    }
+
+    [Fact]
+    public void Deserialize_WhenHardwareHashSettingsAreConfigured_PreservesRuntimeMetadata()
+    {
+        const string json = """
+            {
+              "schemaVersion": 2,
+              "autopilot": {
+                "isEnabled": true,
+                "provisioningMode": "hardwareHashUpload",
+                "hardwareHashUpload": {
+                  "tenantId": "tenant-id",
+                  "clientId": "client-id",
+                  "activeCertificateKeyId": "certificate-key-id",
+                  "activeCertificateThumbprint": "ABCDEF123456",
+                  "activeCertificateExpiresOnUtc": "2026-12-01T00:00:00+00:00",
+                  "defaultGroupTag": "Sales",
+                  "knownGroupTags": ["Sales", "Kiosk"],
+                  "certificatePfxSecret": {
+                    "kind": "encrypted",
+                    "algorithm": "aes-gcm-v1",
+                    "keyId": "media",
+                    "nonce": "nonce",
+                    "tag": "tag",
+                    "ciphertext": "ciphertext"
+                  },
+                  "certificatePfxPasswordSecret": {
+                    "kind": "encrypted",
+                    "algorithm": "aes-gcm-v1",
+                    "keyId": "media",
+                    "nonce": "password-nonce",
+                    "tag": "password-tag",
+                    "ciphertext": "password-ciphertext"
+                  }
+                }
+              }
+            }
+            """;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, options);
+
+        Assert.NotNull(document);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, document.Autopilot.ProvisioningMode);
+        Assert.Equal("tenant-id", document.Autopilot.HardwareHashUpload.TenantId);
+        Assert.Equal("client-id", document.Autopilot.HardwareHashUpload.ClientId);
+        Assert.Equal("certificate-key-id", document.Autopilot.HardwareHashUpload.ActiveCertificateKeyId);
+        Assert.Equal("ABCDEF123456", document.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
+        Assert.Equal(DateTimeOffset.Parse("2026-12-01T00:00:00+00:00"), document.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
+        Assert.Equal("Sales", document.Autopilot.HardwareHashUpload.DefaultGroupTag);
+        Assert.Equal(["Sales", "Kiosk"], document.Autopilot.HardwareHashUpload.KnownGroupTags);
+        Assert.Equal("encrypted", document.Autopilot.HardwareHashUpload.CertificatePfxSecret?.Kind);
+        Assert.Equal("ciphertext", document.Autopilot.HardwareHashUpload.CertificatePfxSecret?.Ciphertext);
+        Assert.Equal("encrypted", document.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret?.Kind);
+        Assert.Equal("password-ciphertext", document.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret?.Ciphertext);
+    }
 }

@@ -58,7 +58,8 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_drivers_custom_enabled"] = !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
             ["boot_media_connect_runtime_payload_source"] = connectRuntimePayloadSource,
             ["boot_media_deploy_runtime_payload_source"] = deployRuntimePayloadSource,
-            ["autopilot_enabled"] = options.IsAutopilotEnabled
+            ["autopilot_enabled"] = options.IsAutopilotEnabled,
+            ["autopilot_provisioning_mode"] = ResolveAutopilotProvisioningMode(options)
         };
 
         AddCustomizationTelemetryProperties(properties, document.Customization);
@@ -167,6 +168,20 @@ public static class BootMediaTelemetryPropertyBuilder
         return settings.AllowManualSuffixEdit
             ? "auto_generated_editable"
             : "auto_generated_locked";
+    }
+
+    private static string ResolveAutopilotProvisioningMode(MediaPreflightOptions options)
+    {
+        if (!options.IsAutopilotEnabled)
+        {
+            return "disabled";
+        }
+
+        return options.AutopilotProvisioningMode switch
+        {
+            AutopilotProvisioningMode.HardwareHashUpload => "hardware_hash_upload",
+            _ => "json_profile"
+        };
     }
 
     private static string[] ResolveSelectedAppxPackages(AppxRemovalSettings appxRemoval)

@@ -120,6 +120,73 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
+    public void Prepare_WhenHardwareHashUploadModeHasNoJsonProfile_ReturnsDeploymentContext()
+    {
+        var shell = new FakeApplicationShellService { ConfirmationResult = true };
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+                selectedAutopilotProfile: null,
+                isDryRun: true));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, result.Context?.AutopilotProvisioningMode);
+        Assert.Null(result.Context?.SelectedAutopilotProfile);
+    }
+
+    [Fact]
+    public void Prepare_WhenLiveHardwareHashUploadModeIsSelected_DoesNotRequireJsonProfile()
+    {
+        var shell = new FakeApplicationShellService { ConfirmationResult = true };
+        var service = new DeploymentLaunchPreparationService(shell);
+        DeployAutopilotHardwareHashUploadSettings hardwareHashUpload = new()
+        {
+            TenantId = "tenant-id",
+            ClientId = "client-id",
+            ActiveCertificateThumbprint = "ABCDEF123456",
+            ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(1),
+            DefaultGroupTag = "Sales"
+        };
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.HardwareHashUpload,
+                selectedAutopilotProfile: null,
+                autopilotHardwareHashUpload: hardwareHashUpload,
+                isDryRun: false));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, result.Context?.AutopilotProvisioningMode);
+        Assert.Null(result.Context?.SelectedAutopilotProfile);
+        Assert.Same(hardwareHashUpload, result.Context?.AutopilotHardwareHashUpload);
+        Assert.Equal(1, shell.ConfirmationCallCount);
+    }
+
+    [Fact]
+    public void Prepare_WhenJsonProfileModeHasNoProfile_FailsValidation()
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.JsonProfile,
+                selectedAutopilotProfile: null));
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Equal("Select an Autopilot profile or disable Autopilot before starting deployment.", result.StatusMessage);
+        Assert.Equal(0, shell.ConfirmationCallCount);
+    }
+
+    [Fact]
     public void Prepare_WhenConfirmationIsShown_UsesLocalizedWarningText()
     {
         CultureInfo originalCulture = CultureInfo.CurrentCulture;
@@ -156,7 +223,9 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DriverPackSelectionKind driverPackSelectionKind = DriverPackSelectionKind.None,
         DriverPackCatalogItem? selectedDriverPack = null,
         bool isAutopilotEnabled = false,
+        AutopilotProvisioningMode autopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
+        DeployAutopilotHardwareHashUploadSettings? autopilotHardwareHashUpload = null,
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
         DeployAiComponentRemovalSettings? aiComponentRemoval = null,
@@ -184,7 +253,9 @@ public sealed class DeploymentLaunchPreparationServiceTests
             SelectedDriverPack = selectedDriverPack,
             ApplyFirmwareUpdates = false,
             IsAutopilotEnabled = isAutopilotEnabled,
+            AutopilotProvisioningMode = autopilotProvisioningMode,
             SelectedAutopilotProfile = selectedAutopilotProfile,
+            AutopilotHardwareHashUpload = autopilotHardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings(),
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),

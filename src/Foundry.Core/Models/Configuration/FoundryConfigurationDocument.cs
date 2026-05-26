@@ -10,7 +10,7 @@ public sealed record FoundryConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Foundry configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 7;
+    public const int CurrentSchemaVersion = 8;
 
     /// <summary>
     /// Gets the schema version of this configuration document.
@@ -38,7 +38,7 @@ public sealed record FoundryConfigurationDocument
     public CustomizationSettings Customization { get; init; } = new();
 
     /// <summary>
-    /// Gets Autopilot profile settings staged for OOBE.
+    /// Gets Autopilot provisioning settings used during deployment.
     /// </summary>
     public AutopilotSettings Autopilot { get; init; } = new();
 

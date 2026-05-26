@@ -99,7 +99,7 @@
                                 <Style BasedOn="{StaticResource SectionCardBorderStyle}" TargetType="Border">
                                     <Setter Property="Margin" Value="0" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding HasAutopilotProfiles}" Value="False">
+                                        <DataTrigger Binding="{Binding IsAutopilotSectionVisible}" Value="False">
                                             <Setter Property="Grid.RowSpan" Value="3" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -135,7 +135,16 @@
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[Preparation.AutopilotEnable], ElementName=ViewRoot}" />
                                 </CheckBox>
 
-                                <StackPanel IsEnabled="{Binding IsAutopilotEnabled}">
+                                <TextBlock
+                                    Margin="0,0,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{Binding AutopilotDisabledSummaryText}"
+                                    Visibility="{Binding IsAutopilotDisabledSummaryVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                                <StackPanel
+                                    IsEnabled="{Binding IsAutopilotEnabled}"
+                                    Visibility="{Binding IsJsonProfileControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         Margin="0,0,0,8"
                                         Style="{StaticResource BodyTextBlockStyle}"
@@ -148,9 +157,126 @@
                                         SelectedItem="{Binding SelectedAutopilotProfile}" />
                                     <TextBlock
                                         Margin="0,4,0,0"
-                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Foreground="#FFC42B1C"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{Binding AutopilotProfileHint}" />
+                                        Text="{Binding AutopilotProfileHint}"
+                                        Visibility="{Binding HasAutopilotProfileHint, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </StackPanel>
+
+                                <StackPanel Visibility="{Binding IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <TextBlock
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashUploadStatus], ElementName=ViewRoot}" />
+
+                                    <TextBlock
+                                        Margin="0,6,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="{Binding AutopilotHardwareHashUploadStatusText}">
+                                        <TextBlock.Style>
+                                            <Style BasedOn="{StaticResource BodyTextBlockStyle}" TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#FFC42B1C" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsHardwareHashCertificateUsable}" Value="True">
+                                                        <Setter Property="Foreground" Value="#FF0F7B0F" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        Text="{Binding AutopilotHardwareHashUploadMessage}"
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding IsHardwareHashUploadMessageVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <TextBlock.Style>
+                                            <Style BasedOn="{StaticResource CaptionTextBlockStyle}" TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#FFC42B1C" />
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <StackPanel
+                                        Margin="0,16,0,0"
+                                        Visibility="{Binding IsHardwareHashGroupTagControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <TextBlock
+                                            Margin="0,0,0,8"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashGroupTagChoice], ElementName=ViewRoot}" />
+                                        <ComboBox
+                                            HorizontalAlignment="Stretch"
+                                            DisplayMemberPath="DisplayName"
+                                            ItemsSource="{Binding HardwareHashGroupTagOptions}"
+                                            SelectedItem="{Binding SelectedHardwareHashGroupTag}" />
+                                        <TextBlock
+                                            Margin="0,4,0,0"
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashGroupTagHint], ElementName=ViewRoot}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <TextBlock
+                                        Margin="0,16,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashDetails], ElementName=ViewRoot}" />
+
+                                    <Grid Margin="0,8,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            FontWeight="SemiBold"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashTenantId], ElementName=ViewRoot}" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding AutopilotHardwareHashTenantIdText}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Margin="0,6,0,0"
+                                            FontWeight="SemiBold"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashCertificateExpiration], ElementName=ViewRoot}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Margin="0,6,0,0"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding AutopilotHardwareHashCertificateExpirationText}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Margin="0,6,0,0"
+                                            FontWeight="SemiBold"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashCertificateThumbprint], ElementName=ViewRoot}" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            Margin="0,6,0,0"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding AutopilotHardwareHashCertificateThumbprintText}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </Grid>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

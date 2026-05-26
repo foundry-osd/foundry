@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -12,7 +13,19 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     /// <inheritdoc />
     public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document)
     {
+        return Generate(document, mediaSecretsKey: null);
+    }
+
+    /// <summary>
+    /// Generates the reduced Foundry.Deploy runtime configuration and embeds encrypted media-only secrets when required.
+    /// </summary>
+    /// <param name="document">User-facing Foundry configuration.</param>
+    /// <param name="mediaSecretsKey">Media secret key used to encrypt boot-media-only secrets.</param>
+    /// <returns>Reduced Foundry.Deploy configuration document.</returns>
+    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? mediaSecretsKey)
+    {
         ArgumentNullException.ThrowIfNull(document);
+        AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
 
         string[] visibleLanguageCodes = CanonicalizeLanguageCodes(document.Localization.VisibleLanguageCodes);
         string? defaultLanguageCodeOverride = CanonicalizeOptionalLanguageCode(document.Localization.DefaultLanguageCodeOverride);
@@ -55,9 +68,15 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             Autopilot = new DeployAutopilotSettings
             {
                 IsEnabled = document.Autopilot.IsEnabled,
-                DefaultProfileFolderName = document.Autopilot.Profiles
-                    .FirstOrDefault(profile => string.Equals(profile.Id, document.Autopilot.DefaultProfileId, StringComparison.OrdinalIgnoreCase))
-                    ?.FolderName
+                ProvisioningMode = document.Autopilot.ProvisioningMode,
+                DefaultProfileFolderName = document.Autopilot.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
+                    ? document.Autopilot.Profiles
+                        .FirstOrDefault(profile => string.Equals(profile.Id, document.Autopilot.DefaultProfileId, StringComparison.OrdinalIgnoreCase))
+                        ?.FolderName
+                    : null,
+                HardwareHashUpload = CreateDeployHardwareHashUploadSettings(
+                    document.Autopilot,
+                    mediaSecretsKey)
             },
             Telemetry = document.Telemetry
         };
@@ -95,6 +114,73 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
         return string.IsNullOrWhiteSpace(canonicalCode) ? null : canonicalCode;
+    }
+
+    private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(
+        AutopilotSettings autopilot,
+        byte[]? mediaSecretsKey)
+    {
+        AutopilotHardwareHashUploadSettings? settings = autopilot.HardwareHashUpload;
+        if (settings?.Tenant is null)
+        {
+            return new DeployAutopilotHardwareHashUploadSettings();
+        }
+
+        SecretEnvelope? pfxSecret = null;
+        SecretEnvelope? pfxPasswordSecret = null;
+        if (autopilot.IsEnabled &&
+            autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
+            mediaSecretsKey is not null)
+        {
+            if (mediaSecretsKey.Length == 0)
+            {
+                throw new InvalidOperationException("Autopilot hardware hash upload media generation requires a media secret key.");
+            }
+
+            AutopilotBootMediaCertificateSettings bootMediaCertificate = settings.BootMediaCertificate;
+            if (string.IsNullOrWhiteSpace(bootMediaCertificate.PfxPath) ||
+                !File.Exists(bootMediaCertificate.PfxPath))
+            {
+                throw new InvalidOperationException("Autopilot hardware hash upload media generation requires the selected PFX file.");
+            }
+
+            if (string.IsNullOrWhiteSpace(bootMediaCertificate.PfxPassword))
+            {
+                throw new InvalidOperationException("Autopilot hardware hash upload media generation requires the selected PFX password.");
+            }
+
+            byte[] pfxBytes = File.ReadAllBytes(bootMediaCertificate.PfxPath);
+            try
+            {
+                pfxSecret = MediaSecretEnvelopeProtector.EncryptBytes(pfxBytes, mediaSecretsKey);
+            }
+            finally
+            {
+                System.Security.Cryptography.CryptographicOperations.ZeroMemory(pfxBytes);
+            }
+
+            pfxPasswordSecret = MediaSecretEnvelopeProtector.EncryptString(
+                bootMediaCertificate.PfxPassword,
+                mediaSecretsKey);
+        }
+
+        return new DeployAutopilotHardwareHashUploadSettings
+        {
+            TenantId = settings.Tenant.TenantId,
+            ClientId = settings.Tenant.ClientId,
+            ActiveCertificateKeyId = settings.ActiveCertificate?.KeyId,
+            ActiveCertificateThumbprint = settings.ActiveCertificate?.Thumbprint,
+            ActiveCertificateExpiresOnUtc = settings.ActiveCertificate?.ExpiresOnUtc,
+            DefaultGroupTag = NormalizeOptionalGroupTag(settings.DefaultGroupTag),
+            CertificatePfxSecret = pfxSecret,
+            CertificatePfxPasswordSecret = pfxPasswordSecret
+        };
+    }
+
+    private static string? NormalizeOptionalGroupTag(string? groupTag)
+    {
+        string? trimmed = groupTag?.Trim();
+        return string.IsNullOrWhiteSpace(trimmed) ? null : trimmed;
     }
 
     private static DeployOobeSettings MapOobeSettings(OobeSettings settings)

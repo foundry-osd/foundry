@@ -41,6 +41,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="8" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="220" />
@@ -121,6 +123,10 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="8" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="220" />
@@ -149,14 +155,50 @@
                             <TextBlock
                                 Grid.Row="4"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{Binding Strings[Summary.AutopilotProfile]}"
+                                Text="{Binding Strings[Summary.AutopilotMode]}"
                                 Visibility="{Binding Preparation.IsAutopilotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <TextBlock
                                 Grid.Row="4"
                                 Grid.Column="2"
-                                Text="{Binding SummaryAutopilotProfileText}"
+                                Text="{Binding SummaryAutopilotModeText}"
                                 TextWrapping="Wrap"
                                 Visibility="{Binding Preparation.IsAutopilotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <TextBlock
+                                Grid.Row="6"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.AutopilotProfile]}"
+                                Visibility="{Binding Preparation.IsJsonProfileControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.Column="2"
+                                Text="{Binding SummaryAutopilotProfileText}"
+                                TextWrapping="Wrap"
+                                Visibility="{Binding Preparation.IsJsonProfileControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <TextBlock
+                                Grid.Row="6"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Preparation.AutopilotHardwareHashUploadStatus]}"
+                                Visibility="{Binding Preparation.IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.Column="2"
+                                Text="{Binding Preparation.AutopilotHardwareHashUploadStatusText}"
+                                TextWrapping="Wrap"
+                                Visibility="{Binding Preparation.IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <TextBlock
+                                Grid.Row="8"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.AutopilotGroupTag]}"
+                                Visibility="{Binding Preparation.IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Grid.Row="8"
+                                Grid.Column="2"
+                                Text="{Binding SummaryAutopilotGroupTagText}"
+                                TextWrapping="Wrap"
+                                Visibility="{Binding Preparation.IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </StackPanel>
                 </Border>

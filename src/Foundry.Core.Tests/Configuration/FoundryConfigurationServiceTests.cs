@@ -119,6 +119,71 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
+    public void Deserialize_WhenAutopilotProvisioningModeIsMissing_DefaultsToJsonProfile()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument document = service.Deserialize("""
+            {
+              "schemaVersion": 7,
+              "autopilot": {
+                "isEnabled": true
+              }
+            }
+            """);
+
+        Assert.Equal(AutopilotProvisioningMode.JsonProfile, document.Autopilot.ProvisioningMode);
+    }
+
+    [Fact]
+    public void Serialize_WhenHardwareHashSettingsArePersisted_DoesNotWritePrivateMaterial()
+    {
+        var service = new FoundryConfigurationService();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = new AutopilotHardwareHashUploadSettings
+                {
+                    Tenant = new AutopilotTenantRegistrationSettings
+                    {
+                        TenantId = "tenant-id",
+                        ApplicationObjectId = "application-object-id",
+                        ClientId = "client-id",
+                        ServicePrincipalObjectId = "service-principal-object-id"
+                    },
+                    ActiveCertificate = new AutopilotCertificateMetadata
+                    {
+                        KeyId = "certificate-key-id",
+                        Thumbprint = "ABCDEF123456",
+                        DisplayName = "Foundry OSD Autopilot Registration",
+                        ExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                    },
+                    BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                    {
+                        PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
+                        PfxPassword = "PfxPassword-DoNotLeak",
+                        ValidatedThumbprint = "ABCDEF123456",
+                        ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                    }
+                }
+            }
+        };
+
+        string json = service.Serialize(document);
+
+        Assert.Contains("\"provisioningMode\": \"hardwareHashUpload\"", json, StringComparison.Ordinal);
+        Assert.DoesNotContain("pfx", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("privateKey", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("accessToken", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
+        Assert.DoesNotContain(@"E:\Secrets", json, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void ApplyLegacyGeneralSettings_WhenAuthoringConfigHasNoGeneralSection_CopiesMediaDefaults()
     {
         var document = new FoundryConfigurationDocument();

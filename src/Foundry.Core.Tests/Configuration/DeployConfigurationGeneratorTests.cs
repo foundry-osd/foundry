@@ -1,5 +1,6 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
@@ -333,6 +334,220 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal("profile-b-folder", result.Autopilot.DefaultProfileFolderName);
     }
 
+    [Fact]
+    public void Generate_WhenJsonProfileModeHasNoSelectedProfile_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.JsonProfile
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("JSON", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashModeIsEnabled_DoesNotRequireSelectedProfile()
+    {
+        var generator = new DeployConfigurationGenerator();
+        DateTimeOffset expiration = DateTimeOffset.UtcNow.AddMonths(6);
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(expiration)
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Autopilot.IsEnabled);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, result.Autopilot.ProvisioningMode);
+        Assert.Null(result.Autopilot.DefaultProfileFolderName);
+        Assert.Equal("tenant-id", result.Autopilot.HardwareHashUpload.TenantId);
+        Assert.Equal("client-id", result.Autopilot.HardwareHashUpload.ClientId);
+        Assert.Equal("certificate-key-id", result.Autopilot.HardwareHashUpload.ActiveCertificateKeyId);
+        Assert.Equal("ABCDEF123456", result.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
+        Assert.Equal(expiration, result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
+        Assert.Equal("Sales", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
+
+        string json = generator.Serialize(result);
+        Assert.DoesNotContain("knownGroupTags", json, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashDefaultGroupTagIsNotKnown_PreservesDefaultGroupTag()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(6)) with
+                {
+                    KnownGroupTags = [],
+                    DefaultGroupTag = "KIOSK"
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.Equal("KIOSK", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashModeHasMediaKey_EmbedsEncryptedPfxSecrets()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-deploy-config-{Guid.NewGuid():N}");
+        string pfxPath = Path.Combine(root, "certificate.pfx");
+        byte[] pfxBytes = [1, 2, 3, 4, 5];
+        byte[] mediaKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
+        Directory.CreateDirectory(root);
+        File.WriteAllBytes(pfxPath, pfxBytes);
+
+        try
+        {
+            var generator = new DeployConfigurationGenerator();
+            var document = new FoundryConfigurationDocument
+            {
+                Autopilot = new AutopilotSettings
+                {
+                    IsEnabled = true,
+                    ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                    HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(6)) with
+                    {
+                        BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                        {
+                            PfxPath = pfxPath,
+                            PfxPassword = "PfxPassword-DoNotLeak",
+                            ValidatedThumbprint = "ABCDEF123456",
+                            ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                        }
+                    }
+                }
+            };
+
+            FoundryDeployConfigurationDocument result = generator.Generate(document, mediaKey);
+
+            Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
+            Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
+            Assert.Equal(pfxBytes, MediaSecretEnvelopeProtector.DecryptBytes(result.Autopilot.HardwareHashUpload.CertificatePfxSecret!, mediaKey));
+            Assert.Equal("PfxPassword-DoNotLeak", MediaSecretEnvelopeProtector.DecryptString(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret!, mediaKey));
+
+            string json = generator.Serialize(result);
+            Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);
+            Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashModeNeedsSecretsWithInvalidMediaKey_ThrowsInvalidOperationException()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-deploy-config-{Guid.NewGuid():N}");
+        string pfxPath = Path.Combine(root, "certificate.pfx");
+        Directory.CreateDirectory(root);
+        File.WriteAllBytes(pfxPath, [1, 2, 3]);
+
+        try
+        {
+            var generator = new DeployConfigurationGenerator();
+            var document = new FoundryConfigurationDocument
+            {
+                Autopilot = new AutopilotSettings
+                {
+                    IsEnabled = true,
+                    ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                    HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(6)) with
+                    {
+                        BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+                        {
+                            PfxPath = pfxPath,
+                            PfxPassword = "password",
+                            ValidatedThumbprint = "ABCDEF123456",
+                            ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
+                        }
+                    }
+                }
+            };
+
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document, []));
+            Assert.Contains("media secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public void Generate_WhenHardwareHashCertificateIsExpired_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddDays(-1))
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("certificate", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_WhenAutopilotIsDisabledWithNullHardwareHashSettings_DoesNotThrow()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = false,
+                HardwareHashUpload = null!
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Autopilot.IsEnabled);
+        Assert.Equal(AutopilotProvisioningMode.JsonProfile, result.Autopilot.ProvisioningMode);
+        Assert.NotNull(result.Autopilot.HardwareHashUpload);
+    }
+
+    [Fact]
+    public void Generate_WhenProvisioningModeIsUnsupported_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = (AutopilotProvisioningMode)999
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("unsupported", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static AutopilotProfileSettings CreateProfile(string id, string folderName)
     {
         return new AutopilotProfileSettings
@@ -343,6 +558,36 @@ public sealed class DeployConfigurationGeneratorTests
             Source = "import",
             ImportedAtUtc = DateTimeOffset.UtcNow,
             JsonContent = "{}"
+        };
+    }
+
+    private static AutopilotHardwareHashUploadSettings CreateCompleteHardwareHashSettings(DateTimeOffset expiration)
+    {
+        return new AutopilotHardwareHashUploadSettings
+        {
+            Tenant = new AutopilotTenantRegistrationSettings
+            {
+                TenantId = "tenant-id",
+                ApplicationObjectId = "application-object-id",
+                ClientId = "client-id",
+                ServicePrincipalObjectId = "service-principal-object-id"
+            },
+            ActiveCertificate = new AutopilotCertificateMetadata
+            {
+                KeyId = "certificate-key-id",
+                Thumbprint = "ABCDEF123456",
+                DisplayName = "Foundry OSD Autopilot Registration",
+                ExpiresOnUtc = expiration
+            },
+            BootMediaCertificate = new AutopilotBootMediaCertificateSettings
+            {
+                PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
+                PfxPassword = "correct-password",
+                ValidatedThumbprint = "ABCDEF123456",
+                ValidatedExpiresOnUtc = expiration
+            },
+            KnownGroupTags = ["Sales", "Engineering"],
+            DefaultGroupTag = "Sales"
         };
     }
 }
