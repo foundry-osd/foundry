@@ -9,7 +9,7 @@ public sealed class OperatingSystemDisplayFormatterTests : IDisposable
     private readonly CultureInfo _originalUiCulture = CultureInfo.CurrentUICulture;
 
     [Theory]
-    [InlineData("RET", "Détail")]
+    [InlineData("RET", "Retail")]
     [InlineData("VOL", "Volume")]
     public void FormatLicenseChannel_UsesCurrentUiCulture(string input, string expected)
     {

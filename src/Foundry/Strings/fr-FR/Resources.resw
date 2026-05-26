@@ -28,10 +28,10 @@
     <value>Chargement des contributeurs...</value>
   </data>
   <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
-    <value>{0} contribution(s)</value>
+    <value>Contributions : {0}</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry OSD est une application moderne de création de médias de déploiement Windows construite autour d'agents WinPE.</value>
+    <value>Foundry OSD est une application moderne pour créer des médias de déploiement Windows basés sur WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
     <value>Copyright (c) 2026 Foundry Project.</value>
@@ -94,7 +94,7 @@
     <value>Liens utiles</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
-    <value>Rechercher une nouvelle version</value>
+    <value>Rechercher des mises à jour</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
     <value>Mettre à jour et redémarrer</value>
@@ -118,7 +118,7 @@
     <value>Versions de préversion</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
-    <value>Flux web Velopack</value>
+    <value>Flux de mise à jour web</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Fermer</value>
@@ -142,7 +142,7 @@
     <value>Activer les diagnostics développeur et ouvrir le dossier des journaux Foundry.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostics et commentaires</value>
+    <value>Diagnostics</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Changer la langue de l'application sans redémarrer Foundry OSD.</value>
@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Choisir la méthode de provisionnement Autopilot pour le média de déploiement : profil JSON ou upload du hardware hash depuis WinPE.</value>
+    <value>Choisir la méthode de provisionnement Autopilot pour le média de déploiement : profil JSON ou envoi du hash matériel depuis WinPE.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Activer Autopilot</value>
@@ -259,7 +259,7 @@
     <value>Aucun profil Autopilot trouvé</value>
   </data>
   <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
-    <value>Aucun profil Autopilot n'a été renvoyé par le tenant.</value>
+    <value>Aucun profil Autopilot n’a été renvoyé par le tenant.</value>
   </data>
   <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
     <value>Échec du téléchargement Autopilot</value>
@@ -286,7 +286,7 @@
     <value>Annuler</value>
   </data>
   <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
-    <value>{0} profil(s) sélectionné(s) sur {1}</value>
+    <value>Profils sélectionnés : {0} sur {1}</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>Provisionnement par profil JSON</value>
@@ -298,13 +298,13 @@
     <value>Utiliser le provisionnement par profil JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Upload du hardware hash</value>
+    <value>Envoi du hash matériel</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Upload le hardware hash de l'appareil vers Intune depuis Foundry Deploy dans WinPE.</value>
+    <value>Envoie le hash matériel de l’appareil vers Intune depuis Foundry Deploy dans WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Utiliser l'upload du hardware hash</value>
+    <value>Utiliser l’envoi du hash matériel</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Se connecter au tenant</value>
@@ -319,13 +319,13 @@
     <value>Connexion à Microsoft Graph</value>
   </data>
   <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
-    <value>Terminez la connexion dans le navigateur pour configurer l'upload du hardware hash Autopilot.</value>
+    <value>Terminez la connexion dans le navigateur pour configurer l’envoi du hash matériel Autopilot.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
     <value>Connexion tenant</value>
   </data>
   <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
-    <value>Connecte Microsoft Graph pour cette session afin de gérer l'upload du hardware hash.</value>
+    <value>Connecte Microsoft Graph pour cette session afin de gérer l’envoi du hash matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
     <value>Non connecté</value>
@@ -337,7 +337,7 @@
     <value>État du tenant</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
-    <value>Informations du tenant, de l'app registration et de l'état de préparation pour l'upload du hardware hash.</value>
+    <value>Informations du tenant, de l’inscription d’application et de l’état de préparation pour l’envoi du hash matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
     <value>Nom</value>
@@ -373,16 +373,16 @@
     <value>Actions certificat</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
-    <value>Créer ou supprimer les identifiants de certificat de l'app registration.</value>
+    <value>Créer ou supprimer les identifiants de certificat de l’inscription d’application.</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
     <value>Certificats provisionnés</value>
   </data>
   <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
-    <value>Certificats de l'app registration autorisés pour l'authentification Graph dans WinPE.</value>
+    <value>Certificats de l’inscription d’application autorisés pour l’authentification Graph dans WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
-    <value>Aucun certificat n'est provisionné.</value>
+    <value>Aucun certificat n’est provisionné.</value>
   </data>
   <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
     <value>Créer le certificat</value>
@@ -400,7 +400,7 @@
     <value>Certificat prêt</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry ne stocke pas le mot de passe et ne pourra plus l'afficher après la fermeture de cette fenêtre. Ces deux éléments seront nécessaires pour générer le média de boot avec upload du hardware hash.</value>
+    <value>Enregistrez maintenant ce fichier PFX et ce mot de passe dans un emplacement sécurisé. Foundry ne stocke pas le mot de passe et ne pourra plus l’afficher après la fermeture de cette fenêtre. Ces deux éléments seront nécessaires pour générer le média de démarrage avec envoi du hash matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
     <value>Fichier PFX</value>
@@ -418,16 +418,16 @@
     <value>Échec de création du certificat</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
-    <value>Foundry n'a pas pu créer le certificat de l'app registration. {0}</value>
+    <value>Foundry n’a pas pu créer le certificat de l’inscription d’application. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
     <value>Supprimer le certificat sélectionné ?</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
-    <value>Foundry supprimera uniquement le certificat sélectionné dans l'app registration managée. Les autres identifiants de l'app seront conservés.</value>
+    <value>Foundry supprimera uniquement le certificat sélectionné dans l’inscription d’application gérée. Les autres identifiants de l’application seront conservés.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
-    <value>Foundry supprimera uniquement les {0} certificats sélectionnés dans l'app registration managée. Les autres identifiants de l'app seront conservés.</value>
+    <value>Foundry supprimera uniquement les {0} certificats sélectionnés dans l’inscription d’application gérée. Les autres identifiants de l’application seront conservés.</value>
   </data>
   <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
     <value>Supprimer le certificat</value>
@@ -436,7 +436,7 @@
     <value>Échec de suppression du certificat</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
-    <value>Foundry n'a pas pu supprimer le certificat sélectionné de l'app registration. {0}</value>
+    <value>Foundry n’a pas pu supprimer le certificat sélectionné de l’inscription d’application. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
     <value>Empreinte</value>
@@ -454,7 +454,7 @@
     <value>Certificat du média de démarrage</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
-    <value>PFX protégé par mot de passe copié dans le média de démarrage pour l'upload du hardware hash.</value>
+    <value>PFX protégé par mot de passe copié dans le média de démarrage pour l’envoi du hash matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
     <value>Fichier PFX</value>
@@ -469,22 +469,22 @@
     <value>Sélectionner le PFX du certificat Autopilot</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
-    <value>Sélectionnez un PFX qui correspond à un certificat de l'app registration.</value>
+    <value>Sélectionnez un PFX qui correspond à un certificat de l’inscription d’application.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>Le certificat sélectionné est expiré. Créez ou sélectionnez un certificat valide avant de créer le média de démarrage.</value>
+    <value>Le certificat sélectionné a expiré. Créez ou sélectionnez un certificat valide avant de créer le média de démarrage.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
     <value>Sélectionnez le PFX protégé par mot de passe correspondant avant de créer le média de démarrage.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
-    <value>Le fichier PFX sélectionné n'existe plus.</value>
+    <value>Le fichier PFX sélectionné n’existe plus.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
     <value>Renseignez le mot de passe du PFX.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>L'empreinte du certificat PFX ne correspond pas au certificat sélectionné dans l'app registration.</value>
+    <value>L’empreinte du certificat PFX ne correspond pas au certificat sélectionné dans l’inscription d’application.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
     <value>Le PFX sélectionné ne contient pas la clé privée.</value>
@@ -499,58 +499,58 @@
     <value>Group tag par défaut</value>
   </data>
   <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
-    <value>Group tag optionnel présélectionné dans Foundry Deploy pendant l'upload du hardware hash.</value>
+    <value>Group tag optionnel présélectionné dans Foundry Deploy pendant l’envoi du hash matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Aucun group tag par défaut sélectionné.</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>None</value>
+    <value>Aucun</value>
   </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Aucun</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
-    <value>L'onboarding tenant demande une action</value>
+    <value>L’intégration du tenant nécessite une action</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
-    <value>Échec de l'onboarding tenant</value>
+    <value>Échec de l’intégration du tenant</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
-    <value>Foundry n'a pas pu configurer l'app registration Autopilot. {0}</value>
+    <value>Foundry n’a pas pu configurer l’inscription d’application Autopilot. {0}</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
-    <value>L'app registration managée est introuvable. Reconnectez-vous pour laisser Foundry la créer ou l'adopter.</value>
+    <value>L’inscription d’application gérée est introuvable. Reconnectez-vous pour laisser Foundry la créer ou l’adopter.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
-    <value>Une app registration existante avec le nom Foundry a été trouvée. Reconnectez-vous pour l'adopter dans la configuration Foundry.</value>
+    <value>Une inscription d’application existante avec le nom Foundry a été trouvée. Reconnectez-vous pour l’adopter dans la configuration Foundry.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
-    <value>Il manque l'autorisation d'application Microsoft Graph requise sur l'app registration managée. Reconnectez-vous avec un compte autorisé à modifier les app registrations.</value>
+    <value>Il manque l’autorisation d’application Microsoft Graph requise sur l’inscription d’application gérée. Reconnectez-vous avec un compte autorisé à modifier les inscriptions d’application.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
-    <value>Le service principal managé n'a pas le consentement administrateur pour l'autorisation Microsoft Graph requise. Accordez le consentement administrateur puis reconnectez-vous.</value>
+    <value>Le service principal géré n’a pas le consentement administrateur pour l’autorisation Microsoft Graph requise. Accordez le consentement administrateur puis reconnectez-vous.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
-    <value>Le service principal managé est absent ou désactivé. Reconnectez-vous avec un compte autorisé à créer ou gérer les applications d'entreprise.</value>
+    <value>Le service principal géré est absent ou désactivé. Reconnectez-vous avec un compte autorisé à créer ou gérer les applications d’entreprise.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
-    <value>Le certificat précédemment sélectionné n'existe plus dans l'app registration managée. Sélectionnez un PFX valide correspondant à un certificat provisionné.</value>
+    <value>Le certificat précédemment sélectionné n’existe plus dans l’inscription d’application gérée. Sélectionnez un PFX valide correspondant à un certificat provisionné.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>Le certificat sélectionné est expiré. Créez un nouveau certificat, conservez son PFX et son mot de passe, puis sélectionnez-le pour le média de démarrage.</value>
+    <value>Le certificat sélectionné a expiré. Créez un nouveau certificat, conservez son PFX et son mot de passe, puis sélectionnez-le pour le média de démarrage.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
-    <value>L'app registration managée n'est pas prête. Vérifiez l'état du tenant puis reconnectez-vous.</value>
+    <value>L’inscription d’application gérée n’est pas prête. Vérifiez l’état du tenant puis reconnectez-vous.</value>
   </data>
   <data name="CustomizationPage_Title.Text" xml:space="preserve">
     <value>Personnalisation</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
-    <value>Foundry n'a pas pu ouvrir la documentation dans votre navigateur. Utilisez cette URL à la place.</value>
+    <value>Foundry n’a pas pu ouvrir la documentation dans votre navigateur. Utilisez cette URL à la place.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
-    <value>Ouvrir la documentation</value>
+    <value>Impossible d’ouvrir la documentation</value>
   </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
     <value>Nom de l'ordinateur</value>
@@ -667,13 +667,13 @@
     <value>Supprimer Microsoft Copilot</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
-    <value>Supprimer le package AppX Copilot et désactiver la stratégie Windows Copilot.</value>
+    <value>Supprimer le package d’application Copilot et désactiver la stratégie Windows Copilot.</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
     <value>Supprimer Copilot+ AI Hub</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
-    <value>Supprimer le package AppX provisionné Windows AI Hub lorsqu’il est présent.</value>
+    <value>Supprimer le package d’application Windows AI Hub provisionné lorsqu’il est présent.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
     <value>Désactiver Windows Recall</value>
@@ -712,13 +712,13 @@
     <value>Définir la stratégie Bloc-notes qui désactive les fonctionnalités IA.</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Suppression AppX provisionnée</value>
+    <value>Suppression des applications provisionnées</value>
   </data>
   <data name="Customization.AppxRemovalDescription" xml:space="preserve">
     <value>Supprimer les applications Windows provisionnées sélectionnées avant l’OOBE.</value>
   </data>
   <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Supprimer les applications AppX provisionnées</value>
+    <value>Supprimer les applications Windows provisionnées</value>
   </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profil</value>
@@ -733,7 +733,7 @@
     <value>Personnalisé</value>
   </data>
   <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
-    <value>{0} profils sélectionnés</value>
+    <value>Profils sélectionnés : {0}</value>
   </data>
   <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
     <value>Tout sélectionner</value>
@@ -745,7 +745,7 @@
     <value>Packages</value>
   </data>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
-    <value>{0} package(s) sélectionné(s) sur {1}</value>
+    <value>Packages sélectionnés : {0} sur {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Choisir l'architecture, la langue de l'image de démarrage et les pilotes à injecter dans cette image.</value>
@@ -787,7 +787,7 @@
     <value>Étape suivante</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Vérifier les cibles de sortie finales depuis la page Démarrer après validation de Windows ADK et du module Windows PE.</value>
+    <value>Vérifiez les cibles de sortie finales sur la page Démarrer une fois la préparation de Windows ADK et du Windows PE Add-on confirmée.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Vérifier et démarrer</value>
@@ -826,7 +826,7 @@
     <value>Sélectionner le certificat 802.1X</value>
   </data>
   <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Provisionner la prise en charge Wi-Fi dans l'image de boot</value>
+    <value>Provisionner la prise en charge Wi-Fi dans l’image de démarrage</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Préprovisionner un profil Wi-Fi</value>
@@ -868,13 +868,13 @@
     <value>Wi-Fi</value>
   </data>
   <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Activez ceci uniquement si l'image de boot doit inclure la prise en charge Wi-Fi et des profils Wi-Fi pour le démarrage WinPE.</value>
+    <value>Activez ceci uniquement si l’image de démarrage doit inclure la prise en charge Wi-Fi et des profils Wi-Fi pour le démarrage WinPE.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Les phrases secrètes Wi-Fi personnelles restent transitoires dans l'application et ne sont pas persistées dans la configuration Foundry.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>Le comportement entreprise est piloté par le modèle de profil inclus dans cette version. Les informations d'identification 802.1X saisies à l'exécution ne sont pas provisionnées ici.</value>
+    <value>Le comportement entreprise est piloté par le modèle de profil dans cette version. Les informations d’identification 802.1X saisies pendant le déploiement ne sont pas provisionnées ici.</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Wi-Fi entreprise avancé</value>
@@ -958,7 +958,7 @@
     <value>Architecture et signature</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
-    <value>Sélectionner l'architecture de démarrage et le mode de signature PCA.</value>
+    <value>Sélectionnez l’architecture de démarrage et le mode de signature de démarrage.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -1003,10 +1003,10 @@
     <value>Dossier optionnel contenant des pilotes .inf supplémentaires.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
-    <value>Commandes média finales</value>
+    <value>Créer le média</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Crée le média ISO ou USB final après validation de tous les contrôles.</value>
+    <value>Créez un média ISO ou USB une fois toutes les vérifications de préparation validées.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Créer l'ISO</value>
@@ -1021,10 +1021,10 @@
     <value>Formatage complet</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>L'exécution ISO/USB finale est différée jusqu'à la phase d'activation finale des médias.</value>
+    <value>La création de média n’est pas activée dans cette version.</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
-    <value>L'exécution ISO/USB finale est activée quand tous les contrôles sont validés.</value>
+    <value>La création de média est disponible une fois toutes les vérifications de préparation validées.</value>
   </data>
   <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
     <value>La création ISO est bloquée</value>
@@ -1036,7 +1036,7 @@
     <value>Formater la cible USB</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>Cette action va effacer le disque {0} : {1} ({2}). Continuez uniquement si c'est bien la cible USB jetable prévue.</value>
+    <value>Cela effacera le disque {0} : {1} ({2}). Continuez uniquement s’il s’agit de la clé USB prévue.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Formater et créer l'USB</value>
@@ -1072,7 +1072,7 @@
     <value>Provisionnement des ressources de démarrage Foundry.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Provisionnement des charges utiles d'exécution Foundry.</value>
+    <value>Ajout des composants de déploiement Foundry.</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Validation des modifications de l'image de démarrage.</value>
@@ -1096,7 +1096,7 @@
     <value>La création du média final a échoué.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Téléchargement en cours.</value>
+    <value>Téléchargement du contenu.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
     <value>Résolution du catalogue source WinRE.</value>
@@ -1120,7 +1120,7 @@
     <value>Téléchargement du package de pilotes</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Téléchargement du payload runtime {0}.</value>
+    <value>Téléchargement des composants de déploiement {0}.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
     <value>Validation du package source WinRE.</value>
@@ -1207,7 +1207,7 @@
     <value>Préparation de la partition cache USB.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Provisionnement des charges utiles d'exécution USB.</value>
+    <value>Ajout des composants Foundry au média USB.</value>
   </data>
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>Média USB terminé.</value>
@@ -1264,16 +1264,16 @@
     <value>Les cibles USB n'ont pas encore été analysées.</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
-    <value>Aucune cible USB candidate n'a été trouvée.</value>
+    <value>Aucune clé USB n’a été trouvée.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
-    <value>{0} cibles USB candidates trouvées.</value>
+    <value>Clés USB trouvées : {0}</value>
   </data>
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
     <value>Disque {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Points bloquants ou différés :</value>
+    <value>Éléments à traiter :</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
     <value>Prêt à créer les médias ISO et USB</value>
@@ -1285,7 +1285,7 @@
     <value>Prêt à créer le média USB</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>{0} blocages de préparation nécessitent une action</value>
+    <value>Éléments de préparation à traiter : {0}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Vérifier les avertissements de sortie média</value>
@@ -1399,7 +1399,7 @@
     <value>Activé : {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Activé : upload du hardware hash</value>
+    <value>Activé : envoi du hash matériel</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot utilise un mode de provisionnement non supporté.</value>
@@ -1408,49 +1408,49 @@
     <value>Le mode profil JSON Autopilot est activé mais aucun profil par défaut valide n'est sélectionné.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais les paramètres sont manquants.</value>
+    <value>L’envoi du hash matériel est activé mais les paramètres sont manquants.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais la connexion au tenant est manquante. Connectez-vous au tenant depuis Autopilot.</value>
+    <value>L’envoi du hash matériel est activé mais la connexion au tenant est manquante. Connectez-vous au tenant depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais l'app registration n'est pas configurée. Connectez-vous au tenant depuis Autopilot.</value>
+    <value>L’envoi du hash matériel est activé mais l’inscription d’application n’est pas configurée. Connectez-vous au tenant depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais l'ID client de l'app est manquant. Reconnectez-vous au tenant depuis Autopilot.</value>
+    <value>L’envoi du hash matériel est activé mais l’ID client de l’application est manquant. Reconnectez-vous au tenant depuis Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais le service principal de l'app est manquant ou pas prêt.</value>
+    <value>L’envoi du hash matériel est activé mais le service principal de l’application est manquant ou pas prêt.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais le PFX sélectionné ne correspond à aucun certificat de l'app registration.</value>
+    <value>L’envoi du hash matériel est activé mais le PFX sélectionné ne correspond à aucun certificat de l’inscription d’application.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais l'empreinte du certificat sélectionné est manquante.</value>
+    <value>L’envoi du hash matériel est activé mais l’empreinte du certificat sélectionné est manquante.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais l'expiration du certificat sélectionné est manquante.</value>
+    <value>L’envoi du hash matériel est activé mais l’expiration du certificat sélectionné est manquante.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais le certificat sélectionné est expiré. Sélectionnez un certificat valide avant de créer le média de démarrage.</value>
+    <value>L’envoi du hash matériel est activé mais le certificat sélectionné a expiré. Sélectionnez un certificat valide avant de créer le média de démarrage.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais aucun PFX de média de démarrage n'est sélectionné.</value>
+    <value>L’envoi du hash matériel est activé mais aucun PFX de média de démarrage n’est sélectionné.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais le mot de passe du PFX de média de démarrage est manquant.</value>
+    <value>L’envoi du hash matériel est activé mais le mot de passe du PFX de média de démarrage est manquant.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais le PFX de média de démarrage n'a pas été validé.</value>
+    <value>L’envoi du hash matériel est activé mais le PFX de média de démarrage n’a pas été validé.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais le PFX sélectionné ne correspond pas au certificat actif.</value>
+    <value>L’envoi du hash matériel est activé mais le PFX sélectionné ne correspond pas au certificat actif.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais l'expiration du PFX de média de démarrage n'a pas pu être validée.</value>
+    <value>L’envoi du hash matériel est activé mais l’expiration du PFX de média de démarrage n’a pas pu être validée.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>L'upload du hardware hash est activé mais le PFX de média de démarrage sélectionné est expiré.</value>
+    <value>L’envoi du hash matériel est activé mais le PFX de média de démarrage sélectionné a expiré.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>L'ADK ou le module complémentaire WinPE n'est pas prêt.</value>
@@ -1468,7 +1468,7 @@
     <value>La configuration réseau n'est pas prête.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
-    <value>La génération de configuration Deploy est différée.</value>
+    <value>La génération de la configuration Deploy n’est pas prête.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Le provisionnement Connect n'est pas prêt.</value>
@@ -1495,7 +1495,7 @@
     <value>Le dossier de pilotes personnalisé ne contient aucun fichier .inf.</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
-    <value>L'exécution média finale est différée.</value>
+    <value>La création de média n’est pas activée dans cette version.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -1648,7 +1648,7 @@
     <value>Modifier le thème, l'arrière-plan et la couleur d'accentuation.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
-    <value>Apparence et comportement</value>
+    <value>Apparence</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
     <value>Rechercher les mises à jour Foundry OSD et consulter les notes de version.</value>
@@ -1843,7 +1843,7 @@
     <value>Capacité de création de médias</value>
   </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
-    <value>La création ISO et USB peut être déverrouillée.</value>
+    <value>La création ISO et USB est disponible.</value>
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
     <value>La création ISO et USB reste bloquée.</value>
@@ -1885,9 +1885,9 @@
     <value>Échec de l'opération ADK</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Installer l'ADK et le module WinPE</value>
+    <value>Installer Windows ADK et le Windows PE Add-on</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Mettre à niveau l'ADK et le module WinPE</value>
+    <value>Mettre à niveau Windows ADK et le Windows PE Add-on</value>
   </data>
 </root>

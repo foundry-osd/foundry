@@ -151,7 +151,7 @@ git commit -m "fix(localization): refine en-US resource copy"
 - Modify: `src/Foundry.Connect/Strings/fr-FR/Resources.resx`
 - Modify: `src/Foundry.Deploy/Strings/fr-FR/Resources.resx`
 
-- [ ] **Step 1: Define a small French glossary**
+- [x] **Step 1: Define a small French glossary**
 
 Use consistent product terminology:
 
@@ -166,19 +166,19 @@ Microsoft Update Catalog -> Microsoft Update Catalog
 Retail / Volume -> keep Windows license channel terms unchanged unless existing UI requires translation
 ```
 
-- [ ] **Step 2: Rework Foundry OSD fr-FR**
+- [x] **Step 2: Rework Foundry OSD fr-FR**
 
 Align all 626 `fr-FR` values with the reviewed `en-US` source. Remove awkward plural shortcuts such as `profil(s)` where a clearer sentence is possible.
 
-- [ ] **Step 3: Rework Foundry Connect fr-FR**
+- [x] **Step 3: Rework Foundry Connect fr-FR**
 
 Align all 98 `fr-FR` values with the reviewed `en-US` source. Standardize Wi-Fi and network security terms.
 
-- [ ] **Step 4: Rework Foundry Deploy fr-FR**
+- [x] **Step 4: Rework Foundry Deploy fr-FR**
 
 Align all 389 `fr-FR` values with the reviewed `en-US` source. Standardize deployment, dry-run, firmware, and catalog terminology.
 
-- [ ] **Step 5: Verify key and placeholder parity**
+- [x] **Step 5: Verify key and placeholder parity**
 
 Compare each `fr-FR` file against its matching `en-US` file:
 
@@ -192,7 +192,13 @@ Expected:
 0 failed
 ```
 
-- [ ] **Step 6: Commit fr-FR pass**
+Result:
+
+```text
+573 tests passed, 0 failed
+```
+
+- [x] **Step 6: Commit fr-FR pass**
 
 Commit:
 
