@@ -27,9 +27,155 @@
   <ItemGroup>
     <EmbeddedResource Update="Strings\en-US\Resources.resx" Link="Strings\Resources.resx" WithCulture="false">
       <LogicalName>Foundry.Connect.Strings.Resources.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\ar-SA\Resources.resx" Link="Strings\Resources.ar-SA.resx" Culture="ar-SA">
+      <LogicalName>Foundry.Connect.Strings.Resources.ar-SA.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.ar-SA</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\bg-BG\Resources.resx" Link="Strings\Resources.bg-BG.resx" Culture="bg-BG">
+      <LogicalName>Foundry.Connect.Strings.Resources.bg-BG.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.bg-BG</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\cs-CZ\Resources.resx" Link="Strings\Resources.cs-CZ.resx" Culture="cs-CZ">
+      <LogicalName>Foundry.Connect.Strings.Resources.cs-CZ.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.cs-CZ</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\da-DK\Resources.resx" Link="Strings\Resources.da-DK.resx" Culture="da-DK">
+      <LogicalName>Foundry.Connect.Strings.Resources.da-DK.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.da-DK</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\de-DE\Resources.resx" Link="Strings\Resources.de-DE.resx" Culture="de-DE">
+      <LogicalName>Foundry.Connect.Strings.Resources.de-DE.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.de-DE</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\el-GR\Resources.resx" Link="Strings\Resources.el-GR.resx" Culture="el-GR">
+      <LogicalName>Foundry.Connect.Strings.Resources.el-GR.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.el-GR</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\en-GB\Resources.resx" Link="Strings\Resources.en-GB.resx" Culture="en-GB">
+      <LogicalName>Foundry.Connect.Strings.Resources.en-GB.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.en-GB</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\es-ES\Resources.resx" Link="Strings\Resources.es-ES.resx" Culture="es-ES">
+      <LogicalName>Foundry.Connect.Strings.Resources.es-ES.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.es-ES</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\es-MX\Resources.resx" Link="Strings\Resources.es-MX.resx" Culture="es-MX">
+      <LogicalName>Foundry.Connect.Strings.Resources.es-MX.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.es-MX</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\et-EE\Resources.resx" Link="Strings\Resources.et-EE.resx" Culture="et-EE">
+      <LogicalName>Foundry.Connect.Strings.Resources.et-EE.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.et-EE</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\fi-FI\Resources.resx" Link="Strings\Resources.fi-FI.resx" Culture="fi-FI">
+      <LogicalName>Foundry.Connect.Strings.Resources.fi-FI.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.fi-FI</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\fr-CA\Resources.resx" Link="Strings\Resources.fr-CA.resx" Culture="fr-CA">
+      <LogicalName>Foundry.Connect.Strings.Resources.fr-CA.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.fr-CA</ManifestResourceName>
     </EmbeddedResource>
     <EmbeddedResource Update="Strings\fr-FR\Resources.resx" Link="Strings\Resources.fr-FR.resx" Culture="fr-FR">
       <LogicalName>Foundry.Connect.Strings.Resources.fr-FR.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.fr-FR</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\he-IL\Resources.resx" Link="Strings\Resources.he-IL.resx" Culture="he-IL">
+      <LogicalName>Foundry.Connect.Strings.Resources.he-IL.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.he-IL</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\hr-HR\Resources.resx" Link="Strings\Resources.hr-HR.resx" Culture="hr-HR">
+      <LogicalName>Foundry.Connect.Strings.Resources.hr-HR.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.hr-HR</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\hu-HU\Resources.resx" Link="Strings\Resources.hu-HU.resx" Culture="hu-HU">
+      <LogicalName>Foundry.Connect.Strings.Resources.hu-HU.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.hu-HU</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\it-IT\Resources.resx" Link="Strings\Resources.it-IT.resx" Culture="it-IT">
+      <LogicalName>Foundry.Connect.Strings.Resources.it-IT.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.it-IT</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\ja-JP\Resources.resx" Link="Strings\Resources.ja-JP.resx" Culture="ja-JP">
+      <LogicalName>Foundry.Connect.Strings.Resources.ja-JP.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.ja-JP</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\ko-KR\Resources.resx" Link="Strings\Resources.ko-KR.resx" Culture="ko-KR">
+      <LogicalName>Foundry.Connect.Strings.Resources.ko-KR.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.ko-KR</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\lt-LT\Resources.resx" Link="Strings\Resources.lt-LT.resx" Culture="lt-LT">
+      <LogicalName>Foundry.Connect.Strings.Resources.lt-LT.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.lt-LT</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\lv-LV\Resources.resx" Link="Strings\Resources.lv-LV.resx" Culture="lv-LV">
+      <LogicalName>Foundry.Connect.Strings.Resources.lv-LV.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.lv-LV</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\nb-NO\Resources.resx" Link="Strings\Resources.nb-NO.resx" Culture="nb-NO">
+      <LogicalName>Foundry.Connect.Strings.Resources.nb-NO.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.nb-NO</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\nl-NL\Resources.resx" Link="Strings\Resources.nl-NL.resx" Culture="nl-NL">
+      <LogicalName>Foundry.Connect.Strings.Resources.nl-NL.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.nl-NL</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\pl-PL\Resources.resx" Link="Strings\Resources.pl-PL.resx" Culture="pl-PL">
+      <LogicalName>Foundry.Connect.Strings.Resources.pl-PL.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.pl-PL</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\pt-BR\Resources.resx" Link="Strings\Resources.pt-BR.resx" Culture="pt-BR">
+      <LogicalName>Foundry.Connect.Strings.Resources.pt-BR.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.pt-BR</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\pt-PT\Resources.resx" Link="Strings\Resources.pt-PT.resx" Culture="pt-PT">
+      <LogicalName>Foundry.Connect.Strings.Resources.pt-PT.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.pt-PT</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\ro-RO\Resources.resx" Link="Strings\Resources.ro-RO.resx" Culture="ro-RO">
+      <LogicalName>Foundry.Connect.Strings.Resources.ro-RO.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.ro-RO</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\ru-RU\Resources.resx" Link="Strings\Resources.ru-RU.resx" Culture="ru-RU">
+      <LogicalName>Foundry.Connect.Strings.Resources.ru-RU.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.ru-RU</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\sk-SK\Resources.resx" Link="Strings\Resources.sk-SK.resx" Culture="sk-SK">
+      <LogicalName>Foundry.Connect.Strings.Resources.sk-SK.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.sk-SK</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\sl-SI\Resources.resx" Link="Strings\Resources.sl-SI.resx" Culture="sl-SI">
+      <LogicalName>Foundry.Connect.Strings.Resources.sl-SI.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.sl-SI</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\sr-Latn-RS\Resources.resx" Link="Strings\Resources.sr-Latn-RS.resx" Culture="sr-Latn-RS">
+      <LogicalName>Foundry.Connect.Strings.Resources.sr-Latn-RS.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.sr-Latn-RS</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\sv-SE\Resources.resx" Link="Strings\Resources.sv-SE.resx" Culture="sv-SE">
+      <LogicalName>Foundry.Connect.Strings.Resources.sv-SE.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.sv-SE</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\th-TH\Resources.resx" Link="Strings\Resources.th-TH.resx" Culture="th-TH">
+      <LogicalName>Foundry.Connect.Strings.Resources.th-TH.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.th-TH</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\tr-TR\Resources.resx" Link="Strings\Resources.tr-TR.resx" Culture="tr-TR">
+      <LogicalName>Foundry.Connect.Strings.Resources.tr-TR.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.tr-TR</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\uk-UA\Resources.resx" Link="Strings\Resources.uk-UA.resx" Culture="uk-UA">
+      <LogicalName>Foundry.Connect.Strings.Resources.uk-UA.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.uk-UA</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\zh-CN\Resources.resx" Link="Strings\Resources.zh-CN.resx" Culture="zh-CN">
+      <LogicalName>Foundry.Connect.Strings.Resources.zh-CN.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.zh-CN</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\zh-TW\Resources.resx" Link="Strings\Resources.zh-TW.resx" Culture="zh-TW">
+      <LogicalName>Foundry.Connect.Strings.Resources.zh-TW.resources</LogicalName>
+      <ManifestResourceName>Foundry.Connect.Strings.Resources.zh-TW</ManifestResourceName>
     </EmbeddedResource>
   </ItemGroup>
 
