@@ -79,7 +79,7 @@ No hardcoded language list was found for the General page.
 - Modify: `src/Foundry.Deploy/Strings/en-US/Resources.resx`
 - Modify tests only when exact text expectations change
 
-- [ ] **Step 1: Review Foundry OSD en-US copy**
+- [x] **Step 1: Review Foundry OSD en-US copy**
 
 Check the 626 keys for wording consistency, especially:
 
@@ -94,7 +94,7 @@ StartMedia.Operation.DownloadingDriverPackage
 certificate is expired
 ```
 
-- [ ] **Step 2: Review Foundry Connect en-US copy**
+- [x] **Step 2: Review Foundry Connect en-US copy**
 
 Check the 98 keys for wording consistency, especially:
 
@@ -106,7 +106,7 @@ About.Contributors
 Ethernet.NoAdapterDetected
 ```
 
-- [ ] **Step 3: Review Foundry Deploy en-US copy**
+- [x] **Step 3: Review Foundry Deploy en-US copy**
 
 Check the 389 keys for wording consistency, especially:
 
@@ -117,11 +117,11 @@ Preparation.NetworkShareRequired*
 OS image / operating system image
 ```
 
-- [ ] **Step 4: Patch source English only**
+- [x] **Step 4: Patch source English only**
 
 Use `en-US` as the only source edited in this task. Keep keys stable unless a key name is clearly wrong and all call sites can be updated safely.
 
-- [ ] **Step 5: Run focused tests**
+- [x] **Step 5: Run focused tests**
 
 Run:
 
@@ -135,7 +135,7 @@ Expected:
 0 failed
 ```
 
-- [ ] **Step 6: Commit en-US pass**
+- [x] **Step 6: Commit en-US pass**
 
 Commit:
 

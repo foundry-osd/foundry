@@ -28,10 +28,10 @@
     <value>Loading contributors...</value>
   </data>
   <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
-    <value>{0} contribution(s)</value>
+    <value>Contributions: {0}</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
-    <value>Foundry OSD is a modern Windows deployment media authoring app built around WinPE runtime agents.</value>
+    <value>Foundry OSD is a modern app for authoring Windows deployment media powered by WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
     <value>Copyright (c) 2026 Foundry Project.</value>
@@ -94,7 +94,7 @@
     <value>Useful links</value>
   </data>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
-    <value>Check for new version</value>
+    <value>Check for updates</value>
   </data>
   <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
     <value>Update and restart</value>
@@ -118,7 +118,7 @@
     <value>Preview releases</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
-    <value>Velopack web feed</value>
+    <value>Web update feed</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Close</value>
@@ -142,7 +142,7 @@
     <value>Enable developer diagnostics and open the Foundry log folder.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostics and feedback</value>
+    <value>Diagnostics</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Change the application language without restarting Foundry OSD.</value>
@@ -286,7 +286,7 @@
     <value>Cancel</value>
   </data>
   <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
-    <value>{0} of {1} profile(s) selected</value>
+    <value>Selected profiles: {0} of {1}</value>
   </data>
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON profile provisioning</value>
@@ -472,7 +472,7 @@
     <value>Select a PFX that matches an app registration certificate.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
-    <value>The selected certificate is expired. Create or select a valid certificate before creating boot media.</value>
+    <value>The selected certificate has expired. Create or select a valid certificate before creating boot media.</value>
   </data>
   <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
     <value>Select the matching password-protected PFX before creating boot media.</value>
@@ -538,7 +538,7 @@
     <value>The previously selected certificate no longer exists in the managed app registration. Select a valid PFX that matches a provisioned certificate.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
-    <value>The selected certificate is expired. Create a new certificate, save its PFX and password, then select it for boot media.</value>
+    <value>The selected certificate has expired. Create a new certificate, save its PFX and password, then select it for boot media.</value>
   </data>
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>The managed app registration is not ready. Review tenant readiness and reconnect.</value>
@@ -550,7 +550,7 @@
     <value>Foundry could not open the documentation in your browser. Use this URL instead.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
-    <value>Open documentation</value>
+    <value>Documentation could not be opened</value>
   </data>
   <data name="Customization.MachineNamingHeader" xml:space="preserve">
     <value>Computer name</value>
@@ -667,13 +667,13 @@
     <value>Remove Microsoft Copilot</value>
   </data>
   <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
-    <value>Remove the Copilot AppX package and turn off Windows Copilot policy.</value>
+    <value>Remove the Copilot app package and turn off Windows Copilot policy.</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
     <value>Remove Copilot+ AI Hub</value>
   </data>
   <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
-    <value>Remove the Windows AI Hub provisioned AppX package when present.</value>
+    <value>Remove the provisioned Windows AI Hub app package when present.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
     <value>Disable Windows Recall</value>
@@ -712,13 +712,13 @@
     <value>Set the Notepad policy that disables AI features.</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Provisioned AppX removal</value>
+    <value>Provisioned app removal</value>
   </data>
   <data name="Customization.AppxRemovalDescription" xml:space="preserve">
     <value>Remove selected provisioned Windows apps before OOBE.</value>
   </data>
   <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Remove provisioned AppX apps</value>
+    <value>Remove provisioned Windows apps</value>
   </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profile</value>
@@ -733,7 +733,7 @@
     <value>Custom</value>
   </data>
   <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
-    <value>{0} profiles selected</value>
+    <value>Selected profiles: {0}</value>
   </data>
   <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
     <value>Select all</value>
@@ -745,7 +745,7 @@
     <value>Packages</value>
   </data>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
-    <value>{0} of {1} package(s) selected</value>
+    <value>Selected packages: {0} of {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
     <value>Choose the architecture, boot image language, and drivers to inject into the boot image.</value>
@@ -787,7 +787,7 @@
     <value>Next step</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Review final output targets from the Start page after Windows ADK and Windows PE Add-on readiness is valid.</value>
+    <value>Review final output targets on the Start page after Windows ADK and Windows PE Add-on readiness is confirmed.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Review and start</value>
@@ -874,7 +874,7 @@
     <value>Personal Wi-Fi passphrases remain transient in the authoring app and are not persisted in Foundry configuration.</value>
   </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
-    <value>Enterprise behavior is driven by the profile template in this build. Runtime-entered 802.1X credentials are not provisioned here.</value>
+    <value>Enterprise behavior is driven by the profile template in this build. 802.1X credentials entered during deployment are not provisioned here.</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Advanced enterprise Wi-Fi</value>
@@ -958,7 +958,7 @@
     <value>Architecture and signature</value>
   </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
-    <value>Select the boot architecture and PCA signature mode.</value>
+    <value>Select the boot architecture and boot signature mode.</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -1003,10 +1003,10 @@
     <value>Optional folder containing additional .inf drivers.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
-    <value>Final media commands</value>
+    <value>Create media</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Create the final ISO or USB media after all readiness checks pass.</value>
+    <value>Create ISO or USB media after all readiness checks pass.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Create ISO</value>
@@ -1021,10 +1021,10 @@
     <value>Full format</value>
   </data>
   <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
-    <value>Final ISO/USB execution is deferred until the final media enablement phase.</value>
+    <value>Media creation is not enabled in this build.</value>
   </data>
   <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
-    <value>Final ISO/USB execution is enabled when all readiness checks pass.</value>
+    <value>Media creation is available when all readiness checks pass.</value>
   </data>
   <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
     <value>ISO creation is blocked</value>
@@ -1036,7 +1036,7 @@
     <value>Format USB target</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
-    <value>This will erase disk {0}: {1} ({2}). Continue only if this is the intended disposable USB target.</value>
+    <value>This will erase disk {0}: {1} ({2}). Continue only if this is the intended USB drive.</value>
   </data>
   <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
     <value>Format and create USB</value>
@@ -1072,7 +1072,7 @@
     <value>Provisioning Foundry boot assets.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
-    <value>Provisioning Foundry runtime payloads.</value>
+    <value>Adding Foundry deployment components.</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Committing boot image changes.</value>
@@ -1096,7 +1096,7 @@
     <value>Final media creation failed.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
-    <value>Downloading.</value>
+    <value>Downloading content.</value>
   </data>
   <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
     <value>Resolving WinRE source catalog.</value>
@@ -1120,7 +1120,7 @@
     <value>Downloading driver package</value>
   </data>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
-    <value>Downloading {0} runtime payload.</value>
+    <value>Downloading {0} deployment components.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
     <value>Validating WinRE source package.</value>
@@ -1207,7 +1207,7 @@
     <value>Preparing USB cache partition.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Provisioning USB runtime payloads.</value>
+    <value>Adding Foundry components to USB media.</value>
   </data>
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>USB media completed.</value>
@@ -1264,16 +1264,16 @@
     <value>USB targets have not been scanned yet.</value>
   </data>
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
-    <value>No USB target candidates were found.</value>
+    <value>No USB drives were found.</value>
   </data>
   <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
-    <value>{0} USB target candidates found.</value>
+    <value>USB drives found: {0}</value>
   </data>
   <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
     <value>Disk {0} - {1} ({2})</value>
   </data>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
-    <value>Blocking or deferred items:</value>
+    <value>Items needing attention:</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
     <value>Ready to create ISO and USB media</value>
@@ -1285,7 +1285,7 @@
     <value>Ready to create USB media</value>
   </data>
   <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
-    <value>{0} readiness blockers need action</value>
+    <value>Readiness items needing action: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Review media output warnings</value>
@@ -1432,7 +1432,7 @@
     <value>Hardware hash upload is enabled but the selected certificate expiration is missing.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate is expired. Select a valid certificate before creating boot media.</value>
+    <value>Hardware hash upload is enabled but the selected certificate has expired. Select a valid certificate before creating boot media.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
     <value>Hardware hash upload is enabled but no boot media PFX is selected.</value>
@@ -1450,7 +1450,7 @@
     <value>Hardware hash upload is enabled but the boot media PFX expiration could not be validated.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected boot media PFX is expired.</value>
+    <value>Hardware hash upload is enabled but the selected boot media PFX has expired.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>ADK or WinPE Add-on is not ready.</value>
@@ -1468,7 +1468,7 @@
     <value>Network configuration is not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
-    <value>Deploy configuration generation is deferred.</value>
+    <value>Deploy configuration generation is not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
     <value>Connect provisioning is not ready.</value>
@@ -1495,7 +1495,7 @@
     <value>Custom driver folder does not contain .inf files.</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
-    <value>Final media execution is deferred.</value>
+    <value>Media creation is not enabled in this build.</value>
   </data>
   <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
     <value>PCA 2011</value>
@@ -1648,7 +1648,7 @@
     <value>Change theme, backdrop, and accent color preferences.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
-    <value>Appearance and behavior</value>
+    <value>Appearance</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
     <value>Check for Foundry OSD updates and review release notes.</value>
@@ -1843,7 +1843,7 @@
     <value>Media creation capability</value>
   </data>
   <data name="Adk.MediaCapability.Ready" xml:space="preserve">
-    <value>ISO and USB creation can be unlocked.</value>
+    <value>ISO and USB creation are available.</value>
   </data>
   <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
     <value>ISO and USB creation remain blocked.</value>
@@ -1885,9 +1885,9 @@
     <value>ADK operation failed</value>
   </data>
   <data name="AdkPage_InstallButton.Content" xml:space="preserve">
-    <value>Install ADK and WinPE add-on</value>
+    <value>Install Windows ADK and Windows PE Add-on</value>
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
-    <value>Upgrade ADK and WinPE add-on</value>
+    <value>Upgrade Windows ADK and Windows PE Add-on</value>
   </data>
 </root>

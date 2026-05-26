@@ -22,13 +22,13 @@
     <value>About Foundry Connect</value>
   </data>
   <data name="About.DescriptionLine1" xml:space="preserve">
-    <value>Foundry Connect validates network readiness in WinPE before the Foundry bootstrap continues.</value>
+    <value>Foundry Connect validates network readiness in WinPE before Foundry deployment continues.</value>
   </data>
   <data name="About.DescriptionLine2" xml:space="preserve">
-    <value>This software is provided as-is. Confirm network access before continuing deployment.</value>
+    <value>This software is provided as is. Confirm network access before continuing deployment.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Contributors. Licensed under the MIT License.</value>
+    <value>Copyright (c) 2026 Foundry Project. Licensed under the MIT License.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>Theme</value>
@@ -61,13 +61,13 @@
     <value>French</value>
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
-    <value>Refresh Status</value>
+    <value>Refresh status</value>
   </data>
   <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Use Runtime Layout</value>
+    <value>Use detected layout</value>
   </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Show Ethernet Only</value>
+    <value>Show Ethernet only</value>
   </data>
   <data name="Debug.ShowEthernetWifi" xml:space="preserve">
     <value>Show Ethernet + Wi-Fi</value>
@@ -91,13 +91,13 @@
     <value>Configuration: built-in defaults</value>
   </data>
   <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Refresh: every {0} seconds</value>
+    <value>Refreshes every {0} seconds</value>
   </data>
   <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Last update: pending</value>
+    <value>Last updated: pending</value>
   </data>
   <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Last update: {0:HH:mm:ss}</value>
+    <value>Last updated: {0:HH:mm:ss}</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Unavailable</value>
@@ -115,13 +115,13 @@
     <value>Network ready</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internet access is validated. You can continue now.</value>
+    <value>Internet access has been validated. You can continue now.</value>
   </data>
   <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
     <value>Network refresh failed</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
-    <value>Auto-continue in {0}s</value>
+    <value>Continuing automatically in {0}s</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
@@ -136,7 +136,7 @@
     <value>Gateway</value>
   </data>
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>No ethernet adapter detected.</value>
+    <value>No Ethernet adapter detected.</value>
   </data>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>No active link</value>
@@ -175,22 +175,22 @@
     <value>Authentication</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
-    <value>Provisioned profile required in this build.</value>
+    <value>This network requires a provisioned Wi-Fi profile.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>No Wi-Fi networks are currently visible.</value>
   </data>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>No provisioned profile is available in this boot image.</value>
+    <value>No provisioned Wi-Fi profile is available in this boot image.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi support is not available at runtime.</value>
+    <value>Wi-Fi support is not available in this boot environment.</value>
   </data>
   <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>No wireless adapter is currently detected.</value>
+    <value>No Wi-Fi adapter is currently detected.</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>No wireless adapter is available.</value>
+    <value>No Wi-Fi adapter is available.</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Enterprise profile</value>
@@ -202,16 +202,16 @@
     <value>Boot image settings</value>
   </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificate included</value>
+    <value>{0} · Certificate included in boot image</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
-    <value>Configured profile</value>
+    <value>Configured security</value>
   </data>
   <data name="Wifi.StatusUnavailable" xml:space="preserve">
     <value>Wi-Fi unavailable</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>No wireless adapter available</value>
+    <value>No Wi-Fi adapter available</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Another Wi-Fi network is active</value>
@@ -232,7 +232,7 @@
     <value>This Wi-Fi network is not supported in this build.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
-    <value>Unable to connect. Check the password and try again.</value>
+    <value>Unable to connect. Check the password or network settings and try again.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>The provisioned Wi-Fi profile is not available.</value>
