@@ -29,4 +29,61 @@ public sealed class EmbeddedLanguageRegistryServiceTests
             languages.Count,
             languages.Select(language => language.Code).Distinct(StringComparer.OrdinalIgnoreCase).Count());
     }
+
+    [Fact]
+    public void GetLanguages_IncludesMicrosoftOperatingSystemCatalogLanguages()
+    {
+        var service = new EmbeddedLanguageRegistryService();
+
+        IReadOnlyList<LanguageRegistryEntry> languages = service.GetLanguages();
+
+        string[] expectedCodes =
+        [
+            "ar-SA",
+            "bg-BG",
+            "cs-CZ",
+            "da-DK",
+            "de-DE",
+            "el-GR",
+            "en-GB",
+            "en-US",
+            "es-ES",
+            "es-MX",
+            "et-EE",
+            "fi-FI",
+            "fr-CA",
+            "fr-FR",
+            "he-IL",
+            "hr-HR",
+            "hu-HU",
+            "it-IT",
+            "ja-JP",
+            "ko-KR",
+            "lt-LT",
+            "lv-LV",
+            "nb-NO",
+            "nl-NL",
+            "pl-PL",
+            "pt-BR",
+            "pt-PT",
+            "ro-RO",
+            "ru-RU",
+            "sk-SK",
+            "sl-SI",
+            "sr-Latn-RS",
+            "sv-SE",
+            "th-TH",
+            "tr-TR",
+            "uk-UA",
+            "zh-CN",
+            "zh-TW"
+        ];
+
+        string[] actualCodes = languages
+            .Select(language => language.Code)
+            .Order(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        Assert.Equal(expectedCodes, actualCodes);
+    }
 }
