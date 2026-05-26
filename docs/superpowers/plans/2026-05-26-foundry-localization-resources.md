@@ -37,7 +37,7 @@ feat/foundry-localization-resources
 Run:
 
 ```powershell
-dotnet test Foundry.slnx --configuration Release
+dotnet test src\Foundry.slnx --configuration Release
 ```
 
 Result:
@@ -126,7 +126,7 @@ Use `en-US` as the only source edited in this task. Keep keys stable unless a ke
 Run:
 
 ```powershell
-dotnet test Foundry.slnx --configuration Release
+dotnet test src\Foundry.slnx --configuration Release
 ```
 
 Expected:
@@ -183,7 +183,7 @@ Align all 389 `fr-FR` values with the reviewed `en-US` source. Standardize deplo
 Compare each `fr-FR` file against its matching `en-US` file:
 
 ```powershell
-dotnet test Foundry.slnx --configuration Release
+dotnet test src\Foundry.slnx --configuration Release
 ```
 
 Expected:
@@ -272,7 +272,7 @@ git commit -m "feat(localization): add ADK language resource files"
 Run:
 
 ```powershell
-dotnet test Foundry.slnx --configuration Release
+dotnet test src\Foundry.slnx --configuration Release
 ```
 
 Expected:
