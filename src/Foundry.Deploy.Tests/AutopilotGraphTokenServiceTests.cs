@@ -1,6 +1,8 @@
+using System.Globalization;
 using System.Net;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Web;
 using Foundry.Deploy.Services.Autopilot;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -42,6 +44,47 @@ public sealed class AutopilotGraphTokenServiceTests
     }
 
     [Fact]
+    public async Task AcquireAccessTokenAsync_WhenClientAssertionClockSkewIsRejected_RetriesWithEntraTime()
+    {
+        var handler = new RecordingTokenHandler();
+        handler.Enqueue(
+            HttpStatusCode.Unauthorized,
+            """
+            {
+                "error": "invalid_client",
+                "error_description": "AADSTS700024: Client assertion is not within its valid time range. Current time: 2026-05-26T17:04:09.8211604Z, assertion valid from 2026-05-27T03:04:08.0000000Z, expiry time of assertion 2026-05-27T03:14:08.0000000Z."
+            }
+            """);
+        handler.Enqueue(HttpStatusCode.OK, """{ "access_token": "graph-token", "token_type": "Bearer" }""");
+        using X509Certificate2 certificate = CreateCertificate();
+        var service = new AutopilotGraphTokenService(
+            new HttpClient(handler),
+            NullLogger<AutopilotGraphTokenService>.Instance,
+            new AutopilotGraphTokenServiceOptions
+            {
+                RetryDelay = TimeSpan.Zero
+            });
+
+        string token = await service.AcquireAccessTokenAsync(
+            "tenant-id",
+            "client-id",
+            certificate,
+            CancellationToken.None);
+
+        Assert.Equal("graph-token", token);
+        Assert.Equal(2, handler.Requests.Count);
+
+        string retryAssertion = ExtractFormValue(handler.Requests[1].Body, "client_assertion");
+        string retryPayloadJson = DecodeBase64Url(retryAssertion.Split('.')[1]);
+        long expectedIssuedAt = DateTimeOffset.Parse(
+            "2026-05-26T17:04:09.8211604Z",
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal).ToUnixTimeSeconds();
+
+        Assert.Contains($"\"iat\":{expectedIssuedAt}", retryPayloadJson, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void CreateClientAssertion_UsesPs256AndSha256CertificateThumbprint()
     {
         using X509Certificate2 certificate = CreateCertificate();
@@ -69,6 +112,11 @@ public sealed class AutopilotGraphTokenServiceTests
             RSASignaturePadding.Pkcs1);
 
         return request.CreateSelfSigned(DateTimeOffset.UtcNow.AddMinutes(-5), DateTimeOffset.UtcNow.AddMonths(12));
+    }
+
+    private static string ExtractFormValue(string formBody, string key)
+    {
+        return HttpUtility.ParseQueryString(formBody)[key] ?? string.Empty;
     }
 
     private static string DecodeBase64Url(string value)
