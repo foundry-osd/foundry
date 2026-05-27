@@ -69,8 +69,6 @@ public static class LocalizedToggleSwitch
     private sealed class LocalizedToggleSwitchState(ToggleSwitch toggleSwitch)
     {
         private IApplicationLocalizationService? localizationService;
-        private string? lastAppliedOnContent;
-        private string? lastAppliedOffContent;
 
         public void Attach()
         {
@@ -127,28 +125,8 @@ public static class LocalizedToggleSwitch
             string enabledText = localizationService.GetString("Common.Enabled");
             string disabledText = localizationService.GetString("Common.Disabled");
 
-            if (!CanUpdate(toggleSwitch.OnContent, lastAppliedOnContent, enabledText) ||
-                !CanUpdate(toggleSwitch.OffContent, lastAppliedOffContent, disabledText))
-            {
-                return;
-            }
-
             toggleSwitch.OnContent = enabledText;
             toggleSwitch.OffContent = disabledText;
-            lastAppliedOnContent = enabledText;
-            lastAppliedOffContent = disabledText;
-        }
-
-        private static bool CanUpdate(object? currentContent, string? lastAppliedContent, string localizedContent)
-        {
-            if (currentContent is null)
-            {
-                return true;
-            }
-
-            string? currentText = currentContent as string;
-            return string.Equals(currentText, lastAppliedContent, StringComparison.Ordinal) ||
-                string.Equals(currentText, localizedContent, StringComparison.Ordinal);
         }
     }
 }

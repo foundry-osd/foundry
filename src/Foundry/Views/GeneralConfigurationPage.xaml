@@ -2,6 +2,7 @@
 <Page x:Class="Foundry.Views.GeneralConfigurationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:Foundry.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dev="using:DevWinUI"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -27,6 +28,7 @@
                               ItemsSource="{x:Bind ViewModel.Architectures, Mode=OneWay}"
                               SelectedItem="{x:Bind ViewModel.SelectedArchitecture, Mode=TwoWay}" />
                     <ToggleSwitch x:Name="Ca2023Toggle"
+                                  behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="False"
                                   IsOn="{x:Bind ViewModel.UseCa2023Signature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </wct:SettingsCard>
@@ -56,8 +58,10 @@
                 <StackPanel Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
                     <ToggleSwitch x:Name="DellDriversToggle"
+                                  behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="False"
                                   IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <ToggleSwitch x:Name="HpDriversToggle"
+                                  behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="False"
                                   IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <wct:SettingsExpander.Items>
