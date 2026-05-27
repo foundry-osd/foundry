@@ -2,6 +2,7 @@
 <Page x:Class="Foundry.Views.GeneralSettingPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:Foundry.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dev="using:DevWinUI"
       xmlns:local="using:Foundry"
@@ -22,7 +23,7 @@
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE7F4;" />
                 </wct:SettingsCard.HeaderIcon>
-                <ToggleSwitch x:Name="StartupToggle"
+                <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" x:Name="StartupToggle"
                                IsOn="{x:Bind dev:StartupHelper.IsAppStartupWithWindowsForXamlBindingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wct:SettingsCard>
 
@@ -49,7 +50,7 @@
                 <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xEC7A;" />
                 </wct:SettingsExpander.HeaderIcon>
-                <ToggleSwitch x:Name="DiagnosticsToggle"
+                <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" x:Name="DiagnosticsToggle"
                                IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <wct:SettingsExpander.ItemsHeader>
                     <HyperlinkButton HorizontalAlignment="Stretch"
