@@ -748,7 +748,7 @@
     <value>Вибрані пакети: {0} з {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Виберіть архітектуру, мову завантажувального образу та драйвери, які потрібно додати до завантажувального образу.</value>
+    <value>Параметри завантаження.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Налаштувати медіа</value>
@@ -760,13 +760,13 @@
     <value>Відкрити ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Відкрийте документацію Foundry OSD у своєму браузері.</value>
+    <value>Документація продукту.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Відкрита документація</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Перегляньте остаточний медіа-резюме та створіть ISO або USB медіа.</value>
+    <value>Підсумок носія.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Перегляд і початок</value>

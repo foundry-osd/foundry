@@ -748,7 +748,7 @@
     <value>Valitud paketid: {0} {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Valige alglaadimispildile sisestatav arhitektuur, alglaadimispildi keel ja draiverid.</value>
+    <value>Alglaadimisvalikud.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Meediumi konfigureerimine</value>
@@ -760,13 +760,13 @@
     <value>Ava ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Avage brauseris Foundry OSD dokumentatsioon.</value>
+    <value>Toote dokumentatsioon.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Avage dokumentatsioon</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Vaadake üle lõplik meediakokkuvõte ja looge ISO või USB meedium.</value>
+    <value>Lõplik meediakokkuvõte.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Vaata üle ja alusta</value>

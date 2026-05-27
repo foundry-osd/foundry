@@ -748,7 +748,7 @@
     <value>選択したパッケージ: {0} または {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>アーキテクチャ、ブート イメージ言語、およびブート イメージに挿入するドライバーを選択します。</value>
+    <value>ブートオプション。</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>メディアの構成</value>
@@ -760,13 +760,13 @@
     <value>ADK を開きます</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>ブラウザで Foundry OSD ドキュメントを開きます。</value>
+    <value>製品ドキュメント。</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>オープンドキュメント</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>最終的なメディアの概要を確認し、ISO または USB メディアを作成します。</value>
+    <value>最終メディア概要。</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>確認して開始</value>

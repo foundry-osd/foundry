@@ -748,7 +748,7 @@
     <value>Выбранные пакеты: {0} из {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Выберите архитектуру, язык загрузочного образа и драйверы для внедрения в загрузочный образ.</value>
+    <value>Варианты загрузки.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Настройка мультимедиа</value>
@@ -760,13 +760,13 @@
     <value>Открыть ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Откройте документацию Foundry OSD в своем браузере.</value>
+    <value>Документация продукта.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Открыть документацию</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Просмотрите окончательную сводку медиафайлов и создайте медиафайлы ISO или USB.</value>
+    <value>Итоговая сводка носителя.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Просмотрите и начните</value>

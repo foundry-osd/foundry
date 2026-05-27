@@ -748,7 +748,7 @@
     <value>Kiválasztott csomagok: {0}/{1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Válassza ki az architektúrát, a rendszerindító lemezkép nyelvét és az illesztőprogramokat a rendszerindító lemezképbe.</value>
+    <value>Rendszerindítási lehetőségek.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Média konfigurálása</value>
@@ -760,13 +760,13 @@
     <value>Megnyitás ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Nyissa meg a Foundry OSD dokumentációt a böngészőjében.</value>
+    <value>Termékdokumentáció.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Nyissa meg a dokumentációt</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Tekintse át a végső médiaösszefoglalót, és hozzon létre ISO vagy USB médiát.</value>
+    <value>Végső médiaösszegzés.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Tekintse át és kezdje el</value>

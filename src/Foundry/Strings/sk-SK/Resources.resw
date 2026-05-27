@@ -748,7 +748,7 @@
     <value>Vybrané balíčky: {0} z {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Vyberte architektúru, jazyk zavádzacieho obrazu a ovládače, ktoré sa majú vložiť do zavádzacieho obrazu.</value>
+    <value>Možnosti zavádzania.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Nakonfigurujte médiá</value>
@@ -760,13 +760,13 @@
     <value>Otvoriť ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Vo svojom prehliadači otvorte dokumentáciu Foundry OSD.</value>
+    <value>Produktová dokumentácia.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Otvorte dokumentáciu</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Skontrolujte konečný súhrn médií a vytvorte médiá ISO alebo USB.</value>
+    <value>Záverečný súhrn média.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Skontrolujte a začnite</value>

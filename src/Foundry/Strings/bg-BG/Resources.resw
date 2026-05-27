@@ -748,7 +748,7 @@
     <value>Избрани пакети: {0} от {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Изберете архитектурата, езика на изображението за зареждане и драйверите, които да инжектирате в изображението за зареждане.</value>
+    <value>Опции за зареждане.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Конфигуриране на медиите</value>
@@ -760,13 +760,13 @@
     <value>Отворете ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Отворете Foundry OSD документация във вашия браузър.</value>
+    <value>Продуктова документация.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Отворена документация</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Прегледайте крайното медийно резюме и създайте ISO или USB медия.</value>
+    <value>Финално резюме на носителя.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Прегледайте и започнете</value>

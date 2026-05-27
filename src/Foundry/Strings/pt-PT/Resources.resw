@@ -748,7 +748,7 @@
     <value>Pacotes selecionados: {0} de {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Escolha a arquitetura, o idioma da imagem de inicialização e os drivers a serem injetados na imagem de inicialização.</value>
+    <value>Opções de arranque.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Configurar mídia</value>
@@ -760,13 +760,13 @@
     <value>Abra ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Abra a documentação Foundry OSD em seu navegador.</value>
+    <value>Documentação do produto.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Documentação aberta</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Revise o resumo final da mídia e crie mídia ISO ou USB.</value>
+    <value>Resumo final do suporte.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Revise e comece</value>

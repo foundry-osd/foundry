@@ -748,7 +748,7 @@
     <value>חבילות נבחרות: {0} מתוך {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>בחר את הארכיטקטורה, שפת תמונת האתחול ומנהלי התקנים להחדרה לתמונת האתחול.</value>
+    <value>אפשרויות אתחול.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>הגדר מדיה</value>
@@ -760,13 +760,13 @@
     <value>פתח ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>פתח את התיעוד של Foundry OSD בדפדפן שלך.</value>
+    <value>תיעוד המוצר.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>פתח תיעוד</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>עיין בתקציר המדיה הסופי וצור מדיה ISO או USB.</value>
+    <value>סיכום מדיה סופי.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>בדוק והתחל</value>

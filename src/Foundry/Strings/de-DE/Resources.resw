@@ -748,7 +748,7 @@
     <value>Ausgewählte Pakete: {0} von {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Wählen Sie die Architektur, die Boot-Image-Sprache und die Treiber aus, die in das Boot-Image eingefügt werden sollen.</value>
+    <value>Boot-Optionen.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Medien konfigurieren</value>
@@ -760,13 +760,13 @@
     <value>Öffnen Sie ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Öffnen Sie die Dokumentation Foundry OSD in Ihrem Browser.</value>
+    <value>Produktdokumentation.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Dokumentation öffnen</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Überprüfen Sie die endgültige Medienzusammenfassung und erstellen Sie ISO- oder USB-Medien.</value>
+    <value>Finale Medienübersicht.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Überprüfen und beginnen</value>

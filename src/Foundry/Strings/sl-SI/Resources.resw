@@ -748,7 +748,7 @@
     <value>Izbrani paketi: {0} od {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Izberite arhitekturo, jezik zagonske slike in gonilnike, ki jih želite vstaviti v zagonsko sliko.</value>
+    <value>Možnosti zagona.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Konfigurirajte medije</value>
@@ -760,13 +760,13 @@
     <value>Odpri ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>V brskalniku odprite dokumentacijo Foundry OSD.</value>
+    <value>Dokumentacija izdelka.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Odprta dokumentacija</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Preglejte končni medijski povzetek in ustvarite ISO ali USB medij.</value>
+    <value>Končni povzetek medija.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Pregled in začetek</value>

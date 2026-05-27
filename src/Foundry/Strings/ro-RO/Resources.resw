@@ -748,7 +748,7 @@
     <value>Pachete selectate: {0} din {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Alegeți arhitectura, limbajul imaginii de pornire și driverele de injectat în imaginea de pornire.</value>
+    <value>Opțiuni de pornire.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Configurați media</value>
@@ -760,13 +760,13 @@
     <value>Deschide ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Deschideți documentația Foundry OSD în browser.</value>
+    <value>Documentația produsului.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Deschideți documentația</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Examinați rezumatul media final și creați media ISO sau USB.</value>
+    <value>Rezumat media final.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Examinați și începeți</value>

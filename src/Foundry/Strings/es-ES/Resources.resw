@@ -748,7 +748,7 @@
     <value>Paquetes seleccionados: {0} de {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Elija la arquitectura, el idioma de la imagen de inicio y los controladores para insertar en la imagen de inicio.</value>
+    <value>Opciones de arranque.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Configurar medios</value>
@@ -760,13 +760,13 @@
     <value>Abrir ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Abra la documentación Foundry OSD en su navegador.</value>
+    <value>Documentación del producto.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Abrir documentación</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Revise el resumen de medios final y cree medios ISO o USB.</value>
+    <value>Resumen final del medio.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Revisar y comenzar</value>

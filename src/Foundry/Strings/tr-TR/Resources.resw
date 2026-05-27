@@ -748,7 +748,7 @@
     <value>Seçilen paketler: {0} / {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Önyükleme görüntüsüne eklenecek mimariyi, önyükleme görüntüsü dilini ve sürücüleri seçin.</value>
+    <value>Önyükleme seçenekleri.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Medyayı yapılandırın</value>
@@ -760,13 +760,13 @@
     <value>ADK'yı aç</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Tarayıcınızda Foundry OSD belgelerini açın.</value>
+    <value>Ürün belgeleri.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Belgeleri aç</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Nihai medya özetini inceleyin ve ISO veya USB medyasını oluşturun.</value>
+    <value>Son medya özeti.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>İncele ve başlat</value>

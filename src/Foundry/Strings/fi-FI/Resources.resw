@@ -748,7 +748,7 @@
     <value>Valitut paketit: {0} / {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Valitse arkkitehtuuri, käynnistyskuvan kieli ja ajurit lisättäväksi käynnistyskuvaan.</value>
+    <value>Käynnistysvaihtoehdot.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Määritä media</value>
@@ -760,13 +760,13 @@
     <value>Avaa ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Avaa Foundry OSD-dokumentaatio selaimessasi.</value>
+    <value>Tuotedokumentaatio.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Avaa dokumentaatio</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Tarkista lopullinen mediayhteenveto ja luo ISO tai USB media.</value>
+    <value>Lopullinen mediayhteenveto.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Tarkista ja aloita</value>

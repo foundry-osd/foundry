@@ -748,7 +748,7 @@
     <value>แพ็กเกจที่เลือก: {0} ของ {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>เลือกสถาปัตยกรรม ภาษาของอิมเมจสำหรับบูต และไดรเวอร์ที่จะแทรกลงในอิมเมจสำหรับบูต</value>
+    <value>ตัวเลือกการบูต</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>กำหนดค่าสื่อ</value>
@@ -760,13 +760,13 @@
     <value>เปิด ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>เปิดเอกสาร Foundry OSD ในเบราว์เซอร์ของคุณ</value>
+    <value>เอกสารประกอบผลิตภัณฑ์</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>เปิดเอกสาร</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>ตรวจสอบสรุปสื่อขั้นสุดท้ายและสร้างสื่อ ISO หรือ USB</value>
+    <value>สรุปสื่อขั้นสุดท้าย</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>ทบทวนและเริ่มต้น</value>

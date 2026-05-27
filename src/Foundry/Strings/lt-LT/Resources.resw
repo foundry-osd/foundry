@@ -748,7 +748,7 @@
     <value>Pasirinkti paketai: {0} iš {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Pasirinkite architektūrą, įkrovos vaizdo kalbą ir tvarkykles, kurias norite įtraukti į įkrovos vaizdą.</value>
+    <value>Įkrovos parinktys.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Konfigūruoti laikmeną</value>
@@ -760,13 +760,13 @@
     <value>Atidaryti ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Atidarykite Foundry OSD dokumentaciją savo naršyklėje.</value>
+    <value>Gaminio dokumentacija.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Atidarykite dokumentaciją</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Peržiūrėkite galutinę medijos santrauką ir sukurkite ISO arba USB laikmeną.</value>
+    <value>Galutinė medijos suvestinė.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Peržiūrėkite ir pradėkite</value>

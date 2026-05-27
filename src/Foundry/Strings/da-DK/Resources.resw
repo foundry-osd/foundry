@@ -748,7 +748,7 @@
     <value>Valgte pakker: {0} af {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Vælg arkitekturen, sproget til opstartsbilledet og de drivere, der skal indsættes i opstartsbilledet.</value>
+    <value>Opstartsmuligheder.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Konfigurer medier</value>
@@ -760,13 +760,13 @@
     <value>Åbn ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Åbn Foundry OSD dokumentationen i din browser.</value>
+    <value>Produktdokumentation.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Åbn dokumentation</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Gennemgå det endelige medieresumé, og opret ISO eller USB medier.</value>
+    <value>Endelig medieoversigt.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Gennemgå og start</value>

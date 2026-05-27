@@ -748,7 +748,7 @@
     <value>선택된 패키지: {0} 중 {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>부팅 이미지에 삽입할 아키텍처, 부팅 이미지 언어 및 드라이버를 선택합니다.</value>
+    <value>부팅 옵션.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>미디어 구성</value>
@@ -760,13 +760,13 @@
     <value>ADK 열기</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>브라우저에서 Foundry OSD 문서를 엽니다.</value>
+    <value>제품 문서.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>문서 열기</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>최종 미디어 요약을 검토하고 ISO 또는 USB 미디어를 만듭니다.</value>
+    <value>최종 미디어 요약.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>검토 및 시작</value>

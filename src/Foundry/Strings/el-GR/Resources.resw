@@ -748,7 +748,7 @@
     <value>Επιλεγμένα πακέτα: {0} του {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Επιλέξτε την αρχιτεκτονική, τη γλώσσα της εικόνας εκκίνησης και τα προγράμματα οδήγησης για εισαγωγή στην εικόνα εκκίνησης.</value>
+    <value>Επιλογές εκκίνησης.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Διαμόρφωση πολυμέσων</value>
@@ -760,13 +760,13 @@
     <value>Άνοιξε ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Ανοίξτε την τεκμηρίωση Foundry OSD στο πρόγραμμα περιήγησής σας.</value>
+    <value>Τεκμηρίωση προϊόντος.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Ανοίξτε την τεκμηρίωση</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Ελέγξτε την τελική σύνοψη πολυμέσων και δημιουργήστε μέσα ISO ή USB.</value>
+    <value>Τελική σύνοψη μέσων.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Ελέγξτε και ξεκινήστε</value>

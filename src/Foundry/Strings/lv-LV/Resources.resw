@@ -748,7 +748,7 @@
     <value>Atlasītās pakotnes: {0} no {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Izvēlieties arhitektūru, sāknēšanas attēla valodu un draiverus, ko ievadīt sāknēšanas attēlā.</value>
+    <value>Sāknēšanas opcijas.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Konfigurēt multividi</value>
@@ -760,13 +760,13 @@
     <value>Atvērt ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Atveriet Foundry OSD dokumentāciju savā pārlūkprogrammā.</value>
+    <value>Produkta dokumentācija.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Atveriet dokumentāciju</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Pārskatiet galīgo multivides kopsavilkumu un izveidojiet ISO vai USB multividi.</value>
+    <value>Galīgais datu nesēja kopsavilkums.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Pārskatiet un sāciet</value>

@@ -748,7 +748,7 @@
     <value>選購套餐：{0} 或 {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>選擇要注入啟動映像中的體系架構、啟動映像語言和驅動程式。</value>
+    <value>啟動選項。</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>配置媒體</value>
@@ -760,13 +760,13 @@
     <value>開啟ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>在瀏覽器中開啟 Foundry OSD 文件。</value>
+    <value>產品文件。</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>開啟文件</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>查看最終媒體摘要並建立 ISO 或 USB 媒體。</value>
+    <value>最終媒體摘要。</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>回顧並開始</value>

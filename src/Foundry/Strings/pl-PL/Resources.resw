@@ -748,7 +748,7 @@
     <value>Wybrane pakiety: {0} z {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Wybierz architekturę, język obrazu rozruchowego i sterowniki, które mają zostać wstawione do obrazu rozruchowego.</value>
+    <value>Opcje rozruchu.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Skonfiguruj multimedia</value>
@@ -760,13 +760,13 @@
     <value>Otwórz ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Otwórz dokumentację Foundry OSD w swojej przeglądarce.</value>
+    <value>Dokumentacja produktu.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Otwórz dokumentację</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Przejrzyj końcowe podsumowanie multimediów i utwórz media ISO lub USB.</value>
+    <value>Końcowe podsumowanie nośnika.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Przejrzyj i zacznij</value>

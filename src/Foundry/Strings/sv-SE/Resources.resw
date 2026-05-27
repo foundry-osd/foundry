@@ -748,7 +748,7 @@
     <value>Valda paket: {0} av {1}</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
-    <value>Välj arkitektur, språk för startbilden och drivrutiner som ska injiceras i startbilden.</value>
+    <value>Startalternativ.</value>
   </data>
   <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
     <value>Konfigurera media</value>
@@ -760,13 +760,13 @@
     <value>Öppna ADK</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
-    <value>Öppna Foundry OSD dokumentationen i din webbläsare.</value>
+    <value>Produktdokumentation.</value>
   </data>
   <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
     <value>Öppna dokumentation</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
-    <value>Granska den slutliga mediasammanfattningen och skapa ISO eller USB media.</value>
+    <value>Slutlig mediasammanfattning.</value>
   </data>
   <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
     <value>Granska och börja</value>
