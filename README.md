@@ -17,6 +17,7 @@
 <p align="center">
   <a href="#download"><strong>Download</strong></a> ·
   <a href="https://foundry-osd.github.io/"><strong>Documentation</strong></a> ·
+  <a href="#capabilities"><strong>Capabilities</strong></a> ·
   <a href="#requirements"><strong>Requirements</strong></a> ·
   <a href="#workflow"><strong>Workflow</strong></a> ·
   <a href="#screenshots"><strong>Screenshots</strong></a> ·
@@ -25,18 +26,6 @@
 </p>
 
 ---
-
-## Overview
-
-Foundry Project is a Windows deployment toolkit for building WinPE-based media and running repeatable deployment workflows. It separates media authoring, network readiness, and deployment execution into focused application surfaces.
-
-| Surface | Runs where | Purpose |
-| --- | --- | --- |
-| Foundry OSD | Admin workstation | Check prerequisites, configure deployment behavior, and create ISO or USB media |
-| Foundry Connect | WinPE target device | Validate or select network connectivity before deployment continues |
-| Foundry Deploy | WinPE target device | Select deployment options and execute the Windows deployment |
-
-This repository contains the Foundry OSD desktop application and the WinPE runtime agents used during deployment.
 
 ## Download
 
@@ -51,6 +40,30 @@ Install the latest MSI that matches the architecture of the admin workstation.
 Use the MSI release build for normal deployment work. Use [all releases](https://github.com/foundry-osd/foundry/releases) when you need release notes, checksums, or older builds.
 
 Start with the [Quick Start](https://foundry-osd.github.io/docs/start/quick-start) guide for the shortest end-to-end path.
+
+## Overview
+
+Foundry Project is a UI-first Windows deployment toolkit for building WinPE-based media, validating network readiness, and running repeatable Windows deployment workflows with deployment-time customization. It separates media authoring, network readiness, and deployment execution into focused application surfaces.
+
+| Surface | Runs where | Purpose |
+| --- | --- | --- |
+| Foundry OSD | Admin workstation | Check prerequisites, configure deployment behavior, and create ISO or USB media |
+| Foundry Connect | WinPE target device | Validate or select network connectivity before deployment continues |
+| Foundry Deploy | WinPE target device | Select deployment options and execute the Windows deployment |
+
+This repository contains the Foundry OSD desktop application and the WinPE runtime agents used during deployment.
+
+## Capabilities
+
+| Area | What Foundry provides | Why it matters |
+| --- | --- | --- |
+| Guided media creation | Build ISO or USB deployment media from a desktop UI | Reduces manual WinPE and scripting work |
+| Ethernet and Wi-Fi | Validate Ethernet, use pre-provisioned Wi-Fi, or connect to supported personal Wi-Fi networks from WinPE | Supports deployments on wired, wireless, enterprise, and non-enterprise networks |
+| Enterprise networking | Stage wired 802.1X and enterprise Wi-Fi profiles with optional trusted root CA certificates | Supports corporate network environments |
+| Deployment workflow | Choose target disk, Windows image, drivers, firmware, Autopilot, and deployment options from Foundry Deploy | Makes deployment decisions visible before execution |
+| Windows customization | Configure machine naming, language, time zone, OOBE, privacy defaults, AppX removal, and AI component controls | Produces cleaner and more predictable Windows installations |
+| Autopilot | Stage offline Autopilot JSON profiles or upload hardware hashes from WinPE | Covers offline provisioning and tenant-connected registration |
+| Readiness validation | Check ADK readiness, media settings, USB target identity, target disk eligibility, network provisioning, secrets, and Autopilot configuration | Catches missing or risky setup before media creation or deployment |
 
 ## Requirements
 
@@ -68,8 +81,8 @@ Current deployment scope:
 
 - Windows 11 `23H2`, `24H2`, and `25H2`
 - x64 and ARM64 deployment media
-- WinPE driver injection for Dell and HP media driver packs
-- Deployment-time operating system and driver choices loaded from the current catalog
+- WinPE boot driver injection for Dell, HP, and custom `.inf` driver folders
+- Deployment-time operating system, driver, and firmware choices loaded from the current catalog
 
 ## Workflow
 
