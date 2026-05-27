@@ -754,7 +754,7 @@
     <value>Konfigurēt multividi</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Pārskatiet Windows ADK un Windows PE pievienojumprogrammas gatavību.</value>
+    <value>ADK gatavība.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Atvērt ADK</value>
@@ -787,7 +787,7 @@
     <value>Nākamais solis</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Pēc Windows ADK un Windows PE pievienojumprogrammas gatavības apstiprināšanas sākuma lapā pārskatiet galīgos izvades mērķus.</value>
+    <value>Multivides izvadi.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Pārskatiet un sāciet</value>

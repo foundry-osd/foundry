@@ -754,7 +754,7 @@
     <value>Налаштувати медіа</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Перегляньте готовність додатків Windows ADK і Windows PE.</value>
+    <value>Готовність ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Відкрити ADK</value>
@@ -787,7 +787,7 @@
     <value>Наступний крок</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Перегляньте кінцеві вихідні цілі на початковій сторінці після підтвердження готовності надбудови Windows ADK і Windows PE.</value>
+    <value>Медіа-виходи.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Перегляд і початок</value>

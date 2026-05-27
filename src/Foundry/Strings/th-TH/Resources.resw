@@ -754,7 +754,7 @@
     <value>กำหนดค่าสื่อ</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>รีวิว Windows ADK และ Windows PE ความพร้อมของแอดออน</value>
+    <value>ความพร้อมของ ADK</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>เปิด ADK</value>
@@ -787,7 +787,7 @@
     <value>ขั้นตอนต่อไป</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>ตรวจสอบเป้าหมายผลลัพธ์สุดท้ายบนหน้าเริ่มต้นหลังจาก Windows ADK และ Windows PE ความพร้อมของ Add-on ได้รับการยืนยันแล้ว</value>
+    <value>เอาต์พุตสื่อ</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>ทบทวนและเริ่มต้น</value>

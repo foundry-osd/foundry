@@ -754,7 +754,7 @@
     <value>Medyayı yapılandırın</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Windows ADK ve Windows PE Eklenti hazırlığını inceleyin.</value>
+    <value>ADK hazır.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>ADK'yı aç</value>
@@ -787,7 +787,7 @@
     <value>Sonraki adım</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Windows ADK ve Windows PE Eklenti hazırlığı onaylandıktan sonra Başlangıç sayfasındaki son çıktı hedeflerini gözden geçirin.</value>
+    <value>Medya çıktıları.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>İncele ve başlat</value>

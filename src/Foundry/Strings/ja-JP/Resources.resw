@@ -754,7 +754,7 @@
     <value>メディアの構成</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Windows ADK および Windows PE アドオンの準備状況を確認します。</value>
+    <value>ADK の準備状況。</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>ADK を開きます</value>
@@ -787,7 +787,7 @@
     <value>次のステップ</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Windows ADK および Windows PE アドオンの準備が完了したことを確認した後、スタート ページで最終的な出力ターゲットを確認します。</value>
+    <value>メディア出力。</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>確認して開始</value>

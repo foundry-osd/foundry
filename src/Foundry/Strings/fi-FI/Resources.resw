@@ -754,7 +754,7 @@
     <value>Määritä media</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Tarkista Windows ADK ja Windows PE lisäosien valmius.</value>
+    <value>ADK-valmius.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Avaa ADK</value>
@@ -787,7 +787,7 @@
     <value>Seuraava askel</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Tarkista lopulliset lähtötavoitteet aloitussivulla sen jälkeen, kun Windows ADK ja Windows PE Lisäosien valmius on vahvistettu.</value>
+    <value>Medialähdöt.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Tarkista ja aloita</value>

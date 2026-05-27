@@ -754,7 +754,7 @@
     <value>تكوين الوسائط</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>قم بمراجعة Windows ADK وWindows PE مدى جاهزية الوظائف الإضافية.</value>
+    <value>جاهزية ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>افتح ADK</value>
@@ -787,7 +787,7 @@
     <value>الخطوة التالية</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>قم بمراجعة أهداف المخرجات النهائية في صفحة البدء بعد Windows ADK وWindows PE تأكيد جاهزية الوظائف الإضافية.</value>
+    <value>مخرجات الوسائط.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>قم بالمراجعة والبدء</value>

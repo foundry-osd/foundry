@@ -754,7 +754,7 @@
     <value>Medien konfigurieren</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Überprüfen Sie die Add-on-Bereitschaft von Windows ADK und Windows PE.</value>
+    <value>ADK-Bereitschaft.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Öffnen Sie ADK</value>
@@ -787,7 +787,7 @@
     <value>Nächster Schritt</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Überprüfen Sie die endgültigen Ausgabeziele auf der Startseite, nachdem Windows ADK und Windows PE die Add-on-Bereitschaft bestätigt wurde.</value>
+    <value>Medienausgänge.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Überprüfen und beginnen</value>

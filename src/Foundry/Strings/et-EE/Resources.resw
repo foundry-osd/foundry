@@ -754,7 +754,7 @@
     <value>Meediumi konfigureerimine</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Vaadake üle Windows ADK ja Windows PE lisandmoodulite valmidus.</value>
+    <value>ADK valmidus.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Ava ADK</value>
@@ -787,7 +787,7 @@
     <value>Järgmine samm</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Pärast Windows ADK ja Windows PE lisandmooduli valmisoleku kinnitamist vaadake avalehel üle lõplikud väljundsihid.</value>
+    <value>Meediaväljundid.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Vaata üle ja alusta</value>

@@ -754,7 +754,7 @@
     <value>Configura supporto</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Esaminare la disponibilità dei componenti aggiuntivi Windows ADK e Windows PE.</value>
+    <value>Disponibilità ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Apri ADK</value>
@@ -787,7 +787,7 @@
     <value>Prossimo passo</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Esaminare gli obiettivi di output finali nella pagina iniziale dopo aver confermato la disponibilità dei componenti aggiuntivi Windows ADK e Windows PE.</value>
+    <value>Output multimediali.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Rivedi e inizia</value>

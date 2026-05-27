@@ -754,7 +754,7 @@
     <value>Настройка мультимедиа</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Проверьте Windows ADK и Windows PE готовность дополнений.</value>
+    <value>Готовность ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Открыть ADK</value>
@@ -787,7 +787,7 @@
     <value>Следующий шаг</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Просмотрите окончательные целевые показатели вывода на стартовой странице после подтверждения Windows ADK и Windows PE готовности надстройки.</value>
+    <value>Медиа-выходы.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Просмотрите и начните</value>

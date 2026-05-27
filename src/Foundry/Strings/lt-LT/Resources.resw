@@ -754,7 +754,7 @@
     <value>Konfigūruoti laikmeną</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Peržiūrėkite Windows ADK ir Windows PE priedo parengtį.</value>
+    <value>ADK pasirengimas.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Atidaryti ADK</value>
@@ -787,7 +787,7 @@
     <value>Kitas žingsnis</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Kai bus patvirtinta Windows ADK ir Windows PE priedo parengtis, pradžios puslapyje peržiūrėkite galutinius išvesties tikslus.</value>
+    <value>Medijos išvestys.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Peržiūrėkite ir pradėkite</value>

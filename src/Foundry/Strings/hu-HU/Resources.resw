@@ -754,7 +754,7 @@
     <value>Média konfigurálása</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Tekintse át a Windows ADK és Windows PE kiegészítők készségét.</value>
+    <value>ADK felkészültség.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Megnyitás ADK</value>
@@ -787,7 +787,7 @@
     <value>Következő lépés</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>A Windows ADK és Windows PE kiegészítő készenlétének megerősítése után tekintse át a végső kimeneti célokat a kezdő oldalon.</value>
+    <value>Médiakimenetek.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Tekintse át és kezdje el</value>

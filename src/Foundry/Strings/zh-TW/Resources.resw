@@ -754,7 +754,7 @@
     <value>配置媒體</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>查看Windows ADK 和Windows PE 附加組件準備情形。</value>
+    <value>ADK 準備狀況。</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>開啟ADK</value>
@@ -787,7 +787,7 @@
     <value>下一步</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>確認 Windows ADK 和 Windows PE 附加準備就緒後，在起始頁上查看最終輸出目標。</value>
+    <value>媒體輸出。</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>回顧並開始</value>

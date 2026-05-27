@@ -754,7 +754,7 @@
     <value>Nakonfigurujte médiá</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Skontrolujte pripravenosť doplnkov Windows ADK a Windows PE.</value>
+    <value>Pripravenosť ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Otvoriť ADK</value>
@@ -787,7 +787,7 @@
     <value>Ďalší krok</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Po potvrdení pripravenosti doplnku Windows ADK a Windows PE skontrolujte konečné výstupné ciele na úvodnej stránke.</value>
+    <value>Mediálne výstupy.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Skontrolujte a začnite</value>

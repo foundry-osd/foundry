@@ -754,7 +754,7 @@
     <value>Konfigurirajte medije</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Pregledajte spremnost dodataka Windows ADK i Windows PE.</value>
+    <value>ADK spremnost.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Otvori ADK</value>
@@ -787,7 +787,7 @@
     <value>Sljedeći korak</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Pregledajte konačne izlazne ciljeve na početnoj stranici nakon što se potvrdi spremnost dodataka Windows ADK i Windows PE.</value>
+    <value>Medijski izlazi.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Pregledajte i počnite</value>

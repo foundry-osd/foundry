@@ -754,7 +754,7 @@
     <value>미디어 구성</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Windows ADK 및 Windows PE 추가 기능 준비 상태를 검토합니다.</value>
+    <value>ADK 준비.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>ADK 열기</value>
@@ -787,7 +787,7 @@
     <value>다음 단계</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Windows ADK 및 Windows PE 추가 기능 준비가 확인된 후 시작 페이지에서 최종 출력 대상을 검토합니다.</value>
+    <value>미디어 출력.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>검토 및 시작</value>

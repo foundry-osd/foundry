@@ -754,7 +754,7 @@
     <value>Skonfiguruj multimedia</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Sprawdź gotowość dodatków Windows ADK i Windows PE.</value>
+    <value>Gotowość ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Otwórz ADK</value>
@@ -787,7 +787,7 @@
     <value>Następny krok</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Przejrzyj ostateczne cele wyjściowe na stronie startowej po potwierdzeniu gotowości Windows ADK i Windows PE gotowości dodatku.</value>
+    <value>Wyjścia multimedialne.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Przejrzyj i zacznij</value>

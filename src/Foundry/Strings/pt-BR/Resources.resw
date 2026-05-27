@@ -754,7 +754,7 @@
     <value>Configurar mídia</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Revise Windows ADK e Windows PE Preparação de complementos.</value>
+    <value>Prontidão ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Abra ADK</value>
@@ -787,7 +787,7 @@
     <value>Próxima etapa</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Revise as metas de resultados finais na página inicial depois que Windows ADK e Windows PE a prontidão do complemento for confirmada.</value>
+    <value>Saídas de mídia.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Revise e comece</value>

@@ -754,7 +754,7 @@
     <value>Configure media</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Review Windows ADK and Windows PE Add-on readiness.</value>
+    <value>ADK readiness.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Open ADK</value>
@@ -787,7 +787,7 @@
     <value>Next step</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Review final output targets on the Start page after Windows ADK and Windows PE Add-on readiness is confirmed.</value>
+    <value>Media outputs.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Review and start</value>

@@ -754,7 +754,7 @@
     <value>Media configureren</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Controleer de gereedheid van Windows ADK en Windows PE Add-on.</value>
+    <value>ADK-gereedheid.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>ADK openen</value>
@@ -787,7 +787,7 @@
     <value>Volgende stap</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Bekijk de uiteindelijke uitvoerdoelen op de startpagina nadat Windows ADK en Windows PE gereedheid voor de add-on is bevestigd.</value>
+    <value>Media-uitgangen.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Beoordelen en beginnen</value>

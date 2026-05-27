@@ -754,7 +754,7 @@
     <value>Configurer le média</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Vérifier l'état du Windows ADK et du module complémentaire Windows PE.</value>
+    <value>État ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Ouvrir ADK</value>
@@ -787,7 +787,7 @@
     <value>Étape suivante</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Vérifiez les cibles de sortie finales sur la page Démarrer une fois la préparation de Windows ADK et du Windows PE Add-on confirmée.</value>
+    <value>Sorties média.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Vérifier et démarrer</value>

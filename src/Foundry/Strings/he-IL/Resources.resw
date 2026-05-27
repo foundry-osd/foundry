@@ -754,7 +754,7 @@
     <value>הגדר מדיה</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>בדוק את מוכנות התוספות Windows ADK ו-Windows PE.</value>
+    <value>מוכנות ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>פתח ADK</value>
@@ -787,7 +787,7 @@
     <value>השלב הבא</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>סקור את יעדי הפלט הסופיים בדף ההתחלה לאחר אישור מוכנות התוספות Windows ADK ו-Windows PE.</value>
+    <value>פלטי מדיה.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>בדוק והתחל</value>

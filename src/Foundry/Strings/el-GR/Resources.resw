@@ -754,7 +754,7 @@
     <value>Διαμόρφωση πολυμέσων</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Ελέγξτε την ετοιμότητα των πρόσθετων Windows ADK και Windows PE.</value>
+    <value>Ετοιμότητα ADK.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Άνοιξε ADK</value>
@@ -787,7 +787,7 @@
     <value>Επόμενο βήμα</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Ελέγξτε τους τελικούς στόχους εξόδου στη σελίδα έναρξης αφού επιβεβαιωθεί η ετοιμότητα των πρόσθετων Windows ADK και Windows PE.</value>
+    <value>Έξοδοι πολυμέσων.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Ελέγξτε και ξεκινήστε</value>

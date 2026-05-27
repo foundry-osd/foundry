@@ -754,7 +754,7 @@
     <value>Konfigurera media</value>
   </data>
   <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
-    <value>Granska Windows ADK och Windows PE beredskap för tillägg.</value>
+    <value>ADK-beredskap.</value>
   </data>
   <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
     <value>Öppna ADK</value>
@@ -787,7 +787,7 @@
     <value>Nästa steg</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Granska slutliga utdatamål på startsidan efter att Windows ADK och Windows PE har bekräftats att tillägget är berett.</value>
+    <value>Mediautgångar.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Granska och börja</value>
