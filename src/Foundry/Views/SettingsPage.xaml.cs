@@ -47,8 +47,6 @@ namespace Foundry.Views
         {
             TelemetryCard.Header = localizationService.GetString("SettingsPage_TelemetryCard.Header");
             TelemetryCard.Description = localizationService.GetString("SettingsPage_TelemetryCard.Description");
-            TelemetryToggle.OnContent = localizationService.GetString("Common.Enabled");
-            TelemetryToggle.OffContent = localizationService.GetString("Common.Disabled");
             ApplyLocalizedNavigationParameters();
             ApplyNavigationGuardState();
         }

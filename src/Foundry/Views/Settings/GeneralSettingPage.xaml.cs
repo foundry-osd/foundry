@@ -62,10 +62,6 @@ public sealed partial class GeneralSettingPage : Page
         LanguageCard.Description = localizationService.GetString("GeneralSetting_LanguageCard.Description");
         DiagnosticsCard.Header = localizationService.GetString("GeneralSetting_DiagnosticsCard.Header");
         DiagnosticsCard.Description = localizationService.GetString("GeneralSetting_DiagnosticsCard.Description");
-        StartupToggle.OnContent = localizationService.GetString("Common.Enabled");
-        StartupToggle.OffContent = localizationService.GetString("Common.Disabled");
-        DiagnosticsToggle.OnContent = localizationService.GetString("Common.Enabled");
-        DiagnosticsToggle.OffContent = localizationService.GetString("Common.Disabled");
 
         BreadcrumbNavigator.SetPageTitle(this, localizationService.GetString("SettingsPage_GeneralCard.Header"));
 
