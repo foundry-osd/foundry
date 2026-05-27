@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="About.Title" xml:space="preserve"><value>Over Foundry Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy is de WinPE-implementatie-ervaring voor Foundry.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Deze software wordt geleverd zoals deze is. Controleer uw implementatie-instellingen vóór gebruik.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Auteursrecht (c) 2026 Foundry Project. Gelicentieerd onder de MIT-licentie.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Thema</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Taal</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Hulpmiddelen</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debuggen</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_Over</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>Systeem</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Licht</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Donker</value></data>
+  <data name="Language.English" xml:space="preserve"><value>Engels</value></data>
+  <data name="Language.French" xml:space="preserve"><value>Frans</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Catalogi vernieuwen</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Doelschijven vernieuwen</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Logbestand openen</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>De simulatiemodus is actief: implementatieacties worden gesimuleerd en er worden geen schijf- of image-schrijfbewerkingen uitgevoerd.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Doel</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Besturingssysteem</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driverpakket</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Samenvatting</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Computernaam</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tekens. Alleen A-Z, a-z, 0-9 en koppelteken.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>De computernaam moet 1 tot 15 geldige tekens bevatten (letters, cijfers of koppelteken).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Doelmachine</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Bestemmingsschijf</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Implementatieopties</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Doelschijf</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selecteer een doelschijf. Niet-geschikte schijven worden geblokkeerd.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware-updates toepassen</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Schakel Autopilot in voor deze implementatie</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiel</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Er zijn geen ingebedde Autopilot-profielen gevonden op dit medium.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiel</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hardware-hash-upload</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Beschikbaar op dit medium: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardware-hash-upload</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Uploadstatus van hardware-hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klaar om hardware-hash te uploaden</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Niet klaar om hardware-hash te uploaden</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uploadcertificaat is verlopen</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hardware-hash-upload is niet beschikbaar op dit medium omdat de vereiste certificaatinformatie ontbreekt. De implementatie kan doorgaan, maar het uploaden wordt overgeslagen.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Het Autopilot-certificaat is verlopen. De implementatie kan doorgaan, maar het uploaden wordt overgeslagen.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Details</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Huurder-ID</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Vingerafdruk certificaat</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Vervaldatum certificaat</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Groepstag</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>De groepstag is optioneel. Selecteer Geen om te uploaden zonder een groepstag.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Hardware detecteren...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Hardwaredetectie mislukt.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardwaredetectie mislukt: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Vermogen: {2} | Firmware: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batterij</value></data>
+  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Doelschijven laden...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Detectie van doelschijf mislukt: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Geen schijven gedetecteerd.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Doelschijven geladen: {0} gedetecteerd.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Besturingssysteem</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Versie</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Taal</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licentie kanaal</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Editie (Doel)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architectuur: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Catalogi laden...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Geladen catalogi: {0} besturingssysteemgegevens, {1} driverpakketten.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalogus laden mislukt: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Detailhandel</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volume</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Thuis</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Thuis N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Thuis Eén taal</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Onderwijs</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Onderwijs N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Onderneming</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Onderneming N</value></data>
+  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Bron van stuurprogramma</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Versie</value></data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM-stuurprogrammapakket</value></data>
+  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: geen passend model of versie</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modellen)</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Samenvatting van de implementatie</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Doelschijf</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Geen schijf geselecteerd</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Besturingssysteem</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Geen selectie</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Geselecteerd driverpakket</value></data>
+  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
+  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Methode</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiel</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot groepstag</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Doel</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Systeem</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Implementatieopties</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nee Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profiel</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardware-hash-upload</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Geldig certificaat</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Verlopen certificaat</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Ontbrekende certificaatinformatie</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Geen standaardgroepstag</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Implementatiepagina's</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Voortgangspagina</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Succes pagina</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Foutpagina</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Voorbeeld van foutopsporing: voortgangspagina.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Voorbeeld van foutopsporing: succespagina.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Voorbeeld van foutopsporing: foutpagina.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Voorbeeld van foutopsporing: DISM toepassen mislukt omdat de doelpartitie alleen-lezen is.
+
+Foutcode=0x80070005
+Details: Toegang geweigerd tijdens het koppelen van de afbeelding aan het doelpad.
+Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Vernieuwen</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Versie: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Vorige</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Volgende</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Implementeren</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Logboek openen</value></data>
+  <data name="Common.NotAvailable" xml:space="preserve"><value>N.v.t</value></data>
+  <data name="Common.Unavailable" xml:space="preserve"><value>Niet beschikbaar</value></data>
+  <data name="Common.None" xml:space="preserve"><value>Geen</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Onbekend</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Gedetecteerd</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>Ja</value></data>
+  <data name="Common.No" xml:space="preserve"><value>Nee</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Ingeschakeld</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Uitgeschakeld</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Klaar</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Niet klaar</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>Netwerken</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Begintijd</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Verstreken tijd</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementatie is succesvol voltooid.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Deze computer wordt over {0}s opnieuw opgestart.</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Opnieuw opstarten</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>Implementatie is mislukt</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Mislukte stap</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Foutmelding</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Welkom</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Componenten initialiseren...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Begin</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Schijf {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Onbekende maat</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Geblokkeerd: systeemschijf</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Geblokkeerd: opstartschijf</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Geblokkeerd: alleen-lezen</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Geblokkeerd: offline</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG VIRTUEEL DOEL</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Geselecteerde schijf geblokkeerd: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Doelschijf {0} is niet langer aanwezig.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Doelschijf {0} is geblokkeerd: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Bevestig het wissen van de schijf</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Hierdoor worden alle gegevens op de geselecteerde schijf gewist en wordt het geselecteerde besturingssysteem geïnstalleerd.
+
+Schijf: {0}
+Model: {1}
+Bus: {2}
+Grootte: {3}
+
+Besturingssysteem: {4}
+
+Doorgaan met de implementatie?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Selecteer een besturingssysteem.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Voer een geldige computernaam in.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Selecteer een doelschijf.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Selecteer een geldig OEM-model of -versie voordat u met de implementatie begint.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Selecteer een Autopilot-profiel of schakel Autopilot uit voordat u met de implementatie begint.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Implementatie geannuleerd door gebruiker.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Voorbereiding voor implementatie voltooid.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Klaar</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Wachten op implementatie...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Wachten op vooruitgang...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Implementatie voorbereiden...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>De implementatie is gestart.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Implementatie voltooid.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Implementatieworkflow voltooid.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Implementatie geannuleerd.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Implementatie is mislukt.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Implementatie mislukt: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Er loopt al een andere operatie.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Foutopsporing in veilige modus ingeschakeld: implementatieacties worden gesimuleerd.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Implementatieworkflow starten.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Beginstap...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Beginnen met {0}.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>{0} starten...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Stap voltooid.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>Stap mislukt.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Stap overgeslagen.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>In uitvoering...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Stap:? van?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Stap: {0} of {1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Nu opnieuw opstarten...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Herstartopdracht mislukt.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Herstartopdracht mislukt: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Kan logbestand niet openen: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe mislukt met afsluitcode {0}. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Systeem opnieuw opstarten</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Het vereiste herstartbare uitvoerbare bestand 'wpeutil.exe' is niet gevonden.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Onbekende stap</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Er zijn geen foutdetails verstrekt.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Verzamel implementatievariabelen</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiseer de implementatiewerkruimte</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valideer de doelconfiguratie</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Controleer de implementatiecache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Bereid de doelschijfindeling voor</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Download besturingssysteemimage</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Pas een besturingssysteemimage toe</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configureer de naam van de doelcomputer</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configureer OOBE instellingen</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Herstelomgeving configureren</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Driverpakket downloaden</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pak het driverpakket uit</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Fase pre-OOBE-aanpassing</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Driverpakket toepassen</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware-update downloaden</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware-update toepassen</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Herstelpartitie afsluiten</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Voorziening Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Voltooi de implementatie en schrijf logboeken</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Implementatievariabelen verzamelen...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Implementatiecontext verzamelen...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Implementatievariabelen verzameld.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Verzamelde implementatievariabelen (simulatie).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Implementatiewerkruimte initialiseren...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Werkruimtemappen maken...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Implementatie voltooien...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Tijdelijke werkruimte schoonmaken...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Implementatieoverzicht schrijven...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Voltooiingslogboeken schrijven...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Werkruimte geïnitialiseerd.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Werkruimte geïnitialiseerd (simulatie).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Doelconfiguratie valideren...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Doelschijf opnieuw valideren...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Hardwareprofiel detecteren...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Besturingssysteem URL ontbreekt.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Doelschijfnummer is vereist.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Doelconfiguratie gevalideerd.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Doelconfiguratie gevalideerd (simulatie).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Implementatiecache controleren...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Cachelocatie oplossen...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Conflict cacheschijf controleren...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Cachestrategie opgelost.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Cachestrategie opgelost (simulatie).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Doelschijfindeling voorbereiden...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Doelschijf partitioneren...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Doelwerkruimte voorbereiden...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Gesimuleerde partities maken...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Doelschijfindeling voorbereid.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Doelschijfindeling voorbereid (simulatie).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>De doelschijfindeling is niet voorbereid.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Bezig met downloaden van besturingssysteemimage...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Cache controleren...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Besturingssysteemimage gereed (simulatie).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Image van besturingssysteem is niet gedownload.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Image van besturingssysteem gedownload.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Image van besturingssysteem opgelost vanuit cache.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Besturingssysteemimage toepassen...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Afbeelding inspecteren...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Afbeelding toepassen...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Opstarten configureren...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Afbeelding verifiëren...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Image van besturingssysteem toegepast.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Image van besturingssysteem toegepast (simulatie).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Naam van doelcomputer configureren...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Offline computernaam schrijven...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Doel Windows partitie is niet beschikbaar.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Doelcomputernaam geconfigureerd.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Doelcomputernaam geconfigureerd (simulatie).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline maatwerk uitgeschakeld.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Offline aanpassingen configureren...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Standaardwaarden voor eerste uitvoering schrijven...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Verwijdering van AI-componenten configureren...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Offline AI-beleid schrijven...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline maatwerk geconfigureerd.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline maatwerk geconfigureerd (simulatie).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE aanpassing uitgeschakeld.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE instellingen configureren...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Standaardinstellingen voor privacy bij eerste uitvoering schrijven...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE maatwerk geconfigureerd.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE instellingen geconfigureerd.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE maatwerk gesimuleerd.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE instellingen geconfigureerd (simulatie).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Herstelomgeving configureren...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows Herstelomgeving voorbereiden...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Herstelpartitie is niet beschikbaar.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Herstelomgeving geconfigureerd.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Herstelomgeving geconfigureerd (simulatie).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Er zijn geen pre-OOBE-aanpassingsscripts vereist.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Pre-OOBE-aanpassingen worden uitgevoerd met het first-boot driverpakket.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Pre-OOBE-aanpassingen voorbereiden...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pre-OOBE-aanpassingen geënsceneerd.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pre-OOBE-aanpassingen geënsceneerd (simulatie).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Driverpakket uitgeschakeld (niet geselecteerd).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Geen driverpakketdownload vereist.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Driverpakket downloaden...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Downloaden voorbereiden...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>OEM-driverpakketmodus geselecteerd, maar er is geen driverpakket geleverd.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Driverpakket gedownload.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Driverpakket gedownload (simulatie).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Driverpakket opgelost vanuit cache.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Driverpakket uitpakken...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Driverpakket is niet gedownload.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Driverpakket uitgepakt.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Driverpakket uitgepakt (simulatie).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Driverpakket voorbereid voor installatie bij eerste opstart.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Er is geen driverpakketbewerking vereist.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Niet-ondersteunde installatiemodus voor driverpakketten.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Er is geen geëxtraheerde INF-stuurprogramma-inhoud beschikbaar.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>De broninhoud van het stuurprogrammapakket is niet beschikbaar voor fasering bij de eerste keer opstarten.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog heeft geen driverinhoud geproduceerd.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Er is een fasering van het driverpakket voor het eerst opstarten aangevraagd zonder een ondersteunde opdracht.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Driverpakket toepassen...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Windows stuurprogramma's toepassen...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>WinRE monteren...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>WinRE-stuurprogramma's toepassen...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>WinRE ontkoppelen...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Staging pakket...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Installatiescript voor eerste keer opstarten bijwerken...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Downloaden</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Extraheren</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Toepassen</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Staging</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} gedownload</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Driverpakket toegepast.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Driverpakket klaargemaakt voor de eerste keer opstarten.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Driverpakket toegepast (simulatie).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Firmware-update downloaden...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Microsoft Update Catalog opzoeken voorbereiden...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Firmware-updates zijn uitgeschakeld.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Firmware-updates zijn uitgeschakeld voor virtuele machines.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Firmware-updates worden overgeslagen terwijl het apparaat op batterijstroom werkt.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Hardware-ID van systeemfirmware is niet beschikbaar.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Firmware-update gedownload.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Firmware-update gedownload (simulatie).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Er is geen geëxtraheerde firmware-inhoud beschikbaar.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>De uitgepakte firmware-inhoud bevat geen INF-bestanden.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Firmware-update toepassen...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Firmware-inhoud injecteren in offline Windows...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Firmware-update toegepast.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Firmware-update toegepast (simulatie).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Herstelpartitie verzegelen...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Herstelstationletter verwijderen...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Herstelpartitie verzegeld.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Herstelpartitie verzegeld (simulatie).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot is uitgeschakeld.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot is ingeschakeld, maar er is geen profiel geselecteerd.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Doel Windows partitie is niet beschikbaar voor Autopilot staging.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Kan de doelmap Autopilot niet omzetten.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Autopilot profiel in scène zetten...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>AutopilotConfigurationFile.json kopiëren...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Gesimuleerd Autopilot-manifest schrijven...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Autopilot hardware-hash vastleggen...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>OA3Tool uitvoeren...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Autopilot hardware-hash uploaden...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Microsoft Graph import voorbereiden...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Importverzoek indienen bij Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Wachten op Autopilot apparaatzichtbaarheid...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Windows Autopilot apparaten ({0} resterend) controleren...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Bestaand Autopilot-apparaat bijwerken...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Windows Autopilot groepstag bijwerken in Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Wachten op update van Autopilot groepstag...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Windows Autopilot groepstag ({0} resterend) controleren...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autopilot hardware-hash-upload voorbereiden...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Mediacertificaat ontsleutelen...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autopilot hardware-hash-upload verifiëren...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Microsoft Graph-token aanvragen...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Hardware-hash importeren in Microsoft Graph...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Gesimuleerd Autopilot hash-manifest schrijven...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Doel Windows partitie is niet beschikbaar voor Autopilot hardware-hash-upload.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot hardware-hash-upload overgeslagen omdat het ingebouwde certificaat is verlopen.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot hardware-hash-upload overgeslagen omdat de vereiste mediacertificaatinformatie onvolledig is.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot hardwarehash geïmporteerd en zichtbaar op Windows Autopilot apparaten.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Geïmporteerd Autopilot-apparaat verscheen vóór de time-out niet op Windows Autopilot-apparaten.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot update van de apparaatgroeptag werd niet bevestigd vóór de time-out.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot hardware-hash-upload voorbereid voor simulatie.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot hardware-hash-upload voorbereid (simulatie).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Het geselecteerde Autopilot profielbestand is niet gevonden: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hardware-hash-opname mislukt: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot hardware-hash-import mislukt: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot hardware-hash-upload overgeslagen: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuut</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuten</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} seconden</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profiel geënsceneerd.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profiel geënsceneerd (simulatie).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arabisch (Saoedi-Arabië)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgaars (Bulgarije)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Tsjechisch (Tsjechië)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Deens (Denemarken)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Duits (Duitsland)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Grieks (Griekenland)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Engels (Verenigd Koninkrijk)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Engels (Verenigde Staten)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Spaans (Spanje)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Spaans (Mexico)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Ests (Estland)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Fins (Finland)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Frans (Canada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Frans (Frankrijk)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Hebreeuws (Israël)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Kroatisch (Kroatië)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Hongaars (Hongarije)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Italiaans (Italië)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japans (Japan)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Koreaans (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litouws (Litouwen)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Lets (Letland)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Noors Bokmal (Noorwegen)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Nederlands (Nederland)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Pools (Polen)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugees (Brazilië)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugees (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Roemeens (Roemenië)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Russisch (Rusland)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slowaaks (Slowakije)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Sloveens (Slovenië)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Servisch Latijn (Servië)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Zweeds (Zweden)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Thais (Thailand)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Turks (Turkije)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Oekraïens (Oekraïne)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Vereenvoudigd Chinees (China)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Traditioneel Chinees (Taiwan)</value>
+  </data>
+</root>

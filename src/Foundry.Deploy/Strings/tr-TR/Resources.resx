@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="About.Title" xml:space="preserve"><value>Foundry Deploy Hakkında</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy, Foundry için WinPE dağıtım deneyimidir.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Bu yazılım olduğu gibi sağlanmaktadır. Kullanmadan önce dağıtım ayarlarınızı gözden geçirin.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Telif Hakkı (c) 2026 Foundry Project. MIT Lisansı kapsamında lisanslanmıştır.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Tema</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Dil</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Araçlar</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Hata ayıklama</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_Hakkında</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>Sistem</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Işık</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Karanlık</value></data>
+  <data name="Language.English" xml:space="preserve"><value>İngilizce</value></data>
+  <data name="Language.French" xml:space="preserve"><value>Fransızca</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Katalogları yenile</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Hedef diskleri yenile</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Günlük dosyasını aç</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simülasyon modu etkin: dağıtım eylemleri simüle edilir ve herhangi bir disk veya görüntü yazma işlemi gerçekleştirilmez.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Hedef</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. İşletim sistemi</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Sürücü paketi</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Özet</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Bilgisayar adı</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 karakter. A-Z, a-z, 0-9 ve yalnızca kısa çizgi.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Bilgisayar adı 1 ila 15 arasında geçerli karakter (harf, sayı veya kısa çizgi) içermelidir.</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Hedef makine</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Hedef disk</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Dağıtım seçenekleri</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Hedef disk</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Bir hedef disk seçin. Uygun olmayan diskler engellenir.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ürün yazılımı güncellemelerini uygulayın</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Bu dağıtım için Autopilot'yi etkinleştirin</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Bu medyada gömülü Autopilot profili bulunamadı.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profili</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Donanım karma yüklemesi</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Bu medyada mevcut: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Donanım karma yüklemesi</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Donanım karma yükleme durumu</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Donanım karmasını yüklemeye hazır</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Donanım karmasını yüklemeye hazır değil</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Yükleme sertifikasının süresi doldu</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Gerekli sertifika bilgileri eksik olduğundan donanım karma yüklemesi bu ortamda kullanılamıyor. Dağıtım devam edebilir ancak yükleme atlanacaktır.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikasının süresi doldu. Dağıtım devam edebilir ancak yükleme atlanacaktır.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Ayrıntılar</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Kiracı Kimliği</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifika parmak izi</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikanın geçerlilik süresi</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grup etiketi</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grup etiketi isteğe bağlıdır. Grup etiketi olmadan yüklemek için Hiçbiri'ni seçin.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Donanım algılanıyor...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Donanım algılaması başarısız oldu.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Donanım algılaması başarısız oldu: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Güç: {2} | Firmware: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Pil</value></data>
+  <data name="Preparation.PowerAc" xml:space="preserve"><value>klima</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Hedef diskler yükleniyor...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Hedef disk keşfi başarısız oldu: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Hiçbir disk algılanmadı.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Yüklenen hedef diskler: {0} algılandı.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Sürüm</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Dil</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Lisans kanalı</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Sürüm (Hedef)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Mimarlık: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Kataloglar yükleniyor...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Yüklenen kataloglar: {0} işletim sistemi girişleri, {1} sürücü paketleri.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalog yükleme başarısız oldu: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Perakende</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Hacim</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Ana sayfa</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Ana Sayfa N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Ana Sayfa Tek Dil</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Eğitim</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Eğitim N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Profesyonel</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Profesyonel N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>kurumsal</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Kurumsal N</value></data>
+  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Sürücü kaynağı</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Modeli</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Sürüm</value></data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM sürücü paketi</value></data>
+  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: eşleşen model veya sürüm yok</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modelleri)</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Dağıtım özeti</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Hedef disk</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Hiçbir disk seçilmedi</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Seçim yok</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Seçilen sürücü paketi</value></data>
+  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
+  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Yöntem</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profili</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grup etiketi</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Hedef</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistem</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Dağıtım seçenekleri</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Hayır Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profili</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Donanım karma yüklemesi</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Geçerli sertifika</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Süresi dolmuş sertifika</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Sertifika bilgileri eksik</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Varsayılan grup etiketi yok</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Dağıtım sayfaları</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>İlerleme sayfası</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Başarı sayfası</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Hata sayfası</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Hata ayıklama önizlemesi: ilerleme sayfası.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Hata ayıklama önizlemesi: başarı sayfası.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Hata ayıklama önizlemesi: hata sayfası.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Hata ayıklama önizlemesi: DISM uygulaması, hedef bölüm salt okunur olduğundan başarısız oldu.
+
+HataKodu=0x80070005
+Ayrıntılar: Görüntü hedef yola eklenirken erişim reddedildi.
+Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Yenile</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Sürüm: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Önceki</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Sonraki</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Dağıt</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Günlüğü aç</value></data>
+  <data name="Common.NotAvailable" xml:space="preserve"><value>Yok</value></data>
+  <data name="Common.Unavailable" xml:space="preserve"><value>Kullanılamıyor</value></data>
+  <data name="Common.None" xml:space="preserve"><value>Yok</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Bilinmiyor</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Algılandı</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>Evet</value></data>
+  <data name="Common.No" xml:space="preserve"><value>Hayır</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Etkin</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Devre dışı</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Hazır</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Hazır değil</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>Ağ oluşturma</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Başlangıç zamanı</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Geçen süre</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Dağıtım başarıyla tamamlandı.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Bu bilgisayar {0}s içinde yeniden başlatılacak.</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Yeniden başlat</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>Dağıtım başarısız oldu</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Başarısız adım</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Hata mesajı</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Hoş geldiniz</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Bileşenler başlatılıyor...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Başlat</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Bilinmeyen boyut</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Engellendi: sistem diski</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Engellendi: önyükleme diski</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Engellendi: salt okunur</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Engellendi: çevrimdışı</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>SANAL HEDEFTE HATA AYIKLAMA</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Seçilen disk engellendi: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Hedef disk {0} artık mevcut değil.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Hedef disk {0} engellendi: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Disk silmeyi onayla</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Bu, seçilen diskteki tüm verileri silecek ve seçilen işletim sistemini yükleyecektir.
+
+Disk: {0}
+Modeli: {1}
+Otobüs: {2}
+Boyut: {3}
+
+İşletim sistemi: {4}
+
+Dağıtıma devam edilsin mi?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Bir işletim sistemi seçin.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Geçerli bir bilgisayar adı girin.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Bir hedef disk seçin.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Dağıtıma başlamadan önce geçerli bir OEM modeli veya sürümü seçin.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Dağıtıma başlamadan önce bir Autopilot profili seçin veya Autopilot'yi devre dışı bırakın.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Dağıtım kullanıcı tarafından iptal edildi.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Dağıtım hazırlığı tamamlandı.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Hazır</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Dağıtım bekleniyor...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>İlerleme bekleniyor...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Dağıtım hazırlanıyor...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Dağıtım başladı.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Dağıtım tamamlandı.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Dağıtım iş akışı tamamlandı.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Dağıtım iptal edildi.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Dağıtım başarısız oldu.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Dağıtım başarısız oldu: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Başka bir işlem zaten çalışıyor.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Hata ayıklama güvenli modu etkin: dağıtım eylemleri simüle edilir.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Dağıtım iş akışı başlatılıyor.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Başlangıç adımı...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>{0} başlatılıyor.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>{0} başlatılıyor...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Adım tamamlandı.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>Adım başarısız oldu.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Adım atlandı.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>Devam ediyor...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Adım:? ile ilgili?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Adım: {0} / {1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Şimdi yeniden başlatılıyor...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Yeniden başlatma komutu başarısız oldu.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Yeniden başlatma komutu başarısız oldu: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Günlük dosyası açılamıyor: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe {0} çıkış koduyla başarısız oldu. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Sistem yeniden başlat</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Gerekli yeniden başlatma yürütülebilir dosyası 'wpeutil.exe' bulunamadı.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Bilinmeyen adım</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Hiçbir hata ayrıntısı sağlanmadı.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Dağıtım değişkenlerini toplayın</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Dağıtım çalışma alanını başlat</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Hedef yapılandırmayı doğrula</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Dağıtım önbelleğini kontrol edin</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Hedef disk düzenini hazırlayın</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsünü indirin</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsünü uygula</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Hedef bilgisayar adını yapılandırın</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE ayarlarını yapılandırın</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Kurtarma ortamını yapılandırın</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Sürücü paketini indirin</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Sürücü paketini çıkart</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Sahne öncesi OOBE özelleştirmesi</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Sürücü paketini uygula</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımı güncellemesini indirin</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware güncellemesini uygula</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Mühür kurtarma bölümü</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provizyon Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dağıtımı sonlandırın ve günlükleri yazın</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Dağıtım değişkenleri toplanıyor...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Dağıtım bağlamı toplanıyor...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Dağıtım değişkenleri toplandı.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Dağıtım değişkenleri toplandı (simülasyon).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Dağıtım çalışma alanı başlatılıyor...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Çalışma alanı klasörleri oluşturuluyor...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Dağıtım sonlandırılıyor...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Geçici çalışma alanı temizleniyor...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Dağıtım özeti yazılıyor...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Tamamlama günlükleri yazılıyor...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Çalışma alanı başlatıldı.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Çalışma alanı başlatıldı (simülasyon).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Hedef yapılandırma doğrulanıyor...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Hedef disk yeniden doğrulanıyor...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Donanım profili algılanıyor...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>İşletim sistemi URL eksik.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Hedef disk numarası gerekli.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Hedef yapılandırması doğrulandı.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Hedef konfigürasyonu doğrulandı (simülasyon).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Dağıtım önbelleği kontrol ediliyor...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Önbellek konumu çözümleniyor...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Önbellek disk çakışması kontrol ediliyor...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Önbellek stratejisi çözüldü.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Önbellek stratejisi çözüldü (simülasyon).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Hedef disk düzeni hazırlanıyor...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Hedef disk bölümleniyor...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Hedef çalışma alanı hazırlanıyor...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Simüle edilmiş bölümler oluşturuluyor...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Hedef disk düzeni hazırlandı.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Hedef disk düzeni hazırlandı (simülasyon).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Hedef disk düzeni hazırlanmadı.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsü indiriliyor...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Önbellek kontrol ediliyor...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>İşletim sistemi görüntüsü hazır (simülasyon).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>İşletim sistemi görüntüsü indirilmedi.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>İşletim sistemi görüntüsü indirildi.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>İşletim sistemi görüntüsü önbellekten çözümlendi.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsü uygulanıyor...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Görüntü inceleniyor...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Resim uygulanıyor...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Önyükleme yapılandırılıyor...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Resim doğrulanıyor...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>İşletim sistemi görüntüsü uygulandı.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>İşletim sistemi görüntüsü uygulandı (simülasyon).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırılıyor...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Çevrimdışı bilgisayar adı yazılıyor...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Hedef Windows bölümü kullanılamıyor.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırıldı.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırıldı (simülasyon).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Çevrimdışı özelleştirme devre dışı bırakıldı.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Çevrimdışı özelleştirmeler yapılandırılıyor...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>İlk çalıştırma varsayılanları yazılıyor...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>AI bileşeninin kaldırılması yapılandırılıyor...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Çevrimdışı yapay zeka politikaları yazılıyor...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Çevrimdışı özelleştirme yapılandırıldı.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Çevrimdışı özelleştirme yapılandırıldı (simülasyon).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE özelleştirme devre dışı bırakıldı.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE ayarları yapılandırılıyor...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>İlk çalıştırma gizlilik varsayılanları yazılıyor...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE özelleştirme yapılandırıldı.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE ayarları yapılandırıldı.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE özelleştirme simüle edildi.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE ayarlar yapılandırıldı (simülasyon).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Kurtarma ortamı yapılandırılıyor...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows Kurtarma Ortamı Hazırlanıyor...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Kurtarma bölümü kullanılamıyor.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Kurtarma ortamı yapılandırıldı.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Kurtarma ortamı yapılandırıldı (simülasyon).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>OOBE öncesi özelleştirme komut dosyalarına gerek yoktur.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>OOBE öncesi özelleştirmeler, ilk önyükleme sürücü paketiyle gerçekleştirilecektir.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>OOBE öncesi özelleştirmeler hazırlanıyor...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>OOBE öncesi özelleştirmeler tamamlandı.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>OOBE öncesi özelleştirmeler aşamalı (simülasyon).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Sürücü paketi devre dışı (Hiçbiri seçilmedi).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Sürücü paketinin indirilmesine gerek yoktur.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Sürücü paketi indiriliyor...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>İndirmeye hazırlanıyor...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>OEM sürücü paketi modu seçildi ancak sürücü paketi sağlanmadı.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Sürücü paketi indirildi.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Sürücü paketi indirildi (simülasyon).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Sürücü paketi önbellekten çözüldü.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Sürücü paketi çıkarılıyor...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Sürücü paketi indirilmedi.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Sürücü paketi çıkarıldı.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Sürücü paketi çıkarıldı (simülasyon).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>İlk önyükleme kurulumu için hazırlanan sürücü paketi.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Hiçbir sürücü paketi işlemine gerek yoktur.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Desteklenmeyen sürücü paketi yükleme modu.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Çıkarılan INF sürücüsü içeriği mevcut değil.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Sürücü paketi kaynak içeriği, ilk önyükleme aşaması için kullanılamaz.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog sürücü içeriği üretmedi.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Desteklenen bir komut olmadan ilk önyükleme sürücü paketi hazırlama işlemi istendi.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Sürücü paketi uygulanıyor...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Windows sürücüleri uygulanıyor...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>WinRE'yi yükleme...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>WinRE sürücüleri uygulanıyor...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>WinRE'nin bağlantısı kaldırılıyor...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Aşama paketi...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>İlk önyükleme kurulum komut dosyası güncelleniyor...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>İndiriliyor</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Çıkarma</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Başvuruyor</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Evreleme</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} indirildi</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Sürücü paketi uygulandı.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>İlk önyükleme için hazırlanmış sürücü paketi.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Sürücü paketi uygulandı (simülasyon).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımı güncellemesi indiriliyor...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Microsoft Update Catalog araması hazırlanıyor...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Firmware güncellemeleri devre dışı.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Sanal makineler için ürün yazılımı güncellemeleri devre dışıdır.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Cihaz pil gücüyle çalışırken bellenim güncellemeleri atlanır.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Sistem ürün yazılımı donanım tanımlayıcısı kullanılamıyor.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Firmware güncellemesi indirildi.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Firmware güncellemesi indirildi (simülasyon).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Çıkarılan ürün yazılımı içeriği mevcut değil.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Çıkarılan ürün yazılımı içeriği herhangi bir INF dosyası içermiyor.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımı güncellemesi uygulanıyor...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Donanım yazılımı içeriği çevrimdışı Windows'ye enjekte ediliyor...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Firmware güncellemesi uygulandı.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Firmware güncellemesi uygulandı (simülasyon).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Kurtarma bölümü kapatılıyor...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Kurtarma sürücüsü harfi kaldırılıyor...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Kurtarma bölümü mühürlendi.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Kurtarma bölümü mühürlendi (simülasyon).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot devre dışı bırakıldı.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot etkinleştirildi ancak hiçbir profil seçilmedi.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Hedef Windows bölümü Autopilot hazırlama için kullanılamaz.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Hedef Autopilot dizini çözümlenemedi.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Autopilot profili hazırlanıyor...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>AutopilotConfigurationFile.json kopyalanıyor...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Simüle edilmiş Autopilot bildirimi yazılıyor...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Autopilot donanım karma değeri yakalanıyor...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>OA3Tool çalıştırılıyor...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Autopilot donanım karması yükleniyor...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Microsoft Graph içe aktarma hazırlanıyor...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>İçe aktarma isteği Microsoft Graph adresine gönderiliyor...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Autopilot cihazın görünürlüğü bekleniyor...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Windows Autopilot cihazlar kontrol ediliyor ({0} kalan)...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Mevcut Autopilot cihazı güncelleniyor...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Microsoft Graph'deki Windows Autopilot grup etiketi güncelleniyor...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Autopilot grup etiketi güncellemesi bekleniyor...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Windows Autopilot grup etiketi kontrol ediliyor ({0} kalan)...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autopilot donanım karması yüklemesi hazırlanıyor...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Medya sertifikasının şifresi çözülüyor...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autopilot donanım karması yüklemesi doğrulanıyor...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Microsoft Graph belirteci isteniyor...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Donanım karması Microsoft Graph içine aktarılıyor...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Simüle edilmiş Autopilot karma bildirimi yazılıyor...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Hedef Windows bölümü, Autopilot donanım karma yüklemesi için kullanılamaz.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot Gömülü sertifikanın süresi dolduğundan donanım karma yüklemesi atlandı.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot Gerekli medya sertifikası bilgileri eksik olduğundan donanım karması yüklemesi atlandı.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot donanım karması içe aktarıldı ve Windows Autopilot cihazlarda görünür.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>İçe aktarılan Autopilot aygıtı, zaman aşımından önce Windows Autopilot aygıtlarında görünmedi.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot cihaz grubu etiketi güncellemesi zaman aşımından önce onaylanmadı.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot Simülasyon için hazırlanan donanım karma yüklemesi.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot donanım karma yüklemesi hazırlandı (simülasyon).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Seçilen Autopilot profil dosyası bulunamadı: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot donanım karması yakalama başarısız oldu: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot donanım karmasını içe aktarma başarısız oldu: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot donanım karma yüklemesi atlandı: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} dakika</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} dakika</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} saniye</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} saniye</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profili sahnelendi.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profili sahnelendi (simülasyon).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arapça (Suudi Arabistan)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgarca (Bulgaristan)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Çekçe (Çekya)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Danca (Danimarka)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Almanca (Almanya)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Yunanca (Yunanistan)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>İngilizce (Birleşik Krallık)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>İngilizce (Amerika Birleşik Devletleri)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>İspanyolca (İspanya)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>İspanyolca (Meksika)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Estonca (Estonya)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Fince (Finlandiya)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Fransızca (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Fransızca (Fransa)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>İbranice (İsrail)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Hırvatça (Hırvatistan)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Macarca (Macaristan)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>İtalyanca (İtalya)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japonca (Japonya)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Korece (Kore)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litvanyaca (Litvanya)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Letonca (Letonya)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norveç Bokmal (Norveç)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Felemenkçe (Hollanda)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Lehçe (Polonya)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portekizce (Brezilya)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portekizce (Portekiz)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Rumence (Romanya)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Rusça (Rusya)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovakça (Slovakya)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovence (Slovenya)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Sırpça Latince (Sırbistan)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>İsveççe (İsveç)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Tay dili (Tayland)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Türkçe (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukraynaca (Ukrayna)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Basitleştirilmiş Çince (Çin)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Geleneksel Çince (Tayvan)</value>
+  </data>
+</root>

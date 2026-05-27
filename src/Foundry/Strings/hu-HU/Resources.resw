@@ -1,0 +1,2007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>Körülbelül</value>
+  </data>
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>Készítette és karbantartja: Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>Közreműködők</value>
+  </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>A közreműködőket nem lehetett betölteni a GitHubból.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>Közreműködők betöltése...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>Hozzájárulások: {0}</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>A Foundry OSD egy modern alkalmazás az Windows telepítési adathordozók készítésére, amelyet WinPE üzemeltet.</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Foundry Project.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>Az Foundry forráskód az MIT Licenc alatt kerül terjesztésre.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>Licenc</value>
+  </data>
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>Licencek</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>Nyissa meg</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>Nyissa meg a kiadási megjegyzéseket a böngészőben</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>A kibocsátási megjegyzések nem tölthetők be a beágyazott böngészőbe.</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>Kiadási megjegyzések betöltése...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
+    <value>Kiadási megjegyzések</value>
+  </data>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>Adattár</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Az Foundry OSD 7-Zip Extra eszközöket tartalmaz a médiakészítés támogatásához.</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-cipzáros extra</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Windows telepítési adathordozó készítése</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>Támogatás</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>A harmadik féltől származó csomaglicencek nyomon követése a projektlerakaton és a függőségi jegyzékeken keresztül történik.</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>Harmadik féltől származó függőségek</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>Körülbelül Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>Hasznos linkek</value>
+  </data>
+  <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
+    <value>Ellenőrizze a frissítéseket</value>
+  </data>
+  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
+    <value>Frissítés és újraindítás</value>
+  </data>
+  <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>Kiadási megjegyzések</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>Frissítse a forrást</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>Kiadási sáv: {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>Stabil kiadások</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>Béta kiadások</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>Kiadások előnézete</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>Webes frissítési hírfolyam</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Bezárás</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Letiltva</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Engedélyezve</value>
+  </data>
+  <data name="Common.Browse" xml:space="preserve">
+    <value>Tallózás</value>
+  </data>
+  <data name="Common.Refresh" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
+    <value>Engedélyezze a fejlesztői diagnosztikát, és nyissa meg a Foundry naplómappát.</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
+    <value>Diagnosztika</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
+    <value>Változtassa meg az alkalmazás nyelvét a Foundry OSD újraindítása nélkül.</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
+    <value>A Foundry OSD automatikus elindítása, amikor bejelentkezik a Windows fiókba.</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
+    <value>Indításkor futtassa</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>angolul</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>francia</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Válassza ki a Autopilot kiépítési módot a telepítési adathordozóhoz: JSON profilbeállítás vagy WinPE hardveres kivonatfeltöltés.</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>Autopilot engedélyezése</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>Profil importálása</value>
+  </data>
+  <data name="Autopilot.DownloadButton" xml:space="preserve">
+    <value>Letöltés a bérlőtől</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>A kiválasztott eltávolítása</value>
+  </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>Profilműveletek</value>
+  </data>
+  <data name="Autopilot.ActionsDescription" xml:space="preserve">
+    <value>Importáljon helyi JSON profilokat, vagy töltse le őket a Intune címről.</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>Autopilot profil importálása...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>Autopilot profilok letöltése...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>Eltávolítja a Autopilot profilt?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>Eltávolítja a „{0}” elemet az importált Autopilot profilokból?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>Profil eltávolítása</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
+    <value>Eltávolítja a Autopilot profilokat?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
+    <value>Eltávolítja a {0} kiválasztott Autopilot profilokat?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
+    <value>Profilok eltávolítása</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>Alapértelmezett profil</value>
+  </data>
+  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
+    <value>Profil alapértelmezés szerint az alkalmazott Windows képben.</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>Importált profilok</value>
+  </data>
+  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
+    <value>Offline Autopilot profilok elérhetők a JSON profilok kiépítéséhez.</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>Nincsenek importált Autopilot profilok.</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>Forrás</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>Importált</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>Mappa</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>Autopilot profil importálása JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>Autopilot importálás sikertelen</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>Bejelentkezés a Microsoft Graph címre</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>A Autopilot profilok letöltéséhez fejezze be a bejelentkezést a böngészőben.</value>
+  </data>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>Nem található Autopilot profil</value>
+  </data>
+  <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
+    <value>A bérlő nem adott vissza Autopilot profilt.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
+    <value>Autopilot letöltés sikertelen</value>
+  </data>
+  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
+    <value>Autopilot profilletöltés sikertelen: {0}</value>
+  </data>
+  <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
+    <value>Válassza ki a Autopilot profilokat</value>
+  </data>
+  <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
+    <value>Válassza ki, hogy mely bérlői profilokat kívánja importálni a Foundry mappába.</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
+    <value>Válassza ki az összeset</value>
+  </data>
+  <data name="Autopilot.TenantPickerClear" xml:space="preserve">
+    <value>Világos</value>
+  </data>
+  <data name="Autopilot.TenantPickerImport" xml:space="preserve">
+    <value>Importálás</value>
+  </data>
+  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>Kiválasztott profilok: {0}/{1}</value>
+  </data>
+  <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
+    <value>JSON profil létrehozása</value>
+  </data>
+  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
+    <value>Hozzon létre egy offline Autopilot profilt az alkalmazott Windows képben.</value>
+  </data>
+  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
+    <value>Használja a JSON profilkiépítést</value>
+  </data>
+  <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
+    <value>Hardveres hash feltöltés</value>
+  </data>
+  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
+    <value>Töltse fel az eszköz hardverkivonatát a Intune címre a Foundry Deploy címről a WinPE mappában.</value>
+  </data>
+  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
+    <value>Használjon hardveres hash feltöltést</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
+    <value>Csatlakoztassa a bérlőt</value>
+  </data>
+  <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
+    <value>A bérlő leválasztása</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
+    <value>Bérlő csatlakoztatása...</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>Bejelentkezés a Microsoft Graph címre</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>A Autopilot hardveres hash-feltöltés konfigurálásához fejezze be a bejelentkezést a böngészőben.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
+    <value>Bérlői kapcsolat</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
+    <value>Csatlakozzon a Microsoft Graph címhez ehhez az alkalmazásmenethez a hash-feltöltési beállítások kezeléséhez.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
+    <value>Nincs csatlakoztatva</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
+    <value>Csatlakozva</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>Bérlői felkészültség</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>Bérlői, alkalmazásregisztráció és hardveres hash feltöltési készenléti információk.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
+    <value>Érték</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
+    <value>Bérlői azonosító</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
+    <value>Ügyfél-azonosító</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
+    <value>Felügyelt alkalmazás regisztráció</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Foundry OSD Autopilot A regisztráció nincs konfigurálva.</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
+    <value>{0} be van állítva.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>Nincs kész</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
+    <value>Tanúsítvány műveletek</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
+    <value>Alkalmazásregisztrációs tanúsítvány hitelesítő adatainak létrehozása vagy eltávolítása.</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
+    <value>Biztosított tanúsítványok</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
+    <value>A WinPE Graph hitelesítéshez megbízható alkalmazásregisztrációs tanúsítványok.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
+    <value>Nincsenek tanúsítványok.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
+    <value>Hozzon létre tanúsítványt</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
+    <value>Tanúsítvány eltávolítása</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
+    <value>Mentse el a Autopilot PFX tanúsítványt</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
+    <value>PFX tanúsítvány</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
+    <value>Tanúsítvány kész</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>Mentse el ezt a PFX-fájlt és jelszót most egy biztonságos helyre. A Foundry nem tárolja a jelszót, és a párbeszédpanel bezárása után nem tudja újra megjeleníteni. Mindkét értékre szüksége lesz a rendszerindító adathordozó létrehozásához a hardveres hash feltöltéshez.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>PFX fájl</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>PFX jelszó</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>Jelszó másolása</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>Jelszó másolva.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
+    <value>A tanúsítvány létrehozása nem sikerült</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
+    <value>Foundry nem tudta létrehozni az alkalmazás regisztrációs tanúsítványát. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
+    <value>Eltávolítja a kiválasztott tanúsítványt?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
+    <value>Az Foundry csak a kiválasztott tanúsítványt távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
+    <value>Az Foundry csak a {0} kiválasztott tanúsítványokat távolítja el a kezelt alkalmazásregisztrációból. A többi alkalmazás hitelesítő adatai megmaradnak.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
+    <value>Tanúsítvány eltávolítása</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
+    <value>A tanúsítvány eltávolítása nem sikerült</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
+    <value>Foundry nem tudta eltávolítani a kiválasztott alkalmazás regisztrációs tanúsítványát. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>Ujjlenyomat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>Létrehozva</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>Lejárat</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>Tanúsítványazonosító</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
+    <value>Boot média tanúsítvány</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
+    <value>Jelszóval védett PFX rendszerindító adathordozóra másolva hardveres hash feltöltéshez.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
+    <value>PFX fájl</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
+    <value>PFX jelszó</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
+    <value>Válassza a PFX lehetőséget</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
+    <value>Válassza a Autopilot PFX tanúsítványt</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
+    <value>Válasszon ki egy alkalmazásregisztrációs tanúsítványnak megfelelő PFX-et.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
+    <value>A kiválasztott tanúsítvány lejárt. A rendszerindító adathordozó létrehozása előtt hozzon létre vagy válasszon érvényes tanúsítványt.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
+    <value>A rendszerindító adathordozó létrehozása előtt válassza ki a megfelelő jelszóval védett PFX-et.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
+    <value>A kiválasztott PFX-fájl már nem létezik.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
+    <value>Adja meg a PFX jelszót.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>A PFX-tanúsítvány ujjlenyomata nem egyezik a kiválasztott alkalmazásregisztrációs tanúsítvánnyal.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
+    <value>A kiválasztott PFX nem tartalmaz privát kulcsot.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
+    <value>A kiválasztott PFX nem nyitható meg a megadott jelszóval.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
+    <value>A tanúsítvány készen áll a rendszerindítási adathordozó generálására.</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
+    <value>Alapértelmezett csoportcímke</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
+    <value>Opcionális csoportcímke előre kiválasztva Foundry Deploy hardveres hash-feltöltés során.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
+    <value>Nincs kiválasztva alapértelmezett csoportcímke.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
+    <value>Egyik sem</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
+    <value>Egyik sem</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
+    <value>A bérlő beépítése figyelmet igényel</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
+    <value>A bérlő beiktatása nem sikerült</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
+    <value>Foundry nem tudta konfigurálni az Autopilot alkalmazás regisztrációját. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
+    <value>A kezelt alkalmazás regisztrációja nem található. Csatlakozzon újra, hogy a Foundry létrehozza vagy elfogadja azt.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
+    <value>Meglévő alkalmazásregisztráció található Foundry néven. Csatlakoztassa újra, hogy átvegye a Foundry konfigurációba.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
+    <value>A kezelt alkalmazás regisztrációjából hiányzik a szükséges Microsoft Graph alkalmazásengedély. Csatlakozzon újra egy olyan fiókhoz, amely képes frissíteni az alkalmazásregisztrációkat.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
+    <value>A felügyelt egyszerű szolgáltatás nem rendelkezik adminisztrátori hozzájárulással a szükséges Microsoft Graph engedélyhez. Adja meg a rendszergazda hozzájárulását, és csatlakozzon újra.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
+    <value>A felügyelt szolgáltatási tag hiányzik vagy le van tiltva. Csatlakozzon újra egy olyan fiókhoz, amely képes vállalati alkalmazásokat létrehozni vagy kezelni.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
+    <value>A korábban kiválasztott tanúsítvány már nem létezik a felügyelt alkalmazásregisztrációban. Válasszon ki egy érvényes PFX-et, amely megfelel egy kiépített tanúsítványnak.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
+    <value>A kiválasztott tanúsítvány lejárt. Hozzon létre egy új tanúsítványt, mentse el a PFX-jét és jelszavát, majd válassza ki a rendszerindító adathordozóhoz.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
+    <value>A felügyelt alkalmazás regisztrációja nem áll készen. Tekintse át a bérlői felkészültséget, és csatlakozzon újra.</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>Testreszabás</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry nem tudta megnyitni a dokumentációt a böngészőben. Használja helyette ezt a URL-t.</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>A dokumentációt nem lehetett megnyitni</value>
+  </data>
+  <data name="Customization.MachineNamingHeader" xml:space="preserve">
+    <value>Számítógép neve</value>
+  </data>
+  <data name="Customization.MachineNamingDescription" xml:space="preserve">
+    <value>Szabályozza, hogy a telepített számítógép neve hogyan generálódik WinPE.</value>
+  </data>
+  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
+    <value>Gépelnevezési szabályok engedélyezése</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
+    <value>Számítógépnév előtag</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
+    <value>Az előtag a létrehozott vagy szerkeszthető központi telepítési utótag elé kerül alkalmazásra.</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>Számítógépnév utótag automatikus generálása</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
+    <value>Az utótag automatikus létrehozása a telepítés során.</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>Az utótag szerkesztésének engedélyezése a telepítés során</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
+    <value>Engedélyezze a telepítési operátor számára az előtag utáni utótag szerkesztését.</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
+    <value>Az előtagnak 1-15 karaktert kell tartalmaznia A-Z, a-z, 0-9 vagy - között.</value>
+  </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>Out-of-box tapasztalat</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>OOBE testreszabása</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>A licencfeltételek kihagyása</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>Kihagyja a Microsoft szoftverlicenc-feltételek oldalát az OOBE alatt.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>Diagnosztikai adatok</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>Kiválasztja az első bejelentkezés előtt konfigurált Windows diagnosztikai adatszintet. Az Off funkciót csak a támogatott Windows kiadások támogatják; a nem támogatott kiadások visszakerülnek a Kötelező kategóriába.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>Kötelező</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>Választható</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>Ki</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>Az adatvédelmi beállítások elrejtése</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy Windows jelenítse meg az adatvédelmi beállítások oldalát az első bejelentkezéskor.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>Személyre szabott élmények</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>Lehetővé teszi Windows számára, hogy diagnosztikai adatokat használjon személyre szabott tippekhez, hirdetésekhez és ajánlásokhoz.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>Reklámazonosító</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>Lehetővé teszi az alkalmazások számára a Windows hirdetésazonosító használatát az alkalmazások között.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>Online beszédfelismerés</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>Lehetővé teszi a Microsoft felhőalapú beszédfelismerő szolgáltatásokat.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>Tinta- és gépelési diagnosztika</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>Lehetővé teszi az opcionális tinta- és gépelési diagnosztikai adatok gyűjtését.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>Helyhozzáférés</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>Azt szabályozza, hogy a Windows és az alkalmazások használhatják-e a helyszolgáltatásokat.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>Felhasználó által irányított</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>Erőszakkal</value>
+  </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>AI alkatrész eltávolítása</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>Távolítsa el vagy tiltsa le a kiválasztott Windows AI-komponenseket OOBE előtt.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>Távolítsa el az AI összetevőket</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>Microsoft Copilot eltávolítása</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>Távolítsa el a Copilot alkalmazáscsomagot, és kapcsolja ki a Windows Copilot házirendet.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>Távolítsa el az Copilot+ AI Hub-ot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>Távolítsa el a kiépített Windows AI Hub alkalmazáscsomagot, ha van.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>Windows Recall letiltása</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>Állítson be Windows AI-szabályokat, amelyek megakadályozzák az Recall engedélyezését és a pillanatfelvételek mentését.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>Click to Do letiltása</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>Állítson be Windows AI-szabályokat, amelyek kikapcsolják az Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>Az Windows AI szolgáltatás automatikus indításának megakadályozása</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>Állítsa a WSAIFabricSvc-t kézi indításra az automatikus indítás helyett.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>Tiltsa le az Microsoft Edge AI-funkciókat</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>Állítson be Edge házirendeket, amelyek letiltják az Copilot, az oldalsáv, a levélírás és az AI keresési funkciókat.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>Tiltsa le az Paint AI-funkciókat</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>Állítson be Paint házirendeket, amelyek letiltják a Cocreatort, a generatív szerkesztést, a képkészítőt és a háttér eltávolítását.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>Tiltsa le az Notepad AI-funkciókat</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>Állítsa be a Notepad házirendet, amely letiltja az AI-funkciókat.</value>
+  </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>Előzetes alkalmazás eltávolítása</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>Távolítsa el a kiépített Windows alkalmazásokat</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>Válasszon ki egy vagy több katalóguskategóriát a csomagok előzetes kiválasztásához.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>Egyik sem</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>Egyedi</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>Kiválasztott profilok: {0}</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>Válassza ki az összeset</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>Az összes eltávolítása</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>Csomagok</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>Kiválasztott csomagok: {0}/{1}</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>Rendszerindítási lehetőségek.</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>Média konfigurálása</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>ADK felkészültség.</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>Megnyitás ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>Termékdokumentáció.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>Nyissa meg a dokumentációt</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>Végső médiaösszegzés.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>Tekintse át és kezdje el</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>Telepített verzió</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Windows PE Kiegészítő</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>Építsen Windows telepítési adathordozót a WinPE által hajtott modern asztali munkafolyamattal.</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>tábornok</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
+    <value>Következő lépés</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
+    <value>Médiakimenetek.</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
+    <value>Tekintse át és kezdje el</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>Telepítse a Windows ADK és a Windows PE bővítményt, mielőtt kiválasztaná az WinPE rendszerindítási nyelvet.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>Nem észleltünk WinPE nyelvi csomagot a kiválasztott architektúrához.</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>Lokalizáció</value>
+  </data>
+  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
+    <value>Látható telepítési nyelvek</value>
+  </data>
+  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
+    <value>Alapértelmezett telepítési nyelv</value>
+  </data>
+  <data name="Localization.TimeZone.Header" xml:space="preserve">
+    <value>Telepítési időzóna</value>
+  </data>
+  <data name="Localization.AutomaticOption" xml:space="preserve">
+    <value>Automatikus</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>Hálózat</value>
+  </data>
+  <data name="Dot1x.EnableLabel" xml:space="preserve">
+    <value>Konfigurálja a vezetékes 802.1X-et</value>
+  </data>
+  <data name="Dot1x.CertificateLabel" xml:space="preserve">
+    <value>Megbízható root CA tanúsítványfájl</value>
+  </data>
+  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
+    <value>Válassza a 802.1X tanúsítványt</value>
+  </data>
+  <data name="Wifi.EnableLabel" xml:space="preserve">
+    <value>A Wi-Fi támogatás biztosítása a rendszerindító lemezképben</value>
+  </data>
+  <data name="Wifi.ConfigureLabel" xml:space="preserve">
+    <value>Készítsen előzetesen egy Wi-Fi profilt</value>
+  </data>
+  <data name="Wifi.SsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
+    <value>Biztonsági típus</value>
+  </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
+    <value>Nyissa meg</value>
+  </data>
+  <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
+    <value>OWE (Opportunista vezeték nélküli titkosítás)</value>
+  </data>
+  <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
+    <value>WPA2/WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3" xml:space="preserve">
+    <value>WPA3 Enterprise (WPA3ENT)</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
+    <value>WPA3 Enterprise 192 bites (WPA3ENT192)</value>
+  </data>
+  <data name="Network.EthernetSectionTitle" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Network.EthernetHelperText" xml:space="preserve">
+    <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
+  </data>
+  <data name="Network.WifiSectionTitle" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Network.WifiHelperText" xml:space="preserve">
+    <value>Csak akkor engedélyezze ezt, ha a rendszerindító lemezképnek tartalmaznia kell Wi-Fi támogatást és Wi-Fi profilt az WinPE indításhoz.</value>
+  </data>
+  <data name="Network.WifiPersonalHelperText" xml:space="preserve">
+    <value>A személyes Wi-Fi jelszavak átmenetiek maradnak a szerzői alkalmazásban, és nem maradnak meg a Foundry konfigurációban.</value>
+  </data>
+  <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
+    <value>A vállalati viselkedést az ebben a buildben található profilsablon vezérli. A telepítés során megadott 802.1X hitelesítő adatok itt nincsenek kiépítve.</value>
+  </data>
+  <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
+    <value>Haladó vállalat Wi-Fi</value>
+  </data>
+  <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
+    <value>Hozzon létre egy vállalati Wi-Fi profilsablont</value>
+  </data>
+  <data name="Network.ProfileTemplateLabel" xml:space="preserve">
+    <value>Profil sablon fájl</value>
+  </data>
+  <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
+    <value>Válasszon ki egy hálózati profilsablont</value>
+  </data>
+  <data name="Network.RequiresCertificateLabel" xml:space="preserve">
+    <value>Importáljon megbízható gyökér CA-tanúsítványt</value>
+  </data>
+  <data name="Wifi.CertificateLabel" xml:space="preserve">
+    <value>Megbízható root CA tanúsítványfájl</value>
+  </data>
+  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
+    <value>Válassza ki a Wi-Fi tanúsítványt</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>Az Wi-Fi konfigurációhoz Wi-Fi támogatás szükséges a rendszerindító lemezképben.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>A vezetékes 802.1X-hez vezetékes profilsablon szükséges.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>A vezetékes 802.1X profilsablon fájl nem található.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>A Wired 802.1X megbízható gyökér CA-tanúsítványfájlt igényel, ha a tanúsítvány megbízhatósága engedélyezett.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>A vezetékes 802.1X megbízható gyökér CA tanúsítványfájl nem található.</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>Az Wi-Fi konfigurációhoz SSID szükséges.</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>Nem támogatott Wi-Fi biztonsági típus: '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>A Personal Wi-Fi 8-63 karakteres jelmondatot igényel.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi profilsablont igényel.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>A vállalati Wi-Fi profilsablon fájl nem található.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>Az Enterprise Wi-Fi profilsablonnak tartalmaznia kell egy támogatott vállalati hitelesítési értéket.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>A kiválasztott vállalati Wi-Fi biztonsági típus nem egyezik a profilsablon hitelesítéssel ({0}).</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi megbízható root CA tanúsítványfájlt igényel, ha a tanúsítvány megbízhatósága engedélyezve van.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>Vállalati Wi-Fi megbízható root CA tanúsítványfájl nem található.</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>Művelet folyamatban</value>
+  </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>A művelet befejeződött</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>Indítsa el</value>
+  </data>
+  <data name="StartMedia.IsoPath.Header" xml:space="preserve">
+    <value>ISO kimenet</value>
+  </data>
+  <data name="StartMedia.IsoPath.Description" xml:space="preserve">
+    <value>Válassza ki, hogy a generált Foundry ISO hova kerüljön kiírásra.</value>
+  </data>
+  <data name="StartMedia.Architecture.Header" xml:space="preserve">
+    <value>Építészet és aláírás</value>
+  </data>
+  <data name="StartMedia.Architecture.Description" xml:space="preserve">
+    <value>Válassza ki a rendszerindítási architektúrát és a rendszerindítási aláírás módot.</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
+    <value>WinPE rendszerindítási nyelv</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
+    <value>A WinPE rendszerindítási környezet által használt nyelv.</value>
+  </data>
+  <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
+    <value>USB cél</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
+    <value>USB elrendezés</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>A kiválasztott USB cél előkészítésekor használt partíciós séma.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>A végső USB adathordozó másolása előtt használt formázási viselkedés.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
+    <value>Driver opciók</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
+    <value>Válasszon opcionális szállítói illesztőprogramokat és egy egyéni illesztőprogram-mappát.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
+    <value>Egyéni illesztőprogram-mappa</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
+    <value>Opcionális mappa, amely további .inf illesztőprogramokat tartalmaz.</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
+    <value>Média létrehozása</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
+    <value>Hozzon létre ISO vagy USB adathordozót, miután minden készenléti ellenőrzés sikeres volt.</value>
+  </data>
+  <data name="StartMedia.CreateIsoButton" xml:space="preserve">
+    <value>ISO létrehozása</value>
+  </data>
+  <data name="StartMedia.CreateUsbButton" xml:space="preserve">
+    <value>USB létrehozása</value>
+  </data>
+  <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
+    <value>Gyors formázás</value>
+  </data>
+  <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
+    <value>Teljes formátum</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
+    <value>A média létrehozása nincs engedélyezve ebben a buildben.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>A média létrehozása akkor érhető el, ha minden készenléti ellenőrzés sikeres.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>A ISO létrehozása le van tiltva</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>A USB létrehozása le van tiltva</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>Formázza a USB célt</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>Ezzel törli a {0}: {1} ({2}) lemezt. Csak akkor folytassa, ha ez a tervezett USB meghajtó.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>Formázza és hozzon létre USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>WinPE munkaterület létrehozása.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>WinPE munkaterület előkészítése.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>Illesztőprogram-csomagok feloldása.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>A rendszerindító kép testreszabása.</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>A rendszerindítási aláírási szabályzat kiértékelése.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>Indítókép testreszabásának előkészítése.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>Szerelési rendszerindító kép.</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>Illesztőprogramok befecskendezése a rendszerindító lemezképbe.</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>Nyelvi és választható összetevők alkalmazása.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>Foundry rendszerindító eszközök kiépítése.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>Foundry telepítési összetevők hozzáadása.</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>A rendszerindító kép módosításainak végrehajtása.</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>A rendszerindító kép testreszabása befejeződött.</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>WinPE munkaterület tisztítása.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>ISO média létrehozása.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>USB média létrehozása.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>A média végleges létrehozása befejeződött.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>A média végső létrehozása nem sikerült.</value>
+  </data>
+  <data name="StartMedia.Operation.Downloading" xml:space="preserve">
+    <value>Tartalom letöltése.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
+    <value>WinRE forráskatalógus feloldása.</value>
+  </data>
+  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
+    <value>Kiválasztott WinRE forráscsomag.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
+    <value>WinRE forráscsomag előkészítése.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Gyorsítótárazott WinRE-forráscsomag érvényesítése.</value>
+  </data>
+  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Gyorsítótárazott WinRE forráscsomag használata.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
+    <value>WinRE forráscsomag letöltése.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
+    <value>Illesztőprogram-csomag letöltése</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>{0} telepítési összetevők letöltése.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
+    <value>WinRE forráscsomag érvényesítése.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
+    <value>WinRE képindex feloldása.</value>
+  </data>
+  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
+    <value>Windows kép exportálása a WinRE kinyeréséhez.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
+    <value>WinRE forráskép beszerelése.</value>
+  </data>
+  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
+    <value>WinRE Wi-Fi függőségek fokozatba állítása.</value>
+  </data>
+  <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
+    <value>Boot image cseréje WinRE-re.</value>
+  </data>
+  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
+    <value>A WinRE Wi-Fi rendszerindító lemezkép készen áll.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
+    <value>ISO kimeneti útvonal előkészítése.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
+    <value>ISO munkaterület előkészítése.</value>
+  </data>
+  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
+    <value>A MakeWinPEMedia futtatása ISO számára.</value>
+  </data>
+  <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
+    <value>ISO kimenet lezárása.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
+    <value>ISO média kész.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
+    <value>USB cél érvényesítése.</value>
+  </data>
+  <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
+    <value>USB célbiztonság ellenőrzése.</value>
+  </data>
+  <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
+    <value>A USB cél particionálása és formázása.</value>
+  </data>
+  <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
+    <value>USB lemez megnyitása.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
+    <value>USB lemezattribútumok előkészítése.</value>
+  </data>
+  <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
+    <value>USB partíciós tábla törlése.</value>
+  </data>
+  <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
+    <value>USB partíciós tábla inicializálása.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
+    <value>BOOT partíció létrehozása.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
+    <value>A BOOT partíció formázása.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
+    <value>Gyorsítótár-partíció létrehozása.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
+    <value>A gyorsítótár-partíció formázása.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
+    <value>USB partíciók formázva.</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
+    <value>WinPE adathordozó másolása USB mappába.</value>
+  </data>
+  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
+    <value>USB rendszerindító fájlok beállítása.</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
+    <value>USB rendszerindító adathordozó ellenőrzése.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
+    <value>USB gyorsítótár-partíció előkészítése.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
+    <value>Foundry komponensek hozzáadása az USB adathordozóhoz.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
+    <value>USB média kész.</value>
+  </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>Windows kép exportálása DISM-val.</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>A WinRE képindex feloldása DISM-val.</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>Szerelési kép DISM-val.</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>Illesztőprogramok befecskendezése DISM-val.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>Nyelvi csomag alkalmazása DISM-val.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>Opcionális komponensek alkalmazása DISM billentyűvel.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>Nemzetközi beállítások alkalmazása DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>Képmódosítások végrehajtása DISM segítségével.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
+    <value>A ISO adathordozó sikeresen létrejött.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
+    <value>USB média sikeresen létrejött. Rendszerindítási hangerő: {0}. Gyorsítótár mennyisége: {1}.</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
+    <value>Válassza ki a ISO kimeneti útvonalat</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
+    <value>ISO kép</value>
+  </data>
+  <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
+    <value>Válassza ki az egyéni illesztőprogram-mappát</value>
+  </data>
+  <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
+    <value>Az USB célpontok az ADK készenléti állapot befejezése után frissíthetők.</value>
+  </data>
+  <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
+    <value>USB a cél frissítése nem sikerült.</value>
+  </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>USB célpontok pásztázása.</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>A USB célpontokat még nem vizsgálták.</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>Nem található USB meghajtó.</value>
+  </data>
+  <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
+    <value>USB meghajtók találhatók: {0}</value>
+  </data>
+  <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
+    <value>Lemez {0} - {1} ({2})</value>
+  </data>
+  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
+    <value>Figyelmet igénylő elemek:</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>Készen áll a ISO és USB média létrehozására</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>Készen áll a ISO média létrehozására</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>Készen áll a USB média létrehozására</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>Beavatkozást igénylő készenléti elemek: {0}</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>Tekintse át a médiakimenetre vonatkozó figyelmeztetéseket</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>Előfeltételek</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>Ellenőrzések, amelyeknek érvényesnek kell lenniük, mielőtt Foundry médiát készíthet.</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>Médiakimenet</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>Utolsó ISO és USB kimeneti lehetőségek.</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Foundry konfiguráció</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
+    <value>A Foundry által használt telepítési beállítások a WinPE-ban.</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>Figyelmeztetés</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>Blokkolt</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>Nincs konfigurálva</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>Betöltés</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>Tekintse át</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Windows ADK és a Windows PE kiegészítő készen áll.</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>Az illesztőprogram opciói érvényesek.</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>A hálózati konfiguráció kiépíthető.</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>A telepítési konfiguráció létrehozható.</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>Csatlakozás-kiépítési csomag generálható.</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>A szükséges médiatitkok rendelkezésre állnak.</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>A Autopilot le van tiltva, és nem blokkolja a média létrehozását.</value>
+  </data>
+  <data name="StartMedia.Field.Adk" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
+    <value>WinPE rendszerindítási nyelv</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>Boot kép forrása</value>
+  </data>
+  <data name="StartMedia.Field.Architecture" xml:space="preserve">
+    <value>Építészet</value>
+  </data>
+  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
+    <value>ISO kimeneti útvonal</value>
+  </data>
+  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
+    <value>USB cél</value>
+  </data>
+  <data name="StartMedia.Field.Signature" xml:space="preserve">
+    <value>Aláírás mód</value>
+  </data>
+  <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
+    <value>USB partícióstílus</value>
+  </data>
+  <data name="StartMedia.Field.FormatMode" xml:space="preserve">
+    <value>USB formátum mód</value>
+  </data>
+  <data name="StartMedia.Field.Drivers" xml:space="preserve">
+    <value>Drivers</value>
+  </data>
+  <data name="StartMedia.Field.Network" xml:space="preserve">
+    <value>Hálózati konfiguráció</value>
+  </data>
+  <data name="StartMedia.Field.Deploy" xml:space="preserve">
+    <value>Telepítse a konfigurációt</value>
+  </data>
+  <data name="StartMedia.Field.Connect" xml:space="preserve">
+    <value>Csatlakoztassa a kiépítést</value>
+  </data>
+  <data name="StartMedia.Field.Secrets" xml:space="preserve">
+    <value>Médiatitkok</value>
+  </data>
+  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
+    <value>Engedélyezve: {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Engedélyezve: hardveres hash feltöltés</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
+    <value>A Autopilot nem támogatott kiépítési módot használ.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
+    <value>Autopilot JSON profil mód engedélyezve van, de nincs érvényes alapértelmezett profil kiválasztva.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a beállítások hiányoznak.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a bérlői kapcsolat hiányzik. Csatlakozzon a bérlőhöz a Autopilot címről.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de az alkalmazás regisztrációja nincs konfigurálva. Csatlakozzon a bérlőhöz a Autopilot címről.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de az alkalmazás ügyfélazonosítója hiányzik. Csatlakozzon újra a bérlőhöz a Autopilot címről.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de az alkalmazásszolgáltatás egyszerű címe hiányzik vagy nem áll készen.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a kiválasztott PFX nem egyezik az alkalmazásregisztrációs tanúsítvánnyal.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a kiválasztott tanúsítvány ujjlenyomata hiányzik.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a kiválasztott tanúsítvány lejárata hiányzik.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a kiválasztott tanúsítvány lejárt. A rendszerindító adathordozó létrehozása előtt válasszon érvényes tanúsítványt.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de nincs kiválasztva a rendszerindító adathordozó PFX.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de hiányzik a rendszerindító adathordozó PFX jelszava.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a PFX rendszerindító adathordozót nem ellenőrizték.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>A hardveres hash feltöltés engedélyezve van, de a kiválasztott PFX nem egyezik az aktív tanúsítvánnyal.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
+    <value>A hardveres kivonatfeltöltés engedélyezve van, de a rendszerindító adathordozó PFX lejárata nem ellenőrizhető.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
+    <value>A hardveres hash-feltöltés engedélyezve van, de a kiválasztott PFX rendszerindító adathordozó lejárt.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
+    <value>ADK vagy WinPE A kiegészítő nem áll készen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
+    <value>ISO kimeneti útvonalnak.iso karakterrel kell végződnie.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
+    <value>WinPE rendszerindítási nyelv nincs kiválasztva.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
+    <value>A kiválasztott WinPE rendszerindítási nyelv nem érhető el a kiválasztott architektúrához.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
+    <value>A hálózati konfiguráció nincs készen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
+    <value>A telepítési konfiguráció létrehozása nem áll készen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
+    <value>A csatlakozás kiépítése nem áll készen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
+    <value>A szükséges médiatitkok nincsenek készen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
+    <value>A Autopilot engedélyezve van, de nincs érvényes alapértelmezett profil kiválasztva.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
+    <value>Nincs USB cél kiválasztva.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
+    <value>A kiválasztott USB cél túl kicsi. Használjon legalább 16 GB-os USB billentyűt.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
+    <value>Az ARM64 adathordozóhoz GPT partícióstílus szükséges.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
+    <value>Egyéni illesztőprogram-mappa nem létezik.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
+    <value>Az egyéni illesztőprogram-mappa nem tartalmaz .inf fájlokat.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
+    <value>A média létrehozása nincs engedélyezve ebben a buildben.</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>Normál WinPE</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>WinRE Wi-Fi kép</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.ByteUnit.B" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>Új</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>Termék- és verzióinformáció.</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>Körülbelül</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>ADK készenlét és telepítés.</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Autopilot profilkonfiguráció.</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>Telepítési testreszabási lehetőségek.</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>Testreszabás</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>Testreszabás</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Foundry dokumentáció és projektlinkek.</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>Dokumentáció</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>Szakértő</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>Szabványos konfigurációs munkafolyamat.</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>Standard konfiguráció</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>tábornok</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>tábornok</value>
+  </data>
+  <data name="Nav_HomeKey.Description" xml:space="preserve">
+    <value>Foundry OSD otthon</value>
+  </data>
+  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Title" xml:space="preserve">
+    <value>Otthon</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>WinPE nyelvi és lokalizációs beállítások.</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>Lokalizáció</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>Lokalizáció</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>Hálózati és csatlakozási konfiguráció.</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>Hálózat</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>Hálózat</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>Tekintse át és indítsa el a médiakészítést.</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>Indítsa el</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>Indítsa el</value>
+  </data>
+  <data name="SettingsPage.PageTitle" xml:space="preserve">
+    <value>Beállítások elemre</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
+    <value>Kezelje az indítást, a nyelvet, a diagnosztikát és az alkalmazás viselkedését.</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
+    <value>tábornok</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
+    <value>Névtelen használati telemetria küldése az Foundry fejlesztéséhez. A rendszer nem küld neveket, titkokat, SSID-ket, IP-címeket, fájl útvonalakat, lemezazonosítókat, számítógépneveket, Autopilot profilneveket vagy hardverazonosítókat.</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
+    <value>Telemetria engedélyezése</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
+    <value>Módosítsa a téma, a háttér és a kiemelő szín beállításait.</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
+    <value>Megjelenés</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
+    <value>Ellenőrizze a Foundry OSD frissítéseket, és tekintse át a kiadási megjegyzéseket.</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
+    <value>Frissítse az alkalmazást</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
+    <value>Nyissa meg a Windows színbeállításokat a kiemelő szín megváltoztatásához.</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
+    <value>Kiemelő szín</value>
+  </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>Nyissa meg</value>
+  </data>
+  <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
+    <value>Akril</value>
+  </data>
+  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
+    <value>Akril vékony</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
+    <value>Válassza ki az alkalmazás témáját.</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
+    <value>App téma</value>
+  </data>
+  <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
+    <value>Sötét</value>
+  </data>
+  <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
+    <value>Rendszer</value>
+  </data>
+  <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
+    <value>Fény</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
+    <value>Válassza ki az alkalmazás mögött használt háttéranyagot.</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
+    <value>Anyag</value>
+  </data>
+  <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
+    <value>Mica Alt</value>
+  </data>
+  <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>A Foundry OSD letölti a frissítést, és újraindítja az alkalmazáshoz.</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>Frissítés és újraindítás</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>Frissítés Foundry OSD</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>A frissítés letöltése. A Foundry OSD újraindul, ha készen áll.</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>Letöltés folyamata</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>Frissítés letöltése</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>Verzió {0}</value>
+  </data>
+  <data name="Update.NotChecked" xml:space="preserve">
+    <value>Nincs bejelölve</value>
+  </data>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>Új</value>
+  </data>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>Elérhető verzió</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>Telepített verzió</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>Utoljára ellenőrizve</value>
+  </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>Legújabb verzió</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>öntöde-osd/öntöde</value>
+  </data>
+  <data name="Update.Status.Checking" xml:space="preserve">
+    <value>Frissítések keresése</value>
+  </data>
+  <data name="Update.Status.FailedFormat" xml:space="preserve">
+    <value>A frissítés ellenőrzése sikertelen: {0}</value>
+  </data>
+  <data name="Update.Status.NoUpdate" xml:space="preserve">
+    <value>A Foundry OSD naprakész.</value>
+  </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>Naprakész</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>Frissítés elérhető</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Foundry OSD {0} elérhető</value>
+  </data>
+  <data name="Update.Status.NotInstalled" xml:space="preserve">
+    <value>A frissítés ellenőrzése kimaradt, mert a Foundry OSD nem Velopack telepítésből fut.</value>
+  </data>
+  <data name="Update.Status.Ready" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>A frissítés ellenőrzése sikertelen</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>A frissítés ellenőrzése kimaradt</value>
+  </data>
+  <data name="Update.Status.SkippedInDebug" xml:space="preserve">
+    <value>A frissítés ellenőrzése kimaradt, mert egy hibakereső van csatolva.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailable" xml:space="preserve">
+    <value>Foundry OSD frissítés elérhető.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>Frissítse, ha készen áll. A Foundry OSD újraindul az alkalmazás befejezéséhez.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
+    <value>Foundry OSD {0} elérhető.</value>
+  </data>
+  <data name="Adk.PageTitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Adk.Status.ReadyTitle" xml:space="preserve">
+    <value>ADK készen áll</value>
+  </data>
+  <data name="Adk.Status.ReadyDescription" xml:space="preserve">
+    <value>A Foundry OSD ISO és USB médiát hozhat létre.</value>
+  </data>
+  <data name="Adk.Status.MissingTitle" xml:space="preserve">
+    <value>ADK nincs telepítve</value>
+  </data>
+  <data name="Adk.Status.MissingDescription" xml:space="preserve">
+    <value>Telepítse a Windows ADK Telepítési eszközöket és a Windows PE bővítményt az adathordozó létrehozásának konfigurálása előtt.</value>
+  </data>
+  <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
+    <value>A ADK verzió nem támogatott</value>
+  </data>
+  <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
+    <value>Frissítse a Windows ADK-t egy támogatott 10.1.26100 buildre.</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
+    <value>Windows PE A kiegészítő hiányzik</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
+    <value>Telepítse a Windows PE bővítményt a telepített Windows ADK-hoz.</value>
+  </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>ADK beállítás</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>Telepítse vagy frissítse az adathordozó létrehozásához szükséges Windows ADK telepítési eszközöket és Windows PE bővítményt.</value>
+  </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>Készenléti részletek</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>Telepített verzió</value>
+  </data>
+  <data name="Adk.Version.NotDetected" xml:space="preserve">
+    <value>A verzió nem észlelhető</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>Kötelező verzió házirend</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
+    <value>Windows ADK 10.1.26100.2454+ szükséges a legújabb ADK szervizjavítással.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Windows PE Kiegészítő</value>
+  </data>
+  <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
+    <value>Windows PE Kiegészítő telepítve</value>
+  </data>
+  <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
+    <value>Windows PE Hiányzik a kiegészítő</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>Médiakészítési lehetőség</value>
+  </data>
+  <data name="Adk.MediaCapability.Ready" xml:space="preserve">
+    <value>ISO és USB létrehozása elérhető.</value>
+  </data>
+  <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
+    <value>A ISO és USB létrehozása blokkolva marad.</value>
+  </data>
+  <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Windows ADK telepítése</value>
+  </data>
+  <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
+    <value>Frissítés Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloading" xml:space="preserve">
+    <value>A ADK telepítő letöltése</value>
+  </data>
+  <data name="Adk.Operation.Downloaded" xml:space="preserve">
+    <value>ADK telepítő letöltve</value>
+  </data>
+  <data name="Adk.Operation.DownloadCached" xml:space="preserve">
+    <value>Gyorsítótárazott ADK telepítő használata</value>
+  </data>
+  <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
+    <value>Meglévő Windows PE bővítmény eltávolítása</value>
+  </data>
+  <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
+    <value>Meglévő Windows ADK eltávolítása</value>
+  </data>
+  <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
+    <value>A Windows ADK Telepítési eszközök telepítése</value>
+  </data>
+  <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
+    <value>A Windows PE bővítmény telepítése</value>
+  </data>
+  <data name="Adk.Operation.Verifying" xml:space="preserve">
+    <value>ADK telepítés ellenőrzése</value>
+  </data>
+  <data name="Adk.Operation.Completed" xml:space="preserve">
+    <value>ADK művelet befejeződött</value>
+  </data>
+  <data name="Adk.Operation.Failed" xml:space="preserve">
+    <value>ADK művelet sikertelen</value>
+  </data>
+  <data name="AdkPage_InstallButton.Content" xml:space="preserve">
+    <value>Telepítse a Windows ADK és a Windows PE kiegészítőt</value>
+  </data>
+  <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
+    <value>Frissítés Windows ADK és Windows PE bővítmény</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arab (Szaúd-Arábia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bolgár (Bulgária)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>cseh (cseh)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dán (Dánia)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>német (Németország)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>görög (Görögország)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angol (Egyesült Királyság)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angol (Egyesült Államok)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>spanyol (Spanyolország)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spanyol (Mexikó)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>észt (Észtország)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finn (Finnország)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francia (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francia (Franciaország)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>héber (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>horvát (Horvátország)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>magyar (Magyarország)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>olasz (Olaszország)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japán (Japán)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>koreai (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litván (Litvánia)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lett (Lettország)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norvég bokmal (Norvégia)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holland (Hollandia)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>lengyel (Lengyelország)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugál (Brazília)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugál (Portugália)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>román (Románia)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>orosz (Oroszország)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>szlovák (Szlovákia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>szlovén (Szlovénia)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>szerb latin (Szerbia)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>svéd (Svédország)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thai (Thaiföld)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>török (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrán (Ukrajna)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Egyszerűsített kínai (Kína)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>hagyományos kínai (Tajvan)</value>
+  </data>
+</root>

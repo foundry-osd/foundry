@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Относно Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect потвърждава готовността на мрежата в WinPE преди внедряването на Foundry да продължи.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Този софтуер се предоставя такъв, какъвто е. Потвърдете достъпа до мрежата, преди да продължите внедряването.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Авторско право (c) 2026 Foundry Project. Лицензирано съгласно лиценза на MIT.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>език</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Инструменти</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Отстраняване на грешки</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>За</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>система</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>светлина</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Тъмно</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>английски</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>френски</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Опресняване на състоянието</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Използване на откритото оформление</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Показване само на Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Показване на Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Продължи</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Свържете се</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Прекъснете връзката</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Версия: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Конфигурация: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Конфигурация: вградени настройки по подразбиране</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Опреснява се на всеки {0} секунди</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Последна актуализация: чакаща</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Последна актуализация: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недостъпен</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Свързан</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Изчакване на мрежа</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Достъпът до интернет все още не е валидиран.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Готова мрежа</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Достъпът до интернет е валидиран. Можете да продължите сега.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Опресняването на мрежата не бе успешно</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Продължава автоматично след {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Адаптер</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Шлюз</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Не е открит Ethernet адаптер.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Няма активна връзка</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Изчакване на мрежова конфигурация</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Проверете кабелната връзка</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Изчаква се DHCP или статична мрежова конфигурация</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP открит лизинг</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Открита е статична мрежова конфигурация</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Опресняване на Wi-Fi мрежи</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Показване или скриване на Wi-Fi парола</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Осигурено Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Профил</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Удостоверяване</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Тази мрежа изисква осигурен Wi-Fi профил.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>В момента не се виждат Wi-Fi мрежи.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>В това изображение за зареждане не е наличен предоставен Wi-Fi профил.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Поддръжката на Wi-Fi не е налична в тази среда за зареждане.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>В момента не е открит Wi-Fi адаптер.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Няма наличен Wi-Fi адаптер.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Корпоративен профил</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Обезпечен профил без име</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Настройки на изображението за зареждане</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Сертификатът е включен в изображението за зареждане</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Конфигурирана сигурност</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi недостъпен</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Няма наличен Wi-Fi адаптер</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Друга Wi-Fi мрежа е активна</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Готов за свързване</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Осигурен Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Тази Wi-Fi мрежа не се поддържа в тази компилация.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Не може да се свърже. Проверете паролата или мрежовите настройки и опитайте отново.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Осигуреният Wi-Fi профил не е наличен.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Не може да се свърже осигуреният Wi-Fi профил. Опитайте отново.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Не може да се прекъсне връзката с предоставения Wi-Fi профил. Опитайте отново.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Не може да се прекъсне връзката. Опитайте отново.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Не могат да се приложат предоставените мрежови настройки.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Не може да се изпълни действието Wi-Fi. Опитайте отново.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Скрита мрежа</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Отворете</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Лично</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Няма</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Предприятие</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Специфично за доставчика</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Персонален</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Лична</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-битов</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Предприятие</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (машина)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (машина или потребител)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>арабски (Саудитска Арабия)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>български (България)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>чешки (Чехия)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>датски (Дания)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>немски (Германия)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>гръцки (Гърция)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>английски (Великобритания)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>английски (САЩ)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>испански (Испания)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>испански (Мексико)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>естонски (Естония)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>фински (Финландия)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>френски (Канада)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>френски (Франция)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>иврит (Израел)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>хърватски (Хърватия)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>унгарски (Унгария)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>италиански (Италия)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>японски (Япония)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>корейски (Корея)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>литовски (Литва)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>латвийски (Латвия)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>норвежки бокмал (Норвегия)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>холандски (Холандия)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>полски (Полша)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>португалски (Бразилия)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>португалски (Португалия)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>румънски (Румъния)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>руски (Русия)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>словашки (Словакия)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>словенски (Словения)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>сръбска латиница (Сърбия)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>шведски (Швеция)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>тайландски (Тайланд)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>турски (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>украински (Украйна)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>опростен китайски (Китай)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>традиционен китайски (Тайван)</value>
+  </data>
+</root>

@@ -1,0 +1,2007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>О</value>
+  </data>
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>Создан и поддерживается Микаэлем ШАВЕ.</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>Авторы</value>
+  </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>Не удалось загрузить участников с GitHub.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>Загрузка участников...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>Вклад: {0}</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>Foundry OSD — это современное приложение для создания носителей развертывания Windows на базе WinPE.</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>Авторские права (c) 2026 Foundry Project.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>Исходный код Foundry распространяется по лицензии MIT.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>Лицензии</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>Открыть примечания к выпуску в браузере</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>Примечания к выпуску не удалось загрузить во встроенный браузер.</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>Загрузка примечаний к выпуску...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
+    <value>Примечания к выпуску</value>
+  </data>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>Репозиторий</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Foundry OSD включает дополнительные инструменты 7-Zip для поддержки создания мультимедиа.</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-Zip Экстра</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Windows создание носителя для развертывания</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>Поддержка</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>Лицензии сторонних пакетов отслеживаются через репозиторий проекта и манифесты зависимостей.</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>Сторонние зависимости</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>О Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>Полезные ссылки</value>
+  </data>
+  <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
+    <value>Проверьте наличие обновлений</value>
+  </data>
+  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
+    <value>Обновить и перезапустить</value>
+  </data>
+  <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>Примечания к выпуску</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>Обновить источник</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>Переулок выпуска: {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>Стабильные выпуски</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>Бета-релизы</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>Предварительные выпуски</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>Веб-канал обновлений</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Common.Browse" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="Common.Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
+    <value>Включите диагностику разработчика и откройте папку журнала Foundry.</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
+    <value>Измените язык приложения без перезапуска Foundry OSD.</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
+    <value>Автоматически запускать Foundry OSD при входе в Windows.</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
+    <value>Запускать при запуске</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>английский</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>французский</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Выберите метод подготовки Autopilot для носителя развертывания: создание профиля JSON или загрузка аппаратного хэша WinPE.</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>Включить Autopilot</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>Импортировать профиль</value>
+  </data>
+  <data name="Autopilot.DownloadButton" xml:space="preserve">
+    <value>Скачать с арендатора</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>Удалить выбранное</value>
+  </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>Действия профиля</value>
+  </data>
+  <data name="Autopilot.ActionsDescription" xml:space="preserve">
+    <value>Импортируйте локальные профили JSON или загрузите их с Intune.</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>Импорт профиля Autopilot...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>Загрузка профилей Autopilot...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>Удалить профиль Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>Удалить "{0}" из импортированных профилей Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
+    <value>Удалить профили Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
+    <value>Удалить {0} выбранные профили Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
+    <value>Удаление профилей</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>Профиль по умолчанию</value>
+  </data>
+  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
+    <value>Профиль, размещенный по умолчанию в примененном изображении Windows.</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>Импортированные профили</value>
+  </data>
+  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
+    <value>Автономные профили Autopilot доступны для подготовки профиля JSON.</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>Профили Autopilot не импортированы.</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>Импортировано</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>Импортировать профиль Autopilot JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>Autopilot импорт не удался</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>Войдите в Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>Завершите вход в браузер, чтобы загрузить профили Autopilot.</value>
+  </data>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>Профили Autopilot не найдены</value>
+  </data>
+  <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
+    <value>Арендатор не вернул ни одного профиля Autopilot.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
+    <value>Autopilot загрузка не удалась</value>
+  </data>
+  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
+    <value>Autopilot не удалось загрузить профиль: {0}</value>
+  </data>
+  <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
+    <value>Выберите профили Autopilot</value>
+  </data>
+  <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
+    <value>Выберите, какие профили арендаторов следует импортировать в Foundry.</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
+  <data name="Autopilot.TenantPickerClear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Autopilot.TenantPickerImport" xml:space="preserve">
+    <value>Импорт</value>
+  </data>
+  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>Выбранные профили: {0} из {1}</value>
+  </data>
+  <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
+    <value>JSON подготовка профиля</value>
+  </data>
+  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
+    <value>Создайте автономный профиль Autopilot в примененном изображении Windows.</value>
+  </data>
+  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
+    <value>Используйте настройку профиля JSON</value>
+  </data>
+  <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
+    <value>Аппаратная загрузка хеша</value>
+  </data>
+  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
+    <value>Загрузите хеш аппаратного обеспечения устройства в Intune из Foundry Deploy в WinPE.</value>
+  </data>
+  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
+    <value>Использовать аппаратную загрузку хеша</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
+    <value>Подключить арендатора</value>
+  </data>
+  <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
+    <value>Отключить арендатора</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
+    <value>Подключение арендатора...</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>Войдите в Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>Завершите вход в браузер, чтобы настроить загрузку аппаратного хеша Autopilot.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
+    <value>Подключение арендатора</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
+    <value>Подключитесь к Microsoft Graph для этого сеанса приложения, чтобы управлять настройками загрузки хеша.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
+    <value>Не подключено</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
+    <value>Подключено</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>Готовность арендатора</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>Информация о клиенте, регистрации приложения и готовности к загрузке хэша оборудования.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
+    <value>Идентификатор арендатора</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
+    <value>Идентификатор клиента</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
+    <value>Управляемая регистрация приложения</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Foundry OSD Autopilot Регистрация не настроена.</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
+    <value>{0} настроен.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>Не готов</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
+    <value>Действия с сертификатом</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
+    <value>Создайте или удалите учетные данные сертификата регистрации приложения.</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
+    <value>Предоставленные сертификаты</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
+    <value>Сертификаты регистрации приложений, доверенные для аутентификации WinPE Graph.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
+    <value>Никакие сертификаты не предоставляются.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
+    <value>Создать сертификат</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
+    <value>Удалить сертификат</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
+    <value>Сохранить Autopilot сертификат PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
+    <value>Сертификат ПФХ</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
+    <value>Сертификат готов</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>Сохраните этот PFX-файл и пароль в безопасном месте. Foundry не сохраняет пароль и не может показать его снова после закрытия этого диалогового окна. Оба значения потребуются вам для создания загрузочного носителя для загрузки аппаратного хеша.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>PFX-файл</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>Пароль PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>Скопировать пароль</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>Пароль скопирован.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
+    <value>Создание сертификата не удалось</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
+    <value>Foundry не удалось создать сертификат регистрации приложения. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
+    <value>Удалить выбранный сертификат?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
+    <value>Foundry удалит только выбранный сертификат из регистрации управляемого приложения. Другие учетные данные приложения будут сохранены.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
+    <value>Foundry удалит из регистрации управляемого приложения только {0} выбранные сертификаты. Другие учетные данные приложения будут сохранены.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
+    <value>Удалить сертификат</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
+    <value>Удаление сертификата не удалось</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
+    <value>Foundry не удалось удалить выбранный сертификат регистрации приложения. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>Отпечаток пальца</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>Срок действия</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>Идентификатор сертификата</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
+    <value>Сертификат загрузочного носителя</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
+    <value>Защищенный паролем PFX копируется на загрузочный носитель для загрузки аппаратного хеша.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
+    <value>PFX-файл</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
+    <value>Пароль PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
+    <value>Выберите PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
+    <value>Выберите сертификат Autopilot PFX.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
+    <value>Выберите PFX, соответствующий сертификату регистрации приложения.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
+    <value>Срок действия выбранного сертификата истек. Создайте или выберите действительный сертификат перед созданием загрузочного носителя.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
+    <value>Перед созданием загрузочного носителя выберите соответствующий защищенный паролем PFX.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
+    <value>Выбранный файл PFX больше не существует.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
+    <value>Введите пароль PFX.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>Отпечаток сертификата PFX не соответствует выбранному сертификату регистрации приложения.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
+    <value>Выбранный PFX не содержит материала закрытого ключа.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
+    <value>Выбранный PFX не удалось открыть с помощью предоставленного пароля.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
+    <value>Сертификат готов к созданию загрузочного носителя.</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
+    <value>Тег группы по умолчанию</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
+    <value>Дополнительный групповой тег, предварительно выбранный в Foundry Deploy во время загрузки аппаратного хеша.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
+    <value>Тег группы по умолчанию не выбран.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
+    <value>Регистрация арендаторов требует внимания</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
+    <value>Регистрация клиента не удалась</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
+    <value>Foundry не удалось настроить регистрацию приложения Autopilot. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
+    <value>Не удалось найти регистрацию управляемого приложения. Подключитесь повторно, чтобы позволить Foundry создать или принять его.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
+    <value>Обнаружена существующая регистрация приложения с именем Foundry. Подключитесь повторно, чтобы включить его в конфигурацию Foundry.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
+    <value>При регистрации управляемого приложения отсутствует необходимое разрешение приложения Microsoft Graph. Повторно подключитесь к учетной записи, которая может обновлять регистрации приложений.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
+    <value>У управляемого субъекта-службы отсутствует согласие администратора на необходимое разрешение Microsoft Graph. Предоставьте согласие администратора и повторно подключитесь.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
+    <value>Управляемый субъект-служба отсутствует или отключен. Повторно подключитесь к учетной записи, которая может создавать корпоративные приложения или управлять ими.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
+    <value>Ранее выбранный сертификат больше не существует в регистрации управляемого приложения. Выберите действительный PFX, соответствующий предоставленному сертификату.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
+    <value>Срок действия выбранного сертификата истек. Создайте новый сертификат, сохраните его PFX и пароль, затем выберите его в качестве загрузочного носителя.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
+    <value>Регистрация управляемого приложения не готова. Проверьте готовность арендатора и повторно подключитесь.</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>Кастомизация</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry не удалось открыть документацию в вашем браузере. Вместо этого используйте URL.</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Документацию невозможно открыть</value>
+  </data>
+  <data name="Customization.MachineNamingHeader" xml:space="preserve">
+    <value>Имя компьютера</value>
+  </data>
+  <data name="Customization.MachineNamingDescription" xml:space="preserve">
+    <value>Управляйте созданием имени развернутого компьютера в WinPE.</value>
+  </data>
+  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
+    <value>Включить правила именования компьютеров</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
+    <value>Префикс имени компьютера</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
+    <value>Префикс применяется перед созданным или редактируемым суффиксом развертывания.</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>Автоматически генерировать суффикс имени компьютера</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
+    <value>Генерируйте суффикс автоматически во время развертывания.</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>Разрешить редактирование суффикса во время развертывания</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
+    <value>Разрешите оператору развертывания редактировать суффикс после префикса.</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
+    <value>Префикс должен содержать от 1 до 15 символов от A до Z, a–z, 0–9 или -.</value>
+  </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>Нестандартный опыт</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>Настройте Windows 11 экранов первого запуска и настройки конфиденциальности по умолчанию.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>Настроить OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>Пропустить условия лицензии</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>Пропускает страницу Microsoft с условиями лицензии на программное обеспечение во время OOBE.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>Диагностические данные</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>Выбирает уровень диагностических данных Windows, настроенный перед первым входом в систему. Выключение поддерживается только поддерживаемыми выпусками Windows; для неподдерживаемых выпусков возвращается значение «Обязательно».</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>Требуется</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>Необязательно</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>Скрыть настройки конфиденциальности</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>Запрещает Windows показывать страницу выбора конфиденциальности во время первого входа в систему.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>Индивидуальный опыт</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>Позволяет Windows использовать диагностические данные для персонализированных советов, рекламы и рекомендаций.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>Рекламный идентификатор</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>Позволяет приложениям использовать рекламный идентификатор Windows в разных приложениях.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>Распознавание речи онлайн</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>Позволяет Microsoft облачные службы распознавания речи.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>Диагностика рукописного ввода и набора текста</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>Позволяет дополнительно собирать диагностические данные с помощью рукописного ввода и ввода.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>Доступ к местоположению</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>Определяет, могут ли Windows и приложения использовать службы определения местоположения.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>Контролируется пользователем</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>Принудительно отключить</value>
+  </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>Удаление компонентов ИИ</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>Удалите или отключите выбранные компоненты AI Windows до OOBE.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>Удалить компоненты ИИ</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>Удалить Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>Удалите пакет приложения Copilot и отключите политику Windows Copilot.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>Удалить Copilot+ AI Hub</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>Удалите подготовленный пакет приложения Windows AI Hub, если он имеется.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>Отключить Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>Установите политики Windows AI, которые предотвращают включение Recall и сохранение снимков.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>Отключить Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>Установите Windows политику ИИ, отключающую Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>Запретить автозапуск службы Windows AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>Установите для WSAIFabricSvc ручной запуск вместо автоматического запуска.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>Отключить функции Microsoft Edge AI.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>Установите политики Edge, которые отключают функции Copilot, боковой панели, создания сообщения и поиска AI.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>Отключить функции Paint AI</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>Установите политики Paint, которые отключают Cocreator, генеративное редактирование, создание изображений и удаление фона.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>Отключить функции Notepad AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>Установите политику Notepad, отключающую функции искусственного интеллекта.</value>
+  </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>Предусмотренное удаление приложения</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>Удалите выбранные подготовленные приложения Windows до OOBE.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>Удалить подготовленные приложения Windows</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>Выберите одну или несколько категорий каталога, чтобы предварительно выбрать пакеты.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>Пользовательский</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>Выбранные профили: {0}</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>Удалить все</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>Пакеты</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>Выбранные пакеты: {0} из {1}</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>Варианты загрузки.</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>Настройка мультимедиа</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>Готовность ADK.</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>Открыть ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>Документация продукта.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>Открыть документацию</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>Итоговая сводка носителя.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>Просмотрите и начните</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>Установленная версия</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Windows PE Дополнение</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>Создайте носитель развертывания Windows с помощью современного рабочего процесса на базе WinPE.</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>Общий</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
+    <value>Следующий шаг</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
+    <value>Медиа-выходы.</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
+    <value>Просмотрите и начните</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>Установите Windows ADK и надстройку Windows PE перед выбором языка загрузки WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>Языковые пакеты WinPE для выбранной архитектуры не обнаружены.</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>Локализация</value>
+  </data>
+  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
+    <value>Видимые языки развертывания</value>
+  </data>
+  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
+    <value>Язык развертывания по умолчанию</value>
+  </data>
+  <data name="Localization.TimeZone.Header" xml:space="preserve">
+    <value>Часовой пояс развертывания</value>
+  </data>
+  <data name="Localization.AutomaticOption" xml:space="preserve">
+    <value>Автоматический</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="Dot1x.EnableLabel" xml:space="preserve">
+    <value>Настройка проводного 802.1X</value>
+  </data>
+  <data name="Dot1x.CertificateLabel" xml:space="preserve">
+    <value>Файл сертификата доверенного корневого центра сертификации</value>
+  </data>
+  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
+    <value>Выберите сертификат 802.1X</value>
+  </data>
+  <data name="Wifi.EnableLabel" xml:space="preserve">
+    <value>Обеспечить поддержку Wi-Fi в загрузочном образе.</value>
+  </data>
+  <data name="Wifi.ConfigureLabel" xml:space="preserve">
+    <value>Предварительно создайте профиль Wi-Fi</value>
+  </data>
+  <data name="Wifi.SsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
+    <value>Тип безопасности</value>
+  </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Парольная фраза</value>
+  </data>
+  <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
+    <value>OWE (оппортунистическое беспроводное шифрование)</value>
+  </data>
+  <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
+    <value>WPA2/WPA3 Персональный</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Корпоративный</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3" xml:space="preserve">
+    <value>WPA3 Корпоративный (WPA3ENT)</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-бит (WPA3ENT192)</value>
+  </data>
+  <data name="Network.EthernetSectionTitle" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Network.EthernetHelperText" xml:space="preserve">
+    <value>Стандартное подключение Ethernet доступно по умолчанию. Настройте этот раздел только в том случае, если ваша проводная сеть требует корпоративной аутентификации 802.1X.</value>
+  </data>
+  <data name="Network.WifiSectionTitle" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Network.WifiHelperText" xml:space="preserve">
+    <value>Включайте это только в том случае, если загрузочный образ должен включать поддержку Wi-Fi и профили Wi-Fi для запуска WinPE.</value>
+  </data>
+  <data name="Network.WifiPersonalHelperText" xml:space="preserve">
+    <value>Личные парольные фразы Wi-Fi остаются временными в авторском приложении и не сохраняются в конфигурации Foundry.</value>
+  </data>
+  <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
+    <value>Поведение предприятия определяется шаблоном профиля в этой сборке. Учетные данные 802.1X, введенные во время развертывания, здесь не предоставляются.</value>
+  </data>
+  <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
+    <value>Продвинутое предприятие Wi-Fi</value>
+  </data>
+  <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
+    <value>Предоставьте шаблон корпоративного профиля Wi-Fi</value>
+  </data>
+  <data name="Network.ProfileTemplateLabel" xml:space="preserve">
+    <value>Файл шаблона профиля</value>
+  </data>
+  <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
+    <value>Выберите шаблон профиля сети</value>
+  </data>
+  <data name="Network.RequiresCertificateLabel" xml:space="preserve">
+    <value>Импортируйте доверенный корневой сертификат ЦС.</value>
+  </data>
+  <data name="Wifi.CertificateLabel" xml:space="preserve">
+    <value>Файл сертификата доверенного корневого центра сертификации</value>
+  </data>
+  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
+    <value>Выберите сертификат Wi-Fi</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>Конфигурация Wi-Fi требует наличия поддержки Wi-Fi в загрузочном образе.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>Для проводной сети 802.1X требуется шаблон профиля проводной сети.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>Файл шаблона профиля проводной сети 802.1X не найден.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>Для проводной сети 802.1X требуется файл сертификата доверенного корневого центра сертификации, если включено доверие сертификатов.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>Файл сертификата доверенного корневого центра сертификации проводной сети 802.1X не найден.</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>Для конфигурации Wi-Fi требуется SSID.</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>Неподдерживаемый тип безопасности Wi-Fi '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>Для личного Wi-Fi требуется парольная фраза длиной от 8 до 63 символов.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>Для предприятия Wi-Fi требуется шаблон профиля.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>Файл шаблона профиля предприятия Wi-Fi не найден.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>Шаблон корпоративного профиля Wi-Fi должен содержать поддерживаемое значение корпоративной аутентификации.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>Выбранный тип безопасности предприятия Wi-Fi не соответствует аутентификации шаблона профиля ({0}).</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>Предприятию Wi-Fi требуется файл сертификата доверенного корневого центра сертификации, если включено доверие сертификатов.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>Файл сертификата доверенного корневого центра сертификации предприятия Wi-Fi не найден.</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>Операция в процессе</value>
+  </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>Операция завершена</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>Старт</value>
+  </data>
+  <data name="StartMedia.IsoPath.Header" xml:space="preserve">
+    <value>ISO вывод</value>
+  </data>
+  <data name="StartMedia.IsoPath.Description" xml:space="preserve">
+    <value>Выберите, куда будет записан сгенерированный Foundry ISO.</value>
+  </data>
+  <data name="StartMedia.Architecture.Header" xml:space="preserve">
+    <value>Архитектура и подпись</value>
+  </data>
+  <data name="StartMedia.Architecture.Description" xml:space="preserve">
+    <value>Выберите архитектуру загрузки и режим подписи загрузки.</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
+    <value>WinPE язык загрузки</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
+    <value>Язык, используемый средой загрузки WinPE.</value>
+  </data>
+  <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
+    <value>USB цель</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
+    <value>USB макет</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>Схема разделов, используемая при подготовке выбранной цели USB.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>Поведение формата, используемое перед копированием окончательного носителя USB.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
+    <value>Параметры драйвера</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
+    <value>Выберите дополнительные драйверы поставщика и папку с пользовательскими драйверами.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
+    <value>Пользовательская папка с драйверами</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
+    <value>Дополнительная папка, содержащая дополнительные драйверы .inf.</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
+    <value>Создать медиа</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
+    <value>Создайте носитель ISO или USB после прохождения всех проверок готовности.</value>
+  </data>
+  <data name="StartMedia.CreateIsoButton" xml:space="preserve">
+    <value>Создать ISO</value>
+  </data>
+  <data name="StartMedia.CreateUsbButton" xml:space="preserve">
+    <value>Создать USB</value>
+  </data>
+  <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
+    <value>Быстрое форматирование</value>
+  </data>
+  <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
+    <value>Полный формат</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
+    <value>Создание мультимедиа в этой сборке не включено.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>Создание носителя доступно после прохождения всех проверок готовности.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>Создание ISO заблокировано</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>Создание USB заблокировано</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>Формат цели USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>Это сотрет диск {0}: {1} ({2}). Продолжайте, только если это предполагаемый диск USB.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>Отформатируйте и создайте USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>Создание рабочего пространства WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>Готовим рабочее пространство WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>Разрешение пакетов драйверов.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>Настройка загрузочного образа.</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>Оценка политики подписи загрузки.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>Подготовка настройки загрузочного образа.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>Монтируем загрузочный образ.</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>Внедрение драйверов в загрузочный образ.</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>Применение языка и дополнительных компонентов.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>Предоставление загрузочных ресурсов Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>Добавление компонентов развертывания Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>Фиксация изменений загрузочного образа.</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>Настройка загрузочного образа завершена.</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>Очистка рабочего места WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>Создание носителя ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>Создание носителя USB.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>Окончательное создание носителя завершено.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>Не удалось создать окончательный носитель.</value>
+  </data>
+  <data name="StartMedia.Operation.Downloading" xml:space="preserve">
+    <value>Загрузка контента.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
+    <value>Разрешение исходного каталога WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
+    <value>Выбранный исходный пакет WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
+    <value>Подготовка исходного пакета WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Проверка кэшированного исходного пакета WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Использование кэшированного исходного пакета WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
+    <value>Загрузка исходного пакета WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
+    <value>Загрузка пакета драйверов</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>Загрузка компонентов развертывания {0}.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
+    <value>Проверка исходного пакета WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
+    <value>Разрешение индекса образа WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
+    <value>Экспорт образа Windows для извлечения WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
+    <value>Монтируем исходный образ WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
+    <value>Создание зависимостей WinRE Wi-Fi.</value>
+  </data>
+  <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
+    <value>Замена загрузочного образа на WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
+    <value>Загрузочный образ WinRE Wi-Fi готов.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
+    <value>Подготавливаем выходной путь ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
+    <value>Готовим рабочее пространство ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
+    <value>Запускаем MakeWinPEMedia для ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
+    <value>Завершение вывода ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
+    <value>ISO носитель завершен.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
+    <value>Проверка цели USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
+    <value>Проверяем безопасность цели USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
+    <value>Разбиение и форматирование цели USB.</value>
+  </data>
+  <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
+    <value>Открытие диска USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
+    <value>Подготовка атрибутов диска USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
+    <value>Очистка таблицы разделов USB.</value>
+  </data>
+  <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
+    <value>Инициализация таблицы разделов USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
+    <value>Создание BOOT-раздела.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
+    <value>Форматирование BOOT-раздела.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
+    <value>Создание раздела кэша.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
+    <value>Форматирование раздела кэша.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
+    <value>Разделы USB отформатированы.</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
+    <value>Копирование носителя WinPE в USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
+    <value>Настройка загрузочных файлов USB.</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
+    <value>Проверка загрузочного носителя USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
+    <value>Подготавливаем раздел кэша USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
+    <value>Добавление компонентов Foundry на носитель USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
+    <value>USB носитель завершен.</value>
+  </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>Экспорт изображения Windows с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>Разрешение индекса образа WinRE с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>Монтируем образ с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>Внедрение драйверов с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>Применение языкового пакета с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>Применение дополнительных компонентов с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>Применение международных настроек с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>Фиксируем изменения изображения с помощью DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
+    <value>Носитель ISO успешно создан.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
+    <value>USB носитель успешно создан. Загрузочный том: {0}. Объем кэша: {1}.</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
+    <value>Выберите путь вывода ISO</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
+    <value>ISO изображение</value>
+  </data>
+  <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
+    <value>Выберите папку с пользовательским драйвером</value>
+  </data>
+  <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
+    <value>Цели USB могут быть обновлены после завершения готовности ADK.</value>
+  </data>
+  <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
+    <value>USB целевое обновление не удалось.</value>
+  </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>Сканирование целей USB.</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>Цели USB еще не сканировались.</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>Диски USB не найдены.</value>
+  </data>
+  <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
+    <value>USB найдены диски: {0}</value>
+  </data>
+  <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
+    <value>Диск {0} - {1} ({2})</value>
+  </data>
+  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
+    <value>Предметы, требующие внимания:</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>Готовы создать медиафайлы ISO и USB.</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>Готовы создать ISO медиа</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>Готовы создать USB медиа</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>Элементы готовности, требующие действий: {0}</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>Просмотр предупреждений о выводе мультимедиа</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>Предварительные условия</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>Проверки, которые должны быть действительными, прежде чем Foundry сможет создать носитель.</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>Медиа-вывод</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>Окончательные варианты вывода ISO и USB.</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Foundry конфигурация</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
+    <value>Параметры развертывания, используемые Foundry в WinPE.</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>Заблокировано</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>Не настроено</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Windows ADK и дополнение Windows PE готовы.</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>Параметры драйвера действительны.</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>Конфигурация сети может быть предоставлена.</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>Конфигурацию развертывания можно сгенерировать.</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>Можно создать пакет обеспечения Connect.</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>Имеются необходимые медиа-секреты.</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>Autopilot отключен и не блокирует создание мультимедиа.</value>
+  </data>
+  <data name="StartMedia.Field.Adk" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
+    <value>WinPE язык загрузки</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>Источник загрузочного образа</value>
+  </data>
+  <data name="StartMedia.Field.Architecture" xml:space="preserve">
+    <value>Архитектура</value>
+  </data>
+  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
+    <value>ISO путь вывода</value>
+  </data>
+  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
+    <value>USB цель</value>
+  </data>
+  <data name="StartMedia.Field.Signature" xml:space="preserve">
+    <value>Режим подписи</value>
+  </data>
+  <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
+    <value>USB стиль раздела</value>
+  </data>
+  <data name="StartMedia.Field.FormatMode" xml:space="preserve">
+    <value>USB режим формата</value>
+  </data>
+  <data name="StartMedia.Field.Drivers" xml:space="preserve">
+    <value>Драйверы</value>
+  </data>
+  <data name="StartMedia.Field.Network" xml:space="preserve">
+    <value>Конфигурация сети</value>
+  </data>
+  <data name="StartMedia.Field.Deploy" xml:space="preserve">
+    <value>Развертывание конфигурации</value>
+  </data>
+  <data name="StartMedia.Field.Connect" xml:space="preserve">
+    <value>Подключить подготовку</value>
+  </data>
+  <data name="StartMedia.Field.Secrets" xml:space="preserve">
+    <value>Секреты СМИ</value>
+  </data>
+  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
+    <value>Включено: {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Включено: аппаратная загрузка хеша</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
+    <value>Autopilot использует неподдерживаемый режим подготовки.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
+    <value>Режим профиля Autopilot JSON включен, но действительный профиль по умолчанию не выбран.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
+    <value>Аппаратная загрузка хеша включена, но настройки отсутствуют.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хеша включена, но подключение клиента отсутствует. Подключитесь к арендатору от Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хеша включена, но регистрация приложения не настроена. Подключитесь к арендатору от Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хэша включена, но идентификатор клиента приложения отсутствует. Повторно подключитесь к арендатору из Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хэша включена, но субъект службы приложения отсутствует или не готов.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хэша включена, но выбранный PFX не соответствует сертификату регистрации приложения.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
+    <value>Загрузка хэша оборудования включена, но отпечаток выбранного сертификата отсутствует.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
+    <value>Загрузка хэша оборудования включена, но срок действия выбранного сертификата отсутствует.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
+    <value>Загрузка хэша оборудования включена, но срок действия выбранного сертификата истек. Прежде чем создавать загрузочный носитель, выберите действительный сертификат.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хэша включена, но загрузочный носитель PFX не выбран.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хеша включена, но пароль PFX загрузочного носителя отсутствует.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
+    <value>Загрузка аппаратного хеша включена, но PFX загрузочного носителя не проверен.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>Загрузка аппаратного хеша включена, но выбранный PFX не соответствует активному сертификату.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
+    <value>Загрузка аппаратного хэша включена, но срок действия PFX загрузочного носителя не может быть проверен.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
+    <value>Загрузка аппаратного хеша включена, но срок действия PFX выбранного загрузочного носителя истек.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
+    <value>ADK или WinPE Дополнение не готово.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
+    <value>Выходной путь ISO должен заканчиваться на.iso.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
+    <value>Язык загрузки WinPE не выбран.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
+    <value>Выбранный язык загрузки WinPE недоступен для выбранной архитектуры.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
+    <value>Конфигурация сети не готова.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
+    <value>Создание конфигурации развертывания не готово.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
+    <value>Подготовка Connect не готова.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
+    <value>Требуемые медиа-секреты не готовы.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
+    <value>Autopilot включен, но действительный профиль по умолчанию не выбран.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
+    <value>Цель USB не выбрана.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
+    <value>Выбранная цель USB слишком мала. Используйте ключ USB размером не менее 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
+    <value>Для носителя ARM64 требуется стиль раздела GPT.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
+    <value>Папка пользовательского драйвера не существует.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
+    <value>Папка пользовательского драйвера не содержит файлов .inf.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
+    <value>Создание мультимедиа в этой сборке не включено.</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>Стандартный WinPE</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>Образ WinRE Wi-Fi</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.ByteUnit.B" xml:space="preserve">
+    <value>Б</value>
+  </data>
+  <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>Новый</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>Информация о продукте и версии.</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>О</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>ADK готовность и установка.</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Конфигурация профиля Autopilot.</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>Параметры настройки развертывания.</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>Кастомизация</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>Кастомизация</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Foundry документация и ссылки на проекты.</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>Документация</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>Эксперт</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>Стандартный рабочий процесс настройки.</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>Стандартная конфигурация</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>Общий</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>Общий</value>
+  </data>
+  <data name="Nav_HomeKey.Description" xml:space="preserve">
+    <value>Foundry OSD дома</value>
+  </data>
+  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Title" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>WinPE настройки языка и локализации.</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>Локализация</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>Локализация</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>Настройка сети и подключения.</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>Просмотрите и начните создание медиа.</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>Старт</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>Старт</value>
+  </data>
+  <data name="SettingsPage.PageTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
+    <value>Управляйте запуском, языком, диагностикой и поведением приложений.</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
+    <value>Общий</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
+    <value>Отправляйте анонимные телеметрические данные об использовании, чтобы помочь улучшить Foundry. Никакие имена, секреты, SSID, IP-адреса, пути к файлам, идентификаторы дисков, имена компьютеров, имена профилей Autopilot или идентификаторы оборудования не отправляются.</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
+    <value>Включить телеметрию</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
+    <value>Измените настройки темы, фона и акцентного цвета.</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
+    <value>Проверьте наличие обновлений Foundry OSD и просмотрите примечания к выпуску.</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
+    <value>Обновить приложение</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
+    <value>Откройте настройки цвета Windows, чтобы изменить цвет акцента.</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
+    <value>Акцентный цвет</value>
+  </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
+    <value>Акрил</value>
+  </data>
+  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
+    <value>Акрил тонкий</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
+    <value>Выберите тему приложения.</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
+    <value>Тема приложения</value>
+  </data>
+  <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
+    <value>Темный</value>
+  </data>
+  <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
+    <value>Свет</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
+    <value>Выберите материал фона, используемый в приложении.</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
+    <value>Слюда Альт</value>
+  </data>
+  <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
+    <value>Слюда</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>Foundry OSD загрузит обновление и перезапустится, чтобы применить его.</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>Обновить и перезапустить</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>Обновление Foundry OSD</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>Скачиваем обновление. Foundry OSD перезапустится, когда будет готов.</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>Прогресс загрузки</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>Загрузка обновления</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>Версия {0}</value>
+  </data>
+  <data name="Update.NotChecked" xml:space="preserve">
+    <value>Не проверено</value>
+  </data>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>Новый</value>
+  </data>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>Доступная версия</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>Установленная версия</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>Последняя проверка</value>
+  </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>Последняя версия</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>Foundry-OSD/литейный завод</value>
+  </data>
+  <data name="Update.Status.Checking" xml:space="preserve">
+    <value>Проверка обновлений</value>
+  </data>
+  <data name="Update.Status.FailedFormat" xml:space="preserve">
+    <value>Проверка обновлений не удалась: {0}</value>
+  </data>
+  <data name="Update.Status.NoUpdate" xml:space="preserve">
+    <value>Foundry OSD обновлен.</value>
+  </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>Актуально</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>Доступно обновление</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Foundry OSD {0} доступен</value>
+  </data>
+  <data name="Update.Status.NotInstalled" xml:space="preserve">
+    <value>Проверка обновлений пропущена, поскольку Foundry OSD не запускается из установки Velopack.</value>
+  </data>
+  <data name="Update.Status.Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>Проверка обновлений не удалась</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>Проверка обновлений пропущена</value>
+  </data>
+  <data name="Update.Status.SkippedInDebug" xml:space="preserve">
+    <value>Проверка обновлений пропущена, поскольку подключен отладчик.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailable" xml:space="preserve">
+    <value>Доступно обновление Foundry OSD.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>Обновите, когда будете готовы. Foundry OSD перезапустится, чтобы завершить его применение.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
+    <value>Foundry OSD {0} доступен.</value>
+  </data>
+  <data name="Adk.PageTitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Adk.Status.ReadyTitle" xml:space="preserve">
+    <value>ADK готово</value>
+  </data>
+  <data name="Adk.Status.ReadyDescription" xml:space="preserve">
+    <value>Foundry OSD может создавать носители ISO и USB.</value>
+  </data>
+  <data name="Adk.Status.MissingTitle" xml:space="preserve">
+    <value>ADK не установлен</value>
+  </data>
+  <data name="Adk.Status.MissingDescription" xml:space="preserve">
+    <value>Прежде чем настраивать создание носителя, установите Windows ADK Deployment Tools и надстройку Windows PE.</value>
+  </data>
+  <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
+    <value>Версия ADK не поддерживается</value>
+  </data>
+  <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
+    <value>Обновите Windows ADK до поддерживаемой сборки 10.1.26100.</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
+    <value>Windows PE Дополнение отсутствует</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
+    <value>Установите дополнение Windows PE для установленного Windows ADK.</value>
+  </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>ADK настройка</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>Установите или обновите Windows ADK Deployment Tools и надстройку Windows PE, необходимую для создания носителя.</value>
+  </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>Детали готовности</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>Установленная версия</value>
+  </data>
+  <data name="Adk.Version.NotDetected" xml:space="preserve">
+    <value>Версия не обнаружена</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>Требуемая политика версий</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
+    <value>Требуется Windows ADK 10.1.26100.2454+ с последним сервисным патчем ADK.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Windows PE Дополнение</value>
+  </data>
+  <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
+    <value>Windows PE Дополнение установлено</value>
+  </data>
+  <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
+    <value>Windows PE Отсутствует дополнение</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>Возможность создания медиа</value>
+  </data>
+  <data name="Adk.MediaCapability.Ready" xml:space="preserve">
+    <value>Доступно создание ISO и USB.</value>
+  </data>
+  <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
+    <value>Создание ISO и USB остается заблокированным.</value>
+  </data>
+  <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Установка Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
+    <value>Обновление Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloading" xml:space="preserve">
+    <value>Загрузка установщика ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloaded" xml:space="preserve">
+    <value>ADK установщик загружен</value>
+  </data>
+  <data name="Adk.Operation.DownloadCached" xml:space="preserve">
+    <value>Использование кэшированного установщика ADK</value>
+  </data>
+  <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
+    <value>Удаление существующего дополнения Windows PE</value>
+  </data>
+  <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
+    <value>Удаление существующего Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
+    <value>Установка Windows ADK средств развертывания</value>
+  </data>
+  <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
+    <value>Установка дополнения Windows PE</value>
+  </data>
+  <data name="Adk.Operation.Verifying" xml:space="preserve">
+    <value>Проверка установки ADK</value>
+  </data>
+  <data name="Adk.Operation.Completed" xml:space="preserve">
+    <value>ADK операция завершена</value>
+  </data>
+  <data name="Adk.Operation.Failed" xml:space="preserve">
+    <value>ADK операция не удалась</value>
+  </data>
+  <data name="AdkPage_InstallButton.Content" xml:space="preserve">
+    <value>Установите Windows ADK и Windows PE дополнения</value>
+  </data>
+  <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
+    <value>Обновите Windows ADK и дополнение Windows PE</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Арабский (Саудовская Аравия)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Болгарский (Болгария)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Чешский (Чехия)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Датский (Дания)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Немецкий (Германия)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Греческий (Греция)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Английский (Великобритания)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Английский (США)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Испанский (Испания)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Испанский (Мексика)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Эстонский (Эстония)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Финский (Финляндия)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Французский (Канада)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Французский (Франция)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Иврит (Израиль)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Хорватский (Хорватия)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Венгерский (Венгрия)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Итальянский (Италия)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Японский (Япония)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Корейский (Корея)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Литовский (Литва)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Латышский (Латвия)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Норвежский букмал (Норвегия)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Голландский (Нидерланды)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Польский (Польша)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Португальский (Бразилия)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Португальский (Португалия)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Румынский (Румыния)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Русский (Россия)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Словацкий (Словакия)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Словенский (Словения)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Сербская латынь (Сербия)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Шведский (Швеция)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Тайский (Таиланд)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Турецкий (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Украинский (Украина)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Китайский упрощенный (Китай)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Китайский традиционный (Тайвань)</value>
+  </data>
+</root>

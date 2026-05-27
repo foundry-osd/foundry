@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Foundry Connect Hakkında</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect, Foundry dağıtımı devam etmeden önce WinPE içindeki ağ hazırlığını doğrular.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Bu yazılım olduğu gibi sağlanmaktadır. Dağıtıma devam etmeden önce ağ erişimini onaylayın.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Telif Hakkı (c) 2026 Foundry Project. MIT Lisansı kapsamında lisanslanmıştır.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Araçlar</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Hata ayıklama</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Işık</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Karanlık</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>İngilizce</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>Fransızca</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Durumu yenile</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Algılanan düzeni kullan</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Yalnızca Ethernet'yi göster</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Ethernet + Wi-Fi'yi göster</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Devam et</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Bağlan</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Bağlantıyı kes</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Sürüm: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Yapılandırma: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Yapılandırma: yerleşik varsayılanlar</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Her {0} saniyede bir yenilenir</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Son güncelleme: beklemede</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Son güncelleme: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Kullanılamıyor</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Bağlı</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Ağ bekleniyor</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>İnternet erişimi henüz doğrulanmadı.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Ağa hazır</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>İnternet erişimi doğrulandı. Şimdi devam edebilirsiniz.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Ağ yenileme başarısız oldu</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>{0}s içinde otomatik olarak devam ediliyor</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Adaptör</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Ağ Geçidi</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Ethernet bağdaştırıcısı algılanmadı.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Etkin bağlantı yok</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Ağ yapılandırması bekleniyor</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Kablo bağlantısını kontrol edin</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>DHCP veya statik ağ yapılandırması bekleniyor</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP kiralama algılandı</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Statik ağ yapılandırması algılandı</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Wi-Fi ağlarını yenile</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Wi-Fi şifresini göster veya gizle</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Sağlanan Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Kimlik doğrulama</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Bu ağ, temel hazırlığı yapılmış bir Wi-Fi profili gerektirir.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>Şu anda hiçbir Wi-Fi ağı görünmüyor.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>Bu önyükleme görüntüsünde temel hazırlığı yapılmış Wi-Fi profili mevcut değil.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Bu önyükleme ortamında Wi-Fi desteği mevcut değildir.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Şu anda hiçbir Wi-Fi bağdaştırıcısı algılanmadı.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Wi-Fi adaptör mevcut değil.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Kurumsal profil</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Adsız temel hazırlık profili</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Önyükleme görüntüsü ayarları</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Sertifika önyükleme görüntüsüne dahil edildi</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Yapılandırılmış güvenlik</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi kullanılamıyor</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Wi-Fi adaptör mevcut değil</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Başka bir Wi-Fi ağı etkin</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Bağlanmaya hazır</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Sağlanan Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Bu Wi-Fi ağı bu yapıda desteklenmiyor.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Bağlantı kurulamıyor. Şifreyi veya ağ ayarlarını kontrol edip tekrar deneyin.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Temel hazırlığı yapılan Wi-Fi profili mevcut değil.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Temel hazırlığı yapılan Wi-Fi profiline bağlanılamıyor. Tekrar deneyin.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Sağlanan Wi-Fi profilinin bağlantısı kesilemiyor. Tekrar deneyin.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Bağlantı kesilemiyor. Tekrar deneyin.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Sağlanan ağ ayarları uygulanamıyor.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Wi-Fi işlemi tamamlanamıyor. Tekrar deneyin.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Gizli ağ</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Kişisel</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Hiçbiri</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Kurumsal</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Satıcıya özel</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Kişisel</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Kişisel</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Kişisel</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Kişisel</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Kurumsal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Kurumsal 192 bit</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Kurumsal</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Kurumsal</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>kurumsal</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (makine)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (makine veya kullanıcı)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arapça (Suudi Arabistan)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgarca (Bulgaristan)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Çekçe (Çekya)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Danca (Danimarka)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Almanca (Almanya)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Yunanca (Yunanistan)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>İngilizce (Birleşik Krallık)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>İngilizce (Amerika Birleşik Devletleri)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>İspanyolca (İspanya)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>İspanyolca (Meksika)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Estonca (Estonya)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Fince (Finlandiya)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Fransızca (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Fransızca (Fransa)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>İbranice (İsrail)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Hırvatça (Hırvatistan)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Macarca (Macaristan)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>İtalyanca (İtalya)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japonca (Japonya)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Korece (Kore)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litvanyaca (Litvanya)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Letonca (Letonya)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norveç Bokmal (Norveç)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Felemenkçe (Hollanda)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Lehçe (Polonya)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portekizce (Brezilya)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portekizce (Portekiz)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Rumence (Romanya)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Rusça (Rusya)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovakça (Slovakya)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovence (Slovenya)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Sırpça Latince (Sırbistan)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>İsveççe (İsveç)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Tay dili (Tayland)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Türkçe (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukraynaca (Ukrayna)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Basitleştirilmiş Çince (Çin)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Geleneksel Çince (Tayvan)</value>
+  </data>
+</root>

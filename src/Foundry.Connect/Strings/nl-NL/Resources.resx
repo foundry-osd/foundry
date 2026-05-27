@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Over Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect valideert de netwerkgereedheid in WinPE voordat de implementatie van Foundry doorgaat.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Deze software wordt geleverd zoals deze is. Bevestig de netwerktoegang voordat u doorgaat met de implementatie.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Auteursrecht (c) 2026 Foundry Project. Gelicentieerd onder de MIT-licentie.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Gereedschap</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Foutopsporing</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Systeem</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Licht</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Donker</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>Engels</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>Frans</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Status vernieuwen</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Gebruik gedetecteerde lay-out</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Toon alleen Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Toon Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Ga door</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Verbreek de verbinding</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versie: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Configuratie: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Configuratie: ingebouwde standaardinstellingen</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Vernieuwt elke {0} seconden</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Laatst bijgewerkt: in behandeling</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Laatst bijgewerkt: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Verbonden</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Wachten op netwerk</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Internettoegang is nog niet gevalideerd.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Netwerk klaar</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Internettoegang is gevalideerd. U kunt nu doorgaan.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Netwerkvernieuwing is mislukt</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Automatisch doorgaan in {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Adapter</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Poort</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Geen Ethernet-adapter gedetecteerd.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Geen actieve link</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Wachten op netwerkconfiguratie</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Controleer de kabelaansluiting</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Wachten op DHCP of statische netwerkconfiguratie</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP-lease gedetecteerd</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Statische netwerkconfiguratie gedetecteerd</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Ververs Wi-Fi netwerken</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Toon of verberg het Wi-Fi wachtwoord</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Voorzien Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Profiel</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Authenticatie</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Voor dit netwerk is een ingericht Wi-Fi-profiel vereist.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>Er zijn momenteel geen Wi-Fi-netwerken zichtbaar.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>Er is geen ingericht Wi-Fi-profiel beschikbaar in deze opstartimage.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Wi-Fi ondersteuning is niet beschikbaar in deze opstartomgeving.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Er is momenteel geen Wi-Fi-adapter gedetecteerd.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Er is geen Wi-Fi-adapter beschikbaar.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Enterprise-profiel</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Naamloos ingericht profiel</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Instellingen voor opstartimages</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Certificaat opgenomen in opstartimage</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Geconfigureerde beveiliging</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi niet beschikbaar</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Geen Wi-Fi-adapter beschikbaar</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Er is nog een Wi-Fi-netwerk actief</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Klaar om verbinding te maken</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Voorzien Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Dit Wi-Fi netwerk wordt niet ondersteund in deze build.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Kan geen verbinding maken. Controleer het wachtwoord of de netwerkinstellingen en probeer het opnieuw.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Het ingerichte Wi-Fi profiel is niet beschikbaar.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Kan geen verbinding maken met het ingerichte Wi-Fi-profiel. Probeer het opnieuw.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Kan het ingerichte Wi-Fi-profiel niet ontkoppelen. Probeer het opnieuw.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Kan de verbinding niet verbreken. Probeer het opnieuw.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Kan de ingerichte netwerkinstellingen niet toepassen.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Kan de actie Wi-Fi niet voltooien. Probeer het opnieuw.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Verborgen netwerk</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Openen</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Persoonlijk</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Geen</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Onderneming</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Leverancierspecifiek</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Persoonlijk</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Persoonlijk</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Persoonlijk</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Persoonlijk</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-bit</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Onderneming</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (machine)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (machine of gebruiker)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arabisch (Saoedi-Arabië)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgaars (Bulgarije)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Tsjechisch (Tsjechië)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Deens (Denemarken)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Duits (Duitsland)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Grieks (Griekenland)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Engels (Verenigd Koninkrijk)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Engels (Verenigde Staten)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Spaans (Spanje)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Spaans (Mexico)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Ests (Estland)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Fins (Finland)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Frans (Canada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Frans (Frankrijk)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Hebreeuws (Israël)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Kroatisch (Kroatië)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Hongaars (Hongarije)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Italiaans (Italië)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japans (Japan)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Koreaans (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litouws (Litouwen)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Lets (Letland)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Noors Bokmal (Noorwegen)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Nederlands (Nederland)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Pools (Polen)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugees (Brazilië)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugees (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Roemeens (Roemenië)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Russisch (Rusland)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slowaaks (Slowakije)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Sloveens (Slovenië)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Servisch Latijn (Servië)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Zweeds (Zweden)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Thais (Thailand)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Turks (Turkije)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Oekraïens (Oekraïne)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Vereenvoudigd Chinees (China)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Traditioneel Chinees (Taiwan)</value>
+  </data>
+</root>

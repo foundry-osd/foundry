@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="About.Title" xml:space="preserve"><value>Om Foundry Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy är WinPE implementeringsupplevelsen för Foundry.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Denna programvara tillhandahålls i befintligt skick. Granska dina distributionsinställningar före användning.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Copyright (c) 2026 Foundry Project. Licensierad under MIT-licensen.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Tema</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Språk</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Verktyg</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Fegla</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_Om</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>System</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Ljus</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Mörkt</value></data>
+  <data name="Language.English" xml:space="preserve"><value>engelska</value></data>
+  <data name="Language.French" xml:space="preserve"><value>franska</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Uppdatera kataloger</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Uppdatera måldiskar</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Öppna loggfilen</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simuleringsläget är aktivt: distributionsåtgärder simuleras och inga disk- eller bildskrivningar utförs.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Mål</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operativsystem</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Förarpaket</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Sammanfattning</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Datornamn</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tecken. A-Z, a-z, 0-9 och endast bindestreck.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datornamnet måste innehålla 1 till 15 giltiga tecken (bokstäver, siffror eller bindestreck).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Målmaskin</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destinationsskiva</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Implementeringsalternativ</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Målskiva</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Välj en måldisk. Ej kvalificerade diskar är blockerade.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Applicera firmwareuppdateringar</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Aktivera Autopilot för denna distribution</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Inga inbäddade Autopilot-profiler hittades på det här mediet.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hårdvaruhashuppladdning</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Tillgängligt på detta media: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hårdvaruhashuppladdning</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hårdvaruhashuppladdningsstatus</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Redo att ladda upp hårdvaruhash</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Inte redo att ladda upp hårdvaruhash</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uppladdningscertifikatet har löpt ut</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hårdvaruhashuppladdning är inte tillgänglig på det här mediet eftersom obligatorisk certifikatinformation saknas. Implementeringen kan fortsätta, men uppladdningen hoppas över.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-certifikatet har löpt ut. Implementeringen kan fortsätta, men uppladdningen hoppas över.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detaljer</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Hyresgäst ID</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Certifikats tumavtryck</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Certifikats giltighetstid</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupptagg</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupptaggen är valfri. Välj Ingen för att ladda upp utan en grupptagg.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Upptäcker hårdvara...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Maskinvaruavkänning misslyckades.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hårdvaradetektering misslyckades: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Ström: {2} | Firmware: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batteri</value></data>
+  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Laddar måldiskar...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Måldiskupptäckt misslyckades: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Inga diskar upptäckts.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Måldiskar laddade: {0} upptäckt.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Språk</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licenskanal</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edition (mål)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arkitektur: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Laddar kataloger...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Kataloger laddade: {0} operativsystemposter, {1} drivrutinspaket.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogladdning misslyckades: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Detaljhandel</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volym</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Hem</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Hem N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Hem Single Language</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Utbildning</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Utbildning N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Företag</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Företag N</value></data>
+  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Drivrutinkälla</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM drivrutinspaket</value></data>
+  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: ingen matchande modell eller version</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modeller)</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Implementeringssammanfattning</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Målskiva</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Ingen disk har valts</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Inget urval</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Valt förarpaket</value></data>
+  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
+  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metod</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupptagg</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Mål</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Implementeringsalternativ</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nej Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hårdvaruhashuppladdning</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Giltigt certifikat</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Utgått certifikat</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Certifikatinformation saknas</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Ingen standardgrupptagg</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Implementeringssidor</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Framstegssida</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Framgångssida</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Felsida</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Förhandsgranskning av felsökning: förloppssida.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Förhandsvisning av felsökning: framgångssida.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Felsökningsförhandsgranskning: felsida.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Felsökningsförhandsgranskning: DISM applikationen misslyckades eftersom målpartitionen är skrivskyddad.
+
+ErrorCode=0x80070005
+Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
+Åtgärd: Verifiera diskattribut och försök distribuera igen.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Uppdatera</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Föregående</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Nästa</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Distribuera</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Öppna loggen</value></data>
+  <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
+  <data name="Common.Unavailable" xml:space="preserve"><value>Ej tillgänglig</value></data>
+  <data name="Common.None" xml:space="preserve"><value>Inga</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Okänd</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Upptäckt</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>Ja</value></data>
+  <data name="Common.No" xml:space="preserve"><value>Nej</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Aktiverad</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Inaktiverad</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Klar</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Inte redo</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>Nätverk</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Starttid</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Förfluten tid</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementeringen slutfördes.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Den här datorn startas om om {0}s.</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Starta om</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>Implementeringen misslyckades</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Misslyckat steg</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Felmeddelande</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Välkommen</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initierar komponenter...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Starta</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Okänd storlek</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Blockerad: systemdisk</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Blockerad: startdiskett</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blockerad: skrivskyddad</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blockerad: offline</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUGA VIRTUELLT MÅL</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Vald disk blockerad: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Måldisken {0} finns inte längre.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Måldisken {0} är blockerad: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Bekräfta diskradering</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Detta kommer att radera all data på den valda disken och installera det valda operativsystemet.
+
+Disk: {0}
+Modell: {1}
+Buss: {2}
+Storlek: {3}
+
+Operativsystem: {4}
+
+Fortsätt med implementeringen?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Välj ett operativsystem.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Ange ett giltigt datornamn.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Välj en måldisk.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Välj en giltig OEM-modell eller -version innan du startar distributionen.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Välj en Autopilot-profil eller inaktivera Autopilot innan du startar distributionen.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Implementeringen avbröts av användaren.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Implementeringsförberedelserna slutförda.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Klar</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Väntar på implementering...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Väntar på framsteg...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Förbereder implementering...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Implementeringen startade.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Implementeringen slutförd.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Implementeringsarbetsflödet slutfört.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Implementeringen avbröts.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Implementeringen misslyckades.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Implementeringen misslyckades: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>En annan operation körs redan.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Felsökning av felsäkert läge aktiverat: implementeringsåtgärder simuleras.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Startar implementeringsarbetsflödet.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Startsteg...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Startar {0}.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Startar {0}...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Steg avslutat.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>Steget misslyckades.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Steg hoppade över.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>Pågår...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Steg:? av?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Steg: {0} av {1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Startar om nu...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Reboot-kommandot misslyckades.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Omstartskommandot misslyckades: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Det går inte att öppna loggfilen: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe misslyckades med utgångskoden {0}. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Systemstart</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Krävd omstart körbar "wpeutil.exe" hittades inte.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Okänt steg</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Inga feldetaljer lämnades.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Samla in distributionsvariabler</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initiera distributionsarbetsytan</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validera målkonfiguration</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Kontrollera distributionscachen</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Förbered måldisklayouten</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Ladda ner operativsystemavbildning</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Använd operativsystemavbildning</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurera måldatorns namn</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurera OOBE inställningar</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurera återställningsmiljö</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Ladda ner drivrutinspaket</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrahera drivrutinspaket</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Steg pre-OOBE anpassning</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Applicera drivrutinspaket</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ladda ner firmwareuppdatering</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Applicera firmwareuppdatering</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Försegla återställningspartition</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provision Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Slutför distributionen och skriv loggar</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Samlar in implementeringsvariabler...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Samlar in implementeringskontext...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Driftsättningsvariabler samlade in.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Driftsättningsvariabler insamlade (simulering).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Initierar implementeringsarbetsytan...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Skapar arbetsytemappar...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Slutför implementering...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Rengör tillfällig arbetsyta...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Skriver implementeringssammanfattning...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Skriver slutförandeloggar...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Arbetsytan initierad.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Arbetsytan initierad (simulering).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Validerar målkonfiguration...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Omvaliderar måldisken...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Upptäcker maskinvaruprofil...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Operativsystem URL saknas.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Måldisknummer krävs.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Målkonfiguration validerad.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Målkonfiguration validerad (simulering).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Kontrollerar distributionscache...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Löser cacheplats...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Kontrollerar cachediskkonflikt...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Cachestrategi löst.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Cachestrategi löst (simulering).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Förbereder måldisklayout...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Partitionerar måldisk...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Förbereder målarbetsyta...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Skapar simulerade partitioner...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Måldisklayout förberedd.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Måldisklayout förberedd (simulering).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Layouten för måldisken förbereddes inte.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Laddar ned operativsystemavbildning...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Kontrollerar cache...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Operativsystemsbild redo (simulering).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Operativsystemavbildningen laddades inte ned.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Operativsystemsbild har laddats ner.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Operativsystembilden lösts från cachen.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Använder operativsystemavbildning...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Inspekterar bild...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Använder bild...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Konfigurerar start...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Verifierar bild...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Operativsystemsbild tillämpas.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Operativsystembild tillämpad (simulering).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurerar måldatornamn...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Skriver offline datornamn...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Målpartitionen Windows är inte tillgänglig.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Måldatornamn har konfigurerats.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Måldatornamn konfigurerat (simulering).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offlineanpassning inaktiverad.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Konfigurerar offlineanpassningar...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Skriver standardinställningar för första körning...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Konfigurerar borttagning av AI-komponent...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Skriver offline AI-policyer...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offlineanpassning konfigurerad.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offlineanpassning konfigurerad (simulering).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE anpassning avaktiverad.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigurerar OOBE-inställningar...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Skriver sekretessstandarder för första körning...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE anpassning konfigurerad.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE inställningar konfigurerade.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE anpassning simulerad.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE inställningar konfigurerade (simulering).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfigurerar återställningsmiljö...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Förbereder Windows återställningsmiljö...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Återställningspartitionen är inte tillgänglig.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Återställningsmiljö konfigurerad.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Återställningsmiljö konfigurerad (simulering).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Inga pre-OOBE-anpassningsskript krävs.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Pre-OOBE-anpassningar kommer att ske med drivrutinspaketet för första start.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Iscensätter anpassningar före OOBE...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pre-OOBE-anpassningar genomförda.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pre-OOBE-anpassningar stegvis (simulering).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Drivrutinspaket inaktiverat (ingen vald).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Ingen nedladdning av drivrutinspaket krävs.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Laddar ner drivrutinspaket...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Förbereder nedladdning...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>OEM-drivrutinpaketet har valts men inget drivrutinspaket tillhandahölls.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Drivrutinspaket har laddats ner.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Drivrutinspaket nedladdat (simulering).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Drivrutinspaketet löst från cachen.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Extraherar drivrutinspaket...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Drivrutinspaketet laddades inte ned.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Drivrutinspaket extraherat.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Drivrutinspaket extraherat (simulering).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Drivrutinspaket förberett för första uppstartsinstallation.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Ingen drivrutinspaketoperation krävs.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Installationsläge för drivrutinspaket stöds inte.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Inget extraherat INF-drivrutininnehåll är tillgängligt.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Källinnehållet för drivrutinspaketet är inte tillgängligt för första start.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog producerade inte drivrutinsinnehåll.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Första start av drivrutinspaketet begärdes utan ett kommando som stöds.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Använder drivrutinspaket...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Använder Windows drivrutiner...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Montera WinRE...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Använder WinRE-drivrutiner...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Avmonterar WinRE...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Staging paket...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Uppdaterar installationsskript för första start...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Laddar ner</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Extrahera</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Ansöker</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Iscensättning</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} nedladdat</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Drivrutinspaket tillämpat.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Drivrutinspaket iscensatt för första uppstart.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Drivrutinspaket tillämpat (simulering).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Laddar ner firmwareuppdatering...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Förbereder Microsoft Update Catalog uppslag...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Firmware-uppdateringar är inaktiverade.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Firmware-uppdateringar är inaktiverade för virtuella maskiner.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Firmware-uppdateringar hoppas över medan enheten körs på batteri.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Maskinvaruidentifierare för systemets fasta programvara är inte tillgänglig.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Firmware-uppdatering har laddats ner.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Firmware-uppdatering laddad ned (simulering).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Inget extraherat firmwareinnehåll är tillgängligt.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Det extraherade firmwareinnehållet innehåller inga INF-filer.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Applicerar firmwareuppdatering...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Injicera firmwareinnehåll i offline Windows...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Firmware-uppdatering tillämpad.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Firmware-uppdatering tillämpad (simulering).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Tätar återställningspartition...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Tar bort bokstaven för återställningsenhet...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Återställningspartition förseglad.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Återställningspartition förseglad (simulering).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot är inaktiverat.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot är aktiverat men ingen profil har valts.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Mål Windows partition är inte tillgänglig för Autopilot staging.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Det gick inte att lösa målkatalogen Autopilot.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Staging Autopilot profil...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Kopierar AutopilotConfigurationFile.json...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Skriver simulerat Autopilot manifest...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Fångar Autopilot hårdvaruhash...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Kör OA3Tool...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Laddar upp Autopilot hårdvaruhash...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Förbereder Microsoft Graph import...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Skickar importförfrågan till Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Väntar på Autopilot enhetens synlighet...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Kontrollerar Windows Autopilot enheter ({0} återstår)...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Uppdaterar befintlig Autopilot enhet...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Uppdaterar Windows Autopilot grupptaggen i Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Väntar på uppdatering av Autopilot grupptagg...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Kontrollerar Windows Autopilot grupptaggen ({0} återstår)...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Förbereder Autopilot hårdvaruhashuppladdning...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Dekrypterar mediecertifikat...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autentiserar Autopilot hårdvaruhashuppladdning...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Begär Microsoft Graph token...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Importerar hårdvaruhash till Microsoft Graph...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Skriver simulerat Autopilot hashmanifest...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Målpartitionen Windows är inte tillgänglig för Autopilot hårdvaruhashuppladdning.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot uppladdning av hårdvaruhash hoppade över eftersom det inbäddade certifikatet har löpt ut.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot uppladdning av hårdvaruhash hoppade över eftersom nödvändig mediecertifikatinformation är ofullständig.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot hårdvaruhash importerad och synlig i Windows Autopilot enheter.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Importerad Autopilot-enhet visades inte i Windows Autopilot-enheter före timeout.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot uppdatering av enhetsgrupptaggen bekräftades inte före timeout.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot hårdvaruhashuppladdning förberedd för simulering.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot hårdvaruhashuppladdning förberedd (simulering).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Den valda Autopilot profilfilen hittades inte: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hårdvaruhashfångst misslyckades: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot import av hårdvaruhash misslyckades: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot maskinvaruhash-uppladdning hoppade över: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minut</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuter</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekund</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil iscensatt.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil iscensatt (simulering).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arabiska (Saudiarabien)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgariska (Bulgarien)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Tjeckien (Tjeckien)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>danska (Danmark)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>tyska (Tyskland)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>grekiska (Grekland)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>engelska (Storbritannien)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>engelska (USA)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Spanska (Spanien)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spanska (Mexiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estniska (Estland)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finska (Finland)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>franska (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>franska (Frankrike)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebreiska (Israel)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>kroatiska (Kroatien)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Ungerska (Ungern)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italienska (Italien)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japanska (Japan)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>koreanska (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litauiska (Litauen)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lettiska (Lettland)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norsk Bokmal (Norge)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Holländska (Nederländerna)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>polska (Polen)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugisiska (Brasilien)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugisiska (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumänska (Rumänien)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ryska (Ryssland)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovakiska (Slovakien)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovenska (Slovenien)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Serbiskt latin (Serbien)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>svenska (Sverige)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Thai (Thailand)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turkiska (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrainska (Ukraina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Kinesiska förenklad (Kina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Traditionell kinesisk (Taiwan)</value>
+  </data>
+</root>

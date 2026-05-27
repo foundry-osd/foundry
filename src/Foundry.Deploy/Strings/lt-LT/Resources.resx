@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="About.Title" xml:space="preserve"><value>Apie Foundry Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy yra WinPE diegimo patirtis, skirta Foundry.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Ši programinė įranga pateikiama tokia, kokia yra. Prieš naudodami peržiūrėkite diegimo nustatymus.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Autorių teisės (c) 2026 Foundry Project. Licencijuota pagal MIT licenciją.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Tema</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Kalba</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Įrankiai</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_Apie</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>Sistema</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Šviesa</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Tamsus</value></data>
+  <data name="Language.English" xml:space="preserve"><value>anglų kalba</value></data>
+  <data name="Language.French" xml:space="preserve"><value>prancūzų</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Atnaujinti katalogus</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Atnaujinkite tikslinius diskus</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Atidaryti žurnalo failą</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Modeliavimo režimas yra aktyvus: modeliuojami diegimo veiksmai ir neįrašoma į diską ar vaizdą.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Taikinys</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operacinė sistema</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Vairuotojo paketas</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Santrauka</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Kompiuterio pavadinimas</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 simbolių. Tik A–Z, a–z, 0–9 ir brūkšneliu.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Kompiuterio pavadinime turi būti nuo 1 iki 15 galiojančių simbolių (raidžių, skaičių arba brūkšnelio).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Tikslinė mašina</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Paskirties diskas</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Diegimo parinktys</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Tikslinis diskas</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Pasirinkite tikslinį diską. Netinkami diskai yra užblokuoti.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Taikykite programinės įrangos naujinimus</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Įgalinti Autopilot šiam diegimui</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profilis</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Šioje laikmenoje nerasta įterptų Autopilot profilių.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profilis</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimas</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Prieinama šioje laikmenoje: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimas</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimo būsena</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Paruošta įkelti aparatinės įrangos maišą</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Neparengta įkelti aparatinės įrangos maišos</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Baigėsi įkėlimo sertifikato galiojimas</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimas šioje laikmenoje nepasiekiamas, nes trūksta reikiamos sertifikato informacijos. Diegimas gali tęstis, bet įkėlimas bus praleistas.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikatas pasibaigė. Diegimas gali tęstis, bet įkėlimas bus praleistas.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detalės</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Nuomininko ID</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifikato nykščio atspaudas</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikato galiojimo laikas</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupės žyma</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupės žyma yra neprivaloma. Pasirinkite Nėra, jei norite įkelti be grupės žymos.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Aptinkama aparatinė įranga...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Nepavyko aptikti aparatinės įrangos.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Nepavyko aptikti aparatinės įrangos: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Galia: {2} | Programinė įranga: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Baterija</value></data>
+  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Įkeliami tiksliniai diskai...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Nepavyko aptikti tikslinio disko: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nerasta jokių diskų.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Įkelti tiksliniai diskai: aptikta {0}.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Kalba</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licencijos kanalas</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>leidimas (tikslas)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architektūra: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Įkeliami katalogai...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Įkelti katalogai: {0} operacinės sistemos įrašai, {1} tvarkyklių paketai.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogo įkėlimas nepavyko: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Mažmeninė prekyba</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Apimtis</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Pradžia</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Namai N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Pradžia Viena kalba</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Išsilavinimas</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Išsilavinimas N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Įmonė</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Įmonė N</value></data>
+  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Vairuotojo šaltinis</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Modelis</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Versija</value></data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM tvarkyklės paketas</value></data>
+  <data name="DriverPack.Oem" xml:space="preserve"><value>OĮG</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: nėra tinkamo modelio ar versijos</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modeliai)</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Diegimo santrauka</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Tikslinis diskas</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nepasirinktas joks diskas</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Jokio pasirinkimo</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pasirinktas tvarkyklės paketas</value></data>
+  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
+  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metodas</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot profilis</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupės žyma</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Tikslas</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistema</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Diegimo parinktys</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ne Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profilis</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimas</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Galiojantis sertifikatas</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Pasibaigęs sertifikato galiojimas</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Trūksta sertifikato informacijos</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Nėra numatytosios grupės žymos</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Diegimo puslapiai</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Pažangos puslapis</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Sėkmės puslapis</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Klaidos puslapis</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Derinimo peržiūra: eigos puslapis.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Derinimo peržiūra: sėkmės puslapis.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Derinimo peržiūra: klaidos puslapis.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Derinimo peržiūra: DISM taikyti nepavyko, nes tikslinis skaidinys yra tik skaitomas.
+
+ErrorCode=0x80070005
+Išsami informacija: prieiga uždrausta montuojant vaizdą į tikslinį kelią.
+Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Atnaujinti</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Versija: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Ankstesnis</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Kitas</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Dislokuoti</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Atidaryti žurnalą</value></data>
+  <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
+  <data name="Common.Unavailable" xml:space="preserve"><value>Nepasiekiamas</value></data>
+  <data name="Common.None" xml:space="preserve"><value>Nėra</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Nežinoma</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Aptikta</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>Taip</value></data>
+  <data name="Common.No" xml:space="preserve"><value>Nr</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Įjungta</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Išjungta</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Paruošta</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Nepasiruošęs</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>Tinklo kūrimas</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Pradžios laikas</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Praėjęs laikas</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Diegimas sėkmingai baigtas.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Šis kompiuteris bus paleistas iš naujo po {0}s.</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Perkraukite</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>Diegimas nepavyko</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Nepavyko žingsnis</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Klaidos pranešimas</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Sveiki atvykę</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicijuojami komponentai...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Pradėti</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Diskas {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Nežinomas dydis</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Užblokuotas: sistemos diskas</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Užblokuotas: įkrovos diskas</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Užblokuota: tik skaitoma</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Užblokuota: neprisijungus</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DERINTI VIRTUALUS TIKSLAS</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Pasirinktas diskas užblokuotas: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Tikslinio disko {0} nebėra.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Tikslinis diskas {0} užblokuotas: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Patvirtinkite disko ištrynimą</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Taip bus ištrinti visi duomenys iš pasirinkto disko ir įdiegta pasirinkta operacinė sistema.
+
+Diskas: {0}
+Modelis: {1}
+Autobusas: {2}
+Dydis: {3}
+
+Operacinė sistema: {4}
+
+Tęsti diegimą?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Pasirinkite operacinę sistemą.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Įveskite galiojantį kompiuterio pavadinimą.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Pasirinkite tikslinį diską.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Prieš pradėdami diegti, pasirinkite tinkamą OĮG modelį arba versiją.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Prieš pradėdami diegti, pasirinkite Autopilot profilį arba išjunkite Autopilot.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Diegimą atšaukė vartotojas.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Pasirengimas diegimui baigtas.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Paruošta</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Laukiama diegimo...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Laukiam progreso...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Ruošiamas diegimas...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Pradėtas dislokavimas.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Diegimas baigtas.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Diegimo darbo eiga baigta.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Diegimas atšauktas.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Diegimas nepavyko.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Diegimas nepavyko: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Jau vykdoma kita operacija.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Derinimo saugus režimas įjungtas: modeliuojami diegimo veiksmai.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Pradedama diegimo darbo eiga.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Pradinis žingsnis...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Nuo {0}.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Pradedama {0}...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Žingsnis baigtas.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>Žingsnis nepavyko.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Žingsnis praleistas.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>Vykdoma...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Žingsnis:? iš?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Žingsnis: {0} iš {1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Dabar paleidžiama iš naujo...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Perkrovimo komanda nepavyko.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Perkrovimo komanda nepavyko: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nepavyko atidaryti žurnalo failo: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe nepavyko su išėjimo kodu {0}. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Sistemos paleidimas iš naujo</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Reikalingas iš naujo paleisti vykdomasis failas „wpeutil.exe“ nerastas.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Nežinomas žingsnis</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Išsamios informacijos apie klaidą nepateikta.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Surinkite diegimo kintamuosius</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicijuoti diegimo darbo sritį</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Patvirtinkite tikslo konfigūraciją</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Patikrinkite diegimo talpyklą</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Paruoškite tikslinio disko išdėstymą</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Atsisiųsti operacinės sistemos vaizdą</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Taikyti operacinės sistemos vaizdą</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigūruokite tikslinio kompiuterio pavadinimą</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigūruokite OOBE nustatymus</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigūruoti atkūrimo aplinką</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Atsisiųsti tvarkyklės paketą</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Ištraukite tvarkyklės paketą</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Išankstinis OOBE pritaikymas</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Taikyti tvarkyklės paketą</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Atsisiųskite programinės įrangos naujinimą</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Taikykite programinės įrangos naujinimą</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sandarinimo atkūrimo pertvara</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Suteikimas Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Užbaikite diegimą ir rašykite žurnalus</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Renkami diegimo kintamieji...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Renkamas diegimo kontekstas...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Surinkti diegimo kintamieji.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Surinkti diegimo kintamieji (modeliavimas).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Inicijuojama diegimo darbo sritis...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Kuriami darbo srities aplankai...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Baigiamas diegimas...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Valoma laikinoji darbo vieta...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Rašoma diegimo suvestinė...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Rašomi užbaigimo žurnalai...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Inicijuota darbo sritis.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Inicijuota darbo sritis (modeliavimas).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Patvirtinama tikslinės konfigūracijos...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Iš naujo patvirtinamas tikslinis diskas...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Aptinkamas aparatinės įrangos profilis...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Trūksta operacinės sistemos URL.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Būtinas tikslinio disko numeris.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Tikslinė konfigūracija patvirtinta.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Tikslinė konfigūracija patvirtinta (modeliavimas).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Tikrinama diegimo talpykla...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Nusprendžiama talpyklos vieta...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Tikrinamas talpyklos disko konfliktas...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Talpyklos strategija išspręsta.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Talpyklos strategija išspręsta (modeliavimas).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Ruošiamas tikslinio disko išdėstymas...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Skirstomas tikslinis diskas...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Ruošiama tikslinė darbo sritis...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Kuriami modeliuojami skaidiniai...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Parengtas tikslinio disko išdėstymas.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Parengtas tikslinio disko išdėstymas (modeliavimas).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Tikslinis disko išdėstymas nebuvo paruoštas.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Atsisiunčiamas operacinės sistemos vaizdas...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Tikrinama talpykla...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Paruoštas operacinės sistemos vaizdas (modeliavimas).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Operacinės sistemos vaizdas neatsisiųstas.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Atsisiųstas operacinės sistemos vaizdas.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Operacinės sistemos vaizdas išspręstas iš talpyklos.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Taikomas operacinės sistemos vaizdas...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Tikrinamas vaizdas...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Taikomas vaizdas...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Konfigūruojama įkrova...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Tikrinamas vaizdas...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Taikomas operacinės sistemos vaizdas.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Taikomas operacinės sistemos vaizdas (modeliavimas).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigūruojamas tikslinio kompiuterio pavadinimas...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Rašomas neprisijungus pasiekiamo kompiuterio pavadinimas...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Tikslinis Windows skaidinys nepasiekiamas.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Tikslinio kompiuterio pavadinimas sukonfigūruotas.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Tikslinio kompiuterio pavadinimas sukonfigūruotas (modeliavimas).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Tinkinimas neprisijungus išjungtas.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Konfigūruojami tinkinimai neprisijungus...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Rašomi pirmojo paleidimo numatytieji nustatymai...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Konfigūruojamas AI komponento pašalinimas...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Rašoma neprisijungus AI politika...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Sukonfigūruotas tinkinimas neprisijungus.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Sukonfigūruotas tinkinimas neprisijungus (modeliavimas).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE tinkinimas išjungtas.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigūruojami OOBE nustatymai...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Rašomi pirmojo paleidimo numatytieji privatumo nustatymai...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE tinkinimas sukonfigūruotas.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE nustatymai sukonfigūruoti.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE modeliuojamas tinkinimas.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE sukonfigūruoti nustatymai (modeliavimas).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfigūruojama atkūrimo aplinka...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Ruošiama Windows atkūrimo aplinka...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Atkūrimo skaidinys nepasiekiamas.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Sukonfigūruota atkūrimo aplinka.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Sukonfigūruota atkūrimo aplinka (modeliavimas).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nereikia jokių išankstinių OOBE tinkinimo scenarijų.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Išankstiniai OOBE tinkinimai bus atlikti naudojant pirmosios įkrovos tvarkyklės paketą.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Išankstinių OOBE tinkinimų nustatymas...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Surengti pritaikymai prieš OOBE.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Parengti pritaikymai prieš OOBE (modeliavimas).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Tvarkyklės paketas išjungtas (nepasirinktas nė vienas).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Nereikia atsisiųsti tvarkyklės paketo.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Atsisiunčiamas tvarkyklių paketas...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Ruošiamasi atsisiuntimui...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Pasirinktas OĮG tvarkyklės paketo režimas, bet nebuvo pateiktas joks tvarkyklės paketas.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Atsisiųstas tvarkyklės paketas.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Atsisiųstas tvarkyklės paketas (modeliavimas).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Tvarkyklės paketas išspręstas iš talpyklos.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Išskleidžiamas tvarkyklių paketas...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Tvarkyklės paketas neatsisiųstas.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Ištrauktas tvarkyklės paketas.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Ištrauktas tvarkyklės paketas (imitacija).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Tvarkyklės paketas, paruoštas diegti pirmą kartą.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Nereikia jokios tvarkyklės paketo operacijos.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Nepalaikomas tvarkyklių paketo diegimo režimas.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Nėra išskirto INF tvarkyklės turinio.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Tvarkyklės paketo šaltinio turinys nepasiekiamas pirmą kartą paleidžiant.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog nesukūrė tvarkyklės turinio.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Pirmojo įkrovos tvarkyklės paketo sustojimo užklausa buvo pateikta be palaikomos komandos.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Taikomas tvarkyklės paketas...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Taikomos Windows tvarkyklės...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Montuojamas WinRE...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Taikomos WinRE tvarkyklės...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Atjungiama WinRE...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Inscenizacijos paketas...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Atnaujinamas pirmojo įkrovos sąrankos scenarijus...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Atsisiunčiama</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Ištraukimas</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Taikymas</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Inscenizacija</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} atsisiųsta</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Taikomas tvarkyklės paketas.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Tvarkyklės paketas paruoštas pirmam paleidimui.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Taikomas tvarkyklės paketas (modeliavimas).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Atsisiunčiamas programinės aparatinės įrangos naujinimas...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Ruošiama Microsoft Update Catalog paieška...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Firmware atnaujinimai išjungti.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Virtualiose mašinose programinės aparatinės įrangos naujinimai išjungti.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Aparatinės aparatinės įrangos naujinimai praleidžiami, kai įrenginys veikia naudojant akumuliatoriaus energiją.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Sistemos programinės įrangos aparatinės įrangos identifikatorius nepasiekiamas.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Atsisiųstas programinės aparatinės įrangos naujinimas.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Atsisiųstas programinės aparatinės įrangos naujinimas (modeliavimas).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Nėra išskirto programinės aparatinės įrangos turinio.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Išskleistame programinės aparatinės įrangos turinyje nėra INF failų.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Taikomas programinės aparatinės įrangos naujinimas...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Programinės aparatinės įrangos turinys įterpiamas į neprisijungus Windows...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Pritaikytas programinės įrangos naujinimas.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Pritaikytas programinės įrangos atnaujinimas (modeliavimas).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Sandarinama atkūrimo pertvara...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Pašalinama atkūrimo disko raidė...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Atkūrimo pertvara užplombuota.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Atkūrimo pertvara užplombuota (modeliavimas).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot išjungtas.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot įjungtas, bet nebuvo pasirinktas joks profilis.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Tikslinis Windows skaidinys nepasiekiamas Autopilot sustojimui.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Nepavyko išspręsti tikslinio Autopilot katalogo.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Sukurti Autopilot profilį...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Kopijuojamas AutopilotConfigurationFile.json...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Rašomas imituotas Autopilot manifestas...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Fiksuojama Autopilot aparatinės įrangos maiša...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Veikia OA3Tool...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Įkeliama Autopilot aparatinės įrangos maiša...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Ruošiamas Microsoft Graph importas...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Importavimo užklausa teikiama Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Laukiama Autopilot įrenginio matomumo...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Tikrinami Windows Autopilot įrenginiai (liko {0})...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Esamo Autopilot įrenginio atnaujinimas...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Atnaujinama Windows Autopilot grupės žyma Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Laukiama Autopilot grupės žymos atnaujinimo...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Tikrinama Windows Autopilot grupės žyma (liko {0})...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Ruošiamas Autopilot aparatinės įrangos maišos įkėlimas...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Iššifruojamas medijos sertifikatas...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autentifikuojamas Autopilot aparatinės įrangos maišos įkėlimas...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Prašoma Microsoft Graph prieigos rakto...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Aparatinės įrangos maišos importavimas į Microsoft Graph...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Rašomas imituotas Autopilot maišos manifestas...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Tikslinis Windows skaidinys nepasiekiamas Autopilot aparatinės įrangos maišos įkėlimui.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos įkėlimas praleistas, nes baigėsi įterptojo sertifikato galiojimo laikas.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos įkėlimas praleistas, nes reikalinga medijos sertifikato informacija yra neišsami.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot aparatinės įrangos maiša importuota ir matoma Windows Autopilot įrenginiuose.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Importuotas Autopilot įrenginys nepasirodė Windows Autopilot įrenginiuose prieš pasibaigiant skirtajam laikui.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot įrenginių grupės žymos atnaujinimas nebuvo patvirtintas prieš pasibaigiant skirtajam laikui.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos įkėlimas paruoštas modeliavimui.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot paruoštas aparatinės įrangos maišos įkėlimas (modeliavimas).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Pasirinktas Autopilot profilio failas nerastas: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos užfiksuoti nepavyko: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos importavimas nepavyko: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos įkėlimas praleistas: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minutę</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minučių</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekundę</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundės</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profilis surengtas.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profilis surengtas (modeliavimas).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabų (Saudo Arabija)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulgarų (Bulgarija)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>čekų (čekų)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>danų (Danija)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>vokiečių (Vokietija)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>graikų (Graikija)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>anglų (Jungtinė Karalystė)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>anglų (Jungtinės Amerikos Valstijos)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>ispanų (Ispanija)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>ispanų (Meksika)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Estų (Estija)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>suomių (Suomija)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>prancūzų (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>prancūzų (Prancūzija)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrajų (Izraelis)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>kroatų (Kroatija)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>vengrų (Vengrija)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italų (Italija)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japonų (Japonija)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korėjiečių (korėja)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>lietuvių (Lietuva)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>latvių (Latvija)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norvegų bokmal (Norvegija)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>olandų (Nyderlandai)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>lenkų (Lenkija)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalų (Brazilija)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalų (Portugalija)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumunų (Rumunija)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Rusų (Rusija)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovakų (Slovakija)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovėnų (Slovėnija)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Serbijos lotynų kalba (Serbija)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švedų (Švedija)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>tajų (Tailandas)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turkų (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrainiečių (Ukraina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Supaprastinta kinų kalba (Kinija)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradicinė kinų kalba (Taivanas)</value>
+  </data>
+</root>

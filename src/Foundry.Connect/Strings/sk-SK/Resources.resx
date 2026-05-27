@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>O Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect overí pripravenosť siete v WinPE pred pokračovaním nasadenia Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Tento softvér sa poskytuje tak, ako je. Pred pokračovaním v nasadení potvrďte prístup k sieti.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Foundry Project. Licencované podľa licencie MIT.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Téma</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Jazyk</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Nástroje</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Systém</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Svetlo</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Tmavý</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>angličtina</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>francúzsky</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Obnoviť stav</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Použiť zistené rozloženie</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Zobraziť iba Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Zobraziť Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Pripojte sa</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Odpojiť</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Verzia: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Konfigurácia: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Konfigurácia: vstavané predvolené nastavenia</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Obnovuje sa každých {0} sekúnd</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Posledná aktualizácia: čaká sa</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Posledná aktualizácia: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>nedostupné</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Pripojené</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Čaká sa na sieť</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Prístup na internet ešte nebol overený.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Sieť pripravená</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Prístup na internet bol overený. Teraz môžete pokračovať.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Obnovenie siete zlyhalo</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Pokračovanie automaticky v {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Adaptér</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Brána</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Nenašiel sa žiadny adaptér Ethernet.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Žiadny aktívny odkaz</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Čaká sa na konfiguráciu siete</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Skontrolujte pripojenie kábla</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Čaká sa na DHCP alebo statickú konfiguráciu siete</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>Zistil sa prenájom DHCP</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Bola zistená statická konfigurácia siete</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Obnovte siete Wi-Fi</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Zobraziť alebo skryť heslo Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Poskytnuté Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>autentifikácia</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Táto sieť vyžaduje vytvorený profil Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>Momentálne nie sú viditeľné žiadne siete Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>V tomto zavádzacom obraze nie je dostupný žiadny vytvorený profil Wi-Fi.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Podpora Wi-Fi nie je v tomto zavádzacom prostredí dostupná.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Momentálne nie je zistený žiadny adaptér Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Nie je k dispozícii žiadny adaptér Wi-Fi.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Podnikový profil</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Nepomenovaný poskytovaný profil</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Nastavenia zavádzacieho obrazu</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Certifikát je súčasťou bootovacieho obrazu</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Nakonfigurované zabezpečenie</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi nie je k dispozícii</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Nie je k dispozícii žiadny adaptér Wi-Fi</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Ďalšia sieť Wi-Fi je aktívna</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Pripravené na pripojenie</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Poskytnuté Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Táto sieť Wi-Fi nie je v tejto zostave podporovaná.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Nedá sa pripojiť. Skontrolujte heslo alebo nastavenia siete a skúste to znova.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Poskytnutý profil Wi-Fi nie je dostupný.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Nedá sa pripojiť poskytnutý profil Wi-Fi. Skúste to znova.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Nie je možné odpojiť poskytnutý profil Wi-Fi. Skúste to znova.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Nedá sa odpojiť. Skúste to znova.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Nie je možné použiť zabezpečené nastavenia siete.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Nie je možné dokončiť akciu Wi-Fi. Skúste to znova.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Skrytá sieť</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Otvorte</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Osobné</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Žiadne</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Špecifické pre dodávateľa</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>Osobné WPA2/WPA3</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Osobné</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>Osobné WPA3</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Osobné</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-bit</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (stroj)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (stroj alebo používateľ)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabčina (Saudská Arábia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulharčina (Bulharsko)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>čeština (Česko)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dánčina (Dánsko)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>nemčina (Nemecko)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>gréčtina (Grécko)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angličtina (Spojené kráľovstvo)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angličtina (Spojené štáty americké)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>španielčina (Španielsko)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>španielčina (Mexiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estónčina (Estónsko)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>fínčina (Fínsko)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francúzština (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francúzština (Francúzsko)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrejčina (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>chorvátčina (Chorvátsko)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>maďarčina (Maďarsko)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>taliančina (Taliansko)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japončina (Japonsko)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>kórejčina (Kórea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litovčina (Litva)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lotyština (Lotyšsko)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>nórsky bokmal (Nórsko)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holandčina (Holandsko)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poľština (Poľsko)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalčina (Brazília)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalčina (Portugalsko)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumunčina (Rumunsko)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ruština (Rusko)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovenčina (Slovensko)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovinčina (Slovinsko)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>srbská latinčina (Srbsko)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švédčina (Švédsko)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thajčina (Thajsko)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turečtina (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrajinčina (Ukrajina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Zjednodušená čínština (Čína)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradičná čínština (Taiwan)</value>
+  </data>
+</root>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>حول Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect يتحقق من صحة جاهزية الشبكة في WinPE قبل متابعة النشر Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>يتم توفير هذا البرنامج كما هو. قم بتأكيد الوصول إلى الشبكة قبل متابعة النشر.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>حقوق الطبع والنشر (ج) 2026 Foundry Project. مرخص بموجب ترخيص MIT.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>الموضوع</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>أدوات</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>تصحيح</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>حول</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>النظام</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>ضوء</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>الظلام</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>الإنجليزية</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>الفرنسية</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>تحديث الحالة</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>استخدم التخطيط المكتشف</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>إظهار Ethernet فقط</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>عرض Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>الاتصال</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>قطع الاتصال</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>الإصدار: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>التكوين: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>التكوين: الإعدادات الافتراضية المضمنة</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>يتم التحديث كل {0} ثانية</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>آخر تحديث: معلق</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>آخر تحديث: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>غير متاح</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>متصل</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>في انتظار الشبكة</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>لم يتم التحقق من صحة الوصول إلى الإنترنت بعد.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>الشبكة جاهزة</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>تم التحقق من صحة الوصول إلى الإنترنت. يمكنك الاستمرار الآن.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>فشل تحديث الشبكة</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>المتابعة تلقائيًا في {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>محول</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>بوابة</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>لم يتم اكتشاف محول Ethernet.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>لا يوجد رابط نشط</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>في انتظار تكوين الشبكة</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>تحقق من اتصال الكابل</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>في انتظار DHCP أو تكوين الشبكة الثابتة</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP تم اكتشاف عقد إيجار</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>تم اكتشاف تكوين شبكة ثابت</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>قم بتحديث الشبكات Wi-Fi</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>إظهار أو إخفاء كلمة المرور Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>تم توفيره Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>المصادقة</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>تتطلب هذه الشبكة ملف تعريف Wi-Fi متوفر.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>لا توجد شبكات Wi-Fi مرئية حاليًا.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>لا يتوفر ملف تعريف Wi-Fi في صورة التمهيد هذه.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>الدعم Wi-Fi غير متوفر في بيئة التمهيد هذه.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>لم يتم اكتشاف أي محول Wi-Fi حاليًا.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>لا يتوفر محول Wi-Fi.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>الملف الشخصي للمؤسسة</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>ملف تعريف تم توفيره بدون اسم</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>إعدادات صورة التمهيد</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · الشهادة مضمنة في صورة التمهيد</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>الأمن الذي تم تكوينه</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi غير متوفر</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>لا يتوفر محول Wi-Fi</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>شبكة Wi-Fi أخرى نشطة</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>جاهز للاتصال</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>تم توفيره Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>هذه الشبكة Wi-Fi غير مدعومة في هذا الإصدار.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>غير قادر على الاتصال. تحقق من كلمة المرور أو إعدادات الشبكة وحاول مرة أخرى.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>ملف التعريف Wi-Fi المتوفر غير متوفر.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>غير قادر على الاتصال بملف التعريف Wi-Fi المتوفر. حاول ثانية.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>غير قادر على قطع اتصال ملف التعريف Wi-Fi المتوفر. حاول ثانية.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>غير قادر على قطع الاتصال. حاول ثانية.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>غير قادر على تطبيق إعدادات الشبكة المتوفرة.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>غير قادر على إكمال الإجراء Wi-Fi. حاول ثانية.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>شبكة مخفية</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>مفتوح</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA شخصي</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA لا يوجد</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA إنتربرايز</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>خاص بالبائع</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 شخصي</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 شخصي</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 الشخصية</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>شخصي</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>المؤسسة WPA3</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 المؤسسة 192 بت</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>المؤسسة WPA2/WPA3</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>المؤسسة WPA2</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>المؤسسة</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (الجهاز)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (الجهاز أو المستخدم)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>العربية (المملكة العربية السعودية)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>البلغارية (بلغاريا)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>التشيكية (التشيك)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>الدنماركية (الدنمارك)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>الألمانية (ألمانيا)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>اليونانية (اليونان)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>الإنجليزية (المملكة المتحدة)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>الإنجليزية (الولايات المتحدة)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>الإسبانية (إسبانيا)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>الإسبانية (المكسيك)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>الإستونية (إستونيا)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>الفنلندية (فنلندا)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>الفرنسية (كندا)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>الفرنسية (فرنسا)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>العبرية (إسرائيل)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>الكرواتية (كرواتيا)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>المجرية (المجر)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>الإيطالية (إيطاليا)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>اليابانية (اليابان)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>الكورية (كوريا)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>الليتوانية (ليتوانيا)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>اللاتفية (لاتفيا)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>النرويجية البوكمال (النرويج)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>الهولندية (هولندا)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>البولندية (بولندا)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>البرتغالية (البرازيل)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>البرتغالية (البرتغال)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>الرومانية (رومانيا)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>الروسية (روسيا)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>السلوفاكية (سلوفاكيا)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>السلوفينية (سلوفينيا)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>اللاتينية الصربية (صربيا)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>السويدية (السويد)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>التايلاندية (تايلاند)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>التركية (تركيا)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>الأوكرانية (أوكرانيا)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>الصينية المبسطة (الصين)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>الصينية التقليدية (تايوان)</value>
+  </data>
+</root>

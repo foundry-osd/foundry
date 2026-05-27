@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Tietoja Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect vahvistaa verkon valmiuden WinPE ennen kuin Foundry käyttöönotto jatkuu.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Tämä ohjelmisto toimitetaan sellaisenaan. Vahvista verkkoon pääsy ennen kuin jatkat käyttöönottoa.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Tekijänoikeus (c) 2026 Foundry Project. Lisensoitu MIT-lisenssillä.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Teema</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Kieli</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Työkalut</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>Tietoja</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Järjestelmä</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Kevyt</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Tumma</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>englanti</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>ranskalainen</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Päivitä tila</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Käytä havaittua asettelua</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Näytä vain Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Näytä Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Yhdistä</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Katkaise yhteys</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versio: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Kokoonpano: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Kokoonpano: sisäänrakennetut oletusasetukset</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Päivittyy joka {0} sekunti</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Viimeksi päivitetty: odottaa</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Viimeksi päivitetty: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Ei saatavilla</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Yhdistetty</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Odotetaan verkkoa</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Internet-yhteyttä ei ole vielä vahvistettu.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Verkko valmis</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Internet-yhteys on vahvistettu. Voit jatkaa nyt.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Verkon päivitys epäonnistui</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Jatkuu automaattisesti {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Sovitin</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Gateway</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Ethernet-sovitinta ei havaittu.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Ei aktiivista linkkiä</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Odotetaan verkon määritystä</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Tarkista kaapelin liitäntä</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Odotetaan DHCP tai staattista verkkomääritystä</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP vuokrasopimus havaittu</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Staattinen verkkomääritys havaittu</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Päivitä Wi-Fi-verkot</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Näytä tai piilota Wi-Fi salasana</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Varustettu Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Profiili</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Todennus</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Tämä verkko vaatii valmiin Wi-Fi-profiilin.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>Wi-Fi-verkkoja ei ole tällä hetkellä näkyvissä.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>Tässä käynnistyskuvassa ei ole saatavilla Wi-Fi-profiilia.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Wi-Fi tuki ei ole saatavilla tässä käynnistysympäristössä.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Wi-Fi-sovitinta ei tällä hetkellä havaita.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Wi-Fi-sovitinta ei ole saatavilla.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Yritysprofiili</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Nimetön hallinnoitu profiili</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Käynnistyskuvan asetukset</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Varmenne sisältyy käynnistyskuvaan</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Konfiguroitu suojaus</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi ei saatavilla</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Wi-Fi-sovitinta ei ole saatavilla</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Toinen Wi-Fi-verkko on aktiivinen</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Valmis yhdistämään</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Toimitettu Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Tätä Wi-Fi-verkkoa ei tueta tässä koontiversiossa.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Yhteyden muodostaminen ei onnistu. Tarkista salasana tai verkkoasetukset ja yritä uudelleen.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Käytettävissä oleva Wi-Fi-profiili ei ole käytettävissä.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Ei voida muodostaa yhteyttä määritettyyn Wi-Fi-profiiliin. Yritä uudelleen.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Ei voida katkaista hallittua Wi-Fi-profiilia. Yritä uudelleen.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Yhteyttä ei voi katkaista. Yritä uudelleen.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Varattuja verkkoasetuksia ei voi ottaa käyttöön.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Wi-Fi-toimintoa ei voi suorittaa loppuun. Yritä uudelleen.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Piilotettu verkko</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Avaa</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Henkilökohtainen</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Ei mitään</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Myyjäkohtainen</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Henkilökohtainen</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-bittinen</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Yritys</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (kone)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (kone tai käyttäjä)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabia (Saudi-Arabia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulgaria (Bulgaria)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>tšekki (Tšekki)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>tanska (Tanska)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>saksa (Saksa)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>kreikka (Kreikka)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>englanti (Iso-Britannia)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>englanti (Yhdysvallat)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>espanja (Espanja)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>espanja (Meksiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Viro (Viro)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>suomi (Suomi)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>ranska (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>ranska (Ranska)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>heprea (Israel)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>kroatia (Kroatia)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>unkari (Unkari)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italia (Italia)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japani (Japani)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korea (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Liettua (Liettua)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>latvia (Latvia)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norjalainen bokmal (Norja)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>hollanti (Alankomaat)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>puola (Puola)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugali (Brasilia)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugali (Portugali)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>romania (Romania)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>venäjä (Venäjä)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovakki (Slovakia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovenia (Slovenia)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>serbia latina (Serbia)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>ruotsi (Ruotsi)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thaimaa (Thaimaa)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turkki (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukraina (Ukraina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>yksinkertaistettu kiina (Kiina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>perinteinen kiina (Taiwan)</value>
+  </data>
+</root>

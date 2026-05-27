@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Σχετικά με Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Το Foundry Connect επικυρώνει την ετοιμότητα δικτύου στο WinPE πριν συνεχιστεί η ανάπτυξη του Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Αυτό το λογισμικό παρέχεται ως έχει. Επιβεβαιώστε την πρόσβαση στο δίκτυο πριν συνεχίσετε την ανάπτυξη.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Πνευματικά δικαιώματα (γ) 2026 Foundry Project. Άδεια χρήσης βάσει της άδειας MIT.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Θέμα</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Γλώσσα</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Εργαλεία</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Εντοπισμός σφαλμάτων</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>Περίπου</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Σύστημα</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Φως</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Σκοτεινό</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>Αγγλικά</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>Γαλλικά</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Κατάσταση ανανέωσης</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Χρήση εντοπισμένης διάταξης</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Εμφάνιση μόνο Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Εμφάνιση Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Συνέχεια</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Συνδεθείτε</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Αποσύνδεση</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Έκδοση: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Διαμόρφωση: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Διαμόρφωση: ενσωματωμένες προεπιλογές</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Ανανεώνεται κάθε {0} δευτερόλεπτα</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Τελευταία ενημέρωση: σε εκκρεμότητα</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Τελευταία ενημέρωση: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Μη διαθέσιμο</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Συνδεδεμένος</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Αναμονή για δίκτυο</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Η πρόσβαση στο Διαδίκτυο δεν έχει ακόμη επικυρωθεί.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Έτοιμο το δίκτυο</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Η πρόσβαση στο Διαδίκτυο έχει επικυρωθεί. Μπορείτε να συνεχίσετε τώρα.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Η ανανέωση δικτύου απέτυχε</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Συνέχεια αυτόματα στο {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Προσαρμογέας</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Πύλη</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Δεν εντοπίστηκε προσαρμογέας Ethernet.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Δεν υπάρχει ενεργός σύνδεσμος</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Αναμονή για διαμόρφωση δικτύου</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Ελέγξτε τη σύνδεση του καλωδίου</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Αναμονή για DHCP ή στατική διαμόρφωση δικτύου</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP εντοπίστηκε μίσθωση</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Εντοπίστηκε στατική διαμόρφωση δικτύου</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Ανανεώστε τα δίκτυα Wi-Fi</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Εμφάνιση ή απόκρυψη του κωδικού πρόσβασης Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Παρέχεται Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Προφίλ</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Έλεγχος ταυτότητας</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Αυτό το δίκτυο απαιτεί ένα προβλεπόμενο προφίλ Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>Δεν είναι ορατά προς το παρόν δίκτυα Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>Δεν υπάρχει διαθέσιμο προφίλ Wi-Fi σε αυτήν την εικόνα εκκίνησης.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Η υποστήριξη Wi-Fi δεν είναι διαθέσιμη σε αυτό το περιβάλλον εκκίνησης.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Δεν έχει εντοπιστεί προσαρμογέας Wi-Fi αυτήν τη στιγμή.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας Wi-Fi.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Εταιρικό προφίλ</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Ανώνυμο προβλεπόμενο προφίλ</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Ρυθμίσεις εικόνας εκκίνησης</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Το πιστοποιητικό περιλαμβάνεται στην εικόνα εκκίνησης</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Διαμορφωμένη ασφάλεια</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi μη διαθέσιμο</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας Wi-Fi</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Ένα άλλο δίκτυο Wi-Fi είναι ενεργό</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Έτοιμοι για σύνδεση</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Παρέχεται Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Αυτό το δίκτυο Wi-Fi δεν υποστηρίζεται σε αυτήν την έκδοση.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Δεν είναι δυνατή η σύνδεση. Ελέγξτε τον κωδικό πρόσβασης ή τις ρυθμίσεις δικτύου και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Το προβλεπόμενο προφίλ Wi-Fi δεν είναι διαθέσιμο.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Δεν είναι δυνατή η σύνδεση του προβλεπόμενου προφίλ Wi-Fi. Προσπαθήστε ξανά.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Δεν είναι δυνατή η αποσύνδεση του προβλεπόμενου προφίλ Wi-Fi. Προσπαθήστε ξανά.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Δεν είναι δυνατή η αποσύνδεση. Προσπαθήστε ξανά.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Δεν είναι δυνατή η εφαρμογή των παρεχόμενων ρυθμίσεων δικτύου.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ολοκλήρωση της ενέργειας Wi-Fi. Προσπαθήστε ξανά.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Κρυφό δίκτυο</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Ανοίξτε</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Προσωπικά</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Κανένα</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Επιχείρηση</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Ειδικά για τον προμηθευτή</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Προσωπικά</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-bit</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Επιχείρηση</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (μηχανή)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (μηχανή ή χρήστης)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Αραβικά (Σαουδική Αραβία)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Βουλγαρικά (Βουλγαρία)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Τσεχία (Τσεχία)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Δανικά (Δανία)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Γερμανικά (Γερμανία)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Ελληνικά (Ελλάδα)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Αγγλικά (Ηνωμένο Βασίλειο)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Αγγλικά (Ηνωμένες Πολιτείες)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Ισπανικά (Ισπανία)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Ισπανικά (Μεξικό)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Εσθονία (Εσθονία)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Φινλανδικά (Φινλανδία)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Γαλλικά (Καναδάς)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Γαλλικά (Γαλλία)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Εβραϊκά (Ισραήλ)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Κροατικά (Κροατία)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Ουγγρικά (Ουγγαρία)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Ιταλικά (Ιταλία)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Ιαπωνικά (Ιαπωνία)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Κορεάτικα (Κορέα)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Λιθουανία (Λιθουανία)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Λετονικά (Λετονία)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norwegian Bokmal (Νορβηγία)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Ολλανδικά (Ολλανδία)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Πολωνικά (Πολωνία)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Πορτογαλικά (Βραζιλία)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Πορτογαλικά (Πορτογαλία)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Ρουμανικά (Ρουμανία)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Ρωσικά (Ρωσία)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Σλοβακικά (Σλοβακία)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Σλοβενικά (Σλοβενία)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Σερβικά Λατινικά (Σερβία)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Σουηδικά (Σουηδία)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Ταϊλάνδης (Ταϊλάνδη)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Τουρκικά (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ουκρανικά (Ουκρανία)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Απλοποιημένα Κινεζικά (Κίνα)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Παραδοσιακό Κινέζικο (Ταϊβάν)</value>
+  </data>
+</root>

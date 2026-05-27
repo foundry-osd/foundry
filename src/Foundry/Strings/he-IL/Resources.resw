@@ -1,0 +1,2007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>בערך</value>
+  </data>
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>נוצר ומתוחזק על ידי Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>תורמים</value>
+  </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>לא ניתן היה לטעון תורמים מ-GitHub.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>טוען תורמים...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>תרומות: {0}</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>Foundry OSD היא אפליקציה מודרנית ליצירת מדיה לפריסה Windows המופעלת על ידי WinPE.</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>זכויות יוצרים (ג) 2026 Foundry Project.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>קוד המקור Foundry מופץ תחת רישיון MIT.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>רישיון</value>
+  </data>
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>רישיונות</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>פתוח</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>פתח את הערות הגרסה בדפדפן</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>לא ניתן היה לטעון הערות גרסה בדפדפן המוטמע.</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>טוען הערות שחרור...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
+    <value>הערות שחרור</value>
+  </data>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>מאגר</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Foundry OSD כולל כלי 7-Zip Extra לתמיכה ביצירת מדיה.</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-Zip Extra</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Windows עריכת מדיה לפריסה</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>תמיכה</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>מעקב אחר רישיונות חבילות של צד שלישי מתבצע דרך מאגר הפרויקט ומניפסטי התלות.</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>תלות של צד שלישי</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>על Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>קישורים שימושיים</value>
+  </data>
+  <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
+    <value>בדוק אם יש עדכונים</value>
+  </data>
+  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
+    <value>עדכן והפעל מחדש</value>
+  </data>
+  <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>הערות שחרור</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>עדכון מקור</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>נתיב שחרור: {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>שחרורים יציבים</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>גרסאות בטא</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>תצוגה מקדימה של מהדורות</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>עדכון אינטרנט</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>בטל</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>מושבת</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>מופעל</value>
+  </data>
+  <data name="Common.Browse" xml:space="preserve">
+    <value>עיין</value>
+  </data>
+  <data name="Common.Refresh" xml:space="preserve">
+    <value>רענן</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
+    <value>אפשר אבחון מפתחים ופתח את תיקיית היומן Foundry.</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
+    <value>אבחון</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
+    <value>שנה את שפת היישום מבלי להפעיל מחדש את Foundry OSD.</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
+    <value>הפעל אוטומטית את Foundry OSD כשאתה נכנס ל-Windows.</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
+    <value>הפעל בעת ההפעלה</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>אנגלית</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>צרפתית</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>בחר את שיטת ההקצאה Autopilot עבור מדיית פריסה: JSON יצירת פרופיל או WinPE העלאת חומרה.</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>אפשר Autopilot</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>ייבוא פרופיל</value>
+  </data>
+  <data name="Autopilot.DownloadButton" xml:space="preserve">
+    <value>הורד מהדייר</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>הסר את הבחירה</value>
+  </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>פעולות פרופיל</value>
+  </data>
+  <data name="Autopilot.ActionsDescription" xml:space="preserve">
+    <value>ייבא פרופילי JSON מקומיים או הורד אותם מ-Intune.</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>מייבא פרופיל Autopilot...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>מוריד פרופילים של Autopilot...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>להסיר את הפרופיל Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>להסיר את "{0}" מהפרופילים המיובאים של Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>הסר פרופיל</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
+    <value>להסיר פרופילים של Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
+    <value>להסיר את הפרופילים {0} שנבחרו ב-Autopilot?</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
+    <value>הסר פרופילים</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>פרופיל ברירת מחדל</value>
+  </data>
+  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
+    <value>פרופיל מבוים כברירת מחדל בתמונה Windows שהוחלה.</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>פרופילים מיובאים</value>
+  </data>
+  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
+    <value>פרופילים לא מקוונים של Autopilot זמינים להקצאת פרופיל JSON.</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>לא יובאו פרופילים Autopilot.</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>מקור</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>מיובא</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>תיקיה</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>ייבוא פרופיל Autopilot JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>הייבוא Autopilot נכשל</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>היכנס אל Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>השלם את הכניסה בדפדפן כדי להוריד פרופילים של Autopilot.</value>
+  </data>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>לא נמצאו פרופילים של Autopilot</value>
+  </data>
+  <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
+    <value>לא הוחזרו פרופילים של Autopilot על ידי השוכר.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
+    <value>הורדת Autopilot נכשלה</value>
+  </data>
+  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
+    <value>הורדת הפרופיל Autopilot נכשלה: {0}</value>
+  </data>
+  <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
+    <value>בחר Autopilot פרופילים</value>
+  </data>
+  <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
+    <value>בחר אילו פרופילי דיירים יש לייבא אל Foundry.</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
+    <value>בחר הכל</value>
+  </data>
+  <data name="Autopilot.TenantPickerClear" xml:space="preserve">
+    <value>ברור</value>
+  </data>
+  <data name="Autopilot.TenantPickerImport" xml:space="preserve">
+    <value>ייבוא</value>
+  </data>
+  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
+    <value>בטל</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>פרופילים נבחרים: {0} מתוך {1}</value>
+  </data>
+  <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
+    <value>JSON הקצאת פרופיל</value>
+  </data>
+  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
+    <value>שלב פרופיל Autopilot לא מקוון בתמונה Windows המוחלת.</value>
+  </data>
+  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
+    <value>השתמש בהקצאת פרופיל JSON</value>
+  </data>
+  <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
+    <value>העלאת hash של חומרה</value>
+  </data>
+  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
+    <value>העלה את ה-hash של חומרת המכשיר אל Intune מ-Foundry Deploy ב-WinPE.</value>
+  </data>
+  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
+    <value>השתמש בהעלאת גיבוב חומרה</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
+    <value>חבר דייר</value>
+  </data>
+  <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
+    <value>ניתוק דייר</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
+    <value>מחבר דייר...</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>היכנס אל Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>השלם את הכניסה בדפדפן כדי להגדיר את Autopilot העלאת hash של החומרה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
+    <value>חיבור דייר</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
+    <value>התחבר אל Microsoft Graph עבור הפעלת האפליקציה הזו כדי לנהל את הגדרות העלאת ה-hash.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
+    <value>לא מחובר</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
+    <value>מחובר</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>מוכנות הדיירים</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>מידע על דייר, רישום אפליקציה ומוכנות להעלאת גיבוב חומרה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
+    <value>ערך</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
+    <value>זיהוי דייר</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
+    <value>מזהה לקוח</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
+    <value>רישום אפליקציה מנוהל</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Foundry OSD Autopilot הרישום אינו מוגדר.</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
+    <value>{0} מוגדר.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
+    <value>סטטוס</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>לא מוכן</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
+    <value>פעולות תעודה</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
+    <value>צור או הסר אישורי אישור רישום אפליקציה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
+    <value>תעודות מסופקות</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
+    <value>אישורי רישום אפליקציה מהימנים עבור אימות WinPE Graph.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
+    <value>אין תעודות מסופקות.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
+    <value>צור תעודה</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
+    <value>הסר אישור</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
+    <value>שמור Autopilot אישור PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
+    <value>תעודת PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
+    <value>תעודה מוכנה</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>שמור את קובץ ה-PFX והסיסמה הזו כעת במיקום מאובטח. Foundry אינו מאחסן את הסיסמה ואינו יכול להציג אותה שוב לאחר סגירת הדו-שיח. תזדקק לשני הערכים כדי ליצור מדיית אתחול להעלאת גיבוב חומרה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>קובץ PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>סיסמת PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>העתק סיסמה</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>הסיסמה הועתקה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
+    <value>יצירת האישור נכשלה</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
+    <value>Foundry לא הצליח ליצור את אישור הרישום של האפליקציה. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
+    <value>להסיר את האישור שנבחר?</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
+    <value>Foundry יסיר רק את האישור שנבחר מהרישום של האפליקציה המנוהלת. אישורי אפליקציה אחרים יישמרו.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
+    <value>Foundry יסיר רק את האישורים {0} שנבחרו מהרישום של האפליקציה המנוהלת. אישורי אפליקציה אחרים יישמרו.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
+    <value>הסר אישור</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
+    <value>הסרת האישור נכשלה</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
+    <value>Foundry לא הצליח להסיר את אישור הרישום של האפליקציה שנבחרה. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>טביעת אצבע</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>נוצר</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>תפוגה</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>מזהה תעודה</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
+    <value>אישור מדיה לאתחול</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
+    <value>PFX מוגן בסיסמה הועתק למדיית האתחול להעלאת גיבוב חומרה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
+    <value>קובץ PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
+    <value>סיסמת PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
+    <value>בחר PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
+    <value>בחר Autopilot אישור PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
+    <value>בחר PFX התואם אישור רישום אפליקציה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
+    <value>פג תוקף האישור שנבחר. צור או בחר אישור חוקי לפני יצירת מדיה אתחול.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
+    <value>בחר את ה-PFX התואם המוגן בסיסמה לפני יצירת מדיית אתחול.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
+    <value>קובץ ה-PFX שנבחר כבר לא קיים.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
+    <value>הזן את סיסמת ה-PFX.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>טביעת האצבע של אישור PFX אינה תואמת לאישור רישום האפליקציה שנבחר.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
+    <value>ה-PFX שנבחר אינו מכיל חומר מפתח פרטי.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
+    <value>לא ניתן היה לפתוח את ה-PFX שנבחר עם הסיסמה שסופקה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
+    <value>אישור מוכן ליצירת מדיה אתחול.</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
+    <value>תג ברירת מחדל לקבוצה</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
+    <value>תג קבוצתי אופציונלי שנבחר מראש ב-Foundry Deploy במהלך העלאת hash של חומרה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
+    <value>לא נבחר תג ברירת מחדל לקבוצה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
+    <value>אין</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
+    <value>אין</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
+    <value>הכנסת דיירים למטוס דורשת תשומת לב</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
+    <value>הכניסה לדייר נכשלה</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
+    <value>Foundry לא הצליח להגדיר את רישום האפליקציה Autopilot. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
+    <value>לא ניתן למצוא את רישום האפליקציה המנוהלת. התחבר מחדש כדי לאפשר ל-Foundry ליצור או לאמץ אותו.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
+    <value>נמצאה רישום אפליקציה קיים עם השם Foundry. התחבר מחדש כדי לאמץ אותו לתצורת Foundry.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
+    <value>ברישום האפליקציה המנוהלת חסרה הרשאת האפליקציה הנדרשת Microsoft Graph. התחבר מחדש לחשבון שיכול לעדכן רישומי אפליקציות.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
+    <value>למנהל השירות המנוהל חסרה הסכמה של מנהל המערכת להרשאת Microsoft Graph הנדרשת. הענק הסכמת מנהל המערכת והתחבר מחדש.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
+    <value>מנהל השירות המנוהל חסר או מושבת. התחבר מחדש לחשבון שיכול ליצור או לנהל יישומים ארגוניים.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
+    <value>האישור שנבחר בעבר אינו קיים עוד ברישום האפליקציה המנוהלת. בחר PFX חוקי התואם לאישור שהוקצה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
+    <value>פג תוקף האישור שנבחר. צור אישור חדש, שמור את ה-PFX והסיסמה שלו, ולאחר מכן בחר אותו עבור מדיית האתחול.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
+    <value>רישום האפליקציה המנוהלת אינו מוכן. בדקו את מוכנות הדיירים והתחברו מחדש.</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>התאמה אישית</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry לא הצליח לפתוח את התיעוד בדפדפן שלך. השתמש ב-URL זה במקום זאת.</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>לא ניתן היה לפתוח את התיעוד</value>
+  </data>
+  <data name="Customization.MachineNamingHeader" xml:space="preserve">
+    <value>שם המחשב</value>
+  </data>
+  <data name="Customization.MachineNamingDescription" xml:space="preserve">
+    <value>שליטה כיצד נוצר שם המחשב שנפרס ב-WinPE.</value>
+  </data>
+  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
+    <value>אפשר כללי מתן שמות למכונה</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
+    <value>קידומת שם המחשב</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
+    <value>קידומת הוחל לפני סיומת הפריסה שנוצרה או הניתנת לעריכה.</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>יצירה אוטומטית של סיומת שם מחשב</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
+    <value>צור את הסיומת באופן אוטומטי במהלך הפריסה.</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>אפשר עריכת סיומת במהלך הפריסה</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
+    <value>אפשר למפעיל הפריסה לערוך את הסיומת אחרי הקידומת.</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
+    <value>הקידומת חייבת להשתמש ב-1 עד 15 תווים מ-A-Z, a-z, 0-9 או -.</value>
+  </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>חוויה מחוץ לקופסה</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>הגדר Windows 11 מסכים בהפעלה ראשונה וברירות מחדל לפרטיות.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>התאמה אישית של OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>דלג על תנאי הרישיון</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>דילוג על דף תנאי רישיון התוכנה Microsoft במהלך OOBE.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>נתוני אבחון</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>בוחר את רמת הנתונים האבחוניים Windows שהוגדרה לפני הכניסה הראשונה. Off מכובד רק על ידי מהדורות Windows נתמכות; מהדורות שאינן נתמכות נופלות חזרה ל-Required.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>חובה</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>אופציונלי</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>כבוי</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>הסתר את הגדרות הפרטיות</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>מונע מ-Windows להציג את דף אפשרויות הפרטיות במהלך הכניסה הראשונה.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>חוויות מותאמות</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>מאפשר ל-Windows להשתמש בנתוני אבחון לטיפים, מודעות והמלצות מותאמות אישית.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>מזהה פרסום</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>מאפשר לאפליקציות להשתמש במזהה הפרסום Windows בכל אפליקציות.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>זיהוי דיבור מקוון</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>מאפשר Microsoft שירותי זיהוי דיבור מבוססי ענן.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>אבחון דיו והקלדה</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>מאפשר איסוף נתוני אבחון של דיו והקלדה אופציונליים.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>גישה למיקום</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>שולט אם Windows ואפליקציות יכולות להשתמש בשירותי מיקום.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>נשלט על ידי משתמש</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>לכבות בכוח</value>
+  </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>הסרת רכיבי AI</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>הסר או השבת את רכיבי בינה מלאכותית Windows שנבחרו לפני OOBE.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>הסר רכיבי AI</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>הסר Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>הסר את חבילת האפליקציה Copilot וכבה את מדיניות Windows Copilot.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>הסר Copilot+ רכזת AI</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>הסר את חבילת אפליקציית ה-Windows AI Hub המוגדרת כאשר קיימת.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>השבת Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>הגדר Windows מדיניות AI המונעת Recall הפעלה ושמירת תמונת מצב.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>השבת Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>הגדר Windows מדיניות AI שמכבה את Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>מנע הפעלה אוטומטית של שירות AI Windows</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>הגדר את WSAIFabricSvc לאתחול ידני במקום לאתחול אוטומטי.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>השבת Microsoft Edge תכונות AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>הגדר מדיניות Edge המשבית את Copilot, סרגל צד, חיבור ותכונות חיפוש בינה מלאכותית.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>השבת את תכונות AI Paint</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>הגדר את מדיניות Paint המשביתה את Cocreator, עריכה גנרטיבית, יוצר תמונה והסרת רקע.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>השבת את תכונות AI Notepad</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>הגדר את המדיניות Notepad המשביתה את תכונות הבינה המלאכותית.</value>
+  </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>הסרת אפליקציה מסודרת</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>הסר אפליקציות Windows שהוגדרו</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>בחר קטגוריית קטלוג אחת או יותר כדי לבחור מראש חבילות.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>אין</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>מותאם אישית</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>פרופילים נבחרים: {0}</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>בחר הכל</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>הסר הכל</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>חבילות</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>חבילות נבחרות: {0} מתוך {1}</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>אפשרויות אתחול.</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>הגדר מדיה</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>מוכנות ADK.</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>פתח ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>תיעוד המוצר.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>פתח תיעוד</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>סיכום מדיה סופי.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>בדוק והתחל</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>גרסה מותקנת</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Windows PE תוסף</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>בנה מדיית פריסה של Windows עם זרימת עבודה מודרנית למחשב שולחני המופעל על ידי WinPE.</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>כללי</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
+    <value>השלב הבא</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
+    <value>פלטי מדיה.</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
+    <value>בדוק והתחל</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>התקן את Windows ADK ואת התוסף Windows PE לפני בחירת שפת האתחול WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>לא זוהו חבילות שפה WinPE עבור הארכיטקטורה שנבחרה.</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>לוקליזציה</value>
+  </data>
+  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
+    <value>שפות פריסה גלויות</value>
+  </data>
+  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
+    <value>שפת ברירת מחדל לפריסה</value>
+  </data>
+  <data name="Localization.TimeZone.Header" xml:space="preserve">
+    <value>אזור זמן פריסה</value>
+  </data>
+  <data name="Localization.AutomaticOption" xml:space="preserve">
+    <value>אוטומטי</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>רשת</value>
+  </data>
+  <data name="Dot1x.EnableLabel" xml:space="preserve">
+    <value>קבע תצורה קווית 802.1X</value>
+  </data>
+  <data name="Dot1x.CertificateLabel" xml:space="preserve">
+    <value>קובץ אישור CA שורש מהימן</value>
+  </data>
+  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
+    <value>בחר אישור 802.1X</value>
+  </data>
+  <data name="Wifi.EnableLabel" xml:space="preserve">
+    <value>ספק תמיכה Wi-Fi בתמונת האתחול</value>
+  </data>
+  <data name="Wifi.ConfigureLabel" xml:space="preserve">
+    <value>ספק מראש פרופיל Wi-Fi</value>
+  </data>
+  <data name="Wifi.SsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
+    <value>סוג אבטחה</value>
+  </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>ביטוי סיסמה</value>
+  </data>
+  <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
+    <value>פתוח</value>
+  </data>
+  <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
+    <value>OWE (הצפנה אלחוטית אופורטוניסטית)</value>
+  </data>
+  <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
+    <value>WPA2/WPA3 אישי</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3" xml:space="preserve">
+    <value>WPA3 Enterprise (WPA3ENT)</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-bit (WPA3ENT192)</value>
+  </data>
+  <data name="Network.EthernetSectionTitle" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Network.EthernetHelperText" xml:space="preserve">
+    <value>קישוריות Ethernet סטנדרטית זמינה כברירת מחדל. הגדר את הסעיף הזה רק אם הרשת הקווית שלך דורשת אימות ארגוני 802.1X.</value>
+  </data>
+  <data name="Network.WifiSectionTitle" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Network.WifiHelperText" xml:space="preserve">
+    <value>הפעל זאת רק אם תמונת האתחול צריכה לכלול Wi-Fi תמיכה ו-Wi-Fi עבור אתחול WinPE.</value>
+  </data>
+  <data name="Network.WifiPersonalHelperText" xml:space="preserve">
+    <value>ביטויי סיסמה אישיים של Wi-Fi נשארים ארעיים באפליקציית הכתיבה ואינם נמשכים בתצורת Foundry.</value>
+  </data>
+  <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
+    <value>התנהגות ארגונית מונעת על ידי תבנית הפרופיל ב-build זה. אישורי 802.1X שהוזנו במהלך הפריסה אינם מסופקים כאן.</value>
+  </data>
+  <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
+    <value>ארגון מתקדם Wi-Fi</value>
+  </data>
+  <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
+    <value>ספק תבנית פרופיל Wi-Fi לארגון</value>
+  </data>
+  <data name="Network.ProfileTemplateLabel" xml:space="preserve">
+    <value>קובץ תבנית פרופיל</value>
+  </data>
+  <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
+    <value>בחר תבנית פרופיל רשת</value>
+  </data>
+  <data name="Network.RequiresCertificateLabel" xml:space="preserve">
+    <value>ייבא אישור CA שורש מהימן</value>
+  </data>
+  <data name="Wifi.CertificateLabel" xml:space="preserve">
+    <value>קובץ אישור CA שורש מהימן</value>
+  </data>
+  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
+    <value>בחר את האישור Wi-Fi</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>התצורה של Wi-Fi מחייבת לספק תמיכה ב-Wi-Fi בתמונת האתחול.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>Wired 802.1X דורש תבנית פרופיל קווי.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>לא נמצא קובץ תבנית פרופיל קווי 802.1X.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>Wired 802.1X דורש קובץ אישור CA שורש מהימן כאשר אמון אישור מופעל.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>לא נמצא קובץ אישור CA שורש מהימן קווי 802.1X.</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>תצורת Wi-Fi דורשת SSID.</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>לא נתמך Wi-Fi סוג אבטחה '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>אישי Wi-Fi דורש ביטוי סיסמה בן 8 עד 63 תווים.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi דורש תבנית פרופיל.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>לא נמצא קובץ תבנית פרופיל Enterprise Wi-Fi.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>תבנית פרופיל Enterprise Wi-Fi חייבת להכיל ערך אימות ארגוני נתמך.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>סוג האבטחה הארגוני Wi-Fi שנבחר אינו תואם לאימות תבנית הפרופיל ({0}).</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi דורש קובץ אישור CA שורש מהימן כאשר אמון אישור מופעל.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>Enterprise Wi-Fi קובץ אישור CA שורש מהימן לא נמצא.</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>מבצע בעיצומו</value>
+  </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>הפעולה הושלמה</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>התחל</value>
+  </data>
+  <data name="StartMedia.IsoPath.Header" xml:space="preserve">
+    <value>פלט ISO</value>
+  </data>
+  <data name="StartMedia.IsoPath.Description" xml:space="preserve">
+    <value>בחר היכן ייכתב ה-Foundry ISO שנוצר.</value>
+  </data>
+  <data name="StartMedia.Architecture.Header" xml:space="preserve">
+    <value>אדריכלות וחתימה</value>
+  </data>
+  <data name="StartMedia.Architecture.Description" xml:space="preserve">
+    <value>בחר את ארכיטקטורת האתחול ומצב חתימת האתחול.</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
+    <value>WinPE שפת האתחול</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
+    <value>שפה המשמשת את סביבת האתחול WinPE.</value>
+  </data>
+  <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
+    <value>USB יעד</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
+    <value>USB פריסה</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>סכימת מחיצות המשמשת בעת הכנת היעד USB שנבחר.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>התנהגות פורמט בשימוש לפני העתקת המדיה הסופית USB.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
+    <value>אפשרויות דרייבר</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
+    <value>בחר מנהלי התקנים אופציונליים של ספק ותיקיית מנהלי התקנים מותאמת אישית.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
+    <value>תיקיית מנהל התקן מותאמת אישית</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
+    <value>תיקיה אופציונלית המכילה מנהלי התקן ‎ .inf נוספים.</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
+    <value>צור מדיה</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
+    <value>צור מדיה ISO או USB לאחר שכל בדיקות המוכנות עוברות.</value>
+  </data>
+  <data name="StartMedia.CreateIsoButton" xml:space="preserve">
+    <value>צור ISO</value>
+  </data>
+  <data name="StartMedia.CreateUsbButton" xml:space="preserve">
+    <value>צור USB</value>
+  </data>
+  <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
+    <value>פורמט מהיר</value>
+  </data>
+  <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
+    <value>פורמט מלא</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
+    <value>יצירת מדיה אינה מופעלת בגירסה זו.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>יצירת מדיה זמינה כאשר כל בדיקות המוכנות עוברות.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>יצירת ISO חסומה</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>יצירת USB חסומה</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>פורמט USB יעד</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>פעולה זו תמחק את הדיסק {0}: {1} ({2}). המשך רק אם זהו הכונן USB המיועד.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>עיצוב וצור USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>יצירת סביבת עבודה WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>הכנת סביבת עבודה WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>פתרון חבילות דרייברים.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>התאמה אישית של תמונת האתחול.</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>הערכת מדיניות חתימת האתחול.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>הכנת התאמה אישית של תמונת האתחול.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>תמונת אתחול הרכבה.</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>הזרקת דרייברים לתמונת האתחול.</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>החלת שפה ורכיבים אופציונליים.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>הקצאת Foundry נכסי אתחול.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>הוספת רכיבי פריסה Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>ביצוע שינויים בתמונת האתחול.</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>התאמה אישית של תמונת האתחול הושלמה.</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>ניקוי סביבת עבודה WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>יצירת מדיה ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>יצירת מדיה USB.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>יצירת המדיה הסופית הושלמה.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>יצירת המדיה הסופית נכשלה.</value>
+  </data>
+  <data name="StartMedia.Operation.Downloading" xml:space="preserve">
+    <value>הורדת תוכן.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
+    <value>פתרון קטלוג מקור WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
+    <value>חבילת מקור WinRE נבחרה.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
+    <value>הכנת חבילת מקור של WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
+    <value>אימות חבילת מקור WinRE במטמון.</value>
+  </data>
+  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
+    <value>שימוש בחבילת מקור WinRE שמורה במטמון.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
+    <value>הורדת חבילת מקור WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
+    <value>מוריד חבילת מנהלי התקנים</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>הורדת רכיבי הפריסה {0}.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
+    <value>אימות חבילת מקור WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
+    <value>פתרון אינדקס תמונה של WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
+    <value>ייצוא תמונה Windows לחילוץ WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
+    <value>הרכבת תמונת מקור של WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
+    <value>ביצוע תלות של WinRE Wi-Fi.</value>
+  </data>
+  <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
+    <value>החלפת תמונת אתחול ב-WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
+    <value>תמונת האתחול של WinRE Wi-Fi מוכנה.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
+    <value>מכין נתיב פלט ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
+    <value>הכנת סביבת עבודה ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
+    <value>הפעלת MakeWinPEMedia עבור ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
+    <value>סיום פלט ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
+    <value>מדיה ISO הושלמה.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
+    <value>אימות USB יעד.</value>
+  </data>
+  <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
+    <value>בדיקת USB בטיחות היעד.</value>
+  </data>
+  <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
+    <value>חלוקה ועיצוב USB target.</value>
+  </data>
+  <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
+    <value>פתיחת דיסק USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
+    <value>הכנת תכונות דיסק USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
+    <value>ניקוי טבלת המחיצות USB.</value>
+  </data>
+  <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
+    <value>אתחול טבלת המחיצות USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
+    <value>יצירת מחיצת BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
+    <value>עיצוב מחיצת BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
+    <value>יצירת מחיצת מטמון.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
+    <value>עיצוב מחיצת מטמון.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
+    <value>פורמט מחיצות USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
+    <value>העתקת מדיה WinPE אל USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
+    <value>הגדרת קובצי אתחול USB.</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
+    <value>מאמת את מדיית האתחול USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
+    <value>מכין מחיצת מטמון USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
+    <value>הוספת רכיבי Foundry למדיה USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
+    <value>מדיה USB הושלמה.</value>
+  </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>מייצא תמונה Windows עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>פתרון אינדקס תמונה של WinRE עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>הרכבת תמונה עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>הזרקת דרייברים עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>החלת ערכת שפה עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>החלת רכיבים אופציונליים עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>החלת הגדרות בינלאומיות עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>ביצוע שינויים בתמונה עם DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
+    <value>המדיה ISO נוצרה בהצלחה.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
+    <value>המדיה USB נוצרה בהצלחה. עוצמת הקול של האתחול: {0}. נפח מטמון: {1}.</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
+    <value>בחר נתיב פלט ISO</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
+    <value>ISO תמונה</value>
+  </data>
+  <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
+    <value>בחר תיקיית מנהל התקן מותאמת אישית</value>
+  </data>
+  <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
+    <value>ניתן לרענן יעדים USB לאחר השלמת המוכנות של ADK.</value>
+  </data>
+  <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
+    <value>USB רענון היעד נכשל.</value>
+  </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>סורק יעדים USB.</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>יעדים USB עדיין לא נסרקו.</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>לא נמצאו כוננים USB.</value>
+  </data>
+  <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
+    <value>נמצאו כוננים USB: {0}</value>
+  </data>
+  <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
+    <value>דיסק {0} - {1} ({2})</value>
+  </data>
+  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
+    <value>פריטים הדורשים תשומת לב:</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>מוכן ליצור מדיה ISO ו-USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>מוכן ליצור מדיה ISO</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>מוכן ליצור מדיה USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>פריטי מוכנות הדורשים פעולה: {0}</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>סקור אזהרות פלט מדיה</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>דרישות מוקדמות</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>המחאות שחייבות להיות תקפות לפני ש-Foundry יוכלו לבנות מדיה.</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>פלט מדיה</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>אפשרויות פלט סופיות של ISO ו-USB.</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Foundry תצורה</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
+    <value>הגדרות הפריסה בשימוש על ידי Foundry ב-WinPE.</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>אזהרה</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>חסום</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>לא מוגדר</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>טוען</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>סקירה</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Windows ADK והתוסף Windows PE מוכנים.</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>אפשרויות הנהג תקפות.</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>ניתן לספק תצורת רשת.</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>ניתן ליצור תצורת פריס.</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>ניתן ליצור חבילת התצורה של Connect.</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>סודות מדיה נדרשים זמינים.</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>Autopilot מושבת ואינו חוסם יצירת מדיה.</value>
+  </data>
+  <data name="StartMedia.Field.Adk" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
+    <value>WinPE שפת האתחול</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>מקור תמונת אתחול</value>
+  </data>
+  <data name="StartMedia.Field.Architecture" xml:space="preserve">
+    <value>אדריכלות</value>
+  </data>
+  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
+    <value>נתיב פלט ISO</value>
+  </data>
+  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
+    <value>USB יעד</value>
+  </data>
+  <data name="StartMedia.Field.Signature" xml:space="preserve">
+    <value>מצב חתימה</value>
+  </data>
+  <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
+    <value>USB סגנון מחיצה</value>
+  </data>
+  <data name="StartMedia.Field.FormatMode" xml:space="preserve">
+    <value>USB מצב פורמט</value>
+  </data>
+  <data name="StartMedia.Field.Drivers" xml:space="preserve">
+    <value>נהגים</value>
+  </data>
+  <data name="StartMedia.Field.Network" xml:space="preserve">
+    <value>תצורת רשת</value>
+  </data>
+  <data name="StartMedia.Field.Deploy" xml:space="preserve">
+    <value>פרוס תצורה</value>
+  </data>
+  <data name="StartMedia.Field.Connect" xml:space="preserve">
+    <value>חיבור תצורה</value>
+  </data>
+  <data name="StartMedia.Field.Secrets" xml:space="preserve">
+    <value>סודות התקשורת</value>
+  </data>
+  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
+    <value>מופעל: {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>מופעל: העלאת hash של חומרה</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
+    <value>Autopilot משתמש במצב הקצאה לא נתמך.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
+    <value>Autopilot JSON מצב הפרופיל מופעל אך לא נבחר פרופיל ברירת מחדל חוקי.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך חסרות הגדרות.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך חיבור הדייר חסר. התחבר לשוכר מ-Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>העלאת חשיש של חומרה מופעלת אך רישום האפליקציה אינו מוגדר. התחבר לשוכר מ-Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך מזהה הלקוח של האפליקציה חסר. התחבר מחדש לדייר מ-Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך מנהל שירות האפליקציה חסר או אינו מוכן.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור רישום אפליקציה.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך טביעת האצבע של האישור שנבחר חסרה.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך תפוגת האישור שנבחר חסרה.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך פג תוקף האישור שנבחר. בחר אישור חוקי לפני יצירת מדיה אתחול.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך לא נבחרה מדיה אתחול PFX.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך חסרה סיסמת PFX של מדיה האתחול.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך מדיה האתחול PFX לא אומתה.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>העלאת גיבוב חומרה מופעלת אך ה-PFX שנבחר אינו תואם לאישור הפעיל.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
+    <value>העלאת גיבוב של חומרה מופעלת אך לא ניתן היה לאמת את תפוגת PFX של מדיה האתחול.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
+    <value>העלאת גיבוב חומרה מופעלת אך פג תוקף אמצעי האתחול שנבחר PFX.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
+    <value>התוסף ADK או WinPE אינו מוכן.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
+    <value>נתיב הפלט ISO חייב להסתיים ב-.iso.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
+    <value>שפת האתחול WinPE לא נבחרה.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
+    <value>שפת האתחול WinPE שנבחרה אינה זמינה עבור הארכיטקטורה שנבחרה.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
+    <value>תצורת הרשת אינה מוכנה.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
+    <value>יצירת התצורה של הפריסה אינה מוכנה.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
+    <value>התצורה של Connect אינה מוכנה.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
+    <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
+    <value>Autopilot מופעל אך לא נבחר פרופיל ברירת מחדל חוקי.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
+    <value>לא נבחר יעד USB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
+    <value>היעד USB שנבחר קטן מדי. השתמש במפתח USB של לפחות 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
+    <value>מדיה ARM64 דורשת סגנון מחיצה GPT.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
+    <value>תיקיית מנהל התקן מותאמת אישית לא קיימת.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
+    <value>תיקיית מנהל ההתקן המותאמת אישית אינה מכילה קבצי ‎ .inf.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
+    <value>יצירת מדיה אינה מופעלת בגירסה זו.</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>סטנדרטי WinPE</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>WinRE Wi-Fi תמונה</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.ByteUnit.B" xml:space="preserve">
+    <value>ב</value>
+  </data>
+  <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>עדכון</value>
+  </data>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>חדש</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>מידע על המוצר והגרסה.</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>בערך</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>ADK מוכנות והתקנה.</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Autopilot תצורת פרופיל.</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>אפשרויות התאמה אישית של פריסה.</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>התאמה אישית</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>התאמה אישית</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Foundry תיעוד וקישורי פרויקטים.</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>תיעוד</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>מומחה</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>זרימת עבודה של תצורה רגילה.</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>תצורה סטנדרטית</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>כללי</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>כללי</value>
+  </data>
+  <data name="Nav_HomeKey.Description" xml:space="preserve">
+    <value>Foundry OSD הביתה</value>
+  </data>
+  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Title" xml:space="preserve">
+    <value>בית</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>WinPE הגדרות שפה ולוקליזציה.</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>לוקליזציה</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>לוקליזציה</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>תצורת רשת וקישוריות.</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>רשת</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>רשת</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>סקור והתחל ביצירת מדיה.</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>התחל</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>התחל</value>
+  </data>
+  <data name="SettingsPage.PageTitle" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
+    <value>נהל אתחול, שפה, אבחון והתנהגות יישומים.</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
+    <value>כללי</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
+    <value>שלח טלמטריית שימוש אנונימית כדי לעזור לשפר את Foundry. לא נשלחים שמות, סודות, SSIDs, כתובות IP, נתיבי קבצים, מזהי דיסקים, שמות מחשבים, שמות פרופיל Autopilot או מזהי חומרה.</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
+    <value>אפשר טלמטריה</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
+    <value>שנה את העדפות העיצוב, הרקע והדגשה.</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
+    <value>מראה</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
+    <value>בדוק אם קיימים עדכונים של Foundry OSD ועיין בהערות גרסה.</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
+    <value>עדכן את האפליקציה</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
+    <value>פתח את הגדרות הצבע Windows כדי לשנות את צבע המבטא.</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
+    <value>צבע מבטא</value>
+  </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>פתוח</value>
+  </data>
+  <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
+    <value>אקריליק</value>
+  </data>
+  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
+    <value>דק אקרילי</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
+    <value>בחר את נושא היישום.</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
+    <value>נושא האפליקציה</value>
+  </data>
+  <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
+    <value>כהה</value>
+  </data>
+  <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
+    <value>מערכת</value>
+  </data>
+  <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
+    <value>אור</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
+    <value>בחר את חומר הרקע המשמש מאחורי האפליקציה.</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
+    <value>חומר</value>
+  </data>
+  <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
+    <value>מיקה אלט</value>
+  </data>
+  <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
+    <value>מיקה</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>Foundry OSD יוריד את העדכון ויתחיל מחדש כדי להחיל אותו.</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>עדכן והפעל מחדש</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>עדכן Foundry OSD</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>מוריד את העדכון. Foundry OSD יופעל מחדש כאשר הוא יהיה מוכן.</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>התקדמות ההורדה</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>מוריד עדכון</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>גרסה {0}</value>
+  </data>
+  <data name="Update.NotChecked" xml:space="preserve">
+    <value>לא נבדק</value>
+  </data>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>חדש</value>
+  </data>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>גרסה זמינה</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>גרסה מותקנת</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>נבדק לאחרונה</value>
+  </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>הגרסה האחרונה</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>יציקה-osd/יציקה</value>
+  </data>
+  <data name="Update.Status.Checking" xml:space="preserve">
+    <value>מחפש עדכונים</value>
+  </data>
+  <data name="Update.Status.FailedFormat" xml:space="preserve">
+    <value>בדיקת העדכון נכשלה: {0}</value>
+  </data>
+  <data name="Update.Status.NoUpdate" xml:space="preserve">
+    <value>Foundry OSD מעודכן.</value>
+  </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>מעודכן</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>עדכון זמין</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Foundry OSD {0} זמין</value>
+  </data>
+  <data name="Update.Status.NotInstalled" xml:space="preserve">
+    <value>בדיקת העדכון דילגה כי Foundry OSD אינו פועל מהתקנת Velopack.</value>
+  </data>
+  <data name="Update.Status.Ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>בדיקת העדכון נכשלה</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>בדיקת עדכון דילגה</value>
+  </data>
+  <data name="Update.Status.SkippedInDebug" xml:space="preserve">
+    <value>בדיקת העדכון דילגה כי מצורף מאתר באגים.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailable" xml:space="preserve">
+    <value>עדכון Foundry OSD זמין.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>עדכן כשתהיה מוכן. Foundry OSD יופעל מחדש כדי לסיים את היישום.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
+    <value>Foundry OSD {0} זמין.</value>
+  </data>
+  <data name="Adk.PageTitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Adk.Status.ReadyTitle" xml:space="preserve">
+    <value>ADK מוכן</value>
+  </data>
+  <data name="Adk.Status.ReadyDescription" xml:space="preserve">
+    <value>Foundry OSD יכול ליצור מדיה ISO ו-USB.</value>
+  </data>
+  <data name="Adk.Status.MissingTitle" xml:space="preserve">
+    <value>ADK אינו מותקן</value>
+  </data>
+  <data name="Adk.Status.MissingDescription" xml:space="preserve">
+    <value>התקן את Windows ADK כלי הפריסה ואת התוסף Windows PE לפני הגדרת יצירת מדיה.</value>
+  </data>
+  <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
+    <value>גרסת ADK אינה נתמכת</value>
+  </data>
+  <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
+    <value>שדרג את ה-Windows ADK לגירסה נתמכת של 10.1.26100.</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
+    <value>חסרה תוסף Windows PE</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
+    <value>התקן את התוסף Windows PE עבור Windows ADK המותקן.</value>
+  </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>ADK הגדרה</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>התקן או שדרג את Windows ADK כלי הפריסה והתוסף Windows PE הנדרשים ליצירת מדיה.</value>
+  </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>פרטי מוכנות</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>גרסה מותקנת</value>
+  </data>
+  <data name="Adk.Version.NotDetected" xml:space="preserve">
+    <value>הגרסה לא זוהתה</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>מדיניות גרסה נדרשת</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
+    <value>דורש Windows ADK 10.1.26100.2454+ עם תיקון השירות האחרון של ADK.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Windows PE תוסף</value>
+  </data>
+  <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
+    <value>Windows PE הותקן תוסף</value>
+  </data>
+  <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
+    <value>Windows PE חסר תוסף</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>יכולת יצירת מדיה</value>
+  </data>
+  <data name="Adk.MediaCapability.Ready" xml:space="preserve">
+    <value>יצירת ISO ו-USB זמינות.</value>
+  </data>
+  <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
+    <value>יצירת ISO ו-USB נותרות חסומות.</value>
+  </data>
+  <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>מתקין Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
+    <value>משדרג Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloading" xml:space="preserve">
+    <value>מוריד את תוכנית ההתקנה ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloaded" xml:space="preserve">
+    <value>הורדת תוכנית ההתקנה ADK</value>
+  </data>
+  <data name="Adk.Operation.DownloadCached" xml:space="preserve">
+    <value>שימוש במטמון ADK במתקין</value>
+  </data>
+  <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
+    <value>הסרת תוסף Windows PE קיים</value>
+  </data>
+  <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
+    <value>הסרת Windows ADK הקיים</value>
+  </data>
+  <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
+    <value>התקנת Windows ADK כלי פריסה</value>
+  </data>
+  <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
+    <value>מתקין את התוסף Windows PE</value>
+  </data>
+  <data name="Adk.Operation.Verifying" xml:space="preserve">
+    <value>מאמת את התקנת ADK</value>
+  </data>
+  <data name="Adk.Operation.Completed" xml:space="preserve">
+    <value>הפעולה ADK הושלמה</value>
+  </data>
+  <data name="Adk.Operation.Failed" xml:space="preserve">
+    <value>הפעולה ADK נכשלה</value>
+  </data>
+  <data name="AdkPage_InstallButton.Content" xml:space="preserve">
+    <value>התקן את התוספים Windows ADK ו-Windows PE</value>
+  </data>
+  <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
+    <value>שדרג את התוסף Windows ADK ו-Windows PE</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>ערבית (ערב הסעודית)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>בולגרית (בולגריה)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>צ'כיה (צ'כיה)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>דנית (דנמרק)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>גרמנית (גרמניה)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>יוונית (יוון)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>אנגלית (בריטניה)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>אנגלית (ארצות הברית)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>ספרדית (ספרד)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>ספרדית (מקסיקו)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>אסטונית (אסטוניה)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>פינית (פינלנד)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>צרפתית (קנדה)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>צרפתית (צרפת)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>עברית (ישראל)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>קרואטית (קרואטיה)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>הונגרית (הונגריה)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>איטלקית (איטליה)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>יפנית (יפן)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>קוריאנית (קוריאה)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>ליטאית (ליטא)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>לטביה (לטביה)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>בוקמאל הנורבגי (נורווגיה)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>הולנדית (הולנד)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>פולנית (פולין)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>פורטוגזית (ברזיל)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>פורטוגזית (פורטוגל)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>רומנית (רומניה)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>רוסית (רוסיה)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>סלובקית (סלובקיה)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>סלובנית (סלובניה)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>לטינית סרבית (סרביה)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>שוודית (שבדיה)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>תאילנד (תאילנד)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>טורקית (טורקיה)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>אוקראינית (אוקראינה)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>סינית פשוטה (סין)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>סינית מסורתית (טייוואן)</value>
+  </data>
+</root>

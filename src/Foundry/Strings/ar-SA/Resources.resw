@@ -1,0 +1,2007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>حول</value>
+  </data>
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>تم إنشاؤه وصيانته بواسطة Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>المساهمين</value>
+  </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>لا يمكن تحميل المساهمين من GitHub.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>جارٍ تحميل المساهمين...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>المساهمات: {0}</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>Foundry OSD هو تطبيق حديث لتأليف وسائط النشر Windows المدعومة بواسطة WinPE.</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>حقوق الطبع والنشر (ج) 2026 Foundry Project.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>يتم توزيع كود المصدر Foundry بموجب ترخيص MIT.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>الترخيص</value>
+  </data>
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>التراخيص</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>مفتوح</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>افتح ملاحظات الإصدار في المتصفح</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>تعذر تحميل ملاحظات الإصدار في المتصفح المضمن.</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>جارٍ تحميل ملاحظات الإصدار...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
+    <value>ملاحظات الإصدار</value>
+  </data>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>مستودع</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Foundry OSD يتضمن أدوات 7-Zip Extra لدعم إنشاء الوسائط.</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-الرمز البريدي اضافية</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Windows تأليف وسائط النشر</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>الدعم</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>يتم تعقب تراخيص حزمة الطرف الثالث من خلال مستودع المشروع وبيانات التبعية.</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>تبعيات الطرف الثالث</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>حول Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>روابط مفيدة</value>
+  </data>
+  <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
+    <value>التحقق من وجود تحديثات</value>
+  </data>
+  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
+    <value>التحديث وإعادة التشغيل</value>
+  </data>
+  <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>ملاحظات الإصدار</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>تحديث المصدر</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>حارة الإصدار: {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>الإصدارات مستقرة</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>إصدارات بيتا</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>معاينة الإصدارات</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>تغذية تحديث الويب</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>معطل</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>ممكّن</value>
+  </data>
+  <data name="Common.Browse" xml:space="preserve">
+    <value>تصفح</value>
+  </data>
+  <data name="Common.Refresh" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
+    <value>قم بتمكين تشخيصات المطورين وافتح مجلد السجل Foundry.</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
+    <value>التشخيص</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
+    <value>قم بتغيير لغة التطبيق دون إعادة تشغيل Foundry OSD.</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
+    <value>قم بتشغيل Foundry OSD تلقائيًا عند تسجيل الدخول إلى Windows.</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
+    <value>تشغيل عند بدء التشغيل</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>الإنجليزية</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>الفرنسية</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>اختر طريقة التوفير Autopilot لوسائط النشر: JSON التدريج لملف التعريف أو WinPE تحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>تمكين Autopilot</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>استيراد الملف الشخصي</value>
+  </data>
+  <data name="Autopilot.DownloadButton" xml:space="preserve">
+    <value>تحميل من المستأجر</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>إزالة المحدد</value>
+  </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>إجراءات الملف الشخصي</value>
+  </data>
+  <data name="Autopilot.ActionsDescription" xml:space="preserve">
+    <value>قم باستيراد ملفات تعريف JSON المحلية أو تنزيلها من Intune.</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>جارٍ استيراد ملف التعريف Autopilot...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>جارٍ تنزيل الملفات الشخصية Autopilot...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>هل تريد إزالة الملف الشخصي Autopilot؟</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>هل تريد إزالة "{0}" من ملفات التعريف Autopilot المستوردة؟</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>إزالة الملف الشخصي</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
+    <value>هل تريد إزالة الملفات الشخصية Autopilot؟</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
+    <value>هل تريد إزالة ملفات تعريف {0} Autopilot المحددة؟</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
+    <value>إزالة الملفات الشخصية</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>الملف الشخصي الافتراضي</value>
+  </data>
+  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
+    <value>تم تنظيم الملف الشخصي افتراضيًا في الصورة Windows المطبقة.</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>الملفات الشخصية المستوردة</value>
+  </data>
+  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
+    <value>تتوفر ملفات تعريف Autopilot دون اتصال لتوفير ملف التعريف JSON.</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>لم يتم استيراد ملفات تعريف Autopilot.</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>المصدر</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>مستورد</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>مجلد</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>استيراد ملف تعريف Autopilot JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>Autopilot فشل الاستيراد</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>قم بتسجيل الدخول إلى Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>أكمل تسجيل الدخول في المتصفح لتنزيل ملفات تعريف Autopilot.</value>
+  </data>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>لم يتم العثور على ملفات تعريف Autopilot</value>
+  </data>
+  <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
+    <value>لم يتم إرجاع أي ملفات تعريف Autopilot بواسطة المستأجر.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
+    <value>فشل التحميل Autopilot</value>
+  </data>
+  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
+    <value>Autopilot فشل تنزيل ملف التعريف: {0}</value>
+  </data>
+  <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
+    <value>حدد ملفات التعريف Autopilot</value>
+  </data>
+  <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
+    <value>اختر ملفات تعريف المستأجر التي يجب استيرادها إلى Foundry.</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
+    <value>حدد الكل</value>
+  </data>
+  <data name="Autopilot.TenantPickerClear" xml:space="preserve">
+    <value>واضح</value>
+  </data>
+  <data name="Autopilot.TenantPickerImport" xml:space="preserve">
+    <value>استيراد</value>
+  </data>
+  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>الملفات الشخصية المحددة: {0} of {1}</value>
+  </data>
+  <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
+    <value>JSON توفير الملف الشخصي</value>
+  </data>
+  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
+    <value>قم بإعداد ملف تعريف Autopilot دون اتصال في الصورة Windows المطبقة.</value>
+  </data>
+  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
+    <value>استخدم JSON توفير ملف التعريف</value>
+  </data>
+  <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
+    <value>تحميل تجزئة الأجهزة</value>
+  </data>
+  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
+    <value>قم بتحميل تجزئة أجهزة الجهاز إلى Intune من Foundry Deploy في WinPE.</value>
+  </data>
+  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
+    <value>استخدم تحميل تجزئة الأجهزة</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
+    <value>ربط المستأجر</value>
+  </data>
+  <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
+    <value>قطع اتصال المستأجر</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
+    <value>ربط المستأجر...</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>قم بتسجيل الدخول إلى Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>أكمل تسجيل الدخول في المتصفح لتكوين تحميل تجزئة الأجهزة Autopilot.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
+    <value>اتصال المستأجر</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
+    <value>اتصل بـ Microsoft Graph لجلسة التطبيق هذه لإدارة إعدادات تحميل التجزئة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
+    <value>غير متصل</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
+    <value>متصل</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>جاهزية المستأجر</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>معلومات المستأجر وتسجيل التطبيق والاستعداد لتحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
+    <value>القيمة</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
+    <value>معرف المستأجر</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
+    <value>معرف العميل</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
+    <value>تسجيل التطبيق المدار</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Foundry OSD Autopilot لم يتم تكوين التسجيل.</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
+    <value>تم تكوين {0}.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>غير جاهز</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
+    <value>إجراءات الشهادة</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
+    <value>إنشاء أو إزالة بيانات اعتماد شهادة تسجيل التطبيق.</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
+    <value>الشهادات المقدمة</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
+    <value>شهادات تسجيل التطبيق موثوقة للمصادقة WinPE Graph.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
+    <value>لا يتم توفير أي شهادات.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
+    <value>إنشاء شهادة</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
+    <value>إزالة الشهادة</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
+    <value>احفظ Autopilot شهادة PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
+    <value>شهادة بفكس</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
+    <value>الشهادة جاهزة</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>احفظ ملف PFX وكلمة المرور الآن في مكان آمن. Foundry لا يقوم بتخزين كلمة المرور ولا يمكنه إظهارها مرة أخرى بعد إغلاق مربع الحوار هذا. ستحتاج إلى كلا القيمتين لإنشاء وسائط التمهيد لتحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>ملف PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>كلمة مرور بفكس</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>انسخ كلمة المرور</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>تم نسخ كلمة المرور.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
+    <value>فشل إنشاء الشهادة</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
+    <value>Foundry تعذر إنشاء شهادة تسجيل التطبيق. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
+    <value>هل تريد إزالة الشهادة المحددة؟</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
+    <value>سيؤدي Foundry إلى إزالة الشهادة المحددة فقط من تسجيل التطبيق المُدار. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
+    <value>Foundry سيزيل فقط الشهادات المحددة {0} من تسجيل التطبيق المُدار. سيتم الاحتفاظ ببيانات اعتماد التطبيق الأخرى.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
+    <value>إزالة الشهادة</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
+    <value>فشلت إزالة الشهادة</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
+    <value>تعذر على Foundry إزالة شهادة تسجيل التطبيق المحدد. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>بصمة الإبهام</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>تم إنشاؤها</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>انتهاء الصلاحية</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>معرف الشهادة</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
+    <value>شهادة وسائط التمهيد</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
+    <value>تم نسخ PFX المحمي بكلمة مرور في وسائط التمهيد لتحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
+    <value>ملف PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
+    <value>كلمة مرور بفكس</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
+    <value>حدد بفكس</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
+    <value>حدد Autopilot شهادة PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
+    <value>حدد PFX الذي يطابق شهادة تسجيل التطبيق.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
+    <value>انتهت صلاحية الشهادة المحددة. قم بإنشاء أو تحديد شهادة صالحة قبل إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
+    <value>حدد PFX المطابق المحمي بكلمة مرور قبل إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
+    <value>ملف PFX المحدد لم يعد موجودًا.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
+    <value>أدخل كلمة المرور الخاصة بـ PFX.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>لا تتطابق بصمة شهادة PFX مع شهادة تسجيل التطبيق المحددة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
+    <value>لا يحتوي PFX المحدد على مادة مفتاح خاص.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
+    <value>تعذر فتح PFX المحدد باستخدام كلمة المرور المتوفرة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
+    <value>الشهادة جاهزة لإنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
+    <value>علامة المجموعة الافتراضية</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
+    <value>تم تحديد علامة المجموعة الاختيارية مسبقًا في Foundry Deploy أثناء تحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
+    <value>لم يتم تحديد علامة المجموعة الافتراضية.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
+    <value>يتطلب إعداد المستأجر الاهتمام</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
+    <value>فشل إعداد المستأجر</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
+    <value>Foundry تعذر تكوين تسجيل التطبيق Autopilot. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
+    <value>تعذر العثور على تسجيل التطبيق المُدار. أعد الاتصال للسماح لـFoundry بإنشائه أو اعتماده.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
+    <value>تم العثور على تسجيل تطبيق موجود بالاسم Foundry. أعد الاتصال لاعتماده في التكوين Foundry.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
+    <value>يفتقد تسجيل التطبيق المُدار إذن التطبيق Microsoft Graph المطلوب. أعد الاتصال بحساب يمكنه تحديث تسجيلات التطبيق.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
+    <value>يفتقد مدير الخدمة المُدارة موافقة المسؤول للحصول على إذن Microsoft Graph المطلوب. منح موافقة المسؤول وإعادة الاتصال.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
+    <value>أساس الخدمة المدارة مفقود أو معطل. أعد الاتصال بحساب يمكنه إنشاء تطبيقات المؤسسة أو إدارتها.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
+    <value>لم تعد الشهادة المحددة مسبقًا موجودة في تسجيل التطبيق المُدار. حدد PFX صالحًا يطابق الشهادة المتوفرة.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
+    <value>انتهت صلاحية الشهادة المحددة. قم بإنشاء شهادة جديدة، واحفظ PFX وكلمة المرور الخاصة بها، ثم حددها لوسائط التمهيد.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
+    <value>تسجيل التطبيق المُدار غير جاهز. مراجعة جاهزية المستأجر وإعادة الاتصال.</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>التخصيص</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>تعذر على Foundry فتح الوثائق في المستعرض الخاص بك. استخدم هذا URL بدلاً من ذلك.</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>لا يمكن فتح الوثائق</value>
+  </data>
+  <data name="Customization.MachineNamingHeader" xml:space="preserve">
+    <value>اسم الكمبيوتر</value>
+  </data>
+  <data name="Customization.MachineNamingDescription" xml:space="preserve">
+    <value>التحكم في كيفية إنشاء اسم الكمبيوتر المنشور في WinPE.</value>
+  </data>
+  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
+    <value>تمكين قواعد تسمية الجهاز</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
+    <value>بادئة اسم الكمبيوتر</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
+    <value>يتم تطبيق البادئة قبل لاحقة النشر التي تم إنشاؤها أو القابلة للتحرير.</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>إنشاء لاحقة اسم الكمبيوتر تلقائيًا</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
+    <value>قم بإنشاء اللاحقة تلقائيًا أثناء النشر.</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>السماح بتحرير اللاحقة أثناء النشر</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
+    <value>اسمح لمشغل النشر بتحرير اللاحقة بعد البادئة.</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
+    <value>يجب أن تستخدم البادئة من 1 إلى 15 حرفًا من A-Z أو a-z أو 0-9 أو -.</value>
+  </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>تجربة خارج الصندوق</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>قم بتكوين Windows 11 شاشة يتم تشغيلها لأول مرة وإعدادات الخصوصية الافتراضية.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>تخصيص OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>تخطي شروط الترخيص</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>تخطي صفحة شروط ترخيص البرنامج Microsoft أثناء OOBE.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>البيانات التشخيصية</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>يحدد مستوى البيانات التشخيصية Windows الذي تم تكوينه قبل تسجيل الدخول لأول مرة. يتم تكريم Off فقط بواسطة إصدارات Windows المدعومة؛ تعود الإصدارات غير المدعومة إلى المستوى المطلوب.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>مطلوب</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>اختياري</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>إخفاء إعداد الخصوصية</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>يمنع Windows من عرض صفحة خيارات الخصوصية أثناء تسجيل الدخول لأول مرة.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>تجارب مخصصة</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>يسمح لـ Windows باستخدام البيانات التشخيصية للحصول على نصائح وإعلانات وتوصيات مخصصة.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>معرف الإعلان</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>يسمح للتطبيقات باستخدام معرف الإعلان Windows عبر التطبيقات.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>التعرف على الكلام عبر الإنترنت</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>يسمح Microsoft بخدمات التعرف على الكلام المستندة إلى السحابة.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>تشخيص التحبير والكتابة</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>يتيح التحبير الاختياري وكتابة جمع البيانات التشخيصية.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>الوصول إلى الموقع</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>التحكم في إمكانية استخدام Windows والتطبيقات لخدمات الموقع.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>التحكم المستخدم</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>إيقاف القوة</value>
+  </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>إزالة مكون الذكاء الاصطناعي</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>قم بإزالة أو تعطيل مكونات Windows AI المحددة قبل OOBE.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>إزالة مكونات الذكاء الاصطناعي</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>إزالة Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>قم بإزالة حزمة التطبيق Copilot وقم بإيقاف تشغيل سياسة Windows Copilot.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>قم بإزالة Copilot+ AI Hub</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>قم بإزالة حزمة تطبيق Windows AI Hub المتوفرة عند وجودها.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>تعطيل Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>قم بتعيين سياسات Windows AI التي تمنع تمكين Recall وحفظ اللقطات.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>تعطيل Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>قم بتعيين Windows سياسات الذكاء الاصطناعي التي تقوم بإيقاف تشغيل Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>منع التشغيل التلقائي لخدمة Windows AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>قم بتعيين WSAIFabricSvc على بدء التشغيل اليدوي بدلاً من بدء التشغيل التلقائي.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>قم بتعطيل ميزات Microsoft Edge AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>قم بتعيين سياسات Edge التي تعمل على تعطيل ميزات Copilot والشريط الجانبي والإنشاء والبحث بالذكاء الاصطناعي.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>قم بتعطيل ميزات Paint AI</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>قم بتعيين سياسات Paint التي تعمل على تعطيل Cocreator والتحرير التوليدي ومنشئ الصور وإزالة الخلفية.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>قم بتعطيل ميزات Notepad AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>قم بتعيين سياسة Notepad التي تعمل على تعطيل ميزات الذكاء الاصطناعي.</value>
+  </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>إزالة التطبيق المقدمة</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>قم بإزالة تطبيقات Windows المتوفرة قبل OOBE.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>قم بإزالة التطبيقات Windows المتوفرة</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>حدد فئة واحدة أو أكثر من فئات الكتالوج لتحديد الحزم مسبقًا.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>الملفات الشخصية المحددة: {0}</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>حدد الكل</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>إزالة الكل</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>الحزم</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>الحزم المحددة: {0} of {1}</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>خيارات التمهيد.</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>تكوين الوسائط</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>جاهزية ADK.</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>افتح ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>وثائق المنتج.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>فتح الوثائق</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>ملخص الوسائط النهائي.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>قم بالمراجعة والبدء</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>النسخة المثبتة</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Windows PE الوظيفة الإضافية</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>أنشئ وسائط نشر Windows باستخدام سير عمل سطح مكتب حديث مدعوم بواسطة WinPE.</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
+    <value>الخطوة التالية</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
+    <value>مخرجات الوسائط.</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
+    <value>قم بالمراجعة والبدء</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>قم بتثبيت Windows ADK والوظيفة الإضافية Windows PE قبل تحديد لغة التمهيد WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>لم يتم اكتشاف أي حزم لغات WinPE للبنية المحددة.</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>التعريب</value>
+  </data>
+  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
+    <value>لغات النشر المرئية</value>
+  </data>
+  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
+    <value>لغة النشر الافتراضية</value>
+  </data>
+  <data name="Localization.TimeZone.Header" xml:space="preserve">
+    <value>المنطقة الزمنية للنشر</value>
+  </data>
+  <data name="Localization.AutomaticOption" xml:space="preserve">
+    <value>تلقائي</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>الشبكة</value>
+  </data>
+  <data name="Dot1x.EnableLabel" xml:space="preserve">
+    <value>قم بتكوين 802.1X السلكي</value>
+  </data>
+  <data name="Dot1x.CertificateLabel" xml:space="preserve">
+    <value>ملف شهادة CA الجذر الموثوق به</value>
+  </data>
+  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
+    <value>حدد شهادة 802.1X</value>
+  </data>
+  <data name="Wifi.EnableLabel" xml:space="preserve">
+    <value>توفير الدعم Wi-Fi في صورة التمهيد</value>
+  </data>
+  <data name="Wifi.ConfigureLabel" xml:space="preserve">
+    <value>قم بتوفير ملف تعريف Wi-Fi مسبقًا</value>
+  </data>
+  <data name="Wifi.SsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
+    <value>نوع الأمان</value>
+  </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>عبارة المرور</value>
+  </data>
+  <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
+    <value>مفتوح</value>
+  </data>
+  <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
+    <value>OWE (التشفير اللاسلكي الانتهازي)</value>
+  </data>
+  <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
+    <value>WPA2/WPA3 شخصي</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
+    <value>المؤسسة WPA2/WPA3</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3" xml:space="preserve">
+    <value>مؤسسة WPA3 (WPA3ENT)</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
+    <value>WPA3 المؤسسة 192 بت (WPA3ENT192)</value>
+  </data>
+  <data name="Network.EthernetSectionTitle" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Network.EthernetHelperText" xml:space="preserve">
+    <value>يتوفر الاتصال القياسي Ethernet بشكل افتراضي. قم بتكوين هذا القسم فقط إذا كانت شبكتك السلكية تتطلب مصادقة مؤسسة 802.1X.</value>
+  </data>
+  <data name="Network.WifiSectionTitle" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Network.WifiHelperText" xml:space="preserve">
+    <value>قم بتمكين هذا فقط إذا كانت صورة التمهيد تتضمن دعم Wi-Fi وملفات تعريف Wi-Fi لبدء التشغيل WinPE.</value>
+  </data>
+  <data name="Network.WifiPersonalHelperText" xml:space="preserve">
+    <value>تظل عبارات المرور Wi-Fi الشخصية مؤقتة في تطبيق التأليف ولا تستمر في تكوين Foundry.</value>
+  </data>
+  <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
+    <value>يعتمد سلوك المؤسسة على قالب الملف الشخصي الموجود في هذا الإصدار. لا يتم توفير بيانات اعتماد 802.1X التي تم إدخالها أثناء النشر هنا.</value>
+  </data>
+  <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
+    <value>مؤسسة متقدمة Wi-Fi</value>
+  </data>
+  <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
+    <value>قم بتوفير قالب ملف تعريف المؤسسة Wi-Fi</value>
+  </data>
+  <data name="Network.ProfileTemplateLabel" xml:space="preserve">
+    <value>ملف قالب الملف الشخصي</value>
+  </data>
+  <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
+    <value>حدد قالب ملف تعريف الشبكة</value>
+  </data>
+  <data name="Network.RequiresCertificateLabel" xml:space="preserve">
+    <value>قم باستيراد شهادة CA الجذرية الموثوقة</value>
+  </data>
+  <data name="Wifi.CertificateLabel" xml:space="preserve">
+    <value>ملف شهادة CA الجذر الموثوق به</value>
+  </data>
+  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
+    <value>حدد الشهادة Wi-Fi</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>يتطلب تكوين Wi-Fi توفير دعم Wi-Fi في صورة التمهيد.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>يتطلب Wired 802.1X قالب ملف تعريف سلكي.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>لم يتم العثور على ملف قالب ملف تعريف 802.1X السلكي.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>يتطلب Wired 802.1X ملف شهادة CA جذر موثوقًا به عند تمكين الثقة بالشهادة.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>لم يتم العثور على ملف شهادة CA الجذري الموثوق به السلكي 802.1X.</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>يتطلب تكوين Wi-Fi SSID.</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>نوع الأمان Wi-Fi غير مدعوم '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>يتطلب Wi-Fi الشخصي عبارة مرور مكونة من 8 إلى 63 حرفًا.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>يتطلب Enterprise Wi-Fi قالب ملف تعريف.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>لم يتم العثور على ملف قالب ملف تعريف Enterprise Wi-Fi.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>يجب أن يحتوي قالب ملف تعريف المؤسسة Wi-Fi على قيمة مصادقة مؤسسية مدعومة.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>نوع أمان المؤسسة المحدد Wi-Fi لا يتطابق مع مصادقة قالب ملف التعريف ({0}).</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>يتطلب Enterprise Wi-Fi ملف شهادة CA جذر موثوقًا به عند تمكين الثقة بالشهادة.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>لم يتم العثور على ملف شهادة CA الجذر الموثوق به للمؤسسة Wi-Fi.</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>العملية قيد التقدم</value>
+  </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>اكتملت العملية</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>ابدأ</value>
+  </data>
+  <data name="StartMedia.IsoPath.Header" xml:space="preserve">
+    <value>ISO الإخراج</value>
+  </data>
+  <data name="StartMedia.IsoPath.Description" xml:space="preserve">
+    <value>اختر المكان الذي سيتم كتابة Foundry ISO الذي تم إنشاؤه.</value>
+  </data>
+  <data name="StartMedia.Architecture.Header" xml:space="preserve">
+    <value>العمارة والتوقيع</value>
+  </data>
+  <data name="StartMedia.Architecture.Description" xml:space="preserve">
+    <value>حدد بنية التمهيد ووضع توقيع التمهيد.</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
+    <value>WinPE لغة التمهيد</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
+    <value>اللغة المستخدمة بواسطة بيئة التمهيد WinPE.</value>
+  </data>
+  <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
+    <value>USB الهدف</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
+    <value>USB التخطيط</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>مخطط التقسيم المستخدم عند إعداد الهدف USB المحدد.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>سلوك التنسيق المستخدم قبل نسخ الوسائط USB النهائية.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
+    <value>خيارات السائق</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
+    <value>حدد برامج تشغيل البائع الاختيارية ومجلد برنامج التشغيل المخصص.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
+    <value>مجلد برنامج التشغيل المخصص</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
+    <value>مجلد اختياري يحتوي على برامج تشغيل .inf إضافية.</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
+    <value>إنشاء وسائل الإعلام</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
+    <value>قم بإنشاء وسائط ISO أو USB بعد اجتياز كافة اختبارات الاستعداد.</value>
+  </data>
+  <data name="StartMedia.CreateIsoButton" xml:space="preserve">
+    <value>إنشاء ISO</value>
+  </data>
+  <data name="StartMedia.CreateUsbButton" xml:space="preserve">
+    <value>إنشاء USB</value>
+  </data>
+  <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
+    <value>تنسيق سريع</value>
+  </data>
+  <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
+    <value>تنسيق كامل</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
+    <value>لم يتم تمكين إنشاء الوسائط في هذا الإصدار.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>يكون إنشاء الوسائط متاحًا عند اجتياز جميع اختبارات الاستعداد.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>تم حظر الإنشاء ISO</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>تم حظر الإنشاء USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>تنسيق USB الهدف</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>سيؤدي هذا إلى مسح القرص {0}: {1} ({2}). تابع فقط إذا كان هذا هو محرك الأقراص USB المقصود.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>تنسيق وإنشاء USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>إنشاء مساحة عمل WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>تحضير مساحة العمل WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>حل حزم برامج التشغيل.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>تخصيص صورة التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>تقييم سياسة توقيع التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>إعداد تخصيص صورة التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>تركيب صورة التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>حقن برامج التشغيل في صورة التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>تطبيق اللغة والمكونات الاختيارية.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>توفير أصول التمهيد Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>إضافة مكونات النشر Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>تنفيذ تغييرات صورة التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>تم الانتهاء من تخصيص صورة التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>تنظيف مساحة العمل WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>إنشاء وسائط ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>إنشاء وسائط USB.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>تم الانتهاء من إنشاء الوسائط النهائية.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>فشل إنشاء الوسائط النهائية.</value>
+  </data>
+  <data name="StartMedia.Operation.Downloading" xml:space="preserve">
+    <value>جارٍ تنزيل المحتوى.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
+    <value>حل كتالوج مصدر WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
+    <value>الحزمة المصدرية المحددة لـ WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
+    <value>تحضير حزمة مصدر WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
+    <value>التحقق من صحة حزمة مصدر WinRE المخزنة مؤقتًا.</value>
+  </data>
+  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
+    <value>استخدام حزمة مصدر WinRE المخزنة مؤقتًا.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
+    <value>تنزيل حزمة مصدر WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
+    <value>تنزيل حزمة برامج التشغيل</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>تنزيل مكونات النشر {0}.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
+    <value>التحقق من صحة حزمة مصدر WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
+    <value>حل مشكلة فهرس الصور WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
+    <value>تصدير صورة Windows لاستخراج WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
+    <value>تركيب صورة مصدر WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
+    <value>تنظيم تبعيات WinRE Wi-Fi.</value>
+  </data>
+  <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
+    <value>استبدال صورة التمهيد بـ WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
+    <value>صورة التمهيد WinRE Wi-Fi جاهزة.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
+    <value>تحضير ISO مسار الإخراج.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
+    <value>تحضير مساحة العمل ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
+    <value>تشغيل MakeWinPEMedia لـ ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
+    <value>الانتهاء من الإخراج ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
+    <value>ISO اكتملت الوسائط.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
+    <value>التحقق من صحة الهدف USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
+    <value>التحقق من USB سلامة الهدف.</value>
+  </data>
+  <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
+    <value>التقسيم والتنسيق USB الهدف.</value>
+  </data>
+  <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
+    <value>فتح القرص USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
+    <value>تحضير سمات القرص USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
+    <value>مسح جدول الأقسام USB.</value>
+  </data>
+  <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
+    <value>تهيئة جدول الأقسام USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
+    <value>إنشاء قسم BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
+    <value>تنسيق قسم BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
+    <value>إنشاء قسم ذاكرة التخزين المؤقت.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
+    <value>تنسيق قسم ذاكرة التخزين المؤقت.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
+    <value>USB تم تنسيق الأقسام.</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
+    <value>نسخ الوسائط WinPE إلى USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
+    <value>تكوين ملفات التمهيد USB.</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
+    <value>التحقق من USB وسائط التمهيد.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
+    <value>تحضير قسم ذاكرة التخزين المؤقت USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
+    <value>إضافة مكونات Foundry إلى وسائط USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
+    <value>USB اكتملت الوسائط.</value>
+  </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>تصدير صورة Windows باستخدام DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>حل فهرس صور WinRE باستخدام DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>تركيب الصورة باستخدام DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>حقن برامج التشغيل بـ DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>تطبيق حزمة اللغة مع DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>تطبيق المكونات الاختيارية باستخدام DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>تطبيق الإعدادات الدولية مع DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>تنفيذ تغييرات الصورة باستخدام DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
+    <value>تم إنشاء الوسائط ISO بنجاح.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
+    <value>تم إنشاء الوسائط USB بنجاح. حجم التمهيد: {0}. حجم ذاكرة التخزين المؤقت: {1}.</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
+    <value>حدد ISO مسار الإخراج</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
+    <value>ISO الصورة</value>
+  </data>
+  <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
+    <value>حدد مجلد برنامج التشغيل المخصص</value>
+  </data>
+  <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
+    <value>يمكن تحديث أهداف USB بعد اكتمال الاستعداد ADK.</value>
+  </data>
+  <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
+    <value>USB فشل تحديث الهدف.</value>
+  </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>مسح الأهداف USB.</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>USB لم يتم فحص الأهداف بعد.</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>لم يتم العثور على محركات أقراص USB.</value>
+  </data>
+  <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
+    <value>USB تم العثور على محركات الأقراص: {0}</value>
+  </data>
+  <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
+    <value>القرص {0} - {1} ({2})</value>
+  </data>
+  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
+    <value>العناصر التي تحتاج إلى الاهتمام:</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>جاهز لإنشاء وسائط ISO وUSB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>جاهز لإنشاء وسائط ISO</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>جاهز لإنشاء وسائط USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>عناصر الاستعداد التي تحتاج إلى إجراء: {0}</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>راجع تحذيرات مخرجات الوسائط</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>المتطلبات الأساسية</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>الشيكات التي يجب أن تكون صالحة قبل أن تتمكن Foundry من إنشاء الوسائط.</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>إخراج الوسائط</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>اختيارات الإخراج النهائية ISO وUSB.</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Foundry التكوين</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
+    <value>إعدادات النشر المستخدمة بواسطة Foundry في WinPE.</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>تحذير</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>محظور</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>لم يتم تكوينه</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>جاري التحميل</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>مراجعة</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Windows ADK والوظيفة الإضافية Windows PE جاهزة.</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>خيارات السائق صالحة.</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>يمكن توفير تكوين الشبكة.</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>يمكن إنشاء تكوين النشر.</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>يمكن إنشاء حزمة توفير الاتصال.</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>أسرار الوسائط المطلوبة متوفرة.</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>Autopilot معطل ولا يمنع إنشاء الوسائط.</value>
+  </data>
+  <data name="StartMedia.Field.Adk" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
+    <value>WinPE لغة التمهيد</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>مصدر صورة التمهيد</value>
+  </data>
+  <data name="StartMedia.Field.Architecture" xml:space="preserve">
+    <value>الهندسة المعمارية</value>
+  </data>
+  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
+    <value>ISO مسار الإخراج</value>
+  </data>
+  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
+    <value>USB الهدف</value>
+  </data>
+  <data name="StartMedia.Field.Signature" xml:space="preserve">
+    <value>وضع التوقيع</value>
+  </data>
+  <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
+    <value>USB نمط التقسيم</value>
+  </data>
+  <data name="StartMedia.Field.FormatMode" xml:space="preserve">
+    <value>USB وضع التنسيق</value>
+  </data>
+  <data name="StartMedia.Field.Drivers" xml:space="preserve">
+    <value>السائقين</value>
+  </data>
+  <data name="StartMedia.Field.Network" xml:space="preserve">
+    <value>تكوين الشبكة</value>
+  </data>
+  <data name="StartMedia.Field.Deploy" xml:space="preserve">
+    <value>نشر التكوين</value>
+  </data>
+  <data name="StartMedia.Field.Connect" xml:space="preserve">
+    <value>ربط التزويد</value>
+  </data>
+  <data name="StartMedia.Field.Secrets" xml:space="preserve">
+    <value>أسرار الإعلام</value>
+  </data>
+  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
+    <value>ممكّن: {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>ممكّن: تحميل تجزئة الأجهزة</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
+    <value>Autopilot يستخدم وضع توفير غير مدعوم.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
+    <value>Autopilot JSON تم تمكين وضع ملف التعريف ولكن لم يتم تحديد ملف تعريف افتراضي صالح.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن الإعدادات مفقودة.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن اتصال المستأجر مفقود. اتصل بالمستأجر من Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن لم يتم تكوين تسجيل التطبيق. اتصل بالمستأجر من Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن معرف عميل التطبيق مفقود. أعد الاتصال بالمستأجر من Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن مدير خدمة التطبيق مفقود أو غير جاهز.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن PFX المحدد لا يتطابق مع شهادة تسجيل التطبيق.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن بصمة الشهادة المحددة مفقودة.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن انتهاء صلاحية الشهادة المحددة مفقود.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن انتهت صلاحية الشهادة المحددة. حدد شهادة صالحة قبل إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن لم يتم تحديد PFX لوسائط التمهيد.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن كلمة مرور PFX لوسائط التمهيد مفقودة.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن لم يتم التحقق من صحة وسائط التمهيد PFX.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن PFX المحدد لا يتطابق مع الشهادة النشطة.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن لا يمكن التحقق من صحة انتهاء صلاحية PFX لوسائط التمهيد.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
+    <value>تم تمكين تحميل تجزئة الأجهزة ولكن انتهت صلاحية وسائط التمهيد المحددة PFX.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
+    <value>ADK أو WinPE الوظيفة الإضافية ليست جاهزة.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
+    <value>ISO يجب أن ينتهي مسار الإخراج بـ.iso.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
+    <value>WinPE لم يتم تحديد لغة التمهيد.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
+    <value>لغة التمهيد WinPE المحددة غير متوفرة للبنية المحددة.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
+    <value>تكوين الشبكة غير جاهز.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
+    <value>نشر إنشاء التكوين غير جاهز.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
+    <value>توفير الاتصال غير جاهز.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
+    <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
+    <value>تم تمكين Autopilot ولكن لم يتم تحديد ملف تعريف افتراضي صالح.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
+    <value>لم يتم تحديد هدف USB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
+    <value>الهدف USB المحدد صغير جدًا. استخدم مفتاح USB بسعة 16 GB على الأقل.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
+    <value>تتطلب وسائط ARM64 نمط القسم GPT.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
+    <value>مجلد برنامج التشغيل المخصص غير موجود.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
+    <value>لا يحتوي مجلد برنامج التشغيل المخصص على ملفات .inf.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
+    <value>لم يتم تمكين إنشاء الوسائط في هذا الإصدار.</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>قياسي WinPE</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>صورة WinRE Wi-Fi</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.ByteUnit.B" xml:space="preserve">
+    <value>ب</value>
+  </data>
+  <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>معلومات المنتج والإصدار.</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>حول</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>ADK الاستعداد والتثبيت.</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Autopilot تكوين الملف الشخصي.</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>خيارات تخصيص النشر.</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>التخصيص</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>التخصيص</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Foundry الوثائق وروابط المشروع.</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>التوثيق</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>خبير</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>سير عمل التكوين القياسي.</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>التكوين القياسي</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="Nav_HomeKey.Description" xml:space="preserve">
+    <value>Foundry OSD المنزل</value>
+  </data>
+  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Title" xml:space="preserve">
+    <value>الصفحة الرئيسية</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>WinPE إعدادات اللغة والتعريب.</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>التعريب</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>التعريب</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>تكوين الشبكة والاتصال.</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>الشبكة</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>الشبكة</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>قم بمراجعة وبدء إنشاء الوسائط.</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>ابدأ</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>ابدأ</value>
+  </data>
+  <data name="SettingsPage.PageTitle" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
+    <value>إدارة بدء التشغيل واللغة والتشخيصات وسلوك التطبيق.</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
+    <value>أرسل بيانات قياس الاستخدام عن بعد مجهولة المصدر للمساعدة في تحسين Foundry. لا يتم إرسال أي أسماء أو أسرار أو معرفات SSID أو عناوين IP أو مسارات الملفات أو معرفات القرص أو أسماء أجهزة الكمبيوتر أو أسماء ملفات التعريف Autopilot أو معرفات الأجهزة.</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
+    <value>تمكين القياس عن بعد</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
+    <value>قم بتغيير تفضيلات السمة والخلفية ولون التمييز.</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
+    <value>المظهر</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
+    <value>تحقق من وجود تحديثات Foundry OSD ومراجعة ملاحظات الإصدار.</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
+    <value>تحديث التطبيق</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
+    <value>افتح إعدادات الألوان Windows لتغيير لون التمييز.</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
+    <value>لون مميز</value>
+  </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>مفتوح</value>
+  </data>
+  <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
+    <value>أكريليك</value>
+  </data>
+  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
+    <value>أكريليك رقيق</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
+    <value>حدد موضوع التطبيق.</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
+    <value>موضوع التطبيق</value>
+  </data>
+  <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
+    <value>الظلام</value>
+  </data>
+  <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
+    <value>النظام</value>
+  </data>
+  <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
+    <value>ضوء</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
+    <value>اختر مادة الخلفية المستخدمة خلف التطبيق.</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
+    <value>مادة</value>
+  </data>
+  <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
+    <value>ميكا البديل</value>
+  </data>
+  <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
+    <value>ميكا</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>سيقوم Foundry OSD بتنزيل التحديث وإعادة التشغيل لتطبيقه.</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>التحديث وإعادة التشغيل</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>تحديث Foundry OSD</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>جارٍ تنزيل التحديث. سيتم إعادة تشغيل Foundry OSD عندما يصبح جاهزًا.</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>تقدم التنزيل</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>جارٍ تنزيل التحديث</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>الإصدار {0}</value>
+  </data>
+  <data name="Update.NotChecked" xml:space="preserve">
+    <value>لم يتم التحقق منها</value>
+  </data>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>النسخة المتاحة</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>النسخة المثبتة</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>آخر فحص</value>
+  </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>أحدث نسخة</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>مسبك-OSD/مسبك</value>
+  </data>
+  <data name="Update.Status.Checking" xml:space="preserve">
+    <value>التحقق من وجود تحديثات</value>
+  </data>
+  <data name="Update.Status.FailedFormat" xml:space="preserve">
+    <value>فشل التحقق من التحديث: {0}</value>
+  </data>
+  <data name="Update.Status.NoUpdate" xml:space="preserve">
+    <value>Foundry OSD محدث.</value>
+  </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>حتى الآن</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>التحديث متاح</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Foundry OSD {0} متاح</value>
+  </data>
+  <data name="Update.Status.NotInstalled" xml:space="preserve">
+    <value>تم تخطي التحقق من التحديث لأن Foundry OSD لا يعمل من تثبيت Velopack.</value>
+  </data>
+  <data name="Update.Status.Ready" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>فشل التحقق من التحديث</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>تم تخطي التحقق من التحديث</value>
+  </data>
+  <data name="Update.Status.SkippedInDebug" xml:space="preserve">
+    <value>تم تخطي التحقق من التحديث بسبب إرفاق مصحح أخطاء.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailable" xml:space="preserve">
+    <value>يتوفر تحديث Foundry OSD.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>قم بالتحديث عندما تكون جاهزًا. سيتم إعادة تشغيل Foundry OSD لإنهاء تطبيقه.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
+    <value>Foundry OSD {0} متاح.</value>
+  </data>
+  <data name="Adk.PageTitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Adk.Status.ReadyTitle" xml:space="preserve">
+    <value>ADK جاهز</value>
+  </data>
+  <data name="Adk.Status.ReadyDescription" xml:space="preserve">
+    <value>يمكن لـFoundry OSD إنشاء وسائط ISO وUSB.</value>
+  </data>
+  <data name="Adk.Status.MissingTitle" xml:space="preserve">
+    <value>ADK غير مثبت</value>
+  </data>
+  <data name="Adk.Status.MissingDescription" xml:space="preserve">
+    <value>قم بتثبيت Windows ADK أدوات النشر والوظيفة الإضافية Windows PE قبل تكوين إنشاء الوسائط.</value>
+  </data>
+  <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
+    <value>الإصدار ADK غير مدعوم</value>
+  </data>
+  <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
+    <value>قم بترقية Windows ADK إلى الإصدار 10.1.26100 المدعوم.</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
+    <value>Windows PE الوظيفة الإضافية مفقودة</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
+    <value>قم بتثبيت الوظيفة الإضافية Windows PE للوظيفة المثبتة Windows ADK.</value>
+  </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>ADK الإعداد</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>قم بتثبيت أو ترقية Windows ADK أدوات النشر والوظيفة الإضافية Windows PE المطلوبة لإنشاء الوسائط.</value>
+  </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>تفاصيل الجاهزية</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>النسخة المثبتة</value>
+  </data>
+  <data name="Adk.Version.NotDetected" xml:space="preserve">
+    <value>لم يتم الكشف عن الإصدار</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>سياسة الإصدار المطلوبة</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
+    <value>يتطلب Windows ADK 10.1.26100.2454+ مع أحدث تصحيح للخدمة ADK.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Windows PE الوظيفة الإضافية</value>
+  </data>
+  <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
+    <value>Windows PE تم تثبيت الوظيفة الإضافية</value>
+  </data>
+  <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
+    <value>Windows PE الوظيفة الإضافية مفقودة</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>القدرة على إنشاء وسائل الإعلام</value>
+  </data>
+  <data name="Adk.MediaCapability.Ready" xml:space="preserve">
+    <value>يتوفر إنشاء ISO وUSB.</value>
+  </data>
+  <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
+    <value>يظل إنشاء ISO وUSB محظورًا.</value>
+  </data>
+  <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>تثبيت Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
+    <value>ترقية Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloading" xml:space="preserve">
+    <value>جارٍ تنزيل برنامج التثبيت ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloaded" xml:space="preserve">
+    <value>تم تنزيل برنامج التثبيت ADK</value>
+  </data>
+  <data name="Adk.Operation.DownloadCached" xml:space="preserve">
+    <value>استخدام المثبت المخزن مؤقتًا ADK</value>
+  </data>
+  <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
+    <value>إزالة الوظيفة الإضافية Windows PE الموجودة</value>
+  </data>
+  <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
+    <value>إزالة Windows ADK الموجودة</value>
+  </data>
+  <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
+    <value>تثبيت Windows ADK أدوات النشر</value>
+  </data>
+  <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
+    <value>تثبيت الوظيفة الإضافية Windows PE</value>
+  </data>
+  <data name="Adk.Operation.Verifying" xml:space="preserve">
+    <value>التحقق من التثبيت ADK</value>
+  </data>
+  <data name="Adk.Operation.Completed" xml:space="preserve">
+    <value>ADK اكتملت العملية</value>
+  </data>
+  <data name="Adk.Operation.Failed" xml:space="preserve">
+    <value>فشلت العملية ADK</value>
+  </data>
+  <data name="AdkPage_InstallButton.Content" xml:space="preserve">
+    <value>قم بتثبيت الوظيفة الإضافية Windows ADK وWindows PE</value>
+  </data>
+  <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
+    <value>قم بترقية Windows ADK وWindows PE الوظيفة الإضافية</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>العربية (المملكة العربية السعودية)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>البلغارية (بلغاريا)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>التشيكية (التشيك)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>الدنماركية (الدنمارك)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>الألمانية (ألمانيا)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>اليونانية (اليونان)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>الإنجليزية (المملكة المتحدة)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>الإنجليزية (الولايات المتحدة)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>الإسبانية (إسبانيا)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>الإسبانية (المكسيك)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>الإستونية (إستونيا)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>الفنلندية (فنلندا)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>الفرنسية (كندا)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>الفرنسية (فرنسا)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>العبرية (إسرائيل)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>الكرواتية (كرواتيا)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>المجرية (المجر)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>الإيطالية (إيطاليا)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>اليابانية (اليابان)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>الكورية (كوريا)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>الليتوانية (ليتوانيا)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>اللاتفية (لاتفيا)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>النرويجية البوكمال (النرويج)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>الهولندية (هولندا)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>البولندية (بولندا)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>البرتغالية (البرازيل)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>البرتغالية (البرتغال)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>الرومانية (رومانيا)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>الروسية (روسيا)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>السلوفاكية (سلوفاكيا)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>السلوفينية (سلوفينيا)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>اللاتينية الصربية (صربيا)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>السويدية (السويد)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>التايلاندية (تايلاند)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>التركية (تركيا)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>الأوكرانية (أوكرانيا)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>الصينية المبسطة (الصين)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>الصينية التقليدية (تايوان)</value>
+  </data>
+</root>

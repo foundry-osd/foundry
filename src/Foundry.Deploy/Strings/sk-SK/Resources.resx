@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="About.Title" xml:space="preserve"><value>O Foundry Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy je skúsenosť s nasadením WinPE pre Foundry.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Tento softvér sa poskytuje tak, ako je. Pred použitím skontrolujte nastavenia nasadenia.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Copyright (c) 2026 Foundry Project. Licencované podľa licencie MIT.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Téma</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Jazyk</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Nástroje</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_O</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>Systém</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Svetlo</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Tmavý</value></data>
+  <data name="Language.English" xml:space="preserve"><value>angličtina</value></data>
+  <data name="Language.French" xml:space="preserve"><value>francúzsky</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Obnoviť katalógy</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Obnovte cieľové disky</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otvorte súbor denníka</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Režim simulácie je aktívny: akcie nasadenia sa simulujú a nevykonávajú sa žiadne zápisy na disk alebo obraz.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cieľ</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operačný systém</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Balík ovládačov</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Zhrnutie</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Názov počítača</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakov. Iba A-Z, a-z, 0-9 a spojovník.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Názov počítača musí obsahovať 1 až 15 platných znakov (písmená, čísla alebo spojovník).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Cieľový stroj</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Cieľový disk</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Možnosti nasadenia</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Cieľový disk</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Vyberte cieľový disk. Nevhodné disky sú zablokované.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Použite aktualizácie firmvéru</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Povoliť Autopilot pre toto nasadenie</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na tomto médiu sa nenašli žiadne vložené profily Autopilot.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Nahranie hardvérového hashu</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostupné na tomto médiu: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Nahranie hardvérového hashu</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stav nahrávania hardvérového hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Hardvérový hash je pripravený na odovzdanie</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nie je pripravené na nahranie hardvérového hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Platnosť certifikátu nahrávania vypršala</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nahrávanie hardvérového hash nie je na tomto médiu k dispozícii, pretože chýbajú požadované informácie o certifikáte. Nasadzovanie môže pokračovať, ale nahrávanie sa preskočí.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Platnosť certifikátu Autopilot vypršala. Nasadzovanie môže pokračovať, ale nahrávanie sa preskočí.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Podrobnosti</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID nájomcu</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Odtlačok certifikátu</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Platnosť certifikátu</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Skupinová značka</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Značka skupiny je voliteľná. Ak chcete odovzdať bez označenia skupiny, vyberte možnosť Žiadne.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detekuje sa hardvér...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Detekcia hardvéru zlyhala.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Rozpoznanie hardvéru zlyhalo: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Napájanie: {2} | Firmvér: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batéria</value></data>
+  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Načítavam cieľové disky...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Zistenie cieľového disku zlyhalo: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Neboli zistené žiadne disky.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Načítané cieľové disky: Zistil sa {0}.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Verzia</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Jazyk</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licenčný kanál</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edícia (cieľ)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architektúra: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Načítavajú sa katalógy...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Načítané katalógy: {0} položky operačného systému, {1} balíky ovládačov.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Načítanie katalógu zlyhalo: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Maloobchod</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Objem</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Domov</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Domáci N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Domov Single Language</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Vzdelávanie</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Vzdelanie N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Enterprise</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Podnik N</value></data>
+  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Zdroj ovládača</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Verzia</value></data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM balík ovládačov</value></data>
+  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: žiadny zodpovedajúci model alebo verzia</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (modely +{1})</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Súhrn nasadenia</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Cieľový disk</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nie je vybratý žiadny disk</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Žiadny výber</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Vybraný balík ovládačov</value></data>
+  <data name="Summary.Firmware" xml:space="preserve"><value>Firmvér</value></data>
+  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metóda Autopilot</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Značka skupiny Autopilot</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cieľ</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Systém</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Možnosti nasadenia</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nie Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Nahranie hardvérového hashu</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Platný certifikát</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Platnosť certifikátu vypršala</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Chýbajúce informácie o certifikáte</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Žiadna predvolená značka skupiny</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Stránky nasadenia</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Stránka pokroku</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Úspešná stránka</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Chybová stránka</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Ukážka ladenia: stránka priebehu.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Ukážka ladenia: stránka úspechu.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Ukážka ladenia: chybová stránka.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Ukážka ladenia: Aplikácia DISM zlyhala, pretože cieľový oddiel je len na čítanie.
+
+ErrorCode=0x80070005
+Podrobnosti: Prístup bol odmietnutý pri pripájaní obrazu k cieľovej ceste.
+Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Obnoviť</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Verzia: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Predchádzajúce</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Ďalej</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Nasadiť</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Otvorte denník</value></data>
+  <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
+  <data name="Common.Unavailable" xml:space="preserve"><value>nedostupné</value></data>
+  <data name="Common.None" xml:space="preserve"><value>žiadne</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Neznámy</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Zistené</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>áno</value></data>
+  <data name="Common.No" xml:space="preserve"><value>Nie</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Povolené</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Zakázané</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Pripravený</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Nie som pripravený</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>vytváranie sietí</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Čas začiatku</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Uplynulý čas</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Nasadenie úspešne dokončené.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tento počítač sa reštartuje o {0}s.</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Reštartujte</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>Nasadenie zlyhalo</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Nevydarený krok</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Chybové hlásenie</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Vitajte</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicializujú sa komponenty...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Štart</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Neznáma veľkosť</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Blokovaný: systémový disk</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Blokovaný: zavádzací disk</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blokované: iba na čítanie</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blokované: offline</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>LADIŤ VIRTUÁLNY CIEĽ</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Vybraný disk je zablokovaný: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Cieľový disk {0} už nie je prítomný.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Cieľový disk {0} je zablokovaný: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Potvrďte vymazanie disku</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Tým sa vymažú všetky dáta na vybranom disku a nainštaluje sa zvolený operačný systém.
+
+Disk: {0}
+Model: {1}
+Autobus: {2}
+Veľkosť: {3}
+
+Operačný systém: {4}
+
+Pokračovať v nasadzovaní?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Vyberte operačný systém.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Zadajte platný názov počítača.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Vyberte cieľový disk.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Pred spustením nasadenia vyberte platný model alebo verziu OEM.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Pred spustením nasadenia vyberte profil Autopilot alebo zakážte Autopilot.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Nasadenie bolo zrušené používateľom.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Príprava na nasadenie dokončená.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Pripravený</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Čaká sa na nasadenie...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Čakanie na pokrok...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Pripravuje sa nasadenie...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Nasadzovanie začalo.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Nasadenie dokončené.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Pracovný postup nasadenia bol dokončený.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Nasadenie bolo zrušené.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Nasadenie zlyhalo.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Nasadenie zlyhalo: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Ďalšia operácia už prebieha.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Povolený bezpečný režim ladenia: akcie nasadenia sú simulované.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Spustenie pracovného postupu nasadenia.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Začiatočný krok...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Začína {0}.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Začína {0}...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Krok dokončený.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>Krok zlyhal.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Krok preskočený.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>Prebieha...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Krok:? z?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Krok: {0} z {1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Teraz sa reštartuje...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Príkaz reštartu zlyhal.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Príkaz reštartu zlyhal: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nie je možné otvoriť súbor denníka: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe zlyhal s kódom ukončenia {0}. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Reštart systému</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Požadovaný reštartovací spustiteľný súbor „wpeutil.exe“ sa nenašiel.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Neznámy krok</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Neboli poskytnuté žiadne podrobnosti o chybe.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Zhromaždite premenné nasadenia</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializujte pracovný priestor nasadenia</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Overte konfiguráciu cieľa</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Skontrolujte vyrovnávaciu pamäť nasadenia</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Pripravte rozloženie cieľového disku</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Stiahnite si obrázok operačného systému</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Použiť obraz operačného systému</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Nakonfigurujte názov cieľového počítača</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Nakonfigurujte nastavenia OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Nakonfigurujte prostredie obnovy</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Stiahnite si balík ovládačov</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrahujte balík ovládačov</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Fáza prispôsobenia pred OOBE</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Použiť balík ovládačov</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Stiahnite si aktualizáciu firmvéru</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Použiť aktualizáciu firmvéru</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Utesnite obnovovací oddiel</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Ustanovenie Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dokončite nasadenie a zapíšte denníky</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Zhromažďujú sa premenné nasadenia...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Zhromažďuje sa kontext nasadenia...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Zhromaždili sa premenné nasadenia.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Zhromaždené premenné nasadenia (simulácia).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Inicializuje sa pracovný priestor nasadenia...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Vytvárajú sa priečinky pracovného priestoru...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Dokončuje sa nasadenie...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Upratovanie dočasného pracovného priestoru...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Píše sa súhrn nasadenia...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Zapisujú sa denníky dokončenia...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Pracovný priestor inicializovaný.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Inicializovaný pracovný priestor (simulácia).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Overuje sa cieľová konfigurácia...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Opätovné overenie cieľového disku...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Zisťuje sa hardvérový profil...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Operačný systém URL chýba.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Vyžaduje sa cieľové číslo disku.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Cieľová konfigurácia bola overená.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Cieľová konfigurácia overená (simulácia).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Kontroluje sa vyrovnávacia pamäť nasadenia...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Riešenie umiestnenia vyrovnávacej pamäte...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Kontroluje sa konflikt vyrovnávacieho disku...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Stratégia vyrovnávacej pamäte je vyriešená.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Stratégia vyrovnávacej pamäte vyriešená (simulácia).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Pripravuje sa rozloženie cieľového disku...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Rozdeľuje sa cieľový disk...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Pripravuje sa cieľový pracovný priestor...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Vytvára sa simulované oddiely...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Pripravené rozloženie cieľového disku.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Pripravené rozloženie cieľového disku (simulácia).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Rozloženie cieľového disku nebolo pripravené.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Sťahuje sa obraz operačného systému...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Kontroluje sa vyrovnávacia pamäť...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Pripravený obraz operačného systému (simulácia).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Obraz operačného systému nebol stiahnutý.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Bol stiahnutý obrázok operačného systému.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Obraz operačného systému bol vyriešený z vyrovnávacej pamäte.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Aplikuje sa obraz operačného systému...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Prebieha kontrola obrázka...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Aplikuje sa obrázok...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Konfiguruje sa bootovanie...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Overuje sa obrázok...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Bol použitý obraz operačného systému.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Použitý obraz operačného systému (simulácia).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfiguruje sa názov cieľového počítača...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Zapisuje sa názov offline počítača...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Cieľový oddiel Windows nie je dostupný.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Názov cieľového počítača je nakonfigurovaný.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nakonfigurovaný názov cieľového počítača (simulácia).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline prispôsobenie je zakázané.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Konfigurujú sa offline prispôsobenia...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Zapisujú sa predvolené nastavenia pri prvom spustení...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Konfiguruje sa odstránenie komponentov AI...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Píšu sa offline pravidlá AI...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline prispôsobenie je nakonfigurované.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline prispôsobenie nakonfigurované (simulácia).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>Prispôsobenie OOBE je vypnuté.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigurácia nastavení OOBE...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Zapisujú sa predvolené nastavenia ochrany osobných údajov pri prvom spustení...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE prispôsobenie nakonfigurované.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE nastavenia nakonfigurované.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE simulované prispôsobenie.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE nastavenia nakonfigurované (simulácia).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfiguruje sa prostredie obnovy...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Príprava prostredia obnovy Windows...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Oblasť obnovy nie je k dispozícii.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Prostredie obnovy je nakonfigurované.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Prostredie obnovy je nakonfigurované (simulácia).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nevyžadujú sa žiadne skripty prispôsobenia pred OOBE.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Prispôsobenia pred spustením OOBE sa budú realizovať s balíkom ovládačov pri prvom spustení.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Pripravujú sa prispôsobenia pred OOBE...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pripravené úpravy pred OOBE.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pripravené úpravy pred OOBE (simulácia).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Balík ovládačov je zakázaný (nie je vybraté).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Nevyžaduje sa sťahovanie balíka ovládačov.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Sťahuje sa balík ovládačov...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Pripravuje sa sťahovanie...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Bol vybraný režim balíka ovládačov OEM, ale nebol poskytnutý žiadny balík ovládačov.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Balík ovládačov bol stiahnutý.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Stiahnutý balík ovládačov (simulácia).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Balík ovládačov bol vyriešený z vyrovnávacej pamäte.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Extrahuje sa balík ovládačov...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Balík ovládačov nebol stiahnutý.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Balík ovládačov je extrahovaný.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Extrahovaný balík ovládačov (simulácia).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Balík ovládačov pripravený na inštaláciu pri prvom spustení.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Nevyžaduje sa žiadna operácia balíka ovládačov.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Nepodporovaný režim inštalácie balíka ovládačov.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Nie je k dispozícii žiadny extrahovaný obsah ovládača INF.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Zdrojový obsah balíka ovládačov nie je dostupný pre fázu prvého spustenia.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog nevytvoril obsah ovládača.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Spracovanie balíka ovládačov prvého spustenia bolo vyžiadané bez podporovaného príkazu.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Aplikuje sa balík ovládačov...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Aplikujú sa ovládače Windows...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Pripája sa WinRE...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Aplikujú sa ovládače WinRE...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Odpája sa WinRE...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Inscenačný balík...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Aktualizuje sa skript nastavenia prvého spustenia...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Sťahovanie</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Extrakcia</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Uplatňuje sa</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Inscenácia</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} stiahnuté</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Použitý balík ovládačov.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Balík ovládačov pripravený na prvé spustenie.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Použitý balík ovládačov (simulácia).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Sťahuje sa aktualizácia firmvéru...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Pripravuje sa vyhľadávanie Microsoft Update Catalog...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Aktualizácie firmvéru sú zakázané.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Aktualizácie firmvéru sú pre virtuálne počítače zakázané.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Keď je zariadenie napájané z batérie, aktualizácie firmvéru sa preskočia.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Hardvérový identifikátor systémového firmvéru je nedostupný.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Aktualizácia firmvéru bola stiahnutá.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Stiahnutá aktualizácia firmvéru (simulácia).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Nie je k dispozícii žiadny extrahovaný obsah firmvéru.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Extrahovaný obsah firmvéru neobsahuje žiadne súbory INF.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Aplikuje sa aktualizácia firmvéru...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Vkladanie obsahu firmvéru do offline Windows...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Bola použitá aktualizácia firmvéru.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Bola použitá aktualizácia firmvéru (simulácia).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Uzatváranie obnovovacieho oddielu...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Odstraňuje sa písmeno jednotky na obnovenie...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Oddiel na obnovenie je zapečatený.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Obnovovacia priečka je zapečatená (simulácia).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot je vypnuté.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot je povolený, ale nebol vybratý žiadny profil.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Cieľový oddiel Windows nie je dostupný pre fázovanie Autopilot.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Nepodarilo sa vyriešiť cieľový adresár Autopilot.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Vytvára sa profil Autopilot...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Kopíruje sa súbor AutopilotConfigurationFile.json...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Zápis simulovaného manifestu Autopilot...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Zachytáva sa hardvérový hash Autopilot...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Spustený OA3Tool...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Nahráva sa hardvérový hash Autopilot...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Pripravuje sa import Microsoft Graph...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Odosiela sa žiadosť o import na Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Čaká sa na viditeľnosť zariadenia Autopilot...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Kontrola zariadení Windows Autopilot (zostáva {0})...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Aktualizuje sa existujúce zariadenie Autopilot...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Aktualizuje sa značka skupiny Windows Autopilot v Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Čaká sa na aktualizáciu značky skupiny Autopilot...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Kontroluje sa značka skupiny Windows Autopilot (zostáva {0})...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Pripravuje sa nahrávanie hardvérového hashu Autopilot...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Dešifruje sa certifikát média...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Overuje sa nahranie hardvérového hash Autopilot...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Žiada sa token Microsoft Graph...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Importuje sa hardvérový hash do Microsoft Graph...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Zapisuje sa simulovaný hash manifest Autopilot...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Cieľový oddiel Windows nie je k dispozícii pre nahranie hardvérového hashu Autopilot.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Odovzdávanie hardvérového hashu Autopilot bolo preskočené, pretože platnosť vloženého certifikátu vypršala.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Odovzdávanie hardvérového hashu Autopilot bolo preskočené, pretože požadované informácie o certifikáte média nie sú úplné.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Hardvérový hash Autopilot importovaný a viditeľný v zariadeniach Windows Autopilot.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Importované zariadenie Autopilot sa pred vypršaním časového limitu neobjavilo v zariadeniach Windows Autopilot.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Aktualizácia značky skupiny zariadení Windows Autopilot nebola potvrdená pred vypršaním časového limitu.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot nahranie hardvérového hashu pripraveného na simuláciu.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot je pripravené odovzdanie hardvérového hashu (simulácia).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Vybraný súbor profilu Autopilot sa nenašiel: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Zachytenie hardvérového hash Autopilot zlyhalo: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Import hardvérového hash Autopilot zlyhal: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot nahranie hardvérového hash preskočené: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minúta</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minút</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekunda</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekúnd</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Vytvorený profil Autopilot.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil zinscenovaný (simulácia).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabčina (Saudská Arábia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulharčina (Bulharsko)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>čeština (Česko)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dánčina (Dánsko)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>nemčina (Nemecko)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>gréčtina (Grécko)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angličtina (Spojené kráľovstvo)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angličtina (Spojené štáty americké)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>španielčina (Španielsko)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>španielčina (Mexiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estónčina (Estónsko)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>fínčina (Fínsko)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francúzština (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francúzština (Francúzsko)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrejčina (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>chorvátčina (Chorvátsko)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>maďarčina (Maďarsko)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>taliančina (Taliansko)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japončina (Japonsko)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>kórejčina (Kórea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litovčina (Litva)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lotyština (Lotyšsko)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>nórsky bokmal (Nórsko)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holandčina (Holandsko)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poľština (Poľsko)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalčina (Brazília)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalčina (Portugalsko)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumunčina (Rumunsko)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ruština (Rusko)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovenčina (Slovensko)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovinčina (Slovinsko)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>srbská latinčina (Srbsko)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švédčina (Švédsko)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thajčina (Thajsko)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turečtina (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrajinčina (Ukrajina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Zjednodušená čínština (Čína)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradičná čínština (Taiwan)</value>
+  </data>
+</root>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Despre Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect validează pregătirea rețelei în WinPE înainte ca Foundry să continue implementarea.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Acest software este furnizat ca atare. Confirmați accesul la rețea înainte de a continua implementarea.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Drepturi de autor (c) 2026 Foundry Project. Licențiat sub licența MIT.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Temă</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Limba</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Instrumente</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Depanați</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>Despre</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Lumină</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Întuneric</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>engleză</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>francez</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Starea de reîmprospătare</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Utilizați aspectul detectat</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Afișați numai Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Afișați Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Continuă</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Conectați-vă</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Deconectați-vă</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versiune: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Configurație: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Configurație: setări implicite încorporate</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Reîmprospătează la fiecare {0} secunde</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Ultima actualizare: în așteptare</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Ultima actualizare: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Indisponibil</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Conectat</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>În așteptarea rețelei</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Accesul la internet nu a fost încă validat.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Rețea gata</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Accesul la internet a fost validat. Puteți continua acum.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Reîmprospătarea rețelei a eșuat</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Continuând automat în {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Adaptor</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Poarta de acces</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Nu a fost detectat niciun adaptor Ethernet.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Niciun link activ</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Se așteaptă configurarea rețelei</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Verificați conexiunea cablului</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Se așteaptă DHCP sau configurația statică a rețelei</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP închiriere detectată</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Configurația statică a rețelei a fost detectată</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Actualizează rețelele Wi-Fi</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Afișează sau ascunde parola Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Aprovizionat Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Autentificare</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Această rețea necesită un profil Wi-Fi prevăzut.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>În prezent, nu sunt vizibile rețele Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>Niciun profil Wi-Fi nu este disponibil în această imagine de pornire.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Suportul Wi-Fi nu este disponibil în acest mediu de boot.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>În prezent, nu este detectat niciun adaptor Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Nu este disponibil niciun adaptor Wi-Fi.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Profil de întreprindere</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Profil furnizat fără nume</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Setări de imagine de pornire</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Certificat inclus în imaginea de pornire</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Securitate configurată</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi indisponibil</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Nu este disponibil niciun adaptor Wi-Fi</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>O altă rețea Wi-Fi este activă</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Gata de conectare</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Furnizat Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Această rețea Wi-Fi nu este acceptată în această versiune.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Nu se poate conecta. Verificați parola sau setările de rețea și încercați din nou.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Profilul Wi-Fi furnizat nu este disponibil.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Nu se poate conecta profilul furnizat Wi-Fi. Încearcă din nou.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Nu se poate deconecta profilul Wi-Fi furnizat. Încearcă din nou.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Nu se poate deconecta. Încearcă din nou.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Nu se pot aplica setările de rețea furnizate.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Nu se poate finaliza acțiunea Wi-Fi. Încearcă din nou.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Rețea ascunsă</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Niciuna</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Specific furnizorului</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise pe 192 de biți</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Întreprindere</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (mașină)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (mașină sau utilizator)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabă (Arabia Saudită)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulgară (Bulgaria)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Cehia (Cehia)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>daneză (Danemarca)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>germană (Germania)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>greacă (Grecia)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>engleză (Regatul Unit)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>engleză (Statele Unite)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>spaniolă (Spania)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spaniolă (Mexic)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Estonă (Estonia)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finlandeză (Finlanda)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>franceza (Canada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>franceza (Franta)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>ebraică (Israel)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>croată (Croația)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>maghiară (Ungaria)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italiană (Italia)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japoneză (Japonia)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>coreeană (Coreea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>lituaniană (Lituania)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>letonă (Letonia)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norvegiana Bokmal (Norvegia)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>olandeză (Olanda)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poloneză (Polonia)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugheză (Brazilia)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugheză (Portugalia)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>romana (Romania)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>rusă (Rusia)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovacă (Slovacia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovenă (Slovenia)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Sârbă latină (Serbia)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>suedeză (Suedia)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thailandeză (Thailanda)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turcă (Turkia)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ucraineană (Ucraina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Chineză simplificată (China)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Chineză tradițională (Taiwan)</value>
+  </data>
+</root>

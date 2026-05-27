@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Körülbelül Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect ellenőrzi a hálózati készenlétet WinPE mezőben, mielőtt az Foundry telepítés folytatódna.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Ezt a szoftvert úgy szállítjuk, ahogy van. A telepítés folytatása előtt erősítse meg a hálózati hozzáférést.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Foundry Project. Licenc az MIT licenc alatt.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>téma</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Eszközök</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Hibakeresés</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>Körülbelül</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Rendszer</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Fény</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Sötét</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>angolul</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>francia</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Frissítési állapot</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Használja az észlelt elrendezést</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Csak a Ethernet megjelenítése</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Ethernet + Wi-Fi megjelenítése</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Csatlakozás</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Leválasztás</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Verzió: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Konfiguráció: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Konfiguráció: beépített alapértékek</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>{0} másodpercenként frissül</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Utolsó frissítés: függőben</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Utolsó frissítés: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nem elérhető</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Csatlakozva</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Várakozás a hálózatra</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Az internet-hozzáférés még nincs érvényesítve.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Hálózat készen áll</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Az internet-hozzáférés érvényesítése megtörtént. Most folytathatja.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>A hálózat frissítése nem sikerült</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Automatikus folytatás {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Adapter</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Átjáró</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Nem észlelhető Ethernet adapter.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Nincs aktív link</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Várakozás a hálózati konfigurációra</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Ellenőrizze a kábelcsatlakozást</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Várakozás a DHCP vagy statikus hálózati konfigurációra</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP bérlet észlelve</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Statikus hálózati konfiguráció észlelve</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Frissítse a Wi-Fi hálózatokat</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Wi-Fi jelszó megjelenítése vagy elrejtése</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Ellátva Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Hitelesítés</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Ehhez a hálózathoz egy Wi-Fi profil szükséges.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>Jelenleg nem látható Wi-Fi hálózat.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>Ebben a rendszerindító lemezképben nem érhető el kiépített Wi-Fi profil.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Az Wi-Fi támogatás nem érhető el ebben a rendszerindítási környezetben.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Jelenleg nem észlelhető Wi-Fi adapter.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Nem áll rendelkezésre Wi-Fi adapter.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Vállalati profil</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Névtelen kiépített profil</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Boot kép beállításai</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · A tanúsítványt a rendszerindító lemezkép tartalmazza</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Konfigurált biztonság</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi nem érhető el</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Nem áll rendelkezésre Wi-Fi adapter</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Egy másik Wi-Fi hálózat aktív</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Csatlakozásra kész</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Kiépítve Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Ez a Wi-Fi hálózat nem támogatott ebben a buildben.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Nem lehet csatlakozni. Ellenőrizze a jelszót vagy a hálózati beállításokat, és próbálja újra.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>A kiépített Wi-Fi profil nem érhető el.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Nem lehet csatlakozni a kiépített Wi-Fi profilhoz. Próbáld újra.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Nem lehet leválasztani a kiépített Wi-Fi profilt. Próbáld újra.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Nem sikerült leválasztani. Próbáld újra.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Nem lehet alkalmazni a kiépített hálózati beállításokat.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>A Wi-Fi művelet nem hajtható végre. Próbáld újra.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Rejtett hálózat</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Nyissa meg</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Személyes</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Nincs</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Szállító-specifikus</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Személyes</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192 bites</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (gép)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (gép vagy felhasználó)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arab (Szaúd-Arábia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bolgár (Bulgária)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>cseh (cseh)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dán (Dánia)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>német (Németország)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>görög (Görögország)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angol (Egyesült Királyság)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angol (Egyesült Államok)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>spanyol (Spanyolország)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spanyol (Mexikó)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>észt (Észtország)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finn (Finnország)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francia (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francia (Franciaország)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>héber (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>horvát (Horvátország)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>magyar (Magyarország)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>olasz (Olaszország)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japán (Japán)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>koreai (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litván (Litvánia)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lett (Lettország)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norvég bokmal (Norvégia)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holland (Hollandia)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>lengyel (Lengyelország)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugál (Brazília)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugál (Portugália)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>román (Románia)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>orosz (Oroszország)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>szlovák (Szlovákia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>szlovén (Szlovénia)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>szerb latin (Szerbia)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>svéd (Svédország)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thai (Thaiföld)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>török (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrán (Ukrajna)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Egyszerűsített kínai (Kína)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>hagyományos kínai (Tajvan)</value>
+  </data>
+</root>

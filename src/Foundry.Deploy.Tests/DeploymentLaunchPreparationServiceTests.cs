@@ -204,10 +204,10 @@ public sealed class DeploymentLaunchPreparationServiceTests
             service.Prepare(CreateRequest(selectedTargetDisk: targetDisk));
 
             Assert.Equal("Confirmer l’effacement du disque", shell.LastConfirmationTitle);
-            Assert.Contains("Cette opération va EFFACER le disque sélectionné et appliquer un nouveau système d’exploitation.", shell.LastConfirmationMessage);
+            Assert.Contains("Cela effacera toutes les données du disque sélectionné et installera le système d’exploitation sélectionné.", shell.LastConfirmationMessage);
             Assert.Contains("Disque : 3", shell.LastConfirmationMessage);
             Assert.Contains("Taille : Taille inconnue", shell.LastConfirmationMessage);
-            Assert.Contains("Continuer ?", shell.LastConfirmationMessage);
+            Assert.Contains("Continuer le déploiement ?", shell.LastConfirmationMessage);
         }
         finally
         {

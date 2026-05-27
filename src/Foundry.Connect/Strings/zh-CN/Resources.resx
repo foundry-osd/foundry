@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>关于Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect 在 Foundry 部署继续之前验证 WinPE 中的网络准备情况。</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>该软件按原样提供。在继续部署之前确认网络访问。</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>版权所有 (c) 2026 Foundry Project。根据 MIT 许可证获得许可。</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>调试</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>系统</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>光</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>黑暗</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>英语</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>法语</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>刷新状态</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>使用检测到的布局</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>仅显示Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>显示Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>断开连接</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>版本：{0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>配置：{0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>配置：内置默认值</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>每{0} 秒刷新一次</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>最后更新：待定</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>最后更新：{0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>不可用</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>已连接</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>等待网络</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>互联网访问尚未经过验证。</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>网络就绪</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>互联网访问已得到验证。您现在可以继续。</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>网络刷新失败</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>在{0}s中自动继续</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>适配器</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>网关</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>未检测到 Ethernet 适配器。</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>没有活动链接</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>等待网络配置</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>检查电缆连接</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>等待DHCP或静态网络配置</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>检测到 DHCP 租约</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>检测到静态网络配置</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>刷新Wi-Fi网络</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>显示或隐藏Wi-Fi密码</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>已配置Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>公司简介</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>认证</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>该网络需要配置Wi-Fi配置文件。</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>目前没有Wi-Fi 网络可见。</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>此启动映像中没有可用的预配置 Wi-Fi 配置文件。</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Wi-Fi 支持在此引导环境中不可用。</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>当前未检测到 Wi-Fi 适配器。</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>没有可用的 Wi-Fi 适配器。</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>企业简介</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>未命名的配置文件</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>启动映像设置</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · 证书包含在启动映像中</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>配置的安全性</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi 不可用</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>没有可用的 Wi-Fi 适配器</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>另一个 Wi-Fi 网络处于活动状态</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>准备连接</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>已配置 Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi·{0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>此版本不支持Wi-Fi 网络。</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>无法连接。检查密码或网络设置，然后重试。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>所配置的 Wi-Fi 配置文件不可用。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>无法连接配置的 Wi-Fi 配置文件。再试一次。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>无法断开配置的 Wi-Fi 配置文件。再试一次。</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>无法断开连接。再试一次。</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>无法应用配置的网络设置。</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>无法完成Wi-Fi 操作。再试一次。</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>隐藏网络</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>韦普</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA个人</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA 无</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA企业</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>特定于供应商</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 个人</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 个人</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 个人</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>个人</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 企业版</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 企业版 192 位</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 企业版</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 企业版</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>企业</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0}（机器）</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0}（机器或用户）</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>阿拉伯语（沙特阿拉伯）</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>保加利亚语（保加利亚）</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>捷克语（捷克）</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>丹麦语（丹麦）</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>德语（德国）</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>希腊语（希腊）</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>英语（英国）</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>英语（美国）</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>西班牙语（西班牙）</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>西班牙语（墨西哥）</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>爱沙尼亚语（爱沙尼亚）</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>芬兰语（芬兰）</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>法语（加拿大）</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>法语（法国）</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>希伯来语（以色列）</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>克罗地亚语（克罗地亚）</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>匈牙利语（匈牙利）</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>意大利语（意大利）</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>日语（日本）</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>韩语（韩国）</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>立陶宛语（立陶宛）</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>拉脱维亚语（拉脱维亚）</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>挪威博克马尔语（挪威）</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>荷兰语（荷兰）</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>波兰语（波兰）</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>葡萄牙语（巴西）</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>葡萄牙语（葡萄牙）</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>罗马尼亚语（罗马尼亚）</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>俄语（俄罗斯）</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>斯洛伐克（斯洛伐克）</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>斯洛文尼亚语（斯洛文尼亚）</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>塞尔维亚拉丁语（塞尔维亚）</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>瑞典语（瑞典）</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>泰语（泰国）</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>土耳其语（Türkiye）</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>乌克兰语（乌克兰）</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>简体中文（中国）</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>繁体中文（台湾）</value>
+  </data>
+</root>

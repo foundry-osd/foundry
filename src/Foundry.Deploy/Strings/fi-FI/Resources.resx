@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="About.Title" xml:space="preserve"><value>Tietoja Foundry Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy on WinPE käyttöönottokokemus Foundry.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Tämä ohjelmisto toimitetaan sellaisenaan. Tarkista käyttöönottoasetuksesi ennen käyttöä.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Tekijänoikeus (c) 2026 Foundry Project. Lisensoitu MIT-lisenssillä.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Teema</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Kieli</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Työkalut</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_ Noin</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>Järjestelmä</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Kevyt</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Tumma</value></data>
+  <data name="Language.English" xml:space="preserve"><value>englanti</value></data>
+  <data name="Language.French" xml:space="preserve"><value>ranskalainen</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Päivitä luettelot</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Päivitä kohdelevyt</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Avaa lokitiedosto</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simulointitila on aktiivinen: käyttöönottotoiminnot simuloidaan, eikä levylle tai kuville kirjoiteta.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Kohde</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Käyttöjärjestelmä</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Ohjainpaketti</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Yhteenveto</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Tietokoneen nimi</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 merkkiä. Vain A-Z, a-z, 0-9 ja tavuviiva.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Tietokoneen nimessä on oltava 1–15 kelvollista merkkiä (kirjaimia, numeroita tai tavuviivaa).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Kohdekone</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Kohdelevy</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Käyttöönottovaihtoehdot</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Kohdelevy</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Valitse kohdelevy. Ei-kelpoiset levyt on estetty.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ota laiteohjelmistopäivitykset käyttöön</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Ota Autopilot käyttöön tälle käyttöönotolle</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiili</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Tästä mediasta ei löytynyt upotettuja Autopilot-profiileja.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiili</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Laitteiston hash-lataus</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Saatavilla tästä mediasta: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Laitteiston hash-lataus</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Laitteiston hajautuslatauksen tila</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Valmiina lataamaan laitteiston hash</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Ei valmis lataamaan laitteistotiivistettä</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Latausvarmenne on vanhentunut</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Laitteiston hash-lataus ei ole saatavilla tälle medialle, koska vaaditut varmennetiedot puuttuvat. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-varmenne on vanhentunut. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Yksityiskohdat</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Vuokralaisen tunnus</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Todistuksen peukalonjälki</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Varmenteen voimassaolo päättyy</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Ryhmätunniste</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Ryhmätunniste on valinnainen. Valitse Ei mitään, jos haluat ladata ilman ryhmätunnistetta.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Havaitaan laitteistoa...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Laitteiston tunnistus epäonnistui.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Laitteiston tunnistus epäonnistui: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Teho: {2} | Laiteohjelmisto: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Akku</value></data>
+  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Ladataan kohdelevyjä...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Kohdelevyn etsintä epäonnistui: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Levyjä ei havaittu.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Ladatut kohdelevyt: {0} havaittu.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Versio</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Kieli</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Lisenssikanava</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Painos (kohde)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arkkitehtuuri: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Ladataan luetteloita...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Ladatut luettelot: {0} käyttöjärjestelmämerkinnät, {1} ohjainpaketit.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogin lataus epäonnistui: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Vähittäiskauppa</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Äänenvoimakkuus</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Kotiin</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Kotiin N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Etusivu Yksi kieli</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>koulutus</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Koulutus N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Yritys</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Yritys N</value></data>
+  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Kuljettajan lähde</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Malli</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Versio</value></data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM-ohjainpaketti</value></data>
+  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: ei vastaavaa mallia tai versiota</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} mallit)</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Käyttöönoton yhteenveto</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Kohdelevy</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Levyä ei ole valittu</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Ei valintaa</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Valittu ajuripaketti</value></data>
+  <data name="Summary.Firmware" xml:space="preserve"><value>Laiteohjelmisto</value></data>
+  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Menetelmä</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiili</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot ryhmätunniste</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Kohde</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Järjestelmä</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Käyttöönottovaihtoehdot</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ei Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profiili</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Laitteiston hash-lataus</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Voimassa oleva todistus</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Vanhentunut todistus</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Varmennetiedot puuttuvat</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Ei oletusryhmätunnistetta</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Käyttöönottosivut</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Edistyssivu</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Menestyssivu</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Virhesivu</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: edistymissivu.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: menestyssivu.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: virhesivu.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: DISM soveltaminen epäonnistui, koska kohdeosio on vain luku -tilassa.
+
+ErrorCode=0x80070005
+Tiedot: Pääsy estetty, kun kuvaa liitetään kohdepolkuun.
+Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Päivitä</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Versio: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Edellinen</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Seuraavaksi</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Ota käyttöön</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Avaa loki</value></data>
+  <data name="Common.NotAvailable" xml:space="preserve"><value>Ei käytössä</value></data>
+  <data name="Common.Unavailable" xml:space="preserve"><value>Ei saatavilla</value></data>
+  <data name="Common.None" xml:space="preserve"><value>Ei mitään</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Tuntematon</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Havaittu</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>Kyllä</value></data>
+  <data name="Common.No" xml:space="preserve"><value>Ei</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Käytössä</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Ei käytössä</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Valmis</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Ei valmis</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>Verkostoituminen</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Aloitusaika</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunut aika</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Käyttöönotto suoritettu onnistuneesti.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tämä tietokone käynnistyy uudelleen {0}s kuluttua.</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Käynnistä uudelleen</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>Käyttöönotto epäonnistui</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Epäonnistui vaihe</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Virheilmoitus</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Tervetuloa</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponentteja alustetaan...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Aloita</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Levy {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Tuntematon koko</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Estetty: järjestelmälevy</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Estetty: käynnistyslevy</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Estetty: vain luku</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Estetty: offline-tilassa</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>VIRTUAALINEN KOHDE</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Valittu levy estetty: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Kohdelevy {0} ei ole enää läsnä.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Kohdelevy {0} on estetty: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Vahvista levyn tyhjennys</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Tämä poistaa kaikki tiedot valitulta levyltä ja asentaa valitun käyttöjärjestelmän.
+
+Levy: {0}
+Malli: {1}
+Bussi: {2}
+Koko: {3}
+
+Käyttöjärjestelmä: {4}
+
+Jatketaanko käyttöönottoa?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Valitse käyttöjärjestelmä.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Anna kelvollinen tietokoneen nimi.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Valitse kohdelevy.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Valitse kelvollinen OEM-malli tai -versio ennen käyttöönoton aloittamista.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Valitse Autopilot-profiili tai poista Autopilot käytöstä ennen käyttöönoton aloittamista.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Käyttäjä peruutti käyttöönoton.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Käyttöönoton valmistelu valmis.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Valmis</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Odotetaan käyttöönottoa...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Edistystä odotellessa...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Valmistellaan käyttöönottoa...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Käyttöönotto aloitettu.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Käyttöönotto valmis.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Käyttöönoton työnkulku valmis.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Käyttöönotto peruttu.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Käyttöönotto epäonnistui.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Käyttöönotto epäonnistui: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Toinen operaatio on jo käynnissä.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Vianetsintä vikasietotila käytössä: käyttöönottotoiminnot simuloidaan.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Käyttöönoton työnkulku aloitetaan.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Aloitusvaihe...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Alkaen {0}.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Alkaen {0}...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Vaihe suoritettu.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>Vaihe epäonnistui.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Vaihe ohitettu.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>Meneillään...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Vaihe:? /?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Vaihe: {0} / {1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Käynnistetään uudelleen nyt...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Reboot-komento epäonnistui.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Uudelleenkäynnistyskomento epäonnistui: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Lokitiedostoa ei voi avata: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe epäonnistui poistumiskoodilla {0}. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Järjestelmän uudelleenkäynnistys</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Vaadittua uudelleenkäynnistyssuoritettavaa tiedostoa 'wpeutil.exe' ei löytynyt.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Tuntematon askel</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Virhetietoja ei annettu.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Kerää käyttöönottomuuttujat</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Alusta käyttöönottotyötila</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Vahvista kohdemääritys</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Tarkista käyttöönottovälimuisti</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Valmistele kohdelevyasettelu</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Lataa käyttöjärjestelmän kuva</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Käytä käyttöjärjestelmän kuvaa</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Määritä kohdetietokoneen nimi</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Määritä OOBE-asetukset</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Määritä palautusympäristö</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Lataa ajuripaketti</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pura ajuripaketti</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Vaihe pre-OOBE-räätälöinti</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Käytä ohjainpakettia</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lataa laiteohjelmistopäivitys</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Ota laiteohjelmistopäivitys käyttöön</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Tiivistä palautusosio</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Varaus Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Viimeistele käyttöönotto ja kirjoita lokit</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Keräätään käyttöönottomuuttujia...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Keräätään käyttöönottokontekstia...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Käyttöönottomuuttujat kerätty.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Käyttöönottomuuttujat kerätty (simulointi).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Alustetaan käyttöönottotyötilaa...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Luodaan työtilakansioita...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Käyttöönottoa viimeistellään...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Siivotaan väliaikaista työtilaa...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Kirjoitetaan käyttöönoton yhteenvetoa...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Kirjoitetaan valmistumislokeja...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Työtila alustettu.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Työtila alustettu (simulaatio).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Vahvistetaan kohdemääritystä...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Vahvistetaan kohdelevyä...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Havaitaan laitteistoprofiilia...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Käyttöjärjestelmä URL puuttuu.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Kohdelevyn numero vaaditaan.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Kohdemääritys vahvistettu.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Kohdemääritys vahvistettu (simulaatio).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Tarkistetaan käyttöönottovälimuistia...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Selvitetään välimuistin sijaintia...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Tarkistetaan välimuistin levyristiriitaa...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Välimuististrategia ratkaistu.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Välimuististrategia ratkaistu (simulointi).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Valmistellaan kohdelevyasettelua...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Osioidaan kohdelevyä...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Valmistellaan kohdetyötilaa...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Luodaan simuloituja osioita...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Kohdelevyasettelu valmis.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Kohdelevyasettelu valmis (simulaatio).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Kohdelevyasettelua ei valmistettu.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Ladataan käyttöjärjestelmän kuvaa...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Tarkistetaan välimuistia...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Käyttöjärjestelmän kuva valmis (simulaatio).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Käyttöjärjestelmän kuvaa ei ladattu.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Käyttöjärjestelmän kuva ladattu.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Käyttöjärjestelmän kuva ratkaistu välimuistista.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Otetaan käyttöjärjestelmän kuvaa...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Tarkastetaan kuvaa...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Otetaan kuvaa...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Konfiguroidaan käynnistystä...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Vahvistetaan kuvaa...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Käyttöjärjestelmän kuva otettu käyttöön.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Käyttöjärjestelmän kuva otettu käyttöön (simulointi).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Määritetään kohdetietokoneen nimeä...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Kirjoitetaan offline-tietokoneen nimeä...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Kohdeosio Windows ei ole käytettävissä.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Kohdetietokoneen nimi määritetty.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Kohdetietokoneen nimi määritetty (simulaatio).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline-muokkaus poistettu käytöstä.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Määritetään offline-muokkauksia...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Kirjoitetaan ensimmäisen ajon oletusasetuksia...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Määritetään tekoälykomponenttien poistoa...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Kirjoitetaan offline-AI-käytäntöjä...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline-muokkaus määritetty.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline-räätälöinti määritetty (simulaatio).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE mukautus pois käytöstä.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Määritetään OOBE asetuksia...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Kirjoitetaan ensikertalaisia tietosuoja-oletusasetuksia...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE mukautus määritetty.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE asetukset määritetty.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE mukauttaminen simuloitu.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE asetukset määritetty (simulaatio).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Määritetään palautusympäristöä...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Valmistellaan Windows palautusympäristöä...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Palautusosio ei ole käytettävissä.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Palautusympäristö määritetty.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Palautusympäristö määritetty (simulointi).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>OOBE:tä edeltäviä mukautuskomentosarjoja ei tarvita.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>OOBE-a edeltävät mukautukset toteutetaan ensimmäisen käynnistyksen ohjainpaketin kanssa.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>OOBEa edeltävien räätälöintien toteuttaminen...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pre-OOBE-räätälöinnit toteutettu.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pre-OOBE-räätälöinnit lavastettu (simulaatio).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Ohjainpaketti poistettu käytöstä (ei valittu).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Ei vaadi ohjainpaketin lataamista.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Ladataan ohjainpakettia...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Valmistellaan latausta...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>OEM-ohjainpakettitila valittu, mutta ohjainpakettia ei toimitettu.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Ohjainpaketti ladattu.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Ohjainpaketti ladattu (simulaatio).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Ohjainpaketti ratkaistu välimuistista.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Puretaan ohjainpakettia...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Ohjainpakettia ei ladattu.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Ohjainpaketti purettu.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Ohjainpaketti purettu (simulaatio).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Ohjainpaketti valmis ensimmäisen käynnistyksen asennusta varten.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Ohjainpaketin toimintaa ei vaadita.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Ohjainpaketin asennustilaa ei tueta.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Purettua INF-ohjainsisältöä ei ole saatavilla.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Ohjainpaketin lähdesisältö ei ole saatavilla ensimmäisen käynnistyksen vaiheittamiseen.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog ei tuottanut ohjainsisältöä.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Ensimmäisen käynnistyksen ohjainpaketin vaiheistusta pyydettiin ilman tuettua komentoa.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Otetaan ohjainpakettia...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Sovelletaan Windows-ajureita...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>WinRE:n asennus...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Sovelletaan WinRE-ajureita...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Poistetaan WinRE:tä...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Lavastuspaketti...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Päivitetään ensimmäisen käynnistyksen asennuskomentosarjaa...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Ladataan</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Purkaminen</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Hakeminen</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Lavastus</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} ladattu</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Ohjainpaketti käytössä.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Ajuripaketti lavastettu ensimmäistä käynnistystä varten.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Ohjainpaketti käytetty (simulointi).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Ladataan laiteohjelmistopäivitystä...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Valmistellaan Microsoft Update Catalog hakua...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Laiteohjelmistopäivitykset on poistettu käytöstä.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Laiteohjelmistopäivitykset on poistettu käytöstä virtuaalikoneita varten.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Laiteohjelmistopäivitykset ohitetaan, kun laite toimii akkuvirralla.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Järjestelmän laiteohjelmiston laitteistotunniste ei ole saatavilla.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Laiteohjelmistopäivitys ladattu.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Laiteohjelmistopäivitys ladattu (simulaatio).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Purettua laiteohjelmistosisältöä ei ole saatavilla.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Purettu laiteohjelmiston sisältö ei sisällä INF-tiedostoja.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Otetaan laiteohjelmistopäivitystä...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Laiteohjelmiston sisällön lisääminen offline-tilaan Windows...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Laiteohjelmistopäivitys otettu käyttöön.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Laiteohjelmistopäivitys käytössä (simulaatio).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Suljetaan palautusosiota...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Poistetaan palautusaseman kirjainta...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Palautusosio sinetöity.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Palautusosio sinetöity (simulaatio).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot ei ole käytössä.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot on käytössä, mutta profiilia ei ole valittu.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Kohdeosio Windows ei ole käytettävissä Autopilot lavastusta varten.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Kohdehakemiston Autopilot selvittäminen epäonnistui.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Lavastus Autopilot profiili...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Kopioidaan AutopilotConfigurationFile.json...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Kirjoitetaan simuloitua Autopilot manifestia...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Kaapataan Autopilot laitteistotiivistettä...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Käynnissä OA3Tool...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Ladataan Autopilot laitteistotiivistettä...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Valmistellaan Microsoft Graph tuontia...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Lähetetään tuontipyyntöä osoitteeseen Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Odotetaan Autopilot laitteen näkyvyyttä...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Tarkistetaan Windows Autopilot laitteita ({0} jäljellä)...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Päivitetään olemassa olevaa Autopilot-laitetta...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Päivitetään Windows Autopilot ryhmätunnistetta Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Odotetaan Autopilot ryhmätunnisteen päivitystä...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Tarkistetaan Windows Autopilot ryhmätunnistetta ({0} jäljellä)...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Valmistellaan Autopilot laitteiston hash-latausta...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Puretaan mediavarmenteen salausta...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Todennetaan Autopilot laitteiston hash-latausta...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Pyydetään Microsoft Graph -tunnusta...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Tuodaan laitteiston tiivistettä Microsoft Graph...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Kirjoitetaan simuloitua Autopilot hash-luetteloa...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Kohdeosio Windows ei ole käytettävissä Autopilot laitteiston hajautuslataukseen.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot laitteiston hash-lataus ohitettiin, koska upotettu varmenne on vanhentunut.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot laitteiston hash-lataus ohitettiin, koska vaaditut mediavarmennetiedot ovat puutteelliset.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot laitteiston hash tuotu ja näkyvissä Windows Autopilot laitteissa.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Tuotu Autopilot-laite ei näkynyt Windows Autopilot-laitteissa ennen aikakatkaisua.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot laiteryhmän tunnisteen päivitystä ei vahvistettu ennen aikakatkaisua.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot laitteiston hash-lataus valmis simulaatiota varten.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot laitteiston hash-lataus valmis (simulaatio).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Valittua Autopilot profiilitiedostoa ei löytynyt: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot laitteiston hajautus epäonnistui: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot laitteiston hash-tuonti epäonnistui: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot laitteiston hash-lataus ohitettu: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuutti</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuuttia</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} toinen</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekuntia</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profiili lavastettu.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profiili vaiheistettu (simulaatio).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabia (Saudi-Arabia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulgaria (Bulgaria)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>tšekki (Tšekki)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>tanska (Tanska)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>saksa (Saksa)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>kreikka (Kreikka)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>englanti (Iso-Britannia)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>englanti (Yhdysvallat)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>espanja (Espanja)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>espanja (Meksiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Viro (Viro)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>suomi (Suomi)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>ranska (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>ranska (Ranska)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>heprea (Israel)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>kroatia (Kroatia)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>unkari (Unkari)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italia (Italia)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japani (Japani)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korea (Korea)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Liettua (Liettua)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>latvia (Latvia)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norjalainen bokmal (Norja)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>hollanti (Alankomaat)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>puola (Puola)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugali (Brasilia)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugali (Portugali)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>romania (Romania)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>venäjä (Venäjä)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovakki (Slovakia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovenia (Slovenia)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>serbia latina (Serbia)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>ruotsi (Ruotsi)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thaimaa (Thaimaa)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turkki (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukraina (Ukraina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>yksinkertaistettu kiina (Kiina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>perinteinen kiina (Taiwan)</value>
+  </data>
+</root>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Foundry Connectについて</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect は、Foundry の展開を続行する前に、WinPE でネットワークの準備ができているかどうかを検証します。</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>このソフトウェアは現状のまま提供されます。導入を続行する前に、ネットワーク アクセスを確認してください。</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>著作権 (c) 2026 Foundry Project。 MITライセンスに基づいてライセンスされています。</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>テーマ</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>ツール</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>デバッグ</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>について</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>システム</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>ライト</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>暗い</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>英語</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>フランス語</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>ステータスの更新</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>検出されたレイアウトを使用する</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Ethernetのみを表示</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Ethernet + Wi-Fi を表示</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>続ける</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>接続する</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>切断する</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>バージョン: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>設定: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>構成: 組み込みのデフォルト</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>{0} 秒ごとに更新します</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>最終更新日: 保留中</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>最終更新日: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>利用不可</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>接続済み</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>ネットワークを待っています</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>インターネット アクセスはまだ検証されていません。</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>ネットワーク対応</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>インターネットアクセスが検証されました。今すぐ続行できます。</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>ネットワークの更新に失敗しました</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>{0}s で自動的に続行します</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>アダプター</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>ゲートウェイ</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Ethernet アダプターが検出されませんでした。</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>アクティブなリンクがありません</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>ネットワーク構成を待機しています</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>ケーブル接続を確認してください</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>DHCP または静的ネットワーク構成を待機しています</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>DHCP リースが検出されました</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>静的なネットワーク構成が検出されました</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Wi-Fi ネットワークを更新します</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Wi-Fi パスワードを表示または非表示にする</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>認証</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>このネットワークには、プロビジョニングされた Wi-Fi プロファイルが必要です。</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>現在表示できる Wi-Fi ネットワークはありません。</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>このブート イメージでは、プロビジョニングされた Wi-Fi プロファイルを使用できません。</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Wi-Fi サポートは、このブート環境では利用できません。</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Wi-Fi アダプターは現在検出されません。</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Wi-Fi アダプターは使用できません。</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>企業概要</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>名前のないプロビジョニングされたプロファイル</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>ブートイメージの設定</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · ブート イメージに証明書が含まれています</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>設定されたセキュリティ</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi は利用できません</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>使用可能な Wi-Fi アダプターがありません</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>別の Wi-Fi ネットワークがアクティブです</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>接続する準備ができました</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>この Wi-Fi ネットワークは、このビルドではサポートされていません。</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>接続できません。パスワードまたはネットワーク設定を確認して、再試行してください。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>プロビジョニングされた Wi-Fi プロファイルは使用できません。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>プロビジョニングされた Wi-Fi プロファイルに接続できません。もう一度やり直してください。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>プロビジョニングされた Wi-Fi プロファイルを切断できません。もう一度やり直してください。</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>切断できません。もう一度やり直してください。</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>プロビジョニングされたネットワーク設定を適用できません。</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Wi-Fi アクションを完了できません。もう一度やり直してください。</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>隠れたネットワーク</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA 個人</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA なし</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA エンタープライズ</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>ベンダー固有</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 パーソナル</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2パーソナル</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3パーソナル</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>個人的な</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 エンタープライズ</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 エンタープライズ 192 ビット</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 エンタープライズ</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 エンタープライズ</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>エンタープライズ</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (マシン)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (マシンまたはユーザー)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>アラビア語 (サウジアラビア)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>ブルガリア語 (ブルガリア)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>チェコ語 (チェコ)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>デンマーク語 (デンマーク)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>ドイツ語 (ドイツ)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>ギリシャ語 (ギリシャ)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>英語 (イギリス)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>英語 (米国)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>スペイン語 (スペイン)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>スペイン語 (メキシコ)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>エストニア語 (エストニア)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>フィンランド語 (フィンランド)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>フランス語 (カナダ)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>フランス語 (フランス)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>ヘブライ語 (イスラエル)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>クロアチア語 (クロアチア)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>ハンガリー語 (ハンガリー)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>イタリア語 (イタリア)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>日本語 (日本)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>韓国語 (韓国)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>リトアニア語 (リトアニア)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>ラトビア語 (ラトビア)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>ノルウェー語ブークマル (ノルウェー)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>オランダ語 (オランダ)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>ポーランド語 (ポーランド)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>ポルトガル語 (ブラジル)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>ポルトガル語 (ポルトガル)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>ルーマニア語 (ルーマニア)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ロシア語 (ロシア)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>スロバキア語 (スロバキア)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>スロベニア語 (スロベニア)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>セルビア語ラテン語 (セルビア)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>スウェーデン語 (スウェーデン)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>タイ語 (タイ)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>トルコ語 (トゥルキエ)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ウクライナ語 (ウクライナ)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>簡体字中国語 (中国)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>繁体字中国語 (台湾)</value>
+  </data>
+</root>

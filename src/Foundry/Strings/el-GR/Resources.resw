@@ -1,0 +1,2007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>Περίπου</value>
+  </data>
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>Δημιουργήθηκε και συντηρήθηκε από τον Mickaël CHAVE.</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>Συνεισφέροντες</value>
+  </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η φόρτωση των συντελεστών από το GitHub.</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>Φόρτωση συντελεστών...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>Συνεισφορές: {0}</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>Το Foundry OSD είναι μια σύγχρονη εφαρμογή για τη δημιουργία μέσων ανάπτυξης Windows που υποστηρίζεται από το WinPE.</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>Πνευματικά δικαιώματα (γ) 2026 Foundry Project.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>Ο πηγαίος κώδικας Foundry διανέμεται υπό την άδεια MIT.</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>Άδεια</value>
+  </data>
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>Άδειες</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>Ανοίξτε</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>Προφίλ</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>Ανοίξτε τις σημειώσεις έκδοσης στο πρόγραμμα περιήγησης</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η φόρτωση των σημειώσεων έκδοσης στο ενσωματωμένο πρόγραμμα περιήγησης.</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>Φόρτωση σημειώσεων έκδοσης...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
+    <value>Σημειώσεις έκδοσης</value>
+  </data>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>Αποθετήριο</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Το Foundry OSD περιλαμβάνει εργαλείο 7-Zip Extra για υποστήριξη δημιουργίας πολυμέσων.</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-Zip Extra</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Windows ανάπτυξη μέσων συγγραφής</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>Υποστήριξη</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>Οι άδειες χρήσης πακέτων τρίτων παρακολουθούνται μέσω του αποθετηρίου έργου και των δηλώσεων εξάρτησης.</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>Εξαρτήσεις τρίτων</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>Σχετικά με Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>Χρήσιμοι σύνδεσμοι</value>
+  </data>
+  <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
+    <value>Ελέγξτε για ενημερώσεις</value>
+  </data>
+  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
+    <value>Ενημέρωση και επανεκκίνηση</value>
+  </data>
+  <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>Σημειώσεις έκδοσης</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>Πηγή ενημέρωσης</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>Λωρίδα απελευθέρωσης: {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>Σταθερές εκδόσεις</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>Εκδόσεις beta</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>Προεπισκόπηση εκδόσεων</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>Ροή ενημέρωσης ιστού</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>ΑμεΑ</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Ενεργοποιημένο</value>
+  </data>
+  <data name="Common.Browse" xml:space="preserve">
+    <value>Περιήγηση</value>
+  </data>
+  <data name="Common.Refresh" xml:space="preserve">
+    <value>Ανανέωση</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
+    <value>Ενεργοποιήστε τα διαγνωστικά για προγραμματιστές και ανοίξτε το φάκελο καταγραφής Foundry.</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
+    <value>Διαγνωστικά</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
+    <value>Αλλάξτε τη γλώσσα της εφαρμογής χωρίς επανεκκίνηση του Foundry OSD.</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
+    <value>Γλώσσα</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
+    <value>Εκκινήστε αυτόματα το Foundry OSD όταν συνδέεστε στο Windows.</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
+    <value>Εκτέλεση κατά την εκκίνηση</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>Αγγλικά</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>Γαλλικά</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Επιλέξτε τη μέθοδο παροχής Autopilot για μέσα ανάπτυξης: JSON σταδιοποίηση προφίλ ή WinPE μεταφόρτωση κατακερματισμού υλικού.</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>Ενεργοποίηση Autopilot</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>Εισαγωγή προφίλ</value>
+  </data>
+  <data name="Autopilot.DownloadButton" xml:space="preserve">
+    <value>Λήψη από τον ενοικιαστή</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>Κατάργηση επιλεγμένων</value>
+  </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>Ενέργειες προφίλ</value>
+  </data>
+  <data name="Autopilot.ActionsDescription" xml:space="preserve">
+    <value>Εισαγάγετε τοπικά προφίλ JSON ή κατεβάστε τα από το Intune.</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>Εισαγωγή προφίλ Autopilot...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>Λήψη προφίλ Autopilot...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>Κατάργηση προφίλ Autopilot;</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>Να καταργηθεί το "{0}" από τα εισηγμένα προφίλ Autopilot;</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>Κατάργηση προφίλ</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
+    <value>Κατάργηση προφίλ Autopilot;</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
+    <value>Κατάργηση {0} επιλεγμένων προφίλ Autopilot;</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
+    <value>Κατάργηση προφίλ</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>Προεπιλεγμένο προφίλ</value>
+  </data>
+  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
+    <value>Το προφίλ τοποθετείται από προεπιλογή στην εφαρμοσμένη εικόνα Windows.</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>Εισαγόμενα προφίλ</value>
+  </data>
+  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
+    <value>Διατίθενται προφίλ εκτός σύνδεσης Autopilot για την παροχή προφίλ JSON.</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>Δεν έχουν εισαχθεί προφίλ Autopilot.</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>Πηγή</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>Εισαγόμενο</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>Φάκελος</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>Εισαγωγή προφίλ Autopilot JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>Η εισαγωγή Autopilot απέτυχε</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>Συνδεθείτε στο Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>Ολοκληρώστε τη σύνδεση στο πρόγραμμα περιήγησης για λήψη προφίλ Autopilot.</value>
+  </data>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>Δεν βρέθηκαν προφίλ Autopilot</value>
+  </data>
+  <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
+    <value>Δεν επιστράφηκαν προφίλ Autopilot από τον ενοικιαστή.</value>
+  </data>
+  <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
+    <value>Η λήψη Autopilot απέτυχε</value>
+  </data>
+  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
+    <value>Η λήψη του προφίλ Autopilot απέτυχε: {0}</value>
+  </data>
+  <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
+    <value>Επιλέξτε προφίλ Autopilot</value>
+  </data>
+  <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
+    <value>Επιλέξτε ποια προφίλ ενοικιαστών θα εισαχθούν στο Foundry.</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
+    <value>Επιλέξτε όλα</value>
+  </data>
+  <data name="Autopilot.TenantPickerClear" xml:space="preserve">
+    <value>Καθαρό</value>
+  </data>
+  <data name="Autopilot.TenantPickerImport" xml:space="preserve">
+    <value>Εισαγωγή</value>
+  </data>
+  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>Επιλεγμένα προφίλ: {0} του {1}</value>
+  </data>
+  <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
+    <value>Προμήθεια προφίλ JSON</value>
+  </data>
+  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
+    <value>Δημιουργήστε ένα προφίλ εκτός σύνδεσης Autopilot στην εφαρμοσμένη εικόνα Windows.</value>
+  </data>
+  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
+    <value>Χρησιμοποιήστε την παροχή προφίλ JSON</value>
+  </data>
+  <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
+    <value>Μεταφόρτωση κατακερματισμού υλικού</value>
+  </data>
+  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
+    <value>Ανεβάστε το hash υλικού της συσκευής στο Intune από το Foundry Deploy στο WinPE.</value>
+  </data>
+  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
+    <value>Χρησιμοποιήστε τη μεταφόρτωση κατακερματισμού υλικού</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
+    <value>Συνδέστε τον ενοικιαστή</value>
+  </data>
+  <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
+    <value>Αποσυνδέστε τον ενοικιαστή</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
+    <value>Σύνδεση ενοικιαστή...</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>Συνδεθείτε στο Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>Ολοκληρώστε τη σύνδεση στο πρόγραμμα περιήγησης για να διαμορφώσετε τη μεταφόρτωση κατακερματισμού υλικού Autopilot.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
+    <value>Σύνδεση ενοικιαστή</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
+    <value>Συνδεθείτε στο Microsoft Graph για αυτήν την περίοδο λειτουργίας εφαρμογής για να διαχειριστείτε τις ρυθμίσεις μεταφόρτωσης κατακερματισμού.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
+    <value>Δεν είναι συνδεδεμένο</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
+    <value>Συνδεδεμένος</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>Ετοιμότητα ενοικιαστών</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>Πληροφορίες ενοικιαστή, εγγραφής εφαρμογής και ετοιμότητας για μεταφόρτωση κατακερματισμού υλικού.</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
+    <value>Αξία</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
+    <value>Ταυτότητα μισθωτή</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
+    <value>Αναγνωριστικό πελάτη</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
+    <value>Διαχειριζόμενη εγγραφή εφαρμογής</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Foundry OSD Autopilot Η εγγραφή δεν έχει ρυθμιστεί.</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
+    <value>Το {0} έχει ρυθμιστεί.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
+    <value>Έτοιμοι</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>Δεν είναι έτοιμο</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
+    <value>Ενέργειες πιστοποιητικού</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
+    <value>Δημιουργήστε ή αφαιρέστε διαπιστευτήρια πιστοποιητικού εγγραφής εφαρμογής.</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
+    <value>Παρεχόμενα πιστοποιητικά</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
+    <value>Πιστοποιητικά εγγραφής εφαρμογών αξιόπιστα για τον έλεγχο ταυτότητας WinPE Graph.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
+    <value>Δεν παρέχονται πιστοποιητικά.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
+    <value>Δημιουργία πιστοποιητικού</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
+    <value>Κατάργηση πιστοποιητικού</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
+    <value>Αποθήκευση Autopilot πιστοποιητικού PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
+    <value>Πιστοποιητικό PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
+    <value>Έτοιμο το πιστοποιητικό</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>Αποθηκεύστε αυτό το αρχείο PFX και τον κωδικό πρόσβασης τώρα σε ασφαλή τοποθεσία. Το Foundry δεν αποθηκεύει τον κωδικό πρόσβασης και δεν μπορεί να τον εμφανίσει ξανά μετά το κλείσιμο αυτού του διαλόγου. Θα χρειαστείτε και τις δύο τιμές για να δημιουργήσετε μέσα εκκίνησης για μεταφόρτωση κατακερματισμού υλικού.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>Αρχείο PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>Κωδικός πρόσβασης PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>Αντιγραφή κωδικού πρόσβασης</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>Αντιγράφηκε ο κωδικός πρόσβασης.</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
+    <value>Η δημιουργία πιστοποιητικού απέτυχε</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να δημιουργήσει το πιστοποιητικό εγγραφής της εφαρμογής. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
+    <value>Κατάργηση επιλεγμένου πιστοποιητικού;</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
+    <value>Το Foundry θα αφαιρέσει μόνο το επιλεγμένο πιστοποιητικό από την εγγραφή διαχειριζόμενης εφαρμογής. Άλλα διαπιστευτήρια εφαρμογής θα διατηρηθούν.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
+    <value>Το Foundry θα αφαιρέσει μόνο τα επιλεγμένα πιστοποιητικά {0} από την εγγραφή διαχειριζόμενης εφαρμογής. Άλλα διαπιστευτήρια εφαρμογής θα διατηρηθούν.</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
+    <value>Κατάργηση πιστοποιητικού</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
+    <value>Η αφαίρεση του πιστοποιητικού απέτυχε</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να αφαιρέσει το επιλεγμένο πιστοποιητικό εγγραφής εφαρμογής. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>Αποτύπωμα</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>Δημιουργήθηκε</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>Λήξη</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>Ταυτότητα πιστοποιητικού</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
+    <value>Πιστοποιητικό μέσων εκκίνησης</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
+    <value>Το PFX με προστασία κωδικού πρόσβασης αντιγράφηκε σε μέσα εκκίνησης για μεταφόρτωση κατακερματισμού υλικού.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
+    <value>Αρχείο PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
+    <value>Κωδικός πρόσβασης PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
+    <value>Επιλέξτε PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
+    <value>Επιλέξτε Autopilot πιστοποιητικό PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
+    <value>Επιλέξτε ένα PFX που ταιριάζει με ένα πιστοποιητικό εγγραφής εφαρμογής.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
+    <value>Το επιλεγμένο πιστοποιητικό έχει λήξει. Δημιουργήστε ή επιλέξτε ένα έγκυρο πιστοποιητικό πριν δημιουργήσετε μέσα εκκίνησης.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
+    <value>Επιλέξτε το αντίστοιχο PFX που προστατεύεται με κωδικό πρόσβασης πριν δημιουργήσετε μέσα εκκίνησης.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
+    <value>Το επιλεγμένο αρχείο PFX δεν υπάρχει πλέον.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
+    <value>Εισαγάγετε τον κωδικό πρόσβασης PFX.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>Το αποτύπωμα του πιστοποιητικού PFX δεν ταιριάζει με το επιλεγμένο πιστοποιητικό εγγραφής εφαρμογής.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
+    <value>Το επιλεγμένο PFX δεν περιέχει υλικό ιδιωτικού κλειδιού.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
+    <value>Το επιλεγμένο PFX δεν ήταν δυνατό να ανοίξει με τον παρεχόμενο κωδικό πρόσβασης.</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
+    <value>Έτοιμο πιστοποιητικό για δημιουργία μέσων εκκίνησης.</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
+    <value>Προεπιλεγμένη ετικέτα ομάδας</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
+    <value>Προαιρετική ετικέτα ομάδας προεπιλεγμένη στο Foundry Deploy κατά τη μεταφόρτωση κατακερματισμού υλικού.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
+    <value>Δεν έχει επιλεγεί προεπιλεγμένη ετικέτα ομάδας.</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
+    <value>Κανένα</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
+    <value>Κανένα</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
+    <value>Η είσοδος ενοικιαστή απαιτεί προσοχή</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
+    <value>Η ενσωμάτωση του μισθωτή απέτυχε</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να διαμορφώσει την εγγραφή της εφαρμογής Autopilot. {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εύρεση της εγγραφής διαχειριζόμενης εφαρμογής. Επανασυνδεθείτε για να επιτρέψετε στον Foundry να το δημιουργήσει ή να το υιοθετήσει.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
+    <value>Βρέθηκε μια υπάρχουσα εγγραφή εφαρμογής με το όνομα Foundry. Επανασυνδεθείτε για να το υιοθετήσετε στη διαμόρφωση Foundry.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
+    <value>Από την εγγραφή διαχειριζόμενης εφαρμογής λείπει η απαιτούμενη άδεια εφαρμογής Microsoft Graph. Επανασυνδεθείτε με έναν λογαριασμό που μπορεί να ενημερώσει τις εγγραφές εφαρμογών.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
+    <value>Από τον κύριο της διαχειριζόμενης υπηρεσίας λείπει η συναίνεση του διαχειριστή για την απαιτούμενη άδεια Microsoft Graph. Παραχωρήστε τη συγκατάθεση του διαχειριστή και επανασυνδέστε.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
+    <value>Ο κύριος της διαχειριζόμενης υπηρεσίας λείπει ή είναι απενεργοποιημένος. Επανασυνδεθείτε με έναν λογαριασμό που μπορεί να δημιουργήσει ή να διαχειριστεί εταιρικές εφαρμογές.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
+    <value>Το πιστοποιητικό που επιλέχθηκε προηγουμένως δεν υπάρχει πλέον στην εγγραφή διαχειριζόμενης εφαρμογής. Επιλέξτε ένα έγκυρο PFX που ταιριάζει με ένα παρεχόμενο πιστοποιητικό.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
+    <value>Το επιλεγμένο πιστοποιητικό έχει λήξει. Δημιουργήστε ένα νέο πιστοποιητικό, αποθηκεύστε το PFX και τον κωδικό πρόσβασής του και, στη συνέχεια, επιλέξτε το για μέσα εκκίνησης.</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
+    <value>Η εγγραφή διαχειριζόμενης εφαρμογής δεν είναι έτοιμη. Ελέγξτε την ετοιμότητα των ενοικιαστών και επανασυνδεθείτε.</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>Προσαρμογή</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να ανοίξει την τεκμηρίωση στο πρόγραμμα περιήγησής σας. Χρησιμοποιήστε αυτό το URL αντ 'αυτού.</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Δεν ήταν δυνατό το άνοιγμα της τεκμηρίωσης</value>
+  </data>
+  <data name="Customization.MachineNamingHeader" xml:space="preserve">
+    <value>Όνομα υπολογιστή</value>
+  </data>
+  <data name="Customization.MachineNamingDescription" xml:space="preserve">
+    <value>Ελέγξτε πώς δημιουργείται το όνομα υπολογιστή που έχει αναπτυχθεί στο WinPE.</value>
+  </data>
+  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
+    <value>Ενεργοποίηση κανόνων ονομασίας μηχανών</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
+    <value>Πρόθεμα ονόματος υπολογιστή</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
+    <value>Το πρόθεμα εφαρμόζεται πριν από το δημιουργημένο ή επεξεργάσιμο επίθημα ανάπτυξης.</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>Αυτόματη δημιουργία επιθήματος ονόματος υπολογιστή</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
+    <value>Δημιουργήστε το επίθημα αυτόματα κατά την ανάπτυξη.</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>Να επιτρέπεται η επεξεργασία του επιθήματος κατά την ανάπτυξη</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
+    <value>Επιτρέψτε στον χειριστή ανάπτυξης να επεξεργαστεί το επίθημα μετά το πρόθεμα.</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
+    <value>Το πρόθεμα πρέπει να χρησιμοποιεί 1 έως 15 χαρακτήρες από A-Z, a-z, 0-9 ή -.</value>
+  </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>Εμπειρία εκτός συσκευασίας</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>Διαμορφώστε τις παραμέτρους Windows 11 οθόνες πρώτης εκτέλεσης και προεπιλογές απορρήτου.</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>Προσαρμογή OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>Παράβλεψη όρων άδειας</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>Παραλείπει τη σελίδα Microsoft Όροι άδειας χρήσης λογισμικού κατά τη διάρκεια OOBE.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>Διαγνωστικά δεδομένα</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>Επιλέγει το επίπεδο διαγνωστικών δεδομένων Windows που έχει διαμορφωθεί πριν από την πρώτη σύνδεση. Το Off τιμάται μόνο από τις υποστηριζόμενες εκδόσεις Windows. Οι μη υποστηριζόμενες εκδόσεις επιστρέφουν στις Απαιτούμενες.</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>Απαιτείται</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>Προαιρετικό</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>Απενεργοποίηση</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>Απόκρυψη ρύθμισης απορρήτου</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>Εμποδίζει το Windows να εμφανίζει τη σελίδα επιλογών απορρήτου κατά την πρώτη σύνδεση.</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>Προσαρμοσμένες εμπειρίες</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>Επιτρέπει στο Windows να χρησιμοποιεί διαγνωστικά δεδομένα για εξατομικευμένες συμβουλές, διαφημίσεις και προτάσεις.</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>Ταυτότητα διαφήμισης</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>Επιτρέπει στις εφαρμογές να χρησιμοποιούν το αναγνωριστικό διαφήμισης Windows σε όλες τις εφαρμογές.</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>Online αναγνώριση ομιλίας</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>Επιτρέπει Microsoft υπηρεσίες αναγνώρισης ομιλίας που βασίζονται σε σύννεφο.</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>Διαγνωστικά μελάνης και πληκτρολόγησης</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>Επιτρέπει την προαιρετική συλλογή διαγνωστικών δεδομένων μελάνης και πληκτρολόγησης.</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>Πρόσβαση τοποθεσίας</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>Ελέγχει εάν το Windows και οι εφαρμογές μπορούν να χρησιμοποιούν υπηρεσίες τοποθεσίας.</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>Ελεγχόμενη από τον χρήστη</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>Απενεργοποιήστε με δύναμη</value>
+  </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>Αφαίρεση εξαρτημάτων AI</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>Καταργήστε ή απενεργοποιήστε τα επιλεγμένα στοιχεία Windows AI πριν από το OOBE.</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>Αφαιρέστε στοιχεία AI</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>Κατάργηση Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>Καταργήστε το πακέτο εφαρμογής Copilot και απενεργοποιήστε την πολιτική Windows Copilot.</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>Καταργήστε το Copilot+ AI Hub</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>Καταργήστε το παρεχόμενο πακέτο εφαρμογής Windows AI Hub όταν υπάρχει.</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>Απενεργοποίηση Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>Ορίστε πολιτικές Windows AI που αποτρέπουν την ενεργοποίηση Recall και την αποθήκευση στιγμιότυπων.</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>Απενεργοποίηση Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>Ορίστε Windows πολιτικές AI που απενεργοποιούν το Click to Do.</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>Αποτρέψτε την αυτόματη εκκίνηση της υπηρεσίας AI Windows</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>Ρυθμίστε το WSAIFabricSvc σε μη αυτόματη εκκίνηση αντί για αυτόματη εκκίνηση.</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>Απενεργοποιήστε τις λειτουργίες AI Microsoft Edge</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>Ορίστε πολιτικές Edge που απενεργοποιούν τις λειτουργίες αναζήτησης Copilot, sidebar, σύνθεσης και AI.</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>Απενεργοποιήστε τις δυνατότητες Paint AI</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>Ορίστε πολιτικές Paint που απενεργοποιούν το Cocreator, τη γενετική επεξεργασία, τη δημιουργία εικόνων και την αφαίρεση φόντου.</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>Απενεργοποιήστε τις δυνατότητες Notepad AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>Ορίστε την πολιτική Notepad που απενεργοποιεί τις λειτουργίες AI.</value>
+  </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>Προβλεπόμενη κατάργηση εφαρμογής</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>Καταργήστε τις προβλεπόμενες εφαρμογές Windows</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>Προφίλ</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>Επιλέξτε μία ή περισσότερες κατηγορίες καταλόγου για να προεπιλέξετε πακέτα.</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>Κανένα</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>Προσαρμοσμένο</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>Επιλεγμένα προφίλ: {0}</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>Επιλέξτε όλα</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>Κατάργηση όλων</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>Πακέτα</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>Επιλεγμένα πακέτα: {0} του {1}</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>Επιλογές εκκίνησης.</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>Διαμόρφωση πολυμέσων</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>Ετοιμότητα ADK.</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>Άνοιξε ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>Τεκμηρίωση προϊόντος.</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>Ανοίξτε την τεκμηρίωση</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>Τελική σύνοψη μέσων.</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>Ελέγξτε και ξεκινήστε</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>Εγκατεστημένη έκδοση</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Windows PE Πρόσθετο</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>Δημιουργήστε μέσα ανάπτυξης Windows με μια σύγχρονη ροή εργασίας για επιτραπέζιους υπολογιστές που υποστηρίζεται από το WinPE.</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>Στρατηγός</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
+    <value>Επόμενο βήμα</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
+    <value>Έξοδοι πολυμέσων.</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
+    <value>Ελέγξτε και ξεκινήστε</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>Εγκαταστήστε το Windows ADK και το πρόσθετο Windows PE πριν επιλέξετε τη γλώσσα εκκίνησης WinPE.</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>Δεν εντοπίστηκαν πακέτα γλώσσας WinPE για την επιλεγμένη αρχιτεκτονική.</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>Εντοπισμός</value>
+  </data>
+  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
+    <value>Ορατές γλώσσες ανάπτυξης</value>
+  </data>
+  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
+    <value>Προεπιλεγμένη γλώσσα ανάπτυξης</value>
+  </data>
+  <data name="Localization.TimeZone.Header" xml:space="preserve">
+    <value>Ζώνη ώρας ανάπτυξης</value>
+  </data>
+  <data name="Localization.AutomaticOption" xml:space="preserve">
+    <value>Αυτόματο</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>Δίκτυο</value>
+  </data>
+  <data name="Dot1x.EnableLabel" xml:space="preserve">
+    <value>Διαμόρφωση ενσύρματου 802.1X</value>
+  </data>
+  <data name="Dot1x.CertificateLabel" xml:space="preserve">
+    <value>Αξιόπιστο αρχείο πιστοποιητικού CA root</value>
+  </data>
+  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
+    <value>Επιλέξτε πιστοποιητικό 802.1X</value>
+  </data>
+  <data name="Wifi.EnableLabel" xml:space="preserve">
+    <value>Παροχή υποστήριξης Wi-Fi στην εικόνα εκκίνησης</value>
+  </data>
+  <data name="Wifi.ConfigureLabel" xml:space="preserve">
+    <value>Παρέχετε εκ των προτέρων ένα προφίλ Wi-Fi</value>
+  </data>
+  <data name="Wifi.SsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
+    <value>Τύπος ασφαλείας</value>
+  </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Φράση πρόσβασης</value>
+  </data>
+  <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
+    <value>Ανοίξτε</value>
+  </data>
+  <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
+    <value>OWE (Ευκαιριακή ασύρματη κρυπτογράφηση)</value>
+  </data>
+  <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
+    <value>WPA2/WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3" xml:space="preserve">
+    <value>WPA3 Enterprise (WPA3ENT)</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
+    <value>WPA3 Enterprise 192-bit (WPA3ENT192)</value>
+  </data>
+  <data name="Network.EthernetSectionTitle" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Network.EthernetHelperText" xml:space="preserve">
+    <value>Η τυπική συνδεσιμότητα Ethernet είναι διαθέσιμη από προεπιλογή. Διαμορφώστε αυτήν την ενότητα μόνο εάν το ενσύρματο δίκτυό σας απαιτεί εταιρικό έλεγχο ταυτότητας 802.1X.</value>
+  </data>
+  <data name="Network.WifiSectionTitle" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Network.WifiHelperText" xml:space="preserve">
+    <value>Ενεργοποιήστε αυτό μόνο εάν η εικόνα εκκίνησης πρέπει να περιλαμβάνει την υποστήριξη Wi-Fi και τα προφίλ Wi-Fi για την εκκίνηση WinPE.</value>
+  </data>
+  <data name="Network.WifiPersonalHelperText" xml:space="preserve">
+    <value>Οι προσωπικές φράσεις πρόσβασης Wi-Fi παραμένουν παροδικές στην εφαρμογή συγγραφής και δεν διατηρούνται στη διαμόρφωση Foundry.</value>
+  </data>
+  <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
+    <value>Η εταιρική συμπεριφορά καθορίζεται από το πρότυπο προφίλ σε αυτήν την έκδοση. Τα διαπιστευτήρια 802.1X που εισάγονται κατά την ανάπτυξη δεν παρέχονται εδώ.</value>
+  </data>
+  <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
+    <value>Προηγμένη επιχείρηση Wi-Fi</value>
+  </data>
+  <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
+    <value>Παρέχετε ένα πρότυπο εταιρικού προφίλ Wi-Fi</value>
+  </data>
+  <data name="Network.ProfileTemplateLabel" xml:space="preserve">
+    <value>Αρχείο προτύπου προφίλ</value>
+  </data>
+  <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
+    <value>Επιλέξτε ένα πρότυπο προφίλ δικτύου</value>
+  </data>
+  <data name="Network.RequiresCertificateLabel" xml:space="preserve">
+    <value>Εισαγάγετε ένα αξιόπιστο πιστοποιητικό CA root</value>
+  </data>
+  <data name="Wifi.CertificateLabel" xml:space="preserve">
+    <value>Αξιόπιστο αρχείο πιστοποιητικού CA root</value>
+  </data>
+  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
+    <value>Επιλέξτε το πιστοποιητικό Wi-Fi</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>Η διαμόρφωση Wi-Fi απαιτεί υποστήριξη Wi-Fi να παρέχεται στην εικόνα εκκίνησης.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>Το Wired 802.1X απαιτεί ένα πρότυπο ενσύρματου προφίλ.</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>Το ενσύρματο αρχείο προτύπου προφίλ 802.1X δεν βρέθηκε.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>Το Wired 802.1X απαιτεί ένα αξιόπιστο αρχείο πιστοποιητικού CA root όταν είναι ενεργοποιημένη η αξιοπιστία πιστοποιητικού.</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>Το ενσύρματο 802.1X αξιόπιστο αρχείο πιστοποιητικού CA root δεν βρέθηκε.</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>Η διαμόρφωση Wi-Fi απαιτεί ένα SSID.</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>Μη υποστηριζόμενος τύπος ασφαλείας Wi-Fi '{0}'.</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>Το Personal Wi-Fi απαιτεί μια φράση πρόσβασης από 8 έως 63 χαρακτήρες.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>Το Enterprise Wi-Fi απαιτεί ένα πρότυπο προφίλ.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>Το αρχείο προτύπου προφίλ Enterprise Wi-Fi δεν βρέθηκε.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>Το πρότυπο προφίλ του Enterprise Wi-Fi πρέπει να περιέχει μια υποστηριζόμενη τιμή εταιρικού ελέγχου ταυτότητας.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>Ο επιλεγμένος εταιρικός τύπος ασφαλείας Wi-Fi δεν ταιριάζει με τον έλεγχο ταυτότητας προτύπου προφίλ ({0}).</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>Το Enterprise Wi-Fi απαιτεί ένα αξιόπιστο αρχείο πιστοποιητικού CA root όταν είναι ενεργοποιημένη η αξιοπιστία πιστοποιητικού.</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>Το αρχείο πιστοποιητικού CA ρίζας Enterprise Wi-Fi δεν βρέθηκε.</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>Λειτουργία σε εξέλιξη</value>
+  </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>Ολοκληρώθηκε η λειτουργία</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>Έναρξη</value>
+  </data>
+  <data name="StartMedia.IsoPath.Header" xml:space="preserve">
+    <value>Έξοδος ISO</value>
+  </data>
+  <data name="StartMedia.IsoPath.Description" xml:space="preserve">
+    <value>Επιλέξτε πού θα γραφτεί το δημιουργημένο Foundry ISO.</value>
+  </data>
+  <data name="StartMedia.Architecture.Header" xml:space="preserve">
+    <value>Αρχιτεκτονική και υπογραφή</value>
+  </data>
+  <data name="StartMedia.Architecture.Description" xml:space="preserve">
+    <value>Επιλέξτε την αρχιτεκτονική εκκίνησης και τη λειτουργία υπογραφής εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
+    <value>WinPE γλώσσα εκκίνησης</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
+    <value>Γλώσσα που χρησιμοποιείται από το περιβάλλον εκκίνησης WinPE.</value>
+  </data>
+  <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
+    <value>USB στόχος</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
+    <value>Διάταξη USB</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>Σχέδιο διαμερισμάτων που χρησιμοποιείται κατά την προετοιμασία του επιλεγμένου στόχου USB.</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>Χρησιμοποιείται συμπεριφορά μορφοποίησης πριν από την αντιγραφή του τελικού μέσου USB.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
+    <value>Επιλογές προγράμματος οδήγησης</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
+    <value>Επιλέξτε προαιρετικά προγράμματα οδήγησης προμηθευτή και έναν προσαρμοσμένο φάκελο προγραμμάτων οδήγησης.</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
+    <value>Προσαρμοσμένο φάκελο προγράμματος οδήγησης</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
+    <value>Προαιρετικός φάκελος που περιέχει επιπλέον προγράμματα οδήγησης .inf.</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
+    <value>Δημιουργία πολυμέσων</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
+    <value>Δημιουργήστε μέσα ISO ή USB αφού περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
+  </data>
+  <data name="StartMedia.CreateIsoButton" xml:space="preserve">
+    <value>Δημιουργία ISO</value>
+  </data>
+  <data name="StartMedia.CreateUsbButton" xml:space="preserve">
+    <value>Δημιουργία USB</value>
+  </data>
+  <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
+    <value>Γρήγορη μορφή</value>
+  </data>
+  <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
+    <value>Πλήρης μορφή</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
+    <value>Η δημιουργία πολυμέσων δεν είναι ενεργοποιημένη σε αυτήν την έκδοση.</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>Η δημιουργία πολυμέσων είναι διαθέσιμη όταν περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>Η δημιουργία ISO έχει αποκλειστεί</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>Η δημιουργία USB έχει αποκλειστεί</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>Μορφοποίηση USB στόχο</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>Αυτό θα διαγράψει το δίσκο {0}: {1} ({2}). Συνεχίστε μόνο εάν αυτή είναι η προβλεπόμενη μονάδα δίσκου USB.</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>Μορφοποίηση και δημιουργία USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>Δημιουργία χώρου εργασίας WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>Προετοιμασία του χώρου εργασίας WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>Επίλυση πακέτων προγραμμάτων οδήγησης.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>Προσαρμογή της εικόνας εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>Αξιολόγηση της πολιτικής υπογραφής εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>Προετοιμασία προσαρμογής εικόνας εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>Εικόνα μπότας τοποθέτησης.</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>Έγχυση προγραμμάτων οδήγησης στην εικόνα εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>Εφαρμογή γλώσσας και προαιρετικών στοιχείων.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>Παροχή Foundry στοιχείων εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>Προσθήκη στοιχείων ανάπτυξης Foundry.</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>Πραγματοποίηση αλλαγών εικόνας εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>Ολοκληρώθηκε η προσαρμογή της εικόνας εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>Καθαρισμός χώρου εργασίας WinPE.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>Δημιουργία πολυμέσων ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>Δημιουργία πολυμέσων USB.</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>Η τελική δημιουργία μέσων ολοκληρώθηκε.</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>Η τελική δημιουργία πολυμέσων απέτυχε.</value>
+  </data>
+  <data name="StartMedia.Operation.Downloading" xml:space="preserve">
+    <value>Λήψη περιεχομένου.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
+    <value>Επίλυση καταλόγου πηγών WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
+    <value>Επιλεγμένο πακέτο πηγής WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
+    <value>Προετοιμασία πακέτου πηγής WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Επικύρωση αποθηκευμένου πακέτου πηγής WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
+    <value>Χρησιμοποιώντας προσωρινά αποθηκευμένο πακέτο πηγής WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
+    <value>Λήψη πακέτου πηγής WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
+    <value>Λήψη πακέτου προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>Λήψη στοιχείων ανάπτυξης {0}.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
+    <value>Επικύρωση πακέτου πηγής WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
+    <value>Επίλυση ευρετηρίου εικόνας WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
+    <value>Εξαγωγή εικόνας Windows για εξαγωγή WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
+    <value>Τοποθέτηση εικόνας πηγής WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
+    <value>Σταδιοποίηση εξαρτήσεων WinRE Wi-Fi.</value>
+  </data>
+  <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
+    <value>Αντικατάσταση εικόνας εκκίνησης με WinRE.</value>
+  </data>
+  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
+    <value>Η εικόνα εκκίνησης WinRE Wi-Fi είναι έτοιμη.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
+    <value>Προετοιμασία διαδρομής εξόδου ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
+    <value>Προετοιμασία του χώρου εργασίας ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
+    <value>Εκτέλεση του MakeWinPEMedia για ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
+    <value>Ολοκλήρωση της εξόδου ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
+    <value>Τα μέσα ISO ολοκληρώθηκαν.</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
+    <value>Επικύρωση στόχου USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
+    <value>Έλεγχος της ασφάλειας στόχου USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
+    <value>Διαμέριση και μορφοποίηση στόχου USB.</value>
+  </data>
+  <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
+    <value>Άνοιγμα του δίσκου USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
+    <value>Προετοιμασία χαρακτηριστικών δίσκου USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
+    <value>Εκκαθάριση πίνακα κατατμήσεων USB.</value>
+  </data>
+  <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
+    <value>Εκκίνηση πίνακα κατατμήσεων USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
+    <value>Δημιουργία διαμερίσματος BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
+    <value>Μορφοποίηση διαμερίσματος BOOT.</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
+    <value>Δημιουργία διαμερίσματος προσωρινής μνήμης.</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
+    <value>Μορφοποίηση διαμερίσματος προσωρινής μνήμης.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
+    <value>Μορφοποιήθηκαν κατατμήσεις USB.</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
+    <value>Αντιγραφή πολυμέσων WinPE στο USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
+    <value>Διαμόρφωση αρχείων εκκίνησης USB.</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
+    <value>Επαλήθευση μέσων εκκίνησης USB.</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
+    <value>Προετοιμασία διαμερίσματος κρυφής μνήμης USB.</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
+    <value>Προσθήκη στοιχείων Foundry στα μέσα USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
+    <value>Τα μέσα USB ολοκληρώθηκαν.</value>
+  </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>Εξαγωγή εικόνας Windows με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>Επίλυση ευρετηρίου εικόνας WinRE με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>Τοποθέτηση εικόνας με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>Έγχυση προγραμμάτων οδήγησης με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>Εφαρμογή πακέτου γλώσσας με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>Εφαρμογή προαιρετικών στοιχείων με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>Εφαρμογή διεθνών ρυθμίσεων με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>Πραγματοποίηση αλλαγών εικόνας με DISM.</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
+    <value>Το μέσο ISO δημιουργήθηκε με επιτυχία.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
+    <value>Τα μέσα USB δημιουργήθηκαν με επιτυχία. Όγκος εκκίνησης: {0}. Όγκος προσωρινής μνήμης: {1}.</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
+    <value>Επιλέξτε διαδρομή εξόδου ISO</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
+    <value>ISO εικόνα</value>
+  </data>
+  <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
+    <value>Επιλέξτε προσαρμοσμένο φάκελο προγράμματος οδήγησης</value>
+  </data>
+  <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
+    <value>Οι στόχοι USB μπορούν να ανανεωθούν αφού ολοκληρωθεί η ετοιμότητα ADK.</value>
+  </data>
+  <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
+    <value>Η ανανέωση στόχου USB απέτυχε.</value>
+  </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>Σάρωση στόχων USB.</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>Οι στόχοι USB δεν έχουν σαρωθεί ακόμα.</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>Δεν βρέθηκαν μονάδες δίσκου USB.</value>
+  </data>
+  <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
+    <value>Βρέθηκαν δίσκοι USB: {0}</value>
+  </data>
+  <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
+    <value>Δίσκος {0} - {1} ({2})</value>
+  </data>
+  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
+    <value>Στοιχεία που χρειάζονται προσοχή:</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>Έτοιμοι να δημιουργήσετε μέσα ISO και USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>Έτοιμοι να δημιουργήσετε μέσα ISO</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>Έτοιμοι να δημιουργήσετε μέσα USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>Στοιχεία ετοιμότητας που χρειάζονται δράση: {0}</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>Ελέγξτε τις προειδοποιήσεις εξόδου πολυμέσων</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>Προαπαιτούμενα</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>Έλεγχοι που πρέπει να είναι έγκυροι για να μπορέσει το Foundry να δημιουργήσει μέσα.</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>Έξοδος πολυμέσων</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>Τελικές επιλογές εξόδου ISO και USB.</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>διαμόρφωση Foundry</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
+    <value>Ρυθμίσεις ανάπτυξης που χρησιμοποιούνται από το Foundry στο WinPE.</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>Έτοιμοι</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>Προειδοποίηση</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>Αποκλεισμένος</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>Δεν έχει ρυθμιστεί</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>Φόρτωση</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>Επανεξέταση</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Το Windows ADK και το πρόσθετο Windows PE είναι έτοιμα.</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>Οι επιλογές του προγράμματος οδήγησης είναι έγκυρες.</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>Μπορεί να προβλεφθεί διαμόρφωση δικτύου.</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>Μπορεί να δημιουργηθεί διαμόρφωση ανάπτυξης.</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>Μπορεί να δημιουργηθεί δέσμη παροχής σύνδεσης.</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>Τα απαραίτητα μυστικά μέσων είναι διαθέσιμα.</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>Το Autopilot είναι απενεργοποιημένο και δεν εμποδίζει τη δημιουργία πολυμέσων.</value>
+  </data>
+  <data name="StartMedia.Field.Adk" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
+    <value>WinPE γλώσσα εκκίνησης</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>Πηγή εικόνας εκκίνησης</value>
+  </data>
+  <data name="StartMedia.Field.Architecture" xml:space="preserve">
+    <value>Αρχιτεκτονική</value>
+  </data>
+  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
+    <value>Διαδρομή εξόδου ISO</value>
+  </data>
+  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
+    <value>USB στόχος</value>
+  </data>
+  <data name="StartMedia.Field.Signature" xml:space="preserve">
+    <value>Λειτουργία υπογραφής</value>
+  </data>
+  <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
+    <value>στυλ κατάτμησης USB</value>
+  </data>
+  <data name="StartMedia.Field.FormatMode" xml:space="preserve">
+    <value>Λειτουργία μορφής USB</value>
+  </data>
+  <data name="StartMedia.Field.Drivers" xml:space="preserve">
+    <value>Οδηγοί</value>
+  </data>
+  <data name="StartMedia.Field.Network" xml:space="preserve">
+    <value>Διαμόρφωση δικτύου</value>
+  </data>
+  <data name="StartMedia.Field.Deploy" xml:space="preserve">
+    <value>Ανάπτυξη διαμόρφωσης</value>
+  </data>
+  <data name="StartMedia.Field.Connect" xml:space="preserve">
+    <value>Συνδέστε την παροχή</value>
+  </data>
+  <data name="StartMedia.Field.Secrets" xml:space="preserve">
+    <value>Μυστικά ΜΜΕ</value>
+  </data>
+  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
+    <value>Ενεργοποιημένο: {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Ενεργοποιημένο: μεταφόρτωση κατακερματισμού υλικού</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
+    <value>Το Autopilot χρησιμοποιεί μια μη υποστηριζόμενη λειτουργία παροχής.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
+    <value>Η λειτουργία προφίλ Autopilot JSON είναι ενεργοποιημένη αλλά δεν έχει επιλεγεί έγκυρο προεπιλεγμένο προφίλ.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά οι ρυθμίσεις λείπουν.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η σύνδεση μισθωτή λείπει. Συνδεθείτε με τον ενοικιαστή από Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η εγγραφή της εφαρμογής δεν έχει διαμορφωθεί. Συνδεθείτε με τον ενοικιαστή από Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το αναγνωριστικό πελάτη εφαρμογής λείπει. Επανασυνδεθείτε με τον ενοικιαστή από το Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η κύρια υπηρεσία της εφαρμογής λείπει ή δεν είναι έτοιμη.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο PFX δεν ταιριάζει με ένα πιστοποιητικό εγγραφής εφαρμογής.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο αποτύπωμα πιστοποιητικού λείπει.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά λείπει η λήξη του επιλεγμένου πιστοποιητικού.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο πιστοποιητικό έχει λήξει. Επιλέξτε ένα έγκυρο πιστοποιητικό πριν δημιουργήσετε μέσα εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά δεν έχει επιλεγεί μέσο εκκίνησης PFX.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά ο κωδικός πρόσβασης PFX του μέσου εκκίνησης λείπει.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το μέσο εκκίνησης PFX δεν έχει επικυρωθεί.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο PFX δεν ταιριάζει με το ενεργό πιστοποιητικό.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά δεν ήταν δυνατή η επικύρωση της λήξης του μέσου εκκίνησης PFX.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
+    <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά το επιλεγμένο μέσο εκκίνησης PFX έχει λήξει.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
+    <value>Το πρόσθετο ADK ή WinPE δεν είναι έτοιμο.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
+    <value>Η διαδρομή εξόδου ISO πρέπει να τελειώνει με.iso.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
+    <value>Η γλώσσα εκκίνησης WinPE δεν έχει επιλεγεί.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
+    <value>Η επιλεγμένη γλώσσα εκκίνησης WinPE δεν είναι διαθέσιμη για την επιλεγμένη αρχιτεκτονική.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
+    <value>Η διαμόρφωση δικτύου δεν είναι έτοιμη.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
+    <value>Η δημιουργία διαμόρφωσης ανάπτυξης δεν είναι έτοιμη.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
+    <value>Η παροχή σύνδεσης δεν είναι έτοιμη.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
+    <value>Τα απαραίτητα μυστικά των μέσων ενημέρωσης δεν είναι έτοιμα.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
+    <value>Το Autopilot είναι ενεργοποιημένο αλλά δεν έχει επιλεγεί έγκυρο προεπιλεγμένο προφίλ.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
+    <value>Δεν έχει επιλεγεί στόχος USB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
+    <value>Ο επιλεγμένος στόχος USB είναι πολύ μικρός. Χρησιμοποιήστε ένα κλειδί USB τουλάχιστον 16 GB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
+    <value>Τα μέσα ARM64 απαιτούν στυλ κατάτμησης GPT.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
+    <value>Ο προσαρμοσμένος φάκελος προγράμματος οδήγησης δεν υπάρχει.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
+    <value>Ο προσαρμοσμένος φάκελος προγράμματος οδήγησης δεν περιέχει αρχεία .inf.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
+    <value>Η δημιουργία πολυμέσων δεν είναι ενεργοποιημένη σε αυτήν την έκδοση.</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>Τυπικό WinPE</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>WinRE Wi-Fi εικόνα</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.ByteUnit.B" xml:space="preserve">
+    <value>Β</value>
+  </data>
+  <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>Ενημέρωση</value>
+  </data>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>Νέο</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>Πληροφορίες προϊόντος και έκδοσης.</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>Περίπου</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>ADK ετοιμότητα και εγκατάσταση.</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Autopilot διαμόρφωση προφίλ.</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>Επιλογές προσαρμογής ανάπτυξης.</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>Προσαρμογή</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>Προσαρμογή</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Foundry τεκμηρίωση και σύνδεσμοι έργου.</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>Τεκμηρίωση</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>Εμπειρογνώμονας</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>Τυπική ροή εργασιών διαμόρφωσης.</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>Τυπική διαμόρφωση</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>Στρατηγός</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>Στρατηγός</value>
+  </data>
+  <data name="Nav_HomeKey.Description" xml:space="preserve">
+    <value>Foundry OSD σπίτι</value>
+  </data>
+  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Title" xml:space="preserve">
+    <value>Σπίτι</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>WinPE ρυθμίσεις γλώσσας και τοπικής προσαρμογής.</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>Εντοπισμός</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>Εντοπισμός</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>Διαμόρφωση δικτύου και συνδεσιμότητας.</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>Δίκτυο</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>Δίκτυο</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>Ελέγξτε και ξεκινήστε τη δημιουργία πολυμέσων.</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>Έναρξη</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>Έναρξη</value>
+  </data>
+  <data name="SettingsPage.PageTitle" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
+    <value>Διαχειριστείτε την εκκίνηση, τη γλώσσα, τα διαγνωστικά και τη συμπεριφορά εφαρμογών.</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
+    <value>Στρατηγός</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
+    <value>Στείλτε ανώνυμη τηλεμετρία χρήσης για να βελτιώσετε το Foundry. Δεν αποστέλλονται ονόματα, μυστικά, SSID, διευθύνσεις IP, διαδρομές αρχείων, αναγνωριστικά δίσκου, ονόματα υπολογιστών, ονόματα προφίλ Autopilot ή αναγνωριστικά υλικού.</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
+    <value>Ενεργοποίηση τηλεμετρίας</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
+    <value>Αλλάξτε τις προτιμήσεις χρώματος θέματος, φόντου και έμφασης.</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
+    <value>Εμφάνιση</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
+    <value>Ελέγξτε για ενημερώσεις Foundry OSD και ελέγξτε τις σημειώσεις έκδοσης.</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
+    <value>Ενημέρωση εφαρμογής</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
+    <value>Ανοίξτε τις ρυθμίσεις χρωμάτων Windows για να αλλάξετε το χρώμα έμφασης.</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
+    <value>Χρώμα έμφασης</value>
+  </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>Ανοίξτε</value>
+  </data>
+  <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
+    <value>Ακρυλικό</value>
+  </data>
+  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
+    <value>Ακρυλικό Λεπτό</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
+    <value>Επιλέξτε το θέμα της εφαρμογής.</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
+    <value>Θέμα εφαρμογής</value>
+  </data>
+  <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
+    <value>Σκοτεινό</value>
+  </data>
+  <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
+    <value>Σύστημα</value>
+  </data>
+  <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
+    <value>Φως</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
+    <value>Επιλέξτε το υλικό φόντου που χρησιμοποιείται πίσω από την εφαρμογή.</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
+    <value>Υλικό</value>
+  </data>
+  <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
+    <value>Mica Alt</value>
+  </data>
+  <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
+    <value>Μίκα</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>Το Foundry OSD θα κατεβάσει την ενημέρωση και θα κάνει επανεκκίνηση για να την εφαρμόσει.</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>Ενημέρωση και επανεκκίνηση</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>Ενημέρωση Foundry OSD</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>Λήψη της ενημέρωσης. Το Foundry OSD θα επανεκκινήσει όταν είναι έτοιμο.</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>Πρόοδος λήψης</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>Λήψη ενημέρωσης</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>Έκδοση {0}</value>
+  </data>
+  <data name="Update.NotChecked" xml:space="preserve">
+    <value>Δεν έχει ελεγχθεί</value>
+  </data>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>Νέο</value>
+  </data>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>Διαθέσιμη έκδοση</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>Εγκατεστημένη έκδοση</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>Τελευταίος έλεγχος</value>
+  </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>Τελευταία έκδοση</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>χυτήριο-osd/χυτήριο</value>
+  </data>
+  <data name="Update.Status.Checking" xml:space="preserve">
+    <value>Έλεγχος για ενημερώσεις</value>
+  </data>
+  <data name="Update.Status.FailedFormat" xml:space="preserve">
+    <value>Ο έλεγχος ενημέρωσης απέτυχε: {0}</value>
+  </data>
+  <data name="Update.Status.NoUpdate" xml:space="preserve">
+    <value>Το Foundry OSD είναι ενημερωμένο.</value>
+  </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>Επίκαιρο</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>Διαθέσιμη ενημέρωση</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Το Foundry OSD {0} είναι διαθέσιμο</value>
+  </data>
+  <data name="Update.Status.NotInstalled" xml:space="preserve">
+    <value>Ο έλεγχος ενημέρωσης παραβλέφθηκε επειδή το Foundry OSD δεν εκτελείται από εγκατάσταση Velopack.</value>
+  </data>
+  <data name="Update.Status.Ready" xml:space="preserve">
+    <value>Έτοιμοι</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>Ο έλεγχος ενημέρωσης απέτυχε</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>Ο έλεγχος ενημέρωσης παραβλέφθηκε</value>
+  </data>
+  <data name="Update.Status.SkippedInDebug" xml:space="preserve">
+    <value>Ο έλεγχος ενημέρωσης παραβλέφθηκε επειδή έχει επισυναφθεί πρόγραμμα εντοπισμού σφαλμάτων.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailable" xml:space="preserve">
+    <value>Μια ενημέρωση Foundry OSD είναι διαθέσιμη.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>Ενημερώστε όταν είστε έτοιμοι. Το Foundry OSD θα επανεκκινήσει για να ολοκληρωθεί η εφαρμογή του.</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
+    <value>Το Foundry OSD {0} είναι διαθέσιμο.</value>
+  </data>
+  <data name="Adk.PageTitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Adk.Status.ReadyTitle" xml:space="preserve">
+    <value>Το ADK είναι έτοιμο</value>
+  </data>
+  <data name="Adk.Status.ReadyDescription" xml:space="preserve">
+    <value>Ο Foundry OSD μπορεί να δημιουργήσει μέσα ISO και USB.</value>
+  </data>
+  <data name="Adk.Status.MissingTitle" xml:space="preserve">
+    <value>Το ADK δεν είναι εγκατεστημένο</value>
+  </data>
+  <data name="Adk.Status.MissingDescription" xml:space="preserve">
+    <value>Εγκαταστήστε τα Windows ADK Εργαλεία ανάπτυξης και το πρόσθετο Windows PE πριν διαμορφώσετε τη δημιουργία πολυμέσων.</value>
+  </data>
+  <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
+    <value>Η έκδοση ADK δεν υποστηρίζεται</value>
+  </data>
+  <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
+    <value>Αναβαθμίστε το Windows ADK σε μια υποστηριζόμενη έκδοση 10.1.26100.</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
+    <value>Το πρόσθετο Windows PE λείπει</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
+    <value>Εγκαταστήστε το πρόσθετο Windows PE για το εγκατεστημένο Windows ADK.</value>
+  </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>Ρύθμιση ADK</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>Εγκαταστήστε ή αναβαθμίστε τα Windows ADK Εργαλεία ανάπτυξης και το πρόσθετο Windows PE που απαιτούνται για τη δημιουργία πολυμέσων.</value>
+  </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>Λεπτομέρειες ετοιμότητας</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>Εγκατεστημένη έκδοση</value>
+  </data>
+  <data name="Adk.Version.NotDetected" xml:space="preserve">
+    <value>Η έκδοση δεν εντοπίστηκε</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>Πολιτική απαιτούμενης έκδοσης</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
+    <value>Απαιτείται Windows ADK 10.1.26100.2454+ με την πιο πρόσφατη ενημέρωση κώδικα σέρβις ADK.</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Windows PE Πρόσθετο</value>
+  </data>
+  <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
+    <value>Το πρόσθετο Windows PE εγκαταστάθηκε</value>
+  </data>
+  <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
+    <value>Windows PE Λείπει το πρόσθετο</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>Δυνατότητα δημιουργίας πολυμέσων</value>
+  </data>
+  <data name="Adk.MediaCapability.Ready" xml:space="preserve">
+    <value>Η δημιουργία ISO και USB είναι διαθέσιμη.</value>
+  </data>
+  <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
+    <value>Η δημιουργία ISO και USB παραμένει αποκλεισμένη.</value>
+  </data>
+  <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>Εγκατάσταση Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
+    <value>Αναβάθμιση Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloading" xml:space="preserve">
+    <value>Λήψη του προγράμματος εγκατάστασης ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloaded" xml:space="preserve">
+    <value>Έγινε λήψη του προγράμματος εγκατάστασης ADK</value>
+  </data>
+  <data name="Adk.Operation.DownloadCached" xml:space="preserve">
+    <value>Χρήση αποθηκευμένου προγράμματος εγκατάστασης ADK</value>
+  </data>
+  <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
+    <value>Κατάργηση υπάρχοντος πρόσθετου Windows PE</value>
+  </data>
+  <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
+    <value>Αφαίρεση υπάρχοντος Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
+    <value>Εγκατάσταση Windows ADK Εργαλεία ανάπτυξης</value>
+  </data>
+  <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
+    <value>Εγκατάσταση του πρόσθετου Windows PE</value>
+  </data>
+  <data name="Adk.Operation.Verifying" xml:space="preserve">
+    <value>Επαλήθευση εγκατάστασης ADK</value>
+  </data>
+  <data name="Adk.Operation.Completed" xml:space="preserve">
+    <value>Η λειτουργία ADK ολοκληρώθηκε</value>
+  </data>
+  <data name="Adk.Operation.Failed" xml:space="preserve">
+    <value>Η λειτουργία ADK απέτυχε</value>
+  </data>
+  <data name="AdkPage_InstallButton.Content" xml:space="preserve">
+    <value>Εγκαταστήστε τα πρόσθετα Windows ADK και Windows PE</value>
+  </data>
+  <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
+    <value>Αναβάθμιση Windows ADK και Windows PE πρόσθετο</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Αραβικά (Σαουδική Αραβία)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Βουλγαρικά (Βουλγαρία)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Τσεχία (Τσεχία)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Δανικά (Δανία)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Γερμανικά (Γερμανία)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Ελληνικά (Ελλάδα)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Αγγλικά (Ηνωμένο Βασίλειο)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Αγγλικά (Ηνωμένες Πολιτείες)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Ισπανικά (Ισπανία)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Ισπανικά (Μεξικό)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Εσθονία (Εσθονία)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Φινλανδικά (Φινλανδία)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Γαλλικά (Καναδάς)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Γαλλικά (Γαλλία)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Εβραϊκά (Ισραήλ)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Κροατικά (Κροατία)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Ουγγρικά (Ουγγαρία)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Ιταλικά (Ιταλία)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Ιαπωνικά (Ιαπωνία)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Κορεάτικα (Κορέα)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Λιθουανία (Λιθουανία)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Λετονικά (Λετονία)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norwegian Bokmal (Νορβηγία)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Ολλανδικά (Ολλανδία)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Πολωνικά (Πολωνία)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Πορτογαλικά (Βραζιλία)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Πορτογαλικά (Πορτογαλία)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Ρουμανικά (Ρουμανία)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Ρωσικά (Ρωσία)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Σλοβακικά (Σλοβακία)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Σλοβενικά (Σλοβενία)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Σερβικά Λατινικά (Σερβία)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Σουηδικά (Σουηδία)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Ταϊλάνδης (Ταϊλάνδη)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Τουρκικά (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ουκρανικά (Ουκρανία)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Απλοποιημένα Κινεζικά (Κίνα)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Παραδοσιακό Κινέζικο (Ταϊβάν)</value>
+  </data>
+</root>

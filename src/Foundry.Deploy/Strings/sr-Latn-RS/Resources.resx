@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
+  <data name="About.Title" xml:space="preserve"><value>O Foundry Deploy</value></data>
+  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy je iskustvo primene WinPE za Foundry.</value></data>
+  <data name="About.DescriptionLine2" xml:space="preserve"><value>Ovaj softver je obezbeđen takav kakav jeste. Pregledajte podešavanja primene pre upotrebe.</value></data>
+  <data name="About.Footer" xml:space="preserve"><value>Autorsko pravo (c) 2026 Foundry Project. Licencirano pod MIT licencom.</value></data>
+  <data name="Menu.Theme" xml:space="preserve"><value>_Tema</value></data>
+  <data name="Menu.Language" xml:space="preserve"><value>_Jezik</value></data>
+  <data name="Menu.Tools" xml:space="preserve"><value>_Alati</value></data>
+  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
+  <data name="Menu.About" xml:space="preserve"><value>_O</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>Sistem</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>Svetlost</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>Dark</value></data>
+  <data name="Language.English" xml:space="preserve"><value>engleski</value></data>
+  <data name="Language.French" xml:space="preserve"><value>francuski</value></data>
+  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Osvežite kataloge</value></data>
+  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Osvežite ciljne diskove</value></data>
+  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otvorite datoteku evidencije</value></data>
+  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Režim simulacije je aktivan: radnje primene se simuliraju i ne vrši se upis na disk ili sliku.</value></data>
+  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
+  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operativni sistem</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Paket drajvera</value></data>
+  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Rezime</value></data>
+  <data name="Preparation.ComputerName" xml:space="preserve"><value>Ime računara</value></data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakova. Samo A-Z, a-z, 0-9 i crtica.</value></data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ime računara mora da sadrži 1 do 15 važećih znakova (slova, brojke ili crtice).</value></data>
+  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Ciljna mašina</value></data>
+  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Odredišni disk</value></data>
+  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Opcije implementacije</value></data>
+  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Ciljni disk</value></data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Izaberite ciljni disk. Diskovi koji ne ispunjavaju uslove su blokirani.</value></data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Primenite ažuriranja firmvera</value></data>
+  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Omogućite Autopilot za ovu primenu</value></data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na ovom mediju nisu pronađeni ugrađeni Autopilot profili.</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hardverski heš otpremanje</value></data>
+  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostupno na ovom mediju: {0}</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardverski heš otpremanje</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status otpremanja hardverskog heša</value></data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Spreman za otpremanje hardverskog heša</value></data>
+  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nije spreman za otpremanje hardverskog heša</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Sertifikat za otpremanje je istekao</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Otpremanje hardverskog heš-a nije dostupno na ovom mediju jer nedostaju potrebne informacije o sertifikatu. Primena može da se nastavi, ali će otpremanje biti preskočeno.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikat je istekao. Primena može da se nastavi, ali će otpremanje biti preskočeno.</value></data>
+  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detalji</value></data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID stanara</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Otisak palca sertifikata</value></data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Istek važenja sertifikata</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupna oznaka</value></data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Oznaka grupe je opciona. Izaberite Ništa da otpremite bez oznake grupe.</value></data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Otkrivanje hardvera...</value></data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Otkrivanje hardvera nije uspelo.</value></data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Detekcija hardvera nije uspela: {0}</value></data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Snaga: {2} | Firmver: {3}</value></data>
+  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Baterija</value></data>
+  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
+  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Učitavanje ciljnih diskova...</value></data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Otkrivanje ciljnog diska nije uspelo: {0}</value></data>
+  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nije otkriven nijedan disk.</value></data>
+  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Učitani ciljni diskovi: {0} otkriven.</value></data>
+  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativni sistem</value></data>
+  <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
+  <data name="Catalog.Language" xml:space="preserve"><value>Jezik</value></data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licencni kanal</value></data>
+  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Izdanje (cilja)</value></data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arhitektura: {0}</value></data>
+  <data name="Catalog.Loading" xml:space="preserve"><value>Učitavanje kataloga...</value></data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Učitani katalozi: {0} unosi operativnog sistema, {1} paketi drajvera.</value></data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Učitavanje kataloga nije uspelo: {0}</value></data>
+  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Maloprodaja</value></data>
+  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volume</value></data>
+  <data name="Catalog.EditionHome" xml:space="preserve"><value>Home</value></data>
+  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Dom N</value></data>
+  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Home Single Language</value></data>
+  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Obrazovanje</value></data>
+  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Obrazovanje N</value></data>
+  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
+  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
+  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Enterprise</value></data>
+  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Preduzeće N</value></data>
+  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
+  <data name="DriverPack.Source" xml:space="preserve"><value>Izvor drajvera</value></data>
+  <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
+  <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
+  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM paket drajvera</value></data>
+  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: nema odgovarajućeg modela ili verzije</value></data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modeli)</value></data>
+  <data name="Summary.Title" xml:space="preserve"><value>Rezime primene</value></data>
+  <data name="Summary.TargetDisk" xml:space="preserve"><value>Ciljni disk</value></data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nije izabran nijedan disk</value></data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativni sistem</value></data>
+  <data name="Summary.NoSelection" xml:space="preserve"><value>Nema izbora</value></data>
+  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Izabrani paket drajvera</value></data>
+  <data name="Summary.Firmware" xml:space="preserve"><value>Firmvare</value></data>
+  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metod</value></data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupna oznaka</value></data>
+  <data name="Summary.SectionTarget" xml:space="preserve"><value>Target</value></data>
+  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistem</value></data>
+  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Opcije implementacije</value></data>
+  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ne Autopilot</value></data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardverski heš otpremanje</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Važeća potvrda</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Istekao sertifikat</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Nedostaju podaci o sertifikatu</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Nema podrazumevane oznake grupe</value></data>
+  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Stranice za primenu</value></data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Stranica napretka</value></data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Stranica uspeha</value></data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Stranica sa greškom</value></data>
+  <data name="Debug.ProgressPage" xml:space="preserve"><value>Pregled otklanjanja grešaka: stranica napretka.</value></data>
+  <data name="Debug.SuccessPage" xml:space="preserve"><value>Pregled otklanjanja grešaka: stranica o uspehu.</value></data>
+  <data name="Debug.ErrorPage" xml:space="preserve"><value>Pregled otklanjanja grešaka: stranica sa greškom.</value></data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Pregled otklanjanja grešaka: DISM primena nije uspela jer je ciljna particija samo za čitanje.
+
+ErrorCode=0k80070005
+Detalji: Pristup odbijen dok se slika montira na ciljnu putanju.
+Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Osveži</value></data>
+  <data name="Common.VersionFormat" xml:space="preserve"><value>Verzija: {0}</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Prethodno</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Sledeće</value></data>
+  <data name="Common.Deploy" xml:space="preserve"><value>Deploi</value></data>
+  <data name="Common.OpenLog" xml:space="preserve"><value>Otvori dnevnik</value></data>
+  <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
+  <data name="Common.Unavailable" xml:space="preserve"><value>Nedostupno</value></data>
+  <data name="Common.None" xml:space="preserve"><value>Nijedan</value></data>
+  <data name="Common.Unknown" xml:space="preserve"><value>Nepoznato</value></data>
+  <data name="Common.Detected" xml:space="preserve"><value>Detected</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>Da</value></data>
+  <data name="Common.No" xml:space="preserve"><value>br</value></data>
+  <data name="Common.Enabled" xml:space="preserve"><value>Omogućeno</value></data>
+  <data name="Common.Disabled" xml:space="preserve"><value>Onemogućeno</value></data>
+  <data name="Common.Ready" xml:space="preserve"><value>Spreman</value></data>
+  <data name="Common.NotReady" xml:space="preserve"><value>Nije spreman</value></data>
+  <data name="Progress.Networking" xml:space="preserve"><value>Umrežavanje</value></data>
+  <data name="Progress.StartTime" xml:space="preserve"><value>Vreme početka</value></data>
+  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Proteklo vreme</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Primena je uspešno završena.</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ovaj računar će se ponovo pokrenuti za {0}s.</value></data>
+  <data name="Success.RebootNow" xml:space="preserve"><value>Ponovo pokreni</value></data>
+  <data name="Error.Title" xml:space="preserve"><value>Primena nije uspela</value></data>
+  <data name="Error.FailedStep" xml:space="preserve"><value>Neuspeli korak</value></data>
+  <data name="Error.Message" xml:space="preserve"><value>Poruka o grešci</value></data>
+  <data name="Splash.Welcome" xml:space="preserve"><value>Dobrodošli</value></data>
+  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicijalizacija komponenti...</value></data>
+  <data name="Splash.Start" xml:space="preserve"><value>Počni</value></data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
+  <data name="Disk.UnknownSize" xml:space="preserve"><value>Nepoznata veličina</value></data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Blokirano: sistemski disk</value></data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Blokirano: disk za pokretanje</value></data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blokirano: samo za čitanje</value></data>
+  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blokirano: van mreže</value></data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG VIRTUAL TARGET</value></data>
+  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Izabrani disk blokiran: {0}</value></data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Ciljni disk {0} više nije prisutan.</value></data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Ciljni disk {0} je blokiran: {1}</value></data>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Potvrdite brisanje diska</value></data>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Ovo će izbrisati sve podatke na izabranom disku i instalirati izabrani operativni sistem.
+
+Disk: {0}
+Model: {1}
+Autobus: {2}
+Veličina: {3}
+
+Operativni sistem: {4}
+
+Želite li da nastavite sa primenom?</value></data>
+  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Izaberite operativni sistem.</value></data>
+  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Unesite važeće ime računara.</value></data>
+  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Izaberite ciljni disk.</value></data>
+  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Izaberite važeći OEM model ili verziju pre početka primene.</value></data>
+  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Izaberite Autopilot profil ili onemogućite Autopilot pre početka primene.</value></data>
+  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Korisnik je otkazao primenu.</value></data>
+  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Priprema za raspoređivanje je završena.</value></data>
+  <data name="Status.Ready" xml:space="preserve"><value>Spreman</value></data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Čeka se raspoređivanje...</value></data>
+  <data name="Status.WaitingForProgress" xml:space="preserve"><value>Čeka se napredak...</value></data>
+  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Priprema raspoređivanja...</value></data>
+  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Raspoređivanje je počelo.</value></data>
+  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Raspoređivanje je završeno.</value></data>
+  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Radni tok implementacije je završen.</value></data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Primena je otkazana.</value></data>
+  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Primena nije uspela.</value></data>
+  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Primena nije uspela: {0}</value></data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Druga operacija je već u toku.</value></data>
+  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Bezbedan režim za otklanjanje grešaka je omogućen: radnje primene su simulirane.</value></data>
+  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Pokretanje radnog toka implementacije.</value></data>
+  <data name="Status.StartingStep" xml:space="preserve"><value>Početni korak...</value></data>
+  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Počinje {0}.</value></data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Počinje {0}...</value></data>
+  <data name="Status.StepCompleted" xml:space="preserve"><value>Korak je završen.</value></data>
+  <data name="Status.StepFailed" xml:space="preserve"><value>Korak nije uspeo.</value></data>
+  <data name="Status.StepSkipped" xml:space="preserve"><value>Korak je preskočen.</value></data>
+  <data name="Status.InProgress" xml:space="preserve"><value>U toku...</value></data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Korak:? od?</value></data>
+  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Korak: {0} od {1}</value></data>
+  <data name="Status.RebootingNow" xml:space="preserve"><value>Ponovno pokretanje sada...</value></data>
+  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Komanda za ponovno pokretanje nije uspela.</value></data>
+  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Komanda za ponovno pokretanje nije uspela: {0}</value></data>
+  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nije moguće otvoriti datoteku evidencije: {0}</value></data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe nije uspeo sa izlaznim kodom {0}. {1}</value></data>
+  <data name="Status.SystemReboot" xml:space="preserve"><value>Ponovno pokretanje sistema</value></data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Potrebna izvršna datoteka za ponovno pokretanje „wpeutil.exe“ nije pronađena.</value></data>
+  <data name="Status.UnknownStep" xml:space="preserve"><value>Nepoznati korak</value></data>
+  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Nisu navedeni detalji o grešci.</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Prikupite varijable za primenu</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicijalizujte radni prostor za primenu</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Potvrdite konfiguraciju cilja</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Proverite keš za primenu</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Pripremite izgled ciljnog diska</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Preuzmite sliku operativnog sistema</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Primenite sliku operativnog sistema</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurišite ime ciljnog računara</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurišite OOBE podešavanja</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurišite okruženje za oporavak</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Preuzmite paket drajvera</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Izvucite paket drajvera</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE prilagođavanje</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Primenite paket drajvera</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Preuzmite ažuriranje firmvera</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Primenite ažuriranje firmvera</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zapečatite particiju za oporavak</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provizija Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Završite primenu i napišite dnevnike</value></data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Prikupljanje varijabli za primenu...</value></data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Prikupljanje konteksta primene...</value></data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Prikupljene varijable implementacije.</value></data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Prikupljene varijable implementacije (simulacija).</value></data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Pokretanje radnog prostora za primenu...</value></data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Pravljenje fascikli radnog prostora...</value></data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Završava se implementacija...</value></data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Čišćenje privremenog radnog prostora...</value></data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Pisanje rezimea primene...</value></data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Pisanje evidencije završetka...</value></data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Radni prostor je inicijalizovan.</value></data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Radni prostor je inicijalizovan (simulacija).</value></data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Provera konfiguracije cilja...</value></data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Ponovo se proverava ciljni disk...</value></data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Otkrivanje hardverskog profila...</value></data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Nedostaje operativni sistem URL.</value></data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Broj ciljnog diska je obavezan.</value></data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Ciljna konfiguracija potvrđena.</value></data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Potvrđena konfiguracija cilja (simulacija).</value></data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Proveravam keš za primenu...</value></data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Rešavanje lokacije keša...</value></data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Provera konflikta keš diska...</value></data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Strategija keširanja je rešena.</value></data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Strategija keširanja je rešena (simulacija).</value></data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Priprema izgleda ciljnog diska...</value></data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Particionisanje ciljnog diska...</value></data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Priprema ciljnog radnog prostora...</value></data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Pravljenje simuliranih particija...</value></data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Pripremljen izgled ciljnog diska.</value></data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Pripremljen izgled ciljnog diska (simulacija).</value></data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Ciljni raspored diska nije pripremljen.</value></data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Preuzimanje slike operativnog sistema...</value></data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Proveravam keš...</value></data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Slika operativnog sistema spremna (simulacija).</value></data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Slika operativnog sistema nije preuzeta.</value></data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Slika operativnog sistema je preuzeta.</value></data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Slika operativnog sistema je rešena iz keša.</value></data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Primena slike operativnog sistema...</value></data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Proveravam sliku...</value></data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Primenjuje se slika...</value></data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Konfigurisanje pokretanja...</value></data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Verifikacija slike...</value></data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Slika operativnog sistema je primenjena.</value></data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Primenjena slika operativnog sistema (simulacija).</value></data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurisanje imena ciljnog računara...</value></data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Pisanje naziva računara van mreže...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Ciljna Windows particija je nedostupna.</value></data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Ime ciljnog računara je konfigurisano.</value></data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Ime ciljnog računara je konfigurisano (simulacija).</value></data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Oflajn prilagođavanje je onemogućeno.</value></data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Konfigurisanje oflajn prilagođavanja...</value></data>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Pisanje podrazumevanih vrednosti prvog pokretanja...</value></data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Konfigurisanje uklanjanja AI komponente...</value></data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Pisanje oflajn smernica za veštačku inteligenciju...</value></data>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Prilagođavanje van mreže je konfigurisano.</value></data>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline prilagođavanje je konfigurisano (simulacija).</value></data>
+  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE prilagođavanje onemogućeno.</value></data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigurisanje OOBE podešavanja...</value></data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Pisanje podrazumevanih postavki privatnosti u prvom pokretanju...</value></data>
+  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE prilagođavanje konfigurisano.</value></data>
+  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE podešavanja konfigurisana.</value></data>
+  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE simulirano prilagođavanje.</value></data>
+  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE podešavanja konfigurisana (simulacija).</value></data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfigurisanje okruženja za oporavak...</value></data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Priprema Windows okruženja za oporavak...</value></data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Particija za oporavak nije dostupna.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Konfigurisano okruženje za oporavak.</value></data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Konfigurisano okruženje za oporavak (simulacija).</value></data>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nisu potrebne skripte za prilagođavanje pre-OOBE.</value></data>
+  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Prilagođavanja pre-OOBE će biti izvedena sa paketom drajvera za prvo pokretanje.</value></data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Izrada prilagođavanja pre OOBE...</value></data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Prilagođavanja pre-OOBE su izvedena.</value></data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Prilagođavanja pre-OOBE su izvedena (simulacija).</value></data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Paket drajvera je onemogućen (nije izabrano).</value></data>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Nije potrebno preuzimanje paketa drajvera.</value></data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Preuzimanje paketa drajvera...</value></data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Priprema se preuzimanje...</value></data>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Izabran je režim OEM paketa drajvera, ali nije obezbeđen paket drajvera.</value></data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Preuzet je paket drajvera.</value></data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Preuzet paket drajvera (simulacija).</value></data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Paket drajvera je rešen iz keša.</value></data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Ekstrahiranje paketa drajvera...</value></data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Paket drajvera nije preuzet.</value></data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Paket drajvera je izvučen.</value></data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Paket drajvera je ekstrahovan (simulacija).</value></data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Paket drajvera pripremljen za instalaciju pri prvom pokretanju.</value></data>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Nije potrebna operacija sa paketom drajvera.</value></data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Nepodržani režim instalacije paketa drajvera.</value></data>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Nije dostupan sadržaj ekstrahovanog INF drajvera.</value></data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Izvorni sadržaj paketa drajvera je nedostupan za fazu prvog pokretanja.</value></data>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog nije proizveo sadržaj drajvera.</value></data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Zatraženo je postavljanje paketa drajvera za prvo pokretanje bez podržane komande.</value></data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Primena paketa drajvera...</value></data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Primena drajvera Windows...</value></data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Montiranje VinRE...</value></data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Primena VinRE drajvera...</value></data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Demontaža VinRE-a...</value></data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Paket za postavljanje...</value></data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Ažuriranje skripte za podešavanje prvog pokretanja...</value></data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
+  <data name="StepProgress.Downloading" xml:space="preserve"><value>Preuzimanje</value></data>
+  <data name="StepProgress.Extracting" xml:space="preserve"><value>Ekstrakcija</value></data>
+  <data name="StepProgress.Applying" xml:space="preserve"><value>Primena</value></data>
+  <data name="StepProgress.Staging" xml:space="preserve"><value>Inscenacija</value></data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} preuzeto</value></data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Primenjen je paket drajvera.</value></data>
+  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Paket drajvera pripremljen za prvo pokretanje.</value></data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Primenjen je paket drajvera (simulacija).</value></data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Preuzimanje ažuriranja firmvera...</value></data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Priprema Microsoft Update Catalog traženja...</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Ažuriranja firmvera su onemogućena.</value></data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Ažuriranja firmvera su onemogućena za virtuelne mašine.</value></data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Ažuriranja firmvera se preskaču dok uređaj radi na bateriju.</value></data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Hardverski identifikator firmvera sistema je nedostupan.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Preuzeto ažuriranje firmvera.</value></data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Preuzeto ažuriranje firmvera (simulacija).</value></data>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Nije dostupan izvučeni sadržaj firmvera.</value></data>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Izvučeni sadržaj firmvera ne sadrži INF datoteke.</value></data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Primenjuje se ažuriranje firmvera...</value></data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Ubacivanje sadržaja firmvera u oflajn Windows...</value></data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Primenjeno ažuriranje firmvera.</value></data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Primenjeno ažuriranje firmvera (simulacija).</value></data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Zaptivanje particije za oporavak...</value></data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Uklanjanje slova disk jedinice za oporavak...</value></data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Particija za oporavak je zapečaćena.</value></data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Particija za oporavak je zapečaćena (simulacija).</value></data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot je onemogućen.</value></data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot je omogućen, ali nijedan profil nije izabran.</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Ciljna particija Windows nije dostupna za Autopilot inscenaciju.</value></data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Rešavanje ciljnog Autopilot direktorijuma nije uspelo.</value></data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Postavljanje Autopilot profila...</value></data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Kopiranje AutopilotConfigurationFile.json...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Pisanje simuliranog Autopilot manifesta...</value></data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Hvatanje hardverskog heša Autopilot...</value></data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Pokreće se OA3Tool...</value></data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Otpremanje Autopilot hardverskog heša...</value></data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Priprema Microsoft Graph uvoza...</value></data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Podnošenje zahteva za uvoz na Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Čeka se vidljivost uređaja Autopilot...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Provera Windows Autopilot uređaja ({0} preostalih)...</value></data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Ažuriranje postojećeg Autopilot uređaja...</value></data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Ažuriranje oznake grupe Windows Autopilot u Microsoft Graph...</value></data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Čeka se ažuriranje oznake grupe Autopilot...</value></data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Proveravanje oznake grupe Windows Autopilot (preostalo {0})...</value></data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Priprema Autopilot hardverskog heš otpremanja...</value></data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Dešifrovanje medijskog sertifikata...</value></data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Provera autentičnosti Autopilot hardverskog heš otpremanja...</value></data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Zahteva se Microsoft Graph token...</value></data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Uvoz hardverskog heša u Microsoft Graph...</value></data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Pisanje simuliranog Autopilot heš manifesta...</value></data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Ciljna particija Windows nije dostupna za Autopilot hardversko heš otpremanje.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot hardverski heš otpremanje je preskočeno jer je ugrađeni sertifikat istekao.</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot hardverski heš otpremanje je preskočeno jer su potrebne informacije o sertifikatu medija nepotpune.</value></data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot hardverski heš uvezen i vidljiv na Windows Autopilot uređajima.</value></data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Uvezeni Autopilot uređaj se nije pojavio u Windows Autopilot uređajima pre isteka vremena.</value></data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot Ažuriranje oznake grupe uređaja nije potvrđeno pre isteka vremena.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot hardverski heš upload pripremljen za simulaciju.</value></data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot pripremljen hardverski heš upload (simulacija).</value></data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Izabrana Autopilot datoteka profila nije pronađena: {0}</value></data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hardversko heš snimanje nije uspelo: {0}</value></data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot hardverski heš uvoz nije uspeo: {0}</value></data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot hardversko heš otpremanje je preskočeno: {0}</value></data>
+  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minut</value></data>
+  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuta</value></data>
+  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} drugo</value></data>
+  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundi</value></data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil postavljen.</value></data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil postavljen (simulacija).</value></data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arapski (Saudijska Arabija)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bugarski (Bugarska)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>češki (Češka)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>danski (Danska)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>nemački (Nemačka)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>grčki (Grčka)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>engleski (Ujedinjeno Kraljevstvo)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>engleski (Sjedinjene Američke Države)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>španski (Španija)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>španski (Meksiko)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estonski (Estonija)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finski (Finska)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francuski (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francuski (Francuska)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrejski (Izrael)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>hrvatski (Hrvatska)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>mađarski (mađarska)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italijanski (Italija)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japanski (Japan)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korejski (Koreja)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litvanski (Litvanija)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>letonski (Letonija)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norveški bokmal (Norveška)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holandski (Holandija)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poljski (Poljska)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalski (Brazil)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalski (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumunski (Rumunija)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ruski (Rusija)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovački (Slovačka)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovenački (Slovenija)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>srpska latinica (Srbija)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švedski (Švedska)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>tajlandski (Tajland)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turski (Turkiie)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrajinski (Ukrajina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>kineski pojednostavljeni (Kina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradicionalni kineski (Tajvan)</value>
+  </data>
+</root>

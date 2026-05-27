@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>על Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect מאמת את מוכנות הרשת ב-WinPE לפני המשך הפריסה של Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>תוכנה זו מסופקת כפי שהיא. אשר את הגישה לרשת לפני המשך הפריסה.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>זכויות יוצרים (ג) 2026 Foundry Project. מורשה תחת רישיון MIT.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>נושא</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>כלים</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>ניפוי באגים</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>בערך</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>מערכת</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>אור</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>כהה</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>אנגלית</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>צרפתית</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>סטטוס רענון</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>השתמש בפריסה שזוהתה</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>הצג רק Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>הצג Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>התחבר</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>התנתק</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>גרסה: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>תצורה: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>תצורה: ברירות מחדל מובנות</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>מתרענן כל {0} שניות</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>עדכון אחרון: בהמתנה</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>עודכן לאחרונה: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>לא זמין</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>מחובר</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>מחכה לרשת</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>הגישה לאינטרנט עדיין לא אומתה.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>מוכן לרשת</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>הגישה לאינטרנט אומתה. אתה יכול להמשיך עכשיו.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>רענון הרשת נכשל</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>ממשיך אוטומטית ב-{0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>מתאם</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>שער</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>לא זוהה מתאם Ethernet.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>אין קישור פעיל</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>ממתין לתצורת הרשת</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>בדוק את חיבור הכבל</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>ממתין ל-DHCP או לתצורת רשת סטטית</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>זוהתה חוזה שכירות DHCP</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>זוהתה תצורת רשת סטטית</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>רענן Wi-Fi רשתות</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>הצג או הסתר את הסיסמה Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>מסופק Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>אימות</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>רשת זו דורשת פרופיל Wi-Fi מסופק.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>אין כרגע רשתות Wi-Fi גלויות.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>אין פרופיל Wi-Fi זמין בתמונת אתחול זו.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>תמיכה Wi-Fi אינה זמינה בסביבת אתחול זו.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>לא זוהה כעת מתאם Wi-Fi.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>אין מתאם Wi-Fi זמין.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>פרופיל ארגוני</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>פרופיל מוקצה ללא שם</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>הגדרות תמונת אתחול</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · אישור כלול בתמונת האתחול</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>אבטחה מוגדרת</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi אינו זמין</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>אין מתאם Wi-Fi זמין</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>רשת Wi-Fi פעילה אחרת</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>מוכן להתחבר</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>מסופק Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>רשת Wi-Fi זו אינה נתמכת ב-build זה.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>לא מצליח להתחבר. בדוק את הסיסמה או את הגדרות הרשת ונסה שוב.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>פרופיל Wi-Fi המוקצה אינו זמין.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>לא ניתן לחבר את הפרופיל Wi-Fi המיועד. נסה שוב.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>לא ניתן לנתק את הפרופיל Wi-Fi המיועד. נסה שוב.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>לא מצליח להתנתק. נסה שוב.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>לא ניתן להחיל את הגדרות הרשת המוגדרות.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>לא ניתן להשלים את הפעולה Wi-Fi. נסה שוב.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>רשת נסתרת</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>פתוח</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA אישי</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA אין</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>ספציפי לספק</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 אישי</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 אישי</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 אישי</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>אישי</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192 סיביות</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (מכונה)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (מכונה או משתמש)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>ערבית (ערב הסעודית)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>בולגרית (בולגריה)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>צ'כיה (צ'כיה)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>דנית (דנמרק)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>גרמנית (גרמניה)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>יוונית (יוון)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>אנגלית (בריטניה)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>אנגלית (ארצות הברית)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>ספרדית (ספרד)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>ספרדית (מקסיקו)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>אסטונית (אסטוניה)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>פינית (פינלנד)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>צרפתית (קנדה)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>צרפתית (צרפת)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>עברית (ישראל)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>קרואטית (קרואטיה)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>הונגרית (הונגריה)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>איטלקית (איטליה)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>יפנית (יפן)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>קוריאנית (קוריאה)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>ליטאית (ליטא)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>לטביה (לטביה)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>בוקמאל הנורבגי (נורווגיה)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>הולנדית (הולנד)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>פולנית (פולין)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>פורטוגזית (ברזיל)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>פורטוגזית (פורטוגל)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>רומנית (רומניה)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>רוסית (רוסיה)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>סלובקית (סלובקיה)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>סלובנית (סלובניה)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>לטינית סרבית (סרביה)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>שוודית (שבדיה)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>תאילנד (תאילנד)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>טורקית (טורקיה)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>אוקראינית (אוקראינה)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>סינית פשוטה (סין)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>סינית מסורתית (טייוואן)</value>
+  </data>
+</root>

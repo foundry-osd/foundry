@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Connect</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Par Foundry Connect</value>
+  </data>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Connect apstiprina tīkla gatavību WinPE, pirms Foundry izvietošana turpinās.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Šī programmatūra tiek nodrošināta tāda, kāda tā ir. Pirms izvietošanas turpināšanas apstipriniet piekļuvi tīklam.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Autortiesības (c) 2026 Foundry Project. Licencēts saskaņā ar MIT licenci.</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>Tēma</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>Valoda</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>Rīki</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>Atkļūdošana</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>Par</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistēma</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Gaisma</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Tumšs</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>angļu valoda</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>franču valoda</value>
+  </data>
+  <data name="Tools.RefreshStatus" xml:space="preserve">
+    <value>Atsvaidzināt statusu</value>
+  </data>
+  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
+    <value>Izmantojiet noteikto izkārtojumu</value>
+  </data>
+  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
+    <value>Rādīt tikai Ethernet</value>
+  </data>
+  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
+    <value>Rādīt Ethernet + Wi-Fi</value>
+  </data>
+  <data name="Action.Continue" xml:space="preserve">
+    <value>Turpināt</value>
+  </data>
+  <data name="Action.Connect" xml:space="preserve">
+    <value>Savienot</value>
+  </data>
+  <data name="Action.Disconnect" xml:space="preserve">
+    <value>Atvienot</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versija: {0}</value>
+  </data>
+  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
+    <value>Konfigurācija: {0}</value>
+  </data>
+  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
+    <value>Konfigurācija: iebūvētie noklusējuma iestatījumi</value>
+  </data>
+  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
+    <value>Atsvaidzina ik pēc {0} sekundēm</value>
+  </data>
+  <data name="Common.LastUpdatePending" xml:space="preserve">
+    <value>Pēdējo reizi atjaunināts: gaida</value>
+  </data>
+  <data name="Common.LastUpdateFormat" xml:space="preserve">
+    <value>Pēdējo reizi atjaunināts: {0:HH:mm:ss}</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Nav pieejams</value>
+  </data>
+  <data name="Common.Connected" xml:space="preserve">
+    <value>Savienots</value>
+  </data>
+  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
+    <value>Gaida tīklu</value>
+  </data>
+  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
+    <value>Interneta piekļuve vēl nav apstiprināta.</value>
+  </data>
+  <data name="Status.NetworkReadyTitle" xml:space="preserve">
+    <value>Tīkls gatavs</value>
+  </data>
+  <data name="Status.NetworkReadyDescription" xml:space="preserve">
+    <value>Interneta piekļuve ir apstiprināta. Jūs varat turpināt tagad.</value>
+  </data>
+  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
+    <value>Tīkla atsvaidzināšana neizdevās</value>
+  </data>
+  <data name="Status.AutoContinueFormat" xml:space="preserve">
+    <value>Automātiski turpinās {0}s</value>
+  </data>
+  <data name="Ethernet.Title" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.AdapterLabel" xml:space="preserve">
+    <value>Adapteris</value>
+  </data>
+  <data name="Ethernet.Ipv4Label" xml:space="preserve">
+    <value>IPv4</value>
+  </data>
+  <data name="Ethernet.GatewayLabel" xml:space="preserve">
+    <value>Vārteja</value>
+  </data>
+  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
+    <value>Nav atrasts Ethernet adapteris.</value>
+  </data>
+  <data name="Ethernet.NoActiveLink" xml:space="preserve">
+    <value>Nav aktīvas saites</value>
+  </data>
+  <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
+    <value>Gaida tīkla konfigurāciju</value>
+  </data>
+  <data name="Ethernet.CheckCable" xml:space="preserve">
+    <value>Pārbaudiet kabeļa savienojumu</value>
+  </data>
+  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
+    <value>Gaida DHCP vai statisku tīkla konfigurāciju</value>
+  </data>
+  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
+    <value>Atklāta DHCP noma</value>
+  </data>
+  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
+    <value>Konstatēta statiskā tīkla konfigurācija</value>
+  </data>
+  <data name="Wifi.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Wifi.RefreshNetworks" xml:space="preserve">
+    <value>Atsvaidziniet Wi-Fi tīklus</value>
+  </data>
+  <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
+    <value>Rādīt vai paslēpt Wi-Fi paroli</value>
+  </data>
+  <data name="Wifi.ProvisionedTitle" xml:space="preserve">
+    <value>Nodrošināts Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProfileLabel" xml:space="preserve">
+    <value>Profils</value>
+  </data>
+  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
+    <value>Autentifikācija</value>
+  </data>
+  <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
+    <value>Šim tīklam ir nepieciešams nodrošināts Wi-Fi profils.</value>
+  </data>
+  <data name="Wifi.NoNetworksVisible" xml:space="preserve">
+    <value>Pašlaik nav redzams neviens Wi-Fi tīkls.</value>
+  </data>
+  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
+    <value>Šajā sāknēšanas attēlā nav pieejams nodrošināts Wi-Fi profils.</value>
+  </data>
+  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
+    <value>Wi-Fi atbalsts nav pieejams šajā sāknēšanas vidē.</value>
+  </data>
+  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
+    <value>Pašlaik nav atrasts neviens Wi-Fi adapteris.</value>
+  </data>
+  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
+    <value>Nav pieejams Wi-Fi adapteris.</value>
+  </data>
+  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
+    <value>Uzņēmuma profils</value>
+  </data>
+  <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
+    <value>Nosaukts nodrošinātais profils</value>
+  </data>
+  <data name="Wifi.BootImageSettings" xml:space="preserve">
+    <value>Sāknēšanas attēla iestatījumi</value>
+  </data>
+  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
+    <value>{0} · Sertifikāts ir iekļauts sāknēšanas attēlā</value>
+  </data>
+  <data name="Wifi.ConfiguredProfile" xml:space="preserve">
+    <value>Konfigurēta drošība</value>
+  </data>
+  <data name="Wifi.StatusUnavailable" xml:space="preserve">
+    <value>Wi-Fi nav pieejams</value>
+  </data>
+  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
+    <value>Nav pieejams Wi-Fi adapteris</value>
+  </data>
+  <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
+    <value>Cits Wi-Fi tīkls ir aktīvs</value>
+  </data>
+  <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
+    <value>Gatavs savienojumam</value>
+  </data>
+  <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
+    <value>Nodrošināts Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ConnectionChipFormat" xml:space="preserve">
+    <value>Wi-Fi · {0}</value>
+  </data>
+  <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
+    <value>Šis Wi-Fi tīkls šajā būvniecībā netiek atbalstīts.</value>
+  </data>
+  <data name="Wifi.ActionConnectFailed" xml:space="preserve">
+    <value>Nevar izveidot savienojumu. Pārbaudiet paroli vai tīkla iestatījumus un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
+    <value>Nodrošinātais Wi-Fi profils nav pieejams.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
+    <value>Nevar izveidot savienojumu ar nodrošināto Wi-Fi profilu. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
+    <value>Nevar atvienot nodrošināto Wi-Fi profilu. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
+    <value>Nevar atvienot. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
+    <value>Nevar lietot nodrošinātos tīkla iestatījumus.</value>
+  </data>
+  <data name="Wifi.ActionTryAgain" xml:space="preserve">
+    <value>Nevar pabeigt Wi-Fi darbību. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Wifi.HiddenNetwork" xml:space="preserve">
+    <value>Slēpts tīkls</value>
+  </data>
+  <data name="Wifi.SecurityOpen" xml:space="preserve">
+    <value>Atvērt</value>
+  </data>
+  <data name="Wifi.SecurityWep" xml:space="preserve">
+    <value>WEP</value>
+  </data>
+  <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
+    <value>WPA Personiski</value>
+  </data>
+  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
+    <value>WPA Nav</value>
+  </data>
+  <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
+    <value>WPA Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
+    <value>Konkrēts pārdevējam</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
+    <value>WPA2/WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
+    <value>WPA2 Personal</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
+    <value>WPA3 Personal</value>
+  </data>
+  <data name="Wifi.SecurityPersonal" xml:space="preserve">
+    <value>Personīgi</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
+    <value>WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
+    <value>WPA3 Enterprise 192 bitu</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
+    <value>WPA2/WPA3 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityWpa2Enterprise" xml:space="preserve">
+    <value>WPA2 Enterprise</value>
+  </data>
+  <data name="Wifi.SecurityEnterprise" xml:space="preserve">
+    <value>Uzņēmums</value>
+  </data>
+  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
+    <value>{0} (mašīna)</value>
+  </data>
+  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
+    <value>{0} (iekārta vai lietotājs)</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arābu (Saūda Arābija)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulgāru (Bulgārija)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>čehu (čehu)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dāņu (Dānija)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>vācu (Vācija)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>grieķu valoda (Grieķija)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angļu (Apvienotā Karaliste)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angļu (Amerikas Savienotās Valstis)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>spāņu (Spānija)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spāņu (Meksika)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>igauņu (Igaunija)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>somu (Somija)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>franču (Kanāda)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>franču (Francija)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>ebreju (Izraēla)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>horvātu (Horvātija)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>ungāru (Ungārija)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>itāļu (Itālija)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japāņu (Japāna)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korejiešu (koreja)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>lietuviešu (Lietuva)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>latviešu (Latvija)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norwegian Bokmal (Norway)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holandiešu (Nīderlande)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poļu (Polija)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugāļu (Brazīlija)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugāļu (Portugāle)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumāņu (Rumānija)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>krievu valoda (Krievija)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovāku (Slovākija)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovēņu (Slovēnija)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>serbu latīņu (Serbija)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>zviedru (Zviedrija)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>taju (Taizeme)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turku (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukraiņu (Ukraina)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Vienkāršotā ķīniešu valoda (Ķīna)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Ķīniešu tradicionālā (Taivāna)</value>
+  </data>
+</root>

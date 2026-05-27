@@ -1,0 +1,2007 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutDialog.AboutSection" xml:space="preserve">
+    <value>เกี่ยวกับ</value>
+  </data>
+  <data name="AboutDialog.AuthorsText" xml:space="preserve">
+    <value>สร้างและดูแลโดย Mickaël CHAVE</value>
+  </data>
+  <data name="AboutDialog.ContributorsSection" xml:space="preserve">
+    <value>ผู้ร่วมให้ข้อมูล</value>
+  </data>
+  <data name="AboutDialog.ContributorsError" xml:space="preserve">
+    <value>ไม่สามารถโหลดผู้ร่วมให้ข้อมูลจาก GitHub</value>
+  </data>
+  <data name="AboutDialog.ContributorsLoading" xml:space="preserve">
+    <value>กำลังโหลดผู้ร่วมให้ข้อมูล...</value>
+  </data>
+  <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
+    <value>บริจาค: {0}</value>
+  </data>
+  <data name="AboutDialog.Description" xml:space="preserve">
+    <value>Foundry OSD เป็นแอปที่ทันสมัยสำหรับการเขียน Windows สื่อการปรับใช้ที่ขับเคลื่อนโดย WinPE</value>
+  </data>
+  <data name="AboutDialog.Footer" xml:space="preserve">
+    <value>ลิขสิทธิ์ (c) 2026 Foundry Project</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
+    <value>ซอร์สโค้ด Foundry ได้รับการเผยแพร่ภายใต้ใบอนุญาต MIT</value>
+  </data>
+  <data name="AboutDialog.FoundryLicenseTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.LicenseLink" xml:space="preserve">
+    <value>ใบอนุญาต</value>
+  </data>
+  <data name="AboutDialog.LicensesSection" xml:space="preserve">
+    <value>ใบอนุญาต</value>
+  </data>
+  <data name="AboutDialog.OpenLink" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="AboutDialog.OpenProfile" xml:space="preserve">
+    <value>โปรไฟล์</value>
+  </data>
+  <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
+    <value>เปิดบันทึกประจำรุ่นในเบราว์เซอร์</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
+    <value>ไม่สามารถโหลดบันทึกประจำรุ่นในเบราว์เซอร์แบบฝังได้</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesLoading" xml:space="preserve">
+    <value>กำลังโหลดบันทึกประจำรุ่น...</value>
+  </data>
+  <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
+    <value>บันทึกประจำรุ่น</value>
+  </data>
+  <data name="AboutDialog.RepositoryLink" xml:space="preserve">
+    <value>พื้นที่เก็บข้อมูล</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
+    <value>Foundry OSD รวมถึงเครื่องมือ 7-Zip Extra สำหรับการสนับสนุนการสร้างสื่อ</value>
+  </data>
+  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
+    <value>7-Zip พิเศษ</value>
+  </data>
+  <data name="AboutDialog.Subtitle" xml:space="preserve">
+    <value>Windows การเขียนสื่อการปรับใช้งาน</value>
+  </data>
+  <data name="AboutDialog.SupportLink" xml:space="preserve">
+    <value>สนับสนุน</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
+    <value>สิทธิ์การใช้งานแพ็คเกจของบุคคลที่สามจะถูกติดตามผ่านพื้นที่เก็บข้อมูลโปรเจ็กต์และรายการการขึ้นต่อกัน</value>
+  </data>
+  <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
+    <value>การพึ่งพาบุคคลที่สาม</value>
+  </data>
+  <data name="AboutDialog.Title" xml:space="preserve">
+    <value>เกี่ยวกับ Foundry OSD</value>
+  </data>
+  <data name="AboutDialog.UsefulLinks" xml:space="preserve">
+    <value>ลิงค์ที่เป็นประโยชน์</value>
+  </data>
+  <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
+    <value>ตรวจสอบการอัปเดต</value>
+  </data>
+  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
+    <value>อัปเดตและรีสตาร์ท</value>
+  </data>
+  <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
+    <value>บันทึกประจำรุ่น</value>
+  </data>
+  <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
+    <value>อัปเดตแหล่งที่มา</value>
+  </data>
+  <data name="AppUpdate.ReleaseLaneFormat" xml:space="preserve">
+    <value>ช่องทางการเผยแพร่: {0}</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Stable" xml:space="preserve">
+    <value>การเผยแพร่ที่เสถียร</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Beta" xml:space="preserve">
+    <value>รุ่นเบต้า</value>
+  </data>
+  <data name="AppUpdate.ReleaseLane.Preview" xml:space="preserve">
+    <value>ดูตัวอย่างการเผยแพร่</value>
+  </data>
+  <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
+    <value>ฟีดอัพเดตเว็บ</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>ปิดการใช้งาน</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>เปิดใช้งานแล้ว</value>
+  </data>
+  <data name="Common.Browse" xml:space="preserve">
+    <value>เรียกดู</value>
+  </data>
+  <data name="Common.Refresh" xml:space="preserve">
+    <value>รีเฟรช</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
+    <value>เปิดใช้งานการวินิจฉัยนักพัฒนาซอฟต์แวร์และเปิดโฟลเดอร์บันทึก Foundry</value>
+  </data>
+  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
+    <value>การวินิจฉัย</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
+    <value>เปลี่ยนภาษาของแอปพลิเคชันโดยไม่ต้องรีสตาร์ท Foundry OSD</value>
+  </data>
+  <data name="GeneralSetting_LanguageCard.Header" xml:space="preserve">
+    <value>ภาษา</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Description" xml:space="preserve">
+    <value>เปิด Foundry OSD โดยอัตโนมัติเมื่อคุณเข้าสู่ระบบ Windows</value>
+  </data>
+  <data name="GeneralSetting_StartupCard.Header" xml:space="preserve">
+    <value>ทำงานเมื่อเริ่มต้น</value>
+  </data>
+  <data name="Language.English" xml:space="preserve">
+    <value>อังกฤษ</value>
+  </data>
+  <data name="Language.French" xml:space="preserve">
+    <value>ฝรั่งเศส</value>
+  </data>
+  <data name="AutopilotPage_Title.Text" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Header" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>เลือกวิธีการจัดเตรียม Autopilot สำหรับสื่อการปรับใช้: JSON การจัดเตรียมโปรไฟล์ หรือ WinPE การอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.EnableLabel" xml:space="preserve">
+    <value>เปิดใช้งาน Autopilot</value>
+  </data>
+  <data name="Autopilot.ImportButton" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์</value>
+  </data>
+  <data name="Autopilot.DownloadButton" xml:space="preserve">
+    <value>ดาวน์โหลดจากผู้เช่า</value>
+  </data>
+  <data name="Autopilot.RemoveButton" xml:space="preserve">
+    <value>ลบที่เลือกไว้</value>
+  </data>
+  <data name="Autopilot.ActionsHeader" xml:space="preserve">
+    <value>การกระทำของโปรไฟล์</value>
+  </data>
+  <data name="Autopilot.ActionsDescription" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์ JSON ในเครื่องหรือดาวน์โหลดจาก Intune</value>
+  </data>
+  <data name="Autopilot.ImportingStatus" xml:space="preserve">
+    <value>กำลังนำเข้าโปรไฟล์ Autopilot...</value>
+  </data>
+  <data name="Autopilot.DownloadingStatus" xml:space="preserve">
+    <value>กำลังดาวน์โหลดโปรไฟล์ Autopilot...</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationTitle" xml:space="preserve">
+    <value>ลบโปรไฟล์ Autopilot ออกไหม</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationMessageFormat" xml:space="preserve">
+    <value>ลบ "{0}" ออกจากโปรไฟล์ Autopilot ที่นำเข้าหรือไม่</value>
+  </data>
+  <data name="Autopilot.RemoveConfirmationPrimaryButton" xml:space="preserve">
+    <value>ลบโปรไฟล์</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationTitle" xml:space="preserve">
+    <value>ลบโปรไฟล์ Autopilot ออกไหม</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationMessageFormat" xml:space="preserve">
+    <value>ลบโปรไฟล์ {0} ที่เลือก Autopilot ออกหรือไม่</value>
+  </data>
+  <data name="Autopilot.RemoveProfilesConfirmationPrimaryButton" xml:space="preserve">
+    <value>ลบโปรไฟล์</value>
+  </data>
+  <data name="Autopilot.DefaultProfileLabel" xml:space="preserve">
+    <value>โปรไฟล์เริ่มต้น</value>
+  </data>
+  <data name="Autopilot.DefaultProfileDescription" xml:space="preserve">
+    <value>โปรไฟล์ถูกจัดฉากตามค่าเริ่มต้นในรูปภาพ Windows ที่ใช้</value>
+  </data>
+  <data name="Autopilot.ProfilesLabel" xml:space="preserve">
+    <value>โปรไฟล์ที่นำเข้า</value>
+  </data>
+  <data name="Autopilot.ProfilesDescription" xml:space="preserve">
+    <value>โปรไฟล์ Autopilot แบบออฟไลน์พร้อมใช้งานสำหรับการจัดเตรียมโปรไฟล์ JSON</value>
+  </data>
+  <data name="Autopilot.ProfilesEmptyLabel" xml:space="preserve">
+    <value>ไม่มีการนำเข้าโปรไฟล์ Autopilot</value>
+  </data>
+  <data name="Autopilot.ColumnName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="Autopilot.ColumnSource" xml:space="preserve">
+    <value>แหล่งที่มา</value>
+  </data>
+  <data name="Autopilot.ColumnImported" xml:space="preserve">
+    <value>นำเข้า</value>
+  </data>
+  <data name="Autopilot.ColumnFolder" xml:space="preserve">
+    <value>โฟลเดอร์</value>
+  </data>
+  <data name="Autopilot.ImportPickerTitle" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์ Autopilot JSON</value>
+  </data>
+  <data name="Autopilot.ImportFailedTitle" xml:space="preserve">
+    <value>Autopilot การนำเข้าล้มเหลว</value>
+  </data>
+  <data name="Autopilot.ImportFailedMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogTitle" xml:space="preserve">
+    <value>ลงชื่อเข้าใช้ Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.TenantDownloadDialogMessage" xml:space="preserve">
+    <value>ลงชื่อเข้าใช้เบราว์เซอร์ให้เสร็จสิ้นเพื่อดาวน์โหลดโปรไฟล์ Autopilot</value>
+  </data>
+  <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
+    <value>ไม่พบโปรไฟล์ Autopilot</value>
+  </data>
+  <data name="Autopilot.DownloadCompletedNoProfiles" xml:space="preserve">
+    <value>ไม่มีการส่งคืนโปรไฟล์ Autopilot โดยผู้เช่า</value>
+  </data>
+  <data name="Autopilot.DownloadFailedTitle" xml:space="preserve">
+    <value>Autopilot ดาวน์โหลดล้มเหลว</value>
+  </data>
+  <data name="Autopilot.DownloadFailedFormat" xml:space="preserve">
+    <value>Autopilot ดาวน์โหลดโปรไฟล์ล้มเหลว: {0}</value>
+  </data>
+  <data name="Autopilot.TenantPickerTitle" xml:space="preserve">
+    <value>เลือกโปรไฟล์ Autopilot</value>
+  </data>
+  <data name="Autopilot.TenantPickerDescription" xml:space="preserve">
+    <value>เลือกโปรไฟล์ผู้เช่าที่ควรนำเข้าไปที่ Foundry</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectAll" xml:space="preserve">
+    <value>เลือกทั้งหมด</value>
+  </data>
+  <data name="Autopilot.TenantPickerClear" xml:space="preserve">
+    <value>ชัดเจน</value>
+  </data>
+  <data name="Autopilot.TenantPickerImport" xml:space="preserve">
+    <value>นำเข้า</value>
+  </data>
+  <data name="Autopilot.TenantPickerCancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Autopilot.TenantPickerSelectedCountFormat" xml:space="preserve">
+    <value>โปรไฟล์ที่เลือก: {0} จาก {1}</value>
+  </data>
+  <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
+    <value>JSON การจัดสรรโปรไฟล์</value>
+  </data>
+  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
+    <value>กำหนดโปรไฟล์ Autopilot แบบออฟไลน์ในรูปภาพ Windows ที่ใช้</value>
+  </data>
+  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
+    <value>ใช้การจัดเตรียมโปรไฟล์ JSON</value>
+  </data>
+  <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
+    <value>การอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
+    <value>อัปโหลดแฮชฮาร์ดแวร์อุปกรณ์ไปที่ Intune จาก Foundry Deploy ใน WinPE</value>
+  </data>
+  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
+    <value>ใช้การอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
+    <value>เชื่อมต่อผู้เช่า</value>
+  </data>
+  <data name="Autopilot.HardwareHashDisconnectTenantButton" xml:space="preserve">
+    <value>ยกเลิกการเชื่อมต่อผู้เช่า</value>
+  </data>
+  <data name="Autopilot.HardwareHashConnectingTenantStatus" xml:space="preserve">
+    <value>กำลังเชื่อมต่อผู้เช่า...</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogTitle" xml:space="preserve">
+    <value>ลงชื่อเข้าใช้ Microsoft Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnectionDialogMessage" xml:space="preserve">
+    <value>ลงชื่อเข้าใช้เบราว์เซอร์ให้เสร็จสิ้นเพื่อกำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์ Autopilot</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusLabel" xml:space="preserve">
+    <value>การเชื่อมต่อผู้เช่า</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantStatusDescription" xml:space="preserve">
+    <value>เชื่อมต่อกับ Microsoft Graph สำหรับเซสชันแอปนี้เพื่อจัดการการตั้งค่าการอัปโหลดแฮช</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantNotConnected" xml:space="preserve">
+    <value>ไม่ได้เชื่อมต่อ</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantConnected" xml:space="preserve">
+    <value>เชื่อมต่อแล้ว</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessLabel" xml:space="preserve">
+    <value>ความพร้อมของผู้เช่า</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessDescription" xml:space="preserve">
+    <value>ข้อมูลผู้เช่า การลงทะเบียนแอป และข้อมูลความพร้อมสำหรับการอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessNameColumn" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantReadinessValueColumn" xml:space="preserve">
+    <value>ความคุ้มค่า</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsTenantId" xml:space="preserve">
+    <value>รหัสผู้เช่า</value>
+  </data>
+  <data name="Autopilot.HardwareHashTenantDetailsClientId" xml:space="preserve">
+    <value>รหัสลูกค้า</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationLabel" xml:space="preserve">
+    <value>การลงทะเบียนแอปที่มีการจัดการ</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>Foundry OSD Autopilot ไม่ได้กำหนดค่าการลงทะเบียน</value>
+  </data>
+  <data name="Autopilot.HardwareHashAppRegistrationFoundFormat" xml:space="preserve">
+    <value>{0} ได้รับการกำหนดค่าแล้ว</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusLabel" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusReady" xml:space="preserve">
+    <value>พร้อม</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingStatusNotReady" xml:space="preserve">
+    <value>ไม่พร้อม</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsLabel" xml:space="preserve">
+    <value>การดำเนินการของใบรับรอง</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateActionsDescription" xml:space="preserve">
+    <value>สร้างหรือลบข้อมูลรับรองใบรับรองการลงทะเบียนแอป</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesLabel" xml:space="preserve">
+    <value>ใบรับรองที่จัดเตรียมไว้</value>
+  </data>
+  <data name="Autopilot.HardwareHashProvisionedCertificatesDescription" xml:space="preserve">
+    <value>ใบรับรองการลงทะเบียนแอปที่เชื่อถือได้สำหรับการตรวจสอบ WinPE Graph</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatesNone" xml:space="preserve">
+    <value>ไม่มีการจัดเตรียมใบรับรอง</value>
+  </data>
+  <data name="Autopilot.HardwareHashCreateCertificateButton" xml:space="preserve">
+    <value>สร้างใบรับรอง</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateButton" xml:space="preserve">
+    <value>ลบใบรับรอง</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateSavePickerTitle" xml:space="preserve">
+    <value>บันทึก Autopilot ใบรับรอง PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificatePfxFileType" xml:space="preserve">
+    <value>ใบรับรอง PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedTitle" xml:space="preserve">
+    <value>ใบรับรองพร้อม</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
+    <value>บันทึกไฟล์ PFX และรหัสผ่านนี้ในตำแหน่งที่ปลอดภัย Foundry ไม่ได้จัดเก็บรหัสผ่านและไม่สามารถแสดงอีกครั้งได้หลังจากที่กล่องโต้ตอบนี้ปิดลง คุณจะต้องใช้ทั้งสองค่าเพื่อสร้างสื่อสำหรับบูตสำหรับการอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPathLabel" xml:space="preserve">
+    <value>ไฟล์ PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordLabel" xml:space="preserve">
+    <value>รหัสผ่าน PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedCopyPasswordButton" xml:space="preserve">
+    <value>คัดลอกรหัสผ่าน</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
+    <value>คัดลอกรหัสผ่านแล้ว</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedTitle" xml:space="preserve">
+    <value>การสร้างใบรับรองล้มเหลว</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreateFailedMessageFormat" xml:space="preserve">
+    <value>Foundry ไม่สามารถสร้างใบรับรองการลงทะเบียนแอปได้ {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationTitle" xml:space="preserve">
+    <value>ลบใบรับรองที่เลือกใช่ไหม</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationMessage" xml:space="preserve">
+    <value>Foundry จะลบเฉพาะใบรับรองที่เลือกออกจากการลงทะเบียนแอปที่ได้รับการจัดการ ข้อมูลรับรองแอปอื่นๆ จะถูกเก็บรักษาไว้</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificatesConfirmationMessageFormat" xml:space="preserve">
+    <value>Foundry จะลบเฉพาะใบรับรอง {0} ที่เลือกออกจากการลงทะเบียนแอปที่ได้รับการจัดการ ข้อมูลรับรองแอปอื่นๆ จะถูกเก็บรักษาไว้</value>
+  </data>
+  <data name="Autopilot.HardwareHashRetireCertificateConfirmationPrimary" xml:space="preserve">
+    <value>ลบใบรับรอง</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedTitle" xml:space="preserve">
+    <value>การนำใบรับรองออกล้มเหลว</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateRetireFailedMessageFormat" xml:space="preserve">
+    <value>Foundry ไม่สามารถลบใบรับรองการลงทะเบียนแอปที่เลือกได้ {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateThumbprintColumn" xml:space="preserve">
+    <value>รอยนิ้วหัวแม่มือ</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateCreatedColumn" xml:space="preserve">
+    <value>สร้างแล้ว</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateExpiresColumn" xml:space="preserve">
+    <value>หมดอายุ</value>
+  </data>
+  <data name="Autopilot.HardwareHashCertificateIdColumn" xml:space="preserve">
+    <value>รหัสใบรับรอง</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateLabel" xml:space="preserve">
+    <value>ใบรับรองสื่อสำหรับบูต</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateDescription" xml:space="preserve">
+    <value>PFX ที่ป้องกันด้วยรหัสผ่านถูกคัดลอกไปยังสื่อสำหรับบูตสำหรับการอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPathLabel" xml:space="preserve">
+    <value>ไฟล์ PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordLabel" xml:space="preserve">
+    <value>รหัสผ่าน PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateSelectButton" xml:space="preserve">
+    <value>เลือก PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle" xml:space="preserve">
+    <value>เลือก Autopilot ใบรับรอง PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveMissing" xml:space="preserve">
+    <value>เลือก PFX ที่ตรงกับใบรับรองการลงทะเบียนแอป</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateActiveExpired" xml:space="preserve">
+    <value>ใบรับรองที่เลือกหมดอายุแล้ว สร้างหรือเลือกใบรับรองที่ถูกต้องก่อนที่จะสร้างสื่อสำหรับบูต</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePfxMissing" xml:space="preserve">
+    <value>เลือก PFX ที่ป้องกันด้วยรหัสผ่านที่ตรงกันก่อนที่จะสร้างสื่อสำหรับบูต</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateFileMissing" xml:space="preserve">
+    <value>ไฟล์ PFX ที่เลือกไม่มีอยู่อีกต่อไป</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePasswordMissing" xml:space="preserve">
+    <value>ป้อนรหัสผ่าน PFX</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>รหัสประจำตัวใบรับรอง PFX ไม่ตรงกับใบรับรองการลงทะเบียนแอปที่เลือก</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificatePrivateKeyMissing" xml:space="preserve">
+    <value>PFX ที่เลือกไม่มีเนื้อหาคีย์ส่วนตัว</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateInvalidPfx" xml:space="preserve">
+    <value>ไม่สามารถเปิด PFX ที่เลือกด้วยรหัสผ่านที่ให้มา</value>
+  </data>
+  <data name="Autopilot.HardwareHashBootMediaCertificateReady" xml:space="preserve">
+    <value>ใบรับรองพร้อมสำหรับการสร้างสื่อสำหรับบูต</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagLabel" xml:space="preserve">
+    <value>แท็กกลุ่มเริ่มต้น</value>
+  </data>
+  <data name="Autopilot.HardwareHashGroupTagDescription" xml:space="preserve">
+    <value>แท็กกลุ่มเสริมที่เลือกไว้ล่วงหน้าใน Foundry Deploy ระหว่างการอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
+    <value>ไม่ได้เลือกแท็กกลุ่มเริ่มต้น</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingRequiresAttentionTitle" xml:space="preserve">
+    <value>การเริ่มต้นใช้งานผู้เช่าต้องได้รับการดูแลเอาใจใส่</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedTitle" xml:space="preserve">
+    <value>การเริ่มต้นใช้งานผู้เช่าล้มเหลว</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingFailedMessageFormat" xml:space="preserve">
+    <value>Foundry ไม่สามารถกำหนดค่าการลงทะเบียนแอป Autopilot ได้ {0}</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAppRegistrationMissing" xml:space="preserve">
+    <value>ไม่พบการลงทะเบียนแอปที่มีการจัดการ เชื่อมต่อใหม่เพื่อให้ Foundry สร้างหรือนำไปใช้</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageAdoptionRequired" xml:space="preserve">
+    <value>พบการลงทะเบียนแอปที่มีอยู่ด้วยชื่อ Foundry เชื่อมต่อใหม่เพื่อนำมาใช้ในการกำหนดค่า Foundry</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessagePermissionMissing" xml:space="preserve">
+    <value>การลงทะเบียนแอปที่ได้รับการจัดการขาดสิทธิ์ของแอปพลิเคชัน Microsoft Graph ที่จำเป็น เชื่อมต่อกับบัญชีที่สามารถอัปเดตการลงทะเบียนแอปได้</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageConsentMissing" xml:space="preserve">
+    <value>บริการหลักที่ได้รับการจัดการไม่ได้รับความยินยอมจากผู้ดูแลระบบสำหรับสิทธิ์ Microsoft Graph ที่จำเป็น ให้ความยินยอมของผู้ดูแลระบบและเชื่อมต่อใหม่</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageServicePrincipalUnavailable" xml:space="preserve">
+    <value>บริการหลักที่มีการจัดการหายไปหรือปิดใช้งาน เชื่อมต่อกับบัญชีที่สามารถสร้างหรือจัดการแอปพลิเคชันระดับองค์กรได้อีกครั้ง</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateNotFound" xml:space="preserve">
+    <value>ใบรับรองที่เลือกไว้ก่อนหน้านี้ไม่มีอยู่ในการลงทะเบียนแอปที่มีการจัดการอีกต่อไป เลือก PFX ที่ถูกต้องซึ่งตรงกับใบรับรองที่จัดเตรียมไว้</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageActiveCertificateExpired" xml:space="preserve">
+    <value>ใบรับรองที่เลือกหมดอายุแล้ว สร้างใบรับรองใหม่ บันทึก PFX และรหัสผ่าน จากนั้นเลือกใบรับรองสำหรับสื่อสำหรับบูต</value>
+  </data>
+  <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
+    <value>การลงทะเบียนแอปที่มีการจัดการยังไม่พร้อม ตรวจสอบความพร้อมของผู้เช่าและเชื่อมต่อใหม่</value>
+  </data>
+  <data name="CustomizationPage_Title.Text" xml:space="preserve">
+    <value>การปรับแต่ง</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry ไม่สามารถเปิดเอกสารในเบราว์เซอร์ของคุณได้ ใช้ URL นี้แทน</value>
+  </data>
+  <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>ไม่สามารถเปิดเอกสารได้</value>
+  </data>
+  <data name="Customization.MachineNamingHeader" xml:space="preserve">
+    <value>ชื่อคอมพิวเตอร์</value>
+  </data>
+  <data name="Customization.MachineNamingDescription" xml:space="preserve">
+    <value>ควบคุมวิธีการสร้างชื่อคอมพิวเตอร์ที่ใช้งานใน WinPE</value>
+  </data>
+  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
+    <value>เปิดใช้งานกฎการตั้งชื่อเครื่อง</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
+    <value>คำนำหน้าชื่อคอมพิวเตอร์</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
+    <value>ใช้คำนำหน้าก่อนส่วนต่อท้ายการปรับใช้ที่สร้างขึ้นหรือแก้ไขได้</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
+    <value>สร้างส่วนต่อท้ายชื่อคอมพิวเตอร์อัตโนมัติ</value>
+  </data>
+  <data name="Customization.MachineNamingAutoGenerateDescription" xml:space="preserve">
+    <value>สร้างส่วนต่อท้ายโดยอัตโนมัติในระหว่างการปรับใช้</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixLabel" xml:space="preserve">
+    <value>อนุญาตให้แก้ไขส่วนต่อท้ายในระหว่างการปรับใช้</value>
+  </data>
+  <data name="Customization.MachineNamingAllowManualSuffixDescription" xml:space="preserve">
+    <value>อนุญาตให้ผู้ดำเนินการปรับใช้แก้ไขส่วนต่อท้ายหลังคำนำหน้า</value>
+  </data>
+  <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
+    <value>คำนำหน้าต้องใช้อักขระ 1 ถึง 15 ตัวตั้งแต่ A-Z, a-z, 0-9 หรือ -</value>
+  </data>
+  <data name="Customization.OobeHeader" xml:space="preserve">
+    <value>ประสบการณ์นอกกรอบ</value>
+  </data>
+  <data name="Customization.OobeDescription" xml:space="preserve">
+    <value>กำหนดค่า Windows 11 หน้าจอที่ใช้งานครั้งแรกและค่าเริ่มต้นความเป็นส่วนตัว</value>
+  </data>
+  <data name="Customization.OobeEnableLabel" xml:space="preserve">
+    <value>ปรับแต่ง OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
+    <value>ข้ามเงื่อนไขใบอนุญาต</value>
+  </data>
+  <data name="Customization.OobeSkipLicenseTermsDescription" xml:space="preserve">
+    <value>ข้ามหน้า Microsoft ข้อกำหนดสิทธิ์การใช้งานซอฟต์แวร์ในช่วง OOBE</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataLabel" xml:space="preserve">
+    <value>ข้อมูลการวินิจฉัย</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataDescription" xml:space="preserve">
+    <value>เลือกระดับข้อมูลการวินิจฉัย Windows ที่กำหนดค่าก่อนลงชื่อเข้าใช้ครั้งแรก Off ได้รับเกียรติจากรุ่น Windows ที่รองรับเท่านั้น รุ่นที่ไม่รองรับจะกลับไปเป็น Required</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataRequired" xml:space="preserve">
+    <value>จำเป็น</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOptional" xml:space="preserve">
+    <value>ไม่จำเป็น</value>
+  </data>
+  <data name="Customization.OobeDiagnosticDataOff" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupLabel" xml:space="preserve">
+    <value>ซ่อนการตั้งค่าความเป็นส่วนตัว</value>
+  </data>
+  <data name="Customization.OobeHidePrivacySetupDescription" xml:space="preserve">
+    <value>ป้องกันไม่ให้ Windows แสดงหน้าตัวเลือกความเป็นส่วนตัวในระหว่างการลงชื่อเข้าใช้ครั้งแรก</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesLabel" xml:space="preserve">
+    <value>ประสบการณ์ที่ปรับแต่ง</value>
+  </data>
+  <data name="Customization.OobeTailoredExperiencesDescription" xml:space="preserve">
+    <value>อนุญาตให้ Windows ใช้ข้อมูลการวินิจฉัยสำหรับเคล็ดลับ โฆษณา และคำแนะนำในแบบของคุณ</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdLabel" xml:space="preserve">
+    <value>รหัสโฆษณา</value>
+  </data>
+  <data name="Customization.OobeAdvertisingIdDescription" xml:space="preserve">
+    <value>อนุญาตให้แอปใช้รหัสโฆษณา Windows ในแอปต่างๆ</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionLabel" xml:space="preserve">
+    <value>การรู้จำเสียงพูดออนไลน์</value>
+  </data>
+  <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
+    <value>อนุญาต Microsoft บริการรู้จำคำพูดบนคลาวด์</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsLabel" xml:space="preserve">
+    <value>การวินิจฉัยการใช้หมึกและการพิมพ์</value>
+  </data>
+  <data name="Customization.OobeInkingAndTypingDiagnosticsDescription" xml:space="preserve">
+    <value>อนุญาตให้รวบรวมข้อมูลการวินิจฉัยการใช้หมึกและการพิมพ์เสริม</value>
+  </data>
+  <data name="Customization.OobeLocationAccessLabel" xml:space="preserve">
+    <value>การเข้าถึงตำแหน่ง</value>
+  </data>
+  <data name="Customization.OobeLocationAccessDescription" xml:space="preserve">
+    <value>ควบคุมว่า Windows และแอปสามารถใช้บริการระบุตำแหน่งได้หรือไม่</value>
+  </data>
+  <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
+    <value>ผู้ใช้ควบคุม</value>
+  </data>
+  <data name="Customization.OobeLocationForceOff" xml:space="preserve">
+    <value>บังคับปิด</value>
+  </data>
+  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
+    <value>การลบส่วนประกอบ AI</value>
+  </data>
+  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
+    <value>ลบหรือปิดใช้งานส่วนประกอบ AI ที่เลือก Windows ก่อน OOBE</value>
+  </data>
+  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
+    <value>ลบส่วนประกอบ AI</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
+    <value>ลบ Microsoft Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveCopilotDescription" xml:space="preserve">
+    <value>ลบแพ็คเกจแอป Copilot และปิดนโยบาย Windows Copilot</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubLabel" xml:space="preserve">
+    <value>ลบ Copilot+ AI Hub</value>
+  </data>
+  <data name="Customization.AiComponentRemoveAiHubDescription" xml:space="preserve">
+    <value>ลบแพ็คเกจแอป Windows AI Hub ที่จัดเตรียมไว้เมื่อมีอยู่</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
+    <value>ปิดการใช้งาน Windows Recall</value>
+  </data>
+  <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
+    <value>กำหนดนโยบาย Windows AI ที่ป้องกันการเปิดใช้งาน Recall และการบันทึกสแนปช็อต</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoLabel" xml:space="preserve">
+    <value>ปิดการใช้งาน Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableClickToDoDescription" xml:space="preserve">
+    <value>ตั้งค่านโยบาย Windows AI ที่ปิด Click to Do</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartLabel" xml:space="preserve">
+    <value>ป้องกัน Windows บริการ AI เริ่มอัตโนมัติ</value>
+  </data>
+  <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
+    <value>ตั้งค่า WSAIFabricSvc เป็นการเริ่มต้นด้วยตนเองแทนการเริ่มต้นอัตโนมัติ</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiLabel" xml:space="preserve">
+    <value>ปิดการใช้งานคุณสมบัติ Microsoft Edge AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableEdgeAiDescription" xml:space="preserve">
+    <value>ตั้งค่านโยบาย Edge ที่ปิดใช้งานคุณสมบัติ Copilot แถบด้านข้าง การเขียน และการค้นหา AI</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiLabel" xml:space="preserve">
+    <value>ปิดการใช้งานคุณสมบัติ Paint AI</value>
+  </data>
+  <data name="Customization.AiComponentDisablePaintAiDescription" xml:space="preserve">
+    <value>กำหนดนโยบาย Paint ที่ปิดการใช้งาน Cocreator, การแก้ไขแบบทั่วไป, ผู้สร้างรูปภาพ และการลบพื้นหลัง</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiLabel" xml:space="preserve">
+    <value>ปิดการใช้งานคุณสมบัติ Notepad AI</value>
+  </data>
+  <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
+    <value>กำหนดนโยบาย Notepad ที่ปิดใช้งานคุณสมบัติ AI</value>
+  </data>
+  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
+    <value>การลบแอปที่จัดเตรียมไว้</value>
+  </data>
+  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
+    <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
+  </data>
+  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
+    <value>ลบแอป Windows ที่จัดเตรียมไว้</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
+    <value>โปรไฟล์</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileDescription" xml:space="preserve">
+    <value>เลือกหมวดหมู่แค็ตตาล็อกตั้งแต่หนึ่งรายการขึ้นไปเพื่อเลือกแพ็คเกจล่วงหน้า</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileNone" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="Customization.AppxRemovalProfileCustom" xml:space="preserve">
+    <value>กำหนดเอง</value>
+  </data>
+  <data name="Customization.AppxRemovalProfilesSelectedFormat" xml:space="preserve">
+    <value>โปรไฟล์ที่เลือก: {0}</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectAll" xml:space="preserve">
+    <value>เลือกทั้งหมด</value>
+  </data>
+  <data name="Customization.AppxRemovalRemoveAll" xml:space="preserve">
+    <value>ลบทั้งหมด</value>
+  </data>
+  <data name="Customization.AppxRemovalPackagesLabel" xml:space="preserve">
+    <value>แพ็คเกจ</value>
+  </data>
+  <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
+    <value>แพ็กเกจที่เลือก: {0} ของ {1}</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Description" xml:space="preserve">
+    <value>ตัวเลือกการบูต</value>
+  </data>
+  <data name="Home.Action.ConfigureMedia.Title" xml:space="preserve">
+    <value>กำหนดค่าสื่อ</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Description" xml:space="preserve">
+    <value>ความพร้อมของ ADK</value>
+  </data>
+  <data name="Home.Action.OpenAdk.Title" xml:space="preserve">
+    <value>เปิด ADK</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Description" xml:space="preserve">
+    <value>เอกสารประกอบผลิตภัณฑ์</value>
+  </data>
+  <data name="Home.Action.OpenDocumentation.Title" xml:space="preserve">
+    <value>เปิดเอกสาร</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Description" xml:space="preserve">
+    <value>สรุปสื่อขั้นสุดท้าย</value>
+  </data>
+  <data name="Home.Action.ReviewAndStart.Title" xml:space="preserve">
+    <value>ทบทวนและเริ่มต้น</value>
+  </data>
+  <data name="Home.AdkStatus.InstalledVersionLabel" xml:space="preserve">
+    <value>เวอร์ชันที่ติดตั้ง</value>
+  </data>
+  <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
+    <value>Windows PE ส่วนเสริม</value>
+  </data>
+  <data name="Home.Header.Subtitle" xml:space="preserve">
+    <value>สร้างสื่อการปรับใช้ Windows ด้วยเวิร์กโฟลว์เดสก์ท็อปสมัยใหม่ที่ขับเคลื่อนโดย WinPE</value>
+  </data>
+  <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
+    <value>ขั้นตอนต่อไป</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
+    <value>เอาต์พุตสื่อ</value>
+  </data>
+  <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
+    <value>ทบทวนและเริ่มต้น</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
+    <value>ติดตั้ง Windows ADK และ Windows PE Add-on ก่อนที่จะเลือกภาษาสำหรับบูต WinPE</value>
+  </data>
+  <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
+    <value>ไม่พบชุดภาษา WinPE สำหรับสถาปัตยกรรมที่เลือก</value>
+  </data>
+  <data name="LocalizationPage_Title.Text" xml:space="preserve">
+    <value>รองรับหลายภาษา</value>
+  </data>
+  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
+    <value>ภาษาการปรับใช้ที่มองเห็นได้</value>
+  </data>
+  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
+    <value>ภาษาการปรับใช้เริ่มต้น</value>
+  </data>
+  <data name="Localization.TimeZone.Header" xml:space="preserve">
+    <value>เขตเวลาการปรับใช้</value>
+  </data>
+  <data name="Localization.AutomaticOption" xml:space="preserve">
+    <value>อัตโนมัติ</value>
+  </data>
+  <data name="NetworkPage_Title.Text" xml:space="preserve">
+    <value>เครือข่าย</value>
+  </data>
+  <data name="Dot1x.EnableLabel" xml:space="preserve">
+    <value>กำหนดค่า 802.1X แบบมีสาย</value>
+  </data>
+  <data name="Dot1x.CertificateLabel" xml:space="preserve">
+    <value>ไฟล์ใบรับรอง root CA ที่เชื่อถือได้</value>
+  </data>
+  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
+    <value>เลือกใบรับรอง 802.1X</value>
+  </data>
+  <data name="Wifi.EnableLabel" xml:space="preserve">
+    <value>จัดเตรียมการสนับสนุน Wi-Fi ในอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="Wifi.ConfigureLabel" xml:space="preserve">
+    <value>จัดเตรียมโปรไฟล์ Wi-Fi ล่วงหน้า</value>
+  </data>
+  <data name="Wifi.SsidLabel" xml:space="preserve">
+    <value>SSID</value>
+  </data>
+  <data name="Wifi.SecurityTypeLabel" xml:space="preserve">
+    <value>ประเภทการรักษาความปลอดภัย</value>
+  </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>ข้อความรหัสผ่าน</value>
+  </data>
+  <data name="Wifi.SecurityTypeOpen" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="Wifi.SecurityTypeOwe" xml:space="preserve">
+    <value>OWE (การเข้ารหัสไร้สายแบบฉวยโอกาส)</value>
+  </data>
+  <data name="Wifi.SecurityTypePersonal" xml:space="preserve">
+    <value>WPA2/WPA3 ส่วนบุคคล</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterprise" xml:space="preserve">
+    <value>องค์กร WPA2/WPA3</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3" xml:space="preserve">
+    <value>องค์กร WPA3 (WPA3ENT)</value>
+  </data>
+  <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
+    <value>WPA3 องค์กร 192 บิต (WPA3ENT192)</value>
+  </data>
+  <data name="Network.EthernetSectionTitle" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="Network.EthernetHelperText" xml:space="preserve">
+    <value>การเชื่อมต่อมาตรฐาน Ethernet พร้อมใช้งานตามค่าเริ่มต้น กำหนดค่าส่วนนี้เฉพาะในกรณีที่เครือข่ายแบบใช้สายของคุณต้องมีการรับรองความถูกต้องระดับองค์กร 802.1X</value>
+  </data>
+  <data name="Network.WifiSectionTitle" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Network.WifiHelperText" xml:space="preserve">
+    <value>เปิดใช้งานสิ่งนี้เฉพาะในกรณีที่อิมเมจสำหรับบูตควรมีการสนับสนุน Wi-Fi และโปรไฟล์ Wi-Fi สำหรับการเริ่มต้น WinPE</value>
+  </data>
+  <data name="Network.WifiPersonalHelperText" xml:space="preserve">
+    <value>ข้อความรหัสผ่านส่วนตัว Wi-Fi ยังคงเป็นแบบชั่วคราวในแอปการเขียน และไม่คงอยู่ในการกำหนดค่า Foundry</value>
+  </data>
+  <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
+    <value>ลักษณะการทำงานขององค์กรขับเคลื่อนโดยเทมเพลตโปรไฟล์ในรุ่นนี้ ข้อมูลประจำตัว 802.1X ที่ป้อนระหว่างการใช้งานไม่ได้ถูกจัดเตรียมไว้ที่นี่</value>
+  </data>
+  <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
+    <value>องค์กรขั้นสูง Wi-Fi</value>
+  </data>
+  <data name="Network.WifiEnterpriseTemplateLabel" xml:space="preserve">
+    <value>จัดเตรียมเทมเพลตโปรไฟล์องค์กร Wi-Fi</value>
+  </data>
+  <data name="Network.ProfileTemplateLabel" xml:space="preserve">
+    <value>ไฟล์เทมเพลตโปรไฟล์</value>
+  </data>
+  <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
+    <value>เลือกเทมเพลตโปรไฟล์เครือข่าย</value>
+  </data>
+  <data name="Network.RequiresCertificateLabel" xml:space="preserve">
+    <value>นำเข้าใบรับรอง CA หลักที่เชื่อถือได้</value>
+  </data>
+  <data name="Wifi.CertificateLabel" xml:space="preserve">
+    <value>ไฟล์ใบรับรอง root CA ที่เชื่อถือได้</value>
+  </data>
+  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
+    <value>เลือกใบรับรอง Wi-Fi</value>
+  </data>
+  <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
+    <value>การกำหนดค่า Wi-Fi จำเป็นต้องมีการสนับสนุน Wi-Fi ในอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
+    <value>Wired 802.1X ต้องใช้เทมเพลตโปรไฟล์แบบใช้สาย</value>
+  </data>
+  <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
+    <value>ไม่พบไฟล์เทมเพลตโปรไฟล์ 802.1X แบบใช้สาย</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
+    <value>Wired 802.1X ต้องใช้ไฟล์ใบรับรอง CA หลักที่เชื่อถือได้ เมื่อเปิดใช้งานความน่าเชื่อถือของใบรับรอง</value>
+  </data>
+  <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
+    <value>ไม่พบไฟล์ใบรับรอง root CA ที่เชื่อถือได้แบบใช้สาย 802.1X</value>
+  </data>
+  <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
+    <value>การกำหนดค่า Wi-Fi จำเป็นต้องมี SSID</value>
+  </data>
+  <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
+    <value>ไม่รองรับประเภทความปลอดภัย Wi-Fi '{0}'</value>
+  </data>
+  <data name="Network.ErrorWifiPersonalPassphraseInvalid" xml:space="preserve">
+    <value>ส่วนตัว Wi-Fi ต้องใช้รหัสผ่าน 8 ถึง 63 ตัวอักษร</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi จำเป็นต้องมีเทมเพลตโปรไฟล์</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
+    <value>ไม่พบไฟล์เทมเพลตโปรไฟล์ Enterprise Wi-Fi</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationUnsupported" xml:space="preserve">
+    <value>เทมเพลตโปรไฟล์ Enterprise Wi-Fi ต้องมีค่าการรับรองความถูกต้องขององค์กรที่รองรับ</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseAuthenticationMismatchFormat" xml:space="preserve">
+    <value>ประเภทความปลอดภัยองค์กร Wi-Fi ที่เลือกไม่ตรงกับการรับรองความถูกต้องเทมเพลตโปรไฟล์ ({0})</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
+    <value>Enterprise Wi-Fi ต้องการไฟล์ใบรับรอง CA รูทที่เชื่อถือได้ เมื่อเปิดใช้งานความน่าเชื่อถือของใบรับรอง</value>
+  </data>
+  <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
+    <value>ไม่พบไฟล์ใบรับรอง CA หลักที่เชื่อถือได้ขององค์กร Wi-Fi</value>
+  </data>
+  <data name="Shell.OperationRunning" xml:space="preserve">
+    <value>อยู่ระหว่างดำเนินการ</value>
+  </data>
+  <data name="Shell.OperationCompleted" xml:space="preserve">
+    <value>การดำเนินการเสร็จสมบูรณ์</value>
+  </data>
+  <data name="StartPage_Title.Text" xml:space="preserve">
+    <value>เริ่ม</value>
+  </data>
+  <data name="StartMedia.IsoPath.Header" xml:space="preserve">
+    <value>ISO เอาท์พุต</value>
+  </data>
+  <data name="StartMedia.IsoPath.Description" xml:space="preserve">
+    <value>เลือกตำแหน่งที่จะเขียน Foundry ISO ที่สร้างขึ้น</value>
+  </data>
+  <data name="StartMedia.Architecture.Header" xml:space="preserve">
+    <value>สถาปัตยกรรมและลายเซ็น</value>
+  </data>
+  <data name="StartMedia.Architecture.Description" xml:space="preserve">
+    <value>เลือกสถาปัตยกรรมการบูตและโหมดลายเซ็นการบูต</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.Signature.Ca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Header" xml:space="preserve">
+    <value>WinPE ภาษาสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.WinPeLanguage.Description" xml:space="preserve">
+    <value>ภาษาที่ใช้โดยสภาพแวดล้อมการบูต WinPE</value>
+  </data>
+  <data name="StartMedia.UsbTarget.Header" xml:space="preserve">
+    <value>USB เป้าหมาย</value>
+  </data>
+  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
+    <value>USB เค้าโครง</value>
+  </data>
+  <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
+    <value>รูปแบบพาร์ติชันที่ใช้ในการเตรียมเป้าหมาย USB ที่เลือก</value>
+  </data>
+  <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
+    <value>รูปแบบพฤติกรรมที่ใช้ก่อนที่จะคัดลอกสื่อ USB สุดท้าย</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
+    <value>ตัวเลือกไดรเวอร์</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
+    <value>เลือกไดรเวอร์ของผู้จำหน่ายเพิ่มเติมและโฟลเดอร์ไดรเวอร์ที่กำหนดเอง</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
+    <value>โฟลเดอร์ไดรเวอร์แบบกำหนดเอง</value>
+  </data>
+  <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
+    <value>โฟลเดอร์เสริมที่มีไดรเวอร์ .inf เพิ่มเติม</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
+    <value>สร้างสื่อ</value>
+  </data>
+  <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
+    <value>สร้างสื่อ ISO หรือ USB หลังจากผ่านการตรวจสอบความพร้อมทั้งหมดแล้ว</value>
+  </data>
+  <data name="StartMedia.CreateIsoButton" xml:space="preserve">
+    <value>สร้าง ISO</value>
+  </data>
+  <data name="StartMedia.CreateUsbButton" xml:space="preserve">
+    <value>สร้าง USB</value>
+  </data>
+  <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
+    <value>รูปแบบด่วน</value>
+  </data>
+  <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
+    <value>รูปแบบเต็ม</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Deferred" xml:space="preserve">
+    <value>ไม่ได้เปิดใช้งานการสร้างสื่อในรุ่นนี้</value>
+  </data>
+  <data name="StartMedia.FinalExecution.Ready" xml:space="preserve">
+    <value>การสร้างสื่อจะพร้อมใช้งานเมื่อผ่านการตรวจสอบความพร้อมทั้งหมด</value>
+  </data>
+  <data name="StartMedia.CreateIso.BlockedTitle" xml:space="preserve">
+    <value>การสร้าง ISO ถูกบล็อก</value>
+  </data>
+  <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
+    <value>การสร้าง USB ถูกบล็อก</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmTitle" xml:space="preserve">
+    <value>รูปแบบเป้าหมาย USB</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmMessage" xml:space="preserve">
+    <value>การดำเนินการนี้จะลบดิสก์ {0}: {1} ({2}) ดำเนินการต่อหากนี่คือไดรฟ์ USB ที่ต้องการ</value>
+  </data>
+  <data name="StartMedia.CreateUsb.ConfirmPrimary" xml:space="preserve">
+    <value>จัดรูปแบบและสร้าง USB</value>
+  </data>
+  <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
+    <value>กำลังสร้างพื้นที่ทำงาน WinPE</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
+    <value>กำลังเตรียมพื้นที่ทำงาน WinPE</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
+    <value>กำลังแก้ไขแพ็คเกจไดรเวอร์</value>
+  </data>
+  <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
+    <value>การปรับแต่งอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
+    <value>การประเมินนโยบายลายเซ็นการบูต</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingBootImageCustomization" xml:space="preserve">
+    <value>กำลังเตรียมการปรับแต่งอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
+    <value>การติดตั้งอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Operation.InjectingDrivers" xml:space="preserve">
+    <value>การฉีดไดรเวอร์เข้าไปในอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
+    <value>การใช้ภาษาและส่วนประกอบเสริม</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningBootAssets" xml:space="preserve">
+    <value>การจัดเตรียมทรัพย์สินสำหรับบูต Foundry</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
+    <value>การเพิ่ม Foundry องค์ประกอบการปรับใช้</value>
+  </data>
+  <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
+    <value>กำลังดำเนินการเปลี่ยนแปลงอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Operation.ImageCustomizationCompleted" xml:space="preserve">
+    <value>การปรับแต่งอิมเมจสำหรับบูตเสร็จสมบูรณ์</value>
+  </data>
+  <data name="StartMedia.Operation.CleaningWorkspace" xml:space="preserve">
+    <value>ทำความสะอาดพื้นที่ทำงาน WinPE</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingIso" xml:space="preserve">
+    <value>การสร้างสื่อ ISO</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
+    <value>การสร้างสื่อ USB</value>
+  </data>
+  <data name="StartMedia.Operation.Completed" xml:space="preserve">
+    <value>การสร้างสื่อขั้นสุดท้ายเสร็จสมบูรณ์</value>
+  </data>
+  <data name="StartMedia.Operation.Failed" xml:space="preserve">
+    <value>การสร้างสื่อขั้นสุดท้ายล้มเหลว</value>
+  </data>
+  <data name="StartMedia.Operation.Downloading" xml:space="preserve">
+    <value>กำลังดาวน์โหลดเนื้อหา</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
+    <value>การแก้ไขแค็ตตาล็อกแหล่งที่มา WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
+    <value>แพ็คเกจต้นทาง WinRE ที่เลือก</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
+    <value>กำลังเตรียมแพ็คเกจซอร์ส WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
+    <value>กำลังตรวจสอบแพ็คเกจแหล่งที่มา WinRE ที่แคชไว้</value>
+  </data>
+  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
+    <value>การใช้แพ็คเกจต้นทาง WinRE ที่แคชไว้</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
+    <value>กำลังดาวน์โหลดแพ็คเกจต้นทาง WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingDriverPackage" xml:space="preserve">
+    <value>กำลังดาวน์โหลดแพ็คเกจไดรเวอร์</value>
+  </data>
+  <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
+    <value>กำลังดาวน์โหลดส่วนประกอบการปรับใช้ {0}</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
+    <value>กำลังตรวจสอบแพ็คเกจต้นทาง WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
+    <value>การแก้ไขดัชนีรูปภาพ WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
+    <value>กำลังส่งออกอิมเมจ Windows เพื่อการแยก WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
+    <value>การติดตั้งอิมเมจต้นฉบับ WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
+    <value>การจัดเตรียมการพึ่งพา WinRE Wi-Fi</value>
+  </data>
+  <data name="StartMedia.Operation.ReplacingBootImageWithWinRe" xml:space="preserve">
+    <value>การแทนที่อิมเมจสำหรับบูตด้วย WinRE</value>
+  </data>
+  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
+    <value>อิมเมจสำหรับบูต WinRE Wi-Fi พร้อมแล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoOutput" xml:space="preserve">
+    <value>กำลังเตรียมเส้นทางเอาต์พุต ISO</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingIsoWorkspace" xml:space="preserve">
+    <value>กำลังเตรียมพื้นที่ทำงาน ISO</value>
+  </data>
+  <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
+    <value>กำลังเรียกใช้ MakeWinPEMedia สำหรับ ISO</value>
+  </data>
+  <data name="StartMedia.Operation.FinalizingIsoOutput" xml:space="preserve">
+    <value>กำลังสรุปเอาต์พุต ISO</value>
+  </data>
+  <data name="StartMedia.Operation.IsoMediaCompleted" xml:space="preserve">
+    <value>ISO สื่อเสร็จเรียบร้อย</value>
+  </data>
+  <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
+    <value>กำลังตรวจสอบเป้าหมาย USB</value>
+  </data>
+  <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
+    <value>กำลังตรวจสอบความปลอดภัยของเป้าหมาย USB</value>
+  </data>
+  <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
+    <value>การแบ่งพาร์ติชันและการจัดรูปแบบเป้าหมาย USB</value>
+  </data>
+  <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
+    <value>กำลังเปิดดิสก์ USB</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
+    <value>กำลังเตรียมแอตทริบิวต์ดิสก์ USB</value>
+  </data>
+  <data name="StartMedia.Operation.ClearingUsbPartitionTable" xml:space="preserve">
+    <value>กำลังล้างตารางพาร์ติชัน USB</value>
+  </data>
+  <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
+    <value>กำลังเตรียมใช้งานตารางพาร์ติชัน USB</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbBootPartition" xml:space="preserve">
+    <value>การสร้างพาร์ติชัน BOOT</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbBootPartition" xml:space="preserve">
+    <value>การจัดรูปแบบพาร์ติชัน BOOT</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
+    <value>การสร้างพาร์ติชันแคช</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
+    <value>การจัดรูปแบบพาร์ติชันแคช</value>
+  </data>
+  <data name="StartMedia.Operation.UsbPartitionsFormatted" xml:space="preserve">
+    <value>USB พาร์ติชันที่ฟอร์แมตแล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
+    <value>กำลังคัดลอกสื่อ WinPE ไปยัง USB</value>
+  </data>
+  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
+    <value>การกำหนดค่าไฟล์บูต USB</value>
+  </data>
+  <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
+    <value>กำลังตรวจสอบสื่อสำหรับบูต USB</value>
+  </data>
+  <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
+    <value>กำลังเตรียมพาร์ติชันแคช USB</value>
+  </data>
+  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
+    <value>การเพิ่มส่วนประกอบ Foundry ไปยังสื่อ USB</value>
+  </data>
+  <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
+    <value>USB สื่อเสร็จเรียบร้อย</value>
+  </data>
+  <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
+    <value>กำลังส่งออกรูปภาพ Windows ด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
+    <value>การแก้ไขดัชนีรูปภาพ WinRE ด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
+    <value>กำลังเมานท์รูปภาพด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.DismInjectingDrivers" xml:space="preserve">
+    <value>การแทรกไดรเวอร์ด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingLanguagePack" xml:space="preserve">
+    <value>การใช้ชุดภาษาด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingOptionalComponents" xml:space="preserve">
+    <value>การใช้ส่วนประกอบเสริมด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
+    <value>ใช้การตั้งค่าสากลด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.DismCommittingImageChanges" xml:space="preserve">
+    <value>กำลังดำเนินการเปลี่ยนแปลงรูปภาพด้วย DISM</value>
+  </data>
+  <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
+    <value>สร้างสื่อ ISO สำเร็จแล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
+    <value>USB สร้างสื่อสำเร็จแล้ว ปริมาณการบูต: {0} ปริมาณแคช: {1}</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
+    <value>เลือก ISO เส้นทางเอาต์พุต</value>
+  </data>
+  <data name="StartMedia.IsoPicker.Filter" xml:space="preserve">
+    <value>ISO รูปภาพ</value>
+  </data>
+  <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ไดรเวอร์ที่กำหนดเอง</value>
+  </data>
+  <data name="StartMedia.Usb.AdkBlocked" xml:space="preserve">
+    <value>USB เป้าหมายสามารถรีเฟรชได้หลังจากที่ความพร้อม ADK เสร็จสมบูรณ์</value>
+  </data>
+  <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
+    <value>USB การรีเฟรชเป้าหมายล้มเหลว</value>
+  </data>
+  <data name="StartMedia.Usb.Loading" xml:space="preserve">
+    <value>กำลังสแกนเป้าหมาย USB</value>
+  </data>
+  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
+    <value>USB เป้าหมายยังไม่ได้ถูกสแกน</value>
+  </data>
+  <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
+    <value>ไม่พบไดรฟ์ USB</value>
+  </data>
+  <data name="StartMedia.Usb.CandidatesFound" xml:space="preserve">
+    <value>พบไดรฟ์ USB: {0}</value>
+  </data>
+  <data name="StartMedia.Usb.DiskDisplay" xml:space="preserve">
+    <value>ดิสก์ {0} - {1} ({2})</value>
+  </data>
+  <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
+    <value>รายการที่ต้องให้ความสนใจ:</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIsoAndUsb" xml:space="preserve">
+    <value>พร้อมสร้างสื่อ ISO และ USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyIso" xml:space="preserve">
+    <value>พร้อมสร้างสื่อ ISO</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
+    <value>พร้อมสร้างสื่อ USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.NeedsAttention" xml:space="preserve">
+    <value>รายการความพร้อมที่ต้องดำเนินการ: {0}</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
+    <value>ตรวจสอบคำเตือนเอาต์พุตสื่อ</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
+    <value>ข้อกำหนดเบื้องต้น</value>
+  </data>
+  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
+    <value>การตรวจสอบที่ต้องถูกต้องก่อน Foundry จึงจะสามารถสร้างสื่อได้</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
+    <value>เอาต์พุตมีเดีย</value>
+  </data>
+  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
+    <value>ตัวเลือกเอาต์พุต ISO และ USB สุดท้าย</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
+    <value>Foundry การกำหนดค่า</value>
+  </data>
+  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
+    <value>การตั้งค่าการปรับใช้ที่ใช้โดย Foundry ใน WinPE</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
+    <value>พร้อม</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
+    <value>คำเตือน</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
+    <value>ถูกบล็อก</value>
+  </data>
+  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
+    <value>ไม่ได้กำหนดค่า</value>
+  </data>
+  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
+    <value>กำลังโหลด</value>
+  </data>
+  <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
+    <value>รีวิว</value>
+  </data>
+  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
+    <value>Windows ADK และ Windows PE ส่วนเสริมพร้อมแล้ว</value>
+  </data>
+  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
+    <value>ตัวเลือกไดรเวอร์ถูกต้อง</value>
+  </data>
+  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
+    <value>{0}; {1}</value>
+  </data>
+  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
+    <value>สามารถจัดเตรียมการกำหนดค่าเครือข่ายได้</value>
+  </data>
+  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
+    <value>สามารถสร้างการกำหนดค่าปรับใช้ได้</value>
+  </data>
+  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
+    <value>สามารถสร้างชุดการจัดสรรการเชื่อมต่อได้</value>
+  </data>
+  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
+    <value>มีความลับของสื่อที่จำเป็น</value>
+  </data>
+  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
+    <value>Autopilot ถูกปิดใช้งานและไม่ปิดกั้นการสร้างสื่อ</value>
+  </data>
+  <data name="StartMedia.Field.Adk" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="StartMedia.Field.WinPeLanguage" xml:space="preserve">
+    <value>WinPE ภาษาสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Field.BootImageSource" xml:space="preserve">
+    <value>แหล่งที่มาของอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Field.Architecture" xml:space="preserve">
+    <value>สถาปัตยกรรม</value>
+  </data>
+  <data name="StartMedia.Field.IsoPath" xml:space="preserve">
+    <value>ISO เส้นทางเอาต์พุต</value>
+  </data>
+  <data name="StartMedia.Field.UsbTarget" xml:space="preserve">
+    <value>USB เป้าหมาย</value>
+  </data>
+  <data name="StartMedia.Field.Signature" xml:space="preserve">
+    <value>โหมดลายเซ็น</value>
+  </data>
+  <data name="StartMedia.Field.PartitionStyle" xml:space="preserve">
+    <value>USB รูปแบบพาร์ติชัน</value>
+  </data>
+  <data name="StartMedia.Field.FormatMode" xml:space="preserve">
+    <value>USB โหมดรูปแบบ</value>
+  </data>
+  <data name="StartMedia.Field.Drivers" xml:space="preserve">
+    <value>ไดรเวอร์</value>
+  </data>
+  <data name="StartMedia.Field.Network" xml:space="preserve">
+    <value>การกำหนดค่าเครือข่าย</value>
+  </data>
+  <data name="StartMedia.Field.Deploy" xml:space="preserve">
+    <value>ปรับใช้การกำหนดค่า</value>
+  </data>
+  <data name="StartMedia.Field.Connect" xml:space="preserve">
+    <value>เชื่อมต่อการจัดเตรียม</value>
+  </data>
+  <data name="StartMedia.Field.Secrets" xml:space="preserve">
+    <value>ความลับของสื่อ</value>
+  </data>
+  <data name="StartMedia.Field.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.ProfileFormat" xml:space="preserve">
+    <value>เปิดใช้งาน: {0} ({1})</value>
+  </data>
+  <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>เปิดใช้งาน: อัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
+    <value>Autopilot ใช้โหมดการจัดสรรที่ไม่รองรับ</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
+    <value>Autopilot JSON โหมดโปรไฟล์ถูกเปิดใช้งานแต่ไม่ได้เลือกโปรไฟล์เริ่มต้นที่ถูกต้อง</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashSettingsMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่การตั้งค่าหายไป</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่การเชื่อมต่อของผู้เช่าขาดหายไป เชื่อมต่อกับผู้เช่าจาก Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ไม่ได้กำหนดค่าการลงทะเบียนแอป เชื่อมต่อกับผู้เช่าจาก Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashClientIdMissing" xml:space="preserve">
+    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ไม่มีรหัสไคลเอ็นต์ของแอป เชื่อมต่อกับผู้เช่าอีกครั้งจาก Autopilot</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashServicePrincipalMissing" xml:space="preserve">
+    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่บริการหลักของแอปหายไปหรือไม่พร้อม</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ PFX ที่เลือกไม่ตรงกับใบรับรองการลงทะเบียนแอป</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
+    <value>เปิดใช้การอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่รหัสประจำตัวใบรับรองที่เลือกหายไป</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่การหมดอายุของใบรับรองที่เลือกหายไป</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpired" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ใบรับรองที่เลือกหมดอายุแล้ว เลือกใบรับรองที่ถูกต้องก่อนที่จะสร้างสื่อสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ไม่ได้เลือก PFX สื่อสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ไม่มีรหัสผ่าน PFX ของสื่อสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ PFX สื่อสำหรับบูตยังไม่ได้รับการตรวจสอบ</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ PFX ที่เลือกไม่ตรงกับใบรับรองที่ใช้งานอยู่</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์แล้ว แต่ไม่สามารถตรวจสอบการหมดอายุ PFX ของสื่อสำหรับบูตได้</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
+    <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่ PFX สื่อสำหรับบูตที่เลือกหมดอายุแล้ว</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
+    <value>ADK หรือ WinPE ส่วนเสริมยังไม่พร้อม</value>
+  </data>
+  <data name="StartMedia.BlockingReason.InvalidIsoPath" xml:space="preserve">
+    <value>ISO เส้นทางเอาต์พุตจะต้องลงท้ายด้วย.iso</value>
+  </data>
+  <data name="StartMedia.BlockingReason.MissingWinPeLanguage" xml:space="preserve">
+    <value>WinPE ภาษาสำหรับบูตไม่ได้ถูกเลือก</value>
+  </data>
+  <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
+    <value>ภาษาสำหรับบูต WinPE ที่เลือกไม่พร้อมใช้งานสำหรับสถาปัตยกรรมที่เลือก</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
+    <value>การกำหนดค่าเครือข่ายไม่พร้อม</value>
+  </data>
+  <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
+    <value>การสร้างการกำหนดค่าใช้งานยังไม่พร้อม</value>
+  </data>
+  <data name="StartMedia.BlockingReason.ConnectProvisioningNotReady" xml:space="preserve">
+    <value>การจัดสรรการเชื่อมต่อไม่พร้อม</value>
+  </data>
+  <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
+    <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
+  </data>
+  <data name="StartMedia.BlockingReason.AutopilotConfigurationNotReady" xml:space="preserve">
+    <value>Autopilot ถูกเปิดใช้งานแต่ไม่ได้เลือกโปรไฟล์เริ่มต้นที่ถูกต้อง</value>
+  </data>
+  <data name="StartMedia.BlockingReason.NoUsbTarget" xml:space="preserve">
+    <value>ไม่ได้เลือกเป้าหมาย USB</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
+    <value>เป้าหมาย USB ที่เลือกมีขนาดเล็กเกินไป ใช้คีย์ USB ขนาดอย่างน้อย 16 GB</value>
+  </data>
+  <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
+    <value>สื่อ ARM64 ต้องการรูปแบบพาร์ติชัน GPT</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
+    <value>ไม่มีโฟลเดอร์ไดรเวอร์แบบกำหนดเอง</value>
+  </data>
+  <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
+    <value>โฟลเดอร์ไดรเวอร์แบบกำหนดเองไม่มีไฟล์ .inf</value>
+  </data>
+  <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
+    <value>ไม่ได้เปิดใช้งานการสร้างสื่อในรุ่นนี้</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2011" xml:space="preserve">
+    <value>PCA 2011</value>
+  </data>
+  <data name="StartMedia.SignatureMode.Pca2023" xml:space="preserve">
+    <value>PCA 2023</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
+    <value>มาตรฐาน WinPE</value>
+  </data>
+  <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
+    <value>รูปภาพ WinRE Wi-Fi</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="StartMedia.DriverVendor.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="StartMedia.ByteUnit.B" xml:space="preserve">
+    <value>บี</value>
+  </data>
+  <data name="StartMedia.ByteUnit.KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="StartMedia.ByteUnit.TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="UpdateFooter.Title" xml:space="preserve">
+    <value>อัปเดต</value>
+  </data>
+  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
+    <value>ใหม่</value>
+  </data>
+  <data name="Nav_AboutKey.Description" xml:space="preserve">
+    <value>ข้อมูลผลิตภัณฑ์และเวอร์ชัน</value>
+  </data>
+  <data name="Nav_AboutKey.Title" xml:space="preserve">
+    <value>เกี่ยวกับ</value>
+  </data>
+  <data name="Nav_AdkKey.Description" xml:space="preserve">
+    <value>ADK ความพร้อมและการติดตั้ง</value>
+  </data>
+  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Nav_AdkKey.Title" xml:space="preserve">
+    <value>ADK</value>
+  </data>
+  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
+    <value>Autopilot การกำหนดค่าโปรไฟล์</value>
+  </data>
+  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
+    <value>ตัวเลือกการปรับแต่งการปรับใช้</value>
+  </data>
+  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
+    <value>การปรับแต่ง</value>
+  </data>
+  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
+    <value>การปรับแต่ง</value>
+  </data>
+  <data name="Nav_DocumentationKey.Description" xml:space="preserve">
+    <value>Foundry เอกสารประกอบและลิงก์โครงการ</value>
+  </data>
+  <data name="Nav_DocumentationKey.Title" xml:space="preserve">
+    <value>เอกสารประกอบ</value>
+  </data>
+  <data name="Nav_ExpertSection.Title" xml:space="preserve">
+    <value>ผู้เชี่ยวชาญ</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
+    <value>ขั้นตอนการทำงานการกำหนดค่ามาตรฐาน</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
+    <value>การกำหนดค่ามาตรฐาน</value>
+  </data>
+  <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="Nav_GeneralSection.Title" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="Nav_HomeKey.Description" xml:space="preserve">
+    <value>Foundry OSD บ้าน</value>
+  </data>
+  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
+    <value>Foundry OSD</value>
+  </data>
+  <data name="Nav_HomeKey.Title" xml:space="preserve">
+    <value>บ้าน</value>
+  </data>
+  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
+    <value>WinPE การตั้งค่าภาษาและการแปล</value>
+  </data>
+  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
+    <value>รองรับหลายภาษา</value>
+  </data>
+  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
+    <value>รองรับหลายภาษา</value>
+  </data>
+  <data name="Nav_NetworkKey.Description" xml:space="preserve">
+    <value>การกำหนดค่าเครือข่ายและการเชื่อมต่อ</value>
+  </data>
+  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
+    <value>เครือข่าย</value>
+  </data>
+  <data name="Nav_NetworkKey.Title" xml:space="preserve">
+    <value>เครือข่าย</value>
+  </data>
+  <data name="Nav_StartKey.Description" xml:space="preserve">
+    <value>ตรวจสอบและเริ่มสร้างสื่อ</value>
+  </data>
+  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
+    <value>เริ่ม</value>
+  </data>
+  <data name="Nav_StartKey.Title" xml:space="preserve">
+    <value>เริ่ม</value>
+  </data>
+  <data name="SettingsPage.PageTitle" xml:space="preserve">
+    <value>การตั้งค่า</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
+    <value>จัดการการเริ่มต้น ภาษา การวินิจฉัย และพฤติกรรมของแอปพลิเคชัน</value>
+  </data>
+  <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
+    <value>ส่งการวัดและส่งข้อมูลทางไกลการใช้งานแบบไม่ระบุชื่อเพื่อช่วยปรับปรุง Foundry ไม่มีการส่งชื่อ ข้อมูลลับ SSID ที่อยู่ IP เส้นทางไฟล์ ตัวระบุดิสก์ ชื่อคอมพิวเตอร์ ชื่อโปรไฟล์ Autopilot หรือตัวระบุฮาร์ดแวร์</value>
+  </data>
+  <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
+    <value>เปิดใช้งานการวัดและส่งข้อมูลทางไกล</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
+    <value>เปลี่ยนการตั้งค่าธีม ฉากหลัง และสีเฉพาะจุด</value>
+  </data>
+  <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
+    <value>ลักษณะที่ปรากฏ</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
+    <value>ตรวจสอบการอัปเดต Foundry OSD และตรวจสอบบันทึกประจำรุ่น</value>
+  </data>
+  <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
+    <value>อัปเดตแอป</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
+    <value>เปิดการตั้งค่าสี Windows เพื่อเปลี่ยนสีเฉพาะจุด</value>
+  </data>
+  <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
+    <value>สีเน้น</value>
+  </data>
+  <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
+    <value>อะคริลิก</value>
+  </data>
+  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
+    <value>อะคริลิกบาง</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
+    <value>เลือกธีมแอปพลิเคชัน</value>
+  </data>
+  <data name="ThemeSetting_AppThemeCard.Header" xml:space="preserve">
+    <value>ธีมแอป</value>
+  </data>
+  <data name="ThemeSetting_DarkItem.Content" xml:space="preserve">
+    <value>มืด</value>
+  </data>
+  <data name="ThemeSetting_DefaultItem.Content" xml:space="preserve">
+    <value>ระบบ</value>
+  </data>
+  <data name="ThemeSetting_LightItem.Content" xml:space="preserve">
+    <value>เบา</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Description" xml:space="preserve">
+    <value>เลือกวัสดุฉากหลังที่ใช้เบื้องหลังแอป</value>
+  </data>
+  <data name="ThemeSetting_MaterialCard.Header" xml:space="preserve">
+    <value>วัสดุ</value>
+  </data>
+  <data name="ThemeSetting_MicaAltItem.Content" xml:space="preserve">
+    <value>มิก้า อัลท์</value>
+  </data>
+  <data name="ThemeSetting_MicaItem.Content" xml:space="preserve">
+    <value>ไมกา</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
+    <value>Foundry OSD จะดาวน์โหลดอัปเดตและรีสตาร์ทเพื่อใช้งาน</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
+    <value>อัปเดตและรีสตาร์ท</value>
+  </data>
+  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
+    <value>อัพเดท Foundry OSD</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
+    <value>กำลังดาวน์โหลดการอัพเดต Foundry OSD จะรีสตาร์ทเมื่อพร้อม</value>
+  </data>
+  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
+    <value>ดาวน์โหลดความคืบหน้า</value>
+  </data>
+  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
+    <value>กำลังดาวน์โหลดอัปเดต</value>
+  </data>
+  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
+    <value>เวอร์ชั่น {0}</value>
+  </data>
+  <data name="Update.NotChecked" xml:space="preserve">
+    <value>ไม่ได้ตรวจสอบ</value>
+  </data>
+  <data name="Update.Badge.New" xml:space="preserve">
+    <value>ใหม่</value>
+  </data>
+  <data name="Update.Field.AvailableVersion" xml:space="preserve">
+    <value>รุ่นที่มีจำหน่าย</value>
+  </data>
+  <data name="Update.Field.InstalledVersion" xml:space="preserve">
+    <value>เวอร์ชันที่ติดตั้ง</value>
+  </data>
+  <data name="Update.Field.LastUpdateCheck" xml:space="preserve">
+    <value>ตรวจสอบครั้งล่าสุด</value>
+  </data>
+  <data name="Update.Field.LatestVersion" xml:space="preserve">
+    <value>เวอร์ชันล่าสุด</value>
+  </data>
+  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
+    <value>โรงหล่อ-osd/โรงหล่อ</value>
+  </data>
+  <data name="Update.Status.Checking" xml:space="preserve">
+    <value>กำลังตรวจสอบการอัปเดต</value>
+  </data>
+  <data name="Update.Status.FailedFormat" xml:space="preserve">
+    <value>การตรวจสอบการอัปเดตล้มเหลว: {0}</value>
+  </data>
+  <data name="Update.Status.NoUpdate" xml:space="preserve">
+    <value>Foundry OSD อัปเดตแล้ว</value>
+  </data>
+  <data name="Update.StatusTitle.NoUpdate" xml:space="preserve">
+    <value>ถึงวันที่</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailable" xml:space="preserve">
+    <value>อัปเดตพร้อมใช้งาน</value>
+  </data>
+  <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
+    <value>Foundry OSD {0} ว่างแล้ว</value>
+  </data>
+  <data name="Update.Status.NotInstalled" xml:space="preserve">
+    <value>การตรวจสอบการอัปเดตถูกข้ามเนื่องจาก Foundry OSD ไม่ได้ทำงานจากการติดตั้ง Velopack</value>
+  </data>
+  <data name="Update.Status.Ready" xml:space="preserve">
+    <value>พร้อม</value>
+  </data>
+  <data name="Update.StatusTitle.Failed" xml:space="preserve">
+    <value>การตรวจสอบการอัปเดตล้มเหลว</value>
+  </data>
+  <data name="Update.StatusTitle.Skipped" xml:space="preserve">
+    <value>ข้ามการตรวจสอบการอัปเดต</value>
+  </data>
+  <data name="Update.Status.SkippedInDebug" xml:space="preserve">
+    <value>ข้ามการตรวจสอบการอัปเดตเนื่องจากมีการแนบตัวดีบักเกอร์</value>
+  </data>
+  <data name="Update.Status.UpdateAvailable" xml:space="preserve">
+    <value>มีการอัปเดต Foundry OSD แล้ว</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
+    <value>อัปเดตเมื่อคุณพร้อม Foundry OSD จะรีสตาร์ทเพื่อสิ้นสุดการใช้งาน</value>
+  </data>
+  <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
+    <value>Foundry OSD {0} ว่างแล้ว</value>
+  </data>
+  <data name="Adk.PageTitle" xml:space="preserve">
+    <value>Windows ADK</value>
+  </data>
+  <data name="Adk.Status.ReadyTitle" xml:space="preserve">
+    <value>ADK พร้อมแล้ว</value>
+  </data>
+  <data name="Adk.Status.ReadyDescription" xml:space="preserve">
+    <value>Foundry OSD สามารถสร้างสื่อ ISO และ USB ได้</value>
+  </data>
+  <data name="Adk.Status.MissingTitle" xml:space="preserve">
+    <value>ADK ไม่ได้ติดตั้ง</value>
+  </data>
+  <data name="Adk.Status.MissingDescription" xml:space="preserve">
+    <value>ติดตั้ง Windows ADK Deployment Tools และ Windows PE Add-on ก่อนกำหนดค่าการสร้างสื่อ</value>
+  </data>
+  <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
+    <value>ไม่รองรับเวอร์ชัน ADK</value>
+  </data>
+  <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
+    <value>อัปเกรด Windows ADK เป็นบิลด์ 10.1.26100 ที่รองรับ</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
+    <value>Windows PE ส่วนเสริมหายไป</value>
+  </data>
+  <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
+    <value>ติดตั้ง Windows PE Add-on สำหรับ Windows ADK ที่ติดตั้ง</value>
+  </data>
+  <data name="Adk.SetupAction.Title" xml:space="preserve">
+    <value>ADK ตั้งค่า</value>
+  </data>
+  <data name="Adk.SetupAction.Description" xml:space="preserve">
+    <value>ติดตั้งหรืออัปเกรด Windows ADK Deployment Tools และ Windows PE Add-on ที่จำเป็นสำหรับการสร้างสื่อ</value>
+  </data>
+  <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
+    <value>รายละเอียดความพร้อม</value>
+  </data>
+  <data name="Adk.Version.InstalledTitle" xml:space="preserve">
+    <value>เวอร์ชันที่ติดตั้ง</value>
+  </data>
+  <data name="Adk.Version.NotDetected" xml:space="preserve">
+    <value>ตรวจไม่พบเวอร์ชัน</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
+    <value>นโยบายเวอร์ชันที่ต้องการ</value>
+  </data>
+  <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
+    <value>ต้องใช้ Windows ADK 10.1.26100.2454+ พร้อมด้วย ADK แพตช์การบริการล่าสุด</value>
+  </data>
+  <data name="Adk.WinPeAddon.Title" xml:space="preserve">
+    <value>Windows PE ส่วนเสริม</value>
+  </data>
+  <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
+    <value>Windows PE ติดตั้งส่วนเสริมแล้ว</value>
+  </data>
+  <data name="Adk.WinPeAddon.Missing" xml:space="preserve">
+    <value>Windows PE ส่วนเสริมหายไป</value>
+  </data>
+  <data name="Adk.MediaCapability.Title" xml:space="preserve">
+    <value>ความสามารถในการสร้างสื่อ</value>
+  </data>
+  <data name="Adk.MediaCapability.Ready" xml:space="preserve">
+    <value>ISO และ USB สามารถสร้างได้</value>
+  </data>
+  <data name="Adk.MediaCapability.Blocked" xml:space="preserve">
+    <value>การสร้าง ISO และ USB ยังคงถูกบล็อก</value>
+  </data>
+  <data name="Adk.Operation.InstallStarted" xml:space="preserve">
+    <value>กำลังติดตั้ง Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
+    <value>กำลังอัพเกรด Windows ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloading" xml:space="preserve">
+    <value>กำลังดาวน์โหลดตัวติดตั้ง ADK</value>
+  </data>
+  <data name="Adk.Operation.Downloaded" xml:space="preserve">
+    <value>ADK ดาวน์โหลดตัวติดตั้งแล้ว</value>
+  </data>
+  <data name="Adk.Operation.DownloadCached" xml:space="preserve">
+    <value>การใช้ตัวติดตั้งแคช ADK</value>
+  </data>
+  <data name="Adk.Operation.UninstallingWinPe" xml:space="preserve">
+    <value>กำลังลบส่วนเสริม Windows PE ที่มีอยู่ออก</value>
+  </data>
+  <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
+    <value>การลบ Windows ADK ที่มีอยู่ออก</value>
+  </data>
+  <data name="Adk.Operation.InstallingAdk" xml:space="preserve">
+    <value>กำลังติดตั้ง Windows ADK เครื่องมือการปรับใช้</value>
+  </data>
+  <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
+    <value>กำลังติดตั้งส่วนเสริม Windows PE</value>
+  </data>
+  <data name="Adk.Operation.Verifying" xml:space="preserve">
+    <value>กำลังตรวจสอบการติดตั้ง ADK</value>
+  </data>
+  <data name="Adk.Operation.Completed" xml:space="preserve">
+    <value>ADK การดำเนินการเสร็จสิ้นแล้ว</value>
+  </data>
+  <data name="Adk.Operation.Failed" xml:space="preserve">
+    <value>การดำเนินการ ADK ล้มเหลว</value>
+  </data>
+  <data name="AdkPage_InstallButton.Content" xml:space="preserve">
+    <value>ติดตั้ง Windows ADK และ Windows PE ส่วนเสริม</value>
+  </data>
+  <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
+    <value>อัปเกรด Windows ADK และ Windows PE ส่วนเสริม</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>อาหรับ (ซาอุดีอาระเบีย)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>บัลแกเรีย (บัลแกเรีย)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>เช็ก (เช็กเกีย)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>เดนมาร์ก (เดนมาร์ก)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>เยอรมัน (เยอรมนี)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>กรีก (กรีซ)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>อังกฤษ (สหราชอาณาจักร)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>อังกฤษ (สหรัฐอเมริกา)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>สเปน (สเปน)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>สเปน (เม็กซิโก)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>เอสโตเนีย (เอสโตเนีย)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>ฟินแลนด์ (ฟินแลนด์)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>ฝรั่งเศส (แคนาดา)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>ฝรั่งเศส (ฝรั่งเศส)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>ฮีบรู (อิสราเอล)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>โครเอเชีย (โครเอเชีย)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>ฮังการี (ฮังการี)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>อิตาลี (อิตาลี)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>ญี่ปุ่น (ญี่ปุ่น)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>เกาหลี (เกาหลี)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>ลิทัวเนีย (ลิทัวเนีย)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>ลัตเวีย (ลัตเวีย)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>บ็อกมาลนอร์เวย์ (นอร์เวย์)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>ดัตช์ (เนเธอร์แลนด์)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>โปแลนด์ (โปแลนด์)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>โปรตุเกส (บราซิล)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>โปรตุเกส (โปรตุเกส)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>โรมาเนีย (โรมาเนีย)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>รัสเซีย (รัสเซีย)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>สโลวัก (สโลวาเกีย)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>สโลวีเนีย (สโลวีเนีย)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>ละตินเซอร์เบีย (เซอร์เบีย)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>สวีเดน (สวีเดน)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>ไทย (ประเทศไทย)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>ตุรกี (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ยูเครน (ยูเครน)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>จีนตัวย่อ (จีน)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>จีนดั้งเดิม (ไต้หวัน)</value>
+  </data>
+</root>
