@@ -159,7 +159,7 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Progress.StartTime" xml:space="preserve"><value>Ora de începere</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Timp scurs</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Implementarea sa finalizat cu succes.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Acest computer va reporni în curând. Numărătoare inversă: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Acest computer va reporni în {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reporniți</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementarea a eșuat</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Pas eșuat</value></data>

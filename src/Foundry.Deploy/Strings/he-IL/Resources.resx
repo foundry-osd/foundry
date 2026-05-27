@@ -159,7 +159,7 @@ ErrorCode=0x80070005
   <data name="Progress.StartTime" xml:space="preserve"><value>שעת התחלה</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>זמן שחלף</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>הפריסה הושלמה בהצלחה.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>המחשב הזה יאתחל בקרוב. ספירה לאחור: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>מחשב זה יופעל מחדש בעוד {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>אתחול מחדש</value></data>
   <data name="Error.Title" xml:space="preserve"><value>הפריסה נכשלה</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>שלב כושל</value></data>

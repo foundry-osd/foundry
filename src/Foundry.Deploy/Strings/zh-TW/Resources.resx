@@ -159,7 +159,7 @@
   <data name="Progress.StartTime" xml:space="preserve"><value>開始時間</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>經過時間</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>部署成功完成。</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>這台計算機很快就會重新啟動。倒數計時：{0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>這台電腦將在 {0}s 後重新啟動。</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>重新啟動</value></data>
   <data name="Error.Title" xml:space="preserve"><value>部署失敗</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>步驟失敗</value></data>

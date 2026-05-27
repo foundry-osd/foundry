@@ -159,7 +159,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Progress.StartTime" xml:space="preserve"><value>Sākuma laiks</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Pagājušais laiks</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Izvietošana veiksmīgi pabeigta.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Šis dators drīz tiks restartēts. Atpakaļskaitīšana: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Šis dators tiks restartēts pēc {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reboot</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Izvietošana neizdevās</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Neveiksmīgs solis</value></data>

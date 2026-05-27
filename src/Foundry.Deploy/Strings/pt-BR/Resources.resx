@@ -159,7 +159,7 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Progress.StartTime" xml:space="preserve"><value>Hora de início</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Tempo decorrido</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>A implantação foi concluída com sucesso.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Este computador será reiniciado em breve. Contagem regressiva: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Este computador será reiniciado em {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reiniciar</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Falha na implantação</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Etapa falhada</value></data>

@@ -159,7 +159,7 @@
   <data name="Progress.StartTime" xml:space="preserve"><value>เวลาเริ่มต้น</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>เวลาที่ผ่านไป</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>การปรับใช้เสร็จสมบูรณ์แล้ว</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>คอมพิวเตอร์เครื่องนี้จะรีบูตเร็วๆ นี้ นับถอยหลัง: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>คอมพิวเตอร์เครื่องนี้จะรีสตาร์ตใน {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>รีบูต</value></data>
   <data name="Error.Title" xml:space="preserve"><value>การทำให้ใช้งานได้ล้มเหลว</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>ขั้นตอนที่ล้มเหลว</value></data>

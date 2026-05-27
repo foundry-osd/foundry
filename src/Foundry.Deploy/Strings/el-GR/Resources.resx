@@ -159,7 +159,7 @@
   <data name="Progress.StartTime" xml:space="preserve"><value>Ώρα έναρξης</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Χρόνος που πέρασε</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Η ανάπτυξη ολοκληρώθηκε με επιτυχία.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Αυτός ο υπολογιστής θα επανεκκινήσει σύντομα. Αντίστροφη μέτρηση: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Αυτός ο υπολογιστής θα επανεκκινηθεί σε {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Επανεκκίνηση</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Η ανάπτυξη απέτυχε</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Αποτυχημένο βήμα</value></data>

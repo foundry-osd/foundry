@@ -159,7 +159,7 @@
   <data name="Progress.StartTime" xml:space="preserve"><value>開始時間</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>経過時間</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>デプロイは正常に完了しました。</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>このコンピュータは間もなく再起動します。カウントダウン: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>このコンピューターは{0}s後に再起動します。</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>再起動</value></data>
   <data name="Error.Title" xml:space="preserve"><value>導入に失敗しました</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>失敗したステップ</value></data>

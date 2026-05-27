@@ -159,7 +159,7 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Čas začiatku</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Uplynulý čas</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Nasadenie úspešne dokončené.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tento počítač sa čoskoro reštartuje. Odpočítavanie: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tento počítač sa reštartuje o {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reštartujte</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Nasadenie zlyhalo</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Nevydarený krok</value></data>

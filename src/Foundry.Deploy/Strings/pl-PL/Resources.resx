@@ -159,7 +159,7 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Czas rozpoczęcia</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Czas, który upłynął</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Wdrożenie zostało zakończone pomyślnie.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ten komputer wkrótce zostanie ponownie uruchomiony. Odliczanie: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ten komputer zostanie ponownie uruchomiony za {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Uruchom ponownie</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Wdrożenie nie powiodło się</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Nieudany krok</value></data>

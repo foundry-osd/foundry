@@ -159,7 +159,7 @@ ErrorCode=0x80070005
   <data name="Progress.StartTime" xml:space="preserve"><value>Час початку</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Час, що минув</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Розгортання успішно завершено.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Цей комп’ютер незабаром перезавантажиться. Зворотний відлік: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Цей комп’ютер перезавантажиться через {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Перезавантаження</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Помилка розгортання</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Невдалий крок</value></data>

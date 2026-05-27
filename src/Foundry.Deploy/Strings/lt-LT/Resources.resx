@@ -159,7 +159,7 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value><
   <data name="Progress.StartTime" xml:space="preserve"><value>Pradžios laikas</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Praėjęs laikas</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Diegimas sėkmingai baigtas.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Šis kompiuteris netrukus bus paleistas iš naujo. Atgalinis skaičiavimas: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Šis kompiuteris bus paleistas iš naujo po {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Perkraukite</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Diegimas nepavyko</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Nepavyko žingsnis</value></data>

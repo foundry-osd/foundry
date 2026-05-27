@@ -159,7 +159,7 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value><
   <data name="Progress.StartTime" xml:space="preserve"><value>Aloitusaika</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunut aika</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Käyttöönotto suoritettu onnistuneesti.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tämä tietokone käynnistyy pian uudelleen. Lähtölaskenta: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tämä tietokone käynnistyy uudelleen {0}s kuluttua.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Käynnistä uudelleen</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Käyttöönotto epäonnistui</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Epäonnistui vaihe</value></data>

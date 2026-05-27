@@ -159,7 +159,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="Progress.StartTime" xml:space="preserve"><value>Ora di inizio</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Tempo trascorso</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Distribuzione completata con successo.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Questo computer verrà riavviato a breve. Conto alla rovescia: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Questo computer verrà riavviato tra {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Riavviare</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Distribuzione non riuscita</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Passaggio non riuscito</value></data>

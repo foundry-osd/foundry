@@ -159,7 +159,7 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttid</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Forløpt tid</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Implementeringen er fullført.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Denne datamaskinen vil snart starte på nytt. Nedtelling: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Denne datamaskinen starter på nytt om {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Start på nytt</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen mislyktes</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Mislykket trinn</value></data>

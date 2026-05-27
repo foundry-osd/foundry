@@ -159,7 +159,7 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></da
   <data name="Progress.StartTime" xml:space="preserve"><value>Algusaeg</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunud aeg</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Juurutamine on edukalt lõpule viidud.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>See arvuti taaskäivitub varsti. Pöördloendus: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>See arvuti taaskäivitub {0}s pärast.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Taaskäivitage</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Juurutamine ebaõnnestus</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Ebaõnnestunud samm</value></data>

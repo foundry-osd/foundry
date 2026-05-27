@@ -159,7 +159,7 @@
   <data name="Progress.StartTime" xml:space="preserve"><value>Время начала</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Прошедшее время</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Развертывание завершено успешно.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Этот компьютер скоро перезагрузится. Обратный отсчет: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Этот компьютер перезагрузится через {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Перезагрузить</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Развертывание не удалось</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Неудачный шаг</value></data>

@@ -159,7 +159,7 @@
   <data name="Progress.StartTime" xml:space="preserve"><value>Начален час</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Изминало време</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Внедряването завърши успешно.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Този компютър скоро ще се рестартира. Обратно броене: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Този компютър ще се рестартира след {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Рестартирайте</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Внедряването не бе успешно</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Неуспешна стъпка</value></data>

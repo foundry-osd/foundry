@@ -159,7 +159,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Čas zahájení</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Uplynulý čas</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Nasazení bylo úspěšně dokončeno.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tento počítač se brzy restartuje. Odpočítávání: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tento počítač se restartuje za {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Restartujte</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Nasazení se nezdařilo</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Nepovedený krok</value></data>

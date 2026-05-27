@@ -159,7 +159,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Progress.StartTime" xml:space="preserve"><value>Kezdési idő</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Eltelt idő</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>A telepítés sikeresen befejeződött.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ez a számítógép hamarosan újraindul. Visszaszámlálás: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ez a számítógép {0}s múlva újraindul.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Indítsa újra</value></data>
   <data name="Error.Title" xml:space="preserve"><value>A telepítés nem sikerült</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Sikertelen lépés</value></data>

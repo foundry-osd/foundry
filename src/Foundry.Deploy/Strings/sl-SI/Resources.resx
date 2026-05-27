@@ -159,7 +159,7 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Začetni čas</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Pretečeni čas</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Namestitev je uspešno zaključena.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ta računalnik se bo kmalu znova zagnal. Odštevanje: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ta računalnik se bo znova zagnal čez {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Znova zaženite</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Razmestitev ni uspela</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Neuspešen korak</value></data>

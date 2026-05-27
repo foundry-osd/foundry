@@ -159,7 +159,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value></d
   <data name="Progress.StartTime" xml:space="preserve"><value>Vreme početka</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Proteklo vreme</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Primena je uspešno završena.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ovaj računar će se uskoro ponovo pokrenuti. Odbrojavanje: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ovaj računar će se ponovo pokrenuti za {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Ponovo pokreni</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Primena nije uspela</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Neuspeli korak</value></data>

@@ -159,7 +159,7 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttid</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Förfluten tid</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Implementeringen slutfördes.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Den här datorn kommer att starta om snart. Nedräkning: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Den här datorn startas om om {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Starta om</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen misslyckades</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Misslyckat steg</value></data>

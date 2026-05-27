@@ -159,7 +159,7 @@
   <data name="Progress.StartTime" xml:space="preserve"><value>시작 시간</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>경과 시간</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>배포가 성공적으로 완료되었습니다.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>이 컴퓨터는 곧 재부팅됩니다. 카운트다운: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>이 컴퓨터는 {0}s 후에 다시 시작됩니다.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>재부팅</value></data>
   <data name="Error.Title" xml:space="preserve"><value>배포 실패</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>실패한 단계</value></data>

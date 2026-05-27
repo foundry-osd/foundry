@@ -159,7 +159,7 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value></dat
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttidspunkt</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Forløbet tid</value></data>
   <data name="Success.Completed" xml:space="preserve"><value>Implementeringen blev gennemført.</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Denne computer genstarter snart. Nedtælling: {0}s</value></data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Denne computer genstarter om {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Genstart</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen mislykkedes</value></data>
   <data name="Error.FailedStep" xml:space="preserve"><value>Mislykket trin</value></data>
