@@ -107,6 +107,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("ResizeMode=\"NoResize\"", script);
         Assert.DoesNotContain("Title=\"Foundry Autopilot Registration\"", script);
         Assert.DoesNotContain("Text=\"Foundry Autopilot Registration\"", script);
+        Assert.DoesNotContain("Text=\"1. Authenticate\"", script);
+        Assert.DoesNotContain("Text=\"2. Group tag and upload\"", script);
         Assert.DoesNotContain("CloseButton", script);
         Assert.DoesNotContain("Content=\"Close\"", script);
         Assert.DoesNotContain("Read-Host", script);

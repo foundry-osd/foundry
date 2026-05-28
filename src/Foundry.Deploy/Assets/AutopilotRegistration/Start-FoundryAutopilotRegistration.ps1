@@ -364,8 +364,7 @@ function Start-FoundryAutopilotRegistrationUi {
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="1. Authenticate" FontWeight="SemiBold" />
-                    <TextBlock Text="Use the Microsoft device code prompt to sign in with an account allowed to import Windows Autopilot devices." TextWrapping="Wrap" Margin="0,6,0,12" />
+                    <TextBlock Text="Use the Microsoft device code prompt to sign in with an account allowed to import Windows Autopilot devices." TextWrapping="Wrap" Margin="0,0,0,12" />
                 </StackPanel>
                 <TextBox x:Name="DeviceCodeTextBox" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
@@ -381,8 +380,7 @@ function Start-FoundryAutopilotRegistrationUi {
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="2. Group tag and upload" FontWeight="SemiBold" />
-                    <TextBlock Text="Choose an existing group tag, enter a custom group tag, or leave the device without a group tag." TextWrapping="Wrap" Margin="0,6,0,12" />
+                    <TextBlock Text="Choose an existing group tag, enter a custom group tag, or leave the device without a group tag." TextWrapping="Wrap" Margin="0,0,0,12" />
                 </StackPanel>
                 <Grid Grid.Row="1" Margin="0,0,0,12">
                     <Grid.ColumnDefinitions>
