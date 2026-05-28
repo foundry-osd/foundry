@@ -178,6 +178,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial SelectionOption<WinPeUsbDiskCandidate>? SelectedUsbDisk { get; set; }
 
     [ObservableProperty]
+    public partial bool IsSelectedUsbFoundryMedia { get; set; }
+
+    [ObservableProperty]
     public partial bool IsRefreshingUsbCandidates { get; set; }
 
     [ObservableProperty]
@@ -357,6 +360,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
+        if (IsSelectedUsbFoundryMedia)
+        {
+            await RunFinalMediaOperationAsync(FinalMediaTarget.UsbUpdate, options);
+            return;
+        }
+
         WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
         bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
             localizationService.GetString("StartMedia.CreateUsb.ConfirmTitle"),
@@ -399,9 +408,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
-            string startStatus = target == FinalMediaTarget.Iso
-                ? localizationService.GetString("StartMedia.Operation.CreatingIso")
-                : localizationService.GetString("StartMedia.Operation.CreatingUsb");
+            string startStatus = target switch
+            {
+                FinalMediaTarget.Iso => localizationService.GetString("StartMedia.Operation.CreatingIso"),
+                FinalMediaTarget.UsbUpdate => localizationService.GetString("StartMedia.Operation.UpdatingUsb"),
+                _ => localizationService.GetString("StartMedia.Operation.CreatingUsb")
+            };
 
             operationProgressService.Start(OperationKind.MediaCreation, startStatus);
             logger.Information(
@@ -410,13 +422,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 options.Architecture,
                 NormalizeCultureName(options.WinPeLanguage),
                 target == FinalMediaTarget.Iso ? options.IsoOutputPath : null,
-                target == FinalMediaTarget.Usb ? options.SelectedUsbDisk?.DiskNumber : null,
-                target == FinalMediaTarget.Usb ? options.SelectedUsbDisk?.FriendlyName : null);
+                target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.DiskNumber : null,
+                target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.FriendlyName : null);
 
             if (target == FinalMediaTarget.Iso)
             {
                 _ = await CreateIsoMediaAsync(options, telemetryProgressTracker, CancellationToken.None);
                 successMessage = localizationService.GetString("StartMedia.Operation.IsoSuccessMessage");
+            }
+            else if (target == FinalMediaTarget.UsbUpdate)
+            {
+                WinPeUsbProvisionResult usbResult = await UpdateUsbMediaAsync(options, telemetryProgressTracker, CancellationToken.None);
+                successMessage = string.Format(
+                    CultureInfo.CurrentCulture,
+                    localizationService.GetString("StartMedia.Operation.UsbUpdateSuccessMessage"),
+                    usbResult.BootDriveLetter,
+                    usbResult.CacheDriveLetter);
             }
             else
             {
@@ -562,6 +583,67 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             EnsureSuccess(result);
             logger.Debug(
                 "USB media service completed. DiskNumber={DiskNumber}, BootVolume={BootVolume}, CacheVolume={CacheVolume}",
+                selectedDisk.DiskNumber,
+                result.Value?.BootDriveLetter,
+                result.Value?.CacheDriveLetter);
+            return result.Value!;
+        }
+        finally
+        {
+            CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
+        }
+    }
+
+    private async Task<WinPeUsbProvisionResult> UpdateUsbMediaAsync(
+        MediaPreflightOptions options,
+        MediaCreationTelemetryProgressTracker telemetryProgressTracker,
+        CancellationToken cancellationToken)
+    {
+        telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.ValidateUsbTarget);
+        if (options.SelectedUsbDisk is null)
+        {
+            throw new InvalidOperationException(localizationService.GetString("StartMedia.BlockingReason.NoUsbTarget"));
+        }
+
+        PreparedMediaWorkspace? workspace = null;
+
+        try
+        {
+            workspace = await PrepareMediaWorkspaceAsync(
+                options,
+                includeRuntimePayloadInImage: false,
+                telemetryProgressTracker: telemetryProgressTracker,
+                cancellationToken);
+
+            WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.UpdateUsbMedia);
+            logger.Debug(
+                "Updating USB boot partition. DiskNumber={DiskNumber}, DiskName={DiskName}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
+                selectedDisk.DiskNumber,
+                selectedDisk.FriendlyName,
+                options.UsbFormatMode,
+                workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
+                workspace.PreparedWorkspace.UseBootEx);
+
+            WinPeResult<WinPeUsbProvisionResult> result = await usbMediaService.UpdateBootPartitionAsync(
+                new UsbOutputOptions
+                {
+                    TargetDiskNumber = selectedDisk.DiskNumber,
+                    ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
+                    ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
+                    ExpectedDiskUniqueId = selectedDisk.UniqueId,
+                    FormatMode = options.UsbFormatMode,
+                    Progress = telemetryProgressTracker.CreateFinalMediaProgress(
+                        new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
+                },
+                workspace.PreparedWorkspace.Artifact,
+                workspace.Tools,
+                workspace.PreparedWorkspace.UseBootEx,
+                cancellationToken);
+
+            EnsureSuccess(result);
+            logger.Debug(
+                "USB boot partition update service completed. DiskNumber={DiskNumber}, BootVolume={BootVolume}, CacheVolume={CacheVolume}",
                 selectedDisk.DiskNumber,
                 result.Value?.BootDriveLetter,
                 result.Value?.CacheDriveLetter);
@@ -953,6 +1035,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "ISO media completed." => "StartMedia.Operation.IsoMediaCompleted",
             "Validating USB target." => "StartMedia.Operation.ValidatingUsbTarget",
             "Checking USB target safety." => "StartMedia.Operation.CheckingUsbTargetSafety",
+            "Inspecting USB media layout." => "StartMedia.Operation.InspectingUsbMediaLayout",
             "Partitioning and formatting USB target." => "StartMedia.Operation.PartitioningUsbTarget",
             "Opening USB disk." => "StartMedia.Operation.OpeningUsbDisk",
             "Preparing USB disk attributes." => "StartMedia.Operation.PreparingUsbDiskAttributes",
@@ -969,6 +1052,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "Preparing USB cache partition." => "StartMedia.Operation.PreparingUsbCache",
             "Provisioning USB runtime payloads." => "StartMedia.Operation.ProvisioningUsbRuntimePayloads",
             "USB media completed." => "StartMedia.Operation.UsbMediaCompleted",
+            "USB boot partition updated." => "StartMedia.Operation.UsbBootPartitionUpdated",
             _ => string.Empty
         };
 
@@ -1088,6 +1172,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     partial void OnSelectedUsbDiskChanged(SelectionOption<WinPeUsbDiskCandidate>? value)
     {
+        IsSelectedUsbFoundryMedia = value?.Value.IsFoundryMedia == true;
         RefreshEvaluation();
     }
 
@@ -1187,6 +1272,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         availableWinPeLanguages = GetAvailableWinPeLanguages();
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
+        IsSelectedUsbFoundryMedia = options.SelectedUsbDisk?.IsFoundryMedia == true;
         CanGenerateIsoSummary = evaluation.CanGenerateIsoSummary;
         CanGenerateUsbSummary = evaluation.CanGenerateUsbSummary;
         CanCreateIso = evaluation.CanCreateIso && !IsMediaOperationRunning;
@@ -1296,8 +1382,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string bootMediaTarget = target == FinalMediaTarget.Iso
             ? TelemetryBootMediaTargets.Iso
             : TelemetryBootMediaTargets.Usb;
+        string bootMediaUsbOperation = target switch
+        {
+            FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
+            FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
+            _ => TelemetryBootMediaUsbOperations.None
+        };
         IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
             bootMediaTarget,
+            bootMediaUsbOperation,
             options,
             foundryConfigurationStateService.Current,
             success,
@@ -1307,8 +1400,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
 
         logger.Debug(
-            "Tracking media telemetry event. Target={Target}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
+            "Tracking media telemetry event. Target={Target}, UsbOperation={UsbOperation}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
             properties["boot_media_target"],
+            properties["boot_media_usb_operation"],
             success,
             failedStepName,
             properties["boot_media_creation_duration_seconds"],
@@ -2040,7 +2134,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private enum FinalMediaTarget
     {
         Iso,
-        Usb
+        Usb,
+        UsbUpdate
     }
 
     private enum StartReadinessState

@@ -10,6 +10,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Dictionary<string, object?> input = new()
         {
             ["boot_media_target"] = "iso",
+            ["boot_media_usb_operation"] = "update",
             ["boot_media_creation_success"] = true,
             ["boot_media_creation_duration_seconds"] = 12.5,
             ["boot_media_architecture"] = "x64",
@@ -80,6 +81,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, input);
 
         Assert.Equal("iso", result["boot_media_target"]);
+        Assert.Equal("update", result["boot_media_usb_operation"]);
         Assert.True((bool)result["boot_media_creation_success"]!);
         Assert.Equal(12.5, result["boot_media_creation_duration_seconds"]);
         Assert.Equal("x64", result["boot_media_architecture"]);

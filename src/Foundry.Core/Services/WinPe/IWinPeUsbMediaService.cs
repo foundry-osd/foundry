@@ -13,4 +13,11 @@ public interface IWinPeUsbMediaService
         WinPeToolPaths tools,
         bool useBootEx,
         CancellationToken cancellationToken = default);
+
+    Task<WinPeResult<WinPeUsbProvisionResult>> UpdateBootPartitionAsync(
+        UsbOutputOptions options,
+        WinPeBuildArtifact artifact,
+        WinPeToolPaths tools,
+        bool useBootEx,
+        CancellationToken cancellationToken = default);
 }

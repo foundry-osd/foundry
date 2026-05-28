@@ -1014,6 +1014,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB を作成します</value>
   </data>
+  <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
+    <value>USB を更新</value>
+  </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>クイックフォーマット</value>
   </data>
@@ -1088,6 +1091,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
     <value>USB メディアを作成しています。</value>
+  </data>
+  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
+    <value>USB メディアを更新しています。</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>最終的なメディアの作成が完了しました。</value>
@@ -1164,6 +1170,9 @@
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>USB ターゲットの安全性を確認しています。</value>
   </data>
+  <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
+    <value>USB メディアのレイアウトを検査しています。</value>
+  </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>USB ターゲットのパーティショニングとフォーマット。</value>
   </data>
@@ -1212,6 +1221,9 @@
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>USB メディアが完成しました。</value>
   </data>
+  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
+    <value>USB ブート パーティションが更新されました。</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>DISM を使用して Windows 画像をエクスポートしています。</value>
   </data>
@@ -1241,6 +1253,9 @@
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
     <value>USB メディアが正常に作成されました。ブート ボリューム: {0}。キャッシュ ボリューム: {1}。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
+    <value>USB ブート パーティションが正常に更新されました。ブート ボリューム: {0}。キャッシュ ボリューム: {1}。</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>ISO 出力パスを選択してください</value>

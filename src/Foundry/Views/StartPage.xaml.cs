@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Foundry.Services.Localization;
 
 namespace Foundry.Views;
@@ -14,6 +15,7 @@ public sealed partial class StartPage : Page
         ViewModel = App.GetService<StartMediaViewModel>();
         InitializeComponent();
         ApplyLocalizedText();
+        ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
@@ -47,7 +49,21 @@ public sealed partial class StartPage : Page
         FinalCommandsCard.Header = localizationService.GetString("StartMedia.FinalCommands.Header");
         FinalCommandsCard.Description = localizationService.GetString("StartMedia.FinalCommands.Description");
         CreateIsoButton.Content = localizationService.GetString("StartMedia.CreateIsoButton");
-        CreateUsbButton.Content = localizationService.GetString("StartMedia.CreateUsbButton");
+        ApplyUsbActionButtonState();
+    }
+
+    private void ApplyUsbActionButtonState()
+    {
+        CreateUsbButton.Content = localizationService.GetString(ViewModel.IsSelectedUsbFoundryMedia
+            ? "StartMedia.UpdateUsbButton"
+            : "StartMedia.CreateUsbButton");
+        if (ViewModel.IsSelectedUsbFoundryMedia)
+        {
+            CreateUsbButton.Style = (Style)Microsoft.UI.Xaml.Application.Current.Resources["AccentButtonStyle"];
+            return;
+        }
+
+        CreateUsbButton.ClearValue(Control.StyleProperty);
     }
 
     private void ReadinessActionButton_Click(object sender, RoutedEventArgs e)
@@ -88,8 +104,25 @@ public sealed partial class StartPage : Page
         _ = DispatcherQueue.TryEnqueue(ApplyLocalizedText);
     }
 
+    private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(StartMediaViewModel.IsSelectedUsbFoundryMedia))
+        {
+            return;
+        }
+
+        if (DispatcherQueue.HasThreadAccess)
+        {
+            ApplyUsbActionButtonState();
+            return;
+        }
+
+        _ = DispatcherQueue.TryEnqueue(ApplyUsbActionButtonState);
+    }
+
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
+        ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
         ViewModel.Dispose();
         localizationService.LanguageChanged -= OnLanguageChanged;
         Loaded -= OnLoaded;
