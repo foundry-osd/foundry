@@ -529,4 +529,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>중국어 번체(대만)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopilot 등록 도우미를 준비하는 중...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>대화형 등록 파일을 복사하는 중...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>대화형 등록 드라이런 매니페스트를 쓰는 중...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>대화형 Autopilot 등록 도우미를 준비할 대상 Windows 파티션을 사용할 수 없습니다.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>대화형 Autopilot 등록 도우미가 준비되었습니다.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>대화형 Autopilot 등록 도우미가 준비되었습니다(시뮬레이션).</value>
+  </data>
 </root>

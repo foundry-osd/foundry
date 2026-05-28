@@ -529,4 +529,22 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>traditsiooniline hiina keel (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopiloti registreerimisabilise ettevalmistamine...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Interaktiivse registreerimise failide kopeerimine...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Interaktiivse registreerimise kuivkäivituse manifesti kirjutamine...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Windowsi sihtpartitsioon pole interaktiivse Autopiloti registreerimisabilise ettevalmistamiseks saadaval.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktiivne Autopiloti registreerimisabiline on ette valmistatud.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktiivne Autopiloti registreerimisabiline on ette valmistatud (simulatsioon).</value>
+  </data>
 </root>

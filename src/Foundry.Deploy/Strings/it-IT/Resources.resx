@@ -529,4 +529,22 @@ Continuare con la distribuzione?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Cinese tradizionale (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Preparazione dell&apos;assistente di registrazione Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Copia dei file di registrazione interattiva...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Scrittura del manifesto di registrazione interattiva di prova...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>La partizione Windows di destinazione non è disponibile per preparare l&apos;assistente di registrazione interattiva di Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Assistente di registrazione interattiva di Autopilot preparato.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Assistente di registrazione interattiva di Autopilot preparato (simulazione).</value>
+  </data>
 </root>

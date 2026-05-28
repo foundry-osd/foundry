@@ -529,4 +529,22 @@ Continue with deployment?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chinese Traditional (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Staging Autopilot registration assistant...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Copying interactive registration files...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Writing dry-run interactive registration manifest...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Target Windows partition is unavailable for interactive Autopilot registration assistant staging.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interactive Autopilot registration assistant staged.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interactive Autopilot registration assistant staged (simulation).</value>
+  </data>
 </root>

@@ -529,4 +529,22 @@ Folytatja a telepítést?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Az Autopilot regisztrációs segéd előkészítése...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Interaktív regisztrációs fájlok másolása...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Interaktív regisztrációs próbaüzemi jegyzék írása...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>A cél Windows-partíció nem érhető el az interaktív Autopilot regisztrációs segéd előkészítéséhez.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Az interaktív Autopilot regisztrációs segéd előkészítve.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
+  </data>
 </root>

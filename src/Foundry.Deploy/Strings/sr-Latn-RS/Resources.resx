@@ -529,4 +529,22 @@ Operativni sistem: {4}
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalni kineski (Tajvan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Priprema se pomoćnik za registraciju Autopilota...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopiraju se datoteke interaktivne registracije...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Upisuje se manifest interaktivne registracije za probno pokretanje...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Ciljna Windows particija nije dostupna za pripremu interaktivnog pomoćnika za registraciju Autopilota.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
+  </data>
 </root>

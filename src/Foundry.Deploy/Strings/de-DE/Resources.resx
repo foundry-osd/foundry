@@ -529,4 +529,22 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Traditionelles Chinesisch (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopilot-Registrierungsassistent wird bereitgestellt...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Interaktive Registrierungsdateien werden kopiert...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Dry-Run-Manifest für die interaktive Registrierung wird geschrieben...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Die Ziel-Windows-Partition ist für die Bereitstellung des interaktiven Autopilot-Registrierungsassistenten nicht verfügbar.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Der interaktive Autopilot-Registrierungsassistent wurde bereitgestellt.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Der interaktive Autopilot-Registrierungsassistent wurde bereitgestellt (Simulation).</value>
+  </data>
 </root>

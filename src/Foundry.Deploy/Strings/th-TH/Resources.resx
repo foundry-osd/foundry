@@ -529,4 +529,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>จีนดั้งเดิม (ไต้หวัน)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>กำลังจัดเตรียมผู้ช่วยลงทะเบียน Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>กำลังคัดลอกไฟล์การลงทะเบียนแบบโต้ตอบ...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>กำลังเขียนรายการการลงทะเบียนแบบโต้ตอบสำหรับการทดสอบ...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>พาร์ติชัน Windows เป้าหมายไม่พร้อมใช้งานสำหรับการจัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบ</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว (การจำลอง)</value>
+  </data>
 </root>

@@ -529,4 +529,22 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Geleneksel Çince (Tayvan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopilot kayıt yardımcısı hazırlanıyor...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Etkileşimli kayıt dosyaları kopyalanıyor...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Etkileşimli kayıt deneme manifesti yazılıyor...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Etkileşimli Autopilot kayıt yardımcısını hazırlamak için hedef Windows bölümü kullanılamıyor.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
+  </data>
 </root>

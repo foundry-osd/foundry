@@ -529,4 +529,22 @@ ErrorCode=0x80070005
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>סינית מסורתית (טייוואן)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>מכין את מסייע הרישום של Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>מעתיק קובצי רישום אינטראקטיבי...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>כותב מניפסט רישום אינטראקטיבי להרצה יבשה...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>מחיצת ה-Windows היעד אינה זמינה להכנת מסייע הרישום האינטראקטיבי של Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
+  </data>
 </root>

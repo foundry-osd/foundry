@@ -529,4 +529,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>традиционен китайски (Тайван)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Подготвя се помощникът за регистрация на Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Копират се файловете за интерактивна регистрация...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Записва се манифестът за интерактивна регистрация в пробен режим...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Целевият дял на Windows не е наличен за подготвяне на интерактивния помощник за регистрация на Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Интерактивният помощник за регистрация на Autopilot е подготвен.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Интерактивният помощник за регистрация на Autopilot е подготвен (симулация).</value>
+  </data>
 </root>

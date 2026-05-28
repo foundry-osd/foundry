@@ -529,4 +529,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>繁體中文（台灣）</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>正在暫存 Autopilot 註冊助理...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>正在複製互動式註冊檔案...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>正在寫入互動式註冊試執行資訊清單...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>目標 Windows 分割區無法用於暫存互動式 Autopilot 註冊助理。</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>互動式 Autopilot 註冊助理已暫存。</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>互動式 Autopilot 註冊助理已暫存 (模擬)。</value>
+  </data>
 </root>

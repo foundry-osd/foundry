@@ -529,4 +529,22 @@ ErrorCode=0x80070005
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Китайська традиційна (Тайвань)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Готується помічник реєстрації Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Копіюються файли інтерактивної реєстрації...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Записується маніфест інтерактивної реєстрації для пробного запуску...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Цільовий розділ Windows недоступний для підготовки інтерактивного помічника реєстрації Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Інтерактивний помічник реєстрації Autopilot підготовлено.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Інтерактивний помічник реєстрації Autopilot підготовлено (симуляція).</value>
+  </data>
 </root>

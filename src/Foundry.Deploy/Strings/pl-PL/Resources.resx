@@ -529,4 +529,22 @@ Kontynuować wdrażanie?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chiński tradycyjny (Tajwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Przygotowywanie asystenta rejestracji Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopiowanie plików rejestracji interaktywnej...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Zapisywanie manifestu rejestracji interaktywnej dla przebiegu próbnego...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Docelowa partycja Windows jest niedostępna do przygotowania interaktywnego asystenta rejestracji Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktywny asystent rejestracji Autopilot został przygotowany.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktywny asystent rejestracji Autopilot został przygotowany (symulacja).</value>
+  </data>
 </root>

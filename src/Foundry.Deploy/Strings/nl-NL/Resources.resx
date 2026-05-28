@@ -529,4 +529,22 @@ Doorgaan met de implementatie?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Traditioneel Chinees (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopilot-registratieassistent wordt voorbereid...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Interactieve registratiebestanden worden gekopieerd...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Dry-runmanifest voor interactieve registratie wordt geschreven...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>De doel-Windows-partitie is niet beschikbaar voor het voorbereiden van de interactieve Autopilot-registratieassistent.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interactieve Autopilot-registratieassistent voorbereid.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interactieve Autopilot-registratieassistent voorbereid (simulatie).</value>
+  </data>
 </root>

@@ -102,7 +102,7 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_FailsWithoutRegistrationAssistant()
+    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_StagesRegistrationAssistant()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var uploadService = new FakeAutopilotHardwareHashUploadService(
@@ -115,11 +115,19 @@ public sealed class ProvisionAutopilotStepTests
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
-        Assert.Equal(DeploymentStepState.Failed, result.State);
+        string registrationRoot = Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "AutopilotRegistration");
+        string expectedConfigPath = Path.Combine(registrationRoot, "config.json");
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Contains("registration assistant", result.Message, StringComparison.OrdinalIgnoreCase);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, context.RuntimeState.AutopilotProvisioningMode);
         Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
-        Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.Equal(expectedConfigPath, context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd")));
+        Assert.True(File.Exists(expectedConfigPath));
+        Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));
+        Assert.True(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "Logs", "AutopilotRegistration")));
         Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
         Assert.Empty(uploadService.Requests);
     }
@@ -257,7 +265,7 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_WhenDryRunInteractiveHardwareHashModeIsSelected_FailsWithoutRegistrationAssistant()
+    public async Task ExecuteAsync_WhenDryRunInteractiveHardwareHashModeIsSelected_WritesSanitizedManifest()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         ProvisionAutopilotStep step = CreateStep();
@@ -268,11 +276,19 @@ public sealed class ProvisionAutopilotStepTests
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
-        Assert.Equal(DeploymentStepState.Failed, result.State);
+        string manifestPath = Path.Combine(workspace.TargetFoundryRootPath, "Autopilot", "interactive-registration.dryrun.json");
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Contains("registration assistant", result.Message, StringComparison.OrdinalIgnoreCase);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, context.RuntimeState.AutopilotProvisioningMode);
         Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
-        Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.Equal(manifestPath, context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.True(File.Exists(manifestPath));
+        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(manifestPath));
+        Assert.Equal("interactiveHardwareHashUpload", manifest.RootElement.GetProperty("provisioningMode").GetString());
+        Assert.False(manifest.RootElement.TryGetProperty("certificatePfxSecret", out _));
+        Assert.False(manifest.RootElement.TryGetProperty("certificatePfxPasswordSecret", out _));
+        Assert.False(manifest.RootElement.TryGetProperty("groupTag", out _));
         Assert.False(File.Exists(Path.Combine(workspace.TargetFoundryRootPath, "Autopilot", "autopilot-profile-stage.dryrun.json")));
     }
 
@@ -295,7 +311,8 @@ public sealed class ProvisionAutopilotStepTests
         return new ProvisionAutopilotStep(
             captureService ?? new FakeAutopilotHardwareHashCaptureService(),
             uploadService ?? new FakeAutopilotHardwareHashUploadService(
-                AutopilotHardwareHashUploadResult.Completed("Device imported.")));
+                AutopilotHardwareHashUploadResult.Completed("Device imported.")),
+            new AutopilotInteractiveRegistrationProvisioningService());
     }
 
     private static DeploymentStepExecutionContext CreateContext(

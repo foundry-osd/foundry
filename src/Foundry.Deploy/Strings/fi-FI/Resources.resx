@@ -529,4 +529,22 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>perinteinen kiina (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Valmistellaan Autopilot-rekisteröintiavustajaa...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopioidaan vuorovaikutteisen rekisteröinnin tiedostoja...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Kirjoitetaan vuorovaikutteisen rekisteröinnin dry-run-luetteloa...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Windows-kohdeosio ei ole käytettävissä vuorovaikutteisen Autopilot-rekisteröintiavustajan valmisteluun.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja on valmisteltu.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja on valmisteltu (simulointi).</value>
+  </data>
 </root>

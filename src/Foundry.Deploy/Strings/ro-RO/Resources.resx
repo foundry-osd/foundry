@@ -529,4 +529,22 @@ Continuați cu implementarea?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chineză tradițională (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Se pregătește asistentul de înregistrare Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Se copiază fișierele de înregistrare interactivă...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Se scrie manifestul de înregistrare interactivă pentru rulare de probă...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Partiția Windows țintă nu este disponibilă pentru pregătirea asistentului de înregistrare interactivă Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit (simulare).</value>
+  </data>
 </root>

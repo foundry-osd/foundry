@@ -529,4 +529,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>繁体字中国語 (台湾)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopilot 登録アシスタントをステージングしています...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>対話型登録ファイルをコピーしています...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>ドライラン用の対話型登録マニフェストを書き込んでいます...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>対話型 Autopilot 登録アシスタントのステージングに使用するターゲット Windows パーティションを利用できません。</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>対話型 Autopilot 登録アシスタントをステージングしました。</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
+  </data>
 </root>

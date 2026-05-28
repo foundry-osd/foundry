@@ -529,4 +529,22 @@ Fortsätt med implementeringen?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Traditionell kinesisk (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Förbereder Autopilot-registreringsassistent...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopierar interaktiva registreringsfiler...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Skriver dry-run-manifest för interaktiv registrering...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Mål-Windows-partitionen är inte tillgänglig för att förbereda den interaktiva Autopilot-registreringsassistenten.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Den interaktiva Autopilot-registreringsassistenten har förberetts.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Den interaktiva Autopilot-registreringsassistenten har förberetts (simulering).</value>
+  </data>
 </root>

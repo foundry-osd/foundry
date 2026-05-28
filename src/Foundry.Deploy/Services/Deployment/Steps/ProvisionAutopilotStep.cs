@@ -18,13 +18,16 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
     private readonly IAutopilotHardwareHashCaptureService _hardwareHashCaptureService;
     private readonly IAutopilotHardwareHashUploadService _hardwareHashUploadService;
+    private readonly IAutopilotInteractiveRegistrationProvisioningService _interactiveRegistrationProvisioningService;
 
     public ProvisionAutopilotStep(
         IAutopilotHardwareHashCaptureService hardwareHashCaptureService,
-        IAutopilotHardwareHashUploadService hardwareHashUploadService)
+        IAutopilotHardwareHashUploadService hardwareHashUploadService,
+        IAutopilotInteractiveRegistrationProvisioningService interactiveRegistrationProvisioningService)
     {
         _hardwareHashCaptureService = hardwareHashCaptureService;
         _hardwareHashUploadService = hardwareHashUploadService;
+        _interactiveRegistrationProvisioningService = interactiveRegistrationProvisioningService;
     }
 
     public override int Order => 18;
@@ -47,7 +50,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload)
         {
-            return await BlockInteractiveHardwareHashUploadAsync(context, cancellationToken).ConfigureAwait(false);
+            return await StageInteractiveHardwareHashUploadAsync(context, cancellationToken).ConfigureAwait(false);
         }
 
         if (context.Request.SelectedAutopilotProfile is null)
@@ -107,7 +110,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload)
         {
-            return await BlockInteractiveHardwareHashUploadAsync(context, cancellationToken).ConfigureAwait(false);
+            return await WriteDryRunInteractiveRegistrationManifestAsync(context, cancellationToken).ConfigureAwait(false);
         }
 
         if (context.Request.SelectedAutopilotProfile is null)
@@ -146,18 +149,26 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Autopilot profile staged (simulation).");
     }
 
-    private static async Task<DeploymentStepResult> BlockInteractiveHardwareHashUploadAsync(
+    private async Task<DeploymentStepResult> StageInteractiveHardwareHashUploadAsync(
         DeploymentStepExecutionContext context,
         CancellationToken cancellationToken)
     {
-        const string message = "Interactive Autopilot hardware hash upload is selected, but the registration assistant has not been staged by this build.";
-        context.RuntimeState.StagedAutopilotConfigurationPath = null;
+        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
+        {
+            return DeploymentStepResult.Failed("Target Windows partition is unavailable for interactive Autopilot registration assistant staging.");
+        }
+
+        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Copying interactive registration files...");
+        AutopilotInteractiveRegistrationProvisioningResult provisioningResult =
+            _interactiveRegistrationProvisioningService.Provision(context.RuntimeState.TargetWindowsPartitionRoot);
+
+        context.RuntimeState.StagedAutopilotConfigurationPath = provisioningResult.ConfigPath;
         context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
         await context.AppendLogAsync(
-            DeploymentLogLevel.Warning,
-            message,
+            DeploymentLogLevel.Info,
+            $"Interactive Autopilot registration assistant staged to '{provisioningResult.RegistrationRootPath}'.",
             cancellationToken).ConfigureAwait(false);
-        return DeploymentStepResult.Failed(message);
+        return DeploymentStepResult.Succeeded("Interactive Autopilot registration assistant staged.");
     }
 
     private async Task<DeploymentStepResult> PrepareHardwareHashUploadAsync(
@@ -311,6 +322,42 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Autopilot hardware hash upload prepared (simulation).");
+    }
+
+    private static async Task<DeploymentStepResult> WriteDryRunInteractiveRegistrationManifestAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
+    {
+        string interactiveTargetFoundryRoot = context.EnsureTargetFoundryRoot();
+        string interactiveAutopilotRoot = Path.Combine(interactiveTargetFoundryRoot, "Autopilot");
+        Directory.CreateDirectory(interactiveAutopilotRoot);
+
+        string manifestPath = Path.Combine(interactiveAutopilotRoot, "interactive-registration.dryrun.json");
+        string manifest = JsonSerializer.Serialize(new
+        {
+            createdAtUtc = DateTimeOffset.UtcNow,
+            mode = "dry-run",
+            provisioningMode = "interactiveHardwareHashUpload",
+            registrationRootPath = @"Windows\Temp\Foundry\AutopilotRegistration",
+            logRootPath = @"Windows\Temp\Foundry\Logs\AutopilotRegistration",
+            scriptName = "Start-FoundryAutopilotRegistration.ps1",
+            launcherName = "Start-FoundryAutopilotRegistration.cmd"
+        }, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+
+        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Writing dry-run interactive registration manifest...");
+        await File.WriteAllTextAsync(manifestPath, manifest, cancellationToken).ConfigureAwait(false);
+        context.RuntimeState.StagedAutopilotConfigurationPath = manifestPath;
+        context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
+
+        await context.AppendLogAsync(
+            DeploymentLogLevel.Info,
+            $"[DRY-RUN] Interactive Autopilot registration assistant staging simulated: {manifestPath}",
+            cancellationToken).ConfigureAwait(false);
+
+        return DeploymentStepResult.Succeeded("Interactive Autopilot registration assistant staged (simulation).");
     }
 
     private static async Task WriteHardwareHashStatusAsync(

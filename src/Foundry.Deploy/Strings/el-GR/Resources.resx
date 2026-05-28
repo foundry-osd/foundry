@@ -529,4 +529,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Παραδοσιακό Κινέζικο (Ταϊβάν)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Προετοιμασία του βοηθού εγγραφής Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Αντιγραφή αρχείων διαδραστικής εγγραφής...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Εγγραφή δηλωτικού δοκιμαστικής εκτέλεσης διαδραστικής εγγραφής...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Το διαμέρισμα προορισμού των Windows δεν είναι διαθέσιμο για την προετοιμασία του διαδραστικού βοηθού εγγραφής Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε (προσομοίωση).</value>
+  </data>
 </root>

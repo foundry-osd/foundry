@@ -529,4 +529,22 @@ Tęsti diegimą?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicinė kinų kalba (Taivanas)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Ruošiamas Autopilot registracijos pagalbininkas...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopijuojami interaktyvios registracijos failai...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Rašomas interaktyvios registracijos bandomojo vykdymo manifestas...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Tikslinis Windows skaidinys nepasiekiamas interaktyvaus Autopilot registracijos pagalbininko paruošimui.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas (modeliavimas).</value>
+  </data>
 </root>

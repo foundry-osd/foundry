@@ -529,4 +529,22 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradičná čínština (Taiwan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Pripravuje sa asistent registrácie Autopilotu...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopírujú sa súbory interaktívnej registrácie...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Zapisuje sa manifest interaktívnej registrácie pre skúšobné spustenie...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Cieľový oddiel Windows nie je dostupný na prípravu interaktívneho asistenta registrácie Autopilotu.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktívny asistent registrácie Autopilotu bol pripravený.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktívny asistent registrácie Autopilotu bol pripravený (simulácia).</value>
+  </data>
 </root>

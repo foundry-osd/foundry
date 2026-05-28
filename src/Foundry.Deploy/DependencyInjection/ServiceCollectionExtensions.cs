@@ -98,6 +98,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<PreOobeScriptDefinitionBuilder>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IAutopilotHardwareHashCaptureService, AutopilotHardwareHashCaptureService>();
+        services.AddSingleton<IAutopilotInteractiveRegistrationProvisioningService, AutopilotInteractiveRegistrationProvisioningService>();
         services.AddSingleton<IMediaSecretKeyReader, MediaSecretKeyReader>();
         services.AddSingleton<IAutopilotGraphTokenService>(sp =>
             new AutopilotGraphTokenService(

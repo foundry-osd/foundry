@@ -529,4 +529,22 @@ Pokračovat v nasazování?</value></data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Tradiční čínština (Tchaj-wan)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Připravuje se asistent registrace Autopilotu...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopírují se soubory interaktivní registrace...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Zapisuje se manifest interaktivní registrace pro zkušební běh...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Cílový oddíl Windows není dostupný pro přípravu interaktivního asistenta registrace Autopilotu.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktivní asistent registrace Autopilotu byl připraven.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktivní asistent registrace Autopilotu byl připraven (simulace).</value>
+  </data>
 </root>

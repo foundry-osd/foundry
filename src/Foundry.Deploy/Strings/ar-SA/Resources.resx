@@ -529,4 +529,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>الصينية التقليدية (تايوان)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>جارٍ تجهيز مساعد تسجيل Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>جارٍ نسخ ملفات التسجيل التفاعلي...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>جارٍ كتابة بيان التسجيل التفاعلي للتشغيل التجريبي...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>قسم Windows الهدف غير متوفر لتجهيز مساعد تسجيل Autopilot التفاعلي.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي (محاكاة).</value>
+  </data>
 </root>

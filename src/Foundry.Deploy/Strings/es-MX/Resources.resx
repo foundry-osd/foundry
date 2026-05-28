@@ -529,4 +529,22 @@ Sistema operativo: {4}
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chino tradicional (Taiwán)</value>
   </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Preparando el asistente de registro de Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Copiando archivos de registro interactivo...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Escribiendo el manifiesto de registro interactivo de prueba...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>La partición de Windows de destino no está disponible para preparar el asistente de registro interactivo de Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Asistente de registro interactivo de Autopilot preparado.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Asistente de registro interactivo de Autopilot preparado (simulación).</value>
+  </data>
 </root>
