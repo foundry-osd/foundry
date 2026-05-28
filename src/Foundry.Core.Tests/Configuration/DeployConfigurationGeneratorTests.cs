@@ -386,17 +386,14 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenInteractiveHardwareHashModeIsEnabled_DoesNotRequireSelectedProfileOrCertificateMetadata()
     {
         var generator = new DeployConfigurationGenerator();
+        DateTimeOffset expiration = DateTimeOffset.UtcNow.AddMonths(6);
         var document = new FoundryConfigurationDocument
         {
             Autopilot = new AutopilotSettings
             {
                 IsEnabled = true,
                 ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload,
-                HardwareHashUpload = new AutopilotHardwareHashUploadSettings
-                {
-                    KnownGroupTags = ["Sales"],
-                    DefaultGroupTag = "Sales"
-                }
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(expiration)
             }
         };
 
@@ -409,6 +406,8 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Null(result.Autopilot.HardwareHashUpload.ClientId);
         Assert.Null(result.Autopilot.HardwareHashUpload.ActiveCertificateKeyId);
         Assert.Null(result.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
+        Assert.Null(result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
+        Assert.Null(result.Autopilot.HardwareHashUpload.DefaultGroupTag);
         Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
         Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
 

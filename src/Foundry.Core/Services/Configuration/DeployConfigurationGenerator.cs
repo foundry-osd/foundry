@@ -120,6 +120,12 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         AutopilotSettings autopilot,
         byte[]? mediaSecretsKey)
     {
+        if (!autopilot.IsEnabled ||
+            autopilot.ProvisioningMode != AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            return new DeployAutopilotHardwareHashUploadSettings();
+        }
+
         AutopilotHardwareHashUploadSettings? settings = autopilot.HardwareHashUpload;
         if (settings?.Tenant is null)
         {
@@ -128,9 +134,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
         SecretEnvelope? pfxSecret = null;
         SecretEnvelope? pfxPasswordSecret = null;
-        if (autopilot.IsEnabled &&
-            autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
-            mediaSecretsKey is not null)
+        if (mediaSecretsKey is not null)
         {
             if (mediaSecretsKey.Length == 0)
             {
