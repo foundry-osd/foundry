@@ -80,7 +80,16 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Wait-DeviceCodeToken", script);
         Assert.Contains("Get-AutopilotHardwareIdentity", script);
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
+        Assert.Contains("Wait-AutopilotDeviceReadiness", script);
+        Assert.Contains("Find-AutopilotDeviceBySerialNumber", script);
+        Assert.Contains("Update-AutopilotDeviceGroupTag", script);
+        Assert.Contains("Should-ContinueVisibilityWaitAfterImportError", script);
         Assert.Contains("Invoke-GraphRequest", script);
+        Assert.Contains("deviceManagement/importedWindowsAutopilotDeviceIdentities/import", script);
+        Assert.Contains("deviceManagement/windowsAutopilotDeviceIdentities", script);
+        Assert.Contains("updateDeviceProperties", script);
+        Assert.Contains("AlreadyAssigned", script);
+        Assert.Contains("AlreadyExists", script);
         Assert.DoesNotContain("Install-Module", script);
         Assert.DoesNotContain("Connect-MgGraph", script);
         Assert.DoesNotContain("Get-WindowsAutopilotInfo", script);
@@ -111,6 +120,10 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Foundry OSD - Sign in to Microsoft", script);
         Assert.Contains("Foundry OSD - Upload hardware hash", script);
         Assert.Contains("Choose a group tag, then upload this device hardware hash to Microsoft Intune.", script);
+        Assert.Contains("Waiting for device registration in Microsoft Intune.", script);
+        Assert.Contains("Restarting in {0} seconds.", script);
+        Assert.Contains("Restarting now.", script);
+        Assert.Contains("Restart-Computer -Force", script);
         Assert.Contains("Width=\"420\"", script);
         Assert.Contains("Height=\"560\"", script);
         Assert.Contains("ResizeMode=\"NoResize\"", script);

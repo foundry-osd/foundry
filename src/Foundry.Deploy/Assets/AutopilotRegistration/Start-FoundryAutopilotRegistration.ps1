@@ -247,36 +247,143 @@ function Import-AutopilotDeviceIdentity {
     )
 
     $importId = [Guid]::NewGuid().ToString('D')
-    $body = @{
+    $device = @{
         '@odata.type' = '#microsoft.graph.importedWindowsAutopilotDeviceIdentity'
         serialNumber = $Identity.SerialNumber
-        productKey = ''
         importId = $importId
         hardwareIdentifier = $Identity.HardwareHash
-        state = @{
-            '@odata.type' = '#microsoft.graph.importedWindowsAutopilotDeviceIdentityState'
-            deviceImportStatus = 'pending'
-        }
     }
 
     if (-not [string]::IsNullOrWhiteSpace($GroupTag)) {
-        $body['groupTag'] = $GroupTag
+        $device['groupTag'] = $GroupTag
+    }
+
+    $body = @{
+        importedWindowsAutopilotDeviceIdentities = @($device)
     }
 
     Write-State -Stage 'import' -Message 'Uploading device hardware hash to Microsoft Intune.'
-    $response = Invoke-GraphRequest -Method Post -Path 'deviceManagement/importedWindowsAutopilotDeviceIdentities' -AccessToken $AccessToken -Body $body
-    $importedIdentityId = [string]$response.id
+    $response = Invoke-GraphRequest -Method Post -Path 'deviceManagement/importedWindowsAutopilotDeviceIdentities/import' -AccessToken $AccessToken -Body $body
+    $importedIdentity = @($response.value)[0]
+    if ($null -eq $importedIdentity) {
+        throw 'Microsoft Graph did not return an imported Autopilot device identity.'
+    }
 
     return [pscustomobject]@{
         ImportId = $importId
-        ImportedIdentityId = $importedIdentityId
+        ImportedIdentityId = [string]$importedIdentity.id
+        ImportedIdentity = $importedIdentity
     }
 }
 
-function Wait-AutopilotImport {
+function Get-ImportedAutopilotIdentity {
     param(
         [Parameter(Mandatory = $true)][string]$AccessToken,
-        [Parameter(Mandatory = $true)][string]$ImportedIdentityId
+        [Parameter(Mandatory = $true)]$Import,
+        [Parameter(Mandatory = $true)][string]$SerialNumber
+    )
+
+    $filter = [Uri]::EscapeDataString(("importId eq '{0}'" -f ([string]$Import.ImportId).Replace("'", "''")))
+    $path = 'deviceManagement/importedWindowsAutopilotDeviceIdentities?$filter={0}' -f $filter
+
+    while (-not [string]::IsNullOrWhiteSpace($path)) {
+        $response = Invoke-GraphRequest -Method Get -Path $path -AccessToken $AccessToken
+        foreach ($identity in $response.value) {
+            if ([string]$identity.importId -eq [string]$Import.ImportId -or [string]$identity.serialNumber -eq $SerialNumber) {
+                return $identity
+            }
+        }
+
+        $path = $response.'@odata.nextLink'
+    }
+
+    return $null
+}
+
+function Find-AutopilotDeviceBySerialNumber {
+    param(
+        [Parameter(Mandatory = $true)][string]$AccessToken,
+        [Parameter(Mandatory = $true)][string]$SerialNumber
+    )
+
+    $matches = New-Object System.Collections.Generic.List[object]
+    $path = 'deviceManagement/windowsAutopilotDeviceIdentities?$top=100'
+
+    while (-not [string]::IsNullOrWhiteSpace($path)) {
+        $response = Invoke-GraphRequest -Method Get -Path $path -AccessToken $AccessToken
+        foreach ($device in $response.value) {
+            if ([string]$device.serialNumber -eq $SerialNumber) {
+                $matches.Add($device)
+            }
+        }
+
+        $path = $response.'@odata.nextLink'
+    }
+
+    if ($matches.Count -eq 0) {
+        return $null
+    }
+
+    if ($matches.Count -gt 1) {
+        throw 'Multiple Windows Autopilot devices matched the captured serial number; group tag reconciliation was skipped to avoid updating the wrong device.'
+    }
+
+    return $matches[0]
+}
+
+function Normalize-GroupTag {
+    param([Parameter(Mandatory = $false)][string]$GroupTag)
+
+    if ([string]::IsNullOrWhiteSpace($GroupTag)) {
+        return ''
+    }
+
+    return $GroupTag.Trim()
+}
+
+function Should-UpdateGroupTag {
+    param(
+        [Parameter(Mandatory = $false)][string]$CurrentGroupTag,
+        [Parameter(Mandatory = $false)][string]$RequestedGroupTag
+    )
+
+    return -not [string]::Equals(
+        (Normalize-GroupTag -GroupTag $CurrentGroupTag),
+        (Normalize-GroupTag -GroupTag $RequestedGroupTag),
+        [StringComparison]::OrdinalIgnoreCase)
+}
+
+function Should-ContinueVisibilityWaitAfterImportError {
+    param([Parameter(Mandatory = $false)]$State)
+
+    $errorName = [string]$State.deviceErrorName
+    return $errorName.IndexOf('AlreadyAssigned', [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
+        $errorName.IndexOf('AlreadyExists', [StringComparison]::OrdinalIgnoreCase) -ge 0
+}
+
+function Update-AutopilotDeviceGroupTag {
+    param(
+        [Parameter(Mandatory = $true)][string]$AccessToken,
+        [Parameter(Mandatory = $true)]$Device,
+        [Parameter(Mandatory = $false)][string]$GroupTag
+    )
+
+    $deviceId = [string]$Device.id
+    if ([string]::IsNullOrWhiteSpace($deviceId)) {
+        throw 'Microsoft Graph returned an existing Autopilot device without an ID.'
+    }
+
+    $body = @{
+        groupTag = Normalize-GroupTag -GroupTag $GroupTag
+    }
+    Invoke-GraphRequest -Method Post -Path "deviceManagement/windowsAutopilotDeviceIdentities/$deviceId/updateDeviceProperties" -AccessToken $AccessToken -Body $body | Out-Null
+}
+
+function Wait-AutopilotDeviceGroupTag {
+    param(
+        [Parameter(Mandatory = $true)][string]$AccessToken,
+        [Parameter(Mandatory = $true)][string]$SerialNumber,
+        [Parameter(Mandatory = $false)][string]$GroupTag
     )
 
     $timeoutSeconds = if ($Config.importPollingTimeoutSeconds) { [int]$Config.importPollingTimeoutSeconds } else { 900 }
@@ -284,23 +391,64 @@ function Wait-AutopilotImport {
     $deadline = [DateTimeOffset]::UtcNow.AddSeconds($timeoutSeconds)
 
     while ([DateTimeOffset]::UtcNow -lt $deadline) {
-        $response = Invoke-GraphRequest -Method Get -Path "deviceManagement/importedWindowsAutopilotDeviceIdentities/$ImportedIdentityId" -AccessToken $AccessToken
-        $status = [string]$response.state.deviceImportStatus
-        Write-FoundryLog -Path $GraphLogPath -Message "Import state: $status"
-
-        if ($status -match 'complete') {
-            return $response
-        }
-
-        if ($status -match 'error') {
-            $errorName = [string]$response.state.deviceErrorName
-            throw "Autopilot import failed. $errorName"
+        $device = Find-AutopilotDeviceBySerialNumber -AccessToken $AccessToken -SerialNumber $SerialNumber
+        if ($null -ne $device -and -not (Should-UpdateGroupTag -CurrentGroupTag ([string]$device.groupTag) -RequestedGroupTag $GroupTag)) {
+            return $device
         }
 
         Start-Sleep -Seconds $intervalSeconds
     }
 
-    throw 'Timed out while waiting for Autopilot import completion.'
+    throw 'Timed out while waiting for Windows Autopilot group tag update.'
+}
+
+function Wait-AutopilotDeviceReadiness {
+    param(
+        [Parameter(Mandatory = $true)][string]$AccessToken,
+        [Parameter(Mandatory = $true)]$Identity,
+        [Parameter(Mandatory = $true)]$Import,
+        [Parameter(Mandatory = $false)][string]$GroupTag
+    )
+
+    $timeoutSeconds = if ($Config.importPollingTimeoutSeconds) { [int]$Config.importPollingTimeoutSeconds } else { 900 }
+    $intervalSeconds = if ($Config.importPollingIntervalSeconds) { [int]$Config.importPollingIntervalSeconds } else { 15 }
+    $deadline = [DateTimeOffset]::UtcNow.AddSeconds($timeoutSeconds)
+    $importedIdentity = $Import.ImportedIdentity
+
+    while ([DateTimeOffset]::UtcNow -lt $deadline) {
+        $visibleDevice = Find-AutopilotDeviceBySerialNumber -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber
+        if ($null -ne $visibleDevice) {
+            if (Should-UpdateGroupTag -CurrentGroupTag ([string]$visibleDevice.groupTag) -RequestedGroupTag $GroupTag) {
+                Write-State -Stage 'groupTag' -Message 'Updating Windows Autopilot group tag.'
+                Write-FoundryLog -Path $GraphLogPath -Message 'Updating Windows Autopilot group tag.'
+                Update-AutopilotDeviceGroupTag -AccessToken $AccessToken -Device $visibleDevice -GroupTag $GroupTag
+                $visibleDevice = Wait-AutopilotDeviceGroupTag -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber -GroupTag $GroupTag
+            }
+
+            return [pscustomobject]@{
+                ImportedIdentity = $importedIdentity
+                AutopilotDevice = $visibleDevice
+            }
+        }
+
+        $status = [string]$importedIdentity.state.deviceImportStatus
+        Write-FoundryLog -Path $GraphLogPath -Message "Import state: $status"
+        if ($status -eq 'error' -and -not (Should-ContinueVisibilityWaitAfterImportError -State $importedIdentity.state)) {
+            $errorName = [string]$importedIdentity.state.deviceErrorName
+            throw "Autopilot import failed. $errorName"
+        }
+
+        if ($status -ne 'complete' -and $status -ne 'error') {
+            $currentImport = Get-ImportedAutopilotIdentity -AccessToken $AccessToken -Import $Import -SerialNumber $Identity.SerialNumber
+            if ($null -ne $currentImport) {
+                $importedIdentity = $currentImport
+            }
+        }
+
+        Start-Sleep -Seconds $intervalSeconds
+    }
+
+    throw 'Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.'
 }
 
 function Get-SelectedGroupTag {
@@ -523,6 +671,26 @@ function Start-FoundryAutopilotRegistrationUi {
         Write-FoundryLog -Message $Message
     }
 
+    function Start-RebootCountdown {
+        $script:RebootCountdownSeconds = 10
+        Set-UploadProgress -Message ('Restarting in {0} seconds.' -f $script:RebootCountdownSeconds) -Value 0
+        $script:RebootCountdownTimer = New-Object System.Windows.Threading.DispatcherTimer
+        $script:RebootCountdownTimer.Interval = [TimeSpan]::FromSeconds(1)
+        $script:RebootCountdownTimer.Add_Tick({
+            $script:RebootCountdownSeconds--
+            if ($script:RebootCountdownSeconds -le 0) {
+                $script:RebootCountdownTimer.Stop()
+                Set-UploadProgress -Message 'Restarting now.' -Value 100
+                Write-FoundryLog -Message 'Restarting device.'
+                Restart-Computer -Force
+                return
+            }
+
+            Set-UploadProgress -Message ('Restarting in {0} seconds.' -f $script:RebootCountdownSeconds) -Value ((10 - $script:RebootCountdownSeconds) * 10)
+        })
+        $script:RebootCountdownTimer.Start()
+    }
+
     function Show-AuthenticationStep {
         $authenticationStep.Visibility = 'Visible'
         $uploadStep.Visibility = 'Collapsed'
@@ -633,13 +801,13 @@ function Start-FoundryAutopilotRegistrationUi {
                 $identity = Get-AutopilotHardwareIdentity
                 $sender.ReportProgress(45, 'Uploading hardware hash to Microsoft Intune.')
                 $import = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $identity -GroupTag $selectedGroupTag
-                $sender.ReportProgress(70, 'Waiting for import completion.')
-                $completedImport = Wait-AutopilotImport -AccessToken $script:AccessToken -ImportedIdentityId $import.ImportedIdentityId
+                $sender.ReportProgress(70, 'Waiting for device registration in Microsoft Intune.')
+                $readiness = Wait-AutopilotDeviceReadiness -AccessToken $script:AccessToken -Identity $identity -Import $import -GroupTag $selectedGroupTag
                 $sender.ReportProgress(90, 'Registration completed.')
                 $eventArgs.Result = [pscustomobject]@{
                     Identity = $identity
                     Import = $import
-                    CompletedImport = $completedImport
+                    Readiness = $readiness
                     GroupTag = $selectedGroupTag
                 }
             })
@@ -664,12 +832,14 @@ function Start-FoundryAutopilotRegistrationUi {
                     groupTag = $result.GroupTag
                     importId = $result.Import.ImportId
                     importedIdentityId = $result.Import.ImportedIdentityId
-                    deviceImportStatus = $result.CompletedImport.state.deviceImportStatus
+                    deviceImportStatus = $result.Readiness.ImportedIdentity.state.deviceImportStatus
+                    autopilotDeviceId = $result.Readiness.AutopilotDevice.id
                 }
                 Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
                 Write-FoundryLog -Message 'Autopilot registration completed.'
                 Set-UploadProgress -Message 'Registration completed.' -Value 100
                 $script:ExitCode = 0
+                Start-RebootCountdown
             })
             $uploadWorker.RunWorkerAsync()
         }
