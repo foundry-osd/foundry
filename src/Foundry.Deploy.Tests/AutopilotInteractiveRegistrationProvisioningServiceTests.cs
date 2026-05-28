@@ -80,7 +80,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Request-DeviceCodeToken", script);
         Assert.Contains("Get-AutopilotHardwareIdentity", script);
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
-        Assert.Contains("Wait-AutopilotDeviceReadiness", script);
+        Assert.Contains("Test-AutopilotDeviceReadiness", script);
         Assert.Contains("Find-AutopilotDeviceBySerialNumber", script);
         Assert.Contains("Update-AutopilotDeviceGroupTag", script);
         Assert.Contains("Should-ContinueVisibilityWaitAfterImportError", script);
@@ -95,6 +95,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.DoesNotContain("Get-WindowsAutopilotInfo", script);
         Assert.DoesNotContain("WindowsAutopilotIntune", script);
         Assert.DoesNotContain("BackgroundWorker", script);
+        Assert.DoesNotContain("Wait-AutopilotDeviceReadiness", script);
     }
 
     [Fact]

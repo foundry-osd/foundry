@@ -401,55 +401,6 @@ function Wait-AutopilotDeviceGroupTag {
     throw 'Timed out while waiting for Windows Autopilot group tag update.'
 }
 
-function Wait-AutopilotDeviceReadiness {
-    param(
-        [Parameter(Mandatory = $true)][string]$AccessToken,
-        [Parameter(Mandatory = $true)]$Identity,
-        [Parameter(Mandatory = $true)]$Import,
-        [Parameter(Mandatory = $false)][string]$GroupTag
-    )
-
-    $timeoutSeconds = if ($Config.importPollingTimeoutSeconds) { [int]$Config.importPollingTimeoutSeconds } else { 900 }
-    $intervalSeconds = if ($Config.importPollingIntervalSeconds) { [int]$Config.importPollingIntervalSeconds } else { 15 }
-    $deadline = [DateTimeOffset]::UtcNow.AddSeconds($timeoutSeconds)
-    $importedIdentity = $Import.ImportedIdentity
-
-    while ([DateTimeOffset]::UtcNow -lt $deadline) {
-        $visibleDevice = Find-AutopilotDeviceBySerialNumber -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber
-        if ($null -ne $visibleDevice) {
-            if (Should-UpdateGroupTag -CurrentGroupTag ([string]$visibleDevice.groupTag) -RequestedGroupTag $GroupTag) {
-                Write-State -Stage 'groupTag' -Message 'Updating Windows Autopilot group tag.'
-                Write-FoundryLog -Path $GraphLogPath -Message 'Updating Windows Autopilot group tag.'
-                Update-AutopilotDeviceGroupTag -AccessToken $AccessToken -Device $visibleDevice -GroupTag $GroupTag
-                $visibleDevice = Wait-AutopilotDeviceGroupTag -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber -GroupTag $GroupTag
-            }
-
-            return [pscustomobject]@{
-                ImportedIdentity = $importedIdentity
-                AutopilotDevice = $visibleDevice
-            }
-        }
-
-        $status = [string]$importedIdentity.state.deviceImportStatus
-        Write-FoundryLog -Path $GraphLogPath -Message "Import state: $status"
-        if ($status -eq 'error' -and -not (Should-ContinueVisibilityWaitAfterImportError -State $importedIdentity.state)) {
-            $errorName = [string]$importedIdentity.state.deviceErrorName
-            throw "Autopilot import failed. $errorName"
-        }
-
-        if ($status -ne 'complete' -and $status -ne 'error') {
-            $currentImport = Get-ImportedAutopilotIdentity -AccessToken $AccessToken -Import $Import -SerialNumber $Identity.SerialNumber
-            if ($null -ne $currentImport) {
-                $importedIdentity = $currentImport
-            }
-        }
-
-        Start-Sleep -Seconds $intervalSeconds
-    }
-
-    throw 'Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.'
-}
-
 function Test-AutopilotDeviceReadiness {
     param(
         [Parameter(Mandatory = $true)][string]$AccessToken,
