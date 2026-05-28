@@ -341,7 +341,6 @@ function Start-FoundryAutopilotRegistrationUi {
     $xaml = @'
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Foundry Autopilot Registration"
         Width="420"
         Height="560"
         ResizeMode="NoResize"
@@ -354,8 +353,7 @@ function Start-FoundryAutopilotRegistrationUi {
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,12">
-            <TextBlock Text="Foundry Autopilot Registration" FontWeight="SemiBold" />
-            <TextBlock Text="Register this device with Windows Autopilot using technician sign-in." TextWrapping="Wrap" Margin="0,6,0,0" />
+            <TextBlock Text="Register this device with Windows Autopilot using technician sign-in." TextWrapping="Wrap" />
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -400,7 +398,6 @@ function Start-FoundryAutopilotRegistrationUi {
                 <TextBox x:Name="UploadStatusTextBox" Grid.Row="2" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
                     <Button x:Name="UploadButton" Content="Upload" />
-                    <Button x:Name="CloseButton" Content="Close" Margin="8,0,0,0" IsEnabled="False" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -421,7 +418,6 @@ function Start-FoundryAutopilotRegistrationUi {
     $customGroupTagTextBox = $window.FindName('CustomGroupTagTextBox')
     $uploadStatusTextBox = $window.FindName('UploadStatusTextBox')
     $uploadButton = $window.FindName('UploadButton')
-    $closeButton = $window.FindName('CloseButton')
     $statusTextBlock = $window.FindName('StatusTextBlock')
 
     $script:AccessToken = $null
@@ -546,7 +542,6 @@ function Start-FoundryAutopilotRegistrationUi {
                 Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
                 Write-FoundryLog -Message 'Autopilot registration completed.'
                 $uploadStatusTextBox.Text = "Autopilot registration completed.`r`nSerial number: $($result.Identity.SerialNumber)`r`nGroup tag: $($result.GroupTag)"
-                $closeButton.IsEnabled = $true
                 $script:ExitCode = 0
                 Set-StatusText -Message 'Autopilot registration completed.'
             })
@@ -559,10 +554,6 @@ function Start-FoundryAutopilotRegistrationUi {
             $uploadStatusTextBox.Text = $message
             Set-StatusText -Message $message
         }
-    })
-
-    $closeButton.Add_Click({
-        $window.Close()
     })
 
     Show-AuthenticationStep
