@@ -130,6 +130,36 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_MovesSetupCompleteAutomaticLaunchBlockToEnd()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        string setupCompletePath = Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
+        Directory.CreateDirectory(Path.GetDirectoryName(setupCompletePath)!);
+        File.WriteAllText(
+            setupCompletePath,
+            string.Join(
+                Environment.NewLine,
+                [
+                    "@echo off",
+                    "REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN",
+                    "old-autopilot-registration-command",
+                    "REM <<< FOUNDRY AUTOPILOT REGISTRATION END",
+                    "echo existing customization"
+                ]));
+        var service = CreateService();
+
+        AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
+
+        string setupComplete = File.ReadAllText(result.SetupCompletePath);
+
+        Assert.DoesNotContain("old-autopilot-registration-command", setupComplete);
+        Assert.True(
+            setupComplete.IndexOf("echo existing customization", StringComparison.Ordinal) <
+            setupComplete.IndexOf("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", StringComparison.Ordinal));
+        Assert.Equal(1, CountOccurrences(setupComplete, "REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN"));
+    }
+
+    [Fact]
     public void Provision_StagedScriptContainsExpectedFlowWithoutExternalModuleDependencies()
     {
         string windowsRoot = CreateWindowsRoot();

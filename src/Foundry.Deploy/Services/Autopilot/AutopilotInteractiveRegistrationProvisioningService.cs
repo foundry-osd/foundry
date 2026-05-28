@@ -58,6 +58,11 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         File.WriteAllText(automaticLauncherPath, BuildAutomaticLauncher(), Encoding.ASCII);
         File.WriteAllText(automaticLaunchScriptPath, BuildAutomaticLaunchScript(), Encoding.ASCII);
         File.WriteAllText(configPath, BuildConfig(), Utf8NoBom);
+
+        // Keep this block last so interactive registration starts only after every
+        // non-interactive SetupComplete customization has finished. Removing first
+        // makes re-provisioning move any existing block back to the end.
+        _setupCompleteScriptService.RemoveBlock(setupCompletePath, SetupCompleteMarkerKey);
         _setupCompleteScriptService.EnsureBlock(
             setupCompletePath,
             SetupCompleteMarkerKey,
