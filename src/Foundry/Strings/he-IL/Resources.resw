@@ -1014,6 +1014,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>צור USB</value>
   </data>
+  <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
+    <value>עדכן USB</value>
+  </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>פורמט מהיר</value>
   </data>
@@ -1088,6 +1091,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
     <value>יצירת מדיה USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
+    <value>מעדכן מדיית USB.</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>יצירת המדיה הסופית הושלמה.</value>
@@ -1164,6 +1170,9 @@
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>בדיקת USB בטיחות היעד.</value>
   </data>
+  <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
+    <value>בודק את פריסת מדיית ה-USB.</value>
+  </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>חלוקה ועיצוב USB target.</value>
   </data>
@@ -1212,6 +1221,9 @@
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>מדיה USB הושלמה.</value>
   </data>
+  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
+    <value>מחיצת האתחול של USB עודכנה.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>מייצא תמונה Windows עם DISM.</value>
   </data>
@@ -1241,6 +1253,9 @@
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
     <value>המדיה USB נוצרה בהצלחה. עוצמת הקול של האתחול: {0}. נפח מטמון: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
+    <value>מחיצת האתחול של USB עודכנה בהצלחה. אמצעי האחסון לאתחול: {0}. אמצעי האחסון למטמון: {1}.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>בחר נתיב פלט ISO</value>

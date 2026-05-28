@@ -1014,6 +1014,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Opret USB</value>
   </data>
+  <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
+    <value>Opdater USB</value>
+  </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Hurtigt format</value>
   </data>
@@ -1088,6 +1091,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
     <value>Oprettelse af USB medier.</value>
+  </data>
+  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
+    <value>Opdaterer USB-medie.</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Den endelige medieoprettelse afsluttet.</value>
@@ -1164,6 +1170,9 @@
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerer USB målsikkerhed.</value>
   </data>
+  <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
+    <value>Undersøger USB-mediets layout.</value>
+  </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>Partitionering og formatering USB mål.</value>
   </data>
@@ -1212,6 +1221,9 @@
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>USB medie afsluttet.</value>
   </data>
+  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
+    <value>USB-startpartitionen blev opdateret.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Eksporterer Windows billede med DISM.</value>
   </data>
@@ -1241,6 +1253,9 @@
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
     <value>USB mediet blev oprettet. Bootvolumen: {0}. Cachevolumen: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
+    <value>USB-startpartitionen blev opdateret. Startdiskenhed: {0}. Cache-diskenhed: {1}.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Vælg ISO outputsti</value>

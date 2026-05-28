@@ -1014,6 +1014,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Skapa USB</value>
   </data>
+  <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
+    <value>Uppdatera USB</value>
+  </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>Snabbformatering</value>
   </data>
@@ -1088,6 +1091,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
     <value>Skapa USB media.</value>
+  </data>
+  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
+    <value>Uppdaterar USB-media.</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Det sista medieskapandet avslutat.</value>
@@ -1164,6 +1170,9 @@
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerar USB målsäkerhet.</value>
   </data>
+  <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
+    <value>Kontrollerar USB-mediets layout.</value>
+  </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>Partitionering och formatering av USB mål.</value>
   </data>
@@ -1212,6 +1221,9 @@
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>USB media slutfört.</value>
   </data>
+  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
+    <value>USB-startpartitionen har uppdaterats.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Exporterar Windows-bild med DISM.</value>
   </data>
@@ -1241,6 +1253,9 @@
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
     <value>USB media skapades framgångsrikt. Startvolym: {0}. Cachevolym: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
+    <value>USB-startpartitionen uppdaterades. Startvolym: {0}. Cachevolym: {1}.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Välj ISO utdatasökväg</value>

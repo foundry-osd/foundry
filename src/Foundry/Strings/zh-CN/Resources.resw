@@ -1014,6 +1014,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>创建USB</value>
   </data>
+  <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
+    <value>更新 USB</value>
+  </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>快速格式化</value>
   </data>
@@ -1088,6 +1091,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
     <value>创建 USB 媒体。</value>
+  </data>
+  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
+    <value>正在更新 USB 介质。</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>最终媒体创建完成。</value>
@@ -1164,6 +1170,9 @@
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>检查USB目标安全。</value>
   </data>
+  <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
+    <value>正在检查 USB 介质布局。</value>
+  </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>对USB目标进行分区和格式化。</value>
   </data>
@@ -1212,6 +1221,9 @@
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>USB媒体已完成。</value>
   </data>
+  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
+    <value>USB 启动分区已更新。</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>使用DISM 导出Windows 图像。</value>
   </data>
@@ -1241,6 +1253,9 @@
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
     <value>USB媒体已成功创建。启动卷：{0}。缓存卷：{1}。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
+    <value>USB 启动分区已成功更新。启动卷: {0}。缓存卷: {1}。</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>选择ISO输出路径</value>

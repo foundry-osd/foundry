@@ -1014,6 +1014,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Crear USB</value>
   </data>
+  <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
+    <value>Actualizar USB</value>
+  </data>
   <data name="StartMedia.FormatMode.Quick" xml:space="preserve">
     <value>formato rápido</value>
   </data>
@@ -1088,6 +1091,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsb" xml:space="preserve">
     <value>Creando medios USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
+    <value>Actualizando medio USB.</value>
   </data>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Creación final de medios completada.</value>
@@ -1164,6 +1170,9 @@
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Comprobando USB la seguridad del objetivo.</value>
   </data>
+  <data name="StartMedia.Operation.InspectingUsbMediaLayout" xml:space="preserve">
+    <value>Inspeccionando el diseño del medio USB.</value>
+  </data>
   <data name="StartMedia.Operation.PartitioningUsbTarget" xml:space="preserve">
     <value>Particionar y formatear el objetivo USB.</value>
   </data>
@@ -1212,6 +1221,9 @@
   <data name="StartMedia.Operation.UsbMediaCompleted" xml:space="preserve">
     <value>USB medios completados.</value>
   </data>
+  <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
+    <value>La partición de arranque USB se actualizó.</value>
+  </data>
   <data name="StartMedia.Operation.DismExportingWindowsImage" xml:space="preserve">
     <value>Exportando imagen Windows con DISM.</value>
   </data>
@@ -1241,6 +1253,9 @@
   </data>
   <data name="StartMedia.Operation.UsbSuccessMessage" xml:space="preserve">
     <value>USB los medios se crearon correctamente. Volumen de arranque: {0}. Volumen de caché: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
+    <value>La partición de arranque USB se actualizó correctamente. Volumen de arranque: {0}. Volumen de caché: {1}.</value>
   </data>
   <data name="StartMedia.IsoPicker.Title" xml:space="preserve">
     <value>Seleccione ISO ruta de salida</value>

@@ -12,4 +12,5 @@ public sealed record WinPeUsbDiskCandidate
     public bool IsSystem { get; init; }
     public bool IsBoot { get; init; }
     public ulong SizeBytes { get; init; }
+    public bool IsFoundryMedia { get; init; }
 }
