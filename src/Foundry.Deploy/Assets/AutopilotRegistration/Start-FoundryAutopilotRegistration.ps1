@@ -103,30 +103,33 @@ function Get-ErrorResponseText {
     }
 }
 
-function Invoke-DeviceCodeAuthentication {
+function Request-DeviceCode {
     param([Parameter(Mandatory = $true)]$Config)
 
-    $tenant = if ([string]::IsNullOrWhiteSpace($Config.tenant)) { 'organizations' } else { [string]$Config.tenant }
+    $tenant = if ([string]::IsNullOrWhiteSpace($Config.tenant)) { 'common' } else { [string]$Config.tenant }
     $scope = ($Config.scopes | ForEach-Object { [string]$_ }) -join ' '
     $deviceCodeUri = "https://login.microsoftonline.com/$tenant/oauth2/v2.0/devicecode"
-    $tokenUri = "https://login.microsoftonline.com/$tenant/oauth2/v2.0/token"
-
-    Write-State -Stage 'authentication' -Message 'Requesting Microsoft device code.'
     $deviceCodeBody = ConvertTo-FormBody -Values @{
         client_id = [string]$Config.clientId
         scope = $scope
     }
 
+    Write-State -Stage 'authentication' -Message 'Requesting Microsoft device code.'
     $deviceCode = Invoke-RestMethod -Method Post -Uri $deviceCodeUri -Body $deviceCodeBody -ContentType 'application/x-www-form-urlencoded' -UseBasicParsing
-
-    Write-Host ''
-    Write-Host 'Microsoft device code sign-in is required.'
-    Write-Host $deviceCode.message
-    Write-Host ''
     Write-FoundryLog -Message 'Device code authentication prompt displayed. Device code value was not logged.'
+    return $deviceCode
+}
 
-    $deadline = [DateTimeOffset]::UtcNow.AddSeconds([int]$deviceCode.expires_in)
-    $interval = [Math]::Max(5, [int]$deviceCode.interval)
+function Wait-DeviceCodeToken {
+    param(
+        [Parameter(Mandatory = $true)]$Config,
+        [Parameter(Mandatory = $true)]$DeviceCode
+    )
+
+    $tenant = if ([string]::IsNullOrWhiteSpace($Config.tenant)) { 'common' } else { [string]$Config.tenant }
+    $tokenUri = "https://login.microsoftonline.com/$tenant/oauth2/v2.0/token"
+    $deadline = [DateTimeOffset]::UtcNow.AddSeconds([int]$DeviceCode.expires_in)
+    $interval = [Math]::Max(5, [int]$DeviceCode.interval)
 
     while ([DateTimeOffset]::UtcNow -lt $deadline) {
         Start-Sleep -Seconds $interval
@@ -134,7 +137,7 @@ function Invoke-DeviceCodeAuthentication {
         $tokenBody = ConvertTo-FormBody -Values @{
             grant_type = 'urn:ietf:params:oauth:grant-type:device_code'
             client_id = [string]$Config.clientId
-            device_code = [string]$deviceCode.device_code
+            device_code = [string]$DeviceCode.device_code
         }
 
         try {
@@ -158,6 +161,13 @@ function Invoke-DeviceCodeAuthentication {
     }
 
     throw 'Device code authentication timed out.'
+}
+
+function Invoke-DeviceCodeAuthentication {
+    param([Parameter(Mandatory = $true)]$Config)
+
+    $deviceCode = Request-DeviceCode -Config $Config
+    return Wait-DeviceCodeToken -Config $Config -DeviceCode $deviceCode
 }
 
 function Invoke-GraphRequest {
@@ -236,40 +246,6 @@ function Get-ExistingGroupTags {
     return $tags | Sort-Object
 }
 
-function Select-GroupTag {
-    param([Parameter(Mandatory = $true)][string[]]$AvailableGroupTags)
-
-    Write-Host ''
-    Write-Host 'Select an Autopilot group tag.'
-    Write-Host '0. None'
-    for ($index = 0; $index -lt $AvailableGroupTags.Count; $index++) {
-        Write-Host ("{0}. {1}" -f ($index + 1), $AvailableGroupTags[$index])
-    }
-
-    Write-Host 'M. Enter a group tag manually'
-    $choice = Read-Host 'Choice'
-
-    if ([string]::IsNullOrWhiteSpace($choice) -or $choice -eq '0') {
-        return $null
-    }
-
-    if ($choice -match '^[mM]$') {
-        $manual = Read-Host 'Group tag'
-        if ([string]::IsNullOrWhiteSpace($manual)) {
-            return $null
-        }
-
-        return $manual.Trim()
-    }
-
-    $number = 0
-    if ([int]::TryParse($choice, [ref]$number) -and $number -ge 1 -and $number -le $AvailableGroupTags.Count) {
-        return $AvailableGroupTags[$number - 1]
-    }
-
-    throw 'Invalid group tag selection.'
-}
-
 function Import-AutopilotDeviceIdentity {
     param(
         [Parameter(Mandatory = $true)][string]$AccessToken,
@@ -334,27 +310,276 @@ function Wait-AutopilotImport {
     throw 'Timed out while waiting for Autopilot import completion.'
 }
 
+function Get-SelectedGroupTag {
+    param(
+        [Parameter(Mandatory = $true)]$GroupTagCombo,
+        [Parameter(Mandatory = $true)]$CustomGroupTagTextBox
+    )
+
+    $selected = [string]$GroupTagCombo.SelectedItem
+    if ([string]::IsNullOrWhiteSpace($selected) -or $selected -eq 'None') {
+        return $null
+    }
+
+    if ($selected -eq 'Custom') {
+        $custom = [string]$CustomGroupTagTextBox.Text
+        if ([string]::IsNullOrWhiteSpace($custom)) {
+            return $null
+        }
+
+        return $custom.Trim()
+    }
+
+    return $selected
+}
+
+function Start-FoundryAutopilotRegistrationUi {
+    Add-Type -AssemblyName PresentationFramework
+    Add-Type -AssemblyName PresentationCore
+    Add-Type -AssemblyName WindowsBase
+
+    $xaml = @'
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Foundry Autopilot Registration"
+        Width="760"
+        Height="560"
+        MinWidth="680"
+        MinHeight="500"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F6F8">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,18">
+            <TextBlock Text="Foundry Autopilot Registration" FontSize="24" FontWeight="SemiBold" Foreground="#1F2937" />
+            <TextBlock Text="Register this device with Windows Autopilot using technician sign-in." Margin="0,6,0,0" Foreground="#4B5563" />
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid x:Name="AuthenticationStep">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="1. Authenticate" FontSize="18" FontWeight="SemiBold" Foreground="#111827" />
+                    <TextBlock Text="Use the Microsoft device code prompt to sign in with an account allowed to import Windows Autopilot devices." TextWrapping="Wrap" Margin="0,6,0,12" Foreground="#4B5563" />
+                </StackPanel>
+                <Border Grid.Row="1" BorderBrush="#D1D5DB" BorderThickness="1" Background="White" Padding="16">
+                    <TextBox x:Name="DeviceCodeTextBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" BorderThickness="0" Background="White" FontFamily="Consolas" FontSize="14" />
+                </Border>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                    <Button x:Name="AuthenticateButton" Content="Authenticate" Width="140" Height="36" />
+                </StackPanel>
+            </Grid>
+
+            <Grid x:Name="UploadStep" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="2. Group tag and upload" FontSize="18" FontWeight="SemiBold" Foreground="#111827" />
+                    <TextBlock Text="Choose an existing group tag, enter a custom group tag, or leave the device without a group tag." TextWrapping="Wrap" Margin="0,6,0,12" Foreground="#4B5563" />
+                </StackPanel>
+                <Grid Grid.Row="1" Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Group tag" VerticalAlignment="Center" Foreground="#374151" />
+                    <StackPanel Grid.Column="1">
+                        <ComboBox x:Name="GroupTagCombo" Height="32" />
+                        <TextBox x:Name="CustomGroupTagTextBox" Height="32" Margin="0,8,0,0" Visibility="Collapsed" />
+                    </StackPanel>
+                </Grid>
+                <Border Grid.Row="2" BorderBrush="#D1D5DB" BorderThickness="1" Background="White" Padding="16">
+                    <TextBox x:Name="UploadStatusTextBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" BorderThickness="0" Background="White" FontFamily="Consolas" FontSize="14" />
+                </Border>
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                    <Button x:Name="UploadButton" Content="Upload" Width="140" Height="36" />
+                    <Button x:Name="CloseButton" Content="Close" Width="100" Height="36" Margin="8,0,0,0" IsEnabled="False" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="2" Text="Ready." Margin="0,18,0,0" Foreground="#374151" TextWrapping="Wrap" />
+    </Grid>
+</Window>
+'@
+
+    $xmlReader = New-Object System.Xml.XmlNodeReader ([xml]$xaml)
+    $window = [Windows.Markup.XamlReader]::Load($xmlReader)
+
+    $authenticationStep = $window.FindName('AuthenticationStep')
+    $uploadStep = $window.FindName('UploadStep')
+    $deviceCodeTextBox = $window.FindName('DeviceCodeTextBox')
+    $authenticateButton = $window.FindName('AuthenticateButton')
+    $groupTagCombo = $window.FindName('GroupTagCombo')
+    $customGroupTagTextBox = $window.FindName('CustomGroupTagTextBox')
+    $uploadStatusTextBox = $window.FindName('UploadStatusTextBox')
+    $uploadButton = $window.FindName('UploadButton')
+    $closeButton = $window.FindName('CloseButton')
+    $statusTextBlock = $window.FindName('StatusTextBlock')
+
+    $script:AccessToken = $null
+    $script:DiscoveredGroupTags = @()
+    $script:ExitCode = 1
+
+    function Set-StatusText {
+        param([Parameter(Mandatory = $true)][string]$Message)
+        $statusTextBlock.Text = $Message
+        Write-FoundryLog -Message $Message
+    }
+
+    function Show-AuthenticationStep {
+        $authenticationStep.Visibility = 'Visible'
+        $uploadStep.Visibility = 'Collapsed'
+        $deviceCodeTextBox.Text = ''
+        Set-StatusText -Message 'Ready to authenticate.'
+    }
+
+    function Show-UploadStep {
+        $authenticationStep.Visibility = 'Collapsed'
+        $uploadStep.Visibility = 'Visible'
+        $groupTagCombo.Items.Clear()
+        [void]$groupTagCombo.Items.Add('None')
+        foreach ($groupTag in $script:DiscoveredGroupTags) {
+            [void]$groupTagCombo.Items.Add([string]$groupTag)
+        }
+        [void]$groupTagCombo.Items.Add('Custom')
+        $groupTagCombo.SelectedIndex = 0
+        $uploadStatusTextBox.Text = 'Authentication completed. Choose a group tag and select Upload.'
+        Set-StatusText -Message 'Authentication completed.'
+    }
+
+    $groupTagCombo.Add_SelectionChanged({
+        if ([string]$groupTagCombo.SelectedItem -eq 'Custom') {
+            $customGroupTagTextBox.Visibility = 'Visible'
+            $customGroupTagTextBox.Focus() | Out-Null
+        }
+        else {
+            $customGroupTagTextBox.Visibility = 'Collapsed'
+            $customGroupTagTextBox.Text = ''
+        }
+    })
+
+    $authenticateButton.Add_Click({
+        try {
+            $authenticateButton.IsEnabled = $false
+            Set-StatusText -Message 'Requesting Microsoft device code.'
+            $deviceCode = Request-DeviceCode -Config $Config
+            $deviceCodeTextBox.Text = [string]$deviceCode.message
+            Set-StatusText -Message 'Waiting for Microsoft sign-in to complete.'
+
+            $authWorker = New-Object System.ComponentModel.BackgroundWorker
+            $authWorker.add_DoWork({
+                param($sender, $eventArgs)
+                $eventArgs.Result = Wait-DeviceCodeToken -Config $Config -DeviceCode $deviceCode
+            })
+            $authWorker.add_RunWorkerCompleted({
+                param($sender, $eventArgs)
+                if ($eventArgs.Error -ne $null) {
+                    $authenticateButton.IsEnabled = $true
+                    $message = $eventArgs.Error.Message
+                    Write-Result -Status 'failed' -Message $message
+                    Set-StatusText -Message $message
+                    return
+                }
+
+                $script:AccessToken = [string]$eventArgs.Result
+                Set-StatusText -Message 'Loading available group tags.'
+                $script:DiscoveredGroupTags = @(Get-ExistingGroupTags -AccessToken $script:AccessToken)
+                Show-UploadStep
+            })
+            $authWorker.RunWorkerAsync()
+        }
+        catch {
+            $authenticateButton.IsEnabled = $true
+            $message = $_.Exception.Message
+            Write-Result -Status 'failed' -Message $message
+            Set-StatusText -Message $message
+        }
+    })
+
+    $uploadButton.Add_Click({
+        try {
+            $uploadButton.IsEnabled = $false
+            $selectedGroupTag = Get-SelectedGroupTag -GroupTagCombo $groupTagCombo -CustomGroupTagTextBox $customGroupTagTextBox
+            $uploadStatusTextBox.Text = 'Collecting hardware identity and uploading to Windows Autopilot.'
+            Set-StatusText -Message 'Uploading Autopilot hardware hash.'
+
+            $uploadWorker = New-Object System.ComponentModel.BackgroundWorker
+            $uploadWorker.add_DoWork({
+                param($sender, $eventArgs)
+                $identity = Get-AutopilotHardwareIdentity
+                $import = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $identity -GroupTag $selectedGroupTag
+                $completedImport = Wait-AutopilotImport -AccessToken $script:AccessToken -ImportedIdentityId $import.ImportedIdentityId
+                $eventArgs.Result = [pscustomobject]@{
+                    Identity = $identity
+                    Import = $import
+                    CompletedImport = $completedImport
+                    GroupTag = $selectedGroupTag
+                }
+            })
+            $uploadWorker.add_RunWorkerCompleted({
+                param($sender, $eventArgs)
+                if ($eventArgs.Error -ne $null) {
+                    $uploadButton.IsEnabled = $true
+                    $message = $eventArgs.Error.Message
+                    Write-Result -Status 'failed' -Message $message
+                    $uploadStatusTextBox.Text = $message
+                    Set-StatusText -Message $message
+                    return
+                }
+
+                $result = $eventArgs.Result
+                $details = [pscustomobject]@{
+                    serialNumber = $result.Identity.SerialNumber
+                    groupTag = $result.GroupTag
+                    importId = $result.Import.ImportId
+                    importedIdentityId = $result.Import.ImportedIdentityId
+                    deviceImportStatus = $result.CompletedImport.state.deviceImportStatus
+                }
+                Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
+                Write-FoundryLog -Message 'Autopilot registration completed.'
+                $uploadStatusTextBox.Text = "Autopilot registration completed.`r`nSerial number: $($result.Identity.SerialNumber)`r`nGroup tag: $($result.GroupTag)"
+                $closeButton.IsEnabled = $true
+                $script:ExitCode = 0
+                Set-StatusText -Message 'Autopilot registration completed.'
+            })
+            $uploadWorker.RunWorkerAsync()
+        }
+        catch {
+            $uploadButton.IsEnabled = $true
+            $message = $_.Exception.Message
+            Write-Result -Status 'failed' -Message $message
+            $uploadStatusTextBox.Text = $message
+            Set-StatusText -Message $message
+        }
+    })
+
+    $closeButton.Add_Click({
+        $window.Close()
+    })
+
+    Show-AuthenticationStep
+    [void]$window.ShowDialog()
+    return $script:ExitCode
+}
+
 try {
     Write-FoundryLog -Message 'Starting Foundry Autopilot registration assistant.'
-    $accessToken = Invoke-DeviceCodeAuthentication -Config $Config
-    $identity = Get-AutopilotHardwareIdentity
-    $groupTags = @(Get-ExistingGroupTags -AccessToken $accessToken)
-    $selectedGroupTag = Select-GroupTag -AvailableGroupTags $groupTags
-    $import = Import-AutopilotDeviceIdentity -AccessToken $accessToken -Identity $identity -GroupTag $selectedGroupTag
-    $completedImport = Wait-AutopilotImport -AccessToken $accessToken -ImportedIdentityId $import.ImportedIdentityId
-
-    $details = [pscustomobject]@{
-        serialNumber = $identity.SerialNumber
-        groupTag = $selectedGroupTag
-        importId = $import.ImportId
-        importedIdentityId = $import.ImportedIdentityId
-        deviceImportStatus = $completedImport.state.deviceImportStatus
-    }
-    Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
-    Write-FoundryLog -Message 'Autopilot registration completed.'
-    Write-Host ''
-    Write-Host 'Autopilot registration completed.'
-    exit 0
+    $exitCode = Start-FoundryAutopilotRegistrationUi
+    exit $exitCode
 }
 catch {
     $message = $_.Exception.Message

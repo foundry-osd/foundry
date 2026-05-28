@@ -62,6 +62,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("@echo off", launcher);
         Assert.Contains("%SystemRoot%\\Temp\\Foundry\\Logs\\AutopilotRegistration", launcher);
         Assert.Contains("launcher.log", launcher);
+        Assert.Contains("-STA", launcher);
         Assert.Contains("%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\Start-FoundryAutopilotRegistration.ps1", launcher);
         Assert.Contains("-ConfigPath \"%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\config.json\"", launcher);
     }
@@ -83,6 +84,26 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.DoesNotContain("Connect-MgGraph", script);
         Assert.DoesNotContain("Get-WindowsAutopilotInfo", script);
         Assert.DoesNotContain("WindowsAutopilotIntune", script);
+    }
+
+    [Fact]
+    public void Provision_StagedScriptUsesTwoStepWpfFlow()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new AutopilotInteractiveRegistrationProvisioningService();
+
+        AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
+
+        string script = File.ReadAllText(result.ScriptPath);
+        Assert.Contains("PresentationFramework", script);
+        Assert.Contains("Start-FoundryAutopilotRegistrationUi", script);
+        Assert.Contains("Show-AuthenticationStep", script);
+        Assert.Contains("Show-UploadStep", script);
+        Assert.Contains("Authenticate", script);
+        Assert.Contains("Upload", script);
+        Assert.Contains("Group tag", script);
+        Assert.DoesNotContain("Read-Host", script);
+        Assert.DoesNotContain("Write-Host", script);
     }
 
     private static string CreateWindowsRoot()
