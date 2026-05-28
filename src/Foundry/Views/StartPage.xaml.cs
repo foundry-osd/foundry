@@ -57,9 +57,13 @@ public sealed partial class StartPage : Page
         CreateUsbButton.Content = localizationService.GetString(ViewModel.IsSelectedUsbFoundryMedia
             ? "StartMedia.UpdateUsbButton"
             : "StartMedia.CreateUsbButton");
-        CreateUsbButton.Style = ViewModel.IsSelectedUsbFoundryMedia
-            ? (Style)Microsoft.UI.Xaml.Application.Current.Resources["AccentButtonStyle"]
-            : null;
+        if (ViewModel.IsSelectedUsbFoundryMedia)
+        {
+            CreateUsbButton.Style = (Style)Microsoft.UI.Xaml.Application.Current.Resources["AccentButtonStyle"];
+            return;
+        }
+
+        CreateUsbButton.ClearValue(Control.StyleProperty);
     }
 
     private void ReadinessActionButton_Click(object sender, RoutedEventArgs e)
