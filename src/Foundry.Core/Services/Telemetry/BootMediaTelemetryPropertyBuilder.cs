@@ -16,6 +16,7 @@ public static class BootMediaTelemetryPropertyBuilder
     /// Creates the low-cardinality `osd:boot_media_finished` property set without sensitive configuration values.
     /// </summary>
     /// <param name="bootMediaTarget">Final media target value.</param>
+    /// <param name="bootMediaUsbOperation">USB operation value.</param>
     /// <param name="options">Resolved media creation options.</param>
     /// <param name="document">Current Foundry configuration document.</param>
     /// <param name="success">Whether media creation completed successfully.</param>
@@ -26,6 +27,7 @@ public static class BootMediaTelemetryPropertyBuilder
     /// <returns>Telemetry properties approved for `osd:boot_media_finished`.</returns>
     public static IReadOnlyDictionary<string, object?> Build(
         string bootMediaTarget,
+        string bootMediaUsbOperation,
         MediaPreflightOptions options,
         FoundryConfigurationDocument document,
         bool success,
@@ -40,6 +42,9 @@ public static class BootMediaTelemetryPropertyBuilder
         var properties = new Dictionary<string, object?>
         {
             ["boot_media_target"] = bootMediaTarget,
+            ["boot_media_usb_operation"] = bootMediaTarget == TelemetryBootMediaTargets.Usb
+                ? bootMediaUsbOperation
+                : TelemetryBootMediaUsbOperations.None,
             ["boot_media_creation_success"] = success,
             ["boot_media_creation_duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
             ["boot_media_creation_failed_step_name"] = failedStepName,

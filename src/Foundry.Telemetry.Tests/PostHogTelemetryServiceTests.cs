@@ -40,6 +40,7 @@ public sealed class PostHogTelemetryServiceTests
             new Dictionary<string, object?>
             {
                 ["boot_media_target"] = "iso",
+                ["boot_media_usb_operation"] = "none",
                 ["boot_media_architecture"] = "arm64",
                 ["boot_media_creation_failed_step_name"] = "Customize boot image",
                 ["ssid"] = "CorpWifi"
@@ -56,6 +57,7 @@ public sealed class PostHogTelemetryServiceTests
         JsonElement properties = root.GetProperty("properties");
         Assert.False(properties.TryGetProperty("timestamp", out _));
         Assert.Equal("iso", properties.GetProperty("boot_media_target").GetString());
+        Assert.Equal("none", properties.GetProperty("boot_media_usb_operation").GetString());
         Assert.Equal("arm64", properties.GetProperty("boot_media_architecture").GetString());
         Assert.Equal("Customize boot image", properties.GetProperty("boot_media_creation_failed_step_name").GetString());
         Assert.False(properties.TryGetProperty("failed_step_name", out _));
@@ -65,6 +67,7 @@ public sealed class PostHogTelemetryServiceTests
         Assert.Equal(TelemetryRuntimeModes.Desktop, properties.GetProperty("app_runtime").GetString());
         Assert.Equal("x64", properties.GetProperty("app_runtime_architecture").GetString());
         Assert.Equal("en-US", properties.GetProperty("app_locale").GetString());
+        Assert.Equal(TelemetryDefaults.SchemaVersion, properties.GetProperty("telemetry_schema_version").GetInt32());
         Assert.False(properties.TryGetProperty("runtime", out _));
         Assert.False(properties.TryGetProperty("runtime_payload_source", out _));
         Assert.False(properties.TryGetProperty("runtime_architecture", out _));

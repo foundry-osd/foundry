@@ -97,6 +97,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Usb,
+            TelemetryBootMediaUsbOperations.Create,
             options,
             document,
             success: false,
@@ -106,6 +107,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             deployRuntimePayloadSource: TelemetryRuntimePayloadSources.Debug);
 
         Assert.Equal(TelemetryBootMediaTargets.Usb, result["boot_media_target"]);
+        Assert.Equal(TelemetryBootMediaUsbOperations.Create, result["boot_media_usb_operation"]);
         Assert.False((bool)result["boot_media_creation_success"]!);
         Assert.Equal(42.25, result["boot_media_creation_duration_seconds"]);
         Assert.Equal("Customize boot image", result["boot_media_creation_failed_step_name"]);
@@ -173,6 +175,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
             options,
             new FoundryConfigurationDocument(),
             success: true,
@@ -183,6 +186,25 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         Assert.False((bool)result["autopilot_enabled"]!);
         Assert.Equal("disabled", result["autopilot_provisioning_mode"]);
+        Assert.Equal(TelemetryBootMediaUsbOperations.None, result["boot_media_usb_operation"]);
+    }
+
+    [Fact]
+    public void Build_WhenUsbBootMediaIsUpdated_ReportsUpdateOperation()
+    {
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Usb,
+            TelemetryBootMediaUsbOperations.Update,
+            new MediaPreflightOptions(),
+            new FoundryConfigurationDocument(),
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.Release,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.Release);
+
+        Assert.Equal(TelemetryBootMediaTargets.Usb, result["boot_media_target"]);
+        Assert.Equal(TelemetryBootMediaUsbOperations.Update, result["boot_media_usb_operation"]);
     }
 
     [Fact]
@@ -207,6 +229,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
             options,
             document,
             success: true,
@@ -245,6 +268,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
             options,
             document,
             success: true,
@@ -288,6 +312,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
             options,
             document,
             success: true,
@@ -324,6 +349,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
             options,
             document,
             success: true,
@@ -361,6 +387,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
 
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
             options,
             document,
             success: true,

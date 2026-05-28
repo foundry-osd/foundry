@@ -46,6 +46,7 @@ public static class TelemetryEventPropertyPolicy
             [TelemetryEvents.OsdBootMediaFinished] = new(StringComparer.Ordinal)
             {
                 "boot_media_target",
+                "boot_media_usb_operation",
                 "boot_media_creation_success",
                 "boot_media_creation_duration_seconds",
                 "boot_media_creation_failed_step_name",

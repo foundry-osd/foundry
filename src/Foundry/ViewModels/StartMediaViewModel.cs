@@ -1382,8 +1382,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string bootMediaTarget = target == FinalMediaTarget.Iso
             ? TelemetryBootMediaTargets.Iso
             : TelemetryBootMediaTargets.Usb;
+        string bootMediaUsbOperation = target switch
+        {
+            FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
+            FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
+            _ => TelemetryBootMediaUsbOperations.None
+        };
         IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
             bootMediaTarget,
+            bootMediaUsbOperation,
             options,
             foundryConfigurationStateService.Current,
             success,
@@ -1393,8 +1400,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
 
         logger.Debug(
-            "Tracking media telemetry event. Target={Target}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
+            "Tracking media telemetry event. Target={Target}, UsbOperation={UsbOperation}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
             properties["boot_media_target"],
+            properties["boot_media_usb_operation"],
             success,
             failedStepName,
             properties["boot_media_creation_duration_seconds"],
