@@ -235,7 +235,7 @@ function Get-ExistingGroupTags {
     param([Parameter(Mandatory = $true)][string]$AccessToken)
 
     $tags = New-Object System.Collections.Generic.List[string]
-    $path = 'deviceManagement/windowsAutopilotDeviceIdentities?$select=groupTag&$top=100'
+    $path = 'deviceManagement/windowsAutopilotDeviceIdentities'
 
     try {
         while (-not [string]::IsNullOrWhiteSpace($path)) {
@@ -702,6 +702,14 @@ function Start-FoundryAutopilotRegistrationUi {
         Write-FoundryLog -Message $Message
     }
 
+    function Set-UploadControlsEnabled {
+        param([Parameter(Mandatory = $true)][bool]$IsEnabled)
+
+        $groupTagCombo.IsEnabled = $IsEnabled
+        $customGroupTagTextBox.IsEnabled = $IsEnabled -and ([string]$groupTagCombo.SelectedItem -eq 'Custom')
+        $uploadButton.IsEnabled = $IsEnabled
+    }
+
     function Start-RebootCountdown {
         $script:RebootCountdownSeconds = 10
         Set-UploadProgress -Message ('Restarting in {0} seconds.' -f $script:RebootCountdownSeconds) -Value 0
@@ -712,8 +720,14 @@ function Start-FoundryAutopilotRegistrationUi {
             if ($script:RebootCountdownSeconds -le 0) {
                 $script:RebootCountdownTimer.Stop()
                 Set-UploadProgress -Message 'Restarting now.' -Value 100
-                Write-FoundryLog -Message 'Restarting device.'
-                Restart-Computer -Force
+                $script:RestartTimer = New-Object System.Windows.Threading.DispatcherTimer
+                $script:RestartTimer.Interval = [TimeSpan]::FromSeconds(1)
+                $script:RestartTimer.Add_Tick({
+                    $script:RestartTimer.Stop()
+                    Write-FoundryLog -Message 'Restarting device.'
+                    Start-Process -FilePath "$env:SystemRoot\System32\shutdown.exe" -ArgumentList '/r /t 0 /f' -WindowStyle Hidden
+                })
+                $script:RestartTimer.Start()
                 return
             }
 
@@ -739,12 +753,16 @@ function Start-FoundryAutopilotRegistrationUi {
         }
         [void]$groupTagCombo.Items.Add('Custom')
         $groupTagCombo.SelectedIndex = 0
-        $customGroupTagTextBox.IsEnabled = $false
         $customGroupTagTextBox.Text = ''
+        Set-UploadControlsEnabled -IsEnabled $true
         Set-UploadProgress -Message 'Ready to upload.' -Value 0
     }
 
     $groupTagCombo.Add_SelectionChanged({
+        if (-not $groupTagCombo.IsEnabled) {
+            return
+        }
+
         if ([string]$groupTagCombo.SelectedItem -eq 'Custom') {
             $customGroupTagTextBox.IsEnabled = $true
             $customGroupTagTextBox.Focus() | Out-Null
@@ -810,7 +828,7 @@ function Start-FoundryAutopilotRegistrationUi {
 
     $uploadButton.Add_Click({
         try {
-            $uploadButton.IsEnabled = $false
+            Set-UploadControlsEnabled -IsEnabled $false
             $selectedGroupTag = Get-SelectedGroupTag -GroupTagCombo $groupTagCombo -CustomGroupTagTextBox $customGroupTagTextBox
             Set-UploadProgress -Message 'Collecting hardware hash.' -Value 20
 
@@ -857,7 +875,7 @@ function Start-FoundryAutopilotRegistrationUi {
                 }
                 catch {
                     $script:UploadPollTimer.Stop()
-                    $uploadButton.IsEnabled = $true
+                    Set-UploadControlsEnabled -IsEnabled $true
                     $message = $_.Exception.Message
                     Write-Result -Status 'failed' -Message $message
                     Set-UploadProgress -Message 'Upload failed. Check logs for details.' -Value ([int]$uploadProgressBar.Value)
@@ -867,7 +885,7 @@ function Start-FoundryAutopilotRegistrationUi {
             $script:UploadPollTimer.Start()
         }
         catch {
-            $uploadButton.IsEnabled = $true
+            Set-UploadControlsEnabled -IsEnabled $true
             $message = $_.Exception.Message
             Write-Result -Status 'failed' -Message $message
             Set-UploadProgress -Message 'Upload failed. Check logs for details.' -Value ([int]$uploadProgressBar.Value)

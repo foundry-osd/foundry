@@ -89,6 +89,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Invoke-GraphRequest", script);
         Assert.Contains("deviceManagement/importedWindowsAutopilotDeviceIdentities/import", script);
         Assert.Contains("deviceManagement/windowsAutopilotDeviceIdentities", script);
+        Assert.DoesNotContain("deviceManagement/windowsAutopilotDeviceIdentities?$select=groupTag", script);
         Assert.Contains("updateDeviceProperties", script);
         Assert.Contains("AlreadyAssigned", script);
         Assert.Contains("AlreadyExists", script);
@@ -118,6 +119,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("AuthenticationProgressBar", script);
         Assert.Contains("UploadProgressBar", script);
         Assert.Contains("UploadStatusTextBlock", script);
+        Assert.Contains("Set-UploadControlsEnabled", script);
         Assert.Contains("Content=\"Upload\"", script);
         Assert.Contains("Group tag", script);
         Assert.Contains("Foundry OSD - Interactive hardware hash upload", script);
@@ -131,7 +133,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Waiting for device registration in Microsoft Intune.", script);
         Assert.Contains("Restarting in {0} seconds.", script);
         Assert.Contains("Restarting now.", script);
-        Assert.Contains("Restart-Computer -Force", script);
+        Assert.Contains("shutdown.exe", script);
         Assert.Contains("Width=\"420\"", script);
         Assert.Contains("Height=\"560\"", script);
         Assert.Contains("ResizeMode=\"NoResize\"", script);
