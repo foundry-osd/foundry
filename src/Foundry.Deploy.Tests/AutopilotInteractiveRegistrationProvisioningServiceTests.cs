@@ -77,7 +77,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 
         string script = File.ReadAllText(result.ScriptPath);
         Assert.Contains("Request-DeviceCode", script);
-        Assert.Contains("Wait-DeviceCodeToken", script);
+        Assert.Contains("Request-DeviceCodeToken", script);
         Assert.Contains("Get-AutopilotHardwareIdentity", script);
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
         Assert.Contains("Wait-AutopilotDeviceReadiness", script);
@@ -94,6 +94,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.DoesNotContain("Connect-MgGraph", script);
         Assert.DoesNotContain("Get-WindowsAutopilotInfo", script);
         Assert.DoesNotContain("WindowsAutopilotIntune", script);
+        Assert.DoesNotContain("BackgroundWorker", script);
     }
 
     [Fact]

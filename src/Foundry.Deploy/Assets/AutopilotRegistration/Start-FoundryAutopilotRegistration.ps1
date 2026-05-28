@@ -120,7 +120,7 @@ function Request-DeviceCode {
     return $deviceCode
 }
 
-function Wait-DeviceCodeToken {
+function Request-DeviceCodeToken {
     param(
         [Parameter(Mandatory = $true)]$Config,
         [Parameter(Mandatory = $true)]$DeviceCode
@@ -128,39 +128,38 @@ function Wait-DeviceCodeToken {
 
     $tenant = if ([string]::IsNullOrWhiteSpace($Config.tenant)) { 'common' } else { [string]$Config.tenant }
     $tokenUri = "https://login.microsoftonline.com/$tenant/oauth2/v2.0/token"
-    $deadline = [DateTimeOffset]::UtcNow.AddSeconds([int]$DeviceCode.expires_in)
-    $interval = [Math]::Max(5, [int]$DeviceCode.interval)
-
-    while ([DateTimeOffset]::UtcNow -lt $deadline) {
-        Start-Sleep -Seconds $interval
-
-        $tokenBody = ConvertTo-FormBody -Values @{
-            grant_type = 'urn:ietf:params:oauth:grant-type:device_code'
-            client_id = [string]$Config.clientId
-            device_code = [string]$DeviceCode.device_code
-        }
-
-        try {
-            $token = Invoke-RestMethod -Method Post -Uri $tokenUri -Body $tokenBody -ContentType 'application/x-www-form-urlencoded' -UseBasicParsing
-            Write-FoundryLog -Message 'Device code authentication completed.'
-            return [string]$token.access_token
-        }
-        catch {
-            $errorText = Get-ErrorResponseText -ErrorRecord $_
-            if ($errorText -match 'authorization_pending') {
-                continue
-            }
-
-            if ($errorText -match 'slow_down') {
-                $interval += 5
-                continue
-            }
-
-            throw "Device code authentication failed. $errorText"
-        }
+    $tokenBody = ConvertTo-FormBody -Values @{
+        grant_type = 'urn:ietf:params:oauth:grant-type:device_code'
+        client_id = [string]$Config.clientId
+        device_code = [string]$DeviceCode.device_code
     }
 
-    throw 'Device code authentication timed out.'
+    try {
+        $token = Invoke-RestMethod -Method Post -Uri $tokenUri -Body $tokenBody -ContentType 'application/x-www-form-urlencoded' -UseBasicParsing
+        Write-FoundryLog -Message 'Device code authentication completed.'
+        return [pscustomobject]@{
+            Status = 'Success'
+            AccessToken = [string]$token.access_token
+        }
+    }
+    catch {
+        $errorText = Get-ErrorResponseText -ErrorRecord $_
+        if ($errorText -match 'authorization_pending') {
+            return [pscustomobject]@{
+                Status = 'Pending'
+                AccessToken = $null
+            }
+        }
+
+        if ($errorText -match 'slow_down') {
+            return [pscustomobject]@{
+                Status = 'SlowDown'
+                AccessToken = $null
+            }
+        }
+
+        throw "Device code authentication failed. $errorText"
+    }
 }
 
 function Invoke-GraphRequest {
@@ -451,6 +450,57 @@ function Wait-AutopilotDeviceReadiness {
     throw 'Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.'
 }
 
+function Test-AutopilotDeviceReadiness {
+    param(
+        [Parameter(Mandatory = $true)][string]$AccessToken,
+        [Parameter(Mandatory = $true)]$Identity,
+        [Parameter(Mandatory = $true)]$Import,
+        [Parameter(Mandatory = $true)][ref]$ImportedIdentity,
+        [Parameter(Mandatory = $true)][DateTimeOffset]$Deadline,
+        [Parameter(Mandatory = $false)][string]$GroupTag
+    )
+
+    $visibleDevice = Find-AutopilotDeviceBySerialNumber -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber
+    if ($null -ne $visibleDevice) {
+        if (Should-UpdateGroupTag -CurrentGroupTag ([string]$visibleDevice.groupTag) -RequestedGroupTag $GroupTag) {
+            Write-State -Stage 'groupTag' -Message 'Updating Windows Autopilot group tag.'
+            Write-FoundryLog -Path $GraphLogPath -Message 'Updating Windows Autopilot group tag.'
+            Update-AutopilotDeviceGroupTag -AccessToken $AccessToken -Device $visibleDevice -GroupTag $GroupTag
+            $visibleDevice = Wait-AutopilotDeviceGroupTag -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber -GroupTag $GroupTag
+        }
+
+        return [pscustomobject]@{
+            Status = 'Completed'
+            ImportedIdentity = $ImportedIdentity.Value
+            AutopilotDevice = $visibleDevice
+        }
+    }
+
+    $status = [string]$ImportedIdentity.Value.state.deviceImportStatus
+    Write-FoundryLog -Path $GraphLogPath -Message "Import state: $status"
+    if ($status -eq 'error' -and -not (Should-ContinueVisibilityWaitAfterImportError -State $ImportedIdentity.Value.state)) {
+        $errorName = [string]$ImportedIdentity.Value.state.deviceErrorName
+        throw "Autopilot import failed. $errorName"
+    }
+
+    if ($status -ne 'complete' -and $status -ne 'error') {
+        $currentImport = Get-ImportedAutopilotIdentity -AccessToken $AccessToken -Import $Import -SerialNumber $Identity.SerialNumber
+        if ($null -ne $currentImport) {
+            $ImportedIdentity.Value = $currentImport
+        }
+    }
+
+    if ([DateTimeOffset]::UtcNow -ge $Deadline) {
+        throw 'Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.'
+    }
+
+    return [pscustomobject]@{
+        Status = 'Pending'
+        ImportedIdentity = $ImportedIdentity.Value
+        AutopilotDevice = $null
+    }
+}
+
 function Get-SelectedGroupTag {
     param(
         [Parameter(Mandatory = $true)]$GroupTagCombo,
@@ -652,6 +702,8 @@ function Start-FoundryAutopilotRegistrationUi {
     $script:DiscoveredGroupTags = @()
     $script:ExitCode = 1
     $script:AuthenticationStarted = $false
+    $script:AuthenticationPollTimer = $null
+    $script:UploadPollTimer = $null
 
     function Set-AuthenticationError {
         param([Parameter(Mandatory = $true)][string]$Message)
@@ -726,58 +778,48 @@ function Start-FoundryAutopilotRegistrationUi {
 
     function Start-AuthenticationFlow {
         try {
-            $authWorker = New-Object System.ComponentModel.BackgroundWorker
-            $authWorker.WorkerReportsProgress = $true
-            $authWorker.add_DoWork({
-                param($sender, $eventArgs)
-                $sender.ReportProgress(0, [pscustomobject]@{
-                    Type = 'Status'
-                    Message = 'Requesting Microsoft device code.'
-                })
-                $deviceCode = Request-DeviceCode -Config $Config
-                $sender.ReportProgress(0, [pscustomobject]@{
-                    Type = 'DeviceCode'
-                    UserCode = [string]$deviceCode.user_code
-                })
-                $accessToken = Wait-DeviceCodeToken -Config $Config -DeviceCode $deviceCode
-                $sender.ReportProgress(0, [pscustomobject]@{
-                    Type = 'Status'
-                    Message = 'Loading available group tags.'
-                })
-                $groupTags = @(Get-ExistingGroupTags -AccessToken $accessToken)
-                $eventArgs.Result = [pscustomobject]@{
-                    AccessToken = [string]$accessToken
-                    GroupTags = $groupTags
-                }
-            })
-            $authWorker.add_ProgressChanged({
-                param($sender, $eventArgs)
-                $state = $eventArgs.UserState
-                if ($state.Type -eq 'DeviceCode') {
-                    $deviceCodeTextBlock.Text = [string]$state.UserCode
-                    Write-FoundryLog -Message 'Device code was displayed to the technician.'
-                    return
-                }
+            Write-FoundryLog -Message 'Requesting Microsoft device code.'
+            $script:AuthenticationDeviceCode = Request-DeviceCode -Config $Config
+            $script:AuthenticationDeadline = [DateTimeOffset]::UtcNow.AddSeconds([int]$script:AuthenticationDeviceCode.expires_in)
+            $script:AuthenticationPollInterval = [Math]::Max(5, [int]$script:AuthenticationDeviceCode.interval)
+            $deviceCodeTextBlock.Text = [string]$script:AuthenticationDeviceCode.user_code
+            Write-FoundryLog -Message 'Device code was displayed to the technician.'
 
-                if ($state.Type -eq 'Status') {
-                    Write-FoundryLog -Message ([string]$state.Message)
+            $script:AuthenticationPollTimer = New-Object System.Windows.Threading.DispatcherTimer
+            $script:AuthenticationPollTimer.Interval = [TimeSpan]::FromSeconds($script:AuthenticationPollInterval)
+            $script:AuthenticationPollTimer.Add_Tick({
+                try {
+                    if ([DateTimeOffset]::UtcNow -ge $script:AuthenticationDeadline) {
+                        $script:AuthenticationPollTimer.Stop()
+                        throw 'Device code authentication timed out.'
+                    }
+
+                    $tokenResult = Request-DeviceCodeToken -Config $Config -DeviceCode $script:AuthenticationDeviceCode
+                    if ($tokenResult.Status -eq 'Pending') {
+                        return
+                    }
+
+                    if ($tokenResult.Status -eq 'SlowDown') {
+                        $script:AuthenticationPollInterval += 5
+                        $script:AuthenticationPollTimer.Interval = [TimeSpan]::FromSeconds($script:AuthenticationPollInterval)
+                        return
+                    }
+
+                    $script:AuthenticationPollTimer.Stop()
+                    $script:AccessToken = [string]$tokenResult.AccessToken
+                    Write-FoundryLog -Message 'Loading available group tags.'
+                    $script:DiscoveredGroupTags = @(Get-ExistingGroupTags -AccessToken $script:AccessToken)
+                    Show-UploadStep
                 }
-            })
-            $authWorker.add_RunWorkerCompleted({
-                param($sender, $eventArgs)
-                if ($eventArgs.Error -ne $null) {
-                    $message = $eventArgs.Error.Message
+                catch {
+                    $script:AuthenticationPollTimer.Stop()
+                    $message = $_.Exception.Message
                     Write-Result -Status 'failed' -Message $message
                     Write-FoundryLog -Message $message
                     Set-AuthenticationError -Message 'Authentication failed. Check logs for details.'
-                    return
                 }
-
-                $script:AccessToken = [string]$eventArgs.Result.AccessToken
-                $script:DiscoveredGroupTags = @($eventArgs.Result.GroupTags)
-                Show-UploadStep
             })
-            $authWorker.RunWorkerAsync()
+            $script:AuthenticationPollTimer.Start()
         }
         catch {
             $message = $_.Exception.Message
@@ -793,55 +835,57 @@ function Start-FoundryAutopilotRegistrationUi {
             $selectedGroupTag = Get-SelectedGroupTag -GroupTagCombo $groupTagCombo -CustomGroupTagTextBox $customGroupTagTextBox
             Set-UploadProgress -Message 'Collecting hardware hash.' -Value 20
 
-            $uploadWorker = New-Object System.ComponentModel.BackgroundWorker
-            $uploadWorker.WorkerReportsProgress = $true
-            $uploadWorker.add_DoWork({
-                param($sender, $eventArgs)
-                $sender.ReportProgress(20, 'Collecting hardware hash.')
-                $identity = Get-AutopilotHardwareIdentity
-                $sender.ReportProgress(45, 'Uploading hardware hash to Microsoft Intune.')
-                $import = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $identity -GroupTag $selectedGroupTag
-                $sender.ReportProgress(70, 'Waiting for device registration in Microsoft Intune.')
-                $readiness = Wait-AutopilotDeviceReadiness -AccessToken $script:AccessToken -Identity $identity -Import $import -GroupTag $selectedGroupTag
-                $sender.ReportProgress(90, 'Registration completed.')
-                $eventArgs.Result = [pscustomobject]@{
-                    Identity = $identity
-                    Import = $import
-                    Readiness = $readiness
-                    GroupTag = $selectedGroupTag
+            $script:UploadSelectedGroupTag = $selectedGroupTag
+            $script:UploadIdentity = Get-AutopilotHardwareIdentity
+            Set-UploadProgress -Message 'Uploading hardware hash to Microsoft Intune.' -Value 45
+            $script:UploadImport = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $script:UploadIdentity -GroupTag $script:UploadSelectedGroupTag
+            $script:UploadImportedIdentity = $script:UploadImport.ImportedIdentity
+            $timeoutSeconds = if ($Config.importPollingTimeoutSeconds) { [int]$Config.importPollingTimeoutSeconds } else { 900 }
+            $intervalSeconds = if ($Config.importPollingIntervalSeconds) { [int]$Config.importPollingIntervalSeconds } else { 15 }
+            $script:UploadDeadline = [DateTimeOffset]::UtcNow.AddSeconds($timeoutSeconds)
+            Set-UploadProgress -Message 'Waiting for device registration in Microsoft Intune.' -Value 70
+
+            $script:UploadPollTimer = New-Object System.Windows.Threading.DispatcherTimer
+            $script:UploadPollTimer.Interval = [TimeSpan]::FromSeconds($intervalSeconds)
+            $script:UploadPollTimer.Add_Tick({
+                try {
+                    $readiness = Test-AutopilotDeviceReadiness `
+                        -AccessToken $script:AccessToken `
+                        -Identity $script:UploadIdentity `
+                        -Import $script:UploadImport `
+                        -ImportedIdentity ([ref]$script:UploadImportedIdentity) `
+                        -Deadline $script:UploadDeadline `
+                        -GroupTag $script:UploadSelectedGroupTag
+
+                    if ($readiness.Status -eq 'Pending') {
+                        return
+                    }
+
+                    $script:UploadPollTimer.Stop()
+                    $details = [pscustomobject]@{
+                        serialNumber = $script:UploadIdentity.SerialNumber
+                        groupTag = $script:UploadSelectedGroupTag
+                        importId = $script:UploadImport.ImportId
+                        importedIdentityId = $script:UploadImport.ImportedIdentityId
+                        deviceImportStatus = $readiness.ImportedIdentity.state.deviceImportStatus
+                        autopilotDeviceId = $readiness.AutopilotDevice.id
+                    }
+                    Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
+                    Write-FoundryLog -Message 'Autopilot registration completed.'
+                    Set-UploadProgress -Message 'Registration completed.' -Value 100
+                    $script:ExitCode = 0
+                    Start-RebootCountdown
                 }
-            })
-            $uploadWorker.add_ProgressChanged({
-                param($sender, $eventArgs)
-                Set-UploadProgress -Message ([string]$eventArgs.UserState) -Value $eventArgs.ProgressPercentage
-            })
-            $uploadWorker.add_RunWorkerCompleted({
-                param($sender, $eventArgs)
-                if ($eventArgs.Error -ne $null) {
+                catch {
+                    $script:UploadPollTimer.Stop()
                     $uploadButton.IsEnabled = $true
-                    $message = $eventArgs.Error.Message
+                    $message = $_.Exception.Message
                     Write-Result -Status 'failed' -Message $message
                     Set-UploadProgress -Message 'Upload failed. Check logs for details.' -Value ([int]$uploadProgressBar.Value)
                     Write-FoundryLog -Message $message
-                    return
                 }
-
-                $result = $eventArgs.Result
-                $details = [pscustomobject]@{
-                    serialNumber = $result.Identity.SerialNumber
-                    groupTag = $result.GroupTag
-                    importId = $result.Import.ImportId
-                    importedIdentityId = $result.Import.ImportedIdentityId
-                    deviceImportStatus = $result.Readiness.ImportedIdentity.state.deviceImportStatus
-                    autopilotDeviceId = $result.Readiness.AutopilotDevice.id
-                }
-                Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
-                Write-FoundryLog -Message 'Autopilot registration completed.'
-                Set-UploadProgress -Message 'Registration completed.' -Value 100
-                $script:ExitCode = 0
-                Start-RebootCountdown
             })
-            $uploadWorker.RunWorkerAsync()
+            $script:UploadPollTimer.Start()
         }
         catch {
             $uploadButton.IsEnabled = $true
